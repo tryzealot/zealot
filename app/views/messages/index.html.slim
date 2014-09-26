@@ -1,0 +1,30 @@
+div.container
+  div.row
+    h2 聊天记录
+    table.table.table-striped.table-bordered
+      tr
+        th ID
+        th 聊天室
+        th 发布时间
+        th 用户名
+        th 内容
+
+      - @messages.each_with_index do |message, i|
+        tr
+          td
+            = i + 1
+          td
+            = link_to message.chatroom_name, message.chatroom  
+          td
+            = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+          td
+            a href="http://qyer.com/u/#{message.user_id}" target="_blank" 
+              = message.user_name
+          td
+            - if message.content_type == 'text'
+              = message.message
+            - else
+              img src="data:image/png;base64,#{message.file}"
+          
+  div
+    = will_paginate @messages 

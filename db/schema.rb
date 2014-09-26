@@ -11,7 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926021350) do
+ActiveRecord::Schema.define(version: 20140926035708) do
+
+  create_table "messages", force: true do |t|
+    t.string   "im_id"
+    t.string   "im_user_id"
+    t.string   "im_topic_id"
+    t.integer  "chatroom_id"
+    t.string   "chatroom_name"
+    t.integer  "user_id"
+    t.string   "user_name"
+    t.string   "message"
+    t.text     "custom_data"
+    t.string   "content_type"
+    t.string   "file_type"
+    t.text     "file"
+    t.datetime "timestamp",     limit: 3
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["chatroom_id"], name: "index_messages_on_chatroom_id", using: :btree
+  add_index "messages", ["im_id"], name: "index_messages_on_im_id", using: :btree
+  add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
+  add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
