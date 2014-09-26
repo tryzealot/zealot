@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-ruby '2.1.2'
+source 'http://ruby.taobao.org'
+
 gem 'rails', '4.1.6'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -19,6 +19,8 @@ gem 'pundit'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'upmin-admin'
+gem 'whenever', :require => false
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
