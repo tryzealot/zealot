@@ -72,20 +72,10 @@ GEM
     devise-i18n (0.11.1)
     erubis (2.7.0)
     execjs (2.2.1)
-    haml (4.1.0.beta.1)
+    haml (4.0.5)
       tilt
-    haml2slim (0.4.7)
-      haml (>= 3.0)
-      nokogiri
-      ruby_parser
     high_voltage (2.2.1)
     hike (1.2.3)
-    hpricot (0.8.6)
-    html2haml (1.0.1)
-      erubis (~> 2.7.0)
-      haml (>= 4.0.0.rc.1)
-      hpricot (~> 0.8.6)
-      ruby_parser (~> 3.1.1)
     i18n (0.6.11)
     interception (0.5)
     jbuilder (2.1.3)
@@ -102,15 +92,12 @@ GEM
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (2.3)
-    mini_portile (0.6.0)
     minitest (5.4.1)
     multi_json (1.10.1)
     mysql2 (0.3.16)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -142,7 +129,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
-    rails_apps_pages (0.5.15)
     rails_layout (1.0.22)
     railties (4.1.6)
       actionpack (= 4.1.6)
@@ -158,8 +144,6 @@ GEM
       polyamorous (~> 1.1)
     rdoc (4.1.2)
       json (~> 1.4)
-    ruby_parser (3.1.3)
-      sexp_processor (~> 4.1)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -169,7 +153,6 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sexp_processor (4.4.4)
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -232,9 +215,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
-  haml2slim
   high_voltage
-  html2haml
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
@@ -244,7 +225,6 @@ DEPENDENCIES
   pundit
   quiet_assets
   rails (= 4.1.6)
-  rails_apps_pages
   rails_layout
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
