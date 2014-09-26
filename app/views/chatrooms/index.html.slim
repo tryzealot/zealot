@@ -1,0 +1,12 @@
+h1 Chatroom#index
+div.container
+  div.row
+    h3 Chatroom
+    div.column
+      table.table.table-row
+        tr
+          th ID
+          th Name
+        - @chatrooms.each do |chatroom|
+          tr
+            = render chatroom
