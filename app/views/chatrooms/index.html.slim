@@ -1,12 +1,11 @@
-h1 Chatroom#index
 div.container
   div.row
-    h3 Chatroom
-    div.column
-      table.table.table-row
+    h3 聊天室
+    table.table.table-striped.table-bordered
+      tr
+        th ID
+        th IM ID
+        th Name
+      - @chatrooms.each do |chatroom|
         tr
-          th ID
-          th Name
-        - @chatrooms.each do |chatroom|
-          tr
-            = render chatroom
+          = render chatroom

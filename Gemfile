@@ -19,7 +19,12 @@ gem 'pundit'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'upmin-admin'
+gem 'will_paginate', '~> 3.0'
 gem 'whenever', :require => false
+gem 'rest_client'
+gem 'multi_json'
+gem 'rails-timeago', '~> 2.0'
+
 
 group :development do
   gem 'better_errors'
@@ -31,6 +36,7 @@ group :development do
   gem 'capistrano-rvm', '~> 0.1.1'
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'awesome_print'
 end
 group :development, :test do
   gem 'pry-rails'
