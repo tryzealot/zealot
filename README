@@ -1,0 +1,4 @@
+RECIPES
+["analytics", "core", "deployment", "devise", "email", "extras", "frontend", "gems", "git", "init", "learn_rails", "locale", "omniauth", "pages", "rails_bootstrap", "rails_devise", "rails_devise_pundit", "rails_devise_roles", "rails_foundation", "rails_mailinglist_signup", "rails_omniauth", "rails_signup_download", "railsapps", "readme", "roles", "setup", "tests"]
+PREFERENCES
+{:git=>true, :apps4=>"rails-devise", :announcements=>"mailinglist", :dev_webserver=>"puma", :prod_webserver=>"puma", :database=>"mysql", :templates=>"slim", :tests=>"none", :frontend=>"bootstrap3", :email=>"smtp", :authentication=>"devise", :devise_modules=>"default", :authorization=>"pundit", :dashboard=>"upmin", :form_builder=>"simple_form", :pages=>"about+users"}
