@@ -3,7 +3,7 @@ html
   head
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     title
-      = content_for?(:title) ? yield(:title) : 'Im'
+      = content_for?(:title) ? yield(:title) : '穷游 App 身边人'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Im'}"
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
