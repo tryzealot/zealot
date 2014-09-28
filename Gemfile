@@ -24,7 +24,7 @@ gem 'whenever', :require => false
 gem 'rest_client'
 gem 'multi_json'
 gem 'rails-timeago', '~> 2.0'
-
+gem 'emoji'
 
 group :development do
   gem 'better_errors'

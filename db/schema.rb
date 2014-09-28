@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20140926035708) do
     t.string   "content_type"
     t.string   "file_type"
     t.text     "file"
-    t.datetime "timestamp",     limit: 3
+    t.datetime "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
