@@ -17,11 +17,11 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
+#job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
 
 
 every 30.minutes do
-  rake "rsync_message"
+  rake "sync_message"
 end
 
 

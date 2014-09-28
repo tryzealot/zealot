@@ -14,17 +14,17 @@ div.container
           td
             = i + 1
           td
-            = link_to message.chatroom_name, message.chatroom  
+            = link_to message.chatroom_name, message.chatroom
           td
             = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
           td
-            a href="http://qyer.com/u/#{message.user_id}" target="_blank" 
+            a href="http://qyer.com/u/#{message.user_id}" target="_blank"
               = message.user_name
           td
             - if message.content_type == 'text'
               = message.message
             - else
               img src="data:image/png;base64,#{message.file}"
-          
+
   div
-    = will_paginate @messages 
+    = will_paginate @messages
