@@ -21,7 +21,10 @@
 
 
 every 30.minutes do
-  rake "sync_message"
+  rake "sync_message", :output => {
+    :error => 'log/cron_sync_message_error.log',
+    :standard => 'log/cron_sync_message.log'
+  }
 end
 
 
