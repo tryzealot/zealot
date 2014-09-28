@@ -13,7 +13,7 @@ class CreateMessages < ActiveRecord::Migration
       t.string :content_type
       t.string :file_type
       t.text :file
-      t.datetime :timestamp, limit: 3
+      t.datetime :timestamp
       t.timestamps    
     end
 
