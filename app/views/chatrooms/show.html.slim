@@ -19,7 +19,7 @@ div.container
              = message.user_name
           td
             - if message.content_type == 'text'
-              = message.message
+              = emojify(message.message)
             - else
               img src="data:image/png;base64,#{message.file}"
 
