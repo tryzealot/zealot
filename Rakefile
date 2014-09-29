@@ -40,16 +40,13 @@ task :sync_message => :environment do
         begin
           member = Member.find_by(im_user_id:m['from'])
           chatroom = Chatroom.find_by(im_topic_id:m['topic_id'])
+          timestamp = Time.at(m['timestamp'] / 1000).to_datetime
 
           unless member
             puts " * [ERROR] not found user: #{m['from']}"
           end
 
           one_message = Message.find_by(im_id:m['msg_id'])
-          ap one_message 
-          exit
-
-          timestamp = Time.at(m['timestamp'] / 1000).to_datetime
           if one_message && one_message.timestamp >= timestamp
             puts " * no news: #{one_message.timestamp} <--> #{timestamp}"
             break
