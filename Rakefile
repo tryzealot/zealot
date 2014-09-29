@@ -27,7 +27,6 @@ task :sync_message => :environment do
     :b => 1
   }
 
-
   chatroom_total = Chatroom.count
   Chatroom.where.not(id:143).find_all.each_with_index do |c, ci|
     params[:topic_id] = c.im_topic_id
