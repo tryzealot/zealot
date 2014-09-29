@@ -27,7 +27,6 @@ task :sync_message => :environment do
     :b => 1
   }
 
-
   chatroom_total = Chatroom.count
   Chatroom.where.not(id:143).find_all.each_with_index do |c, ci|
     params[:topic_id] = c.im_topic_id
@@ -46,6 +45,16 @@ task :sync_message => :environment do
             puts " * [ERROR] not found user: #{m['from']}"
           end
 
+          one_message = Message.find_by(im_id:m['msg_id'])
+          ap one_message 
+          exit
+
+          timestamp = Time.at(m['timestamp'] / 1000).to_datetime
+          if one_message && one_message.timestamp >= timestamp
+            puts " * no news: #{one_message.timestamp} <--> #{timestamp}"
+            break
+          end
+
           Message.find_or_create_by(im_id:m['msg_id']) do |message|
             message.im_id = m['msg_id']
             message.im_user_id = m['from']
@@ -59,7 +68,7 @@ task :sync_message => :environment do
             message.content_type = m['content_type']
             message.file_type = (m['fileType'] || nil)
             message.file =  m['message'] if m['content_type'] != 'text'
-            message.timestamp = Time.at(m['timestamp'] / 1000).to_datetime
+            message.timestamp = timestamp
           end
 
 
