@@ -4,4 +4,5 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.order('timestamp DESC').paginate(:page => params[:page])
   end
+
 end
