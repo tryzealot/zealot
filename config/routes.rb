@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :users
   resources :chatrooms
-
   resources :messages
-  post 'test/upload', to: 'visitors#upload', as: 'upload'
+
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
   
   root to: 'visitors#index'
-  devise_for :users
-  resources :users
+  
+  namespace :api do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+      match 'binary/ipa' => 'binary#ipa', :via => :post
+      match 'binary/apk' => 'binary#apk', :via => :post
+    end
+  end
+
+
+
 end
