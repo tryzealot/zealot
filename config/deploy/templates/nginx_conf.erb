@@ -16,7 +16,7 @@ server {
   listen 80;
 
   client_max_body_size 4G;
-  keepalive_timeout 10;
+  keepalive_timeout 30;
 
   error_page 500 502 504 /500.html;
   error_page 503 @503;
