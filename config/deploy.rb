@@ -11,9 +11,9 @@ set :log_level, :debug
 set :pty, true
 
 set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
-set :nginx_server_name, "mobile.2b6.me"
+set :nginx_server_name, "mobile.2b6.me mobile.dev"
 set :nginx_sites_available_path, "/home/wangshen/nginx/sites-available"
 set :nginx_sites_enabled_path, "/home/wangshen/nginx/sites-enabled"
 
@@ -43,7 +43,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
@@ -58,5 +58,5 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
   after :finishing, 'puma:config', 'puma:nginx_config'
-  
+
 end
