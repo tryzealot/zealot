@@ -1,10 +1,12 @@
 td
   = ios.id
 td
-  = "#{ios.name} (#{ios.bundle_id})"
+  = ios.name
+td
+  = ios.bundle_id
 td
   = ios.version
 td
-  = link_to "Download", ios_download_path(ios)
+  = link_to ios.dsym_file, ios_download_path(ios), {title: "Download dsym file"}
 td
   = ios.packaged_at
