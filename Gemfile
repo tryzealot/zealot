@@ -37,7 +37,8 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'awesome_print'
-  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  gem 'capistrano3-puma'
+  gem 'capistrano-nginx'
 end
 group :development, :test do
   gem 'pry-rails'
