@@ -22,6 +22,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 
+require 'whenever/capistrano'
 require 'capistrano/puma'
 # require 'capistrano/puma/workers' #if you want to control the workers (in cluster mode)
 # require 'capistrano/puma/jungle'  #if you need the jungle tasks
