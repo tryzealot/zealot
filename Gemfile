@@ -12,6 +12,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise-i18n'
+gem 'cancancan', '~> 1.9'
 gem 'high_voltage'
 gem 'mysql2'
 gem 'puma'

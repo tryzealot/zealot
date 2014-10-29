@@ -1,0 +1,18 @@
+div.container
+  div.row
+    h3 iOS    
+    table.table.table-striped.table-bordered
+      tr
+        th ID
+        th Name
+        th Version
+        th dSYM
+        th Released Date
+      - if @ioses
+        - @ioses.each do |ios|
+          tr
+            = render ios
+      - else
+        tr
+          th colspan="4" Not found
+
