@@ -39,6 +39,8 @@ set :puma_prune_bundler, false
 
 namespace :deploy do
 
+  after :cleanup, 'whenever:clear_crontab'
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -57,6 +59,8 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-  after :finishing, 'puma:config', 'puma:nginx_config'
+  after :finishing, 'puma:config'
+  after :finishing, 'puma:nginx_config'
+  after :finishing, 'whenever:update_crontab'
 
 end
