@@ -7,7 +7,7 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 
 set :format, :pretty
-set :log_level, :debug
+set :log_level, :info
 set :pty, true
 
 set :linked_files, %w{config/database.yml}
@@ -39,8 +39,6 @@ set :puma_prune_bundler, false
 
 namespace :deploy do
 
-  after :cleanup, 'whenever:clear_crontab'
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -59,8 +57,9 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-  after :finishing, 'puma:config'
-  after :finishing, 'puma:nginx_config'
-  after :finishing, 'whenever:update_crontab'
+
+  after :finished, 'puma:config'
+  after :finished, 'puma:nginx_config'
+  after :finished, 'whenever:update_crontab'
 
 end
