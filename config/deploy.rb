@@ -7,7 +7,7 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 
 set :format, :pretty
-set :log_level, :debug
+set :log_level, :info
 set :pty, true
 
 set :linked_files, %w{config/database.yml}
@@ -57,6 +57,9 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-  after :finishing, 'puma:config', 'puma:nginx_config'
+
+  after :finished, 'puma:config'
+  after :finished, 'puma:nginx_config'
+  after :finished, 'whenever:update_crontab'
 
 end
