@@ -1,0 +1,10 @@
+td
+  = ios.id
+td
+  = "#{ios.name} (#{ios.bundle_id})"
+td
+  = ios.version
+td
+  = link_to "Download", ios_download_path(ios)
+td
+  = ios.packaged_at

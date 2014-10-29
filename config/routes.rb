@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :ios
+  get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
+
   devise_for :users
   resources :users
   resources :chatrooms
