@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
-      match 'binary/ipa' => 'binary#ipa', :via => :post
-      match 'binary/apk' => 'binary#apk', :via => :post
+      match 'binary/ipa' => 'binary#ipa', :via => :put
+      match 'binary/apk' => 'binary#apk', :via => :put
     end
   end
 

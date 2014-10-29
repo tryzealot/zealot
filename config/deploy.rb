@@ -37,8 +37,6 @@ set :puma_prune_bundler, false
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 # set :keep_releases, 5
 
-after "deploy:setup", "puma:config", "puma:nginx_config", "nginx:reload"
-
 namespace :deploy do
 
   desc 'Restart application'
@@ -59,5 +57,6 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-
+  after :finishing, 'puma:config', 'puma:nginx_config'
+  
 end
