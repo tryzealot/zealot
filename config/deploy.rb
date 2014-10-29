@@ -13,7 +13,7 @@ set :pty, true
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-set :nginx_server_name, "mobile.dev"
+set :nginx_server_name, "mobile.2b6.me"
 set :nginx_sites_available_path, "/home/wangshen/nginx/sites-available"
 set :nginx_sites_enabled_path, "/home/wangshen/nginx/sites-enabled"
 
@@ -25,7 +25,7 @@ set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array f
 set :puma_conf, "#{shared_path}/puma.rb"
 set :puma_access_log, "#{shared_path}/log/puma_error.log"
 set :puma_error_log, "#{shared_path}/log/puma_access.log"
-set :puma_role, :app
+set :puma_role, :web
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_threads, [0, 16]
 set :puma_workers, 0
@@ -36,6 +36,8 @@ set :puma_prune_bundler, false
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 # set :keep_releases, 5
+
+after "deploy:setup", "puma:config", "puma:nginx_config", "nginx:reload"
 
 namespace :deploy do
 

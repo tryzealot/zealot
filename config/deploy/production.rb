@@ -6,7 +6,7 @@ set :stage, :production
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 role :app, %w{wangshen@172.1.1.227}
-role :web, %w{wangshen@172.1.1.227}
+role :web, %w{nginx@172.1.1.227}
 role :db,  %w{wangshen@172.1.1.227}
 role :puma_nginx, %w{wangshen@172.1.1.227}
 
