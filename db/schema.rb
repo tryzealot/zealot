@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926035708) do
+ActiveRecord::Schema.define(version: 20141029083330) do
+
+  create_table "ios", force: true do |t|
+    t.string   "name"
+    t.string   "bundle_id"
+    t.string   "version"
+    t.string   "project_path"
+    t.string   "dsym_uuid"
+    t.string   "dsym_file"
+    t.datetime "packaged_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
     t.string   "im_id"
@@ -26,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140926035708) do
     t.string   "content_type"
     t.string   "file_type"
     t.text     "file"
-    t.datetime "timestamp"
+    t.datetime "timestamp",     limit: 3
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +48,17 @@ ActiveRecord::Schema.define(version: 20140926035708) do
   add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", id: false, force: true do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
