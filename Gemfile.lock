@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/seuros/capistrano-puma.git
+  revision: 2955d67d07bc7bbae48b0a361ac140a4e15222f8
+  specs:
+    capistrano3-puma (0.8.2)
+      capistrano (~> 3.0)
+      puma (>= 2.6)
+
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -226,6 +234,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1.0)
   capistrano-rails-console
   capistrano-rvm (~> 0.1.1)
+  capistrano3-puma!
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
