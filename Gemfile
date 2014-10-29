@@ -25,6 +25,7 @@ gem 'rest_client'
 gem 'multi_json'
 gem 'rails-timeago', '~> 2.0'
 gem 'gemoji'
+gem 'awesome_print'
 
 group :development do
   gem 'better_errors'
@@ -36,7 +37,6 @@ group :development do
   gem 'capistrano-rvm', '~> 0.1.1'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'awesome_print'
   gem 'capistrano3-puma'
   gem 'capistrano-nginx'
 end
