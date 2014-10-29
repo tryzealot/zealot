@@ -72,12 +72,12 @@ task :sync_message => :environment do
           puts " * [#{mi + 1}] #{m['msg_id']} updated"
         rescue Exception => e
           puts " * [EXCEPTION] #{e.message}, entry data:"
-          ap m
+          puts m
         end
       end
     else
       puts " * [Error] API exception! entry data:"
-      ap data
+      puts data
     end
   end
 end
