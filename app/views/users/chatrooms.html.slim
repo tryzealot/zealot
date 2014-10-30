@@ -7,12 +7,12 @@ div.container
 
     form.navbar-form.navbar-left role="search" method="GET"
       div.form-group
-        input.form-control type="text" name="user" placeholder="Search" value="#{params[:user]}"
+        input.form-control type="text" name="user" placeholder="uid 或 username" value="#{params[:user]}"
         button.btn.btn-default type="submit" 查找
     div.clearfix
 
-    - if @user
-      div.row
+    div.row
+      - if @user
         h3 用户信息
         table.table.table-striped.table-bordered
           tr
@@ -26,9 +26,11 @@ div.container
               = @user.im_user_id
             td 
               = @member.username
+      - elsif params[:user]
+        p.bg-info 没有匹配到该用户
 
-    - if @chatrooms
-      div.row
+    div.row
+      - if @chatrooms
         h3 聊天室
         table.table.table-striped.table-bordered
           tr
@@ -38,3 +40,5 @@ div.container
           - @chatrooms.each do |chatroom|
             tr
               = render chatroom
+      - elsif @user
+        p.bg-info 没有存在于任何聊天室

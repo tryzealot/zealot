@@ -13,8 +13,10 @@ class UsersController < ApplicationController
   end
 
   def chatrooms
-    if request.request_method == 'GET' && params[:user]
-      @member = Qyer::Member.where('uid=? OR username=?', params[:user], params[:user]).take
+    query = params[:user].chomp
+    if request.request_method == 'GET' && query
+      @member = Qyer::Member.where('uid=? OR username=?', query, query).take
+      return unless @member
       @user = Member.find_by(user_id:@member.uid)
 
       url = "http://api.im.qyer.com/v1/im/topic_info.json"
