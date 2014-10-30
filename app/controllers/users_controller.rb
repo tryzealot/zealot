@@ -13,8 +13,7 @@ class UsersController < ApplicationController
   end
 
   def chatrooms
-
-    if request.request_method == 'GET'
+    if request.request_method == 'GET' && params[:user]
       @member = Qyer::Member.where('uid=? OR username=?', params[:user], params[:user]).take
       @user = Member.find_by(user_id:@member.uid)
 
