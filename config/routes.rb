@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
 
   devise_for :users
+  get 'users/chatroom', to: 'users#chatrooms', as: 'user_chatrooms'
   resources :users
-  get 'users/:id/chatrooms', to: 'users#chatrooms', as: 'user_chatrooms'
-  # post 'users/:id/chatrooms', to: 'users#chatrooms', as: 'user_chatrooms'
 
   resources :chatrooms
   resources :messages
