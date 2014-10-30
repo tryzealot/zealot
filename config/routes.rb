@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :users
+  get 'users/:id/chatrooms', to: 'users#chatrooms', as: 'user_chatrooms'
+  # post 'users/:id/chatrooms', to: 'users#chatrooms', as: 'user_chatrooms'
+
   resources :chatrooms
   resources :messages
 
