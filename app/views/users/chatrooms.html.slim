@@ -1,0 +1,40 @@
+- content_for :title do
+  = "查看用户聊天室"
+
+div.container
+  div.row
+    h2 查看用户聊天室
+
+    form.navbar-form.navbar-left role="search" method="GET"
+      div.form-group
+        input.form-control type="text" name="user" placeholder="Search" value="#{params[:user]}"
+        button.btn.btn-default type="submit" Submit
+    div.clearfix
+
+    - if @user
+      div.row
+        h3 用户信息
+        table.table.table-striped.table-bordered
+          tr
+            th ID
+            th IM Id
+            th USERNAME
+          tr
+            td 
+              = @member.uid
+            td 
+              = @user.im_user_id
+            td 
+              = @member.username
+
+    - if @chatrooms
+      div.row
+        h3 聊天室
+        table.table.table-striped.table-bordered
+          tr
+            th ID
+            th IM ID
+            th Name
+          - @chatrooms.each do |chatroom|
+            tr
+              = render chatroom
