@@ -27,10 +27,10 @@ div.container
             td 
               = @member.username
       - elsif params[:user]
-        p.bg-info 没有匹配到该用户
+        div.alert.alert-warning 没有匹配到该用户
 
     div.row
-      - if @chatrooms
+      - if @chatrooms.size > 0
         h3 聊天室
         table.table.table-striped.table-bordered
           tr
@@ -41,4 +41,4 @@ div.container
             tr
               = render chatroom
       - elsif @user
-        p.bg-info 没有存在于任何聊天室
+        div.alert.alert-warning 没有存在于任何聊天室
