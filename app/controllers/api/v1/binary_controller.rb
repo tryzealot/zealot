@@ -10,10 +10,12 @@ class Api::V1::BinaryController < Api::ApplicationController
     end
 
     ios = Ios.create({
-      name: params[:name],
-      bundle_id: params[:bid],
-      version: params[:version],
-      project_path: params[:path],
+      name: params[:name].to_s.chomp,
+      bundle_id: params[:bid].to_s.chomp,
+      version: params[:version].to_s.chomp,
+      username: params[:user].to_s.chomp,
+      email: params[:email].to_s.chomp,
+      project_path: params[:path].to_s.chomp,
       dsym_file: file.original_filename,
       packaged_at: Time.now
     })
