@@ -12,6 +12,12 @@ class UsersController < ApplicationController
     end 
   end
 
+  def messages
+    @messages = Message.where(user_id:params[:id])
+                       .order('timestamp DESC')
+                       .paginate(:page => params[:page])
+  end
+
   def chatrooms
     query = params[:user].chomp if params[:user]
     if request.request_method == 'GET' && query
