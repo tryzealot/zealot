@@ -4,10 +4,12 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    puts user.has_role? :admin
+
     if user.has_role? :admin
-      can :read, :all
+      can :manage, :all
     else
-      can :manage, [Chatroom, Message]
+      can :read, [Chatroom, Message]
     end
 
 
@@ -22,7 +24,7 @@ class Ability
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
+    # If you pass :manage it will ap    ply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
     # The second argument is the resource the user can perform the action on.
