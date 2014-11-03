@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029083330) do
+ActiveRecord::Schema.define(version: 20141103092925) do
 
   create_table "ios", force: true do |t|
     t.string   "name"
     t.string   "bundle_id"
     t.string   "version"
+    t.string   "username"
+    t.string   "email"
     t.string   "project_path"
     t.string   "dsym_uuid"
     t.string   "dsym_file"
