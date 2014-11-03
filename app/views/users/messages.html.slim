@@ -1,5 +1,5 @@
 - content_for :title do
-  = "聊天记录"
+  = "用户发布的聊天记录"
 
 div.container
   div.row
@@ -21,7 +21,8 @@ div.container
           td
             = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
           td
-            = link_to message.user_name, user_messages_path(message.user_id)
+            a href="http://qyer.com/u/#{message.user_id}" target="_blank"
+              = message.user_name
           td
             - if message.content_type == 'text'
               = emojify(message.message)
