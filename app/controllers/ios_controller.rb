@@ -1,8 +1,8 @@
 class IosController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :class => Ios
   
   before_filter :authenticate_user!
-  
+
   def index
     @ioses = Ios.all
   end
