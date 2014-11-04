@@ -13,7 +13,7 @@ div.container
         th 内容
 
       - @messages.each_with_index do |message, i|
-        = render message
+        == render message
 
     div
       = will_paginate @messages
