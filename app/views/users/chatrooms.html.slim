@@ -35,9 +35,13 @@ div.container
         h3 聊天室
         table.table.table-striped.table-bordered
           tr
-            th ID
-            th IM ID
-            th Name
+            th.col-md-1 ID
+            th.col-md-1 Type
+            th.col-md-1 Place ID
+            th.col-md-2 IM ID
+            th.col-md-1 Name
+            th.col-md-4 Last Mesage
+            th.col-md-2 Posted 
           - @chatrooms.each do |chatroom|
             tr
               = render chatroom
