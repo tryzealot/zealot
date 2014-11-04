@@ -7,4 +7,9 @@ class MessagesController < ApplicationController
     @messages = Message.order('timestamp DESC').paginate(:page => params[:page])
   end
 
+  def image
+    @message = Message.find(params[:id])
+    send_data Base64.decode64(@message.file), :type => 'image/png', :disposition => 'inline' 
+  end
+
 end

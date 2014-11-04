@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :users
 
   resources :chatrooms
+
+  get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   resources :messages
 
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
