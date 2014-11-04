@@ -1,12 +1,16 @@
+- content_for :title do
+  | dSYM 列表
+
+
 div.container
   div.row
-    h3 iOS    
+    h3 dSYM 列表  
     table.table.table-striped.table-bordered
       tr
         th ID
         th Name
         th Version
-        th User
+        th Uploader
         th dSYM
         th Released Date
       - if @ioses

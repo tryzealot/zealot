@@ -4,7 +4,7 @@ class IosController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @ioses = Ios.all
+    @ioses = Ios.order('created_at DESC').all
   end
 
   def download
