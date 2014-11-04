@@ -20,7 +20,7 @@ td
   span.label.label-warning
     = last_message.user_name
   - if last_message.content_type == 'text'
-    = last_message.message
+    = emojify(last_message.message)
   - else
     | [图片]
 td
