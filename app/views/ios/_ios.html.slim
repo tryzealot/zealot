@@ -16,3 +16,5 @@ td
   = link_to "Download it", ios_download_path(ios), {"data-toggle" => "tooltip", "data-placement" => "bottom", "title" => "Download dsym file: #{ios.dsym_file}"}
 td
   = ios.packaged_at
+td
+  = link_to "删除", ios, method: :delete, data: { confirm: "确认删除?" }
