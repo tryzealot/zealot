@@ -15,6 +15,3 @@ tr
   td
     - if message.content_type == 'text'
       = emojify(message.message)
-    - else
-      p
-        = message.file
