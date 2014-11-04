@@ -7,8 +7,9 @@ div.container
 
     form.navbar-form.navbar-left role="search" method="GET"
       div.form-group
-        input.form-control type="text" name="user" placeholder="uid 或 username" value="#{params[:user]}"
+        input.form-control type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
         button.btn.btn-default type="submit" 查找
+        p.small 查询可能有点慢，请耐心等待！
     div.clearfix
 
     div.row

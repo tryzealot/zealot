@@ -1,0 +1,14 @@
+- if user_signed_in?
+  li
+    = link_to '聊天历史', messages_path
+  li
+    = link_to '聊天室', chatrooms_path
+  li
+    = link_to '用户状态', user_chatrooms_path
+  li
+    = link_to '编辑账户', edit_user_registration_path
+  li
+    = link_to '登出账户', destroy_user_session_path, :method=>'delete'
+- else
+  li
+    = link_to '登录账户', new_user_session_path
