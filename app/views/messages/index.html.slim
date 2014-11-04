@@ -13,20 +13,7 @@ div.container
         th 内容
 
       - @messages.each_with_index do |message, i|
-        tr
-          td
-            = i + 1
-          td
-            = link_to message.chatroom_name, message.chatroom
-          td
-            = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
-          td
-            = link_to message.user_name, user_messages_path(message.user_id)
-          td
-            - if message.content_type == 'text'
-              = emojify(message.message)
-            - else
-              img src="data:image/png;base64,#{message.file}"
+        = render message
 
-  div
-    = will_paginate @messages
+    div
+      = will_paginate @messages
