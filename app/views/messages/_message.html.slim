@@ -1,3 +1,5 @@
+ruby:
+  custom_data = MultiJson.load message.custom_data
 tr
   td
     = message.id
@@ -5,8 +7,11 @@ tr
     = link_to message.chatroom_name, message.chatroom
   td
     = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
-  td
-    = link_to message.user_name, user_messages_path(message.user_id)
+  td style="text-align:center"
+    div
+      img.img-circle src=custom_data["fromUserAvatar"] style="width:4em;height:4em"
+    div
+      = link_to message.user_name, user_messages_path(message.user_id)
   td
     - if message.content_type == 'text'
       = emojify(message.message)
@@ -14,3 +19,5 @@ tr
       ruby:
         custom_data = MultiJson.load message.custom_data
       img src=custom_data["imageUrl"]
+      p
+        = message.file
