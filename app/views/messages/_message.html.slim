@@ -13,4 +13,4 @@ tr
     - else
       ruby:
         custom_data = MultiJson.load message.custom_data
-      img src=custom_data["imageUrl"]
+      img src="data:image/png;base64,#{message.file}"/

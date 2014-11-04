@@ -7,7 +7,7 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 
 set :format, :pretty
-set :log_level, :info
+set :log_level, :debug
 set :pty, true
 
 set :linked_files, %w{config/database.yml}
