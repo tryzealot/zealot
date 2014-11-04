@@ -1,0 +1,16 @@
+tr
+  td
+    = message.id
+  td
+    = link_to message.chatroom_name, message.chatroom
+  td
+    = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+  td
+    = link_to message.user_name, user_messages_path(message.user_id)
+  td
+    - if message.content_type == 'text'
+      = emojify(message.message)
+    - else
+      ruby:
+        custom_data = MultiJson.load message.custom_data
+      img src=custom_data["imageUrl"]
