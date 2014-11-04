@@ -16,4 +16,4 @@ tr
     - if message.content_type == 'text'
       = emojify(message.message)
     - else
-      img src="data:image/png;base64,#{message.file}"
+      img src="data:image/png;base64,#{message.file}" alt="base64 image"
