@@ -30,7 +30,7 @@ div.container
         div.alert.alert-warning 没有匹配到该用户
 
     div.row
-      - if @chatrooms.size > 0
+      - if @chatrooms && @chatrooms.size > 0
         h3 聊天室
         table.table.table-striped.table-bordered
           tr

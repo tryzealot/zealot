@@ -4,14 +4,9 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    puts user.has_role? :admin
-
     if user.has_role? :admin
       can :manage, :all
-    else
-      can :read, [Chatroom, Message]
     end
-
 
     # Define abilities for the passed in user here. For example:
     #
