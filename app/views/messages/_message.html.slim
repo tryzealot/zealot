@@ -15,3 +15,5 @@ tr
   td
     - if message.content_type == 'text'
       = emojify(message.message)
+    - else
+      | <img src="data:image/jpeg;base64,#{message.file}" />
