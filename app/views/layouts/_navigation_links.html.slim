@@ -5,6 +5,9 @@
     = link_to '聊天室', chatrooms_path
   li
     = link_to '用户状态', user_chatrooms_path
+  - if current_user.has_role? :admin
+    li
+      = link_to 'dSYM 列表', ios_path
   li
     = link_to '编辑账户', edit_user_registration_path
   li
