@@ -9,7 +9,7 @@ tr
     = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
   td style="text-align:center"
     div
-      img.img-circle src=custom_data["fromUserAvatar"] style="width:4em;height:4em"
+      img.img-circle src=custom_data["fromUserAvatar"] style="width:3.2em;height:3.2em"
     div
       = link_to message.user_name, user_messages_path(message.user_id)
   td
