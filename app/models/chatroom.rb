@@ -3,4 +3,6 @@ class Chatroom < ActiveRecord::Base
   self.table_name = 'app_chatroot'
 
   self.inheritance_column = 'chatroom_type'
+
+  has_many :messages
 end
