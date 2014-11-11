@@ -5,7 +5,7 @@
     = link_to '聊天室', chatrooms_path
   li
     = link_to '用户状态', user_chatrooms_path
-  - if current_user.has_role? :admin
+  - if current_user.has_role? [:admin, :mobile]
     li
       = link_to 'dSYM 列表', ios_path
   li
@@ -15,3 +15,5 @@
 - else
   li
     = link_to '登录账户', new_user_session_path
+
+ul>li*3
