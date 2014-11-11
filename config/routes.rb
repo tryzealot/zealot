@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   get 'users/chatroom', to: 'users#chatrooms', as: 'user_chatrooms'
+  get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_chatrooms'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
   resources :users
 
@@ -14,9 +15,9 @@ Rails.application.routes.draw do
   resources :messages
 
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
-  
+
   root to: 'visitors#index'
-  
+
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       match 'binary/ipa' => 'binary#ipa', :via => :post
