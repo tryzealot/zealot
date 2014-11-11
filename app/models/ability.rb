@@ -9,7 +9,7 @@ class Ability
     elsif user.has_role? :mobile
       can :read, [Message, Chatroom, Ios]
     elsif user.has_role? :member
-      can :read, [Message, Chatroom]
+      can :manage, [Message, Chatroom]
     end
 
     # Define abilities for the passed in user here. For example:
