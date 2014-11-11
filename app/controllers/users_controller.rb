@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     unless @user == current_user
       redirect_to :back, :alert => "Access denied."
-    end 
+    end
   end
 
   def messages
@@ -48,9 +48,32 @@ class UsersController < ApplicationController
           end
         end
       end
-    else
-
     end
   end
 
+  # 注销用户的聊天室
+  def kickoff
+    @user = Member.find_by(user_id:params[:id])
+    url = 'http://api.im.qyer.com/v1/im/remove_clients.json'
+    query = {
+      :key => '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx',
+      :client => @user.im_user_id,
+    }
+
+    params[:topics].split(',').each do |id|
+      begin
+        query[:id] = id
+        r = RestClient.post url, query
+        ds = MultiJson.load r
+
+        if r.code == 200 && ds['meta']['code'] == 200
+          logger.debug "User #{@user.im_user_id} logged out topic: #{id}"
+        end
+      rescue Exception => e
+        next
+      end
+    end
+
+    redirect_to :back, :flash => {:notice => '该用户已退出所有聊天室'}
+  end
 end

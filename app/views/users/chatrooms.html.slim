@@ -21,18 +21,21 @@ div.container
             th IM ID
             th USERNAME
           tr
-            td 
+            td
               = @member.uid
-            td 
+            td
               = @user.im_user_id
-            td 
+            td
               = @member.username
       - elsif params[:user]
         div.alert.alert-warning 没有匹配到该用户
 
     div.row
       - if @chatrooms && @chatrooms.size > 0
-        h3 聊天室
+        div
+          span.pull-right
+            = link_to '一键退出', user_kickoff_chatrooms_path(@user, topics: @chatrooms.map {|c| c.im_topic_id}.join(',')), :class => ['btn', 'btn-danger']
+        div.clearfix
         table.table.table-striped.table-bordered
           tr
             th.col-md-1 ID
@@ -41,7 +44,7 @@ div.container
             th.col-md-2 IM ID
             th.col-md-1 Name
             th.col-md-4 Last Mesage
-            th.col-md-2 Posted 
+            th.col-md-2 Posted
           - @chatrooms.each do |chatroom|
             tr
               = render chatroom
