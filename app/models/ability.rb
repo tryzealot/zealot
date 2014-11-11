@@ -6,6 +6,8 @@ class Ability
 
     if user.has_role? :admin
       can :manage, :all
+    elsif user.has_role? :mobile
+      can :read, [Message, Chatroom, Ios]
     elsif user.has_role? :member
       can :read, [Message, Chatroom]
     end
