@@ -1,5 +1,5 @@
 set :application, 'mobile'
-set :repo_url, 'http://gitlab.dev/icyleaf/mobile.git'
+set :repo_url, 'git@gitlab.dev:icyleaf/mobile.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 

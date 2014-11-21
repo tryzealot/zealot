@@ -4,7 +4,7 @@
 
 div.container
   div.row
-    h3 dSYM 列表  
+    h3 dSYM 列表
     table.table.table-striped.table-bordered
       tr
         th ID
@@ -12,6 +12,7 @@ div.container
         th Version
         th Uploader
         th dSYM
+        th dSYM UUID
         th Released Date
         th Options
       - if @ioses
@@ -21,4 +22,3 @@ div.container
       - else
         tr
           th colspan="4" Not found
-
