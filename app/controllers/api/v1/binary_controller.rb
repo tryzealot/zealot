@@ -16,6 +16,7 @@ class Api::V1::BinaryController < Api::ApplicationController
       username: params[:user].to_s.chomp,
       email: params[:email].to_s.chomp,
       project_path: params[:path].to_s.chomp,
+      dsym_uuid: params[:uuid].to_s.chomp,
       dsym_file: file.original_filename,
       packaged_at: Time.now
     })
