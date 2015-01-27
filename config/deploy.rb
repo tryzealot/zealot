@@ -13,6 +13,8 @@ set :pty, true
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
+set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
+
 set :nginx_server_name, "mobile.2b6.me mobile.dev"
 set :nginx_sites_available_path, "/home/wangshen/nginx/sites-available"
 set :nginx_sites_enabled_path, "/home/wangshen/nginx/sites-enabled"
