@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       match 'binary/ipa' => 'binary#ipa', :via => :post
       match 'binary/apk' => 'binary#apk', :via => :post
+
+      match 'jenkins/:project/build' => 'jenkins#build', :via => :get
+      match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
+      match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
     end
   end
 
