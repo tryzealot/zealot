@@ -27,6 +27,7 @@ gem 'multi_json'
 gem 'rails-timeago', '~> 2.0'
 gem 'gemoji'
 gem 'awesome_print'
+gem 'jenkins_api_client'
 
 group :development do
   gem 'better_errors'
