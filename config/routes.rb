@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       match 'binary/ipa' => 'binary#ipa', :via => :post
       match 'binary/apk' => 'binary#apk', :via => :post
 
+      match 'jenkins/projects' => 'jenkins#projects', :via => :get
       match 'jenkins/:project/build' => 'jenkins#build', :via => :get
       match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
       match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
