@@ -1,5 +1,20 @@
 class Api::V1::JenkinsController < Api::ApplicationController
 
+  def projects
+    @client = JenkinsApi::Client.new(
+    :server_ip => '172.1.1.227',
+    :server_port => '8888'
+    )
+
+    projects = []
+    @client.job.list_all.each do |j|
+      projects.push(@client.job.list_details(j))
+    end
+
+    render json: projects
+  end
+
+
   def build
     @client = JenkinsApi::Client.new(
       :server_ip => '172.1.1.227',
