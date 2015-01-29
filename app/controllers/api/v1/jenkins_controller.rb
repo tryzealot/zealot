@@ -14,6 +14,17 @@ class Api::V1::JenkinsController < Api::ApplicationController
     render json: projects
   end
 
+  def project
+    @client = JenkinsApi::Client.new(
+    :server_ip => '172.1.1.227',
+    :server_port => '8888'
+    )
+
+    project = @client.job.list_details(params[:project])
+
+    render json: project
+  end
+
 
   def build
     @client = JenkinsApi::Client.new(
