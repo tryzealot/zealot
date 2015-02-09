@@ -11,6 +11,6 @@ Ruby on Rails
 
 This application requires:
 
-- Ruby 2.1.2
+- Ruby 2.1.2 / 2.2.0
 - Rails 4.1.6
 
