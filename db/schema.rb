@@ -14,17 +14,18 @@
 ActiveRecord::Schema.define(version: 20150210090209) do
 
   create_table "apps", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "type",       null: false
-    t.string   "slug",       null: false
+    t.string   "name",        null: false
+    t.string   "slug",        null: false
+    t.string   "device_type", null: false
     t.string   "password"
+    t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "apps", ["device_type"], name: "index_apps_on_device_type", using: :btree
   add_index "apps", ["name"], name: "index_apps_on_name", unique: true, using: :btree
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
-  add_index "apps", ["type"], name: "index_apps_on_type", using: :btree
 
   create_table "ios", force: true do |t|
     t.string   "name"
