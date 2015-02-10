@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103092925) do
+ActiveRecord::Schema.define(version: 20150210090209) do
+
+  create_table "apps", force: true do |t|
+    t.string   "name",       null: false
+    t.string   "type",       null: false
+    t.string   "slug",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apps", ["name"], name: "index_apps_on_name", unique: true, using: :btree
+  add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
+  add_index "apps", ["type"], name: "index_apps_on_type", using: :btree
 
   create_table "ios", force: true do |t|
     t.string   "name"
@@ -40,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141103092925) do
     t.string   "content_type"
     t.string   "file_type"
     t.text     "file"
+    t.boolean  "is_deleted",              default: false
     t.datetime "timestamp",     limit: 3
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,6 +63,23 @@ ActiveRecord::Schema.define(version: 20141103092925) do
   add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "releases", force: true do |t|
+    t.integer  "app_id",          null: false
+    t.string   "release_version", null: false
+    t.string   "build_version",   null: false
+    t.string   "identifier",      null: false
+    t.integer  "version"
+    t.string   "store_url"
+    t.string   "icon"
+    t.text     "changelog"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "releases", ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true, using: :btree
+  add_index "releases", ["app_id"], name: "index_releases_on_app_id", using: :btree
+  add_index "releases", ["identifier"], name: "index_releases_on_identifier", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
