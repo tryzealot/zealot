@@ -1,0 +1,14 @@
+// Place all the styles related to the App controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+main {
+  @extend .container;
+  background-color: #fff;
+  }
+
+#fly {
+  padding-top: 30px;
+  max-width: 540px;
+  margin: 0 auto;
+}

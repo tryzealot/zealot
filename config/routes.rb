@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'apps/:slug', to: 'app#show', as: 'app_slug'
+
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
   resources :ios
 
