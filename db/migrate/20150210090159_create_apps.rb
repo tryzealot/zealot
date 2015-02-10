@@ -4,6 +4,8 @@ class CreateApps < ActiveRecord::Migration
       t.string :name, null: false
       t.string :type, null: false
       t.string :slug, null: false
+      t.string :password
+      t.string :key
       t.timestamps
     end
 
