@@ -15,6 +15,6 @@ class User < ActiveRecord::Base
   private
     def generate_user_key
       self.key = Digest::MD5.hexdigest(self.email + "!@#")
-      self.secret = Digest::SHA1.base64digest(key)[0..6]
+      self.secret = Digest::SHA1.base64digest(self.key)[0..6]
     end
 end
