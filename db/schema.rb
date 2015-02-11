@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210090209) do
+ActiveRecord::Schema.define(version: 20150211061732) do
 
   create_table "apps", force: true do |t|
     t.string   "name",        null: false
     t.string   "slug",        null: false
+    t.string   "identifier"
     t.string   "device_type", null: false
     t.string   "password"
     t.string   "key"
@@ -24,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150210090209) do
   end
 
   add_index "apps", ["device_type"], name: "index_apps_on_device_type", using: :btree
+  add_index "apps", ["identifier"], name: "index_apps_on_identifier", using: :btree
   add_index "apps", ["name"], name: "index_apps_on_name", unique: true, using: :btree
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
 
@@ -95,8 +97,11 @@ ActiveRecord::Schema.define(version: 20150210090209) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "key"
+    t.string   "secret"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -107,10 +112,10 @@ ActiveRecord::Schema.define(version: 20150210090209) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["key"], name: "index_users_on_key", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
