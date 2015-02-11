@@ -10,7 +10,7 @@ div#fly
       span.build_version
         = "(#{latest.build_version})"
       span.qr_code
-        = app_slug_url(@app.slug)
+        = qr_code(app_slug_url(@app.slug))
     h1
       span.app_name
         = @app.name

@@ -30,6 +30,11 @@ Rails.application.routes.draw do
       match 'jenkins/:project/build' => 'jenkins#build', :via => :get
       match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
       match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
+
+      match 'app/upload' => 'app#upload', :via => :post
+      match 'app/:slug/versions' => 'app#versions', :via => :get
+      match 'app/:slug/info' => 'app#info', :via => :get
+      match 'app/:slug/install_url' => 'app#install_url', :via => :get
     end
   end
 

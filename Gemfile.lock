@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.7)
     arel (5.0.1.20140414130214)
     awesome_print (1.2.0)
     bcrypt (3.1.7)
@@ -78,6 +79,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-i18n (0.11.1)
+    dragonfly (1.0.7)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack
     erubis (2.7.0)
     execjs (2.2.1)
     gemoji (2.1.0)
@@ -253,6 +258,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
+  dragonfly (~> 1.0.7)
   gemoji
   high_voltage
   jbuilder (~> 2.0)
