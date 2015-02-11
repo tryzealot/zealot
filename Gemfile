@@ -28,7 +28,6 @@ gem 'rails-timeago', '~> 2.0'
 gem 'gemoji'
 gem 'awesome_print'
 gem 'jenkins_api_client'
-gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.7'
 
 group :development do
