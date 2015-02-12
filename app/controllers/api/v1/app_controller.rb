@@ -1,13 +1,13 @@
 class Api::V1::AppController < Api::ApplicationController
   before_filter :validate_params
 
-
   def upload
     @app = App.find_or_initialize_by(identifier:params[:identifier])
     if @app.new_record?
       @app.identifier = params[:identifier]
       @app.name = params[:name]
       @app.slug = params[:slug] if params[:slug]
+      @app.device_type = params[:device_type]
     end
 
     if @app.invalid?
@@ -19,7 +19,22 @@ class Api::V1::AppController < Api::ApplicationController
 
     @app.save!
 
-    render json: @app
+    @release = Release.find_or_initialize_by(
+      release_version: params[:release_version],
+      build_version: params[:build_version]
+    )
+
+    if @release.new_record?
+      @release.app = @app
+      @release.identifier = params[:identifier]
+      @release.changelog = params[:changelog] if params[:changelog]
+    end
+
+    render json: @app.to_json(:include => [:releases])
+    # {
+    #   app: @app,
+    #   release: @release,
+    # }
   end
 
   def versions
