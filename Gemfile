@@ -29,6 +29,8 @@ gem 'gemoji'
 gem 'awesome_print'
 gem 'jenkins_api_client'
 gem 'dragonfly', '~> 1.0.7'
+gem 'fog'
+
 
 group :development do
   gem 'better_errors'
@@ -42,6 +44,13 @@ group :development do
   gem 'rails_layout'
   gem 'capistrano3-puma'
   gem 'capistrano-nginx'
+
+  gem 'zeus'
+  gem 'guard'
+  gem 'guard-sass'
+  gem 'guard-coffeescript'
+  gem 'guard-concat'
+  gem 'guard-uglify'
 end
 group :development, :test do
   gem 'pry-rails'

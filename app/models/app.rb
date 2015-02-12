@@ -11,7 +11,6 @@ class App < ActiveRecord::Base
     self.where(identifier:identifier).order('created_at DESC').first
   end
 
-
   private
     def generate_key_or_slug
       self.key = Digest::MD5.hexdigest(self.name + "!@#" + self.identifier)
