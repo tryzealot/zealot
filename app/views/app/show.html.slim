@@ -2,6 +2,14 @@
 
 div#fly
   div.app
+    p.qr_code
+      = qr_code(app_slug_url(@app.slug))
+    h1
+      span.app_name
+        = @app.name
+      span.type
+        = @app.device_type
+      span.distriable Ad Hoc
     p
       span.identifier
         = latest.identifier
@@ -9,17 +17,8 @@ div#fly
         = latest.release_version
       span.build_version
         = "(#{latest.build_version})"
-      span.qr_code
-        = qr_code(app_slug_url(@app.slug))
-    h1
-      span.app_name
-        = @app.name
-      span.type
-        = @app.device_type
-      span.distriable Ad Hoc
-
     p
-      button.btn.btn-primary id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装 
+      button.btn.btn-primary id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
 
     div.changelog
 
