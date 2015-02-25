@@ -18,6 +18,9 @@ div#fly
         = @app.device_type
       span.distriable Ad Hoc
 
+    p
+      button.btn.btn-primary id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装 
+
     div.changelog
 
   - if @app.releases.count > 0

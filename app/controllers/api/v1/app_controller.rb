@@ -83,7 +83,7 @@ class Api::V1::AppController < Api::ApplicationController
           handlers: [:plist],
           content_type: 'text/xml'
       when 'android'
-        redirect_to api_app_download_path(release_id:@latest_release.id, key: params[:key])
+        redirect_to api_app_download_path(release_id:@latest_release.id)
       end
     else
       render json: {
@@ -106,6 +106,8 @@ class Api::V1::AppController < Api::ApplicationController
 
   private
     def validate_params
+      return if ['install_url', 'download'].include?(params[:action])
+
       @user = User.find_by(key: params[:key])
       unless params.has_key?(:key) && @user
         return render json: {
