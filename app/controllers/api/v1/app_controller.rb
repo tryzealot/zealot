@@ -19,6 +19,30 @@ class Api::V1::AppController < Api::ApplicationController
 
     @app.save!
 
+
+    file = params.delete :dsym
+    if file.is_a?(ActionDispatch::Http::UploadedFile)
+      storage = Fog::Storage.new({
+        :local_root => "public/uploads/apps",
+        :provider   => 'Local'
+      })
+
+      directory = storage.directories.create(
+        :key => params[:device_type].downcase,
+
+      )
+
+      file = directory.files.create(
+        :body => file,
+        :key  => file.original_filename
+      )
+
+      File.open("public/uploads/ipa/#{file.original_filename}", "wb") { |f| f.write(file.read) }
+    end
+
+
+    storage
+
     @release = Release.find_or_initialize_by(
       release_version: params[:release_version],
       build_version: params[:build_version]
@@ -30,23 +54,24 @@ class Api::V1::AppController < Api::ApplicationController
       @release.changelog = params[:changelog] if params[:changelog]
     end
 
-    render json: @app.to_json(:include => [:releases])
+    render json: @app.to_json(include: [:releases])
     # {
     #   app: @app,
     #   release: @release,
     # }
   end
 
-  def versions
-    render json: {
-      error: "App is missing"
-    }, status: 403
-  end
-
   def info
+    @app = App.find_by(slug:params[:slug])
+    if @app
+      render json: @app.to_json(include: [:releases], except: [:id, :password, :key])
+    else
 
-    render json: params
-
+      render json: {
+        error: "App is missing",
+        params: params
+      }, status: 403
+    end
   end
 
   def install_url
