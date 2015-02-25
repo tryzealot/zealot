@@ -19,46 +19,45 @@ class Api::V1::AppController < Api::ApplicationController
 
     @app.save!
 
+    file = params.delete :file
+    fileext = File.extname(file.original_filename)
 
-    file = params.delete :dsym
-    if file.is_a?(ActionDispatch::Http::UploadedFile)
+    if file.is_a?(ActionDispatch::Http::UploadedFile) && [".ipa", ".apk"].include?(fileext)
+      @release = @app.releases.create(
+        release_version: params[:release_version],
+        build_version: params[:build_version],
+        identifier: params[:identifier],
+        store_url: params[:store_url],
+        icon: params[:icon_url],
+        changelog: params[:changelog],
+      )
+
       storage = Fog::Storage.new({
         :local_root => "public/uploads/apps",
         :provider   => 'Local'
       })
 
       directory = storage.directories.create(
-        :key => params[:device_type].downcase,
-
+        :key => File.join(@user.id.to_s, @app.id.to_s),
       )
 
-      file = directory.files.create(
-        :body => file,
-        :key  => file.original_filename
+      upload_file = directory.files.create(
+        :body => file.read,
+        :key  => "#{@release.id.to_s}#{fileext}",
       )
 
-      File.open("public/uploads/ipa/#{file.original_filename}", "wb") { |f| f.write(file.read) }
+      upload_file.save
+
+      return render json: @app.to_json(include: [:releases])
+      {
+        app: @app,
+        release: @release,
+      }
+    else
+      return render json: {
+        error: 'file is not allow file type: ipa/apk'
+      }, status: 403
     end
-
-
-    storage
-
-    @release = Release.find_or_initialize_by(
-      release_version: params[:release_version],
-      build_version: params[:build_version]
-    )
-
-    if @release.new_record?
-      @release.app = @app
-      @release.identifier = params[:identifier]
-      @release.changelog = params[:changelog] if params[:changelog]
-    end
-
-    render json: @app.to_json(include: [:releases])
-    # {
-    #   app: @app,
-    #   release: @release,
-    # }
   end
 
   def info
@@ -75,7 +74,34 @@ class Api::V1::AppController < Api::ApplicationController
   end
 
   def install_url
-    render json: params
+    @app = App.find_by(slug:params[:slug])
+    @latest_release = @app.releases.last
+    if @app && @latest_release
+      case @app.device_type.downcase
+      when 'iphone'
+        render template: 'app/install_url',
+          handlers: [:plist],
+          content_type: 'text/xml'
+      when 'android'
+        redirect_to api_app_download_path(release_id:@latest_release.id, key: params[:key])
+      end
+    else
+      render json: {
+        error: 'app not had any release'
+      }, status: 400
+    end
+  end
+
+  def download
+    @release = Release.find(params[:release_id])
+    fileext = case @release.app.device_type.downcase
+    when 'iphone'
+      '.ipa'
+    when 'android'
+      '.apk'
+    end
+    file = "public/uploads/apps/#{@user.id.to_s}/#{@release.app_id.to_s}/#{@release.id.to_s}#{fileext}"
+    send_file file, :type => 'application/octet-stream', :x_sendfile => true
   end
 
   private
