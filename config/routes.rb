@@ -32,11 +32,10 @@ Rails.application.routes.draw do
       match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
 
       match 'app/upload' => 'app#upload', :via => :post
-      match 'app/:slug' => 'app#info', :via => :get
-      match 'app/:slug/install_url' => 'app#install_url', :via => :get
+      match 'app/download/:release_id' => 'app#download', :via => :get, as: 'app_download'
+      match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
+      match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
     end
   end
-
-
 
 end

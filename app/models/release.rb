@@ -5,7 +5,7 @@ class Release < ActiveRecord::Base
 
   private
     def auto_release_version
-      latest_version = self.last
+      latest_version = Release.where(app_id:self.app_id).last
       self.version = latest_version ? (latest_version.version + 1) : 1
     end
 end
