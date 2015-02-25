@@ -1,7 +1,7 @@
 set :application, 'mobile'
 set :repo_url, 'git@gitlab.dev:icyleaf/mobile.git'
 
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
