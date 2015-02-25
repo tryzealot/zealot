@@ -9,7 +9,7 @@ class CreateApps < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :apps, :name, unique: true
+    add_index :apps, :name
     add_index :apps, :device_type
     add_index :apps, :slug, unique: true
   end

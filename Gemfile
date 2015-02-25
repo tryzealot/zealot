@@ -30,6 +30,7 @@ gem 'awesome_print'
 gem 'jenkins_api_client'
 gem 'dragonfly', '~> 1.0.7'
 gem 'fog'
+gem 'CFPropertyList'
 
 
 group :development do
