@@ -1,12 +1,12 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f| %>
-    <h3>Forgot your password?</h3>
-    <p>We'll send password reset instructions.</p>
+    <h3>忘记密码？</h3>
+    <p>请填写你的账户邮箱地址</p>
     <%= devise_error_messages! %>
     <div class="form-group">
       <%= f.label :email %>
       <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
     </div>
-     <%= f.submit 'Reset Password', :class => 'button right' %>
+     <%= f.submit '重设密码', :class => 'button right' %>
   <% end %>
 </div>
