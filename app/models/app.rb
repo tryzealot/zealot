@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
   has_many :releases
+  belongs_to :user
 
   validates :name, presence: true
   validates :identifier, presence: true

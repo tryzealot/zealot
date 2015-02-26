@@ -11,9 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211061732) do
+ActiveRecord::Schema.define(version: 20150226012452) do
 
   create_table "apps", force: true do |t|
+    t.integer  "user_id"
     t.string   "name",        null: false
     t.string   "slug",        null: false
     t.string   "identifier"
@@ -26,8 +27,9 @@ ActiveRecord::Schema.define(version: 20150211061732) do
 
   add_index "apps", ["device_type"], name: "index_apps_on_device_type", using: :btree
   add_index "apps", ["identifier"], name: "index_apps_on_identifier", using: :btree
-  add_index "apps", ["name"], name: "index_apps_on_name", unique: true, using: :btree
+  add_index "apps", ["name"], name: "index_apps_on_name", using: :btree
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
+  add_index "apps", ["user_id"], name: "index_apps_on_user_id", using: :btree
 
   create_table "ios", force: true do |t|
     t.string   "name"
