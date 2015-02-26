@@ -7,13 +7,6 @@ load 'tasks/emoji.rake'
 Rails.application.load_tasks
 
 
-task :test do
-  t = 1408786134549
-  puts Time.at(t/1000)
-  puts Time.at(t/1000).utc
-  puts Time.at(t/1000).localtime
-end
-
 desc "Syncing chatroom message"
 task :sync_message => :environment do
   require 'rest_client'
