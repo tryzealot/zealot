@@ -95,12 +95,18 @@ class Api::V1::AppController < Api::ApplicationController
   def download
     @release = Release.find(params[:release_id])
     fileext = case @release.app.device_type.downcase
-    when 'iphone'
+    when 'iphone', 'ipad'
       '.ipa'
     when 'android'
       '.apk'
     end
-    file = "public/uploads/apps/#{@user.id.to_s}/#{@release.app_id.to_s}/#{@release.id.to_s}#{fileext}"
+
+    file = File.join(
+      "public/uploads/apps",
+      @release.app.user.id.to_s,
+      @release.app_id.to_s,
+      "#{@release.id.to_s}#{fileext}"
+    )
     send_file file, :type => 'application/octet-stream', :x_sendfile => true
   end
 
