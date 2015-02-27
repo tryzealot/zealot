@@ -190,9 +190,6 @@ GEM
     guard-uglify (1.0.0)
       guard (>= 0.2.2)
       uglifier
-    haml (4.0.5)
-      tilt
-    high_voltage (2.2.1)
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.6.11)
@@ -212,9 +209,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    kaminari (0.16.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     listen (2.8.5)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -233,15 +227,15 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    netrc (0.7.7)
+    netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     notiffany (0.0.5)
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
-    polyamorous (1.1.0)
-      activerecord (>= 3.0)
+    pretty_backtrace (0.1.2)
+      debug_inspector (~> 0.0.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -280,19 +274,14 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
-    ransack (1.4.1)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.1)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
-    rest_client (1.7.3)
-      netrc (~> 0.7.7)
+    rest-client (1.7.3)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -315,7 +304,6 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.6.0)
-    spring (1.1.3)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -343,13 +331,6 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    upmin-admin (0.0.39)
-      haml (>= 3.0.0)
-      jquery-rails
-      kaminari
-      rails
-      ransack
-      sass-rails
     warden (1.2.3)
       rack (>= 1.0)
     whenever (0.9.2)
@@ -387,12 +368,12 @@ DEPENDENCIES
   guard-concat
   guard-sass
   guard-uglify
-  high_voltage
   jbuilder (~> 2.0)
   jenkins_api_client
   jquery-rails
   multi_json
   mysql2
+  pretty_backtrace
   pry-rails
   pry-rescue
   puma
@@ -401,15 +382,13 @@ DEPENDENCIES
   rails (= 4.1.6)
   rails-timeago (~> 2.0)
   rails_layout
-  rest_client
+  rest-client
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   simple_form
   slim-rails
-  spring
   turbolinks
   uglifier (>= 1.3.0)
-  upmin-admin
   whenever
   will_paginate (~> 3.0)
   zeus
