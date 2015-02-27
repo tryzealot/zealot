@@ -26,6 +26,20 @@
         <string><%= @app.name %></string>
       </dict>
     </dict>
+    <dict>
+     <key>kind</key>
+     <string>display-image</string>
+     <key>needs-shine</key>
+     <true/>
+     <key>url</key> <string>http://a1.mzstatic.com/us/r30/Purple3/v4/bf/e6/3a/bfe63ab7-0d18-799d-f963-f2d9fadec46e/icon57x57.png</string>
+   </dict>
+   <dict>
+    <key>kind</key>
+    <string>full-size-image</string>
+    <key>needs-shine</key>
+    <true/>
+    <key>url</key>  <string>http://a1.mzstatic.com/us/r30/Purple3/v4/bf/e6/3a/bfe63ab7-0d18-799d-f963-f2d9fadec46e/icon512x512.png</string>
+    </dict>
   </array>
 </dict>
 </plist>
