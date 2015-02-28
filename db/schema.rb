@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226012452) do
+ActiveRecord::Schema.define(version: 20150228020637) do
 
   create_table "apps", force: true do |t|
     t.integer  "user_id"
@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 20150226012452) do
   create_table "ios", force: true do |t|
     t.string   "name"
     t.string   "bundle_id"
+    t.string   "profile"
     t.string   "version"
+    t.string   "build_version"
     t.string   "username"
     t.string   "email"
     t.string   "project_path"
