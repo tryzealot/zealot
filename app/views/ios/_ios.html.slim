@@ -4,7 +4,9 @@ td
   span data-toggle="tooltip" data-placement="bottom" title="#{ios.bundle_id}"
     = ios.name
 td
-  = ios.version
+  = "#{ios.version} (#{ios.build_version})"
+td
+  = ios.profile
 td
   - if ios.username && ios.email
     = "#{ios.username} <#{ios.email}>"
