@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228020637) do
+ActiveRecord::Schema.define(version: 20150228025835) do
 
   create_table "apps", force: true do |t|
     t.integer  "user_id"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 20150228020637) do
     t.string   "project_path"
     t.string   "dsym_uuid"
     t.string   "dsym_file"
+    t.string   "last_commit_hash"
+    t.string   "last_commit_branch"
+    t.string   "last_commit_message"
+    t.string   "last_commit_author"
+    t.string   "last_commit_email"
+    t.string   "last_commit_date"
     t.datetime "packaged_at"
     t.datetime "created_at"
     t.datetime "updated_at"
