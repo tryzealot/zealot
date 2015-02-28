@@ -11,7 +11,7 @@ class Api::V1::BinaryController < Api::ApplicationController
 
     ios = Ios.create({
       name: params[:name].to_s.chomp,
-      profile: params[:scheme].to_s.chomp,
+      profile: params[:profile].to_s.chomp,
       bundle_id: params[:bid].to_s.chomp,
       version: params[:version].to_s.chomp,
       build_version: params[:build_version].to_s.chomp,
