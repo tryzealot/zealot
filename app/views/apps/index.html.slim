@@ -1,0 +1,32 @@
+- content_for :title do
+  | 我的应用
+
+div.container
+  div.row
+    h3 我的应用
+    table.table.table-striped.table-bordered
+      tr
+        th ID
+        th 平台
+        th 应用名称
+        th 唯一标识
+        th 访问密码
+      - if @apps.size > 0
+        - @apps.each do |app|
+          tr
+            td
+              = app.id
+            td
+              = app.device_type
+            td
+              = app.name
+            td
+              = app.identifier
+            td
+              - if app.password.to_s.empty?
+                span.label.label-default 否
+              - else
+                span.label.label-danger 是
+      - else
+        tr
+          th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
