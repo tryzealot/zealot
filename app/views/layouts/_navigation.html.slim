@@ -8,5 +8,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
     .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        == render 'layouts/navigation_links'
+      - if params[:controller] != 'apps' && params[:action] != 'show'
+        ul.nav.navbar-nav
+          == render 'layouts/navigation_links'
+      - else
+        == render 'layouts/navigation_apps'
