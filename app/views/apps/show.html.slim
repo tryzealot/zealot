@@ -1,38 +1,41 @@
-- if @app
-  - latest = @app.releases.last
-  div#fly
-    div.app
-      p.qr_code
-        = qr_code(app_slug_url(@app.slug))
-      h1
-        span.app_name
-          = @app.name
-        span.type
-          = @app.device_type
-        span.distriable Ad Hoc
-      p
-        span.identifier
-          = latest.identifier
-        span.release_version
-          = latest.release_version
-        span.build_version
-          = "(#{latest.build_version})"
-      p
-        button.btn.btn-primary id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
+- content_for :title do
+  = @app.name
 
-      div.changelog
+div.container.app-container
+  div.row
+    - if @app
+      - latest = @app.releases.last
 
-    - if @app.releases.count > 0
-      div.activity
-        - @app.releases.each do |rls|
-          div.activity-item
-            p
-              = rls.changelog
+      div.col-sm-8.app-info
+        h1
+          span.app-name
+            = @app.name
+          span.app-type.label.label-primary
+            = @app.device_type
+        div.meta-data
+          p.app-identifier
+            = @app.identifier
+          p.version
+            | Version: #{latest.release_version} (#{latest.build_version})
+          p
+            button.btn.btn-success id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
+        div.changelog
+          - if @app.releases.count > 0
+            div.activity
+              - @app.releases.each do |rls|
+                div.activity-item
+                  p
+                    = rls.changelog
+          - else
+            div.empty
+              p Nothing
+
+
+      div.col-sm-3.col-sm-offset-1
+        div.sidebar-module.sidebar-module-inset
+          h4 QR Code
+          p.qr_code
+            = qr_code(app_slug_url(@app.slug))
     - else
-      div.empty
-        p Nothing
-- else
-  div#fly
-    h1 Nothing
-
-  a href="#{root_url}/server.crt" 下载证书
+      div#fly
+        h1 Nothing

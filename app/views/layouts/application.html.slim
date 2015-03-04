@@ -5,8 +5,8 @@ html
     title
       = content_for?(:title) ? yield(:title) : '穷游 App 身边人'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Im'}"
-    link rel="apple-touch-icon-precomposed" sizes="72x72" href="#{image_url('touch-icon-iphone.png')}"
-    link rel="apple-touch-icon-precomposed" sizes="144x144" href="#{image_url('touch-icon-iphone-retina.png')}"
+    link[rel="apple-touch-icon-precomposed" sizes="72x72" href="#{image_url('touch-icon-iphone.png')}"]
+    link[rel="apple-touch-icon-precomposed" sizes="144x144" href="#{image_url('touch-icon-iphone-retina.png')}"]
     = favicon_link_tag 'favicon-128.ico'
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
