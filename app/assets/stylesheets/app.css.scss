@@ -2,13 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-main {
-  @extend .container;
-  background-color: #fff;
-  }
+div.install-cert-notices {
+  text-align: center;
+  padding-top: 1.2em;
+  color: #FFF;
+}
 
-#fly {
-  padding-top: 30px;
-  max-width: 540px;
-  margin: 0 auto;
+// div.install-cert-notices a,
+// div.install-cert-notices a:visited {
+//
+// }
+
+div.app-container {
+  width: 650px;
+}
+
+
+div.app-container span.app-type {
+  font-size: 0.1em;
+  margin-left: 0.5em;
 }
