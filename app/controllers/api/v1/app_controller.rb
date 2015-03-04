@@ -79,7 +79,7 @@ class Api::V1::AppController < Api::ApplicationController
     if @app && @latest_release
       case @app.device_type.downcase
       when 'iphone'
-        render template: 'app/install_url',
+        render template: 'apps/install_url',
           handlers: [:plist],
           content_type: 'text/xml'
       when 'android'

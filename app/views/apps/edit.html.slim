@@ -1,0 +1,35 @@
+- latest = @app.releases.last
+
+div#fly
+  div.app
+    p.qr_code
+      = qr_code(app_slug_url(@app.slug))
+    h1
+      span.app_name
+        = @app.name
+      span.type
+        = @app.device_type
+      span.distriable Ad Hoc
+    p
+      span.identifier
+        = latest.identifier
+      span.release_version
+        = latest.release_version
+      span.build_version
+        = "(#{latest.build_version})"
+    p
+      button.btn.btn-primary id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
+
+    div.changelog
+
+  - if @app.releases.count > 0
+    div.activity
+      - @app.releases.each do |rls|
+        div.activity-item
+          p
+            = rls.changelog
+  - else
+    div.empty
+      p Nothing
+
+  a href="#{root_url}/server.crt" 下载证书
