@@ -16,10 +16,11 @@ div.container.app-container
           p.app-identifier
             = @app.identifier
           p.version
-            | Version: #{latest.release_version} (#{latest.build_version})
+            | 版本: #{latest.release_version} (#{latest.build_version})
           p
             button.btn.btn-success id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
         div.changelog
+          h3 更新日志
           - if @app.releases.count > 0
             div.activity
               - @app.releases.each do |rls|
@@ -33,7 +34,7 @@ div.container.app-container
 
       div.col-sm-3.col-sm-offset-1
         div.sidebar-module.sidebar-module-inset
-          h4 QR Code
+          h4 二维码
           p.qr_code
             = qr_code(app_slug_url(@app.slug))
     - else
