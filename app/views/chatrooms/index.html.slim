@@ -7,13 +7,12 @@ div.container
     h3 聊天室
     table.table.table-striped.table-bordered
       tr
-        th.col-md-1 标识
-        th.col-md-1 聊天室类型
+        th.col-md-1 ID
+        th.col-md-1 聊天室 ID
         th.col-md-1 聊天室标识
-        th.col-md-2 箭扣聊天室标识
-        th.col-md-1 聊天室明超
+        th.col-md-2 箭扣聊天室 ID
+        th.col-md-1 聊天室消息
         th.col-md-4 最后发布消息
-        th.col-md-2 最后发布时间
 
       - @chatrooms.each do |chatroom|
         trht

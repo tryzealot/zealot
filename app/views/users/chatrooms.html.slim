@@ -26,7 +26,7 @@ div.container
             td
               = @user.im_user_id
             td
-              = @member.username
+              = link_to @member.user_name, user_messages_path(@member.uid)
       - elsif params[:user]
         div.alert.alert-warning 没有匹配到该用户
 
