@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def chatrooms
     query = params[:user].chomp if params[:user]
     if request.request_method == 'GET' && query
-      @member = Qyer::Member.where('uid=? OR username=?', query, query).take
+      @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take
       return unless @member
       @user = Member.find_by(user_id:@member.uid)
 
