@@ -85,7 +85,11 @@ GEM
       addressable (~> 2.3)
       multi_json (~> 1.0)
       rack
+    em-websocket (0.5.1)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
+    eventmachine (1.0.7)
     excon (0.44.2)
     execjs (2.2.1)
     ffi (1.9.6)
@@ -177,21 +181,18 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
-    guard-coffeescript (2.0.1)
-      coffee-script (>= 2.2.0)
-      guard (>= 2.1.0)
-      guard-compat (~> 1.1)
-    guard-compat (1.2.1)
     guard-concat (0.8.1)
       guard (~> 2.0)
-    guard-sass (1.6.0)
-      guard (>= 2.8.0)
-      sass (>= 3.1)
+    guard-livereload (2.4.0)
+      em-websocket (~> 0.5)
+      guard (~> 2.8)
+      multi_json (~> 1.8)
     guard-uglify (1.0.0)
       guard (>= 0.2.2)
       uglifier
     hike (1.2.3)
     hitimes (1.2.2)
+    http_parser.rb (0.6.0)
     i18n (0.6.11)
     inflecto (0.0.2)
     interception (0.5)
@@ -364,9 +365,8 @@ DEPENDENCIES
   fog
   gemoji
   guard
-  guard-coffeescript
   guard-concat
-  guard-sass
+  guard-livereload
   guard-uglify
   jbuilder (~> 2.0)
   jenkins_api_client

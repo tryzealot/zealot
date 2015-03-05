@@ -2,6 +2,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+    padding-top: 50px;
+}
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -31,15 +35,13 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
-// apply styles to HTML elements
-// to make views framework-neutral
-main {
-  @extend .container;
-  background-color: #eee;
-  padding-bottom: 80px;
-  width: 100%;
-  margin-top: 51px; // accommodate the navbar
+
+  @media (min-width: 1200px) {
+    .container {
+      width: 670px;
+    }
   }
+
 section {
   @extend .row;
   margin-top: 20px;
