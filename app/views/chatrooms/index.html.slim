@@ -7,14 +7,14 @@ div.container
     h3 聊天室
     table.table.table-striped.table-bordered
       tr
-        th.col-md-1 ID
-        th.col-md-1 Type
-        th.col-md-1 Place ID
-        th.col-md-2 IM ID
-        th.col-md-1 Name
-        th.col-md-4 Last Mesage
-        th.col-md-2 Posted 
+        th.col-md-1 标识
+        th.col-md-1 聊天室类型
+        th.col-md-1 聊天室标识
+        th.col-md-2 箭扣聊天室标识
+        th.col-md-1 聊天室明超
+        th.col-md-4 最后发布消息
+        th.col-md-2 最后发布时间
 
       - @chatrooms.each do |chatroom|
-        tr
+        trht
           = render chatroom
