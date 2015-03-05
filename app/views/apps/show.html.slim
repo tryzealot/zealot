@@ -22,7 +22,7 @@ div.row.app-container
         h3 更新日志
         - if latest.changelog
           p
-            = latest.changelog
+            = simple_format(latest.changelog)
         - else
           p 开发者比较懒
 
