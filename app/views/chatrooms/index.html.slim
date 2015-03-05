@@ -11,9 +11,10 @@ div.container
         th.col-md-1 聊天室 ID
         th.col-md-1 聊天室标识
         th.col-md-2 箭扣聊天室 ID
+        th.col-md-2 聊天室名称
         th.col-md-1 聊天室消息
         th.col-md-4 最后发布消息
 
       - @chatrooms.each do |chatroom|
-        trht
+        tr
           = render chatroom
