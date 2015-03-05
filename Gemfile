@@ -49,9 +49,10 @@ group :development do
 
   gem 'zeus'
   gem 'guard'
-  gem 'guard-sass'
-  gem 'guard-coffeescript'
+  # gem 'guard-sass'
+  # gem 'guard-coffeescript'
   gem 'guard-concat'
+  gem 'guard-livereload'
   gem 'guard-uglify'
 end
 

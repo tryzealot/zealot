@@ -8,29 +8,12 @@ div.install-cert-notices {
   color: #FFF;
 }
 
-// div.install-cert-notices a,
-// div.install-cert-notices a:visited {
-//
-// }
-
-
-
-div.app-container {
-  width: 650px;
-}
-
-div.app-container div.app-info {
-  max-width: 200px;
-}
-
-
 div.app-container span.app-type {
   font-size: 8px;
   margin-left: 0.5em;
 }
 
-
 div.app-container p.qr_code img {
-  // max-width: 120px;
-  // max-height: 120px;
+  max-width: 240px;
+  max-height: 240px;
 }
