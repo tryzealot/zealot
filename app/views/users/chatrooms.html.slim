@@ -26,7 +26,7 @@ div.container
             td
               = @user.im_user_id
             td
-              = @member.username
+              = link_to @member.username, user_messages_path(@member.uid)
       - elsif params[:user]
         div.alert.alert-warning 没有匹配到该用户
 
@@ -42,7 +42,7 @@ div.container
             th.col-md-1 聊天室类型
             th.col-md-1 聊天室标识
             th.col-md-2 箭扣聊天室标识
-            th.col-md-1 聊天室明超
+            th.col-md-1 聊天室名称
             th.col-md-4 最后发布消息
             th.col-md-2 最后发布时间
           - @chatrooms.each do |chatroom|
