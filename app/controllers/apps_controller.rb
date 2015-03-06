@@ -10,6 +10,18 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find_by(slug: params[:slug])
+    @release = @app.releases.last
+
+    if ! @app
+      raise ActionController::RoutingError.new('这里没有你找的东西')
+    end
+  end
+
+  def release
+    @release = Release.find(params[:id])
+    @app = @release.app
+
+    render 'apps/show'
   end
 
   # def edit
