@@ -31,4 +31,9 @@ class AppsController < ApplicationController
     end
   end
 
+  def destroy
+    App.find_by(slug: params[:slug]).destroy
+    redirect_to apps_path
+  end
+
 end
