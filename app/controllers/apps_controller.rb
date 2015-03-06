@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-
+  
   def index
     if user_signed_in?
       @apps = current_user.apps
