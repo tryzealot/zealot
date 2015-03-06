@@ -1,15 +1,12 @@
 / navigation styled for Bootstrap 3.0
 div.navbar.navbar-inverse.navbar-fixed-top
   .container
-    - if params[:controller] == 'apps' && params[:action] == 'show'
-      == render 'layouts/navigation_apps'
-    - else
-      .navbar-header
-        button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-      .collapse.navbar-collapse
-        ul.nav.navbar-nav
-          == render 'layouts/navigation_links'
+    .navbar-header
+      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        == render 'layouts/navigation_links'
