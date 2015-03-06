@@ -36,12 +36,6 @@ img {
   @extend .btn-lg;
   }
 
-  @media (min-width: 1200px) {
-    .container {
-      width: 670px;
-    }
-  }
-
 section {
   @extend .row;
   margin-top: 20px;
