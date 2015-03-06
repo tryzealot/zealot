@@ -75,15 +75,21 @@ class Api::V1::AppController < Api::ApplicationController
 
   def install_url
     @app = App.find_by(slug:params[:slug])
-    @latest_release = @app.releases.last
-    if @app && @latest_release
+
+    @release = if params[:release_id]
+      Release.find(params[:release_id])
+    else
+      @app.releases.last
+    end
+
+    if @app && @release
       case @app.device_type.downcase
       when 'iphone'
-        render template: 'apps/install_url',
+        render 'apps/install_url',
           handlers: [:plist],
           content_type: 'text/xml'
       when 'android'
-        redirect_to api_app_download_path(release_id:@latest_release.id)
+        redirect_to api_app_download_path(release_id:@release.id)
       end
     else
       render json: {

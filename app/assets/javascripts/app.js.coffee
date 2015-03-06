@@ -4,7 +4,8 @@
 
 download = ->
   slug = $('#download_it').data('slug')
-  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/install"
+  release_id = $('#download_it').data('release-id')
+  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
   url = "itms-services://?action=download-manifest&url=" + installAPI
   console.log 'url:', url
   window.location.href = url
