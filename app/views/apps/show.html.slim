@@ -20,13 +20,13 @@ div.row.app-container
 
       - if detect_device == @app.device_type
         p
-          button.btn.btn-success id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
+          button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
       - if [:mac, :windows, :linux].include?(browser.platform)
         span
-          = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success'}
+          = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
       - else
         p
-          button.btn.btn-default disabled="disabled"
+          button.btn.btn-default.btn-lg disabled="disabled"
             | 使用 #{@app.device_type} 下载
     div.changelog
       h3 更新日志
