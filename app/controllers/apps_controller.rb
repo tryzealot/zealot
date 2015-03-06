@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  
+
   def index
     if user_signed_in?
       @apps = current_user.apps
@@ -10,11 +10,11 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find_by(slug: params[:slug])
-    @release = @app.releases.last
-
     if ! @app
       raise ActionController::RoutingError.new('这里没有你找的东西')
     end
+
+    @release = @app.releases.last
   end
 
   def release
