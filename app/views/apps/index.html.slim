@@ -2,6 +2,8 @@
   | 我的应用
 
 div.container
+  == render 'apps/install_cert'
+
   div.row
     h3 我的应用
     table.table.table-striped.table-bordered
@@ -30,7 +32,7 @@ div.container
               = app.releases.count
             td
               = link_to '编辑', edit_app_path(app.slug)
-              |  / 
+              |  /
               = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
       - else
         tr
