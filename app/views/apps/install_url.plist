@@ -11,7 +11,7 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string><%= api_app_download_url(@latest_release.id, :protocol => "https") %></string>
+          <string><%= api_app_download_url(@release.id, :protocol => "https") %></string>
         </dict>
       </array>
       <key>metadata</key>
@@ -19,7 +19,7 @@
         <key>bundle-identifier</key>
         <string><%= @app.identifier %></string>
         <key>bundle-version</key>
-        <string><%= @latest_release.release_version %></string>
+        <string><%= @release.release_version %></string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>

@@ -2,49 +2,50 @@
   = @app.name
 
 div.row.app-container
-  - if @app
-    - latest = @app.releases.last
 
-    div.col-sm-8.app-info
-      h1
-        span.app-name
-          = @app.name
-        span.app-type.label.label-primary
-          = @app.device_type
-      div.meta-data
-        p.app-identifier
-          = @app.identifier
-        p.version
-          | 版本: #{latest.release_version} (#{latest.build_version})
+  div.col-sm-8.app-info
+    h1
+      span.app-name
+        = @app.name
+      span.app-type.label.label-primary
+        = @app.device_type
+    div.meta-data
+      p.app-identifier
+        = @app.identifier
+      p.version
+        | 版本: #{@release.release_version} (#{@release.build_version})
+        |  / Build：#{@release.version}
+        |  / 更新于： #{time_ago_in_words(@release.created_at)}
+      p
+        button.btn.btn-success id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
+    div.changelog
+      h3 更新日志
+      - if @release.changelog
         p
-          button.btn.btn-success id="download_it" onclick="download()" data-slug="#{@app.slug}" 下载安装
-      div.changelog
-        h3 更新日志
-        - if latest.changelog
-          p
-            = simple_format(latest.changelog)
-        - else
-          p 开发者比较懒
+          = simple_format(@release.changelog)
+      - else
+        p 开发者比较懒
 
+  div.col-sm-3.col-sm-offset-1
+    div.sidebar-module.sidebar-module-inset
       - if @app.releases.count > 0
         div.releases
           h3 历史版本
           table.table.table-striped.table-bordered
             tr
+              th.col-md-1 Build
               th.col-md-1 版本
-              th.col-md-1 更新时间
+              th.col-md-1 时间
             - @app.releases.order('version DESC').each do |release|
-              tr
-                td
-                 = "#{release.release_version} (#{release.build_version})"
-                td
-                  = time_ago_in_words(release.created_at)
-
-    div.col-sm-3.col-sm-offset-1
-      div.sidebar-module.sidebar-module-inset
-        h3 二维码
-        p.qr_code
-          = qr_code(app_slug_url(@app.slug))
-  - else
-    div#fly
-      h1 你要找的不在这里
+              - if release != @release
+                tr
+                  td[id="release-#{release.id}"]
+                    = link_to release.version, app_release_path(@app.slug, release.id)
+                  td
+                    | #{release.release_version} (#{release.build_version})
+                  td
+                    = time_ago_in_words(release.created_at)
+    div.sidebar-module.sidebar-module-inset
+      h3 二维码
+      p.qr_code
+        = qr_code(app_slug_url(@app.slug))

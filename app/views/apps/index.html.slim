@@ -19,7 +19,7 @@ div.container
             td
               = app.device_type
             td
-              = app.name
+              = link_to app.name, app_slug_path(app.slug)
             td
               = app.identifier
             td
