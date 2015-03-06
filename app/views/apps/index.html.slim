@@ -9,8 +9,9 @@ div.container
         th ID
         th 平台
         th 应用名称
-        th 唯一标识
-        th 版本数
+        th 应用标识
+        th SLUG
+        th 上传版本
         th 操作
       - if @apps.size > 0
         - @apps.each do |app|
@@ -24,9 +25,13 @@ div.container
             td
               = app.identifier
             td
+              = app.slug
+            td
               = app.releases.count
             td
               = link_to '编辑', edit_app_path(app.slug)
+              |  / 
+              = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
       - else
         tr
           th colspan="5" 你还没有创建任何应用，请使用接口进行上传！

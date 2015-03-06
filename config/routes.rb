@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/:slug', to: 'apps#show', as: 'app'
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app'
+  get 'apps/:slug/update', to: 'apps#update', as: 'update_app'
+  get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app'
   get 'apps/:slug/:id', to: 'apps#release', as: 'app_release'
 
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
