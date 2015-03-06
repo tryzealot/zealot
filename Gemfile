@@ -31,6 +31,7 @@ gem 'dragonfly', '~> 1.0.7'
 gem 'fog'
 gem 'CFPropertyList'
 gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'browser'
 
 group :development do
   gem 'better_errors'

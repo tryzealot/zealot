@@ -3,7 +3,7 @@
 
 div.row.app-container
   == render 'apps/install_cert'
-  
+
   div.col-sm-8.app-info
     h1
       span.app-name
@@ -17,8 +17,17 @@ div.row.app-container
         | 版本: #{@release.release_version} (#{@release.build_version})
         |  / Build：#{@release.version}
         |  / 更新于： #{time_ago_in_words(@release.created_at)}
-      p
-        button.btn.btn-success id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
+
+      - if detect_device == @app.device_type
+        p
+          button.btn.btn-success id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
+      - if [:mac, :windows, :linux].include?(browser.platform)
+        span
+          = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success'}
+      - else
+        p
+          button.btn.btn-default disabled="disabled"
+            | 使用 #{@app.device_type} 下载
     div.changelog
       h3 更新日志
       - if @release.changelog
