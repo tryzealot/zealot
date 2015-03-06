@@ -31,6 +31,19 @@ class AppsController < ApplicationController
     end
   end
 
+  def update
+    @app = App.find(params[:id])
+    if ! @app
+      raise ActionController::RoutingError.new('这里没有你找的东西')
+    end
+
+    @app.update({
+      name: params[:name],
+      slug: params[:slug]
+      })
+    redirect_to apps_path
+  end
+
   def destroy
     App.find_by(slug: params[:slug]).destroy
     redirect_to apps_path
