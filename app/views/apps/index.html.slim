@@ -10,7 +10,8 @@ div.container
         th 平台
         th 应用名称
         th 唯一标识
-        th 访问密码
+        th 版本数
+        th 操作
       - if @apps.size > 0
         - @apps.each do |app|
           tr
@@ -19,14 +20,13 @@ div.container
             td
               = app.device_type
             td
-              = link_to app.name, app_slug_path(app.slug)
+              = link_to app.name, app_path(app.slug)
             td
               = app.identifier
             td
-              - if app.password.to_s.empty?
-                span.label.label-default 否
-              - else
-                span.label.label-danger 是
+              = app.releases.count
+            td
+              = link_to '编辑', edit_app_path(app.slug)
       - else
         tr
           th colspan="5" 你还没有创建任何应用，请使用接口进行上传！

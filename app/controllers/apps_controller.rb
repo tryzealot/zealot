@@ -24,8 +24,11 @@ class AppsController < ApplicationController
     render 'apps/show'
   end
 
-  # def edit
-  #   @app = App.find(params[:id])
-  # end
+  def edit
+    @app = App.find_by(slug: params[:slug])
+    if ! @app
+      raise ActionController::RoutingError.new('这里没有你找的东西')
+    end
+  end
 
 end
