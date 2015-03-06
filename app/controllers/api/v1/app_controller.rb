@@ -114,7 +114,12 @@ class Api::V1::AppController < Api::ApplicationController
       @release.app_id.to_s,
       "#{@release.id.to_s}#{fileext}"
     )
-    send_file file, :type => 'application/octet-stream', :x_sendfile => true
+
+    filename = @release.created_at.strftime('%Y%m%d%H%M') + '_' + @release.app.slug + fileext
+    send_file file,
+      filename: filename,
+      type: 'application/octet-stream',
+      x_sendfile: true
   end
 
   private

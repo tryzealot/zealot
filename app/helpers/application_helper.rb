@@ -8,4 +8,32 @@ module ApplicationHelper
       end
     end.html_safe if content.present?
   end
+
+  def iOS?
+    request.user_agent =~ /iPhone|iPad/i
+  end
+
+  def android?
+    request.user_agent =~ /Android/i
+  end
+
+  def iPhone?
+    request.user_agent =~ /iPhone/i
+  end
+
+  def iPad?
+    request.user_agent =~ /iPad/i
+  end
+
+  def detect_device
+    device = if iPhone?
+      "iPhone"
+    elsif iPad?
+      "iPad"
+    elsif android?
+      "Android"
+    else
+      "Other"
+    end
+  end
 end
