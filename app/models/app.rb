@@ -2,9 +2,8 @@ class App < ActiveRecord::Base
   has_many :releases
   belongs_to :user
 
-  validates :name, presence: true
-  validates :identifier, presence: true
-  validates :device_type, presence: true
+  validates :name, :identifier, :device_type, presence: true
+  validates :slug, uniqueness: true
 
   before_create :generate_key_or_slug
 
@@ -14,9 +13,9 @@ class App < ActiveRecord::Base
 
   private
     def generate_key_or_slug
-      self.key = Digest::MD5.hexdigest(self.name + "!@#" + self.identifier)
+      self.key = SecureRandom.uuid + self.identifier
       unless self.slug
-        self.slug = Digest::SHA1.base64digest(self.key)[0..4]
+        self.slug = Digest::SHA1.base64digest(self.key).gsub(/[+\/=]/, '')[0..4]
       end
     end
 end

@@ -5,10 +5,11 @@ class Api::V1::AppController < Api::ApplicationController
     @app = App.find_or_initialize_by(identifier:params[:identifier])
     if @app.new_record?
       @app.identifier = params[:identifier]
-      @app.name = params[:name]
-      @app.slug = params[:slug] if params[:slug]
-      @app.device_type = params[:device_type]
     end
+    @app.name = params[:name]
+    @app.slug = params[:slug] if params[:slug]
+    @app.device_type = params[:device_type]
+    @app.user = @user
 
     if @app.invalid?
       return render json: {
