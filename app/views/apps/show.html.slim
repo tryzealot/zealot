@@ -43,16 +43,15 @@ div.row.app-container
             tr
               th.col-md-1 Build
               th.col-md-1 版本
-              th.col-md-1 时间
+              th.col-md-2 时间
             - @app.releases.order('version DESC').each do |release|
-              - if release != @release
-                tr
-                  td[id="release-#{release.id}"]
-                    = link_to release.version, app_release_path(@app.slug, release.id)
-                  td
-                    | #{release.release_version} (#{release.build_version})
-                  td
-                    = time_ago_in_words(release.created_at)
+              tr class=(release == @release ? 'bg-warning' : '')
+                td[id="release-#{release.id}"]
+                  = link_to release.version, app_release_path(@app.slug, release.id)
+                td
+                  | #{release.release_version} (#{release.build_version})
+                td
+                  = time_ago_in_words(release.created_at)
     div.sidebar-module.sidebar-module-inset
       h3 二维码
       p.qr_code
