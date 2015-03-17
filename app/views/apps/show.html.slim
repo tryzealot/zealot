@@ -36,6 +36,11 @@ div.row.app-container
 
   div.col-sm-3.col-sm-offset-1
     div.sidebar-module.sidebar-module-inset
+      h3 二维码
+      p.qr_code
+        = qr_code(app_url(@app.slug))
+
+    div.sidebar-module.sidebar-module-inset
       - if @app.releases.count > 0
         div.releases
           h3 历史版本
@@ -52,7 +57,3 @@ div.row.app-container
                   | #{release.release_version} (#{release.build_version})
                 td
                   = time_ago_in_words(release.created_at)
-    div.sidebar-module.sidebar-module-inset
-      h3 二维码
-      p.qr_code
-        = qr_code(app_url(@app.slug))
