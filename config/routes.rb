@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'errors/not_found'
+
+  get 'errors/server_error'
+
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/:slug', to: 'apps#show', as: 'app'
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app'
@@ -23,6 +27,9 @@ Rails.application.routes.draw do
   resources :messages
 
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
+
+  match '/404', via: :all, to: 'errors#not_found'
+  match '/500', via: :all, to: 'errors#server_error'
 
   root to: 'visitors#index'
 
