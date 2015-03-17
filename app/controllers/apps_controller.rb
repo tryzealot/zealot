@@ -1,8 +1,7 @@
 class AppsController < ApplicationController
-  load_and_authorize_resource
 
   before_filter :authenticate_user!
-  
+
   def index
     if user_signed_in?
       @apps = current_user.apps
