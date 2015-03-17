@@ -15,7 +15,7 @@ class Api::V1::AppController < Api::ApplicationController
       return render json: {
         error: 'upload failed',
         reason: @app.errors.messages
-        }, status: 400
+        }, status: 415
     end
 
     @app.save!
@@ -57,7 +57,7 @@ class Api::V1::AppController < Api::ApplicationController
     else
       return render json: {
         error: 'file is not allow file type: ipa/apk'
-      }, status: 403
+      }, status: 428
     end
   end
 
@@ -70,7 +70,7 @@ class Api::V1::AppController < Api::ApplicationController
       render json: {
         error: "App is missing",
         params: params
-      }, status: 403
+      }, status: 404
     end
   end
 
@@ -85,7 +85,7 @@ class Api::V1::AppController < Api::ApplicationController
 
     if @app && @release
       case @app.device_type.downcase
-      when 'iphone'
+      when 'iphone', 'ipad', 'ios'
         render 'apps/install_url',
           handlers: [:plist],
           content_type: 'text/xml'
@@ -95,14 +95,14 @@ class Api::V1::AppController < Api::ApplicationController
     else
       render json: {
         error: 'app not had any release'
-      }, status: 400
+      }, status: 404
     end
   end
 
   def download
     @release = Release.find(params[:release_id])
     fileext = case @release.app.device_type.downcase
-    when 'iphone', 'ipad'
+    when 'iphone', 'ipad', 'ios'
       '.ipa'
     when 'android'
       '.apk'
@@ -130,7 +130,7 @@ class Api::V1::AppController < Api::ApplicationController
       unless params.has_key?(:key) && @user
         return render json: {
           error: 'key is invalid'
-        }, status: 400
+        }, status: 401
       end
     end
 end
