@@ -43,13 +43,13 @@ div.row.app-container
     div.sidebar-module.sidebar-module-inset
       - if @app.releases.count > 0
         div.releases
-          h3 历史版本
+          h3 历史版本(最近10次)
           table.table.table-striped.table-bordered
             tr
               th.col-md-1 Build
               th.col-md-1 版本
               th.col-md-2 时间
-            - @app.releases.order('version DESC').each do |release|
+            - @app.releases.order('version DESC').limit(10).each do |release|
               tr class=(release == @release ? 'bg-warning' : '')
                 td[id="release-#{release.id}"]
                   = link_to release.version, app_release_path(@app.slug, release.id)
