@@ -116,6 +116,8 @@ class Api::V1::AppController < Api::ApplicationController
     )
 
     filename = @release.created_at.strftime('%Y%m%d%H%M') + '_' + @release.app.slug + fileext
+
+    headers['Content-Length'] = File.size(file)
     send_file file,
       filename: filename,
       type: 'application/octet-stream',
