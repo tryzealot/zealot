@@ -394,3 +394,6 @@ DEPENDENCIES
   whenever
   will_paginate (~> 3.0)
   zeus
+
+BUNDLED WITH
+   1.10.3
