@@ -66,8 +66,7 @@ ActiveRecord::Schema.define(version: 20150228025835) do
     t.string   "content_type"
     t.string   "file_type"
     t.text     "file"
-    t.boolean  "is_deleted",              default: false
-    t.datetime "timestamp",     limit: 3
+    t.datetime "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,7 +106,6 @@ ActiveRecord::Schema.define(version: 20150228025835) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "key"
@@ -122,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150228025835) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
