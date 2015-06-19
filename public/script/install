@@ -62,9 +62,9 @@ def ask *args, &block
   switch = args[1]
 
   info "#{message} [#{switch}]"
+  print "select: "
   cmd = $stdin.gets.chomp
 
-  puts switch.split ""
   if switch.split("").include?cmd
     yield(cmd)
   else
@@ -123,7 +123,7 @@ def hosts
       `/usr/bin/sudo echo '#{ip} #{domain}' >> #{hosts_file}`
       puts " * #{Tty.green}#{domain}#{Tty.reset} added"
     else
-      puts " * #{Tty.yellow}#{domain}#{Tty.reset} is exists"
+      puts " * #{Tty.yellow}#{domain}#{Tty.reset} was exists"
     end
   end
 
@@ -132,17 +132,17 @@ end
 
 # 安装 oh my zsh
 def oh_my_zsh
-  info "Install oh my zsh"
   if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh"))
-    finish "found ~/.oh-my-zsh"
+    info "Install oh my zsh"
+    finish "Found oh-my-zsh: ~/.oh-my-zsh"
   else
-    ask "install oh-my-zsh? [ynq] " do |answer|
+    ask "install oh-my-zsh?", "ynq" do |answer|
       case answer
       when 'y'
         puts "installing oh-my-zsh"
         system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
       when 'q'
-        exit
+        exit "Abort"
       else
         finish "skipping oh-my-zsh, you will need to change ~/.zshrc"
       end
@@ -152,21 +152,40 @@ end
 
 # 切换 zsh
 def zsh
-  info "Switch to zsh"
   if ENV["SHELL"] =~ /zsh/
-    finish "using zsh"
+    info "Switch to zsh"
+    finish "ZSH was changed"
   else
-    ask "switch to zsh? (recommended) [ynq] " do |answer|
+    ask "switch to zsh? (recommended)", "ynq" do |answer|
       case answer
       when 'y'
         finish "switching to zsh"
         system %Q{chsh -s `which zsh`}
       when 'q'
-        exit
+        exit "Abort"
       else
         error "skipping zsh"
       end
     end
+  end
+end
+
+def homebrew
+  r = `which brew`
+  if r.empty?
+    ask "install homebrew? (recommended)", "ynq" do |answer|
+      case answer
+      when 'y'
+        `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+      when 'q'
+        exit "Abort"
+      else
+        error "skipping homebrew"
+      end
+    end
+  else
+    info "Install homebrew"
+    finish "Found homebrew: #{r}"
   end
 end
 
@@ -175,8 +194,9 @@ end
 #########################################
 # Script
 #########################################
-exit "ONLY install on Mac OS X" unless RUBY_PLATFORM.include?"darwin"
+exit "ONLY install on Mac OS X" unless RUBY_PLATFORM.downcase.include?"darwin"
 
 hosts
 oh_my_zsh
 zsh
+homebrew
