@@ -32,6 +32,7 @@ gem 'fog'
 gem 'CFPropertyList'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'browser'
+gem 'json', '1.8.1'
 
 group :development do
   gem 'better_errors'
