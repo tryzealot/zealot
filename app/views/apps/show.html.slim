@@ -19,7 +19,7 @@ div.row.app-container
         |  / 更新于： #{time_ago_in_words(@release.created_at)}
 
       p
-      - if detect_device == @app.device_type
+      - if detect_device == @app.device_type || [:ios, :ipad, :iphone, :android].include?(browser.platform)
         button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
       - elsif [:mac, :windows, :linux].include?(browser.platform)
         = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
