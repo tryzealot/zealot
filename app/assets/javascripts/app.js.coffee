@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 download = ->
+  # alert navigator.userAgent
   slug = $('#download_it').data('slug')
   release_id = $('#download_it').data('release-id')
   device_type = $('.app-type').html()

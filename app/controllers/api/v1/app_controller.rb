@@ -118,6 +118,13 @@ class Api::V1::AppController < Api::ApplicationController
     filename = @release.created_at.strftime('%Y%m%d%H%M') + '_' + @release.app.slug + fileext
 
     headers['Content-Length'] = File.size(file)
+    headers['Content-Description'] = 'File Transfer'
+    headers('Content-Disposition'] = "attachment; filename=#{filename}"
+    headers['Content-Transfer-Encoding'] =  'binary'
+    headers['Expires'] = 0
+    headers['Cache-Control]' = 'must-revalidate, post-check=0, pre-check=0'
+    headers['Pragma'] = 'public'
+
     send_file file,
       filename: filename,
       type: 'application/octet-stream',
