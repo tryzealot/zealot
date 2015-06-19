@@ -1,0 +1,3 @@
+[submodule "public/bootstrap"]
+	path = public/bootstrap
+	url = http://gitlab.dev/icyleaf/mac-bootstrap.git
