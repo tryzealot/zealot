@@ -5,6 +5,7 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
+set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 set :format, :pretty
 set :log_level, :debug
@@ -18,7 +19,6 @@ set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
 set :nginx_server_name, "mobile.2b6.me mobile.dev"
 set :nginx_sites_available_path, "/home/wangshen/nginx/sites-available"
 set :nginx_sites_enabled_path, "/home/wangshen/nginx/sites-enabled"
-
 
 set :puma_rackup, -> { File.join(current_path, 'config.ru') }
 set :puma_state, "#{shared_path}/tmp/pids/puma.state"
