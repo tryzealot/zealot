@@ -409,7 +409,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jenkins_api_client
   jquery-rails
-  json (= 1.8.1)
   multi_json
   mysql2
   pretty_backtrace
