@@ -14,6 +14,12 @@ set :pty, true
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
+
+set :rvm_type, :user                     # Defaults to: :auto
+set :rvm_ruby_version, '2.2.2'      # Defaults to: 'default'
+# set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
+
+
 set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
 
 set :nginx_server_name, "mobile.2b6.me mobile.dev"
