@@ -1,5 +1,7 @@
 source 'http://ruby.taobao.org'
 
+ruby '2.2.2'
+
 gem 'rails', '4.1.6'
 gem 'sass-rails', '~> 4.0.3'
 # gem 'react-rails', github: 'reactjs/react-rails'
@@ -32,13 +34,13 @@ gem 'fog'
 gem 'CFPropertyList'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'browser'
-gem 'json', '1.8.1'
 
 group :development do
   gem 'better_errors'
   gem 'pretty_backtrace'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'capistrano'#, '~> 3.0.1'
+  gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'#, '~> 1.1.0'
   gem 'capistrano-rails-console'
