@@ -9,8 +9,6 @@ download = ->
     $('.cover').removeClass('hide')
     $('.wechat-tips').removeClass('hide')
     $('.navbar-fixed-top').css('z-index', 0)
-  else
-    alert "oahte"
 
   slug = $('#download_it').data('slug')
   release_id = $('#download_it').data('release-id')
