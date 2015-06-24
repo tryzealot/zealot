@@ -2,7 +2,7 @@
   = @app.name
     
 div.row.app-container
-  - unless user_agent.include?"MicroMessenger" && ! user_signed_in?
+  - unless user_agent.include?("MicroMessenger") && ! user_signed_in?
   
     == render 'apps/install_cert'
 
