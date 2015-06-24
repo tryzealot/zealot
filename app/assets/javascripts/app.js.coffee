@@ -3,10 +3,18 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 download = ->
-  # alert navigator.userAgent
+  wechat = /MicroMessenger/i
+
+  if wechat.test(navigator.userAgent)
+    $('.cover').removeClass('hide')
+    $('.wechat-tips').removeClass('hide')
+  else
+    alert "oahte"
+
   slug = $('#download_it').data('slug')
   release_id = $('#download_it').data('release-id')
   device_type = $('.app-type').html()
+
 
   installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
 
@@ -21,6 +29,3 @@ download = ->
 
 # bind function
 window.download = download
-
-
-alert "hello"
