@@ -57,3 +57,6 @@ div.row.app-container
                   | #{release.release_version} (#{release.build_version})
                 td
                   = time_ago_in_words(release.created_at)
+                  
+  h5
+    = user_agent
