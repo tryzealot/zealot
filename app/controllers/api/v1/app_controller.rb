@@ -1,6 +1,4 @@
 class Api::V1::AppController < Api::ApplicationController
-  protect_from_forgery with: :null_session
-
   before_filter :validate_params
 
   def upload
@@ -15,9 +13,9 @@ class Api::V1::AppController < Api::ApplicationController
 
     if @app.invalid?
       return render json: {
-        error: 'upload failed',
+        error: '上次错误，请检查原因！',
         reason: @app.errors.messages
-        }, status: 415
+        }, status: 400
     end
 
     @app.save!
