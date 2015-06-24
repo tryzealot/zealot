@@ -9,6 +9,10 @@ module ApplicationHelper
     end.html_safe if content.present?
   end
 
+  def user_agent
+    request.user_agent
+  end
+
   def iOS?
     request.user_agent =~ /iPhone|iPad/i
   end
