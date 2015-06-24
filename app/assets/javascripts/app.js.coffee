@@ -21,3 +21,6 @@ download = ->
 
 # bind function
 window.download = download
+
+
+alert "hello"
