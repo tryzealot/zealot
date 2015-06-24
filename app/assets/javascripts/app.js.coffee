@@ -8,6 +8,7 @@ download = ->
   if wechat.test(navigator.userAgent)
     $('.cover').removeClass('hide')
     $('.wechat-tips').removeClass('hide')
+    $('.navbar-fixed-top').css('z-index', 0)
   else
     alert "oahte"
 
@@ -27,5 +28,12 @@ download = ->
   console.log 'url:', url
   window.location.href = url
 
+
+hideCover = ->
+  $('.cover').addClass('hide')
+  $('.wechat-tips').addClass('hide')
+  $('.navbar-fixed-top').css('z-index', 1030)
+
 # bind function
 window.download = download
+window.hideCover = hideCover
