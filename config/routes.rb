@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'errors/not_found'
+  devise_for :users
 
+  get 'errors/not_found'
   get 'errors/server_error'
 
   get 'apps', to: 'apps#index', as: 'apps'
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
   resources :ios
 
-  devise_for :users
+  get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
 
   get 'users/chatroom', to: 'users#chatrooms', as: 'user_chatrooms'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_chatrooms'
