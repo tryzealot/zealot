@@ -1,4 +1,6 @@
 class Api::V1::AppController < Api::ApplicationController
+  protect_from_forgery with: :null_session
+
   before_filter :validate_params
 
   def upload
