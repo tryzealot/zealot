@@ -7,4 +7,9 @@ class VisitorsController < ApplicationController
     end
   end
 
+
+  def wechat
+    
+  end
+
 end

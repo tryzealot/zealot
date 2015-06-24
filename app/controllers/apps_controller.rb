@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :check_user_logged_in!
 
   def index
     if user_signed_in?
@@ -50,5 +50,12 @@ class AppsController < ApplicationController
     App.find_by(slug: params[:slug]).destroy
     redirect_to apps_path
   end
+
+  private
+    def check_user_logged_in!
+      unless request.user_agent.include?"MicroMessenger"
+        authenticate_user!
+      end
+    end
 
 end
