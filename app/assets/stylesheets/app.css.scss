@@ -23,3 +23,55 @@ div.app-container p.qr_code img {
   max-width: 240px;
   max-height: 240px;
 }
+
+
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .7;
+  z-index: 103;
+}
+
+.wechat-tips {
+  position: fixed;
+  width: 100%;
+  text-align: right;
+  z-index: 103;
+  padding-top: 14px;
+  box-sizing: border-box;
+}
+
+.wechat-tips span {
+  text-align: left;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #fff;
+  margin-right: 10px;
+  font-weight: 700;
+  line-height: 30px;
+  display: inline-block;
+}
+
+.wechat-tips img {
+  width: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 13px;
+  margin-right: 10px;
+}
+
+
+@media (min-width: 420px) {
+  .wechat-tips span {
+    margin-right: 15px;
+  }
+
+  .wechat-tips img {
+    margin-right: 20px;
+  }
+}
