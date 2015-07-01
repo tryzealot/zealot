@@ -33,7 +33,7 @@ module ApplicationHelper
     device = if iPhone?
       "iPhone"
     elsif iPad?
-      "iPad"
+      "iPhone"
     elsif android?
       "Android"
     else
