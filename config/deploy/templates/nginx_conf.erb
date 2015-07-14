@@ -31,20 +31,24 @@ server {
   try_files $uri/index.html $uri @puma_<%= fetch(:nginx_config_name) %>;
 
   location @puma_<%= fetch(:nginx_config_name) %> {
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
+    proxy_set_header  Host              $http_host;
+    proxy_set_header  X-Real-IP         $remote_addr;
+    proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+
     proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-    proxy_set_header X-Accel-Mapping /=/files/;
+    proxy_set_header X-Accel-Mapping /download/=/uploads/apps/;
+
     proxy_redirect off;
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
+
     # limit_req zone=one;
     access_log <%= shared_path %>/log/nginx.access.log;
     error_log <%= shared_path %>/log/nginx.error.log;
   }
 
-  location ~ /files(.*) {
-    internal;             
-    alias $1;
+  location ~ /download/(.*) {
+    internal;
+    alias uploads/apps/$1;
   }
 
   location ^~ /assets/ {
