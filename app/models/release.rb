@@ -22,7 +22,7 @@ class Release < ActiveRecord::Base
   end
 
   def filename
-    created_at.strftime('%Y%m%d%H%M') + '_' + app.slug + file_ext
+    [app.slug, release_version, build_version].join('_') + file_ext
   end
 
   def content_type
