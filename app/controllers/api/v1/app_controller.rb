@@ -31,6 +31,8 @@ class Api::V1::AppController < Api::ApplicationController
         store_url: params[:store_url],
         icon: params[:icon_url],
         changelog: params[:changelog],
+        filesize: file.size,
+        extra: MultiJson.dump(params)
       )
 
       storage = Fog::Storage.new({
@@ -101,33 +103,11 @@ class Api::V1::AppController < Api::ApplicationController
 
   def download
     @release = Release.find(params[:release_id])
-    fileext = case @release.app.device_type.downcase
-    when 'iphone', 'ipad', 'ios'
-      '.ipa'
-    when 'android'
-      '.apk'
-    end
 
-    file = File.join(
-      "public/uploads/apps",
-      @release.app.user.id.to_s,
-      @release.app_id.to_s,
-      "#{@release.id.to_s}#{fileext}"
-    )
-
-    filename = @release.created_at.strftime('%Y%m%d%H%M') + '_' + @release.app.slug + fileext
-
-    headers['Content-Length'] = File.size(file)
-    headers['Content-Description'] = 'File Transfer'
-    headers['Content-Disposition'] = "attachment; filename=#{filename}"
-    headers['Content-Transfer-Encoding'] =  'binary'
-    headers['Expires'] = 0
-    headers['Cache-Control'] = 'must-revalidate, post-check=0, pre-check=0'
-    headers['Pragma'] = 'public'
-
-    send_file file,
-      filename: filename,
-      type: 'application/octet-stream',
+    headers['Content-Length'] = @release.filesize
+    send_file @release.file,
+      filename: @release.filename,
+      type: @release.content_type,
       x_sendfile: true
   end
 
