@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228025835) do
+ActiveRecord::Schema.define(version: 20150714024821) do
 
   create_table "apps", force: true do |t|
     t.integer  "user_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150228025835) do
 
   create_table "releases", force: true do |t|
     t.integer  "app_id",          null: false
+    t.integer  "filesize"
     t.string   "release_version", null: false
     t.string   "build_version",   null: false
     t.string   "identifier",      null: false
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150228025835) do
     t.string   "store_url"
     t.string   "icon"
     t.text     "changelog"
+    t.text     "extra"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

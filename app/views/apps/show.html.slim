@@ -18,8 +18,8 @@ div.row.app-container
         p.version
           | 版本: #{@release.release_version} (#{@release.build_version})
           |  / Build：#{@release.version}
-          |  / 大小: #{number_to_human_size(@release.filesize)}
-          |  / 更新于： #{time_ago_in_words(@release.created_at)}
+          |  / 大小：#{number_to_human_size(@release.filesize)}
+          |  / 更新于：#{time_ago_in_words(@release.created_at)}
 
         p
         - if detect_device == @app.device_type
