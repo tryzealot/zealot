@@ -105,10 +105,7 @@ class Api::V1::AppController < Api::ApplicationController
     @release = Release.find(params[:release_id])
 
     # headers['Content-Length'] = @release.filesize
-    send_file @release.file,
-      filename: @release.filename,
-      type: 'application/octet-stream',#@release.content_type,
-      dispostion: "attachment",
+    send_file @release.file, filename: @release.filename
   end
 
   private
