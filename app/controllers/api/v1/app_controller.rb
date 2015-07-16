@@ -104,7 +104,9 @@ class Api::V1::AppController < Api::ApplicationController
   def download
     @release = Release.find(params[:release_id])
 
-    # headers['Content-Length'] = @release.filesize
+    headers['Content-Length'] = @release.filesize
+    headers['X-Accel-Redirect'] = @release.file
+
     send_file @release.file, filename: @release.filename
   end
 
