@@ -107,7 +107,7 @@ class Api::V1::AppController < Api::ApplicationController
     headers['Content-Length'] = @release.filesize
     headers['X-Accel-Redirect'] = @release.file
 
-    send_file @release.file, filename: @release.filename
+    send_file @release.file, filename: @release.filename, x_sendfile: true
   end
 
   private
