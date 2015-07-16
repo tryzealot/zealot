@@ -36,17 +36,17 @@ class Api::V1::AppController < Api::ApplicationController
       )
 
       storage = Fog::Storage.new({
-        :local_root => "public/uploads/apps",
+        :local_root => "public",
         :provider   => 'Local'
       })
 
       directory = storage.directories.create(
-        :key => File.join(@user.id.to_s, @app.id.to_s),
+        :key => File.join("uploads", "apps"),
       )
 
       upload_file = directory.files.create(
         :body => file.read,
-        :key  => "#{@release.id.to_s}#{fileext}",
+        :key  => "#{@app.id.to_s}_#{@release.id.to_s}#{fileext}",
       )
 
       upload_file.save
@@ -108,6 +108,8 @@ class Api::V1::AppController < Api::ApplicationController
     send_file @release.file,
       filename: @release.filename,
       type: @release.content_type,
+      dispostion: "inline",
+      stream: true,
       x_sendfile: true
   end
 

@@ -15,9 +15,7 @@ class Release < ActiveRecord::Base
   def file
     File.join(
       "public/uploads/apps",
-      app.user.id.to_s,
-      app_id.to_s,
-      "#{id.to_s}#{file_ext}"
+      "#{app_id.to_s}_#{id.to_s}#{file_ext}"
     )
   end
 
