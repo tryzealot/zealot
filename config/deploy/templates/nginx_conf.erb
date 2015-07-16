@@ -48,8 +48,8 @@ server {
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
 
     # limit_req zone=one;
-    access_log <%= shared_path %>/log/nginx.access.log;
-    error_log <%= shared_path %>/log/nginx.error.log;
+    access_log <%= shared_path %>/log/nginx.access.log debug;
+    error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 
   location ^~ /assets/ {
