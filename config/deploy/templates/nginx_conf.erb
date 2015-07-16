@@ -32,7 +32,7 @@ server {
 
   location ~ /download/(.*) {
     internal;
-    alias <%= current_path %>/public/uploads/apps/$1;
+    alias /var/project/mobile/apps;
   }
 
   location @puma_<%= fetch(:nginx_config_name) %> {
@@ -43,12 +43,12 @@ server {
     proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
 
     proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-    proxy_set_header X-Accel-Mapping <%= current_path %>/public/uploads/apps/=/download/;
+    proxy_set_header X-Accel-Mapping /var/project/mobile/apps/=/download/;
 
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
 
     # limit_req zone=one;
-    access_log <%= shared_path %>/log/nginx.access.log debug;
+    access_log <%= shared_path %>/log/nginx.access.log;
     error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 

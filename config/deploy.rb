@@ -55,6 +55,10 @@ namespace :deploy do
     end
   end
 
+  # task :storage_link, :except => { :no_release => true } do
+  #   execute :ln, "-nFs #{deploy_to}/shared/uploads #{latest_release}/public/uploads"
+  # end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -63,6 +67,7 @@ namespace :deploy do
       # end
     end
   end
+
 
   after :finishing, 'deploy:cleanup'
 
