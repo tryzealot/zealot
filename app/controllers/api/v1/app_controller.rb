@@ -107,7 +107,7 @@ class Api::V1::AppController < Api::ApplicationController
     headers['Content-Length'] = @release.filesize
     send_file @release.file,
       filename: @release.filename,
-      type: @release.content_type,
+      type: 'application/octet-stream',#@release.content_type,
       dispostion: "inline",
       stream: true,
       x_sendfile: true
