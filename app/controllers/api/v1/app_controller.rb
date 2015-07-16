@@ -36,12 +36,12 @@ class Api::V1::AppController < Api::ApplicationController
       )
 
       storage = Fog::Storage.new({
-        :local_root => "public",
+        :local_root => "/var",
         :provider   => 'Local'
       })
 
       directory = storage.directories.create(
-        :key => File.join("uploads", "apps"),
+        :key => File.join("project", "mobile", "apps"),
       )
 
       upload_file = directory.files.create(

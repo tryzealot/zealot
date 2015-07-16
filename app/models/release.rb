@@ -14,7 +14,7 @@ class Release < ActiveRecord::Base
 
   def file
     File.join(
-      "public/uploads/apps",
+      "/var/project/mobile/apps",
       "#{app_id.to_s}_#{id.to_s}#{file_ext}"
     )
   end
