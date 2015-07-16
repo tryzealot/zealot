@@ -37,8 +37,8 @@ server {
     proxy_set_header  X-Real-IP         $remote_addr;
     proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
 
-    #proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-    #proxy_set_header X-Accel-Mapping /var/project/mobile/apps/=/download/;
+    #proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;
+    #proxy_set_header  X-Accel-Mapping   /download/=/var/project/mobile/apps/;
 
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
 
@@ -49,7 +49,7 @@ server {
 
   #location ~ /download/(.*) {
   #  internal;
-  #  alias /var/project/mobile/apps/;
+  #  alias /var/project/mobile/apps/$1;
   #}
 
   location ^~ /assets/ {
