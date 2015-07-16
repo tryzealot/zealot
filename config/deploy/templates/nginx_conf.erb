@@ -47,10 +47,10 @@ server {
     error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 
-  location ~ /download/(.*) {
-    internal;
-    alias /var/project/mobile/apps/;
-  }
+  #location ~ /download/(.*) {
+  #  internal;
+  #  alias /var/project/mobile/apps/;
+  #}
 
   location ^~ /assets/ {
     gzip_static on;
