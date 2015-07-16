@@ -104,13 +104,11 @@ class Api::V1::AppController < Api::ApplicationController
   def download
     @release = Release.find(params[:release_id])
 
-    headers['Content-Length'] = @release.filesize
+    # headers['Content-Length'] = @release.filesize
     send_file @release.file,
       filename: @release.filename,
       type: 'application/octet-stream',#@release.content_type,
-      dispostion: "inline",
-      stream: true,
-      x_sendfile: true
+      dispostion: "attachment",
   end
 
   private
