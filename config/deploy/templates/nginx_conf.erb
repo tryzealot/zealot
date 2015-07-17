@@ -38,7 +38,7 @@ server {
     proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
 
     #proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;
-    #proxy_set_header  X-Accel-Mapping   /download/=/var/project/mobile/apps/;
+    #proxy_set_header  X-Accel-Mapping   /var/project/mobile/apps/=/download/;
 
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
 
