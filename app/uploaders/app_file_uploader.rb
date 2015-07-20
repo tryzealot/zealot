@@ -3,7 +3,7 @@ class AppFileUploader < CarrierWave::Uploader::Base
 
   def store_dir
     path = Rails.env.development? ? "uploads/apps" : "/var/project/mobile/apps"
-    "#{path}/#{model.app.id}/ #{model.id}"
+    "#{path}/a#{model.app.id}/r#{model.id}"
   end
 
   def md5
