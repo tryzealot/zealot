@@ -20,47 +20,35 @@ class Api::V1::AppController < Api::ApplicationController
 
     @app.save!
 
-    file = params.delete :file
-    fileext = File.extname(file.original_filename)
 
-    if file.is_a?(ActionDispatch::Http::UploadedFile) && [".ipa", ".apk"].include?(fileext)
+    file_md5 = Digest::MD5.hexdigest(params[:file].tempfile.read.to_s)
+
+    status = 200
+    @release = @app.releases.find_by(
+      identifier: params[:identifier],
+      release_version: params[:release_version],
+      build_version: params[:build_version],
+      md5: file_md5
+    )
+
+    unless @release
+      status = 201
+
+      extra = params.clone
+      extra.delete(:file)
       @release = @app.releases.create(
+        identifier: params[:identifier],
         release_version: params[:release_version],
         build_version: params[:build_version],
-        identifier: params[:identifier],
         store_url: params[:store_url],
         icon: params[:icon_url],
         changelog: params[:changelog],
-        filesize: file.size,
-        extra: MultiJson.dump(params)
+        file: params[:file],
+        extra: MultiJson.dump(extra)
       )
-
-      storage = Fog::Storage.new({
-        :local_root => "/var",
-        :provider   => 'Local'
-      })
-
-      directory = storage.directories.create(
-        :key => File.join("project", "mobile", "apps"),
-      )
-
-      upload_file = directory.files.create(
-        :body => file.read,
-        :key  => "#{@app.id.to_s}_#{@release.id.to_s}#{fileext}",
-      )
-
-      upload_file.save
-
-      return render json: @app.to_json(include: [:releases])
-      {
-        app: @app,
-        release: @release,
-      }
-    else
-      return render json: {
-        error: 'file is not allow file type: ipa/apk'
-      }, status: 428
     end
+
+    return render json: @release.to_json(include: [:app]), status: status
   end
 
   def info

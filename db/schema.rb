@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714024821) do
+ActiveRecord::Schema.define(version: 20150720080914) do
 
   create_table "apps", force: true do |t|
     t.integer  "user_id"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20150714024821) do
     t.string   "store_url"
     t.string   "icon"
     t.text     "changelog"
+    t.string   "md5"
+    t.string   "file"
     t.text     "extra"
     t.datetime "created_at"
     t.datetime "updated_at"

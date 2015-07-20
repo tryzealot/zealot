@@ -34,6 +34,7 @@ gem 'fog'
 gem 'CFPropertyList'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'browser'
+gem 'carrierwave'
 
 group :development do
   gem 'better_errors'
