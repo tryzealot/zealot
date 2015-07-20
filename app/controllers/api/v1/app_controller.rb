@@ -93,7 +93,7 @@ class Api::V1::AppController < Api::ApplicationController
     @release = Release.find(params[:release_id])
 
     headers['Content-Length'] = @release.filesize
-    send_file @release.file.path, filename: @release.download_filename#, x_sendfile: true
+    send_file @release.file.path, filename: @release.download_filename, x_sendfile: true
   end
 
   private
