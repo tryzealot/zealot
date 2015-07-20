@@ -68,6 +68,11 @@ GEM
     capistrano3-puma (1.0.0)
       capistrano (~> 3.0)
       puma (>= 2.6)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
@@ -396,6 +401,7 @@ DEPENDENCIES
   capistrano-rails-console
   capistrano-rvm
   capistrano3-puma
+  carrierwave
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
