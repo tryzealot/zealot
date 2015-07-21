@@ -96,7 +96,7 @@ class Api::V1::AppController < Api::ApplicationController
     send_file @release.file.path,
       type: @release.content_type,
       filename: @release.file.filename,
-      disposition: "attachment; filename=\"@release.download_filename\"",
+      disposition: "attachment; filename=\"#{@release.download_filename}\"",
       url_based_filename: @release.download_filename
   end
 

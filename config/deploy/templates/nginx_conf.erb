@@ -47,7 +47,7 @@ server {
     error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 
-  location ~ /apps/(.*) {
+  location ~ /apps/(\d+) {
     internal;
     root /var/project/mobile/apps/;
   }
