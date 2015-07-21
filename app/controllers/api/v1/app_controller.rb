@@ -94,8 +94,9 @@ class Api::V1::AppController < Api::ApplicationController
 
     headers['Content-Length'] = @release.filesize
     send_file @release.file.path,
+      type: @release.content_type,
       filename: @release.file.filename,
-      disposition: 'inline'
+      url_based_filename: @release.download_filename
   end
 
   private
