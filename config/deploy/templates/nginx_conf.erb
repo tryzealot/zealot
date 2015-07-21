@@ -37,8 +37,8 @@ server {
     proxy_set_header  X-Real-IP         $remote_addr;
     proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
 
-    proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;
-    proxy_set_header  X-Accel-Mapping   /var/=/var/project/mobile/apps/;
+    #proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;
+    #proxy_set_header  X-Accel-Mapping   /uploads/=/var/project/mobile/apps/;
 
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
 
@@ -47,38 +47,38 @@ server {
     error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 
-  location ~ /var/(.*) {
-    internal;
-    alias /var/project/mobile/apps/$1;
-  }
+  #location ~ /uploads/(.*) {
+  #  internal;
+  #  alias /var/project/mobile/apps/$1;
+  #}
 
-  location ^~ /assets/ {
-    gzip_static on;
-    expires max;
-    add_header Cache-Control public;
-  }
-
-  location = /50x.html {
-    root html;
-  }
-
-  location = /404.html {
-    root html;
-  }
-
-  location @503 {
-    error_page 405 = /system/maintenance.html;
-    if (-f $document_root/system/maintenance.html) {
-      rewrite ^(.*)$ /system/maintenance.html break;
-    }
-    rewrite ^(.*)$ /503.html break;
-  }
-
-  if ($request_method !~ ^(GET|HEAD|PUT|POST|DELETE|OPTIONS)$ ){
-    return 405;
-  }
-
-  if (-f $document_root/system/maintenance.html) {
-    return 503;
-  }
+#  location ^~ /assets/ {
+#    gzip_static on;
+#    expires max;
+#    add_header Cache-Control public;
+#  }
+#
+#  location = /50x.html {
+#    root html;
+#  }
+#
+#  location = /404.html {
+#    root html;
+#  }
+#
+#  location @503 {
+#    error_page 405 = /system/maintenance.html;
+#    if (-f $document_root/system/maintenance.html) {
+#      rewrite ^(.*)$ /system/maintenance.html break;
+#    }
+#    rewrite ^(.*)$ /503.html break;
+#  }
+#
+#  if ($request_method !~ ^(GET|HEAD|PUT|POST|DELETE|OPTIONS)$ ){
+#    return 405;
+#  }
+#
+#  if (-f $document_root/system/maintenance.html) {
+#    return 503;
+#  }
 }
