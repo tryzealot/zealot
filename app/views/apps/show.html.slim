@@ -1,9 +1,9 @@
 - content_for :title do
   = @app.name
-    
+
 div.row.app-container
   - unless user_agent.include?("MicroMessenger") && ! user_signed_in?
-  
+
     == render 'apps/install_cert'
 
     div.col-sm-8.app-info
@@ -23,7 +23,7 @@ div.row.app-container
 
         p
         - if detect_device == @app.device_type
-          button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 下载安装
+          button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
         - elsif [:mac, :windows, :linux].include?(browser.platform)
           = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
         - else
@@ -60,10 +60,10 @@ div.row.app-container
                     | #{release.release_version} (#{release.build_version})
                   td
                     = time_ago_in_words(release.created_at)
-                    
+
     h5
       = user_agent
-  
+
   - else
     javascript:
       $('.cover').removeClass('hide');
