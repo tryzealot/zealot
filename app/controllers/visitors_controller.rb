@@ -150,6 +150,11 @@ class VisitorsController < ApplicationController
       }
     ]
 
-    return render json: json, status: 200
+    return render json: {
+      status: 1,
+      info: "",
+      times: 0,
+      data: json
+    }, status: 200
   end
 end
