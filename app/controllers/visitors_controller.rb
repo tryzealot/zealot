@@ -21,19 +21,19 @@ class VisitorsController < ApplicationController
             id: 238917,
             cnname: "冲绳美丽海水族馆",
             enname: "Okinawa Churaumi Aquarium",
-            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+            photo: "http://pic.qyer.com/album/user/632/9/R0pXQhMAYw/index/640"
           },
           {
             id: 238917,
             cnname: "万座毛",
             enname: "Manzamō",
-            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+            photo: "http://pic.qyer.com/album/user/324/93/QktRSxkOZQ/index/640"
           },
           {
             id: 238917,
             cnname: "波上宫",
             enname: "Naminouegu",
-            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
           }
         ]
       },
