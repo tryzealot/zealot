@@ -1,6 +1,6 @@
 source 'http://ruby.taobao.org'
 
-ruby '2.2.2'
+#ruby '2.2.2'
 
 gem 'rails', '4.1.6'
 gem 'sass-rails', '~> 4.0.3'
@@ -30,7 +30,7 @@ gem 'gemoji'
 gem 'awesome_print'
 gem 'jenkins_api_client'
 gem 'dragonfly', '~> 1.0.7'
-gem 'fog'
+# gem 'fog'
 gem 'CFPropertyList'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'browser'
