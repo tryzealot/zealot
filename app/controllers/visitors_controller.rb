@@ -14,6 +14,30 @@ class VisitorsController < ApplicationController
   def feed
     json = [
       {
+        type: "pois",
+        tips: "去冲绳，快来点评它们",
+        entry: [
+          {
+            id: 238917,
+            cnname: "冲绳美丽海水族馆",
+            enname: "Okinawa Churaumi Aquarium",
+            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+          },
+          {
+            id: 238917,
+            cnname: "万座毛",
+            enname: "Manzamō",
+            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400"
+          }
+        ]
+      },
+      {
         type: "discounts",
         tips: "去冲绳，不能错过的超低折扣",
         entry: [
