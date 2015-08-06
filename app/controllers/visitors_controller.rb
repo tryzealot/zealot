@@ -13,7 +13,7 @@ class VisitorsController < ApplicationController
 
   def feed
     page = params.fetch(:page, 1).to_i
-    count = params.fetch(:count, 2).to_i
+    count = params.fetch(:count, 10).to_i
 
     json = [
       {
@@ -155,7 +155,7 @@ class VisitorsController < ApplicationController
       },
       {
         type: "forum",
-        id: 120931,
+        id: 100,
         title: "境外购物",
         description: "喜刷刷喜刷刷",
         photo: "http://pic.qyer.com/icon/bbs/forums/100",
@@ -164,24 +164,24 @@ class VisitorsController < ApplicationController
       },
       {
         type: "mguide",
-        id: 120931,
-        title: "哈利波特电影系列之《哈利波特与魔法石》巡礼",
+        id: 2193,
+        title: "那片最蓝的海——冲绳潜水指南",
         photo: "http://pic.qyer.com/album/user/992/12/SEBXQxgFaQ/index/600x400",
-        description: "这里总结了哈利波特电影系列的第一部《哈利波特与魔法石》的一些景点。这些景点有的是第一部特有的，有的在后面的哈利波特电影中也有出现。当然还有一些场景没有列在里面，比如位于伦敦的澳大利亚官邸Austrialia House（古灵阁巫师银行的场景是在这座建筑的展示大厅里拍摄的）和哈罗公学（弗立维教授上课的课堂在这里拍摄）这两个地方都是不方便或者无法参观的。",
-        tips: "关于英国的主题推荐"
+        description: "冲绳的海是全世界潜水爱好者向往的地方。作为是日本唯一的亚热带县，环绕各个岛屿的大海，是全世界有名的潜水景点，一年四季都吸引着世界各地的潜水爱好者。超群的透明度，种类繁多的珊瑚礁，五彩缤纷的鱼群，除了这些自然条件的优势，冲绳还具备有资格的教练、知识丰富的讲解员、最新的潜水用品、完备的交通设施和医疗设施，让你在冲绳能够舒适、愉快、安全地享受潜水的乐趣。没有潜水执照的初学者也可以放心，潜水教练同行的“体验型潜水”也绝对不会让你错过那片最美的海底世界。",
+        tips: "关于冲绳的主题推荐"
       },
       {
         type: "ask",
-        id: 120931,
-        title: "美签面试不带护照可以吗？",
+        id: 879422,
+        title: "关于波兰Krakow Pass",
         user_id: 2361080,
         avatar: "http://static.qyer.com/data/avatar/002/36/10/80_avatar_big.jpg?v=1427726474",
-        description: "我的护照在加拿大领馆里，美签面试的时候不一定能拿到，如果只凭DS160和预约确认是否能面试？最好的可能是VO发给221G让我补护照，是吗？最坏的打算是根本不让面试，重新约时间。不知道有没有人有过类似的经历？穷的连护照都给不起。",
+        description: "下星期出发去krakow。要去k三天半，计划一天去盐矿，一天去集中营，剩下的一天逛老城区。酒店订在距离老城区2.3公里的地方，酒店楼下就有电车站。在网站查了一下城市交通卡，有3天和2天的选择，分别需要120pln和100pln.有没有哪位小伙伴买过这个卡，到底划不划算？还是单独买各种交通票？",
         tips: "如果你知道，快来帮帮TA"
       },
       {
         type: "thread",
-        id: 1235,
+        id: 1098352,
         views: 9028613,
         title: "【摄影小赛】穷游摄影小赛之痴迷－－发美图写点评，Gopro等你拿！",
         photo: "http://pic.qyer.com/album/user/1005/3/QElVRxoEaU0/index/680x400",
@@ -189,26 +189,26 @@ class VisitorsController < ApplicationController
       },
       {
         type: "discount",
-        id: 120931,
-        title: "微笑的印度洋眼泪，7日锡兰行（附超实用防骗防病攻略，非美图，纯干货已完结）",
+        id: 50072,
+        title: "上海直飞福冈5天往返含税机票（含9.3小长假）",
         photo: "http://pic.qyer.com/public/picstock/2014/09/12/14105211358998/600x400",
         price: "1999元",
         tips: "超值特惠，还有机会"
       },
       {
         type: "city",
-        id: 120931,
-        cnname: "冲绳",
-        enname: "Okinawa",
-        photo: "http://pic.qyer.com/album/user/863/66/SU9WRBwOYA/index/600x400",
+        id: 8603,
+        cnname: "大阪",
+        enname: "Osaka",
+        photo: "http://pic.qyer.com/album/user/387/88/QkFSShIHaQ/index/600x400",
         tips: "足迹相同的小伙伴正在计划"
       },
       {
         type: "country",
-        id: 120931,
-        cnname: "捷克",
-        enname: "Czech Republic",
-        photo: "http://pic.qyer.com/album/user/350/25/QkxVQB8GYw/index/600x400",
+        id: 182,
+        cnname: "西班牙",
+        enname: "Spain",
+        photo: "http://pic.qyer.com/album/100/0e/1853557/index/600x400",
         tips: "你可能喜欢的国家"
       }
     ]
