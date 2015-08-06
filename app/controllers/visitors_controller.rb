@@ -12,6 +12,9 @@ class VisitorsController < ApplicationController
   end
 
   def feed
+    page = params.fetch(:page, 1).to_i
+    count = params.fetch(:count, 2).to_i
+
     json = [
       {
         type: "pois",
@@ -32,6 +35,42 @@ class VisitorsController < ApplicationController
           {
             id: 238917,
             cnname: "波上宫",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫1",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫2",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫3",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫4",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫5",
+            enname: "Naminouegu",
+            photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
+          },
+          {
+            id: 238917,
+            cnname: "波上宫6",
             enname: "Naminouegu",
             photo: "http://pic.qyer.com/album/user/747/37/Rk1SQR0CaA/index/640"
           }
@@ -174,11 +213,21 @@ class VisitorsController < ApplicationController
       }
     ]
 
+    max_page = json.count / count
+    max_page += 1 if json.count % count != 0
+
+    start_index = (page - 1) * count
+    end_index = start_index + count - 1
+
+    data = json[start_index..end_index] ? json[start_index..end_index] : []
+
     return render json: {
       status: 1,
       info: "",
       times: 0,
-      data: json
+      start: start_index,
+      end: end_index,
+      data: data
     }, status: 200
   end
 end
