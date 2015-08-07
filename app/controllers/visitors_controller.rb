@@ -251,6 +251,7 @@ class VisitorsController < ApplicationController
         title: "关于波兰Krakow Pass",
         user_id: 2361080,
         avatar: "http://static.qyer.com/data/avatar/002/36/10/80_avatar_big.jpg?v=1427726474",
+        url: "http://appview.qyer.com/newask/ask/quedetail?id=879578",
         description: "下星期出发去krakow。要去k三天半，计划一天去盐矿，一天去集中营，剩下的一天逛老城区。酒店订在距离老城区2.3公里的地方，酒店楼下就有电车站。在网站查了一下城市交通卡，有3天和2天的选择，分别需要120pln和100pln.有没有哪位小伙伴买过这个卡，到底划不划算？还是单独买各种交通票？",
         tips: "如果你知道，快来帮帮TA"
       },
