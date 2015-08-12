@@ -8,21 +8,19 @@ div.container
     form.navbar-form.navbar-left role="search" method="GET"
       div.form-group
         input.form-control type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
+        button.btn.btn-default type="submit" 查询
         p.small 查询可能有点慢，请耐心等待！
-        button.btn.btn-default name="type" value="mini" type="submit" 查询用户信息
-        button.btn.btn-default name="type" value="all" type="submit" 查询全部信息
-        
     div.clearfix
 
     div.row
-      h3 用户信息
       - if @user
+        h3 用户信息
         table.table.table-striped.table-bordered
           tr
             th ID
             th 箭扣 ID
             th 用户名
-            th 聊天室在线
+            th 箭扣在线
           tr
             td
               = @member.uid
@@ -39,15 +37,17 @@ div.container
         div.alert.alert-warning 没有匹配到该用户
 
     div.row
-      h3 聊天室信息
-      span#chatroom-tips
-      div#chatroom-ds style="display: none"
-        div.clearfix
-        table.table.table-striped.table-bordered
-          tr
-            th.col-md-2 箭扣聊天室ID
-            th.col-md-1 聊天室名称
-            th.col-md-2 用户加入聊天室时间
+      - if @user
+        h3 聊天室信息
+        button.btn.btn-default id="search_user_status" 查询聊天室状态
+        div#chatroom-ds style="display: none"
+          table.table.table-striped.table-bordered
+            tr
+              th.col-md-2 箭扣聊天室ID
+              th.col-md-1 聊天室名称
+              th.col-md-2 用户加入聊天室时间
+            / span
+            /   = link_to '一键退出', user_kickoff_chatrooms_path(@user), :class => ['btn', 'btn-danger']
         
     script
       = "var chatrooms = ["
@@ -56,12 +56,20 @@ div.container
       = "];"
       
     javascript:
-      var client_id = $('#client_id').html();
-      var search_count = 0;
-    
-      $(document).ready(function(){
+      function search_user_status()
+      { 
+        $('#search_user_status').attr('disabled', 'disabled');
         var client_id = $.trim($('#client_id').html());
-        console.log("client: %s", client_id);
+        
+        if (client_id == null || client_id == "")
+        {
+          $('#search_user_status').html("箭扣 ID 为空，不能查询，重新刷新本页面");
+          return;
+        }
+        
+        var search_count = 0;
+        console.log("search user status: %s", client_id);
+        
         for(var i = 0; i < chatrooms.length; i++)
         {
           var chatroom = chatrooms[i];
@@ -80,33 +88,37 @@ div.container
               var members = json.response.topic.parties;
               var joined_at = null;
               
-              if (chatrooms.length > search_count)
-              {
-                $('#chatroom-tips').html("查询聊天室：" + chatroom_name + "...");
-                
-                for (var index in members)
-                { 
-                  var member = members[index];
-                  Object.keys(member).forEach(function (key) 
-                  {
-                    if (client_id == key)
-                    {
-                      joined_at = member[key];
-                      console.log("client: %s is in chatroom", client_id);
-                    }
-                  });
-                }
-                if (joined_at != null)
-                {
-                  $('#chatroom-ds').css('display', 'block');
-                  $('#chatroom-ds table').append('<tr><td>' + chatroom_id +  '</td><td>' + chatroom_name + '</td><td>' + joined_at + '</td></tr>');
-                }
+              console.log("search no: %d/%d ", search_count, chatrooms.length, chatroom_name);
+              console.log(json);
+              
+              $('#search_user_status').html("查询聊天室：" + chatroom_name + "...");
+              for (var index in members)
+              { 
+                var member = members[index];
+                Object.keys(member).forEach(function(key) {
+                  if (client_id == key) joined_at = member[key];
+                });
               }
-              else
+              
+              if (joined_at != null)
               {
-                $('#chatroom-tips').html("查询完毕");
+                $('#chatroom-ds').css('display', 'block');
+                $('#chatroom-ds table').append('<tr><td>' + chatroom_id +  '</td><td>' + chatroom_name + '</td><td>' + joined_at + '</td></tr>');
+              }
+              
+              if (chatrooms.length == search_count)
+              {
+                search_count = 0;
+                $('#search_user_status').html("再次查询");
+                $('#search_user_status').removeAttr('disabled');
               }
             }
           });
         }
+      }
+    
+      $(document).ready(function(){
+        $('#search_user_status').click(function(){
+          search_user_status();
+        });
       });
