@@ -1,0 +1,29 @@
+ruby:
+  last_message = chatroom[:chatroom].messages.order("created_at DESC").take
+td
+  = chatroom[:chatroom].id
+td
+  ruby:
+    areaname = case chatroom[:chatroom].type
+      when 1 then "国家"
+      when 2 then "区域"
+      when 3 then "城市"
+    end
+  = areaname
+td
+  = chatroom[:chatroom].placeid
+td
+  = chatroom[:chatroom].im_topic_id
+td
+  = link_to chatroom[:chatroom].chatroom_name, chatroom
+td
+  = chatroom[:joined_at]
+td 
+  span.label.label-warning
+    = last_message.user_name
+  - if last_message.content_type == 'text'
+    = emojify(last_message.message)
+  - else
+    | [图片]
+td
+  = last_message.created_at
