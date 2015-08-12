@@ -260,9 +260,9 @@ class VisitorsController < ApplicationController
 
   def feed
     page = params.fetch(:page, 1).to_i
-    count = params.fetch(:count, 10).to_i
+    count = params.fetch(:count, 1).to_i
 
-    types = %w[thread discount forum mguide web city country ask discounts threads pois]
+    types = %w[thread ask web forum mguide city country threads discounts pois]
 
     data = []
     if page <= 50
@@ -287,7 +287,10 @@ class VisitorsController < ApplicationController
       times: 0,
       # start: start_index,
       # end: end_index,
-      data: data
+      data: {
+        feed: data,
+        request_id: "dddd|dd"
+      }
     }, status: 200
   end
 end
