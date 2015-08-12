@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   match '/404', via: :all, to: 'errors#not_found'
   match '/500', via: :all, to: 'errors#server_error'
 
-  get 'qyer/recommands/feed', to: 'visitors#feed', as: 'recommends_feed'
+  get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
 
   root to: 'visitors#index'
 
