@@ -8,45 +8,105 @@ div.container
     form.navbar-form.navbar-left role="search" method="GET"
       div.form-group
         input.form-control type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
-        button.btn.btn-default type="submit" 查找
         p.small 查询可能有点慢，请耐心等待！
+        button.btn.btn-default name="type" value="mini" type="submit" 查询用户信息
+        button.btn.btn-default name="type" value="all" type="submit" 查询全部信息
+        
     div.clearfix
 
     div.row
+      h3 用户信息
       - if @user
-        h3 用户信息
         table.table.table-striped.table-bordered
           tr
-            th 标识
-            th 箭扣用户标识
+            th ID
+            th 箭扣 ID
             th 用户名
+            th 聊天室在线
           tr
             td
               = @member.uid
-            td
+            td#client_id
               = @user.im_user_id
             td
               = link_to @member.username, user_messages_path(@member.uid)
+            td 
+              - if @user_online 
+                span.label.label-success 在线
+              - else
+                span.label.label-default 离线
       - elsif params[:user]
         div.alert.alert-warning 没有匹配到该用户
 
     div.row
-      - if @chatrooms && @chatrooms.size > 0
-        div
-          span.pull-right
-            = link_to '一键退出', user_kickoff_chatrooms_path(@user, topics: @chatrooms.map {|c| c.im_topic_id}.join(',')), :class => ['btn', 'btn-danger']
+      h3 聊天室信息
+      span#chatroom-tips
+      div#chatroom-ds style="display: none"
         div.clearfix
         table.table.table-striped.table-bordered
           tr
-            th.col-md-1 标识
-            th.col-md-1 聊天室类型
-            th.col-md-1 聊天室标识
-            th.col-md-2 箭扣聊天室标识
+            th.col-md-2 箭扣聊天室ID
             th.col-md-1 聊天室名称
-            th.col-md-4 最后发布消息
-            th.col-md-2 最后发布时间
-          - @chatrooms.each do |chatroom|
-            tr
-              = render chatroom
-      - elsif @user
-        div.alert.alert-warning 没有存在于任何聊天室
+            th.col-md-2 用户加入聊天室时间
+        
+    script
+      = "var chatrooms = ["
+      - @all_chatrooms.each do |c|
+        = raw "\n{\n\t'name': '#{c.chatroom_name}', \n\t'id': '#{c.im_topic_id}'\n},"
+      = "];"
+      
+    javascript:
+      var client_id = $('#client_id').html();
+      var search_count = 0;
+    
+      $(document).ready(function(){
+        var client_id = $.trim($('#client_id').html());
+        console.log("client: %s", client_id);
+        for(var i = 0; i < chatrooms.length; i++)
+        {
+          var chatroom = chatrooms[i];
+          $.ajax({
+            type: 'get',
+            url: 'http://api.im.qyer.com/v1/im/topic_info.json',
+            dataType: 'json',
+            data: { key: '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx', id: chatroom['id'], content_format: 'map' }
+          }).done(function(json){
+            search_count += 1;
+            
+            if (json.meta.code == 200)
+            {
+              var chatroom_id = json.response.topic.id;
+              var chatroom_name = json.response.topic.name;
+              var members = json.response.topic.parties;
+              var joined_at = null;
+              
+              if (chatrooms.length > search_count)
+              {
+                $('#chatroom-tips').html("查询聊天室：" + chatroom_name + "...");
+                
+                for (var index in members)
+                { 
+                  var member = members[index];
+                  Object.keys(member).forEach(function (key) 
+                  {
+                    if (client_id == key)
+                    {
+                      joined_at = member[key];
+                      console.log("client: %s is in chatroom", client_id);
+                    }
+                  });
+                }
+                if (joined_at != null)
+                {
+                  $('#chatroom-ds').css('display', 'block');
+                  $('#chatroom-ds table').append('<tr><td>' + chatroom_id +  '</td><td>' + chatroom_name + '</td><td>' + joined_at + '</td></tr>');
+                }
+              }
+              else
+              {
+                $('#chatroom-tips').html("查询完毕");
+              }
+            }
+          });
+        }
+      });
