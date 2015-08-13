@@ -21,67 +21,86 @@ div.container
     
     div.content
       h2 推荐行程
-      div.pull-right
-        button.btn.btn-xs.btn-danger 删除
-      div.operation
-        button.btn.btn-xs.btn-default 全选 
-      div.clearfix
-      table.table style="margin-top: 10px"
-        tr
-          th.col-md-1 选择
-          th.col-md-1 序号
-          th.col-md-2 类型
-          th.col-md-8 标题
-        tr
-          td 
-            input type="checkbox"
-          td 1
-          td POI
-          td
-            p 
-              | [推荐] 12:00
-              |  / 
-              a href="723910" 曼谷大皇宫
-              |  / 
-              | *****
-              |  /  
-              | 500m
-        tr
-          td 
-          td 2
-          td 参考线路
-          td
-            ol style="padding-left: 20px"
-              li
-                | [出租车]
-                |  11 分钟
-                |  / 
-                | ￥180
-                |  / 
-                | 机场 - 曼谷大皇宫
-              li
-                | [自驾]
-                |  11 分钟 
-                |  / 
-                | 23 公里
-                |  / 
-                | 机场 - 曼谷大皇宫
-                
-        tr
-          td 
-            input type="checkbox"
-          td 3
-          td POI
-          td
-            p 
-              | [推荐] 14:20
-              |  / 
-              a href="723910" 曼谷卧佛寺
-              |  / 
-              | *****
-              |  /  
-              | 1200m
-                  
+      ul.nav.nav-tabs role="tablist"
+        li.active role="presentation"
+          a href="#plan-1" aria-controls="plan-1" role="tab" data-toggle="tab"
+            | 推荐一
+        li role="presentation"
+          a href="#plan-2" aria-controls="plan-2" role="tab" data-toggle="tab"
+            | 推荐二
+        li role="presentation"
+          a href="#plan-3" aria-controls="plan-3" role="tab" data-toggle="tab"
+            | 推荐三
+    
+      div.tab-content style="margin-top:10px"
+        div#plan-1.tab-pane.active role="tabpanel"
+          div.pull-right
+            button.btn.btn-xs.btn-danger 删除
+          div.operation
+            button.btn.btn-xs.btn-default 全选 
+          div.clearfix
+          table.table style="margin-top: 10px"
+            tr
+              th.col-md-1 选择
+              th.col-md-1 序号
+              th.col-md-2 类型
+              th.col-md-8 标题
+            tr
+              td 
+                input type="checkbox"
+              td 1
+              td POI
+              td
+                p 
+                  | [推荐] 12:00
+                  |  / 
+                  a href="723910" 曼谷大皇宫
+                  |  / 
+                  | *****
+                  |  /  
+                  | 500m
+            tr
+              td 
+              td 2
+              td 参考线路
+              td
+                ol style="padding-left: 20px"
+                  li
+                    | [出租车]
+                    |  11 分钟
+                    |  / 
+                    | ￥180
+                    |  / 
+                    | 机场 - 曼谷大皇宫
+                  li
+                    | [自驾]
+                    |  11 分钟 
+                    |  / 
+                    | 23 公里
+                    |  / 
+                    | 机场 - 曼谷大皇宫
+                    
+            tr
+              td 
+                input type="checkbox"
+              td 3
+              td POI
+              td
+                p 
+                  | [推荐] 14:20
+                  |  / 
+                  a href="723910" 曼谷卧佛寺
+                  |  / 
+                  | *****
+                  |  /  
+                  | 1200m
+        
+        / div#plan-2.tab-pane.active role="tabpanel"
+        /   | 如上
+        /   
+        / div#plan-3.tab-pane.active role="tabpanel"
+        /   | 如上
+                    
       h3 猜你去过
       table.table
         tr
