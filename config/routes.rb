@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   resources :messages
-
+  
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
 
   match '/404', via: :all, to: 'errors#not_found'

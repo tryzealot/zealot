@@ -17,15 +17,13 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-#job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
-
+# job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
 
 every 30.minutes do
-  rake "sync_message", :output => {
-    :error => 'log/cron_sync_message_error.log',
-    :standard => 'log/cron_sync_message.log'
+  rake 'sync_message', output: {
+    error: 'log/cron_sync_message_error.log',
+    standard: 'log/cron_sync_message.log'
   }
 end
-
 
 # Learn more: http://github.com/javan/whenever

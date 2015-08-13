@@ -1,5 +1,4 @@
 class AppsController < ApplicationController
-
   before_filter :check_user_logged_in!
 
   def index
@@ -12,9 +11,7 @@ class AppsController < ApplicationController
 
   def show
     @app = App.find_by(slug: params[:slug])
-    if ! @app
-      raise ActionController::RoutingError.new('这里没有你找的东西')
-    end
+    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     @release = @app.releases.last
   end
@@ -28,21 +25,15 @@ class AppsController < ApplicationController
 
   def edit
     @app = App.find_by(slug: params[:slug])
-    if ! @app
-      raise ActionController::RoutingError.new('这里没有你找的东西')
-    end
+    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
   def update
     @app = App.find(params[:id])
-    if ! @app
-      raise ActionController::RoutingError.new('这里没有你找的东西')
-    end
+    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
-    @app.update({
-      name: params[:name],
-      slug: params[:slug]
-      })
+    @app.update(name: params[:name],
+                slug: params[:slug])
     redirect_to apps_path
   end
 
@@ -52,10 +43,8 @@ class AppsController < ApplicationController
   end
 
   private
-    def check_user_logged_in!
-      unless request.user_agent.include?"MicroMessenger"
-        authenticate_user!
-      end
-    end
 
+  def check_user_logged_in!
+    authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+  end
 end
