@@ -1,19 +1,38 @@
 - if user_signed_in?
   - if current_user.has_role? [:admin, :mobile]
-    li
-      = link_to 'App 列表', apps_path
-    li
-      = link_to 'dSYM 列表', ios_path
-  li
-    = link_to '聊天历史', messages_path
-  li
-    = link_to '聊天室', chatrooms_path
-  li
-    = link_to '用户状态', user_chatrooms_path
-  li
-    = link_to '编辑账户', edit_user_registration_path
-  li
-    = link_to '登出账户', destroy_user_session_path, :method=>'delete'
+    li.dropdown
+      a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 应用分发
+      ul.dropdown-menu
+        li
+          = link_to 'App 列表', apps_path
+        li.divider role="separator"
+        li
+          = link_to 'dSYM 列表', ios_path
+    li.dropdown
+      a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 演示功能
+      ul.dropdown-menu
+        li
+          = link_to '智能行程推荐', demo_plans_path
+    
+      
+  li.dropdown
+    a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 穷游聊天室
+    ul.dropdown-menu
+      li
+        = link_to '聊天历史', messages_path
+      li
+        = link_to '聊天室', chatrooms_path
+      li.divider role="separator"
+      li
+        = link_to '用户状态', user_chatrooms_path
+        
+  li.dropdown
+    a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 系统设置
+    ul.dropdown-menu
+      li
+        = link_to '编辑账户', edit_user_registration_path
+      li
+        = link_to '登出账户', destroy_user_session_path, :method=>'delete'
 - else
   li
     = link_to '登录账户', new_user_session_path

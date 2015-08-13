@@ -1,0 +1,47 @@
+- content_for :title do
+  = "用户每日行程"
+
+div.container
+  div.row
+    div.header
+      h2 用户每日行程
+      
+      form method="POST"
+        div.form-group  
+          label for="device_id" 用户设备
+          input.form-control type="text" name="device_id" value="21EBA128-C884-4B22-8327-F9BD8A089FD7" disabled="disabled" 
+        div.form-group  
+          label for="date" 时间
+          input.form-control type="text" name="date" placeholder="YYYY-MM-DD hh:mm" 
+          
+        button.btn.btn-default type="submit" 给爷查询！
+    
+    div.content
+      h2 YYYY-MM-DD 日行程
+      table.table
+        tr
+          th.col-md-1 序号
+          th.col-md-8 景点
+          th.col-md-2 时间
+        tr
+          td 1
+          td
+            p 
+              | 12:00
+              |  / 
+              a href="723910" 曼谷大皇宫
+              |  / 
+              | *****
+          td
+            YYYY-MM-DD hh:mm
+        tr
+          td 2
+          td
+            p 
+              | 14:20
+              |  / 
+              a href="723910" 曼谷卧佛寺
+              |  / 
+              | *****
+          td
+            YYYY-MM-DD hh:mm
