@@ -4,6 +4,6 @@ class ErrorsController < ApplicationController
   end
 
   def server_error
-    
+
   end
 end

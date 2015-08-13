@@ -1,6 +1,6 @@
 class IosController < ApplicationController
-  load_and_authorize_resource :class => Ios
-  
+  load_and_authorize_resource class: Ios
+
   before_filter :authenticate_user!
 
   def index
@@ -10,7 +10,7 @@ class IosController < ApplicationController
   def destroy
     ios = Ios.find(params[:id])
     dsym_file = "public/uploads/ipa/#{ios.dsym_file}"
-    File.delete(dsym_file) if File.exists? dsym_file
+    File.delete(dsym_file) if File.exist? dsym_file
     ios.destroy
     redirect_to :back
   end
@@ -19,7 +19,6 @@ class IosController < ApplicationController
     ios = Ios.find(params[:id])
 
     file = "public/uploads/ipa/#{ios.dsym_file}"
-    send_file file, :type => 'application/zip', :x_sendfile => true
+    send_file file, type: 'application/zip', x_sendfile: true
   end
-	
 end
