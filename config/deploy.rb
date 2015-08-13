@@ -1,7 +1,7 @@
 set :application, 'mobile'
 set :repo_url, 'git@gitlab.dev:icyleaf/mobile.git'
 
-set :branch, 'develop' #proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+set :branch, 'develop' # proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
@@ -11,25 +11,23 @@ set :format, :pretty
 set :log_level, :info
 set :pty, true
 
-set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
+set :linked_files, %w(config/database.yml)
+set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
 
-
-set :rvm_type, :user                     # Defaults to: :auto
-set :rvm_ruby_version, '2.2.2'      # Defaults to: 'default'
+set :rvm_type, :user # Defaults to: :auto
+set :rvm_ruby_version, '2.2.2' # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
+set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
 
-set :bundle_env_variables, { 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1 }
-
-set :nginx_server_name, "mobile.2b6.me mobile.dev"
-set :nginx_sites_available_path, "/home/wangshen/nginx/sites-available"
-set :nginx_sites_enabled_path, "/home/wangshen/nginx/sites-enabled"
+set :nginx_server_name, 'mobile.2b6.me mobile.dev'
+set :nginx_sites_available_path, '/home/wangshen/nginx/sites-available'
+set :nginx_sites_enabled_path, '/home/wangshen/nginx/sites-enabled'
 
 set :puma_rackup, -> { File.join(current_path, 'config.ru') }
 set :puma_state, "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
-set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock" # accept array for multi-bind
 set :puma_conf, "#{shared_path}/puma.rb"
 set :puma_access_log, "#{shared_path}/log/puma_error.log"
 set :puma_error_log, "#{shared_path}/log/puma_access.log"
@@ -46,7 +44,6 @@ set :puma_prune_bundler, false
 # set :keep_releases, 5
 
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -68,12 +65,10 @@ namespace :deploy do
     end
   end
 
-
   after :finishing, 'deploy:cleanup'
 
   after :finished, 'whenever:update_crontab'
   after :finished, 'puma:config'
   after :finished, 'puma:nginx_config'
   after :finished, 'puma:restart'
-
 end

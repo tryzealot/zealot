@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
 
-  JK_KEY = "2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx".freeze
+  JK_KEY = '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx'.freeze
 
   def index
     @users = []
@@ -9,15 +9,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    unless @user == current_user
-      redirect_to :back, :alert => "Access denied."
-    end
+    redirect_to :back, alert: 'Access denied.' unless @user == current_user
   end
 
   def messages
-    @messages = Message.where(user_id:params[:id])
-                       .order('timestamp DESC')
-                       .paginate(:page => params[:page])
+    @messages = Message.where(user_id: params[:id])
+                .order('timestamp DESC')
+                .paginate(page: params[:page])
   end
 
   def chatrooms
@@ -27,8 +25,7 @@ class UsersController < ApplicationController
     if request.request_method == 'GET' && query
       @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take
       return unless @member
-      @user = Member.find_by(user_id:@member.uid)
-
+      @user = Member.find_by(user_id: @member.uid)
 
       if @user && ! @user.im_user_id.blank?
         logger.debug "Search user: #{@user.im_user_id}"
@@ -51,11 +48,11 @@ class UsersController < ApplicationController
 
   # 注销用户的聊天室
   def kickoff
-    @user = Member.find_by(user_id:params[:id])
+    @user = Member.find_by(user_id: params[:id])
     url = 'http://api.im.qyer.com/v1/im/remove_clients.json'
     query = {
-      :key => JK_KEY,
-      :client => @user.im_user_id,
+      key: JK_KEY,
+      client: @user.im_user_id
     }
 
     params[:topics].split(',').each do |id|
@@ -72,51 +69,52 @@ class UsersController < ApplicationController
       end
     end
 
-    redirect_to :back, :flash => {:notice => '该用户已退出所有聊天室'}
+    redirect_to :back, flash: { notice: '该用户已退出所有聊天室' }
   end
 
   private
-    def chatroom_info(chatroom, user)
-      url = "http://api.im.qyer.com/v1/im/topic_info.json"
-      query = {
-        :key => JK_KEY,
-        :content_format => 'map',
-        :id => chatroom.im_topic_id,
-      }
 
-      r = RestClient.get url, {:params => query}
-      ds = MultiJson.load r
+  def chatroom_info(chatroom, _user)
+    url = 'http://api.im.qyer.com/v1/im/topic_info.json'
+    query = {
+      key: JK_KEY,
+      content_format: 'map',
+      id: chatroom.im_topic_id
+    }
 
-      data = {
-        chatroom: nil,
-        joined_at: nil,
-      }
+    r = RestClient.get url, params: query
+    ds = MultiJson.load r
 
-      if r.code == 200 && ds['meta']['code'] == 200
-        if ds['response']['topic']['parties'].keys.include?@user.im_user_id
-          data = {
-            chatroom: c,
-            joined_at: ds['response']['topic']['parties'][@user.im_user_id]
-          }
-        end
-      end
+    data = {
+      chatroom: nil,
+      joined_at: nil
+    }
 
-      data
-    end
-
-    def user_status(user)
-      url = 'http://api.im.qyer.com/v1/im/client_status.json'
-      query = {
-        key: JK_KEY,
-        client: user.im_user_id
-      }
-
-      r = RestClient.get url, { :params => query}
-      ds = MultiJson.load r
-      status = if r.code == 200 && ds['meta']['code'] == 200
-        s = ds['response']['status'][0][user.im_user_id]
-      else
-        false
+    if r.code == 200 && ds['meta']['code'] == 200
+      if ds['response']['topic']['parties'].keys.include? @user.im_user_id
+        data = {
+          chatroom: c,
+          joined_at: ds['response']['topic']['parties'][@user.im_user_id]
+        }
       end
     end
+
+    data
+  end
+
+  def user_status(user)
+    url = 'http://api.im.qyer.com/v1/im/client_status.json'
+    query = {
+      key: JK_KEY,
+      client: user.im_user_id
+    }
+
+    r = RestClient.get url, params: query
+    ds = MultiJson.load r
+    status = if r.code == 200 && ds['meta']['code'] == 200
+               s = ds['response']['status'][0][user.im_user_id]
+             else
+               false
+    end
+  end
 end
