@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   namespace :demo do
     get 'plans/index', to: 'plans#index', as: 'plans'
+    post 'plans/index', to: 'plans#index', as: 'recommend_plans'
     get 'plans/oneday', to: 'plans#oneday', as: 'plans_oneday'
     get 'plans/create', to: 'plans#create', as: 'create_plans'
     get 'plans/destroy', to: 'plans#destroy', as: 'destroy_plans'
