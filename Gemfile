@@ -2,7 +2,7 @@ source 'http://ruby.taobao.org'
 
 #ruby '2.2.2'
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.3'
 gem 'sass-rails', '~> 4.0.3'
 # gem 'react-rails', github: 'reactjs/react-rails'
 gem 'uglifier', '>= 1.3.0'
