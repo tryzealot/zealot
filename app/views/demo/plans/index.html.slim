@@ -24,22 +24,22 @@ div.container
         h2 推荐行程
         ul.nav.nav-tabs role="tablist"
           li.active role="presentation"
-            a href="#plan-1" aria-controls="plan-1" role="tab" data-toggle="tab"
+            a href="#route-1" aria-controls="route-1" role="tab" data-toggle="tab"
               | 推荐一
           li role="presentation"
-            a href="#plan-2" aria-controls="plan-2" role="tab" data-toggle="tab"
+            a href="#route-2" aria-controls="route-2" role="tab" data-toggle="tab"
               | 推荐二
           li role="presentation"
-            a href="#plan-3" aria-controls="plan-3" role="tab" data-toggle="tab"
+            a href="#route-3" aria-controls="route-3" role="tab" data-toggle="tab"
               | 推荐三
       
         div.tab-content style="margin-top:10px"
           - @tours.each_with_index do |tour, i|
-            div.tab-pane role="tabpanel" id="plan-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
+            div.tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
               div.pull-right
-                button.btn.btn-xs.btn-danger 删除
+                button.btn.btn-xs.btn-danger.delete-route data-tab="route-#{i+1}" 删除
               div.operation
-                button.btn.btn-xs.btn-default.select-all data-tab="plan-#{i+1}" 全选 
+                button.btn.btn-xs.btn-default.select-all data-tab="route-#{i+1}" 全选 
               div.clearfix
               table.table style="margin-top: 10px"
                 tr
@@ -51,7 +51,7 @@ div.container
                   tr
                     td 
                       - if route[:type] == 'poi'
-                        input class="plan-#{i+1}-select" type="checkbox"
+                        input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
                     td
                       = no + 1
                     td
@@ -71,8 +71,8 @@ div.container
                           = route[:tripmode]
                           | ]
                           |  花费时间：
-                          = route[:traffic_time]
-                          | 秒
+                          = (route[:traffic_time] / 60).round
+                          | 分
                           
                           - if route[:segments].is_a?Array
                             ol
@@ -87,7 +87,7 @@ div.container
                       
             / tr
             /   td 
-            /     input.plan-1-select type="checkbox"
+            /     input.route-1-select type="checkbox"
             /   td 1
             /   td POI
             /   td
@@ -122,7 +122,7 @@ div.container
             /         
             / tr
             /   td 
-            /     input.plan-1-select type="checkbox"
+            /     input.route-1-select type="checkbox"
             /   td 3
             /   td POI
             /   td

@@ -14,3 +14,17 @@ $(document).ready ->
       $(element).attr('checked', !check_status)
       $(select_button).html(if check_status then '全选' else '反选')
     )
+
+  $('.delete-route').click ->
+    button = $(this)
+    checkbox = $(this).data('tab') + '-select:checked'
+
+    pois = []
+    $('.' + checkbox).each((i, element) ->
+      pois.push $(element).data('id')
+    )
+
+    if pois.length > 0
+      alert '你选择的景点有' + pois
+    else
+      alert '你没有选择要删除的景点'
