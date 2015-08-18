@@ -1,0 +1,10 @@
+.row.app-container
+  h1 编辑#{@release.app.name}##{@release.id} 更新日志
+  = form_for @release
+    .form-group
+      label for="changelog" 内容
+      textarea.form-control name="changelog" id="changelog" rows="10"
+        = @release.changelog
+        
+    button.btn.btn-default type="submit" 更新
+      
