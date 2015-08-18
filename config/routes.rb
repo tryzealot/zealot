@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
-
-  namespace :demo do
-    get 'plans/index', to: 'plans#index', as: 'plans'
-    post 'plans/index', to: 'plans#index', as: 'recommend_plans'
-    get 'plans/oneday', to: 'plans#oneday', as: 'plans_oneday'
-    get 'plans/create', to: 'plans#create', as: 'create_plans'
-    get 'plans/destroy', to: 'plans#destroy', as: 'destroy_plans'
-  end
-
   devise_for :users
 
-  get 'errors/not_found'
-  get 'errors/server_error'
+  get 'releases/index', to: 'releases#index', as: 'releases'
+  get 'releases/:id', to: 'releases#show', as: 'release'
+  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release'
+  patch 'releases/:id', to: 'releases#update'#, as: 'update_release'
+  get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
 
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/:slug', to: 'apps#show', as: 'app'
@@ -37,10 +31,22 @@ Rails.application.routes.draw do
 
   get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
 
+  get 'errors/not_found'
+  get 'errors/server_error'
+
   match '/404', via: :all, to: 'errors#not_found'
   match '/500', via: :all, to: 'errors#server_error'
 
   get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
+
+  namespace :demo do
+    get 'plans/index', to: 'plans#index', as: 'plans'
+    post 'plans/index', to: 'plans#index', as: 'recommend_plans'
+    get 'plans/oneday', to: 'plans#oneday', as: 'plans_oneday'
+    get 'plans/create', to: 'plans#create', as: 'create_plans'
+    get 'plans/destroy', to: 'plans#destroy', as: 'destroy_plans'
+  end
+
 
   root to: 'visitors#index'
 
