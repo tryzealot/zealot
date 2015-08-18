@@ -30,7 +30,10 @@ div.row.app-container
           button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
 
       div.changelog
-        h3 更新日志
+        h3 
+          | 更新日志 (
+          = link_to '编辑', edit_release_path(@release)
+          | )
         - if @release.changelog
           p
             = simple_format(@release.changelog)
