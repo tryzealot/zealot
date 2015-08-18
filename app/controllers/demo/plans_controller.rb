@@ -1,4 +1,5 @@
 class Demo::PlansController < ApplicationController
+  # before_filter :authenticate_user!
 
   def index
     @title = "智能行程推荐演示"
@@ -10,7 +11,6 @@ class Demo::PlansController < ApplicationController
     @lon.strip!
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
-    ap @today
 
     if request.request_method == 'POST'
       query = {
