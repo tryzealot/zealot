@@ -1,10 +1,10 @@
-- content_for :title do
-  = "智能行程推荐演示"
+= content_for :title do
+  = @title
 
 div.container
   div.row
     div.header
-      h2 智能行程推荐演示
+      h2 = @title
       
       form method="POST"
         div.form-group  
@@ -14,8 +14,11 @@ div.container
           label for="date" 时间
           input.form-control type="text" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d %H:%M')}"
         div.form-group  
-          label for="location" 经纬度
-          input.form-control type="text" name="location" placeholder="90.123132,-120.11111" value="#{@lat},#{@lon}"
+          label for="location" 
+          | 经纬度(
+          a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" 地址采集
+          | )
+          input.form-control type="text" name="location" placeholder="90.123132,-120.11111" value="#{@lon},#{@lat}"
           
         button.btn.btn-default type="submit" 给爷推荐！
     
@@ -33,139 +36,63 @@ div.container
             a href="#route-3" aria-controls="route-3" role="tab" data-toggle="tab"
               | 推荐三
       
-        div.tab-content style="margin-top:10px"
-          - @tours.each_with_index do |tour, i|
-            div.tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
-              div.pull-right
-                button.btn.btn-xs.btn-danger.delete-route data-tab="route-#{i+1}" 删除
-              div.operation
-                button.btn.btn-xs.btn-default.select-all data-tab="route-#{i+1}" 全选 
-              div.clearfix
-              table.table style="margin-top: 10px"
-                tr
-                  th.col-md-1 选择
-                  th.col-md-1 序号
-                  th.col-md-2 类型
-                  th.col-md-8 标题
-                - tour.each_with_index do |route, no|
+        div.tab-content style="margin-top:10px"  
+            - @tours.each_with_index do |tour, i|
+              div.tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
+                div.pull-right
+                  button.btn.btn-xs.btn-danger.delete-route data-tab="route-#{i+1}" 删除
+                div.operation
+                  button.btn.btn-xs.btn-default.select-all data-tab="route-#{i+1}" 全选 
+                div.clearfix
+                table.table style="margin-top: 10px"
                   tr
-                    td 
-                      - if route[:type] == 'poi'
-                        input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
-                    td
-                      = no + 1
-                    td
-                      = route[:type]
-                    td
-                      p
+                    th.col-md-1 选择
+                    th.col-md-1 序号
+                    th.col-md-2 类型
+                    th.col-md-8 标题
+                  - tour.each_with_index do |route, no|
+                    tr
+                      td 
                         - if route[:type] == 'poi'
-                          = Time.at(route[:arrival_time]).strftime('%H:%M')
-                          |  / 
-                          a href="http://place.qyer.com/poi/#{route[:poi_id]}" target="_blank"
-                            = route[:poiname] 
-                          |  / 
-                          = (route[:duration] * 60).round
-                          | 分
-                        - else 
-                          | [
-                          = route[:tripmode]
-                          | ]
-                          |  花费时间：
-                          = (route[:traffic_time] / 60).round
-                          | 分
-                          
-                          - if route[:segments].is_a?Array
-                            ol
-                              - route[:segments].each do |segment|
+                          input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
+                      td
+                        = no + 1
+                      td
+                        = route[:type]
+                      td
+                        p
+                          - if route[:type] == 'poi'
+                            = Time.at(route[:arrival_time]).strftime('%H:%M')
+                            |  / 
+                            a href="http://place.qyer.com/poi/#{route[:poi_id]}" target="_blank"
+                              = route[:poiname] 
+                            |  / 
+                            | 建议游玩 
+                            = (route[:duration] * 60).round
+                            | 分
+                            |  / 
+                            | 距离
+                            = geo_distance(@lat, @lon, route[:geo].first, route[:geo].last)
+                            | km
+                          - else 
+                            | [
+                            = route[:tripmode]
+                            | ]
+                            |  花费时间：
+                            = (route[:traffic_time] / 60).round
+                            | 分
+                            
+                            - if route[:segments].is_a?Array
+                              ol
+                                - route[:segments].each do |segment|
+                                  li
+                                    | 数据待解析
+                            - else
+                              ol
                                 li
-                                  | 数据待解析
-                          - else
-                            ol
-                              li
-                                = route[:segments]
+                                  = route[:segments]
                       
-                      
-            / tr
-            /   td 
-            /     input.route-1-select type="checkbox"
-            /   td 1
-            /   td POI
-            /   td
-            /     p 
-            /       | [推荐] 12:00
-            /       |  / 
-            /       a href="723910" 曼谷大皇宫
-            /       |  / 
-            /       | *****
-            /       |  /  
-            /       | 500m
-            / tr
-            /   td 
-            /   td 2
-            /   td 参考线路
-            /   td
-            /     ol style="padding-left: 20px"
-            /       li
-            /         | [出租车]
-            /         |  11 分钟
-            /         |  / 
-            /         | ￥180
-            /         |  / 
-            /         | 机场 - 曼谷大皇宫
-            /       li
-            /         | [自驾]
-            /         |  11 分钟 
-            /         |  / 
-            /         | 23 公里
-            /         |  / 
-            /         | 机场 - 曼谷大皇宫
-            /         
-            / tr
-            /   td 
-            /     input.route-1-select type="checkbox"
-            /   td 3
-            /   td POI
-            /   td
-            /     p 
-            /       | [推荐] 14:20
-            /       |  / 
-            /       a href="723910" 曼谷卧佛寺
-            /       |  / 
-            /       | *****
-            /       |  /  
-            /       | 1200m
-        
-      / h3 猜你去过【假数据】
-      / table.table
-      /   tr
-      /     th.col-md-1 序号
-      /     th.col-md-12 景点
-      /   tr
-      /     td 1
-      /     td 
-      /       p 
-      /         a href="723910" 曼谷大皇宫
-      /         |  / 
-      /         | *****
-      /         |  /  
-      /         | 1人去过
-      /   tr
-      /     td 2
-      /     td 
-      /       p 
-      /         a href="723910" 玉佛寺
-      /         |  / 
-      /         | *****
-      /         |  /  
-      /         | 1人去过
-      /   tr
-      /     td 3
-      /     td 
-      /       p 
-      /         a href="723910" 曼谷卧佛寺
-      /         |  / 
-      /         | *****
-      /         |  /  
-      /         | 1人去过
-      / 
-      / 
+    - else
+      .alert.alert-warning role="alert" style="margin-top: 10px"
+        p 没有找到适合的行程
+      

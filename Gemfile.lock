@@ -37,12 +37,15 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
     arel (6.0.3)
-    autoprefixer-rails (5.2.1.1)
+    autoprefixer-rails (5.2.1.2)
       execjs
       json
     awesome_print (1.6.1)
+    babel-source (5.8.19)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -92,6 +95,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    connection_pool (2.2.0)
     debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -103,19 +107,29 @@ GEM
     devise-i18n (0.12.1)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
-    dragonfly (1.0.10)
-      addressable (~> 2.3)
-      multi_json (~> 1.0)
-      rack (>= 1.3.0)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.0.8)
-    execjs (2.5.2)
+    execjs (2.6.0)
     ffi (1.9.10)
     formatador (0.2.5)
     gemoji (2.1.0)
+    geo-distance (0.2.0)
+      geo_point (~> 0.2.5)
+      geo_units (~> 0.2.4.1)
+    geo_calc (0.7.6)
+      activesupport (>= 3.0.1)
+      geo_units (~> 0.2.1)
+      i18n
+      require_all (~> 1.2.0)
+      sugar-high (~> 0.4.6.3)
+    geo_point (0.2.5)
+      geo_calc (~> 0.7.5)
+      geo_units (~> 0.2.1)
+    geo_units (0.2.4.1)
+      sugar-high (~> 0.4.6.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.13.0)
@@ -159,7 +173,7 @@ GEM
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
     mail (2.6.3)
@@ -193,7 +207,7 @@ GEM
     pry-rescue (1.4.2)
       interception (>= 0.5)
       pry
-    puma (2.12.3)
+    puma (2.13.4)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
@@ -214,7 +228,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -234,6 +248,14 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.2.0)
+    react-rails (1.1.0)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
+    require_all (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -250,9 +272,6 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     shellany (0.0.1)
-    simple_form (3.1.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -276,6 +295,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    sugar-high (0.4.6.4)
     temple (0.7.6)
     terminal-table (1.5.2)
     thor (0.19.1)
@@ -322,8 +342,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
-  dragonfly (~> 1.0.7)
   gemoji
+  geo-distance
   guard
   guard-concat
   guard-livereload
@@ -342,10 +362,10 @@ DEPENDENCIES
   rails (= 4.2.3)
   rails-timeago (~> 2.0)
   rails_layout
+  react-rails
   rest-client
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  simple_form
   slim-rails
   turbolinks
   uglifier (>= 1.3.0)
