@@ -3,7 +3,7 @@ html
   head
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     title
-      = content_for?(:title) ? yield(:title) : '穷游 App 身边人'
+      = yield(:title)
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Im'}"
     link[rel="apple-touch-icon-precomposed" sizes="72x72" href="#{image_url('touch-icon-iphone.png')}"]
     link[rel="apple-touch-icon-precomposed" sizes="144x144" href="#{image_url('touch-icon-iphone-retina.png')}"]

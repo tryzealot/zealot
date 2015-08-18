@@ -1,13 +1,16 @@
 class Demo::PlansController < ApplicationController
 
   def index
+    @title = "智能行程推荐演示"
+
     debug_mode = params.fetch 'debug', false
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-    @lat, @lon = params.fetch('location', '22.3245866064,114.173473119').split(',')
+    @lon, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
     @lat.strip!
     @lon.strip!
     @today = params.fetch 'date', Time.now
-    @today = (@today.is_a?String) ? DateTime.parse(@today) : @today
+    @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
+    ap @today
 
     if request.request_method == 'POST'
       query = {
@@ -43,18 +46,47 @@ class Demo::PlansController < ApplicationController
   def destroy
   end
 
+  def location(address)
+    url = 'http://api.map.baidu.com/geocoder/v2/'
+    params = {
+      address: address,
+      output: 'json',
+      ak: '4E23365d590adb14920d402a12929e2d'
+    }
+
+    status = false
+    data = []
+
+    logger.debug "Request url: #{url}?#{params.to_query}"
+    r = RestClient.get url, { params: params }
+    if r.code == 200
+      json = MultiJson.load r, symbolize_keys: true
+      if json[:status] == 0
+        data = json[:result]
+        status = true
+      else
+        data = json[:msg]
+      end
+    end
+
+    [status, data]
+  end
+
   private
-    def daytours(query)
+    def daytours(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      status = true
+      status = false
       data = []
-      r = RestClient.get url, { params: query }
+
+      logger.debug "Request url: #{url}?#{params.to_query}"
+      r = RestClient.get url, { params: params }
       if r.code == 200
         json = MultiJson.load r, symbolize_keys: true
+        logger.debug "response data: #{json}"
         if json[:status] == 'success'
+          status = true
           data = json[:data]
         else
-          status = false
           data = json[:data]
         end
       end
