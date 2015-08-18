@@ -1,19 +1,16 @@
-= content_for :title do
-  = @title
-
-div.container
-  div.row
-    div.header
+.container
+  .row
+    .header
       h2 = @title
       
       form method="POST"
-        div.form-group  
+        .form-group  
           label for="device_id" 用户设备
           input.form-control type="text" name="device_id" value="#{@device_id}" disabled="disabled" 
-        div.form-group  
+        .form-group  
           label for="date" 时间
           input.form-control type="text" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d %H:%M')}"
-        div.form-group  
+        .form-group  
           label for="location" 
           | 经纬度(
           a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" 地址采集
@@ -23,7 +20,7 @@ div.container
         button.btn.btn-default type="submit" 给爷推荐！
     
     - if @tours && @tours.length > 0
-      div.content
+      .content
         h2 推荐行程
         ul.nav.nav-tabs role="tablist"
           li.active role="presentation"
@@ -36,14 +33,14 @@ div.container
             a href="#route-3" aria-controls="route-3" role="tab" data-toggle="tab"
               | 推荐三
       
-        div.tab-content style="margin-top:10px"  
+        .tab-content style="margin-top:10px"  
             - @tours.each_with_index do |tour, i|
-              div.tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
-                div.pull-right
-                  button.btn.btn-xs.btn-danger.delete-route data-tab="route-#{i+1}" 删除
-                div.operation
-                  button.btn.btn-xs.btn-default.select-all data-tab="route-#{i+1}" 全选 
-                div.clearfix
+              .tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
+                .pull-right
+                  button.btn.btn-danger.delete-route data-tab="route-#{i+1}" 删除
+                .operation
+                  button.btn.btn-default.select-all data-tab="route-#{i+1}" 全选 
+                .clearfix
                 table.table style="margin-top: 10px"
                   tr
                     th.col-md-1 选择
@@ -96,3 +93,4 @@ div.container
       .alert.alert-warning role="alert" style="margin-top: 10px"
         p 没有找到适合的行程
       
+    = debug @tours
