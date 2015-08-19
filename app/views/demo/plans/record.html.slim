@@ -1,0 +1,42 @@
+- content_for :title do
+  | 记录用户坐标
+
+div.container
+  div.row
+    div.header
+      h2 用户每日坐标
+      
+      form method="POST"
+        div.form-group  
+          label for="device_id" 用户设备
+          input.form-control type="text" id="device_id" name="device_id" value="21EBA128-C884-4B22-8327-F9BD8A089FD7" disabled="disabled" 
+        div.form-group  
+          label for="date" 日期
+          input.form-control type="text" id="date" name="date" value="#{@today.strftime("%Y-%m-%d")}" 
+            
+        / button.btn.btn-default type="submit" 给爷查询！
+    
+    div.content
+      .pull-right
+        button#new-row.btn.btn-default 添加
+      h2 用户坐标
+      table#locations-table.table
+        thead
+          tr
+            th.col-md-4 时间
+            th.col-md-4 坐标
+            th.col-md-2 操作
+        tbody
+          - @locations.each_with_index do |item, i|
+            tr data-row="#{i}"
+              td
+                input type="input" class="record-time" name="time" value="#{item[:time]}" disabled="true"
+              td
+                input type="input" class="record-location" name="location" value="#{item[:location]}" disabled="true"
+                a href="http://api.map.baidu.com/geocoder/v2/?location=#{item[:location].split(",").reverse.join(",")}&ak=4E23365d590adb14920d402a12929e2d&output=json" target="_blank" 坐标查询
+                br
+                span.record-address = item[:address]
+              td
+                button.btn.btn-info.store-record disabled="true" 已记录
+
+          
