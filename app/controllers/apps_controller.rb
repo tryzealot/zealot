@@ -42,6 +42,10 @@ class AppsController < ApplicationController
     redirect_to apps_path
   end
 
+  def upload
+
+  end
+
   private
 
   def check_user_logged_in!
