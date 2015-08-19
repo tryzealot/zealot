@@ -35,3 +35,21 @@ hideCover = ->
 # bind function
 window.download = download
 window.hideCover = hideCover
+
+ready = ->
+  Dropzone.options.dropzone =
+      paramName: "file"
+      maxFilesize: 100
+      maxFiles: 1
+      init: ->
+        console.log 'initial'
+      accept: (file, done) ->
+        console.log "uploaded"
+        ext = file.name.split('.').pop().toLowerCase()
+        if $.inArray(ext, ['ipa', 'apk']) == -1 then done("请上传 ipa 或 apk 文件") else done()
+      success: (file, data) ->
+        url = HOST + "releases/" + data.id + "/edit"
+        console.log 'success, redirect to %s', url
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
