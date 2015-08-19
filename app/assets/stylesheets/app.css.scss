@@ -76,3 +76,28 @@ div.app-container p.qr_code img {
     margin-right: 20px;
   }
 }
+
+.container #dropzone {
+  margin-top: 20px;
+}
+
+.container .dropzone h4.dz-message {
+  color: #646C7F;
+}
+
+.container .dropzone {
+  border: 2px dashed #0087F7;
+  border-radius: 5px;
+  background: white;
+}
+
+.container .dropzone .dz-message {
+  font-weight: 400;
+}
+
+.container .dropzone .dz-message .note {
+  font-size: 0.8em;
+  font-weight: 200;
+  display: block;
+  margin-top: 1.4rem;
+}

@@ -27,7 +27,7 @@ div.row.app-container
           button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
 
       div.changelog
-        h3 
+        h3
           | 更新日志 (
           = link_to '编辑', edit_release_path(@release)
           | )
@@ -37,10 +37,13 @@ div.row.app-container
         - else
           p 开发者比较懒
 
-    div.col-sm-3.col-sm-offset-1
+    div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
+      div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
+        a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
+        
       div.sidebar-module.sidebar-module-inset
         h3 二维码
-        p.qr_code
+        p.qr_code 
           = qr_code(app_url(@app.slug))
 
       div.sidebar-module.sidebar-module-inset

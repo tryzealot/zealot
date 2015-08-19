@@ -1,0 +1,8 @@
+div.row.app-container
+  h2 上传 App
+  form#dropzone.dropzone.dz-clickable action="#{upload_releases_url}" 
+    h4.dz-message
+      | 拖转 ipa 或 apk 文件到这里或者点击上传。
+      
+    .fallback
+      input name="file" type="file" multiple="true"
