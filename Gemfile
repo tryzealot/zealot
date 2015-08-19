@@ -28,7 +28,7 @@ gem 'CFPropertyList'
 gem 'browser'
 gem 'carrierwave'
 gem 'geo-distance'
-
+gem 'rack-cors', :require => 'rack/cors'
 gem 'react-rails'#, github: 'reactjs/react-rails'
 
 
