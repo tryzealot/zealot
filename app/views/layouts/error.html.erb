@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!--Info -->
+    <title><%= "Error :: #{@app_name}" %></title>
+
+    <!--Styling -->
+    <style>
+      
+		html {
+			height: 100%;
+			background: #fff asset_url("custom_error_pages/bg.png") bottom repeat-x;
+		}
+		
+		body {
+			font-family: Helvetica, Arial, Sans-Serif;
+			font-size: 14px;
+		}
+		.error_container {
+			display: block;
+			margin: auto;
+			margin: 10% auto 0 auto;
+			width: 30%;
+		}
+		
+		.error_container .error {
+			display: block;
+			text-align: center;
+		}
+		
+		.error_container .error img.alert {
+			display: block;
+			margin: 0 auto 25px auto;
+		}
+		
+		.error_container .message > * {
+			display: block;
+		}
+		
+		.error_container .message strong {
+			font-weight: bold;
+			font-size: 1.5em;
+			color: #f00;
+			margin: 15px 0 0;
+		}
+
+		.error_container .message span {
+			margin: 5px auto 0;
+			font-size: 0.75em;
+			color: #606060;
+		}
+		
+		.error_container .contact {
+			display: block;
+			text-align: center;
+			margin: 20px 0 0 0;
+		}
+		
+		.error_container .contact a {
+			display: inline-block;
+			margin: 0 -1px; /* For inline block & ERB - HAML removes whitespace; ERB does now - http://haml.info/docs/yardoc/file.REFERENCE.html#whitespace_removal__and_ */
+			opacity: 0.4;
+			transition: opacity 0.15s ease;
+		}
+
+		.error_container .contact a img {
+			display: block;
+			width: 38px;
+			height: 38px;
+		}
+		
+		.error_container .contact a:hover {
+			opacity: 0.8;
+		}
+
+    </style>
+  </head>
+  
+  <!--Body -->
+  <body>
+    <div class="error_container">
+      <%= yield %>
+    </div>
+  </body>
+
+</html>

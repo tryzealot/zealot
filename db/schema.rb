@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720080914) do
+ActiveRecord::Schema.define(version: 20150820063124) do
 
-  create_table "apps", force: true do |t|
-    t.integer  "user_id"
-    t.string   "name",        null: false
-    t.string   "slug",        null: false
-    t.string   "identifier"
-    t.string   "device_type", null: false
-    t.string   "password"
-    t.string   "key"
+  create_table "apps", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.string   "name",        limit: 255, null: false
+    t.string   "slug",        limit: 255, null: false
+    t.string   "identifier",  limit: 255
+    t.string   "device_type", limit: 255, null: false
+    t.string   "password",    limit: 255
+    t.string   "key",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,41 +31,55 @@ ActiveRecord::Schema.define(version: 20150720080914) do
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
   add_index "apps", ["user_id"], name: "index_apps_on_user_id", using: :btree
 
-  create_table "ios", force: true do |t|
-    t.string   "name"
-    t.string   "bundle_id"
-    t.string   "profile"
-    t.string   "version"
-    t.string   "build_version"
-    t.string   "username"
-    t.string   "email"
-    t.string   "project_path"
-    t.string   "dsym_uuid"
-    t.string   "dsym_file"
-    t.string   "last_commit_hash"
-    t.string   "last_commit_branch"
-    t.string   "last_commit_message"
-    t.string   "last_commit_author"
-    t.string   "last_commit_email"
-    t.string   "last_commit_date"
+  create_table "errors", force: :cascade do |t|
+    t.string   "usable_type", limit: 255
+    t.integer  "usable_id",   limit: 4
+    t.text     "class_name",  limit: 65535
+    t.text     "message",     limit: 65535
+    t.text     "trace",       limit: 65535
+    t.text     "target_url",  limit: 65535
+    t.text     "referer_url", limit: 65535
+    t.text     "params",      limit: 65535
+    t.text     "user_agent",  limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ios", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.string   "bundle_id",           limit: 255
+    t.string   "profile",             limit: 255
+    t.string   "version",             limit: 255
+    t.string   "build_version",       limit: 255
+    t.string   "username",            limit: 255
+    t.string   "email",               limit: 255
+    t.string   "project_path",        limit: 255
+    t.string   "dsym_uuid",           limit: 255
+    t.string   "dsym_file",           limit: 255
+    t.string   "last_commit_hash",    limit: 255
+    t.string   "last_commit_branch",  limit: 255
+    t.string   "last_commit_message", limit: 255
+    t.string   "last_commit_author",  limit: 255
+    t.string   "last_commit_email",   limit: 255
+    t.string   "last_commit_date",    limit: 255
     t.datetime "packaged_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "messages", force: true do |t|
-    t.string   "im_id"
-    t.string   "im_user_id"
-    t.string   "im_topic_id"
-    t.integer  "chatroom_id"
-    t.string   "chatroom_name"
-    t.integer  "user_id"
-    t.string   "user_name"
-    t.string   "message"
-    t.text     "custom_data"
-    t.string   "content_type"
-    t.string   "file_type"
-    t.text     "file"
+  create_table "messages", force: :cascade do |t|
+    t.string   "im_id",         limit: 255
+    t.string   "im_user_id",    limit: 255
+    t.string   "im_topic_id",   limit: 255
+    t.integer  "chatroom_id",   limit: 4
+    t.string   "chatroom_name", limit: 255
+    t.integer  "user_id",       limit: 4
+    t.string   "user_name",     limit: 255
+    t.string   "message",       limit: 255
+    t.text     "custom_data",   limit: 65535
+    t.string   "content_type",  limit: 255
+    t.string   "file_type",     limit: 255
+    t.text     "file",          limit: 65535
     t.datetime "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -77,19 +91,19 @@ ActiveRecord::Schema.define(version: 20150720080914) do
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
-  create_table "releases", force: true do |t|
-    t.integer  "app_id",          null: false
-    t.integer  "filesize"
-    t.string   "release_version", null: false
-    t.string   "build_version",   null: false
-    t.string   "identifier",      null: false
-    t.integer  "version"
-    t.string   "store_url"
-    t.string   "icon"
-    t.text     "changelog"
-    t.string   "md5"
-    t.string   "file"
-    t.text     "extra"
+  create_table "releases", force: :cascade do |t|
+    t.integer  "app_id",          limit: 4,     null: false
+    t.integer  "filesize",        limit: 4
+    t.string   "release_version", limit: 255,   null: false
+    t.string   "build_version",   limit: 255,   null: false
+    t.string   "identifier",      limit: 255,   null: false
+    t.integer  "version",         limit: 4
+    t.string   "store_url",       limit: 255
+    t.string   "icon",            limit: 255
+    t.text     "changelog",       limit: 65535
+    t.string   "md5",             limit: 255
+    t.string   "file",            limit: 255
+    t.text     "extra",           limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -98,33 +112,33 @@ ActiveRecord::Schema.define(version: 20150720080914) do
   add_index "releases", ["app_id"], name: "index_releases_on_app_id", using: :btree
   add_index "releases", ["identifier"], name: "index_releases_on_identifier", using: :btree
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "roles_users", id: false, force: true do |t|
-    t.integer "user_id", null: false
-    t.integer "role_id", null: false
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4, null: false
+    t.integer "role_id", limit: 4, null: false
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "key"
-    t.string   "secret"
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "key",                    limit: 255
+    t.string   "secret",                 limit: 255
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
