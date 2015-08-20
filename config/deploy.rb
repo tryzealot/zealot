@@ -44,13 +44,14 @@ set :puma_prune_bundler, false
 # set :keep_releases, 5
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     # Your restart mechanism here, for example:
+  #     # execute :touch, release_path.join('tmp/restart.txt')
+  #
+  #   end
+  # end
 
   # task :storage_link, :except => { :no_release => true } do
   #   execute :ln, "-nFs #{deploy_to}/shared/uploads #{latest_release}/public/uploads"

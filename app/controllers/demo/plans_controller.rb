@@ -134,12 +134,11 @@ class Demo::PlansController < ApplicationController
     #
     def maybes(params)
       url = "http://doraemon.qyer.com/recommend/onroad/might_beento_pois/"
-      http_request('get', url, params) do |json|
+      status, data = http_request('get', url, params) do |json|
         if json[:status] == 'success'
-          status = true
-          data = json[:data]
+          [true, json[:data]]
         else
-          data = json[:data]
+          [false, json[:data]]
         end
       end
     end

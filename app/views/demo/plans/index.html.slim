@@ -109,17 +109,19 @@
           tr
             th.col-md-1 序号
             th.col-md-12 景点
-          - if @maybe_pois && @maybe_pois.length > 0
-            - @maybe_pois.each_with_index do |item, i|
-              tr
-                td = i + 1
-                td 
-                  p 
-                    a href="723910" 曼谷大皇宫
-                    |  / 
-                    | *****
-                    |  /  
-                    | 1人去过
+          - @maybe_pois.each_with_index do |item, i|
+            tr
+              td = i + 1
+              td 
+                p 
+                  a href="#{item[:poi_id].to_s}" 
+                    = item[:poi_id]
+                  |  / 
+                  | route_id: #{item[:route_id].to_s}
+                  |  /  
+                  | distance: #{item[:distance]}
+                  |  / 
+                  | type: #{item[:type]}
       - else
       .alert.alert-warning role="alert" style="margin-top: 10px"
         p 没有数据
