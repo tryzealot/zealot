@@ -1,5 +1,5 @@
 - content_for :title do
-  = @title
+  = raw @title
 
 .container
   .row
@@ -22,6 +22,7 @@
           
         button.btn.btn-default type="submit" 给爷推荐！
     
+    = debug @catrgory
     - if @tours
       - if @tours.length > 0
         .content
@@ -38,69 +39,72 @@
                 | 推荐三
         
           .tab-content style="margin-top:10px"  
-              - @tours.each_with_index do |tour, i|
-                .tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
-                  .pull-right
-                    button.btn.btn-danger.delete-route data-tab="route-#{i+1}" 删除
-                  .operation
-                    button.btn.btn-default.select-all data-tab="route-#{i+1}" 全选 
-                  .clearfix
-                  table.table style="margin-top: 10px"
+            - @tours.each_with_index do |tour, i|
+              .tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
+                .pull-right
+                  button.btn.btn-danger.delete-route data-tab="route-#{i+1}" 删除
+                .operation
+                  button.btn.btn-default.select-all data-tab="route-#{i+1}" 全选 
+                .clearfix
+                table.table style="margin-top: 10px"
+                  tr
+                    th.col-md-1 选择
+                    th.col-md-1 序号
+                    th.col-md-2 类型
+                    th.col-md-8 标题
+                  - tour.each_with_index do |route, no|
                     tr
-                      th.col-md-1 选择
-                      th.col-md-1 序号
-                      th.col-md-2 类型
-                      th.col-md-8 标题
-                    - tour.each_with_index do |route, no|
-                      tr
-                        td 
+                      td 
+                        - if route[:type] == 'poi'
+                          input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
+                      td
+                        = no + 1
+                      td
+                        = route[:type]
+                      td
+                        p
                           - if route[:type] == 'poi'
-                            input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
-                        td
-                          = no + 1
-                        td
-                          = route[:type]
-                        td
-                          p
-                            - if route[:type] == 'poi'
-                              = Time.at(route[:arrival_time]).strftime('%H:%M')
-                              |  / 
-                              a href="http://place.qyer.com/poi/#{route[:poi_id]}" target="_blank"
-                                = route[:poiname] 
-                              |  / 
-                              | 建议游玩 
-                              = (route[:duration] * 60).round
-                              | 分
-                              |  / 
-                              | 距离
-                              = geo_distance(@lat, @lon, route[:geo].first, route[:geo].last)
-                              | km
-                            - else 
-                              | [
-                              = route[:tripmode]
-                              | ]
-                              |  花费时间：
-                              = (route[:traffic_time] / 60).round
-                              | 分
-                              
-                              - if route[:segments].is_a?Array
-                                ol
-                                  - route[:segments].each do |segment|
-                                    li
-                                      | 数据待解析
-                              - else
-                                ol
+                            = Time.at(route[:arrival_time]).strftime('%H:%M')
+                            |  / 
+                            = @catrgory[route[:cateid].to_s]
+                            |  / 
+                            a href="http://place.qyer.com/poi/#{route[:poi_id]}" target="_blank"
+                              = route[:poiname] 
+                            - if route[:planto] == 1
+                              | (标记想去) / 
+                            - else
+                              | (未标记想去) / 
+                            | 建议游玩 
+                            = (route[:duration] / 60).round
+                            |  分 / 距离
+                            = geo_distance(@lat, @lon, route[:geo].first, route[:geo].last).to_kilometers.round(2)
+                            | 公里
+                          - else 
+                            | [
+                            = route[:tripmode]
+                            | ]
+                            |  花费时间：
+                            = (route[:traffic_time] / 60).round
+                            | 分
+                            
+                            - if route[:segments].is_a?Array
+                              ol
+                                - route[:segments].each do |segment|
                                   li
-                                    = route[:segments]
-                        
+                                    | 数据待解析
+                            - else
+                              ol
+                                li
+                                  = route[:segments]
+                      
       - else
         .alert.alert-warning role="alert" style="margin-top: 10px"
           p 没有找到适合的行程
       
       = debug @tours
     
+    h3 猜你去过
     - if @maybe_pois
-      h3 猜你去过
       - if @maybe_pois.length > 0
         table.table
           tr
