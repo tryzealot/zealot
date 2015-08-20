@@ -32,7 +32,7 @@ class Demo::PlansController < ApplicationController
         local_time: @today.to_i,
         device_id: @device_id,
         uid: 1357827,
-        route: 1
+        route: '1,2,3'
       }
       tours_status, tours_data = daytours(tours_query)
       if tours_status
