@@ -30,7 +30,7 @@ gem 'carrierwave'
 gem 'haversine'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'react-rails'#, github: 'reactjs/react-rails'
-
+gem 'exception_handler'
 
 
 gem 'sdoc', '~> 0.4.0',          group: :doc

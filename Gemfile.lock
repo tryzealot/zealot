@@ -112,6 +112,7 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.0.8)
+    exception_handler (0.3.45)
     execjs (2.6.0)
     ffi (1.9.10)
     formatador (0.2.5)
@@ -325,6 +326,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
+  exception_handler
   gemoji
   guard
   guard-concat
