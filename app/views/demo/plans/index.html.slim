@@ -8,19 +8,29 @@
       
       form method="POST"
         .form-group  
+          label for="device_id" 用户
+          input.form-control type="text" id="uid" name="uid" value="#{@uid}" disabled="disabled" 
+        .form-group  
           label for="device_id" 用户设备
-          input.form-control type="text" name="device_id" value="#{@device_id}" disabled="disabled" 
+          input.form-control type="text" id="device_id" name="device_id" value="#{@device_id}" disabled="disabled" 
         .form-group  
           label for="date" 时间
-          input.form-control type="text" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d %H:%M')}"
+          input.form-control type="text" id="date" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d %H:%M')}"
         .form-group  
           label for="location" 
           | 经纬度(
           a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" 地址采集
           | )
-          input.form-control type="text" name="location" placeholder="90.123132,-120.11111" value="#{@lon},#{@lat}"
+          input.form-control type="text" id="location" name="location" placeholder="90.123132,-120.11111" value="#{@lon},#{@lat}"
+        .form-group
+          label for="route" 线路
+          select.form-control id="route" name="route"
+            option value="1" checked="checked" 线路一
+            option value="2" 线路二
+            option value="3" 线路三
+            
           
-        button.btn.btn-danger type="submit" 给爷推荐！
+        button.btn.btn-success type="submit" 给爷推荐！
     
     - if @tours
       - if @tours.length > 0
@@ -41,9 +51,9 @@
             - @tours.each_with_index do |tour, i|
               .tab-pane role="tabpanel" id="route-#{i+1}" class="#{ i == 0 ? 'active' : ''}"
                 .pull-right
-                  button.btn.btn-danger.delete-route data-tab="route-#{i+1}" 删除
+                  button.update-route.btn.btn-danger data-tab="route-#{i+1}" 重新推荐
                 .operation
-                  button.btn.btn-default.select-all data-tab="route-#{i+1}" 全选 
+                  button.select-all.btn.btn-default data-tab="route-#{i+1}" 全选 
                 .clearfix
                 table.table style="margin-top: 10px"
                   tr
@@ -52,7 +62,7 @@
                     th.col-md-2 类型
                     th.col-md-8 标题
                   - tour.each_with_index do |route, no|
-                    tr
+                    tr class="#{(route[:type] == 'poi') ? '' : 'warning'}"
                       td 
                         - if route[:type] == 'poi'
                           input class="route-#{i+1}-select" type="checkbox" data-id="#{route[:poi_id]}"
@@ -82,10 +92,12 @@
                             | [
                             = route[:tripmode]
                             | ]
-                            |  花费时间：
-                            = (route[:traffic_time] / 60).round
+                            |  花费时间
+                            = (route[:traffic_time] / 60)
                             | 分
-                            
+                            - if route[:traffic_time] == 0
+                              | （看看你周围）
+
                             - if route[:segments].is_a?Array
                               ol
                                 - route[:segments].each do |segment|
