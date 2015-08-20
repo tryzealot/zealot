@@ -8,13 +8,14 @@ class Demo::PlansController < ApplicationController
   def index
     @title = "智能行程推荐演示"
 
+    @uid = params.fetch 'uid', 1357827
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
     @lon, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
     @lat.strip!
     @lon.strip!
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
-
+    @route = params.fetch :route, 1
     # 处理查询请求
     if request.request_method == 'POST'
       @catrgory = {
@@ -31,14 +32,13 @@ class Demo::PlansController < ApplicationController
         lng: @lon,
         local_time: @today.to_i,
         device_id: @device_id,
-        uid: 1357827,
-        route: '1,2,3'
+        uid: @uid,
+        route: @route
       }
       tours_status, tours_data = daytours(tours_query)
+
       if tours_status
         @tours = tours_data
-      else
-        @error = tours_data
       end
 
       maybe_status, @maybe_pois = maybes({
@@ -81,8 +81,12 @@ class Demo::PlansController < ApplicationController
     Rails.cache.write(cache_key, @locations)
 
     status, data = upload_location(params)
-
     render json: data
+  end
+
+  def update_route
+    status, data = update_daytour(params)
+    render json:data
   end
 
   ##
@@ -150,6 +154,25 @@ class Demo::PlansController < ApplicationController
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
       http_request('get', url, params) do |json|
         if json[:status] == 'success'
+          key = "#{params[:device_id]}-#{params[:date].strftime("%Y%m%d")}"
+          now = Time.at(params[:local_time]).to_datetime
+          expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
+          Rails.cache.fetch(key, expires_in: (expires_date.hour - now.hour).hours) do
+            [true, json[:data]]
+          end
+        else
+          [false, json[:data]]
+        end
+      end
+    end
+
+    ##
+    # RA 接口：删除 POI 并重新推荐线路
+    #
+    def update_daytour(params)
+      url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
+      http_request('get', url, params) do |json|
+        if json[:status] == 'success'
           [true, json[:data]]
         else
           [false, json[:data]]
@@ -183,6 +206,9 @@ class Demo::PlansController < ApplicationController
           end
         end
       rescue Exception => e
+        logger.fatal "error response: #{e.message}"
+        logger.fatal e.backtrace.join("\n")
+
         data = e
       end
 

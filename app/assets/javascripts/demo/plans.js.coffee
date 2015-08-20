@@ -91,19 +91,21 @@ $(document).ready ->
         $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
-  $('.select-all').click ->
-    select_button = $(this)
-    checkbox = $(this).data('tab') + '-select'
+  $('.select-all:button').click ->
+    checkbox = $(this).data('tab') + '-select:checkbox'
     $('.' + checkbox).each((i, element) ->
-      check_status = if $(element).attr('checked') then true else false
+      check_status = element.checked #if $.type($(element).prop('checked')) == 'undefined' then false else true
       console.log element
       console.log check_status
-
-      $(element).attr('checked', !check_status)
-      $(select_button).html(if check_status then '全选' else '反选')
+      if check_status
+        $(element).removeProp('checked')
+        $(this).html('反选')
+      else
+        $(element).prop('checked', 'checked')
+        $(this).html('全选')
     )
 
-  $('.delete-route').click ->
+  $('.update-route').click ->
     button = $(this)
     checkbox = $(this).data('tab') + '-select:checked'
 
@@ -114,5 +116,22 @@ $(document).ready ->
 
     if pois.length > 0
       alert '你选择的景点有' + pois
+
+      params =
+        device_id: $('#device_id').val()
+        date: $('#date').val()
+        location: $('#location').val()
+        dislike_poiids: pois.join(',')
+
+      $.ajax
+        url: HOST + "demo/plans/update_route",
+        data: params
+        type: 'post'
+        dataType: 'json'
+        beforeSend: ->
+          $(button).html('重新组合中...').attr('disabled', 'true')
+        complete: (data) ->
+          $(button).html('重新推荐')
+
     else
       alert '你没有选择要删除的景点'
