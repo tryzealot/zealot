@@ -20,7 +20,7 @@
           | )
           input.form-control type="text" name="location" placeholder="90.123132,-120.11111" value="#{@lon},#{@lat}"
           
-        button.btn.btn-default type="submit" 给爷推荐！
+        button.btn.btn-danger type="submit" 给爷推荐！
     
     - if @tours
       - if @tours.length > 0
@@ -91,6 +91,8 @@
                                 - route[:segments].each do |segment|
                                   li
                                     | 数据待解析
+                            - elsif (route[:segments].is_a?(String)) && (["[]", '""'].include?(route[:segments]))
+                            / 无需返回显示
                             - else
                               ol
                                 li
