@@ -82,7 +82,9 @@ $(document).ready ->
       data: params
       type: 'post'
       dataType: 'json'
-      success: (data) ->
+      beforeSend: ->
+        $(button).html('上报中...').attr('disabled', 'true')
+      complete: (data) ->
         $(button).html('已记录')
         $(button).attr('disabled', 'true')
         $(row).find('input[name=time]').attr('disabled', 'true')

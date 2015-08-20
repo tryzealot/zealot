@@ -27,7 +27,7 @@ gem 'jenkins_api_client'
 gem 'CFPropertyList'
 gem 'browser'
 gem 'carrierwave'
-gem 'geo-distance'
+gem 'haversine'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'react-rails'#, github: 'reactjs/react-rails'
 
@@ -38,7 +38,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 group :development do
   gem 'better_errors'
   gem 'pretty_backtrace'
-  gem 'binding_of_caller', :platforms=>[:mri_21]
+  gem 'binding_of_caller'#, :platforms=>[:mri_21]
   gem 'capistrano'#, '~> 3.0.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'#, '~> 1.1.0'
