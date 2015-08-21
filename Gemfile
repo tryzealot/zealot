@@ -37,7 +37,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 group :development do
   gem 'better_errors'
-  gem 'pretty_backtrace'
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
   gem 'binding_of_caller'#, :platforms=>[:mri_21]
   gem 'capistrano'#, '~> 3.0.1'
   gem 'capistrano-bundler'

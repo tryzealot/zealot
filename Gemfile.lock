@@ -58,6 +58,7 @@ GEM
       sass (>= 3.2.19)
     browser (0.9.1)
     builder (3.2.2)
+    byebug (6.0.2)
     cancancan (1.12.0)
     capistrano (3.4.0)
       i18n
@@ -184,8 +185,6 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
-    pretty_backtrace (0.1.2)
-      debug_inspector (~> 0.0.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -297,6 +296,11 @@ GEM
     unf_ext (0.0.7.1)
     warden (1.2.3)
       rack (>= 1.0)
+    web-console (2.2.1)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.0.7)
@@ -313,6 +317,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   browser
+  byebug
   cancancan (~> 1.9)
   capistrano
   capistrano-bundler
@@ -338,7 +343,6 @@ DEPENDENCIES
   jquery-rails
   multi_json
   mysql2
-  pretty_backtrace
   pry-rails
   pry-rescue
   puma
@@ -354,6 +358,7 @@ DEPENDENCIES
   slim-rails
   turbolinks
   uglifier (>= 1.3.0)
+  web-console (~> 2.0)
   whenever
   will_paginate (~> 3.0)
   zeus
