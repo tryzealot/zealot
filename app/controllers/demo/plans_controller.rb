@@ -16,39 +16,38 @@ class Demo::PlansController < ApplicationController
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
     @route = params.fetch :route, 1
+    # 处理查询请求
+    if request.request_method == 'POST'
+      @catrgory = {
+        '32' => '景点',
+        '77' => '交通',
+        '78' => '美食',
+        '147' => '购物',
+        '148' => '活动',
+        '149' => '住宿',
+      }
 
-    # # 处理查询请求
-    # if request.request_method == 'POST'
-    #   @catrgory = {
-    #     '32' => '景点',
-    #     '77' => '交通',
-    #     '78' => '美食',
-    #     '147' => '购物',
-    #     '148' => '活动',
-    #     '149' => '住宿',
-    #   }
-    #
-    #   tours_query = {
-    #     lat: @lat,
-    #     lng: @lon,
-    #     local_time: @today.to_i,
-    #     device_id: @device_id,
-    #     uid: @uid,
-    #     route: @route
-    #   }
-    #   tour_status, tour_data = daytours(tours_query)
-    #
-    #
-    #   if tour_status
-    #     @tour = tour_data
-    #     logger.debug "Tour data: #{tour_data}"
-    #   end
-    #
-    #   maybe_status, @maybe_pois = maybes({
-    #     device_id: @device_id,
-    #     local_time: @today.to_i
-    #   })
-    # end
+      tours_query = {
+        lat: @lat,
+        lng: @lon,
+        local_time: @today.to_i,
+        device_id: @device_id,
+        uid: @uid,
+        route: @route
+      }
+      tour_status, tour_data = daytours(tours_query)
+
+
+      if tour_status
+        @tour = tour_data
+        logger.debug "Tour data: #{tour_data}"
+      end
+
+      maybe_status, @maybe_pois = maybes({
+        device_id: @device_id,
+        local_time: @today.to_i
+      })
+    end
   end
 
   ##
@@ -89,7 +88,10 @@ class Demo::PlansController < ApplicationController
 
   def update_route
     status, data = update_daytour(params)
-    render json:data
+    ap status
+    ap data
+
+    render json: data, status: status ? 200 : 444
   end
 
   ##
@@ -109,7 +111,7 @@ class Demo::PlansController < ApplicationController
         data = json[:result]
         status = true
       else
-        data = json[:msg]
+        data =  { error: json[:msg] }
       end
     end
   end
@@ -145,7 +147,27 @@ class Demo::PlansController < ApplicationController
         if json[:status] == 'success'
           [true, json[:data]]
         else
-          [false, json[:data]]
+          [false, { error: json[:msg] }]
+        end
+      end
+    end
+
+    ##
+    # RA 接口：每日行程推荐
+    #
+    def daytours(params)
+      url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
+      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}"
+      logger.debug "daytours cache key: #{key}"
+      now = Time.at(params[:local_time]).to_datetime
+      expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
+      Rails.cache.fetch(key, expires_in: (expires_date.hour - now.hour).hours) do
+        http_request('get', url, params) do |json|
+          if json[:status] == 'success'
+            [true, json[:data]]
+          else
+            [false, { error: json[:msg] }]
+          end
         end
       end
     end
@@ -168,12 +190,47 @@ class Demo::PlansController < ApplicationController
       }
       url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
       http_request('get', url, query) do |json|
-        if json[:status] == 'success'
+        if json.is_a?(Hash) && json[:status] == 'success'
           [true, json[:data]]
         else
-          [false, json[:data]]
+          [false, { error: json[:msg] }]
         end
       end
     end
 
+    ##
+    # 封装网络请求接口
+    #
+    def http_request(method, url, params)
+      status = false
+      data = []
+
+      logger.debug "Request url: #{url}?#{params.to_query}"
+      begin
+        if method == 'get'
+          r = RestClient.get url, params: params
+        else
+          r = RestClient.post url, params
+        end
+
+        if r.code == 200
+          logger.debug "response data: #{r}"
+          json = MultiJson.load r, symbolize_keys: true
+          if block_given?
+            status, data = yield(json)
+          else
+            status = true
+            data = json
+          end
+        end
+      rescue Exception => e
+        logger.fatal "error response: #{e.message}"
+        logger.fatal e.backtrace.join("\n")
+        data = {
+          error: e.message,
+        }
+      end
+
+      [status, data]
+    end
 end
