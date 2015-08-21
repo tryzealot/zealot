@@ -2,6 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+show_daytour = ->
+  params =
+    uid: $('#uid').val()
+    device_id: $('#device_id').val()
+    date: $('#date').val()
+    location: $('#location').val()
+    route: $('#route').val()
+
+  $.ajax
+    url: HOST + "api/demo/dayroutes/show.json",
+    data: params
+    type: 'get'
+    dataType: 'json'
+    done: (data) ->
+      
+
 add_zero = (num) ->
   if (num < 10)
     num = "0" + num
@@ -33,6 +49,9 @@ baidu_geo_foramt = (location) ->
   lat + "," + lon
 
 $(document).ready ->
+
+  show_daytour()
+
   $('#new-row').click ->
     last_row = $('#locations-table tr:last')
     if last_row.data('row')?
@@ -91,9 +110,8 @@ $(document).ready ->
         $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
-  $('.select-all:button').click ->
-    checkbox = $(this).data('tab') + '-select:checkbox'
-    $('.' + checkbox).each((i, element) ->
+  $('.select-all').click ->
+    $('.route-select:checkbox').each((i, element) ->
       check_status = element.checked #if $.type($(element).prop('checked')) == 'undefined' then false else true
       console.log element
       console.log check_status
@@ -107,10 +125,8 @@ $(document).ready ->
 
   $('.update-route').click ->
     button = $(this)
-    checkbox = $(this).data('tab') + '-select:checked'
-
     pois = []
-    $('.' + checkbox).each((i, element) ->
+    $('.route-select:checkbox:checked').each((i, element) ->
       pois.push $(element).data('id')
     )
 
@@ -122,6 +138,8 @@ $(document).ready ->
         date: $('#date').val()
         location: $('#location').val()
         dislike_poiids: pois.join(',')
+        uid: $('#uid').val()
+        route: $('#route').val()
 
       $.ajax
         url: HOST + "demo/plans/update_route",
