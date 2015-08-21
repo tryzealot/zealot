@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
       namespace :demo do
         get 'dayroutes/show.json', to: 'dayroutes#show'
+        get 'dayroutes/traffic.json', to: 'dayroutes#traffic'
       end
     end
   end
