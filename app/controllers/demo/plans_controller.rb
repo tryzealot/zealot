@@ -16,36 +16,39 @@ class Demo::PlansController < ApplicationController
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
     @route = params.fetch :route, 1
-    # 处理查询请求
-    if request.request_method == 'POST'
-      @catrgory = {
-        '32' => '景点',
-        '77' => '交通',
-        '78' => '美食',
-        '147' => '购物',
-        '148' => '活动',
-        '149' => '住宿',
-      }
 
-      tours_query = {
-        lat: @lat,
-        lng: @lon,
-        local_time: @today.to_i,
-        device_id: @device_id,
-        uid: @uid,
-        route: @route
-      }
-      tours_status, tours_data = daytours(tours_query)
-
-      if tours_status
-        @tours = tours_data
-      end
-
-      maybe_status, @maybe_pois = maybes({
-        device_id: @device_id,
-        local_time: @today.to_i
-      })
-    end
+    # # 处理查询请求
+    # if request.request_method == 'POST'
+    #   @catrgory = {
+    #     '32' => '景点',
+    #     '77' => '交通',
+    #     '78' => '美食',
+    #     '147' => '购物',
+    #     '148' => '活动',
+    #     '149' => '住宿',
+    #   }
+    #
+    #   tours_query = {
+    #     lat: @lat,
+    #     lng: @lon,
+    #     local_time: @today.to_i,
+    #     device_id: @device_id,
+    #     uid: @uid,
+    #     route: @route
+    #   }
+    #   tour_status, tour_data = daytours(tours_query)
+    #
+    #
+    #   if tour_status
+    #     @tour = tour_data
+    #     logger.debug "Tour data: #{tour_data}"
+    #   end
+    #
+    #   maybe_status, @maybe_pois = maybes({
+    #     device_id: @device_id,
+    #     local_time: @today.to_i
+    #   })
+    # end
   end
 
   ##
@@ -148,30 +151,23 @@ class Demo::PlansController < ApplicationController
     end
 
     ##
-    # RA 接口：每日行程推荐
-    #
-    def daytours(params)
-      url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      http_request('get', url, params) do |json|
-        if json[:status] == 'success'
-          key = "#{params[:device_id]}-#{params[:date].strftime("%Y%m%d")}"
-          now = Time.at(params[:local_time]).to_datetime
-          expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
-          Rails.cache.fetch(key, expires_in: (expires_date.hour - now.hour).hours) do
-            [true, json[:data]]
-          end
-        else
-          [false, json[:data]]
-        end
-      end
-    end
-
-    ##
     # RA 接口：删除 POI 并重新推荐线路
     #
     def update_daytour(params)
+      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lon.strip!
+      lat.strip!
+      query = {
+        local_time: DateTime.parse(params[:date] + "+08:00").to_i,
+        device_id: params[:device_id],
+        lat: lat,
+        lng: lon,
+        uid: params[:uid],
+        dislike_poiids: params[:dislike_poiids],
+        route: params[:route]
+      }
       url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
-      http_request('get', url, params) do |json|
+      http_request('get', url, query) do |json|
         if json[:status] == 'success'
           [true, json[:data]]
         else
@@ -180,38 +176,4 @@ class Demo::PlansController < ApplicationController
       end
     end
 
-    ##
-    # 封装网络请求接口
-    #
-    def http_request(method, url, params)
-      status = false
-      data = []
-
-      logger.debug "Request url: #{url}?#{params.to_query}"
-      begin
-        if method == 'get'
-          r = RestClient.get url, params: params
-        else
-          r = RestClient.post url, params
-        end
-
-        if r.code == 200
-          json = MultiJson.load r, symbolize_keys: true
-          logger.debug "response data: #{json}"
-          if block_given?
-            status, data = yield(json)
-          else
-            status = true
-            data = json
-          end
-        end
-      rescue Exception => e
-        logger.fatal "error response: #{e.message}"
-        logger.fatal e.backtrace.join("\n")
-
-        data = e
-      end
-
-      [status, data]
-    end
 end
