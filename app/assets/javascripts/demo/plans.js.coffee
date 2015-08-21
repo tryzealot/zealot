@@ -16,7 +16,7 @@ show_daytour = ->
     type: 'get'
     dataType: 'json'
     done: (data) ->
-      
+
 
 add_zero = (num) ->
   if (num < 10)
@@ -50,7 +50,7 @@ baidu_geo_foramt = (location) ->
 
 $(document).ready ->
 
-  show_daytour()
+  # show_daytour()
 
   $('#new-row').click ->
     last_row = $('#locations-table tr:last')
@@ -110,6 +110,60 @@ $(document).ready ->
         $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
+  $('.remove-poi').click ->
+    $("#result").hide()
+    row_index = $(this).parent().parent().index()
+    last_index = $('#route-table tr:last').index()
+    console.log "current row: %d, last: %d", row_index, last_index
+
+    if row_index == last_index
+      $('#route-table tr:eq(' + row_index + ')').remove()
+      $('#route-table tr:eq(' + (row_index - 1) + ')').remove()
+
+    else if row_index > 1
+      source_element = $('#route-table tr:eq(' + (row_index - 2) + ') input.route-select')
+      target_element = $('#route-table tr:eq(' + (row_index + 2) + ') input.route-select')
+
+      params =
+        source_id: $(source_element).data('id')
+        source_lat: $(source_element).data('lat')
+        source_lng: $(source_element).data('lon')
+        target_id: $(target_element).data('id')
+        target_lat: $(target_element).data('lat')
+        target_lng: $(target_element).data('lon')
+
+      traffic_element = $('#route-table tr:eq(' + (row_index - 1) + ')')
+      traffic_html = $(traffic_element).html()
+
+      $.ajax
+        url: HOST + "api/demo/dayroutes/traffic.json",
+        data: params
+        type: 'get'
+        dataType: 'json'
+        beforeSend: ->
+          $(traffic_element).html('<td colspan="5" style="text-align:center;color:red">路程计算中</td>')
+        success: (data) ->
+          console.log "success"
+          console.debug data
+
+          $(traffic_element).html('<td></td><td>N</td>' +
+            '<td>traffic</td>' +
+            '<td>新交通信息</td>' +
+            '<td></td>')
+
+          $('#route-table tr:eq(' + row_index + ')').remove()
+          $('#route-table tr:eq(' + row_index + ')').remove()
+
+        error: (xhr, ajaxOptions, thrownError) ->
+          $(traffic_element).html(traffic_html)
+          $("#result")
+            .html('请求失败！接口返回：' + xhr.responseJSON.error)
+            .addClass("alert alert-danger")
+            .show()
+    else
+      $('#route-table tr:eq(' + row_index + ')').remove()
+      $('#route-table tr:eq(' + row_index + ')').remove()
+
   $('.select-all').click ->
     $('.route-select:checkbox').each((i, element) ->
       check_status = element.checked #if $.type($(element).prop('checked')) == 'undefined' then false else true
@@ -130,9 +184,8 @@ $(document).ready ->
       pois.push $(element).data('id')
     )
 
+    $("#result").hide()
     if pois.length > 0
-      alert '你选择的景点有' + pois
-
       params =
         device_id: $('#device_id').val()
         date: $('#date').val()
@@ -147,9 +200,26 @@ $(document).ready ->
         type: 'post'
         dataType: 'json'
         beforeSend: ->
-          $(button).html('重新组合中...').attr('disabled', 'true')
-        complete: (data) ->
+          $(button).html('重新组合中...').prop('disabled', 'true')
+        success: (data) ->
+          console.log "success"
+          console.debug data
           $(button).html('重新推荐')
-
+          $("#result")
+            .html('路线已更新口返回：' + data)
+            .addClass("alert alert-success")
+            .show()
+        error: (xhr, ajaxOptions, thrownError) ->
+          console.log xhr
+          $("#result")
+            .html('请求失败！接口返回：' + xhr.responseJSON.error)
+            .addClass("alert alert-danger")
+            .show()
+          $(button).html('重新推荐')
+        complete: ->
+          $(button).removeProp('disabled')
     else
-      alert '你没有选择要删除的景点'
+      $("#result")
+        .html('你还没有选择景点')
+        .addClass("alert alert-warning")
+        .show()
