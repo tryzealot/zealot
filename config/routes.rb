@@ -46,11 +46,6 @@ Rails.application.routes.draw do
     get 'plans/index', to: 'plans#index', as: 'plans'
 
     get 'plans/record', to: 'plans#record', as: 'record_plans'
-    post 'plans/store_record', to: 'plans#store_record', as: 'store_record_plans'
-
-    get 'plans/oneday', to: 'plans#oneday', as: 'plans_oneday'
-    get 'plans/create', to: 'plans#create', as: 'create_plans'
-    get 'plans/destroy', to: 'plans#destroy', as: 'destroy_plans'
   end
 
 
@@ -76,6 +71,9 @@ Rails.application.routes.draw do
         get 'dayroutes/show.json', to: 'dayroutes#show'
         get 'dayroutes/traffic.json', to: 'dayroutes#traffic'
         get 'dayroutes/update.json', to: 'dayroutes#update'
+
+        get 'dayroutes/list_location.json', to: 'dayroutes#list_location'
+        post 'dayroutes/upload_location.json', to: 'dayroutes#upload_location'
 
         delete 'dayroutes/clear_cache.json', to: 'dayroutes#clear_cache'
       end

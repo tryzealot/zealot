@@ -160,7 +160,7 @@ $(document).ready ->
       location: $(row).find('input[name=location]').val()
 
     $.ajax
-      url: HOST + "demo/plans/store_record",
+      url: HOST + "api/demo/dayroutes/upload_location.json",
       data: params
       type: 'post'
       dataType: 'json'
