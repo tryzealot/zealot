@@ -2,51 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-show_daytour = ->
-  params =
-    uid: $('#uid').val()
-    device_id: $('#device_id').val()
-    date: $('#date').val()
-    location: $('#location').val()
-    route: $('#route').val()
-
-  $.ajax
-    url: HOST + "api/demo/dayroutes/show.json",
-    data: params
-    type: 'get'
-    dataType: 'json'
-    success: (data) ->
-      console.log data
-      title = $.trim($('select#route option:checked').text())
-      $('#daytour').removeClass('hidden')
-      $('#daytour h2').html(title)
-
-      $(data).each((i, item) ->
-        row_select = ''
-        row_body = ''
-        row_action = ''
-
-        if item.type == 'poi'
-          row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
-            '" data-lon="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" />'
-          row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
-            '<a href="">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
-            item.distance + '公里'
-          row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
-        else
-          row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
-
-        row_html = '<tr>' +
-          '<td>' + row_select + '</td>' +
-          '<td>' + (i + 1) + '</td>' +
-          '<td>' + item.type + '</td>' +
-          '<td>' + row_body + '</td>' +
-          '<td>' + row_action + '</td>' +
-        '</tr>'
-
-        $('#daytour table').append(row_html)
-      )
-
 add_zero = (num) ->
   if (num < 10)
     num = "0" + num
@@ -79,9 +34,57 @@ baidu_geo_foramt = (location) ->
 
 $(document).ready ->
 
+  # 请求每日推荐行程
   $('#recommend-daytour').click ->
-    show_daytour()
+    params =
+      uid: $('#uid').val()
+      device_id: $('#device_id').val()
+      date: $('#date').val()
+      location: $('#location').val()
+      route: $('#route').val()
 
+    $.ajax
+      url: HOST + "api/demo/dayroutes/show.json",
+      data: params
+      type: 'get'
+      dataType: 'json'
+      success: (data) ->
+        console.log data
+        title = $.trim($('select#route option:checked').text())
+        $('#daytour').removeClass('hidden')
+        $('#daytour h2').html(title)
+        $('#daytour table tbody').empty()
+
+        $(data).each((i, item) ->
+          row_class = ''
+          row_select = ''
+          row_body = ''
+          row_action = ''
+
+          if item.type == 'poi'
+            row_class = 'poi-row'
+            row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
+              '" data-lon="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" />'
+            row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
+              '<a href="">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
+              item.distance + '公里'
+            row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
+          else
+            row_class = 'traffic-row warning'
+            row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
+
+          row_html = '<tr class="' + row_class + '">' +
+            '<td>' + row_select + '</td>' +
+            '<td>' + (i + 1) + '</td>' +
+            '<td>' + item.type + '</td>' +
+            '<td>' + row_body + '</td>' +
+            '<td>' + row_action + '</td>' +
+          '</tr>'
+
+          $('#daytour table tbody').append(row_html)
+        )
+
+  # 新增随机用户时间和坐标
   $('#new-row').click ->
     last_row = $('#locations-table tr:last')
     if last_row.data('row')?
@@ -115,6 +118,7 @@ $(document).ready ->
           '<td><button class="btn btn-info store-record" data-row="' + next_row + '">记录坐标</button></td>' +
         '</tr>')
 
+  # 上报用户的时间和坐标
   $('#locations-table').on('click', '.store-record', ->
     button = $(this)
     row_no = $(this).data('row')
@@ -140,9 +144,10 @@ $(document).ready ->
         $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
+  # 忽略单个景点，计算上下俩个景点之间的距离
   $('#daytour table').on('click', '.remove-poi', ->
     $("#result").hide()
-    row_index = $(this).parent().parent().index()
+    row_index = $(this).parent().parent().index() + 1
     last_index = $('#route-table tr:last').index()
     console.log "current row: %d, last: %d", row_index, last_index
 
@@ -178,11 +183,15 @@ $(document).ready ->
 
           $(traffic_element).html('<td></td><td>N</td>' +
             '<td>traffic</td>' +
-            '<td>新交通信息</td>' +
+            '<td>[' + data.mode + '] 花费时间 ' + data.traffic_time + '分</td>' +
             '<td></td>')
 
           $('#route-table tr:eq(' + row_index + ')').remove()
           $('#route-table tr:eq(' + row_index + ')').remove()
+
+          $('#route-table tbody tr').each((i, element) ->
+            $(element).find('td:eq(1)').html(i + 1)
+          )
 
         error: (xhr, ajaxOptions, thrownError) ->
           $(traffic_element).html(traffic_html)
@@ -195,10 +204,10 @@ $(document).ready ->
       $('#route-table tr:eq(' + row_index + ')').remove()
   )
 
-
+  # 每日推荐行程的全选
   $('.select-all').click ->
     $('.route-select:checkbox').each((i, element) ->
-      check_status = element.checked #if $.type($(element).prop('checked')) == 'undefined' then false else true
+      check_status = element.checked
       console.log element
       console.log check_status
       if check_status
@@ -209,6 +218,7 @@ $(document).ready ->
         $(this).html('全选')
     )
 
+  # 重新推荐每日行程（发送景点删除）
   $('.update-route').click ->
     button = $(this)
     pois = []
