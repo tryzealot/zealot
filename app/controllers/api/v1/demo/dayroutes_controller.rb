@@ -55,6 +55,26 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     render json: data, status: status
   end
 
+  def update
+    tour_status, tour_data = ra_update_daytour(params)
+    data = if status
+      tours = []
+      tour_data.each do |item|
+        tours = item
+        if item[:type] == 'poi'
+          tours = parse_poi(@lat, @lon, item)
+        else
+          tours = parse_traffic(item)
+        end
+      end
+    else
+      tour_data
+    end
+
+    status = tour_status ? 200 : 409
+    render json: data, status: status
+  end
+
 
   def traffic
     params.delete :action
@@ -70,12 +90,15 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
   private
     def parse_poi(lat, lon, data)
+      arrival_time = Time.at(data[:arrival_time])
+      now = Time.now
       data[:catename] = POI_CATEGORY[data[:cateid].to_s]
       data[:lat] = data[:geo][1]
       data[:lon] = data[:geo][0]
       data[:distance] = Haversine.distance(lat.to_f, lon.to_f, data[:lon], data[:lat]).to_kilometers.round(2)
-      data[:arrival_time] = Time.at(data[:arrival_time]).strftime('%H:%M')
+      data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
+      data[:selected] = now > arrival_time ? false : true
     end
 
     def parse_traffic(data)
@@ -124,6 +147,32 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           else
             [false, { error: json[:msg] }]
           end
+        end
+      end
+    end
+
+    ##
+    # RA 接口：删除 POI 并重新推荐线路
+    #
+    def ra_update_daytour(params)
+      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lon.strip!
+      lat.strip!
+      query = {
+        local_time: DateTime.parse(params[:date] + "+08:00").to_i,
+        device_id: params[:device_id],
+        lat: lat,
+        lng: lon,
+        uid: params[:uid],
+        dislike_poiids: params[:dislike_poiids],
+        route: params[:route]
+      }
+      url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
+      http_request('get', url, query) do |json|
+        if json.is_a?(Hash) && json[:status] == 'success'
+          [true, json[:data]]
+        else
+          [false, { error: json[:msg] }]
         end
       end
     end
