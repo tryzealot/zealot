@@ -15,8 +15,37 @@ show_daytour = ->
     data: params
     type: 'get'
     dataType: 'json'
-    done: (data) ->
+    success: (data) ->
+      console.log data
+      title = $.trim($('select#route option:checked').text())
+      $('#daytour').removeClass('hidden')
+      $('#daytour h2').html(title)
 
+      $(data).each((i, item) ->
+        row_select = ''
+        row_body = ''
+        row_action = ''
+
+        if item.type == 'poi'
+          row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
+            '" data-lon="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" />'
+          row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
+            '<a href="">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
+            item.distance + '公里'
+          row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
+        else
+          row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
+
+        row_html = '<tr>' +
+          '<td>' + row_select + '</td>' +
+          '<td>' + (i + 1) + '</td>' +
+          '<td>' + item.type + '</td>' +
+          '<td>' + row_body + '</td>' +
+          '<td>' + row_action + '</td>' +
+        '</tr>'
+
+        $('#daytour table').append(row_html)
+      )
 
 add_zero = (num) ->
   if (num < 10)
@@ -50,7 +79,8 @@ baidu_geo_foramt = (location) ->
 
 $(document).ready ->
 
-  # show_daytour()
+  $('#recommend-daytour').click ->
+    show_daytour()
 
   $('#new-row').click ->
     last_row = $('#locations-table tr:last')
@@ -110,7 +140,7 @@ $(document).ready ->
         $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
-  $('.remove-poi').click ->
+  $('#daytour table').on('click', '.remove-poi', ->
     $("#result").hide()
     row_index = $(this).parent().parent().index()
     last_index = $('#route-table tr:last').index()
@@ -163,6 +193,8 @@ $(document).ready ->
     else
       $('#route-table tr:eq(' + row_index + ')').remove()
       $('#route-table tr:eq(' + row_index + ')').remove()
+  )
+
 
   $('.select-all').click ->
     $('.route-select:checkbox').each((i, element) ->
