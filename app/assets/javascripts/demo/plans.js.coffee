@@ -72,6 +72,7 @@ $(document).ready ->
 
   # 请求每日推荐行程
   $('#recommend-daytour').click ->
+    button = $(this)
     params =
       uid: $('#uid').val()
       device_id: $('#device_id').val()
@@ -84,9 +85,14 @@ $(document).ready ->
       data: params
       type: 'get'
       dataType: 'json'
+      beforeSend: ->
+        $(button).val('推荐组合中...').prop('disabled', 'true')
       success: (data) ->
         console.log data
         output_daytours(data)
+        $(button).val('再给爷推荐一次！')
+      complete: ->
+        $(button).removeProp('disabled')
 
   # 新增随机用户时间和坐标
   $('#new-row').click ->

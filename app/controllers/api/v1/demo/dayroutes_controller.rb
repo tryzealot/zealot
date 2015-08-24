@@ -112,7 +112,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       data
     end
 
-
     ##
     # RA 接口：两点交通查询
     #
@@ -149,6 +148,9 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           end
         end
       end
+
+      logger.debug "Cache data: #{data}"
+      [status, data]
     end
 
     ##
