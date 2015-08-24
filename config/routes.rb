@@ -44,8 +44,6 @@ Rails.application.routes.draw do
 
   namespace :demo do
     get 'plans/index', to: 'plans#index', as: 'plans'
-    post 'plans/index', to: 'plans#index', as: 'recommend_plans'
-    post 'plans/update_route', to: 'plans#update_route', as: 'update_route_plans'
 
     get 'plans/record', to: 'plans#record', as: 'record_plans'
     post 'plans/store_record', to: 'plans#store_record', as: 'store_record_plans'
@@ -77,6 +75,7 @@ Rails.application.routes.draw do
       namespace :demo do
         get 'dayroutes/show.json', to: 'dayroutes#show'
         get 'dayroutes/traffic.json', to: 'dayroutes#traffic'
+        get 'dayroutes/update.json', to: 'dayroutes#update'
       end
     end
   end
