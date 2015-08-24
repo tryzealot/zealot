@@ -69,6 +69,25 @@ baidu_geo_foramt = (location) ->
   lat + "," + lon
 
 $(document).ready ->
+  $('#clear-cache').click ->
+    button = $(this)
+    params =
+      uid: $('#uid').val()
+      device_id: $('#device_id').val()
+      date: $('#date').val()
+      location: $('#location').val()
+      route: $('#route').val()
+    $.ajax
+      url: HOST + "api/demo/dayroutes/clear_cache.json",
+      data: params
+      type: 'delete'
+      dataType: 'json'
+      beforeSend: ->
+        $(button).val('清理...').prop('disabled', 'true')
+      success: (data) ->
+        console.log data
+      complete: ->
+        $(button).val('再次清理').removeProp('disabled')
 
   # 请求每日推荐行程
   $('#recommend-daytour').click ->
