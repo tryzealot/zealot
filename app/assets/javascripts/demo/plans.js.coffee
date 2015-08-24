@@ -41,9 +41,9 @@ output_daytours = (data) ->
       lon: lng,
       title: '我',
       html: '<h3>我</h3>',
-      type : 'circle',
+      type: 'circle',
       circle_options: {
-        radius: 20000
+        radius: 200
       }
     }
   ]
@@ -61,7 +61,6 @@ output_daytours = (data) ->
         lon: item.lat,
         title: item.poiname,
         html: '<h3>' + item.poiname + '</h3>',
-        visible: true
       })
 
       row_class = 'poi-row'
@@ -91,7 +90,6 @@ output_daytours = (data) ->
   new Maplace({
     locations: locations,
     map_div: '#map-route',
-    start: 1,
     controls_on_map: true,
     controls_type: 'list',
     view_all_text: '路线全揽',
