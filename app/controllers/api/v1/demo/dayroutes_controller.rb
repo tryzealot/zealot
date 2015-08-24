@@ -150,7 +150,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     def cache_key(device_id, lat, lon, time, route)
       time = time.strftime("%Y%m%d%H")
       hash = Digest::MD5.hexdigest([device_id, lon, lat].join('-')).upcase
-      [hash, lat, route].join('-')
+      [hash, time, route].join('-')
     end
 
     def parse_traffic(data)
