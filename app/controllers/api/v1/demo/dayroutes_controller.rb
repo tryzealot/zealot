@@ -20,10 +20,45 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       route: @route
     }
 
+    @category = {
+      '32' => '景点',
+      '77' => '交通',
+      '78' => '美食',
+      '147' => '购物',
+      '148' => '活动',
+      '149' => '住宿',
+    }
+
+    @trip_modes = {
+      'default' => '步行（默认）',
+      'walk' => '步行',
+      'drive' => '自驾',
+    }
+
     tour_status, tour_data = ra_show_daytour(query)
-    logger.debug "data: #{tour_data}"
+    data = if status
+      tours = []
+      tour_data.each do |item|
+        tours = item
+
+        if item[:type] == 'poi'
+          tours[:catename] = @category[item[:cateid].to_s]
+          tours[:lat] = item[:geo][1]
+          tours[:lon] = item[:geo][0]
+          tours[:distance] = Haversine.distance(@lat.to_f, @lon.to_f, tours[:lon], tours[:lat]).to_kilometers.round(2)
+          tours[:arrival_time] = Time.at(item[:arrival_time]).strftime('%H:%M')
+          tours[:duration] = (item[:duration] / 60).round
+        else
+          tours[:traffic_time] = (item[:traffic_time] / 60).round
+          tours[:mode] = @trip_modes[item[:tripmode].downcase]
+        end
+      end
+    else
+      tour_data
+    end
+
     status = tour_status ? 200 : 409
-    render json: tour_data, status: status
+    render json: data, status: status
   end
 
 
@@ -55,15 +90,15 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     #
     def ra_show_daytour(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}"
+      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}-#{params[:route]}"
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
       expires_in = (expires_date.hour - now.hour).hours
       logger.debug "Daytour cache key: #{key} and expires in #{expires_in/60/60} hours"
-      logger.debug "RA data read from cache!" if Rails.cache.exist?key
+      logger.debug Rails.cache.exist?(key) ? "RA data read from cache!" : "No ra cache, request api"
 
-      Rails.cache.fetch(key, expires_in: expires_in) do
+      status, data = Rails.cache.fetch(key, expires_in: expires_in) do
         http_request('get', url, params) do |json|
           if json[:status] == 'success'
             [true, json[:data]]

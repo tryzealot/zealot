@@ -16,8 +16,9 @@ class Demo::PlansController < ApplicationController
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
     @route = params.fetch :route, 1
-    # 处理查询请求
-    if request.request_method == 'POST'
+
+    # # 处理查询请求
+    # if request.request_method == 'POST'
       @catrgory = {
         '32' => '景点',
         '77' => '交通',
@@ -26,28 +27,28 @@ class Demo::PlansController < ApplicationController
         '148' => '活动',
         '149' => '住宿',
       }
-
-      tours_query = {
-        lat: @lat,
-        lng: @lon,
-        local_time: @today.to_i,
-        device_id: @device_id,
-        uid: @uid,
-        route: @route
-      }
-      tour_status, tour_data = daytours(tours_query)
-
-
-      if tour_status
-        @tour = tour_data
-        logger.debug "Tour data: #{tour_data}"
-      end
-
-      maybe_status, @maybe_pois = maybes({
-        device_id: @device_id,
-        local_time: @today.to_i
-      })
-    end
+    #
+    #   tours_query = {
+    #     lat: @lat,
+    #     lng: @lon,
+    #     local_time: @today.to_i,
+    #     device_id: @device_id,
+    #     uid: @uid,
+    #     route: @route
+    #   }
+    #   tour_status, tour_data = daytours(tours_query)
+    #
+    #
+    #   if tour_status
+    #     @tour = tour_data
+    #     logger.debug "Tour data: #{tour_data}"
+    #   end
+    #
+    #   maybe_status, @maybe_pois = maybes({
+    #     device_id: @device_id,
+    #     local_time: @today.to_i
+    #   })
+    # end
   end
 
   ##
@@ -157,7 +158,7 @@ class Demo::PlansController < ApplicationController
     #
     def daytours(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}"
+      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}-#{params[:route]}"
       logger.debug "daytours cache key: #{key}"
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
@@ -205,7 +206,7 @@ class Demo::PlansController < ApplicationController
       status = false
       data = []
 
-      logger.debug "Request url: #{url}?#{params.to_query}"
+      logger.debug "[RA] Request url: #{url}?#{params.to_query}"
       begin
         if method == 'get'
           r = RestClient.get url, params: params
@@ -214,7 +215,7 @@ class Demo::PlansController < ApplicationController
         end
 
         if r.code == 200
-          logger.debug "response data: #{r}"
+          logger.debug "[RA] Response data: #{r}"
           json = MultiJson.load r, symbolize_keys: true
           if block_given?
             status, data = yield(json)
@@ -224,7 +225,7 @@ class Demo::PlansController < ApplicationController
           end
         end
       rescue Exception => e
-        logger.fatal "error response: #{e.message}"
+        logger.fatal "[RA] Error data: #{e.message}"
         logger.fatal e.backtrace.join("\n")
         data = {
           error: e.message,
