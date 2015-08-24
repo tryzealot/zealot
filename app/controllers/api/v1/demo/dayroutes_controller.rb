@@ -18,9 +18,9 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
   def show
     @uid = params.fetch 'uid', 1357827
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-    @lon, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+    @lng, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
     @lat.strip!
-    @lon.strip!
+    @lng.strip!
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ?
       DateTime.parse(@today + " +08:00") : DateTime.new(@today.year, @today.month, @today.day, 7, 0, 0, '+8')
@@ -28,7 +28,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
     query = {
       lat: @lat,
-      lng: @lon,
+      lng: @lng,
       local_time: @today.to_i,
       device_id: @device_id,
       uid: @uid,
@@ -42,7 +42,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         tours = item
 
         if item[:type] == 'poi'
-          tours = parse_poi(@lat, @lon, item)
+          tours = parse_poi(@lat, @lng, item)
         else
           tours = parse_traffic(item)
         end
@@ -62,7 +62,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       tour_data.each do |item|
         tours = item
         if item[:type] == 'poi'
-          tours = parse_poi(@lat, @lon, item)
+          tours = parse_poi(@lat, @lng, item)
         else
           tours = parse_traffic(item)
         end
@@ -117,12 +117,17 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       params[:key]
     else
       device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
+      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat.strip!
+      lng.strip!
       today = params.fetch 'date', Time.now
       today = (today.is_a?String) ? DateTime.parse(today + " +08:00") : today
       route = params.fetch :route, 1
 
-      "#{device_id}-#{today.strftime("%Y%m%d%H")}-#{route}"
+      cache_key(device_id, lat, lng, today, route)
     end
+
+    logger.debug "Check cache key: #{key}"
 
     status, data = if Rails.cache.exist?key
       Rails.cache.delete(key)
@@ -135,21 +140,26 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
   end
 
   private
-    def parse_poi(lat, lon, data)
+    def parse_poi(lat, lng, data)
       arrival_time = Time.at(data[:arrival_time])
       now = Time.now
       data[:catename] = POI_CATEGORY[data[:cateid].to_s]
       data[:lat] = data[:geo][1]
-      data[:lon] = data[:geo][0]
-      data[:distance] = Haversine.distance(lat.to_f, lon.to_f, data[:lon], data[:lat]).to_kilometers.round(2)
+      data[:lng] = data[:geo][0]
+      data[:distance] = Haversine.distance(lat.to_f, lng.to_f, data[:lng], data[:lat]).to_kilometers.round(2)
       data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
       data[:selected] = now > arrival_time ? false : true
     end
 
-    def cache_key(device_id, lat, lon, time, route)
+    def cache_key(device_id, lat, lng, time, route)
       time = time.strftime("%Y%m%d%H")
-      hash = Digest::MD5.hexdigest([device_id, lon, lat].join('-')).upcase
+      hash = Digest::MD5.hexdigest([device_id, lng, lat].join('-')).upcase
+
+      ap device_id
+      ap lat
+      ap lng
+
       [hash, time, route].join('-')
     end
 
@@ -184,7 +194,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     def ra_show_daytour(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
 
-      key = cache_key(params[:device_id], params[:lat], params[:lon], Time.at(params[:local_time]), params[:route])
+      key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
@@ -210,14 +220,14 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     # RA 接口：删除 POI 并重新推荐线路
     #
     def ra_update_daytour(params)
-      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
-      lon.strip!
+      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lng.strip!
       lat.strip!
       query = {
         local_time: DateTime.parse(params[:date] + "+08:00").to_i,
         device_id: params[:device_id],
         lat: lat,
-        lng: lon,
+        lng: lng,
         uid: params[:uid],
         dislike_poiids: params[:dislike_poiids],
         route: params[:route]
@@ -231,7 +241,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         end
       end
 
-      key = cache_key(params[:device_id], params[:lat], params[:lon], Time.at(params[:local_time]), params[:route])
+      key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
@@ -248,15 +258,15 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
 
     def ra_upload_location(params)
-      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
-      lon.strip!
+      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lng.strip!
       lat.strip!
 
       query = {
         device_id: params[:device_id],
         local_time: DateTime.parse("#{params[:date]} #{params[:time]} +08:00").to_i,
         lat: lat,
-        lng: lon,
+        lng: lng,
         uid: 1357827,
       }
 
