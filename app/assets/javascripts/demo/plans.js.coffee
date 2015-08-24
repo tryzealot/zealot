@@ -110,6 +110,8 @@ $(document).ready ->
         console.log data
         output_daytours(data)
         $(button).val('再给爷推荐一次！')
+      error: ->
+        $(button).val('接口错误，再来一次！')
       complete: ->
         $(button).removeProp('disabled')
 
