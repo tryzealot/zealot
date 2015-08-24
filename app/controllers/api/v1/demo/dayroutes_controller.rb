@@ -87,6 +87,31 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     render json: data, status: status ? 200 : 409
   end
 
+  def list_location
+    @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
+    @today = params.fetch 'date', Time.now
+    @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
+
+    key = "#{@device_id}-#{@today.strftime("%Y-%m-%d")}"
+    # Rails.cache.delete cache_key
+    @locations = Rails.cache.fetch(key) do
+      []
+    end
+  end
+
+  def upload_location
+    key = "#{params[:device_id]}-#{params[:date]}"
+    @locations = Rails.cache.fetch(key) do
+      []
+    end
+
+    @locations.append(params)
+    Rails.cache.write(key, @locations)
+
+    status, data = ra_upload_location(params)
+    render json: data
+  end
+
   def clear_cache
     key = if params[:key]
       params[:key]
@@ -122,6 +147,12 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       data[:selected] = now > arrival_time ? false : true
     end
 
+    def cache_key(device_id, lat, lon, time, route)
+      time = time.strftime("%Y%m%d%H")
+      hash = Digest::MD5.hexdigest([device_id, lon, lat].join('-')).upcase
+      [hash, lat, route].join('-')
+    end
+
     def parse_traffic(data)
       data[:mode] = TRIPMODE[data[:tripmode].downcase]
       data[:traffic_time] = (data[:traffic_time] / 60).round
@@ -152,14 +183,15 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     #
     def ra_show_daytour(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d%H")}-#{params[:route]}"
+
+      key = cache_key(params[:device_id], params[:lat], params[:lon], Time.at(params[:local_time]), params[:route])
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
       expires_in = (expires_date.hour - now.hour).hours
       logger.debug "Daytour cache key: #{key} and expires in #{expires_in/60/60} hours"
-      logger.debug Rails.cache.exist?(key) ? "RA data read from cache!" : "No ra cache, request api"
 
+      cache_exist = Rails.cache.exist?(key)
       status, data = Rails.cache.fetch(key, expires_in: expires_in) do
         http_request('get', url, params) do |json|
           if json[:status] == 'success'
@@ -170,7 +202,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         end
       end
 
-      logger.debug "Cache data: #{data}"
+      logger.debug "Cache data: #{data}" if cache_exist
       [status, data]
     end
 
@@ -191,13 +223,45 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         route: params[:route]
       }
       url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
-      http_request('get', url, query) do |json|
+      response = http_request('get', url, query) do |json|
         if json.is_a?(Hash) && json[:status] == 'success'
           [true, json[:data]]
         else
           [false, { error: json[:msg] }]
         end
       end
+
+      key = cache_key(params[:device_id], params[:lat], params[:lon], Time.at(params[:local_time]), params[:route])
+
+      now = Time.at(params[:local_time]).to_datetime
+      expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
+      expires_in = (expires_date.hour - now.hour).hours
+      logger.debug "Daytour cache key: #{key} and expires in #{expires_in/60/60} hours"
+      if Rails.cache.exist?(key)
+        Rails.cache.delete key
+        logger.debug "Cache had been updated"
+      end
+      Rails.cache.write key, response
+
+      response
+    end
+
+
+    def ra_upload_location(params)
+      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lon.strip!
+      lat.strip!
+
+      query = {
+        device_id: params[:device_id],
+        local_time: DateTime.parse("#{params[:date]} #{params[:time]} +08:00").to_i,
+        lat: lat,
+        lng: lon,
+        uid: 1357827,
+      }
+
+      url = 'http://doraemon.qyer.com/recommend/onroad/update_loc/'
+      http_request('get', url, query)
     end
 
     ##
