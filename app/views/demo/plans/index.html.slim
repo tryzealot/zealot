@@ -14,7 +14,7 @@
           input.form-control type="text" id="device_id" name="device_id" value="#{@device_id}" disabled="disabled" 
         .form-group  
           label for="date" 时间
-          input.form-control type="text" id="date" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d %H:%M')}"
+          input.form-control type="text" id="date" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d')} 07:00"
         .form-group  
           label for="location" 
           | 经纬度(
