@@ -31,7 +31,7 @@ class Api::V1::AppController < Api::ApplicationController
     unless @release
       status = 201
 
-      extra = params.clone
+      extra = params.clnge
       extra.delete(:file)
       @release = @app.releases.create(
         identifier: params[:identifier],
