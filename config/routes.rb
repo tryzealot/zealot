@@ -76,6 +76,8 @@ Rails.application.routes.draw do
         get 'dayroutes/show.json', to: 'dayroutes#show'
         get 'dayroutes/traffic.json', to: 'dayroutes#traffic'
         get 'dayroutes/update.json', to: 'dayroutes#update'
+
+        delete 'dayroutes/clear_cache.json', to: 'dayroutes#clear_cache'
       end
     end
   end

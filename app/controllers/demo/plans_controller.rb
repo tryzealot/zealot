@@ -16,39 +16,6 @@ class Demo::PlansController < ApplicationController
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
     @route = params.fetch :route, 1
-
-    # # 处理查询请求
-    # if request.request_method == 'POST'
-      @catrgory = {
-        '32' => '景点',
-        '77' => '交通',
-        '78' => '美食',
-        '147' => '购物',
-        '148' => '活动',
-        '149' => '住宿',
-      }
-    #
-    #   tours_query = {
-    #     lat: @lat,
-    #     lng: @lon,
-    #     local_time: @today.to_i,
-    #     device_id: @device_id,
-    #     uid: @uid,
-    #     route: @route
-    #   }
-    #   tour_status, tour_data = daytours(tours_query)
-    #
-    #
-    #   if tour_status
-    #     @tour = tour_data
-    #     logger.debug "Tour data: #{tour_data}"
-    #   end
-    #
-    #   maybe_status, @maybe_pois = maybes({
-    #     device_id: @device_id,
-    #     local_time: @today.to_i
-    #   })
-    # end
   end
 
   ##
@@ -143,41 +110,5 @@ class Demo::PlansController < ApplicationController
           [false, { error: json[:msg] }]
         end
       end
-    end
-
-    ##
-    # 封装网络请求接口
-    #
-    def http_request(method, url, params)
-      status = false
-      data = []
-
-      logger.debug "[RA] Request url: #{url}?#{params.to_query}"
-      begin
-        if method == 'get'
-          r = RestClient.get url, params: params
-        else
-          r = RestClient.post url, params
-        end
-
-        if r.code == 200
-          logger.debug "[RA] Response data: #{r}"
-          json = MultiJson.load r, symbolize_keys: true
-          if block_given?
-            status, data = yield(json)
-          else
-            status = true
-            data = json
-          end
-        end
-      rescue Exception => e
-        logger.fatal "[RA] Error data: #{e.message}"
-        logger.fatal e.backtrace.join("\n")
-        data = {
-          error: e.message,
-        }
-      end
-
-      [status, data]
     end
 end

@@ -75,7 +75,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     render json: data, status: status
   end
 
-
   def traffic
     params.delete :action
     params.delete :controller
@@ -86,6 +85,28 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     end
 
     render json: data, status: status ? 200 : 409
+  end
+
+  def clear_cache
+    key = if params[:key]
+      params[:key]
+    else
+      device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
+      today = params.fetch 'date', Time.now
+      today = (today.is_a?String) ? DateTime.parse(today + " +08:00") : today
+      route = params.fetch :route, 1
+
+      "#{device_id}-#{today.strftime("%Y%m%d%H")}-#{route}"
+    end
+
+    status, data = if Rails.cache.exist?key
+      Rails.cache.delete(key)
+      [200, { message: 'ok' }]
+    else
+      [404, { message: 'cache not found' }]
+    end
+
+    render json: data, status: status
   end
 
   private
@@ -131,7 +152,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     #
     def ra_show_daytour(params)
       url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}-#{params[:route]}"
+      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d%H")}-#{params[:route]}"
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
