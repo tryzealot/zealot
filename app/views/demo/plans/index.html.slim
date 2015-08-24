@@ -1,11 +1,39 @@
 - content_for :title do
   = raw @title
 
+script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
+javascript:
+  function googleMaps(lat, lng, zoom) { 
+    geocoder = new google.maps.Geocoder(); 
+    var myLatlng = new google.maps.LatLng(lat, lng); 
+    var myOptions = { 
+      zoom: zoom, 
+      center: myLatlng, 
+      mapTypeId: google.maps.MapTypeId.TERRAIN 
+    } 
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+    var marker = new google.maps.Marker({ 
+        position: myLatlng,  
+        map: map 
+    }); 
+    google.maps.event.addListener(map, "center_changed", function(){ 
+      document.getElementById("location").value = map.getCenter().lng() + "," + map.getCenter().lat(); 
+      marker.setPosition(map.getCenter()); 
+    }); 
+  }
+  
+  $(document).ready(function(){
+    googleMaps(#{@lat}, #{@lng}, 12);
+  })
+
 .container
   .row
     .header
       h2 = @title
-      form
+      .pull-right
+        #map_canvas style="marin-left:10px;width:500px;height:400px"
+
+      .form
         .form-group  
           label for="uid" 用户
           input.form-control type="text" id="uid" name="uid" value="#{@uid}" disabled="disabled" 
@@ -30,6 +58,8 @@
           
         input#recommend-daytour.btn.btn-success type="button" value="给爷推荐！"
         input#clear-cache.btn.btn-info type="button" value="清除上述参数缓存" style="margin-left: 5px"
+        
+      .clearfix
     
     #daytour.hidden
       h2.title
