@@ -19,7 +19,7 @@ output_daytours = (data) ->
       row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
         '" data-lon="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
       row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
-        '<a href="">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
+        '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
         item.distance + '公里'
       row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
     else
