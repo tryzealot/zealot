@@ -1,37 +1,33 @@
 - content_for :title do
   = raw @title
 
-script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
 javascript:
-  function googleMaps(lat, lng, zoom) { 
+  function googleMaps (lat, lng, zoom) { 
     geocoder = new google.maps.Geocoder(); 
     var myLatlng = new google.maps.LatLng(lat, lng); 
     var myOptions = { 
       zoom: zoom, 
       center: myLatlng, 
-      mapTypeId: google.maps.MapTypeId.TERRAIN 
+      mapTypeId: google.maps.MapTypeId.ROADMAP 
     } 
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+    map = new google.maps.Map(document.getElementById("gmap"), myOptions); 
     var marker = new google.maps.Marker({ 
         position: myLatlng,  
         map: map 
-    }); 
+    });
     google.maps.event.addListener(map, "center_changed", function(){ 
       document.getElementById("location").value = map.getCenter().lng() + "," + map.getCenter().lat(); 
       marker.setPosition(map.getCenter()); 
     }); 
   }
   
-  $(document).ready(function(){
-    googleMaps(#{@lat}, #{@lng}, 14);
-  })
 
 .container
   .row
     .header
       h2 = @title
       .pull-right
-        #map_canvas style="marin-left:10px;width:500px;height:400px"
+        #gmap style="marin-left:10px;width:500px;height:400px"
 
       .form
         .form-group  
@@ -79,6 +75,8 @@ javascript:
               th.col-md-6 标题
               th.col-md-2 操作
           tbody
+        
+        #map-route style="width: 100%; height: 500px"
       
     #maybe_pois
       h2.title
@@ -109,3 +107,7 @@ javascript:
     /       p 没有数据
     /   
     /   = debug @maybe_pois
+
+
+script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.13"
+== javascript_include_tag "maplace.js"

@@ -2,11 +2,68 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+drag_default_map = (element)->
+  location_array = $('#location').val().split(",")
+  lng = parseFloat($.trim(location_array[0]))
+  lat = parseFloat($.trim(location_array[1]))
+  zoom = 14
+
+  geocoder = new google.maps.Geocoder()
+  myLatlng = new google.maps.LatLng(lat, lng)
+  myOptions =
+    zoom: zoom,
+    center: myLatlng,
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  map = new google.maps.Map(document.getElementById(element), myOptions)
+  marker = new google.maps.Marker
+    position: myLatlng
+    map: map
+
+  google.maps.event.addListener(map, "center_changed", ->
+    document.getElementById("location").value = map.getCenter().lng() + "," + map.getCenter().lat()
+    marker.setPosition(map.getCenter())
+  )
+
 output_daytours = (data) ->
   title = $.trim($('select#route option:checked').text())
   $('#daytour').removeClass('hidden')
   $('#daytour h2').html(title)
   $('#daytour table tbody').empty()
+
+  location_array = $('#location').val().split(",")
+  lng = parseFloat($.trim(location_array[0]))
+  lat = parseFloat($.trim(location_array[1]))
+  locations = [
+    {
+      lat: 45.9,
+      lon: 10.9,
+      title: 'Zone A1',
+      html: '&lt;h3&gt;Content A1&lt;/h3&gt;',
+      type : 'circle',
+      circle_options: {
+        radius: 20000
+      },
+    },
+    {
+      lat: 44.8,
+      lon: 1.7,
+      title: 'Draggable',
+      html: '&lt;h3&gt;Content B1&lt;/h3&gt;',
+      visible: true,
+    },
+    {
+      lat: 51.5,
+      lon: -1.1,
+      title: 'Title C1',
+      html: [
+        '&lt;h3&gt;Content C1&lt;/h3&gt;',
+        '&lt;p&gt;Lorem Ipsum..&lt;/p&gt;'
+      ].join(''),
+      visible: true
+    }
+  ];
 
   $(data).each((i, item) ->
     row_class = ''
@@ -15,6 +72,14 @@ output_daytours = (data) ->
     row_action = ''
 
     if item.type == 'poi'
+
+      # locations.push({
+      #   lat: item.lat,
+      #   lon: item.lng,
+      #   title: item.poiname,
+      #   html: '<h3>' + item.poiname + '</h3>',
+      # })
+
       row_class = 'poi-row'
       row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
         '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
@@ -36,6 +101,17 @@ output_daytours = (data) ->
 
     $('#daytour table tbody').append(row_html)
   )
+
+  console.debug locations
+
+  new Maplace({
+    locations: locations,
+    map_div: '#map-route',
+    controls_on_map: true,
+    controls_type: 'list',
+    view_all_text: '路线全揽',
+    type: 'polyline',
+  }).Load();
 
 
 add_zero = (num) ->
@@ -69,6 +145,9 @@ baidu_geo_foramt = (location) ->
   lat + "," + lng
 
 $(document).ready ->
+
+  drag_default_map('gmap')
+
   $('#clear-cache').click ->
     button = $(this)
     params =
