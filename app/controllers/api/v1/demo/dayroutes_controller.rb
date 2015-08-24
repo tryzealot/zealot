@@ -1,5 +1,20 @@
 class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
+  POI_CATEGORY = {
+    '32' => '景点',
+    '77' => '交通',
+    '78' => '美食',
+    '147' => '购物',
+    '148' => '活动',
+    '149' => '住宿',
+  }
+
+  TRIPMODE = {
+    'default' => '步行（默认）',
+    'walk' => '步行',
+    'drive' => '自驾',
+  }
+
   def show
     @uid = params.fetch 'uid', 1357827
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
@@ -20,21 +35,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       route: @route
     }
 
-    @category = {
-      '32' => '景点',
-      '77' => '交通',
-      '78' => '美食',
-      '147' => '购物',
-      '148' => '活动',
-      '149' => '住宿',
-    }
-
-    @trip_modes = {
-      'default' => '步行（默认）',
-      'walk' => '步行',
-      'drive' => '自驾',
-    }
-
     tour_status, tour_data = ra_show_daytour(query)
     data = if status
       tours = []
@@ -42,15 +42,9 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         tours = item
 
         if item[:type] == 'poi'
-          tours[:catename] = @category[item[:cateid].to_s]
-          tours[:lat] = item[:geo][1]
-          tours[:lon] = item[:geo][0]
-          tours[:distance] = Haversine.distance(@lat.to_f, @lon.to_f, tours[:lon], tours[:lat]).to_kilometers.round(2)
-          tours[:arrival_time] = Time.at(item[:arrival_time]).strftime('%H:%M')
-          tours[:duration] = (item[:duration] / 60).round
+          tours = parse_poi(@lat, @lon, item)
         else
-          tours[:traffic_time] = (item[:traffic_time] / 60).round
-          tours[:mode] = @trip_modes[item[:tripmode].downcase]
+          tours = parse_traffic(item)
         end
       end
     else
@@ -67,10 +61,35 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     params.delete :controller
 
     status, data = ra_traffic_between_two_pois(params)
+    if status
+      data = parse_traffic(data)
+    end
+
     render json: data, status: status ? 200 : 409
   end
 
   private
+    def parse_poi(lat, lon, data)
+      data[:catename] = POI_CATEGORY[data[:cateid].to_s]
+      data[:lat] = data[:geo][1]
+      data[:lon] = data[:geo][0]
+      data[:distance] = Haversine.distance(lat.to_f, lon.to_f, data[:lon], data[:lat]).to_kilometers.round(2)
+      data[:arrival_time] = Time.at(data[:arrival_time]).strftime('%H:%M')
+      data[:duration] = (data[:duration] / 60).round
+    end
+
+    def parse_traffic(data)
+      data[:mode] = TRIPMODE[data[:tripmode].downcase]
+      data[:traffic_time] = (data[:traffic_time] / 60).round
+
+      if data[:segments].is_a?String
+        data[:segments] = [] if ["[]", '""'].include?(data[:segments])
+      end
+
+      data
+    end
+
+
     ##
     # RA 接口：两点交通查询
     #
