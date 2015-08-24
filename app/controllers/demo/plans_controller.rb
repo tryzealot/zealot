@@ -36,25 +36,6 @@ class Demo::PlansController < ApplicationController
   end
 
   ##
-  # 保存用户上报坐标
-  # 需要处理：
-  # 1. 保存记录到缓存
-  # 2. 回调 RA 接口
-  #
-  def store_record
-    cache_key = "#{params[:device_id]}-#{params[:date]}"
-    @locations = Rails.cache.fetch(cache_key) do
-      []
-    end
-
-    @locations.append(params)
-    Rails.cache.write(cache_key, @locations)
-
-    status, data = upload_location(params)
-    render json: data
-  end
-
-  ##
   # 根据地址查询坐标
   # 使用百度地图接口
   #
@@ -77,26 +58,6 @@ class Demo::PlansController < ApplicationController
   end
 
   private
-    ##
-    # RA 接口：上报坐标
-    # 无需管返回数据
-    #
-    def upload_location(params)
-      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
-      lon.strip!
-      lat.strip!
-
-      query = {
-        device_id: params[:device_id],
-        local_time: DateTime.parse("#{params[:date]} #{params[:time]} +08:00").to_i,
-        lat: lat,
-        lng: lon,
-        uid: 1357827,
-      }
-
-      url = 'http://doraemon.qyer.com/recommend/onroad/update_loc/'
-      http_request('get', url, query)
-    end
 
     ##
     # RA 接口：用户可能去过景点列表
