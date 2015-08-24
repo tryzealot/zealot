@@ -87,14 +87,6 @@ class Demo::PlansController < ApplicationController
     render json: data
   end
 
-  def update_route
-    status, data = update_daytour(params)
-    ap status
-    ap data
-
-    render json: data, status: status ? 200 : 444
-  end
-
   ##
   # 根据地址查询坐标
   # 使用百度地图接口
@@ -146,52 +138,6 @@ class Demo::PlansController < ApplicationController
       url = "http://doraemon.qyer.com/recommend/onroad/might_beento_pois/"
       status, data = http_request('get', url, params) do |json|
         if json[:status] == 'success'
-          [true, json[:data]]
-        else
-          [false, { error: json[:msg] }]
-        end
-      end
-    end
-
-    ##
-    # RA 接口：每日行程推荐
-    #
-    def daytours(params)
-      url = 'http://doraemon.qyer.com/recommend/onroad/daytours'
-      key = "#{params[:device_id]}-#{Time.at(params[:local_time]).strftime("%Y%m%d")}-#{params[:route]}"
-      logger.debug "daytours cache key: #{key}"
-      now = Time.at(params[:local_time]).to_datetime
-      expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
-      Rails.cache.fetch(key, expires_in: (expires_date.hour - now.hour).hours) do
-        http_request('get', url, params) do |json|
-          if json[:status] == 'success'
-            [true, json[:data]]
-          else
-            [false, { error: json[:msg] }]
-          end
-        end
-      end
-    end
-
-    ##
-    # RA 接口：删除 POI 并重新推荐线路
-    #
-    def update_daytour(params)
-      lon, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
-      lon.strip!
-      lat.strip!
-      query = {
-        local_time: DateTime.parse(params[:date] + "+08:00").to_i,
-        device_id: params[:device_id],
-        lat: lat,
-        lng: lon,
-        uid: params[:uid],
-        dislike_poiids: params[:dislike_poiids],
-        route: params[:route]
-      }
-      url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
-      http_request('get', url, query) do |json|
-        if json.is_a?(Hash) && json[:status] == 'success'
           [true, json[:data]]
         else
           [false, { error: json[:msg] }]
