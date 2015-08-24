@@ -10,9 +10,9 @@ class Demo::PlansController < ApplicationController
 
     @uid = params.fetch 'uid', 1357827
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-    @lon, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+    @lng, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
     @lat.strip!
-    @lon.strip!
+    @lng.strip!
     @today = params.fetch 'date', Time.now
     @today = (@today.is_a?String) ? DateTime.parse(@today + " +08:00") : @today
     @route = params.fetch :route, 1

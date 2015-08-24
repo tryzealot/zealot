@@ -17,7 +17,7 @@ output_daytours = (data) ->
     if item.type == 'poi'
       row_class = 'poi-row'
       row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
-        '" data-lon="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
+        '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
       row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
         '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
         item.distance + '公里'
@@ -53,20 +53,20 @@ follow_time = (time) ->
 
 nearby_geo = (location) ->
   location_array = location.split(",")
-  lon = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[0]))
   lat = parseFloat($.trim(location_array[1]))
   distance = 100
   random = Math.random()
   around_distance = parseFloat((random / distance).toFixed(8))
 
-  (lon + around_distance).toFixed(8) + "," + (lat + around_distance).toFixed(8)
+  (lng + around_distance).toFixed(8) + "," + (lat + around_distance).toFixed(8)
 
 baidu_geo_foramt = (location) ->
   location_array = location.split(",")
-  lon = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[0]))
   lat = parseFloat($.trim(location_array[1]))
 
-  lat + "," + lon
+  lat + "," + lng
 
 $(document).ready ->
   $('#clear-cache').click ->
@@ -191,10 +191,10 @@ $(document).ready ->
       params =
         source_id: $(source_element).data('id')
         source_lat: $(source_element).data('lat')
-        source_lng: $(source_element).data('lon')
+        source_lng: $(source_element).data('lng')
         target_id: $(target_element).data('id')
         target_lat: $(target_element).data('lat')
-        target_lng: $(target_element).data('lon')
+        target_lng: $(target_element).data('lng')
 
       traffic_element = $('#route-table tr:eq(' + (row_index - 1) + ')')
       traffic_html = $(traffic_element).html()
