@@ -37,33 +37,16 @@ output_daytours = (data) ->
   lat = parseFloat($.trim(location_array[1]))
   locations = [
     {
-      lat: 45.9,
-      lon: 10.9,
-      title: 'Zone A1',
-      html: '&lt;h3&gt;Content A1&lt;/h3&gt;',
+      lat: lat,
+      lon: lng,
+      title: '我',
+      html: '<h3>我</h3>',
       type : 'circle',
       circle_options: {
         radius: 20000
-      },
-    },
-    {
-      lat: 44.8,
-      lon: 1.7,
-      title: 'Draggable',
-      html: '&lt;h3&gt;Content B1&lt;/h3&gt;',
-      visible: true,
-    },
-    {
-      lat: 51.5,
-      lon: -1.1,
-      title: 'Title C1',
-      html: [
-        '&lt;h3&gt;Content C1&lt;/h3&gt;',
-        '&lt;p&gt;Lorem Ipsum..&lt;/p&gt;'
-      ].join(''),
-      visible: true
+      }
     }
-  ];
+  ]
 
   $(data).each((i, item) ->
     row_class = ''
@@ -73,12 +56,13 @@ output_daytours = (data) ->
 
     if item.type == 'poi'
 
-      # locations.push({
-      #   lat: item.lat,
-      #   lon: item.lng,
-      #   title: item.poiname,
-      #   html: '<h3>' + item.poiname + '</h3>',
-      # })
+      locations.push({
+        lat: item.lng,
+        lon: item.lat,
+        title: item.poiname,
+        html: '<h3>' + item.poiname + '</h3>',
+        visible: true
+      })
 
       row_class = 'poi-row'
       row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
@@ -107,6 +91,7 @@ output_daytours = (data) ->
   new Maplace({
     locations: locations,
     map_div: '#map-route',
+    start: 1,
     controls_on_map: true,
     controls_type: 'list',
     view_all_text: '路线全揽',
