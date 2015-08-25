@@ -2,6 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+words = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+  'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+]
+
+number2word = (i) ->
+  if i == 0
+    iconWord = words[i]
+  else
+    iconWord = words[(i / 2)]
+
+  iconWord
+
 drag_default_map = (element)->
   location_array = $('#location').val().split(",")
   lng = parseFloat($.trim(location_array[0]))
@@ -48,13 +61,9 @@ output_daytours = (data) ->
     }
   ]
 
-  words = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-    'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-  ]
-
   $(data).each((i, item) ->
     row_class = ''
+    row_no = ''
     row_select = ''
     row_body = ''
     row_action = ''
@@ -62,10 +71,8 @@ output_daytours = (data) ->
     if item.type == 'poi'
       row_class = 'poi-row'
       if item.poi_id > 0
-        if i == 0
-          iconWord = words[i]
-        else
-          iconWord = words[(i / 2)]
+        iconWord = number2word(i)
+        row_no = iconWord
 
         locations.push({
           lat: item.lng,
@@ -79,7 +86,7 @@ output_daytours = (data) ->
         row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
           '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
           item.distance + '公里'
-        row_action = '<button class="remove-poi btn btn-default">不感兴趣 ' + iconWord + '</button>'
+        row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
       else
         row_body = '建议 ' + item.arrival_time + ' 预留出来进行 [' + item.catename + ']'
     else
@@ -88,8 +95,7 @@ output_daytours = (data) ->
 
     row_html = '<tr class="' + row_class + '">' +
       '<td>' + row_select + '</td>' +
-      '<td>' + (i + 1) + '</td>' +
-      '<td>' + item.type + '</td>' +
+      '<td>' + row_no + '</td>' +
       '<td>' + row_body + '</td>' +
       '<td>' + row_action + '</td>' +
     '</tr>'
@@ -310,7 +316,7 @@ $(document).ready ->
           console.log "success"
           console.debug data
 
-          $(traffic_element).html('<td></td><td>N</td>' +
+          $(traffic_element).html('<td></td><td></td>' +
             '<td>traffic</td>' +
             '<td>[' + data.mode + '] 花费时间 ' + data.traffic_time + '分</td>' +
             '<td></td>')
@@ -319,7 +325,8 @@ $(document).ready ->
           $('#route-table tr:eq(' + row_index + ')').remove()
 
           $('#route-table tbody tr').each((i, element) ->
-            $(element).find('td:eq(1)').html(i + 1)
+            iconWord = number2word(i)
+            $(element).find('td:eq(1)').html(iconWord)
           )
 
         error: (xhr, ajaxOptions, thrownError) ->
