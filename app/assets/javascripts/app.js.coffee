@@ -51,5 +51,18 @@ ready = ->
       url = HOST + "releases/" + data.id + "/edit"
       console.log 'success, redirect to %s', url
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+
+
+
+$(document).ready ->
+  if window.location.pathname == '/apps/upload'
+    ready()
+  else
+    $('.git-branch').click ->
+      value = $(this).html()
+      branch = $(this).data('branch')
+      commit = $(this).data('commit')
+      if value == branch
+        $(this).html(commit)
+      else
+        $(this).html(branch)
