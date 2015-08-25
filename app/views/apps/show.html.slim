@@ -10,15 +10,16 @@ div.row.app-container
       h1
         span.app-name
           = @app.name
-        span.app-type.label.label-primary
+        span.app-type.label.label-primary.label-ms
           = @app.device_type
+        - if @release.branch
+          span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
+            = @release.branch
       div.meta-data
         p.app-identifier
           = @app.identifier
-        p.versio
-          - if @release.branch
-            span alt="#{@release.last_commit}" 分支：#{@release.branch} / 
-          | 版本： #{@release.release_version} (#{@release.build_version})
+        p.version 
+          | 版本：#{@release.release_version} (#{@release.build_version})
           |  / Build：#{@release.version}
           |  / 大小：#{number_to_human_size(@release.filesize)}
           |  / 更新于：#{time_ago_in_words(@release.created_at)}

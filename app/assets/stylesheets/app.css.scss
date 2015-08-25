@@ -14,17 +14,19 @@ div.install-cert-notices {
   color: #FFF;
 }
 
-div.app-container span.app-type {
+.label-ms, span.label-ms {
   font-size: 8px;
   margin-left: 0.5em;
+}
+
+div.app-container span.git-branch {
+  cursor: pointer;
 }
 
 div.app-container p.qr_code img {
   max-width: 240px;
   max-height: 240px;
 }
-
-
 
 .cover {
   position: fixed;
