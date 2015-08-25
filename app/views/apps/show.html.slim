@@ -47,7 +47,7 @@ div.row.app-container
       div.sidebar-module.sidebar-module-inset
         h3 二维码
         p.qr_code 
-          = qr_code(params.has_key?(:id) ? app_release_path(@app.slug, params[:id]) : app_url(@app.slug))
+          = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
       div.sidebar-module.sidebar-module-inset
         - if @app.releases.count > 0
