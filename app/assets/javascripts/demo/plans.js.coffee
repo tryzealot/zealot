@@ -52,9 +52,8 @@ output_daytours = (data) ->
     {
       lat: lat,
       lon: lng,
-      title: '我',
-      html: '<h3>我</h3>',
-      type: 'circle',
+      title: '用户所在地',
+      html: '<h3>用户所在地</h3>',
       icon: 'http://www.google.com/mapfiles/dd-start.png'
     }
   ]
@@ -107,7 +106,7 @@ output_daytours = (data) ->
     map_div: '#map-route',
     controls_on_map: true,
     controls_type: 'list',
-    view_all_text: '路线全揽',
+    view_all_text: '线路总览',
     type: 'polyline',
   }).Load();
 
