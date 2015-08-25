@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
 
   get 'releases/index', to: 'releases#index', as: 'releases'
@@ -66,6 +67,8 @@ Rails.application.routes.draw do
       match 'app/download/:release_id' => 'app#download', :via => :get, as: 'app_download'
       match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
       match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
+
+      get 'user/(:id).json', to: 'user#show'
 
       namespace :demo do
         get 'dayroutes/show.json', to: 'dayroutes#show'
