@@ -60,27 +60,28 @@ output_daytours = (data) ->
     row_action = ''
 
     if item.type == 'poi'
-
-      if i == 0
-        iconWord = words[i]
-      else
-        iconWord = words[(i / 2)]
-
-      locations.push({
-        lat: item.lng,
-        lon: item.lat,
-        title: item.poiname,
-        icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
-        html: '<h3>' + item.poiname + '</h3>',
-      })
-
       row_class = 'poi-row'
-      row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
-        '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
-      row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
-        '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
-        item.distance + '公里'
-      row_action = '<button class="remove-poi btn btn-default">不感兴趣 ' + iconWord + '</button>'
+      if item.poi_id > 0
+        if i == 0
+          iconWord = words[i]
+        else
+          iconWord = words[(i / 2)]
+
+        locations.push({
+          lat: item.lng,
+          lon: item.lat,
+          title: item.poiname,
+          icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
+          html: '<h3>' + item.poiname + '</h3>',
+        })
+        row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
+          '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
+        row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
+          '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
+          item.distance + '公里'
+        row_action = '<button class="remove-poi btn btn-default">不感兴趣 ' + iconWord + '</button>'
+      else
+        row_body = '建议 ' + item.arrival_time + ' 预留出来进行 [' + item.catename + ']'
     else
       row_class = 'traffic-row warning'
       row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
@@ -96,6 +97,9 @@ output_daytours = (data) ->
     $('#daytour table tbody').append(row_html)
   )
 
+  console.log locations
+
+  $('#map-route').empty()
   new Maplace({
     locations: locations,
     map_div: '#map-route',
@@ -139,7 +143,6 @@ baidu_geo_foramt = (location) ->
 $(document).ready ->
 
   drag_default_map('gmap')
-
 
   $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
 
