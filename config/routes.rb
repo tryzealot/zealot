@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app'
   patch 'apps/:id', to: 'apps#update', as: 'update_app'
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app'
+  get 'apps/:slug/releases', to: 'releases#index', as: 'releases_app'
+  get 'apps/:slug/releases/:version', to: 'releases#version', as: 'releases_version'
   get 'apps/:slug/:id', to: 'apps#release', as: 'app_release'
 
 
