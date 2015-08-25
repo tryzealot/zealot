@@ -58,7 +58,7 @@ div.row.app-container
               - @app.releases.order('version DESC').limit(10).each do |release|
                 tr class=(release == @release ? 'bg-warning' : '')
                   td[id="release-#{release.id}"]
-                    = link_to release.version, app_release_path(@app.slug, release.id)
+                    = link_to release.version, app_release_path(@app.slug, release.version)
                   td
                     | #{release.release_version} (#{release.build_version})
                   td

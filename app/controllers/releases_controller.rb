@@ -1,4 +1,9 @@
 class ReleasesController < ApplicationController
+
+  def index
+    # @releases =
+  end
+
   def upload
     render json: Release.first.to_json(include: [:app])
   end

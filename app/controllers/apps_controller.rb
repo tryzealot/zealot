@@ -17,7 +17,7 @@ class AppsController < ApplicationController
   end
 
   def release
-    @release = Release.find(params[:id])
+    @release = Release.find_by(version: params[:id])
     @app = @release.app
 
     render 'apps/show'
