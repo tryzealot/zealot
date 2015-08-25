@@ -143,12 +143,22 @@ baidu_geo_foramt = (location) ->
 
   lat + "," + lng
 
+###############################################################
+
 $(document).ready ->
 
+  # 显示默认数据的地图
   drag_default_map('gmap')
 
+  # 激活日期时间拾取器
   $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
 
+  $('#location').bind('change paste keypress', ->
+    # console.log $(this).val()
+    drag_default_map('gmap')
+  )
+
+  # 查找用户信息（设备）
   timer = 0
   $('#uid').keyup ->
     input = $(this)
@@ -172,26 +182,6 @@ $(document).ready ->
         complete: ->
           $(input).removeProp('disabled')
     , 1000)
-
-  $('#clear-cache').click ->
-    button = $(this)
-    params =
-      uid: $('#uid').val()
-      device_id: $('#device_id').val()
-      date: $('#date').val()
-      location: $('#location').val()
-      route: $('#route').val()
-    $.ajax
-      url: HOST + "api/demo/dayroutes/clear_cache.json",
-      data: params
-      type: 'delete'
-      dataType: 'json'
-      beforeSend: ->
-        $(button).val('清理...').prop('disabled', 'true')
-      success: (data) ->
-        console.log data
-      complete: ->
-        $(button).val('再次清理').removeProp('disabled')
 
   # 请求每日推荐行程
   $('#recommend-daytour').click ->
@@ -218,66 +208,6 @@ $(document).ready ->
         $(button).val('接口错误，再来一次！')
       complete: ->
         $(button).removeProp('disabled')
-
-  # 新增随机用户时间和坐标
-  $('#new-row').click ->
-    last_row = $('#locations-table tr:last')
-    if last_row.data('row')?
-      row_no = $(last_row).data('row')
-      time = $(last_row).find('input[name=time]').val()
-      location = $(last_row).find('input[name=location]').val()
-    else
-      row_no = 0
-      time = '08:00'
-      location = '114.173473119,22.3245866064'
-
-    next_row = row_no + 1
-    next_time = follow_time(time)
-    next_location = nearby_geo(location)
-
-    baidu_url = 'http://api.map.baidu.com/geocoder/v2/?location=' + baidu_geo_foramt(next_location) + '&ak=4E23365d590adb14920d402a12929e2d&output=json'
-
-    $.ajax
-      url: baidu_url
-      type: 'get'
-      dataType: 'jsonp'
-      success: (data) ->
-        console.log data
-        address = if data.status == 0 then data.result.formatted_address else ""
-        console.log address
-        $('#locations-table tr:last').after('<tr id="row-' + next_row + '" data-row="' + next_row + '">' +
-          '<td><input class="record-time" name="time" value="' + next_time + '"/></td>' +
-          '<td><input class="record-location" name="location" value="' + next_location + '" />' +
-          '<a href="http://api.map.baidu.com/geocoder/v2/?location=' + baidu_geo_foramt(next_location) + '&ak=4E23365d590adb14920d402a12929e2d&output=json" target="_blank">坐标查询</a>' +
-          '<br /><span class="record-address">' + address + '</span></td>' +
-          '<td><button class="btn btn-info store-record" data-row="' + next_row + '">记录坐标</button></td>' +
-        '</tr>')
-
-  # 上报用户的时间和坐标
-  $('#locations-table').on('click', '.store-record', ->
-    button = $(this)
-    row_no = $(this).data('row')
-    row = $('#row-' + row_no)
-    params =
-      device_id: $('#device_id').val()
-      date: $('#date').val()
-      address: $(row).find('span.record-address').html()
-      time: $(row).find('input[name=time]').val()
-      location: $(row).find('input[name=location]').val()
-
-    $.ajax
-      url: HOST + "api/demo/dayroutes/upload_location.json",
-      data: params
-      type: 'post'
-      dataType: 'json'
-      beforeSend: ->
-        $(button).html('上报中...').attr('disabled', 'true')
-      complete: (data) ->
-        $(button).html('已记录')
-        $(button).attr('disabled', 'true')
-        $(row).find('input[name=time]').attr('disabled', 'true')
-        $(row).find('input[name=location]').attr('disabled', 'true')
-  )
 
   # 忽略单个景点，计算上下俩个景点之间的距离
   $('#daytour table').on('click', '.remove-poi', ->
@@ -338,6 +268,87 @@ $(document).ready ->
     else
       $('#route-table tr:eq(' + row_index + ')').remove()
       $('#route-table tr:eq(' + row_index + ')').remove()
+  )
+
+  # 清除路线推荐的缓存
+  $('#clear-cache').click ->
+    button = $(this)
+    params =
+      uid: $('#uid').val()
+      device_id: $('#device_id').val()
+      date: $('#date').val()
+      location: $('#location').val()
+      route: $('#route').val()
+    $.ajax
+      url: HOST + "api/demo/dayroutes/clear_cache.json",
+      data: params
+      type: 'delete'
+      dataType: 'json'
+      beforeSend: ->
+        $(button).val('清理...').prop('disabled', 'true')
+      success: (data) ->
+        console.log data
+      complete: ->
+        $(button).val('再次清理').removeProp('disabled')
+
+  # 新增随机用户时间和坐标
+  $('#new-row').click ->
+    last_row = $('#locations-table tr:last')
+    if last_row.data('row')?
+      row_no = $(last_row).data('row')
+      time = $(last_row).find('input[name=time]').val()
+      location = $(last_row).find('input[name=location]').val()
+    else
+      row_no = 0
+      time = '08:00'
+      location = '114.173473119,22.3245866064'
+
+    next_row = row_no + 1
+    next_time = follow_time(time)
+    next_location = nearby_geo(location)
+
+    baidu_url = 'http://api.map.baidu.com/geocoder/v2/?location=' + baidu_geo_foramt(next_location) + '&ak=4E23365d590adb14920d402a12929e2d&output=json'
+
+    $.ajax
+      url: baidu_url
+      type: 'get'
+      dataType: 'jsonp'
+      success: (data) ->
+        console.log data
+        address = if data.status == 0 then data.result.formatted_address else ""
+        console.log address
+        $('#locations-table tr:last').after('<tr id="row-' + next_row + '" data-row="' + next_row + '">' +
+          '<td><input class="record-time" name="time" value="' + next_time + '"/></td>' +
+          '<td><input class="record-location" name="location" value="' + next_location + '" />' +
+          '<a href="http://api.map.baidu.com/geocoder/v2/?location=' + baidu_geo_foramt(next_location) + '&ak=4E23365d590adb14920d402a12929e2d&output=json" target="_blank">坐标查询</a>' +
+          '<br /><span class="record-address">' + address + '</span></td>' +
+          '<td><button class="btn btn-info store-record" data-row="' + next_row + '">记录坐标</button></td>' +
+        '</tr>')
+
+  # 上报用户的时间和坐标
+  $('#locations-table').on('click', '.store-record', ->
+    button = $(this)
+    row_no = $(this).data('row')
+    row = $('#row-' + row_no)
+    params =
+      device_id: $('#device_id').val()
+      date: $('#date').val()
+      address: $(row).find('span.record-address').html()
+      time: $(row).find('input[name=time]').val()
+      location: $(row).find('input[name=location]').val()
+
+    $.ajax
+      url: HOST + "api/demo/dayroutes/upload_location.json",
+      data: params
+      type: 'post'
+      dataType: 'json'
+      beforeSend: ->
+        $(button).html('上报中...').attr('disabled', 'true')
+      complete: (data) ->
+        $(button).html('已记录')
+        $(button).attr('disabled', 'true')
+        $(row).find('input[name=time]').attr('disabled', 'true')
+        $(row).find('input[name=location]').attr('disabled', 'true')
   )
 
   # 每日推荐行程的全选
