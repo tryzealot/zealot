@@ -15,11 +15,19 @@ div.row.app-container
       div.meta-data
         p.app-identifier
           = @app.identifier
-        p.version
-          | 版本: #{@release.release_version} (#{@release.build_version})
+        p.versio
+          - if @release.branch
+            span alt="#{@release.last_commit}" 分支：#{@release.branch} / 
+          | 版本： #{@release.release_version} (#{@release.build_version})
           |  / Build：#{@release.version}
           |  / 大小：#{number_to_human_size(@release.filesize)}
           |  / 更新于：#{time_ago_in_words(@release.created_at)}
+          |  / 此版本由 
+          - if @release.channel != 'api'
+            a href="#{@release.ci_url}" #{@release.channel}
+          - else
+            = @release.channel
+          |  提交
 
         p
         - if detect_device == @app.device_type

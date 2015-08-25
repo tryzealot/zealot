@@ -40,6 +40,10 @@ class Api::V1::AppController < Api::ApplicationController
         store_url: params[:store_url],
         icon: params[:icon_url],
         changelog: params[:changelog],
+        channel: params[:channel],
+        branch: params[:branch],
+        last_commit: params[:last_commit],
+        ci_url: params[:ci_url],
         file: params[:file],
         extra: MultiJson.dump(extra)
       )
