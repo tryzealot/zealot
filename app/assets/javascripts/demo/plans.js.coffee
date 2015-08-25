@@ -140,6 +140,9 @@ $(document).ready ->
 
   drag_default_map('gmap')
 
+
+  $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
+
   $('#clear-cache').click ->
     button = $(this)
     params =
