@@ -11,13 +11,8 @@
   width: 200px;
 }
 
-
-#gmap img,
-#map-route img {
+// fix google map controls for bootstrap
+.map img,
+#map img {
   max-width: none;
 }
-
-// #gmap, #gmap .col-xs-6,
-// #map-route, #map-route .col-xs-6 {
-//   height: 100%
-// }
