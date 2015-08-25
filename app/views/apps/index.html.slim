@@ -13,7 +13,7 @@ div.container
         th 应用名称
         th 应用标识
         th SLUG
-        th 上传版本
+        th 上传版本数量
         th 操作
       - if @apps.size > 0
         - @apps.each do |app|
@@ -31,6 +31,8 @@ div.container
             td
               = app.releases.count
             td
+              = link_to '版本历史', releases_app_path(app.slug)
+              |  / 
               = link_to '编辑', edit_app_path(app.slug)
               |  /
               = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
