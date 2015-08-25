@@ -97,8 +97,6 @@ output_daytours = (data) ->
     $('#daytour table tbody').append(row_html)
   )
 
-  console.log locations
-
   $('#map-route').empty()
   new Maplace({
     locations: locations,
@@ -108,7 +106,6 @@ output_daytours = (data) ->
     view_all_text: '路线全揽',
     type: 'polyline',
   }).Load();
-
 
 add_zero = (num) ->
   if (num < 10)
@@ -145,6 +142,30 @@ $(document).ready ->
   drag_default_map('gmap')
 
   $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
+
+  timer = 0
+  $('#uid').keyup ->
+    input = $(this)
+    clearTimeout(timer);
+    timer = setTimeout( ->
+      $.ajax
+        url: HOST + "api/user/" + $(input).val() + ".json",
+        type: 'get'
+        dataType: 'json'
+        beforeSend: ->
+          $(input).prop('disabled', 'true')
+          $('#device_id').val('设备搜查中...')
+          $('#recommend-daytour').prop('disabled', 'true')
+        success: (data) ->
+          $('#device_id').val(data.device_id)
+          $(input).val(data.id)
+          if data.device_id
+            $('#recommend-daytour').removeProp('disabled')
+        error: (xhr, ajaxOptions, thrownError) ->
+          $('#device_id').val(xhr.responseTEXT)
+        complete: ->
+          $(input).removeProp('disabled')
+    , 1000)
 
   $('#clear-cache').click ->
     button = $(this)
