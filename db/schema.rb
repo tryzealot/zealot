@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820063124) do
+ActiveRecord::Schema.define(version: 20150825083805) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150820063124) do
 
   create_table "releases", force: :cascade do |t|
     t.integer  "app_id",          limit: 4,     null: false
+    t.string   "channel",         limit: 255
     t.integer  "filesize",        limit: 4
     t.string   "release_version", limit: 255,   null: false
     t.string   "build_version",   limit: 255,   null: false
@@ -100,6 +101,9 @@ ActiveRecord::Schema.define(version: 20150820063124) do
     t.integer  "version",         limit: 4
     t.string   "store_url",       limit: 255
     t.string   "icon",            limit: 255
+    t.string   "branch",          limit: 255
+    t.string   "last_commit",     limit: 255
+    t.string   "ci_url",          limit: 255
     t.text     "changelog",       limit: 65535
     t.string   "md5",             limit: 255
     t.string   "file",            limit: 255
