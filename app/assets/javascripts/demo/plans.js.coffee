@@ -52,7 +52,7 @@ output_daytours = (data) ->
     {
       lat: lat,
       lon: lng,
-      title: '用户所在地',
+      title: '0 - 用户所在地',
       html: '<h4>用户所在地</h4>',
       icon: 'http://www.google.com/mapfiles/dd-start.png'
     }
@@ -74,7 +74,7 @@ output_daytours = (data) ->
         locations.push({
           lat: item.lng,
           lon: item.lat,
-          title: item.poiname,
+          title: iconWord + ' - ' + item.poiname,
           icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
           html: [
             '<h4><a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a></h4>',
