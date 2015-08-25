@@ -1,33 +1,12 @@
 - content_for :title do
   = raw @title
 
-javascript:
-  function googleMaps (lat, lng, zoom) { 
-    geocoder = new google.maps.Geocoder(); 
-    var myLatlng = new google.maps.LatLng(lat, lng); 
-    var myOptions = { 
-      zoom: zoom, 
-      center: myLatlng, 
-      mapTypeId: google.maps.MapTypeId.ROADMAP 
-    } 
-    map = new google.maps.Map(document.getElementById("gmap"), myOptions); 
-    var marker = new google.maps.Marker({ 
-        position: myLatlng,  
-        map: map 
-    });
-    google.maps.event.addListener(map, "center_changed", function(){ 
-      document.getElementById("location").value = map.getCenter().lng() + "," + map.getCenter().lat(); 
-      marker.setPosition(map.getCenter()); 
-    }); 
-  }
-  
-
 .container
   .row
     .header
       h2 = @title
       .pull-right
-        #gmap style="marin-left:10px;width:500px;height:400px"
+        #gmap.map style="marin-left:10px;width:500px;height:400px"
 
       .form
         .form-group  
@@ -76,7 +55,7 @@ javascript:
               th.col-md-2 操作
           tbody
         
-        #map-route style="width: 100%; height: 500px"
+        #map-route.map style="width: 100%; height: 500px"
       
     #maybe_pois
       h2.title

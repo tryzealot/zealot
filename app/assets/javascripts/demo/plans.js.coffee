@@ -66,8 +66,6 @@ output_daytours = (data) ->
       else
         iconWord = words[(i / 2)]
 
-      console.log i, iconWord
-
       locations.push({
         lat: item.lng,
         lon: item.lat,
@@ -97,8 +95,6 @@ output_daytours = (data) ->
 
     $('#daytour table tbody').append(row_html)
   )
-
-  console.debug locations
 
   new Maplace({
     locations: locations,
