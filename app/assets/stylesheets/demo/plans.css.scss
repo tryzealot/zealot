@@ -10,3 +10,14 @@
 .record-location {
   width: 200px;
 }
+
+
+#gmap img,
+#map-route img {
+  max-width: none;
+}
+
+// #gmap, #gmap .col-xs-6,
+// #map-route, #map-route .col-xs-6 {
+//   height: 100%
+// }
