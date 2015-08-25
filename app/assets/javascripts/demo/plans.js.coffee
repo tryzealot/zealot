@@ -13,7 +13,7 @@ drag_default_map = (element)->
   myOptions =
     zoom: zoom,
     center: myLatlng,
-    disableDefaultUI: true,
+    # disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 
   map = new google.maps.Map(document.getElementById(element), myOptions)
@@ -53,7 +53,6 @@ output_daytours = (data) ->
     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
   ]
 
-
   $(data).each((i, item) ->
     row_class = ''
     row_select = ''
@@ -62,10 +61,18 @@ output_daytours = (data) ->
 
     if item.type == 'poi'
 
+      if i == 0
+        iconWord = words[i]
+      else
+        iconWord = words[(i / 2)]
+
+      console.log i, iconWord
+
       locations.push({
         lat: item.lng,
         lon: item.lat,
         title: item.poiname,
+        icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
         html: '<h3>' + item.poiname + '</h3>',
       })
 
@@ -75,7 +82,7 @@ output_daytours = (data) ->
       row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
         '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
         item.distance + '公里'
-      row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
+      row_action = '<button class="remove-poi btn btn-default">不感兴趣 ' + iconWord + '</button>'
     else
       row_class = 'traffic-row warning'
       row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
