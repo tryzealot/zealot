@@ -149,16 +149,17 @@ baidu_geo_foramt = (location) ->
 
 $(document).ready ->
 
-  # 显示默认数据的地图
-  drag_default_map('gmap')
-
-  # 激活日期时间拾取器
-  $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
-
-  $('#location').bind('change paste keypress', ->
-    # console.log $(this).val()
+  if window.location.pathname == '/demo/plans/index'
+    # 显示默认数据的地图
     drag_default_map('gmap')
-  )
+
+    # 激活日期时间拾取器
+    $("#date").datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'zh-CN'});
+
+    $('#location').bind('change paste keypress', ->
+      # console.log $(this).val()
+      drag_default_map('gmap')
+    )
 
   # 查找用户信息（设备）
   timer = 0
@@ -302,7 +303,7 @@ $(document).ready ->
       location = $(last_row).find('input[name=location]').val()
     else
       row_no = 0
-      time = '08:00'
+      time = '07:00'
       location = '114.173473119,22.3245866064'
 
     next_row = row_no + 1
