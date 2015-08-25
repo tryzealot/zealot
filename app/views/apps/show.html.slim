@@ -44,7 +44,7 @@ div.row.app-container
       div.sidebar-module.sidebar-module-inset
         h3 二维码
         p.qr_code 
-          = qr_code(app_url(@app.slug))
+          = qr_code(params.has_key?(:id) ? app_release_path(@app.slug, params[:id]) : app_url(@app.slug))
 
       div.sidebar-module.sidebar-module-inset
         - if @app.releases.count > 0
@@ -63,7 +63,6 @@ div.row.app-container
                     | #{release.release_version} (#{release.build_version})
                   td
                     = time_ago_in_words(release.created_at)
-
     h5
       = user_agent
 
