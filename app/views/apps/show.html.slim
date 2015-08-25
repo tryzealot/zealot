@@ -1,3 +1,6 @@
+- content_for :title do
+  = "#{@app.name} - #{@app.device_type}"
+
 div.row.app-container
   - unless user_agent.include?("MicroMessenger") && ! user_signed_in?
 
