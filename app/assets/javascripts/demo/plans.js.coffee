@@ -53,7 +53,7 @@ output_daytours = (data) ->
       lat: lat,
       lon: lng,
       title: '用户所在地',
-      html: '<h3>用户所在地</h3>',
+      html: '<h4>用户所在地</h4>',
       icon: 'http://www.google.com/mapfiles/dd-start.png'
     }
   ]
@@ -76,13 +76,18 @@ output_daytours = (data) ->
           lon: item.lat,
           title: item.poiname,
           icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
-          html: '<h3>' + item.poiname + '</h3>',
+          html: [
+            '<h4><a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a></h4>',
+            '<p>分类：' + item.catename,
+            '</p><p>建议时间：' + item.arrival_time + '(' + item.duration + '分)',
+            '</p><p>坐标：' + item.lat + ',' + item.lng + '</p>'
+          ].join('')
         })
         row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
           '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
         row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
           '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
-          item.distance + '公里'
+          item.distance + '公里<br />坐标：' + item.lat + ',' + item.lng
         row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
       else
         row_body = '建议 ' + item.arrival_time + ' 预留出来进行 [' + item.catename + ']'
