@@ -16,11 +16,8 @@
           label for="device_id" 用户设备
           input.form-control type="text" id="device_id" name="device_id" value="#{@device_id}" disabled="disabled" 
         .form-group  
-          label for="date" 日期
-          input.form-control type="text" id="date" name="date" placeholder="YYYY-MM-DD" value="#{@today.strftime('%Y-%m-%d')}"
-        .form-group  
-          label for="time" 时间
-          input.form-control type="text" id="time" name="time" placeholder="hh:mm" value="#{@today.strftime('%H:%M')}"
+          label for="date" 时间
+          input.form-control type="text" id="date" name="date" placeholder="YYYY-MM-DD hh:mm" value="#{@today.strftime('%Y-%m-%d')} 07:00"
         .form-group  
           label for="location" 经纬度
           input.form-control type="text" id="location" name="location" placeholder="90.123132,-120.11111" value="#{@lng},#{@lat}"
