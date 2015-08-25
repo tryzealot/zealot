@@ -55,9 +55,7 @@ output_daytours = (data) ->
       title: '我',
       html: '<h3>我</h3>',
       type: 'circle',
-      circle_options: {
-        radius: 200
-      }
+      icon: 'http://www.google.com/mapfiles/dd-start.png'
     }
   ]
 
