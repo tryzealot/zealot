@@ -6,12 +6,11 @@ class Api::V1::UserController < Api::ApplicationController
     status, data = if @member
       @user = Member.find_by(user_id: @member.uid)
 
-      ap @user
       [200, {
         id: @member.uid,
-        im_user_id: @user.im_user_id,
+        im_user_id: @user ? @user.im_user_id : nil,
         username: @member.username,
-        device_id: @user.deviceid
+        device_id: @user ? @user.deviceid : nil
         }]
     else
       [404, { message: 'user not found' }]
