@@ -169,9 +169,10 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       arrival_time = Time.at(data[:arrival_time])
       now = Time.now
       data[:catename] = POI_CATEGORY[data[:cateid].to_s]
-      data[:lng] = data[:geo][0]
-      data[:lat] = data[:geo][1]
+      data[:lat] = data[:geo][0]
+      data[:lng] = data[:geo][1]
       data[:distance] = Haversine.distance(lat.to_f, lng.to_f, data[:lng], data[:lat]).to_kilometers.round(2)
+      data[:local_time] = data[:arrival_time]
       data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
       data[:selected] = now > arrival_time ? false : true
@@ -210,7 +211,9 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           [true, json[:data]]
         else
           [false, {
-            url: "#{url}?#{params.to_query}",
+            api: "#{url}?#{params.to_query}",
+            url: url,
+            query: params,
             message: json[:msg]
           }]
         end
