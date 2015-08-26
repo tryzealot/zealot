@@ -35,46 +35,34 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       route: @route
     }
 
-    tour_status, tour_data = ra_show_daytour(query)
-    ap tour_status
-    ap tour_data
-
-    data = if tour_status
-      tours = []
-      tour_data.each do |item|
-        tours = item
-
-        if item[:type] == 'poi'
-          tours = parse_poi(@lat, @lng, item)
+    status, data = ra_show_daytour(query)
+    if status
+      data[:entry].each_with_index do |item, i|
+        data[:entry][i] = if item[:type] == 'poi'
+          parse_poi(@lat, @lng, item)
         else
-          tours = parse_traffic(item)
+          parse_traffic(item)
         end
       end
-    else
-      tour_data
     end
 
-    status = tour_status ? 200 : 409
+    status = status ? 200 : 409
     render json: data, status: status
   end
 
   def update
-    tour_status, tour_data = ra_update_daytour(params)
-    data = if status
-      tours = []
-      tour_data.each do |item|
-        tours = item
-        if item[:type] == 'poi'
-          tours = parse_poi(@lat, @lng, item)
+    status, data = ra_update_daytour(params)
+    if status
+      data[:entry].each_with_index do |item, i|
+        data[:entry][i] = if item[:type] == 'poi'
+          parse_poi(@lat, @lng, item)
         else
-          tours = parse_traffic(item)
+          parse_traffic(item)
         end
       end
-    else
-      tour_data
     end
 
-    status = tour_status ? 200 : 409
+    status = status ? 200 : 409
     render json: data, status: status
   end
 
@@ -134,9 +122,43 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
     status, data = if Rails.cache.exist?key
       Rails.cache.delete(key)
-      [200, { message: 'ok' }]
+      [200, { message: 'cleared' }]
     else
       [404, { message: 'cache not found' }]
+    end
+
+    render json: data, status: status
+  end
+
+  def cache
+    key = if params[:key]
+      params[:key]
+    else
+      device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
+      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat.strip!
+      lng.strip!
+      today = params.fetch 'date', Time.now
+      today = (today.is_a?String) ? DateTime.parse(today + " +08:00") : today
+      route = params.fetch :route, 1
+
+      cache_key(device_id, lat, lng, today, route)
+    end
+
+    status, data = if params[:key] && Rails.cache.exist?(key)
+      url = Rails.cache.read("#{key}_url")
+      query = Rails.cache.read("#{key}_query")
+      formated_query = query.clone
+      formated_query[:format_date] = Time.at(query[:local_time])
+      data = Rails.cache.read("#{key}")
+      [200, {
+        api: "#{url}?#{query.to_query}",
+        url: url,
+        query: formated_query,
+        data: data,
+        }]
+    else
+      [404, { message: 'cache not found' } ]
     end
 
     render json: data, status: status
@@ -153,16 +175,13 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
       data[:selected] = now > arrival_time ? false : true
+
+      data
     end
 
     def cache_key(device_id, lat, lng, time, route)
       time = time.strftime("%Y%m%d%H")
       hash = Digest::MD5.hexdigest([device_id, lng, lat].join('-')).upcase
-
-      ap device_id
-      ap lat
-      ap lng
-
       [hash, time, route].join('-')
     end
 
@@ -210,9 +229,13 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
       cache_exist = Rails.cache.exist?(key)
       status, data = Rails.cache.fetch(key, expires_in: expires_in) do
+        # 缓存请求的 url
+        Rails.cache.write("#{key}_url", url)
+        Rails.cache.write("#{key}_query", params)
+        # 网络请求
         http_request('get', url, params) do |json|
           if json[:status] == 'success'
-            [true, json[:data]]
+            [true, { cache: key, entry: json[:data] }]
           else
             [false, { error: json[:msg] }]
           end
@@ -227,6 +250,8 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     # RA 接口：删除 POI 并重新推荐线路
     #
     def ra_update_daytour(params)
+      key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
+
       lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
       lng.strip!
       lat.strip!
@@ -242,13 +267,11 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
       response = http_request('get', url, query) do |json|
         if json.is_a?(Hash) && json[:status] == 'success'
-          [true, json[:data]]
+          [true, { cache: key, entry: json[:data] }]
         else
           [false, { error: json[:msg] }]
         end
       end
-
-      key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
 
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
@@ -258,6 +281,8 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         Rails.cache.delete key
         logger.debug "Cache had been updated"
       end
+      Rails.cache.write("#{key}_url", url)
+      Rails.cache.write("#{key}_query", params)
       Rails.cache.write key, response
 
       response
