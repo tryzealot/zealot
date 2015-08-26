@@ -18,7 +18,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
   def show
     @uid = params.fetch 'uid', 1357827
     @device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-    @lng, @lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+    @lat, @lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
     @lat.strip!
     @lng.strip!
     @today = params.fetch 'date', Time.now
@@ -27,8 +27,8 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     @route = params.fetch :route, 1
 
     query = {
-      lat: @lat,
       lng: @lng,
+      lat: @lat,
       local_time: @today.to_i,
       device_id: @device_id,
       uid: @uid,
@@ -108,7 +108,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       params[:key]
     else
       device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat, lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
       lat.strip!
       lng.strip!
       today = params.fetch 'date', Time.now
@@ -135,7 +135,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       params[:key]
     else
       device_id = params.fetch 'device_id', '21EBA128-C884-4B22-8327-F9BD8A089FD7'
-      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat, lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
       lat.strip!
       lng.strip!
       today = params.fetch 'date', Time.now
@@ -169,8 +169,8 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       arrival_time = Time.at(data[:arrival_time])
       now = Time.now
       data[:catename] = POI_CATEGORY[data[:cateid].to_s]
-      data[:lat] = data[:geo][1]
       data[:lng] = data[:geo][0]
+      data[:lat] = data[:geo][1]
       data[:distance] = Haversine.distance(lat.to_f, lng.to_f, data[:lng], data[:lat]).to_kilometers.round(2)
       data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
@@ -252,7 +252,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     def ra_update_daytour(params)
       key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
 
-      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat, lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
       lng.strip!
       lat.strip!
       query = {
@@ -290,7 +290,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
 
     def ra_upload_location(params)
-      lng, lat = params.fetch('location', '114.173473119,22.3245866064').split(',')
+      lat, lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
       lng.strip!
       lat.strip!
 
