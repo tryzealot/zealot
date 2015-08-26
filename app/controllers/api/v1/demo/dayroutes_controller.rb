@@ -176,6 +176,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         else
           data[:segments] = MultiJson.load(data[:segments])
         end
+      end
 
       data
     end
