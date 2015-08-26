@@ -8,12 +8,7 @@ words = [
 ]
 
 number2word = (i) ->
-  if i == 0
-    iconWord = words[i]
-  else
-    iconWord = words[(i / 2)]
-
-  iconWord
+  words[i]
 
 drag_default_map = (element)->
   location_array = $('#location').val().split(",")
@@ -58,6 +53,7 @@ output_daytours = (data) ->
     }
   ]
 
+  icon_no = 0
   $(data).each((i, item) ->
     row_class = ''
     row_no = ''
@@ -68,7 +64,7 @@ output_daytours = (data) ->
     if item.type == 'poi'
       row_class = 'poi-row'
       if item.poi_id > 0
-        iconWord = number2word(i)
+        iconWord = number2word(icon_no++)
         row_no = iconWord
 
         locations.push({
@@ -94,6 +90,12 @@ output_daytours = (data) ->
     else
       row_class = 'traffic-row warning'
       row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
+      if item.segments.length > 0
+        row_body += '<ol>'
+        for way in item.segments
+          row_body += '<li>[' + way.kind + '] ' + way.sName + ' - ' + way.tName + ' / 距离 ' + way.distance + '千米 </li>'
+        row_body += '</ol>'
+
 
     row_html = '<tr class="' + row_class + '">' +
       '<td>' + row_select + '</td>' +
@@ -257,8 +259,9 @@ $(document).ready ->
           $('#route-table tr:eq(' + row_index + ')').remove()
           $('#route-table tr:eq(' + row_index + ')').remove()
 
+          iconWord = 0
           $('#route-table tbody tr').each((i, element) ->
-            iconWord = number2word(i)
+            iconWord = number2word(iconWord++)
             $(element).find('td:eq(1)').html(iconWord)
           )
 
