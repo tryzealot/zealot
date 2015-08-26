@@ -260,7 +260,6 @@ $(document).ready ->
         beforeSend: ->
           $(traffic_element).html('<td colspan="5" style="text-align:center;color:red">路程计算中</td>')
         success: (data) ->
-          console.log "success"
           console.debug data
 
           $(traffic_element).html('<td></td><td></td>' +
@@ -416,11 +415,9 @@ $(document).ready ->
         beforeSend: ->
           $(button).html('重新组合中...').prop('disabled', 'true')
         success: (data) ->
-          console.log "success"
           console.debug data
           output_daytours(data.entry)
 
-          # $('#clear-cache').val('清除 ' + data.cache + '缓存')
           $(button).html('重新推荐')
           $("#result")
             .html('路线已忽略选中的景点并重新推荐')
@@ -429,12 +426,12 @@ $(document).ready ->
 
         error: (xhr, ajaxOptions, thrownError) ->
           console.log xhr
+          $(button).html('重新推荐')
           $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
           $("#result")
             .html('请求失败！接口返回：' + xhr.responseJSON.message)
             .addClass("alert alert-danger")
             .show()
-          $(button).html('重新推荐')
         complete: ->
           $(button).removeProp('disabled')
     else
