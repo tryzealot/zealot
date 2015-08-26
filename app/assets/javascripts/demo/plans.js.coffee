@@ -12,8 +12,9 @@ number2word = (i) ->
 
 drag_default_map = (element)->
   location_array = $('#location').val().split(",")
-  lng = parseFloat($.trim(location_array[0]))
-  lat = parseFloat($.trim(location_array[1]))
+  console.log location_array
+  lat = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[1]))
   zoom = 14
 
   geocoder = new google.maps.Geocoder()
@@ -30,7 +31,7 @@ drag_default_map = (element)->
     map: map
 
   google.maps.event.addListener(map, "center_changed", ->
-    document.getElementById("location").value = map.getCenter().lng() + "," + map.getCenter().lat()
+    document.getElementById("location").value = map.getCenter().lat() + "," + map.getCenter().lng()
     marker.setPosition(map.getCenter())
   )
 
@@ -41,8 +42,8 @@ output_daytours = (data) ->
   $('#daytour table tbody').empty()
 
   location_array = $('#location').val().split(",")
-  lng = parseFloat($.trim(location_array[0]))
-  lat = parseFloat($.trim(location_array[1]))
+  lat = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[1]))
   locations = [
     {
       lat: lat,
@@ -133,18 +134,18 @@ follow_time = (time) ->
 
 nearby_geo = (location) ->
   location_array = location.split(",")
-  lng = parseFloat($.trim(location_array[0]))
-  lat = parseFloat($.trim(location_array[1]))
+  lat = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[1]))
   distance = 100
   random = Math.random()
   around_distance = parseFloat((random / distance).toFixed(8))
 
-  (lng + around_distance).toFixed(8) + "," + (lat + around_distance).toFixed(8)
+  (lat + around_distance).toFixed(8) + "," + (lng + around_distance).toFixed(8)
 
 baidu_geo_foramt = (location) ->
   location_array = location.split(",")
-  lng = parseFloat($.trim(location_array[0]))
-  lat = parseFloat($.trim(location_array[1]))
+  lat = parseFloat($.trim(location_array[0]))
+  lng = parseFloat($.trim(location_array[1]))
 
   lat + "," + lng
 
@@ -318,7 +319,7 @@ $(document).ready ->
     else
       row_no = 0
       time = '07:00'
-      location = '114.173473119,22.3245866064'
+      location = '22.3245866064,114.173473119'
 
     next_row = row_no + 1
     next_time = follow_time(time)
