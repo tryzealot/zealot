@@ -205,11 +205,14 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     #
     def ra_traffic_between_two_pois(params)
       url = 'http://doraemon.qyer.com/poi/p2p_traffic'
-      http_request('get', url, params) do |json|
+      http_request('get', url, params) do |json, url, params|
         if json[:status] == 'success'
           [true, json[:data]]
         else
-          [false, { message: json[:msg] }]
+          [false, {
+            url: "#{url}?#{params.to_query}",
+            message: json[:msg]
+          }]
         end
       end
     end
@@ -234,7 +237,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         Rails.cache.write("#{key}_url", url)
         Rails.cache.write("#{key}_query", params)
         # 网络请求
-        http_request('get', url, params) do |json|
+        http_request('get', url, params) do |json, url, params|
           if json[:status] == 'success'
             [true, { cache: key, entry: json[:data] }]
           else
@@ -267,7 +270,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
       key = cache_key(params[:device_id], query[:lat], query[:lng], Time.at(query[:local_time]), params[:route])
 
-      response = http_request('get', url, query) do |json|
+      response = http_request('get', url, query) do |json, url, params|
         if json.is_a?(Hash) && json[:status] == 'success'
           [true, { cache: key, entry: json[:data] }]
         else
@@ -328,7 +331,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           json = MultiJson.load r, symbolize_keys: true
           logger.debug "RA response: #{json}"
           if block_given?
-            status, data = yield(json)
+            status, data = yield(json, url, params)
           else
             status = true
             data = json
