@@ -170,11 +170,12 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       data[:mode] = TRIPMODE.has_key?(data[:tripmode].downcase) ? TRIPMODE[data[:tripmode].downcase] : data[:tripmode]
       data[:traffic_time] = (data[:traffic_time] / 60).round
 
-      # if data[:segments] == '""'
-      #   data[:segments] = []
-      # else
-      #   data[:segments] = MultiJson.load(data[:segments])
-      # end
+      if data[:segments].is_a?(String)
+        if data[:segments] == '""'
+          data[:segments] = []
+        else
+          data[:segments] = MultiJson.load(data[:segments])
+        end
 
       data
     end
