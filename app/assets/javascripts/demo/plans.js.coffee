@@ -87,7 +87,7 @@ output_daytours = (data) ->
           item.distance + '公里<br />坐标：' + item.lat + ',' + item.lng
         row_action = '<button class="remove-poi btn btn-default">不感兴趣</button>'
       else
-        row_body = '建议 ' + item.arrival_time + ' 预留出来进行 [' + item.catename + ']'
+        row_body = '建议 ' + item.arrival_time + ' 在周边用 ' + item.duration + ' 分钟' + item.poiname
     else
       row_class = 'traffic-row warning'
       row_body = '[' + item.mode + '] 花费时间 ' + item.traffic_time + ' 分'
