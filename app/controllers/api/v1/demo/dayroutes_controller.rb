@@ -150,12 +150,12 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       query = Rails.cache.read("#{key}_query")
       formated_query = query.clone
       formated_query[:format_date] = Time.at(query[:local_time])
-      data = Rails.cache.read("#{key}")[-1][:entry]
+      status, data = Rails.cache.read("#{key}")
       [200, {
         api: "#{url}?#{query.to_query}",
         url: url,
         query: formated_query,
-        data: data,
+        data: status ? data[:entry] : data[:message],
         }]
     else
       [404, { message: 'cache not found' } ]
@@ -209,7 +209,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         if json[:status] == 'success'
           [true, json[:data]]
         else
-          [false, { error: json[:msg] }]
+          [false, { message: json[:msg] }]
         end
       end
     end
@@ -237,7 +237,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           if json[:status] == 'success'
             [true, { cache: key, entry: json[:data] }]
           else
-            [false, { cache: key, error: json[:msg] }]
+            [false, { cache: key, message: json[:msg] }]
           end
         end
       end
@@ -269,7 +269,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         if json.is_a?(Hash) && json[:status] == 'success'
           [true, { cache: key, entry: json[:data] }]
         else
-          [false, { cache: key, error: json[:msg] }]
+          [false, { cache: key, message: json[:msg] }]
         end
       end
 

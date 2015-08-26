@@ -217,8 +217,9 @@ $(document).ready ->
         $('#cache-info').data('key', data.cache).removeClass('hide')
       error: (xhr, ajaxOptions, thrownError) ->
         $(button).val('接口错误，再来一次！')
+        $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
         $("#result")
-            .html('请求失败！接口返回：' + xhr.responseJSON.error)
+            .html('请求失败！接口返回：' + xhr.responseJSON.message)
             .addClass("alert alert-danger")
             .show()
       complete: ->
@@ -278,7 +279,7 @@ $(document).ready ->
         error: (xhr, ajaxOptions, thrownError) ->
           $(traffic_element).html(traffic_html)
           $("#result")
-            .html('请求失败！接口返回：' + xhr.responseJSON.error)
+            .html('请求失败！接口返回：' + xhr.responseJSON.message)
             .addClass("alert alert-danger")
             .show()
     else
@@ -427,8 +428,9 @@ $(document).ready ->
 
         error: (xhr, ajaxOptions, thrownError) ->
           console.log xhr
+          $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
           $("#result")
-            .html('请求失败！接口返回：' + xhr.responseJSON.error)
+            .html('请求失败！接口返回：' + xhr.responseJSON.message)
             .addClass("alert alert-danger")
             .show()
           $(button).html('重新推荐')
