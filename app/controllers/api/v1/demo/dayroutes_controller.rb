@@ -146,7 +146,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     end
 
     status, data = if params[:key] && Rails.cache.exist?(key)
-      expires = Rails.cache.read("#{key}_expires")
       url = Rails.cache.read("#{key}_url")
       query = Rails.cache.read("#{key}_query")
       formated_query = query.clone
@@ -156,7 +155,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         api: "#{url}?#{query.to_query}",
         url: url,
         query: formated_query,
-        expires: expires,
         data: status ? data[:entry] : data[:message],
         }]
     else
@@ -235,7 +233,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         # 缓存请求的 url
         Rails.cache.write("#{key}_url", url)
         Rails.cache.write("#{key}_query", params)
-        Rails.cache.write("#{key}_expires", expires_hours)
         # 网络请求
         http_request('get', url, params) do |json|
           if json[:status] == 'success'
@@ -289,7 +286,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       end
       Rails.cache.write("#{key}_url", url)
       Rails.cache.write("#{key}_query", query)
-      Rails.cache.write("#{key}_expires", expires_hours)
       Rails.cache.write key, response
 
       response
