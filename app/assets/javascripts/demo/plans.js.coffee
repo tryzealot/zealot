@@ -191,7 +191,7 @@ $(document).ready ->
 
   # 请求每日推荐行程
   $('#recommend-daytour').click ->
-    $("#result").empty()
+    $("#result").hide('hide')
     button = $(this)
     params =
       uid: $('#uid').val()
@@ -209,7 +209,7 @@ $(document).ready ->
         $(button).val('推荐组合中...').prop('disabled', 'true')
       success: (data) ->
         console.log data
-        output_daytours(data)
+        output_daytours(data.entry)
         $(button).val('再给爷推荐一次！')
       error: (xhr, ajaxOptions, thrownError) ->
         $(button).val('接口错误，再来一次！')
@@ -405,8 +405,7 @@ $(document).ready ->
         success: (data) ->
           console.log "success"
           console.debug data
-
-          output_daytours(data)
+          output_daytours(data.entry)
 
           $(button).html('重新推荐')
           $("#result")
