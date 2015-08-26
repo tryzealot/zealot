@@ -164,11 +164,13 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     end
 
     def parse_traffic(data)
-      data[:mode] = TRIPMODE[data[:tripmode].downcase]
+      data[:mode] = TRIPMODE.has_key?(data[:tripmode].downcase) ? TRIPMODE[data[:tripmode].downcase] : data[:tripmode]
       data[:traffic_time] = (data[:traffic_time] / 60).round
 
-      if data[:segments].is_a?String
-        data[:segments] = [] if ["[]", '""'].include?(data[:segments])
+      if data[:segments] == '""'
+        data[:segments] = []
+      else
+        data[:segments] = MultiJson.load(data[:segments])
       end
 
       data
