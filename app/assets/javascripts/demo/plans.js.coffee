@@ -262,11 +262,18 @@ $(document).ready ->
         success: (data) ->
           console.debug data
 
-          $(traffic_element).html('<td></td><td></td>' +
-            '<td>traffic</td>' +
-            '<td>[' + data.mode + '] 花费时间 ' + data.traffic_time + '分</td>' +
-            '<td></td>')
+          row_body = '<td></td><td></td>' +
+            '<td>[' + data.mode + '] 花费时间 ' + data.traffic_time + '分'
 
+          if data.segments.length > 0
+            row_body += '<ol>'
+            for way in data.segments
+              row_body += '<li>[' + way.kind + '] ' + way.sName + ' - ' + way.tName +
+                ' / 距离 ' + way.distance + ' 千米 / 花费 ' + way.duration + ' 分</li>'
+            row_body += '</ol>'
+          row_body += '</td><td></td></td>'
+
+          $(traffic_element).html(row_body)
           $('#route-table tr:eq(' + row_index + ')').remove()
           $('#route-table tr:eq(' + row_index + ')').remove()
 
