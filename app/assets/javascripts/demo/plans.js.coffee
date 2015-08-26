@@ -93,7 +93,8 @@ output_daytours = (data) ->
       if item.segments.length > 0
         row_body += '<ol>'
         for way in item.segments
-          row_body += '<li>[' + way.kind + '] ' + way.sName + ' - ' + way.tName + ' / 距离 ' + way.distance + '千米 </li>'
+          row_body += '<li>[' + way.kind + '] ' + way.sName + ' - ' + way.tName +
+            ' / 距离 ' + way.distance + ' 千米 / 花费 ' + way.duration + ' 分</li>'
         row_body += '</ol>'
 
 
