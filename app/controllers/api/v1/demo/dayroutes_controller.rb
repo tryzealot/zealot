@@ -36,7 +36,10 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     }
 
     tour_status, tour_data = ra_show_daytour(query)
-    data = if status
+    ap tour_status
+    ap tour_data
+
+    data = if tour_status
       tours = []
       tour_data.each do |item|
         tours = item
