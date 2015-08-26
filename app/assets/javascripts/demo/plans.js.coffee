@@ -191,8 +191,11 @@ $(document).ready ->
 
   # 请求每日推荐行程
   $('#recommend-daytour').click ->
-    $("#result").hide('hide')
+    $("#result").hide()
+    $('#cache-info').addClass('hide')
+
     button = $(this)
+    value = $(button).val()
     params =
       uid: $('#uid').val()
       device_id: $('#device_id').val()
@@ -210,7 +213,8 @@ $(document).ready ->
       success: (data) ->
         console.log data
         output_daytours(data.entry)
-        $(button).val('再给爷推荐一次！')
+        $(button).val(value)
+        $('#cache-info').data('key', data.cache).removeClass('hide')
       error: (xhr, ajaxOptions, thrownError) ->
         $(button).val('接口错误，再来一次！')
         $("#result")
@@ -377,9 +381,16 @@ $(document).ready ->
         $(this).html('全选')
     )
 
+  # 查看缓存详情
+  $('#cache-info').click ->
+    key = $(this).data('key')
+    url = HOST + 'api/demo/dayroutes/cache.json?key=' + key
+    window.open(url, '_blank')
+
   # 重新推荐每日行程（发送景点删除）
   $('.update-route').click ->
     button = $(this)
+    value = $(button).val()
     pois = []
     $('.route-select:checkbox:checked').each((i, element) ->
       pois.push $(element).data('id')
@@ -407,6 +418,7 @@ $(document).ready ->
           console.debug data
           output_daytours(data.entry)
 
+          # $('#clear-cache').val('清除 ' + data.cache + '缓存')
           $(button).html('重新推荐')
           $("#result")
             .html('路线已忽略选中的景点并重新推荐')

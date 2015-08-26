@@ -150,7 +150,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       query = Rails.cache.read("#{key}_query")
       formated_query = query.clone
       formated_query[:format_date] = Time.at(query[:local_time])
-      data = Rails.cache.read("#{key}")
+      data = Rails.cache.read("#{key}")[-1][:entry]
       [200, {
         api: "#{url}?#{query.to_query}",
         url: url,
