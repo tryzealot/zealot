@@ -237,7 +237,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
           if json[:status] == 'success'
             [true, { cache: key, entry: json[:data] }]
           else
-            [false, { error: json[:msg] }]
+            [false, { cache: key, error: json[:msg] }]
           end
         end
       end
@@ -269,7 +269,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         if json.is_a?(Hash) && json[:status] == 'success'
           [true, { cache: key, entry: json[:data] }]
         else
-          [false, { error: json[:msg] }]
+          [false, { cache: key, error: json[:msg] }]
         end
       end
 
