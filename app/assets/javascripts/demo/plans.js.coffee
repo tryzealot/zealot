@@ -69,8 +69,8 @@ output_daytours = (data) ->
         row_no = iconWord
 
         locations.push({
-          lat: item.lng,
-          lon: item.lat,
+          lat: item.lat,
+          lon: item.lng,
           title: iconWord + ' - ' + item.poiname,
           icon: 'http://maps.google.com/mapfiles/marker' + iconWord + '.png',
           html: [
@@ -81,7 +81,7 @@ output_daytours = (data) ->
           ].join('')
         })
         row_select = '<input class="route-select" type="checkbox" data-id="' + item.poi_id +
-          '" data-lng="' + item.geo[1] + '" data-lat="' + item.geo[0] + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
+          '" data-lng="' + item.lng + '" data-lat="' + item.lat + '" ' + (if ! item.selected then ' disabled="disabled"' else '') + ' />'
         row_body = item.arrival_time + ' / ' + item.catename + ' / ' +
           '<a href="http://place.qyer.com/poi/' + item.poi_id + '" target="_blank">' + item.poiname + '</a> / 建议游玩：' + item.duration + '分 / 距离' +
           item.distance + '公里<br />坐标：' + item.lat + ',' + item.lng
@@ -421,6 +421,7 @@ $(document).ready ->
           $(button).html('重新推荐')
           $("#result")
             .html('路线已忽略选中的景点并重新推荐')
+            .removeClass('alert-danger')
             .addClass("alert alert-success")
             .show()
 
