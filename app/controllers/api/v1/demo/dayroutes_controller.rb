@@ -171,7 +171,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       data[:catename] = POI_CATEGORY[data[:cateid].to_s]
       data[:lat] = data[:geo][0]
       data[:lng] = data[:geo][1]
-      data[:distance] = Haversine.distance(lat.to_f, lng.to_f, data[:lng], data[:lat]).to_kilometers.round(2)
+      data[:distance] = Haversine.distance(lat.to_f, lng.to_f, data[:lat], data[:lng]).to_kilometers.round(2)
       data[:local_time] = data[:arrival_time]
       data[:arrival_time] = arrival_time.strftime('%H:%M')
       data[:duration] = (data[:duration] / 60).round
