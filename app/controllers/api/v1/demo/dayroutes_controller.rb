@@ -146,6 +146,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     end
 
     status, data = if params[:key] && Rails.cache.exist?(key)
+      expires = Rails.cache.read("#{key}_expires")
       url = Rails.cache.read("#{key}_url")
       query = Rails.cache.read("#{key}_query")
       formated_query = query.clone
@@ -155,6 +156,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         api: "#{url}?#{query.to_query}",
         url: url,
         query: formated_query,
+        expires: expires,
         data: status ? data[:entry] : data[:message],
         }]
     else
@@ -225,13 +227,15 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
       now = Time.at(params[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
       expires_in = (expires_date.hour - now.hour).hours
-      logger.debug "Daytour cache key: #{key} and expires in #{expires_in/60/60} hours"
+      expires_hours = expires_in/60/60
+      logger.debug "Daytour cache key: #{key} and expires in #{expires_hours} hours"
 
       cache_exist = Rails.cache.exist?(key)
       status, data = Rails.cache.fetch(key, expires_in: expires_in) do
         # 缓存请求的 url
         Rails.cache.write("#{key}_url", url)
         Rails.cache.write("#{key}_query", params)
+        Rails.cache.write("#{key}_expires", expires_hours)
         # 网络请求
         http_request('get', url, params) do |json|
           if json[:status] == 'success'
@@ -250,8 +254,6 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
     # RA 接口：删除 POI 并重新推荐线路
     #
     def ra_update_daytour(params)
-      key = cache_key(params[:device_id], params[:lat], params[:lng], Time.at(params[:local_time]), params[:route])
-
       lat, lng = params.fetch('location', '22.3245866064,114.173473119').split(',')
       lng.strip!
       lat.strip!
@@ -265,6 +267,9 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         route: params[:route]
       }
       url = 'http://doraemon.qyer.com/recommend/onroad/modify_route/'
+
+      key = cache_key(params[:device_id], query[:lat], query[:lng], Time.at(query[:local_time]), params[:route])
+
       response = http_request('get', url, query) do |json|
         if json.is_a?(Hash) && json[:status] == 'success'
           [true, { cache: key, entry: json[:data] }]
@@ -273,16 +278,18 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         end
       end
 
-      now = Time.at(params[:local_time]).to_datetime
+      now = Time.at(query[:local_time]).to_datetime
       expires_date = DateTime.new(now.year, now.month, now.day, 23, 59, 59, '+08:00')
       expires_in = (expires_date.hour - now.hour).hours
-      logger.debug "Daytour cache key: #{key} and expires in #{expires_in/60/60} hours"
+      expires_hours = expires_in/60/60
+      logger.debug "Daytour cache key: #{key} and expires in #{expires_hours} hours"
       if Rails.cache.exist?(key)
         Rails.cache.delete key
         logger.debug "Cache had been updated"
       end
       Rails.cache.write("#{key}_url", url)
-      Rails.cache.write("#{key}_query", params)
+      Rails.cache.write("#{key}_query", query)
+      Rails.cache.write("#{key}_expires", expires_hours)
       Rails.cache.write key, response
 
       response
