@@ -1,0 +1,1 @@
+json.partial! "models/app", app: @app

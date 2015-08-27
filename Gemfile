@@ -1,3 +1,4 @@
+
 source 'http://ruby.taobao.org'
 
 #ruby '2.2.2'
@@ -30,9 +31,10 @@ gem 'browser'
 gem 'carrierwave'
 gem 'haversine'
 gem 'rack-cors', :require => 'rack/cors'
-gem 'react-rails'#, github: 'reactjs/react-rails'
 gem 'exception_handler'
 
+gem 'react-rails'#, github: 'reactjs/react-rails'
+gem 'sprockets-coffee-react'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
