@@ -1,0 +1,1 @@
+json.(app, :id, :name)

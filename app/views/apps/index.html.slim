@@ -1,12 +1,11 @@
 - content_for :title do
   | 我的应用
 
-
 div.container
   == render 'apps/install_cert'
 
   div.row
-    == react_component 'Apps', { data: @apps }
+    = react_component 'Apps', data: @apps, title: '我的应用'
     h3 我的应用
     
     table.table.table-striped.table-bordered
