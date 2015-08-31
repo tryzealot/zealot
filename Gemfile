@@ -31,8 +31,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-gem 'react-rails'
+gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
+gem 'js-routes'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
