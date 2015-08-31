@@ -10,18 +10,15 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Platform</th>
-          <th>App Name</th>
-          <th>Identifier</th>
-          <th>slug</th>
-          <th>Uploaded Count</th>
-          <th>Action</th>
+          <th>平台</th>
+          <th>应用名称</th>
+          <th>应用标识</th>
+          <th>缩写</th>
+          <th>上传版本数量</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
         {appsNode}
       </tbody>
     </table>
-    # @props.apps.map (app) ->
-    #   div null,
-    #     app.name
