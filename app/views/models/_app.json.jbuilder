@@ -1,1 +1,1 @@
-json.(app, :id, :name)
+json.(app, :id, :name, :identifier, :device_type, :slug, :created_at, :updated_at)
