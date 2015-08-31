@@ -18,7 +18,6 @@ gem 'will_paginate'
 gem 'whenever', :require => false
 gem 'haversine'
 gem 'rack-cors', :require => 'rack/cors'
-gem 'react-rails'
 gem 'exception_handler'
 gem 'gemoji'
 gem 'jenkins_api_client'
@@ -32,8 +31,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-gem 'react-rails'
+gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
+gem 'js-routes'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
