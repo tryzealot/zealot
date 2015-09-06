@@ -35,6 +35,12 @@ gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
 gem 'js-routes'
 
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-alt'
+#   gem 'rails-assets-react-router'
+#   gem 'rails-assets-moment'
+# end
+
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 group :development do
