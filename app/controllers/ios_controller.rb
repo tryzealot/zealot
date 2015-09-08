@@ -1,3 +1,6 @@
+##
+# 仅仅用于 iOS DSYM 文件保存和下载
+##
 class IosController < ApplicationController
   load_and_authorize_resource class: Ios
 

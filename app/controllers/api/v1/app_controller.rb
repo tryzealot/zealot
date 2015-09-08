@@ -49,6 +49,12 @@ class Api::V1::AppController < Api::ApplicationController
       )
     end
 
+    # 新上传的版本分支不存在于缓存中清除缓存
+    app_branches_cache_key = "app_#{@app_id}_branches"
+    if Rails.cache.exist?(app_branches_cache_key) && @app.branches.select { |m| m.branch == @release.branch }.size == 0
+      Rails.cache.delete(app_branches_cache_key)
+    end
+
     render json: @release.to_json(include: [:app]), status: status
   end
 

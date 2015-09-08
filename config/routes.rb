@@ -4,23 +4,23 @@ Rails.application.routes.draw do
 
   get 'releases/index', to: 'releases#index', as: 'releases'
   post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
-  get 'releases/:id', to: 'releases#show', as: 'release'
-  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release'
-  patch 'releases/:id', to: 'releases#update'#, as: 'update_release'
   get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
+  get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
+  patch 'releases/:id', to: 'releases#update', id: /\d+/
+  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/upload', to: 'apps#upload', as: 'upload_app'
-  get 'apps/:slug', to: 'apps#show', as: 'app'
-  get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app'
-  patch 'apps/:id', to: 'apps#update', as: 'update_app'
-  get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app'
-  get 'apps/:slug/releases', to: 'releases#index', as: 'releases_app'
-  get 'apps/:slug/releases/:version', to: 'releases#version', as: 'releases_version'
-  get 'apps/:slug/:id', to: 'apps#release', as: 'app_release'
+  patch 'apps/:id', to: 'apps#update', as: 'update_app', id: /\d+/
 
+  get 'apps/:slug', to: 'apps#show', as: 'app', slug: /\w+/
+  get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
+  get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
+  get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/
+  get 'apps/:slug/releases/:version', to: 'releases#version', as: 'releases_version', version: /\d+/
+  get 'apps/:slug/:id', to: 'apps#release', as: 'app_release', slug: /\w+/, id: /\d+/
 
-  get 'ios/download/:id', to: 'ios#download', as: 'ios_download'
+  get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
   resources :ios
 
   get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
@@ -50,9 +50,6 @@ Rails.application.routes.draw do
 
     get 'plans/record', to: 'plans#record', as: 'record_plans'
   end
-
-
-  root to: 'visitors#index'
 
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
@@ -85,4 +82,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root to: 'visitors#index'
 end
