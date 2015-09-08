@@ -12,7 +12,6 @@ class AppsController < ApplicationController
   def show
     @app = App.find_by(slug: params[:slug])
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
-
     @release = @app.releases.last
   end
 
