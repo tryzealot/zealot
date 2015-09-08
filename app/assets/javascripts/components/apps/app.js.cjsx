@@ -17,7 +17,7 @@
       <td>{@props.data.slug}</td>
       <td>{@props.data.count}</td>
       <td>
-        <a href={Routes.releases_app_path(@props.data.slug)}>版本历史</a>
+        <a href={Routes.releases_version_path(@props.data.slug)}>版本历史</a>
          /
         <a href={Routes.edit_app_path(@props.data.slug)}>编辑</a>
          /

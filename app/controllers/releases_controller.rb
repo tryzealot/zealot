@@ -1,7 +1,8 @@
 class ReleasesController < ApplicationController
 
   def index
-    @releases = App.find_by(slug: params[:slug]).releases.order(id: :desc)
+    @app = App.find_by(slug: params[:slug])
+    @releases = @app.releases.order(created_at: :desc)
   end
 
   def upload
