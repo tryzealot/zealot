@@ -1,5 +1,5 @@
-
 source 'http://ruby.taobao.org'
+
 
 gem 'rails', '4.2.3'
 gem 'jbuilder', '~> 2.0'
@@ -23,6 +23,7 @@ gem 'gemoji'
 gem 'jenkins_api_client'
 gem 'CFPropertyList'
 gem 'browser'
+gem 'rqrcode'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'

@@ -98,6 +98,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
     chronic (0.10.2)
+    chunky_png (1.3.4)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -260,6 +261,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rqrcode (0.7.0)
+      chunky_png
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -368,6 +371,7 @@ DEPENDENCIES
   rails (= 4.2.3)
   react-rails!
   rest-client
+  rqrcode
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   slim-rails
