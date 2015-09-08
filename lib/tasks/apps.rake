@@ -25,7 +25,7 @@ namespace :apps do
             auto_versions = releases.map { |m| m.version }
             latest_build_release = Release.where(app: app, release_version: version).last
             puts "      avaiable:\t#{auto_versions.join(", ")}"
-            puts "      latest:\t#{latest_build_release.id} - #{latest_build_release.version}"
+            puts "      latest:\t#{latest_build_release.version}"
             if ENV['DELETE'.freeze].to_i == 1
               releases.each do |r|
                 if r.id != latest_build_release.id
