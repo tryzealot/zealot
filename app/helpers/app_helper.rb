@@ -20,7 +20,7 @@ module AppHelper
       bg: bg,
       fg: fg,
       el: el,
-      text: content
+      text: url
     }
 
     image_tag api_url + "?" + api_query.to_query
