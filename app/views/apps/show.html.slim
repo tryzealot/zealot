@@ -59,7 +59,22 @@ div.row.app-container
           = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
       div.sidebar-module.sidebar-module-inset
-        - if @app.releases.count > 0
+        - if @app.branches.size > 0
+          div.releases
+            h3 应用分支
+            table.table.table-striped.table-bordered
+              tr
+                th.col-md-1 分支名
+                th.col-md-2 上传数量
+              - @app.branches.each do |branch|
+                tr
+                  td
+                    = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
+                  td
+                    = branch.count
+      
+      div.sidebar-module.sidebar-module-inset
+        - if @app.releases.size > 0
           div.releases
             h3 历史版本(最近10次)
             table.table.table-striped.table-bordered
