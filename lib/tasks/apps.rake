@@ -21,13 +21,11 @@ namespace :apps do
           latest_build_version = build_versions.max
 
           puts " [CLEAN & KEEP LATEST]"
-          puts "      avaiable:\t#{build_versions.join(", ")}"
-          puts "      latest:\t#{latest_build_version}"
-
           if build_versions.select {|v| v.build_version == latest_build_version}.size == build_versions.size
-
+            auto_versions = releases.map { |m| m.version }
             latest_build_release = Release.where(app: app, release_version: version).last
-            puts "      keeped:\t#{latest_build_release.id} - #{latest_build_release.version}"
+            puts "      avaiable:\t#{auto_versions.join(", ")}"
+            puts "      latest:\t#{latest_build_release.id} - #{latest_build_release.version}"
             if ENV['DELETE'.freeze].to_i == 1
               releases.each do |r|
                 if r.id != latest_build_release.id
@@ -37,6 +35,9 @@ namespace :apps do
               end
             end
           else
+
+            puts "      avaiable:\t#{build_versions.join(", ")}"
+            puts "      latest:\t#{latest_build_version}"
             if ENV['DELETE'.freeze].to_i == 1
               releases.each do |r|
                 if r.build_version != latest_build_version
