@@ -1,0 +1,66 @@
+- content_for :title do
+  | 我的应用
+
+div.container
+  == render 'apps/install_cert'
+
+  div.row
+    h3
+      - if @releases
+        = @app.name
+        span.label.label-danger
+          = params[:branch] 
+        | 分支历史版本
+      - else
+        | 分支列表： 
+        = @app.name
+    
+    - unless @releases
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th ID
+            th 分支名
+            th 上传版本数量
+            th 最后上传时间
+        tbody
+          - if @branches.size > 0
+            - @branches.each_with_index do |branch, index|
+              tr
+                td
+                  = index + 1
+                td
+                  = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
+                td
+                  = branch.count
+                td
+                  = branch.created_at
+          - else
+            tr
+              th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
+    - else
+      - if @releases.size > 0
+        table.table.table-striped.table-borderd
+          thead
+            tr
+              th BUILD
+              th 主版本号
+              th 开发版本号
+              th 最后提交 
+              th 上传时间
+          tbody
+            - @releases.each_with_index do |release, index|
+              tr
+                td
+                  = release.version
+                td
+                  = link_to release.release_version, app_release_path(release.app.slug, release.version)
+                td
+                  = release.build_version
+                td
+                  = release.last_commit
+                td
+                  = release.created_at
+      - else
+        span 
+          | 你还没有创建任何应用，请使用接口进行上传！
