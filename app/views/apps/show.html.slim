@@ -50,8 +50,8 @@ div.row.app-container
           p 开发者比较懒
 
     div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
-      div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
-        a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
+      / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
+      /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
         
       div.sidebar-module.sidebar-module-inset
         h3 二维码
@@ -75,8 +75,11 @@ div.row.app-container
                     | #{release.release_version} (#{release.build_version})
                   td
                     = time_ago_in_words(release.created_at)
-    h5
-      = user_agent
+      
+      div.sidebar-module.sidebar-module-inset
+        h3
+        span style="font-weight: bold; color: #CCC"
+          = user_agent
 
   - else
     javascript:
