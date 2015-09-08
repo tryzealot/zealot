@@ -38,26 +38,26 @@ namespace :apps do
               latest_build_release = Release.where(app: app, branch: branch.name, release_version: version).last
               puts "      avaiable:\t#{auto_versions.join(", ")}"
               puts "      latest:\t#{latest_build_release.version}"
-              if ENV['DELETE'.freeze].to_i == 1
+              # if ENV['DELETE'.freeze].to_i == 1
                 releases.each do |r|
                   if r.id != latest_build_release.id
                     r.remove_file!
                     r.destroy!
                   end
                 end
-              end
+              # end
             else
 
               puts "      avaiable:\t#{build_versions.join(", ")}"
               puts "      latest:\t#{latest_build_version}"
-              if ENV['DELETE'.freeze].to_i == 1
+              # if ENV['DELETE'.freeze].to_i == 1
                 releases.each do |r|
                   if r.build_version != latest_build_version
                     r.remove_file!
                     r.destroy
                   end
                 end
-              end
+              # end
             end
           else
             puts " [SKIP]"
