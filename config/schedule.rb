@@ -26,4 +26,11 @@ every 30.minutes do
   }
 end
 
+every 1.day, :at => '4:30 am' do
+  rake 'apps:clean', output: {
+    error: 'log/cron_apps_clean_error.log',
+    standard: 'log/cron_apps_clean.log'
+  }
+end
+
 # Learn more: http://github.com/javan/whenever
