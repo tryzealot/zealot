@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/
-  get 'apps/:slug/releases/:version', to: 'releases#version', as: 'releases_version', version: /\d+/
+  get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
   get 'apps/:slug/:id', to: 'apps#release', as: 'app_release', slug: /\w+/, id: /\d+/
 
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
