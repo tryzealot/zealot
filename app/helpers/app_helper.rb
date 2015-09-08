@@ -1,6 +1,8 @@
 module AppHelper
 
   def qr_code(url, options = {})
+    require 'rqrcode'
+    
     qrcode = RQRCode::QRCode.new(url, level: :h)
     raw qrcode.as_svg(
       color: '465960',
