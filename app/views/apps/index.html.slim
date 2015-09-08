@@ -5,37 +5,39 @@ div.container
   == render 'apps/install_cert'
 
   div.row
-    h3 我的应用
-    table.table.table-striped.table-bordered
-      tr
-        th ID
-        th 平台
-        th 应用名称
-        th 应用标识
-        th SLUG
-        th 上传版本数量
-        th 操作
-      - if @apps.size > 0
-        - @apps.each do |app|
-          tr
-            td
-              = app.id
-            td
-              = app.device_type
-            td
-              = link_to app.name, app_path(app.slug)
-            td
-              = app.identifier
-            td
-              = app.slug
-            td
-              = app.releases.count
-            td
-              = link_to '版本历史', releases_app_path(app.slug)
-              |  / 
-              = link_to '编辑', edit_app_path(app.slug)
-              |  /
-              = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
-      - else
-        tr
-          th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
+    = react_component 'Apps', title: '我的应用'
+    / h3 我的应用
+    / 
+    / table.table.table-striped.table-bordered
+    /   tr
+    /     th ID
+    /     th 平台
+    /     th 应用名称
+    /     th 应用标识
+    /     th SLUG
+    /     th 上传版本数量
+    /     th 操作
+    /   - if @apps.size > 0
+    /     - @apps.each do |app|
+    /       tr
+    /         td
+    /           = app.id
+    /         td
+    /           = app.device_type
+    /         td
+    /           = link_to app.name, app_path(app.slug)
+    /         td
+    /           = app.identifier
+    /         td
+    /           = app.slug
+    /         td
+    /           = app.releases.count
+    /         td
+    /           = link_to '版本历史', releases_app_path(app.slug)
+    /           |  / 
+    /           = link_to '编辑', edit_app_path(app.slug)
+    /           |  /
+    /           = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
+    /   - else
+    /     tr
+    /       th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
