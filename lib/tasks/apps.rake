@@ -15,20 +15,37 @@ namespace :apps do
       clean_vesions.each do |version|
         releases = Release.where(app: app, release_version: version)
         print "    * #{version} (#{releases.size})"
+        # keep_count = ENV["KEEP"].to_i || 1
         if releases.size > 1
           build_versions = releases.map { |m| m.build_version }
           latest_build_version = build_versions.max
-          if ENV['DELETE'.freeze].to_i == 1
-            releases.each do |r|
-              r.destroy if r.build_version != latest_build_version
-            end
-            puts " [CLEAN & KEEP LATEST]"
-          else
-            puts " [PREVIEW]"
-          end
 
+          puts " [CLEAN & KEEP LATEST]"
           puts "      avaiable:\t#{build_versions.join(", ")}"
           puts "      latest:\t#{latest_build_version}"
+
+          if build_versions.select {|v| v.build_version == latest_build_version}.size == build_versions.size
+
+            latest_build_release = Release.where(app: app, release_version: version).last
+            puts "      keeped:\t#{latest_build_release.id} - #{latest_build_release.version}"
+            if ENV['DELETE'.freeze].to_i == 1
+              releases.each do |r|
+                if r.id != latest_build_release.id
+                  r.remove_file!
+                  r.destroy
+                end
+              end
+            end
+          else
+            if ENV['DELETE'.freeze].to_i == 1
+              releases.each do |r|
+                if r.build_version != latest_build_version
+                  r.remove_file!
+                  r.destroy
+                end
+              end
+            end
+          end
         else
           puts " [SKIP]"
         end
