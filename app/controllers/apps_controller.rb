@@ -47,6 +47,12 @@ class AppsController < ApplicationController
 
   end
 
+  def branches
+    @app = App.find_by(slug: params[:slug])
+    @branches = @app.branches
+    @releases = @app.releases.where(branch: params[:branch]).order(created_at: :desc) if params[:branch]
+  end
+
   private
 
   def check_user_logged_in!

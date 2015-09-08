@@ -7,6 +7,18 @@ class App < ActiveRecord::Base
 
   before_create :generate_key_or_slug
 
+  def branches
+    Rails.cache.fetch("app_#{self.id}_branches", expires_in: 1.week) do
+      self.releases
+        .select([:id, "branch AS name", :app_id, "COUNT(*) AS count", :created_at])
+        .group(:branch)
+        .order(created_at: :desc)
+        .select { |m| ! m.name.to_s.empty? }
+        .sort_by { |m| m.created_at }
+        .reverse
+    end
+  end
+
   def self.latest(identifier)
     self.where(identifier:identifier).order('created_at DESC').first
   end
