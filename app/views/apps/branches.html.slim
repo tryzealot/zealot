@@ -43,20 +43,23 @@ div.container
         table.table.table-striped.table-borderd
           thead
             tr
-              th BUILD
+              th ID
               th 主版本号
               th 开发版本号
+              th 文件大小
               th 最后提交 
               th 上传时间
           tbody
             - @releases.each_with_index do |release, index|
               tr
                 td
-                  = release.version
+                  = index + 1
                 td
                   = link_to release.release_version, app_release_path(release.app.slug, release.version)
                 td
                   = release.build_version
+                td
+                  = number_to_human_size(release.filesize)
                 td
                   = release.last_commit
                 td
