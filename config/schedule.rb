@@ -20,7 +20,7 @@
 # job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
 
 every 30.minutes do
-  rake 'sync_message', output: {
+  rake 'chatroom:sync_messages', output: {
     error: 'log/cron_sync_message_error.log',
     standard: 'log/cron_sync_message.log'
   }
