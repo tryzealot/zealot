@@ -11,8 +11,8 @@ div.container
         tr
           th ID
           th 应用
+          th 适用版本
           th 标题
-          th 文件名
           th 创建时间
           th 最后更新时间
           th 操作
@@ -24,9 +24,9 @@ div.container
             td
               = link_to jspatch.app.name, app_path(jspatch.app.slug)
             td
-              = link_to jspatch.title, jspatch_path(jspatch)
+              = jspatch.app_version
             td
-              = link_to jspatch_url(jspatch, format: :js), jspatch_url(jspatch, format: :js)
+              = link_to jspatch.title, jspatch_path(jspatch)
             td
               = jspatch.created_at
             td
