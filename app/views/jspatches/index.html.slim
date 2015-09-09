@@ -10,6 +10,7 @@ div.container
       thead
         tr
           th ID
+          th 应用
           th 标题
           th 文件名
           th 创建时间
@@ -21,9 +22,9 @@ div.container
             td 
               = i + 1
             td
+              = link_to jspatch.app.name, app_path(jspatch.app.slug)
+            td
               = jspatch.title
-              br
-              = jspatch.filename
             td
               = link_to jspatches_filename_url(jspatch, jspatch.filename, format: :js), jspatches_filename_url(jspatch, jspatch.filename, format: :js)
             td
