@@ -32,6 +32,8 @@ div.container
             td
               = jspatch.updated_at
             td 
+              = link_to '显示', jspatch_path(jspatch)
+              |  /
               = link_to '编辑', edit_jspatch_path(jspatch)
               |  / 
               = link_to '删除', jspatch, data: {:confirm => '你确定？'}, :method => :delete

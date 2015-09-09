@@ -5,7 +5,7 @@ div.container
   div.row
     h1 = @jspatch.app.name + "#" + @jspatch.id.to_s + "补丁"
     
-    code = @jspatch.script
+    code = raw @jspatch.script
     
     p 
       | 链接地址: 
