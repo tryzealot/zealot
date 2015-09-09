@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825083805) do
+ActiveRecord::Schema.define(version: 20150909034953) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -67,20 +67,35 @@ ActiveRecord::Schema.define(version: 20150825083805) do
     t.datetime "updated_at"
   end
 
+  create_table "jspatches", force: :cascade do |t|
+    t.integer  "app_id",      limit: 4,     null: false
+    t.string   "title",       limit: 255
+    t.string   "filename",    limit: 255
+    t.string   "min_version", limit: 255
+    t.string   "max_version", limit: 255
+    t.text     "script",      limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
+  add_index "jspatches", ["filename"], name: "index_jspatches_on_filename", using: :btree
+
   create_table "messages", force: :cascade do |t|
+    t.integer  "chatroom_id",   limit: 4
+    t.integer  "user_id",       limit: 4
+    t.string   "chatroom_name", limit: 255
+    t.string   "user_name",     limit: 255
+    t.string   "message",       limit: 255
+    t.datetime "timestamp"
+    t.string   "content_type",  limit: 255
+    t.string   "file_type",     limit: 255
+    t.text     "custom_data",   limit: 65535
+    t.text     "file",          limit: 4294967295
     t.string   "im_id",         limit: 255
     t.string   "im_user_id",    limit: 255
     t.string   "im_topic_id",   limit: 255
-    t.integer  "chatroom_id",   limit: 4
-    t.string   "chatroom_name", limit: 255
-    t.integer  "user_id",       limit: 4
-    t.string   "user_name",     limit: 255
-    t.string   "message",       limit: 255
-    t.text     "custom_data",   limit: 65535
-    t.string   "content_type",  limit: 255
-    t.string   "file_type",     limit: 255
-    t.text     "file",          limit: 65535
-    t.datetime "timestamp"
+    t.boolean  "is_deleted",                       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

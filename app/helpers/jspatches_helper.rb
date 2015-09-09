@@ -1,0 +1,2 @@
+module JspatchesHelper
+end

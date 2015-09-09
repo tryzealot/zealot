@@ -1,0 +1,9 @@
+= simple_form_for(@jspatch) do |f|
+  = f.error_notification
+  
+  = f.input :app_id, collection: App.where(device_type: 'iPhone').map { |r| [r.name, r.id] }, prompt: "选择应用"
+  = f.input :title
+  = f.input :filename, hint: 'URL可识别文件名，无需写后缀，比如: fix_crash_in_ucenter'
+  = f.input :script, as: :text, input_html: { rows: 20}
+
+  = f.button :submit

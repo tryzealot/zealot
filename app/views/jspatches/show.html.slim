@@ -1,0 +1,16 @@
+- content_for :title do
+  = @jspatch.app.name + "#" + @jspatch.id.to_s + "补丁"
+
+div.container
+  div.row
+    h1 = @jspatch.app.name + "#" + @jspatch.id.to_s + "补丁"
+    
+    code = @jspatch.script
+    
+    p 
+      | 链接地址: 
+      = link_to jspatch_url(@jspatch, format: :js), jspatch_url(@jspatch, format: :js)
+      
+= link_to 'Edit', edit_jspatch_path(@jspatch)
+'|
+= link_to 'Back', jspatches_path
