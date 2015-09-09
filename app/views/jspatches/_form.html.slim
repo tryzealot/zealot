@@ -1,9 +1,23 @@
+
+
 = simple_form_for(@jspatch) do |f|
   = f.error_notification
   
   = f.association :app, collection: App.where(device_type: 'iPhone').map { |r| [r.name, r.id] }, prompt: "选择应用", required: true
   = f.input :title, required: true
   = f.input :filename, hint: 'URL可识别文件名，无需写后缀，比如: fix_crash_in_ucenter', required: true
-  = f.input :script, as: :text, input_html: { rows: 20 }, required: true
-
+  = f.input :script, as: :text, input_html: { rows: 20, class: 'hidden' }, required: true
+  .form-group
+    #editor.form-control
   = f.button :submit
+  
+  
+  
+javascript:
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.setValue($('#jspatch_script').html());
+  editor.getSession().on('change', function(e) {
+    $('#jspatch_script').html(editor.getValue());
+  });

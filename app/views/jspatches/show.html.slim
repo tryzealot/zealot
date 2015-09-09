@@ -4,13 +4,24 @@
 div.container
   div.row
     h1 = @jspatch.app.name + "#" + @jspatch.id.to_s + "补丁"
-    
-    code = raw @jspatch.script
-    
     p 
       | 链接地址: 
       = link_to jspatch_url(@jspatch, format: :js), jspatch_url(@jspatch, format: :js)
+    
+    div#editor
+    code#jspatch_script.hidden = raw @jspatch.script
       
 = link_to 'Edit', edit_jspatch_path(@jspatch)
 '|
 = link_to 'Back', jspatches_path
+
+
+javascript:
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.setValue($('#jspatch_script').html());
+  editor.setReadOnly(true);
+  editor.getSession().on('change', function(e) {
+    $('#jspatch_script').html(editor.getValue());
+  });
