@@ -81,6 +81,6 @@ class JspatchesController < ApplicationController
     end
 
     def jspatch_params
-      params.require(:jspatch).permit(:app_id, :title, :filename, :script)
+      params.require(:jspatch).permit(:app_id, :title, :filename, :version, :script)
     end
 end
