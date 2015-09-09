@@ -26,16 +26,19 @@ gem 'browser'
 gem 'rqrcode'
 gem 'simple_form'
 
+# JS
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'ace-rails-ap'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'js-routes'
+## React
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
-gem 'js-routes'
 
 # source 'https://rails-assets.org' do
 #   gem 'rails-assets-alt'

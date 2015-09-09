@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require turbolinks
 //= require bootstrap-sprockets
 //= require dropzone
-//= require turbolinks
+//= require js-routes
+//= require ace-rails-ap
 //= require react
 //= require react_ujs
-//= require js-routes
 //= require components
 //= require_tree .

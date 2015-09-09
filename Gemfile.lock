@@ -14,6 +14,7 @@ GEM
   remote: http://ruby.taobao.org/
   specs:
     CFPropertyList (2.3.1)
+    ace-rails-ap (4.0.0)
     actionmailer (4.2.3)
       actionpack (= 4.2.3)
       actionview (= 4.2.3)
@@ -335,6 +336,7 @@ PLATFORMS
 
 DEPENDENCIES
   CFPropertyList
+  ace-rails-ap
   awesome_print
   better_errors
   bootstrap-sass
