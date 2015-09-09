@@ -1,0 +1,40 @@
+- content_for :title do
+  | iOS 应用补丁列表
+
+div.container
+
+  div.row
+    h3 iOS 应用补丁列表
+    
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th 标题
+          th 文件名
+          th 创建时间
+          th 最后更新时间
+          th 操作
+      tbody
+        - @jspatches.each_with_index do |jspatch, i|
+          tr
+            td 
+              = i + 1
+            td
+              = jspatch.title
+              br
+              = jspatch.filename
+            td
+              = link_to jspatches_filename_url(jspatch, jspatch.filename, format: :js), jspatches_filename_url(jspatch, jspatch.filename, format: :js)
+            td
+              = jspatch.created_at
+            td
+              = jspatch.updated_at
+            td 
+              = link_to '编辑', edit_jspatch_path(jspatch)
+              |  / 
+              = link_to '删除', jspatch, data: {:confirm => '你确定？'}, :method => :delete
+
+    br
+
+    = link_to '新建 iOS 应用补丁', new_jspatch_path

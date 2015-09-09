@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :jspatches
+  get 'jspatches/:id/:filename', to: 'jspatches#show', as: 'jspatches_filename', id: /\d+/
   devise_for :users
 
   get 'releases/index', to: 'releases#index', as: 'releases'
