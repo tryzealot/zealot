@@ -5,7 +5,6 @@
     prompt: "选择应用", 
     required: true
   = f.input :title, hint: '脚本可识别名称', required: true
-  = f.input :filename, hint: 'URL可识别文件名，无需写后缀，比如: fix_crash_in_ucenter', required: true
   = f.input :version, hint: '补丁可用应用版本，比如：6.6.6', required: true
   = f.input :script, as: :text, hint: '仅支持 Javascript 脚本', input_html: { rows: 20, class: 'hidden' }, required: true
   .form-group

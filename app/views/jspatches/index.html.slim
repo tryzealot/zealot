@@ -26,7 +26,7 @@ div.container
             td
               = link_to jspatch.title, jspatch_path(jspatch)
             td
-              = link_to jspatches_filename_url(jspatch, jspatch.filename, format: :js), jspatches_filename_url(jspatch, jspatch.filename, format: :js)
+              = link_to jspatch_url(jspatch, format: :js), jspatch_url(jspatch, format: :js)
             td
               = jspatch.created_at
             td
