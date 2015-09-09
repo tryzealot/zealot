@@ -3,7 +3,7 @@
 
 div.container
   div.row
-    h1 = @jspatch.app.name + "#" + @jspatch.id.to_s + "补丁"
+    h1 = @jspatch.title
     p 
       | 链接地址: 
       = link_to jspatch_url(@jspatch, format: :js), jspatch_url(@jspatch, format: :js)

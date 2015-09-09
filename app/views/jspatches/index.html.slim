@@ -24,7 +24,7 @@ div.container
             td
               = link_to jspatch.app.name, app_path(jspatch.app.slug)
             td
-              = jspatch.title
+              = link_to jspatch.title, jspatch_path(jspatch)
             td
               = link_to jspatches_filename_url(jspatch, jspatch.filename, format: :js), jspatches_filename_url(jspatch, jspatch.filename, format: :js)
             td
@@ -32,8 +32,6 @@ div.container
             td
               = jspatch.updated_at
             td 
-              = link_to '显示', jspatch_path(jspatch)
-              |  /
               = link_to '编辑', edit_jspatch_path(jspatch)
               |  / 
               = link_to '删除', jspatch, data: {:confirm => '你确定？'}, :method => :delete
