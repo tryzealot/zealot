@@ -25,6 +25,7 @@ gem 'CFPropertyList'
 gem 'browser'
 gem 'rqrcode'
 gem 'simple_form'
+gem 'paper_trail', '~> 4.0.0'
 
 # JS
 gem 'sass-rails', '~> 4.0.3'
