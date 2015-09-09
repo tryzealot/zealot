@@ -1,6 +1,6 @@
 defineClass("RecommendViewController", {
   viewWillAppear: function() {
-    self.ORIGviewWillAppear();
+    self.super().viewWillAppear();
 
     var alertView = require('UIAlertView').alloc().init();
     alertView.setTitle('重载方法');
