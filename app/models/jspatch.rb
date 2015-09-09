@@ -3,6 +3,6 @@ class Jspatch < ActiveRecord::Base
 
   validates :app, presence: true
   validates :title, presence: true
-  validates :filename, presence: true
+  validates :version, presence: true
   validates :script, presence: true
 end
