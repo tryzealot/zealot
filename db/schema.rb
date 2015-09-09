@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909102509) do
+ActiveRecord::Schema.define(version: 20150909111631) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -68,15 +68,15 @@ ActiveRecord::Schema.define(version: 20150909102509) do
   end
 
   create_table "jspatches", force: :cascade do |t|
-    t.integer  "app_id",     limit: 4,     null: false
-    t.string   "title",      limit: 255
-    t.string   "version",    limit: 255
-    t.text     "script",     limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "app_id",      limit: 4,     null: false
+    t.string   "title",       limit: 255
+    t.string   "app_version", limit: 255
+    t.text     "script",      limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "jspatches", ["app_id", "version"], name: "index_jspatches_on_app_id_and_version", using: :btree
+  add_index "jspatches", ["app_id", "app_version"], name: "index_jspatches_on_app_id_and_app_version", using: :btree
   add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
@@ -161,5 +161,17 @@ ActiveRecord::Schema.define(version: 20150909102509) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["key"], name: "index_users_on_key", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,        null: false
+    t.integer  "item_id",        limit: 4,          null: false
+    t.string   "event",          limit: 255,        null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 4294967295
+    t.datetime "created_at"
+    t.text     "object_changes", limit: 4294967295
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end
