@@ -24,6 +24,7 @@ gem 'jenkins_api_client'
 gem 'CFPropertyList'
 gem 'browser'
 gem 'rqrcode'
+gem 'simple_form'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'

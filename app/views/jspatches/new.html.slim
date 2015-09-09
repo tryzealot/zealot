@@ -1,0 +1,9 @@
+- content_for :title do
+  = @title
+
+div.row.app-container
+  h1 = @title
+  
+  == render 'form'
+
+  = link_to '返回列表', jspatches_path
