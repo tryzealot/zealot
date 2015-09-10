@@ -11,11 +11,6 @@ class JspatchesController < ApplicationController
   # GET /jspatches/1
   # GET /jspatches/1.json
   def show
-    # respond_to do |format|
-    #   format.html
-    #   format.json
-    #   format.js { render js: @jspatch.script }
-    # end
   end
 
   # GET /jspatches/new

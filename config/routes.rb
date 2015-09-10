@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :jspatches
+  get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   devise_for :users
 
   get 'releases/index', to: 'releases#index', as: 'releases'
@@ -69,6 +70,8 @@ Rails.application.routes.draw do
       match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
 
       get 'user/(:id).json', to: 'user#show'
+
+      get 'patch/app/:key', to: 'patch#index'
 
       namespace :demo do
         get 'dayroutes/show.json', to: 'dayroutes#show'
