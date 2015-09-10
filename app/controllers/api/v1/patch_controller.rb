@@ -8,9 +8,9 @@ class Api::V1::PatchController < ApplicationController
     @jspatch = Jspatch.find_by(app: @app, app_version: [params[:sv], params[:bv]])
 
     if @jspatch
-      render "jspatches/show"
+      render "jspatches/show", status: 200
     else
-      render json: {}, status: 404
+      render js: '// script not found.', status: 404
     end
   end
 
