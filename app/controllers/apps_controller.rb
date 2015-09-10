@@ -15,6 +15,26 @@ class AppsController < ApplicationController
     @release = @app.releases.last
   end
 
+  # GET /jspatches/new
+  def new
+    @title = "新建应用"
+    @app = App.new
+  end
+
+  def create
+    @app = App.new(app_params)
+
+    respond_to do |format|
+      if @app.save
+        format.html { redirect_to apps_path, notice: 'App was successfully created.' }
+        format.json { render :show, status: :created, location: @app }
+      else
+        format.html { render :new }
+        format.json { render json: @app.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def release
     app = App.find_by(slug: params[:slug])
     @release = Release.find_by(app: app, version: params[:id])
@@ -54,7 +74,11 @@ class AppsController < ApplicationController
 
   private
 
-  def check_user_logged_in!
-    authenticate_user! unless request.user_agent.include? 'MicroMessenger'
-  end
+    def check_user_logged_in!
+      authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+    end
+
+    def app_params
+      params.require(:app).permit(:user_id, :name, :device_type, :identifier, :slug)
+    end
 end
