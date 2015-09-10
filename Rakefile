@@ -6,6 +6,15 @@ load 'tasks/emoji.rake'
 
 Rails.application.load_tasks
 
+
+desc "更新 app key"
+task :update_app_key => :environment do
+  App.all.each do |app|
+    app.key = Digest::MD5.hexdigest(SecureRandom.uuid + app.identifier)
+    app.save!
+  end
+end
+
 desc "发分享"
 task :send_poi do
   url = 'http://api.im.qyer.com/v1/im/notice.json'

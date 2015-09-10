@@ -25,7 +25,7 @@ class App < ActiveRecord::Base
 
   private
     def generate_key_or_slug
-      self.key = SecureRandom.uuid + self.identifier
+      self.key = Digest::MD5.hexdigest(SecureRandom.uuid + self.identifier)
       unless self.slug
         self.slug = Digest::SHA1.base64digest(self.key).gsub(/[+\/=]/, '')[0..4]
       end
