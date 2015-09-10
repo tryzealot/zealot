@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
   get 'apps', to: 'apps#index', as: 'apps'
+  get 'apps/new', to: 'apps#new', as: 'new_app'
+  post 'apps', to: 'apps#create'
   get 'apps/upload', to: 'apps#upload', as: 'upload_app'
   patch 'apps/:id', to: 'apps#update', as: 'update_app', id: /\d+/
 

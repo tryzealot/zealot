@@ -1,0 +1,9 @@
+= simple_form_for(@app) do |f|
+  = f.error_notification
+  
+  = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+  = f.input :name, hint: '应用名', required: true
+  = f.input :device_type, collection: ["iPhone", "Android"], prompt: "选择类型", required: true
+  = f.input :identifier, required: true
+  = f.input :slug
+  = f.button :submit, value: '保存'

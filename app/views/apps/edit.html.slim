@@ -3,13 +3,5 @@
 
 div.row.app-container
   h1 编辑应用
-  / form method="PUT" action="#{update_app_path(@app.slug)}"
-  = form_for @app
-    div.form-group
-      label for="name" 应用名
-      input name="name" class="form-control" id="name" placeholder="应用名" value="#{@app.name}"
-    div.form-group
-      label for="slug" 唯一标识
-      input name="slug" class="form-control" id="slug" placeholder="唯一标识" value="#{@app.slug}"
-
-    button.btn.btn-default type="submit" 更新
+  
+  == render 'form'
