@@ -5,7 +5,7 @@ set :branch, 'develop' # proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
-set :git_strategy, Capistrano::Git::SubmoduleStrategy
+# set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 set :format, :pretty
 set :log_level, :info
