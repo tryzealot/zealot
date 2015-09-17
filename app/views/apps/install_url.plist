@@ -17,7 +17,7 @@
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string><%= @app.identifier %>.faking</string>
+        <string><%= @app.identifier %></string>
         <key>bundle-version</key>
         <string><%= @release.release_version %></string>
         <key>kind</key>
