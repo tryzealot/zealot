@@ -59,7 +59,12 @@ class Api::V1::AppController < Api::ApplicationController
   end
 
   def info
-    @app = App.find_by(slug: params[:slug])
+    @app = if params.has_key?(:slug)
+      App.find_by(slug: params[:slug])
+    else
+      App.find_by(identifier: params[:identifier])
+    end
+
     if @app
       render json: @app.to_json(include: [:releases], except: [:id, :password, :key])
     else
