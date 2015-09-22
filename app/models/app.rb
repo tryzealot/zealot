@@ -19,10 +19,6 @@ class App < ActiveRecord::Base
     end
   end
 
-  def self.latest(identifier)
-    self.where(identifier:identifier).order('created_at DESC').first
-  end
-
   private
     def generate_key_or_slug
       self.key = Digest::MD5.hexdigest(SecureRandom.uuid + self.identifier)

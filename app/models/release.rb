@@ -7,6 +7,11 @@ class Release < ActiveRecord::Base
   before_create :auto_md5_file
   before_create :auto_file_size
 
+
+  def self.latest
+    self.order(created_at: :desc).first
+  end
+
   def file_ext
     fileext = case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'
