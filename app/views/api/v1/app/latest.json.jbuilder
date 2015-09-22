@@ -15,7 +15,7 @@ json.filesize number_to_human_size(latest.filesize)
 install_url = if @app.device_type.downcase == 'android'
   json.install_url latest.file.url
 else
-  url = "itms-services://?action=download-manifest&url=" + url_for(protocol: 'https', controller: 'app', action: 'install_url', slug: @app.slug, release_id: latest.id)
+  url = "itms-services://?action=download-manifest&url=" + url_for(protocol: Rails.env.development? ? 'http' : 'https', controller: 'app', action: 'install_url', slug: @app.slug, release_id: latest.id, only_path: false)
 
   # installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
 
