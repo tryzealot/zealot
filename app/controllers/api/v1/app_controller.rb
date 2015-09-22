@@ -59,11 +59,7 @@ class Api::V1::AppController < Api::ApplicationController
   end
 
   def info
-    @app = if params.has_key?(:slug)
-      App.find_by(slug: params[:slug])
-    else
-      App.find_by(identifier: params[:identifier])
-    end
+    fetch_app!
 
     if @app
       render json: @app.to_json(include: [:releases], except: [:id, :password, :key])
@@ -74,6 +70,29 @@ class Api::V1::AppController < Api::ApplicationController
         params: params
       }, status: 404
     end
+  end
+
+  def versions
+    fetch_app!
+
+    # if @app
+    #   # data[:version] = @app.releases.latest.version
+    #   # data[:release_version] = @app.releases.latest.release_version
+    #   # data[:build_version] = @app.releases.latest.build_version
+    #   data['versions'] = @app.releases.order(created_at: :desc).limit(10).to_json
+    #
+    #   render json: data
+    # else
+    #
+    #   render json: {
+    #     error: 'App is missing',
+    #     params: params
+    #   }, status: 404
+    # end
+  end
+
+  def latest
+    fetch_app!
   end
 
   def install_url
@@ -111,14 +130,22 @@ class Api::V1::AppController < Api::ApplicationController
 
   private
 
-  def validate_params
-    return if %w(install_url download).include?(params[:action])
-
-    @user = User.find_by(key: params[:key])
-    unless params.key?(:key) && @user
-      return render json: {
-        error: 'key is invalid'
-      }, status: 401
+    def fetch_app!
+      @app = if params.has_key?(:slug)
+        App.find_by(slug: params[:slug])
+      else
+        App.find_by(identifier: params[:identifier])
+      end
     end
-  end
+
+    def validate_params
+      return if %w(install_url download).include?(params[:action])
+
+      @user = User.find_by(key: params[:key])
+      unless params.key?(:key) && @user
+        return render json: {
+          error: 'key is invalid'
+        }, status: 401
+      end
+    end
 end
