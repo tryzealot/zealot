@@ -14,7 +14,6 @@ download = ->
   release_id = $('#download_it').data('release-id')
   device_type = $('.app-type').html()
 
-
   installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
 
   if device_type == 'Android'
@@ -50,8 +49,6 @@ ready = ->
     success: (file, data) ->
       url = HOST + "releases/" + data.id + "/edit"
       console.log 'success, redirect to %s', url
-
-
 
 
 $(document).ready ->
