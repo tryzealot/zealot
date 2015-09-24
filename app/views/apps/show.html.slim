@@ -4,8 +4,6 @@
 div.row.app-container
   - unless user_agent.include?("MicroMessenger") && ! user_signed_in?
 
-    == render 'apps/install_cert'
-
     div.col-sm-8.app-info
       h1
         span.app-name
@@ -32,12 +30,16 @@ div.row.app-container
 
         p
         - if detect_device == @app.device_type
+        
+          == render 'apps/install_cert'
+          
           button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
+          
         - elsif [:mac, :windows, :linux].include?(browser.platform)
           = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
         - else
           button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
-
+          
       div.changelog
         h3
           | 更新日志 (
