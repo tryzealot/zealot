@@ -6,4 +6,5 @@
   = f.input :device_type, collection: ["iPhone", "Android"], prompt: "选择类型", required: true
   = f.input :identifier, required: true
   = f.input :slug
+  = f.input :password, input_html: { type: 'input', value: @app.password }
   = f.button :submit, value: '保存'

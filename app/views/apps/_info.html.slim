@@ -1,0 +1,94 @@
+div.col-sm-8.app-info
+  h1
+    span.app-name
+      = @app.name
+    span.app-type.label.label-primary.label-ms
+      = @app.device_type
+    - if @release.branch
+      span.git-branch.label.label-inf=110
+      o.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
+        = @release.branch
+  div.meta-data
+    p.app-identifier
+      = @app.identifier
+    p.version 
+      | 版本：#{@release.release_version} (#{@release.build_version})
+      |  / Build：#{@release.version}
+      |  / 大小：#{number_to_human_size(@release.filesize)}
+      |  / 更新于：#{time_ago_in_words(@release.created_at)}
+      |  / 此版本由 
+      - if @release.channel != 'api'
+        a href="#{@release.ci_url}" #{@release.channel}
+      - else
+        = @release.channel
+      |  提交
+
+    p
+    - if detect_device == @app.device_type
+    
+      == render 'apps/install_cert'
+      
+      button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
+      
+    - elsif [:mac, :windows, :linux].include?(browser.platform)
+      = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
+    - else
+      button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
+      
+  div.changelog
+    h3
+      | 更新日志 (
+      = link_to '编辑', edit_release_path(@release)
+      | )
+    - if @release.changelog
+      p
+        = simple_format(@release.changelog)
+    - else
+      p 开发者比较懒
+
+div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
+  / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
+  /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
+    
+  div.sidebar-module.sidebar-module-inset
+    h3 二维码
+    p.qr_code 
+      = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
+
+  div.sidebar-module.sidebar-module-inset
+    - if @app.branches.size > 0
+      div.releases
+        h3 应用分支
+        table.table.table-striped.table-bordered
+          tr
+            th.col-md-1 分支名
+            th.col-md-2 上传数量
+          - @app.branches.each do |branch|
+            tr
+              td
+                = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
+              td
+                = branch.count
+  
+  div.sidebar-module.sidebar-module-inset
+    - if @app.releases.size > 0
+      div.releases
+        h3 历史版本(最近10次)
+        table.table.table-striped.table-bordered
+          tr
+            th.col-md-1 Build
+            th.col-md-1 版本
+            th.col-md-2 时间
+          - @app.releases.order('version DESC').limit(10).each do |release|
+            tr class=(release == @release ? 'bg-warning' : '')
+              td[id="release-#{release.id}"]
+                = link_to release.version, app_release_path(@app.slug, release.version)
+              td
+                | #{release.release_version} (#{release.build_version})
+              td
+                = time_ago_in_words(release.created_at)
+  
+  div.sidebar-module.sidebar-module-inset
+    h3
+    span style="font-weight: bold; color: #CCC"
+      = user_agent
