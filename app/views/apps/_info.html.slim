@@ -5,8 +5,7 @@ div.col-sm-8.app-info
     span.app-type.label.label-primary.label-ms
       = @app.device_type
     - if @release.branch
-      span.git-branch.label.label-inf=110
-      o.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
+      span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
         = @release.branch
   div.meta-data
     p.app-identifier
