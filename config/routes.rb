@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   patch 'apps/:id', to: 'apps#update', as: 'update_app', id: /\d+/
 
   get 'apps/:slug', to: 'apps#show', as: 'app', slug: /\w+/
+  get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: /[-.\/|\w]+/
