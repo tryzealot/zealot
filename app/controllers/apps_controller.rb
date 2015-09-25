@@ -1,21 +1,10 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in!
+  before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
 
   def index
-    if user_signed_in?
-      @apps = current_user.apps
-    else
-      redirect_to new_user_session_path
-    end
+    @apps = current_user.apps
   end
 
-  def show
-    @app = App.find_by(slug: params[:slug])
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
-    @release = @app.releases.last
-  end
-
-  # GET /jspatches/new
   def new
     @title = "新建应用"
     @app = App.new
@@ -35,14 +24,6 @@ class AppsController < ApplicationController
     end
   end
 
-  def release
-    app = App.find_by(slug: params[:slug])
-    @release = Release.find_by(app: app, version: params[:id])
-    @app = @release.app
-
-    render 'apps/show'
-  end
-
   def edit
     @app = App.find_by(slug: params[:slug])
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
@@ -52,14 +33,45 @@ class AppsController < ApplicationController
     @app = App.find(params[:id])
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
-    @app.update(name: params[:name],
-                slug: params[:slug])
+    @app.update(app_params)
+
     redirect_to apps_path
   end
 
   def destroy
     App.find_by(slug: params[:slug]).destroy
     redirect_to apps_path
+  end
+
+  def show
+    @app = App.find_by(slug: params[:slug])
+    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+
+    if ! @app.password.blank? || user_signed_in?
+      @release = @app.releases.last
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
+  def auth
+    @app = App.find_by(slug: params[:slug])
+
+    if @app.password == params[:password]
+      cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.now + 1.week }
+      redirect_to app_path(@app.slug)
+    else
+      flash[:danger] = '密码错误，请重新输入'
+      render :show
+    end
+  end
+
+  def release
+    app = App.find_by(slug: params[:slug])
+    @release = Release.find_by(app: app, version: params[:id])
+    @app = @release.app
+
+    render 'apps/show'
   end
 
   def upload
@@ -79,6 +91,6 @@ class AppsController < ApplicationController
     end
 
     def app_params
-      params.require(:app).permit(:user_id, :name, :device_type, :identifier, :slug)
+      params.require(:app).permit(:user_id, :name, :device_type, :identifier, :slug, :password)
     end
 end
