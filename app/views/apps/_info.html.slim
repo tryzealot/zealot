@@ -36,9 +36,11 @@ div.col-sm-8.app-info
       
   div.changelog
     h3
-      | 更新日志 (
-      = link_to '编辑', edit_release_path(@release)
-      | )
+      | 更新日志
+      - if user_signed_in?
+        | (
+        = link_to '编辑', edit_release_path(@release)
+        | )
     - if @release.changelog
       p
         = simple_format(@release.changelog)
