@@ -56,7 +56,7 @@ namespace :chatroom do
 
 
             puts " * [#{mi + 1}] #{m['msg_id']} updated"
-          rescue Exception => e
+          rescue => e
             puts " * [EXCEPTION] #{e.message}, entry data:"
             puts m
           end
