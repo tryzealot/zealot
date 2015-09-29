@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         #     begin
         #       logger.debug "[#{Time.now}] Searching chatroom: #{c.chatroom_name}"
         #       @chatrooms.push(chatroom_info(c, @user))
-        #     rescue Exception => e
+        #     rescue => e
         #       next
         #     end
         #   end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         if r.code == 200 && ds['meta']['code'] == 200
           logger.debug "User #{@user.im_user_id} logged out topic: #{id}"
         end
-      rescue Exception => e
+      rescue => e
         next
       end
     end
