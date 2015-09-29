@@ -340,7 +340,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
             data = json
           end
         end
-      rescue Exception => e
+      rescue => e
         logger.fatal "RA error: #{e.message}"
         logger.fatal e.backtrace.join("\n")
 

@@ -49,7 +49,7 @@ class ChatroomsController < ApplicationController
             message.file = m['message'] if m['content_type'] != 'text'
             message.timestamp = Time.at(m['timestamp'] / 1000).utc
           end
-        rescue Exception => e
+        rescue => e
           next
         end
       end
