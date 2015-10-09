@@ -1,7 +1,6 @@
 source 'http://ruby.taobao.org'
 
-
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.4'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
 gem 'puma'
@@ -29,6 +28,7 @@ gem 'paper_trail', '~> 4.0.0'
 gem 'chronic'
 gem 'rubyzip', '>= 1.0.0'
 gem 'net-ssh'
+gem 'foreman'
 
 gem 'redis-rails'
 gem 'sidekiq'
