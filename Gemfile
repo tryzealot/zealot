@@ -26,6 +26,13 @@ gem 'browser'
 gem 'rqrcode'
 gem 'simple_form'
 gem 'paper_trail', '~> 4.0.0'
+gem 'chronic'
+gem 'rubyzip', '>= 1.0.0'
+gem 'net-ssh'
+
+gem 'redis-rails'
+gem 'sidekiq'
+gem 'sinatra', require: false
 
 # JS
 gem 'sass-rails', '~> 4.0.3'
@@ -40,12 +47,6 @@ gem 'js-routes'
 ## React
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
-
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-alt'
-#   gem 'rails-assets-react-router'
-#   gem 'rails-assets-moment'
-# end
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
