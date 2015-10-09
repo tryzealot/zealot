@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   resources :jspatches
@@ -91,6 +93,10 @@ Rails.application.routes.draw do
         delete 'dayroutes/clear_cache.json', to: 'dayroutes#clear_cache'
       end
     end
+  end
+
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   root to: 'visitors#index'

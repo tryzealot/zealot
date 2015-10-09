@@ -30,6 +30,18 @@ module Im
 
     # config.exceptions_app = self.routes
 
+    # Sidekiq for active job
+    config.active_job.queue_adapter = :sidekiq
+
+    # Redis for cache
+    config.cache_store = :redis_store, {
+      host: "localhost",
+      port: 6379,
+      db: 0,
+      namespace: "qyer:mobile:web",
+      expires_in: 90.minutes
+    }
+
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
