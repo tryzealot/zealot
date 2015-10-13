@@ -1,9 +1,9 @@
 source 'http://ruby.taobao.org'
 
-gem 'rails', '4.2.4'
-gem 'jbuilder', '~> 2.0'
-gem 'mysql2'
+gem 'rails', '~> 4.2.4'
 gem 'puma'
+gem 'mysql2', '~> 0.3.0'
+gem 'jbuilder', '~> 2.0'
 gem 'slim-rails'
 gem 'rest-client'
 gem 'multi_json'
@@ -64,6 +64,8 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano3-puma'
   gem 'capistrano-nginx'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-foreman'
 
   gem 'guard'
   gem 'guard-livereload'

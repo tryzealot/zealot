@@ -8,8 +8,8 @@ set :scm, :git
 # set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 set :format, :pretty
-set :log_level, :info
-set :pty, true
+set :log_level, :debug
+set :pty, false
 
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
