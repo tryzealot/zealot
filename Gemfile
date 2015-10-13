@@ -1,10 +1,9 @@
 source 'http://ruby.taobao.org'
 
-
-gem 'rails', '4.2.3'
-gem 'jbuilder', '~> 2.0'
-gem 'mysql2'
+gem 'rails', '~> 4.2.4'
 gem 'puma'
+gem 'mysql2', '~> 0.3.0'
+gem 'jbuilder', '~> 2.0'
 gem 'slim-rails'
 gem 'rest-client'
 gem 'multi_json'
@@ -26,6 +25,14 @@ gem 'browser'
 gem 'rqrcode'
 gem 'simple_form'
 gem 'paper_trail', '~> 4.0.0'
+gem 'chronic'
+gem 'rubyzip', '>= 1.0.0'
+gem 'net-ssh'
+gem 'foreman'
+
+gem 'redis-rails'
+gem 'sidekiq'
+gem 'sinatra', require: false
 
 # JS
 gem 'sass-rails', '~> 4.0.3'
@@ -40,12 +47,6 @@ gem 'js-routes'
 ## React
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
-
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-alt'
-#   gem 'rails-assets-react-router'
-#   gem 'rails-assets-moment'
-# end
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -63,6 +64,8 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano3-puma'
   gem 'capistrano-nginx'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-foreman'
 
   gem 'guard'
   gem 'guard-livereload'

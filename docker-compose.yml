@@ -5,7 +5,11 @@ app:
     - .:/app
   ports:
     - "3000:3000"
-mysql:
+  links:
+    - db
+db:
   image: mysql:5.5
   ports:
-    - "3306"
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mobile
