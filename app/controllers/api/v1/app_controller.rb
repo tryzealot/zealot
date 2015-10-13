@@ -91,6 +91,14 @@ class Api::V1::AppController < Api::ApplicationController
     # end
   end
 
+  def changelogs
+    fetch_app!
+    release = Release.find_by(app: @app, release_version: params[:release_version], build_version: params[:build_version])
+    if release
+      @releases = Release.where(app: @app).where("version > ?", release.version).order(version: :desc)
+    end
+  end
+
   def latest
     fetch_app!
   end

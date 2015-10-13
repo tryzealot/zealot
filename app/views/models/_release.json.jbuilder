@@ -1,13 +1,17 @@
 json.(release,
-  :id, :version, :channel, :filesize, :release_version,
+  :id, :version, :channel, :release_version,
   :build_version, :branch, :last_commit, :ci_url, :changelog)
 
-url = if release.app.device_type.downcase == 'android'
+json.filesize number_to_human_size(release.filesize)
+
+json.set! :install_url, if release.app.device_type.downcase == 'android'
   api_app_download_url(release.id)
 else
-  api_app_install_url(release.app.slug, release.id)
+  "itms-services://?action=download-manifest&url=" + api_app_install_url(
+    release.app.slug,
+    release.id,
+    protocol: Rails.env.development? ? 'http' : 'https'
+  )
 end
-
-json.set! :install_url, url
 
 json.(release, :created_at, :updated_at)
