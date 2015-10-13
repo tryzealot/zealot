@@ -11,7 +11,7 @@ GIT
       tilt
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     CFPropertyList (2.3.2)
     ace-rails-ap (4.0.0)
