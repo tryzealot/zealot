@@ -95,7 +95,9 @@ class Api::V1::AppController < Api::ApplicationController
     fetch_app!
     release = Release.find_by(app: @app, release_version: params[:release_version], build_version: params[:build_version])
     if release
-      @releases = Release.where(app: @app).where("version > ?", release.version).order(version: :desc)
+      @releases = Release.where(app: @app)
+        .where("version > ? AND build_version > ?", release.version, release.build_version)
+        .order(version: :desc)
     end
   end
 
