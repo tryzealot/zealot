@@ -4,7 +4,7 @@ class ChatroomStatsJob < ActiveJob::Base
   CITY_CHATROOMS_KEY = 'im_chatrooms'.freeze
   JK_KEY = '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx'.freeze
 
-  IM_SERVER = '42.62.78.173'.freeze
+  IM_SERVER = '23.91.98.3'.freeze
   IM_USER = 'root'.freeze
   IM_PWD = 'im.server!QAZ@WSX'.freeze
   IM_PORT = 2233.freeze
@@ -16,10 +16,10 @@ class ChatroomStatsJob < ActiveJob::Base
     @end_date = Chronic.parse((end_date || 'today') + ' 23:59')
     @total_days = end_date.to_datetime.mjd - start_date.to_datetime.mjd
 
-    logger.info "#{@start_date} - #{@end_date}"
+    puts "#{@start_date} - #{@end_date}"
 
     ###################################
-    logger.info " * Connecting im server..."
+    puts " * Connecting im server..."
     ###################################
     chatroom_ids = @chatrooms.keys
 
@@ -28,8 +28,8 @@ class ChatroomStatsJob < ActiveJob::Base
       until @end_date.to_date < current_date
         start_timestamp = current_date.to_time.to_i * 1000
 
-        logger.info " -> #{current_date}"
-        logger.info "    Fetching chatroom messages total: [#{start_timestamp.to_s}]"
+        puts " -> #{current_date}"
+        puts "    Fetching chatroom messages total: [#{start_timestamp.to_s}]"
 
         message_count_key = "chatroom_message_count_#{start_timestamp.to_s}"
         date_messages = Rails.cache.fetch(message_count_key) do
@@ -56,7 +56,7 @@ class ChatroomStatsJob < ActiveJob::Base
           })
         end
 
-        logger.info "    Fetching chatroom register total"
+        puts "    Fetching chatroom register total"
         register_count_key = "chatroom_register_count_#{start_timestamp.to_s}"
         date_registers = Rails.cache.fetch(register_count_key) do
           MultiJson.load(ssh.exec!([
@@ -82,7 +82,7 @@ class ChatroomStatsJob < ActiveJob::Base
 
 
     ###################################
-    logger.info " * Getting hottest chatrooms"
+    puts " * Getting hottest chatrooms"
     ###################################
     members = []
     chatrooms_max_members = chatroom_max_members(@chatrooms.length)
@@ -95,13 +95,13 @@ class ChatroomStatsJob < ActiveJob::Base
           })
         end
       else
-        logger.info " -> Error: #{chatrooms_max_members.to_s}"
+        puts " -> Error: #{chatrooms_max_members.to_s}"
       end
     else
-      logger.info " -> Error: #{chatrooms_max_members}"
+      puts " -> Error: #{chatrooms_max_members}"
     end
 
-    logger.info " * Fetching each chatroom messages"
+    puts " * Fetching each chatroom messages"
     @chatrooms.each do |topic_id, chatroom|
       message_total = 0
       chatroom[:messages].each do |item|
@@ -147,7 +147,7 @@ class ChatroomStatsJob < ActiveJob::Base
 
     filename = 'result.html'
     File.open(filename, 'w') { |f| f.write(file) }
-    logger.info "Result: #{'message_stat.html'}"
+    puts "Result: #{'message_stat.html'}"
   end
 
 
@@ -185,7 +185,7 @@ class ChatroomStatsJob < ActiveJob::Base
         end
 
       rescue => e
-        logger.info " -> #{e.backtrace.join("\n")}"
+        puts " -> #{e.backtrace.join("\n")}"
         e.message
       end
     end
@@ -203,6 +203,6 @@ class ChatroomStatsJob < ActiveJob::Base
         zipfile.add(input, File.join(folder, input))
       end
 
-      logger.info " Zip: #{output}"
+      puts " Zip: #{output}"
     end
 end
