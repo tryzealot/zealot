@@ -29,6 +29,8 @@ require 'capistrano/puma'
 # require 'capistrano/puma/monit'   #if you need the monit tasks
 require 'capistrano/puma/nginx'   #if you want to upload a nginx site template
 # require 'capistrano/git-submodule-strategy'
+require 'capistrano/sidekiq'
+# require 'capistrano/foreman'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
