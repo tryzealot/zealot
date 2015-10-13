@@ -9,7 +9,7 @@ class Release < ActiveRecord::Base
 
 
   def self.latest
-    self.order(created_at: :desc).first
+    self.order(version: :desc).first
   end
 
   def file_ext
