@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       match 'app' => 'app#info', :via => :get, as: 'app_info'
       match 'app/versions' => 'app#versions', :via => :get, as: 'app_versions'
       match 'app/latest' => 'app#latest', :via => :get, as: 'app_latest'
+      match 'app/changelogs' => 'app#changelogs', :via => :get, as: 'app_changelogs'
       match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
 
       get 'user/(:id).json', to: 'user#show'
