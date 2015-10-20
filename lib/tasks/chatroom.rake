@@ -34,7 +34,7 @@ namespace :chatroom do
 
             one_message = Message.find_by(im_id:m['msg_id'])
             if one_message && one_message.timestamp >= timestamp
-              puts " * no news: #{one_message.timestamp} <--> #{timestamp}"
+              puts " * No new data: #{one_message.timestamp} <--> #{timestamp}"
               break
             end
 
