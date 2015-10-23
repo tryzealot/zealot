@@ -1,6 +1,4 @@
 class ChatroomsController < ApplicationController
-  load_and_authorize_resource
-
   before_filter :authenticate_user!
 
   def index
@@ -12,7 +10,7 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.find(chatroom_id)
     @messages = Message.where(chatroom_id: chatroom_id)
                 .order('timestamp DESC')
-                .paginate(page: params[:page])
+                .page(params[:page])
   end
 
   def sync
