@@ -1,5 +1,7 @@
 class AppsController < ApplicationController
   before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions]
+
 
   def index
     @apps = current_user.apps
@@ -26,12 +28,10 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @app = App.find_by(slug: params[:slug])
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
   def update
-    @app = App.find(params[:id])
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     @app.update(app_params)
@@ -40,12 +40,11 @@ class AppsController < ApplicationController
   end
 
   def destroy
-    App.find_by(slug: params[:slug]).destroy
+    @app.destroy
     redirect_to apps_path
   end
 
   def show
-    @app = App.find_by(slug: params[:slug])
     authorize @app
     fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
@@ -57,8 +56,6 @@ class AppsController < ApplicationController
   end
 
   def auth
-    @app = App.find_by(slug: params[:slug])
-
     if @app.password == params[:password]
       cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.now + 1.week }
       redirect_to app_path(@app.slug)
@@ -81,12 +78,23 @@ class AppsController < ApplicationController
   end
 
   def branches
-    @app = App.find_by(slug: params[:slug])
     @branches = @app.branches
     @releases = @app.releases.where(branch: params[:branch]).order(created_at: :desc) if params[:branch]
   end
 
+  def versions
+    @releases = @app.releases.where(release_version: params[:version])
+  end
+
   private
+
+    def set_app
+      if params[:slug]
+        @app = App.friendly.find(params[:slug])
+      else
+        @app = App.find(params[:id])
+      end
+    end
 
     def check_user_logged_in!
       authenticate_user! unless request.user_agent.include? 'MicroMessenger'

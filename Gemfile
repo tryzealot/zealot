@@ -28,6 +28,7 @@ gem 'chronic'
 gem 'rubyzip', '>= 1.0.0'
 gem 'net-ssh'
 gem 'foreman'
+gem 'friendly_id'
 
 gem 'redis-rails'
 gem 'sidekiq'
