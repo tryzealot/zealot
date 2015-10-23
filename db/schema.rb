@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909111631) do
+ActiveRecord::Schema.define(version: 20151023062619) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -104,6 +104,14 @@ ActiveRecord::Schema.define(version: 20150909111631) do
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer  "role_id",    limit: 4
+    t.string   "action",     limit: 255
+    t.string   "resource",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "releases", force: :cascade do |t|
     t.integer  "app_id",          limit: 4,     null: false
     t.string   "channel",         limit: 255
@@ -139,6 +147,13 @@ ActiveRecord::Schema.define(version: 20150909111631) do
     t.integer "user_id", limit: 4, null: false
     t.integer "role_id", limit: 4, null: false
   end
+
+  create_table "user_apps", force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "app_id",  limit: 4
+  end
+
+  add_index "user_apps", ["user_id", "app_id"], name: "index_user_apps_on_user_id_and_app_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
