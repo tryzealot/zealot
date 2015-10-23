@@ -11,7 +11,6 @@ gem 'awesome_print'
 gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
-gem 'cancancan'
 gem 'pundit'
 gem 'will_paginate'
 gem 'whenever', :require => false
