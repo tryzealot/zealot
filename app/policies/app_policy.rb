@@ -4,10 +4,6 @@ class AppPolicy < ApplicationPolicy
     user.has_role? [:admin, :mobile]
   end
 
-  def show?
-    false
-  end
-
   def update?
     record.create_id == user.id
   end

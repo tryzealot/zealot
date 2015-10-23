@@ -1,0 +1,61 @@
+- content_for :title do
+  | 我的应用
+
+div.container
+  == render 'apps/install_cert'
+
+  div.row
+    h3
+      - if @releases
+        = @app.name
+        span.label.label-danger
+          = params[:version] 
+        | 版本列表
+      - else
+        | 版本列表： 
+        = @app.name
+    
+    - if @releases
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th ID
+            th 开发版本
+            th 分支
+            th 上传时间
+        tbody
+          - if @releases.size > 0
+            - @releases.each_with_index do |release, index|
+              tr
+                td
+                  = index + 1
+                td
+                  = link_to release.build_version, app_release_path(@app.slug, release.version)
+                td
+                  = release.branch
+                td
+                  = release.created_at
+          - else
+            tr
+              th colspan="5" 该版本没有任何上传记录，请使用接口进行上传！
+    - else
+      / - if @releases.size > 0
+      /   table.table.table-striped.table-borderd
+      /     thead
+      /       tr
+      /         th ID
+      /         th 主版本号
+      /         th 开发版本号
+      /         th 文件大小
+      /         th 最后提交 
+      /         th 上传时间
+      /     tbody
+      /       - @versions.each_with_index do |version, index|
+      /         tr
+      /           td
+      /             = index + 1
+      /           td
+      /             = version.name
+      / - else
+      /   span 
+      /     | 你还没有创建任何应用，请使用接口进行上传！
