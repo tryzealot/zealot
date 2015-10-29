@@ -16,7 +16,7 @@ div.col-sm-8.app-info
       |  / 大小：#{number_to_human_size(@release.filesize)}
       |  / 更新于：#{time_ago_in_words(@release.created_at)}
       |  / 此版本由 
-      - if @release.channel != 'api'
+      - if @release.channel == 'jenkins'
         a href="#{@release.ci_url}" #{@release.channel}
       - else
         = @release.channel
