@@ -1,0 +1,130 @@
+.sticky-wrap {
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: relative;
+	margin: 3em 0;
+	width: 100%;
+}
+.sticky-wrap div[class^='sticky'] {
+	overflow: hidden;
+}
+.sticky-wrap tfoot {
+	display: none;
+}
+.sticky-wrap div table {
+	margin: 0;
+	position: relative;
+	width: auto; /* Prevent table from stretching to full size */
+}
+.sticky-wrap .sticky-thead,
+.sticky-wrap .sticky-col,
+.sticky-wrap .sticky-intersect {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 50;
+	transition: opacity .25s ease-in-out;
+}
+	.sticky-wrap .sticky-thead {
+		box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125);
+		z-index: 100;
+		width: 100%; /* Force stretch */
+	}
+	.sticky-wrap .sticky-intersect {
+		opacity: 1;
+		z-index: 150;
+	}
+		.sticky-wrap .sticky-intersect th {
+			background-color: #666;
+			color: #eee;
+		}
+.sticky-wrap td,
+.sticky-wrap th {
+	box-sizing: border-box;
+}
+.sticky-wrap thead th {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.sticky-enabled {
+	margin: 0;
+	width: 100%;
+}
+
+/* Sort handlers */
+.sticky-wrap.sortable thead {
+	cursor: pointer;
+}
+.sticky-wrap.sortable thead th {
+	padding-right: 3em;
+	position: relative;
+}
+.sort-handle {
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: -2em;
+	width: 1em;
+	height: 1em;
+	margin-top: -.5em;
+}
+	.sort-handle:before,
+	.sort-handle:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 0;
+		height: 0;
+		transition: .125s ease-in-out;
+	}
+		.sort-handle:before {
+			border-top: .4em solid transparent;
+			border-right: .5em solid transparent;
+			border-bottom: .4em solid rgba(0,0,0,.25);
+			border-left: .5em solid transparent;		
+		}
+		.sort-handle:after {
+			border-top: .4em solid rgba(0,0,0,.25);
+			border-right: .5em solid transparent;
+			border-bottom: .4em solid transparent;
+			border-left: .5em solid transparent;			
+		}
+			.sticky-intersect .sort-handle:before { border-bottom-color: rgba(255,255,255,.5); }
+			.sticky-intersect .sort-handle:after  { border-top-color: rgba(255,255,255,.5); }
+
+		.sort-default .sort-handle:before {
+			opacity: 1;
+			top: -0.4em;
+		}
+		.sort-default .sort-handle:after {
+			opacity: 1;
+			bottom: -0.4em;
+		}
+		.sort-asc .sort-handle:before {
+			top: -0.1em;
+		}
+		.sort-asc .sort-handle:after {
+			opacity: 0;
+		}
+		.sort-desc .sort-handle:before {
+			opacity: 0;
+		}
+		.sort-desc .sort-handle:after {
+			bottom: -0.1em;
+		}
+
+/* To hide sticky column and intersect when screen gets too narrow */
+@media only screen and (max-width: 768px) {
+	html {
+		font-size: 14px;
+	}
+	header,
+	#final .sticky-wrap {
+		max-height: 25rem;
+	}
+	.sticky-col, .sticky-intersect {
+		display: none;
+	}
+}

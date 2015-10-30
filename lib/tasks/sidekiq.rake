@@ -1,16 +1,12 @@
 namespace :sidekiq do
 
-  desc "test"
-  task :test => :environment do
-    # ChatroomStatsWorker.perform_async('2015-10-01', '2015-10-08')
+  desc "chatroom job"
+  task :chatroom => :environment do
     ChatroomStatsJob.perform_later '2015-09-01', '2015-10-19'
   end
 
-  task :cache => :environment do
-    # Rails.cache.fetch("name") do
-    #   "icyleaf"
-    # end
-
-    puts Rails.cache.read("im_chatrooms")
+  desc "discuss job"
+  task :discuss => :environment do
+    DiscussStatsJob.perform_later '2015-10-07', '2015-10-30'
   end
 end
