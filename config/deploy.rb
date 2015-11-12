@@ -7,12 +7,12 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 # set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
-set :format, :pretty
+# set :format, :pretty
 set :log_level, :debug
 set :pty, false
 
 set :linked_files, %w(config/database.yml)
-set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
+set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files)
 
 set :rvm_type, :user # Defaults to: :auto
 set :rvm_ruby_version, '2.2.2' # Defaults to: 'default'
