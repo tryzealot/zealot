@@ -58,6 +58,7 @@ group :development do
   gem 'meta_request'
 
   gem 'capistrano'
+  gem "airbrussh", :require => false
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rails-console'
@@ -67,8 +68,6 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-foreman'
 
-  gem 'guard'
-  gem 'guard-livereload'
 end
 
 group :development, :test do
