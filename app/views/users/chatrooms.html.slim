@@ -17,11 +17,14 @@ div.container
         h3 用户信息
         table.table.table-striped.table-bordered
           tr
+            th 头像
             th ID
             th 箭扣 ID
             th 用户名
             th 箭扣在线
           tr
+            td
+              = image_tag()
             td
               = @member.uid
             td#client_id

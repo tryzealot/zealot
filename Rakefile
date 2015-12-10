@@ -17,27 +17,124 @@ end
 
 desc "发分享"
 task :send_poi do
-  url = 'http://api.im.qyer.com/v1/im/notice.json'
-  custom_data = {
-    tipText: "有时间来我们这里转转！",
-    content: "欢迎来坐坐！",
-    action: "share",
-    fromUserName: "特卖专员",
-    attribute4: 0,
-    attribute5: 0,
-    title: "穷游清迈Q-Home",
-    wid: "279953",
-    type: 9,
-    fromUserAvatar: "http://static.qyer.com/data/avatar/001/07/13/21_avatar_big.jpg?v=1411745284",
-    photo: "http://pic.qyer.com/album/user/1284/52/QEtdRh8FZEA/index/w800"
+  type = {
+    subject: {
+      title: '分享了一个专题',
+      value: 11,
+    },
+    poi: {
+      title: '分享了一个旅行地',
+      value: 8,
+    }
   }
+
+  # 专题
+  # customData =  {
+  #   "tipText": "重要播报",
+  #   "content": "",
+  #   "action": "share",
+  #   "attribute5": 0,
+  #   "fromUserName": "i打头的",
+  #   "attribute4": 0,
+  #   "title": "特别安全提醒，巴黎突发公布袭击",
+  #   "fromUserAvatar": "http://static.qyer.com/data/avatar/001/35/78/27_avatar_big.jpg?v=1444731534",
+  #   "type": 11,
+  #   "photo": "http://pic.qyer.com/public/mobileapp/appzt/2015/11/14/14474760378222",
+  #   "attribute1": "http://appview.qyer.com/op/zt/20151114.html"
+  # }
+
+  # 微锦囊
+  # "customData": {
+  #   "tipText": "刚刚分享了一个微锦囊",
+  #   "content": "去年第三次第三次去泰国，按图索骥三天逛吃逛吃之旅，有游客去的地方，但大多数...",
+  #   "action": "share",
+  #   "attribute5": 0,
+  #   "fromUserName": "i打头的",
+  #   "attribute4": 0,
+  #   "title": "呕心沥血推清迈美食",
+  #   "wid": "795",
+  #   "fromUserAvatar": "http://static.qyer.com/data/avatar/001/35/78/27_avatar_big.jpg?v=1444731534",
+  #   "type": 8,
+  #   "photo": "http://pic.qyer.com/album/user/389/89/QkFcShMBYA/index/710x360"
+  # },
+
+  # POI
+  # "customData": {
+  #   "tipText": "刚刚分享了一个微锦囊",
+  #   "content": "去年第三次第三次去泰国，按图索骥三天逛吃逛吃之旅，有游客去的地方，但大多数...",
+  #   "action": "share",
+  #   "attribute5": 0,
+  #   "fromUserName": "i打头的",
+  #   "attribute4": 0,
+  #   "title": "呕心沥血推清迈美食",
+  #   "wid": "795",
+  #   "fromUserAvatar": "http://static.qyer.com/data/avatar/001/35/78/27_avatar_big.jpg?v=1444731534",
+  #   "type": 9,
+  #   "photo": "http://pic.qyer.com/album/user/389/89/QkFcShMBYA/index/710x360"
+  # },
+
+  # 游记（帖子）
+  # "customData": {
+  #   "attribute4": 0,
+  #   "fromUserName": "i打头的",
+  #   "tipText": "刚刚分享了一篇游记",
+  #   "attribute1": "http://appview.qyer.com/bbs/thread-1370016-1.html",
+  #   "fromUserAvatar": "http://static.qyer.com/data/avatar/001/35/78/27_avatar_big.jpg?v=1444731534",
+  #   "title": "尼泊尔之行：加德满都、博卡拉、阿纳...",
+  #   "action": "share",
+  #   "type": 5,
+  #   "attribute5": 0,
+  #   "wid": "1370016",
+  #   "photo": "http://static.qyer.com/images/common/icon/114-2.png",
+  #   "content": "meggiechen\n2015-09-16最后更新\n"
+  # },
+
+  user = {
+    id: 4997295,
+    im_id: 'AIMCUZ4FEBBMR9IF9P6YFHI',
+    username: '穷游无线君',
+    avatar: 'http://static.qyer.com/data/avatar/004/99/72/95_avatar_big.jpg?v=1439364189'
+  }
+
+  topic = {
+    id: '55ebbb2d82a0d0cf3400a379',
+    name: '巴黎'
+  }
+
+  url = 'http://api.im.qyer.com/v1/im/notice.json'
+  custom_data =  {
+    tipText: "重要播报",
+    content: "",
+    action: "share",
+    attribute5: 0,
+    fromUserName: user[:username],
+    attribute4: 0,
+    title: "巴黎突发恐怖袭击",
+    fromUserAvatar: user[:avatar],
+    type: 11,
+    photo: "http://pic.qyer.com/public/mobileapp/appzt/2015/11/14/14474760378222",
+    attribute1: "http://appview.qyer.com/op/zt/20151114.html"
+  }
+  # custom_data = {
+  #   tipText: "有时间来我们这里转转！",
+  #   content: "欢迎来坐坐！",
+  #   action: "share",
+  #   attribute5: 0,
+  #   fromUserName: user[:username],
+  #   attribute4: 0,
+  #   title: "穷游清迈Q-Home",
+  #   wid: "279953",
+  #   type: 8,
+  #   fromUserAvatar: user[:avatar],
+  #   photo: "http://pic.qyer.com/album/user/1284/52/QEtdRh8FZEA/index/w800"
+  # }
 
   params = {
     key: '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx',
-    from: 'AIMBFBGWKNHZ5YE0EBQIM3D',
-    topic: '547eb6811444529ad8000091',
+    from: user[:im_id],
+    topic: topic[:id],
     notice: 'SHARE_TO_CHATROOM',
-    # msg_id: SecureRandom.hex(10),
+    msg_id: SecureRandom.hex(10),
     custom_data: MultiJson.dump(custom_data)
   }
 
