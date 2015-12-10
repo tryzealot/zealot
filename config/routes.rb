@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post 'apps', to: 'apps#create'
   get 'apps/upload', to: 'apps#upload', as: 'upload_app'
   patch 'apps/:id', to: 'apps#update', as: 'update_app', id: /\d+/
+  patch 'apps/:slug', to: 'apps#update', as: 'update_app', slug: /\w+/
 
   get 'apps/:slug', to: 'apps#show', as: 'app', slug: /\w+/
   get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
