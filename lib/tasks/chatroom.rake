@@ -1,5 +1,40 @@
 namespace :chatroom do
 
+  desc "Sync all group(chatroom and discuss)"
+  task :sync_group => :environment do
+    puts " * Fetching chatrooms"
+    if Group::where(type: 'chatroom').count < Qyer::Chatroom.count
+      Qyer::Chatroom.all.each_with_index do |c, i|
+        puts " -> [#{c.chatroom_name}] Inserted"
+        Group.find_or_create_by(
+          qyer_id: c.id,
+          im_id: c.im_topic_id,
+          name: c.chatroom_name,
+          type: 'chatroom'
+        )
+      end
+    else
+      puts " -> Not found new chatroom"
+    end
+
+    puts " * Fetching discuss"
+    if Group::where(type: 'discuss').count < Qyer::Chatroom.count
+      Qyer::Discuss.all.each_with_index do |d, i|
+        puts " -> [#{d.group_name}] Inserted"
+        Group.find_or_create_by(
+          qyer_id: d.id,
+          im_id: d.chatroom_id,
+          name: d.group_name.gsub('discuss_', ''),
+          type: 'discuss'
+        )
+      end
+    else
+      puts " -> Not found new discuss"
+    end
+
+  end
+
+
   desc "Sync Arrownock chatroom messages"
   task :sync_messages => :environment do
     require 'rest_client'
@@ -13,8 +48,8 @@ namespace :chatroom do
       :b => 1
     }
 
-    chatroom_total = Chatroom.count
-    Chatroom.where.not(id:143).find_all.each_with_index do |c, ci|
+    chatroom_total = Qyer::Chatroom.count
+    Qyer::Chatroom.where.not(id:143).find_all.each_with_index do |c, ci|
       params[:topic_id] = c.im_topic_id
       r = RestClient.get url, {:params => params}
       data = MultiJson.load r
@@ -25,7 +60,7 @@ namespace :chatroom do
         data['response']['messages'].each_with_index do |m, mi|
           begin
             member = Member.find_by(im_user_id:m['from'])
-            chatroom = Chatroom.find_by(im_topic_id:m['topic_id'])
+            chatroom = Qyer::Chatroom.find_by(im_topic_id:m['topic_id'])
             timestamp = Time.at(m['timestamp'] / 1000).to_datetime
 
             unless member

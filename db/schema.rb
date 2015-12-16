@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023062619) do
+ActiveRecord::Schema.define(version: 20151216020705) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 20151023062619) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer "qyer_id", limit: 4,                        null: false
+    t.string  "im_id",   limit: 255,                      null: false
+    t.string  "name",    limit: 255,                      null: false
+    t.string  "type",    limit: 255, default: "chatroom"
+  end
+
+  add_index "groups", ["im_id"], name: "index_groups_on_im_id", using: :btree
+  add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
+  add_index "groups", ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
 
   create_table "ios", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -83,6 +94,7 @@ ActiveRecord::Schema.define(version: 20151023062619) do
     t.integer  "chatroom_id",   limit: 4
     t.integer  "user_id",       limit: 4
     t.string   "chatroom_name", limit: 255
+    t.string   "chatroom_type", limit: 255,        default: "chatroom"
     t.string   "user_name",     limit: 255
     t.string   "message",       limit: 255
     t.datetime "timestamp"
