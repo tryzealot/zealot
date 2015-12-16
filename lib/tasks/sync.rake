@@ -65,7 +65,7 @@ namespace :sync do
       r = RestClient.get url, {:params => params}
       data = MultiJson.load r
 
-      puts "-> [#{gi + 1}/#{group_total}]#{g.name}"
+      puts "-> [#{gi + 1}/#{group_total}] #{g.name} - #{g.type}"
       if data['meta']['code'] == 200
         puts " * count: #{data['response']['messages'].size}"
         data['response']['messages'].each_with_index do |m, mi|
