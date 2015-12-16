@@ -2,9 +2,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  resources :jspatches
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
-  devise_for :users
+  resources :jspatches
 
   get 'releases/index', to: 'releases#index', as: 'releases'
   post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
@@ -29,35 +28,23 @@ Rails.application.routes.draw do
   get 'apps/:slug/:id', to: 'apps#release', as: 'app_release', slug: /\w+/, id: /\d+/
 
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
+  get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
   resources :ios
 
-  get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
-
-  get 'users/chatroom', to: 'users#chatrooms', as: 'user_chatrooms'
-  get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_chatrooms'
+  devise_for :users
+  get 'users/groups', to: 'users#groups', as: 'user_groups'
+  get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
   resources :users
-
-  resources :chatrooms
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   resources :messages
 
-  get 'chatrooms/sync/:id', to: 'chatrooms#sync', as: 'sync_messages'
-
-  get 'errors/not_found'
-  get 'errors/server_error'
-
-  match '/404', via: :all, to: 'errors#not_found'
-  match '/500', via: :all, to: 'errors#server_error'
-
-  get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
-
-  namespace :demo do
-    get 'plans/index', to: 'plans#index', as: 'plans'
-
-    get 'plans/record', to: 'plans#record', as: 'record_plans'
-  end
+  get 'groups/sync/:id', to: 'group#sync', as: 'group_sync_messages'
+  resources :groups
 
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
@@ -97,9 +84,19 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :user do
-    mount Sidekiq::Web => '/sidekiq'
+  get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
+
+  namespace :demo do
+    get 'plans/index', to: 'plans#index', as: 'plans'
+
+    get 'plans/record', to: 'plans#record', as: 'record_plans'
   end
+
+  get 'errors/not_found'
+  get 'errors/server_error'
+
+  match '/404', via: :all, to: 'errors#not_found'
+  match '/500', via: :all, to: 'errors#server_error'
 
   root to: 'visitors#index'
 end

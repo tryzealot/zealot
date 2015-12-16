@@ -18,9 +18,9 @@ class UsersController < ApplicationController
                 .paginate(page: params[:page])
   end
 
-  def chatrooms
+  def groups
     query = params[:user].chomp if params[:user]
-    @all_chatrooms = Qyer::Chatroom.all
+    @groups = Group.all
 
     if request.request_method == 'GET' && query
       @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take
@@ -30,18 +30,6 @@ class UsersController < ApplicationController
       if @user && ! @user.im_user_id.blank?
         logger.debug "Search user: #{@user.im_user_id}"
         @user_online = user_status(@user)
-
-        # if params[:type] == 'all'
-        #   @chatrooms = []
-        #   @all_chatrooms.each do |c|
-        #     begin
-        #       logger.debug "[#{Time.now}] Searching chatroom: #{c.chatroom_name}"
-        #       @chatrooms.push(chatroom_info(c, @user))
-        #     rescue => e
-        #       next
-        #     end
-        #   end
-        # end
       end
     end
   end
@@ -112,9 +100,9 @@ class UsersController < ApplicationController
     r = RestClient.get url, params: query
     ds = MultiJson.load r
     status = if r.code == 200 && ds['meta']['code'] == 200
-               s = ds['response']['status'][0][user.im_user_id]
-             else
-               false
+      s = ds['response']['status'][0][user.im_user_id]
+    else
+      false
     end
   end
 end
