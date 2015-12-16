@@ -107,13 +107,13 @@ namespace :sync do
               puts m
             end
           end
-        rescue => e
-          puts " * [EXCEPTION] #{e.message}"
-          next
+        else
+          puts " * [Error] API exception! entry data:"
+          puts data
         end
-      else
-        puts " * [Error] API exception! entry data:"
-        puts data
+      rescue => e
+        puts " * [EXCEPTION] #{e.message}"
+        next
       end
     end
   end
