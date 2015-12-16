@@ -17,3 +17,8 @@ tr
       = emojify(message.message)
     - else
       = image_tag(messages_image_path(message))
+  td 
+    - if message.is_deleted
+      | 已删除
+    - else
+      = link_to '删除', destroy_message_path(message)
