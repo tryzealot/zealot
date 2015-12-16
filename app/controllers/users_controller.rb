@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def messages
     @messages = Message.where(user_id: params[:id])
                 .order('timestamp DESC')
-                .paginate(page: params[:page])
+                .page(params[:page])
   end
 
   def groups

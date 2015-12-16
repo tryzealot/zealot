@@ -1,24 +1,23 @@
-class ChatroomsController < ApplicationController
+class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @chatrooms = Qyer::Chatroom.where.not(id: 143).all
+    @groups = Group.all
   end
 
   def show
-    chatroom_id = params[:id]
-    @chatroom = Qyer::Chatroom.find(chatroom_id)
-    @messages = Message.where(chatroom_id: chatroom_id)
-                .order('timestamp DESC')
-                .page(params[:page])
+    @group = Group::find(params[:id])
+    @messages = Message.where(group: @group)
+      .order('timestamp DESC')
+      .page(params[:page])
   end
 
   def sync
-    @chatroom = Qyer::Chatroom.find(params[:id])
+    @group = Group.find(params[:id])
     url = 'http://api.im.qyer.com/v1/im/topics/history.json'
     params = {
       key: '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx',
-      topic_id: @chatroom.im_topic_id,
+      topic_id: @group.im_id,
       limit: 20,
       b: 1
     }
@@ -29,7 +28,6 @@ class ChatroomsController < ApplicationController
       data['response']['messages'].each do |m|
         begin
           member = Member.find_by(im_user_id: m['from'])
-
           next unless member
 
           Message.find_or_create_by(im_id: m['msg_id']) do |message|
@@ -38,8 +36,9 @@ class ChatroomsController < ApplicationController
             message.im_topic_id = m['topic_id']
             message.user_id = member.user_id
             message.user_name = member.people.username
-            message.chatroom_id = @chatroom.id
-            message.chatroom_name = @chatroom.chatroom_name
+            message.group_id = @group.id
+            message.group_name = @group.name
+            message.group_type = @group.type
             message.message = m['message'] if m['content_type'] == 'text'
             message.custom_data = MultiJson.dump(m['customData'])
             message.content_type = m['content_type']
@@ -48,6 +47,7 @@ class ChatroomsController < ApplicationController
             message.timestamp = Time.at(m['timestamp'] / 1000).utc
           end
         rescue => e
+          ap
           next
         end
       end

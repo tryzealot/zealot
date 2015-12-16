@@ -1,12 +1,12 @@
 - content_for :title do
-  = "#{@chatroom.chatroom_name}聊天记录"
+  = "#{@group.name}聊天记录"
 
 div.container
   div.row
     h2 
-      = "[#{@chatroom.chatroom_name}]聊天记录"
+      = "[#{@group.name}]聊天记录"
     h5
-      = link_to("手动刷新", sync_messages_path)
+      = link_to("手动刷新", group_sync_messages_path)
     table.table.table-striped.table-bordered
       tr
         th.col-md-1 ID
@@ -16,6 +16,5 @@ div.container
         th 内容
       - @messages.each_with_index do |message, i|
         == render message
-
   div
     = paginate @messages 
