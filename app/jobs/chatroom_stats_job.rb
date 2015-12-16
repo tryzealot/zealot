@@ -155,7 +155,7 @@ class ChatroomStatsJob < ActiveJob::Base
     def city_chatrooms!
       Rails.cache.fetch(CITY_CHATROOMS_KEY) do
         chatrooms = {}
-        Chatroom.all.each do |c|
+        Qyer::Chatroom.all.each do |c|
           # 艾普罗菲尔，穷游办公室
           next if ["53ba02e7144452cd76000004", "547eb6811444529ad8000091"].include?c.im_topic_id
 
