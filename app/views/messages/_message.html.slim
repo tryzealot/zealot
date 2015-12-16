@@ -5,6 +5,8 @@ tr
     = message.id
   td
     = link_to message.group_name, group_path(message.group)
+    br
+      = message.group_type
   td
     = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
   td style="text-align:center"
