@@ -1,2 +1,0 @@
-module ChatroomsHelper
-end

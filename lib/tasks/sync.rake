@@ -43,7 +43,6 @@ namespace :sync do
     else
       puts " -> Not found new discuss"
     end
-
   end
 
 
@@ -60,19 +59,19 @@ namespace :sync do
       :b => 1
     }
 
-    chatroom_total = Qyer::Chatroom.count
-    Qyer::Chatroom.where.not(id:143).find_all.each_with_index do |c, ci|
-      params[:topic_id] = c.im_topic_id
+    group_total = Group.count
+    Group.all.each_with_index do |g, gi|
+      params[:topic_id] = g.im_id
       r = RestClient.get url, {:params => params}
       data = MultiJson.load r
 
-      puts "-> [#{ci + 1}/#{chatroom_total}]#{c.chatroom_name}"
+      puts "-> [#{gi + 1}/#{group_total}]#{g.name}"
       if data['meta']['code'] == 200
         puts " * count: #{data['response']['messages'].size}"
         data['response']['messages'].each_with_index do |m, mi|
           begin
-            member = Member.find_by(im_user_id:m['from'])
-            chatroom = Qyer::Chatroom.find_by(im_topic_id:m['topic_id'])
+            member = Member.find_by(im_user_id: m['from'])
+            group = Group.find_by(im_id: m['topic_id'])
             timestamp = Time.at(m['timestamp'] / 1000).to_datetime
 
             unless member
@@ -91,8 +90,9 @@ namespace :sync do
               message.im_topic_id = m['topic_id']
               message.user_id = member.user_id
               message.user_name = member.people.username
-              message.chatroom_id = chatroom.id
-              message.chatroom_name = chatroom.chatroom_name
+              message.group_id = group.id
+              message.group_name = group.name
+              message.group_type = group.type
               message.message = m['message'] if m['content_type'] == 'text'
               message.custom_data = MultiJson.dump(m['customData'])
               message.content_type = m['content_type']
@@ -100,7 +100,6 @@ namespace :sync do
               message.file =  m['message'] if m['content_type'] != 'text'
               message.timestamp = timestamp
             end
-
 
             puts " * [#{mi + 1}] #{m['msg_id']} updated"
           rescue => e
