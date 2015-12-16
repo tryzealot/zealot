@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   end
 
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
+  get 'messages/:id', to: 'messages#destroy', as: 'destroy_message'
   resources :messages
 
   get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
