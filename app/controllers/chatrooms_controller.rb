@@ -2,19 +2,19 @@ class ChatroomsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @chatrooms = Chatroom.where.not(id: 143).all
+    @chatrooms = Qyer::Chatroom.where.not(id: 143).all
   end
 
   def show
     chatroom_id = params[:id]
-    @chatroom = Chatroom.find(chatroom_id)
+    @chatroom = Qyer::Chatroom.find(chatroom_id)
     @messages = Message.where(chatroom_id: chatroom_id)
                 .order('timestamp DESC')
                 .page(params[:page])
   end
 
   def sync
-    @chatroom = Chatroom.find(params[:id])
+    @chatroom = Qyer::Chatroom.find(params[:id])
     url = 'http://api.im.qyer.com/v1/im/topics/history.json'
     params = {
       key: '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx',

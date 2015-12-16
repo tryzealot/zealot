@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def chatrooms
     query = params[:user].chomp if params[:user]
-    @all_chatrooms = Chatroom.all
+    @all_chatrooms = Qyer::Chatroom.all
 
     if request.request_method == 'GET' && query
       @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take

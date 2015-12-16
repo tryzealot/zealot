@@ -4,7 +4,7 @@ tr
   td
     = message.id
   td
-    = link_to message.chatroom_name, message.chatroom
+    = link_to message.chatroom_name, chatroom_path(message.chatroom)
   td
     = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
   td style="text-align:center"
