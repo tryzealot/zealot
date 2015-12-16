@@ -61,48 +61,19 @@ class UsersController < ApplicationController
   end
 
   private
+    def user_status(user)
+      url = 'http://api.im.qyer.com/v1/im/client_status.json'
+      query = {
+        key: JK_KEY,
+        client: user.im_user_id
+      }
 
-  def chatroom_info(chatroom, _user)
-    url = 'http://api.im.qyer.com/v1/im/topic_info.json'
-    query = {
-      key: JK_KEY,
-      content_format: 'map',
-      id: chatroom.im_topic_id
-    }
-
-    r = RestClient.get url, params: query
-    ds = MultiJson.load r
-
-    data = {
-      chatroom: nil,
-      joined_at: nil
-    }
-
-    if r.code == 200 && ds['meta']['code'] == 200
-      if ds['response']['topic']['parties'].keys.include? @user.im_user_id
-        data = {
-          chatroom: c,
-          joined_at: ds['response']['topic']['parties'][@user.im_user_id]
-        }
+      r = RestClient.get url, params: query
+      ds = MultiJson.load r
+      status = if r.code == 200 && ds['meta']['code'] == 200
+        s = ds['response']['status'][0][user.im_user_id]
+      else
+        false
       end
     end
-
-    data
-  end
-
-  def user_status(user)
-    url = 'http://api.im.qyer.com/v1/im/client_status.json'
-    query = {
-      key: JK_KEY,
-      client: user.im_user_id
-    }
-
-    r = RestClient.get url, params: query
-    ds = MultiJson.load r
-    status = if r.code == 200 && ds['meta']['code'] == 200
-      s = ds['response']['status'][0][user.im_user_id]
-    else
-      false
-    end
-  end
 end
