@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216020705) do
+ActiveRecord::Schema.define(version: 20151216022307) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -91,26 +91,25 @@ ActiveRecord::Schema.define(version: 20151216020705) do
   add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "chatroom_id",   limit: 4
-    t.integer  "user_id",       limit: 4
-    t.string   "chatroom_name", limit: 255
-    t.string   "chatroom_type", limit: 255,        default: "chatroom"
-    t.string   "user_name",     limit: 255
-    t.string   "message",       limit: 255
+    t.integer  "group_id",     limit: 4,                               null: false
+    t.integer  "user_id",      limit: 4
+    t.string   "group_name",   limit: 255
+    t.string   "group_type",   limit: 255,        default: "chatroom"
+    t.string   "user_name",    limit: 255
+    t.string   "message",      limit: 255
     t.datetime "timestamp"
-    t.string   "content_type",  limit: 255
-    t.string   "file_type",     limit: 255
-    t.text     "custom_data",   limit: 65535
-    t.text     "file",          limit: 4294967295
-    t.string   "im_id",         limit: 255
-    t.string   "im_user_id",    limit: 255
-    t.string   "im_topic_id",   limit: 255
-    t.boolean  "is_deleted",                       default: false
+    t.string   "content_type", limit: 255
+    t.string   "file_type",    limit: 255
+    t.text     "custom_data",  limit: 65535
+    t.text     "file",         limit: 4294967295
+    t.string   "im_id",        limit: 255
+    t.string   "im_user_id",   limit: 255
+    t.string   "im_topic_id",  limit: 255
+    t.boolean  "is_deleted",                      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["chatroom_id"], name: "index_messages_on_chatroom_id", using: :btree
   add_index "messages", ["im_id"], name: "index_messages_on_im_id", using: :btree
   add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
