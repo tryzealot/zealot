@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   resources :messages
 
-  get 'groups/sync/:id', to: 'group#sync', as: 'group_sync_messages'
+  get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
   resources :groups
 
   namespace :api do

@@ -1,0 +1,21 @@
+ruby:
+  last_message = group.messages.order("created_at DESC").take
+td
+  = group.id
+td 
+  = group.im_id
+td
+  = link_to group.name, group
+td 
+  = group.type
+td 
+  - if last_message
+    span.label.label-warning
+      = last_message.user_name
+    - if last_message.content_type == 'text'
+      = emojify(last_message.message)
+    - else
+      | [图片]
+td
+  - if last_message
+    = last_message.created_at
