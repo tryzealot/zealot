@@ -24,8 +24,8 @@ server {
 
   server_name <%= fetch(:nginx_server_name) %>;
 
-  ssl_certificate /etc/nginx/ssl/mobile.dev/ca.crt;
-  ssl_certificate_key /etc/nginx/ssl/mobile.dev/ca.key;
+  # ssl_certificate /etc/nginx/ssl/mobile.dev/ca.crt;
+  # ssl_certificate_key /etc/nginx/ssl/mobile.dev/ca.key;
 
   root <%= current_path %>/public;
   try_files $uri/index.html $uri @puma_<%= fetch(:nginx_config_name) %>;
