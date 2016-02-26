@@ -6,7 +6,7 @@ div.container
     h1 = @pac.title
     p 
       | 链接地址: 
-      = link_to pac_url(@pac, format: :pac), pac_url(@pac, format: :pac)
+      = pac_file_url (@pac)
     
     div#editor
     - script = render 'show.js'
@@ -14,7 +14,7 @@ div.container
 
 = link_to 'Edit', edit_pac_path(@pac)
 '|
-= link_to 'Back', pacs_path
+= link_to '返回列表', pacs_path
 
 javascript:
   var editor = ace.edit("editor");
