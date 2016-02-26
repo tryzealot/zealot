@@ -1,14 +1,15 @@
 = simple_form_for(@pac) do |f|
   = f.error_notification
   
-  = f.input :title, required: true
-  = f.input :host
-  = f.input :port
-  = f.collection_radio_buttons  :is_enabled, [[1, 'Yes'] ,[0, 'No']], :first, :last
-  = f.input :script, as: :text, hint: '仅支持 Javascript 脚本', input_html: { rows: 20, class: 'hidden' }
+  = f.input :title, label: '文件描述名', placeholder: '某某童鞋的代理文件', required: true
+  = f.input :host, label: '主机名', placeholder: '域名或 IP 地址'
+  = f.input :port, label: '主机端口号', placeholder: '8888'
+  = f.input :script, label: '自定义 PAC 文件',as: :text, hint: '仅限于 PAC 文件格式，会覆盖上述配置，教程：http://findproxyforurl.com/example-pac-file/', input_html: { rows: 20, class: 'hidden' }
   .form-group
     #editor.form-control
-    
+  
+  = f.input :is_enabled, label: '是否启用', :as => :radio_buttons_inline
+  br
   = f.button :submit, value: '保存'
   
 javascript:
