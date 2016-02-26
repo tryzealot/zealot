@@ -3,6 +3,7 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 
+Mime::Type.register "application/x-ns-proxy-autoconfig", :pac
 Mime::Type.register 'application/octet-stream', :plist
 
 ActionController::Renderers.add :plist do |data, options|

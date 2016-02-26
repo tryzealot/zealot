@@ -6,7 +6,7 @@ div.container
     h1 = @pac.name
     p 
       | 链接地址: 
-      = link_to pac_url(@pac, format: :js), pac_url(@pac, format: :js)
+      = link_to pac_url(@pac, format: :pac), pac_url(@pac, format: :pac)
     
     div#editor
     - content = render 'show.js'
