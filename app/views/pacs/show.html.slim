@@ -9,7 +9,13 @@ div.container
       = link_to pac_url(@pac, format: :js), pac_url(@pac, format: :js)
     
     div#editor
-    code#jspatch_script.hidden = raw @pac.host
+    - content = render 'show.js'
+    code#pac_content.hidden = content
+    / - if @pac.content.to_s.empty?
+    /   
+    /   code#jspatch_script.hidden = "dfdfdfdfdfd"
+    / - else
+    /   code#jspatch_script.hidden = raw @pac.content
       
 = link_to 'Edit', edit_pac_path(@pac)
 '|
@@ -19,8 +25,8 @@ javascript:
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/tomorrow_night");
   editor.getSession().setMode("ace/mode/javascript");
-  editor.setValue($('#jspatch_script').html());
+  editor.setValue($('#pac_content').html());
   editor.setReadOnly(true);
   editor.getSession().on('change', function(e) {
-    $('#jspatch_script').html(editor.getValue());
+    $('#pac_content').html(editor.getValue());
   });
