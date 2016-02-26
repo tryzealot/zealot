@@ -9,6 +9,7 @@ class PacsController < ApplicationController
   def show
     respond_to do |format|
       format.pac { render :show, status: :ok, location: @pac }
+      format.html { render :show, status: :ok, location: @pac }
     end
   end
 
