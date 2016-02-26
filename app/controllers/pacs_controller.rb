@@ -30,8 +30,8 @@ class PacsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /jspatches/1
-  # PATCH/PUT /jspatches/1.json
+  # PATCH/PUT /pacs/1
+  # PATCH/PUT /pacs/1.pac
   def update
     respond_to do |format|
       if @pac.update(pac_params)
@@ -41,6 +41,16 @@ class PacsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @pac.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # DELETE /pacs/1
+  # DELETE /pacs/1.pac
+  def destroy
+    @pac.destroy
+    respond_to do |format|
+      format.html { redirect_to pacs_url, notice: 'pac was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
