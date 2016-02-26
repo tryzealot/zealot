@@ -1,0 +1,7 @@
+= simple_form_for(@pac) do |f|
+  = f.error_notification
+  
+  = f.input :name, required: true
+  = f.input :host, required: true
+  = f.input :port, required: true
+  = f.button :submit, value: '保存补丁'

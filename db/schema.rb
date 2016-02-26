@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216022307) do
+ActiveRecord::Schema.define(version: 20160226035707) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -114,6 +114,14 @@ ActiveRecord::Schema.define(version: 20151216022307) do
   add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
   add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "pacs", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "host",       limit: 255
+    t.string   "port",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "permissions", force: :cascade do |t|
     t.integer  "role_id",    limit: 4

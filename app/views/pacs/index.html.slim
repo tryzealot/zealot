@@ -1,0 +1,41 @@
+- content_for :title do
+  | Pac 文件列表
+
+div.container
+
+  div.row
+    h3 Pac 文件列表
+    
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th 标题
+          th 主机
+          th 端口
+          th 创建时间
+          th 最后更新时间
+          th 操作
+      tbody
+        - @pacs.each_with_index do |pac, i|
+          tr
+            td 
+              = i + 1
+            td
+              = link_to pac.name, pac_path(pac)
+            td
+              = pac.host
+            td
+              = pac.port
+            td
+              = pac.created_at
+            td
+              = pac.updated_at
+            td 
+              = link_to '编辑', edit_pac_path(pac)
+              |  / 
+              = link_to '删除', pac, data: {:confirm => '你确定？'}, :method => :delete
+
+    br
+
+    = link_to '新建 Pac 文件', new_pac_path

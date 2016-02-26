@@ -1,0 +1,2 @@
+module PacsHelper
+end
