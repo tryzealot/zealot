@@ -55,6 +55,6 @@ class PacsController < ApplicationController
     end
 
     def pac_params
-      params.require(:pac).permit(:name, :host, :port, :content)
+      params.require(:pac).permit(:title, :host, :port, :is_enabled, :script)
     end
 end
