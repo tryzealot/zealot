@@ -7,6 +7,9 @@ class PacsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.pac { render :show, status: :ok, location: @pac }
+    end
   end
 
   def new
