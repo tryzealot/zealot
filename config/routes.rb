@@ -2,6 +2,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  resources :pacs
+
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
 

@@ -1,0 +1,7 @@
+- content_for :title do
+  = @title
+
+div.row.app-container
+  h1 = @title
+  = link_to ' << 返回列表', pacs_path
+  == render 'form'
