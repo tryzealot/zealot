@@ -1,22 +1,17 @@
 - content_for :title do
-  = @pac.name 
+  = @pac.title 
 
 div.container
   div.row
-    h1 = @pac.name
+    h1 = @pac.title
     p 
       | 链接地址: 
       = link_to pac_url(@pac, format: :pac), pac_url(@pac, format: :pac)
     
     div#editor
-    - content = render 'show.js'
-    code#pac_content.hidden = content
-    / - if @pac.content.to_s.empty?
-    /   
-    /   code#jspatch_script.hidden = "dfdfdfdfdfd"
-    / - else
-    /   code#jspatch_script.hidden = raw @pac.content
-      
+    - script = render 'show.js'
+    code#pac_script.hidden = script
+
 = link_to 'Edit', edit_pac_path(@pac)
 '|
 = link_to 'Back', pacs_path
@@ -25,8 +20,8 @@ javascript:
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/tomorrow_night");
   editor.getSession().setMode("ace/mode/javascript");
-  editor.setValue($('#pac_content').html());
+  editor.setValue($('#pac_script').html());
   editor.setReadOnly(true);
   editor.getSession().on('change', function(e) {
-    $('#pac_content').html(editor.getValue());
+    $('#pac_script').html(editor.getValue());
   });

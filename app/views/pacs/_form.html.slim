@@ -1,10 +1,11 @@
 = simple_form_for(@pac) do |f|
   = f.error_notification
   
-  = f.input :name, required: true
+  = f.input :title, required: true
   = f.input :host
   = f.input :port
-  = f.input :content, as: :text, hint: '仅支持 Javascript 脚本', input_html: { rows: 20, class: 'hidden' }
+  = f.collection_radio_buttons  :is_enabled, [[1, 'Yes'] ,[0, 'No']], :first, :last
+  = f.input :script, as: :text, hint: '仅支持 Javascript 脚本', input_html: { rows: 20, class: 'hidden' }
   .form-group
     #editor.form-control
     
@@ -14,7 +15,7 @@ javascript:
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/tomorrow_night");
   editor.getSession().setMode("ace/mode/javascript");
-  editor.setValue($('#pac_content').html());
+  editor.setValue($('#pac_script').html());
   editor.getSession().on('change', function(e) {
-    $('#pac_content').html(editor.getValue());
+    $('#pac_script').html(editor.getValue());
   });
