@@ -6,9 +6,6 @@
         li
           = link_to 'App 列表', apps_path
           = link_to 'iOS 补丁列表', jspatches_path
-        li.divider role="separator"
-        li
-          = link_to 'dSYM 列表', ios_path
     / li.dropdown
     /   a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 演示功能
     /   ul.dropdown-menu data-no-turbolink="true"
@@ -17,7 +14,14 @@
     /     li
     /       = link_to '模拟回传坐标', demo_record_plans_path
     
-      
+  li.dropdown
+    a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 开发调试
+    ul.dropdown-menu
+      li
+        = link_to '自动代理', pacs_path
+      li.divider role="separator"
+      li
+        = link_to 'dSYM 列表', ios_path
   li.dropdown
     a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 穷游聊天室
     ul.dropdown-menu

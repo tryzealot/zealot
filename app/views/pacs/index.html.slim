@@ -11,8 +11,7 @@ div.container
         tr
           th ID
           th 标题
-          th 主机
-          th 端口
+          th 是否启用
           th 创建时间
           th 最后更新时间
           th 操作
@@ -22,11 +21,9 @@ div.container
             td 
               = i + 1
             td
-              = link_to pac.name, pac_path(pac)
+              = link_to pac.title, pac_path(pac)
             td
-              = pac.host
-            td
-              = pac.port
+              = pac.is_enabled == 1 ? '启用' : '禁止'
             td
               = pac.created_at
             td
