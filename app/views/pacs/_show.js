@@ -3,5 +3,5 @@ function FindProxyForURL(url, host) {
 	return "PROXY <%= @pac.host %>:<%= @pac.port %>; DIRECT";
 }
 <% else %>
-<%= @pac.content %>
+<%= raw @pac.content %>
 <% end %>
