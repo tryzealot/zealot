@@ -7,4 +7,5 @@
   = f.input :identifier, required: true
   = f.input :slug
   = f.input :password, input_html: { type: 'input', value: @app.password }
+  = f.input :key, input_html: { disabled: true, value: @app.key }
   = f.button :submit, value: '保存'
