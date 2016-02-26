@@ -2,6 +2,19 @@
   = f.error_notification
   
   = f.input :name, required: true
-  = f.input :host, required: true
-  = f.input :port, required: true
-  = f.button :submit, value: '保存补丁'
+  = f.input :host
+  = f.input :port
+  = f.input :content, as: :text, hint: '仅支持 Javascript 脚本', input_html: { rows: 20, class: 'hidden' }
+  .form-group
+    #editor.form-control
+    
+  = f.button :submit, value: '保存'
+  
+javascript:
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.setValue($('#pac_content').html());
+  editor.getSession().on('change', function(e) {
+    $('#pac_content').html(editor.getValue());
+  });
