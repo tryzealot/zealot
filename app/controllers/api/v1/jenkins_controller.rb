@@ -1,10 +1,11 @@
 class Api::V1::JenkinsController < Api::ApplicationController
-  def projects
-    @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
-      server_port: '8888'
-    )
+  before_action :set_client
 
+  def client
+    @client
+  end
+
+  def projects
     projects = []
     @client.job.list_all.each do |j|
       projects.push(@client.job.list_details(j))
@@ -14,35 +15,21 @@ class Api::V1::JenkinsController < Api::ApplicationController
   end
 
   def project
-    @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
-      server_port: '8888'
-    )
-
     project = @client.job.list_details(params[:project])
 
     render json: project
   end
 
   def build
-    @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
-      server_port: '8888'
-    )
-
     status = @client.job.build(params[:project])
 
     render json: {
-      status: status
+      status: status,
+      project: @client.job.list_details(params[:project])
     }
   end
 
   def abort
-    @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
-      server_port: '8888'
-    )
-
     status = @client.job.stop_build(params[:project], params[:id])
 
     render json: {
@@ -51,11 +38,6 @@ class Api::V1::JenkinsController < Api::ApplicationController
   end
 
   def status
-    @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
-      server_port: '8888'
-    )
-
     build_number = params[:id]
     if params[:id].to_s.empty?
       build_number = @client.job.get_current_build_number(params[:project])
@@ -76,4 +58,12 @@ class Api::V1::JenkinsController < Api::ApplicationController
       entry: build_detail
     }
   end
+
+  private
+    def set_client
+      @client = JenkinsApi::Client.new(
+        server_ip: '172.1.1.227',
+        server_port: '8888'
+      )
+    end
 end

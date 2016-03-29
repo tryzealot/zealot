@@ -31,9 +31,13 @@ div.col-sm-8.app-info
       
     - elsif [:mac, :windows, :linux].include?(browser.platform)
       = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
+      <span style="margin:0 5px"></span>
+      button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
+      
     - else
       button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
       
+  p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
   div.changelog
     h3
       | 更新日志
@@ -56,28 +60,44 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
     p.qr_code 
       = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
+  - if @job
+    div.sidebar-module.sidebar-module-inset
+      h3 Jenkins 
+      ul
+        li 
+          | 地址：
+          a href="#{@job['url']}" #{@job['name']}
+        - if @job['status'] == 'running'
+          li 
+            a href="#{@job['lastBuild']['url']}/console"
+              | 正在构建 #{@job['lastBuild']['number']} 
+        - else
+          li
+            | 最新构建: 
+            a href="#{@job['lastBuild']['url']}" #{@job['lastBuild']['number']}
+          li
+            | 当前构建状态: #{@job['status']}
+        
   div.sidebar-module.sidebar-module-inset
     - if @app.branches.size > 0
-      div.releases
-        h3 应用分支
-        table.table.table-striped.table-bordered
+      h3 应用分支
+      table.table.table-striped.table-bordered
+        tr
+          th.col-md-1 分支名
+          th.col-md-2 上传数量
+        - @app.branches.each do |branch|
           tr
-            th.col-md-1 分支名
-            th.col-md-2 上传数量
-          - @app.branches.each do |branch|
-            tr
-              td
-                = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
-              td
-                = branch.count
+            td
+              = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
+            td
+              = branch.count
   
   div.sidebar-module.sidebar-module-inset
     - if @app.versions
-      div.releases
-        h3 历史版本
-        p
+      h3 历史版本
+      ul
         - @app.versions.each do |name|
-          span
+          li
             = link_to name, app_versions_path(@app.slug, name)
   
   div.sidebar-module.sidebar-module-inset
