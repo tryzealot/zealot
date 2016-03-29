@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'apps/new', to: 'apps#new', as: 'new_app'
   post 'apps', to: 'apps#create'
   get 'apps/upload', to: 'apps#upload', as: 'upload_app'
+  get 'apps/build/:id', to: 'apps#build', as: 'build_app'
   patch 'apps/:id', to: 'apps#update', as: 'update_app_id', id: /\d+/
   patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
   get 'apps/:slug', to: 'apps#show', as: 'app', slug: /\w+/
@@ -55,8 +56,8 @@ Rails.application.routes.draw do
       match 'binary/apk' => 'binary#apk', :via => :post
 
       match 'jenkins/projects' => 'jenkins#projects', :via => :get
-      match 'jenkins/project/:project' => 'jenkins#project', :via => :get
-      match 'jenkins/:project/build' => 'jenkins#build', :via => :get
+      match 'jenkins/project/:project' => 'jenkins#project', :via => :get, as: 'jenkins_project'
+      match 'jenkins/:project/build' => 'jenkins#build', :via => :get, as: 'jenkins_build'
       match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
       match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
 
