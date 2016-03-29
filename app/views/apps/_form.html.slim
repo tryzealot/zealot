@@ -5,7 +5,10 @@
   = f.input :name, hint: '应用名', required: true
   = f.input :device_type, collection: ["iPhone", "Android"], prompt: "选择类型", required: true
   = f.input :identifier, required: true
-  = f.input :slug
+  = f.input :jenkins_job, hint: 'Jenkins 的 Job 名称'
+  = f.input :git_url, hint: 'Gitlab 的项目地址'
+  = f.input :git_branch, hint: '默认打包的分支'
+  = f.input :slug, hint: 'URL 的唯一标识'
   = f.input :password, input_html: { type: 'input', value: @app.password }
-  = f.input :key, input_html: { disabled: true, value: @app.key }
+  = f.input :key, input_html: { disabled: true }
   = f.button :submit, value: '保存'

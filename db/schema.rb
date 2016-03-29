@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226070153) do
+ActiveRecord::Schema.define(version: 20160329082841) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
-    t.string   "name",        limit: 255, null: false
-    t.string   "slug",        limit: 255, null: false
+    t.string   "name",        limit: 255,                     null: false
+    t.string   "slug",        limit: 255,                     null: false
     t.string   "identifier",  limit: 255
-    t.string   "device_type", limit: 255, null: false
+    t.string   "device_type", limit: 255,                     null: false
+    t.string   "jenkins_job", limit: 255
+    t.string   "git_url",     limit: 255
+    t.string   "git_branch",  limit: 255, default: "develop"
     t.string   "password",    limit: 255
     t.string   "key",         limit: 255
     t.datetime "created_at"

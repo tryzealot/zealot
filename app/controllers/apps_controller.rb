@@ -101,6 +101,9 @@ class AppsController < ApplicationController
     end
 
     def app_params
-      params.require(:app).permit(:user_id, :name, :device_type, :identifier, :slug, :password)
+      params.require(:app).permit(
+        :user_id, :name, :device_type, :identifier, :slug, :password,
+        :jenkins_job, :git_url, :git_branch
+      )
     end
 end
