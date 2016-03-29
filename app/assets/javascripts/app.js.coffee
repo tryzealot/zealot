@@ -25,6 +25,31 @@ download = ->
   console.log 'url:', url
   window.location.href = url
 
+build = ->
+  button = $('#build_it')
+  app_job = button.data('job')
+  $.ajax
+    url: HOST + "api/jenkins/" + app_job + "/build",
+    type: 'get'
+    dataType: 'json'
+    beforeSend: ->
+      $(button).html('构建新版本中...').prop('disabled', 'true')
+    success: (data) ->
+      console.log data
+      if data.status == '201'
+        console.log 'ddddd'
+        url = data.project.lastBuild.url + 'console'
+        $('#jekins_buld_alert').removeClass('hidden').html('请求成功！访问这里查看详情：<a href="' + url + '">' + url + '</a>')
+
+    error: (xhr, ajaxOptions, thrownError) ->
+      $(button).html('接口错误，再来一次！')
+      # $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
+      # $("#result")
+      #     .html('请求失败！接口返回：' + xhr.responseJSON.message)
+      #     .addClass("alert alert-danger")
+      #     .show()
+    complete: ->
+      $(button).html('构建新版本').removeProp('disabled')
 
 hideCover = ->
   $('.cover').addClass('hide')
@@ -33,6 +58,7 @@ hideCover = ->
 
 # bind function
 window.download = download
+window.build = build
 window.hideCover = hideCover
 
 ready = ->
