@@ -50,6 +50,22 @@ class AppsController < ApplicationController
 
     if ! @app.password.blank? || user_signed_in?
       @release = @app.releases.last
+      client = JenkinsApi::Client.new(
+        server_ip: '172.1.1.227',
+        server_port: '8888'
+      )
+      unless @app.jenkins_job.empty?
+        @job = client.job.list_details(@app.jenkins_job)
+        current_status = client.job.get_current_build_status(@app.jenkins_job)
+        @job['status'] = current_status
+        # status = {
+        #   failure: '构建失败',
+        #   running: '正在构建',
+        #   success: '构建成功',
+        #   aborted: '用户已终止'
+        # }
+        # @job['status'] = status[current_status.to_sym]
+      end
     else
       redirect_to new_user_session_path
     end
@@ -66,14 +82,17 @@ class AppsController < ApplicationController
   end
 
   def release
-    app = App.find_by(slug: params[:slug])
-    @release = Release.find_by(app: app, version: params[:id])
-    @app = @release.app
-
+    @release = Release.find_by(app: @app, version: params[:id])
     render 'apps/show'
   end
 
   def upload
+
+  end
+
+  def build
+    authorize @app
+
 
   end
 
