@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'https://gems.ruby-china.org'
 
 gem 'rails', '~> 4.2.4'
 gem 'puma'
