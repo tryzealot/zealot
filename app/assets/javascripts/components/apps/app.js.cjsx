@@ -13,8 +13,8 @@
       <td>
         <a href={Routes.app_path(@props.data.slug)}>{@props.data.name}</a>
       </td>
-      <td>{@props.data.identifier}</td>
       <td>{@props.data.slug}</td>
+      <td>{@props.data.password}</td>
       <td>{@props.data.count}</td>
       <td>
         <a href={Routes.releases_version_path(@props.data.slug)}>版本历史</a>
