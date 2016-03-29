@@ -54,7 +54,7 @@ class AppsController < ApplicationController
         server_ip: '172.1.1.227',
         server_port: '8888'
       )
-      unless @app.jenkins_job.empty?
+      unless @app.jenkins_job.to_s.empty?
         @job = client.job.list_details(@app.jenkins_job)
         current_status = client.job.get_current_build_status(@app.jenkins_job)
         @job['status'] = current_status
