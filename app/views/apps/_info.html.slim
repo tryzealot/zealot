@@ -57,7 +57,7 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
     
   div.sidebar-module.sidebar-module-inset
     h3 二维码
-    p.qr_code 
+    div.qr_code 
       = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
   - if @job
