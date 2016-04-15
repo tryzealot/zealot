@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: /[-.\/|\w]+/
   get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: /[-.\/|\w]+/
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
-  get 'apps/:slug/:id', to: 'apps#release', as: 'app_release', slug: /\w+/, id: /\d+/
+  get 'apps/:slug/:release_id', to: 'apps#release', as: 'app_release', slug: /\w+/, release_id: /\d+/
 
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
   get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
