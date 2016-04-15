@@ -1,4 +1,4 @@
-FROM ruby:2.2.2
+FROM ruby:2.2.4
 MAINTAINER icyleaf.cn@gmail.com
 
 RUN apt-get update && apt-get install -y \
