@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
 
 
   def index
@@ -82,7 +82,7 @@ class AppsController < ApplicationController
   end
 
   def release
-    @release = Release.find_by(app: @app, version: params[:id])
+    @release = Release.find_by(app: @app, version: params[:release_id])
     render 'apps/show'
   end
 
@@ -92,8 +92,6 @@ class AppsController < ApplicationController
 
   def build
     authorize @app
-
-
   end
 
   def branches
