@@ -25,7 +25,8 @@ class Api::V1::AppController < Api::ApplicationController
       identifier: params[:identifier],
       release_version: params[:release_version],
       build_version: params[:build_version],
-      last_commit: params[:last_commit]
+      last_commit: params[:last_commit],
+      md5: file_md5
     )
 
     unless @release
