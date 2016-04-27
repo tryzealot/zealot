@@ -106,10 +106,10 @@ class AppsController < ApplicationController
   private
 
     def set_app
-      if params[:slug]
-        @app = App.friendly.find(params[:slug])
+      @app = if params[:slug]
+        App.friendly.find(params[:slug])
       else
-        @app = App.find(params[:id])
+        App.find(params[:id])
       end
     end
 

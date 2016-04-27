@@ -66,16 +66,18 @@ class JspatchesController < ApplicationController
   end
 
   protected
-    def js_request?
-      request.format.js?
-    end
+
+  def js_request?
+    request.format.js?
+  end
 
   private
-    def set_jspatch
-      @jspatch = Jspatch.find(params[:id])
-    end
 
-    def jspatch_params
-      params.require(:jspatch).permit(:app_id, :title, :app_version, :script)
-    end
+  def set_jspatch
+    @jspatch = Jspatch.find(params[:id])
+  end
+
+  def jspatch_params
+    params.require(:jspatch).permit(:app_id, :title, :app_version, :script)
+  end
 end

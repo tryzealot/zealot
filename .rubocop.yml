@@ -1,0 +1,17 @@
+Metrics/LineLength:
+  Max: 215
+
+Metrics/MethodLength:
+  Max: 20
+
+Mertrcs/ClassLength:
+  Max: 150
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
