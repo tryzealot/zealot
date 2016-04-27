@@ -164,8 +164,9 @@ module Api
       end
 
       def validate_params
+        @user = User.find_by(key: params[:key])
         return if %w(install_url download).include?(params[:action])
-        return if params.key?(:key) && User.find_by(key: params[:key])
+        return if params.key?(:key) && @user
 
         render json: {
           error: '无效用户 Key'
