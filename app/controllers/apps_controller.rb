@@ -2,7 +2,6 @@ class AppsController < ApplicationController
   before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
 
-
   def index
     @apps = current_user.apps
     authorize @apps
@@ -105,22 +104,23 @@ class AppsController < ApplicationController
 
   private
 
-    def set_app
-      @app = if params[:slug]
+  def set_app
+    @app =
+      if params[:slug]
         App.friendly.find(params[:slug])
       else
         App.find(params[:id])
       end
-    end
+  end
 
-    def check_user_logged_in!
-      authenticate_user! unless request.user_agent.include? 'MicroMessenger'
-    end
+  def check_user_logged_in!
+    authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+  end
 
-    def app_params
-      params.require(:app).permit(
-        :user_id, :name, :device_type, :identifier, :slug, :password,
-        :jenkins_job, :git_url, :git_branch
-      )
-    end
+  def app_params
+    params.require(:app).permit(
+      :user_id, :name, :device_type, :identifier, :slug, :password,
+      :jenkins_job, :git_url, :git_branch
+    )
+  end
 end
