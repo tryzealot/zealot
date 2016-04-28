@@ -4,52 +4,53 @@ div.col-sm-8.app-info
       = @app.name
     span.app-type.label.label-primary.label-ms
       = @app.device_type
-    - if @release.branch
+    - if @release && @release.branch
       span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
         = @release.branch
   div.meta-data
     p.app-identifier
       = @app.identifier
-    p.version 
-      | 版本：#{@release.release_version} (#{@release.build_version})
-      |  / Build：#{@release.version}
-      |  / 大小：#{number_to_human_size(@release.filesize)}
-      |  / 更新于：#{time_ago_in_words(@release.created_at)}
-      |  / 该版本使用 
-      - if @release.channel == 'jenkins'
-        a href="#{@release.ci_url}" #{@release.channel}
-      - else
-        = @release.channel
-      |  上传
+    - if @release
+      p.version 
+        | 版本：#{@release.release_version} (#{@release.build_version})
+        |  / Build：#{@release.version}
+        |  / 大小：#{number_to_human_size(@release.filesize)}
+        |  / 更新于：#{time_ago_in_words(@release.created_at)}
+        |  / 该版本使用 
+        - if @release.channel == 'jenkins'
+          a href="#{@release.ci_url}" #{@release.channel}
+        - else
+          = @release.channel
+        |  上传
 
-    p
-    - if detect_device == @app.device_type
-    
-      == render 'apps/install_cert'
-      
-      button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
-      
-    - elsif [:mac, :windows, :linux].include?(browser.platform)
-      = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
-      <span style="margin:0 5px"></span>
-      button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
-      
-    - else
-      button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
-      
-  p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
-  div.changelog
-    h3
-      | 更新日志
-      - if user_signed_in?
-        | (
-        = link_to '编辑', edit_release_path(@release)
-        | )
-    - if @release.changelog
+    - if @release
       p
-        = simple_format(@release.changelog)
-    - else
-      p 开发者比较懒
+      - if detect_device == @app.device_type
+        == render 'apps/install_cert'
+        
+        button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
+        
+      - elsif [:mac, :windows, :linux].include?(browser.platform)
+        = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
+        <span style="margin:0 5px"></span>
+        button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
+        
+      - else
+        button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
+  - if @release
+    p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
+    div.changelog
+      h3
+        | 更新日志
+        - if user_signed_in?
+          | (
+          = link_to '编辑', edit_release_path(@release)
+          | )
+      - if @release.changelog
+        p
+          = simple_format(@release.changelog)
+      - else
+        p 开发者比较懒
 
 div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
