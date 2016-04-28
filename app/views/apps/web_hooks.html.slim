@@ -1,0 +1,7 @@
+- content_for :title do
+  = "#{@app.name} - #{@app.device_type}"
+
+div.row.app-container
+  - if user_signed_in? 
+    == render 'web_hooks/new'
+    == render 'web_hooks/index'

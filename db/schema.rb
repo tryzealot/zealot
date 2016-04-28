@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329082841) do
+ActiveRecord::Schema.define(version: 20160428035649) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(version: 20160329082841) do
   create_table "errors", force: :cascade do |t|
     t.string   "usable_type", limit: 255
     t.integer  "usable_id",   limit: 4
+    t.text     "class_name",  limit: 65535
+    t.text     "message",     limit: 65535
+    t.text     "trace",       limit: 65535
+    t.text     "target_url",  limit: 65535
+    t.text     "referer_url", limit: 65535
+    t.text     "params",      limit: 65535
+    t.text     "user_agent",  limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "exceptions", force: :cascade do |t|
+    t.integer  "usable_id",   limit: 4
+    t.string   "usable_type", limit: 255
     t.text     "class_name",  limit: 65535
     t.text     "message",     limit: 65535
     t.text     "trace",       limit: 65535
@@ -212,5 +226,17 @@ ActiveRecord::Schema.define(version: 20160329082841) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "web_hooks", force: :cascade do |t|
+    t.string   "url",              limit: 255
+    t.integer  "app_id",           limit: 4
+    t.integer  "upload_events",    limit: 4
+    t.integer  "changelog_events", limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "web_hooks", ["app_id"], name: "index_web_hooks_on_app_id", using: :btree
+  add_index "web_hooks", ["url"], name: "index_web_hooks_on_url", using: :btree
 
 end
