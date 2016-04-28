@@ -1,12 +1,16 @@
 class AppsController < ApplicationController
   before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release, :web_hooks]
 
+  ##
+  # App 列表
+  # GET /apps
   def index
     @apps = current_user.apps
     authorize @apps
   end
 
+  # GET /apps/new
   def new
     @title = "新建应用"
     @app = App.new
@@ -57,13 +61,6 @@ class AppsController < ApplicationController
         @job = client.job.list_details(@app.jenkins_job)
         current_status = client.job.get_current_build_status(@app.jenkins_job)
         @job['status'] = current_status
-        # status = {
-        #   failure: '构建失败',
-        #   running: '正在构建',
-        #   success: '构建成功',
-        #   aborted: '用户已终止'
-        # }
-        # @job['status'] = status[current_status.to_sym]
       end
     else
       redirect_to new_user_session_path
@@ -100,6 +97,10 @@ class AppsController < ApplicationController
 
   def versions
     @releases = @app.releases.where(release_version: params[:version])
+  end
+
+  def web_hooks
+    @web_hook = WebHook.new
   end
 
   private
