@@ -1,0 +1,10 @@
+= simple_form_for(@web_hook) do |f|
+  = f.error_notification
+  
+  .form-inputs
+    = f.input :app_id, as: :hidden, input_html: { value: @app.id }
+    = f.input :url, hint: '地址', required: true
+    = f.input :upload_events, input_html: { checked: true }, as: :boolean
+    = f.input :changelog_events, as: :boolean
+  .form-actions
+    = f.button :submit
