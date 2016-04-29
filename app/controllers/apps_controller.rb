@@ -1,6 +1,11 @@
 class AppsController < ApplicationController
+<<<<<<< HEAD
   before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release, :web_hooks]
+=======
+  before_filter :check_user_logged_in
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
+>>>>>>> cbe7c103... style: 修改一下样式
 
   ##
   # App 列表
@@ -31,11 +36,11 @@ class AppsController < ApplicationController
   end
 
   def edit
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
   def update
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     @app.update(app_params)
 
@@ -49,7 +54,7 @@ class AppsController < ApplicationController
 
   def show
     authorize @app
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     if ! @app.password.blank? || user_signed_in?
       @release = @app.releases.last
@@ -83,7 +88,6 @@ class AppsController < ApplicationController
   end
 
   def upload
-
   end
 
   def build
@@ -114,7 +118,7 @@ class AppsController < ApplicationController
       end
   end
 
-  def check_user_logged_in!
+  def check_user_logged_in
     authenticate_user! unless request.user_agent.include? 'MicroMessenger'
   end
 
