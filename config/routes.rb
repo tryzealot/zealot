@@ -3,18 +3,19 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   resources :pacs
 
+  # jspatch
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
 
-  namespace :releases do
-    get 'index', to: 'releases#index', as: 'releases'
-    post 'upload', to: 'releases#upload', as: 'upload_releases'
-    get 'changelog', to: 'releases#changelog', as: 'update_changelog'
-    get ':id', to: 'releases#show', as: 'release', id: /\d+/
-    patch ':id', to: 'releases#update', id: /\d+/
-    get ':id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
-  end
+  # release
+  get 'releases/index', to: 'releases#index', as: 'releases'
+  post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
+  get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
+  get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
+  patch 'releases/:id', to: 'releases#update', id: /\d+/
+  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
+  # app
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/new', to: 'apps#new', as: 'new_app'
   post 'apps', to: 'apps#create'
@@ -28,10 +29,8 @@ Rails.application.routes.draw do
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: /[-.\/|\w]+/
   get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: /[-.\/|\w]+/
-
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
   get 'apps/:slug/:release_id', to: 'apps#release', as: 'app_release', slug: /\w+/, release_id: /\d+/
-  # resources :web_hooks
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
@@ -42,6 +41,7 @@ Rails.application.routes.draw do
   get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
   resources :ios
 
+  # user
   devise_for :users
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # message
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   get 'messages/:id', to: 'messages#destroy', as: 'destroy_message'
   resources :messages
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
   get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
   resources :groups
 
+  # api
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       match 'binary/ipa' => 'binary#ipa', :via => :post
