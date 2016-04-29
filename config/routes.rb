@@ -62,23 +62,23 @@ Rails.application.routes.draw do
   # api
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
-      match 'binary/ipa' => 'binary#ipa', :via => :post
-      match 'binary/apk' => 'binary#apk', :via => :post
+      post 'binary/ipa', to: 'binary#ipa'
+      post 'binary/apk', to: 'binary#apk'
 
-      match 'jenkins/projects' => 'jenkins#projects', :via => :get
-      match 'jenkins/project/:project' => 'jenkins#project', :via => :get, as: 'jenkins_project'
-      match 'jenkins/:project/build' => 'jenkins#build', :via => :get, as: 'jenkins_build'
-      match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
-      match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
+      get 'jenkins/projects', to: 'jenkins#projects'
+      get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
+      get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
+      get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
+      get 'jenkins/:project/status/(:id)' => 'jenkins#status'
 
-      match 'app/upload' => 'app#upload', :via => :post
-      match 'app/download/:release_id' => 'app#download', :via => :get, as: 'app_download'
+      post 'app/upload', top: 'app#upload'
+      get 'app/download/:release_id' => 'app#download', as: 'app_download'
       # match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
-      match 'app' => 'app#info', :via => :get, as: 'app_info'
-      match 'app/versions' => 'app#versions', :via => :get, as: 'app_versions'
-      match 'app/latest' => 'app#latest', :via => :get, as: 'app_latest'
-      match 'app/changelogs' => 'app#changelogs', :via => :get, as: 'app_changelogs'
-      match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
+      get 'app', to: 'app#info', as: 'app_info'
+      get 'app/versions', to: 'app#versions', as: 'app_versions'
+      get 'app/latest', to: 'app#latest', as: 'app_latest'
+      get 'app/changelogs', to: 'app#changelogs', as: 'app_changelogs'
+      get 'app/:slug(/:release_id)/install' => 'app#install_url', as: 'app_install'
 
       get 'user/(:id).json', to: 'user#show'
 

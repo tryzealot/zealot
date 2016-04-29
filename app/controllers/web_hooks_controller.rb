@@ -8,9 +8,11 @@ class WebHooksController < ApplicationController
     @web_hook = WebHook.new
   end
 
-  # GET /web_hooks/1/test
+  # POST /web_hooks/1/test
   def test
-    render json: @app
+    web_hook = WebHook.find(params[:hook_id])
+    AppWebHookJob.perform_later 'upload_events', web_hook
+    render json: web_hook
   end
 
   # POST /web_hooks
