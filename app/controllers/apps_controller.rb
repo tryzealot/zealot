@@ -113,7 +113,7 @@ class AppsController < ApplicationController
     end
 
     def check_user_logged_in!
-      authenticate_user! unless browser.wechat?
+      authenticate_user! unless request.user_agent.include? 'MicroMessenger'
     end
 
     def app_params
