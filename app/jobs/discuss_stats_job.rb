@@ -1,6 +1,5 @@
 require 'zip'
 
-
 class DiscussStatsJob < ActiveJob::Base
   queue_as :default
 
