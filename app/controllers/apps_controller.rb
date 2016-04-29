@@ -1,7 +1,6 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_filter :check_user_logged_in!, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
-
 
   def index
     @apps = current_user.apps
@@ -114,7 +113,7 @@ class AppsController < ApplicationController
     end
 
     def check_user_logged_in!
-      authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+      authenticate_user! unless browser.wechat?
     end
 
     def app_params
