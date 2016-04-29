@@ -6,7 +6,6 @@ load 'tasks/emoji.rake'
 
 Rails.application.load_tasks
 
-
 desc "更新 app key"
 task :update_app_key => :environment do
   App.all.each do |app|
