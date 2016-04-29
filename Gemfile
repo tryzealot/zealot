@@ -1,7 +1,7 @@
 source 'https://gems.ruby-china.org'
 
 gem 'rails', '~> 4.2.4'
-gem 'puma'
+gem 'puma', '~> 2.14.0'
 gem 'mysql2', '~> 0.3.0'
 gem 'jbuilder', '~> 2.0'
 gem 'slim-rails'
@@ -13,14 +13,14 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'pundit'
 gem 'kaminari'
-gem 'whenever', :require => false
+gem 'whenever', require: false
 gem 'haversine'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'exception_handler'
 gem 'gemoji'
 gem 'jenkins_api_client'
 gem 'CFPropertyList'
-gem 'browser'
+gem 'browser', '~> 2.0.3'
 gem 'rqrcode'
 gem 'simple_form'
 gem 'paper_trail', '~> 4.0.0'
@@ -31,7 +31,7 @@ gem 'foreman'
 gem 'friendly_id'
 
 gem 'redis-rails'
-gem 'sidekiq'
+gem 'sidekiq', '~> 3.5.1'
 gem 'sinatra', require: false
 
 # JS
@@ -48,7 +48,7 @@ gem 'js-routes'
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
 
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
   gem 'better_errors'
@@ -58,7 +58,7 @@ group :development do
   gem 'meta_request'
 
   gem 'capistrano'
-  gem "airbrussh", :require => false
+  gem 'airbrussh', require: false
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rails-console'
@@ -67,7 +67,6 @@ group :development do
   gem 'capistrano-nginx'
   gem 'capistrano-sidekiq'
   gem 'capistrano-foreman'
-
 end
 
 group :development, :test do

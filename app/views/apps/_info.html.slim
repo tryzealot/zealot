@@ -11,30 +11,48 @@ div.col-sm-8.app-info
     p.app-identifier
       = @app.identifier
     - if @release
-      p.version 
+      p.version
         | 版本：#{@release.release_version} (#{@release.build_version})
         |  / Build：#{@release.version}
         |  / 大小：#{number_to_human_size(@release.filesize)}
         |  / 更新于：#{time_ago_in_words(@release.created_at)}
-        |  / 该版本使用 
+        |  / 该版本使用
         - if @release.channel == 'jenkins'
           a href="#{@release.ci_url}" #{@release.channel}
         - else
           = @release.channel
         |  上传
 
-    - if @release
+    p
+    - if detect_device(@app.device_type) == 'iOS'
+      == render 'apps/install_cert'
+      button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
+
+    - else #[:mac, :windows, :linux].include?(browser.platform)
+      = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
+      <span style="margin:0 5px"></span>
+      button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
+
+  p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
+  div.changelog
+    h3
+      | 更新日志
+      - if user_signed_in?
+        | (
+        = link_to '编辑', edit_release_path(@release)
+        | )
+    - if @release.changelog
       p
       - if detect_device == @app.device_type
         == render 'apps/install_cert'
-        
+
         button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
-        
+
       - elsif [:mac, :windows, :linux].include?(browser.platform)
         = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
         <span style="margin:0 5px"></span>
         button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
-        
+
       - else
         button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
   - if @release
@@ -55,30 +73,30 @@ div.col-sm-8.app-info
 div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
   /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
-    
+
   div.sidebar-module.sidebar-module-inset
     h3 二维码
-    div.qr_code 
+    div.qr_code
       = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
   - if @job
     div.sidebar-module.sidebar-module-inset
-      h3 Jenkins 
+      h3 Jenkins
       ul
-        li 
+        li
           | 地址：
           a href="#{@job['url']}" #{@job['name']}
         - if @job['status'] == 'running'
-          li 
+          li
             a href="#{@job['lastBuild']['url']}/console"
-              | 正在构建 #{@job['lastBuild']['number']} 
+              | 正在构建 #{@job['lastBuild']['number']}
         - else
           li
-            | 最新构建: 
+            | 最新构建:
             a href="#{@job['lastBuild']['url']}" #{@job['lastBuild']['number']}
           li
             | 当前构建状态: #{@job['status']}
-        
+
   div.sidebar-module.sidebar-module-inset
     - if @app.branches.size > 0
       h3 应用分支
@@ -92,7 +110,7 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
               = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
             td
               = branch.count
-  
+
   div.sidebar-module.sidebar-module-inset
     - if @app.versions
       h3 历史版本
@@ -100,7 +118,7 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
         - @app.versions.each do |name|
           li
             = link_to name, app_versions_path(@app.slug, name)
-  
+
   div.sidebar-module.sidebar-module-inset
     - if @app.releases.size > 0
       div.releases
@@ -118,7 +136,7 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
                 | #{release.release_version} (#{release.build_version})
               td
                 = time_ago_in_words(release.created_at)
-  
+
   div.sidebar-module.sidebar-module-inset
     h3
     span style="font-weight: bold; color: #CCC"
