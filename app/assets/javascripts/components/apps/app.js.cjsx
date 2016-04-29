@@ -109,6 +109,8 @@ confirm = (message, options = {}) ->
          /
         <a href={Routes.edit_app_path(@props.data.slug)}>编辑</a>
          /
+        <a href={Routes.web_hooks_path(@props.data.slug)}>Web Hooks</a>
+         /
         <a href="#" data-id={@props.data.id} onClick={@_confirmDestory.bind(this, this,  Routes.destroy_app_path(@props.data.slug))}>删除</a>
       </td>
     </tr>
