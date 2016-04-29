@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in!, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_filter :check_user_logged_in
   before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
 
   def index
@@ -27,11 +27,11 @@ class AppsController < ApplicationController
   end
 
   def edit
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
   def update
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     @app.update(app_params)
 
@@ -45,7 +45,7 @@ class AppsController < ApplicationController
 
   def show
     authorize @app
-    fail ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     if ! @app.password.blank? || user_signed_in?
       @release = @app.releases.last
@@ -57,13 +57,6 @@ class AppsController < ApplicationController
         @job = client.job.list_details(@app.jenkins_job)
         current_status = client.job.get_current_build_status(@app.jenkins_job)
         @job['status'] = current_status
-        # status = {
-        #   failure: '构建失败',
-        #   running: '正在构建',
-        #   success: '构建成功',
-        #   aborted: '用户已终止'
-        # }
-        # @job['status'] = status[current_status.to_sym]
       end
     else
       redirect_to new_user_session_path
@@ -86,7 +79,6 @@ class AppsController < ApplicationController
   end
 
   def upload
-
   end
 
   def build
@@ -104,22 +96,23 @@ class AppsController < ApplicationController
 
   private
 
-    def set_app
-      @app = if params[:slug]
+  def set_app
+    @app =
+      if params[:slug]
         App.friendly.find(params[:slug])
       else
         App.find(params[:id])
       end
-    end
+  end
 
-    def check_user_logged_in!
-      authenticate_user! unless request.user_agent.include? 'MicroMessenger'
-    end
+  def check_user_logged_in
+    authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+  end
 
-    def app_params
-      params.require(:app).permit(
-        :user_id, :name, :device_type, :identifier, :slug, :password,
-        :jenkins_job, :git_url, :git_branch
-      )
-    end
+  def app_params
+    params.require(:app).permit(
+      :user_id, :name, :device_type, :identifier, :slug, :password,
+      :jenkins_job, :git_url, :git_branch
+    )
+  end
 end
