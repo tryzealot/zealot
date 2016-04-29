@@ -2,9 +2,10 @@ module Api
   module V1
     class AppController < Api::ApplicationController
       before_filter :validate_params
-      before_action :set_app, only: [:upload, :info, :versions, :changelogs, :latest, :install_url]
+      before_action :set_app, only: [:info, :versions, :changelogs, :latest, :install_url]
 
       def upload
+        @app = App.find_or_initialize_by(identifier: params[:identifier])
         @app.identifier = params[:identifier] if @app.new_record?
         @app.name = params[:name]
         @app.slug = params[:slug] if params[:slug]
