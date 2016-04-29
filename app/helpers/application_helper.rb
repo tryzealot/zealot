@@ -13,31 +13,23 @@ module ApplicationHelper
     request.user_agent
   end
 
-  def iOS?
-    request.user_agent =~ /iPhone|iPad/i
+  def ios?(source)
+    source =~ /iPhone|iPad/i
+    !source.empty?
   end
 
-  def android?
-    request.user_agent =~ /Android/i
+  def android?(source)
+    source =~ /Android/i
+    !source.empty?
   end
 
-  def iPhone?
-    request.user_agent =~ /iPhone/i
-  end
-
-  def iPad?
-    request.user_agent =~ /iPad/i
-  end
-
-  def detect_device
-    device = if iPhone?
-      "iPhone"
-    elsif iPad?
-      "iPhone"
-    elsif android?
-      "Android"
+  def detect_device(device)
+    if browser.platform.ios? && ios?(device)
+      'iOS'
+    elsif browser.platform.android? && android?(device)
+      'Android'
     else
-      "Other"
+      'Other'
     end
   end
 end

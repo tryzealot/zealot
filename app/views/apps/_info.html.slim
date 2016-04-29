@@ -23,19 +23,14 @@ div.col-sm-8.app-info
       |  上传
 
     p
-    - if detect_device == @app.device_type
-    
+    - if detect_device(@app.device_type) == 'iOS'
       == render 'apps/install_cert'
-      
       button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
       
-    - elsif [:mac, :windows, :linux].include?(browser.platform)
+    - else #[:mac, :windows, :linux].include?(browser.platform)
       = link_to "下载到本地", api_app_download_path(@release.id), {class:'btn btn-success btn-lg'}
       <span style="margin:0 5px"></span>
       button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
-      
-    - else
-      button.btn.btn-default.btn-lg disabled="disabled" 使用 #{@app.device_type} 下载
       
   p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
   div.changelog
