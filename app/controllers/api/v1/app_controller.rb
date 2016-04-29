@@ -35,6 +35,11 @@ module Api
         unless @release
           status = 201
 
+          web_hooks = WebHook.where(upload_events: 1, app: @app)
+          web_hooks.each do |web_hook|
+            AppWebHookJob.perform_later 'upload_events', web_hook
+          end unless web_hooks.empty?
+
           extra = params.clone
           extra.delete(:file)
           @release = @app.releases.create(

@@ -2,11 +2,15 @@ class AppsController < ApplicationController
   before_filter :check_user_logged_in
   before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
 
+  ##
+  # App 列表
+  # GET /apps
   def index
     @apps = current_user.apps
     authorize @apps
   end
 
+  # GET /apps/new
   def new
     @title = "新建应用"
     @app = App.new
@@ -92,6 +96,10 @@ class AppsController < ApplicationController
 
   def versions
     @releases = @app.releases.where(release_version: params[:version])
+  end
+
+  def web_hooks
+    @web_hook = WebHook.new
   end
 
   private

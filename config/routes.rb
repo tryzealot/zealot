@@ -3,9 +3,11 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   resources :pacs
 
+  # jspatch
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
 
+  # release
   get 'releases/index', to: 'releases#index', as: 'releases'
   post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
   get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   patch 'releases/:id', to: 'releases#update', id: /\d+/
   get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
+  # app
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/new', to: 'apps#new', as: 'new_app'
   post 'apps', to: 'apps#create'
@@ -29,10 +32,16 @@ Rails.application.routes.draw do
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
   get 'apps/:slug/:release_id', to: 'apps#release', as: 'app_release', slug: /\w+/, release_id: /\d+/
 
+  get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
+  post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
+  post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
+  delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', slug: /\w+/, hook_id: /\d+/
+
   get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
   get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
   resources :ios
 
+  # user
   devise_for :users
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
@@ -42,6 +51,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # message
   get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
   get 'messages/:id', to: 'messages#destroy', as: 'destroy_message'
   resources :messages
@@ -49,25 +59,26 @@ Rails.application.routes.draw do
   get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
   resources :groups
 
+  # api
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
-      match 'binary/ipa' => 'binary#ipa', :via => :post
-      match 'binary/apk' => 'binary#apk', :via => :post
+      post 'binary/ipa', to: 'binary#ipa'
+      post 'binary/apk', to: 'binary#apk'
 
-      match 'jenkins/projects' => 'jenkins#projects', :via => :get
-      match 'jenkins/project/:project' => 'jenkins#project', :via => :get, as: 'jenkins_project'
-      match 'jenkins/:project/build' => 'jenkins#build', :via => :get, as: 'jenkins_build'
-      match 'jenkins/:project/abort/(:id)' => 'jenkins#abort', :via => :get
-      match 'jenkins/:project/status/(:id)' => 'jenkins#status', :via => :get
+      get 'jenkins/projects', to: 'jenkins#projects'
+      get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
+      get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
+      get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
+      get 'jenkins/:project/status/(:id)' => 'jenkins#status'
 
-      match 'app/upload' => 'app#upload', :via => :post
-      match 'app/download/:release_id' => 'app#download', :via => :get, as: 'app_download'
+      post 'app/upload', top: 'app#upload'
+      get 'app/download/:release_id' => 'app#download', as: 'app_download'
       # match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
-      match 'app' => 'app#info', :via => :get, as: 'app_info'
-      match 'app/versions' => 'app#versions', :via => :get, as: 'app_versions'
-      match 'app/latest' => 'app#latest', :via => :get, as: 'app_latest'
-      match 'app/changelogs' => 'app#changelogs', :via => :get, as: 'app_changelogs'
-      match 'app/:slug(/:release_id)/install' => 'app#install_url', :via => :get, as: 'app_install'
+      get 'app', to: 'app#info', as: 'app_info'
+      get 'app/versions', to: 'app#versions', as: 'app_versions'
+      get 'app/latest', to: 'app#latest', as: 'app_latest'
+      get 'app/changelogs', to: 'app#changelogs', as: 'app_changelogs'
+      get 'app/:slug(/:release_id)/install' => 'app#install_url', as: 'app_install'
 
       get 'user/(:id).json', to: 'user#show'
 

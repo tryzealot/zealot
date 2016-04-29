@@ -3,6 +3,7 @@ class App < ActiveRecord::Base
   friendly_id :slug
 
   has_many :releases
+  has_many :web_hooks
   belongs_to :user
 
   validates :name, :identifier, :device_type, presence: true
