@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Max-Age'] = "1728000"
+    headers['Access-Control-Max-Age'] = '1728000'
   end
 
   def cors_preflight_check
@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    redirect_to root_url, :alert => "你没有相应的权限访问该资源。"
+    redirect_to root_url, alert: '你没有相应的权限访问该资源。'
   end
-
 end
