@@ -39,7 +39,7 @@ Confirm = React.createClass(
     @promise.resolve()
   componentDidMount: ->
     @promise = new ($.Deferred)
-    React.findDOMNode(@refs.confirm).focus()
+    ReactDOM.findDOMNode(@refs.confirm).focus()
   render: ->
     React.createElement Modal, null,
       div
@@ -72,9 +72,9 @@ Confirm = React.createClass(
 confirm = (message, options = {}) ->
   props = $.extend({message: message}, options)
   wrapper = document.body.appendChild(document.createElement('div'))
-  component = React.render(React.createElement(Confirm, props), wrapper)
+  component = ReactDOM.render(React.createElement(Confirm, props), wrapper)
   cleanup = ->
-    React.unmountComponentAtNode(wrapper)
+    ReactDOM.unmountComponentAtNode(wrapper)
     setTimeout -> wrapper.remove()
   component.promise.always(cleanup).promise()
 
@@ -111,6 +111,6 @@ confirm = (message, options = {}) ->
          /
         <a href={Routes.web_hooks_path(@props.data.slug)}>Web Hooks</a>
          /
-        <a href="#" data-id={@props.data.id} onClick={@_confirmDestory.bind(this, this,  Routes.destroy_app_path(@props.data.slug))}>删除</a>
+        <a href="#" data-id={@props.data.id} onClick={@_confirmDestory.bind(this, this, Routes.destroy_app_path(@props.data.slug))}>删除</a>
       </td>
     </tr>
