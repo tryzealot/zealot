@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503060636) do
+ActiveRecord::Schema.define(version: 20160503065721) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -58,28 +58,6 @@ ActiveRecord::Schema.define(version: 20160503060636) do
   add_index "groups", ["im_id"], name: "index_groups_on_im_id", using: :btree
   add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
   add_index "groups", ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
-
-  create_table "ios", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "bundle_id",           limit: 255
-    t.string   "profile",             limit: 255
-    t.string   "version",             limit: 255
-    t.string   "build_version",       limit: 255
-    t.string   "username",            limit: 255
-    t.string   "email",               limit: 255
-    t.string   "project_path",        limit: 255
-    t.string   "dsym_uuid",           limit: 255
-    t.string   "dsym_file",           limit: 255
-    t.string   "last_commit_hash",    limit: 255
-    t.string   "last_commit_branch",  limit: 255
-    t.string   "last_commit_message", limit: 255
-    t.string   "last_commit_author",  limit: 255
-    t.string   "last_commit_email",   limit: 255
-    t.string   "last_commit_date",    limit: 255
-    t.datetime "packaged_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "jspatches", force: :cascade do |t|
     t.integer  "app_id",      limit: 4,     null: false
