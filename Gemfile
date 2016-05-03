@@ -45,7 +45,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'js-routes'
 ## React
-gem 'react-rails', github: 'reactjs/react-rails'
+gem 'react-rails', '~> 1.6.2' #, github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
