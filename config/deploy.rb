@@ -1,29 +1,26 @@
 set :application, 'mobile'
 set :repo_url, 'git@gitlab.dev:icyleaf/mobile.git'
-
-set :branch, 'develop' # proc { `git rev-parse --abbrev-ref HEAD`.chomp }
-
+set :branch, 'develop'
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
-# set :git_strategy, Capistrano::Git::SubmoduleStrategy
-
 # set :format, :pretty
 set :log_level, :debug
 set :pty, false
-
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files)
 
+# rvm
 set :rvm_type, :user # Defaults to: :auto
 set :rvm_ruby_version, '2.2.2' # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
+# bundler
 set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
-
+# nginx
 set :nginx_server_name, 'mobile.2b6.me mobile.dev'
 set :nginx_sites_available_path, '/home/wangshen/nginx/sites-available'
 set :nginx_sites_enabled_path, '/home/wangshen/nginx/sites-enabled'
-
+# puma
 set :puma_rackup, -> { File.join(current_path, 'config.ru') }
 set :puma_state, "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
@@ -44,25 +41,8 @@ set :puma_prune_bundler, false
 # set :keep_releases, 5
 
 namespace :deploy do
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     # Your restart mechanism here, for example:
-  #     # execute :touch, release_path.join('tmp/restart.txt')
-  #
-  #   end
-  # end
-
-  # task :storage_link, :except => { :no_release => true } do
-  #   execute :ln, "-nFs #{deploy_to}/shared/uploads #{latest_release}/public/uploads"
-  # end
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
     end
   end
 
