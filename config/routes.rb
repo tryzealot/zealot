@@ -38,10 +38,7 @@ Rails.application.routes.draw do
   post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', slug: /\w+/, hook_id: /\d+/
 
-  get 'ios/download/:id', to: 'ios#download', as: 'ios_download', id: /\d+/
-  get 'wechat/tips', to: 'visitors#wechat', as: 'wechat_tips'
-  resources :ios
-
+  # user
   devise_for :users
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
@@ -60,9 +57,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
-      post 'binary/ipa', to: 'binary#ipa'
-      post 'binary/apk', to: 'binary#apk'
-
       get 'jenkins/projects', to: 'jenkins#projects'
       get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
       get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
@@ -85,12 +79,6 @@ Rails.application.routes.draw do
   end
 
   get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
-
-  namespace :demo do
-    get 'plans/index', to: 'plans#index', as: 'plans'
-
-    get 'plans/record', to: 'plans#record', as: 'record_plans'
-  end
 
   get 'errors/not_found'
   get 'errors/server_error'
