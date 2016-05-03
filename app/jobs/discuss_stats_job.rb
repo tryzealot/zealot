@@ -37,7 +37,7 @@ class DiscussStatsJob < ActiveJob::Base
 
         message_count_key = "discuss_message_count_#{start_timestamp.to_s}"
         date_messages = Rails.cache.fetch(message_count_key) do
-          MultiJson.load(ssh.exec!([
+          JSON.parse(ssh.exec!([
             "/opt/arrownock/db-scripts/get_chat_room_message_count.sh",
             JK_KEY,
             start_timestamp.to_s,
@@ -60,7 +60,7 @@ class DiscussStatsJob < ActiveJob::Base
         Rails.logger.fatal "    Fetching discuss register total"
         register_count_key = "discuss_register_count_#{start_timestamp.to_s}"
         date_registers = Rails.cache.fetch(register_count_key) do
-          MultiJson.load(ssh.exec!([
+          JSON.parse(ssh.exec!([
             "/opt/arrownock/db-scripts/get_chat_room_new_uesr_count.sh",
             JK_KEY,
             start_timestamp.to_s,
@@ -181,7 +181,7 @@ class DiscussStatsJob < ActiveJob::Base
 
         Rails.cache.fetch("discuss_hottest_count") do
           r = RestClient.get im_hottest_discuss_url, params: im_hottest_discuss_url_params
-          MultiJson.load r
+          JSON.parse r
         end
 
       rescue => e

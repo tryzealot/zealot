@@ -54,7 +54,7 @@ module Api
             last_commit: params[:last_commit],
             ci_url: params[:ci_url],
             file: params[:file],
-            extra: MultiJson.dump(extra)
+            extra: JSON.dump(extra)
           )
         end
 

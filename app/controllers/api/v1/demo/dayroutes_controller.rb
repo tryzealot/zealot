@@ -194,7 +194,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         if data[:segments] == '""'
           data[:segments] = []
         else
-          data[:segments] = MultiJson.load(data[:segments])
+          data[:segments] = JSON.parse(data[:segments])
         end
       end
 
@@ -331,7 +331,7 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
         end
 
         if r.code == 200
-          json = MultiJson.load r, symbolize_keys: true
+          json = JSON.parse r, symbolize_keys: true
           logger.debug "RA response: #{json}"
           if block_given?
             status, data = yield(json, url, params)
@@ -349,5 +349,4 @@ class Api::V1::Demo::DayroutesController < Api::ApplicationController
 
       [status, data]
     end
-
 end

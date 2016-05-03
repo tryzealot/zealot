@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
       }
 
       r = RestClient.post url, params
-      data = MultiJson.load r
+      data = JSON.parse(r)
       if data['meta']['code'] == 200
         flash[:notice] = '最新聊天记录已刷新'
 

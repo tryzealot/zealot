@@ -6,10 +6,10 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group::find(params[:id])
+    @group = Group.find(params[:id])
     @messages = Message.where(group: @group)
-      .order('timestamp DESC')
-      .page(params[:page])
+                       .order('timestamp DESC')
+                       .page(params[:page])
   end
 
   def sync
@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
     }
 
     r = RestClient.get url, params: params
-    data = MultiJson.load r
+    data = JSON.parse r
     if data['meta']['code'] == 200
       data['response']['messages'].each do |m|
         begin
@@ -40,7 +40,7 @@ class GroupsController < ApplicationController
             message.group_name = @group.name
             message.group_type = @group.type
             message.message = m['message'] if m['content_type'] == 'text'
-            message.custom_data = MultiJson.dump(m['customData'])
+            message.custom_data = JSON.dump(m['customData'])
             message.content_type = m['content_type']
             message.file_type = (m['fileType'] || nil)
             message.file = m['message'] if m['content_type'] != 'text'
