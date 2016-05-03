@@ -1,7 +1,6 @@
 GEM
   remote: https://gems.ruby-china.org/
   specs:
-    CFPropertyList (2.3.2)
     ace-rails-ap (4.0.2)
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -43,7 +42,6 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.6)
       execjs
-    awesome_print (1.6.1)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -188,7 +186,7 @@ GEM
     minitest (5.8.4)
     mixlib-shellout (2.2.6)
     multi_json (1.11.3)
-    mysql2 (0.3.20)
+    mysql2 (0.4.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -364,10 +362,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  CFPropertyList
   ace-rails-ap
   airbrussh
-  awesome_print
   better_errors
   bootstrap-sass
   browser (~> 2.0.3)
@@ -388,7 +384,7 @@ DEPENDENCIES
   devise-i18n
   foreman
   friendly_id
-  gemoji
+  gemoji (~> 2.1)
   haversine
   jbuilder (~> 2.0)
   jenkins_api_client
@@ -397,9 +393,8 @@ DEPENDENCIES
   js-routes
   kaminari
   meta_request
-  multi_json
-  mysql2 (~> 0.3.0)
-  net-ssh
+  mysql2 (~> 0.4)
+  net-ssh (~> 3.1.1)
   paper_trail (~> 4.0.0)
   pry-rails
   pry-rescue
@@ -409,14 +404,14 @@ DEPENDENCIES
   rack-cors
   rails (~> 4.2.4)
   react-rails (~> 1.6.2)
-  redis-rails
+  redis-rails (~> 4.0.0)
   rest-client
   rqrcode
   rubyzip (>= 1.0.0)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sidekiq (~> 3.5.1)
-  simple_form
+  simple_form (~> 3.2.1)
   sinatra
   slim-rails
   sprockets-coffee-react

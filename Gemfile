@@ -4,8 +4,8 @@ gem 'rails', '~> 4.2.4'
 gem 'puma', '~> 2.14.0'
 
 # DB & Cache
-gem 'mysql2', '~> 0.3.0'
-gem 'redis-rails'
+gem 'mysql2', '~> 0.4'
+gem 'redis-rails', '~> 4.0.0'
 
 # View
 ## 模板引擎
@@ -13,9 +13,9 @@ gem 'slim-rails'
 ## JSON 格式化
 gem 'jbuilder', '~> 2.0'
 ## Emoji 支持
-gem 'gemoji'
+gem 'gemoji', '~> 2.1'
 ## 表单生成
-gem 'simple_form'
+gem 'simple_form', '~> 3.2.1'
 
 # Model
 ## 生成友好 id
@@ -52,7 +52,7 @@ gem 'chronic'
 # Zip 解压缩
 gem 'rubyzip', '>= 1.0.0'
 # SSH
-gem 'net-ssh'
+gem 'net-ssh', '~> 3.1.1'
 # 进程管理
 gem 'foreman'
 # 异步队列
@@ -69,7 +69,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'js-routes'
-# JS 文本编辑器
+# JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
 ## React
