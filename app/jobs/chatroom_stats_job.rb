@@ -35,7 +35,7 @@ class ChatroomStatsJob < ActiveJob::Base
 
         message_count_key = "chatroom_message_count_#{start_timestamp}"
         date_messages = Rails.cache.fetch(message_count_key) do
-          MultiJson.load(ssh.exec!([
+          JSON.parse(ssh.exec!([
             '/opt/arrownock/db-scripts/get_chat_room_message_count.sh',
             JK_KEY,
             start_timestamp.to_s
@@ -61,7 +61,7 @@ class ChatroomStatsJob < ActiveJob::Base
         puts '    Fetching chatroom register total'
         register_count_key = "chatroom_register_count_#{start_timestamp}"
         date_registers = Rails.cache.fetch(register_count_key) do
-          MultiJson.load(ssh.exec!([
+          JSON.parse(ssh.exec!([
             '/opt/arrownock/db-scripts/get_chat_room_new_uesr_count.sh',
             JK_KEY,
             start_timestamp.to_s
@@ -183,7 +183,7 @@ class ChatroomStatsJob < ActiveJob::Base
 
     Rails.cache.fetch('chatroom_hottest_count') do
       r = RestClient.get im_hottest_chatroom_url, params: im_hottest_chatroom_url_params
-      MultiJson.load r
+      JSON.parse r
     end
 
   rescue => e

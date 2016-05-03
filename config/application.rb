@@ -48,7 +48,6 @@ module Im
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     config.assets.paths << Rails.root.join('lib', 'assets', 'javascripts')
-
     config.assets.paths << Emoji.images_path
     config.assets.precompile << 'emoji/**/*.png'
 
