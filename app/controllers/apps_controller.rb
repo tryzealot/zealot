@@ -41,7 +41,6 @@ class AppsController < ApplicationController
 
   def update
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
-
     @app.update(app_params)
 
     redirect_to apps_path
@@ -56,17 +55,8 @@ class AppsController < ApplicationController
     authorize @app
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
-    if ! @app.password.blank? || user_signed_in?
-      @release = @app.releases.last
-      client = JenkinsApi::Client.new(
-        server_ip: '172.1.1.227',
-        server_port: '8888'
-      )
-      unless @app.jenkins_job.to_s.empty?
-        @job = client.job.list_details(@app.jenkins_job)
-        current_status = client.job.get_current_build_status(@app.jenkins_job)
-        @job['status'] = current_status
-      end
+    if wechat? || !@app.password.blank? || user_signed_in?
+      app_info
     else
       redirect_to new_user_session_path
     end
@@ -118,8 +108,25 @@ class AppsController < ApplicationController
       end
   end
 
+  def app_info
+    @release = @app.releases.last
+    client = JenkinsApi::Client.new(
+      server_ip: '172.1.1.227',
+      server_port: '8888'
+    )
+    unless @app.jenkins_job.to_s.empty?
+      @job = client.job.list_details(@app.jenkins_job)
+      current_status = client.job.get_current_build_status(@app.jenkins_job)
+      @job['status'] = current_status
+    end
+  end
+
   def check_user_logged_in
-    authenticate_user! unless request.user_agent.include? 'MicroMessenger'
+    authenticate_user! unless wechat?
+  end
+
+  def wechat?
+    request.user_agent.include? 'MicroMessenger'
   end
 
   def app_params
