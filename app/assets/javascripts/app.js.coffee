@@ -18,7 +18,7 @@ download = ->
 
   if device_type == 'Android'
     url = installAPI
-  else if device_type == 'iOS' || device_type == 'iPhone' || device_type == 'iPad'
+  else if device_type.toLowerCase() == 'ios' || device_type.toLowerCase() == 'iphone' || device_type.toLowerCase() == 'ipad'
     url = "itms-services://?action=download-manifest&url=" + installAPI
 
   console.log 'device:', device_type
