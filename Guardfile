@@ -21,15 +21,15 @@
 #  $ mv Guardfile config/
 #  $ ln -s config/Guardfile .
 #
-# and, you'll have to watch "config/Guardfile" instead of "Guardfile"
+# and, you'll have to watch 'config/Guardfile' instead of 'Guardfile'
 
 # This will concatenate the javascript files specified in :files to public/js/all.js
 #
 # Specifying every single file in the array like %w(a b c) to maintain the loading order is suggested - See https://github.com/makevoid/guard-concat for more info
 #
-guard :concat, type: "js", files: %w(), input_dir: "public/js", output: "public/js/all"
+guard :concat, type: 'js', files: %w(), input_dir: 'public/js', output: 'public/js/all'
 
-guard :concat, type: "css", files: %w(), input_dir: "public/css", output: "public/css/all"
+guard :concat, type: 'css', files: %w(), input_dir: 'public/css', output: 'public/css/all'
 
 guard 'livereload' do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
@@ -48,4 +48,4 @@ end
 # :run_at_start - compressed input file when guard starts
 # :uglifier     - options to be passed to the uglifier gem
 ###
-guard "uglify", :input => "app/assets/javascripts/application.js", :output => "public/javascripts/application.js"
+guard 'uglify', input: 'app/assets/javascripts/application.js', output: 'public/javascripts/application.js'
