@@ -38,19 +38,19 @@ div.col-sm-8.app-info
             <span style="margin:0 5px"></span>
             button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
 
-          p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
-          div.changelog
-            h3
-              | 更新日志
-              - if user_signed_in?
-                | (
-                = link_to '编辑', edit_release_path(@release.id)
-                | )
-            - if @release && @release.changelog
-              p
-                = simple_format(@release.changelog)
-            - else
-              p 开发者比较懒
+      p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
+      div.changelog
+        h3
+          | 更新日志
+          - if user_signed_in?
+            | (
+            = link_to '编辑', edit_release_path(@release.id)
+            | )
+        - if @release && !@release.changelog.empty?
+          p
+            = simple_format(@release.changelog)
+        - else
+          p 不是自动化打包处理的版本没有更新日志。
 
 div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
