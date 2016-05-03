@@ -81,18 +81,6 @@ Rails.application.routes.draw do
       get 'user/(:id).json', to: 'user#show'
 
       get 'patch/app/:key', to: 'patch#index'
-
-      namespace :demo do
-        get 'dayroutes/show.json', to: 'dayroutes#show'
-        get 'dayroutes/traffic.json', to: 'dayroutes#traffic'
-        get 'dayroutes/update.json', to: 'dayroutes#update'
-        get 'dayroutes/cache.json', to: 'dayroutes#cache'
-
-        get 'dayroutes/list_location.json', to: 'dayroutes#list_location'
-        post 'dayroutes/upload_location.json', to: 'dayroutes#upload_location'
-
-        delete 'dayroutes/clear_cache.json', to: 'dayroutes#clear_cache'
-      end
     end
   end
 
