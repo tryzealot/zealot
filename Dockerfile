@@ -1,28 +1,19 @@
-FROM ruby:2.2.4
+FROM ruby:2.2.5-alpine
 MAINTAINER icyleaf.cn@gmail.com
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    locales \
-    nodejs
+ENV BUILD_PACKAGES="curl-dev ruby-dev build-base" \
+    DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev" \
+    RUBY_PACKAGES="yaml nodejs"
 
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+RUN apk --update --upgrade add $BUILD_PACKAGES $RUBY_PACKAGES $DEV_PACKAGES && \
+    rm -rf /var/cache/apk/*
 
-RUN mkdir -p /app
-WORKDIR /app
+WORKDIR /APP
+ADD Gemfile .
+RUN bundle config build.nokogiri --use-system-libraries && \
+    bundle install --jobs 20 --retry 5
+ADD . /APP
 
-ADD Gemfile /app/Gemfile
-RUN gem install bundler && bundle install --jobs 20 --retry 5
-ADD . /app
-
-# COPY Gemfile Gemfile.lock ./
-# RUN gem install bundler && bundle install --jobs 20 --retry 5
-#
-# COPY . ./
-#
 # EXPOSE 3000
 #
 # ENTRYPOINT ["bundle", "exec"]
