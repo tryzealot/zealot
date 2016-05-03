@@ -134,13 +134,13 @@ task :send_poi do
     topic: topic[:id],
     notice: 'SHARE_TO_CHATROOM',
     msg_id: SecureRandom.hex(10),
-    custom_data: MultiJson.dump(custom_data)
+    custom_data: JSON.dump(custom_data)
   }
 
-  ap params
+  puts params
 
   r = RestClient.post url, params
-  ap MultiJson.load r
+  puts JSON.parse r
 end
 
 namespace :udp do

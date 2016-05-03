@@ -64,7 +64,8 @@ namespace :sync do
       params[:topic_id] = g.im_id
       begin
         r = RestClient.get url, {:params => params}
-        data = MultiJson.load r
+        data = JSON.parse r
+        data = JSON.parse r
         puts "-> [#{gi + 1}/#{group_total}] #{g.name} - #{g.type}"
         if data['meta']['code'] == 200
           puts " * count: #{data['response']['messages'].size}"
@@ -94,7 +95,7 @@ namespace :sync do
                 message.group_name = group.name
                 message.group_type = group.type
                 message.message = m['message'] if m['content_type'] == 'text'
-                message.custom_data = MultiJson.dump(m['customData'])
+                message.custom_data = JSON.dump(m['customData'])
                 message.content_type = m['content_type']
                 message.file_type = (m['fileType'] || nil)
                 message.file =  m['message'] if m['content_type'] != 'text'

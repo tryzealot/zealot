@@ -135,7 +135,6 @@ GEM
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    exception_handler (0.5.1)
     execjs (2.6.0)
     foreman (0.81.0)
       thor (~> 0.19.1)
@@ -387,7 +386,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-i18n
-  exception_handler
   foreman
   friendly_id
   gemoji
@@ -410,7 +408,7 @@ DEPENDENCIES
   quiet_assets
   rack-cors
   rails (~> 4.2.4)
-  react-rails
+  react-rails (~> 1.6.2)
   redis-rails
   rest-client
   rqrcode

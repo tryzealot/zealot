@@ -47,7 +47,7 @@ class UsersController < ApplicationController
       begin
         query[:id] = id
         r = RestClient.post url, query
-        ds = MultiJson.load r
+        ds = JSON.parse(r)
 
         if r.code == 200 && ds['meta']['code'] == 200
           logger.debug "User #{@user.im_user_id} logged out topic: #{id}"
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       }
 
       r = RestClient.get url, params: query
-      ds = MultiJson.load r
+      ds = JSON.parse(r)
       status = if r.code == 200 && ds['meta']['code'] == 200
         s = ds['response']['status'][0][user.im_user_id]
       else

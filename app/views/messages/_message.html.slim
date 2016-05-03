@@ -1,5 +1,5 @@
 ruby:
-  custom_data = MultiJson.load message.custom_data
+  custom_data = JSON.parse message.custom_data
 tr
   td
     = message.id
