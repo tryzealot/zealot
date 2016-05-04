@@ -13,12 +13,14 @@ class UsersController < ApplicationController
   end
 
   def messages
+    @title = '用户聊天历史'
     @messages = Message.where(user_id: params[:id])
                        .order('timestamp DESC')
                        .page(params[:page])
   end
 
   def groups
+    @title = '用户聊天室状态'
     query = params[:user].chomp if params[:user]
     @groups = Group.all
 

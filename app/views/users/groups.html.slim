@@ -1,125 +1,70 @@
 - content_for :title do
-  = "查看用户信息"
-
-div.container
-  div.row
-    h2 查看用户信息
-
-    form.navbar-form.navbar-left role="search" method="GET"
-      div.form-group
-        input.form-control type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
-        button.btn.btn-default type="submit" 查询
-        p.small 查询可能有点慢，请耐心等待！
-    div.clearfix
-
-    div.row
-      - if @user
-        h3 用户信息
-        table.table.table-striped.table-bordered
-          tr
-            th ID
-            th 箭扣 ID
-            th 用户名
-            th 箭扣在线
-          tr
-            td
-              = @member.uid
-            td#client_id
-              = @user.im_user_id
-            td
-              = link_to @member.username, user_messages_path(@member.uid)
-            td 
-              - if @user_online 
-                span.label.label-success 在线
-              - else
-                span.label.label-default 离线
-      - elsif params[:user]
-        div.alert.alert-warning 没有匹配到该用户
-
-    div.row
-      - if @user
-        h3 聊天室信息
-        button.btn.btn-default id="search_user_status" 查询聊天室状态
-        div#chatroom-ds style="display: none"
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
+      .box-body
+        form.navbar-form.navbar-left role="search" method="GET"
+          div.form-group
+            input.form-control.input-lg type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
+            button.btn.btn-default.btn-lg type="submit" 查询
+            small.help-block
+              | 查询可能有点慢，请耐心等待！
+        div.clearfix
+        
+    
+    .box.box-success
+      .box-header.box-border
+        h3.box-title 用户信息
+      .box-body.table-responsive.no-pa
+        - if @user
           table.table.table-striped.table-bordered
             tr
-              th.col-md-2 箭扣ID
-              th.col-md-1 名称
-              th.col-md-1 类型
-              th.col-md-2 加入时间
-            / span
-            /   = link_to '一键退出', user_kickoff_chatrooms_path(@user), :class => ['btn', 'btn-danger']
-        
-    script
-      = "var groups = ["
-      - @groups.each do |c|
-        = raw "\n{\n\t'name': '#{c.name}', \n\t'id': '#{c.im_id}', \n\t'type': '#{c.type}'\n},"
-      = "];"
-      
-    javascript:
-      function search_user_status()
-      { 
-        $('#search_user_status').attr('disabled', 'disabled');
-        var client_id = $.trim($('#client_id').html());
-        
-        if (client_id == null || client_id == "")
-        {
-          $('#search_user_status').html("箭扣 ID 为空，不能查询，重新刷新本页面");
-          return;
-        }
-        
-        var search_count = 0;
-        console.log("search user status: %s", client_id);
-        
-        for(var i = 0; i < groups.length; i++)
-        {
-          var group = groups[i];
-          $.ajax({
-            type: 'get',
-            url: 'http://api.im.qyer.com/v1/im/topic_info.json',
-            dataType: 'json',
-            data: { key: '2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx', id: group['id'], content_format: 'map' }
-          }).done(function(json){
-            search_count += 1;
-            
-            if (json.meta.code == 200)
-            {
-              var group_id = json.response.topic.id;
-              var group_name = json.response.topic.name.replace(/^discuss_/i, '');
-              var members = json.response.topic.parties;
-              var joined_at = null;
-              
-              console.log("search no: %d/%d ", search_count, groups.length, group_name);
-              console.log(json);
-              
-              $('#search_user_status').html("查询聊天室：" + group_name + "...");
-              for (var index in members)
-              { 
-                var member = members[index];
-                Object.keys(member).forEach(function(key) {
-                  if (client_id == key) joined_at = member[key];
-                });
-              }
-              
-              if (joined_at != null)
-              {
-                $('#chatroom-ds').css('display', 'block');
-                $('#chatroom-ds table').append('<tr><td>' + group_id +  '</td><td>' + group_name + '</td><td>' + group['type'] + '</td><td>' + joined_at + '</td></tr>');
-              }
-              
-              if (groups.length == search_count)
-              {
-                search_count = 0;
-                $('#search_user_status').html("再次查询");
-                $('#search_user_status').removeAttr('disabled');
-              }
-            }
-          });
-        }
-      }
-    
-      $(document).ready(function(){
-        $('#search_user_status').click(function(){
-          search_user_status();
-        });
-      });
+              th 用户名
+              th ID
+              th 箭扣 ID
+              th 箭扣在线
+            tr
+              td
+                = link_to @member.username, user_messages_path(@member.uid)
+              td
+                a href="http://www.qyer.com/u/#{@member.uid}" 
+                  = @member.uid
+              td#client_id
+                = @user.im_user_id
+              td 
+                - if @user_online 
+                  span.label.label-success 在线
+                - else
+                  span.label.label-default 离线
+        - elsif params[:user]
+          div.alert.alert-warning 没有匹配到该用户
+
+    - if @user
+      .box.box-success
+        .box-header.box-border
+          h3.box-title 加入聊天室详情
+          .box-tools
+            button.btn.btn-default id="search_user_status" 查询聊天室状态
+        .box-body.table-responsive.no-pa
+          div#chatroom-ds style="display: none"
+            table.table.table-striped.table-bordered
+              tr
+                th.col-md-2 箭扣ID
+                th.col-md-1 名称
+                th.col-md-1 类型
+                th.col-md-2 加入时间
+              / span
+              /   = link_to '一键退出', user_kickoff_chatrooms_path(@user), :class => ['btn', 'btn-danger']
+          
+      script
+        = "var groups = ["
+        - @groups.each do |c|
+          = raw "\n{\n\t'name': '#{c.name}', \n\t'id': '#{c.im_id}', \n\t'type': '#{c.type}'\n},"
+        = "];"
