@@ -46,11 +46,11 @@ div.col-sm-8.app-info
             | (
             = link_to '编辑', edit_release_path(@release.id)
             | )
-        - if @release && !@release.changelog.empty?
-          p
+        p
+          - if @release.changelog.empty?
+            | 不是自动化打包处理的版本没有更新日志。
+          - else
             = simple_format(@release.changelog)
-        - else
-          p 不是自动化打包处理的版本没有更新日志。
 
 div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
