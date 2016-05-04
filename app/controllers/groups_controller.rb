@@ -2,11 +2,13 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @title = '聊天室列表'
     @groups = Group.all
   end
 
   def show
     @group = Group.find(params[:id])
+    @title = "#{@group.name} - 聊天记录"
     @messages = Message.where(group: @group)
                        .order('timestamp DESC')
                        .page(params[:page])
