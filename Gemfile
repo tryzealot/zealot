@@ -61,13 +61,15 @@ gem 'sidekiq', '~> 3.5.1'
 gem 'sinatra', require: false
 
 # JS
-gem 'sass-rails', '~> 4.0.3'
-gem 'bootstrap-sass'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'sass-rails'
+
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+
+gem 'coffee-rails'
+gem 'uglifier'
 gem 'js-routes'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
@@ -83,6 +85,8 @@ end
 group :development do
   # rails 更友好错误输出
   gem 'better_errors'
+  gem 'binding_of_caller'
+
   # 断点调试器
   gem 'byebug'
   # 调试控制台
@@ -108,6 +112,13 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rubocop', '~> 0.39.0', require: false
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'database_cleaner'
+  gem 'letter_opener'
+
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'pry-rescue'
 end

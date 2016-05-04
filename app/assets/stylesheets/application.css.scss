@@ -14,6 +14,9 @@
  *= require_self
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 .btn.btn-grouped { margin-right: 7px; float: left; }
 .btn.btn-danger { color: #FFF }
 
