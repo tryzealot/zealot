@@ -10,14 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require font-awesome
+ *= require admin-lte/bootstrap/css/bootstrap
+ *= require admin-lte/dist/css/AdminLTE
+ *= require admin-lte/dist/css/skins/_all-skins
  *= require_tree .
  *= require_self
  */
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
-
-.btn.btn-grouped { margin-right: 7px; float: left; }
-.btn.btn-danger { color: #FFF }
-
-.label.label-gray { background-color: #eee; color: #999; text-shadow: none; margin-right: 7px; }
