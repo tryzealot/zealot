@@ -72,10 +72,6 @@ gem 'js-routes'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
-## React
-gem 'react-rails', '~> 1.6.2'
-gem 'sprockets-coffee-react'
-
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end

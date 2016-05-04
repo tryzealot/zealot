@@ -42,10 +42,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.3)
     ast (2.2.0)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -114,8 +110,6 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-react (4.0.0)
-      execjs
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -259,13 +253,6 @@ GEM
     rake (11.1.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    react-rails (1.6.2)
-      babel-transpiler (>= 0.7.0)
-      coffee-script-source (~> 1.8)
-      connection_pool
-      execjs
-      rails (>= 3.2)
-      tilt
     redis (3.3.0)
     redis-actionpack (4.0.1)
       actionpack (~> 4)
@@ -356,11 +343,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-coffee-react (4.0.0)
-      coffee-react (>= 3.4.0)
-      coffee-script
-      sprockets
-      tilt
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -442,7 +424,6 @@ DEPENDENCIES
   quiet_assets
   rack-cors
   rails (~> 4.2.4)
-  react-rails (~> 1.6.2)
   redis-rails (~> 4.0.0)
   rest-client
   rqrcode
@@ -455,7 +436,6 @@ DEPENDENCIES
   simple_form (~> 3.2.1)
   sinatra
   slim-rails
-  sprockets-coffee-react
   turbolinks
   web-console
   whenever

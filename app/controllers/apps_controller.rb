@@ -11,6 +11,7 @@ class AppsController < ApplicationController
   # App 列表
   # GET /apps
   def index
+    @title = '应用管理'
     @apps = current_user.apps
     authorize @apps
   end
