@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @title = '聊天记录'
     @messages = Message.order('timestamp DESC').page(params[:page])
   end
 
