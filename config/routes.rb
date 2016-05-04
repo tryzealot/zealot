@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
-  resources :users
+  # resources :users
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end

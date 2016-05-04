@@ -91,8 +91,6 @@ group :development do
   gem 'web-console'
   # 关闭静态文件日志输出
   gem 'quiet_assets'
-  # 支持 Chrome rails 插件用于 debug
-  gem 'meta_request'
 
   gem 'capistrano'
   ## 改善 capistrano 输出格式化
