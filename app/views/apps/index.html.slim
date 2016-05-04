@@ -37,6 +37,8 @@
                 td
                   = link_to '历史', releases_version_path(app.slug) 
                   | /
+                  = link_to '网络钩子', web_hooks_path(app.slug)
+                  | /
                   = link_to '编辑', edit_app_path(app.slug) 
                   | /
                   = link_to '删除', destroy_app_path(app.slug), { onclick:'return confirm("确定删除？")' }

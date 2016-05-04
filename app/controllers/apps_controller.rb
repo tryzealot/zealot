@@ -37,6 +37,7 @@ class AppsController < ApplicationController
   end
 
   def edit
+    @title = '编辑应用'
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 

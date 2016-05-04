@@ -1,7 +1,17 @@
 - content_for :title do
-  = @app.name
-
-div.row.app-container
-  h1 编辑应用
+  = @title
+- content_for :page_title do
+  = @title
   
-  == render 'form'
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+        .box-tools
+          a href="#{apps_path}"
+            i.fa.fa-list-alt
+            | 应用管理
+      .box-body
+        == render 'form'
