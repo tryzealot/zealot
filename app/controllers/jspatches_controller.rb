@@ -5,6 +5,7 @@ class JspatchesController < ApplicationController
   # GET /jspatches
   # GET /jspatches.json
   def index
+    @title = '热补丁列表'
     @jspatches = Jspatch.all
   end
 

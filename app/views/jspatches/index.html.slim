@@ -1,11 +1,14 @@
 - content_for :title do
-  | iOS 应用补丁列表
-
+  = @title
+- content_for :page_title do
+  = @title
+  
 .row
   .col-xs-12
     .box
       .box-header
-        h3.box-title iOS 应用补丁列表
+        h3.box-title 
+          = @title
         .box-tools
           a href="#{new_jspatch_path}"
             i.fa.fa-plus-square-o
