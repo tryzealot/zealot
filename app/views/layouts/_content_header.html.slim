@@ -1,14 +1,12 @@
 section.content-header
   h1
-    | 控制台 
-    small
-      | Version 2.0
-  ol.breadcrumb
-    li
-      a href="#"
-        i.fa.fa-dashboard 
-        | Home
-    li.active
-      | Dashboard
+    = yield :page_title
+  / ol.breadcrumb
+  /   li
+  /     a href="#"
+  /       i.fa.fa-dashboard 
+  /       | Home
+  /   li.active
+  /     | Dashboard
       
-  == render 'layouts/messages'
+  

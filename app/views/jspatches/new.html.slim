@@ -1,7 +1,15 @@
 - content_for :title do
   = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
 
-div.row.app-container
-  h1 = @title
+      == render 'form'
+  
   = link_to ' << 返回列表', jspatches_path
-  == render 'form'
