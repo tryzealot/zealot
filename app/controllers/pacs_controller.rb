@@ -2,10 +2,14 @@ class PacsController < ApplicationController
   before_action :set_pac, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, if: :js_request?
 
+  # GET /pacs
   def index
+    @title = '自动代理列表'
     @pacs = Pac.all
   end
 
+  # GET /pacs/1
+  # GET /pacs/1.pac
   def show
     respond_to do |format|
       format.pac { render :show, status: :ok, location: @pac }
@@ -13,11 +17,13 @@ class PacsController < ApplicationController
     end
   end
 
+  # GET /pacs/new
   def new
     @title = "新建 pac 文件"
     @pac = Pac.new
   end
 
+  # POST /pacs/create
   def create
     @pac = Pac.new(pac_params)
 
@@ -55,16 +61,16 @@ class PacsController < ApplicationController
   end
 
   protected
-    def js_request?
-      request.format.js?
-    end
 
-  private
-    def set_pac
-      @pac = Pac.find(params[:id])
-    end
+  def js_request?
+    request.format.js?
+  end
 
-    def pac_params
-      params.require(:pac).permit(:title, :host, :port, :is_enabled, :script)
-    end
+  def set_pac
+    @pac = Pac.find(params[:id])
+  end
+
+  def pac_params
+    params.require(:pac).permit(:title, :host, :port, :is_enabled, :script)
+  end
 end

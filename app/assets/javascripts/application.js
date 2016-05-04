@@ -18,9 +18,6 @@
 //= require admin-lte/bootstrap/js/bootstrap
 //= require admin-lte/dist/js/app
 //= require ace-rails-ap
-//= require react
-//= require react_ujs
-//= require components
 //= require_tree .
 
 
