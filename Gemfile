@@ -60,16 +60,14 @@ gem 'sidekiq', '~> 3.5.1'
 # 支持 sidekiq 使用界面
 gem 'sinatra', require: false
 
-# JS
+# Assets
 gem 'jquery-rails'
-gem 'bootstrap-sass'
+gem 'font-awesome-rails'
 gem 'sass-rails'
-
+gem 'coffee-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-
-gem 'coffee-rails'
-gem 'uglifier'
+gem 'bower-rails', '~> 0.10.0'
 gem 'js-routes'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
