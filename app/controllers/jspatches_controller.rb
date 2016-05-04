@@ -1,4 +1,5 @@
 class JspatchesController < ApplicationController
+  before_filter :authenticate_user!, only: [ :index, :new, :create, :edit, :update, :destroy]
   before_action :set_jspatch, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, if: :js_request?
 
@@ -71,8 +72,6 @@ class JspatchesController < ApplicationController
   def js_request?
     request.format.js?
   end
-
-  private
 
   def set_jspatch
     @jspatch = Jspatch.find(params[:id])
