@@ -1,29 +1,26 @@
 module AppHelper
-
-  def qr_code(url, options = {})
+  def qr_code(url)
     qrcode = RQRCode::QRCode.new(url, level: :h)
     raw qrcode.as_svg(
       color: '465960',
       fill: 'F4F5F6',
       module_size: 7,
-      offset: 15,
+      offset: 15
     )
-
-    # m = options[:m] || 20
-    # bg = options[:bg] || 'f4f5f6'
-    # fg = options[:fg] || '475a62'
-    # el = options[:el] ||  'h'
-    #
-    # api_url = 'http://qr.liantu.com/api.php'
-    # api_query = {
-    #   m: m,
-    #   bg: bg,
-    #   fg: fg,
-    #   el: el,
-    #   text: url
-    # }
-    #
-    # image_tag api_url + "?" + api_query.to_query
   end
 
+  def display_app_device(app)
+    case app.device_type.downcase
+    when 'ios'
+      'iOS'
+    when 'iphone'
+      'iPhone'
+    when 'ipad'
+      'iPad'
+    when 'android'
+      'Android'
+    else
+      app.device_type
+    end
+  end
 end

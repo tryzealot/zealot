@@ -1,29 +1,31 @@
 - content_for :title do
-  | 我的应用
-
-div.container
-  div.row
-    h1 
-      = @app.name
-    - if @releases.size > 0
-      table.table.table-striped.table-borderd
-        thead
-          tr
-            th BUILD
-            th 主版本号
-            th 开发版本号
-            th 最后提交 
-            th 上传时间
-        tbody
-          - @releases.each_with_index do |release, index|
-            tr
-              td
-                = release.version
-              td
-                = link_to release.release_version, app_release_path(release.app.slug, release.version)
-              td
-                = release.build_version
-              td
-                = release.last_commit
-              td
-                = release.created_at
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+      .box-body.table-responsive.no-padding
+        - if @releases.size > 0
+          table.table.table-striped.table-borderd
+            thead
+              tr
+                th BUILD
+                th 主版本号
+                th 开发版本号
+                th 上传时间
+            tbody
+              - @releases.each_with_index do |release, index|
+                tr
+                  td
+                    = release.version
+                  td
+                    = link_to release.release_version, app_release_path(release.app.slug, release.version)
+                  td
+                    = release.build_version
+                  td
+                    = release.created_at

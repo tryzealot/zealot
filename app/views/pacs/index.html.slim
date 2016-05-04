@@ -1,41 +1,45 @@
 - content_for :title do
-  | Pac 文件列表
-
-div.container
-
-  div.row
-    h3 Pac 文件列表
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+        .box-tools
+          a href="#{new_pac_path}"
+            i.fa.fa-plus-square-o
+            |  新建自动代理
     
-    table.table.table-striped.table-bordered
-      thead
-        tr
-          th ID
-          th 标题
-          th 地址
-          th 是否启用
-          th 创建时间
-          th 最后更新时间
-          th 操作
-      tbody
-        - @pacs.each_with_index do |pac, i|
-          tr
-            td 
-              = i + 1
-            td
-              = link_to pac.title, pac_path(pac)
-            td 
-              = pac_file_url (pac)
-            td
-              = pac.is_enabled == 1 ? '启用' : '禁止'
-            td
-              = pac.created_at
-            td
-              = pac.updated_at
-            td 
-              = link_to '编辑', edit_pac_path(pac)
-              |  / 
-              = link_to '删除', pac, data: {:confirm => '你确定？'}, :method => :delete
-
-    br
-
-    = link_to '新建 Pac 文件', new_pac_path
+        table.table.table-striped.table-bordered
+          thead
+            tr
+              th ID
+              th 标题
+              th 地址
+              th 是否启用
+              th 创建时间
+              th 最后更新时间
+              th 操作
+          tbody
+            - @pacs.each_with_index do |pac, i|
+              tr
+                td 
+                  = i + 1
+                td
+                  = link_to pac.title, pac_path(pac)
+                td 
+                  = pac_file_url (pac)
+                td
+                  = pac.is_enabled == 1 ? '启用' : '禁止'
+                td
+                  = pac.created_at
+                td
+                  = pac.updated_at
+                td 
+                  = link_to '编辑', edit_pac_path(pac)
+                  |  / 
+                  = link_to '删除', pac, data: {:confirm => '你确定？'}, :method => :delete
