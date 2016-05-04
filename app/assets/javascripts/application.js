@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require dropzone
 //= require js-routes
 //= require ace-rails-ap
 //= require react
