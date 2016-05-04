@@ -13,10 +13,12 @@ html
     == csrf_meta_tags
     javascript:
       var HOST = "#{request.scheme}://#{request.host}#{request.port == '80' ? '' : ':' + request.port.to_s}/";
-  body
-    == render 'layouts/tips'
-    == render 'layouts/navigation'
+  body.hold-transition.skin-blue.sidebar-mini
+    .wrapper
+      == render 'layouts/tips'
+      == render 'layouts/navigation'
+      / == render 'layouts/、header'
 
-    div.container
-      == render 'layouts/messages'
-      == yield
+      div.container
+        == render 'layouts/messages'
+        == yield
