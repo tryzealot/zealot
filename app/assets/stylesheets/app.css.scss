@@ -36,14 +36,14 @@ div.app-container p.qr_code img {
   height: 100%;
   background-color: #000;
   opacity: .7;
-  z-index: 103;
+  z-index: 1050;
 }
 
 .wechat-tips {
   position: fixed;
   width: 100%;
   text-align: right;
-  z-index: 103;
+  z-index: 1051;
   padding-top: 14px;
   box-sizing: border-box;
   top: 0;

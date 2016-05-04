@@ -1,11 +1,11 @@
 header.main-header
-  a.logo href="#{ root_path }" 
-    span.logo-mini
-      b 穷
-    span.logo-lg
-      b 穷游移动
-  nav.navbar.navbar-static-top
-    - if user_signed_in?
+  - if user_signed_in?
+    a.logo href="#{ root_path }" 
+      span.logo-mini
+        b 穷
+      span.logo-lg
+        b 穷游移动
+    nav.navbar.navbar-static-top
       a.sidebar-toggle data-toggle="offcanvas" href="#" role="button" 
         span.sr-only Toggle navigation
       .navbar-custom-menu
@@ -60,3 +60,9 @@ header.main-header
                     a.btn.btn-default.btn-flat href="#{edit_user_registration_path}"  详情
                   .pull-right
                     a.btn.btn-default.btn-flat data-method='delete' href="#{destroy_user_session_path}"  登出
+  - else
+    nav.navbar.navbar-static-top
+      .container
+        .navbar-header
+          a.navbar-brand href="#{ root_path }" 
+            | 穷游移动
