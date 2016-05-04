@@ -48,7 +48,7 @@ div.col-sm-8.app-info
             | )
         p
           - if @release.changelog.empty?
-            | 不是自动化打包处理的版本没有更新日志。
+            | 现在更新怎么都没有更新日志了？程序猿偷懒了么？
           - else
             = simple_format(@release.changelog)
 
