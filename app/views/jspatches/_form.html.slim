@@ -1,4 +1,4 @@
-= simple_form_for(@jspatch) do |f|
+= simple_form_for(@jspatch, html: { class: 'form' }) do |f|
   = f.error_notification
   
   = f.association :app, collection: App.where(device_type: 'iPhone').map { |r| ["#{r.name} - #{r.identifier}", r.id] }, 
@@ -10,12 +10,3 @@
   .form-group
     #editor.form-control
   = f.button :submit, value: '保存补丁'
-  
-javascript:
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/tomorrow_night");
-  editor.getSession().setMode("ace/mode/javascript");
-  editor.setValue($('#jspatch_script').html());
-  editor.getSession().on('change', function(e) {
-    $('#jspatch_script').html(editor.getValue());
-  });
