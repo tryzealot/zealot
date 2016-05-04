@@ -22,7 +22,7 @@ class WebHooksController < ApplicationController
 
     respond_to do |format|
       if @web_hook.save
-        format.html { redirect_to web_hooks_path(@app), notice: 'Web hook was successfully created.' }
+        format.html { redirect_to web_hooks_path(@app), notice: '网络钩子创建成功' }
         format.json { render :show, status: :created, location: @web_hook }
       else
         format.html { render :new }
@@ -34,9 +34,10 @@ class WebHooksController < ApplicationController
   # DELETE /web_hooks/1
   # DELETE /web_hooks/1.json
   def destroy
+    @web_hook = WebHook.find(params[:hook_id])
     @web_hook.destroy
     respond_to do |format|
-      format.html { redirect_to web_hooks_url, notice: 'Web hook was successfully destroyed.' }
+      format.html { redirect_to web_hooks_url, notice: '网络钩子已经成功删除' }
       format.json { head :no_content }
     end
   end

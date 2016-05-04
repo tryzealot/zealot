@@ -1,24 +1,24 @@
-h1 List
-hr
-table.table
-  tr 
-    th 
-      | Web hooks(
-      = @app.web_hooks.count
-      | )
-      
-  - @app.web_hooks.each do |hook|
-    tr
-      td
-        .pull-right
-          a.btn.btn-sm.btn-default.btn-grouped data-method="post" href="#{test_web_hooks_path(slug: @app.slug, hook_id: hook.id)}" 测试
-          a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" data-method="delete" href="#{web_hooks_path}" 删除
-        .clearfix
-          = hook.url 
-        p
-          - if hook.upload_events == 1
-            span.label.label-gray
-              | Uplaod Events
-          - if hook.changelog_events == 1
-            span.label.label-gray
-              | Changelog Events
+.col-xs-12
+  .box
+    .box-header
+      h3.box-title 
+        | 启用钩子列表(
+        = @app.web_hooks.count
+        | )
+    .box-body.table-responsive.no-padding
+      table.table
+        - @app.web_hooks.each do |hook|
+          tr
+            td
+              .pull-right
+                a.btn.btn-sm.btn-default.btn-grouped data-method="post" href="#{test_web_hooks_path(slug: @app.slug, hook_id: hook.id)}" 测试
+                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" data-method="delete" href="#{destroy_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
+              .clearfix
+                = hook.url 
+              p
+                - if hook.upload_events == 1
+                  span.label.bg-gray
+                    | Uplaod Events
+                - if hook.changelog_events == 1
+                  span.label.bg-gray
+                    | Changelog Events

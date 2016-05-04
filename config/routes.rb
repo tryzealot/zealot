@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
   post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
-  delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', slug: /\w+/, hook_id: /\d+/
+  delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
   # user
   devise_for :users
