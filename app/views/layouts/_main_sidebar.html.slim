@@ -1,256 +1,46 @@
 aside.main-sidebar
   /! sidebar: style can be found in sidebar.less
   section.sidebar
-    /! Sidebar user panel
-    .user-panel
-      .pull-left.image
-        img.img-circle alt=("User Image") src="dist/img/user2-160x160.jpg" /
-      .pull-left.info
-        p Alexander Pierce
-        a href="#" 
-          i.fa.fa-circle.text-success
-          | Online
-    /! search form
-    form.sidebar-form action="#" method="get" 
-      .input-group
-        input.form-control name="q" placeholder="Search..." type="text" /
-        span.input-group-btn
-          button#search-btn.btn.btn-flat name="search" type="submit" 
-            i.fa.fa-search
-    /! /.search form
-    /! sidebar menu: : style can be found in sidebar.less
     ul.sidebar-menu
-      li.header MAIN NAVIGATION
-      li.active.treeview
-        a href="#" 
-          i.fa.fa-dashboard
-          span Dashboard
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li
-            a href="index.html" 
-              i.fa.fa-circle-o
-              | Dashboard v1
-          li.active
-            a href="index2.html" 
-              i.fa.fa-circle-o
-              | Dashboard v2
-      li.treeview
-        a href="#" 
-          i.fa.fa-files-o
-          span Layout Options
-          span.label.label-primary.pull-right 4
-        ul.treeview-menu
-          li
-            a href="pages/layout/top-nav.html" 
-              i.fa.fa-circle-o
-              | Top Navigation
-          li
-            a href="pages/layout/boxed.html" 
-              i.fa.fa-circle-o
-              | Boxed
-          li
-            a href="pages/layout/fixed.html" 
-              i.fa.fa-circle-o
-              | Fixed
-          li
-            a href="pages/layout/collapsed-sidebar.html" 
-              i.fa.fa-circle-o
-              | Collapsed Sidebar
+      li.header 功能导航
       li
-        a href="pages/widgets.html" 
+        a href="#{ root_path }" 
           i.fa.fa-th
-          span Widgets
-          small.label.pull-right.bg-green new
+          span 控制台
       li.treeview
-        a href="#" 
-          i.fa.fa-pie-chart
-          span Charts
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li
-            a href="pages/charts/chartjs.html" 
-              i.fa.fa-circle-o
-              | ChartJS
-          li
-            a href="pages/charts/morris.html" 
-              i.fa.fa-circle-o
-              | Morris
-          li
-            a href="pages/charts/flot.html" 
-              i.fa.fa-circle-o
-              | Flot
-          li
-            a href="pages/charts/inline.html" 
-              i.fa.fa-circle-o
-              | Inline charts
+        a href="#{apps_path}" 
+          i.fa.fa-adn
+          span 应用管理
+      li.treeview
+        a href="#{jspatches_path}" 
+          i.fa.fa-apple
+          span 热补丁
+          small.label.pull-right.bg-yellow 测试
       li.treeview
         a href="#" 
           i.fa.fa-laptop
-          span UI Elements
+          span 开发调试工具
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
           li
-            a href="pages/UI/general.html" 
+            a href="#{pacs_path}" 
               i.fa.fa-circle-o
-              | General
-          li
-            a href="pages/UI/icons.html" 
-              i.fa.fa-circle-o
-              | Icons
-          li
-            a href="pages/UI/buttons.html" 
-              i.fa.fa-circle-o
-              | Buttons
-          li
-            a href="pages/UI/sliders.html" 
-              i.fa.fa-circle-o
-              | Sliders
-          li
-            a href="pages/UI/timeline.html" 
-              i.fa.fa-circle-o
-              | Timeline
-          li
-            a href="pages/UI/modals.html" 
-              i.fa.fa-circle-o
-              | Modals
+              | 自动代理
       li.treeview
         a href="#" 
-          i.fa.fa-edit
-          span Forms
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li
-            a href="pages/forms/general.html" 
-              i.fa.fa-circle-o
-              | General Elements
-          li
-            a href="pages/forms/advanced.html" 
-              i.fa.fa-circle-o
-              | Advanced Elements
-          li
-            a href="pages/forms/editors.html" 
-              i.fa.fa-circle-o
-              | Editors
-      li.treeview
-        a href="#" 
-          i.fa.fa-table
-          span Tables
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li
-            a href="pages/tables/simple.html" 
-              i.fa.fa-circle-o
-              | Simple tables
-          li
-            a href="pages/tables/data.html" 
-              i.fa.fa-circle-o
-              | Data tables
-      li
-        a href="pages/calendar.html" 
-          i.fa.fa-calendar
-          span Calendar
-          small.label.pull-right.bg-red 3
-      li
-        a href="pages/mailbox/mailbox.html" 
           i.fa.fa-envelope
-          span Mailbox
-          small.label.pull-right.bg-yellow 12
-      li.treeview
-        a href="#" 
-          i.fa.fa-folder
-          span Examples
+          span 聊天室
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
           li
-            a href="pages/examples/invoice.html" 
+            a href="#{messages_path}" 
               i.fa.fa-circle-o
-              | Invoice
+              | 聊天历史
           li
-            a href="pages/examples/profile.html" 
+            a href="#{groups_path}" 
               i.fa.fa-circle-o
-              | Profile
+              | 群组管理
           li
-            a href="pages/examples/login.html" 
+            a href="#{user_groups_path}" 
               i.fa.fa-circle-o
-              | Login
-          li
-            a href="pages/examples/register.html" 
-              i.fa.fa-circle-o
-              | Register
-          li
-            a href="pages/examples/lockscreen.html" 
-              i.fa.fa-circle-o
-              | Lockscreen
-          li
-            a href="pages/examples/404.html" 
-              i.fa.fa-circle-o
-              | 404 Error
-          li
-            a href="pages/examples/500.html" 
-              i.fa.fa-circle-o
-              | 500 Error
-          li
-            a href="pages/examples/blank.html" 
-              i.fa.fa-circle-o
-              | Blank Page
-          li
-            a href="pages/examples/pace.html" 
-              i.fa.fa-circle-o
-              | Pace Page
-      li.treeview
-        a href="#" 
-          i.fa.fa-share
-          span Multilevel
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li
-            a href="#" 
-              i.fa.fa-circle-o
-              | Level One
-          li
-            a href="#" 
-              i.fa.fa-circle-o
-              | Level One
-              i.fa.fa-angle-left.pull-right
-            ul.treeview-menu
-              li
-                a href="#" 
-                  i.fa.fa-circle-o
-                  | Level Two
-              li
-                a href="#" 
-                  i.fa.fa-circle-o
-                  | Level Two
-                  i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                  li
-                    a href="#" 
-                      i.fa.fa-circle-o
-                      | Level Three
-                  li
-                    a href="#" 
-                      i.fa.fa-circle-o
-                      | Level Three
-          li
-            a href="#" 
-              i.fa.fa-circle-o
-              | Level One
-      li
-        a href="documentation/index.html" 
-          i.fa.fa-book
-          span Documentation
-      li.header LABELS
-      li
-        a href="#" 
-          i.fa.fa-circle-o.text-red
-          span Important
-      li
-        a href="#" 
-          i.fa.fa-circle-o.text-yellow
-          span Warning
-      li
-        a href="#" 
-          i.fa.fa-circle-o.text-aqua
-          span Information
-  /! /.sidebar
+              | 用户状态

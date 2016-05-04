@@ -13,14 +13,14 @@ html
     .wrapper
       == render 'layouts/tips'
       == render 'layouts/navigation'
-      
       == render 'layouts/main_sidebar'
 
       .content-container
-        == render 'layouts/messages'
-        == yield
-        
-        == render 'layouts/footer'
-        == render 'layouts/control_sidebar'
+        .content-wrapper
+          == render 'layouts/content_header'
+          == render 'layouts/content'
+          
+      == render 'layouts/footer'
+      == render 'layouts/control_sidebar'
         
   == javascript_include_tag 'application', 'data-turbolinks-track' => true
