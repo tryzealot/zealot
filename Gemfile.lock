@@ -42,8 +42,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.3.6)
-      execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -55,9 +53,7 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.5)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+    bower-rails (0.10.0)
     browser (2.0.3)
     builder (3.2.2)
     byebug (8.2.5)
@@ -145,6 +141,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    font-awesome-rails (4.6.1.0)
+      railties (>= 3.2, < 5.1)
     foreman (0.81.0)
       thor (~> 0.19.1)
     friendly_id (5.1.0)
@@ -390,8 +388,6 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -413,7 +409,7 @@ DEPENDENCIES
   airbrussh
   better_errors
   binding_of_caller
-  bootstrap-sass
+  bower-rails (~> 0.10.0)
   browser (~> 2.0.3)
   byebug
   capistrano
@@ -432,6 +428,7 @@ DEPENDENCIES
   devise
   devise-i18n
   factory_girl_rails (~> 4.5.0)
+  font-awesome-rails
   foreman
   friendly_id
   gemoji (~> 2.1)
@@ -470,7 +467,6 @@ DEPENDENCIES
   slim-rails
   sprockets-coffee-react
   turbolinks
-  uglifier
   web-console
   whenever
 

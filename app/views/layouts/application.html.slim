@@ -7,18 +7,20 @@ html
     link[rel="apple-touch-icon" sizes="120x120" href="#{image_url('touch-icon-60@2x.png')}"]
     link[rel="apple-touch-icon" sizes="180x180" href="#{image_url('touch-icon-60@3x.png')}"]
     link[rel="icon" type="image/x-icon" href="#{image_url('touch-icon-60@3x.png')}"]
-    
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
-    == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags
-    javascript:
-      var HOST = "#{request.scheme}://#{request.host}#{request.port == '80' ? '' : ':' + request.port.to_s}/";
-  body.hold-transition.skin-blue.sidebar-mini
+  body.hold-transition.skin-green-light.sidebar-mini
     .wrapper
       == render 'layouts/tips'
       == render 'layouts/navigation'
-      / == render 'layouts/、header'
+      
+      == render 'layouts/main_sidebar'
 
-      div.container
+      .content-container
         == render 'layouts/messages'
         == yield
+        
+        == render 'layouts/footer'
+        == render 'layouts/control_sidebar'
+        
+  == javascript_include_tag 'application', 'data-turbolinks-track' => true

@@ -14,10 +14,14 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require js-routes
+//= require admin-lte/bootstrap/js/bootstrap
+//= require admin-lte/dist/js/app
 //= require ace-rails-ap
 //= require react
 //= require react_ujs
 //= require components
 //= require_tree .
+
+
+var HOST = "#{request.scheme}://#{request.host}#{request.port == '80' ? '' : ':' + request.port.to_s}/";
