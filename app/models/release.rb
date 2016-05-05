@@ -7,13 +7,12 @@ class Release < ActiveRecord::Base
   before_create :auto_md5_file
   before_create :auto_file_size
 
-
   def self.latest
-    self.order(version: :desc).first
+    order(version: :desc).first
   end
 
   def file_ext
-    fileext = case app.device_type.downcase
+    case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'
       '.ipa'
     when 'android'
@@ -33,7 +32,7 @@ class Release < ActiveRecord::Base
   end
 
   def content_type
-    content_type = case app.device_type.downcase
+    case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'
       'application/vnd.iphone'
     when 'android'
@@ -42,16 +41,17 @@ class Release < ActiveRecord::Base
   end
 
   private
-    def auto_release_version
-      latest_version = Release.where(app_id:self.app_id).last
-      self.version = latest_version ? (latest_version.version + 1) : 1
-    end
 
-    def auto_md5_file
-      self.md5  = file.md5 if file.present? && file_changed?
-    end
+  def auto_release_version
+    latest_version = Release.where(app_id: app_id).last
+    self.version = latest_version ? (latest_version.version + 1) : 1
+  end
 
-    def auto_file_size
-      self.filesize = file.size if file.present? && file_changed?
-    end
+  def auto_md5_file
+    self.md5 = file.md5 if file.present? && file_changed?
+  end
+
+  def auto_file_size
+    self.filesize = file.size if file.present? && file_changed?
+  end
 end
