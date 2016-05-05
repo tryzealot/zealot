@@ -2,45 +2,45 @@ aside.main-sidebar
   section.sidebar
     ul.sidebar-menu
       li.header 功能导航
-      li class="treeview #{treeview_active_class(root_path)}"
-        a href="#{ root_path }" 
+      li class="treeview #{active_class(root_path)}"
+        a href="#{ root_path }" data-no-turbolink="true"
           i.fa.fa-th
           span 控制台
-      li class="treeview #{treeview_active_class(apps_path)}"
-        a href="#{apps_path}" 
+      li class="treeview #{active_class(apps_path)}"
+        a href="#{apps_path}" data-no-turbolink="true"
           i.fa.fa-adn
           span 应用管理
-      li class="treeview #{treeview_active_class(jspatches_path)}"
-        a href="#{jspatches_path}" 
+      li class="treeview #{active_class(jspatches_path)}"
+        a href="#{jspatches_path}" data-no-turbolink="true"
           i.fa.fa-apple
           span iOS 热补丁
           small.label.pull-right.bg-red 实验
-      li class="treeview #{treeview_active_class(pacs_path)}"
-        a href="#" 
+      li class="treeview #{active_class(pacs_path)}"
+        a href="#" data-no-turbolink="true"
           i.fa.fa-laptop
-          span 开发调试工具
+          span 开发工具
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
           li class="#{active_class(pacs_path)}"
-            a href="#{pacs_path}" 
+            a href="#{pacs_path}" data-no-turbolink="true"
               i.fa.fa-circle-o
               | 自动代理
               small.label.pull-right.bg-yellow 测试
-      li class="treeview #{treeview_active_class(user_groups_path)}"
-        a href="#" 
+      li class="treeview #{active_class}"
+        a href="#" data-no-turbolink="true"
           i.fa.fa-envelope
           span 聊天室
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
           li class="#{active_class(group_messages_path)}"
-            a href="#{group_messages_path}" 
+            a href="#{group_messages_path}" data-no-turbolink="true"
               i.fa.fa-circle-o
               | 聊天记录
           li class="#{active_class(groups_path)}"
-            a href="#{groups_path}" 
+            a href="#{groups_path}" data-no-turbolink="true"
               i.fa.fa-circle-o
               | 群组管理
           li class="#{active_class(user_groups_path)}"
-            a href="#{user_groups_path}" 
+            a href="#{user_groups_path}" data-no-turbolink="true"
               i.fa.fa-circle-o
               | 用户状态
