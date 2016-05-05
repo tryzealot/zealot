@@ -5,5 +5,5 @@ class Member < ActiveRecord::Base
 
   self.inheritance_column = 'member_type'
 
-  belongs_to :people, foreign_key: "user_id"
+  belongs_to :people, foreign_key: 'user_id'
 end

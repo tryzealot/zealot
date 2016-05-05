@@ -1,7 +1,6 @@
 class AppPolicy < ApplicationPolicy
-
   def index?
-    user.has_role? [:admin, :mobile]
+    user.role? [:admin, :mobile]
   end
 
   def update?
