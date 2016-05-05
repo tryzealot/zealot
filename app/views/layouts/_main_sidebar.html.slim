@@ -2,44 +2,44 @@ aside.main-sidebar
   section.sidebar
     ul.sidebar-menu
       li.header 功能导航
-      li
+      li class="treeview #{treeview_active_class(root_path)}"
         a href="#{ root_path }" 
           i.fa.fa-th
           span 控制台
-      li.treeview
+      li class="treeview #{treeview_active_class(apps_path)}"
         a href="#{apps_path}" 
           i.fa.fa-adn
           span 应用管理
-      li.treeview
+      li class="treeview #{treeview_active_class(jspatches_path)}"
         a href="#{jspatches_path}" 
           i.fa.fa-apple
           span 热补丁
           small.label.pull-right.bg-yellow 测试
-      li.treeview
+      li class="treeview #{treeview_active_class(pacs_path)}"
         a href="#" 
           i.fa.fa-laptop
           span 开发调试工具
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
-          li
+          li class="#{active_class(pacs_path)}"
             a href="#{pacs_path}" 
               i.fa.fa-circle-o
               | 自动代理
-      li.treeview
+      li class="treeview #{treeview_active_class(user_groups_path)}"
         a href="#" 
           i.fa.fa-envelope
           span 聊天室
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
-          li
-            a href="#{messages_path}" 
+          li class="#{active_class(group_messages_path)}"
+            a href="#{group_messages_path}" 
               i.fa.fa-circle-o
               | 聊天记录
-          li
+          li class="#{active_class(groups_path)}"
             a href="#{groups_path}" 
               i.fa.fa-circle-o
               | 群组管理
-          li
+          li class="#{active_class(user_groups_path)}"
             a href="#{user_groups_path}" 
               i.fa.fa-circle-o
               | 用户状态

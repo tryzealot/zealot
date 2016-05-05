@@ -42,18 +42,18 @@ Rails.application.routes.draw do
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
-  # resources :users
+
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  # message
-  get 'messages/:id/image', to: 'messages#image', as: 'messages_image'
-  get 'messages/:id', to: 'messages#destroy', as: 'destroy_message'
-  resources :messages
-
+  # group
+  get 'groups', to: 'groups#index', as: 'groups'
+  get 'groups/:id', to: 'groups#show', as: 'group', id: /\d+/
+  get 'groups/messages', to: 'groups#messages', as: 'group_messages', id: /\d+/
   get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
-  resources :groups
+  delete 'groups/messages/:id', to: 'messages#destroy', as: 'destroy_message'
+  get 'groups/messages/:id/image', to: 'messages#image', as: 'messages_image'
 
   # api
   namespace :api do
