@@ -19,10 +19,13 @@
             th ID
             th 应用名称
             th 访问密码
-            th 上传版本数量
+            th 最新上传版本
+            th 最新上传时间
             th 操作
           - if @apps.size > 0
             - @apps.each_with_index do |app, i|
+              ruby:
+                latest_release = app.releases.last
               tr
                 td 
                   = i + 1
@@ -33,7 +36,9 @@
                     span.label.bg-green
                       = app.password
                 td
-                  = app.releases.count
+                  = "#{latest_release.release_version} (#{latest_release.build_version})"
+                td 
+                  = time_ago_in_words(latest_release.created_at)
                 td
                   = link_to '历史', releases_version_path(app.slug) 
                   | /
