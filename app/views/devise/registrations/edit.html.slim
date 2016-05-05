@@ -1,0 +1,64 @@
+- content_for :title do
+  | 编辑用户
+- content_for :page_title do
+  | 编辑用户
+
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title 个人信息
+      .box-body
+        / = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+        /   = f.error_notification
+        /   
+        /   = f.input :name, required: true
+        /   = f.email_field :email, required: true
+        /   = f.password_field :password
+        /   = f.password_field :password_confirmation
+        /   = f.password_field :current_password
+        /   = f.button :submit, value: '更新'
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
+          = devise_error_messages!
+          .form-group
+            = f.label :name
+            = f.text_field :name, :autofocus => true, class: 'form-control'
+          .form-group
+            = f.label :email
+            = f.email_field :email, class: 'form-control'
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              div
+                | Currently waiting confirmation for: 
+                = resource.unconfirmed_email
+          .form-group
+            label 当前密码
+            = f.password_field :password, :autocomplete => 'off', class: 'form-control'
+            p 如果不需要修改密码，这里不需要填写
+          .form-group
+            label 密码确认
+            = f.password_field :password_confirmation, class: 'form-control'
+          .form-group
+            label 新密码
+            = f.password_field :current_password, class: 'form-control'
+            p 修改密码之前需要确认原先的密码
+              
+          = f.submit '更新', :class => 'btn btn-lg btn-primary'
+            
+    .box.box-info
+      .box-header.box-border
+        h3.box-title API
+      .box-body
+        .form-group
+          label Key
+          input type="text" class="form-control" disabled="true" value="#{@user.key}"
+        .form-group
+          label Sercret
+          input type="text" class="form-control" disabled="true" value="#{@user.secret}"
+          
+    .box.box-danger
+      .box-header.box-border
+        h3.box-title 注销您的账户
+      .box-body  
+        p
+          | 注销账户后，您的数据将会彻底移除！
+        = button_to "确认注销", registration_path(resource_name), :data => { :confirm => "最后确认你要注销自己的账户?" }, :method => :delete, :class => 'btn btn-lg btn-danger'
