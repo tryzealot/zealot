@@ -3,5 +3,5 @@ class People < ActiveRecord::Base
   self.table_name = 'cdb_members'
   self.primary_key = 'uid'
 
-  belongs_to :member, foreign_key: "uid"
+  belongs_to :member, foreign_key: 'uid'
 end
