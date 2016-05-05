@@ -1,0 +1,35 @@
+table.table.table-striped.table-bordered
+  tr
+    th.col-md-1 ID
+    th.col-md-1 聊天室
+    th.col-md-1 发布时间
+    th.col-md-1 用户名
+    th.col-md-5 内容
+    th.col-md-1 操作
+  - @messages.each_with_index do |message, i|
+    ruby:
+      custom_data = JSON.parse message.custom_data
+    tr
+      td
+        = message.id
+      td
+        = link_to message.group_name, group_path(message.group)
+        br
+          = message.group_type
+      td
+        = message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+      td style="text-align:center"
+        div
+          img.img-circle src=custom_data["fromUserAvatar"] style="width:3.2em;height:3.2em"
+        div
+          = link_to message.user_name, user_messages_path(message.user_id)
+      td
+        - if message.content_type == 'text'
+          = emojify(message.message)
+        - else
+          = image_tag(messages_image_path(message))
+      td 
+        - if message.is_deleted
+          | 已删除
+        - else
+          = link_to '删除', destroy_message_path(message)

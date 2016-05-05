@@ -77,7 +77,6 @@ ready = ->
       url = HOST + "releases/" + data.id + "/edit"
       console.log 'success, redirect to %s', url
 
-
 $(document).ready ->
   if window.location.pathname == '/apps/upload'
     ready()
@@ -90,8 +89,4 @@ $(document).ready ->
         $(this).html(commit)
       else
         $(this).html(branch)
-
-    $('.cover').removeClass('hide');
-    $('.wechat-tips').removeClass('hide');
-    $('.navbar-fixed-top').css('z-index', 0);
 

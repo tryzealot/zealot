@@ -1,0 +1,17 @@
+- content_for :title do
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+      .box-body.table-responsive.no-padding
+        == render 'groups/message'
+
+      .box-footer.clearfix
+        .pull-right
+          = paginate @messages
