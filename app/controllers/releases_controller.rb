@@ -2,6 +2,7 @@ class ReleasesController < ApplicationController
 
   def index
     @app = App.find_by(slug: params[:slug])
+    @title = "#{@app.name} - 版本列表"
     @releases = @app.releases.order(created_at: :desc)
   end
 

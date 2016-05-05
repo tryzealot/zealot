@@ -1,7 +1,17 @@
 - content_for :title do
   = @title
-
-div.row.app-container
-  h1 = @title
-  = link_to ' << 返回列表', pacs_path
-  == render 'form'
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
+        .box-tools
+          a href="#{pacs_path}"
+            i.fa.fa-list-alt
+            |  返回列表
+      .box-body
+        == render 'form'

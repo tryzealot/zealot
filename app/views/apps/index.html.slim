@@ -1,44 +1,47 @@
 - content_for :title do
-  | 我的应用
-
-div.container
-
-  div.row
-    = react_component 'Apps', title: '我的应用'
-    
-    = link_to '新建应用', new_app_path
-    / h3 我的应用
-    / 
-    / table.table.table-striped.table-bordered
-    /   tr
-    /     th ID
-    /     th 平台
-    /     th 应用名称
-    /     th 应用标识
-    /     th SLUG
-    /     th 上传版本数量
-    /     th 操作
-    /   - if @apps.size > 0
-    /     - @apps.each do |app|
-    /       tr
-    /         td
-    /           = app.id
-    /         td
-    /           = app.device_type
-    /         td
-    /           = link_to app.name, app_path(app.slug)
-    /         td
-    /           = app.identifier
-    /         td
-    /           = app.slug
-    /         td
-    /           = app.releases.count
-    /         td
-    /           = link_to '版本历史', app_release_path(app.slug)
-    /           |  / 
-    /           = link_to '编辑', edit_app_path(app.slug)
-    /           |  /
-    /           = link_to '删除', destroy_app_path(app.slug), {onclick:'return confirm("确定删除？")'}
-    /   - else
-    /     tr
-    /       th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+        .box-tools
+          a href="#{new_app_path}"
+            i.fa.fa-plus-square-o
+            | 新建应用
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-bordered
+          tr
+            th ID
+            th 应用名称
+            th 访问密码
+            th 上传版本数量
+            th 操作
+          - if @apps.size > 0
+            - @apps.each_with_index do |app, i|
+              tr
+                td 
+                  = i + 1
+                td
+                  = link_to "#{display_app_device(app)} - #{app.name}", app_path(app.slug)
+                td 
+                  - if app.password
+                    span.label.bg-green
+                      = app.password
+                td
+                  = app.releases.count
+                td
+                  = link_to '历史', releases_version_path(app.slug) 
+                  | /
+                  = link_to '网络钩子', web_hooks_path(app.slug)
+                  | /
+                  = link_to '编辑', edit_app_path(app.slug) 
+                  | /
+                  = link_to '删除', destroy_app_path(app.slug), { onclick:'return confirm("确定删除？")' }
+          - else
+            tr
+              th colspan="5" 你还没有创建任何应用，请使用接口进行上传！

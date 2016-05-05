@@ -1,27 +1,31 @@
 class JspatchesController < ApplicationController
+  before_filter :authenticate_user!, only: [ :index, :new, :create, :edit, :update, :destroy]
   before_action :set_jspatch, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, if: :js_request?
 
   # GET /jspatches
   # GET /jspatches.json
   def index
+    @title = '热补丁列表'
     @jspatches = Jspatch.all
   end
 
   # GET /jspatches/1
   # GET /jspatches/1.json
   def show
+    @title = "#{@jspatch.app.name}##{@jspatch.id} 补丁"
   end
 
   # GET /jspatches/new
   def new
-    @title = "新建 iOS 应用补丁"
+    @title = '新建 iOS 热补丁'
     @jspatch = Jspatch.new
     @apps = App.all
   end
 
   # GET /jspatches/1/edit
   def edit
+    @title = '编辑 iOS 热补丁'
     @apps = App.all
   end
 
@@ -70,8 +74,6 @@ class JspatchesController < ApplicationController
   def js_request?
     request.format.js?
   end
-
-  private
 
   def set_jspatch
     @jspatch = Jspatch.find(params[:id])

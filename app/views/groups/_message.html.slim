@@ -1,0 +1,28 @@
+.col-md-12
+  ul.timeline
+    - @messages.each_with_index do |message, i|
+      ruby:
+        custom_data = JSON.parse message.custom_data
+        user_link = link_to message.user_name, user_messages_path(message.user_id)
+        group_link = link_to message.group_name, group_path(message.group)
+        group_type = message.group_type == 'chatroom' ? '聊天室' : '讨论组'
+      li
+        / i.fa.fa-comments.bg-yellow
+        img.img-circle.fa src=custom_data["fromUserAvatar"] style="width:2em;height:2em"
+        .timeline-item
+          span.time
+            i.fa.fa-clock-o 
+              = " #{message.timestamp.strftime("%Y-%m-%d %H:%M:%S")}"
+          h3.timeline-header
+            = raw "#{user_link} 发布在 #{group_link} #{group_type} - ##{message.id}"
+            
+          .timeline-body
+            - if message.content_type == 'text'
+              = emojify(message.message)
+            - else
+              = image_tag(messages_image_path(message))
+          .timeline-footer
+            - if message.is_deleted
+              button.btn.btn-xs 已删除
+            - else
+              a.btn.btn-xs.btn-danger data-method='delete' href="#{destroy_message_path(message)}" 删除

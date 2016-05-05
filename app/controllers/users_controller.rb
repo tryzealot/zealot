@@ -13,12 +13,16 @@ class UsersController < ApplicationController
   end
 
   def messages
+    @title = '用户聊天历史'
     @messages = Message.where(user_id: params[:id])
-                .order('timestamp DESC')
-                .page(params[:page])
+                       .order('timestamp DESC')
+                       .page(params[:page])
+
+    render 'groups/messages'
   end
 
   def groups
+    @title = '用户聊天室状态'
     query = params[:user].chomp if params[:user]
     @groups = Group.all
 
@@ -52,7 +56,7 @@ class UsersController < ApplicationController
         if r.code == 200 && ds['meta']['code'] == 200
           logger.debug "User #{@user.im_user_id} logged out topic: #{id}"
         end
-      rescue => e
+      rescue
         next
       end
     end
@@ -61,19 +65,21 @@ class UsersController < ApplicationController
   end
 
   private
-    def user_status(user)
-      url = 'http://api.im.qyer.com/v1/im/client_status.json'
-      query = {
-        key: JK_KEY,
-        client: user.im_user_id
-      }
 
-      r = RestClient.get url, params: query
-      ds = JSON.parse(r)
-      status = if r.code == 200 && ds['meta']['code'] == 200
-        s = ds['response']['status'][0][user.im_user_id]
-      else
-        false
-      end
+  def user_status(user)
+    url = 'http://api.im.qyer.com/v1/im/client_status.json'
+    query = {
+      key: JK_KEY,
+      client: user.im_user_id
+    }
+
+    r = RestClient.get url, params: query
+    ds = JSON.parse(r)
+
+    if r.code == 200 && ds['meta']['code'] == 200
+      ds['response']['status'][0][user.im_user_id]
+    else
+      false
     end
+  end
 end

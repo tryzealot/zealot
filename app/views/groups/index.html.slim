@@ -1,18 +1,24 @@
 - content_for :title do
-  = "聊天室"
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-bordered
+          tr
+            th.col-md-1 ID
+            th.col-md-2 箭扣聊天室 ID
+            th.col-md-1 名称
+            th.col-md-1 类型
+            th.col-md-4 消息
+            th.col-md-2 最后发布消息
 
-div.container
-  div.row
-    h3 聊天室
-    table.table.table-striped.table-bordered
-      tr
-        th.col-md-1 ID
-        th.col-md-2 箭扣聊天室 ID
-        th.col-md-1 名称
-        th.col-md-1 类型
-        th.col-md-4 消息
-        th.col-md-2 最后发布消息
-
-      - @groups.each do |group|
-        tr
-          = render group
+          - @groups.each do |group|
+            tr
+              = render group

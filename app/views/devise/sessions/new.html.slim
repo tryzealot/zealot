@@ -1,0 +1,18 @@
+.login-box-body
+  p.login-box-msg 用户登录
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| 
+    = devise_error_messages!
+    
+    .form-group.has-feedback
+      = f.email_field :email, :autofocus => true, class: 'form-control', placeholder: '电子邮箱'
+      span.glyphicon.glyphicon-envelope.form-control-feedback
+    .form-group.has-feedback
+      = f.password_field :password, class: 'form-control', placeholder: '********'
+      span.glyphicon.glyphicon-lock.form-control-feedback
+    .row
+      .col-xs-8
+        .checkbox.icheck style="padding-left: 20px"
+          = f.check_box :remember_me
+          | 记住我
+      .col-xs-4
+        button.btn.btn-primary.btn-block.btn-flat type="submit" 登录

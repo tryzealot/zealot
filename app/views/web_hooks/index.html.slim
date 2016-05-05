@@ -1,9 +1,8 @@
 - content_for :title do
   = "#{@app.name} - #{@app.device_type}"
+- content_for :page_title do
+  = "#{@app.name} - #{@app.device_type}"
 
-div.row.app-container
-  - if user_signed_in? 
-    == render 'new'
-    == render 'list'
-    
-    = link_to ' << 返回列表', app_path(@app)
+.row
+  == render 'new'
+  == render 'list'

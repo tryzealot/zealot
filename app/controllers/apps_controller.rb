@@ -6,8 +6,8 @@ class AppsController < ApplicationController
   # App 列表
   # GET /apps
   def index
+    @title = '应用管理'
     @apps = current_user.apps
-    authorize @apps
   end
 
   # GET /apps/new
@@ -31,6 +31,7 @@ class AppsController < ApplicationController
   end
 
   def edit
+    @title = '编辑应用'
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
@@ -47,7 +48,6 @@ class AppsController < ApplicationController
   end
 
   def show
-    authorize @app
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
     if wechat? || !@app.password.blank? || user_signed_in?
@@ -76,7 +76,6 @@ class AppsController < ApplicationController
   end
 
   def build
-    authorize @app
   end
 
   def branches

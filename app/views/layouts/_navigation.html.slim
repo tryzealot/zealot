@@ -1,12 +1,68 @@
-/ navigation styled for Bootstrap 3.0
-div.navbar.navbar-inverse.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+header.main-header
+  - if user_signed_in?
+    a.logo href="#{ root_path }" 
+      span.logo-mini
+        b 穷
+      span.logo-lg
+        b 穷游移动
+    nav.navbar.navbar-static-top
+      a.sidebar-toggle data-toggle="offcanvas" href="#" role="button" 
         span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        == render 'layouts/navigation_links'
+      .navbar-custom-menu
+        ul.nav.navbar-nav
+          / li.dropdown.notifications-menu
+          /   a.dropdown-toggle data-toggle="dropdown" href="#" 
+          /     i.fa.fa-bell-o
+          /     span.label.label-warning 10
+          /   ul.dropdown-menu
+          /     li.header You have 10 notifications
+          /     li
+          /       /! inner menu: contains the actual data
+          /       ul.menu
+          /         li
+          /           a href="#" 
+          /             i.fa.fa-users.text-aqua
+          /             | 5 new members joined today
+          /         li
+          /           a href="#" 
+          /             i.fa.fa-warning.text-yellow
+          /             | Very long description here that may not fit into the
+          /             | page and may cause design problems
+          /         li
+          /           a href="#" 
+          /             i.fa.fa-users.text-red
+          /             | 5 new members joined
+          /         li
+          /           a href="#" 
+          /             i.fa.fa-shopping-cart.text-green
+          /             | 25 sales made
+          /         li
+          /           a href="#" 
+          /             i.fa.fa-user.text-red
+          /             | You changed your username
+          /     li.footer
+          /       a href="#"  View all
+          li.dropdown.user.user-menu
+            a.dropdown-toggle data-toggle="dropdown" href="#" 
+              img.user-image alt="User Image" src="#{image_url('default-user.png')}"
+              span.hidden-xs 
+                = current_user.name
+            ul.dropdown-menu
+            
+                li.user-header
+                  img.img-circle alt="用户头像" src="#{image_url('default-user.png')}"
+                  p
+                    | User Key
+                    small
+                      = current_user.key
+                li.user-footer
+                  .pull-left
+                    a.btn.btn-default.btn-flat href="#{edit_user_registration_path}"  详情
+                  .pull-right
+                    a.btn.btn-default.btn-flat data-method='delete' href="#{destroy_user_session_path}"  登出
+  - else
+    nav.navbar.navbar-static-top
+      .container
+        .navbar-header
+          a.navbar-brand href="#{ root_path }" 
+            | 穷游移动

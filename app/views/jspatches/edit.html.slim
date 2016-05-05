@@ -1,8 +1,17 @@
-h1 Editing jspatch
-
-== render 'form'
-
-= link_to '返回详情' @jspatch
-'|
-= link_to '返回列表', jspatches_path
-
+- content_for :title do
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
+        .box-tools
+          a href="#{jspatch_path(@jspatch)}"
+            i.fa.fa-list-alt
+            |  返回详情
+      .box-body
+        == render 'form'

@@ -60,21 +60,17 @@ gem 'sidekiq', '~> 3.5.1'
 # 支持 sidekiq 使用界面
 gem 'sinatra', require: false
 
-# JS
-gem 'sass-rails', '~> 4.0.3'
-gem 'bootstrap-sass'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
+# Assets
 gem 'jquery-rails'
+gem 'font-awesome-rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'bower-rails', '~> 0.10.0'
 gem 'js-routes'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
-
-## React
-gem 'react-rails', '~> 1.6.2'
-gem 'sprockets-coffee-react'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
@@ -83,14 +79,14 @@ end
 group :development do
   # rails 更友好错误输出
   gem 'better_errors'
+  gem 'binding_of_caller'
+
   # 断点调试器
   gem 'byebug'
   # 调试控制台
   gem 'web-console'
   # 关闭静态文件日志输出
   gem 'quiet_assets'
-  # 支持 Chrome rails 插件用于 debug
-  gem 'meta_request'
 
   gem 'capistrano'
   ## 改善 capistrano 输出格式化
@@ -108,6 +104,13 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rubocop', '~> 0.39.0', require: false
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'database_cleaner'
+  gem 'letter_opener'
+
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'pry-rescue'
 end

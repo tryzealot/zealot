@@ -48,6 +48,7 @@ module Im
 
     config.assets.paths << Rails.root.join('lib', 'assets', 'javascripts')
     config.assets.paths << Emoji.images_path
+
     config.assets.precompile << 'emoji/**/*.png'
 
     config.middleware.insert_before 0, 'Rack::Cors', debug: true, logger: (-> { Rails.logger }) do

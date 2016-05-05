@@ -2,14 +2,23 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @title = '聊天室列表'
     @groups = Group.all
   end
 
   def show
     @group = Group.find(params[:id])
+    @title = "#{@group.name} - 聊天记录"
     @messages = Message.where(group: @group)
                        .order('timestamp DESC')
                        .page(params[:page])
+
+    render 'groups/messages'
+  end
+
+  def messages
+    @title = '聊天记录'
+    @messages = Message.order('timestamp DESC').page(params[:page])
   end
 
   def sync
@@ -46,8 +55,7 @@ class GroupsController < ApplicationController
             message.file = m['message'] if m['content_type'] != 'text'
             message.timestamp = Time.at(m['timestamp'] / 1000).utc
           end
-        rescue => e
-          ap
+        rescue
           next
         end
       end

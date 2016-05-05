@@ -56,6 +56,7 @@ hideCover = ->
   $('.wechat-tips').addClass('hide')
   $('.navbar-fixed-top').css('z-index', 1030)
 
+
 # bind function
 window.download = download
 window.build = build
@@ -76,7 +77,6 @@ ready = ->
       url = HOST + "releases/" + data.id + "/edit"
       console.log 'success, redirect to %s', url
 
-
 $(document).ready ->
   if window.location.pathname == '/apps/upload'
     ready()
@@ -89,3 +89,4 @@ $(document).ready ->
         $(this).html(commit)
       else
         $(this).html(branch)
+

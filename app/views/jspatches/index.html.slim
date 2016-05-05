@@ -1,41 +1,45 @@
 - content_for :title do
-  | iOS 应用补丁列表
-
-div.container
-
-  div.row
-    h3 iOS 应用补丁列表
-    
-    table.table.table-striped.table-bordered
-      thead
-        tr
-          th ID
-          th 应用
-          th 适用版本
-          th 标题
-          th 创建时间
-          th 最后更新时间
-          th 操作
-      tbody
-        - @jspatches.each_with_index do |jspatch, i|
-          tr
-            td 
-              = i + 1
-            td
-              = link_to jspatch.app.name, app_path(jspatch.app.slug)
-            td
-              = jspatch.app_version
-            td
-              = link_to jspatch.title, jspatch_path(jspatch)
-            td
-              = jspatch.created_at
-            td
-              = jspatch.updated_at
-            td 
-              = link_to '编辑', edit_jspatch_path(jspatch)
-              |  / 
-              = link_to '删除', jspatch, data: {:confirm => '你确定？'}, :method => :delete
-
-    br
-
-    = link_to '新建 iOS 应用补丁', new_jspatch_path
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          = @title
+        .box-tools
+          a href="#{new_jspatch_path}"
+            i.fa.fa-plus-square-o
+            |  新建 iOS 热补丁
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-bordered
+          thead
+            tr
+              th ID
+              th 应用
+              th 适用版本
+              th 标题
+              th 创建时间
+              th 最后更新时间
+              th 操作
+          tbody
+            - @jspatches.each_with_index do |jspatch, i|
+              tr
+                td 
+                  = i + 1
+                td
+                  = link_to jspatch.app.name, app_path(jspatch.app.slug)
+                td
+                  = jspatch.app_version
+                td
+                  = link_to jspatch.title, jspatch_path(jspatch)
+                td
+                  = jspatch.created_at
+                td
+                  = jspatch.updated_at
+                td 
+                  = link_to '编辑', edit_jspatch_path(jspatch)
+                  |  / 
+                  = link_to '删除', jspatch, data: {:confirm => '你确定？'}, :method => :delete
