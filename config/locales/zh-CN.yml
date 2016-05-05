@@ -64,30 +64,30 @@ zh-CN:
         one: 大约 1 年前
         other: 大约 %{count} 年前
       almost_x_years:
-        one: 接近 1 年前
-        other: 接近 %{count} 年前
-      half_a_minute: 30 秒前
+        one: 接近 1 年
+        other: 接近 %{count} 年
+      half_a_minute: 半分钟前
       less_than_x_minutes:
         one: 不到 1 分钟
         other: 不到 %{count} 分钟
       less_than_x_seconds:
-        one: 不到一秒
+        one: 不到 1 秒
         other: 不到 %{count} 秒
       over_x_years:
         one: 1 年多前
-        other: %{count} 年多前
+        other: "%{count} 年多前"
       x_days:
         one: 1 天前
-        other: %{count} 天前
+        other: "%{count} 天前"
       x_minutes:
         one: 1 分钟前
-        other: %{count} 分钟前
+        other: "%{count} 分钟前"
       x_months:
         one: 1 个月前
-        other: %{count} 个月前
+        other: "%{count} 个月前"
       x_seconds:
         one: 1 秒前
-        other: %{count} 秒前
+        other: "%{count} 秒前"
     prompts:
       day: 日
       hour: 时
