@@ -14,6 +14,11 @@ class GroupsController < ApplicationController
                        .page(params[:page])
   end
 
+  def messages
+    @title = '聊天记录'
+    @messages = Message.order('timestamp DESC').page(params[:page])
+  end
+
   def sync
     @group = Group.find(params[:id])
     url = 'http://api.im.qyer.com/v1/im/topics/history.json'
@@ -48,8 +53,7 @@ class GroupsController < ApplicationController
             message.file = m['message'] if m['content_type'] != 'text'
             message.timestamp = Time.at(m['timestamp'] / 1000).utc
           end
-        rescue => e
-          ap
+        rescue
           next
         end
       end

@@ -4,3 +4,10 @@ div.alert.alert-danger.alert-dismissible.fade.in role="alert"
     li 点击右上角菜单
     li 在Safari中打开
     li 如果是登录状态可点击安装，否则需要登录操作
+    
+javascript:
+  $(document).ready(function(){
+    $('.cover').removeClass('hide');
+    $('.wechat-tips').removeClass('hide');
+    $('.navbar-fixed-top').css('z-index', 0);
+  });
