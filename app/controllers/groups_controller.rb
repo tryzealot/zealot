@@ -12,6 +12,8 @@ class GroupsController < ApplicationController
     @messages = Message.where(group: @group)
                        .order('timestamp DESC')
                        .page(params[:page])
+
+    render 'groups/messages'
   end
 
   def messages

@@ -1,27 +1,23 @@
 - content_for :title do
-  = @pac.title 
-
-div.container
-  div.row
-    h1 = @pac.title
-    p 
-      | 链接地址: 
-      = pac_file_url (@pac)
-    
-    div#editor
-    - script = render 'show.js'
-    code#pac_script.hidden = script
-
-= link_to 'Edit', edit_pac_path(@pac)
-'|
-= link_to '返回列表', pacs_path
-
-javascript:
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/tomorrow_night");
-  editor.getSession().setMode("ace/mode/javascript");
-  editor.setValue($('#pac_script').html());
-  editor.setReadOnly(true);
-  editor.getSession().on('change', function(e) {
-    $('#pac_script').html(editor.getValue());
-  });
+  = @title
+- content_for :page_title do
+  = @title
+  
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = link_to pac_file_url(@pac)
+        .box-tools
+          a href="#{edit_pac_path(@pac)}"
+            i.fa.fa-list-alt
+            | 编辑
+          |  
+          a href="#{pacs_path}"
+            i.fa.fa-list-alt
+            |  返回列表
+      .box-body
+        div#editor
+        - script = render 'show.js'
+        code#pac_script.hidden = script

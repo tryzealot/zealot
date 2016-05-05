@@ -13,17 +13,19 @@ class JspatchesController < ApplicationController
   # GET /jspatches/1
   # GET /jspatches/1.json
   def show
+    @title = "#{@jspatch.app.name}##{@jspatch.id} 补丁"
   end
 
   # GET /jspatches/new
   def new
-    @title = "新建 iOS 应用补丁"
+    @title = '新建 iOS 热补丁'
     @jspatch = Jspatch.new
     @apps = App.all
   end
 
   # GET /jspatches/1/edit
   def edit
+    @title = '编辑 iOS 热补丁'
     @apps = App.all
   end
 
