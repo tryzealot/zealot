@@ -18,16 +18,16 @@ class MessagesController < ApplicationController
       r = RestClient.post url, params
       data = JSON.parse(r)
       if data['meta']['code'] == 200
-        flash[:notice] = '最新聊天记录已刷新'
-
         @message.is_deleted = 1
         @message.save
+
+        flash[:notice] = '聊天记录已被删除'
       else
 
         flash[:notice] = '删除失败，原因：'
       end
 
-      redirect_to action: :show
+      redirect_to controller: :groups, action: :messages
     else
       flash[:error] = '未找到该消息'
       session[:return_to] ||= request.referer
