@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
   # user
-  devise_for :users, only: :sessions
+  devise_for :users #, only: :sessions
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
