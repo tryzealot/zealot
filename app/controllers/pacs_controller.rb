@@ -20,8 +20,12 @@ class PacsController < ApplicationController
 
   # GET /pacs/new
   def new
-    @title = "新建 pac 文件"
+    @title = '新建自动代理'
     @pac = Pac.new
+  end
+
+  def edit
+    @title = '编辑自动代理'
   end
 
   # POST /pacs/create
