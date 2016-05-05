@@ -40,7 +40,6 @@ set :puma_prune_bundler, false
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 # set :keep_releases, 5
 
-
 namespace :bower do
   desc 'Install bower'
   task :install do
