@@ -15,16 +15,18 @@ module ApplicationHelper
 
   ##
   # 激活 li 的 class
-  def active_class(link_path)
-    current_page?(link_path) ? 'active' : ''
-  end
-
-  def treeview_active_class(link_path)
-    # if current_page?(controller: 'message') || current_page?(controller: 'group')
-      'active'
-    # else
-    #   active_class(link_path)
-    # end
+  def active_class(link_path = nil)
+    if link_path
+      current_page?(link_path) ? 'active' : ''
+    else
+      if current_page?(controller: 'groups', action: 'messages') ||
+         current_page?(controller: 'groups', action: 'index') ||
+         current_page?(controller: 'users', action: 'groups')
+        'active'
+      else
+        ''
+      end
+    end
   end
 
   ##
