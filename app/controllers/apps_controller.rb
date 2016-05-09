@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
+  before_filter :check_user_logged_in, except: [:show]
+  before_action :set_app, except: [:index, :create, :new]
 
   ##
   # App 列表
