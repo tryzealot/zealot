@@ -1,8 +1,8 @@
-.col-sm-4.app-auth
+.col-md-12.app-auth
   .panel.panel-default 
     .panel-heading
-      h3.panel-title 输入密码
-    form.panel-body.form-inline action="#{auth_app_path(@app.slug)}"
-      input.form-control name="password"
+      h3.panel-title 访问密码
+    form.panel-body action="#{auth_app_path(@app.slug)}"
+      input.form-control.col.xs-12 name="password"
       button.btn.btn-default 验证
     
