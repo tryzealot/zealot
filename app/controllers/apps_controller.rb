@@ -1,12 +1,6 @@
 class AppsController < ApplicationController
-<<<<<<< HEAD
-  before_filter :check_user_logged_in!, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release, :web_hooks]
-=======
-  before_filter :check_user_logged_in
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :auth, :branches, :versions, :release]
->>>>>>> cbe7c103... style: 修改一下样式
-
+  before_filter :check_user_logged_in, except: [:show]
+  before_action :set_app, except: [:index, :create, :new]
   ##
   # App 列表
   # GET /apps
