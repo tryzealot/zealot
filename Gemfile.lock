@@ -66,7 +66,7 @@ GEM
     capistrano-foreman (1.2.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-harrow (0.4.0)
+    capistrano-harrow (0.5.1)
     capistrano-nginx (1.0.0)
       capistrano (~> 3.1)
     capistrano-rails (1.1.6)
