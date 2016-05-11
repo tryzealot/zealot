@@ -52,6 +52,10 @@ server {
     alias <%= shared_path %>/public/uploads/apps/$1;
   }
 
+  location /gitstats {
+    autoindex on;
+  }
+
 #  location ^~ /assets/ {
 #    gzip_static on;
 #    expires max;
