@@ -1,6 +1,7 @@
 GEM
   remote: https://gems.ruby-china.org/
   specs:
+    CFPropertyList (2.3.2)
     ace-rails-ap (4.0.2)
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -114,6 +115,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    commander (4.4.0)
+      highline (~> 1.7.2)
     connection_pool (2.2.0)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
@@ -144,11 +147,13 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haversine (0.3.0)
+    highline (1.7.8)
     hike (1.2.3)
     hitimes (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
+    image_size (1.4.2)
     interception (0.5)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -201,6 +206,7 @@ GEM
       request_store (~> 1.1)
     parser (2.3.0.7)
       ast (~> 2.2)
+    pngdefry (0.1.2)
     powerpack (0.1.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -219,6 +225,13 @@ GEM
       activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    qyer-mobile-app (0.5.0)
+      CFPropertyList (~> 2.3.2)
+      commander (~> 4.3)
+      image_size (~> 1.4.2)
+      pngdefry (= 0.1.2)
+      rest-client (~> 1.7)
+      ruby_android (~> 0.7.7)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-protection (1.5.3)
@@ -305,6 +318,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.7.5)
+    ruby_android (0.7.7)
+      rubyzip (>= 1.1.6)
     rubyzip (1.2.0)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -424,6 +439,7 @@ DEPENDENCIES
   puma (~> 2.14.0)
   pundit
   quiet_assets
+  qyer-mobile-app
   rack-cors
   rails (~> 4.2.4)
   redis-rails (~> 4.0.0)

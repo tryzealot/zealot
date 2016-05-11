@@ -73,6 +73,9 @@ gem 'js-routes'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
+# 用于解析 ipa 和 apk 包
+gem 'qyer-mobile-app', require: false
+
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
