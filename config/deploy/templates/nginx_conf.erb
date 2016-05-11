@@ -56,11 +56,11 @@ server {
     autoindex on;
   }
 
-#  location ^~ /assets/ {
-#    gzip_static on;
-#    expires max;
-#    add_header Cache-Control public;
-#  }
+  location ^~ /assets/ {
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
 #
 #  location = /50x.html {
 #    root html;
