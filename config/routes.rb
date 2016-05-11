@@ -27,8 +27,8 @@ Rails.application.routes.draw do
   get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
-  get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: /[-.\/|\w]+/
-  get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: /[-.\/|\w]+/
+  get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: %r{[-.\/|\w]}
+  get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
   get 'apps/:slug/:release_id', to: 'apps#release', as: 'app_release', slug: /\w+/, release_id: /\d+/
 
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
   # user
-  devise_for :users #, only: :sessions
+  devise_for :users
   get 'users/groups', to: 'users#groups', as: 'user_groups'
   get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
   get 'users/:id/messages', to: 'users#messages', as: 'user_messages'

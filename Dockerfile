@@ -2,8 +2,9 @@ FROM ruby:2.2.5-alpine
 MAINTAINER icyleaf.cn@gmail.com
 
 ENV BUILD_PACKAGES="curl-dev ruby-dev build-base" \
-    DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev" \
+    DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev mysql-dev" \
     RUBY_PACKAGES="yaml nodejs"
+#    DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev mysql-dev sqlite-dev postgresql-dev"
 
 RUN apk --update --upgrade add $BUILD_PACKAGES $RUBY_PACKAGES $DEV_PACKAGES && \
     rm -rf /var/cache/apk/*
