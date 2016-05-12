@@ -1,5 +1,6 @@
 class Release < ActiveRecord::Base
   mount_uploader :file, AppFileUploader
+  mount_uploader :icon, AppIconUploader
 
   belongs_to :app
 
@@ -11,7 +12,7 @@ class Release < ActiveRecord::Base
     order(version: :desc).first
   end
 
-  def file_ext
+  def file_extname
     case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'
       '.ipa'
@@ -20,22 +21,15 @@ class Release < ActiveRecord::Base
     end
   end
 
-  # def file
-  #   File.join(
-  #     "/var/project/mobile/apps",
-  #     "#{app_id.to_s}_#{id.to_s}#{file_ext}"
-  #   )
-  # end
-
   def download_filename
-    [app.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')].join('_') + file_ext
+    [app.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')].join('_') + file_extname
   end
 
   def content_type
-    case app.device_type.downcase
-    when 'iphone', 'ipad', 'ios'
+    case app.platform
+    when 'iOS'
       'application/vnd.iphone'
-    when 'android'
+    when 'Android'
       'application/vnd.android.package-archive'
     end
   end

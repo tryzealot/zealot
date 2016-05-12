@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503065721) do
+ActiveRecord::Schema.define(version: 20160512081617) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -98,13 +98,17 @@ ActiveRecord::Schema.define(version: 20160503065721) do
 
   create_table "pacs", force: :cascade do |t|
     t.string   "title",      limit: 255
-    t.integer  "is_enabled", limit: 4,     default: 1
     t.string   "host",       limit: 255
     t.string   "port",       limit: 255
+    t.string   "key",        limit: 255
     t.text     "script",     limit: 65535
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "hostname",   limit: 255
+    t.text     "addrs",      limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
+
+  add_index "pacs", ["key"], name: "index_pacs_on_key", using: :btree
 
   create_table "permissions", force: :cascade do |t|
     t.integer  "role_id",    limit: 4
@@ -122,6 +126,8 @@ ActiveRecord::Schema.define(version: 20160503065721) do
     t.string   "build_version",   limit: 255,   null: false
     t.string   "identifier",      limit: 255,   null: false
     t.integer  "version",         limit: 4
+    t.string   "release_type",    limit: 255
+    t.string   "distribution",    limit: 255
     t.string   "store_url",       limit: 255
     t.string   "icon",            limit: 255
     t.string   "branch",          limit: 255
@@ -130,6 +136,7 @@ ActiveRecord::Schema.define(version: 20160503065721) do
     t.text     "changelog",       limit: 65535
     t.string   "md5",             limit: 255
     t.string   "file",            limit: 255
+    t.text     "devices",         limit: 65535
     t.text     "extra",           limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -137,7 +144,11 @@ ActiveRecord::Schema.define(version: 20160503065721) do
 
   add_index "releases", ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true, using: :btree
   add_index "releases", ["app_id"], name: "index_releases_on_app_id", using: :btree
+  add_index "releases", ["channel"], name: "index_releases_on_channel", using: :btree
   add_index "releases", ["identifier"], name: "index_releases_on_identifier", using: :btree
+  add_index "releases", ["release_type"], name: "index_releases_on_release_type", using: :btree
+  add_index "releases", ["release_version"], name: "index_releases_on_release_version", using: :btree
+  add_index "releases", ["version"], name: "index_releases_on_version", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
