@@ -9,7 +9,7 @@ class DiscussStatsJob < ActiveJob::Base
   IM_SERVER = '23.91.98.3'.freeze
   IM_USER = 'root'.freeze
   IM_PWD = 'im.server!QAZ@WSX'.freeze
-  IM_PORT = 2233.freeze
+  IM_PORT = 2233
 
   def perform(start_date, end_date)
     Rails.cache.clear
@@ -33,77 +33,76 @@ class DiscussStatsJob < ActiveJob::Base
         start_timestamp = current_date.to_time.to_i * 1000
 
         Rails.logger.fatal " -> #{current_date}"
-        Rails.logger.fatal "    Fetching discuss messages total: [#{start_timestamp.to_s}]"
+        Rails.logger.fatal "    Fetching discuss messages total: [#{start_timestamp}]"
 
-        message_count_key = "discuss_message_count_#{start_timestamp.to_s}"
+        message_count_key = "discuss_message_count_#{start_timestamp}"
         date_messages = Rails.cache.fetch(message_count_key) do
           JSON.parse(ssh.exec!([
-            "/opt/arrownock/db-scripts/get_chat_room_message_count.sh",
+            '/opt/arrownock/db-scripts/get_chat_room_message_count.sh',
             JK_KEY,
-            start_timestamp.to_s,
-          ].join(" ")))
+            start_timestamp.to_s
+          ].join(' ')))
         end
 
         date_messages.each do |topic_id, item|
-          if discuss_ids.include?topic_id
-            @discusses[topic_id][:messages].append({
-              date: current_date.strftime("%Y%m%d"),
-              messages: {
-                topic: item["topic"].to_i,
-                notice: item["notice"].to_i,
-                total: item["topic"].to_i + item["notice"].to_i,
-              },
-            })
-          end
+          next unless discuss_ids.include?topic_id
+
+          @discusses[topic_id][:messages].append({
+            date: current_date.strftime('%Y%m%d'),
+            messages: {
+              topic: item['topic'].to_i,
+              notice: item['notice'].to_i,
+              total: item['topic'].to_i + item['notice'].to_i
+            }
+          })
         end
 
-        Rails.logger.fatal "    Fetching discuss register total"
-        register_count_key = "discuss_register_count_#{start_timestamp.to_s}"
+        Rails.logger.fatal '    Fetching discuss register total'
+        register_count_key = "discuss_register_count_#{start_timestamp}"
         date_registers = Rails.cache.fetch(register_count_key) do
           JSON.parse(ssh.exec!([
-            "/opt/arrownock/db-scripts/get_chat_room_new_uesr_count.sh",
+            '/opt/arrownock/db-scripts/get_chat_room_new_uesr_count.sh',
             JK_KEY,
-            start_timestamp.to_s,
-          ].join(" ")))
+            start_timestamp.to_s
+          ].join(' ')))
         end
 
         date_registers.each do |topic_id, value|
-          if discuss_ids.include?topic_id
-            @discusses[topic_id][:registers].append({
-              date: current_date.strftime("%Y%m%d"),
-              total: value,
-            })
-          end
+          next unless discuss_ids.include?topic_id
+
+          @discusses[topic_id][:registers].append({
+            date: current_date.strftime('%Y%m%d'),
+            total: value
+          })
         end
 
         current_date += 1
 
-      end #/until
-    end #/Net::SSH
-
+      end # /until
+    end # /Net::SSH
 
     ###################################
-    Rails.logger.fatal " * Getting hottest discusss"
+    Rails.logger.fatal ' * Getting hottest discusss'
     ###################################
     members = []
-    discusses_max_members = discuss_max_members(10000000)
+    discusses_max_members = discuss_max_members(10_000_000)
     if discusses_max_members.is_a?Hash
       if discusses_max_members['meta']['code'] == 200
         discusses_max_members['response']['topics'].each do |item|
           members.append({
-            discuss: item["name"],
-            members: item["parties_count"]
+            discuss: item['name'],
+            members: item['parties_count']
           })
         end
       else
-        Rails.logger.fatal " -> Error: #{discusses_max_members.to_s}"
+        Rails.logger.fatal " -> Error: #{discusses_max_members}"
       end
     else
       Rails.logger.fatal " -> Error: #{discusses_max_members}"
     end
 
-    Rails.logger.fatal " * Fetching each discuss messages"
-    @discusses.each do |topic_id, discuss|
+    Rails.logger.fatal ' * Fetching each discuss messages'
+    @discusses.each do |_topic_id, discuss|
       message_total = 0
       discuss[:messages].each do |item|
         message_total += item[:messages][:total]
@@ -128,24 +127,24 @@ class DiscussStatsJob < ActiveJob::Base
         messages: message_total,
         average_message: (message_total / @total_days.to_f).round(2),
         registers: registers_total,
-        average_register: (registers_total / @total_days.to_f).round(2),
+        average_register: (registers_total / @total_days.to_f).round(2)
       })
     end
 
     members.sort_by! { |item| -item[:members] }
     discuss_total_stats.sort_by! { |item| -item[:members] }
 
-    Rails.cache.write "datasource", @discusses
+    Rails.cache.write 'datasource', @discusses
 
-    Slim::Engine.set_options :pretty => true, :sort_attrs => false
+    Slim::Engine.set_options pretty: true, sort_attrs: false
     file = Slim::Template.new('app/views/discuss_stat.slim').render(
       Object.new,
       start_date: @start_date,
       end_date: @end_date,
       total_days: @total_days,
-      chatrooms: @discusses,    # 每日聊天室明细数据
-      members: members,    # 聊天室的最新成员人数
-      stats: discuss_total_stats,
+      chatrooms: @discusses, # 每日聊天室明细数据
+      members: members, # 聊天室的最新成员人数
+      stats: discuss_total_stats
     )
 
     filename = 'result.html'
@@ -153,56 +152,54 @@ class DiscussStatsJob < ActiveJob::Base
     Rails.logger.fatal "Result: #{filename}"
   end
 
-
   private
-    def get_discusses!
-      Rails.cache.fetch(CITY_DISCUSS_KEY) do
-        discusses = {}
-        Qyer::Discuss.all.each do |c|
-          discusses[c.chatroom_id] = {
-            id: c.chatroom_id,
-            name: c.group_name,
-            messages: [],
-            registers: [],
-          }
-        end
-        discusses
-      end
-    end
 
-    def discuss_max_members(limit)
-      begin
-        im_hottest_discuss_url = "http://api.im.qyer.com/v1/im/topics/query.json"
-        im_hottest_discuss_url_params = {
-          key: JK_KEY,
-          type: 'party',
-          limit: limit,
+  def get_discusses!
+    Rails.cache.fetch(CITY_DISCUSS_KEY) do
+      discusses = {}
+      Qyer::Discuss.all.each do |c|
+        discusses[c.chatroom_id] = {
+          id: c.chatroom_id,
+          name: c.group_name,
+          messages: [],
+          registers: []
         }
-
-        Rails.cache.fetch("discuss_hottest_count") do
-          r = RestClient.get im_hottest_discuss_url, params: im_hottest_discuss_url_params
-          JSON.parse r
-        end
-
-      rescue => e
-        Rails.logger.fatal " -> #{e.backtrace.join("\n")}"
-        e.message
       end
+      discusses
+    end
+  end
+
+  def discuss_max_members(limit)
+    im_hottest_discuss_url = 'http://api.im.qyer.com/v1/im/topics/query.json'
+    im_hottest_discuss_url_params = {
+      key: JK_KEY,
+      type: 'party',
+      limit: limit
+    }
+
+    Rails.cache.fetch('discuss_hottest_count') do
+      r = RestClient.get im_hottest_discuss_url, params: im_hottest_discuss_url_params
+      JSON.parse r
     end
 
-    def zipfile(input, output)
-      FileUtils.rm_f output if File.exist?output
+  rescue => e
+    Rails.logger.fatal " -> #{e.backtrace.join("\n")}"
+    e.message
+  end
 
-      folder =  File.dirname(__FILE__)
-      input_filenames = Dir.glob("#{folder}/bootstrap/*")
+  def zipfile(input, output)
+    FileUtils.rm_f output if File.exist?output
 
-      Zip::File.open(output, Zip::File::CREATE) do |zipfile|
-        input_filenames.each do |filename|
-          zipfile.add(File.join('bootstrap', File.basename(filename)), filename)
-        end
-        zipfile.add(input, File.join(folder, input))
+    folder = File.dirname(__FILE__)
+    input_filenames = Dir.glob("#{folder}/bootstrap/*")
+
+    Zip::File.open(output, Zip::File::CREATE) do |zipfile|
+      input_filenames.each do |filename|
+        zipfile.add(File.join('bootstrap', File.basename(filename)), filename)
       end
-
-      puts " Zip: #{output}"
+      zipfile.add(input, File.join(folder, input))
     end
+
+    puts " Zip: #{output}"
+  end
 end
