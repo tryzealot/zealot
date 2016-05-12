@@ -188,6 +188,7 @@ GEM
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (2.99.1)
+    mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     mixlib-shellout (2.2.6)
@@ -430,6 +431,7 @@ DEPENDENCIES
   js-routes
   kaminari
   letter_opener
+  mini_magick
   mysql2 (~> 0.4)
   net-ssh (~> 3.1.1)
   paper_trail (~> 4.0.0)
