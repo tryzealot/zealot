@@ -11,6 +11,17 @@ class App < ActiveRecord::Base
 
   before_create :generate_key_or_slug
 
+  def platform
+    case device_type.downcase
+    when 'iphone', 'ipad', 'ios'
+      'iOS'
+    when 'android'
+      'Android'
+    else
+      'Unkown'
+    end
+  end
+
   def branches
     Rails.cache.fetch("app_#{id}_branches", expires_in: 1.week) do
       releases

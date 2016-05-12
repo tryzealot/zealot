@@ -46,8 +46,6 @@ module Api
             identifier: params[:identifier],
             release_version: params[:release_version],
             build_version: params[:build_version],
-            store_url: params[:store_url],
-            icon: params[:icon_url],
             changelog: params[:changelog],
             channel: params[:channel],
             branch: params[:branch],
@@ -66,6 +64,9 @@ module Api
           Rails.cache.delete(app_branches_cache_key)
 
         end
+
+        # 后台解析 App 的更多信息
+        AppTeardownJob.perform_later 'app_teardown', @release
 
         render json: @release.to_json(include: [:app]), status: status
       end
