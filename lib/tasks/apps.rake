@@ -8,16 +8,22 @@ namespace :apps do
   end
 
   task parse: :environment do
-    release = Release.find(14)
+    release = Release.find(12)
     file = release.file.path
     require 'qma'
     @app = QMA::App.parse(file)
 
-    icon = @app.icons[-1][:file]
+    # icon = @app.icons[-1][:file]
+    puts @app.info.try(:[], 'UIDeviceFamily')
+    puts @app.device_type
+    @app.icons.each do |icon|
+      puts ''
+      puts icon
+    end
 
-    Pngdefry.defry(icon, icon)
-    release.icon = File.open(icon)
-    release.save!
+    # Pngdefry.defry(icon, icon)
+    # release.icon = File.open(icon)
+    # release.save!
   end
 
   desc 'Cleanup app history versions'
