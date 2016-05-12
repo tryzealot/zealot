@@ -26,6 +26,7 @@ gem 'kaminari'
 gem 'paper_trail', '~> 4.0.0'
 ## 文件上传
 gem 'carrierwave'
+gem 'mini_magick'
 
 # Helper
 # HTTP 请求
