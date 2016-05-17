@@ -14,9 +14,9 @@
             i.fa.fa-plus-square-o
             | 新建应用
       .box-body.table-responsive.no-padding
-        table.table.table-striped.table-bordered
+        table.table.table-striped.table-hover
           tr
-            th ID
+            th #
             th 应用名称
             th 访问密码
             th 最新上传版本
@@ -27,10 +27,12 @@
               ruby:
                 latest_release = app.releases.last
               tr
-                td 
+                td
                   = i + 1
                 td
-                  = link_to "#{display_app_device(app)} - #{app.name}", app_path(app.slug)
+                  - if latest_release.icon
+                    = image_tag(latest_release.icon.thumb)
+                  = link_to " #{app.name} (#{display_app_device(app)})", app_path(app.slug)
                 td 
                   - if app.password
                     span.label.bg-green
