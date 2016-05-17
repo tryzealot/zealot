@@ -2,7 +2,6 @@ class AppFileUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    # path = Rails.env.development? ? "uploads/apps" : "/var/project/mobile/uploads/apps"
     "uploads/apps/a#{model.app.id}/r#{model.id}"
   end
 
