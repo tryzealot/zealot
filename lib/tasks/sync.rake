@@ -98,7 +98,7 @@ namespace :sync do
                 message.custom_data = JSON.dump(m['customData'])
                 message.content_type = m['content_type']
                 message.file_type = (m['fileType'] || nil)
-                message.file =  m['message'] if m['content_type'] != 'text'
+                message.file = m['message'] if m['content_type'] != 'text'
                 message.timestamp = timestamp
               end
 
