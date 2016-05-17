@@ -31,7 +31,7 @@
                   = i + 1
                 td
                   - if latest_release.icon
-                    = image_tag(latest_release.icon.thumb)
+                    = image_tag(latest_release.icon_url(:thumb))
                   = link_to " #{app.name} (#{display_app_device(app)})", app_path(app.slug)
                 td 
                   - if app.password

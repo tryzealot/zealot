@@ -47,10 +47,10 @@ server {
     error_log <%= shared_path %>/log/nginx.error.log debug;
   }
 
-  location ~ /uploads/(.*) {
+  <!-- location ~ /uploads/(.*) {
     internal;
     alias <%= shared_path %>/public/uploads/apps/$1;
-  }
+  } -->
 
   location /gitstats {
     autoindex on;
