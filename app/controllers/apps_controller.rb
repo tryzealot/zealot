@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show, :auth]
+  before_filter :check_user_logged_in, except: [:show, :auth, :qrcode]
   before_action :set_app, except: [:index, :create, :new]
 
   ##
@@ -99,14 +99,7 @@ class AppsController < ApplicationController
       slug: @app.slug
     )
 
-    qrcode = RQRCode::QRCode.new(url)
-    file = qrcode.as_png(
-      module_size: 7,
-      offset: 15
-    )
-
-    headers['Content-Type'] = 'image/png'
-    send_data file, type: 'image/png', disposition: 'inline'
+    render qrcode: url, module_px_size: 3, fill: '#F4F5F6', color: '#465960'
   end
 
   private
