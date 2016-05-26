@@ -91,6 +91,23 @@ class AppsController < ApplicationController
     @web_hook = WebHook.new
   end
 
+  def qrcode
+    url = url_for(
+      host: Rails.application.secrets.domain_name,
+      controller: 'apps',
+      action: 'show',
+      slug: @app.slug
+    )
+
+    qrcode = RQRCode::QRCode.new(url)
+    file = qrcode.as_png(
+      module_size: 7,
+      offset: 15
+    )
+
+    send_data file, type: 'image/png', disposition: 'inline'
+  end
+
   private
 
   def set_app

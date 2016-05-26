@@ -79,7 +79,12 @@ class AppWebHookJob < ActiveJob::Base
         {
           title: description,
           text: @release.changelog.to_s,
-          color: '#FFA500'
+          color: '#FFA500',
+          images: [
+            {
+              url: "#{app_url}/qrcode"
+            }
+          ]
         }
       ]
     }
