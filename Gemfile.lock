@@ -127,7 +127,6 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-i18n (1.0.1)
-    diff-lcs (1.2.5)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
@@ -296,23 +295,6 @@ GEM
       netrc (~> 0.7)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
-    rspec-core (3.5.0.beta1)
-      rspec-support (= 3.5.0.beta1)
-    rspec-expectations (3.5.0.beta1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.5.0.beta1)
-    rspec-mocks (3.5.0.beta1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.5.0.beta1)
-    rspec-rails (3.5.0.beta1)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (= 3.5.0.beta1)
-      rspec-expectations (= 3.5.0.beta1)
-      rspec-mocks (= 3.5.0.beta1)
-      rspec-support (= 3.5.0.beta1)
-    rspec-support (3.5.0.beta1)
     rubocop (0.39.0)
       parser (>= 2.3.0.7, < 3.0)
       powerpack (~> 0.1)
@@ -448,7 +430,6 @@ DEPENDENCIES
   redis-rails (~> 4.0.0)
   rest-client
   rqrcode
-  rspec-rails (= 3.5.0.beta1)
   rubocop (~> 0.39.0)
   rubyzip (>= 1.0.0)
   sass-rails
@@ -463,4 +444,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.11.2
+   1.12.4
