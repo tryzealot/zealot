@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show,  :auth]
+  before_filter :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
 
   ##
@@ -105,6 +105,7 @@ class AppsController < ApplicationController
       offset: 15
     )
 
+    headers['Content-Type'] = 'image/png'
     send_data file, type: 'image/png', disposition: 'inline'
   end
 
@@ -125,6 +126,7 @@ class AppsController < ApplicationController
       server_ip: '172.1.1.227',
       server_port: '8888'
     )
+
     unless @app.jenkins_job.to_s.empty?
       @job = client.job.list_details(@app.jenkins_job)
       current_status = client.job.get_current_build_status(@app.jenkins_job)
