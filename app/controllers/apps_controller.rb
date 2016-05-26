@@ -67,7 +67,7 @@ class AppsController < ApplicationController
   end
 
   def release
-    @release = Release.find_by(app: @app, version: params[:release_id])
+    @release = Release.find_by(app: @app, version: params[:version])
     render 'apps/show'
   end
 
@@ -91,12 +91,24 @@ class AppsController < ApplicationController
   end
 
   def qrcode
-    url = url_for(
-      host: Rails.application.secrets.domain_name,
-      controller: 'apps',
-      action: 'show',
-      slug: @app.slug
-    )
+    url =
+      if params[:version]
+        @release = @app.releases.last
+        url_for(
+          host: Rails.application.secrets.domain_name,
+          controller: 'apps',
+          action: 'release',
+          slug: @app.slug,
+          version: @release.version
+        )
+      else
+        url_for(
+          host: Rails.application.secrets.domain_name,
+          controller: 'apps',
+          action: 'show',
+          slug: @app.slug
+        )
+      end
 
     render qrcode: url, module_px_size: 3, fill: '#F4F5F6', color: '#465960'
   end

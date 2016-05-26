@@ -26,12 +26,11 @@ Rails.application.routes.draw do
   get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
-  get 'apps/:slug/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/
+  get 'apps/:slug/(:version)/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/, version: /\d+/
   get 'apps/:slug/branches/(:branch)', to: 'apps#branches', as: 'app_branches', slug: /\w+/, branch: %r{[-.\/|\w]}
   get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
-  get 'apps/:slug/:release_id', to: 'apps#release', as: 'app_release', slug: /\w+/, release_id: /\d+/
-  # resources :web_hooks
+  get 'apps/:slug/:version', to: 'apps#release', as: 'app_release', slug: /\w+/, version: /\d+/
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/

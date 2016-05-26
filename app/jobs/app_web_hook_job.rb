@@ -82,7 +82,7 @@ class AppWebHookJob < ActiveJob::Base
           color: '#FFA500',
           images: [
             {
-              url: "#{app_url}/qrcode"
+              url: "#{app_url}/#{@release.version}/qrcode"
             }
           ]
         }
