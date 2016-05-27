@@ -58,7 +58,7 @@ class AppWebHookJob < ActiveJob::Base
       controller: 'apps',
       action: 'release',
       slug: @app.slug,
-      release_id: @release.version
+      version: @release.version
     )
   end
 
