@@ -5,7 +5,7 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 # set :format, :pretty
 set :log_level, :debug
-set :pty, false
+
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files public/gitstats)
 set :keep_releases, 10
@@ -32,8 +32,8 @@ set :puma_access_log, "#{shared_path}/log/puma.error.log"
 set :puma_error_log, "#{shared_path}/log/puma.access.log"
 set :puma_role, :web
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-set :puma_threads, [0, 16]
-set :puma_workers, 0
+set :puma_threads, [1, 16]
+set :puma_workers, 2
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 set :puma_preload_app, true
