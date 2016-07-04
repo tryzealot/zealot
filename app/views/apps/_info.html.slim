@@ -79,19 +79,19 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
           li
             | 当前构建状态: #{@job['status']}
         
-  div.sidebar-module.sidebar-module-inset
-    - if @app.branches.size > 0
-      h3 应用分支
-      table.table.table-striped.table-bordered
-        tr
-          th.col-md-1 分支名
-          th.col-md-2 上传数量
-        - @app.branches.each do |branch|
-          tr
-            td
-              = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
-            td
-              = branch.count
+  / div.sidebar-module.sidebar-module-inset
+  /   - if @app.branches.size > 0
+  /     h3 应用分支
+  /     table.table.table-striped.table-bordered
+  /       tr
+  /         th.col-md-1 分支名
+  /         th.col-md-2 上传数量
+  /       - @app.branches.each do |branch|
+  /         tr
+  /           td
+  /             = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
+  /           td
+  /             = branch.count
   
   div.sidebar-module.sidebar-module-inset
     - if @app.versions
