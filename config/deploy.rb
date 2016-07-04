@@ -8,6 +8,8 @@ set :log_level, :debug
 set :pty, false
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files public/gitstats)
+set :keep_releases, 10
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
@@ -36,9 +38,6 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 set :puma_preload_app, true
 set :puma_prune_bundler, false
-
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-# set :keep_releases, 5
 
 namespace :bower do
   desc 'Install bower'
