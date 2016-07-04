@@ -5,7 +5,7 @@
 
 Mime::Type.register 'application/javascript', :pac
 Mime::Type.register 'application/octet-stream', :plist
-Mime::Type.register 'image/png', :png
+# Mime::Type.register 'image/png', :png
 
 ActionController::Renderers.add :plist do |data, options|
   data = data.as_json(options) unless options[:skip_serialization] == true
