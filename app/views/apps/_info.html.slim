@@ -79,6 +79,24 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
           li
             | 当前构建状态: #{@job['status']}
         
+  div.sidebar-module.sidebar-module-inset
+    - if @app.releases.size > 0
+      div.releases
+        h3 最近上传
+        table.table.table-striped.table-bordered
+          tr
+            th.col-md-1 Build
+            th.col-md-1 版本
+            th.col-md-2 时间
+          - @app.releases.order('version DESC').limit(10).each do |release|
+            tr class=(release == @release ? 'bg-warning' : '')
+              td[id="release-#{release.id}"]
+                = link_to release.version, app_release_path(@app.slug, release.version)
+              td
+                | #{release.release_version} (#{release.build_version})
+              td
+                = time_ago_in_words(release.created_at)
+                
   / div.sidebar-module.sidebar-module-inset
   /   - if @app.branches.size > 0
   /     h3 应用分支
@@ -100,24 +118,6 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
         - @app.versions.each do |name|
           li
             = link_to name, app_versions_path(@app.slug, name)
-  
-  div.sidebar-module.sidebar-module-inset
-    - if @app.releases.size > 0
-      div.releases
-        h3 最近上传
-        table.table.table-striped.table-bordered
-          tr
-            th.col-md-1 Build
-            th.col-md-1 版本
-            th.col-md-2 时间
-          - @app.releases.order('version DESC').limit(10).each do |release|
-            tr class=(release == @release ? 'bg-warning' : '')
-              td[id="release-#{release.id}"]
-                = link_to release.version, app_release_path(@app.slug, release.version)
-              td
-                | #{release.release_version} (#{release.build_version})
-              td
-                = time_ago_in_words(release.created_at)
   
   div.sidebar-module.sidebar-module-inset
     h3
