@@ -21,4 +21,4 @@
 //= require_tree .
 
 
-var HOST = "#{request.scheme}://#{request.host}#{request.port == '80' ? '' : ':' + request.port.to_s}/";
+var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
