@@ -15,6 +15,10 @@ aside.main-sidebar
           i.fa.fa-apple
           span iOS 热补丁
           small.label.pull-right.bg-red 实验
+      li class="treeview #{active_class(user_groups_path)}"
+        a href="#{user_groups_path}" data-no-turbolink="true"
+          i.fa.fa-user
+          span 查找用户
       li class="treeview #{active_class(pacs_path)}"
         a href="#" data-no-turbolink="true"
           i.fa.fa-laptop
@@ -26,21 +30,3 @@ aside.main-sidebar
               i.fa.fa-circle-o
               | 自动代理
               small.label.pull-right.bg-yellow 测试
-      li class="treeview #{active_class}"
-        a href="#" data-no-turbolink="true"
-          i.fa.fa-envelope
-          span 聊天室
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li class="#{active_class(group_messages_path)}"
-            a href="#{group_messages_path}" data-no-turbolink="true"
-              i.fa.fa-circle-o
-              | 聊天记录
-          li class="#{active_class(groups_path)}"
-            a href="#{groups_path}" data-no-turbolink="true"
-              i.fa.fa-circle-o
-              | 群组管理
-          li class="#{active_class(user_groups_path)}"
-            a href="#{user_groups_path}" data-no-turbolink="true"
-              i.fa.fa-circle-o
-              | 用户状态

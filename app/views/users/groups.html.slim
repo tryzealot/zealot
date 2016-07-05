@@ -12,10 +12,8 @@
       .box-body
         form.navbar-form.navbar-left role="search" method="GET"
           div.form-group
-            input.form-control.input-lg type="text" name="user" placeholder="uid 或昵称" value="#{params[:user]}"
+            input.form-control.input-lg type="text" name="user" placeholder="穷游 uid 或昵称" value="#{params[:user]}"
             button.btn.btn-default.btn-lg type="submit" 查询
-            small.help-block
-              | 查询可能有点慢，请耐心等待！
 
     .box.box-warning
       .box-header.box-border
@@ -25,12 +23,12 @@
           table.table.table-striped.table-bordered
             tr
               th 用户名
-              th ID
+              th 穷游 ID
               th 箭扣 ID
               th 箭扣在线
             tr
               td
-                = link_to @member.username, user_messages_path(@member.uid)
+                = @member.username
               td
                 a href="http://www.qyer.com/u/#{@member.uid}" 
                   = @member.uid
@@ -43,26 +41,3 @@
                   span.label.label-default 离线
         - elsif params[:user]
           div.alert.alert-warning 没有匹配到该用户
-
-    - if @user
-      .box.box-success
-        .box-header.box-border
-          h3.box-title 加入聊天室详情
-          .box-tools
-            button.btn.btn-default id="search_user_status" 查询聊天室状态
-        .box-body.table-responsive.no-pa
-          div#chatroom-ds style="display: none"
-            table.table.table-striped.table-bordered
-              tr
-                th.col-md-2 箭扣ID
-                th.col-md-1 名称
-                th.col-md-1 类型
-                th.col-md-2 加入时间
-              / span
-              /   = link_to '一键退出', user_kickoff_chatrooms_path(@user), :class => ['btn', 'btn-danger']
-          
-      script
-        = "var groups = ["
-        - @groups.each do |c|
-          = raw "\n{\n\t'name': '#{c.name}', \n\t'id': '#{c.im_id}', \n\t'type': '#{c.type}'\n},"
-        = "];"
