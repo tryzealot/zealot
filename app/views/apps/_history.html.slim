@@ -13,7 +13,7 @@ h3 历史上传
           | #{release.release_version} (#{release.build_version})
         td
           = time_ago_in_words(release.created_at)
-      - if !@release.changelog.empty?
+      - if !release.changelog.empty?
         tr
           td colspan="3"
-            = @release.changelog
+            = release.changelog
