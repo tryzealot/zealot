@@ -17,8 +17,8 @@
 //= require js-routes
 //= require admin-lte/bootstrap/js/bootstrap
 //= require admin-lte/dist/js/app
+//= require admin-lte/plugins/chartjs/Chart.min
 //= require ace-rails-ap
 //= require_tree .
-
 
 var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
