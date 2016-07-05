@@ -28,8 +28,11 @@ download = ->
 build = ->
   button = $('#build_it')
   app_job = button.data('job')
+  url = HOST + "api/jenkins/" + app_job + "/build"
+  console.log 'build url: ', url
+  
   $.ajax
-    url: HOST + "api/jenkins/" + app_job + "/build",
+    url: url,
     type: 'get'
     dataType: 'json'
     beforeSend: ->
