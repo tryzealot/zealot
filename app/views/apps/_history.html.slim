@@ -16,4 +16,4 @@ h3 历史上传
       - if !release.changelog.empty?
         tr
           td colspan="3"
-            = release.changelog
+            = simple_format(release.changelog)

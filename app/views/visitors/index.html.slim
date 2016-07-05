@@ -10,7 +10,8 @@
         i.fa.fa-adn
       .info-box-content
         span.info-box-text 应用
-        span.info-box-number 10
+        span.info-box-number
+          = App.count
 
   .col-md-3.col-sm-6.col-xs-12
     .info-box
@@ -18,15 +19,8 @@
         i.fa.fa-paper-plane-o
       .info-box-content
         span.info-box-text 上传次数
-        span.info-box-number 1289
-
-  .col-md-3.col-sm-6.col-xs-12
-    .info-box
-      span.info-box-icon.bg-olive
-        i.fa.fa-dot-circle-o
-      .info-box-content
-        span.info-box-text 网络钩子
-        span.info-box-number 20
+        span.info-box-number
+          = Release.count
 
   .col-md-3.col-sm-6.col-xs-12
     .info-box
@@ -34,7 +28,8 @@
         i.fa.fa-apple
       .info-box-content
         span.info-box-text iOS 热补丁
-        span.info-box-number 2
+        span.info-box-number
+          = Jspatch.count
 
   .clearfix.visible-sm-block
   .col-md-3.col-sm-6.col-xs-12
@@ -43,4 +38,5 @@
         i.fa.fa-cogs
       .info-box-content
         span.info-box-text 自动代理
-        span.info-box-number 5
+        span.info-box-number
+          = Pac.count
