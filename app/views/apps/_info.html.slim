@@ -1,4 +1,4 @@
-div.col-sm-8.app-info
+div.col-sm-9.app-info
   h1
     span.app-name
       = @app.name
@@ -52,7 +52,10 @@ div.col-sm-8.app-info
           - else
             = simple_format(@release.changelog)
 
-div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
+      div.history
+        == render 'history'
+
+div.col-sm-2 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
   /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
 
@@ -79,24 +82,6 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
           li
             | 当前构建状态: #{@job['status']}
 
-  div.sidebar-module.sidebar-module-inset
-    - if @app.releases.size > 0
-      div.releases
-        h3 最近上传
-        table.table.table-striped.table-bordered
-          tr
-            th.col-md-1 Build
-            th.col-md-1 版本
-            th.col-md-2 时间
-          - @app.releases.order('version DESC').limit(10).each do |release|
-            tr class=(release == @release ? 'bg-warning' : '')
-              td[id="release-#{release.id}"]
-                = link_to release.version, app_release_path(@app.slug, release.version)
-              td
-                | #{release.release_version} (#{release.build_version})
-              td
-                = time_ago_in_words(release.created_at)
-
   / div.sidebar-module.sidebar-module-inset
   /   - if @app.branches.size > 0
   /     h3 应用分支
@@ -117,6 +102,7 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
       ul
         - @app.versions.each do |name|
           li
+<<<<<<< HEAD
             = link_to name, app_versions_path(@app.slug, name)
 
   div.sidebar-module.sidebar-module-inset
@@ -144,3 +130,6 @@ div.col-sm-3.col-sm-offset-1 style="margin-top: 20px"
     h3
     span style="font-weight: bold; color: #CCC"
       = user_agent
+=======
+            = link_to name, app_versions_path(@app.slug, name)
+>>>>>>> db81b61c... feat: 优化 app 详情界面
