@@ -2,15 +2,18 @@ version: '2'
 services:
   web:
     build: .
-    command: bundle exec foreman start -f Procfile.dev
-    ports:
-      - "3333:3333"
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-  db:
-    image: mysql:5.5
+    # command: bundle exec foreman start -f Procfile.dev
+    # ports:
+    #   - "3333:3333"
+    # depends_on:
+    #   - db
     environment:
-      MYSQL_DATABASE: im_development
-      MYSQL_ROOT_PASSWORD: password
+      - APK_MAIN_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/main"
+      - APK_COMMUNITY_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/community"
+    # volumes:
+    #   - .:/app
+  # db:
+  #   image: mysql:5.5
+  #   environment:
+  #     - MYSQL_DATABASE=im_development
+  #     - MYSQL_ROOT_PASSWORD=password
