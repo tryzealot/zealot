@@ -22,9 +22,8 @@ class UsersController < ApplicationController
   end
 
   def groups
-    @title = '用户聊天室状态'
+    @title = '查找用户'
     query = params[:user].chomp if params[:user]
-    @groups = Group.all
 
     if request.request_method == 'GET' && query
       @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take
