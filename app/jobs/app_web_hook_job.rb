@@ -74,7 +74,7 @@ class AppWebHookJob < ActiveJob::Base
 
   def request_bearychat_params
     {
-      text: "[#{@app.name}](#{app_url}) - [##{@release.version}](#{release_url}) 发布于#{time_ago_in_words(@release.created_at)}",
+      text: "[#{@app.name}](#{app_url}) - [##{@release.version}](#{release_url}) 发布于#{@release.created_at}",
       attachments: [
         {
           title: description,
