@@ -9,7 +9,8 @@
       span.info-box-icon.bg-aqua
         i.fa.fa-adn
       .info-box-content
-        span.info-box-text 应用
+        span.info-box-text 
+          a href="#{apps_path}" data-no-turbolink="true" 应用
         span.info-box-number
           = App.count
 
@@ -27,7 +28,8 @@
       span.info-box-icon.bg-black
         i.fa.fa-apple
       .info-box-content
-        span.info-box-text iOS 热补丁
+        span.info-box-text 
+          a href="#{jspatches_path}" data-no-turbolink="true" iOS 热补丁
         span.info-box-number
           = Jspatch.count
 
@@ -37,7 +39,8 @@
       span.info-box-icon.bg-navy
         i.fa.fa-cogs
       .info-box-content
-        span.info-box-text 自动代理
+        span.info-box-text 
+          a href="#{pacs_path}" data-no-turbolink="true" 自动代理
         span.info-box-number
           = Pac.count
 

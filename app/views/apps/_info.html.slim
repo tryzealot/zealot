@@ -53,6 +53,9 @@ div.col-sm-9.app-info
             = simple_format(@release.changelog)
 
       div.history
+        == render 'devices'
+
+      div.history
         == render 'history'
 
 div.col-sm-3 style="margin-top: 20px"
@@ -102,11 +105,9 @@ div.col-sm-3 style="margin-top: 20px"
       ul
         - @app.versions.each do |name|
           li
-<<<<<<< HEAD
             = link_to name, app_versions_path(@app.slug, name)
 
   div.sidebar-module.sidebar-module-inset
-<<<<<<< HEAD
     - if @app.releases.size > 0
       div.releases
         h3 最近上传
@@ -125,11 +126,6 @@ div.col-sm-3 style="margin-top: 20px"
                 = time_ago_in_words(release.created_at)
 
   div.sidebar-module.sidebar-module-inset
-=======
->>>>>>> 85bb4d3f... feat: 调整 app 详情侧栏的显示优先级
     h3
     span style="font-weight: bold; color: #CCC"
       = user_agent
-=======
-            = link_to name, app_versions_path(@app.slug, name)
->>>>>>> db81b61c... feat: 优化 app 详情界面

@@ -1,0 +1,22 @@
+ruby:
+  latest_release = params[:version] ? @app.releases.find_by(version: params[:version]) : @app.releases.last
+  custom_data = unless latest_release.extra.blank?
+    JSON.parse(latest_release.extra)
+  else
+    nil
+  end
+
+- if custom_data.key?('devices')
+  h3 测试设备
+  .box
+    table.table
+      tbody
+        tr
+          th NO
+          th UDID
+        - custom_data['devices'].each_with_index do |udid, i|
+          tr
+            td
+              = i + 1
+            td
+              = udid
