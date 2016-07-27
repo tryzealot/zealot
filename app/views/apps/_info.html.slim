@@ -51,7 +51,10 @@ div.col-sm-9.app-info
             | 现在更新怎么都没有更新日志了？程序猿偷懒了么？
           - else
             = simple_format(@release.changelog)
-            
+
+      div.history
+        == render 'devices'
+
       div.history
         == render 'history'
 
