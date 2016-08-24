@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   resources :pacs
 
+  get 'qyer/test', to: 'visitors#test'
+
   # jspatch
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
