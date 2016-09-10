@@ -34,10 +34,7 @@ module Im
     config.active_job.queue_adapter = :sidekiq
 
     # Redis for cache
-    config.cache_store = :redis_store, {
-      host: 'localhost',
-      port: 6379,
-      db: 0,
+    config.cache_store = :redis_store, ENV['REDIS_URL'], {
       namespace: 'qyer:mobile:web',
       expires_in: 90.minutes
     }

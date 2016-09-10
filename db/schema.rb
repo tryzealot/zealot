@@ -34,20 +34,6 @@ ActiveRecord::Schema.define(version: 20160512081617) do
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
   add_index "apps", ["user_id"], name: "index_apps_on_user_id", using: :btree
 
-  create_table "errors", force: :cascade do |t|
-    t.integer  "usable_id",   limit: 4
-    t.string   "usable_type", limit: 255
-    t.text     "class_name",  limit: 65535
-    t.text     "message",     limit: 65535
-    t.text     "trace",       limit: 65535
-    t.text     "target_url",  limit: 65535
-    t.text     "referer_url", limit: 65535
-    t.text     "params",      limit: 65535
-    t.text     "user_agent",  limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "groups", force: :cascade do |t|
     t.integer "qyer_id", limit: 4,                        null: false
     t.string  "im_id",   limit: 255,                      null: false
@@ -72,21 +58,20 @@ ActiveRecord::Schema.define(version: 20160512081617) do
   add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "group_id",     limit: 4,                               null: false
-    t.integer  "user_id",      limit: 4
-    t.string   "group_name",   limit: 255
-    t.string   "group_type",   limit: 255,        default: "chatroom"
-    t.string   "user_name",    limit: 255
-    t.string   "message",      limit: 255
-    t.datetime "timestamp"
-    t.string   "content_type", limit: 255
-    t.string   "file_type",    limit: 255
-    t.text     "custom_data",  limit: 65535
-    t.text     "file",         limit: 4294967295
+    t.integer  "group_id",     limit: 4,                          null: false
     t.string   "im_id",        limit: 255
     t.string   "im_user_id",   limit: 255
     t.string   "im_topic_id",  limit: 255
-    t.boolean  "is_deleted",                      default: false
+    t.string   "group_name",   limit: 255
+    t.string   "group_type",   limit: 255,   default: "chatroom"
+    t.integer  "user_id",      limit: 4
+    t.string   "user_name",    limit: 255
+    t.string   "message",      limit: 255
+    t.text     "custom_data",  limit: 65535
+    t.string   "content_type", limit: 255
+    t.string   "file_type",    limit: 255
+    t.text     "file",         limit: 65535
+    t.datetime "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -98,17 +83,13 @@ ActiveRecord::Schema.define(version: 20160512081617) do
 
   create_table "pacs", force: :cascade do |t|
     t.string   "title",      limit: 255
+    t.integer  "is_enabled", limit: 4,     default: 1
     t.string   "host",       limit: 255
     t.string   "port",       limit: 255
-    t.string   "key",        limit: 255
     t.text     "script",     limit: 65535
-    t.string   "hostname",   limit: 255
-    t.text     "addrs",      limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
-
-  add_index "pacs", ["key"], name: "index_pacs_on_key", using: :btree
 
   create_table "permissions", force: :cascade do |t|
     t.integer  "role_id",    limit: 4
