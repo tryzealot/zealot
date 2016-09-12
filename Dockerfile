@@ -1,7 +1,7 @@
 FROM ruby:2.3-alpine
 MAINTAINER icyleaf.cn@gmail.com
 
-ENV BUILD_PACKAGES="build-base ruby-dev curl-dev libxml2 libxslt libxslt" \
+ENV BUILD_PACKAGES="build-base ruby-dev curl-dev libxml2 libxslt libxslt mysql-client" \
     DEV_PACKAGES="tzdata libxml2-dev libxslt-dev postgresql-dev mysql-dev" \
     RUBY_PACKAGES="yaml nodejs" \
     RUBY_GEMS="bundler" \

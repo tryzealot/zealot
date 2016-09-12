@@ -1,39 +1,44 @@
 version: '2'
+volumes:
+  db-data:
+    driver: local
 services:
   app:
     build: .
     environment:
       - JOB_WORKER_URL=redis://redis:6379/0
       - REDIS_URL=redis://redis:6379/0
+      - MYSQL_DATABASE=im_development
+      - MYSQL_ROOT_PASSWORD=password
+      - RAILS_ENV=development
+    volumes:
+      - db-data:/var/lib/mysql
+      - .:/app
   web:
-    extends:
-      service: app
     command: bundle exec rails s -b '0.0.0.0'
     ports:
       - "3210:3000"
     links:
       - db
       - redis
-    volumes:
-      - .:/app
-  worker:
     extends:
       service: app
+    volumes_from:
+      - app
+  worker:
     command: bundle exec sidekiq
     links:
       - db
       - redis
-    volumes:
-      - .:/app
+    extends:
+      service: app
+    volumes_from:
+      - app
   db:
     image: mysql:5.5
-    environment:
-      - MYSQL_DATABASE=im_development
-      - MYSQL_ROOT_PASSWORD=password
-    volumes:
-      - db-data:/var/lib/mysql
+    ports:
+      - "3366:3306"
+    volumes_from:
+      - app
   redis:
     image: redis
-volumes:
-  db-data:
-    driver: local
