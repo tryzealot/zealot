@@ -6,8 +6,21 @@ module Backup
 
     def dump
       prepare
-      puts 'Dumping Uploaded apps ... '
-      FileUtils.cp_r(app_store_path, app_backup_path)
+      puts "Dumping uploaded apps #{app_store_path} ..."
+      Dir.glob("#{app_store_path}/*").each do |app_path|
+        Dir.glob("#{app_path}/*").each do |release_path|
+          relative_path = release_path.clone
+          relative_path = release_path.slice!(app_store_path)
+          backup_path = File.join(app_backup_path, relative_path)
+
+          print " * #{relative_path} ..."
+
+          FileUtils.mkdir_p(backup_path)
+          FileUtils.cp_r(release_path, backup_path)
+          print ' [DONE]'
+          puts ''
+        end
+      end
     end
 
     protected
