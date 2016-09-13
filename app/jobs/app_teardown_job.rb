@@ -1,4 +1,4 @@
-require 'qma'
+require 'app-info'
 
 class AppTeardownJob < ActiveJob::Base
   queue_as :default
@@ -6,7 +6,7 @@ class AppTeardownJob < ActiveJob::Base
   def perform(_event, release)
     @release = release
     @file = @release.file.path
-    @app = QMA::App.parse(@file)
+    @app = AppInfo.parse(@file)
     @icon_file = @app.icons.try(:[], -1).try(:[], :file)
 
     logger.info "Processing file: #{@file}"
@@ -26,8 +26,8 @@ class AppTeardownJob < ActiveJob::Base
 
   def parse_ipa!
     @release.release_type = @app.release_type
-    @release.devices = @app.devices
-    @release.distribution = @app.distribution_name
+    @release.devices = @app.devices if OS.mac?
+    @release.distribution = @app.distribution_name if OS.mac?
 
     if icon_file_exist?
       Pngdefry.defry(@icon_file, @icon_file)

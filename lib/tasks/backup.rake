@@ -9,16 +9,23 @@ namespace :mobile do
   task backup: :environment do
 
     Rake::Task['mobile:db:backup'].invoke
-    Rake::Task['mobile:app:backup'].invoke
+    Rake::Task['mobile:upload:backup'].invoke
 
-    manager = Backup::Manager.new
-    manager.pack
-    manager.cleanup
-    manager.remove_old
+    backup = Backup::Manager.new
+    backup.pack
+    backup.cleanup
+    backup.remove_old
   end
 
   desc 'Mobile | Restore a previously created backup. Options: RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz'
   task restore: :environment do
+    backup = Backup::Manager.new
+    backup.unpack
+
+    Rake::Task['mobile:db:restore'].invoke
+    Rake::Task['mobile:upload:restore'].invoke
+
+    backup.cleanup
   end
 
   namespace :db do
@@ -27,17 +34,17 @@ namespace :mobile do
     end
 
     task restore: :environment do
-
+      Backup::Database.new.restore
     end
   end
 
-  namespace :app do
+  namespace :upload do
     task backup: :environment do
-      Backup::App.new.dump
+      Backup::Upload.new.dump
     end
 
     task restore: :environment do
-
+      Backup::Upload.new.restore
     end
   end
 end

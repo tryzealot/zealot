@@ -75,7 +75,7 @@ gem 'js-routes'
 gem 'ace-rails-ap'
 
 # 用于解析 ipa 和 apk 包
-gem 'qyer-mobile-app', require: false
+gem 'qyer-mobile-app'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
@@ -114,7 +114,6 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'database_cleaner'
   gem 'letter_opener'
-  gem 'foreman'
 
   gem 'pry-rails'
   gem 'pry-byebug'
