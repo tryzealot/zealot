@@ -9,7 +9,10 @@ set :log_level, :debug
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files public/gitstats)
 set :keep_releases, 10
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+  'JOB_WORKER_URL' => 'redis://localhost:6379/0',
+  'REDIS_URL' => 'redis://localhost:6379/0',
+}
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
