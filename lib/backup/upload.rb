@@ -9,12 +9,11 @@ module Backup
       puts "Dumping uploaded apps #{app_store_path} ..."
       Dir.glob("#{app_store_path}/*").each do |app_path|
         Dir.glob("#{app_path}/*").each do |release_path|
-          relative_path = release_path.clone
-          relative_path = release_path.slice!(app_store_path)
-          backup_path = File.join(app_backup_path, relative_path)
+          relative_path = release_path.gsub(app_store_path, '')
+          app_dirname, release_dirname = relative_path[1..-1].split('/')
+          backup_path = File.join(app_backup_path, app_dirname)
 
-          print " * #{relative_path} ..."
-
+          print " * #{app_dirname}/#{release_dirname} ..."
           FileUtils.mkdir_p(backup_path)
           FileUtils.cp_r(release_path, backup_path)
           print ' [DONE]'
