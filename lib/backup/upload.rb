@@ -7,6 +7,7 @@ module Backup
     def dump
       prepare
       puts 'Dumping Uploaded apps ... '
+      FileUtils.cp_r(app_store_path, app_backup_path)
     end
 
     protected

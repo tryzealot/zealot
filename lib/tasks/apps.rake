@@ -26,6 +26,8 @@ namespace :apps do
         puts ''
       end
     end
+
+    `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
   end
 
   desc 'Mobile | Migrate old app path to new directory structure'
