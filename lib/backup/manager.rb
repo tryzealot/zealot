@@ -24,8 +24,8 @@ module Backup
         File.join(Rails.root, 'public', 'uploads', 'apps')
       end
 
-      def app_backup_path
-        File.join(backup_path, 'apps')
+      def uploads_backup_path
+        File.join(backup_path, 'uploads')
       end
 
       def keep_max_time
