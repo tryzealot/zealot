@@ -12,56 +12,44 @@ namespace :apps do
 
   desc 'Mobile | Remove old app history versions except the latest build version by each release version'
   task remove_old: :environment do
-    App.all.each_with_index do |app, index|
-      puts "[#{index + 1}] #{app.id} - #{app.name} - #{Time.now.strftime('%Y%m%d%H%M')}"
+    apps = App.all
+    apps_count = apps.count
+    apps.each_with_index do |app, index|
+      puts "[#{index + 1}/#{apps_count}] #{app.id} - #{app.device_type} - #{app.name} - #{Time.now.strftime('%Y%m%d%H%M')}"
 
       release_versions = app.release_versions
       latest_version = release_versions.max
 
-      puts " -> latest_version:\t#{latest_version}"
-      puts " -> avaiable versions:\t#{release_versions.to_a.join(', ')}"
-      clean_vesions = release_versions.delete_if { |v| v == latest_version }
+      puts " -> latest RELEASE version:\t#{latest_version}"
+      puts " -> avaiable RELEASE versions:\t#{release_versions.to_a.join(', ')}"
+      history_versions = release_versions.delete_if { |v| v == latest_version }
 
-      next if clean_vesions.empty?
+      next if history_versions.empty?
 
-      puts " -> clean versions:\t#{clean_vesions.join(', ')}"
-      puts ' -> cleaning'
+      puts " -> history RELEASE versions:\t#{history_versions.join(', ')}"
+      puts ' -> remove old versions with each history release version'
 
-      clean_vesions.each do |version|
+      history_versions.each do |version|
         releases = Release.where(app: app, release_version: version)
         print "    * #{version} (#{releases.size})"
-        # keep_count = ENV["KEEP"].to_i || 1
+
         if releases.size > 1
-          build_versions = releases.map(&:build_version)
+          build_versions = releases.map(&:version)
           latest_build_version = build_versions.max
 
           puts ' [CLEAN & KEEP LATEST]'
-          if build_versions.select { |v| v == latest_build_version }.size == build_versions.size
-            # 处理 build version 一致采用 version 来解决 build version 保留最新
-            auto_versions = releases.map(&:version)
-            latest_build_release = Release.where(app: app, release_version: version).last
-            puts "      avaiable:\t#{auto_versions.join(', ')}"
-            puts "      latest:\t#{latest_build_release.version}"
-            releases.each do |r|
-              if r.id != latest_build_release.id
-                r.remove_file
-                r.remove_icon
-                FileUtils.rm_rf(File.join(Rails.root, 'public', 'uploads', 'apps', "a#{app.id}", "r#{r.id}"))
-                r.destroy
-              end
-            end
-          else
-            puts "      avaiable:\t#{build_versions.join(', ')}"
-            puts "      latest:\t#{latest_build_version}"
-            releases.each do |r|
-              if r.build_version != latest_build_version
-                r.remove_file
-                r.remove_icon
-                FileUtils.rm_rf(File.join(Rails.root, 'public', 'uploads', 'apps', "a#{app.id}", "r#{r.id}"))
-                r.destroy
-              end
-            end
+          puts "      avaiable: #{build_versions.join(', ')}"
+          puts "      latest: #{latest_build_version}"
+          print "      removed: "
+          releases.each do |r|
+            next if r.version == latest_build_version
+            r.remove_file
+            r.remove_icon
+            FileUtils.rm_rf(File.join(Rails.root, 'public', 'uploads', 'apps', "a#{app.id}", "r#{r.id}"))
+            r.destroy
+            print "#{r.version}, "
           end
+          puts ""
         else
           puts ' [SKIP]'
         end

@@ -20,9 +20,9 @@
 # end
 
 every 1.day, at: '4:30 am' do
-  rake 'apps:clean', output: {
-    error: 'log/cron_apps_clean_error.log',
-    standard: 'log/cron_apps_clean.log'
+  rake 'apps:remove_old', output: {
+    error: 'log/cron_apps_remove_old_error.log',
+    standard: 'log/cron_remove_old_clean.log'
   }
 end
 
