@@ -3,6 +3,7 @@ require 'yaml'
 module Backup
   class Manager
     module Config
+
       def backup_path
         File.join(Rails.root, 'tmp', 'backups')
       end
@@ -50,7 +51,6 @@ module Backup
       s[:db_user]            = db_config['username']
       s[:db_password]        = '******'
       s[:rails_env]          = Rails.env.to_s
-      s[:mobile_version]     = `git rev-parse --short HEAD`.strip
       s[:backup_created_at]  = Time.now.strftime('%Y%m%d%H%M')
 
       tar_file = "#{s[:backup_created_at]}_mobile_backup.tar"
@@ -65,8 +65,6 @@ module Backup
           puts "creating archive #{tar_file} failed"
           abort 'Backup failed'
         end
-
-        # upload(tar_file)
       end
     end
 
