@@ -10,6 +10,24 @@ namespace :apps do
     end
   end
 
+  desc 'Mobile | Reverse remove directory if release is not exist of app'
+  task cleanup: :environment do
+    store_path = File.join(Rails.root, 'public', 'uploads')
+    Dir.glob("#{store_path}/apps/*").each do |app_path|
+      Dir.glob("#{app_path}/*").each do |release_path|
+        print release_path
+        release_id = File.basename(release_path)[1..-1]
+        begin
+          release = Release.find(release_id)
+        rescue
+          print ' removed'
+          FileUtils.rm_rf release_path
+        end
+        puts ''
+      end
+    end
+  end
+
   desc 'Mobile | Migrate old app path to new directory structure'
   task migrate_upload_path: :environment do
     store_path = File.join(Rails.root, 'public', 'uploads')
@@ -90,6 +108,8 @@ namespace :apps do
         end
       end
     end
+
+    Rake::Task['apps:cleanup'].invoke
   end
 
   desc 'Mobile | List all app details'
