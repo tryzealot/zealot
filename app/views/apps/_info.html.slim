@@ -100,10 +100,10 @@ div.col-sm-3 style="margin-top: 20px"
   /             = branch.count
 
   div.sidebar-module.sidebar-module-inset
-    - if @app.versions
+    - if @app.release_versions
       h3 历史版本
       ul
-        - @app.versions.each do |name|
+        - @app.release_versions.each do |name|
           li
             = link_to name, app_versions_path(@app.slug, name)
 
