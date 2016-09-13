@@ -2,7 +2,7 @@ class AppFileUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/apps/a#{model.app.id}/r#{model.id}"
+    "uploads/apps/a#{model.app.id}/r#{model.id}/binary"
   end
 
   def size

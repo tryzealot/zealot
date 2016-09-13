@@ -11,15 +11,19 @@ module Backup
         YAML.load_file(File.join(Rails.root, 'config', 'database.yml'))[Rails.env]
       end
 
-      def db_store_path
+      def db_backup_path
         File.join(backup_path, 'db')
       end
 
       def db_file_name
-        File.join(db_store_path, 'database.sql.gz')
+        File.join(db_backup_path, 'database.sql.gz')
       end
 
       def app_store_path
+        File.join(Rails.root, 'public', 'uploads', 'apps')
+      end
+
+      def app_backup_path
         File.join(backup_path, 'apps')
       end
 
