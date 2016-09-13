@@ -70,3 +70,18 @@ namespace :deploy do
   after :finished, 'whenever:update_crontab'
   # after :finished, 'puma:start'
 end
+
+namespace :mobile do
+  namespace :backup do
+    desc 'Create a backup'
+    task :create do
+      on roles(:web) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'mobile:backup'
+          end
+        end
+      end
+    end
+  end
+end
