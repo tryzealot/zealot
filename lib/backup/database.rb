@@ -6,7 +6,7 @@ module Backup
 
     def dump
       prepare
-      
+
       compress_rd, compress_wr = IO.pipe
       compress_pid = spawn(*%W(gzip -1 -c), in: compress_rd, out: [db_file_name, 'w', 0600])
       compress_rd.close
@@ -17,23 +17,31 @@ module Backup
         # Workaround warnings from MySQL 5.6 about passwords on cmd line
         ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
         spawn('mysqldump', *mysql_args, db_config['database'], out: compress_wr)
-      # when 'postgresql' then
-      #   puts "Dumping PostgreSQL database #{db_config['database']} ... "
-      #   pg_env
-      #   pgsql_args = ['--clean'] # Pass '--clean' to include 'DROP TABLE' statements in the DB dump.
-      #   if Gitlab.config.backup.pg_schema
-      #     pgsql_args << '-n'
-      #     pgsql_args << Gitlab.config.backup.pg_schema
-      #   end
-      #   spawn('pg_dump', *pgsql_args, db_config['database'], out: compress_wr)
       else
         abort 'Unkown database adapter, only support mysql.'
       end
       compress_wr.close
 
       success = [compress_pid, dump_pid].all? { |pid| Process.waitpid(pid); $?.success? }
-
       abort 'Backup failed' unless success
+    end
+
+    def restore
+      decompress_rd, decompress_wr = IO.pipe
+      decompress_pid = spawn(*%W(gzip -cd), out: decompress_wr, in: db_file_name)
+      decompress_wr.close
+
+      restore_pid = case config["adapter"]
+      when /^mysql/ then
+        $progress.print "Restoring MySQL database #{config['database']} ... "
+        # Workaround warnings from MySQL 5.6 about passwords on cmd line
+        ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
+        spawn('mysql', *mysql_args, db_config['database'], in: decompress_rd)
+      enzd
+      decompress_rd.close
+
+      success = [decompress_pid, restore_pid].all? { |pid| Process.waitpid(pid); $?.success? }
+      abort 'Restore failed' unless success
     end
 
     protected
@@ -57,7 +65,7 @@ module Backup
     end
 
     def prepare
-      FileUtils.mkdir_p(db_store_path)
+      FileUtils.mkdir_p(db_backup_path)
       FileUtils.rm_f(db_file_name)
     end
   end

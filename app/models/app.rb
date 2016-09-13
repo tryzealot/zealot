@@ -34,6 +34,10 @@ class App < ActiveRecord::Base
     end
   end
 
+  def release_versions
+    self.releases.group(:release_version).map(&:release_version)
+  end
+
   def versions
     Rails.cache.fetch("app_#{id}_versions", expires_in: 1.day) do
       versions = []
