@@ -35,22 +35,14 @@ class App < ActiveRecord::Base
   end
 
   def release_versions
-    self.releases.group(:release_version).map(&:release_version)
+    releases.group(:release_version)
+            .map(&:release_version)
   end
 
-  def versions
-    Rails.cache.fetch("app_#{id}_versions", expires_in: 1.day) do
-      versions = []
-      releases
-        .select(['release_version AS name'])
-        .group(:release_version)
-        .order(created_at: :desc)
-        .each do |model|
-          versions.push model.name
-        end
-
-      versions
-    end
+  def build_versions(release_version)
+    releases.where(release_version: release_version)
+            .group(:build_version)
+            .map(&:build_version)
   end
 
   private
