@@ -6,10 +6,13 @@ ENV BUILD_PACKAGES="build-base ruby-dev curl-dev libxml2 libxslt libxslt mysql-c
     RUBY_PACKAGES="yaml nodejs" \
     RUBY_GEMS="bundler" \
     APK_MAIN_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/main" \
-    APK_COMMUNITY_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/community"
+    APK_COMMUNITY_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/community" \
+    TZ="Asia/Shanghai"
 
 RUN echo $APK_MAIN_REPO > /etc/apk/repositories && \
     echo $APK_COMMUNITY_REPO >> /etc/apk/repositories && \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
     gem install -N $RUBY_GEMS
 
