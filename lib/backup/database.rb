@@ -37,7 +37,7 @@ module Backup
         # Workaround warnings from MySQL 5.6 about passwords on cmd line
         ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
         spawn('mysql', *mysql_args, db_config['database'], in: decompress_rd)
-      enzd
+      end
       decompress_rd.close
 
       success = [decompress_pid, restore_pid].all? { |pid| Process.waitpid(pid); $?.success? }
