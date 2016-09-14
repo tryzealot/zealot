@@ -12,8 +12,6 @@ gem 'redis-rails', '~> 4.0.0'
 gem 'slim-rails'
 ## JSON 格式化
 gem 'jbuilder', '~> 2.0'
-## Emoji 支持
-gem 'gemoji', '~> 2.1'
 ## 表单生成
 gem 'simple_form', '~> 3.2.1'
 
@@ -60,6 +58,8 @@ gem 'foreman'
 gem 'sidekiq', '~> 3.5.1'
 # 支持 sidekiq 使用界面
 gem 'sinatra', require: false
+# Mobile config
+gem 'settingslogic'
 
 # Assets
 gem 'jquery-rails'
