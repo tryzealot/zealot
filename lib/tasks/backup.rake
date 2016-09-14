@@ -5,6 +5,11 @@ require 'fileutils'
 # bundle exec rake mobile:backup  RAILS_ENV=production MAX=15 DIR=db/db.bak
 # bundle exec rake mobile:restore RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz
 namespace :mobile do
+
+  task test: :environment do
+    puts Mobile.version
+  end
+
   desc 'Mobile | Create a backup of the Mobile system. Options: DIR=backups RAILS_ENV=production MAX=7'
   task backup: :environment do
 

@@ -7,7 +7,7 @@
 # note that config/gitlab.yml web path should also be changed
 # ENV['RAILS_RELATIVE_URL_ROOT'] = "/gitlab"
 
-application_path = '/var/www/im'
+application_path = '/etc/mobile/tmp'
 
 # The directory to operate out of.
 #
@@ -63,8 +63,8 @@ stdout_redirect "#{application_path}/log/puma.stdout.log", "#{application_path}/
 #
 # The default is “tcp://0.0.0.0:9292”.
 #
-# bind 'tcp://0.0.0.0:9292'
-bind "unix://#{application_path}/tmp/sockets/puma.socket"
+bind 'tcp://0.0.0.0:9292'
+# bind "unix://#{application_path}/tmp/sockets/puma.socket"
 
 # Instead of “bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'” you
 # can also use the “ssl_bind” option.
@@ -106,9 +106,10 @@ bind "unix://#{application_path}/tmp/sockets/puma.socket"
 #
 # This can be called multiple times to add hooks.
 #
-# on_worker_boot do
-#   puts 'On worker boot...'
-# end
+on_worker_boot do
+  # puts 'On worker boot...'
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
 
 # === Puma control rack application ===
 
