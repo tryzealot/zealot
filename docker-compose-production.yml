@@ -4,8 +4,10 @@ volumes:
     driver: local
 services:
   app:
-    build: .
-    image: mobile_app:dev
+    build:
+      context: .
+      dockerfile: Dockerfile-production
+    image: mobile_app:latest
     environment:
       - JOB_WORKER_URL=redis://redis:6379/0
       - REDIS_URL=redis://redis:6379/0
@@ -15,20 +17,28 @@ services:
     volumes:
       - db-data:/var/lib/mysql
       - .:/app
-  web:
-    image: mobile_web:dev
-    command: bundle exec rails s -b '0.0.0.0'
+  lb:
+    image: traefik
+    command: --web --docker --docker.domain=2b6.me --logLevel=DEBUG
     ports:
-      - "3210:3000"
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - ./config/traefik.toml:/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+  web:
+    command: bundle exec puma -C config/puma.rb
     links:
       - db
       - redis
+    labels:
+      - "traefik.backend=web"
+      - "traefik.frontend.rule=Host:mobile.2b6.me"
     extends:
       service: app
     volumes_from:
       - app
   worker:
-    image: mobile_worker:dev
     command: bundle exec sidekiq
     links:
       - db
