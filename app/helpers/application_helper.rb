@@ -1,19 +1,5 @@
 module ApplicationHelper
   ##
-  # 格式化 emoji 表情
-  def emojify(content)
-    h(content).to_str.gsub(/:([\w+-]+):/) do |match|
-      match_string = Regexp.last_match(1)
-      emoji = Emoji.find_by_alias(match_string)
-      if emoji
-        %(<img alt="#match_string" src="#{asset_path("emoji/#{emoji.image_filename}")}" style="vertical-align:middle" width="20" height="20" />)
-      else
-        match
-      end
-    end.html_safe if content.present?
-  end
-
-  ##
   # 激活 li 的 class
   def active_class(link_path = nil)
     if link_path

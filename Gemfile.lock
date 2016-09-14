@@ -150,7 +150,6 @@ GEM
       thor (~> 0.19.1)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    gemoji (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haversine (0.3.1)
@@ -325,6 +324,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    settingslogic (2.0.9)
     sidekiq (3.5.4)
       celluloid (~> 0.17.2)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -414,7 +414,6 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   friendly_id
-  gemoji (~> 2.1)
   haversine
   jbuilder (~> 2.0)
   jenkins_api_client
@@ -443,6 +442,7 @@ DEPENDENCIES
   rubyzip (>= 1.0.0)
   sass-rails
   sdoc (~> 0.4.0)
+  settingslogic
   sidekiq (~> 3.5.1)
   simple_form (~> 3.2.1)
   sinatra
@@ -453,4 +453,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.0
+   1.13.1
