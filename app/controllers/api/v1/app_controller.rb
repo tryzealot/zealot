@@ -154,9 +154,15 @@ module Api
       def download
         @release = Release.find(params[:release_id])
 
-        headers['Content-Length'] = @release.filesize
-        send_file @release.file.path,
-                  filename: @release.download_filename
+        if @release && File.exist?(@release.file.path)
+          headers['Content-Length'] = @release.filesize
+          send_file @release.file.path,
+                    filename: @release.download_filename
+        else
+          render json: {
+            error: 'app binary may be deleted.'
+          }, status: 404
+        end
       end
 
       private
