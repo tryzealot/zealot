@@ -157,7 +157,8 @@ module Api
         if @release && File.exist?(@release.file.path)
           headers['Content-Length'] = @release.filesize
           send_file @release.file.path,
-                    filename: @release.download_filename
+                    filename: @release.download_filename,
+                    disposition: 'attachment'
         else
           render json: {
             error: 'app binary may be deleted.'
