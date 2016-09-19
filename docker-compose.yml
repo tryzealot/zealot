@@ -3,19 +3,8 @@ volumes:
   db-data:
     driver: local
 services:
-  app:
-    build: .
-    image: mobile_app:dev
-    environment:
-      - JOB_WORKER_URL=redis://redis:6379/0
-      - REDIS_URL=redis://redis:6379/0
-      - MYSQL_DATABASE=im_development
-      - MYSQL_ROOT_PASSWORD=password
-      - RAILS_ENV=development
-    volumes:
-      - db-data:/var/lib/mysql
-      - .:/app
   web:
+    build: .
     image: mobile_web:dev
     command: bundle exec rails s -b '0.0.0.0'
     ports:
@@ -23,25 +12,22 @@ services:
     links:
       - db
       - redis
-    extends:
-      service: app
-    volumes_from:
-      - app
+    volumes:
+      - .:/app
   worker:
+    build: .
     image: mobile_worker:dev
     command: bundle exec sidekiq
     links:
       - db
       - redis
-    extends:
-      service: app
-    volumes_from:
-      - app
+    volumes:
+      - .:/app
   db:
     image: mysql:5.5
     ports:
       - "3366:3306"
-    volumes_from:
-      - app
+    volumes:
+      - db-data:/var/lib/mysql
   redis:
     image: redis
