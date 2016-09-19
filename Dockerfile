@@ -22,6 +22,6 @@ ADD Gemfile /app/ \
 
 RUN bundle install --jobs 20 --retry 5
 
-ADD . /app
+COPY . /app/
 
 EXPOSE 3000
