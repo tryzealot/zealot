@@ -36,7 +36,8 @@ div.col-sm-9.app-info
           - else # [:mac, :windows, :linux].include?(browser.platform)
             = link_to "下载到本地", api_app_download_path(@release.id), { class: 'btn btn-success btn-lg', target: '_blank' }
             <span style="margin:0 5px"></span>
-            button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
+            - if @app.jenkins_job
+              button.btn.btn-info.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
 
       p#jekins_buld_alert.alert.alert-success.hidden role="alert" style="margin-top: 10px"
       div.changelog
