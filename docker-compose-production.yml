@@ -7,13 +7,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-production
-    image: mobile_app:latest
+    image: mobile_app:edge
     environment:
       - JOB_WORKER_URL=redis://redis:6379/0
       - REDIS_URL=redis://redis:6379/0
-      - MYSQL_DATABASE=im_development
+      - MYSQL_DATABASE=im_staging
       - MYSQL_ROOT_PASSWORD=password
-      - RAILS_ENV=development
+      - RAILS_ENV=staging
     volumes:
       - db-data:/var/lib/mysql
       - .:/app
@@ -27,6 +27,7 @@ services:
       - ./config/traefik.toml:/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
   web:
+    image: mobile_web:edge
     command: bundle exec puma -C config/puma.rb
     links:
       - db
@@ -39,6 +40,7 @@ services:
     volumes_from:
       - app
   worker:
+    image: mobile_worker:edge
     command: bundle exec sidekiq
     links:
       - db
