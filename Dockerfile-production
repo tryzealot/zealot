@@ -20,8 +20,11 @@ WORKDIR /app
 ADD Gemfile /app/ \
     Gemfile.lock /app/
 
-RUN bundle install --jobs 20 --retry 5
+RUN bundle install --jobs 20 --retry 5 --without development test && \
+    mkdir -p /var/lib/app/pids
 
 ADD . /app
 
-EXPOSE 3000
+RUN bundle exec rake assets:precompile
+
+EXPOSE 80
