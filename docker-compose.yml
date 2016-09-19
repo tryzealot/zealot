@@ -7,6 +7,8 @@ services:
     build: .
     image: mobile_web:dev
     command: bundle exec rails s -b '0.0.0.0'
+    env_file:
+      - .env
     ports:
       - "3210:3000"
     links:
@@ -18,6 +20,8 @@ services:
     build: .
     image: mobile_worker:dev
     command: bundle exec sidekiq
+    env_file:
+      - .env
     links:
       - db
       - redis
@@ -25,6 +29,8 @@ services:
       - .:/app
   db:
     image: mysql:5.5
+    env_file:
+      - .env
     ports:
       - "3366:3306"
     volumes:
