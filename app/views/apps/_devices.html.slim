@@ -6,7 +6,7 @@ ruby:
     nil
   end
 
-- if custom_data.key?('devices')
+- if custom_data.key?('devices') && custom_data['devices'].is_a?(Array)
   h3 测试设备
   .box
     table.table
