@@ -32,7 +32,7 @@ services:
     env_file:
       - .env
     ports:
-      - "3366:3306"
+      - "13366:3306"
     volumes:
       - db-data:/var/lib/mysql
   redis:
