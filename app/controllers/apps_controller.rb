@@ -95,14 +95,6 @@ class AppsController < ApplicationController
   end
 
   ##
-  # 指定 version 的应用详情
-  # GET /apps/:slug/:version
-  def release
-    @release = Release.find_by(app: @app, version: params[:version])
-    render 'apps/show'
-  end
-
-  ##
   # 上传新版本页面
   def upload
   end
@@ -164,17 +156,22 @@ class AppsController < ApplicationController
   end
 
   def app_info
-    @release = @app.releases.last
+    @release = if params[:version]
+      @app.releases.find_by(app: @app, version: params[:version])
+    else
+      @app.releases.last
+    end
+
     client = JenkinsApi::Client.new(
       server_ip: '172.1.1.227',
       server_port: '8888'
     )
 
-    unless @app.jenkins_job.to_s.empty?
-      @job = client.job.list_details(@app.jenkins_job)
-      current_status = client.job.get_current_build_status(@app.jenkins_job)
-      @job['status'] = current_status
-    end
+    # unless @app.jenkins_job.to_s.empty?
+    #   @job = client.job.list_details(@app.jenkins_job)
+    #   current_status = client.job.get_current_build_status(@app.jenkins_job)
+    #   @job['status'] = current_status
+    # end
   end
 
   def check_user_logged_in

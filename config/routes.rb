@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'app_releases/index'
+
   resources :pacs
 
   get 'qyer/test', to: 'visitors#test'
@@ -25,14 +27,14 @@ Rails.application.routes.draw do
   get 'apps/build/:id', to: 'apps#build', as: 'build_app'
   patch 'apps/:id', to: 'apps#update', as: 'update_app_id', id: /\d+/
   patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
-  get 'apps/:slug', to: 'apps#show', as: 'app', slug: /\w+/
+  get 'apps/:slug/(:version)', to: 'apps#show', as: 'app', slug: /\w+/, version: /\d+/
   get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/(:version)/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/, version: /\d+/
-  get 'apps/:slug/versions/(:version)', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
+
+  get 'apps/:slug/releases/(:version)/builds', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
   get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
-  get 'apps/:slug/:version', to: 'apps#release', as: 'app_release', slug: /\w+/, version: /\d+/
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
