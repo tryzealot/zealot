@@ -1,9 +1,14 @@
 div.col-sm-9.app-info
-  h1
+  div.app-header
+    - if @release && @release.icon && params['preview'] == '1'
+      = image_tag(@release.icon_url(:medium), { class: 'app-icon' })
     span.app-name
       = @app.name
     span.app-type.label.label-primary.label-ms
       = @app.device_type
+    - if @release && @release.release_type
+      span.app-type.label.label-danger.label-ms
+        = @release.release_type
     - if @release && @release.branch
       span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
         = @release.branch

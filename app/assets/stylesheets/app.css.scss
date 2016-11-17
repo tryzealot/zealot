@@ -101,9 +101,19 @@ div.app-container p.qr_code img {
   font-size: 0.8em;
   font-weight: 200;
   display: block;
-  margin-top: 1.4rem;
+  margin-top: 1.4em;
 }
 
+.app-info .app-header img.app-icon {
+  width: 40px;
+  height: 40px;
+  vertical-align: bottom;
+  padding-right: 0.2em;
+}
+
+.app-info .app-header .app-name {
+  font-size: 2.2em;
+}
 
 .container .app-auth {
   float: none;
