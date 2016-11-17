@@ -73,38 +73,6 @@ div.col-sm-3 style="margin-top: 20px"
     div.qr_code 
       = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
 
-  - if @job
-    div.sidebar-module.sidebar-module-inset
-      h3 Jenkins 
-      ul
-        li 
-          | 地址：
-          a href="#{@job['url']}" #{@job['name']}
-        - if @job['status'] == 'running'
-          li 
-            a href="#{@job['lastBuild']['url']}/console"
-              | 正在构建 #{@job['lastBuild']['number']} 
-        - else
-          li
-            | 最新构建: 
-            a href="#{@job['lastBuild']['url']}" #{@job['lastBuild']['number']}
-          li
-            | 当前构建状态: #{@job['status']}
-
-  / div.sidebar-module.sidebar-module-inset
-  /   - if @app.branches.size > 0
-  /     h3 应用分支
-  /     table.table.table-striped.table-bordered
-  /       tr
-  /         th.col-md-1 分支名
-  /         th.col-md-2 上传数量
-  /       - @app.branches.each do |branch|
-  /         tr
-  /           td
-  /             = link_to branch.name, app_branches_path(branch.app.slug, branch.name)
-  /           td
-  /             = branch.count
-  
   div.sidebar-module.sidebar-module-inset
     - if @app.release_versions
       h3 历史版本
@@ -112,3 +80,21 @@ div.col-sm-3 style="margin-top: 20px"
         - @app.release_versions.each do |name|
           li
             = link_to name, app_versions_path(@app.slug, name)
+
+  / - if @job
+  /   div.sidebar-module.sidebar-module-inset
+  /     h3 Jenkins 
+  /     ul
+  /       li 
+  /         | 地址：
+  /         a href="#{@job['url']}" #{@job['name']}
+  /       - if @job['status'] == 'running'
+  /         li 
+  /           a href="#{@job['lastBuild']['url']}/console"
+  /             | 正在构建 #{@job['lastBuild']['number']} 
+  /       - else
+  /         li
+  /           | 最新构建: 
+  /           a href="#{@job['lastBuild']['url']}" #{@job['lastBuild']['number']}
+  /         li
+  /           | 当前构建状态: #{@job['status']}

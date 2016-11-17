@@ -10,12 +10,17 @@ class AppsController < ApplicationController
     @apps = current_user.apps
   end
 
+  ##
+  # 新应用页面
   # GET /apps/new
   def new
     @title = "新建应用"
     @app = App.new
   end
 
+  ##
+  # 创建新应用
+  # POST /apps/create
   def create
     @app = App.new(app_params)
 
@@ -30,11 +35,17 @@ class AppsController < ApplicationController
     end
   end
 
+  ##
+  # 编辑应用页面
+  # GET /apps/:slug/edit
   def edit
     @title = '编辑应用'
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
   end
 
+  ##
+  # 更新应用
+  # PUT /apps/:slug/update
   def update
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
     @app.update(app_params)
@@ -42,10 +53,13 @@ class AppsController < ApplicationController
     redirect_to apps_path
   end
 
+  ##
+  # 清除应用及所属所有发型版本和上传的二进制文件
+  # DELETE /apps/:slug/destroy
   def destroy
     @app.destroy
     @app.releases.destroy_all
-    
+
     require 'fileutils'
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
     logger.debug "Delete app all binary and icons in #{app_binary_path}"
@@ -54,6 +68,9 @@ class AppsController < ApplicationController
     redirect_to apps_path
   end
 
+  ##
+  # 查看应用详情
+  # GET /apps/:slug
   def show
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
 
@@ -64,6 +81,9 @@ class AppsController < ApplicationController
     end
   end
 
+  ##
+  # 应用密码认证
+  # GET /apps/auth
   def auth
     if @app.password == params[:password]
       cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.now + 1.week }
@@ -74,30 +94,41 @@ class AppsController < ApplicationController
     end
   end
 
+  ##
+  # 指定 version 的应用详情
+  # GET /apps/:slug/:version
   def release
     @release = Release.find_by(app: @app, version: params[:version])
     render 'apps/show'
   end
 
+  ##
+  # 上传新版本页面
   def upload
   end
 
+  ##
+  # 创建新的构建
   def build
   end
 
-  def branches
-    @branches = @app.branches
-    @releases = @app.releases.where(branch: params[:branch]).order(created_at: :desc) if params[:branch]
-  end
-
+  ##
+  # 查看指定 release_version 下面所有 build_version 的版本列表
+  # GET /apps/:slug/:release
   def versions
     @releases = @app.releases.where(release_version: params[:version])
   end
 
+  ##
+  # 查看应用网络钩子列表
+  # GET /apps/:slug/webhooks
   def web_hooks
     @web_hook = WebHook.new
   end
 
+  ##
+  # 显示应用的二维码
+  # GET /apps/:slug/(:version)/qrcode
   def qrcode
     url =
       if params[:version]
