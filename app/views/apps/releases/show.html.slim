@@ -1,0 +1,51 @@
+- content_for :title do
+  = @title
+
+- content_for :page_title do
+  = "#{@app.name} - #{params[:version]} - #{@app.device_type}"
+  
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          | 开发版本列表
+        .box-tools
+          a href="#{app_releases_path(@app.slug)}"
+            i.fa.fa-list-alt
+            | 返回主版本列表
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-hover
+          tr
+            th ID
+            th 图标
+            th 开发版本
+            th 打包类型
+            th 分支
+            th Git 提交信息
+            th 包信息
+            th 上传时间
+          - if @app_releases && @app_releases.size > 0
+            - @app_releases.each_with_index do |release, index|
+              tr
+                td
+                  = index + 1
+                td
+                  - if release.icon
+                    = image_tag(release.icon_url(:thumb))
+                td
+                  = link_to release.build_version, app_path(@app.slug, release.version)
+                td
+                  = release.release_type
+                td
+                  = release.branch
+                td 
+                  = release.last_commit
+                td
+                  = link_to '下载本地', api_app_download_path(release.id), { target: '_blank' }
+                td
+                  = release.created_at
+          - else
+            tr
+              th colspan="5" 该版本没有任何上传记录！
