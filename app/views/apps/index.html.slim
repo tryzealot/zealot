@@ -26,7 +26,7 @@
             - @apps.each_with_index do |app, i|
               ruby:
                 latest_release = app.releases.last
-              tr
+              tr id="app-#{app.id}"
                 td
                   = i + 1
                 td

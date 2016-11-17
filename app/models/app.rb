@@ -2,8 +2,8 @@ class App < ActiveRecord::Base
   include FriendlyId
   friendly_id :slug
 
-  has_many :releases
-  has_many :web_hooks
+  has_many :releases, dependent: :destroy
+  has_many :web_hooks, dependent: :destroy
   belongs_to :user
 
   validates :name, :identifier, :device_type, presence: true
