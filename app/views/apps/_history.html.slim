@@ -10,7 +10,7 @@ h3 历史上传
       - @app.releases.order('version DESC').limit(10).each do |release|
         tr
           td[id="release-#{release.id}"]
-            = link_to release.version, app_release_path(@app.slug, release.version)
+            = link_to release.version, app_path(@app.slug, release.version)
           td
             = release.release_version
           td
