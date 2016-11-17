@@ -44,6 +44,13 @@ class AppsController < ApplicationController
 
   def destroy
     @app.destroy
+    @app.releases.destroy_all
+    
+    require 'fileutils'
+    app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
+    logger.debug "Delete app all binary and icons in #{app_binary_path}"
+    FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
+
     redirect_to apps_path
   end
 
