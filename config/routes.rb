@@ -1,25 +1,27 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'app_releases/index'
+  scope module: :apps, path: 'apps/:slug' do
+    get 'releases', to: 'releases#index', as: 'app_releases'
+    get 'releases/edit', as: 'edit_app_releases'
+
+    get 'releases/:version', to: 'releases#show', as: 'app_releases_builds', version:  /\d+(.\d+){0,2}/
+  end
 
   resources :pacs
-
-  get 'qyer/test', to: 'visitors#test'
 
   # jspatch
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
 
-  namespace :releases do
-    get 'index', to: 'releases#index', as: 'releases'
-    post 'upload', to: 'releases#upload', as: 'upload_releases'
-    get 'changelog', to: 'releases#changelog', as: 'update_changelog'
-    get ':id', to: 'releases#show', as: 'release', id: /\d+/
-    patch ':id', to: 'releases#update', id: /\d+/
-    get ':id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
-  end
+  # release
+  post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
+  get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
+  get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
+  patch 'releases/:id', to: 'releases#update', id: /\d+/
+  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
+  # app
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/new', to: 'apps#new', as: 'new_app'
   post 'apps', to: 'apps#create'
@@ -33,8 +35,8 @@ Rails.application.routes.draw do
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/(:version)/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/, version: /\d+/
 
-  get 'apps/:slug/releases/(:version)/builds', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
-  get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
+  # get 'apps/:slug/releases/(:version)/builds', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
+  # get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/

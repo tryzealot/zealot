@@ -1,9 +1,6 @@
 - content_for :title do
   | 我的应用
   
-- if detect_device(@app.device_type) == 'iOS'
-  == render 'apps/install_cert'
-  
 .row
   .col-xs-12
     .box
