@@ -1,30 +1,33 @@
 - content_for :title do
   | 我的应用
-
-div.container
+  
+- if detect_device(@app.device_type) == 'iOS'
   == render 'apps/install_cert'
-
-  div.row
-    h3
-      - if @releases
-        = @app.name
-        span.label.label-danger
-          = params[:version] 
-        | 版本列表
-      - else
-        | 版本列表： 
-        = @app.name
-    
-    - if @releases
-      table.table.table-striped.table-bordered
-        thead
+  
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title 
+          - if @releases
+            = @app.name
+            = params[:version] 
+            | 版本列表
+          - else
+            | 版本列表： 
+            = @app.name
+        .box-tools
+          a href="#{app_path(@app.slug)}"
+            i.fa.fa-list-alt
+            | 最新版本
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-hover
           tr
             th ID
             th 开发版本
             th 分支
             th 上传时间
-        tbody
-          - if @releases.size > 0
+          - if @releases && @releases.size > 0
             - @releases.each_with_index do |release, index|
               tr
                 td
@@ -38,24 +41,3 @@ div.container
           - else
             tr
               th colspan="5" 该版本没有任何上传记录，请使用接口进行上传！
-    - else
-      / - if @releases.size > 0
-      /   table.table.table-striped.table-borderd
-      /     thead
-      /       tr
-      /         th ID
-      /         th 主版本号
-      /         th 开发版本号
-      /         th 文件大小
-      /         th 最后提交 
-      /         th 上传时间
-      /     tbody
-      /       - @versions.each_with_index do |version, index|
-      /         tr
-      /           td
-      /             = index + 1
-      /           td
-      /             = version.name
-      / - else
-      /   span 
-      /     | 你还没有创建任何应用，请使用接口进行上传！
