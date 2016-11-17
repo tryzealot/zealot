@@ -1,6 +1,6 @@
 div.col-sm-9.app-info
   div.app-header
-    - if @release && @release.icon && params['preview'] == '1'
+    - if @release && @release.icon
       = image_tag(@release.icon_url(:medium), { class: 'app-icon' })
     span.app-name
       = @app.name
