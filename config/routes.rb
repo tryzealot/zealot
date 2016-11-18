@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :releases do
       get '', action: :index
       # 查看应用指定主版本号下面的开发版本列表
-      get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,2}/
+      get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
     end
 
     resources :changelogs, only: [ :edit, :update ]
