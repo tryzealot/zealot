@@ -33,11 +33,11 @@ gem 'rest-client'
 gem 'devise'
 gem 'devise-i18n'
 # 权限认证
-gem 'pundit'
+# gem 'pundit'
 # Crontab
 gem 'whenever', require: false
 # GEO 坐标计算
-gem 'haversine'
+# gem 'haversine'
 # JS 跨域
 gem 'rack-cors', require: 'rack/cors'
 # Jenkins SDK
@@ -48,8 +48,6 @@ gem 'browser', '~> 2.0.3'
 gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
-# Zip 解压缩
-gem 'rubyzip', '>= 1.0.0'
 # SSH
 gem 'net-ssh', '~> 3.1.1'
 # 进程管理

@@ -154,7 +154,6 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    haversine (0.3.2)
     highline (1.7.8)
     hitimes (1.2.4)
     http-cookie (1.0.3)
@@ -235,8 +234,6 @@ GEM
       pry
     public_suffix (2.0.4)
     puma (2.14.0)
-    pundit (1.1.0)
-      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     qyer-mobile-app (0.8.4)
@@ -418,7 +415,6 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   friendly_id
-  haversine
   jbuilder (~> 2.0)
   jenkins_api_client
   jquery-rails
@@ -434,7 +430,6 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   puma (~> 2.14.0)
-  pundit
   quiet_assets
   qyer-mobile-app
   rack-cors
@@ -443,7 +438,6 @@ DEPENDENCIES
   rest-client
   rqrcode
   rubocop (~> 0.39.0)
-  rubyzip (>= 1.0.0)
   sass-rails
   sdoc (~> 0.4.0)
   settingslogic
