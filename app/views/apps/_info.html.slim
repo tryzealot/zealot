@@ -71,7 +71,7 @@ div.col-sm-3 style="margin-top: 20px"
   div.sidebar-module.sidebar-module-inset
     h3 二维码
     div.qr_code 
-      = qr_code(params.has_key?(:id) ? app_release_url(@app.slug, params[:id]) : app_url(@app.slug))
+      = image_tag(apps_qrcode_path(@app.slug, params[:id], size: :large))
 
   div.sidebar-module.sidebar-module-inset
     - if @app.release_versions
