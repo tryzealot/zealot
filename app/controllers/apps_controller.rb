@@ -104,20 +104,6 @@ class AppsController < ApplicationController
   def build
   end
 
-  ##
-  # 查看指定 release_version 下面所有 build_version 的版本列表
-  # GET /apps/:slug/:release
-  def versions
-    @releases = @app.releases.where(release_version: params[:version])
-  end
-
-  ##
-  # 查看应用网络钩子列表
-  # GET /apps/:slug/webhooks
-  def web_hooks
-    @web_hook = WebHook.new
-  end
-
   protected
 
   def set_app
