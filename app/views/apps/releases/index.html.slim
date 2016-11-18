@@ -28,7 +28,7 @@
             - @app.release_versions.each_with_index do |release_version, index|
               tr
                 td
-                  = link_to release_version, app_releases_builds_path(@app.slug, URI.encode(release_version))
+                  = link_to release_version, apps_releases_builds_path(@app.slug, URI.encode(release_version))
                 td
                   = @app.releases.where(release_version: release_version).count
           - else

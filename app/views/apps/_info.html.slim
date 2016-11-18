@@ -50,7 +50,7 @@ div.col-sm-9.app-info
           | 更新日志
           - if user_signed_in?
             | (
-            = link_to '编辑', edit_release_path(@release.id)
+            = link_to '编辑', edit_apps_changelog_path(@app.slug, @release.version)
             | )
         p
           - if @release.changelog.empty?
@@ -79,7 +79,7 @@ div.col-sm-3 style="margin-top: 20px"
       ul
         - @app.release_versions.each do |release_version|
           li
-            = link_to release_version, app_releases_builds_path(@app.slug, release_version)
+            = link_to release_version, apps_releases_builds_path(@app.slug, release_version)
 
   / - if @job
   /   div.sidebar-module.sidebar-module-inset

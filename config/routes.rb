@@ -1,10 +1,14 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  scope module: :apps, path: 'apps/:slug' do
-    get 'releases', to: 'releases#index', as: 'app_releases'
-    get 'releases/edit', as: 'edit_app_releases'
-    get 'releases/:version', to: 'releases#show', as: 'app_releases_builds', version:  /\d+(.\d+){0,2}/
+  namespace :apps, path: 'apps/:slug', slug: /\w+/ do
+    namespace :releases do
+      get '', action: :index
+      # 查看应用指定主版本号下面的开发版本列表
+      get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,2}/
+    end
+
+    resources :changelogs, only: [ :edit, :update ]
   end
 
   # jspatch
@@ -14,11 +18,11 @@ Rails.application.routes.draw do
   resources :pacs
 
   # release
-  post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
-  get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
-  get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
-  patch 'releases/:id', to: 'releases#update', id: /\d+/
-  get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
+  # post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
+  # get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
+  # get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
+  # patch 'releases/:id', to: 'releases#update', id: /\d+/
+  # get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
   # app
   get 'apps', to: 'apps#index', as: 'apps'
