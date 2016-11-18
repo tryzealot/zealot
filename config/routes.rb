@@ -2,19 +2,16 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  #
-  # namespace :apps do
-  #
-  # end
-
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
+    get '(:version)/qrcode', to: 'qrcode#index', as: 'qrcode', version: /\d+/
+
     namespace :releases do
       get '', action: :index
       # 查看应用指定主版本号下面的开发版本列表
       get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
     end
 
-    resources :changelogs, path_names: { id: 'version' }, only: [ :edit, :update ]
+    resources :changelogs, only: [ :edit, :update ]
   end
 
   # jspatch
@@ -37,7 +34,6 @@ Rails.application.routes.draw do
   patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
-  get 'apps/:slug/(:version)/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/, version: /\d+/
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
