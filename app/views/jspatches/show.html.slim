@@ -8,7 +8,7 @@
     .box
       .box-header.box-border
         h3.box-title
-          = link_to jspatch_url(@jspatch, format: :js)
+          = link_to jspatch_url(@jspatch, format: :js), jspatch_url(@jspatch, format: :js), { target: '_blank' }
         .box-tools
           a href="#{edit_jspatch_path(@jspatch)}"
             i.fa.fa-list-alt
