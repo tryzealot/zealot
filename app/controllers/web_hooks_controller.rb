@@ -1,18 +1,11 @@
 class WebHooksController < ApplicationController
-  before_action :set_app, only: [:index, :create, :test, :destroy]
+  before_action :set_app #, only: [:index, :create, :test, :destroy]
 
   # GET /apps/:slug/web_hooks
   # GET /web_hooks.json
   def index
     @web_hooks = @app.web_hooks
     @web_hook = WebHook.new
-  end
-
-  # POST /web_hooks/1/test
-  def test
-    web_hook = WebHook.find(params[:hook_id])
-    AppWebHookJob.perform_later 'upload_events', web_hook
-    render json: web_hook
   end
 
   # POST /web_hooks
@@ -40,6 +33,13 @@ class WebHooksController < ApplicationController
       format.html { redirect_to web_hooks_url, notice: '网络钩子已经成功删除' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /web_hooks/1/test
+  def test
+    web_hook = WebHook.find(params[:hook_id])
+    AppWebHookJob.perform_later 'upload_events', web_hook
+    render json: web_hook
   end
 
   private
