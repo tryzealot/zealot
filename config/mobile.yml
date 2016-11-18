@@ -1,12 +1,16 @@
-production: &base
-  version: 2.5.0
+default: &base
+  version: 2.6.0
   uploads:
     path: ''
   backup:
     path: ''
+  im_api_key: 2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx
 
 development:
   <<: *base
 
 test:
+  <<: *base
+
+production:
   <<: *base
