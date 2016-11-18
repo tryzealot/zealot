@@ -5,20 +5,6 @@
 
 # job_type :rake, "cd :path && RAILS_ENV=development bundle exec rake :task --silent :output"
 
-# every 1.day do
-#   rake 'sync:group', output: {
-#     error: 'log/cron_sync_group_error.log',
-#     standard: 'log/cron_sync_group.log'
-#   }
-# end
-#
-# every 30.minutes do
-#   rake 'sync:messages', output: {
-#     error: 'log/cron_sync_message_error.log',
-#     standard: 'log/cron_sync_message.log'
-#   }
-# end
-
 every 1.day, at: '4:30 am' do
   rake 'apps:remove_old', output: {
     error: 'log/cron_apps_remove_old_error.log',

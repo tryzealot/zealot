@@ -1,9 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  namespace :apps do
 
-  end
+  #
+  # namespace :apps do
+  #
+  # end
 
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     namespace :releases do
@@ -44,7 +46,11 @@ Rails.application.routes.draw do
 
   # user
   devise_for :users
-  get 'users/groups', to: 'users#groups', as: 'user_groups'
+  namespace :users do
+    namespace :search do
+      get '', action: :index
+    end
+  end
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
