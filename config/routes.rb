@@ -4,15 +4,14 @@ Rails.application.routes.draw do
   scope module: :apps, path: 'apps/:slug' do
     get 'releases', to: 'releases#index', as: 'app_releases'
     get 'releases/edit', as: 'edit_app_releases'
-
     get 'releases/:version', to: 'releases#show', as: 'app_releases_builds', version:  /\d+(.\d+){0,2}/
   end
-
-  resources :pacs
 
   # jspatch
   get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
   resources :jspatches
+
+  resources :pacs
 
   # release
   post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
@@ -25,18 +24,17 @@ Rails.application.routes.draw do
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/new', to: 'apps#new', as: 'new_app'
   post 'apps', to: 'apps#create'
+
+  # 为 web 上传提供的路由，功能还没做
   get 'apps/upload', to: 'apps#upload', as: 'upload_app'
   get 'apps/build/:id', to: 'apps#build', as: 'build_app'
-  patch 'apps/:id', to: 'apps#update', as: 'update_app_id', id: /\d+/
-  patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
-  get 'apps/:slug/(:version)', to: 'apps#show', as: 'app', slug: /\w+/, version: /\d+/
+
   get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
+  get 'apps/:slug/(:version)', to: 'apps#show', as: 'app', slug: /\w+/, version: /\d+/
+  patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
   get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
   get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
   get 'apps/:slug/(:version)/qrcode', to: 'apps#qrcode', as: 'app_qrcode', slug: /\w+/, version: /\d+/
-
-  # get 'apps/:slug/releases/(:version)/builds', to: 'apps#versions', as: 'app_versions', slug: /\w+/, version: %r{[-.\/|\w]+}
-  # get 'apps/:slug/releases/(:version)', to: 'releases#index', as: 'releases_version', version: /\d+/
 
   get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
   post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
@@ -46,20 +44,10 @@ Rails.application.routes.draw do
   # user
   devise_for :users
   get 'users/groups', to: 'users#groups', as: 'user_groups'
-  get 'users/:id/kickoff', to: 'users#kickoff', as: 'user_kickoff_group'
-  get 'users/:id/messages', to: 'users#messages', as: 'user_messages'
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
   end
-
-  # group
-  get 'groups', to: 'groups#index', as: 'groups'
-  get 'groups/:id', to: 'groups#show', as: 'group', id: /\d+/
-  get 'groups/messages', to: 'groups#messages', as: 'group_messages', id: /\d+/
-  get 'groups/sync/:id', to: 'groups#sync', as: 'group_sync_messages'
-  delete 'groups/messages/:id', to: 'messages#destroy', as: 'destroy_message'
-  get 'groups/messages/:id/image', to: 'messages#image', as: 'messages_image'
 
   # api
   namespace :api do
@@ -84,8 +72,6 @@ Rails.application.routes.draw do
       get 'patch/app/:key', to: 'patch#index'
     end
   end
-
-  get 'qyer/homefeed/index_list', to: 'visitors#feed', as: 'recommends_feed'
 
   get 'errors/not_found'
   get 'errors/server_error'
