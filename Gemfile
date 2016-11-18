@@ -1,6 +1,6 @@
 source 'https://gems.ruby-china.org'
 
-gem 'rails', '~> 4.2.4'
+gem 'rails', '~> 4.2.7'
 gem 'puma', '~> 2.14.0'
 
 # DB & Cache
