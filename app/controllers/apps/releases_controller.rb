@@ -1,4 +1,4 @@
-class Apps::ReleasesController < ApplicationController
+class Apps::ReleasesController < AppsController
   before_action :set_app
 
   def index
@@ -7,19 +7,5 @@ class Apps::ReleasesController < ApplicationController
 
   def show
     @app_releases = @app.releases.where(release_version: params[:version])
-  end
-
-  def edit
-  end
-
-  private
-
-  def set_app
-    @app =
-      if params[:slug]
-        App.friendly.find(params[:slug])
-      else
-        App.find(params[:id])
-      end
   end
 end

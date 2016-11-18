@@ -10,6 +10,19 @@ class AppsController < ApplicationController
   end
 
   ##
+  # 查看应用详情
+  # GET /apps/:slug
+  def show
+    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
+
+    if wechat? || !@app.password.blank? || user_signed_in?
+      app_info
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
+  ##
   # 新应用页面
   # GET /apps/new
   def new
@@ -68,19 +81,6 @@ class AppsController < ApplicationController
   end
 
   ##
-  # 查看应用详情
-  # GET /apps/:slug
-  def show
-    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
-
-    if wechat? || !@app.password.blank? || user_signed_in?
-      app_info
-    else
-      redirect_to new_user_session_path
-    end
-  end
-
-  ##
   # 应用密码认证
   # GET /apps/auth
   def auth
@@ -117,33 +117,7 @@ class AppsController < ApplicationController
     @web_hook = WebHook.new
   end
 
-  ##
-  # 显示应用的二维码
-  # GET /apps/:slug/(:version)/qrcode
-  def qrcode
-    url =
-      if params[:version]
-        @release = @app.releases.last
-        url_for(
-          host: Rails.application.secrets.domain_name,
-          controller: 'apps',
-          action: 'release',
-          slug: @app.slug,
-          version: @release.version
-        )
-      else
-        url_for(
-          host: Rails.application.secrets.domain_name,
-          controller: 'apps',
-          action: 'show',
-          slug: @app.slug
-        )
-      end
-
-    render qrcode: url, module_px_size: 3, fill: '#F4F5F6', color: '#465960'
-  end
-
-  private
+  protected
 
   def set_app
     @app =
@@ -160,17 +134,6 @@ class AppsController < ApplicationController
     else
       @app.releases.last
     end
-
-    # client = JenkinsApi::Client.new(
-    #   server_ip: '172.1.1.227',
-    #   server_port: '8888'
-    # )
-    #
-    # unless @app.jenkins_job.to_s.empty?
-    #   @job = client.job.list_details(@app.jenkins_job)
-    #   current_status = client.job.get_current_build_status(@app.jenkins_job)
-    #   @job['status'] = current_status
-    # end
   end
 
   def check_user_logged_in
