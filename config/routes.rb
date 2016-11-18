@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :apps do
+
+  end
+
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     namespace :releases do
       get '', action: :index
@@ -8,7 +12,7 @@ Rails.application.routes.draw do
       get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
     end
 
-    resources :changelogs, only: [ :edit, :update ]
+    resources :changelogs, path_names: { id: 'version' }, only: [ :edit, :update ]
   end
 
   # jspatch
@@ -16,13 +20,6 @@ Rails.application.routes.draw do
   resources :jspatches
 
   resources :pacs
-
-  # release
-  # post 'releases/upload', to: 'releases#upload', as: 'upload_releases'
-  # get 'releases/changelog', to: 'releases#changelog', as: 'update_changelog'
-  # get 'releases/:id', to: 'releases#show', as: 'release', id: /\d+/
-  # patch 'releases/:id', to: 'releases#update', id: /\d+/
-  # get 'releases/:id/edit', to: 'releases#edit', as: 'edit_release', id: /\d+/
 
   # app
   get 'apps', to: 'apps#index', as: 'apps'
