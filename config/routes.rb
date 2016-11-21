@@ -1,6 +1,5 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#index', as: 'qrcode', version: /\d+/
@@ -49,6 +48,7 @@ Rails.application.routes.draw do
   end
 
   authenticate :user do
+    require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
   end
 
