@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show, :auth, :qrcode]
+  before_filter :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
 
   ##
