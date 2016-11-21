@@ -1,12 +1,16 @@
 source 'https://gems.ruby-china.org'
 
 gem 'rails', '~> 5.0.0'
-gem 'puma', '~> 2.14.0' # 3.6.0'
+gem 'puma', '~> 3.6.0'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.0'
 gem 'redis-rails', '~> 5.0.1'
 gem 'redis-namespace'
+
+# API
+gem 'rack-cors'
+gem 'active_model_serializers'
 
 # View
 ## 模板引擎
@@ -39,8 +43,7 @@ gem 'devise', '~> 4.2.0'
 gem 'whenever', require: false
 # # GEO 坐标计算
 # gem 'haversine'
-# JS 跨域
-gem 'rack-cors', require: 'rack/cors'
+
 # Jenkins SDK
 gem 'jenkins_api_client'
 # User-Agent 封装
@@ -81,16 +84,17 @@ group :doc do
 end
 
 group :development do
+  # 调试控制台
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+
+  # 加速开发环境
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
   # rails 更友好错误输出
   gem 'better_errors'
   gem 'binding_of_caller'
-
-  # 断点调试器
-  gem 'byebug'
-  # 调试控制台
-  gem 'web-console'
-  # 关闭静态文件日志输出
-  # gem 'quiet_assets'
 
   gem 'capistrano'
   ## 改善 capistrano 输出格式化
@@ -108,6 +112,9 @@ group :development do
 end
 
 group :development, :test do
+  # 断点调试器
+  gem 'byebug'
+
   gem 'rubocop', '~> 0.45.0', require: false
   # gem 'rspec-rails', '3.5.0.beta1'
   gem 'factory_girl_rails', '~> 4.7.0'
