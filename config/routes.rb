@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
   # api
   namespace :api do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+    scope module: :v1 do
       get 'jenkins/projects', to: 'jenkins#projects'
       get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
       get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
@@ -73,6 +73,10 @@ Rails.application.routes.draw do
       get 'user/(:id).json', to: 'user#show'
 
       get 'patch/app/:key', to: 'patch#index'
+    end
+
+    namespace :v2 do
+      get 'apps', to: 'apps#index'
     end
   end
 
