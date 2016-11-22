@@ -30,7 +30,7 @@ build = ->
   app_job = button.data('job')
   url = HOST + "api/jenkins/" + app_job + "/build"
   console.log 'build url: ', url
-  
+
   $.ajax
     url: url,
     type: 'get'
@@ -39,10 +39,15 @@ build = ->
       $(button).html('构建新版本中...').prop('disabled', 'true')
     success: (data) ->
       console.log data
-      if data.status == '201'
-        console.log 'ddddd'
-        url = data.project.lastBuild.url + 'console'
-        $('#jekins_buld_alert').removeClass('hidden').html('请求成功！访问这里查看详情：<a href="' + url + '">' + url + '</a>')
+      if data.code == 201 || data.code == 200
+        url = data.url + 'console'
+        message = '请求成功！访问这里查看详情：<a href="' + url + '">' + url + '</a>'
+      else
+        message = '错误：' + data.message
+
+      sleep 5000 if data.code == 201
+
+      $('#jekins_buld_alert').removeClass('hidden').html(message)
 
     error: (xhr, ajaxOptions, thrownError) ->
       $(button).html('接口错误，再来一次！')
@@ -59,6 +64,9 @@ hideCover = ->
   $('.wechat-tips').addClass('hide')
   $('.navbar-fixed-top').css('z-index', 1030)
 
+sleep = (ms) ->
+  start = new Date().getTime()
+  continue while new Date().getTime() - start < ms
 
 # bind function
 window.download = download
