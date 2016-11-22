@@ -19,45 +19,60 @@ class Api::V1::JenkinsController < Api::ApplicationController
   end
 
   def build
-    status = @client.job.build(params[:project])
-
-    render json: {
-      status: status,
-      project: @client.job.list_details(params[:project])
-    }
-  end
-
-  def abort
-    status = @client.job.stop_build(params[:project], params[:id])
-
-    render json: {
-      status: status
-    }
-  end
-
-  def status
-    build_number = params[:id].to_s
-    build_status =
-      if build_number.empty?
-        build_number = @client.job.get_current_build_number(params[:project])
-        @client.job.get_current_build_status(params[:project])
-      else
-        build_detail = @client.job.get_build_details(params[:project], build_number)
-        if build_detail['result'].to_s.empty?
-          'running'
-        else
-          build_detail['result'].downcase
-        end
+    status = project_status
+    if status[:status] != 'running'
+      if @client.job.build(params[:project]).to_i != 201
+        return render json: {
+          code: 500,
+          message: '构建请求失败，请重新尝试'
+        }
       end
 
+      project = @client.job.list_details(params[:project])
+      number = project['nextBuildNumber']
+      url = "#{project['url']}#{number}/"
+      code = 201
+    else
+      url = status[:project]['url']
+      number = status[:number]
+      code = 200
+    end
+
     render json: {
-      number: build_number,
-      status: build_status,
-      entry: build_detail
+      code: code,
+      number: number,
+      url: url
     }
+  end
+
+
+  def status
+    render json: project_status
   end
 
   private
+
+  def project_status
+    build_number = if params[:id].to_s.blank?
+      @client.job.get_current_build_number(params[:project])
+    else
+      params[:id].to_s
+    end
+
+    build_detail = @client.job.get_build_details(params[:project], build_number)
+    build_status =
+      if build_detail['result'].to_s.empty?
+        'running'
+      else
+        build_detail['result'].downcase
+      end
+
+    {
+      number: build_number,
+      status: build_status,
+      project: build_detail
+    }
+  end
 
   def set_client
     @client = JenkinsApi::Client.new(
