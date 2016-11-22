@@ -21,3 +21,13 @@
         div#editor
         - script = render 'show.js'
         code#pac_script.hidden = script
+        
+javascript:
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.setValue($('#pac_script').html());
+  editor.setReadOnly(true);
+  editor.getSession().on('change', function(e) {
+    $('#pac_script').html(editor.getValue());
+  });
