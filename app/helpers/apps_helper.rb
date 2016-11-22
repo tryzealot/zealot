@@ -1,4 +1,11 @@
-module AppHelper
+module AppsHelper
+  def app_icon?(release, options = {})
+    if release && release.icon && release.icon.file && release.icon.file.exists?
+      size = options.delete(:size) || :thumb
+      image_tag(release.icon_url(size), options)
+    end
+  end
+
   def qr_code(url)
     qrcode = RQRCode::QRCode.new(url, level: :h)
     raw qrcode.as_svg(
