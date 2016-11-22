@@ -70,7 +70,7 @@ namespace :apps do
     apps = App.all
     apps_count = apps.count
     apps.each_with_index do |app, index|
-      puts "[#{index + 1}/#{apps_count}] #{app.id} - #{app.device_type} - #{app.name} - #{Time.now.strftime('%Y%m%d%H%M')}"
+      puts "[#{index + 1}/#{apps_count}] #{app.id} - #{app.device_type} - #{app.name} - #{Time.zone.now.strftime('%Y%m%d%H%M')}"
 
       release_versions = app.release_versions
       latest_version = release_versions.max

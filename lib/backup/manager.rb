@@ -51,7 +51,7 @@ module Backup
       s[:db_user]            = db_config['username']
       s[:db_password]        = '******'
       s[:rails_env]          = Rails.env.to_s
-      s[:backup_created_at]  = Time.now.strftime('%Y%m%d%H%M')
+      s[:backup_created_at]  = Time.zone.now.strftime('%Y%m%d%H%M')
 
       tar_file = "#{s[:backup_created_at]}_mobile_backup.tar"
       Dir.chdir(backup_path) do
@@ -90,7 +90,7 @@ module Backup
           file_list = Dir.glob('*_mobile_backup.tar')
           file_list.map! { |f| $1.to_i if f =~ /(\d+)_mobile_backup.tar/ }
           file_list.sort.each do |timestamp|
-            if Time.at(timestamp) < (Time.now - keep_max_time)
+            if Time.at(timestamp) < (Time.zone.now - keep_max_time)
               if Kernel.system(*%W(rm #{timestamp}_mobile_backup.tar))
                 removed += 1
               end
