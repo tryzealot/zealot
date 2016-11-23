@@ -22,3 +22,14 @@
 //= require_tree .
 
 var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
+
+// fix AdminLTE with turbolinks
+var ready = function () {
+  var o;
+  o = $.AdminLTE.options;
+  if (o.sidebarPushMenu) {
+    $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
+  }
+  return $.AdminLTE.layout.activate();
+};
+document.addEventListener('turbolinks:load', ready);

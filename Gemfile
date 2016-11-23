@@ -1,19 +1,24 @@
 source 'https://gems.ruby-china.org'
 
-gem 'rails', '~> 4.2.7'
-gem 'puma', '~> 2.14.0'
+gem 'rails', '~> 5.0.0'
+gem 'puma', '~> 3.6.0'
 
 # DB & Cache
-gem 'mysql2', '~> 0.4'
-gem 'redis-rails', '~> 4.0.0'
+gem 'mysql2', '~> 0.4.0'
+gem 'redis-rails', '~> 5.0.1'
+gem 'redis-namespace'
+
+# API
+gem 'rack-cors'
+gem 'active_model_serializers'
 
 # View
 ## 模板引擎
-gem 'slim-rails'
+gem 'slim-rails', '~> 3.1.1'
 ## JSON 格式化
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.6.0'
 ## 表单生成
-gem 'simple_form', '~> 3.2.1'
+gem 'simple_form', '~> 3.3.1'
 
 # Model
 ## 生成友好 id
@@ -21,7 +26,7 @@ gem 'friendly_id'
 ## 数据分页
 gem 'kaminari'
 ## 记录 Model 层记录变更
-gem 'paper_trail', '~> 4.0.0'
+gem 'paper_trail', '~> 4.0.0'  #5.2.0'
 ## 文件上传
 gem 'carrierwave'
 gem 'mini_magick'
@@ -30,20 +35,19 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'rest-client'
 # 用户认证
-gem 'devise'
-gem 'devise-i18n'
+gem 'devise', '~> 4.2.0'
+# gem 'devise-i18n'
 # 权限认证
 # gem 'pundit'
 # Crontab
 gem 'whenever', require: false
-# GEO 坐标计算
+# # GEO 坐标计算
 # gem 'haversine'
-# JS 跨域
-gem 'rack-cors', require: 'rack/cors'
+
 # Jenkins SDK
 gem 'jenkins_api_client'
 # User-Agent 封装
-gem 'browser', '~> 2.0.3'
+gem 'browser', '~> 2.3'
 # 生成条形码/二维码
 gem 'rqrcode'
 # 个性化时间解析
@@ -53,9 +57,9 @@ gem 'net-ssh', '~> 3.1.1'
 # 进程管理
 gem 'foreman'
 # 异步队列
-gem 'sidekiq', '~> 3.5.1'
+gem 'sidekiq', '~> 4.2.6'
 # 支持 sidekiq 使用界面
-gem 'sinatra', require: false
+gem 'sinatra', '~> 2.0.0.beta2', require: false
 # Mobile config
 gem 'settingslogic'
 
@@ -76,20 +80,21 @@ gem 'ace-rails-ap'
 gem 'qyer-mobile-app'
 
 group :doc do
-  gem 'sdoc', '~> 0.4.0'
+  gem 'sdoc', '~> 0.4.2'
 end
 
 group :development do
+  # 调试控制台
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+
+  # 加速开发环境
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
   # rails 更友好错误输出
   gem 'better_errors'
   gem 'binding_of_caller'
-
-  # 断点调试器
-  gem 'byebug'
-  # 调试控制台
-  gem 'web-console'
-  # 关闭静态文件日志输出
-  gem 'quiet_assets'
 
   gem 'capistrano'
   ## 改善 capistrano 输出格式化
@@ -107,9 +112,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.39.0', require: false
+  # 断点调试器
+  gem 'byebug'
+
+  gem 'rubocop', '~> 0.45.0', require: false
   # gem 'rspec-rails', '3.5.0.beta1'
-  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'factory_girl_rails', '~> 4.7.0'
   gem 'database_cleaner'
   gem 'letter_opener'
 

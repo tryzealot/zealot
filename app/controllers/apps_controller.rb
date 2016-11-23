@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show, :auth, :qrcode]
+  before_filter :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
 
   ##
@@ -86,7 +86,7 @@ class AppsController < ApplicationController
   # GET /apps/auth
   def auth
     if @app.password == params[:password]
-      cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.now + 1.week }
+      cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
       redirect_to app_path(@app.slug)
     else
       flash[:danger] = '密码错误，请重新输入'

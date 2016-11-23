@@ -1,3 +1,6 @@
+- content_for :title do
+  | 用户登录
+  
 .login-box-body
   p.login-box-msg 用户登录
   = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| 
