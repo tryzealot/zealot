@@ -11,17 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512081617) do
+ActiveRecord::Schema.define(version: 20161124040917) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
-    t.string   "name",        limit: 255,                     null: false
-    t.string   "slug",        limit: 255,                     null: false
+    t.string   "name",        limit: 255, null: false
+    t.string   "slug",        limit: 255, null: false
     t.string   "identifier",  limit: 255
-    t.string   "device_type", limit: 255,                     null: false
+    t.string   "device_type", limit: 255, null: false
     t.string   "jenkins_job", limit: 255
     t.string   "git_url",     limit: 255
-    t.string   "git_branch",  limit: 255, default: "develop"
     t.string   "password",    limit: 255
     t.string   "key",         limit: 255
     t.datetime "created_at"
@@ -34,6 +33,52 @@ ActiveRecord::Schema.define(version: 20160512081617) do
   add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
   add_index "apps", ["user_id"], name: "index_apps_on_user_id", using: :btree
 
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "errors", force: :cascade do |t|
+    t.string   "usable_type", limit: 255
+    t.integer  "usable_id",   limit: 4
+    t.text     "class_name",  limit: 65535
+    t.text     "message",     limit: 65535
+    t.text     "trace",       limit: 65535
+    t.text     "target_url",  limit: 65535
+    t.text     "referer_url", limit: 65535
+    t.text     "params",      limit: 65535
+    t.text     "user_agent",  limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "git_commits", force: :cascade do |t|
+    t.integer  "git_project_id", limit: 4
+    t.integer  "git_user_id",    limit: 4
+    t.string   "commit_message", limit: 255
+    t.string   "commited_at",    limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "git_projects", force: :cascade do |t|
+    t.string   "gitlab_id",  limit: 255
+    t.string   "name",       limit: 255
+    t.string   "url",        limit: 255
+    t.string   "host",       limit: 255
+    t.string   "token",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "git_users", force: :cascade do |t|
+    t.string   "username",   limit: 255
+    t.string   "realname",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.integer "qyer_id", limit: 4,                        null: false
     t.string  "im_id",   limit: 255,                      null: false
@@ -41,8 +86,8 @@ ActiveRecord::Schema.define(version: 20160512081617) do
     t.string  "type",    limit: 255, default: "chatroom"
   end
 
-  add_index "groups", ["im_id"], name: "index_groups_on_im_id", using: :btree
-  add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
+  add_index "groups", ["im_id"], name: "index_groups_on_im_id", length: {"im_id"=>191}, using: :btree
+  add_index "groups", ["name"], name: "index_groups_on_name", length: {"name"=>191}, using: :btree
   add_index "groups", ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
 
   create_table "jspatches", force: :cascade do |t|
@@ -58,20 +103,21 @@ ActiveRecord::Schema.define(version: 20160512081617) do
   add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "group_id",     limit: 4,                          null: false
+    t.integer  "group_id",     limit: 4,                               null: false
+    t.integer  "user_id",      limit: 4
+    t.string   "group_name",   limit: 255
+    t.string   "group_type",   limit: 255,        default: "chatroom"
+    t.string   "user_name",    limit: 255
+    t.string   "message",      limit: 255
+    t.datetime "timestamp"
+    t.string   "content_type", limit: 255
+    t.string   "file_type",    limit: 255
+    t.text     "custom_data",  limit: 65535
+    t.text     "file",         limit: 4294967295
     t.string   "im_id",        limit: 255
     t.string   "im_user_id",   limit: 255
     t.string   "im_topic_id",  limit: 255
-    t.string   "group_name",   limit: 255
-    t.string   "group_type",   limit: 255,   default: "chatroom"
-    t.integer  "user_id",      limit: 4
-    t.string   "user_name",    limit: 255
-    t.string   "message",      limit: 255
-    t.text     "custom_data",  limit: 65535
-    t.string   "content_type", limit: 255
-    t.string   "file_type",    limit: 255
-    t.text     "file",         limit: 65535
-    t.datetime "timestamp"
+    t.boolean  "is_deleted",                      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -193,6 +239,6 @@ ActiveRecord::Schema.define(version: 20160512081617) do
   end
 
   add_index "web_hooks", ["app_id"], name: "index_web_hooks_on_app_id", using: :btree
-  add_index "web_hooks", ["url"], name: "index_web_hooks_on_url", using: :btree
+  add_index "web_hooks", ["url"], name: "index_web_hooks_on_url", length: {"url"=>191}, using: :btree
 
 end
