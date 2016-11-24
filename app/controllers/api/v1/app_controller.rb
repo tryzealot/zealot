@@ -56,7 +56,7 @@ module Api
             ci_url: params[:ci_url],
             file: params[:file],
             devices: devices,
-            md5: file_md5
+            md5: file_md5,
             extra: JSON.dump(extra)
           )
         end
