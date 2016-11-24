@@ -6,11 +6,13 @@ module Api
 
       def upload
         @app = App.find_or_initialize_by(identifier: params[:identifier])
+        @app.user = @user
         @app.identifier = params[:identifier] if @app.new_record?
         @app.name = params[:name]
         @app.slug = params[:slug] if params[:slug]
         @app.device_type = params[:device_type]
-        @app.user = @user
+        @app.jenkins_job = params[:jenkins_job] if params[:jenkins_job]
+        @app.git_url = params[:git_url] if params[:git_url]
 
         if @app.invalid?
           return render json: {
@@ -21,15 +23,12 @@ module Api
 
         @app.save!
 
-        file_md5 = Digest::MD5.hexdigest(params[:file].tempfile.read.to_s)
-
         status = 200
         @release = @app.releases.find_by(
           identifier: params[:identifier],
           release_version: params[:release_version],
           build_version: params[:build_version],
-          last_commit: params[:last_commit],
-          md5: file_md5
+          last_commit: params[:last_commit]
         )
 
         unless @release
@@ -42,6 +41,10 @@ module Api
 
           extra = params.clone
           extra.delete(:file)
+
+          devices = (extra.key?(:devices) && extra[:devices].size > 0) ? JSON.dump(extra[:devices]) : nil
+          file_md5 = Digest::MD5.hexdigest(params[:file].tempfile.read.to_s)
+
           @release = @app.releases.create(
             identifier: params[:identifier],
             release_version: params[:release_version],
@@ -52,6 +55,8 @@ module Api
             last_commit: params[:last_commit],
             ci_url: params[:ci_url],
             file: params[:file],
+            devices: devices,
+            md5: file_md5
             extra: JSON.dump(extra)
           )
         end
@@ -62,7 +67,6 @@ module Api
            @app.branches.select { |m| m.branch == @release.branch }.empty?
 
           Rails.cache.delete(app_branches_cache_key)
-
         end
 
         # 后台解析 App 的更多信息
