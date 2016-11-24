@@ -1,6 +1,6 @@
 set :application, 'mobile'
 set :repo_url, 'git@git.2b6.me:icyleaf/mobile.git'
-set :branch, 'develop'
+set :branch, 'master'
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 # set :format, :pretty
