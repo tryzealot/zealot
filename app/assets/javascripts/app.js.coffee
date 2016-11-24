@@ -88,16 +88,19 @@ ready = ->
       url = HOST + "releases/" + data.id + "/edit"
       console.log 'success, redirect to %s', url
 
+badget_scm_info = ->
+  $('.git-branch').click ->
+    value = $(this).html()
+    branch = $(this).data('branch')
+    commit = $(this).data('commit')
+    if value == branch
+      $(this).html(commit)
+    else
+      $(this).html(branch)
+
 $(document).ready ->
   if window.location.pathname == '/apps/upload'
-    ready()
+    ready
   else
-    $('.git-branch').click ->
-      value = $(this).html()
-      branch = $(this).data('branch')
-      commit = $(this).data('commit')
-      if value == branch
-        $(this).html(commit)
-      else
-        $(this).html(branch)
+    document.addEventListener('turbolinks:load', badget_scm_info)
 
