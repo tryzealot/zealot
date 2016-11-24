@@ -7,7 +7,6 @@
   = f.input :identifier, required: true
   = f.input :jenkins_job, hint: 'Jenkins 的 Job 名称'
   = f.input :git_url, hint: 'Gitlab 的项目地址'
-  = f.input :git_branch, hint: '默认打包的分支'
   = f.input :slug, hint: 'URL 的唯一标识'
   = f.input :password, input_html: { type: 'input', value: @app.password }
   = f.input :key, input_html: { disabled: true }
