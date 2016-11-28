@@ -1,6 +1,5 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#index', as: 'qrcode', version: /\d+/
@@ -49,12 +48,13 @@ Rails.application.routes.draw do
   end
 
   authenticate :user do
+    require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
   end
 
   # api
   namespace :api do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+    scope module: :v1 do
       get 'jenkins/projects', to: 'jenkins#projects'
       get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
       get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
@@ -73,6 +73,10 @@ Rails.application.routes.draw do
       get 'user/(:id).json', to: 'user#show'
 
       get 'patch/app/:key', to: 'patch#index'
+    end
+
+    namespace :v2 do
+      get 'apps', to: 'apps#index'
     end
   end
 
