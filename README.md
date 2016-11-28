@@ -1,16 +1,25 @@
-Mobile
-================
+# 穷游移动内部分发系统
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+基于 Rails 平台开发类似于 Testeflightapp、FIR、蒲公英等功能，除此之外还是三火的实验田
 
-Rails Composer is open source and supported by subscribers. Please join RailsApps to support development of Rails Composer.
+## 安装依赖
 
-Ruby on Rails
--------------
+- Linux
+- Ruby 2.2.2
+- Rails 4.2.7
+- Mysql 5.0
+- Redis
+- Sidekiq
 
-This application requires:
 
-- Ruby 2.1.2 / 2.2.0
-- Rails 4.1.6
+## 部署
 
+部署脚本位于 `config/deploy.rb`
+
+```
+cap production deploy
+```
+
+## 定时任务
+
+脚本位于 `config/schedule.rb`
