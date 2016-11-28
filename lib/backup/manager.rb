@@ -46,10 +46,9 @@ module Backup
       s[:db_adapter]         = db_config['adapter']
       s[:db_version]         = "#{ActiveRecord::Migrator.current_version}"
       s[:db_host]            = db_config['host']
-      s[:db_port]            = db_config['port']
+      s[:db_port]            = db_config['port'] || 3306
       s[:db_database]        = db_config['database']
       s[:db_user]            = db_config['username']
-      s[:db_password]        = '******'
       s[:rails_env]          = Rails.env.to_s
       s[:backup_created_at]  = Time.zone.now.strftime('%Y%m%d%H%M')
 
