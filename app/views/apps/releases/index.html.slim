@@ -4,6 +4,9 @@
 - content_for :page_title do
   = "#{@app.name} - #{@app.device_type}"
   
+ruby:
+  releases_count = 0
+
 .row
   .col-xs-12
     .box
@@ -29,7 +32,13 @@
                 td
                   = link_to release_version, apps_releases_builds_path(@app.slug, URI.encode(release_version))
                 td
-                  = @app.releases.where(release_version: release_version).count
+                  - app_release_count = @app.releases.where(release_version: release_version).count
+                  - releases_count += app_release_count
+                  = app_release_count
+            tr
+              td
+                td colspan=2 
+                  = "共计 #{releases_count} 个发布版本"
           - else
             tr
               td colspon="2"
