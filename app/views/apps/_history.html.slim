@@ -8,8 +8,8 @@ h3 历史上传(最近 10 个)
         th 开发版本
         th 上传时间
       - @app.releases.order('version DESC').limit(10).each do |release|
-        tr
-          td[id="release-#{release.id}"]
+        tr[class="#{release != @release && !release.changelog.empty? ? 'release-toggle-changelogs btn-default' : ''}" data-id="#{release.id}"]
+          td
             = link_to release.version, app_path(@app.slug, release.version)
           td
             = release.release_version
@@ -20,7 +20,7 @@ h3 历史上传(最近 10 个)
             - if release == @release
               span.label.label-success style="margin-left: 5px" 当前版本
         - if release != @release && !release.changelog.empty?
-          tr
+          tr[class="release-#{release.id}-changelog hide"]
             td.bg-gray-light colspan="4"
               h5 更新日志
               p
