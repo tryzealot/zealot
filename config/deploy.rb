@@ -83,5 +83,16 @@ namespace :mobile do
         end
       end
     end
+
+    desc 'Restore from a backup'
+    task :restore do
+      on roles(:web) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'mobile:restore'
+          end
+        end
+      end
+    end
   end
 end

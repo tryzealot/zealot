@@ -440,8 +440,9 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 3.6.0)
-  qyer-mobile-app
+  puma (~> 2.14.0)
+  quiet_assets
+  qyer-mobile-app (>= 0.8.5)
   rack-cors
   rails (~> 5.0.0)
   redis-namespace
