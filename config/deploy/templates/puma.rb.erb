@@ -14,20 +14,26 @@ stdout_redirect '<%=fetch(:puma_access_log)%>', '<%=fetch(:puma_error_log)%>', t
 threads <%=fetch(:puma_threads).join(',')%>
 
 <%= puma_bind %>
+<% if fetch(:puma_control_app) %>
+activate_control_app "<%= fetch(:puma_default_control_app) %>"
+<% end %>
 workers <%= puma_workers %>
 <% if fetch(:puma_worker_timeout) %>
 worker_timeout <%= fetch(:puma_worker_timeout).to_i %>
 <% end %>
 
-<% if fetch(:puma_preload_app) %>
+<% if puma_preload_app? %>
 preload_app!
-<% end %>
-
-<% if fetch(:puma_prune_bundler) %>
+<% else %>
 prune_bundler
 <% end %>
 
-<% if fetch(:puma_init_active_record) %>
+on_restart do
+  puts 'Refreshing Gemfile'
+  ENV["BUNDLE_GEMFILE"] = "<%= fetch(:bundle_gemfile, "#{current_path}/Gemfile") %>"
+end
+
+<% if puma_preload_app? and fetch(:puma_init_active_record) %>
 on_worker_boot do
   ActiveSupport.on_load(:active_record) do
     ActiveRecord::Base.establish_connection

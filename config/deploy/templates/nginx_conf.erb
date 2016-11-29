@@ -1,7 +1,7 @@
 upstream puma_<%= fetch(:nginx_config_name) %> { <%
   flags = 'fail_timeout=0'
   @backends = [fetch(:puma_bind)].flatten.map do |m|
-  etype, address  = /(tcp|unix|ssl):\/\/(.+)/.match(m).captures
+  etype, address  = /(tcp|unix|ssl):\/{1,2}(.+)/.match(m).captures
   if etype =='unix'
     "server #{etype}:#{address} #{fetch(:nginx_socket_flags)};"
   else
@@ -11,58 +11,80 @@ end
 %><% @backends.each do |server|  %>
   <%= server %><% end %>
 }
+<% if fetch(:nginx_use_ssl) %>
+server {
+  listen 80;
+  rewrite ^(.*) https://$host$1 permanent;
+
+  client_max_body_size 4G;
+  client_body_buffer_size 1024k;
+}
+<% end %>
 
 server {
-  listen 80 default_server;
-  listen 443 ssl;
-  keepalive_timeout 30;
+<% if fetch(:nginx_use_ssl) %>
+  listen 443;
+  ssl on;
+  ssl_certificate /etc/ssl/certs/<%= fetch(:nginx_config_name) %>.crt;
+  ssl_certificate_key /etc/ssl/private/<%= fetch(:nginx_config_name) %>.key;
+<% else %>
+  listen 80;
+<% end %>
 
-  client_max_body_size 1G;
+  client_max_body_size 4G;
   client_body_buffer_size 1024k;
 
-  proxy_buffers 32 8k;
-  proxy_buffer_size 32k;
+  keepalive_timeout 10;
 
   error_page 500 502 504 /500.html;
   error_page 503 @503;
 
   server_name <%= fetch(:nginx_server_name) %>;
-
-  # ssl_certificate /home/wangshen/nginx/ssl/mobile.2b6.me.crt;
-  # ssl_certificate_key /home/wangshen/nginx/ssl/mobile.2b6.me.key;
-
   root <%= current_path %>/public;
   try_files $uri/index.html $uri @puma_<%= fetch(:nginx_config_name) %>;
 
   location @puma_<%= fetch(:nginx_config_name) %> {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_set_header  Host              $http_host;
-    proxy_set_header  X-Real-IP         $remote_addr;
-    proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
-
-    # proxy_set_header  X-Sendfile-Type   X-Accel-Redirect;
-    # proxy_set_header  X-Accel-Mapping   <%= shared_path %>/public/uploads/apps/=/uploads/;
+<% if fetch(:nginx_use_ssl) %>
+    proxy_set_header X-Forwarded-Proto https;
+<% end %>
 
     proxy_pass http://puma_<%= fetch(:nginx_config_name) %>;
-
     # limit_req zone=one;
     access_log <%= shared_path %>/log/nginx.access.log;
-    error_log <%= shared_path %>/log/nginx.error.log debug;
-  }
-
-  # location ~ /uploads/(.*) {
-  #   internal;
-  #   alias <%= shared_path %>/public/uploads/apps/$1;
-  # }
-
-  location /gitstats {
-    autoindex on;
+    error_log <%= shared_path %>/log/nginx.error.log;
   }
 
   location ^~ /assets/ {
     gzip_static on;
     expires max;
     add_header Cache-Control public;
+  }
+
+  location = /50x.html {
+    root html;
+  }
+
+  location = /404.html {
+    root html;
+  }
+
+  location @503 {
+    error_page 405 = /system/maintenance.html;
+    if (-f $document_root/system/maintenance.html) {
+      rewrite ^(.*)$ /system/maintenance.html break;
+    }
+    rewrite ^(.*)$ /503.html break;
+  }
+
+  if ($request_method !~ ^(GET|HEAD|PUT|PATCH|POST|DELETE|OPTIONS)$ ){
+    return 405;
+  }
+
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
   }
 }
