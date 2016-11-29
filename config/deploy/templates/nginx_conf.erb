@@ -13,7 +13,7 @@ end
 }
 <% if fetch(:nginx_use_ssl) %>
 server {
-  listen 80;
+  listen 80 default_server;
   rewrite ^(.*) https://$host$1 permanent;
 
   client_max_body_size 4G;
@@ -28,7 +28,7 @@ server {
   ssl_certificate /etc/ssl/certs/<%= fetch(:nginx_config_name) %>.crt;
   ssl_certificate_key /etc/ssl/private/<%= fetch(:nginx_config_name) %>.key;
 <% else %>
-  listen 80;
+  listen 80 default_server;
 <% end %>
 
   client_max_body_size 4G;
