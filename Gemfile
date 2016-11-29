@@ -77,7 +77,7 @@ gem 'js-routes'
 gem 'ace-rails-ap'
 
 # 用于解析 ipa 和 apk 包
-gem 'qyer-mobile-app'
+gem 'qyer-mobile-app', '>= 0.8.5'
 
 group :doc do
   gem 'sdoc', '~> 0.4.2'
