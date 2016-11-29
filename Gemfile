@@ -79,10 +79,6 @@ gem 'ace-rails-ap'
 # 用于解析 ipa 和 apk 包
 gem 'qyer-mobile-app', '>= 0.8.5'
 
-group :doc do
-  gem 'sdoc', '~> 0.4.2'
-end
-
 group :development do
   # 调试控制台
   gem 'web-console'
@@ -101,24 +97,15 @@ group :development do
   gem 'airbrussh', require: false
 
   ## cap 插件
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-rails-console'
   gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
   gem 'capistrano3-puma'
-  gem 'capistrano-nginx'
+  gem 'capistrano-rails'
   gem 'capistrano-sidekiq'
-  gem 'capistrano-foreman'
 end
 
 group :development, :test do
-  # 断点调试器
-  gem 'byebug'
-
   gem 'rubocop', '~> 0.45.0', require: false
-  # gem 'rspec-rails', '3.5.0.beta1'
-  gem 'factory_girl_rails', '~> 4.7.0'
-  gem 'database_cleaner'
   gem 'letter_opener'
 
   gem 'pry-rails'
