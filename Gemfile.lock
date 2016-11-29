@@ -431,7 +431,7 @@ DEPENDENCIES
   pry-rescue
   puma (~> 2.14.0)
   quiet_assets
-  qyer-mobile-app
+  qyer-mobile-app (>= 0.8.5)
   rack-cors
   rails (~> 4.2.7)
   redis-rails (~> 4.0.0)
