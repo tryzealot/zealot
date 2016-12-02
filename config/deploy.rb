@@ -20,7 +20,7 @@ set :rvm_ruby_version, '2.2.2' # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
 # bundler
-set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
+set :bundle_env_variables, nokogiri_use_system_libraries: 1
 # nginx
 set :nginx_server_name, 'mobile.2b6.me'
 set :nginx_sites_available_path, '/home/wangshen/nginx/sites-available'
@@ -34,7 +34,7 @@ set :puma_preload_app, true
 namespace :bower do
   desc 'Install bower'
   task :install do
-    on roles(:web) do
+    on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'bower:install CI=true'
@@ -47,7 +47,7 @@ before 'deploy:compile_assets', 'bower:install'
 
 namespace :deploy do
   after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+    on roles(:app), in: :groups, limit: 3, wait: 10 do
     end
   end
 
@@ -64,7 +64,7 @@ namespace :mobile do
   namespace :backup do
     desc 'Create a backup'
     task :create do
-      on roles(:web) do
+      on roles(:app) do
         within release_path do
           with rails_env: fetch(:rails_env) do
             execute :rake, 'mobile:backup'
@@ -75,7 +75,7 @@ namespace :mobile do
 
     desc 'Restore from a backup'
     task :restore do
-      on roles(:web) do
+      on roles(:app) do
         within release_path do
           with rails_env: fetch(:rails_env) do
             execute :rake, 'mobile:restore'
