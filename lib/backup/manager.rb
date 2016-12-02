@@ -123,7 +123,7 @@ module Backup
         exit 1
       end
 
-      print 'Unpacking backup ... '
+      print "Unpacking backup ... #{tar_file}"
       unless Kernel.system(*%W(tar -xf #{tar_file}))
         puts 'unpacking backup failed'
         exit 1
