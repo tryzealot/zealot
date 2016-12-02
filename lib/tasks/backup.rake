@@ -25,7 +25,12 @@ namespace :mobile do
   desc 'Mobile | Restore a previously created backup. Options: RAILS_ENV=production BACKUP=backup_file.tar'
   task restore: :environment do
     backup = Backup::Manager.new
-    backup.unpack
+
+    unless File.exist?(backup.db_backup_file_path)
+      backup.unpack
+    else
+      puts 'Found and using previously database file.'
+    end
 
     warning = <<-MSG.strip_heredoc
       Before restoring the database we recommend removing all existing tables
@@ -44,8 +49,16 @@ namespace :mobile do
     puts '[DONE]'
 
     Rake::Task['mobile:db:restore'].invoke
-    Rake::Task['mobile:upload:restore'].invoke
 
+    unless File.exist?(backup.apps_backup_path)
+      puts 'No apps found, automitac clean old data ...'
+      puts 'Please try again'
+
+      backup.cleanup
+      exit 1
+    end
+
+    Rake::Task['mobile:upload:restore'].invoke
     backup.cleanup
   end
 
