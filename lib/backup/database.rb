@@ -35,7 +35,7 @@ module Backup
 
       restore_pid = case db_config["adapter"]
       when /^mysql/ then
-        print "Restoring MySQL database #{db_config['database']} ... "
+        print "Restoring MySQL database #{db_config['database']} ... #{db_config['backup_created_at']}"
         # Workaround warnings from MySQL 5.6 about passwords on cmd line
         ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
         spawn('mysql', *mysql_args, db_config['database'], in: decompress_rd)
