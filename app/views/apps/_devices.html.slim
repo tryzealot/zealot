@@ -1,11 +1,4 @@
-ruby:
-  custom_data = unless @release.extra.blank?
-    JSON.parse(@release.extra)
-  else
-    nil
-  end
-
-- if custom_data.key?('devices') && custom_data['devices'].is_a?(Array)
+- if @custom_data.key?('devices') && @custom_data['devices'].is_a?(Array)
   h3 测试设备
   .box
     table.table
@@ -13,7 +6,7 @@ ruby:
         tr
           th NO
           th UDID
-        - custom_data['devices'].each_with_index do |udid, i|
+        - @custom_data['devices'].each_with_index do |udid, i|
           tr
             td
               = i + 1
