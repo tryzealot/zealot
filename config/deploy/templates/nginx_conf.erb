@@ -34,7 +34,7 @@ server {
   client_max_body_size 4G;
   client_body_buffer_size 1024k;
 
-  keepalive_timeout 10;
+  keepalive_timeout 30;
 
   error_page 500 502 504 /500.html;
   error_page 503 @503;
@@ -45,8 +45,10 @@ server {
 
   location @puma_<%= fetch(:nginx_config_name) %> {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header Host $http_host;
     proxy_redirect off;
+    proxy_max_temp_file_size 0;
 
 <% if fetch(:nginx_use_ssl) %>
     proxy_set_header X-Forwarded-Proto https;
@@ -64,27 +66,4 @@ server {
     add_header Cache-Control public;
   }
 
-  location = /50x.html {
-    root html;
-  }
-
-  location = /404.html {
-    root html;
-  }
-
-  location @503 {
-    error_page 405 = /system/maintenance.html;
-    if (-f $document_root/system/maintenance.html) {
-      rewrite ^(.*)$ /system/maintenance.html break;
-    }
-    rewrite ^(.*)$ /503.html break;
-  }
-
-  if ($request_method !~ ^(GET|HEAD|PUT|PATCH|POST|DELETE|OPTIONS)$ ){
-    return 405;
-  }
-
-  if (-f $document_root/system/maintenance.html) {
-    return 503;
-  }
 }
