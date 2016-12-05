@@ -1,5 +1,5 @@
 class Api::V1::PatchController < ApplicationController
-  skip_before_action :verify_authenticity_token, if: :js_request?
+  # skip_before_action :verify_authenticity_token, if: :js_request?
 
 
   # GET /api/patch/app/KujdgCa
