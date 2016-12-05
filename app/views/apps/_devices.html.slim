@@ -1,7 +1,6 @@
 ruby:
-  latest_release = params[:version] ? @app.releases.find_by(version: params[:version]) : @app.releases.last
-  custom_data = unless latest_release.extra.blank?
-    JSON.parse(latest_release.extra)
+  custom_data = unless @release.extra.blank?
+    JSON.parse(@release.extra)
   else
     nil
   end
