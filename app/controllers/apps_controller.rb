@@ -18,7 +18,7 @@ class AppsController < ApplicationController
     if wechat? || !@app.password.blank? || user_signed_in?
       app_info
 
-      @custom_data = @release.extra.blank? nil : JSON.parse(@release.extra)
+      @custom_data = @release.extra.blank? ? nil : JSON.parse(@release.extra)
     else
       redirect_to new_user_session_path
     end
