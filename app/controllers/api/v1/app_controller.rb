@@ -39,7 +39,7 @@ module Api
             AppWebHookJob.perform_later 'upload_events', web_hook
           end unless web_hooks.empty?
 
-          extra = params.clone
+          extra = params.clone.to_h
           extra.delete(:file)
 
           devices = (extra.key?(:devices) && extra[:devices].size > 0) ? JSON.dump(extra[:devices]) : nil
