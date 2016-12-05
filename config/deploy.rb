@@ -1,13 +1,13 @@
 set :application, 'mobile'
 set :repo_url, 'git@git.2b6.me:icyleaf/mobile.git'
-set :branch, 'master'
+set :branch, 'develop'
 set :deploy_to, '/home/wangshen/www/mobile'
 set :scm, :git
 # set :format, :pretty
 set :log_level, :debug
 
 set :linked_files, %w(config/database.yml)
-set :linked_dirs, %w(bin log tmp/backups tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/files public/gitstats)
+set :linked_dirs, %w(bin log tmp/backups tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
 set :keep_releases, 10
 set :default_env, {
   'JOB_WORKER_URL' => 'redis://localhost:6379/0',
@@ -16,7 +16,7 @@ set :default_env, {
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
-set :rvm_ruby_version, '2.2.2' # Defaults to: 'default'
+set :rvm_ruby_version, '2.3.1' # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
 # bundler
