@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
-    get '(:version)/qrcode', to: 'qrcode#index', as: 'qrcode', version: /\d+/
+    get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
     namespace :releases do
       get '', action: :index
