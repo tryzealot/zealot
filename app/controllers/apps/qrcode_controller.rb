@@ -15,9 +15,9 @@ class Apps::QrcodeController < AppsController
 
   def qrcode_url
     if params[:version]
-      url_for(@app, version: @app.releases.last)
+      url_for(@app) + "/#{params[:version]}/qrcode"
     else
-      url_for(@app)
+      url_for(@app) + "/qrcode"
     end
   end
 
