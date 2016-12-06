@@ -5,12 +5,12 @@
 ## 安装依赖
 
 - Linux
-- Ruby 2.2.2+
-- Rails 4.2.7
+- Ruby 2.2+
+- Rails 5.0+
 - Mysql 5.3+/Mariadb 10.0+
-- Redis
+- Redis 2.7+
 - Sidekiq
-
+- ImageMagick/GraphicsMagick
 
 ## 部署
 
