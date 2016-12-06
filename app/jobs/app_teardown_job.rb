@@ -13,6 +13,10 @@ class AppTeardownJob < ActiveJob::Base
     processing!
   end
 
+  rescue_from(Exception) do |exception|
+    logger.error "#{exception.to_s}"
+  end
+
   def processing!
     case @release.app.platform
     when 'iOS'

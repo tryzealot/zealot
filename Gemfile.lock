@@ -48,9 +48,9 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
-    app-info (1.0.1)
-      CFPropertyList (~> 2.3.2)
-      image_size (~> 1.4.2)
+    app-info (1.0.2)
+      CFPropertyList (~> 2.3.4)
+      image_size (~> 1.5.0)
       os (~> 0.9.6)
       pngdefry (~> 0.1.2)
       ruby_android (~> 0.7.7)
@@ -105,8 +105,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.11.1)
-    commander (4.4.1)
-      highline (~> 1.7.2)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
     debug_inspector (0.0.2)
@@ -129,11 +127,10 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    highline (1.7.8)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
-    image_size (1.4.2)
+    image_size (1.5.0)
     interception (0.5)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -215,11 +212,6 @@ GEM
       pry
     public_suffix (2.0.4)
     puma (3.6.2)
-    qyer-mobile-app (0.8.5)
-      app-info (~> 1.0)
-      commander (~> 4.4)
-      rest-client (>= 1.7)
-      terminal-table (>= 1.4.5, < 2.0.0)
     rack (2.0.1)
     rack-cors (0.4.0)
     rack-protection (2.0.0.beta2)
@@ -374,6 +366,7 @@ DEPENDENCIES
   ace-rails-ap
   active_model_serializers
   airbrussh
+  app-info (~> 1.0.2)
   better_errors
   binding_of_caller
   bower-rails (~> 0.10.0)
@@ -408,7 +401,6 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   puma (~> 3.6.0)
-  qyer-mobile-app (>= 0.8.5)
   rack-cors
   rails (~> 5.0.0)
   redis-namespace
