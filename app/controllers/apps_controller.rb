@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show, :auth, :qrcode]
+  before_filter :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
 
   ##
@@ -18,6 +18,8 @@ class AppsController < ApplicationController
 
     if wechat? || !@app.password.blank? || user_signed_in?
       app_info
+
+      @custom_data = (@release.extra.blank? && !@release.extra.is_a?(Hash)) ? {} : JSON.parse(@release.extra)
     else
       redirect_to new_user_session_path
     end

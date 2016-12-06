@@ -39,11 +39,10 @@ module Api
             AppWebHookJob.perform_later 'upload_events', web_hook
           end unless web_hooks.empty?
 
-          extra = params.clone
+          extra = params.clone.to_unsafe_h
           extra.delete(:file)
 
           devices = (extra.key?(:devices) && extra[:devices].size > 0) ? JSON.dump(extra[:devices]) : nil
-          file_md5 = Digest::MD5.hexdigest(params[:file].tempfile.read.to_s)
 
           @release = @app.releases.create(
             identifier: params[:identifier],
@@ -56,7 +55,6 @@ module Api
             ci_url: params[:ci_url],
             file: params[:file],
             devices: devices,
-            md5: file_md5,
             extra: JSON.dump(extra)
           )
         end

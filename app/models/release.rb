@@ -5,7 +5,6 @@ class Release < ActiveRecord::Base
   belongs_to :app
 
   before_create :auto_release_version
-  before_create :auto_md5_file
   before_create :auto_file_size
 
   def self.latest
@@ -39,10 +38,6 @@ class Release < ActiveRecord::Base
   def auto_release_version
     latest_version = Release.where(app_id: app_id).last
     self.version = latest_version ? (latest_version.version + 1) : 1
-  end
-
-  def auto_md5_file
-    self.md5 = file.md5 if file.present? && file_changed?
   end
 
   def auto_file_size

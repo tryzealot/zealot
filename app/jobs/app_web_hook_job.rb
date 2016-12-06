@@ -56,7 +56,7 @@ class AppWebHookJob < ActiveJob::Base
     url_for(
       host: Rails.application.secrets.domain_name,
       controller: 'apps',
-      action: 'release',
+      action: 'show',
       slug: @app.slug,
       version: @release.version
     )
