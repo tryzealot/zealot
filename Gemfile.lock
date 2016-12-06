@@ -185,6 +185,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
     netrc (0.11.0)
+    newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -396,6 +397,7 @@ DEPENDENCIES
   mini_magick
   mysql2 (~> 0.4.0)
   net-ssh (~> 3.1.1)
+  newrelic_rpm
   paper_trail (~> 4.0.0)
   pry-byebug
   pry-rails
