@@ -16,6 +16,6 @@ end
 
 ActionController::Renderers.add :qrcode do |string, options|
   data = RQRCode::QRCode.new(string).as_png(options)
-  self.content_type ||= Mime::PNG
+  self.content_type ||= Mime[:png]
   self.response_body = render_to_string(text: data, template: nil)
 end
