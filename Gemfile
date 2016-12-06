@@ -8,6 +8,9 @@ gem 'mysql2', '~> 0.4.0'
 gem 'redis-rails', '~> 5.0.1'
 gem 'redis-namespace'
 
+# APM
+gem 'newrelic_rpm'
+
 # API
 gem 'rack-cors'
 gem 'active_model_serializers'
