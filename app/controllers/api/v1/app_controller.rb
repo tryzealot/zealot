@@ -141,7 +141,6 @@ module Api
           case @app.device_type.downcase
           when 'iphone', 'ipad', 'ios'
             render 'apps/install_url',
-                   handlers: [:plist],
                    content_type: 'text/xml'
           when 'android'
             redirect_to api_app_download_path(release_id: @release.id)
