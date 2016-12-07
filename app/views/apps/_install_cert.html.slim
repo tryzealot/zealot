@@ -1,4 +1,4 @@
-- if ios?(user_agent) or android?(user_agent)
+- if ios?(user_agent)
   #install-tips.modal.fade role="dialog" tabindex="-1" style="display: none" aria-labelledby="install-tips-label"
     .modal-dialog role="document" 
       .modal-content
@@ -16,13 +16,12 @@
               a href="#{root_url}/server.crt"
                 | 点击这里安装证书
               | ，要不然你永远无法下载安装 ●-●
-            - if ios?(user_agent)
-              li
-                | 安装 AdHoc 版本前请确认已经
-                strong 卸载
-                | 该 App 的线上版本，否则无法进行安装。这个是 Apple 的限制。
-              li
-                | 在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
-                | 选择 "QYER" 的企业证书，点击文字 "信任企业开发者"。
+            li
+              | 安装 AdHoc 版本前请确认已经
+              strong 卸载
+              | 该 App 的线上版本，否则无法进行安装。这个是 Apple 的限制。
+            li
+              | 在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
+              | 选择 "QYER" 的企业证书，点击文字 "信任企业开发者"。
         .modal-footer
           button.btn.btn-primary data-dismiss="modal" 确定
