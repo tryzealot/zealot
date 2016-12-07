@@ -10,6 +10,12 @@ download = ->
     $('.wechat-tips').removeClass('hide')
     $('.navbar-fixed-top').css('z-index', 0)
 
+  $('#download_it').button('loading');
+
+  setTimeout ->
+    $('#download_it').button('reset')
+  , 8000
+
   slug = $('#download_it').data('slug')
   release_id = $('#download_it').data('release-id')
   device_type = $('.app-type').html()
@@ -27,6 +33,8 @@ download = ->
 
 build = ->
   button = $('#build_it')
+  button.button('loading')
+
   app_job = button.data('job')
   url = HOST + "api/jenkins/" + app_job + "/build"
   console.log 'build url: ', url
@@ -35,8 +43,6 @@ build = ->
     url: url,
     type: 'get'
     dataType: 'json'
-    beforeSend: ->
-      $(button).html('构建新版本中...').prop('disabled', 'true')
     success: (data) ->
       console.log data
       if data.code == 201 || data.code == 200
@@ -45,19 +51,19 @@ build = ->
       else
         message = '错误：' + data.message
 
-      sleep 5000 if data.code == 201
+      sleep 3000 if data.code == 201
 
       $('#jekins_buld_alert').removeClass('hidden').html(message)
 
     error: (xhr, ajaxOptions, thrownError) ->
-      $(button).html('接口错误，再来一次！')
+      button.button('reset')
       # $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
       # $("#result")
       #     .html('请求失败！接口返回：' + xhr.responseJSON.message)
       #     .addClass("alert alert-danger")
       #     .show()
     complete: ->
-      $(button).html('构建新版本').removeProp('disabled')
+      button.button('reset')
 
 hideCover = ->
   $('.cover').addClass('hide')

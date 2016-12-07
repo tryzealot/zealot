@@ -31,17 +31,16 @@ div.col-sm-9.app-info
         - if user_agent.include?('MicroMessenger')
           == render 'wechat'
         - else
-
           - if detect_device(@app.device_type) == 'iOS'
             == render 'apps/install_cert'
 
-            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" 在线安装
-
+            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装
           - else # [:mac, :windows, :linux].include?(browser.platform)
             = link_to "下载到本地", api_app_download_path(@release.id), { class: 'btn btn-success btn-lg', target: '_blank' }
             <span style="margin:0 5px"></span>
-            - unless @app.jenkins_job.blank?
-              button.btn.btn-success.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" 构建新版本
+
+          - unless @app.jenkins_job.blank?
+            button.btn.btn-success.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建..." style="margin-left: 10px" 构建新版本
 
       p#jekins_buld_alert.alert.alert-warning.hidden role="alert" style="margin-top: 10px"
       div.changelog
