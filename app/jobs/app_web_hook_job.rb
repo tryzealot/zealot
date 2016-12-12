@@ -78,7 +78,7 @@ class AppWebHookJob < ActiveJob::Base
       attachments: [
         {
           title: description,
-          text: @release.changelog.to_s,
+          text: @release.plain_text_changelog,
           color: '#FFA500',
           images: [
             {

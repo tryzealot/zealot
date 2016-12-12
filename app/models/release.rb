@@ -11,6 +11,17 @@ class Release < ActiveRecord::Base
     order(version: :desc).first
   end
 
+  def plain_text_changelog
+    loop_count = 1
+    JSON.parse(changelog).each_with_object([]) do |item, obj|
+      item_date = DateTime.parse(item['date']).strftime('%Y-%m-%d %H:%M')
+      obj << "#{loop_count}. #{item['message']} [#{item_date}]"
+      loop_count += 1
+    end.join("\n")
+  rescue
+    changelog
+  end
+
   def file_extname
     case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'

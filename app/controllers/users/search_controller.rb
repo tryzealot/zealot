@@ -1,5 +1,5 @@
 class Users::SearchController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @title = '查找用户'
