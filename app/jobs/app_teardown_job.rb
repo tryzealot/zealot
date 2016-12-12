@@ -30,8 +30,8 @@ class AppTeardownJob < ActiveJob::Base
 
   def parse_ipa!
     @release.release_type = @app.release_type
-    @release.devices = @app.devices if OS.mac?
-    @release.distribution = @app.distribution_name if OS.mac?
+    @release.devices = @app.devices if AppInfo::Parser.mac?
+    @release.distribution = @app.distribution_name if AppInfo::Parser.mac?
 
     if icon_file_exist?
       Pngdefry.defry(@icon_file, @icon_file)
