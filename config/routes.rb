@@ -76,7 +76,12 @@ Rails.application.routes.draw do
     end
 
     namespace :v2 do
-      get 'apps', to: 'apps#index'
+      namespace :apps do
+        get '', action: :index
+        get '/:id', action: :show
+      end
+      # get 'apps', to: 'apps#index'
+      # get 'apps', to: 'apps#shopw'
     end
   end
 
