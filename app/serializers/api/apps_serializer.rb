@@ -1,10 +1,11 @@
 class Api::AppsSerializer < ActiveModel::Serializer
-  attributes :id, :name, :identifier, :device_type, :slug, :created_at, :updated_at
-  has_many :releases, key: :last_release, serializer: Api::ReleasesSerializer do
-    object.releases.last
-  end
+  attributes :id, :name, :identifier, :device_type, :slug, :release_version, :build_version
 
-  # def release_version
-  #   object.id
-  # end
+  attribute :icon_url
+
+  attributes :created_at, :updated_at
+
+  def latest_release
+    @release ||= object.releases.last
+  end
 end
