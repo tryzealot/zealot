@@ -1,5 +1,5 @@
 class Apps::ChangelogsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   
   def edit
     @release = Release.find_by(version: params[:id])
