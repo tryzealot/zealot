@@ -80,7 +80,7 @@ gem 'js-routes'
 gem 'ace-rails-ap'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 1.0.2'
+gem 'app-info', '~> 1.0.3', require: false
 
 group :development do
   # 调试控制台
