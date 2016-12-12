@@ -4,6 +4,8 @@ json.(release,
 
 json.filesize number_to_human_size(release.filesize)
 
+json.set! :changelog, release.plain_text_changelog
+
 json.set! :install_url, if release.app.device_type.downcase == 'android'
   api_app_download_url(release.id)
 else

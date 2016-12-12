@@ -6,7 +6,7 @@ if latest
   json.version latest.version
   json.release_version latest.release_version
   json.build_version latest.build_version
-  json.changelog latest.changelog
+  json.changelog latest.plain_text_changelog
   json.branch latest.branch
   json.last_commit latest.last_commit
   json.ci_url latest.ci_url
