@@ -1,5 +1,5 @@
 class PacsController < ApplicationController
-  before_filter :authenticate_user!, only: [ :index, :new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [ :index, :new, :create, :edit, :update, :destroy]
   before_action :set_pac, only: [:show, :edit, :update, :destroy]
 
   # GET /pacs

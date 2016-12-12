@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :check_user_logged_in, except: [:show, :auth]
+  before_action :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
   ##
   # App 列表
@@ -14,21 +14,22 @@ class AppsController < ApplicationController
   # GET /apps/:slug
   def show
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    redirect_to new_user_session_path unless !wechat? || @app.password.blank? || !user_signed_in?
 
-    if wechat? || !@app.password.blank? || user_signed_in?
-      app_info
-
-      @custom_data = (@release.extra.blank? && !@release.extra.is_a?(Hash)) ? {} : JSON.parse(@release.extra)
-    else
-      redirect_to new_user_session_path
-    end
+    app_info
+    @custom_data =
+      if @release.extra.blank? && !@release.extra.is_a?(Hash)
+        {}
+      else
+        JSON.parse(@release.extra)
+      end
   end
 
   ##
   # 新应用页面
   # GET /apps/new
   def new
-    @title = "新建应用"
+    @title = '新建应用'
     @app = App.new
   end
 
@@ -117,11 +118,14 @@ class AppsController < ApplicationController
   end
 
   def app_info
-    @release = if params[:version]
-      @app.releases.find_by(app: @app, version: params[:version])
-    else
-      @app.releases.last
-    end
+    @release =
+      if params[:version]
+        @app.releases.find_by(app: @app, version: params[:version])
+      else
+        @app.releases.last
+      end
+
+    raise "Not found release = #{params[:version]}" unless @release
   end
 
   def check_user_logged_in

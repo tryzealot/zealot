@@ -1,7 +1,7 @@
 module Api
   module V1
     class AppController < Api::ApplicationController
-      before_filter :validate_params
+      before_action :validate_params
       before_action :set_app, only: [:info, :versions, :changelogs, :latest, :install_url]
 
       def upload
@@ -114,6 +114,8 @@ module Api
                                .where('version > ? AND build_version > ?', release.version, release.build_version)
                                .order(version: :desc)
           end
+
+          # render json: @app
         else
           render json: {
             error: 'not found app'
