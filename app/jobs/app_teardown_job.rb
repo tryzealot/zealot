@@ -14,7 +14,7 @@ class AppTeardownJob < ActiveJob::Base
   end
 
   rescue_from(Exception) do |exception|
-    logger.error "#{exception.to_s}"
+    logger.error exception.to_s
   end
 
   def processing!

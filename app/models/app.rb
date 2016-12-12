@@ -45,6 +45,28 @@ class App < ActiveRecord::Base
             .map(&:build_version)
   end
 
+  def release_version
+    latest_release.release_version
+  end
+
+  def build_version
+    latest_release.build_version
+  end
+
+  def icon_url
+    if latest_release.icon.url
+      latest_release.icon.url
+    end
+  end
+
+  def version
+    latest_release.version
+  end
+
+  def latest_release
+    @latest_release ||= releases.last
+  end
+
   private
 
   def generate_key_or_slug
