@@ -4,10 +4,11 @@ class Api::AppsSerializer < Api::BaseSerializer
 
   def install_url
     if object.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(release.version)
+      api_v2_apps_download_url(object.slug, object.releases.last.version)
     else
       'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
-        object.releases.last.version.to_s,
+        object.slug,
+        object.releases.last.version,
         protocol: Rails.env.development? ? 'http' : 'https'
       )
     end
@@ -19,7 +20,8 @@ class Api::AppsSerializer < Api::BaseSerializer
       data << "#{i + 1}.#{item[:message]}"
     end
 
-    data.join("\n")
+    changelog = data.join("\n")
+    changelog.blank? ? "没有更新日志的原因：\n1.开发者很懒没有留下更新日志😂\n2.有不可抗拒的因素造成日志丢失👽" : changelog
   end
 
   def commits

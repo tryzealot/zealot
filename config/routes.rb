@@ -78,8 +78,8 @@ Rails.application.routes.draw do
     namespace :v2 do
       namespace :apps do
         get '/latest', to: 'latest#show'
-        get '/:version/install_url', to: 'install_url#show', as: 'install'
-        get '/:version/download', to: 'download#show', as: 'download'
+        get '/:slug/:version/install_url', to: 'install_url#show', as: 'install'
+        get '/:slug/:version/download', to: 'download#show', as: 'download'
         get '/upload', to: 'upload#show'
 
         get '', action: :index
