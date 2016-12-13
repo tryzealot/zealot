@@ -4,6 +4,8 @@ class Release < ActiveRecord::Base
 
   belongs_to :app
 
+  validates :identifier, :release_version, :build_version, :file, :extra, presence: true
+
   before_create :auto_release_version
   before_create :auto_file_size
 
@@ -27,7 +29,7 @@ class Release < ActiveRecord::Base
   rescue
     changelog.split("\n").each_with_object([]) do |item, obj|
       _, body = item.split('. ')
-      message, date = body.split('[')
+      message, date = body.split(' [')
       message = message.strip
       date = date.sub(']', '').strip
 
