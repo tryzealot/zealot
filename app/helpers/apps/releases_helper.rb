@@ -1,2 +1,0 @@
-module Apps::ReleasesHelper
-end

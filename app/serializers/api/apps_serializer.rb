@@ -1,17 +1,21 @@
 class Api::AppsSerializer < Api::BaseSerializer
-  attributes :id, :name, :identifier, :device_type, :slug, :release_version, :build_version, :icon_url, :install_url,
+  attributes :id, :name, :identifier, :device_type, :slug, :version, :release_version, :build_version, :icon_url, :install_url,
              :changelog, :commits, :created_at, :updated_at
 
   def install_url
     if object.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(object.slug, object.releases.last.version)
+      api_v2_apps_download_url(object.slug, release_version)
     else
       'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
         object.slug,
-        object.releases.last.version,
+        release_version,
         protocol: Rails.env.development? ? 'http' : 'https'
       )
     end
+  end
+
+  def release_version
+    @instance_options[:release_version] ? @instance_options[:release_version] : object.releases.last.try(:[], :version)
   end
 
   def changelog

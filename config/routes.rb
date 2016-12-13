@@ -77,13 +77,14 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       namespace :apps do
-        get '/latest', to: 'latest#show'
-        get '/:slug/:version/install_url', to: 'install_url#show', as: 'install'
-        get '/:slug/:version/download', to: 'download#show', as: 'download'
-        get '/upload', to: 'upload#show'
-
+        post 'upload', to: 'upload#create'
+        get 'latest', to: 'latest#show'
+        get ':slug/:version/install_url', to: 'install_url#show', as: 'install'
+        get ':slug/:version/download', to: 'download#show', as: 'download'
+        get ':id', action: :show
+        patch ':id', action: :update
+        delete ':id', action: :destroy
         get '', action: :index
-        get '/:id', action: :show
       end
     end
   end
