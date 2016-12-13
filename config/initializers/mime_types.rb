@@ -4,6 +4,7 @@
 # Mime::Type.register "text/richtext", :rtf
 
 Mime::Type.register 'application/javascript', :pac
+Mime::Type.register 'text/plist', :plist
 
 ActionController::Renderers.add :qrcode do |string, options|
   data = RQRCode::QRCode.new(string).as_png(options)
