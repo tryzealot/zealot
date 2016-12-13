@@ -9,12 +9,12 @@ class Api::V2::AppsController < ActionController::API
   end
 
   def index
-    @apps = App.page(1).per(2)
-    render json: @apps, each_serializer: Api::AppsSerializer, meta: { page: 1, per_page: 2 }
+    @apps = App.page(1).per(10)
+    render json: @apps, each_serializer: Api::AppsSerializer, meta: { page: 1, per_page: 10 }
   end
 
   def show
-    render json: @app, serializer: Api::AppsSerializer
+    render json: @app, serializer: Api::AppsSerializer, release_version: @app.releases.last.version
   end
 
   protected
