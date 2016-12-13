@@ -1,4 +1,4 @@
-class Api::V1::AppController < Api::ApplicationController
+class Api::V1::AppController < Api::V1::ApplicationController
   before_action :validate_params
   before_action :set_app, only: [:info, :versions, :changelogs, :latest, :install_url]
 

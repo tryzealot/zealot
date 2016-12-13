@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
     end
 
-    resources :changelogs, only: [ :edit, :update ]
+    resources :changelogs, only: [:edit, :update]
   end
 
   # jspatch
@@ -77,11 +77,14 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       namespace :apps do
+        get '/latest', to: 'latest#show'
+        get '/:version/install_url', to: 'install_url#show', as: 'install'
+        get '/:version/download', to: 'download#show', as: 'download'
+        get '/upload', to: 'upload#show'
+
         get '', action: :index
         get '/:id', action: :show
       end
-      # get 'apps', to: 'apps#index'
-      # get 'apps', to: 'apps#shopw'
     end
   end
 

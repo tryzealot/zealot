@@ -1,4 +1,4 @@
-class Api::V1::UserController < Api::ApplicationController
+class Api::V1::UserController < Api::V1::ApplicationController
   def show
     query = params[:id]
     @member = Qyer::Member.select(:uid, :username).where('uid=? OR username=?', query, query).take

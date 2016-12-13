@@ -11,8 +11,7 @@ json.set! :install_url, if release.app.device_type.downcase == 'android'
 else
   "itms-services://?action=download-manifest&url=" + api_app_install_url(
     release.app.slug,
-    release.id,
-    protocol: Rails.env.development? ? 'http' : 'https'
+    release.id
   )
 end
 
