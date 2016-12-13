@@ -1,5 +1,5 @@
 class Api::V2::AppsController < ActionController::API
-  before_action :set_app, only: [ :show ]
+  before_action :set_app, only: [:show]
 
   rescue_from(Exception) do |exception|
     render json: {
@@ -27,5 +27,14 @@ class Api::V2::AppsController < ActionController::API
       else
         App.find_by(identifier: params[:id])
       end
+  end
+
+  def validate_app_key
+    @app = App.find_by(identifier: params[:id], key: params[:key])
+    return if @app
+
+    render json: {
+      error: '未授权或无效的 App Key'
+    }, status: 401
   end
 end

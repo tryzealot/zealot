@@ -22,6 +22,22 @@ class Release < ActiveRecord::Base
     changelog
   end
 
+  def pure_changelog
+    JSON.parse(changelog)
+  rescue
+    changelog.split("\n").each_with_object([]) do |item, obj|
+      _, body = item.split('. ')
+      message, date = body.split('[')
+      message = message.strip
+      date = date.sub(']', '').strip
+
+      obj << {
+        date: date,
+        message: message
+      }
+    end
+  end
+
   def file_extname
     case app.device_type.downcase
     when 'iphone', 'ipad', 'ios'
