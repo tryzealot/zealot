@@ -1,3 +1,7 @@
+ruby:
+  loop_date = Time.now
+  random_colors = %w(blue purple navy maroon yellow)
+
 section.recently-upload
   h3 最近上传
   .row
@@ -6,7 +10,14 @@ section.recently-upload
         - @releases.each do |release|
           ruby:
             app = release.app
+            
+          - unless loop_date.to_date === release.created_at.to_date
+            ruby: 
+              loop_date = release.created_at
 
+            li.time-label
+              span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
+                = release.created_at.strftime('%Y-%m-%d')
           li
             i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-gray'}"
             .timeline-item
