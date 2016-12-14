@@ -1,4 +1,4 @@
-class Api::V1::JenkinsController < Api::ApplicationController
+class Api::V1::JenkinsController < Api::V1::ApplicationController
   before_action :set_client
 
   attr_reader :client

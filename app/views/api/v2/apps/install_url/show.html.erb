@@ -11,22 +11,29 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string><%= api_app_download_url(@release.id, :protocol => "https") %></string>
+          <string><%= api_v2_apps_download_url(@app, @release.version, :protocol => Rails.env.development? ? 'http' : 'https') %></string>
         </dict>
+        <% if @release.icon && @release.icon.file && @release.icon.file.exists? %>
+        <dict>
+            <key>kind</key>
+            <string>display-image</string>
+            <key>needs-shine</key>
+            <false/>
+            <key>url</key>
+            <string><%= @release.icon_url(:medium) %></string>
+        </dict>
+        <% end %>
       </array>
-
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
         <string><%= @app.identifier %></string>
         <key>bundle-version</key>
         <string><%= @release.release_version %></string>
-        <key>title</key>
-        <string><%= @app.name %></string>
-        <key>subtitle</key>
-        <string>穷游网</string>
         <key>kind</key>
         <string>software</string>
+        <key>title</key>
+        <string><%= @app.name %></string>
       </dict>
     </dict>
   </array>

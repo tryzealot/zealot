@@ -4,6 +4,8 @@ class Release < ActiveRecord::Base
 
   belongs_to :app
 
+  validates :identifier, :release_version, :build_version, :file, :extra, presence: true
+
   before_create :auto_release_version
   before_create :auto_file_size
 
@@ -20,6 +22,22 @@ class Release < ActiveRecord::Base
     end.join("\n")
   rescue
     changelog
+  end
+
+  def pure_changelog
+    JSON.parse(changelog)
+  rescue
+    changelog.split("\n").each_with_object([]) do |item, obj|
+      _, body = item.split('. ')
+      message, date = body.split(' [')
+      message = message.strip
+      date = date.sub(']', '').strip
+
+      obj << {
+        date: date,
+        message: message
+      }
+    end
   end
 
   def file_extname
