@@ -80,7 +80,7 @@ class App < ActiveRecord::Base
   end
 
   def latest_release
-    @latest_release ||= releases.last
+    @latest_release = releases.last
   end
 
   private
