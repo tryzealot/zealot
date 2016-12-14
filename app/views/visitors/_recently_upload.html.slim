@@ -1,0 +1,27 @@
+section.recently-upload
+  h3 最近上传
+  .row
+    .col-md-12
+      ul.timeline
+        - @releases.each do |release|
+          ruby:
+            app = release.app
+
+          li
+            i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-gray'}"
+            .timeline-item
+              span.time
+                i.fa.fa-clock-o
+                |   
+                = time_ago_in_words(release.created_at)
+              h3.timeline-header
+                = link_to " #{app.name}", app_path(app.slug)
+                |  上传了新版本
+                = " #{release.release_version} (#{release.build_version})"
+              - unless release.plain_text_changelog.blank?
+                .timeline-body
+                  = simple_format(release.plain_text_changelog)
+        li
+          i.fa.fa-clock-o.bg-gray
+      
+      = paginate @releases
