@@ -34,6 +34,10 @@ class App < ActiveRecord::Base
     end
   end
 
+  def version
+    latest_release.version
+  end
+
   def release_versions
     releases.group(:release_version)
             .map(&:release_version)
@@ -43,6 +47,40 @@ class App < ActiveRecord::Base
     releases.where(release_version: release_version)
             .group(:build_version)
             .map(&:build_version)
+  end
+
+  def release_version
+    latest_release.release_version
+  end
+
+  def build_version
+    latest_release.build_version
+  end
+
+  def changelog(since_release_version: nil, since_build_version: nil)
+    unless since_release_version.blank? && since_build_version.blank?
+      previous_release = Release.find_by(release_version: since_release_version, build_version: since_build_version)
+
+      return releases.where("id >= #{previous_release.id}").order(id: :desc).each_with_object([]) do |release, obj|
+        next if release.changelog.blank? || release.changelog == '[]'
+
+        begin
+          obj.concat JSON.parse(release.changelog)
+        rescue
+          obj.concat release.pure_changelog
+        end
+      end if previous_release
+    end
+
+    latest_release.pure_changelog
+  end
+
+  def icon_url
+    latest_release.icon.url
+  end
+
+  def latest_release
+    @latest_release ||= releases.last
   end
 
   private
