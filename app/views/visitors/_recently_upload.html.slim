@@ -21,6 +21,18 @@ section.recently-upload
               - unless release.plain_text_changelog.blank?
                 .timeline-body
                   = simple_format(release.plain_text_changelog)
+                
+              - if !release.branch.blank? || !release.last_commit.blank? || !release.release_type.blank?
+                .timeline-footer
+                  - unless release.release_type.blank?
+                    span.btn.btn-xs.btn-danger
+                      = release.release_type
+                  - unless release.branch.blank?
+                    span.btn.btn-xs.btn-primary
+                      = release.branch
+                  - unless release.last_commit.blank?
+                    span.btn.btn-xs.btn-info
+                      = release.last_commit
         li
           i.fa.fa-clock-o.bg-gray
       
