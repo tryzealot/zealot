@@ -7,11 +7,17 @@ section.recently-upload
   .row
     .col-md-12
       ul.timeline
-        - @releases.each do |release|
+        - @releases.each_with_index do |release, i|
           ruby:
             app = release.app
-            
-          - unless loop_date.to_date === release.created_at.to_date
+
+          - if i == 0
+            ruby: 
+              loop_date = release.created_at
+            li.time-label
+              span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
+                = release.created_at.strftime('%Y-%m-%d')
+          - elsif loop_date.to_date != release.created_at.to_date
             ruby: 
               loop_date = release.created_at
 
