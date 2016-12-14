@@ -10,7 +10,7 @@ class Api::V2::Apps::UploadController < ActionController::API
     create_or_update_release
 
     perform_app_web_hook_job
-    perform_app_teardown_job
+    # perform_app_teardown_job
 
     render json: @app,
            serializer: Api::AppsSerializer,
