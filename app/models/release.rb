@@ -27,6 +27,8 @@ class Release < ActiveRecord::Base
   def pure_changelog
     JSON.parse(changelog)
   rescue
+    return [] if changelog.blank?
+
     changelog.split("\n").each_with_object([]) do |item, obj|
       _, body = item.split('. ')
       message, date = body.split(' [')
