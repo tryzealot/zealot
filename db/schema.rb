@@ -34,8 +34,11 @@ ActiveRecord::Schema.define(version: 20161215092214) do
   create_table "devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.string   "udid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "model"
+    t.string   "platform"
+    t.string   "device_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["udid"], name: "index_devices_on_udid", unique: true, using: :btree
   end
 
