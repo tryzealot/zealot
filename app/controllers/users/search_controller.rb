@@ -2,7 +2,7 @@ class Users::SearchController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @title = '查找用户'
+    @title = '寻找穷游用户'
     query = params[:user].chomp if params[:user]
 
     if request.request_method == 'GET' && query
