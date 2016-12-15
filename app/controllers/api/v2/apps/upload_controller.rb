@@ -102,6 +102,7 @@ class Api::V2::Apps::UploadController < ActionController::API
 
   def param_devices
     @devices = JSON.dump(params[:devices])
+    @devices = nil if @devices.size.zero?
   rescue
     @device = nil
   end
