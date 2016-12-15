@@ -51,10 +51,7 @@ div.col-sm-9.app-info
             = link_to '编辑', edit_apps_changelog_path(@app.slug, @release.version)
             | )
         p
-          - if @release.changelog.empty?
-            | 现在更新怎么都没有更新日志了？程序猿偷懒了么？
-          - else
-            = simple_format(@release.plain_text_changelog)
+          = simple_format(@release.plain_text_changelog)
 
       div.history
         == render 'history'
