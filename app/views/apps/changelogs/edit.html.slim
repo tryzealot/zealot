@@ -31,5 +31,5 @@
           .form-group
             textarea.form-control name="changelog" id="changelog" rows="10"
               
-          a.btn.btn-default href="#{app_path(@release.app.slug, @release)}" 返回
+          a.btn.btn-default href="#{app_path(@release.app.slug, @release.version)}" 返回
           button.btn.btn-info style="margin-left:10px" type="submit" 更新
