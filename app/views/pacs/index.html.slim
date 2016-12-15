@@ -40,3 +40,13 @@
                   = link_to '编辑', edit_pac_path(pac)
                   |  / 
                   = link_to '删除', pac, data: {:confirm => '你确定？'}, :method => :delete
+
+  .col-xs-12  
+    .box.box-warning
+      .box-header.box-border
+        h3.box-title 使用帮助
+      .box-body.table-responsive
+        p 
+          | 该工具主要提供给测试人员使用，用于减去每次需要用 HTTP 代理抓包需要反复修改手机的网络代理设置，以达成一次性配置即可。
+        p
+          | 纯实验性质的小工具，请小心服用。
