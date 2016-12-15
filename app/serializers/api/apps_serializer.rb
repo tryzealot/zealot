@@ -8,14 +8,10 @@ class Api::AppsSerializer < Api::BaseSerializer
     else
       'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
         object.slug,
-        release_version,
+        object.latest_release.release_version,
         protocol: Rails.env.development? ? 'http' : 'https'
       )
     end
-  end
-
-  def release_version
-    @instance_options[:release_version] ? @instance_options[:release_version] : object.releases.last.try(:[], :version)
   end
 
   def changelog
