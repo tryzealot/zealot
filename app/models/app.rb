@@ -34,10 +34,6 @@ class App < ActiveRecord::Base
     end
   end
 
-  def version
-    latest_release.version
-  end
-
   def release_versions
     releases.group(:release_version)
             .map(&:release_version)
@@ -49,12 +45,16 @@ class App < ActiveRecord::Base
             .map(&:build_version)
   end
 
+  def version
+    latest_release.try(:[], :version)
+  end
+
   def release_version
-    latest_release.release_version
+    latest_release.try(:[], :release_version)
   end
 
   def build_version
-    latest_release.build_version
+    latest_release.try(:[], :build_version)
   end
 
   def changelog(since_release_version: nil, since_build_version: nil)

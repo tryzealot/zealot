@@ -2,7 +2,7 @@ class Api::V2::Apps::LatestController < ActionController::API
   before_action :validate_app_key, only: [:show]
 
   def show
-    render json: @app, serializer: Api::AppsSerializer, release_version: params[:release_version], build_version: params[:build_version]
+    render json: @app, serializer: Api::AppsSerializer
   end
 
   def validate_app_key
