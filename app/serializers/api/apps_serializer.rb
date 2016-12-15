@@ -21,7 +21,7 @@ class Api::AppsSerializer < Api::BaseSerializer
   def changelog
     data = []
     commits.each_with_index do |item, i|
-      data << "#{i + 1}.#{item[:message]}"
+      data << "#{i + 1}.#{item['message']}"
     end
 
     changelog = data.join("\n")
