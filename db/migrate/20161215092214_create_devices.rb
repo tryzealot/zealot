@@ -3,6 +3,9 @@ class CreateDevices < ActiveRecord::Migration[5.0]
     create_table :devices do |t|
       t.string :name
       t.string :udid
+      t.string :model
+      t.string :platform
+      t.string :device_type
 
       t.timestamps
     end
