@@ -18,7 +18,7 @@ if latest
       root_url + latest.file.url
     else
       app_install_url = url_for(
-        protocol: 'https',
+        protocol: Rails.env.development? ? 'http' : 'https',
         controller: 'app',
         action: 'install_url',
         slug: @app.slug,
