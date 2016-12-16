@@ -4,3 +4,11 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+namespace :test do
+  task env: :environment do
+    ENV.each do |k, v|
+      puts "#{k} = #{v}"
+    end
+  end
+end
