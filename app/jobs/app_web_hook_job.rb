@@ -1,4 +1,4 @@
-class AppWebHookJob < ActiveJob::Base
+class AppWebHookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::DateHelper
   include ActiveSupport::NumberHelper
