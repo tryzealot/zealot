@@ -23,13 +23,11 @@
           |  / Build：#{@release.version}
           |  / 大小：#{number_to_human_size(@release.filesize)}
           |  / 更新于：#{time_ago_in_words(@release.created_at)}
-          
-          |  / 内 v
-          = @release.changelog
             
         = form_for @release, url: apps_changelog_path(@app.slug, @release.version)
           .form-group
             textarea.form-control name="changelog" id="changelog" rows="10"
+              = @release.plain_text_changelog
               
           a.btn.btn-default href="#{app_path(@release.app.slug, @release.version)}" 返回
           button.btn.btn-info style="margin-left:10px" type="submit" 更新
