@@ -1,6 +1,6 @@
 require 'app-info'
 
-class AppTeardownJob < ActiveJob::Base
+class AppTeardownJob < ApplicationJob
   queue_as :default
 
   def perform(_event, release)
