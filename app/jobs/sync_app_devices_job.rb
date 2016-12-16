@@ -8,7 +8,7 @@ class SyncAppDevicesJob < ApplicationJob
     return if @release.release_type.blank? || @release.release_type.casecmp('inhouse').zero?
 
     extra = JSON.parse(release.extra)
-    next if !extra['devices'] || extra['devices'].blank? || extra['devices'].size.zero?
+    return if !extra['devices'] || extra['devices'].blank? || extra['devices'].size.zero?
     @devices = extra['devices']
 
     logger.info "Processing devices (#{@devices.size})"
