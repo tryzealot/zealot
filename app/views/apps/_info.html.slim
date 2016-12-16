@@ -46,10 +46,10 @@ div.col-sm-9.app-info
       div.changelog
         h3
           | 更新日志
-          - if user_signed_in?
-            | (
-            = link_to '编辑', edit_apps_changelog_path(@app.slug, @release.version)
-            | )
+          / - if user_signed_in?
+          /   | (
+          /   = link_to '编辑', edit_apps_changelog_path(@app.slug, @release.version)
+          /   | )
         p
           = simple_format(@release.plain_text_changelog)
 
