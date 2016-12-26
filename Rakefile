@@ -11,4 +11,27 @@ namespace :test do
       puts "#{k} = #{v}"
     end
   end
+
+  task pwd: :environment do
+    accounts.each do |key, _|
+      account_password_variable_name = "#{key.upcase}_PASSWORD"
+      print "#{account_password_variable_name} => "
+      puts ENV[account_password_variable_name]
+    end
+  end
+
+  def accounts
+    {
+      qyer_inc: {
+        user: 'yi.xiao@go2eu.com',
+        team_id: '5PJA6N5A3B'
+      },
+      qyer_co_ltd: {
+        user: 'enterpriseidp@qq.com'
+      },
+      qyer_inhouse: {
+        user: 'enterprisetest@qq.com'
+      }
+    }
+  end
 end
