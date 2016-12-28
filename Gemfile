@@ -109,7 +109,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.45.0', require: false
+  gem 'rubocop', '~> 0.45', require: false
   gem 'letter_opener'
 
   gem 'pry-rails'
