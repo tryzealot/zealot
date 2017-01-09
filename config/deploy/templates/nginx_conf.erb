@@ -49,6 +49,9 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_max_temp_file_size 0;
+    proxy_connect_timeout 600;
+    proxy_read_timeout 600;
+    proxy_send_timeout 600;
 
 <% if fetch(:nginx_use_ssl) %>
     proxy_set_header X-Forwarded-Proto https;
