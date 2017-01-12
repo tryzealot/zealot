@@ -26,36 +26,36 @@ namespace :devices do
     end
   end
 
-  task down: :environment do
-    require 'spaceship'
-
-    ['yi.xiao@go2eu.com', 'enterpriseidp@qq.com', 'enterprisetest@qq.com'].each do |account|
-      puts "Log in to iDP ... #{account}"
-      ENV['FASTLANE_TEAM_ID'] = '5PJA6N5A3B' if account == 'yi.xiao@go2eu.com'
-
-      Spaceship.login(account)
-      Spaceship.select_team
-
-      Spaceship::Portal.device.all(include_disabled: true).each do |item|
-        device = Device.find_by(udid: item.udid)
-        params = {
-          name: item.name,
-          udid: item.udid,
-          model: item.model,
-          platform: item.platform,
-          device_type: item.device_type
-        }
-
-        puts " * #{item.udid} ... "
-        if device
-          device.update!(params)
-        else
-          device = Device.new(params)
-          device.save!
-        end
-      end
-
-      ENV.delete('FASTLANE_TEAM_ID') if account == 'yi.xiao@go2eu.com'
-    end
-  end
+  # task down: :environment do
+  #   require 'spaceship'
+  #
+  #   ['yi.xiao@go2eu.com', 'enterpriseidp@qq.com', 'enterprisetest@qq.com'].each do |account|
+  #     puts "Log in to iDP ... #{account}"
+  #     ENV['FASTLANE_TEAM_ID'] = '5PJA6N5A3B' if account == 'yi.xiao@go2eu.com'
+  #
+  #     Spaceship.login(account)
+  #     Spaceship.select_team
+  #
+  #     Spaceship::Portal.device.all(include_disabled: true).each do |item|
+  #       device = Device.find_by(udid: item.udid)
+  #       params = {
+  #         name: item.name,
+  #         udid: item.udid,
+  #         model: item.model,
+  #         platform: item.platform,
+  #         device_type: item.device_type
+  #       }
+  #
+  #       puts " * #{item.udid} ... "
+  #       if device
+  #         device.update!(params)
+  #       else
+  #         device = Device.new(params)
+  #         device.save!
+  #       end
+  #     end
+  #
+  #     ENV.delete('FASTLANE_TEAM_ID') if account == 'yi.xiao@go2eu.com'
+  #   end
+  # end
 end
