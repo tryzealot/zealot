@@ -1,4 +1,4 @@
-require 'spaceship'
+# require 'spaceship'
 
 class SyncAppDevicesJob < ApplicationJob
   queue_as :default
