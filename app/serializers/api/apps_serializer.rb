@@ -4,11 +4,11 @@ class Api::AppsSerializer < Api::BaseSerializer
 
   def install_url
     if object.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(object.slug, object.latest_release.release_version)
+      api_v2_apps_download_url(object.slug, object.latest_release.version)
     else
       'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
         object.slug,
-        object.latest_release.release_version,
+        object.latest_release.version,
         protocol: Rails.env.development? ? 'http' : 'https'
       )
     end
