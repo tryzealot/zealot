@@ -81,7 +81,7 @@ gem 'uglifier'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
-gem 'spaceship', require: false
+# gem 'spaceship', require: false
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 1.0.3', require: false
 
