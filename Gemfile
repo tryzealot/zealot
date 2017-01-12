@@ -1,19 +1,20 @@
 source 'https://gems.ruby-china.org'
 
-gem 'rails', '~> 5.0.0'
 gem 'puma', '~> 3.6.0'
+gem 'rails', '~> 5.0.0'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.0'
-gem 'redis-rails', '~> 5.0.1'
 gem 'redis-namespace'
+gem 'redis-rails', '~> 5.0.1'
 
 # APM
+# gem 'gelf'
 gem 'newrelic_rpm'
 
 # API
-gem 'rack-cors'
 gem 'active_model_serializers'
+gem 'rack-cors'
 
 # View
 ## 模板引擎
@@ -29,7 +30,7 @@ gem 'friendly_id'
 ## 数据分页
 gem 'kaminari'
 ## 记录 Model 层记录变更
-gem 'paper_trail', '~> 4.0.0'  #5.2.0'
+gem 'paper_trail', '~> 4.0.0' # 5.2.0'
 ## 文件上传
 gem 'carrierwave'
 gem 'mini_magick'
@@ -67,15 +68,16 @@ gem 'sinatra', '~> 2.0.0.beta2', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'jquery-rails'
-gem 'font-awesome-rails'
-gem 'sass-rails'
-gem 'coffee-rails'
-gem 'uglifier'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 gem 'bower-rails', '~> 0.10.0'
+gem 'coffee-rails'
+gem 'font-awesome-rails'
+gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'js-routes'
+gem 'sass-rails'
+gem 'turbolinks'
+gem 'uglifier'
+
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
@@ -85,8 +87,8 @@ gem 'app-info', '~> 1.0.3', require: false
 
 group :development do
   # 调试控制台
-  gem 'web-console'
   gem 'listen', '~> 3.0.5'
+  gem 'web-console'
 
   # 断点调试器
   gem 'byebug'
@@ -104,18 +106,18 @@ group :development do
   gem 'airbrussh', require: false
 
   ## cap 插件
-  gem 'capistrano-rvm'
   gem 'capistrano-bundler'
-  gem 'capistrano3-puma'
   gem 'capistrano-rails'
+  gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
+  gem 'capistrano3-puma'
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.45', require: false
   gem 'letter_opener'
+  gem 'rubocop', '~> 0.45', require: false
 
-  gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'pry-rescue'
 end
