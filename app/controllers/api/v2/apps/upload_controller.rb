@@ -14,7 +14,6 @@ class Api::V2::Apps::UploadController < ActionController::API
 
     render json: @app,
            serializer: Api::AppsSerializer,
-           release_version: @release.version,
            status: @new_record ? :created : :ok
   end
 
@@ -58,6 +57,9 @@ class Api::V2::Apps::UploadController < ActionController::API
     else
       @release.update!(release_params)
     end
+
+    # 更新 app 的数据并用于 json 显示
+    @app = @release.app
   end
 
   def app_new_record?

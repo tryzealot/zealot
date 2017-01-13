@@ -14,18 +14,15 @@ class Release < ActiveRecord::Base
   end
 
   def plain_text_changelog
-    loop_count = 1
     text = JSON.parse(changelog).each_with_object([]) do |item, obj|
-      item_date = DateTime.parse(item['date']).strftime('%Y-%m-%d %H:%M')
-      obj << "#{loop_count}. #{item['message']} [#{item_date}]"
-      loop_count += 1
+      obj << "- #{item['message']}"
     end.join("\n")
 
-    text.blank? ? "没有更新日志的原因：\n1.开发者很懒没有留下更新日志😂\n2.有不可抗拒的因素造成日志丢失👽" : text
+    text.blank? ? "没有更新日志的原因：\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽" : text
   rescue
     changelog
 
-    changelog.blank? ? "没有更新日志的原因：\n1.开发者很懒没有留下更新日志😂\n2.有不可抗拒的因素造成日志丢失👽" : changelog
+    changelog.blank? ? "没有更新日志的原因：\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽" : changelog
   end
 
   def pure_changelog

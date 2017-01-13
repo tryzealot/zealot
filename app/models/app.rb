@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
   include FriendlyId
+
   friendly_id :slug
 
   has_many :releases, dependent: :destroy
@@ -59,9 +60,13 @@ class App < ActiveRecord::Base
 
   def changelog(since_release_version: nil, since_build_version: nil)
     unless since_release_version.blank? && since_build_version.blank?
-      previous_release = Release.find_by(release_version: since_release_version, build_version: since_build_version)
+      previous_release = Release.find_by(
+        app: self,
+        release_version: since_release_version,
+        build_version: since_build_version
+      )
 
-      return releases.where("id >= #{previous_release.id}").order(id: :desc).each_with_object([]) do |release, obj|
+      return releases.where("id > #{previous_release.id}").order(id: :desc).each_with_object([]) do |release, obj|
         next if release.changelog.blank? || release.changelog == '[]'
 
         begin
