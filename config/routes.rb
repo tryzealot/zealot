@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
@@ -79,8 +77,8 @@ Rails.application.routes.draw do
       namespace :apps do
         post 'upload', to: 'upload#create'
         get 'latest', to: 'latest#show'
-        get ':slug/:version/install_url', to: 'install_url#show', as: 'install'
-        get ':slug/:version/download', to: 'download#show', as: 'download'
+        get ':slug(/:version)/install_url', to: 'install_url#show', as: 'install'
+        get ':slug(/:version)/download', to: 'download#show', as: 'download'
         get ':id', action: :show
         patch ':id', action: :update
         delete ':id', action: :destroy

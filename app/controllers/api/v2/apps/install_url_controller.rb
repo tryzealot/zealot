@@ -1,7 +1,12 @@
-class Api::V2::Apps::InstallUrlController < ActionController::API
+class Api::V2::Apps::InstallUrlController < ApplicationController
   def show
     @app = App.friendly.find(params[:slug])
-    @release = @app.releases.find_by(version: params[:version])
+    @release =
+      if params[:version]
+        @app.releases.find_by(version: params[:version])
+      else
+        @app.latest_release
+      end
 
     if @app && @release
       render content_type: 'text/xml', layout: false

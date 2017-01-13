@@ -4,11 +4,11 @@ class Api::AppsSerializer < Api::BaseSerializer
 
   def install_url
     if object.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(object.slug, object.latest_release.version)
+      api_v2_apps_download_url(object.slug, object.version)
     else
       'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
         object.slug,
-        object.latest_release.version,
+        object.version,
         protocol: Rails.env.development? ? 'http' : 'https'
       )
     end
@@ -16,8 +16,8 @@ class Api::AppsSerializer < Api::BaseSerializer
 
   def changelog
     data = []
-    commits.each_with_index do |item, i|
-      data << "#{i + 1}.#{item['message']}"
+    commits.each do |item|
+      data << "- #{item['message']}"
     end
 
     changelog = data.join("\n")
