@@ -18,7 +18,7 @@ namespace :apps do
         print release_path
         release_id = File.basename(release_path)[1..-1]
         begin
-          release = Release.find(release_id)
+          Release.find(release_id)
         rescue
           print ' removed'
           FileUtils.rm_rf release_path
@@ -36,12 +36,12 @@ namespace :apps do
     Dir.glob("#{store_path}/apps/*").each do |app_path|
       Dir.glob("#{app_path}/*").each do |release_path|
         puts release_path
-        ['binary', 'icons'].each do |dir_name|
+        %w(binary icons).each do |dir_name|
           FileUtils.mkdir_p(File.join(release_path, dir_name))
         end
         new_path = File.join(release_path, 'binary')
-        FileUtils.mv Dir.glob(File.join(release_path, "*.ipa")), new_path
-        FileUtils.mv Dir.glob(File.join(release_path, "*.apk")), new_path
+        FileUtils.mv Dir.glob(File.join(release_path, '*.ipa')), new_path
+        FileUtils.mv Dir.glob(File.join(release_path, '*.apk')), new_path
       end
     end
 
@@ -95,7 +95,7 @@ namespace :apps do
           puts ' [CLEAN & KEEP LATEST]'
           puts "      avaiable: #{build_versions.join(', ')}"
           puts "      latest: #{latest_build_version}"
-          print "      removed: "
+          print '      removed: '
           releases.each do |r|
             next if r.version == latest_build_version
             r.remove_file
@@ -104,7 +104,7 @@ namespace :apps do
             r.destroy
             print "#{r.version}, "
           end
-          puts ""
+          puts ''
         else
           puts ' [SKIP]'
         end
