@@ -54,8 +54,6 @@ class Api::V2::Apps::UploadController < ActionController::API
       @release = Release.new(release_params)
       @release.app = @app
       @release.save!
-    else
-      @release.update!(release_params)
     end
 
     # 更新 app 的数据并用于 json 显示
