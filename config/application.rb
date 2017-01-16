@@ -23,6 +23,9 @@ module QMobile
       expires_in: 90.minutes
     }
 
+    # gem: exception_handler
+    config.exception_handler = { dev: true }
+
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib/mobile/**/"]
     # config.assets.paths << Rails.root.join('lib', 'assets', 'javascripts')

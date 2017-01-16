@@ -14,7 +14,6 @@ class AppsController < ApplicationController
   # 查看应用详情
   # GET /apps/:slug
   def show
-    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
     redirect_to new_user_session_path unless !wechat? || @app.password.blank? || !user_signed_in?
 
     app_info
@@ -126,7 +125,7 @@ class AppsController < ApplicationController
         @app.releases.last
       end
 
-    raise "Not found release = #{params[:version]}" unless @release
+    raise ActiveRecord::RecordNotFound, "Not found release = #{params[:version]}" unless @release
   end
 
   def check_user_logged_in
