@@ -87,11 +87,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'errors/not_found'
-  get 'errors/server_error'
-
-  match '/404', via: :all, to: 'errors#not_found'
-  match '/500', via: :all, to: 'errors#server_error'
-
   root to: 'visitors#index'
 end

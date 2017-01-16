@@ -61,8 +61,6 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bower-rails (0.10.0)
     browser (2.3.0)
     builder (3.2.2)
@@ -117,6 +115,10 @@ GEM
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    exception_handler (0.7.0)
+      bundler (~> 1.6)
+      rails (>= 4.2.0)
+      responders
     execjs (2.7.0)
     ffi (1.9.14)
     font-awesome-rails (4.7.0.1)
@@ -379,7 +381,6 @@ DEPENDENCIES
   airbrussh
   app-info (~> 1.0.3)
   better_errors
-  binding_of_caller
   bower-rails (~> 0.10.0)
   browser (~> 2.3)
   byebug
@@ -393,6 +394,7 @@ DEPENDENCIES
   chronic
   coffee-rails
   devise (~> 4.2.0)
+  exception_handler (~> 0.7.0)
   font-awesome-rails
   foreman
   friendly_id
@@ -406,7 +408,6 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mini_magick
   mysql2 (~> 0.4.0)
-  net-ssh (~> 3.1.1)
   newrelic_rpm
   paper_trail (~> 4.0.0)
   pry-byebug

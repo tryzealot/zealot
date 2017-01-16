@@ -42,27 +42,13 @@ ActiveRecord::Schema.define(version: 20161215092214) do
     t.index ["udid"], name: "index_devices_on_udid", unique: true, using: :btree
   end
 
-  create_table "errors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "usable_type"
-    t.integer  "usable_id"
-    t.text     "class_name",  limit: 65535
-    t.text     "message",     limit: 65535
-    t.text     "trace",       limit: 65535
-    t.text     "target_url",  limit: 65535
-    t.text     "referer_url", limit: 65535
-    t.text     "params",      limit: 65535
-    t.text     "user_agent",  limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer "qyer_id",                      null: false
     t.string  "im_id",                        null: false
     t.string  "name",                         null: false
     t.string  "type",    default: "chatroom"
-    t.index ["im_id"], name: "index_groups_on_im_id", length: {"im_id"=>191}, using: :btree
-    t.index ["name"], name: "index_groups_on_name", length: {"name"=>191}, using: :btree
+    t.index ["im_id"], name: "index_groups_on_im_id", length: { im_id: 191 }, using: :btree
+    t.index ["name"], name: "index_groups_on_name", length: { name: 191 }, using: :btree
     t.index ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
   end
 
@@ -207,7 +193,7 @@ ActiveRecord::Schema.define(version: 20161215092214) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id", using: :btree
-    t.index ["url"], name: "index_web_hooks_on_url", length: {"url"=>191}, using: :btree
+    t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }, using: :btree
   end
 
 end
