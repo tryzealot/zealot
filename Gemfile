@@ -56,8 +56,6 @@ gem 'browser', '~> 2.3'
 gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
-# SSH
-gem 'net-ssh', '~> 3.1.1'
 # 进程管理
 gem 'foreman'
 # 异步队列
@@ -85,6 +83,9 @@ gem 'ace-rails-ap'
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 1.0.3', require: false
 
+# 异常处理
+gem 'exception_handler', '~> 0.7.0'
+
 group :development do
   # 调试控制台
   gem 'listen', '~> 3.0.5'
@@ -96,7 +97,6 @@ group :development do
 
   # rails 更友好错误输出
   gem 'better_errors'
-  gem 'binding_of_caller'
 
   gem 'capistrano'
   ## 改善 capistrano 输出格式化
