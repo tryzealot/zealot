@@ -10,7 +10,7 @@ class Api::V2::Pacs::UpdateController < ActionController::API
     if @pac.valid?(:api)
       render json: @pac,
              serializer: Api::PacsSerializer,
-             status: :created
+             status: :accepted
     else
       raise ActiveRecord::RecordInvalid, @pac
     end
@@ -31,12 +31,6 @@ class Api::V2::Pacs::UpdateController < ActionController::API
     }, status: :unprocessable_entity
   end
 
-  def render_unauthorized_user_key(exception)
-    render json: {
-      error: exception.message
-    }, status: :unauthorized
-  end
-
   def render_internal_server_error(exception)
     render json: {
       error: exception.message,
@@ -45,7 +39,6 @@ class Api::V2::Pacs::UpdateController < ActionController::API
   end
 
   def pac_params
-
     params.permit(:host, :port)
   end
 
