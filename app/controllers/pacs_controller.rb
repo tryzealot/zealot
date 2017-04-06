@@ -80,18 +80,24 @@ class PacsController < ApplicationController
   def default_script
     @default_script = <<-PAC
 function FindProxyForURL(url, host) {
-  // If the hostname matches, use below proxies, in fail-over order.
-  // if (dnsDomainIs(host, "open.qyer.com")
-  //   return "PROXY 4.5.6.7:8080; PROXY 7.8.9.10:8080";
+    // 匹配单个域名走多个代理，第一个失败后将会尝试后面的代理
+    // if (dnsDomainIs(host, "open.qyer.com")
+    //     return "PROXY 172.1.30.123:8080; PROXY 7.8.9.10:8080";
 
-  // If the host matches, use below proxy, in fail-over send direct.
-  // if (shExpMatch(host, "*.qyer.com"))
-  // return "PROXY 4.5.6.7:8080; DIRECT";
+    // 使用通配符匹配域名，先走代理，失败后直连网络
+    // if (shExpMatch(host, "*.qyer.com"))
+    //     return "PROXY 172.1.30.123:8080; DIRECT";
 
-  // DEFAULT RULE: All other traffic, send direct.
-  return "DIRECT";
+    // 如果使用 `qma pac` 上报本机 IP 和端口号，可用如下变量：
+    // @host - IP 地址
+    // @port - 端口号
+    // if (shExpMatch(host, "*.qyer.com"))
+    //     return "PROXY @host:@port; PROXY 172.1.30.123:8080; DIRECT";
+
+    // 默认规则：其他所有流量直连网络
+    return "DIRECT";
 }
-    PAC
+PAC
   end
 
   def pac_params
