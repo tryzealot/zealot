@@ -21,6 +21,7 @@ class PacsController < ApplicationController
   def new
     @title = '新建自动代理'
     @pac = Pac.new
+    default_script
   end
 
   def edit
@@ -72,9 +73,27 @@ class PacsController < ApplicationController
 
   def set_pac
     @pac = Pac.find(params[:id])
+    default_script
+  end
+
+  def default_script
+    @default_script = <<-PAC
+function FindProxyForURL(url, host) {
+  // If the hostname matches, use below proxies, in fail-over order.
+  // if (dnsDomainIs(host, "open.qyer.com")
+  //   return "PROXY 4.5.6.7:8080; PROXY 7.8.9.10:8080";
+
+  // If the host matches, use below proxy, in fail-over send direct.
+  // if (shExpMatch(host, "*.qyer.com"))
+  // return "PROXY 4.5.6.7:8080; DIRECT";
+
+  // DEFAULT RULE: All other traffic, send direct.
+  return "DIRECT";
+}
+    PAC
   end
 
   def pac_params
-    params.require(:pac).permit(:title, :host, :port, :is_enabled, :script)
+    params.require(:pac).permit(:title, :script)
   end
 end
