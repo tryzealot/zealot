@@ -84,6 +84,10 @@ Rails.application.routes.draw do
         delete ':id', action: :destroy
         get '', action: :index
       end
+
+      namespace :pacs do
+        post 'update', to: 'update#create'
+      end
     end
   end
 
