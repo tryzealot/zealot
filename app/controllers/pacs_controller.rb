@@ -27,6 +27,7 @@ class PacsController < ApplicationController
 
   def edit
     @title = '编辑自动代理'
+    default_script
   end
 
   # POST /pacs/create
