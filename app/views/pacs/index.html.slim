@@ -43,7 +43,20 @@
       .box-header.box-border
         h3.box-title 使用帮助
       .box-body.table-responsive
-        p 
-          | 该工具主要提供给测试人员使用，用于减去每次需要用 HTTP 代理抓包需要反复修改手机的网络代理设置，以达成一次性配置即可。
-        p
-          | 纯实验性质的小工具，请小心服用。
+        p 该工具主要提供给测试人员使用，用于减去每次需要用 HTTP 代理抓包需要反复修改手机的网络代理设置，以达成一次性配置即可。
+        p 配合 qma 命令工具使用可自动上报本机的 IP 地址。如下步骤会涉及使用终端命令：
+        ul
+          li 
+            | 步骤 1 - 首先需要安装 qma
+            blockquote sudo gem install qyer-mobile-app
+          li 
+            | 步骤 2 - 下载 
+            a href="#{root_url}config/qma_config" target="_blank" qma 配置文件
+            | 到 ~/.qma 
+            blockquote cp ~/Downloads/qma_config ~/.qma
+          li 
+            | 步骤 3 - 查看本机 IP
+            blockquote qma pac --show
+          li
+            | 步骤 4 - 找到自己自动代理的 ID 并准备上报 IP
+            blockquote qma pac --id 3 --port 8080
