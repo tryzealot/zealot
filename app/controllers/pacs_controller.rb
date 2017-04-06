@@ -11,6 +11,7 @@ class PacsController < ApplicationController
   # GET /pacs/1
   # GET /pacs/1.pac
   def show
+    @title = @pac.title
     respond_to do |format|
       format.pac { render :show, status: :ok, location: @pac }
       format.html { render :show, status: :ok, location: @pac }
@@ -33,7 +34,7 @@ class PacsController < ApplicationController
     @pac = Pac.new(pac_params)
 
     respond_to do |format|
-      if @pac.save
+      if @pac.valid?(:web) && @pac.save
         format.html { redirect_to @pac, notice: 'pac was successfully created.' }
       else
         format.html { render :new }
