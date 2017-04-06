@@ -1,1 +1,9 @@
-<%= raw @pac.script %>
+<%
+script = if @pac.host && @pac.port
+  @pac.script.gsub("@host", @pac.host).gsub("@port", @pac.port)
+else
+  @pac.script
+end
+%>
+
+<%= script %>
