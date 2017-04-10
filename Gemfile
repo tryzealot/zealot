@@ -27,16 +27,16 @@ gem 'simple_form', '~> 3.3.1'
 ## 生成友好 id
 gem 'friendly_id'
 ## 数据分页
-gem 'kaminari', '~> 1.0.1'
+gem 'kaminari'
 ## 记录 Model 层记录变更
 gem 'paper_trail', '~> 4.0.0' # 5.2.0'
 ## 文件上传
-gem 'carrierwave', '~> 1.0.0'
+gem 'carrierwave'
 gem 'mini_magick'
 
 # Helper
 # HTTP 请求
-gem 'rest-client', '~> 1.0.0'
+gem 'rest-client'
 # 用户认证
 gem 'devise', '~> 4.2.0'
 # Crontab
@@ -45,7 +45,7 @@ gem 'whenever', require: false
 # gem 'haversine'
 
 # Jenkins SDK
-gem 'jenkins_api_client', '~> 1.5.3'
+gem 'jenkins_api_client'
 # User-Agent 封装
 gem 'browser', '~> 2.3'
 # 生成条形码/二维码
@@ -57,7 +57,7 @@ gem 'foreman'
 # 异步队列
 gem 'sidekiq', '~> 4.2.6'
 # 支持 sidekiq 使用界面
-gem 'sinatra', '~> 2.0.0.rc2', require: false
+gem 'sinatra', '~> 2.0.0.beta2', require: false
 # Mobile config
 gem 'settingslogic'
 
@@ -104,7 +104,7 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
-  gem 'capistrano3-puma', '~> 1.2.1'
+  gem 'capistrano3-puma'
 end
 
 group :development, :test do
