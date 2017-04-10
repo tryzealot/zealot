@@ -5,16 +5,15 @@ gem 'rails', '~> 5.0.2'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.0'
-gem 'redis-namespace'
+gem 'redis-namespace', '~> 1.5.3'
 gem 'redis-rails', '~> 5.0.1'
 
 # APM
-# gem 'gelf'
 gem 'newrelic_rpm'
 
 # API
-gem 'active_model_serializers'
-gem 'rack-cors'
+gem 'active_model_serializers', '~> 0.10.5'
+gem 'rack-cors', '~> 0.4.1'
 
 # View
 ## 模板引擎
@@ -40,9 +39,6 @@ gem 'mini_magick'
 gem 'rest-client'
 # 用户认证
 gem 'devise', '~> 4.2.0'
-# gem 'devise-i18n'
-# 权限认证
-# gem 'pundit'
 # Crontab
 gem 'whenever', require: false
 # # GEO 坐标计算
@@ -101,11 +97,8 @@ group :development do
   # rails 更友好错误输出
   gem 'better_errors'
 
-  ## 改善 capistrano 输出格式化
-  gem 'airbrussh', require: false
-
   ## cap 插件
-  gem 'capistrano', '~> 3.6'
+  gem 'capistrano', '~> 3.8'
   gem 'capistrano-rails', '~> 1.2'
 
   gem 'capistrano-bundler'
