@@ -372,9 +372,9 @@ DEPENDENCIES
   bower-rails (~> 0.10.0)
   browser (~> 2.3)
   byebug
-  capistrano
+  capistrano (~> 3.6)
   capistrano-bundler
-  capistrano-rails
+  capistrano-rails (~> 1.2)
   capistrano-rvm
   capistrano-sidekiq
   capistrano3-puma
@@ -423,4 +423,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

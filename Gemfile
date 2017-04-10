@@ -101,13 +101,14 @@ group :development do
   # rails 更友好错误输出
   gem 'better_errors'
 
-  gem 'capistrano'
   ## 改善 capistrano 输出格式化
   gem 'airbrussh', require: false
 
   ## cap 插件
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.2'
+
   gem 'capistrano-bundler'
-  gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano3-puma'
