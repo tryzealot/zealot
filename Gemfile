@@ -1,7 +1,7 @@
 source 'https://gems.ruby-china.org'
 
-gem 'puma', '~> 3.8.0'
-gem 'rails', '~> 5.0.0'
+gem 'puma', '~> 3.8.2'
+gem 'rails', '~> 5.0.2'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.0'
