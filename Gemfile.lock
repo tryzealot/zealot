@@ -401,9 +401,9 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 3.8.0)
+  puma (~> 3.8.2)
   rack-cors
-  rails (~> 5.0.0)
+  rails (~> 5.0.2)
   redis-namespace
   redis-rails (~> 5.0.1)
   rest-client
