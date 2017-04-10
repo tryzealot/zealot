@@ -212,7 +212,7 @@ GEM
       interception (>= 0.5)
       pry
     public_suffix (2.0.4)
-    puma (3.6.2)
+    puma (3.8.2)
     rack (2.0.1)
     rack-cors (0.4.0)
     rack-protection (2.0.0.beta2)
@@ -401,7 +401,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 3.6.0)
+  puma (~> 3.8.0)
   rack-cors
   rails (~> 5.0.0)
   redis-namespace
