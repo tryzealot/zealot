@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       namespace :apps do
         post 'upload', to: 'upload#create'
         get 'latest', to: 'latest#show'
-        get ':slug(/:version)/install_url', to: 'install_url#show', as: 'install'
+        get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
         get ':slug(/:version)/download', to: 'download#show', as: 'download'
         get ':id', action: :show
         patch ':id', action: :update
