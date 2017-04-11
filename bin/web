@@ -19,7 +19,7 @@ get_puma_pid()
 
 start()
 {
-  exec $puma_cmd -d
+  exec $puma_cmd --daemon
 }
 
 start_foreground()
