@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406053936) do
+ActiveRecord::Schema.define(version: 20170411022714) do
 
   create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "user_id"
@@ -42,16 +42,6 @@ ActiveRecord::Schema.define(version: 20170406053936) do
     t.index ["udid"], name: "index_devices_on_udid", unique: true, using: :btree
   end
 
-  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer "qyer_id",                      null: false
-    t.string  "im_id",                        null: false
-    t.string  "name",                         null: false
-    t.string  "type",    default: "chatroom"
-    t.index ["im_id"], name: "index_groups_on_im_id", length: { im_id: 191 }, using: :btree
-    t.index ["name"], name: "index_groups_on_name", length: { name: 191 }, using: :btree
-    t.index ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
-  end
-
   create_table "jspatches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "app_id",                    null: false
     t.string   "title"
@@ -61,30 +51,6 @@ ActiveRecord::Schema.define(version: 20170406053936) do
     t.datetime "updated_at",                null: false
     t.index ["app_id", "app_version"], name: "index_jspatches_on_app_id_and_app_version", using: :btree
     t.index ["app_id"], name: "index_jspatches_on_app_id", using: :btree
-  end
-
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer  "group_id",                                             null: false
-    t.integer  "user_id"
-    t.string   "group_name"
-    t.string   "group_type",                      default: "chatroom"
-    t.string   "user_name",                                                         collation: "utf8_unicode_ci"
-    t.string   "message",                                                           collation: "utf8_unicode_ci"
-    t.datetime "timestamp"
-    t.string   "content_type",                                                      collation: "utf8_unicode_ci"
-    t.string   "file_type",                                                         collation: "utf8_unicode_ci"
-    t.text     "custom_data",  limit: 65535,                                        collation: "utf8_unicode_ci"
-    t.text     "file",         limit: 4294967295,                                   collation: "utf8_unicode_ci"
-    t.string   "im_id",                                                             collation: "utf8_unicode_ci"
-    t.string   "im_user_id",                                                        collation: "utf8_unicode_ci"
-    t.string   "im_topic_id",                                                       collation: "utf8_unicode_ci"
-    t.boolean  "is_deleted",                      default: false,                                                 unsigned: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["im_id"], name: "index_messages_on_im_id", using: :btree
-    t.index ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
-    t.index ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
-    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
   create_table "pacs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
