@@ -2,7 +2,7 @@
 
 cd $(dirname $0)/..
 app_root=$(pwd)
-cd $app_root/../
+cd $app_root/..
 shared_root=$(pwd)/shared
 cd $app_root
 
@@ -10,7 +10,7 @@ sidekiq_pidfile="$shared_root/tmp/pids/sidekiq-0.pid"
 sidekiq_logfile="$shared_root/log/sidekiq.log"
 qmobile_user=$(ls -l config.ru | awk '{print $3}')
 
-sidekiq_cmd="bundle exec sidekiq --index 0 --pidfile '$sidekiq_pidfile' --environment $RAILS_ENV"
+sidekiq_cmd="bundle exec sidekiq --index 0 --pidfile $sidekiq_pidfile --environment $RAILS_ENV"
 
 warn()
 {
