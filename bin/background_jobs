@@ -19,7 +19,7 @@ warn()
 
 stop()
 {
-  exec bundle exec sidekiqctl stop $sidekiq_pidfile >> $sidekiq_logfile 2>&1
+  exec bundle exec sidekiqctl stop $sidekiq_pidfile 10 >> $sidekiq_logfile 2>&1
 }
 
 killall()
