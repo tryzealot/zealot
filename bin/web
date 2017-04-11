@@ -39,12 +39,6 @@ reload()
   kill -USR2 $puma_pid
 }
 
-status()
-{
-  get_puma_pid
-  echo "Puma Server is running, pid: $puma_pid"
-}
-
 case "$1" in
   start)
     start
@@ -57,9 +51,6 @@ case "$1" in
     ;;
   reload)
     reload
-    ;;
-  status)
-    status
     ;;
   *)
     echo "Usage: RAILS_ENV=your_env $0 {start|stop|reload}"
