@@ -14,10 +14,18 @@
 
 ## 部署
 
-部署脚本位于 `config/deploy.rb`
+本机部署脚本位于 `config/deploy.rb`
 
 ```
 cap production deploy
+```
+
+## 服务化
+
+复制项目的 `lib/support/init.d/qmobile` 到系统的 `/etc/init.d` 可操作如下命令：
+
+```bash
+Usage: service qmobile {start|stop|restart|reload|status}
 ```
 
 ## 定时任务
