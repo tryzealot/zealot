@@ -2,7 +2,7 @@
 
 cd $(dirname $0)/..
 app_root=$(pwd)
-sidekiq_pidfile="$app_root/../../shared/tmp/pids/sidekiq.pid"
+sidekiq_pidfile="$app_root/../../shared/tmp/pids/sidekiq-0.pid"
 sidekiq_logfile="$app_root/log/sidekiq.log"
 qmobile_user=$(ls -l config.ru | awk '{print $3}')
 
