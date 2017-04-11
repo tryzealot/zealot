@@ -17,17 +17,12 @@ download = ->
   , 8000
 
   slug = $('#download_it').data('slug')
-  release_id = $('#download_it').data('release-id')
-  device_type = $('.app-type').html()
+  release_version = $('#download_it').data('release-version')
 
-  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
+  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/v2/apps/" + slug + "/" + release_version + "/install/"
 
-  if device_type == 'Android'
-    url = installAPI
-  else if device_type.toLowerCase() == 'ios' || device_type.toLowerCase() == 'iphone' || device_type.toLowerCase() == 'ipad'
-    url = "itms-services://?action=download-manifest&url=" + installAPI
+  url = "itms-services://?action=download-manifest&url=" + installAPI
 
-  console.log 'device:', device_type
   console.log 'url:', url
   window.location.href = url
 
