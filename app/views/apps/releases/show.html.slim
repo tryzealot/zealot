@@ -39,7 +39,7 @@
                 td 
                   = release.last_commit
                 td
-                  = link_to '下载本地', api_v2_apps_download_path(release.id), { target: '_blank' }
+                  = link_to '下载本地', api_v2_apps_download_path(release.version), { target: '_blank' }
                 td
                   = release.created_at
           - else
