@@ -116,11 +116,11 @@ check_status(){
     sidekiq_status="-1"
   fi
   if [ $web_status = 0 ] && [ $sidekiq_status = 0 ]; then
-    gitlab_status=0
+    qmobile_status=0
   else
     # http://refspecs.linuxbase.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
     # code 3 means 'program is not running'
-    gitlab_status=3
+    qmobile_status=3
   fi
 }
 
