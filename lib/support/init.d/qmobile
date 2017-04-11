@@ -31,7 +31,7 @@ RAILS_ENV="production"
 # internal /bin/sh variables such as PATH, EDITOR or SHELL.
 app_user="wangshen"
 app_root="/home/$app_user/www/mobile/current"
-shared_path="$app_root/../.."
+shared_path="$app_root/../../shared"
 pid_path="$shared_path/tmp/pids"
 socket_path="$shared_path/tmp/sockets"
 
@@ -39,7 +39,6 @@ rails_socket="$socket_path/puma.socket"
 
 web_server_pid_path="$pid_path/puma.pid"
 sidekiq_pid_path="$pid_path/sidekiq-0.pid"
-
 shell_path="/bin/bash"
 
 # Read configuration variable file if it is present
