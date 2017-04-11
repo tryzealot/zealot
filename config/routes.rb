@@ -39,11 +39,8 @@ Rails.application.routes.draw do
 
   # user
   devise_for :users
-  namespace :users do
-    namespace :search do
-      get '', action: :index
-    end
-  end
+  # namespace :users do
+  # end
 
   authenticate :user do
     require 'sidekiq/web'
@@ -58,17 +55,6 @@ Rails.application.routes.draw do
       get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
       get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
       get 'jenkins/:project/status/(:id)' => 'jenkins#status'
-
-      post 'app/upload', top: 'app#upload'
-      get 'app/download/:release_id' => 'app#download', as: 'app_download'
-      # match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
-      get 'app', to: 'app#info', as: 'app_info'
-      get 'app/versions', to: 'app#versions', as: 'app_versions'
-      get 'app/latest', to: 'app#latest', as: 'app_latest'
-      get 'app/changelogs', to: 'app#changelogs', as: 'app_changelogs'
-      get 'app/:slug(/:release_id)/install' => 'app#install_url', as: 'app_install'
-
-      get 'user/(:id).json', to: 'user#show'
 
       get 'patch/app/:key', to: 'patch#index'
     end

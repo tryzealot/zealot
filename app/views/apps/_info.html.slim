@@ -11,12 +11,18 @@ div.col-sm-9.app-info
     - if @release && @release.branch
       span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
         = @release.branch
+
   div.meta-data
     p.app-identifier
       = @app.identifier
     - if @release
+<<<<<<< HEAD
       p.version
         | 版本：#{@release.release_version} (#{@release.build_version})
+=======
+      p.version
+        | 版本: #{@release.release_version} (#{@release.build_version})
+>>>>>>> 5871c1b5... refactor: 下线查找用户，清理遗留的聊天室相关表和接口
         |  / Build：#{@release.version}
         |  / 大小：#{number_to_human_size(@release.filesize)}
         |  / 更新于：#{time_ago_in_words(@release.created_at)}
@@ -35,7 +41,7 @@ div.col-sm-9.app-info
             == render 'apps/install_cert'
 
             button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装
-          - else # [:mac, :windows, :linux].include?(browser.platform)
+          - else
             = link_to "下载到本地", api_app_download_path(@release.id), { class: 'btn btn-success btn-lg', target: '_blank' }
             <span style="margin:0 5px"></span>
 
@@ -46,10 +52,6 @@ div.col-sm-9.app-info
       div.changelog
         h3
           | 更新日志
-          / - if user_signed_in?
-          /   | (
-          /   = link_to '编辑', edit_apps_changelog_path(@app.slug, @release.version)
-          /   | )
         p
           = simple_format(@release.plain_text_changelog)
 
