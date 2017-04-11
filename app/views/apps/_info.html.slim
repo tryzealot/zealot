@@ -35,7 +35,7 @@ div.col-sm-9.app-info
           - if detect_device(@app.device_type) == 'iOS'
             == render 'apps/install_cert'
             
-            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-id="#{@release.id}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装      
+            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-version="#{@release.version}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装      
           - else
             = link_to "下载到本地", api_v2_apps_download_path(@app.slug, @release.version), { class: 'btn btn-success btn-lg', target: '_blank' }
             <span style="margin:0 5px"></span>
