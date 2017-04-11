@@ -2,9 +2,8 @@
 
 cd $(dirname $0)/..
 app_root=$(pwd)
-sidekiq_pidfile="$app_root/../shared/tmp/pids/sidekiq.pid"
+sidekiq_pidfile="$app_root/../../shared/tmp/pids/sidekiq.pid"
 sidekiq_logfile="$app_root/log/sidekiq.log"
-sidekiq_config="$app_root/config/sidekiq_queues.yml"
 qmobile_user=$(ls -l config.ru | awk '{print $3}')
 
 warn()
@@ -38,7 +37,7 @@ start_no_deamonize()
 
 start_sidekiq()
 {
-  exec bundle exec sidekiq -C "${sidekiq_config}" -e $RAILS_ENV -P $sidekiq_pidfile "$@"
+  exec bundle exec sidekiq -e $RAILS_ENV -P $sidekiq_pidfile "$@"
 }
 
 load_ok()
