@@ -6,7 +6,7 @@ class Api::V2::Pacs::UpdateController < ActionController::API
   rescue_from ArgumentError, with: :render_internal_server_error
 
   def create
-    return render status: :not_modified if @pac.host == params[:host] && @pac.port == params[:port]
+    return render json:{}, status: :not_modified if @pac.host == params[:host] && @pac.port == params[:port]
 
     @pac.update!(pac_params)
     raise ActiveRecord::RecordInvalid, @pac unless @pac.valid?(:api)
