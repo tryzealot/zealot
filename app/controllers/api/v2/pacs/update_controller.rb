@@ -11,7 +11,7 @@ class Api::V2::Pacs::UpdateController < ActionController::API
     @pac.update!(pac_params)
     raise ActiveRecord::RecordInvalid, @pac unless @pac.valid?(:api)
 
-    render status: :accepted
+    render json:{}, status: :accepted
   end
 
   private
