@@ -36,7 +36,7 @@ gem 'mini_magick'
 
 # Helper
 # HTTP 请求
-gem 'rest-client'
+gem 'http'
 # 用户认证
 gem 'devise', '~> 4.2.0'
 # Crontab

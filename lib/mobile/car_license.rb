@@ -14,27 +14,25 @@ class CarLicense
     url = build_uri('imageCheckCode')
     params = { phone: phone }
     headers = {
-      'Accept' => 'image/*;q=0.8',
-      'Accept-Encoding' => 'gzip, deflate',
-      'Accept-language' => 'zh-cn',
-      'User-Agent' => USER_AGENT[:login]
+      accept: 'image/*;q=0.8',
+      user_agent: USER_AGENT[:login]
     }
 
-    RestClient.get(url, params: params, headers: headers)
+    HTTP.headers(headers)
+        .get(url, params: params)
   end
 
   def send_phone_code(phone, image_code, flag = '01')
     url = build_uri('checkImageVerification')
     params = { phone: phone, imagecode: image_code, smsflag: flag }
     headers = {
-      'Accept' => 'application/json',
-      'Accept-Encoding' => 'gzip, deflate',
-      'Accept-language' => 'zh-cn',
-      'Content-Type' => 'application/json',
-      'User-Agent' => USER_AGENT[:app]
+      accept: 'application/json',
+      content_type: 'application/json',
+      user_agent: USER_AGENT[:app]
     }
 
-    RestClient.post(url, params.to_json, headers)
+    HTTP.headers(headers)
+        .post(url, json: params)
   end
 
   private
