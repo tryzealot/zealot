@@ -24,7 +24,7 @@ module QMobile
     }
 
     # gem: exception_handler
-    config.exception_handler = { dev: true }
+    config.exception_handler = { dev: false }
 
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib/mobile/**/"]

@@ -74,6 +74,11 @@ Rails.application.routes.draw do
       namespace :pacs do
         post 'update', to: 'update#create'
       end
+
+      namespace :licenses do
+        get 'valid_phone', to: 'login#show'
+        get 'send_phone_code', to: 'login#update'
+      end
     end
   end
 
