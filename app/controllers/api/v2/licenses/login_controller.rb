@@ -1,3 +1,5 @@
+require 'json/add/exception'
+
 class Api::V2::Licenses::LoginController < ActionController::API
   before_action :set_client
 
@@ -23,14 +25,14 @@ class Api::V2::Licenses::LoginController < ActionController::API
         message: data['resdes']
       }, status: :bad_request
     end
-    
-    def
   end
 
   # 使用手机、验证码登录
   def create
     r = @client.login(params[:phone], params[:code])
     render json: JSON.parse(r)
+  rescue Exception => e
+    render json: e.to_json, status: 500
   end
 
   private
@@ -38,4 +40,5 @@ class Api::V2::Licenses::LoginController < ActionController::API
   def set_client
     @client = CarLicense.new
   end
+
 end
