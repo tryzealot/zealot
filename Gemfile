@@ -90,6 +90,10 @@ group :development do
   # 断点调试器
   gem 'byebug'
 
+  # IDE tools(VSCode)
+  gem "ruby-debug-ide"
+  gem "debase"
+
   # 加速开发环境
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

@@ -10,11 +10,27 @@ class Api::V2::Licenses::LoginController < ActionController::API
   # 下发图片验证码
   def update
     r = @client.send_phone_code(params[:phone], params[:code])
-    render json: JSON.parse(r)
+    data = JSON.parse(r)
+    case data['rescode']
+    when '200'
+      render json: {
+        status_code: data['rescode'],
+        message: data['resdes']
+      }, status: :ok
+    else
+      render json: {
+        status_code: data['rescode'],
+        message: data['resdes']
+      }, status: :bad_request
+    end
+    
+    def
   end
 
+  # 使用手机、验证码登录
   def create
-
+    r = @client.login(params[:phone], params[:code])
+    render json: JSON.parse(r)
   end
 
   private
