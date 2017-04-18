@@ -81,6 +81,7 @@ Rails.application.routes.draw do
       namespace :licenses do
         get 'valid_phone', to: 'login#show'
         get 'send_phone_code', to: 'login#update'
+        post 'login', to: 'login#create'
       end
     end
   end
