@@ -93,6 +93,10 @@ group :development do
   gem 'byebug'
   gem 'guard-rails', require: false
 
+  # IDE tools(VSCode)
+  gem "ruby-debug-ide"
+  gem "debase"
+
   # 加速开发环境
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
