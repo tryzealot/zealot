@@ -87,6 +87,10 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'web-console'
 
+  # 断点调试器
+  gem 'byebug'
+  gem 'guard-rails', require: false
+
   # 加速开发环境
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
