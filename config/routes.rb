@@ -39,8 +39,6 @@ Rails.application.routes.draw do
 
   # user
   devise_for :users
-  # namespace :users do
-  # end
 
   authenticate :user do
     require 'sidekiq/web'
