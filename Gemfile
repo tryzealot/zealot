@@ -89,6 +89,7 @@ group :development do
 
   # 断点调试器
   gem 'byebug'
+  gem 'guard-rails', require: false
 
   # 加速开发环境
   gem 'spring'
