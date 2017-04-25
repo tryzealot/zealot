@@ -29,7 +29,7 @@ gem 'friendly_id'
 ## 数据分页
 gem 'kaminari'
 ## 记录 Model 层记录变更
-gem 'paper_trail', '~> 4.0.0' # 5.2.0'
+gem 'paper_trail', '~> 7.0.0' # 5.2.0'
 ## 文件上传
 gem 'carrierwave'
 gem 'mini_magick'
@@ -38,7 +38,7 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'rest-client'
 # 用户认证
-gem 'devise', '~> 4.2.0'
+gem 'devise', '~> 4.2.1'
 # Crontab
 gem 'whenever', require: false
 # # GEO 坐标计算
