@@ -30,41 +30,6 @@ namespace :apps do
     `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
   end
 
-  desc 'Mobile | Migrate old app path to new directory structure'
-  task migrate_upload_path: :environment do
-    store_path = File.join(Rails.root, 'public', 'uploads')
-    Dir.glob("#{store_path}/apps/*").each do |app_path|
-      Dir.glob("#{app_path}/*").each do |release_path|
-        puts release_path
-        %w(binary icons).each do |dir_name|
-          FileUtils.mkdir_p(File.join(release_path, dir_name))
-        end
-        new_path = File.join(release_path, 'binary')
-        FileUtils.mv Dir.glob(File.join(release_path, '*.ipa')), new_path
-        FileUtils.mv Dir.glob(File.join(release_path, '*.apk')), new_path
-      end
-    end
-
-    Dir.glob("#{store_path}/release/icon/*").each do |release_path|
-      begin
-        release = Release.find(File.basename(release_path).to_i)
-        if release
-          new_path = File.join(store_path, 'apps', "a#{release.app.id}", "r#{release.id}", 'icons')
-          if Dir.exist?new_path
-            FileUtils.cp_r Dir.glob("#{release_path}/*"), new_path
-          else
-            raise 'Not found path'
-          end
-        else
-          FileUtils.rm_rf release_path
-        end
-      rescue
-        FileUtils.rm_rf release_path
-        next
-      end
-    end
-  end
-
   desc 'Mobile | Remove old app history versions except the latest build version by each release version'
   task remove_old: :environment do
     apps = App.all
