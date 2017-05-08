@@ -23,7 +23,7 @@ module AppsHelper
     end
     commit_url = File.join(git_url, 'commit', commit)
 
-    raw "<a href='#{commit_url}' >#{commit[0..commit_length]}</a>"
+    raw "<a href='#{commit_url}' >#{commit[0..commit_length-1]}</a>"
   end
 
   def display_app_device(app)
