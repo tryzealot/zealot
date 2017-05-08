@@ -12,6 +12,12 @@ class App < ActiveRecord::Base
 
   before_create :generate_key_or_slug
 
+  def self.find_by_release(release)
+    instance = release.app
+    instance.current_release = release
+    instance
+  end
+
   def platform
     case device_type.downcase
     when 'iphone', 'ipad', 'ios'
@@ -47,15 +53,15 @@ class App < ActiveRecord::Base
   end
 
   def version
-    latest_release.try(:[], :version)
+    current_release.try(:[], :version)
   end
 
   def release_version
-    latest_release.try(:[], :release_version)
+    current_release.try(:[], :release_version)
   end
 
   def build_version
-    latest_release.try(:[], :build_version)
+    current_release.try(:[], :build_version)
   end
 
   def changelog(since_release_version: nil, since_build_version: nil)
@@ -77,11 +83,19 @@ class App < ActiveRecord::Base
       end if previous_release
     end
 
-    latest_release.pure_changelog
+    current_release.pure_changelog
   end
 
   def icon_url
-    latest_release.icon.url
+    current_release.icon.url
+  end
+
+  def current_release
+    @current_release ||= latest_release
+  end
+
+  def current_release=(current_release)
+    @current_release = current_release
   end
 
   def latest_release
