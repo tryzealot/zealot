@@ -9,40 +9,46 @@ div.col-sm-9.app-info
       span.app-type.label.label-danger.label-ms
         = @release.release_type
     - if @release && @release.branch
-      span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
+      span.git-branch.label.label-info.label-ms
         = @release.branch
 
   div.meta-data
     p.app-identifier
       = @app.identifier
     - if @release
-      p.version 
+      p.version
         | 版本: #{@release.release_version} (#{@release.build_version})
         |  / Build：#{@release.version}
+        - if @release.last_commit
+          |  / Commit：
+          - if @app.git_url
+            = git_commit_url(@app.git_url, @release.last_commit)
+          - else
+            = @release.last_commit[0..6]
         |  / 大小：#{number_to_human_size(@release.filesize)}
         |  / 更新于：#{time_ago_in_words(@release.created_at)}
-        |  / 该版本使用 
+        |  / 该版本使用
         - if @release.channel == 'jenkins'
           a href="#{@release.ci_url}" #{@release.channel}
         - else
           = @release.channel
-        |  上传
-        
+        | 上传
+
       p
         - if user_agent.include?('MicroMessenger')
           == render 'wechat'
         - else
           - if detect_device(@app.device_type) == 'iOS'
             == render 'apps/install_cert'
-            
-            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-version="#{@release.version}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装      
+
+            button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-release-version="#{@release.version}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips" 在线安装
           - else
             = link_to "下载到本地", api_v2_apps_download_path(@app.slug, @release.version), { class: 'btn btn-success btn-lg', target: '_blank' }
             <span style="margin:0 5px"></span>
-            
+
           - unless @app.jenkins_job.blank?
             button.btn.btn-success.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建..." style="margin-left: 10px" 构建新版本
-            
+
       p#jekins_buld_alert.alert.alert-warning.hidden role="alert" style="margin-top: 10px"
       div.changelog
         h3
@@ -52,17 +58,17 @@ div.col-sm-9.app-info
 
       div.history
         == render 'history'
-        
+
       div.history
         == render 'devices'
 
 div.col-sm-3 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
   /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
-    
+
   div.sidebar-module.sidebar-module-inset
     h3 二维码
-    div.qr_code 
+    div.qr_code
       = image_tag(apps_qrcode_path(@app.slug, params[:version], size: :large))
 
   div.sidebar-module.sidebar-module-inset
@@ -75,18 +81,18 @@ div.col-sm-3 style="margin-top: 20px"
 
   / - if @job
   /   div.sidebar-module.sidebar-module-inset
-  /     h3 Jenkins 
+  /     h3 Jenkins
   /     ul
-  /       li 
+  /       li
   /         | 地址：
   /         a href="#{@job['url']}" #{@job['name']}
   /       - if @job['status'] == 'running'
-  /         li 
+  /         li
   /           a href="#{@job['lastBuild']['url']}/console"
-  /             | 正在构建 #{@job['lastBuild']['number']} 
+  /             | 正在构建 #{@job['lastBuild']['number']}
   /       - else
   /         li
-  /           | 最新构建: 
+  /           | 最新构建:
   /           a href="#{@job['lastBuild']['url']}" #{@job['lastBuild']['number']}
   /         li
   /           | 当前构建状态: #{@job['status']}
