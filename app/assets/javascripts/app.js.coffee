@@ -103,7 +103,7 @@ $(document).ready ->
   # if window.location.pathname == '/apps/upload'
   #   ready
   # else
-    document.addEventListener('turbolinks:load', badget_scm_info)
+  #   document.addEventListener('turbolinks:load', badget_scm_info)
 
     $('.release-toggle-changelogs').click ->
       release_id = $(this).data('id')
