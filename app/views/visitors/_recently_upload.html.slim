@@ -12,13 +12,13 @@ section.recently-upload
             app = release.app
 
           - if i == 0
-            ruby: 
+            ruby:
               loop_date = release.created_at
             li.time-label
               span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
                 = release.created_at.strftime('%Y-%m-%d')
           - elsif loop_date.to_date != release.created_at.to_date
-            ruby: 
+            ruby:
               loop_date = release.created_at
 
             li.time-label
@@ -29,7 +29,7 @@ section.recently-upload
             .timeline-item
               span.time
                 i.fa.fa-clock-o
-                |   
+                |
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to " #{app.name}", app_path(app.slug)
@@ -38,7 +38,7 @@ section.recently-upload
               - unless release.plain_text_changelog.blank?
                 .timeline-body
                   = simple_format(release.plain_text_changelog)
-                
+
               - if !release.branch.blank? || !release.last_commit.blank? || !release.release_type.blank?
                 .timeline-footer
                   - unless release.release_type.blank?
@@ -49,8 +49,8 @@ section.recently-upload
                       = release.branch
                   - unless release.last_commit.blank?
                     span.btn.btn-xs.btn-info
-                      = release.last_commit
+                      = release.last_commit[0..7]
         li
           i.fa.fa-clock-o.bg-gray
-      
+
       = paginate @releases
