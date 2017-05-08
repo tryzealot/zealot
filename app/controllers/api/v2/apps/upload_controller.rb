@@ -8,7 +8,6 @@ class Api::V2::Apps::UploadController < ActionController::API
   def create
     create_or_update_app
     create_or_update_release
-
     perform_app_web_hook_job
     # perform_app_teardown_job
 
@@ -56,8 +55,7 @@ class Api::V2::Apps::UploadController < ActionController::API
       @release.save!
     end
 
-    # 更新 app 的数据并用于 json 显示
-    @app = @release.app
+    @app = App.find_by_release(@release)
   end
 
   def app_new_record?

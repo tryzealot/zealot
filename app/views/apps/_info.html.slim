@@ -9,21 +9,22 @@ div.col-sm-9.app-info
       span.app-type.label.label-danger.label-ms
         = @release.release_type
     - if @release && @release.branch
-      span.git-branch.label.label-info.label-ms data-commit="#{@release.last_commit}" data-branch="#{@release.branch}"
+      span.git-branch.label.label-info.label-ms
         = @release.branch
 
   div.meta-data
     p.app-identifier
       = @app.identifier
     - if @release
-<<<<<<< HEAD
-      p.version
-        | 版本：#{@release.release_version} (#{@release.build_version})
-=======
       p.version
         | 版本: #{@release.release_version} (#{@release.build_version})
->>>>>>> 5871c1b5... refactor: 下线查找用户，清理遗留的聊天室相关表和接口
         |  / Build：#{@release.version}
+        - if @release.last_commit
+          |  / Commit：
+          - if @app.git_url
+            = git_commit_url(@app.git_url, @release.last_commit)
+          - else
+            = @release.last_commit[0..6]
         |  / 大小：#{number_to_human_size(@release.filesize)}
         |  / 更新于：#{time_ago_in_words(@release.created_at)}
         |  / 该版本使用
@@ -32,7 +33,6 @@ div.col-sm-9.app-info
         - else
           = @release.channel
         |  上传
-
       p
         - if user_agent.include?('MicroMessenger')
           == render 'wechat'
