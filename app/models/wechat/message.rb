@@ -37,7 +37,7 @@ module Wechat
       when 'video'
         VideoMessage.new(hash)
       when 'shortvideo'
-        ShortVideo.new(hash)
+        ShortVideoMessage.new(hash)
       else
         raise ArgumentError, 'Unknown Weixin Message'
       end
