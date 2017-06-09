@@ -1,17 +1,14 @@
-class Wechat::RobotController < ApplicationController
-  @@token = "63da844381a4dfa25d76a4d0c0b9925d".freeze
-
+class Wechat::RobotController < WechatController
   def show
-    signature_data = [@@token, params[:timestamp], params[:nonce]].sort.join
-    current_signature = Digest::SHA1.hexdigest(signature_data)
-
-    if current_signature == params[:signature]
-      render text: params[:echostr]
-    else
-      render json: []
-    end
+    render json: ["nothing show"]
   end
 
   def create
+    message = Wechat::TextReplyMessage.new
+    message.FromUserName = "icyleaf"
+    message.ToUserName   = params[:openid]
+    message.Content      = "hello"
+
+    render text: message.to_xml
   end
 end

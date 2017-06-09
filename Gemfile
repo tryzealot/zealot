@@ -22,6 +22,8 @@ gem 'slim-rails', '~> 3.1.1'
 gem 'jbuilder', '~> 2.6.0'
 ## 表单生成
 gem 'simple_form', '~> 3.3.1'
+gem 'multi_xml'
+gem 'roxml'
 
 # Model
 ## 生成友好 id
