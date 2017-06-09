@@ -45,6 +45,11 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  namespace :wechat do
+    get 'robot', to: 'robot#show'
+    post 'robot', to: 'robot#create'
+  end
+
   # api
   namespace :api do
     scope module: :v1 do
