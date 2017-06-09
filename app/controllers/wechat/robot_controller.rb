@@ -11,7 +11,7 @@ class Wechat::RobotController < WechatController
     reply.ToUserName   = message.FromUserName
     reply.Content      = "hello"
 
-    logger.info "Respone: #{rely.to_xml}"
+    logger.info "Respone: #{reply.to_xml}"
 
     render plain: reply.to_xml
   end
