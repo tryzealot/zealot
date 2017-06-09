@@ -123,7 +123,7 @@ class Wechat::RobotController < WechatController
     reply = Wechat::TextReplyMessage.new
     reply.FromUserName = @message.ToUserName
     reply.ToUserName   = @message.FromUserName
-    reply.Content      = "11. 医院列表查询\n12. 医院科室查询\n13. 医院科室一周预约情况[还未实现]"
+    reply.Content      = "11. 医院列表查询\n12. 医院科室查询\n13. 医院科室一周预约情况[还未实现]\n14. 医院科室指定天预约情况[还未实现]"
     reply
   end
 
