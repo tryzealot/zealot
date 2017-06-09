@@ -32,6 +32,23 @@ class HealthClient
         .get(url, params: params)
   end
 
+  def booking_weekly(hospital_id, department_id, subdepartment_id)
+    url = build_uri('list')
+    headers = {
+      user_agent: USER_AGENT
+    }
+    params = {
+      'hosCode' => hospital_id,
+      'firstDeptCode' => hospital_id,
+      'secondDeptCode' => hospital_id,
+      'CHANNEL' => 'wechat'
+    }
+
+    HTTP.cookies(@cookies)
+        .headers(headers)
+        .get(url, params: params)
+  end
+
   private
 
   def make_cookies(cookie_string)
