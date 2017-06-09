@@ -6,9 +6,13 @@ class Wechat::RobotController < WechatController
   def create
     @message = Wechat::Message.factory(request.raw_post)
 
-    reply = case @message.Content
-            when '挂', '1', '挂号', '回龙观'
-              booking_link
+    reply = if @message.MsgType == 'text'
+              case @message.Content
+              when 'guahao', '1', '挂号', '回龙观'
+                booking_link
+              else
+                default_reply
+              end
             else
               default_reply
             end
