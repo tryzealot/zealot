@@ -30,16 +30,18 @@ class AppWebHookJob < ApplicationJob
   end
 
   def request_url
-    r = RestClient.get @web_hook.url
+    r = HTTP.get(@web_hook.url)
     logger.info(log_message('trigger successfully')) if r.code == 200
-  rescue RestClient::BadRequest => e
+  rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
   def request_bearychat
-    r = RestClient.post @web_hook.url, { payload: JSON.dump(request_bearychat_params) }, content_type: :json
+    r = HTTP.headers(content_type: 'application/json')
+            .post(@web_hook.url, json: request_bearychat_params)
+
     logger.info(log_message('trigger successfully')) if r.code == 200
-  rescue RestClient::BadRequest => e
+  rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 

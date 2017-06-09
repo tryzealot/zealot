@@ -38,7 +38,7 @@ gem 'mini_magick'
 
 # Helper
 # HTTP 请求
-gem 'rest-client'
+gem 'http'
 # 用户认证
 gem 'devise', '~> 4.2.1'
 # Crontab
@@ -92,6 +92,10 @@ group :development do
   # 断点调试器
   gem 'byebug'
   gem 'guard-rails', require: false
+
+  # IDE tools(VSCode)
+  gem "ruby-debug-ide"
+  gem "debase"
 
   # 加速开发环境
   gem 'spring'
