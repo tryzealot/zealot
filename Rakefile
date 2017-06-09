@@ -17,7 +17,6 @@ namespace :health do
   end
 end
 
-
 namespace :test do
   task env: :environment do
     ENV.each do |k, v|

@@ -1,3 +1,5 @@
+require 'health_client'
+
 class Wechat::RobotController < WechatController
   before_action :set_client, only: [ :create ]
 
