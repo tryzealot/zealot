@@ -1,4 +1,6 @@
 class Wechat::RobotController < WechatController
+  before_action :set_client, only: [ :create ]
+
   def show
     render json: ["nothing show"]
   end
@@ -8,6 +10,10 @@ class Wechat::RobotController < WechatController
 
     reply = if @message.MsgType == 'text'
               case @message.Content
+              when '1'
+                hospital_booking_help
+              when '11'
+                hospitals
               when 'g', '挂号', 'guahao'
                 booking_link
               else
@@ -24,6 +30,33 @@ class Wechat::RobotController < WechatController
 
   private
 
+  def hospital_booking_help
+    reply = Wechat::TextReplyMessage.new
+    reply.FromUserName = @message.ToUserName
+    reply.ToUserName   = @message.FromUserName
+    reply.Content      = "11. 医院列表查询\n12. 医院科室查询\n13. 医院科室一周预约情况"
+    reply
+  end
+
+  def hospitals
+    hospitals = Rails.cache.fetch("benmu_health_hospitals", expires_in: 1.day) do
+      r = @client.hospitals
+      data = JSON.parse(r.body)
+      data['data']['hospitals']
+    end
+
+    content = ['当前开通的医院：']
+    hospitals.each do |hospital|
+      content.push("#{hospital["countyName"]} | #{hospital["hosName"]} #{hospital["hosLevel"]}")
+    end
+
+    reply = Wechat::TextReplyMessage.new
+    reply.FromUserName = @message.ToUserName
+    reply.ToUserName   = @message.FromUserName
+    reply.Content      = content.join("\n")
+    reply
+  end
+
   def booking_link
     reply = Wechat::TextReplyMessage.new
     reply.FromUserName = @message.ToUserName
@@ -36,7 +69,11 @@ class Wechat::RobotController < WechatController
     reply = Wechat::TextReplyMessage.new
     reply.FromUserName = @message.ToUserName
     reply.ToUserName   = @message.FromUserName
-    reply.Content      = "我还没有那么智能，请耐心等待手动回复 :P"
+    reply.Content      = "万事屋目前可提供如下服务：\n1. 北京医院挂号\n\n其他服务请留言联系 :P"
     reply
+  end
+
+  def set_client
+    @client = Health::Client.new('__jsluid=bd5ae0fc289eac8c6848238469f89d3b; _ucp=QPrYUv5YZ1zVd5ha3tBVB0cdWXr57osValPqwdLNdyUIACuJQzm9EHiC6KWfOUI8vvwFVQ..; _lgd=1')
   end
 end
