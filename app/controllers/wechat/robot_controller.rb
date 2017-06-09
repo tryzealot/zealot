@@ -4,6 +4,8 @@ class Wechat::RobotController < WechatController
   end
 
   def create
+    logger.info params
+
     message = Wechat::TextReplyMessage.new
     message.FromUserName = "icyleaf"
     message.ToUserName   = params[:openid]
