@@ -24,7 +24,7 @@ class Wechat::RobotController < WechatController
     reply = Wechat::LinkReplyMessage.new
     reply.FromUserName = @message.ToUserName
     reply.ToUserName   = @message.FromUserName
-    reply.Title        = "挂号 | 积水潭医院回龙观"
+    reply.Title        = "积水潭医院回龙观"
     reply.Description  = "一键直达预约挂号页面"
     reply.Url          = "https://wechat.benmu-health.com/wechat/register/index.html"
 
