@@ -3,7 +3,7 @@
 
 require_relative 'config/application'
 require 'health_client'
-require 'awesome_print'
+# require 'awesome_print'
 
 Rails.application.load_tasks
 
@@ -15,7 +15,7 @@ namespace :health do
     # puts r.body
 
     r = client.departments('H1136112')
-    ap JSON.parse r.body
+    puts JSON.parse r.body
   end
 end
 
