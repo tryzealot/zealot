@@ -8,7 +8,7 @@ Rails.application.load_tasks
 namespace :health do
   task test: :environment do
     options = WechatOption.find_by(key: 'user_cookies')
-    client = Health::Client.new(options.value)
+    client = HealthClient.new(options.value)
     # r = client.hospitals
     # puts r.body
 

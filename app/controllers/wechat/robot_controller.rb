@@ -74,6 +74,6 @@ class Wechat::RobotController < WechatController
   end
 
   def set_client
-    @client = Health::Client.new('__jsluid=bd5ae0fc289eac8c6848238469f89d3b; _ucp=QPrYUv5YZ1zVd5ha3tBVB0cdWXr57osValPqwdLNdyUIACuJQzm9EHiC6KWfOUI8vvwFVQ..; _lgd=1')
+    @client = HealthClient.new('__jsluid=bd5ae0fc289eac8c6848238469f89d3b; _ucp=QPrYUv5YZ1zVd5ha3tBVB0cdWXr57osValPqwdLNdyUIACuJQzm9EHiC6KWfOUI8vvwFVQ..; _lgd=1')
   end
 end
