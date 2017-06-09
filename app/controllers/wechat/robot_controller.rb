@@ -3,6 +3,9 @@ require 'health_client'
 class Wechat::RobotController < WechatController
   before_action :set_client, only: [ :create ]
 
+  CACHE_HOSPITALS_KEY = 'benmu_health_hospitals'.freeze
+  CACHE_HOSPITAL_NAMES_KEY = 'benmu_health_hospitals_name'.freeze
+
   def show
     render json: ["nothing show"]
   end
@@ -11,12 +14,17 @@ class Wechat::RobotController < WechatController
     @message = Wechat::Message.factory(request.raw_post)
 
     reply = if @message.MsgType == 'text'
-              case @message.Content
-              when '1'
+              if @message.Content == '1'
                 hospital_booking_help
-              when '11'
-                hospitals
-              when 'g', '挂号', 'guahao'
+              elsif @message.Content == '11'
+                hospitals_list
+              elsif @message.Content.include?('12')
+                name = @message.Content.gsub('12', '').strip
+                hospital_departments(name)
+              elsif @message.Content.include?('13')
+                no, hospital, department = @message.Content.split(' ')
+                hospital_department_booking_list(hospital, department)
+              elsif ['g', '挂号', 'guahao'].include?(@message.Content)
                 booking_link
               else
                 default_reply
@@ -32,25 +40,61 @@ class Wechat::RobotController < WechatController
 
   private
 
-  def hospital_booking_help
-    reply = Wechat::TextReplyMessage.new
-    reply.FromUserName = @message.ToUserName
-    reply.ToUserName   = @message.FromUserName
-    reply.Content      = "11. 医院列表查询\n12. 医院科室查询\n13. 医院科室一周预约情况"
-    reply
-  end
-
-  def hospitals
-    hospitals = Rails.cache.fetch("benmu_health_hospitals", expires_in: 1.day) do
-      r = @client.hospitals
-      data = JSON.parse(r.body)
-      data['data']['hospitals']
-    end
-
+  def hospitals_list
     content = ['当前开通的医院：']
     hospitals.each do |hospital|
       content.push("#{hospital["countyName"]} | #{hospital["hosName"]} #{hospital["hosLevel"]}")
     end
+
+    reply = Wechat::TextReplyMessage.new
+    reply.FromUserName = @message.ToUserName
+    reply.ToUserName   = @message.FromUserName
+    reply.Content      = content.join("\n")
+    reply
+  end
+
+  def hospital_departments(name)
+    return default_reply if name.empty?
+
+    result = hospitals.select {|h| h['hosName'] == name }
+
+    content = '未找到医院'
+
+    unless result.empty?
+      hospital = result[0]
+      puts hospital["hosCode"]
+      departments = Rails.cache.fetch("benmu_health_hospital_#{hospital["hosCode"]}", expires_in: 1.day) do
+        r = @client.departments(hospital["hosCode"])
+        data = JSON.parse(r.body)
+        data['data']['departments']
+      end
+
+      content = [ "找到 #{hospital["hosName"]} 科室如下：" ]
+      departments.each do |department|
+        content.push("#{department["name"]}")
+        if department["subDepartments"] && department["subDepartments"].size > 0
+          department["subDepartments"].each do |sub|
+            content.push("  #{sub["name"]}")
+            if sub["subDepartments"] && sub["subDepartments"].size > 0
+              sub["subDepartments"].each do |sub2|
+                content.push("    #{sub2["name"]}")
+              end
+            end
+          end
+        end
+      end
+    end
+
+    reply = Wechat::TextReplyMessage.new
+    reply.FromUserName = @message.ToUserName
+    reply.ToUserName   = @message.FromUserName
+    reply.Content      = content.join("\n")
+    reply
+  end
+
+  def hospital_department_booking_list(hospital, deparement)
+
+
 
     reply = Wechat::TextReplyMessage.new
     reply.FromUserName = @message.ToUserName
@@ -73,6 +117,28 @@ class Wechat::RobotController < WechatController
     reply.ToUserName   = @message.FromUserName
     reply.Content      = "万事屋目前可提供如下服务：\n1. 北京医院挂号\n\n其他服务请留言联系 :P"
     reply
+  end
+
+  def hospital_booking_help
+    reply = Wechat::TextReplyMessage.new
+    reply.FromUserName = @message.ToUserName
+    reply.ToUserName   = @message.FromUserName
+    reply.Content      = "11. 医院列表查询\n12. 医院科室查询\n13. 医院科室一周预约情况[还未实现]"
+    reply
+  end
+
+  def hospitals
+    expires_in = 1.day
+    Rails.cache.fetch(CACHE_HOSPITALS_KEY, expires_in: expires_in) do
+      r = @client.hospitals
+      data = JSON.parse(r.body)
+
+      hospitals = data['data']['hospitals']
+      names = hospitals.map{|h| h["hosName"] }
+      Rails.cache.write(CACHE_HOSPITAL_NAMES_KEY, names, expires_in: expires_in)
+
+      hospitals
+    end
   end
 
   def set_client

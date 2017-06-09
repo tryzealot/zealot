@@ -2,6 +2,8 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative 'config/application'
+require 'health_client'
+require 'awesome_print'
 
 Rails.application.load_tasks
 
@@ -13,7 +15,7 @@ namespace :health do
     # puts r.body
 
     r = client.departments('H1136112')
-    puts r.body
+    ap JSON.parse r.body
   end
 end
 

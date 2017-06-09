@@ -56,6 +56,7 @@ GEM
       ruby_android (~> 0.7.7)
     arel (7.1.4)
     ast (2.3.0)
+    awesome_print (1.7.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -397,6 +398,7 @@ DEPENDENCIES
   ace-rails-ap
   active_model_serializers (~> 0.10.5)
   app-info (~> 1.0.3)
+  awesome_print
   better_errors
   bower-rails (~> 0.10.0)
   browser (~> 2.3)
