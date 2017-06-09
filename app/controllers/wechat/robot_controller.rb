@@ -25,12 +25,12 @@ class Wechat::RobotController < WechatController
   private
 
   def booking_link
-    reply = Wechat::LinkReplyMessage.new
+    reply = Wechat::TextReplyMessage.new
     reply.FromUserName = @message.ToUserName
     reply.ToUserName   = @message.FromUserName
     reply.Title        = "积水潭医院回龙观"
     reply.Description  = "一键直达预约挂号页面"
-    reply.Url          = "https://wechat.benmu-health.com/wechat/register/index.html"
+    reply.Content          = "一键直达预约 | 积水潭医院回龙观\nhttps://wechat.benmu-health.com/wechat/register/index.html"
 
     reply
   end
