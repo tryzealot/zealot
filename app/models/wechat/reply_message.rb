@@ -6,10 +6,12 @@ module Wechat
     xml_accessor :ToUserName, :cdata   => true
     xml_accessor :FromUserName, :cdata => true
     xml_reader   :CreateTime, :as => Integer
+    xml_reader   :MsgId, :as => Integer
     xml_reader   :MsgType, :cdata => true
 
     def initialize
       @CreateTime = Time.now.to_i
+      @MsgId = 64.times.map {rand(1..9)}.join.to_i
     end
 
     def to_xml
