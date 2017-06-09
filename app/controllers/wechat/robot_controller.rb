@@ -13,6 +13,8 @@ class Wechat::RobotController < WechatController
               default_reply
             end
 
+    logger.info reply.to_xml
+
     render plain: reply.to_xml
   end
 
