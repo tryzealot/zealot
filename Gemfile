@@ -103,6 +103,7 @@ group :development do
 
   # rails 更友好错误输出
   gem 'better_errors'
+  gem 'awesome_print'
 
   ## cap 插件
   gem 'capistrano', '~> 3.8'
