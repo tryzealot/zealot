@@ -30,8 +30,8 @@ class CarLicense
   def login(phone, code, options = {})
     url = build_uri('login')
     location = random_location
-    params = { 
-      phone: phone, 
+    params = {
+      phone: phone,
       valicode: code,
 
       appkey: '0791682354',
