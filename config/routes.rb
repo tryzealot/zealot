@@ -77,6 +77,17 @@ Rails.application.routes.draw do
       namespace :pacs do
         post 'update', to: 'update#create'
       end
+
+      namespace :douban do
+        post 'oauth2/token', to: 'oauth#create'
+        get 'user/interests', to: 'interests#index'
+      end
+
+      namespace :licenses do
+        get 'valid_phone', to: 'login#show'
+        get 'send_phone_code', to: 'login#update'
+        post 'login', to: 'login#create'
+      end
     end
   end
 

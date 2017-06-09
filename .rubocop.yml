@@ -4,7 +4,7 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 60
 
-Mertrcs/ClassLength:
+Metrics/ClassLength:
   Max: 150
 
 Style/AsciiComments:
