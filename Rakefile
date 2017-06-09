@@ -5,6 +5,19 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
+namespace :health do
+  task test: :environment do
+    options = WechatOption.find_by(key: 'user_cookies')
+    client = Health::Client.new(options.value)
+    # r = client.hospitals
+    # puts r.body
+
+    r = client.departments('H1136112')
+    puts r.body
+  end
+end
+
+
 namespace :test do
   task env: :environment do
     ENV.each do |k, v|
