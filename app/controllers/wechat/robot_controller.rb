@@ -4,13 +4,13 @@ class Wechat::RobotController < WechatController
   end
 
   def create
-    logger.info params
-
+    logger.info params.to_h
+    logger.info request.raw_post
     message = Wechat::TextReplyMessage.new
     message.FromUserName = "icyleaf"
     message.ToUserName   = params[:openid]
     message.Content      = "hello"
 
-    render text: message.to_xml
+    render plain: message.to_xml
   end
 end
