@@ -9,7 +9,7 @@ class Wechat::RobotController < WechatController
     reply = Wechat::TextReplyMessage.new
     reply.FromUserName = message.ToUserName
     reply.ToUserName   = message.FromUserName
-    reply.Content      = "hello"
+    reply.Content      = "我还没有那么智能，请耐心等待手动回复 :P"
 
     logger.info "Respone: #{reply.to_xml}"
 
