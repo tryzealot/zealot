@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411022714) do
+ActiveRecord::Schema.define(version: 20170609082000) do
 
   create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "user_id"
@@ -159,6 +159,24 @@ ActiveRecord::Schema.define(version: 20170411022714) do
     t.datetime "updated_at",       null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id", using: :btree
     t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }, using: :btree
+  end
+
+  create_table "wechat_options", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "wechat_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wechat_id", "key"], name: "index_wechat_options_on_wechat_id_and_key", unique: true, using: :btree
+    t.index ["wechat_id"], name: "index_wechat_options_on_wechat_id", using: :btree
+  end
+
+  create_table "wechat_sessions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "openid",     null: false
+    t.string   "hash_store"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true, using: :btree
   end
 
 end
