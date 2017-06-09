@@ -8,6 +8,4 @@ class Api::V2::Licenses::CarsController < ActionController::API
   def show
 
   end
-
-  def create
 end
