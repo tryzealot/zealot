@@ -5,17 +5,11 @@ class Wechat::RobotController < ApplicationController
     signature_data = [@@token, params[:timestamp], params[:nonce]].sort.join
     current_signature = Digest::SHA1.hexdigest(signature_data)
 
-<<<<<<< HEAD
-		if current_signature == params[:signature]
-    	render text: params[:echostr]
-		else
-			render json: []
-		end
-=======
-    render json: {
-      pass: current_signature == params[:signature]
-    }
->>>>>>> 656500774c546f5c61613ca56dae158f15cf204c
+    if current_signature == params[:signature]
+      render text: params[:echostr]
+    else
+      render json: []
+    end
   end
 
   def create
