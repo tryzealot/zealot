@@ -35,7 +35,7 @@ class Wechat::RobotController < WechatController
 
     logger.info reply.to_xml
 
-    render plain: reply.to_xml
+    render xml: reply.to_xml
   end
 
   private
