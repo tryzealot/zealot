@@ -1,2 +1,0 @@
-class WechatOption < ApplicationRecord
-end
