@@ -1,7 +1,7 @@
 source 'https://gems.ruby-china.org'
 
 gem 'puma', '~> 3.8.2'
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.1.2'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.0'
@@ -18,10 +18,8 @@ gem 'rack-cors', '~> 0.4.1'
 # View
 ## 模板引擎
 gem 'slim-rails', '~> 3.1.1'
-## JSON 格式化
-gem 'jbuilder', '~> 2.6.0'
 ## 表单生成
-gem 'simple_form', '~> 3.3.1'
+gem 'simple_form', '~> 3.5.0'
 gem 'multi_xml'
 
 # Model
@@ -39,7 +37,7 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'http'
 # 用户认证
-gem 'devise', '~> 4.2.1'
+gem 'devise', '~> 4.3.0'
 # Crontab
 gem 'whenever', require: false
 # # GEO 坐标计算
