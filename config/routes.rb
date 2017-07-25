@@ -11,10 +11,6 @@ Rails.application.routes.draw do
     resources :changelogs, only: [:edit, :update]
   end
 
-  # jspatch
-  get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
-  resources :jspatches
-
   resources :pacs
 
   # app
@@ -54,7 +50,6 @@ Rails.application.routes.draw do
       get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
       get 'jenkins/:project/status/(:id)' => 'jenkins#status'
 
-      get 'patch/app/:key', to: 'patch#index'
     end
 
     namespace :v2 do
