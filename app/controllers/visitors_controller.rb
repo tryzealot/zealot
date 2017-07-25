@@ -18,7 +18,6 @@ class VisitorsController < ApplicationController
     @analytics = {
       apps: App.count,
       releases: Release.count,
-      jspatches: Jspatch.count,
       pacs: Pac.count
     }
   end
