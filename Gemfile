@@ -1,6 +1,6 @@
 source 'https://gems.ruby-china.org'
 
-gem 'puma', '~> 3.8.2'
+gem 'puma', '~> 3.9.1'
 gem 'rails', '~> 5.1.2'
 
 # DB & Cache
@@ -56,13 +56,12 @@ gem 'foreman'
 # 异步队列
 gem 'sidekiq', '~> 4.2.6'
 # 支持 sidekiq 使用界面
-gem 'sinatra', '~> 2.0.0.beta2', require: false
+gem 'sinatra', '~> 2.0.0', require: false
 # Mobile config
 gem 'settingslogic'
 
 # Assets
 gem 'coffee-rails'
-gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'js-routes'
@@ -73,7 +72,6 @@ gem 'uglifier'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
-# gem 'spaceship', require: false
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 1.0.3', require: false
 
