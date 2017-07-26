@@ -15,15 +15,18 @@ set :keep_releases, 10
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
-set :rvm_ruby_version, '2.3.3' # Defaults to: 'default'
+set :rvm_ruby_version, '2.4.1' # Defaults to: 'default'
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
 # bundler
-set :bundle_env_variables, nokogiri_use_system_libraries: 1
+# set :bundle_flags, '--deployment --quiet -- --use-system-libraries=true'
+set :bundle_env_variables, { NOKOGIRI_USE_SYSTEM_LIBRARIES: 1 }
+
 # nginx
 set :nginx_server_name, 'mobile.2b6.me'
 set :nginx_sites_available_path, '/home/wangshen/nginx/sites-available'
 set :nginx_sites_enabled_path, '/home/wangshen/nginx/sites-enabled'
+
 # puma
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_threads, [1, 16]

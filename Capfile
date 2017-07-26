@@ -24,13 +24,12 @@ require 'capistrano/rvm'
 # require 'capistrano/rbenv'
 
 require 'capistrano/bundler'
-
 require 'whenever/capistrano'
+
 require 'capistrano/puma'
-# require 'capistrano/puma/workers' #if you want to control the workers (in cluster mode)
-# require 'capistrano/puma/jungle'  #if you need the jungle tasks
-# require 'capistrano/puma/monit'   #if you need the monit tasks
-require 'capistrano/puma/nginx' # if you want to upload a nginx site template
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Nginx
+
 require 'capistrano/sidekiq'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
