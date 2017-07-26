@@ -34,11 +34,6 @@ set :puma_workers, 2
 set :puma_preload_app, true
 
 namespace :deploy do
-  # after :restart, :clear_cache do
-  #   on roles(:app), in: :groups, limit: 3, wait: 10 do
-  #   end
-  # end
-
   after :finishing, 'deploy:cleanup'
   # after :finishing, 'puma:stop'
   after :finishing, 'puma:config'
