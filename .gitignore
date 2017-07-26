@@ -48,6 +48,7 @@ pickle-email-*.html
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
+node_modules/
 
 # Environment files that may contain sensitive data
 .env
