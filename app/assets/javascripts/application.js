@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require js-routes
-//= require admin-lte/bootstrap/js/bootstrap
+//= require admin-lte/bootstrap/js/bootstrap.js
 //= require admin-lte/dist/js/app
 //= require admin-lte/plugins/chartjs/Chart.min
 //= require ace-rails-ap
