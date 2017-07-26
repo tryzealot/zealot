@@ -1,0 +1,26 @@
+
+namespace :mobile do
+  namespace :backup do
+    desc 'Create a backup'
+    task :create do
+      on roles(:app) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'mobile:backup'
+          end
+        end
+      end
+    end
+
+    desc 'Restore from a backup'
+    task :restore do
+      on roles(:app) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'mobile:restore'
+          end
+        end
+      end
+    end
+  end
+end
