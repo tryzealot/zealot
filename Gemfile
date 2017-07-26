@@ -27,8 +27,6 @@ gem 'multi_xml'
 gem 'friendly_id'
 ## 数据分页
 gem 'kaminari'
-## 记录 Model 层记录变更
-gem 'paper_trail', '~> 7.0.0' # 5.2.0'
 ## 文件上传
 gem 'carrierwave'
 gem 'mini_magick'
