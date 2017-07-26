@@ -1,6 +1,6 @@
 set :application, 'mobile'
 set :repo_url, 'git@git.2b6.me:icyleaf/qmobile.git'
-set :branch, 'feature/yarn'
+set :branch, 'develop'
 set :deploy_to, '/home/wangshen/www/mobile'
 # set :format, :pretty
 set :log_level, :debug
