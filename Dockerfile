@@ -1,4 +1,4 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 MAINTAINER icyleaf.cn@gmail.com
 
 ENV BUILD_PACKAGES="build-base ruby-dev curl-dev libxml2 libxslt libxslt mysql-client imagemagick" \
