@@ -61,7 +61,6 @@ gem 'sinatra', '~> 2.0.0.beta2', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'bower-rails', '~> 0.10.0'
 gem 'coffee-rails'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
@@ -107,6 +106,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.2'
 
   gem 'capistrano-bundler'
+  gem 'capistrano-yarn'
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano3-puma'
