@@ -1,6 +1,6 @@
 set :application, 'mobile'
 set :repo_url, 'git@git.2b6.me:icyleaf/qmobile.git'
-set :branch, 'develop'
+set :branch, 'feature/yarn'
 set :deploy_to, '/home/wangshen/www/mobile'
 # set :format, :pretty
 set :log_level, :debug
@@ -33,25 +33,11 @@ set :puma_threads, [1, 16]
 set :puma_workers, 2
 set :puma_preload_app, true
 
-namespace :bower do
-  desc 'Install bower'
-  task :install do
-    on roles(:app) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'bower:install CI=true'
-        end
-      end
-    end
-  end
-end
-before 'deploy:compile_assets', 'bower:install'
-
 namespace :deploy do
-  after :restart, :clear_cache do
-    on roles(:app), in: :groups, limit: 3, wait: 10 do
-    end
-  end
+  # after :restart, :clear_cache do
+  #   on roles(:app), in: :groups, limit: 3, wait: 10 do
+  #   end
+  # end
 
   after :finishing, 'deploy:cleanup'
   # after :finishing, 'puma:stop'
@@ -60,30 +46,4 @@ namespace :deploy do
 
   after :finished, 'whenever:update_crontab'
   # after :finished, 'puma:start'
-end
-
-namespace :mobile do
-  namespace :backup do
-    desc 'Create a backup'
-    task :create do
-      on roles(:app) do
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            execute :rake, 'mobile:backup'
-          end
-        end
-      end
-    end
-
-    desc 'Restore from a backup'
-    task :restore do
-      on roles(:app) do
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            execute :rake, 'mobile:restore'
-          end
-        end
-      end
-    end
-  end
 end
