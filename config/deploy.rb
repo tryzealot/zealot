@@ -6,7 +6,7 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :log_level, :debug
 
 set :linked_files, %w(config/database.yml)
-set :linked_dirs, %w(log tmp/backups tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads)
+set :linked_dirs, %w(log tmp/backups tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads node_modules)
 set :keep_releases, 10
 # set :default_env, {
 #   'JOB_WORKER_URL' => 'redis://localhost:6379/0',
