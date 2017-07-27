@@ -31,7 +31,7 @@ build = ->
   button.button('loading')
 
   app_job = button.data('job')
-  url = HOST + "api/jenkins/" + app_job + "/build"
+  url = HOST + "api/v2/jenkins/projects/" + app_job + "/build"
   console.log 'build url: ', url
 
   $.ajax
@@ -46,7 +46,7 @@ build = ->
       else
         message = '错误：' + data.message
 
-      sleep 3000 if data.code == 201
+      sleep 8000 if data.code == 201
 
       $('#jekins_buld_alert').removeClass('hidden').html(message)
 
