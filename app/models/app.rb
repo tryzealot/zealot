@@ -90,6 +90,10 @@ class App < ActiveRecord::Base
     current_release.icon.url
   end
 
+  def install_url
+    current_release.install_url
+  end
+
   def current_release
     @current_release ||= latest_release
   end
