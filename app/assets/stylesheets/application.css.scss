@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require font_path_overwrite
  *= require font-awesome/css/font-awesome
  *= require admin-lte/bootstrap/css/bootstrap
  *= require admin-lte/dist/css/AdminLTE
