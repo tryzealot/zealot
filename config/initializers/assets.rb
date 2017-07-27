@@ -12,4 +12,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 Rails.application.config.assets.precompile += %w( admin-lte/dist/img/* )
-Rails.application.config.assets.precompile += %w( font-awesome/font/* )
+Rails.application.config.assets.precompile += %w( font-awesome/fonts/* )
