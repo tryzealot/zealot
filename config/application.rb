@@ -1,6 +1,15 @@
 require_relative 'boot'
 
-require 'rails/all'
+# require 'rails/all'
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+require "sprockets/railtie"
+# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,7 +27,7 @@ module QMobile
     config.i18n.default_locale = :'zh-CN'
 
     # Redis for cache
-    config.cache_store = :redis_store, ENV['REDIS_URL'], {
+    config.cache_store = :redis_store, (ENV['REDIS_URL'] || 'redis://localhost:6379/0/cache'), {
       namespace: 'qyer:mobile:web',
       expires_in: 90.minutes
     }
@@ -29,5 +38,9 @@ module QMobile
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib/mobile/**/*"]
     # config.assets.paths << Rails.root.join('lib', 'assets', 'javascripts')
+
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
   end
 end
