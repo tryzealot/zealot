@@ -49,8 +49,6 @@ gem 'browser', '~> 2.3'
 gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
-# 进程管理
-gem 'foreman'
 # 异步队列
 gem 'sidekiq', '~> 4.2.6'
 # 支持 sidekiq 使用界面
@@ -84,6 +82,10 @@ group :development do
   # 断点调试器
   gem 'byebug'
   gem 'guard-rails', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-livereload', require: false
+  gem 'guard-sidekiq', require: false
+  gem 'guard-migrate', require: false
 
   # IDE tools(VSCode)
   gem "ruby-debug-ide"
