@@ -36,9 +36,9 @@ module QMobile
     config.exception_handler = { dev: false }
 
     # Auto load path
+    config.autoload_paths << Rails.root.join('app/graphql')
+    config.autoload_paths << Rails.root.join('app/graphql/types')
     config.autoload_paths += Dir["#{config.root}/lib/mobile/**/*"]
-    # config.assets.paths << Rails.root.join('lib', 'assets', 'javascripts')
-
 
     # Don't generate system test files.
     config.generators.system_tests = nil
