@@ -115,3 +115,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
 end
+
+gem 'tzinfo-data'
