@@ -14,6 +14,8 @@ gem 'newrelic_rpm'
 # API
 gem 'active_model_serializers', '~> 0.10.5'
 gem 'rack-cors', '~> 0.4.1'
+gem 'graphql'
+gem 'graphiql-rails'
 
 # View
 ## 模板引擎

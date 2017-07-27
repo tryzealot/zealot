@@ -11,8 +11,6 @@ Rails.application.routes.draw do
     resources :changelogs, only: [:edit, :update]
   end
 
-  resources :pacs
-
   # app
   get 'apps', to: 'apps#index', as: 'apps'
   get 'apps/new', to: 'apps#new', as: 'new_app'
@@ -33,13 +31,20 @@ Rails.application.routes.draw do
   post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
-  # user
+  # 自动代理
+  resources :pacs
+
+  # 用户
   devise_for :users
 
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
+
+  # graphql api
+  post "/graphql", to: "graphql#execute"
 
   # api
   namespace :api do
