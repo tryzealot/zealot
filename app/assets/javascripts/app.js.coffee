@@ -4,27 +4,25 @@
 
 download = ->
   wechat = /MicroMessenger/i
+  that = $('#download_it')
 
   if wechat.test(navigator.userAgent)
     $('.cover').removeClass('hide')
     $('.wechat-tips').removeClass('hide')
     $('.navbar-fixed-top').css('z-index', 0)
 
-  $('#download_it').button('loading');
+  that.button('loading');
 
   setTimeout ->
-    $('#download_it').button('reset')
+    that.button('reset')
   , 8000
 
-  slug = $('#download_it').data('slug')
-  release_version = $('#download_it').data('release-version')
+  slug = that.data('slug')
+  release_version = that.data('release-version')
+  install_url = that.data('install-url')
 
-  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/v2/apps/" + slug + "/" + release_version + "/install/"
-
-  url = "itms-services://?action=download-manifest&url=" + installAPI
-
-  console.log 'url:', url
-  window.location.href = url
+  console.log 'url: ', install_url
+  window.location.href = install_url
 
 build = ->
   button = $('#build_it')

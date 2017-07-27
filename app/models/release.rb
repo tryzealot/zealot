@@ -1,4 +1,6 @@
 class Release < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
 
@@ -13,16 +15,28 @@ class Release < ActiveRecord::Base
     order(version: :desc).first
   end
 
+  def install_url
+    if app.device_type.casecmp('android').zero?
+      api_v2_apps_download_url(app.slug, version)
+    else
+      'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
+        app.slug,
+        version,
+        protocol: Rails.env.development? ? 'http' : 'https'
+      )
+    end
+  end
+
   def plain_text_changelog
     text = JSON.parse(changelog).each_with_object([]) do |item, obj|
       obj << "- #{item['message']}"
     end.join("\n")
 
-    text.blank? ? "没有更新日志的原因：\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽" : text
+    text.blank? ? empty_text_changelog : text
   rescue
     changelog
 
-    changelog.blank? ? "没有更新日志的原因：\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽" : changelog
+    changelog.blank? ? empty_text_changelog : changelog
   end
 
   def pure_changelog
@@ -63,6 +77,23 @@ class Release < ActiveRecord::Base
     when 'Android'
       'application/vnd.android.package-archive'
     end
+  end
+
+  def empty_changelog
+    return @empty_changelog if @empty_changelog
+
+    @empty_changelog = [
+      {
+        message: "没有更新日志的原因：\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
+        # date: Time.now.strftime("%Y-%m-%d %H:%M:%S %z"),
+      }
+    ]
+  end
+
+  def empty_text_changelog
+    return @empty_text_changelog if @empty_text_changelog
+
+    @empty_text_changelog = empty_changelog.map { |v| v[:message] }.join("\n")
   end
 
   private
