@@ -43,14 +43,13 @@ Rails.application.routes.draw do
 
   # api
   namespace :api do
-    scope module: :v1 do
-      get 'jenkins/projects', to: 'jenkins#projects'
-      get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
-      get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
-      get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
-      get 'jenkins/:project/status/(:id)' => 'jenkins#status'
-
-    end
+    # scope module: :v1 do
+    #   get 'jenkins/projects', to: 'jenkins#projects'
+    #   get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
+    #   get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
+    #   get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
+    #   get 'jenkins/:project/status/(:id)' => 'jenkins#status'
+    # end
 
     namespace :v2 do
       namespace :apps do
@@ -66,6 +65,13 @@ Rails.application.routes.draw do
 
       namespace :pacs do
         post 'update', to: 'update#create'
+      end
+
+      namespace :jenkins do
+        get 'projects', to: 'projects#index'
+        get 'projects/:project', to: 'projects#show', as: 'project'
+        get 'projects/:project/build', to: 'build#create', as: 'project_build'
+        get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
       end
 
       namespace :douban do
