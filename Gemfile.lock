@@ -135,6 +135,9 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    graphiql-rails (1.4.2)
+      rails
+    graphql (1.6.6)
     guard (2.14.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -441,6 +444,8 @@ DEPENDENCIES
   devise (~> 4.3.0)
   exception_handler (~> 0.7.0)
   friendly_id
+  graphiql-rails
+  graphql
   guard-bundler
   guard-livereload
   guard-migrate
