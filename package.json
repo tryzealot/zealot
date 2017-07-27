@@ -1,4 +1,6 @@
 {
+  "name": "qmobile",
+  "private": true,
   "dependencies": {
     "admin-lte": "^2.3.11",
     "font-awesome": "^4.7.0"
