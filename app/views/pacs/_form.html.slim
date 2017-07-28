@@ -1,12 +1,12 @@
 = simple_form_for(@pac) do |f|
   = f.error_notification
-  
+
   = f.input :title, label: '文件描述名', placeholder: '某某童鞋的自动代理', required: true
   = f.input :script, label: 'PAC 文件', as: :text, required: true, hint: '仅限于 PAC 文件格式，会覆盖上述配置，教程：http://www.barretlee.com/blog/2016/08/25/pac-file/', input_html: { rows: 20, class: 'hidden', value: @pac.script.to_s.empty? ? @default_script : @pac.script }
   .form-group
-    #editor.form-control
+    #editor.form-control style="height:500px"
   = f.button :submit, value: '保存'
-  
+
 javascript:
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/tomorrow_night");
