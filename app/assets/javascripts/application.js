@@ -19,6 +19,7 @@
 //= require admin-lte/dist/js/app
 //= require admin-lte/plugins/chartjs/Chart.min
 //= require ace-rails-ap
+//= require ace/theme-tomorrow_night
 //= require_tree .
 
 
