@@ -15,28 +15,30 @@ module ApplicationHelper
     end
   end
 
-  ##
   # 获取浏览器 user agent
   def user_agent
     request.user_agent
   end
 
-  def ios?(source)
-    source =~ /iPhone|iPad/i
-    !source.empty?
+  def wechat?
+    user_agent.include?('MicroMessenger')
   end
 
-  def android?(source)
-    source =~ /Android/i
-    !source.empty?
+  def ios?(source = nil)
+    source ||= user_agent
+    !(source =~ /iPhone|iPad/i).nil?
   end
 
-  ##
+  def android?(source = nil)
+    source ||= user_agent
+    !(source =~ /Android/i).nil?
+  end
+
   # 移动设备甄别
   def detect_device(device)
-    if browser.platform.ios? && ios?(device)
+    if ios?(user_agent) && ios?(device)
       'iOS'
-    elsif browser.platform.android? && android?(device)
+    elsif android?(user_agent) && android?(device)
       'Android'
     else
       'Other'
