@@ -35,7 +35,7 @@ div.col-sm-9.app-info
         | 上传
 
       p
-        - if user_agent.include?('MicroMessenger')
+        - if wechat?
           == render 'wechat'
         - else
           - if detect_device(@app.device_type) == 'iOS'
