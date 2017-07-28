@@ -1,16 +1,16 @@
-- if ios?(user_agent)
+- if ios?
   #install-tips.modal.fade role="dialog" tabindex="-1" style="display: none" aria-labelledby="install-tips-label"
-    .modal-dialog role="document" 
+    .modal-dialog role="document"
       .modal-content
         .modal-header
-          button.close aria-label="Close" data-dismiss="modal" type="button" 
+          button.close aria-label="Close" data-dismiss="modal" type="button"
             span aria-hidden="true"  &times;
-          h4#install-tips-label.modal-title 
+          h4#install-tips-label.modal-title
             i.fa.fa-circle-o-notch.fa-spin
             span style="padding-left:5px" 正在安装，请按 Home 键在桌面查看
         .modal-body
           ol
-            li 
+            li
               | 如果你的手机第一次安装，请
               strong 务必
               a href="#{root_url}/server.crt"

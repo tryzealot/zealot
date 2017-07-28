@@ -45,8 +45,6 @@ gem 'whenever', require: false
 
 # Jenkins SDK
 gem 'jenkins_api_client'
-# User-Agent 封装
-gem 'browser', '~> 2.3'
 # 生成条形码/二维码
 gem 'rqrcode'
 # 个性化时间解析
