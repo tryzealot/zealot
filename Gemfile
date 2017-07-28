@@ -66,6 +66,7 @@ gem 'js-routes'
 gem 'sass-rails'
 gem 'turbolinks'
 gem 'uglifier'
+gem 'font-awesome-rails'
 
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
@@ -88,6 +89,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'guard-sidekiq', require: false
   gem 'guard-migrate', require: false
+  gem 'terminal-notifier-guard'
 
   # IDE tools(VSCode)
   gem "ruby-debug-ide"
