@@ -5,7 +5,3 @@
 admin-lte@^2.3.11:
   version "2.3.11"
   resolved "http://registry.npm.taobao.org/admin-lte/download/admin-lte-2.3.11.tgz#da56dcd34d42e9ef1af362be15520a053a9d43db"
-
-font-awesome@^4.7.0:
-  version "4.7.0"
-  resolved "http://registry.npm.taobao.org/font-awesome/download/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
