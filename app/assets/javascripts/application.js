@@ -21,7 +21,6 @@
 //= require ace-rails-ap
 //= require_tree .
 
-var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
 
 // fix AdminLTE with turbolinks
 var ready = function () {
