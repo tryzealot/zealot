@@ -57,15 +57,14 @@ gem 'sinatra', '~> 2.0.0', require: false
 gem 'settingslogic'
 
 # Assets
+gem 'turbolinks'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'js-routes'
 gem 'sass-rails'
-gem 'turbolinks'
 gem 'uglifier'
 gem 'font-awesome-rails'
-
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
