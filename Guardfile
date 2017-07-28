@@ -15,6 +15,9 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
+ENV['TERMINAL_NOTIFIER_BIN'] = '/usr/local/bin/terminal-notifier'
+notification :terminal_notifier if `uname` =~ /Darwin/
+
 # Guard-Rails supports a lot options with default values:
 # daemon: false                        # runs the server as a daemon.
 # debugger: false                      # enable ruby-debug gem.
@@ -30,7 +33,7 @@
 # zeus_plan: server                    # custom plan in zeus, only works with `zeus: true`.
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
-guard 'rails', environment: 'staging' do
+guard 'rails' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
