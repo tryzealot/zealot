@@ -44,6 +44,7 @@ class App < ActiveRecord::Base
   def release_versions
     releases.group(:release_version)
             .map(&:release_version)
+            .reverse
   end
 
   def build_versions(release_version)
