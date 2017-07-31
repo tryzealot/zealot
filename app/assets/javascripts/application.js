@@ -22,6 +22,7 @@
 //= require ace/theme-tomorrow_night
 //= require_tree .
 
+var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
 
 // fix AdminLTE with turbolinks
 var ready = function () {
