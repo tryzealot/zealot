@@ -6,6 +6,7 @@ class Apps::ReleasesController < AppsController
   end
 
   def show
+    @title = "#{@app.name} - #{params[:version]} 版本列表"
     @app_releases = @app.releases.where(release_version: params[:version])
   end
 end
