@@ -2,22 +2,9 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative 'config/application'
-require 'health_client'
 # require 'awesome_print'
 
 Rails.application.load_tasks
-
-namespace :health do
-  task test: :environment do
-    options = WechatOption.find_by(key: 'user_cookies')
-    client = HealthClient.new(options.value)
-    # r = client.hospitals
-    # puts r.body
-
-    r = client.departments('H1136112')
-    puts JSON.parse r.body
-  end
-end
 
 namespace :test do
   task env: :environment do
