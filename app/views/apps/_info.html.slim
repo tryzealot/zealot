@@ -3,13 +3,11 @@ div.col-sm-9.app-info
     = app_icon?(@release, size: :medium, class: 'app-icon')
     span.app-name
       = @app.name
-    span.app-type.label.label-primary.label-ms
-      = @app.device_type
     - if @release && @release.release_type
-      span.app-type.label.label-danger.label-ms
+      span.app-type.label.label-primary.label-ms
         = @release.release_type
     - if @release && @release.branch
-      span.git-branch.label.label-info.label-ms
+      span.git-branch.label.label-danger.label-ms
         = @release.branch
 
   div.meta-data
@@ -17,7 +15,8 @@ div.col-sm-9.app-info
       = @app.identifier
     - if @release
       p.version
-        | 版本: #{@release.release_version} (#{@release.build_version})
+        | 平台: #{@app.device_type}
+        |  / 版本: #{@release.release_version} (#{@release.build_version})
         |  / Build：#{@release.version}
         - if @release.last_commit
           |  / Commit：
@@ -50,34 +49,35 @@ div.col-sm-9.app-info
             button.btn.btn-success.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建..." style="margin-left: 10px" 构建新版本
 
       p#jekins_buld_alert.alert.alert-warning.hidden role="alert" style="margin-top: 10px"
-      div.changelog
-        h3
-          | 更新日志
-        p
-          = simple_format(@release.plain_text_changelog)
 
-      div.history
-        == render 'history'
-
-      div.history
-        == render 'devices'
+      == render 'changelog'
+      == render 'history'
+      == render 'devices'
 
 div.col-sm-3 style="margin-top: 20px"
   / div.sidebar-module.sidebar-module-inset data-no-turbolink="true"
   /   a.btn.btn-default.btn-lg style="width:100%" href="#{upload_app_url}" 上传新版本
 
   div.sidebar-module.sidebar-module-inset
-    h3 二维码
-    div.qr_code
-      = image_tag(apps_qrcode_path(@app.slug, params[:version], size: :large))
+    .box
+      .box-header
+        h3.box-title 二维码安装
+      .box-bodd.text-center
+        div.qr_code
+          = image_tag(apps_qrcode_path(@app.slug, params[:version], size: :large))
+      .box-footer.text-center
+        | 任何支持二维码识别的 App 均可
 
   div.sidebar-module.sidebar-module-inset
     - if @app.release_versions
-      h3 历史版本
-      ul
-        - @app.release_versions.each do |release_version|
-          li
-            = link_to release_version, apps_releases_builds_path(@app.slug, release_version)
+      .box
+        .box-header
+          h3.box-title 历史主版本
+        .box-bodd.text-center
+          ul
+            - @app.release_versions.each do |release_version|
+              li
+                = link_to release_version, apps_releases_builds_path(@app.slug, release_version)
 
   / - if @job
   /   div.sidebar-module.sidebar-module-inset
