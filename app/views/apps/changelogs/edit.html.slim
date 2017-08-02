@@ -1,19 +1,19 @@
 - content_for :title do
   = @title
-  
+
 - content_for :page_title do
   = "##{@release.version} #{@app.name} - #{@app.device_type}"
-  
+
 .row
   .col-xs-12
     .box
       .box-header
-        h3.box-title 
+        h3.box-title
           | 更新日志
         .box-tools
           a href="#{app_path(@app.slug, @release.version)}"
-            i.fa.fa-list-alt
-            | 应用详情
+            i.fa.fa-cube
+            |  应用详情
       .box-body
         .form-group
           = @release.app.identifier
@@ -23,11 +23,11 @@
           |  / Build：#{@release.version}
           |  / 大小：#{number_to_human_size(@release.filesize)}
           |  / 更新于：#{time_ago_in_words(@release.created_at)}
-            
+
         = form_for @release, url: apps_changelog_path(@app.slug, @release.version)
           .form-group
             textarea.form-control name="changelog" id="changelog" rows="10"
               = @release.plain_text_changelog
-              
+
           a.btn.btn-default href="#{app_path(@release.app.slug, @release.version)}" 返回
           button.btn.btn-info style="margin-left:10px" type="submit" 更新

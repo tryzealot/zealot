@@ -2,16 +2,16 @@
   = @title
 - content_for :page_title do
   = @title
-  
+
 .row
   .col-xs-12
     .box
       .box-header
-        h3.box-title 
+        h3.box-title
           = @title
         .box-tools
           a href="#{apps_path}"
             i.fa.fa-list-alt
-            | 应用管理
+            |  应用管理
       .box-body
         == render 'form'
