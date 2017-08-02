@@ -29,7 +29,7 @@ section.recently-upload
             .timeline-item
               span.time
                 i.fa.fa-clock-o
-                |
+                | &nbsp
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to " #{app.name}", app_path(app.slug)
