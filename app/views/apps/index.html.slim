@@ -2,81 +2,85 @@
   = @title
 - content_for :page_title do
   = @title
-  
+
 .row
   .col-xs-12
     .box
       .box-header
-        h3.box-title 
-          = @title
+        h3.box-title
+          | 应用列表
         .box-tools
           a href="#{new_app_path}"
             i.fa.fa-plus-square-o
-            | 新建应用
-      .box-body.table-responsive.no-padding
-        table.table.table-striped.table-hover
-          tr
-            th #
-            th 应用名称
-            th 访问密码
-            th 最新上传版本
-            th 最新上传时间
-            th 操作
+            |  新建应用
+      .box-body
+        ul.app-list
           - if @apps.size > 0
             - @apps.each_with_index do |app, i|
-              ruby:
-                latest_release = app.releases.last
-              tr id="app-#{app.id}"
-                td
-                  = i + 1
-                td
-                  = app_icon?(latest_release)
-                  = link_to " #{app.name} (#{display_app_device(app)})", app_path(app.slug)
-                td 
-                  - if app.password
-                    span.label.bg-green
-                      = app.password
-                - if latest_release
-                  td
-                    = "#{latest_release.release_version} (#{latest_release.build_version})"
-                  td 
-                    = time_ago_in_words(latest_release.created_at)
+              li.app-item.clearfix
+                - if app_icon?(app.latest_release)
+                  = app_icon?(app.latest_release, size: :medium, class: 'app-icon img-circle img-bordered-sm')
                 - else
-                  td
-                    | None
-                  td 
-                    | None
-                td
-                  = link_to '历史', apps_releases_path(app.slug) 
-                  | /
-                  = link_to '网络钩子', web_hooks_path(app.slug)
-                  | /
-                  = link_to '编辑', edit_app_path(app.slug) 
-                  | /
-                  = link_to '删除', destroy_app_path(app.slug), { onclick:'return confirm("确定删除？")' }
-          - else
-            tr
-              th colspan="5" 你还没有创建任何应用，请使用接口进行上传！
-              
-  .col-xs-12  
+                  = image_tag('touch-icon-60.png', class: 'app-icon img-circle img-bordered-sm')
+                .app-block
+                  .app-name
+                    = link_to app.name, app_path(app.slug)
+                    span.pull-right
+                      span.label.bg-gray
+                        = app.slug
+                      - if app.password && !app.password.empty?
+                        span.label.bg-green style="margin-left: 5px"
+                          i.fa.fa-lock
+                          span.app-password
+                            | &nbsp
+                            = app.password
+                  .app-dest
+                    = display_app_device(app)
+                    |  -&nbsp
+                    = "#{app.latest_release.release_version} (#{app.latest_release.build_version})"
+                    |  -&nbsp
+                    = time_ago_in_words(app.latest_release.created_at)
+                .app-changelog
+                  = simple_format(app.latest_release.plain_text_changelog)
+                .app-actions-bar
+                  ul.actions
+                    li
+                      a href="#{apps_releases_path(app.slug)}"
+                        i.fa.fa-clock-o
+                        |  历史版本
+                    li
+                      a href="#{web_hooks_path(app.slug)}"
+                        i.fa.fa-anchor
+                        |  网络钩子
+                    li
+                      a href="#{edit_app_path(app.slug)}"
+                        i.fa.fa-edit
+                        |  编辑
+                    li
+                      a href="#{destroy_app_path(app.slug)}" onclick='return confirm("确定删除？")'
+                        i.fa.fa-remove
+                        |  删除
+                  input.form-control.input-sm value="#{app.key}" disabled="true"
+
+  .col-xs-12
     .box.box-warning
       .box-header.box-border
         h3.box-title 使用帮助
       .box-body.table-responsive
         p
           | 本系统托管的所有应用均由
-          a href="http://172.1.1.227:8888" 
+          a href="http://172.1.1.227:8888"
             | 自动打包分发系统
           | 统一上传，系统本身不提供 App 的上传功能，虽然很多人给我提这个 issue 但是我就是不想做（相互伤害啊）。
-        p 
+        p
           | 上传的应用基本上会修改 build version(code) 主要用于内部测试版本更新检查使用，其命名规范是打包时最后一次
-          | git commit 的时间做格式化 
+          | git commit 的时间做格式化
           strong mmddHHMM
           |  。鉴于 Android build code 无法大于 8 位只能放弃年份。
-        p 
+        p
           | 更新日志是从自动打包分发系统当前构建 git commit 的信息检索到上次构建成功之后聚合而成。
-          
-        p 
+
+        p
           strong
             | 需要注意的是：
           | 所有上传的版本并非完整保留，系统会定期检查所有的版本鉴定为历史版本号的将会保留最后一个构建的版本，
