@@ -15,3 +15,12 @@
             |  返回详情
       .box-body
         == render 'form'
+        
+  .col-xs-12  
+    .box.box-warning
+      .box-header.box-border
+        h3.box-title 语法帮助
+      .box-body.table-responsive
+        pre
+          code.language-javascript
+            = @default_script

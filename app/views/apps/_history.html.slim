@@ -1,27 +1,39 @@
-h3 历史上传(最近 10 个)
-.box
-  table.table
-    tbody
-      tr
-        th Build
-        th 发布版本
-        th 开发版本
-        th 上传时间
-      - @app.releases.order('version DESC').limit(10).each do |release|
-        tr[class="#{release != @release && !release.changelog.empty? ? 'release-toggle-changelogs btn-default' : ''}" data-id="#{release.id}"]
-          td
-            = link_to release.version, app_path(@app.slug, release.version)
-          td
-            = release.release_version
-          td
-            = release.build_version
-          td
-            = time_ago_in_words(release.created_at)
-            - if release == @release
-              span.label.label-success style="margin-left: 5px" 当前版本
-        - if release != @release && !release.changelog.empty?
-          tr[class="release-#{release.id}-changelog hide"]
-            td.bg-gray-light colspan="4"
-              h5 更新日志
-              p
-                = simple_format(release.changelog)
+div.history
+  .box
+    .box-header.with-border
+      i.fa.fa-history
+      h3.box-title 最近 10 次上传
+      .box-tools.pull-right
+        button.btn.btn-box-tool data-widget="collapse"
+          i.fa.fa-minus
+    .box-body.no-padding
+      table.table
+        tbody
+          tr
+            th Build
+            th 发布版本
+            th 开发版本
+            th 上传时间
+          - @app.releases.order('version DESC').limit(10).each do |release|
+            tr class="#{release != @release && !release.changelog.empty? ? 'release-changelogs-toggle' : 'release-changelog-current'}" data-id="#{release.id}" data-no-turbolink="true"
+              td
+                - if release == @release
+                  = release.version
+                - else
+                  = link_to release.version, app_path(@app.slug, release.version)
+              td
+                = release.release_version
+              td
+                = release.build_version
+              td
+                = time_ago_in_words(release.created_at)
+            - if release != @release && !release.changelog.empty?
+              tr[class="release-#{release.id}-changelog hide"]
+                td.bg-gray-light colspan="4"
+                  h5 更新日志
+                  p
+                    = simple_format(release.plain_text_changelog)
+    .box-footer.text-center
+      = link_to '查看更多', apps_releases_path(@app.slug)
+
+

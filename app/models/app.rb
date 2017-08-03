@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
   include FriendlyId
+
   friendly_id :slug
 
   has_many :releases, dependent: :destroy
@@ -10,6 +11,12 @@ class App < ActiveRecord::Base
   validates :slug, uniqueness: true
 
   before_create :generate_key_or_slug
+
+  def self.find_by_release(release)
+    instance = release.app
+    instance.current_release = release
+    instance
+  end
 
   def platform
     case device_type.downcase
@@ -37,12 +44,67 @@ class App < ActiveRecord::Base
   def release_versions
     releases.group(:release_version)
             .map(&:release_version)
+            .reverse
   end
 
   def build_versions(release_version)
     releases.where(release_version: release_version)
             .group(:build_version)
             .map(&:build_version)
+  end
+
+  def version
+    current_release.try(:[], :version)
+  end
+
+  def release_version
+    current_release.try(:[], :release_version)
+  end
+
+  def build_version
+    current_release.try(:[], :build_version)
+  end
+
+  def changelog(since_release_version: nil, since_build_version: nil)
+    unless since_release_version.blank? && since_build_version.blank?
+      previous_release = Release.find_by(
+        app: self,
+        release_version: since_release_version,
+        build_version: since_build_version
+      )
+
+      return releases.where("id > #{previous_release.id}").order(id: :desc).each_with_object([]) do |release, obj|
+        next if release.changelog.blank? || release.changelog == '[]'
+
+        begin
+          obj.concat JSON.parse(release.changelog)
+        rescue
+          obj.concat release.pure_changelog
+        end
+      end if previous_release
+    end
+
+    current_release.pure_changelog
+  end
+
+  def icon_url
+    current_release.icon.url
+  end
+
+  def install_url
+    current_release.install_url
+  end
+
+  def current_release
+    @current_release ||= latest_release
+  end
+
+  def current_release=(current_release)
+    @current_release = current_release
+  end
+
+  def latest_release
+    @latest_release = releases.last
   end
 
   private

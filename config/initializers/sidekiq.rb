@@ -1,5 +1,4 @@
-sidekiq_config_url = ENV['JOB_WORKER_URL']
-
+sidekiq_config_url = ENV['ACTIVE_JOB_URL'] || 'redis://localhost:6379/0'
 
 Sidekiq.configure_server do |config|
   config.redis = {

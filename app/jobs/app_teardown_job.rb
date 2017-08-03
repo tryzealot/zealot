@@ -1,6 +1,6 @@
 require 'app-info'
 
-class AppTeardownJob < ActiveJob::Base
+class AppTeardownJob < ApplicationJob
   queue_as :default
 
   def perform(_event, release)
@@ -11,6 +11,10 @@ class AppTeardownJob < ActiveJob::Base
 
     logger.info "Processing file: #{@file}"
     processing!
+  end
+
+  rescue_from(Exception) do |exception|
+    logger.error exception.to_s
   end
 
   def processing!
@@ -26,8 +30,8 @@ class AppTeardownJob < ActiveJob::Base
 
   def parse_ipa!
     @release.release_type = @app.release_type
-    @release.devices = @app.devices if OS.mac?
-    @release.distribution = @app.distribution_name if OS.mac?
+    @release.devices = @app.devices if AppInfo::Parser.mac?
+    @release.distribution = @app.distribution_name if AppInfo::Parser.mac?
 
     if icon_file_exist?
       Pngdefry.defry(@icon_file, @icon_file)

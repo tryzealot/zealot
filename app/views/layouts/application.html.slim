@@ -10,7 +10,7 @@ html
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags
-    
+
   - if user_signed_in?
     body.hold-transition.skin-green-light.sidebar-mini
       .wrapper
@@ -21,7 +21,7 @@ html
         .content-container
           .content-wrapper
             == render 'layouts/content'
-            
+
         == render 'layouts/footer'
         == render 'layouts/control_sidebar'
   - else
@@ -29,10 +29,10 @@ html
       .wrapper
         == render 'layouts/tips'
         == render 'layouts/navigation'
-        
+
         .content-container
           .content-wrapper
             == render 'layouts/content'
-            
+
         == render 'layouts/footer'
         == render 'layouts/control_sidebar'

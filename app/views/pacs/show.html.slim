@@ -1,27 +1,63 @@
 - content_for :title do
   = @title
-- content_for :page_title do
-  = @title
-  
+
 .row
   .col-xs-12
     .box
       .box-header.box-border
         h3.box-title
-          = link_to pac_file_url(@pac)
+          = @pac.title
         .box-tools
           a href="#{edit_pac_path(@pac)}"
-            i.fa.fa-list-alt
-            | 编辑
-          |  
+            i.fa.fa-edit
+            |  编辑
+          | &nbsp
           a href="#{pacs_path}"
             i.fa.fa-list-alt
             |  返回列表
       .box-body
-        div#editor
+        div#editor style="height:500px"
         - script = render 'show.js'
         code#pac_script.hidden = script
-        
+
+  .col-xs-12
+    .box.box-warning
+      .box-header.box-border
+        h3.box-title 配置帮助
+      .box-body.table-responsive
+        p 自动代理仅对于 WIFI 网络有效
+        h4 iOS
+        ul
+          li 步骤 1 - 打开 Settings 设置界面，点击 WiFi 菜单
+          li 步骤 2 - 点击 正在使用的 WiFi 网络最右侧的 ⓘ 图标进入高级设置页面
+          li
+            | 步骤 3 - 找到 HTTP PROXY 选择 Auto 并填写
+            = link_to pac_file_url(@pac)
+          li 步骤 4 - 检查确认没有错误，点击左上角的 返回 完成
+
+        h4 Android
+        p
+          | 最新的 Android 6 也支持给 WiFi 网络设置 PAC 代理文件。Android 5 及之前的版本可以使用 Drony，不需要 root，参考
+          a href="https://github.com/Unblocker/Unblock-Youku/issues/259" 这里的教程
+          | 。以下为 Android 6 上的设置步骤。
+        ul
+          li
+            | 步骤 1 - 在 Settings 页面选择 Wi-Fi 菜单
+          li 步骤 2 - 长按正在使用的 WiFi 网络（或点击 正在使用的 WiFi 网络最右侧的 > 图标进入高级设置页面)
+          li 步骤 3 - 在弹出菜单中选择 Modify network（新界面打开的忽略本步）
+          li 步骤 4 - 在弹出页面（或新界面）找到设置 代理（PROXY）选择 代理自动配置(Proxy Auto-Config)
+          li
+            | 步骤 5 - 在 PAC 地址填写
+            = link_to pac_file_url(@pac)
+          li 步骤 5 - 检查确认没有错误，点击 保存（Save） 或右上角的 确认 按钮
+        h4 macOS
+        p 一般用不到，就不写了
+
+        h4 Windows
+        p 啥是 Windows？
+
+// https://bbs.uku.im/t/ios-android-firefox-unblock-youku/27
+
 javascript:
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/tomorrow_night");

@@ -18,7 +18,7 @@ namespace :apps do
         print release_path
         release_id = File.basename(release_path)[1..-1]
         begin
-          release = Release.find(release_id)
+          Release.find(release_id)
         rescue
           print ' removed'
           FileUtils.rm_rf release_path
@@ -28,41 +28,6 @@ namespace :apps do
     end
 
     `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
-  end
-
-  desc 'Mobile | Migrate old app path to new directory structure'
-  task migrate_upload_path: :environment do
-    store_path = File.join(Rails.root, 'public', 'uploads')
-    Dir.glob("#{store_path}/apps/*").each do |app_path|
-      Dir.glob("#{app_path}/*").each do |release_path|
-        puts release_path
-        ['binary', 'icons'].each do |dir_name|
-          FileUtils.mkdir_p(File.join(release_path, dir_name))
-        end
-        new_path = File.join(release_path, 'binary')
-        FileUtils.mv Dir.glob(File.join(release_path, "*.ipa")), new_path
-        FileUtils.mv Dir.glob(File.join(release_path, "*.apk")), new_path
-      end
-    end
-
-    Dir.glob("#{store_path}/release/icon/*").each do |release_path|
-      begin
-        release = Release.find(File.basename(release_path).to_i)
-        if release
-          new_path = File.join(store_path, 'apps', "a#{release.app.id}", "r#{release.id}", 'icons')
-          if Dir.exist?new_path
-            FileUtils.cp_r Dir.glob("#{release_path}/*"), new_path
-          else
-            raise 'Not found path'
-          end
-        else
-          FileUtils.rm_rf release_path
-        end
-      rescue
-        FileUtils.rm_rf release_path
-        next
-      end
-    end
   end
 
   desc 'Mobile | Remove old app history versions except the latest build version by each release version'
@@ -95,7 +60,7 @@ namespace :apps do
           puts ' [CLEAN & KEEP LATEST]'
           puts "      avaiable: #{build_versions.join(', ')}"
           puts "      latest: #{latest_build_version}"
-          print "      removed: "
+          print '      removed: '
           releases.each do |r|
             next if r.version == latest_build_version
             r.remove_file
@@ -104,7 +69,7 @@ namespace :apps do
             r.destroy
             print "#{r.version}, "
           end
-          puts ""
+          puts ''
         else
           puts ' [SKIP]'
         end

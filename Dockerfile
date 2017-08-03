@@ -1,27 +1,34 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 MAINTAINER icyleaf.cn@gmail.com
 
-ENV BUILD_PACKAGES="build-base ruby-dev curl-dev libxml2 libxslt libxslt mysql-client imagemagick" \
-    DEV_PACKAGES="tzdata libxml2-dev libxslt-dev postgresql-dev mysql-dev" \
-    RUBY_PACKAGES="yaml nodejs" \
+ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata" \
+    DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev mysql-dev" \
+    RUBY_PACKAGES="ruby yaml nodejs" \
     RUBY_GEMS="bundler" \
-    APK_MAIN_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/main" \
-    APK_COMMUNITY_REPO="https://mirrors.tuna.tsinghua.edu.cn/alpine/v3.4/community" \
+    RUBYGEMS_SOURCE="https://gems.ruby-china.org/" \
+    ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org" \
+    MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn" \
+    NPM_REGISTRY="https://registry.npm.taobao.org" \
     TZ="Asia/Shanghai"
 
-RUN echo $APK_MAIN_REPO > /etc/apk/repositories && \
-    echo $APK_COMMUNITY_REPO >> /etc/apk/repositories && \
+RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
+    SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
+    sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
-    gem install -N $RUBY_GEMS && \
+    npm install -g yarn --registry=$NPM_REGISTRY && \
+    yarn config set registry $NPM_REGISTRY && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone
+    echo $TZ > /etc/timezone && \
+    gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/ && \
+    gem install $RUBY_GEMS
 
 WORKDIR /app
-ADD Gemfile /app/ \
-    Gemfile.lock /app/
+COPY Gemfile Gemfile.lock ./
 
-RUN bundle install --jobs 20 --retry 5
-
-COPY . /app/
+RUN bundle install --binstubs && \
+    mkdir -p /var/lib/app/pids && \
+    yarn
 
 EXPOSE 3000
+
+CMD [ "puma", "-C", "config/puma.rb" ]

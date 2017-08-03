@@ -7,3 +7,4 @@ Dockerfile*
 docker-compose*
 README.*
 vendor/bundle/*
+node_modules/*

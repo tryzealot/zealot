@@ -1,0 +1,7 @@
+{
+  "name": "qmobile",
+  "private": true,
+  "dependencies": {
+    "admin-lte": "^2.3.11"
+  }
+}

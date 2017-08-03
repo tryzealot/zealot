@@ -4,21 +4,17 @@ class Apps::QrcodeController < AppsController
   ##
   # 显示应用的二维码
   # GET /apps/:slug/(:version)/qrcode
-  def index
-    render qrcode: qrcode_url,
+  def show
+    render qrcode: app_detail_url,
            module_px_size: qrcode_size,
-           fill: '#F4F5F6',
+           fill: '#FFFFFF',
            color: '#465960'
   end
 
   private
 
-  def qrcode_url
-    if params[:version]
-      url_for(@app) + "/#{params[:version]}/qrcode"
-    else
-      url_for(@app) + "/qrcode"
-    end
+  def app_detail_url
+    url_for(@app) + "/#{params[:version]}"
   end
 
   def qrcode_size

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
-    get '(:version)/qrcode', to: 'qrcode#index', as: 'qrcode', version: /\d+/
+    get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
     namespace :releases do
       get '', action: :index
@@ -10,14 +8,8 @@ Rails.application.routes.draw do
       get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
     end
 
-    resources :changelogs, only: [ :edit, :update ]
+    resources :changelogs, only: [:edit, :update]
   end
-
-  # jspatch
-  get 'app/:key', to: 'jspatches#app', as: 'jspatch_key'
-  resources :jspatches
-
-  resources :pacs
 
   # app
   get 'apps', to: 'apps#index', as: 'apps'
@@ -39,52 +31,58 @@ Rails.application.routes.draw do
   post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
-  # user
+  # 自动代理
+  resources :pacs
+
+  # 用户
   devise_for :users
-  namespace :users do
-    namespace :search do
-      get '', action: :index
-    end
-  end
 
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
+
+  # graphql api
+  post "/graphql", to: "graphql#execute"
 
   # api
   namespace :api do
-    scope module: :v1 do
-      get 'jenkins/projects', to: 'jenkins#projects'
-      get 'jenkins/project/:project' => 'jenkins#project', as: 'jenkins_project'
-      get 'jenkins/:project/build' => 'jenkins#build', as: 'jenkins_build'
-      get 'jenkins/:project/abort/(:id)' => 'jenkins#abort'
-      get 'jenkins/:project/status/(:id)' => 'jenkins#status'
-
-      post 'app/upload', top: 'app#upload'
-      get 'app/download/:release_id' => 'app#download', as: 'app_download'
-      # match 'app/:slug' => 'app#info', :via => :get, as: 'app_info'
-      get 'app', to: 'app#info', as: 'app_info'
-      get 'app/versions', to: 'app#versions', as: 'app_versions'
-      get 'app/latest', to: 'app#latest', as: 'app_latest'
-      get 'app/changelogs', to: 'app#changelogs', as: 'app_changelogs'
-      get 'app/:slug(/:release_id)/install' => 'app#install_url', as: 'app_install'
-
-      get 'user/(:id).json', to: 'user#show'
-
-      get 'patch/app/:key', to: 'patch#index'
-    end
-
     namespace :v2 do
-      get 'apps', to: 'apps#index'
+      namespace :apps do
+        post 'upload', to: 'upload#create'
+        get 'latest', to: 'latest#show'
+        get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
+        get ':slug(/:version)/download', to: 'download#show', as: 'download'
+        get ':id', action: :show
+        patch ':id', action: :update
+        delete ':id', action: :destroy
+        get '', action: :index
+      end
+
+      namespace :pacs do
+        post 'update', to: 'update#create'
+      end
+
+      namespace :jenkins do
+        get 'projects', to: 'projects#index'
+        get 'projects/:project', to: 'projects#show', as: 'project'
+        get 'projects/:project/build', to: 'build#create', as: 'project_build'
+        get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
+      end
+
+      namespace :douban do
+        post 'oauth2/token', to: 'oauth#create'
+        get 'user/interests', to: 'interests#index'
+      end
+
+      namespace :licenses do
+        get 'valid_phone', to: 'login#show'
+        get 'send_phone_code', to: 'login#update'
+        post 'login', to: 'login#create'
+      end
     end
   end
-
-  get 'errors/not_found'
-  get 'errors/server_error'
-
-  match '/404', via: :all, to: 'errors#not_found'
-  match '/500', via: :all, to: 'errors#server_error'
 
   root to: 'visitors#index'
 end

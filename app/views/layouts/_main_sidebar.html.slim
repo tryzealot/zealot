@@ -7,26 +7,10 @@ aside.main-sidebar
           i.fa.fa-th
           span 控制台
       li class="treeview #{active_class(apps_path)}"
-        a href="#{apps_path}" 
+        a href="#{apps_path}"
           i.fa.fa-adn
           span 应用管理
-      li class="treeview #{active_class(jspatches_path)}"
-        a href="#{jspatches_path}" 
-          i.fa.fa-apple
-          span iOS 热补丁
-          small.label.pull-right.bg-red 实验
-      li class="treeview #{active_class(users_search_path)}"
-        a href="#{users_search_path}" 
-          i.fa.fa-user
-          span 查找用户
       li class="treeview #{active_class(pacs_path)}"
-        a href="#" 
-          i.fa.fa-laptop
-          span 开发工具
-          i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li class="#{active_class(pacs_path)}"
-            a href="#{pacs_path}" 
-              i.fa.fa-circle-o
-              | 自动代理
-              small.label.pull-right.bg-yellow 测试
+        a href="#{pacs_path}"
+          i.fa.fa-random
+          span 自动代理
