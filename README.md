@@ -11,6 +11,8 @@
 - Redis 2.7+
 - Sidekiq
 - ImageMagick/GraphicsMagick
+- Nodejs 6.0+
+- Yarn
 
 ## 部署
 
