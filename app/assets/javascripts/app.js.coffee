@@ -103,6 +103,7 @@ $(document).on "turbolinks:load", ->
   # else
   #   document.addEventListener('turbolinks:load', badget_scm_info)
 
-    $('.release-toggle-changelogs').click ->
+
+    $('.release-changelogs-toggle').click ->
       release_id = $(this).data('id')
       $('.release-' + release_id + '-changelog').toggleClass('hide')
