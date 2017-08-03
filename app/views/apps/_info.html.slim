@@ -25,13 +25,14 @@ div.col-sm-9.app-info
           - else
             = @release.last_commit[0..6]
         |  / 大小：#{number_to_human_size(@release.filesize)}
-        |  / 更新于：#{time_ago_in_words(@release.created_at)}
-        |  / 该版本使用
+        |  / &nbsp
         - if @release.channel == 'jenkins'
-          a href="#{@release.ci_url}" #{@release.channel}
+          a href="#{@release.ci_url}"
+            = @release.channel
         - else
           = @release.channel
-        | 上传
+        |  构建
+        |  / 更新于：#{time_ago_in_words(@release.created_at)}
 
       p
         - if wechat?
@@ -63,7 +64,10 @@ div.col-sm-3 style="margin-top: 20px"
       .box-header
         i.fa.fa-qrcode
         h3.box-title 二维码安装
-      .box-bodd.text-center
+        .box-tools.pull-right
+          button.btn.btn-box-tool data-widget="collapse"
+            i.fa.fa-minus
+      .box-body.text-center
         div.qr_code
           = image_tag(apps_qrcode_path(@app.slug, params[:version], size: :large))
       .box-footer.text-center
@@ -75,11 +79,15 @@ div.col-sm-3 style="margin-top: 20px"
         .box-header
           i.fa.fa-archive
           h3.box-title 历史主版本
-        .box-bodd.text-center
-          ul
+          .box-tools.pull-right
+            button.btn.btn-box-tool data-widget="collapse"
+              i.fa.fa-minus
+        .box-body.text-center
+          table.table
             - @app.release_versions.each do |release_version|
-              li
-                = link_to release_version, apps_releases_builds_path(@app.slug, release_version)
+              tr
+                td
+                  = link_to release_version, apps_releases_builds_path(@app.slug, release_version)
 
   / - if @job
   /   div.sidebar-module.sidebar-module-inset

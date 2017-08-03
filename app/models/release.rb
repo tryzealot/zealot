@@ -34,9 +34,7 @@ class Release < ActiveRecord::Base
 
     text.blank? ? empty_text_changelog : text
   rescue
-    changelog
-
-    changelog.blank? ? empty_text_changelog : changelog
+    (changelog.blank? || changelog == '(此版本由 Jenkins 自动构建)') ? empty_text_changelog : changelog
   end
 
   def pure_changelog
@@ -45,14 +43,16 @@ class Release < ActiveRecord::Base
     return [] if changelog.blank?
 
     changelog.split("\n").each_with_object([]) do |item, obj|
+      next if item == '(此版本由 Jenkins 自动构建)'
+
       _, body = item.split('. ')
       message, date = body.split(' [')
       message = message.strip
       date = date.sub(']', '').strip
 
       obj << {
-        date: date,
-        message: message
+        'date': date,
+        'message': message
       }
     end
   end
