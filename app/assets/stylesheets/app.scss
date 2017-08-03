@@ -172,7 +172,7 @@ div.app-container p.qr_code img {
 
 .app-detail .app-metadata>li {
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 6px;
 }
 
 @media (min-width: 300px) {
@@ -200,4 +200,18 @@ div.app-container p.qr_code img {
 }
 .app-info .release-toggle-changelogs {
   cursor: pointer;
+}
+
+// App 最近上传
+
+.release-toggle-changelogs {
+  cursor: pointer;
+}
+
+.release-toggle-changelogs:hover {
+  background-color: #EFEFEF;
+}
+
+.release-changelog-disabled {
+  background-color: #EEE;
 }
