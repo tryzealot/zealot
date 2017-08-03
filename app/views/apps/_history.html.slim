@@ -15,7 +15,7 @@ div.history
             th 开发版本
             th 上传时间
           - @app.releases.order('version DESC').limit(10).each do |release|
-            tr[class="#{release != @release && !release.changelog.empty? ? 'release-toggle-changelogs' : 'release-changelog-disabled'}" data-id="#{release.id}"]
+            tr class="#{release != @release && !release.changelog.empty? ? 'release-toggle-changelogs' : 'release-changelog-current'}" data-id="#{release.id}" data-no-turbolink="true"
               td
                 - if release == @release
                   = release.version

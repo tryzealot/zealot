@@ -172,7 +172,7 @@ div.app-container p.qr_code img {
 
 .app-detail .app-metadata>li {
   display: inline-block;
-  padding: 0 6px;
+  padding: 0 10px;
 }
 
 @media (min-width: 300px) {
@@ -212,6 +212,6 @@ div.app-container p.qr_code img {
   background-color: #EFEFEF;
 }
 
-.release-changelog-disabled {
-  background-color: #EEE;
+.release-changelog-current {
+  background-color: #fffee8 !important;
 }

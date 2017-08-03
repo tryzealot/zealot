@@ -58,7 +58,7 @@ build = ->
     complete: ->
       button.button('reset')
 
-hideCover = ->
+hideCover  = ->
   $('.cover').addClass('hide')
   $('.wechat-tips').addClass('hide')
   $('.navbar-fixed-top').css('z-index', 1030)
@@ -97,7 +97,7 @@ badget_scm_info = ->
     else
       $(this).html(branch)
 
-$(document).ready ->
+$(document).on "turbolinks:load", ->
   # if window.location.pathname == '/apps/upload'
   #   ready
   # else
