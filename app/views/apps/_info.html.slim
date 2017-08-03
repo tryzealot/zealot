@@ -14,7 +14,7 @@
           = image_tag('touch-icon-60.png', class: app_icon_class)
 
         .app-name
-          = "#{@app.name} - Build #{@release.version}"
+          = @app.name
           .app-identifier
             = @app.identifier
 
@@ -32,6 +32,9 @@
           li
             i.fa.fa-archive
             = " #{@app.device_type}"
+          li
+            i.fa.fa-gg
+            = " #{@release.version}"
           li
             i.fa.fa-server
             = " #{@release.release_version} (#{@release.build_version})"
@@ -60,22 +63,22 @@
 
       .app-actions
         - unless wechat?
-          - if !detect_device(@app.device_type) == 'iOS'
+          - if detect_device(@app.device_type) == 'iOS'
             == render 'apps/install_cert'
 
             button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-install-url="#{@release.install_url}" data-release-version="#{@release.version}" data-slug="#{@app.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips"
               i.fa.fa-paper-plane
-              | 在线安装
+              |  在线安装
           - else
             a href="#{api_v2_apps_download_path(@app.slug, @release.version)}" class="btn btn-success btn-lg" target="_blank"
               i.fa.fa-download
-              |  下载到本地
+              |  本地下载
             span style="margin:0 5px"
 
           - unless @app.jenkins_job.blank?
             button.btn.btn-success.btn-lg id="build_it" onclick="build()" data-app-id="#{@app.id}" data-job="#{@app.jenkins_job}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建..." style="margin-left: 10px"
               i.fa.fa-wrench
-              |  构建新版本
+              |  构建新版
 
       p#jekins_buld_alert.alert.alert-warning.hidden role="alert" style="margin-top: 10px"
 
