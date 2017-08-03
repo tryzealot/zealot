@@ -2,19 +2,19 @@
   = @title
 - content_for :page_title do
   = @title
-  
+
 .row
   .col-xs-12
     .box
-      .box-header
-        h3.box-title 
+      .box-header.with-border
+        h3.box-title
           = @title
         .box-tools
           a href="#{new_pac_path}"
             i.fa.fa-plus-square-o
             |  新建自动代理
-    
-        table.table.table-striped.table-bordered
+      .box-body
+        table.table.no-padding
           thead
             tr
               th ID
@@ -25,7 +25,7 @@
           tbody
             - @pacs.each_with_index do |pac, i|
               tr
-                td 
+                td
                   = i + 1
                 td
                   = link_to pac.title, pac_path(pac)
@@ -33,12 +33,12 @@
                   = pac.created_at
                 td
                   = pac.updated_at
-                td 
+                td
                   = link_to '编辑', edit_pac_path(pac)
-                  |  / 
-                  = link_to '删除', pac, data: {:confirm => '你确定？'}, :method => :delete
+                  |  /&nbsp
+                  = link_to '删除', pac, method: :delete, data: { confirm: '你确定？'}
 
-  .col-xs-12  
+  .col-xs-12
     .box.box-warning
       .box-header.box-border
         h3.box-title 使用帮助
@@ -46,15 +46,15 @@
         p 该工具主要提供给测试人员使用，用于减去每次需要用 HTTP 代理抓包需要反复修改手机的网络代理设置，以达成一次性配置即可。
         p 配合 qma 命令工具使用可自动上报本机的 IP 地址。如下步骤会涉及使用终端命令：
         ul
-          li 
+          li
             | 步骤 1 - 首先需要安装 qma
             blockquote sudo gem install qyer-mobile-app
-          li 
-            | 步骤 2 - 下载 
+          li
+            | 步骤 2 - 下载
             a href="#{root_url}config/qma_config" target="_blank" qma 配置文件
-            | 到 ~/.qma 
+            | 到 ~/.qma
             blockquote cp ~/Downloads/qma_config ~/.qma
-          li 
+          li
             | 步骤 3 - 查看本机 IP
             blockquote qma pac --show
           li
