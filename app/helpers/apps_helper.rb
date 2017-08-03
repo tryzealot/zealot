@@ -6,15 +6,15 @@ module AppsHelper
     end
   end
 
-  def qr_code(url)
-    qrcode = RQRCode::QRCode.new(url, level: :h)
-    raw qrcode.as_svg(
-      color: '465960',
-      fill: 'F4F5F6',
-      module_size: 7,
-      offset: 15
-    )
-  end
+  # def qr_code(url)
+  #   qrcode = RQRCode::QRCode.new(url, level: :h)
+  #   raw qrcode.as_svg(
+  #     color: '465960',
+  #     fill: 'F4F5F6',
+  #     module_size: 7,
+  #     offset: 15
+  #   )
+  # end
 
   def git_commit_url(git_url, commit, commit_length = 8)
     if git_url.include?('git@')

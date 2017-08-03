@@ -7,7 +7,7 @@ class Apps::QrcodeController < AppsController
   def show
     render qrcode: app_detail_url,
            module_px_size: qrcode_size,
-           fill: '#F4F5F6',
+           fill: '#FFFFFF',
            color: '#465960'
   end
 
