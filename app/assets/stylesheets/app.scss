@@ -144,17 +144,51 @@ div.app-container p.qr_code img {
 }
 
 // App 详情
-.app-info .app-header img.app-icon {
-  width: 40px;
-  height: 40px;
-  vertical-align: bottom;
-  padding-right: 0.2em;
+.app-detail .app-icon {
+  width: 50px;
+  height: 50px;
+  float: left;
 }
 
-.app-info .app-header .app-name {
-  font-size: 2.2em;
+.app-detail .app-name {
+  padding-top: 10px;
+  padding-left: 60px;
 }
 
+.app-detail .app-identifier {
+  padding-top:4px;
+  color: #9f9f9f;
+  font-size: 0.9em;
+}
+
+.app-detail .box-body {
+  text-align: center;
+}
+.app-detail .app-metadata {
+  list-style: none;
+  font-size: 1.2em;
+  padding: 10px 0;
+}
+
+.app-detail .app-metadata>li {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+@media (min-width: 300px) {
+  .app-detail .box-tools {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 550px) {
+  .app-detail .box-tools {
+    margin-top: 20px;
+  }
+}
+
+
+// App 密码认证
 .container .app-auth {
   float: none;
   margin: 0 auto;
@@ -166,8 +200,4 @@ div.app-container p.qr_code img {
 }
 .app-info .release-toggle-changelogs {
   cursor: pointer;
-}
-
-.btn {
-  margin-left: 3px;
 }

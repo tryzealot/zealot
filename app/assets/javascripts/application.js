@@ -14,22 +14,10 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require js-routes
-//= require admin-lte/bootstrap/js/bootstrap.js
-//= require admin-lte/dist/js/app
-//= require admin-lte/plugins/chartjs/Chart.min
+//= require admin-lte/bootstrap/js/bootstrap.min
+//= require admin-lte/dist/js/app.min
 //= require ace-rails-ap
 //= require ace/theme-tomorrow_night
 //= require_tree .
 
 var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
-
-// fix AdminLTE with turbolinks
-// var ready = function () {
-//   var o;
-//   o = $.AdminLTE.options;
-//   if (o.sidebarPushMenu) {
-//     $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
-//   }
-//   return $.AdminLTE.layout.activate();
-// };
-// document.addEventListener('turbolinks:load', ready);

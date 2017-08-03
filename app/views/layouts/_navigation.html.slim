@@ -1,17 +1,17 @@
 header.main-header
   - if user_signed_in?
-    a.logo href="#{ root_path }" 
+    a.logo href="#{ root_path }"
       span.logo-mini
         b 穷
       span.logo-lg
         b 穷游移动
     nav.navbar.navbar-static-top
-      a.sidebar-toggle data-toggle="offcanvas" href="#" role="button" 
+      a.sidebar-toggle data-toggle="offcanvas" href="#" role="button"
         span.sr-only Toggle navigation
       .navbar-custom-menu
         ul.nav.navbar-nav
           / li.dropdown.notifications-menu
-          /   a.dropdown-toggle data-toggle="dropdown" href="#" 
+          /   a.dropdown-toggle data-toggle="dropdown" href="#"
           /     i.fa.fa-bell-o
           /     span.label.label-warning 10
           /   ul.dropdown-menu
@@ -20,35 +20,35 @@ header.main-header
           /       /! inner menu: contains the actual data
           /       ul.menu
           /         li
-          /           a href="#" 
+          /           a href="#"
           /             i.fa.fa-users.text-aqua
           /             | 5 new members joined today
           /         li
-          /           a href="#" 
+          /           a href="#"
           /             i.fa.fa-warning.text-yellow
           /             | Very long description here that may not fit into the
           /             | page and may cause design problems
           /         li
-          /           a href="#" 
+          /           a href="#"
           /             i.fa.fa-users.text-red
           /             | 5 new members joined
           /         li
-          /           a href="#" 
+          /           a href="#"
           /             i.fa.fa-shopping-cart.text-green
           /             | 25 sales made
           /         li
-          /           a href="#" 
+          /           a href="#"
           /             i.fa.fa-user.text-red
           /             | You changed your username
           /     li.footer
           /       a href="#"  View all
           li.dropdown.user.user-menu
-            a.dropdown-toggle data-toggle="dropdown" href="#" 
+            a.dropdown-toggle data-toggle="dropdown" href="#"
               img.user-image alt="User Image" src="#{image_url('default-user.png')}"
-              span.hidden-xs 
+              span.hidden-xs
                 = current_user.name
             ul.dropdown-menu
-            
+
                 li.user-header
                   img.img-circle alt="用户头像" src="#{image_url('default-user.png')}"
                   p
@@ -57,12 +57,12 @@ header.main-header
                       = current_user.key
                 li.user-footer
                   .pull-left
-                    a.btn.btn-default.btn-flat href="#{edit_user_registration_path}"  详情
+                    = link_to '详情', edit_user_registration_path, class: 'btn btn-default btn-flat'
                   .pull-right
-                    a.btn.btn-default.btn-flat data-method='delete' href="#{destroy_user_session_path}"  登出
+                    = link_to '登出', destroy_user_session_path, class: 'btn btn-default btn-flat'
   - else
     nav.navbar.navbar-static-top
       .container
         .navbar-header
-          a.navbar-brand href="#{ root_path }" 
+          a.navbar-brand href="#{ root_path }"
             | 穷游移动
