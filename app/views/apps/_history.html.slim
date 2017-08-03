@@ -6,7 +6,7 @@ div.history
       .box-tools.pull-right
         button.btn.btn-box-tool data-widget="collapse"
           i.fa.fa-minus
-    .box-body
+    .box-body.no-padding
       table.table
         tbody
           tr
@@ -33,6 +33,6 @@ div.history
                   p
                     = simple_format(release.plain_text_changelog)
     .box-footer.text-center
-      | 查看更多
+      = link_to '查看更多', apps_releases_path(@app.slug)
 
 

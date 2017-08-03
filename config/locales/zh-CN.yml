@@ -54,14 +54,14 @@ zh-CN:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: 大约 1 小时前
-        other: 大约 %{count} 小时前
+        one: 约 1 小时前
+        other: 约 %{count} 小时前
       about_x_months:
-        one: 大约 1 个月前
-        other: 大约 %{count} 个月前
+        one: 约 1 个月前
+        other: 约 %{count} 个月前
       about_x_years:
-        one: 大约 1 年前
-        other: 大约 %{count} 年前
+        one: 约 1 年前
+        other: 约 %{count} 年前
       almost_x_years:
         one: 接近 1 年
         other: 接近 %{count} 年
