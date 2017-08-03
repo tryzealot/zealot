@@ -1,14 +1,25 @@
 - if @custom_data.key?('devices') && @custom_data['devices'].is_a?(Array)
-  h3 测试设备
-  .box
-    table.table
-      tbody
-        tr
-          th NO
-          th UDID
-        - @custom_data['devices'].each_with_index do |udid, i|
-          tr
-            td
-              = i + 1
-            td
-              = udid
+  div.devices
+    .box.collapsed-box
+      .box-header
+        i.fa.fa-mobile-phone
+        h3.box-title
+          = @custom_data['devices'].size
+          |  台测试设备
+        .box-tools.pull-right
+          button.btn.btn-box-tool data-widget="collapse"
+            i.fa.fa-plus
+          / button.btn.btn-box-tool data-widget="remove"
+          /   i.fa.fa-times
+      .box-body
+        table.table
+          tbody
+            tr
+              th NO
+              th UDID
+            - @custom_data['devices'].each_with_index do |udid, i|
+              tr
+                td
+                  = i + 1
+                td
+                  = udid

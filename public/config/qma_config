@@ -1,0 +1,5 @@
+---
+key: 75f4d21a3d4efbd9ba9217eb6989a35b
+host:
+  external: http://mobile.2b6.me
+  intranet: http://localhost:3000

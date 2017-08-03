@@ -6,14 +6,24 @@ module AppsHelper
     end
   end
 
-  def qr_code(url)
-    qrcode = RQRCode::QRCode.new(url, level: :h)
-    raw qrcode.as_svg(
-      color: '465960',
-      fill: 'F4F5F6',
-      module_size: 7,
-      offset: 15
-    )
+  # def qr_code(url)
+  #   qrcode = RQRCode::QRCode.new(url, level: :h)
+  #   raw qrcode.as_svg(
+  #     color: '465960',
+  #     fill: 'F4F5F6',
+  #     module_size: 7,
+  #     offset: 15
+  #   )
+  # end
+
+  def git_commit_url(git_url, commit, commit_length = 8)
+    if git_url.include?('git@')
+      # git@git.2b6.me:mobile/qyer_app_iphone.gi
+      git_url = git_url.sub(':', '/').sub('git@', 'http://').sub('.git', '')
+    end
+    commit_url = File.join(git_url, 'commit', commit)
+
+    raw "<a href='#{commit_url}' >#{commit[0..commit_length-1]}</a>"
   end
 
   def display_app_device(app)

@@ -1,0 +1,61 @@
+ruby:
+  loop_date = Time.now
+  random_colors = %w(blue purple navy maroon yellow)
+
+section.recently-upload
+  .row
+    .col-md-12
+      .box
+        .box-header.with-border
+          h3.box-title
+            i.fa.fa-rss
+            |  上传时间线
+        .box-body
+          ul.timeline
+            - @releases.each_with_index do |release, i|
+              ruby:
+                app = release.app
+
+              - if i == 0
+                ruby:
+                  loop_date = release.created_at
+                li.time-label
+                  span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
+                    = release.created_at.strftime('%Y-%m-%d')
+              - elsif loop_date.to_date != release.created_at.to_date
+                ruby:
+                  loop_date = release.created_at
+
+                li.time-label
+                  span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
+                    = release.created_at.strftime('%Y-%m-%d')
+              li
+                i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-gray'}"
+                .timeline-item
+                  span.time
+                    i.fa.fa-clock-o
+                    | &nbsp
+                    = time_ago_in_words(release.created_at)
+                  h3.timeline-header
+                    = link_to " #{app.name}", app_path(app.slug)
+                    |  上传了新版本
+                    = " #{release.release_version} (#{release.build_version})"
+                  - unless release.plain_text_changelog.blank?
+                    .timeline-body
+                      = simple_format(release.plain_text_changelog)
+
+                  - if !release.branch.blank? || !release.last_commit.blank? || !release.release_type.blank?
+                    .timeline-footer
+                      - unless release.release_type.blank?
+                        span.btn.btn-xs.btn-danger
+                          = release.release_type
+                      - unless release.branch.blank?
+                        span.btn.btn-xs.btn-primary
+                          = release.branch
+                      - unless release.last_commit.blank?
+                        span.btn.btn-xs.btn-info
+                          = release.last_commit[0..7]
+            li
+              i.fa.fa-clock-o.bg-gray
+
+          = paginate @releases

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,234 +10,162 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124040917) do
+ActiveRecord::Schema.define(version: 20170725103402) do
 
-  create_table "apps", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "name",        limit: 255, null: false
-    t.string   "slug",        limit: 255, null: false
-    t.string   "identifier",  limit: 255
-    t.string   "device_type", limit: 255, null: false
-    t.string   "jenkins_job", limit: 255
-    t.string   "git_url",     limit: 255
-    t.string   "password",    limit: 255
-    t.string   "key",         limit: 255
+  create_table "apps", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "user_id"
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "identifier"
+    t.string "device_type", null: false
+    t.string "jenkins_job"
+    t.string "git_url"
+    t.string "password"
+    t.string "key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["device_type"], name: "index_apps_on_device_type"
+    t.index ["identifier"], name: "index_apps_on_identifier"
+    t.index ["name"], name: "index_apps_on_name"
+    t.index ["slug"], name: "index_apps_on_slug", unique: true
+    t.index ["user_id"], name: "index_apps_on_user_id"
+  end
+
+  create_table "devices", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "name"
+    t.string "udid"
+    t.string "model"
+    t.string "platform"
+    t.string "device_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["udid"], name: "index_devices_on_udid", unique: true
+  end
+
+  create_table "pacs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "title"
+    t.string "host"
+    t.string "port"
+    t.text "script"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "permissions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "role_id"
+    t.string "action"
+    t.string "resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "releases", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "app_id", null: false
+    t.string "channel"
+    t.integer "filesize"
+    t.string "release_version", null: false
+    t.string "build_version", null: false
+    t.string "identifier", null: false
+    t.integer "version"
+    t.string "release_type"
+    t.string "distribution"
+    t.string "store_url"
+    t.string "icon"
+    t.string "branch"
+    t.string "last_commit"
+    t.string "ci_url"
+    t.text "changelog"
+    t.string "md5"
+    t.string "file"
+    t.text "devices"
+    t.text "extra"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true
+    t.index ["app_id"], name: "index_releases_on_app_id"
+    t.index ["channel"], name: "index_releases_on_channel"
+    t.index ["identifier"], name: "index_releases_on_identifier"
+    t.index ["release_type"], name: "index_releases_on_release_type"
+    t.index ["release_version"], name: "index_releases_on_release_version"
+    t.index ["version"], name: "index_releases_on_version"
+  end
+
+  create_table "roles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "apps", ["device_type"], name: "index_apps_on_device_type", using: :btree
-  add_index "apps", ["identifier"], name: "index_apps_on_identifier", using: :btree
-  add_index "apps", ["name"], name: "index_apps_on_name", using: :btree
-  add_index "apps", ["slug"], name: "index_apps_on_slug", unique: true, using: :btree
-  add_index "apps", ["user_id"], name: "index_apps_on_user_id", using: :btree
-
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "roles_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
   end
 
-  create_table "errors", force: :cascade do |t|
-    t.string   "usable_type", limit: 255
-    t.integer  "usable_id",   limit: 4
-    t.text     "class_name",  limit: 65535
-    t.text     "message",     limit: 65535
-    t.text     "trace",       limit: 65535
-    t.text     "target_url",  limit: 65535
-    t.text     "referer_url", limit: 65535
-    t.text     "params",      limit: 65535
-    t.text     "user_agent",  limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "user_apps", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer "user_id"
+    t.integer "app_id"
+    t.index ["user_id", "app_id"], name: "index_user_apps_on_user_id_and_app_id"
   end
 
-  create_table "git_commits", force: :cascade do |t|
-    t.integer  "git_project_id", limit: 4
-    t.integer  "git_user_id",    limit: 4
-    t.string   "commit_message", limit: 255
-    t.string   "commited_at",    limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
-  create_table "git_projects", force: :cascade do |t|
-    t.string   "gitlab_id",  limit: 255
-    t.string   "name",       limit: 255
-    t.string   "url",        limit: 255
-    t.string   "host",       limit: 255
-    t.string   "token",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "git_users", force: :cascade do |t|
-    t.string   "username",   limit: 255
-    t.string   "realname",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.integer "qyer_id", limit: 4,                        null: false
-    t.string  "im_id",   limit: 255,                      null: false
-    t.string  "name",    limit: 255,                      null: false
-    t.string  "type",    limit: 255, default: "chatroom"
-  end
-
-  add_index "groups", ["im_id"], name: "index_groups_on_im_id", length: {"im_id"=>191}, using: :btree
-  add_index "groups", ["name"], name: "index_groups_on_name", length: {"name"=>191}, using: :btree
-  add_index "groups", ["qyer_id"], name: "index_groups_on_qyer_id", using: :btree
-
-  create_table "jspatches", force: :cascade do |t|
-    t.integer  "app_id",      limit: 4,     null: false
-    t.string   "title",       limit: 255
-    t.string   "app_version", limit: 255
-    t.text     "script",      limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "jspatches", ["app_id", "app_version"], name: "index_jspatches_on_app_id_and_app_version", using: :btree
-  add_index "jspatches", ["app_id"], name: "index_jspatches_on_app_id", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "group_id",     limit: 4,                               null: false
-    t.integer  "user_id",      limit: 4
-    t.string   "group_name",   limit: 255
-    t.string   "group_type",   limit: 255,        default: "chatroom"
-    t.string   "user_name",    limit: 255
-    t.string   "message",      limit: 255
-    t.datetime "timestamp"
-    t.string   "content_type", limit: 255
-    t.string   "file_type",    limit: 255
-    t.text     "custom_data",  limit: 65535
-    t.text     "file",         limit: 4294967295
-    t.string   "im_id",        limit: 255
-    t.string   "im_user_id",   limit: 255
-    t.string   "im_topic_id",  limit: 255
-    t.boolean  "is_deleted",                      default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "messages", ["im_id"], name: "index_messages_on_im_id", using: :btree
-  add_index "messages", ["im_topic_id"], name: "index_messages_on_im_topic_id", using: :btree
-  add_index "messages", ["im_user_id"], name: "index_messages_on_im_user_id", using: :btree
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
-
-  create_table "pacs", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.integer  "is_enabled", limit: 4,     default: 1
-    t.string   "host",       limit: 255
-    t.string   "port",       limit: 255
-    t.text     "script",     limit: 65535
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
-  create_table "permissions", force: :cascade do |t|
-    t.integer  "role_id",    limit: 4
-    t.string   "action",     limit: 255
-    t.string   "resource",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "releases", force: :cascade do |t|
-    t.integer  "app_id",          limit: 4,     null: false
-    t.string   "channel",         limit: 255
-    t.integer  "filesize",        limit: 4
-    t.string   "release_version", limit: 255,   null: false
-    t.string   "build_version",   limit: 255,   null: false
-    t.string   "identifier",      limit: 255,   null: false
-    t.integer  "version",         limit: 4
-    t.string   "release_type",    limit: 255
-    t.string   "distribution",    limit: 255
-    t.string   "store_url",       limit: 255
-    t.string   "icon",            limit: 255
-    t.string   "branch",          limit: 255
-    t.string   "last_commit",     limit: 255
-    t.string   "ci_url",          limit: 255
-    t.text     "changelog",       limit: 65535
-    t.string   "md5",             limit: 255
-    t.string   "file",            limit: 255
-    t.text     "devices",         limit: 65535
-    t.text     "extra",           limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "releases", ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true, using: :btree
-  add_index "releases", ["app_id"], name: "index_releases_on_app_id", using: :btree
-  add_index "releases", ["channel"], name: "index_releases_on_channel", using: :btree
-  add_index "releases", ["identifier"], name: "index_releases_on_identifier", using: :btree
-  add_index "releases", ["release_type"], name: "index_releases_on_release_type", using: :btree
-  add_index "releases", ["release_version"], name: "index_releases_on_release_version", using: :btree
-  add_index "releases", ["version"], name: "index_releases_on_version", using: :btree
-
-  create_table "roles", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.integer "user_id", limit: 4, null: false
-    t.integer "role_id", limit: 4, null: false
-  end
-
-  create_table "user_apps", force: :cascade do |t|
-    t.integer "user_id", limit: 4
-    t.integer "app_id",  limit: 4
-  end
-
-  add_index "user_apps", ["user_id", "app_id"], name: "index_user_apps_on_user_id_and_app_id", using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "key",                    limit: 255
-    t.string   "secret",                 limit: 255
-    t.string   "reset_password_token",   limit: 255
+  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "key"
+    t.string "secret"
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                   limit: 255
+    t.string "name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["key"], name: "index_users_on_key", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["key"], name: "index_users_on_key", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,        null: false
-    t.integer  "item_id",        limit: 4,          null: false
-    t.string   "event",          limit: 255,        null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 4294967295
+  create_table "versions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object", limit: 4294967295
     t.datetime "created_at"
-    t.text     "object_changes", limit: 4294967295
+    t.text "object_changes", limit: 4294967295
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "web_hooks", force: :cascade do |t|
-    t.string   "url",              limit: 255
-    t.integer  "app_id",           limit: 4
-    t.integer  "upload_events",    limit: 4
-    t.integer  "changelog_events", limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+  create_table "web_hooks", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "url"
+    t.integer "app_id"
+    t.integer "upload_events"
+    t.integer "changelog_events"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_web_hooks_on_app_id"
+    t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }
   end
 
-  add_index "web_hooks", ["app_id"], name: "index_web_hooks_on_app_id", using: :btree
-  add_index "web_hooks", ["url"], name: "index_web_hooks_on_url", length: {"url"=>191}, using: :btree
+  create_table "wechat_options", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "wechat_id"
+    t.string "key"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wechat_id", "key"], name: "index_wechat_options_on_wechat_id_and_key", unique: true
+    t.index ["wechat_id"], name: "index_wechat_options_on_wechat_id"
+  end
+
+  create_table "wechat_sessions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string "openid", null: false
+    t.string "hash_store"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
+  end
 
 end

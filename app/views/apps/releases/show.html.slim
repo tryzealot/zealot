@@ -3,17 +3,17 @@
 
 - content_for :page_title do
   = "#{@app.name} - #{params[:version]} - #{@app.device_type}"
-  
+
 .row
   .col-xs-12
     .box
       .box-header
-        h3.box-title 
+        h3.box-title
           | 开发版本列表
         .box-tools
           a href="#{apps_releases_path(@app.slug)}"
             i.fa.fa-list-alt
-            | 返回主版本列表
+            |  返回主版本列表
       .box-body.table-responsive.no-padding
         table.table.table-striped.table-hover
           tr
@@ -36,10 +36,10 @@
                   = release.release_type
                 td
                   = release.branch
-                td 
+                td
                   = release.last_commit
                 td
-                  = link_to '下载本地', api_app_download_path(release.id), { target: '_blank' }
+                  = link_to '下载本地', api_v2_apps_download_path(@app.slug, release.version), { target: '_blank' }
                 td
                   = release.created_at
           - else

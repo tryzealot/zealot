@@ -1,9 +1,9 @@
 - content_for :title do
   = @title
-  
+
 - content_for :page_title do
   = "#{@app.name} - #{@app.device_type}"
-  
+
 ruby:
   releases_count = 0
 
@@ -11,16 +11,16 @@ ruby:
   .col-xs-12
     .box
       .box-header
-        h3.box-title 
+        h3.box-title
           | 主版本列表
         .box-tools
           a href="#{app_path(@app.slug)}"
+            i.fa.fa-cube
+            |  应用详情
+          |
+          a href="#{apps_path}" style="margin-left: 5px"
             i.fa.fa-list-alt
-            | 应用详情
-          |  
-          a href="#{app_path}"
-            i.fa.fa-list-alt
-            | 应用列表
+            |  应用列表
       .box-body.table-responsive.no-padding
         table.table.table-striped.table-borderd
           tr
@@ -35,11 +35,10 @@ ruby:
                   - app_release_count = @app.releases.where(release_version: release_version).count
                   - releases_count += app_release_count
                   = app_release_count
-            tr
-              td
-                td colspan=2 
-                  = "共计 #{releases_count} 个发布版本"
           - else
             tr
               td colspon="2"
                 | 暂无版本
+
+    .box-footer
+      = "共计 #{releases_count} 个发布版本"

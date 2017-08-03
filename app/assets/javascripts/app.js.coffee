@@ -4,39 +4,38 @@
 
 download = ->
   wechat = /MicroMessenger/i
+  that = $('#download_it')
 
   if wechat.test(navigator.userAgent)
     $('.cover').removeClass('hide')
     $('.wechat-tips').removeClass('hide')
     $('.navbar-fixed-top').css('z-index', 0)
 
-  slug = $('#download_it').data('slug')
-  release_id = $('#download_it').data('release-id')
-  device_type = $('.app-type').html()
+  that.button('loading');
 
-  installAPI = "https://" + location.hostname + (if location.port then ':' + location.port else '') + "/api/app/" + slug + "/" + release_id + "/install/"
+  setTimeout ->
+    that.button('reset')
+  , 8000
 
-  if device_type == 'Android'
-    url = installAPI
-  else if device_type.toLowerCase() == 'ios' || device_type.toLowerCase() == 'iphone' || device_type.toLowerCase() == 'ipad'
-    url = "itms-services://?action=download-manifest&url=" + installAPI
+  slug = that.data('slug')
+  release_version = that.data('release-version')
+  install_url = that.data('install-url')
 
-  console.log 'device:', device_type
-  console.log 'url:', url
-  window.location.href = url
+  console.log 'url: ', install_url
+  window.location.href = install_url
 
 build = ->
   button = $('#build_it')
+  button.button('loading')
+
   app_job = button.data('job')
-  url = HOST + "api/jenkins/" + app_job + "/build"
+  url = HOST + "api/v2/jenkins/projects/" + app_job + "/build"
   console.log 'build url: ', url
 
   $.ajax
     url: url,
     type: 'get'
     dataType: 'json'
-    beforeSend: ->
-      $(button).html('构建新版本中...').prop('disabled', 'true')
     success: (data) ->
       console.log data
       if data.code == 201 || data.code == 200
@@ -45,21 +44,21 @@ build = ->
       else
         message = '错误：' + data.message
 
-      sleep 5000 if data.code == 201
+      sleep 8000 if data.code == 201
 
       $('#jekins_buld_alert').removeClass('hidden').html(message)
 
     error: (xhr, ajaxOptions, thrownError) ->
-      $(button).html('接口错误，再来一次！')
+      button.button('reset')
       # $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
       # $("#result")
       #     .html('请求失败！接口返回：' + xhr.responseJSON.message)
       #     .addClass("alert alert-danger")
       #     .show()
     complete: ->
-      $(button).html('构建新版本').removeProp('disabled')
+      button.button('reset')
 
-hideCover = ->
+hideCover  = ->
   $('.cover').addClass('hide')
   $('.wechat-tips').addClass('hide')
   $('.navbar-fixed-top').css('z-index', 1030)
@@ -98,12 +97,13 @@ badget_scm_info = ->
     else
       $(this).html(branch)
 
-$(document).ready ->
+$(document).on "turbolinks:load", ->
   # if window.location.pathname == '/apps/upload'
   #   ready
   # else
-    document.addEventListener('turbolinks:load', badget_scm_info)
+  #   document.addEventListener('turbolinks:load', badget_scm_info)
 
-    $('.release-toggle-changelogs').click ->
+
+    $('.release-changelogs-toggle').click ->
       release_id = $(this).data('id')
       $('.release-' + release_id + '-changelog').toggleClass('hide')

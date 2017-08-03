@@ -9,7 +9,6 @@ zh-CN:
     - 周五
     - 周六
     abbr_month_names:
-    -
     - 1月
     - 2月
     - 3月
@@ -55,14 +54,14 @@ zh-CN:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: 大约 1 小时前
-        other: 大约 %{count} 小时前
+        one: 1 小时前
+        other: "%{count} 小时前"
       about_x_months:
-        one: 大约 1 个月前
-        other: 大约 %{count} 个月前
+        one: 1 个月前
+        other: "%{count} 个月前"
       about_x_years:
-        one: 大约 1 年前
-        other: 大约 %{count} 年前
+        one: 1 年前
+        other: "%{count} 年前"
       almost_x_years:
         one: 接近 1 年
         other: 接近 %{count} 年
@@ -201,3 +200,10 @@ zh-CN:
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
     pm: 下午
+  views:
+    pagination:
+      truncate: ...
+      first: 首页
+      previous: 前页
+      next: 后页
+      last: 尾页

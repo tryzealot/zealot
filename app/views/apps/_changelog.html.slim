@@ -1,0 +1,30 @@
+div.changelog
+  .box
+    .box-header.with-border
+      i.fa.fa-info-circle
+      h3.box-title 更新日志
+      .box-tools.pull-right
+        button.btn.btn-box-tool data-widget="collapse"
+          i.fa.fa-minus
+    / = debug @release.pure_changelog
+    - unless @release.pure_changelog.blank?
+      .box-body.no-padding
+        table.table
+          tr
+            th #
+            th 变更信息
+            th 变更时间
+          - @release.pure_changelog.each_with_index do |commit, i|
+            tr
+              td style="width:14px"
+                = i + 1
+              td
+                = commit['message']
+                br
+                span style="color: #b0b3b7"
+                  = commit['author']
+              td style="width: 100px"
+                = time_ago_in_words(commit['date'])
+    - else
+      .box-body
+        = simple_format(@release.plain_text_changelog)
