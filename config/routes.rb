@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   # 自动代理
   resources :pacs
 
+  # dSYM 管理
+  resources :dsyms, except: [:show, :edit, :update]
+
   # 用户
   devise_for :users
 
