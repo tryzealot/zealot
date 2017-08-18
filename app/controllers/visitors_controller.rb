@@ -18,6 +18,7 @@ class VisitorsController < ApplicationController
     @analytics = {
       apps: App.count,
       releases: Release.count,
+      dsyms: Dsym.count,
       pacs: Pac.count
     }
   end
