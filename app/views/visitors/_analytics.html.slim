@@ -19,6 +19,15 @@ section.analytics
           span.info-box-number
             = @analytics[:releases]
 
+    .col-md-3.col-sm-6.col-xs-12
+      .info-box
+        span.info-box-icon.bg-red
+          i.fa.fa-bug
+        .info-box-content
+          span.info-box-text dSYM 数量
+          span.info-box-number
+            = @analytics[:dsyms]
+
     .clearfix.visible-sm-block
     .col-md-3.col-sm-6.col-xs-12
       .info-box
