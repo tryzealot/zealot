@@ -1,0 +1,86 @@
+- content_for :title do
+  = @title
+- content_for :page_title do
+  = @title
+
+.row
+  .col-xs-12
+    .box
+      .box-header.with-border
+        h3.box-title
+          = @title
+        .box-tools
+          a href="#{new_dsym_path}"
+            i.fa.fa-plus-square-o
+            |  上传 dSYM 文件
+      .box-body
+        table.table.no-padding
+          thead
+            tr
+              th ID
+              th 应用
+              th 版本
+              th 文件
+              th 上传时间
+              th 操作
+          tbody
+            - unless @dsyms.empty?
+              - @dsyms.each_with_index do |dsym, i|
+                tr id="dsym-info-#{dsym.id}"
+                  td
+                    = i + 1
+                  td
+                    = link_to "#{dsym.app.name}", app_path(dsym.app), class: "dsym-title"
+                    | &nbsp - &nbsp
+                    = dsym.app.identifier
+                  td.dsym-version
+                    span.dsym-release-version
+                      = dsym.release_version
+                    | &nbsp (
+                    span.dsym-build-version
+                      = dsym.build_version
+                    | )
+                  td
+                    = link_to 'dSYM 下载', dsym.file.url
+                  td
+                    = dsym.created_at
+                  td
+                    button.btn.btn-sm.btn-danger.destroy_dsym data-id="#{dsym.id}" data-toggle="modal"
+                      | 删除
+            - else
+              tr
+                td colspan=6 无
+
+#destory_modal.modal.fade role="dialog" tabindex="-1"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4.modal-title 删除确认
+      .modal-body
+        p.empty-content
+        p 一旦删除数据将永久无法找回或恢复，请慎重操作！
+      .modal-footer
+        input type="hidden" id="dsym-destory-id" value=""
+        button.btn.btn-default data-dismiss="modal" type="button" 还是算了
+        a.btn.btn-danger data-method="delete"
+          | 我心已决
+
+  / .col-xs-12
+  /   .box.box-warning
+  /     .box-header.box-border
+  /       h3.box-title 使用帮助
+  /     .box-body.table-responsive
+  /       p 一般情况下，项目编译完dSYM文件跟app文件在同一个目录下，下面以XCode作为IDE详细说明定位dSYM文件。
+  /       ul
+  /         li 进入 XCode
+  /         li 打开工程（已编译过）
+  /         li 在左栏找到 "Product" 项
+  /         li 鼠标右键点击编译生成的 "xxx.app"
+  /         li 点击 "Show in Finder" 即可看到 dsym 文件
+
+  /       h4 XCode 编译后没有生成 dSYM 文件？
+  /       p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
+  /         pre
+  /           code Debug Information Format = "DWARF with dSYM File"

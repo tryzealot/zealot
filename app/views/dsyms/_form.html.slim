@@ -1,0 +1,11 @@
+= simple_form_for(@dsym) do |f|
+  = f.error_notification
+
+  = f.input :app_id, label: '应用', prompt: '请选择应用', collection: @apps, label_method: :identifier,
+    required: true, error: '请选择要上传对于的应用'
+
+  = f.input :release_version, label: '外部版本号', placeholder: '7.10', required: true
+  = f.input :build_version, label: '内部版本号', placeholder: '7.10.1', required: true
+  = f.input :file, label: 'dSYM 文件', required: true, error: '必须选择一个 dSYM 文件'
+  = f.input :file_hash, disabled: true, placeholder: '纯校验使用，随文件生成无需填写', error: '文件不能重复上传'
+  = f.button :submit, value: '上传'

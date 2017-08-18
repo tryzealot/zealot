@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725103402) do
+ActiveRecord::Schema.define(version: 20170818033404) do
 
   create_table "apps", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20170725103402) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["udid"], name: "index_devices_on_udid", unique: true
+  end
+
+  create_table "dsyms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.bigint "app_id"
+    t.string "release_version"
+    t.string "build_version"
+    t.string "file"
+    t.string "file_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_dsyms_on_app_id"
   end
 
   create_table "pacs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
