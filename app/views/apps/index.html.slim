@@ -41,8 +41,8 @@
                     = "#{app.latest_release.release_version} (#{app.latest_release.build_version})"
                     |  -&nbsp
                     = time_ago_in_words(app.latest_release.created_at)
-                .app-changelog
-                  = simple_format(app.latest_release.plain_text_changelog)
+                / .app-changelog
+                /   = simple_format(app.latest_release.plain_text_changelog)
                 .app-actions-bar
                   ul.actions
                     li
