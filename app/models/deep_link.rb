@@ -1,6 +1,3 @@
 class DeepLink < ApplicationRecord
-  def categories
-    releases.group(:category)
-            .map(&:category)
-  end
+  validates :name, :category, :links, presence: true
 end
