@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :deep_links
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
