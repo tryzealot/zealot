@@ -1,0 +1,11 @@
+= simple_form_for(@deep_link) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :category, label: '分类', prompt: '请选择分类', collection: @categories, required: true, error: '请选择要 Deep Link 的分类'
+    = f.input :name, prompt: '链接名称或描述', label: '名称', placeholder: '帖子详情'
+    = f.input :links, prompt: '支持多个链接，每个链接为一行', label: 'Deep Links',
+      placeholder: "qyer://deal/detail/id\nlastminute://detail/?id=4343\nhttp://m.qyer.com/z/deal/343434", input_html: { rows: 10 }
+
+  .form-actions
+    = f.button :submit
