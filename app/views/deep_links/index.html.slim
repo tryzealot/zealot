@@ -22,10 +22,11 @@
               - links.each do |link|
                 li
                   = link.name
-                  | &nbsp-&nbsp
-                  = link_to '编辑', edit_deep_link_path(link)
-                  |  /&nbsp
-                  = link_to '删除', deep_link_path(link), method: :delete, data: { confirm: '你确定？'}
+                  - if user_signed_in?
+                    | &nbsp-&nbsp
+                    = link_to '编辑', edit_deep_link_path(link)
+                    |  /&nbsp
+                    = link_to '删除', deep_link_path(link), method: :delete, data: { confirm: '你确定？'}
                   = render_html(link.links)
 
   .col-xs-12
