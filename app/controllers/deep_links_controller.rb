@@ -1,4 +1,5 @@
 class DeepLinksController < ApplicationController
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy]
   before_action :set_deep_link, only: [:show, :edit, :update, :destroy]
   before_action :set_categories
 
@@ -33,7 +34,7 @@ class DeepLinksController < ApplicationController
     @deep_link = DeepLink.new(deep_link_params)
 
     if @deep_link.save
-      redirect_to @deep_link, notice: 'Deep link was successfully created.'
+      redirect_to deep_links_url, notice: 'Deep Link 创建成功'
     else
       render :new
     end
@@ -42,7 +43,7 @@ class DeepLinksController < ApplicationController
   # PATCH/PUT /deep_links/1
   def update
     if @deep_link.update(deep_link_params)
-      redirect_to @deep_link, notice: 'Deep link was successfully updated.'
+      redirect_to @deep_link, notice: 'Deep Link 已更新'
     else
       render :edit
     end
@@ -51,7 +52,7 @@ class DeepLinksController < ApplicationController
   # DELETE /deep_links/1
   def destroy
     @deep_link.destroy
-    redirect_to deep_links_url, notice: 'Deep link was successfully destroyed.'
+    redirect_to deep_links_url, notice: 'Deep Link 已删除'
   end
 
   private
