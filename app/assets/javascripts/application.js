@@ -21,4 +21,4 @@
 //= require ace/theme-tomorrow_night
 //= require_tree .
 
-var HOST = "http://" + location.hostname + (location.port ? ':' + location.port : '') + '/';
+var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
