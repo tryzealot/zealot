@@ -1,8 +1,17 @@
-h1 Editing deep_link
+- content_for :title do
+  = @title
+- content_for :page_title do
+  = @title
 
-== render 'form'
-
-= link_to 'Show', @deep_link
-'  |
-= link_to 'Back', deep_links_path
-
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
+        .box-tools
+          a href="#{dsyms_path}"
+            i.fa.fa-list-alt
+            |  返回列表
+      .box-body
+        == render 'form'
