@@ -5,3 +5,21 @@
 .category-links .link-body ul li {
   padding: 7px 0;
 }
+
+.qr-code table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+
+.qr-code table td {
+  border-left: solid 10px #000;
+  padding: 0;
+  margin: 0;
+  width: 0px;
+  height: 10px;
+}
+
+.qr-code table td.black { border-color: #465960; }
+.qr-code table td.white { border-color: #fff; }

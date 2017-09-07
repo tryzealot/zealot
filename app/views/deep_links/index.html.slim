@@ -31,9 +31,14 @@
                   .link-body
                     = render_html(link.links)
 
+  ruby:
+    qrcode = RQRCode::QRCode.new(deep_links_path, level: :h).as_html
+
   .col-xs-12
     .box.box-warning
       .box-header.box-border
         h3.box-title 使用帮助
       .box-body.table-responsive
-        p 使用浏览器访问本页面
+        p 使用浏览器访问本页面或扫描下面二维码访问
+        .qr-code
+          = raw qrcode
