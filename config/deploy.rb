@@ -39,5 +39,6 @@ namespace :deploy do
   after :finishing, 'puma:nginx_config'
 
   after :finished, 'whenever:update_crontab'
-  after :finished, 'puma:restart'
 end
+
+# after 'puma:restart', 'puma:start'
