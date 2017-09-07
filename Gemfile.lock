@@ -389,6 +389,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.0)
+    terminal-notifier (1.8.0)
     terminal-notifier-guard (1.7.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -484,6 +485,7 @@ DEPENDENCIES
   slim-rails (~> 3.1.1)
   spring
   spring-watcher-listen (~> 2.0.0)
+  terminal-notifier
   terminal-notifier-guard
   turbolinks
   tzinfo-data
@@ -492,4 +494,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

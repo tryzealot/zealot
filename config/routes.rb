@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :deep_links
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
@@ -37,6 +36,9 @@ Rails.application.routes.draw do
 
   # dSYM 管理
   resources :dsyms, except: [:show, :edit, :update]
+
+  # Deep Links
+  resources :deep_links, except: [:show]
 
   # 用户
   devise_for :users

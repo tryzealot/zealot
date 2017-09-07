@@ -86,7 +86,8 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'guard-sidekiq', require: false
   gem 'guard-migrate', require: false
-  gem 'terminal-notifier-guard'
+  gem 'terminal-notifier-guard', require: false
+  gem 'terminal-notifier', require: false
 
   # IDE tools(VSCode)
   gem "ruby-debug-ide"

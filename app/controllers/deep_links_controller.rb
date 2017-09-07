@@ -13,11 +13,6 @@ class DeepLinksController < ApplicationController
     end
   end
 
-  # GET /deep_links/1
-  def show
-    @title = @deep_link.name
-  end
-
   # GET /deep_links/new
   def new
     @title = '新建 Deep Links'
