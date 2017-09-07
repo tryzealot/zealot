@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :category, label: '分类', collection: @categories,
+    = f.input :category, label: '分类', collection: @categories, prompt: '请选择分类',
       hint: '如需添加其他分类，联系三火', error: '请选择要 Deep Link 的分类'
     = f.input :name, label: '名称', placeholder: '帖子详情'
     = f.input :links, label: 'Deep Links', input_html: { rows: 10 },
