@@ -32,7 +32,7 @@
                     = render_html(link.links)
 
   ruby:
-    qrcode = RQRCode::QRCode.new(deep_links_path, level: :h).as_html
+    qrcode = RQRCode::QRCode.new(deep_links_url, level: :h).as_html
 
   .col-xs-12
     .box.box-warning
