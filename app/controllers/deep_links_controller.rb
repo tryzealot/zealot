@@ -38,7 +38,7 @@ class DeepLinksController < ApplicationController
   # PATCH/PUT /deep_links/1
   def update
     if @deep_link.update(deep_link_params)
-      redirect_to @deep_link, notice: 'Deep Link 已更新'
+      redirect_to deep_links_url notice: 'Deep Link 已更新'
     else
       render :edit
     end
