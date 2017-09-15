@@ -2,7 +2,7 @@ class DsymFileUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/apps/a#{model.app.id}/dsym"
+    "uploads/apps/dsym/a#{model.app.id}/"
   end
 
   def size
@@ -10,7 +10,7 @@ class DsymFileUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    ['dsym']
+    ['dsym', 'zip']
   end
 
   def md5
