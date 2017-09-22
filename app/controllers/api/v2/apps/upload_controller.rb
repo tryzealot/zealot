@@ -111,6 +111,8 @@ class Api::V2::Apps::UploadController < ActionController::API
 
   def release_params
     attributes = params.permit(:identifier, :release_version, :build_version, :changelog, :channel, :branch, :last_commit, :ci_url, :file, :icon, :extra, :devices, :release_type)
+
+    attributes[:channel] = 'jenkins' if attributes[:ci_url]
     attributes[:devices] = param_devices
     attributes[:extra] = JSON.dump(param_extra)
 

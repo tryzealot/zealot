@@ -55,8 +55,10 @@
             - if @release.channel == 'jenkins'
               a href="#{@release.ci_url}"
                 = @release.channel
-            - else
+            - elsif !@release.channel.to_s.empty?
               = @release.channel
+            - else
+              | API
           li
             i.fa.fa-calendar
             = "  #{time_ago_in_words(@release.created_at)}"
