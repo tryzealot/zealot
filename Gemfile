@@ -83,7 +83,6 @@ group :development do
   gem 'byebug'
   gem 'guard-rails', require: false
   gem 'guard-bundler', require: false
-  gem 'guard-livereload', require: false
   gem 'guard-sidekiq', require: false
   gem 'guard-migrate', require: false
   gem 'terminal-notifier-guard', require: false
