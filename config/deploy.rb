@@ -23,7 +23,7 @@ set :rvm_ruby_version, '2.4.1' # Defaults to: 'default'
 set :bundle_env_variables, { NOKOGIRI_USE_SYSTEM_LIBRARIES: 1 }
 
 # nginx
-set :nginx_use_ssl, true
+# set :nginx_use_ssl, true
 set :nginx_server_name, 'mobile.2b6.me'
 set :nginx_sites_available_path, '/home/wangshen/nginx/sites-available'
 set :nginx_sites_enabled_path, '/home/wangshen/nginx/sites-enabled'
