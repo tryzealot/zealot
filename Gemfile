@@ -4,7 +4,7 @@ gem 'puma', '~> 3.9.1'
 gem 'rails', '~> 5.1.2'
 
 # DB & Cache
-gem 'mysql2', '~> 0.4.0'
+gem 'mysql2', '~> 0.4.10'
 gem 'redis-namespace', '~> 1.5.3'
 gem 'redis-rails', '~> 5.0.1'
 
