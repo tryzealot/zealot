@@ -224,7 +224,7 @@ GEM
     mixlib-shellout (2.3.2)
     multi_xml (0.6.0)
     mustermann (1.0.0)
-    mysql2 (0.4.9)
+    mysql2 (0.4.10)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -453,7 +453,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mini_magick
   multi_xml
-  mysql2 (~> 0.4.0)
+  mysql2 (~> 0.4.10)
   newrelic_rpm
   pry-byebug
   pry-rails
