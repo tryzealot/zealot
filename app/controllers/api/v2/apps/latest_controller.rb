@@ -2,6 +2,7 @@ class Api::V2::Apps::LatestController < ActionController::API
   before_action :validate_app_key, only: [:show]
 
   def show
+    headers['Last-Modified'] = Time.now.httpdate
     render json: @app,
            serializer: Api::AppsSerializer,
            release_version: params[:release_version],
