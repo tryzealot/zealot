@@ -30,7 +30,7 @@ section.recently-upload
                   span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
                     = release.created_at.strftime('%Y-%m-%d')
               li
-                i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-gray'}"
+                i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
                 .timeline-item
                   span.time
                     i.fa.fa-clock-o
