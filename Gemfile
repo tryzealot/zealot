@@ -19,7 +19,7 @@ gem 'graphiql-rails'
 
 # View
 ## 模板引擎
-gem 'slim-rails', '~> 3.1.1'
+gem 'slim-rails', '~> 3.1.3'
 ## 表单生成
 gem 'simple_form', '~> 3.5.0'
 gem 'multi_xml'

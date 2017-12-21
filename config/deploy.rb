@@ -31,7 +31,7 @@ set :nginx_sites_enabled_path, '/home/wangshen/nginx/sites-enabled'
 # puma
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_threads, [1, 16]
-set :puma_workers, 2
+set :puma_workers, 8
 set :puma_preload_app, true
 
 namespace :deploy do
