@@ -11,8 +11,8 @@
  * file per style scope.
  *
  *= require font-awesome
- *= require admin-lte/bootstrap/css/bootstrap
- *= require admin-lte/dist/css/AdminLTE
+ *= require bootstrap/dist/css/bootstrap.min
+ *= require admin-lte/dist/css/AdminLTE.min
  *= require admin-lte/dist/css/skins/_all-skins
  *= require_tree .
  *= require_self

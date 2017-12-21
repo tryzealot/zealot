@@ -15,8 +15,8 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require js-routes
-//= require admin-lte/bootstrap/js/bootstrap.min
-//= require admin-lte/dist/js/app.min
+//= require bootstrap/dist/js/bootstrap.min
+//= require admin-lte/dist/js/adminlte.min
 //= require ace-rails-ap
 //= require ace/theme-tomorrow_night
 //= require_tree .
