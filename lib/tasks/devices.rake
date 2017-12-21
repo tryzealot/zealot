@@ -1,5 +1,6 @@
-namespace :devices do
+require 'json'
 
+namespace :devices do
   task store: :environment do
     App.all.each do |app|
       next if app.device_type.casecmp('android').zero?
