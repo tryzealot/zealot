@@ -1,7 +1,7 @@
 source 'https://gems.ruby-china.org'
 
-gem 'puma', '~> 3.9.1'
-gem 'rails', '~> 5.1.2'
+gem 'puma', '~> 3.11.0'
+gem 'rails', '~> 5.1.4'
 
 # DB & Cache
 gem 'mysql2', '~> 0.4.10'
@@ -12,7 +12,7 @@ gem 'redis-rails', '~> 5.0.1'
 gem 'newrelic_rpm'
 
 # API
-gem 'active_model_serializers', '~> 0.10.5'
+gem 'active_model_serializers', '~> 0.10.7'
 gem 'rack-cors', '~> 0.4.1'
 gem 'graphql'
 gem 'graphiql-rails'
@@ -50,7 +50,7 @@ gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
 # 异步队列
-gem 'sidekiq', '~> 4.2.6'
+gem 'sidekiq', '< 6'
 # 支持 sidekiq 使用界面
 gem 'sinatra', '~> 2.0.0', require: false
 # Mobile config
@@ -69,7 +69,7 @@ gem 'font-awesome-rails'
 gem 'ace-rails-ap'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 1.0.3', require: false
+gem 'app-info', '~> 1.0.4', require: false
 
 # 异常处理
 gem 'exception_handler', '~> 0.7.0'
