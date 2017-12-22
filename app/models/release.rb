@@ -5,6 +5,7 @@ class Release < ActiveRecord::Base
   mount_uploader :icon, AppIconUploader
 
   belongs_to :app
+  belongs_to :user
 
   validates :identifier, :release_version, :build_version, :file, :extra, presence: true
 

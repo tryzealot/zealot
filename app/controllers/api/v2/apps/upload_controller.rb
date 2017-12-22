@@ -3,13 +3,12 @@ class Api::V2::Apps::UploadController < ActionController::API
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActionCable::Connection::Authorization::UnauthorizedError, with: :render_unauthorized_user_key
-  rescue_from ArgumentError, with: :render_internal_server_error
+  rescue_from ArgumentError, NoMethodError, Mysql2::Error, with: :render_internal_server_error
 
   def create
     create_or_update_app
     create_or_update_release
     perform_app_web_hook_job
-    # perform_app_teardown_job
 
     render json: @app,
            serializer: Api::AppsSerializer,
@@ -18,30 +17,9 @@ class Api::V2::Apps::UploadController < ActionController::API
 
   private
 
-  def render_unprocessable_entity_response(exception)
-    render json: {
-      error: 'app could not be upload with errors',
-      reason: exception.record.errors
-    }, status: :unprocessable_entity
-  end
-
-  def render_unauthorized_user_key(exception)
-    render json: {
-      error: exception.message
-    }, status: :unauthorized
-  end
-
-  def render_internal_server_error(exception)
-    render json: {
-      error: exception.message,
-      entry: exception.backtrace
-    }, status: :internal_server_error
-  end
-
   def create_or_update_app
     if app_new_record?
       @app = App.new(app_params)
-      @app.user = @user
       @app.save!
     else
       @app.update!(app_params)
@@ -52,6 +30,7 @@ class Api::V2::Apps::UploadController < ActionController::API
     if release_new_record?
       @release = Release.new(release_params)
       @release.app = @app
+      @release.user = @user
       @release.save!
     end
 
@@ -84,10 +63,6 @@ class Api::V2::Apps::UploadController < ActionController::API
     end
   end
 
-  def perform_app_teardown_job
-    AppTeardownJob.perform_later 'app_teardown', @release
-  end
-
   def param_extra
     return @extra if @extra
 
@@ -98,19 +73,16 @@ class Api::V2::Apps::UploadController < ActionController::API
     @extra ||= extra
   end
 
-  def param_devices
-    @devices = JSON.dump(params[:devices])
-    @devices = nil if @devices.size.zero?
-  rescue
-    @device = nil
-  end
-
   def app_params
     params.permit(:identifier, :name, :slug, :device_type, :jenkins_job, :git_url)
   end
 
   def release_params
-    attributes = params.permit(:identifier, :release_version, :build_version, :changelog, :channel, :branch, :last_commit, :ci_url, :file, :icon, :extra, :devices, :release_type)
+    attributes = params.permit(
+      :identifier, :release_version, :build_version,
+      :changelog, :channel, :branch, :last_commit, :ci_url,
+      :file, :icon, :extra, :devices, :release_type
+    )
 
     attributes[:channel] = 'jenkins' if attributes[:ci_url]
     attributes[:devices] = param_devices
@@ -119,8 +91,40 @@ class Api::V2::Apps::UploadController < ActionController::API
     attributes
   end
 
+  def param_devices
+    @devices = nil
+    @devices = JSON.dump(params[:devices]) if params[:devices]
+
+    if @device.to_s.empty? || @devices.size.zero?
+      extra = JSON.dump(param_extra)
+      @devices = extra['devices'] if extra['devices']
+    end
+  rescue
+    @device = nil
+  end
+
   def validate_user_key
     @user = User.find_by(key: params[:key])
-    raise ActionCable::Connection::Authorization::UnauthorizedError, 'unauthorized user key' unless @user
+    raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
+  end
+
+  def render_unprocessable_entity_response(exception)
+    render json: {
+      error: 'app could not be upload with errors',
+      entry: exception.record.errors
+    }, status: :unprocessable_entity
+  end
+
+  def render_unauthorized_user_key(exception)
+    render json: {
+      error: exception.message
+    }, status: :unauthorized
+  end
+
+  def render_internal_server_error(exception)
+    render json: {
+      error: exception.message,
+      entry: exception.backtrace
+    }, status: :internal_server_error
   end
 end

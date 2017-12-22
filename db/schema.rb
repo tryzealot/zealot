@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221063007) do
+ActiveRecord::Schema.define(version: 20171222080545) do
 
   create_table "apps", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -37,17 +37,6 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.text "links"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "devices", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "name"
-    t.string "udid"
-    t.string "model"
-    t.string "platform"
-    t.string "device_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["udid"], name: "index_devices_on_udid", unique: true
   end
 
   create_table "dsyms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -80,7 +69,8 @@ ActiveRecord::Schema.define(version: 20171221063007) do
   end
 
   create_table "releases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer "app_id", null: false
+    t.bigint "app_id", null: false
+    t.bigint "user_id"
     t.string "channel"
     t.integer "filesize"
     t.string "release_version", null: false
@@ -88,18 +78,14 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.string "identifier", null: false
     t.integer "version"
     t.string "release_type"
-    t.string "distribution"
-    t.string "store_url"
     t.string "icon"
     t.string "branch"
     t.string "last_commit"
     t.string "ci_url"
     t.text "changelog", limit: 16777215
-    t.string "md5"
     t.string "file"
     t.text "devices", limit: 16777215
     t.text "extra", limit: 16777215
-    t.bigint "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true
@@ -155,17 +141,6 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object", limit: 4294967295
-    t.datetime "created_at"
-    t.text "object_changes", limit: 4294967295
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
   create_table "web_hooks", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "url"
     t.integer "app_id"
@@ -177,23 +152,4 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }
   end
 
-  create_table "wechat_options", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "wechat_id"
-    t.string "key"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["wechat_id", "key"], name: "index_wechat_options_on_wechat_id_and_key", unique: true
-    t.index ["wechat_id"], name: "index_wechat_options_on_wechat_id"
-  end
-
-  create_table "wechat_sessions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "openid", null: false
-    t.string "hash_store"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
-  end
-
-  add_foreign_key "releases", "users"
 end
