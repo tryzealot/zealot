@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221063007) do
+ActiveRecord::Schema.define(version: 20171222074239) do
 
   create_table "apps", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -79,8 +79,9 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "releases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer "app_id", null: false
+  create_table "releases", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.bigint "app_id", null: false
+    t.bigint "user_id"
     t.string "channel"
     t.integer "filesize"
     t.string "release_version", null: false
@@ -99,7 +100,6 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.string "file"
     t.text "devices", limit: 16777215
     t.text "extra", limit: 16777215
-    t.bigint "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true
@@ -195,5 +195,4 @@ ActiveRecord::Schema.define(version: 20171221063007) do
     t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
-  add_foreign_key "releases", "users"
 end
