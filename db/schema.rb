@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222075142) do
+ActiveRecord::Schema.define(version: 20171222075410) do
 
   create_table "apps", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -37,17 +37,6 @@ ActiveRecord::Schema.define(version: 20171222075142) do
     t.text "links"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "devices", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "name"
-    t.string "udid"
-    t.string "model"
-    t.string "platform"
-    t.string "device_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["udid"], name: "index_devices_on_udid", unique: true
   end
 
   create_table "dsyms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -164,16 +153,6 @@ ActiveRecord::Schema.define(version: 20171222075142) do
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id"
     t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }
-  end
-
-  create_table "wechat_options", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "wechat_id"
-    t.string "key"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["wechat_id", "key"], name: "index_wechat_options_on_wechat_id_and_key", unique: true
-    t.index ["wechat_id"], name: "index_wechat_options_on_wechat_id"
   end
 
   create_table "wechat_sessions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
