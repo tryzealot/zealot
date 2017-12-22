@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222075410) do
+ActiveRecord::Schema.define(version: 20171222080545) do
 
   create_table "apps", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20171222075410) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "releases", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "releases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.bigint "app_id", null: false
     t.bigint "user_id"
     t.string "channel"
@@ -78,14 +78,11 @@ ActiveRecord::Schema.define(version: 20171222075410) do
     t.string "identifier", null: false
     t.integer "version"
     t.string "release_type"
-    t.string "distribution"
-    t.string "store_url"
     t.string "icon"
     t.string "branch"
     t.string "last_commit"
     t.string "ci_url"
     t.text "changelog", limit: 16777215
-    t.string "md5"
     t.string "file"
     t.text "devices", limit: 16777215
     t.text "extra", limit: 16777215
@@ -153,14 +150,6 @@ ActiveRecord::Schema.define(version: 20171222075410) do
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id"
     t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }
-  end
-
-  create_table "wechat_sessions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string "openid", null: false
-    t.string "hash_store"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
 end
