@@ -41,7 +41,6 @@ class Api::V2::Apps::UploadController < ActionController::API
   def create_or_update_app
     if app_new_record?
       @app = App.new(app_params)
-      @app.user = @user
       @app.save!
     else
       @app.update!(app_params)
@@ -52,6 +51,7 @@ class Api::V2::Apps::UploadController < ActionController::API
     if release_new_record?
       @release = Release.new(release_params)
       @release.app = @app
+      @release.user = @user
       @release.save!
     end
 
