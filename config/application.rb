@@ -28,6 +28,7 @@ module QMobile
     config.active_record.default_timezone = :local
 
     config.i18n.default_locale = :'zh-CN'
+    config.i18n.available_locales = ['zh-CN', :en]
 
     # Redis for cache
     config.cache_store = :redis_store, (ENV['REDIS_URL'] || 'redis://localhost:6379/0/cache'), {
