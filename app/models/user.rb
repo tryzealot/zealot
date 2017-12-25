@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
 
   before_create :generate_user_key
 
+  def current_roles
+    roles.all.map {|r| r.name }.join('/')
+  end
+
   def admin?
     role?(:admin)
   end
