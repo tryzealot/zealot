@@ -1,0 +1,9 @@
+= simple_form_for(@user, url: @user.id ? update_user_path(@user) : create_user_path(@user)) do |f|
+  = f.error_notification
+
+  = f.input :name, label: '昵称', required: true
+  = f.input :email, label: '登录邮箱', required: true
+  = f.input :password, label: '登录密码', required: @user.id.blank?
+  = f.association :roles, label: '特殊权限', label_method: :name, value_method: :id, as: :check_boxes
+
+  = f.button :submit, value: '保存'

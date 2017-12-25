@@ -9,12 +9,14 @@ class User < ActiveRecord::Base
 
   before_create :generate_user_key
 
+  validates :name, presence: true, on: :web
+
   def current_roles
     roles.all.map {|r| r.name }.join('/')
   end
 
-  def roles?(*names)
-    roles.where(name: names).exists?
+  def roles?(*values)
+    roles.where(value: values).exists?
   end
 
   private
