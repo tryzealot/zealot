@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
   has_many :permissions, through: :roles
-  has_many :apps
 
   before_create :generate_user_key
 

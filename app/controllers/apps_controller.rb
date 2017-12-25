@@ -1,12 +1,13 @@
 class AppsController < ApplicationController
   before_action :check_user_logged_in, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new]
+  before_action :fetch_apps, only: [:index]
+
   ##
   # App 列表
   # GET /apps
   def index
     @title = '应用管理'
-    @apps = current_user.apps
   end
 
   ##
@@ -114,6 +115,10 @@ class AppsController < ApplicationController
       else
         App.find(params[:id])
       end
+  end
+
+  def fetch_apps
+    @apps = App.all
   end
 
   def app_info
