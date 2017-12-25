@@ -15,6 +15,15 @@ class User < ActiveRecord::Base
     roles.all.map {|r| r.name }.join('/')
   end
 
+  def update_roles(ids)
+    ids.each do |role_id|
+      next if role_id.blank?
+      next if roles.where(id: role_id).exists?
+
+      roles << Role.find(role_id)
+    end
+  end
+
   def roles?(*values)
     roles.where(value: values).exists?
   end
