@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
-  default from: 'notifications@2b6.me'
-
+  default from: '"QMobile 通知" <no-reply@2b6.me>'
+  default
   def activation_email(user)
     @user = user
     @url = new_user_session_url

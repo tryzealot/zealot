@@ -19,9 +19,18 @@ class UsersController < ApplicationController
 
   def create
     @title = '新建用户'
+    # 新建用户需要激活才能设置密码，这里生成一个随机密码
+    user_params[:password] = Time.now.utc
+
     @user = User.new(user_params)
     if @user.save
+      # 更新权限
       @user.update_roles(params[:user][:role_ids])
+      # 发送激活邮件
+      UserMailer.activation_email(@user).deliver_later
+
+      logger.info "User #{@user.id} generated password: #{user_params[:password]}"
+
       redirect_to users_url, notice: '用户创建成功'
     else
       render :new
@@ -36,7 +45,7 @@ class UsersController < ApplicationController
     @title = '编辑用户'
 
     # 没有设置密码的情况下不更新该字段
-    user_params[:password] = @user.password if user_params[:password].blank?
+    # user_params[:password] = @user.password if user_params[:password].blank?
 
     if @user.update(user_params)
       @user.update_roles(params[:user][:role_ids])
@@ -58,8 +67,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(
-      :name, :email, :password, :role_ids
+    return @user_params if @user_params
+
+    @user_params ||= params.require(:user).permit(
+      :name, :email, :password
     )
   end
 end

@@ -36,6 +36,17 @@ module QMobile
       expires_in: 90.minutes
     }
 
+    # Mailer
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address              => ENV['STMP_SERVER'],
+      :user_name            => ENV['STMP_USER'],
+      :password             => ENV['STMP_PASSWORD'],
+      :port                 => ENV['STMP_PORT'],
+      :authentication       => 'plain',
+      :enable_starttls_auto => true
+    }
+
     # gem: exception_handler
     config.exception_handler = { dev: false }
 
