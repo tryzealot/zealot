@@ -9,6 +9,14 @@ class User < ActiveRecord::Base
 
   before_create :generate_user_key
 
+  def admin?
+    role?(:admin)
+  end
+
+  def member?
+    role?(:member)
+  end
+
   def role?(name)
     roles.where(name: name).empty?
   end
