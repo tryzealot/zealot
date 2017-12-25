@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   # 用户
   devise_for :users
+
   get 'users', to: 'users#index', as: 'users'
   get 'users/new', to: 'users#new', as: 'new_user'
   post 'users/create', to: 'users#create', as: 'create_user'
