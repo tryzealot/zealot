@@ -85,5 +85,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'visitors#index'
+  root to: 'dashboards#index'
 end
