@@ -13,16 +13,8 @@ class User < ActiveRecord::Base
     roles.all.map {|r| r.name }.join('/')
   end
 
-  def admin?
-    role?(:admin)
-  end
-
-  def member?
-    role?(:member)
-  end
-
-  def role?(name)
-    roles.where(name: name).empty?
+  def roles?(*names)
+    roles.where(name: names).exists?
   end
 
   private
