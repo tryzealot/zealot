@@ -8,33 +8,33 @@
         h3.box-title
           = @title
         .box-tools
-          a href="#{new_pac_path}"
+          a href="#{new_user_path}"
             i.fa.fa-plus-square-o
-            |  新建自动代理
+            |  新建用户
       .box-body
         table.table.no-padding
           thead
             tr
               th ID
-              th 标题
-              th 创建时间
-              th 最后更新时间
+              th 用户昵称
+              th 邮箱
+              th 权限
               th 操作
           tbody
-            - @pacs.each_with_index do |pac, i|
+            - @users.each_with_index do |user, i|
               tr
                 td
                   = i + 1
                 td
-                  = link_to pac.title, pac_path(pac)
+                  = user.name
                 td
-                  = pac.created_at
+                  = user.email
                 td
-                  = pac.updated_at
+                  = user.roles.select(:name).all.map {|r| r.name }.join('/')
                 td
-                  = link_to '编辑', edit_pac_path(pac)
+                  = link_to '编辑', edit_user_path(user)
                   |  /&nbsp
-                  = link_to '删除', pac, method: :delete, data: { confirm: '你确定？'}
+                  = link_to '删除', user, method: :delete, data: { confirm: '你确定？'}
 
   .col-xs-12
     .box.box-warning

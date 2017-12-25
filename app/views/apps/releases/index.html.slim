@@ -1,9 +1,6 @@
 - content_for :title do
   = @title
 
-- content_for :page_title do
-  = "#{@app.name} - #{@app.device_type}"
-
 ruby:
   releases_count = 0
 
@@ -12,7 +9,7 @@ ruby:
     .box
       .box-header
         h3.box-title
-          | 主版本列表
+          = @title
         .box-tools
           a href="#{app_path(@app.slug)}"
             i.fa.fa-cube
