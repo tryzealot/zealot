@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :users do
+    get 'activations/show'
+  end
+
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
@@ -50,6 +54,9 @@ Rails.application.routes.draw do
   patch 'users/:id/update', to: 'users#update', as: 'update_user'
   put 'users/:id/update', to: 'users#update'
   delete 'users/:id', to: 'users#destroy', as: 'user'
+  namespace :users do
+    get 'active/:token', to: 'activations#show', as: 'active_user'
+  end
 
   authenticate :user do
     require 'sidekiq/web'
