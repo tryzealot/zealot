@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :permissions, through: :roles
 
   before_create :generate_user_key
+  before_create :generate_activation_token
 
   validates :name, presence: true, on: :web
 
@@ -33,5 +34,14 @@ class User < ActiveRecord::Base
   def generate_user_key
     self.key = Digest::MD5.hexdigest(email + '!@#')
     self.secret = Digest::SHA1.base64digest(key)[0..6]
+  end
+
+  def generate_activation_token
+    if self.activation_token# && !activation_period_expired?
+      self.activation_token
+    else
+      self.activation_token = Digest::MD5.hexdigest("#{self.key}:#{self.secret}")
+      self.activation_sent_at = Time.now.utc
+    end
   end
 end
