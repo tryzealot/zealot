@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @roles = Role.all
-    redirect_to :back, alert: 'Access denied.' unless @user == current_user || @user.role?(:admin)
+    redirect_to :back, alert: 'Access denied.' unless @user == current_user || @user.roles?(:admin)
   end
 
   def edit
