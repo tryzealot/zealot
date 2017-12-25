@@ -5,7 +5,6 @@ class App < ActiveRecord::Base
 
   has_many :releases, dependent: :destroy
   has_many :web_hooks, dependent: :destroy
-  belongs_to :user
 
   validates :name, :identifier, :device_type, presence: true
   validates :slug, uniqueness: true
