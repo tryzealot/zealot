@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     @title = '新建用户'
     @user = User.new(user_params)
     if @user.save
+      @user.update_roles(params[:user][:role_ids])
       redirect_to users_url, notice: '用户创建成功'
     else
       render :new
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
     user_params[:password] = @user.password if user_params[:password].blank?
 
     if @user.update(user_params)
+      @user.update_roles(params[:user][:role_ids])
       redirect_to users_url, notice: '用户已经更新'
     else
       render :edit
@@ -57,7 +59,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email, :password, :roles
+      :name, :email, :password, :role_ids
     )
   end
 end
