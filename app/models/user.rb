@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, on: :web
 
+  def active(params)
+    params[:activation_token] = nil
+    params[:actived_at] = Time.now.utc
+
+    self.update(params)
+  end
+
   def current_roles
     roles.all.map {|r| r.name }.join('/')
   end
