@@ -43,6 +43,18 @@ Rails.application.routes.draw do
   # 用户
   devise_for :users
 
+  get 'users', to: 'users#index', as: 'users'
+  get 'users/new', to: 'users#new', as: 'new_user'
+  post 'users/create', to: 'users#create', as: 'create_user'
+  get 'users/:id/edit', to: 'users#edit', as: 'edit_user'
+  patch 'users/:id/update', to: 'users#update', as: 'update_user'
+  put 'users/:id/update', to: 'users#update'
+  delete 'users/:id', to: 'users#destroy', as: 'user'
+  scope :users, module: 'users' do
+    get 'active/:token', to: 'activations#edit', as: 'active_user'
+    patch 'active/:token', to: 'activations#update'
+  end
+
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
@@ -85,5 +97,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'visitors#index'
+  root to: 'dashboards#index'
 end

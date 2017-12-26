@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222080545) do
+ActiveRecord::Schema.define(version: 20171225081003) do
 
-  create_table "apps", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
     t.string "name", null: false
     t.string "slug", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20171222080545) do
     t.index ["app_id"], name: "index_dsyms_on_app_id"
   end
 
-  create_table "pacs", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "pacs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "title"
     t.string "host"
     t.string "port"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20171222080545) do
 
   create_table "roles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
+    t.string "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,7 +121,7 @@ ActiveRecord::Schema.define(version: 20171222080545) do
     t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
-  create_table "users", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -134,14 +135,18 @@ ActiveRecord::Schema.define(version: 20171222080545) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "activation_token"
+    t.datetime "actived_at"
+    t.datetime "activation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["activation_token"], name: "index_users_on_activation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["key"], name: "index_users_on_key", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "web_hooks", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "web_hooks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "url"
     t.integer "app_id"
     t.integer "upload_events"

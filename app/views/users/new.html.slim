@@ -4,12 +4,12 @@
 .row
   .col-xs-12
     .box
-      .box-header
+      .box-header.box-border
         h3.box-title
           = @title
         .box-tools
-          a href="#{apps_path}"
+          a href="#{users_path}"
             i.fa.fa-list-alt
-            |  应用管理
+            |  返回列表
       .box-body
         == render 'form'
