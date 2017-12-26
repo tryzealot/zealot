@@ -6,7 +6,7 @@ class Users::ActivationsController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if @user.active(user_params)
       redirect_to new_user_session_url, notice: '账户已激活，请使用邮箱和刚设置的密码登录。'
     else
       render :edit
