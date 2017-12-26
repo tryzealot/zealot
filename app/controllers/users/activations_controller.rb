@@ -16,6 +16,10 @@ class Users::ActivationsController < ApplicationController
   private
 
   def verify_user
+    if current_user
+      return redirect_back fallback_location: root_path , notice: '你已经登录，无法激活其他账户。'
+    end
+
     @title = "激活你的账户"
     @user = User.find_by!(activation_token: params[:token])
   end

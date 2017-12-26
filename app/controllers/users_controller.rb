@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :admin_user?
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @roles = Role.all
-    redirect_to :back, alert: 'Access denied.' unless @user == current_user || @user.roles?(:admin)
+    redirect_back fallback_location: root_path , notice: '你没有权限管理。' unless @user.roles?(:admin)
   end
 
   def new
@@ -61,6 +61,13 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def admin_user?
+    authenticate_user!
+    unless current_user.roles?(:admin)
+      redirect_back fallback_location: root_path , notice: '你没有权限管理。'
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])
