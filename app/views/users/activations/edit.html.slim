@@ -1,0 +1,20 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-xs-12
+    .box.box-success
+      .box-header.box-border
+        h3.box-title
+          = @title
+      .box-body
+        = simple_form_for(@user, url: active_user_path, html: { class: 'active_user' }) do |f|
+          = f.error_notification
+          = f.input :password, label: '登录密码', required: true, error: '密码不能为空且不能少于 6 位。', placeholder: "密码最少不能低于 6 位"
+          = f.hint ' ', id: 'display_password'
+          = f.button :submit, value: '激活'
+
+javascript:
+  $('input#user_password').on("keyup", function(){
+    $('#display_password').html($(this).val());
+  });

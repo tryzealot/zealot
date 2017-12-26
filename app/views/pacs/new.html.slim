@@ -1,8 +1,6 @@
 - content_for :title do
   = @title
-- content_for :page_title do
-  = @title
-  
+
 .row
   .col-xs-12
     .box
@@ -15,8 +13,8 @@
             |  返回列表
       .box-body
         == render 'form'
-        
-  .col-xs-12  
+
+  .col-xs-12
     .box.box-warning
       .box-header.box-border
         h3.box-title 语法帮助

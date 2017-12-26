@@ -10,21 +10,27 @@ aside.main-sidebar
         a href="#{apps_path}"
           i.fa.fa-adn
           span 应用管理
-      li class="treeview #{active_class(dsyms_path)}"
-        a href="#{dsyms_path}"
-          i.fa.fa-bug
-          span dSYM 管理
-      li class="treeview #{active_class(deep_links_path)}"
-        a href="#{deep_links_path}"
-          i.fa.fa-external-link
-          span Deep Links
-          span.pull-right-container
-            small.label.pull-right.bg-blue
-              | 测试
-      li class="treeview #{active_class(pacs_path)}"
-        a href="#{pacs_path}"
-          i.fa.fa-random
-          span 自动代理
-          span.pull-right-container
-            small.label.pull-right.bg-yellow
-              | 实验
+      - if current_user.roles?(:admin, :mobile)
+        li class="treeview #{active_class(dsyms_path)}"
+          a href="#{dsyms_path}"
+            i.fa.fa-bug
+            span dSYM 管理
+        li class="treeview #{active_class(deep_links_path)}"
+          a href="#{deep_links_path}"
+            i.fa.fa-external-link
+            span Deep Links
+            span.pull-right-container
+              small.label.pull-right.bg-blue
+                | 测试
+        li class="treeview #{active_class(pacs_path)}"
+          a href="#{pacs_path}"
+            i.fa.fa-random
+            span 自动代理
+            span.pull-right-container
+              small.label.pull-right.bg-yellow
+                | 实验
+      - if current_user.roles?(:admin)
+        li class="treeview #{active_class(users_path)}"
+          a href="#{users_path}"
+            i.fa.fa-user
+            span 用户管理
