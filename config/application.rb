@@ -39,10 +39,10 @@ module QMobile
     # Mailer
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      :address              => ENV['STMP_SERVER'],
-      :user_name            => ENV['STMP_USER'],
-      :password             => ENV['STMP_PASSWORD'],
-      :port                 => ENV['STMP_PORT'],
+      :address              => Rails.application.secrets.smtp_server || ENV['STMP_SERVER'],
+      :user_name            => Rails.application.secrets.smtp_user || ENV['STMP_USER'],
+      :password             => Rails.application.secrets.smtp_password || ENV['STMP_PASSWORD'],
+      :port                 => Rails.application.secrets.smtp_port || ENV['STMP_PORT'],
       :authentication       => 'plain',
       :enable_starttls_auto => true
     }
