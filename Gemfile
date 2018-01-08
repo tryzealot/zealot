@@ -91,7 +91,7 @@ group :development do
 
   # IDE tools(VSCode)
   gem "ruby-debug-ide"
-  gem "debase"
+  gem "debase", '~> 0.2.2.beta14'
 
   # 加速开发环境
   gem 'spring'
