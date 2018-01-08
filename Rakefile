@@ -13,6 +13,19 @@ namespace :test do
     end
   end
 
+  task smtp: :environment do
+    require 'net/smtp'
+    begin
+      email = ''
+      password = ''
+      smtp = Net::SMTP.new('mail.qyer.com', 25)
+      smtp.start('no-reply@example.com', email, password, 'plain')
+      ap smtp.started?
+    rescue Net::SMTPAuthenticationError
+      puts 'user or password is wrong'
+    end
+  end
+
   task pwd: :environment do
     accounts.each do |key, _|
       account_password_variable_name = "#{key.upcase}_PASSWORD"
