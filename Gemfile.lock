@@ -107,8 +107,8 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crass (1.0.3)
-    debase (0.2.1)
-      debase-ruby_core_source
+    debase (0.2.2.beta14)
+      debase-ruby_core_source (>= 0.9.11)
     debase-ruby_core_source (0.10.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -435,7 +435,7 @@ DEPENDENCIES
   carrierwave
   chronic
   coffee-rails
-  debase
+  debase (~> 0.2.2.beta14)
   devise (~> 4.3.0)
   exception_handler (~> 0.7.0)
   font-awesome-rails
