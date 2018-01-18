@@ -1,14 +1,14 @@
 - if @custom_data.key?('devices') && @custom_data['devices'].is_a?(Array)
   div.devices
-    .box.collapsed-box
-      .box-header
+    .box
+      .box-header.with-border
         i.fa.fa-mobile-phone
         h3.box-title
           = @custom_data['devices'].size
           |  台测试设备
         .box-tools.pull-right
           button.btn.btn-box-tool data-widget="collapse"
-            i.fa.fa-plus
+            i.fa.fa-minus
           / button.btn.btn-box-tool data-widget="remove"
           /   i.fa.fa-times
       .box-body
