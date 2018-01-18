@@ -94,6 +94,10 @@ Rails.application.routes.draw do
         get 'send_phone_code', to: 'login#update'
         post 'login', to: 'login#create'
       end
+
+      namespace :surge do
+        get 'config/:key', action: :show, as: 'config'
+      end
     end
   end
 
