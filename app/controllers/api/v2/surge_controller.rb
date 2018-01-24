@@ -149,15 +149,32 @@ class Api::V2::SurgeController < ActionController::API
 # Updated on #{Time.now}
 
 [General]
+// Auto
 loglevel = notify
-bypass-system = true
-skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, ::ffff:0:0:0:0/1, ::ffff:128:0:0:0/1, localhost, *.local, *.2b6.me, *.dev, *.exp.direct, exp.host
-dns-server = 114.114.114.114
-bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
-ipv6 = true
-allow-wifi-access = true
+dns-server = system
+skip-proxy = 127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,17.0.0.0/8,localhost,*.local,e.crashlytics.com,captive.apple.com,::ffff:0:0:0:0/1,::ffff:128:0:0:0/1,*.2b6.me,*.dev,*.exp.direct,exp.host
+
+// iOS
 external-controller-access = icyleaf@0.0.0.0:6170
+
+// macOS
+interface = 0.0.0.0
+socks-interface = 0.0.0.0
+port = 8888
+socks-port = 8889
+
+// Off：On | "true" or "false"
+allow-wifi-access = true
+collapse-policy-group-items = true
+enhanced-mode-by-rule = true
+exclude-simple-hostnames = true
 hide-crashlytics-request = true
+ipv6 = true
+
+[Replica]
+hide-apple-request = true
+hide-crashlytics-request = true
+use-keyword-filter = false
 EOF
   end
 
