@@ -1,4 +1,4 @@
-class Api::V2::Apps::InstallUrlController < ApplicationController
+class Api::V2::Apps::InstallUrlController < API::BaseController
   def show
     @app = App.friendly.find(params[:slug])
     @release =
