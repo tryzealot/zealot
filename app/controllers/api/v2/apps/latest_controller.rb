@@ -10,7 +10,7 @@ class Api::V2::Apps::LatestController < ActionController::API
   end
 
   def validate_app_key
-    @app = App.find_by(identifier: params[:id], key: params[:key])
+    @app = App.find_by(key: params[:key])
     return if @app
 
     render json: {
