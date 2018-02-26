@@ -2,8 +2,12 @@ class API::BaseController < ActionController::API
 
   def validate_user_key
     @user = User.find_by(key: params[:key])
-
     raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
+  end
+
+  def validate_app_key
+    @app = App.find_by(key: params[:key])
+    raise ActionCable::Connection::Authorization::UnauthorizedError, '无效的 App Key' unless @app
   end
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
