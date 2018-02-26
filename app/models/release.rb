@@ -12,6 +12,9 @@ class Release < ActiveRecord::Base
   before_create :auto_release_version
   before_create :auto_file_size
 
+  paginates_per     20
+  max_paginates_per 50
+
   def self.latest
     order(version: :desc).first
   end
