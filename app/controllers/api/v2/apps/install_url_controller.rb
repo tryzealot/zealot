@@ -1,4 +1,5 @@
-class Api::V2::Apps::InstallUrlController < API::BaseController
+# 依赖 view 只能继承 ApplicationController
+class Api::V2::Apps::InstallUrlController < ApplicationController
   def show
     @app = App.friendly.find(params[:slug])
     @release =
