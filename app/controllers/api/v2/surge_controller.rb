@@ -81,6 +81,10 @@ class Api::V2::SurgeController < ActionController::API
 
   def server_name(name)
     names = {
+      '台湾' => {
+        name: 'TW',
+        icon: '🇷🇪'
+      },
       '香港' => {
         name: 'HK',
         icon: '🇭🇰'
