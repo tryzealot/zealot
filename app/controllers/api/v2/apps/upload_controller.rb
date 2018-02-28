@@ -59,20 +59,6 @@ class Api::V2::Apps::UploadController < API::BaseController
     end
   end
 
-  def param_extra
-    return @extra if @extra
-
-    extra = params.clone.to_unsafe_h
-    extra.delete(:file)
-    extra.delete(:icon) if extra.key?(:icon)
-
-    @extra ||= extra
-  end
-
-  def app_params
-    params.permit(:identifier, :name, :slug, :device_type, :jenkins_job, :git_url)
-  end
-
   def release_params
     attributes = params.permit(
       :identifier, :release_version, :build_version,
@@ -89,13 +75,28 @@ class Api::V2::Apps::UploadController < API::BaseController
 
   def param_devices
     @devices = nil
-    @devices = JSON.dump(params[:devices]) if params[:devices]
-
-    if @device.to_s.empty? || @devices.size.zero?
-      extra = JSON.dump(param_extra)
-      @devices = extra['devices'] if extra['devices']
-    end
+    @devices = if params[:devices] && !params[:devices].blank?
+                 JSON.dump(params[:devices])
+               elsif (extra = JSON.dump(param_extra)) && !extra['devices'].blank?
+                 extra['devices']
+               else
+                 nil
+               end
   rescue
     @device = nil
+  end
+
+  def param_extra
+    return @extra if @extra
+
+    extra = params.clone.to_unsafe_h
+    extra.delete(:file)
+    extra.delete(:icon) if extra.key?(:icon)
+
+    @extra ||= extra
+  end
+
+  def app_params
+    params.permit(:identifier, :name, :slug, :device_type, :jenkins_job, :git_url)
   end
 end
