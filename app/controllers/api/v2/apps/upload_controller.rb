@@ -75,9 +75,9 @@ class Api::V2::Apps::UploadController < API::BaseController
 
   def param_devices
     @devices = nil
-    @devices = if params[:devices] && !params[:devices].blank?
+    @devices = if params[:devices] && params[:devices].present?
                  JSON.dump(params[:devices])
-               elsif (extra = JSON.dump(param_extra)) && !extra['devices'].blank?
+               elsif (extra = JSON.dump(param_extra)) && extra['devices'].present?
                  extra['devices']
                else
                  nil
