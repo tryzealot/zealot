@@ -91,12 +91,6 @@ Rails.application.routes.draw do
         get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
       end
 
-      namespace :licenses do
-        get 'valid_phone', to: 'login#show'
-        get 'send_phone_code', to: 'login#update'
-        post 'login', to: 'login#create'
-      end
-
       namespace :surge do
         get 'config/:key', action: :show, as: 'config'
       end
