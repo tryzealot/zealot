@@ -85,6 +85,15 @@ class Api::V2::SurgeController < ActionController::API
         name: 'RU',
         icon: '🇷🇺'
       },
+      '保加利亚' => {
+        name: 'BU',
+        icon: '🇧🇬'
+      },
+      '荷兰' => {
+        name: 'NE',
+        icon: '🇳🇱'
+      },
+
       '台湾' => {
         name: 'TW',
         icon: '🇷🇪'
