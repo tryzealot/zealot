@@ -1,2 +1,0 @@
-module Users::ActivationsHelper
-end
