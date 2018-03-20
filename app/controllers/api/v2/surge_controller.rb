@@ -325,6 +325,10 @@ USER-AGENT,YouTube*,🍃 Proxy,force-remote-dns
 
 # PROXY
 
+// icyleaf
+DOMAIN-SUFFIX,crystal-lang.org,🍃 Proxy
+DOMAIN-SUFFIX,ews.im,🍃 Proxy
+
 // Line
 DOMAIN-SUFFIX,lin.ee,🍃 Proxy
 DOMAIN-SUFFIX,line.me,🍃 Proxy
