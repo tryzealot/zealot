@@ -162,7 +162,7 @@ class Api::V2::SurgeController < ActionController::API
 
   def surge_header
 <<-EOF
-#!MANAGED-CONFIG #{api_v2_surge_config_url(@key)} interval=3600 strict=true
+#!MANAGED-CONFIG #{api_v2_surge_config_url(@key)} interval=18000 strict=true
 # Updated on #{Time.now}
 
 [General]
@@ -321,13 +321,10 @@ USER-AGENT,Speedtest*,🍃 Proxy
 USER-AGENT,WhatsApp*,🍃 Proxy,force-remote-dns
 USER-AGENT,YouTube*,🍃 Proxy,force-remote-dns
 
-
-
 # PROXY
 
 // icyleaf
 DOMAIN-SUFFIX,crystal-lang.org,🍃 Proxy
-DOMAIN-SUFFIX,baby.ews.im,🍃 Proxy
 DOMAIN-SUFFIX,thenounproject.com,🍃 Proxy
 DOMAIN-SUFFIX,fastlane.tools,🍃 Proxy
 
