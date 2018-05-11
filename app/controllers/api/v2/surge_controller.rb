@@ -327,8 +327,9 @@ USER-AGENT,YouTube*,🍃 Proxy,force-remote-dns
 DOMAIN-SUFFIX,crystal-lang.org,🍃 Proxy
 DOMAIN-SUFFIX,thenounproject.com,🍃 Proxy
 DOMAIN-SUFFIX,fastlane.tools,🍃 Proxy
-DOMAIN-SUFFIX,www.jfrog.com,🍃 Proxy
+DOMAIN-SUFFIX,jfrog.com,🍃 Proxy
 DOMAIN-SUFFIX,zeplin.io,🍃 Proxy
+DOMAIN-SUFFIX,cnswift.org,🍃 Proxy
 
 // Line
 DOMAIN-SUFFIX,lin.ee,🍃 Proxy
