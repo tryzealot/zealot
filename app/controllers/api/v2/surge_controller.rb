@@ -331,6 +331,7 @@ DOMAIN-SUFFIX,jfrog.com,🍃 Proxy
 DOMAIN-SUFFIX,zeplin.io,🍃 Proxy
 DOMAIN-SUFFIX,cnswift.org,🍃 Proxy
 DOMAIN-SUFFIX,ssl-images-amazon.com,🍃 Proxy
+DOMAIN-SUFFIX,media-amazon.com,🍃 Proxy
 
 // Line
 DOMAIN-SUFFIX,lin.ee,🍃 Proxy
