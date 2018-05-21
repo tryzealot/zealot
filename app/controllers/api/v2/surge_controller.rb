@@ -330,6 +330,7 @@ DOMAIN-SUFFIX,fastlane.tools,🍃 Proxy
 DOMAIN-SUFFIX,jfrog.com,🍃 Proxy
 DOMAIN-SUFFIX,zeplin.io,🍃 Proxy
 DOMAIN-SUFFIX,cnswift.org,🍃 Proxy
+DOMAIN-SUFFIX,ssl-images-amazon.com,🍃 Proxy
 
 // Line
 DOMAIN-SUFFIX,lin.ee,🍃 Proxy
