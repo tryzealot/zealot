@@ -2,8 +2,6 @@ class Api::AppReleasesSerializer < Api::BaseSerializer
   attributes :id, :name, :identifier, :device_type, :slug, :icon_url
 
   has_many :releases do
-    puts "dddd"
-    puts @instance_options
     Kaminari.paginate_array(object.releases.order(version: :desc))
   end
 
