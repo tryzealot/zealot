@@ -132,8 +132,8 @@ module Backup
       end
 
       if backup_information[:app_version] != Mobile.version
-        puts "Mobile version mismatch:"
-        puts "  Your current Mobile version (#{Mobile.version}) differs from the Mobile version in the backup!"
+        puts "QMobile version mismatch:"
+        puts "  Your current QMobile version (#{Mobile.version}) differs from the Mobile version in the backup!"
         puts "  Please switch to the following version and try again:"
         puts "  version: #{backup_information[:app_version]}"
         puts
