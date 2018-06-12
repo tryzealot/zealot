@@ -7,8 +7,8 @@
 
 every 1.day, at: '4:30 am' do
   rake 'apps:remove_old', output: {
-    error: 'log/cron_apps_remove_old_error.log',
-    standard: 'log/cron_remove_old_clean.log'
+    standard: 'log/cron_apps_remove_old_clean.log',
+    error: 'log/cron_apps_remove_old.error.log'
   }
 end
 

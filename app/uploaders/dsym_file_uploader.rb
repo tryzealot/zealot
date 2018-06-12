@@ -2,7 +2,7 @@ class DsymFileUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/apps/dsym/a#{model.app.id}/"
+    "uploads/dsym/apps/a#{model.app.id}/"
   end
 
   def size
