@@ -1,6 +1,6 @@
 # Bind on a specific TCP address. We won't bother using unix sockets because
 # nginx will be running in a different Docker container.
-bind "tcp://#{ENV['BIND_ON']}"
+bind "tcp://#{ENV.fetch("BIND_ON") { "0.0.0.0:3000" }}"
 
 # Puma supports threading. Requests are served through an internal thread pool.
 # Even on MRI, it is beneficial to leverage multiple threads because I/O
