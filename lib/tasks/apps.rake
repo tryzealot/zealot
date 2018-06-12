@@ -1,35 +1,6 @@
 require 'fileutils'
 
 namespace :apps do
-  desc 'Mobile | Generate app key'
-  task update_app_key: :environment do
-    App.all.each do |app|
-      next unless app.key.blank?
-      app.key = Digest::MD5.hexdigest(SecureRandom.uuid + app.identifier)
-      app.save!
-    end
-  end
-
-  desc 'Mobile | Reverse remove directory if release is not exist of app'
-  task cleanup: :environment do
-    store_path = File.join(Rails.root, 'public', 'uploads')
-    Dir.glob("#{store_path}/apps/*").each do |app_path|
-      Dir.glob("#{app_path}/*").each do |release_path|
-        print release_path
-        release_id = File.basename(release_path)[1..-1]
-        begin
-          Release.find(release_id)
-        rescue
-          print ' removed'
-          FileUtils.rm_rf release_path
-        end
-        puts ''
-      end
-    end
-
-    `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
-  end
-
   desc 'Mobile | Remove old app history versions except the latest build version by each release version'
   task remove_old: :environment do
     apps = App.all
@@ -79,6 +50,26 @@ namespace :apps do
     Rake::Task['apps:cleanup'].invoke
   end
 
+  desc 'Mobile | Reverse remove directory if release is not exist of app'
+  task cleanup: :environment do
+    store_path = File.join(Rails.root, 'public', 'uploads')
+    Dir.glob("#{store_path}/apps/*").each do |app_path|
+      Dir.glob("#{app_path}/*").each do |release_path|
+        print release_path
+        release_id = File.basename(release_path)[1..-1]
+        begin
+          Release.find(release_id)
+        rescue
+          print ' removed'
+          FileUtils.rm_rf release_path
+        end
+        puts ''
+      end
+    end
+
+    `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
+  end
+
   desc 'Mobile | List all app details'
   task list: :environment do
     App.all.each do |app|
@@ -86,6 +77,15 @@ namespace :apps do
       app.release_versions.each do |version|
         puts "-> #{version}"
       end
+    end
+  end
+
+  desc 'Mobile | Generate app key'
+  task update_app_key: :environment do
+    App.all.each do |app|
+      next unless app.key.blank?
+      app.key = Digest::MD5.hexdigest(SecureRandom.uuid + app.identifier)
+      app.save!
     end
   end
 end

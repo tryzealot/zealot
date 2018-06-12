@@ -12,14 +12,14 @@ module Backup
       compress_rd.close
 
       dump_pid = case db_config['adapter']
-      when /^mysql/ then
-        puts "Dumping MySQL database #{db_config['database']} ... "
-        # Workaround warnings from MySQL 5.6 about passwords on cmd line
-        ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
-        spawn('mysqldump', *mysql_args, db_config['database'], out: compress_wr)
-      else
-        abort 'Unkown database adapter, only support mysql.'
-      end
+                  when /^mysql/ then
+                    puts "Dumping MySQL database #{db_config['database']} ... "
+                    # Workaround warnings from MySQL 5.6 about passwords on cmd line
+                    ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
+                    spawn('mysqldump', *mysql_args, db_config['database'], out: compress_wr)
+                  else
+                    abort 'Unkown database adapter, only support mysql.'
+                  end
       compress_wr.close
 
       success = [compress_pid, dump_pid].all? { |pid| Process.waitpid(pid); $?.success? }
