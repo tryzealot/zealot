@@ -5,7 +5,7 @@ class DsymsController < ApplicationController
   # GET /dsyms
   def index
     @title = 'dSYM 列表'
-    @dsyms = Dsym.all
+    @dsyms = Dsym.all.order(id: :desc)
   end
 
   # GET /dsyms/new

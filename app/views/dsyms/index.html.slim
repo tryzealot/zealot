@@ -28,9 +28,7 @@
                   td
                     = i + 1
                   td
-                    = link_to "#{dsym.app.name}", app_path(dsym.app), class: "dsym-title"
-                    | &nbsp - &nbsp
-                    = dsym.app.identifier
+                    = link_to "#{dsym.app.identifier}", app_path(dsym.app), class: "dsym-title"
                   td.dsym-version
                     span.dsym-release-version
                       = dsym.release_version
@@ -65,20 +63,21 @@
         a.btn.btn-danger data-method="delete"
           | 我心已决
 
-  / .col-xs-12
-  /   .box.box-warning
-  /     .box-header.box-border
-  /       h3.box-title 使用帮助
-  /     .box-body.table-responsive
-  /       p 一般情况下，项目编译完dSYM文件跟app文件在同一个目录下，下面以XCode作为IDE详细说明定位dSYM文件。
-  /       ul
-  /         li 进入 XCode
-  /         li 打开工程（已编译过）
-  /         li 在左栏找到 "Product" 项
-  /         li 鼠标右键点击编译生成的 "xxx.app"
-  /         li 点击 "Show in Finder" 即可看到 dsym 文件
+  .col-xs-12
+    .box.box-warning
+      .box-header.box-border
+        h3.box-title 使用帮助
+      .box-body.table-responsive
+        p 一般情况下，项目编译完 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
+        ul
+          li 进入 XCode
+          li 打开工程（已编译过）
+          li 在左栏找到 "Product" 项
+          li 鼠标右键点击编译生成的 "xxx.app"
+          li 点击 "Show in Finder" 即可看到 dsym 文件
 
-  /       h4 XCode 编译后没有生成 dSYM 文件？
-  /       p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
-  /         pre
-  /           code Debug Information Format = "DWARF with dSYM File"
+        h4 XCode 编译后没有生成 dSYM 文件？
+        p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
+          pre
+            code Debug Information Format = "DWARF with dSYM File"
+        p 如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。
