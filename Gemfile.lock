@@ -234,7 +234,7 @@ GEM
     net-ssh (4.2.0)
     newrelic_rpm (4.3.0.335)
     nio4r (2.1.0)
-    nokogiri (1.8.3)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -262,7 +262,7 @@ GEM
     rack-cors (0.4.1)
     rack-protection (2.0.0)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.1.4)
       actioncable (= 5.1.4)
@@ -281,9 +281,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    rails-i18n (5.0.4)
-      i18n (~> 0.7)
-      railties (~> 5.0)
+    rails-i18n (5.1.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
@@ -464,7 +464,7 @@ DEPENDENCIES
   puma (~> 3.11.0)
   rack-cors (~> 0.4.1)
   rails (~> 5.1.4)
-  rails-i18n (~> 5.0.0)
+  rails-i18n (~> 5.1.1)
   redis-namespace (~> 1.5.3)
   redis-rails (~> 5.0.1)
   rqrcode
@@ -487,4 +487,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.2
+   1.16.3
