@@ -1,4 +1,4 @@
-source 'https://gems.ruby-china.org'
+source 'https://gems.ruby-china.com'
 
 gem 'puma', '~> 3.11.0'
 gem 'rails', '~> 5.1.4'
@@ -38,7 +38,7 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'http'
 # 用户认证
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.4.3'
 # Crontab
 gem 'whenever', require: false
 # # GEO 坐标计算
