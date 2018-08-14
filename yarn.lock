@@ -17,9 +17,9 @@ acorn@^5.2.1:
   version "5.2.1"
   resolved "http://registry.npm.taobao.org/acorn/download/acorn-5.2.1.tgz#317ac7821826c22c702d66189ab8359675f135d7"
 
-admin-lte@^2.3.11:
-  version "2.4.2"
-  resolved "http://registry.npm.taobao.org/admin-lte/download/admin-lte-2.4.2.tgz#6a2928fa34715881eb69a09b64dbccc8d5fae539"
+admin-lte@^2.4.8:
+  version "2.4.8"
+  resolved "http://registry.npm.taobao.org/admin-lte/download/admin-lte-2.4.8.tgz#35edb2b7857af7fcfed7355c83649d5abd09a501"
   dependencies:
     bootstrap "^3.3.7"
     bootstrap-colorpicker "^2.5.1"
