@@ -19,7 +19,9 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # Fix pre-complie error: Uglifier::Error: In strict mode code, functions can only be declared at top level or immediately within another function.
+  # https://github.com/rmosolgo/graphiql-rails/issues/44#issuecomment-397936805
+  config.assets.js_compressor = Uglifier.new(harmony: true) #:uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
