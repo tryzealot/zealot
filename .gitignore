@@ -57,3 +57,4 @@ node_modules/
 .byebug_history
 .history
 public/assets/
+mirrors/
