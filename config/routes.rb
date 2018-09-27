@@ -40,6 +40,11 @@ Rails.application.routes.draw do
   # Deep Links
   resources :deep_links, except: [:show]
 
+  namespace :mirrors do
+    get '/download', action: :download
+    get '/(:directory)', action: :index
+  end
+
   # 用户
   devise_for :users
 
