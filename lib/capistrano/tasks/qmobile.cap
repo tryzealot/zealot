@@ -1,7 +1,7 @@
 
 namespace :mobile do
   namespace :backup do
-    desc 'Create a backup'
+    desc 'Create a backup: mobile:backup:create RAILS_ENV=production MAX=15 DIR=db/db.bak'
     task :create do
       on roles(:app) do
         within release_path do
@@ -12,7 +12,7 @@ namespace :mobile do
       end
     end
 
-    desc 'Restore from a backup'
+    desc 'Restore from a backup: mobile:backup:restore RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz'
     task :restore do
       on roles(:app) do
         within release_path do
