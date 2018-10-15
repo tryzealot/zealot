@@ -6,7 +6,7 @@ module Backup
 
     def dump
       prepare
-      puts "Dumping uploaded apps from #{apps_stored_path} ... "
+      print "Dumping uploaded apps from #{apps_stored_path} ... "
       Dir.glob("#{apps_stored_path}/*").each do |app_path|
         Dir.glob("#{app_path}/*").each do |release_path|
           relative_path = release_path.gsub(apps_stored_path, '')
@@ -20,6 +20,8 @@ module Backup
           puts ''
         end
       end
+
+      puts '[DONE]'
     end
 
     def restore
