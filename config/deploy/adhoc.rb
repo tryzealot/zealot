@@ -16,11 +16,11 @@ set :stage, :production
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '172.1.1.229:2233', user: 'wangshen', roles: %w(web appZXasqw12 db puma_nginx puma_role)
+server '172.1.1.227:2233', user: 'wangshen', roles: %w(web app db puma_nginx puma_role)
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
-set :rvm_ruby_version, '2.5.1' # Defaults to: 'default'
+set :rvm_ruby_version, '2.4.1' # Defaults to: 'default'
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
