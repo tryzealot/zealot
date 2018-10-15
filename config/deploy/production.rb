@@ -16,7 +16,7 @@ set :stage, :production
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '172.1.1.229:2233', user: 'wangshen', roles: %w(web appZXasqw12 db puma_nginx puma_role)
+server '172.1.1.229:2233', user: 'wangshen', roles: %w(web app db puma_nginx puma_role)
 
 # rvm
 set :rvm_type, :user # Defaults to: :auto
