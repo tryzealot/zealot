@@ -3,8 +3,13 @@ db/*.sqlite3
 db/*.sqlite3-journal
 log/*
 tmp/*
+vendor/bundle/*
+node_modules/*
+
 Dockerfile*
 docker-compose*
 README.*
-vendor/bundle/*
-node_modules/*
+.editorconfig
+.rubocop.yml
+.ruby-gemset
+.ruby-version
