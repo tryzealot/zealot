@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock '~> 3.11.0'
 
 set :application, 'mobile'
 set :repo_url, 'git@git.2b6.me:icyleaf/qmobile.git'
@@ -8,17 +8,13 @@ set :deploy_to, '/home/wangshen/www/mobile'
 set :log_level, :debug
 set :keep_releases, 3
 
-append :linked_files, "config/database.yml"
-append :linked_dirs, "log", "tmp/backups", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "public/uploads", "public/mirrors", "node_modules"
+append :linked_files, 'config/database.yml'
+append :linked_dirs, 'log', 'tmp/backups', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', 'public/mirrors', 'node_modules'
 
 # set :default_env, {
 #   'JOB_WORKER_URL' => 'redis://localhost:6379/0',
 #   'REDIS_URL' => 'redis://localhost:6379/0',
 # }
-
-# rvm
-set :rvm_type, :user # Defaults to: :auto
-set :rvm_ruby_version, '2.4.1' # Defaults to: 'default'
 
 # bundler
 # set :bundle_flags, '--deployment --quiet -- --use-system-libraries=true'
