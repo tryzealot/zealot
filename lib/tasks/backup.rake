@@ -1,3 +1,6 @@
+require_relative '../backup/manager'
+require_relative '../backup/database'
+require_relative '../backup/upload'
 require 'fileutils'
 
 # USAGE
