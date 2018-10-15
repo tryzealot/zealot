@@ -62,7 +62,7 @@ module Backup
           file << s.to_yaml.gsub(/^---\n/,'')
         end
 
-        print "Creating backup archive: #{tar_file} ... "
+        print "Creating backup archive: #{File.join(backup_path, tar_file)} ... "
         tar_system_options = {out: [tar_file, 'w', 0600]}
         unless Kernel.system('tar', '-cf', '-', *backup_contents, tar_system_options)
           puts "creating archive #{tar_file} failed"
