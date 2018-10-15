@@ -22,7 +22,7 @@ services:
       - redis
       - mysql
     build: .
-    image: mobile_web:dev
+    image: qmobile
     env_file:
       - .env
     ports:
@@ -34,7 +34,7 @@ services:
       - redis
       - mysql
     build: .
-    image: mobile_worker:dev
+    image: qmobile
     command: bundle exec sidekiq
     env_file:
       - .env
