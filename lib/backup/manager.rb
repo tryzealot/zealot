@@ -9,7 +9,7 @@ module Backup
       end
 
       def db_config
-        YAML.load_file(File.join(Rails.root, 'config', 'database.yml'))[Rails.env]
+        ActiveRecord::Base.connection_config
       end
 
       def db_backup_path
@@ -48,12 +48,11 @@ module Backup
       # saving additional informations
       s = {}
       s[:rails_env]           = Rails.env.to_s
-      s[:app_version]         = Mobile.version
-      s[:db_adapter]          = db_config['adapter']
-      s[:db_host]             = db_config['host']
-      s[:db_port]             = db_config['port'] || 3306
-      s[:db_database]         = db_config['database']
-      s[:db_user]             = db_config['username']
+      s[:db_adapter]          = db_config[:adapter]
+      s[:db_host]             = db_config[:host]
+      s[:db_port]             = db_config[:port] || 3306
+      s[:db_database]         = db_config[:database]
+      s[:db_user]             = db_config[:username]
       s[:db_migrator_version] = "#{ActiveRecord::Migrator.current_version}"
       s[:backup_created_at]   = Time.zone.now.strftime('%Y%m%d%H%M%S')
 
@@ -63,17 +62,19 @@ module Backup
           file << s.to_yaml.gsub(/^---\n/,'')
         end
 
-        puts "Creating backup archive: #{tar_file} ... "
+        print "Creating backup archive: #{tar_file} ... "
         tar_system_options = {out: [tar_file, 'w', 0600]}
         unless Kernel.system('tar', '-cf', '-', *backup_contents, tar_system_options)
           puts "creating archive #{tar_file} failed"
           abort 'Backup failed'
         end
+
+        puts '[DONE]'
       end
     end
 
     def cleanup
-      puts 'Deleting tmp directories ... '
+      print 'Deleting tmp directories ... '
 
       backup_contents.each do |dir|
         next unless File.exist?(File.join(backup_path, dir))
@@ -83,10 +84,12 @@ module Backup
           abort 'Backup failed'
         end
       end
+
+      puts '[DONE]'
     end
 
     def remove_old
-      puts 'Deleting old backups ... '
+      print 'Deleting old backups ... '
       if keep_max_time > 0
         removed = 0
 
@@ -104,6 +107,8 @@ module Backup
       else
         puts 'skipping'
       end
+
+      puts '[DONE]'
     end
 
     def unpack

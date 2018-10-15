@@ -11,12 +11,12 @@ module Backup
       compress_pid = spawn(*%W(gzip -1 -c), in: compress_rd, out: [db_backup_file_path, 'w', 0600])
       compress_rd.close
 
-      dump_pid = case db_config['adapter']
+      dump_pid = case db_config[:adapter]
                   when /^mysql/ then
-                    puts "Dumping MySQL database #{db_config['database']} ... "
+                    print "Dumping MySQL database #{db_config[:database]} ... "
                     # Workaround warnings from MySQL 5.6 about passwords on cmd line
-                    ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
-                    spawn('mysqldump', *mysql_args, db_config['database'], out: compress_wr)
+                    ENV['MYSQL_PWD'] = db_config[:password].to_s if db_config[:password]
+                    spawn('mysqldump', *mysql_args, db_config[:database], out: compress_wr)
                   else
                     abort 'Unkown database adapter, only support mysql.'
                   end
@@ -33,12 +33,12 @@ module Backup
       decompress_pid = spawn(*%W(gzip -cd), out: decompress_wr, in: db_backup_file_path)
       decompress_wr.close
 
-      restore_pid = case db_config["adapter"]
+      restore_pid = case db_config[:adapter]
       when /^mysql/ then
-        print "Restoring MySQL database #{db_config['database']} ... #{db_config['backup_created_at']}"
+        print "Restoring MySQL database #{db_config[:database]} ... #{db_config['backup_created_at']}"
         # Workaround warnings from MySQL 5.6 about passwords on cmd line
-        ENV['MYSQL_PWD'] = db_config['password'].to_s if db_config['password']
-        spawn('mysql', *mysql_args, db_config['database'], in: decompress_rd)
+        ENV['MYSQL_PWD'] = db_config[:password].to_s if db_config[:password]
+        spawn('mysql', *mysql_args, db_config[:database], in: decompress_rd)
       end
       decompress_rd.close
 
@@ -52,11 +52,11 @@ module Backup
 
     def mysql_args
       args = {
-        'host'      => '--host',
-        'port'      => '--port',
-        'socket'    => '--socket',
-        'username'  => '--user',
-        'encoding'  => '--default-character-set'
+        host:      '--host',
+        port:      '--port',
+        socket:    '--socket',
+        username:  '--user',
+        encoding:  '--default-character-set'
       }
       args.map { |opt, arg| "#{arg}=#{db_config[opt]}" if db_config[opt] }.compact
     end
