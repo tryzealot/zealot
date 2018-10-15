@@ -467,6 +467,7 @@ DEPENDENCIES
   rack-cors (~> 0.4.1)
   rails (~> 5.1.4)
   rails-i18n (~> 5.1.1)
+  rake (~> 12.3.1)
   redis-namespace (~> 1.5.3)
   redis-rails (~> 5.0.1)
   rqrcode
