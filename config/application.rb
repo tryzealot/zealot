@@ -53,6 +53,7 @@ module QMobile
     # Auto load path
     config.autoload_paths << Rails.root.join('app/graphql')
     config.autoload_paths << Rails.root.join('app/graphql/types')
+    config.autoload_paths += Dir["#{config.root}/lib/backup/**/*"]
     config.autoload_paths += Dir["#{config.root}/lib/mobile/**/*"]
 
     # Don't generate system test files.

@@ -101,7 +101,7 @@ end
 
 def prompt(*args)
   print(*args)
-  value = STDIN.gets.strip
+  STDIN.gets.strip
 end
 
 def ask_to_continue
