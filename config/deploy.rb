@@ -7,7 +7,7 @@ set :log_level, :debug
 
 set :linked_files, %w(config/database.yml)
 set :linked_dirs, %w(log tmp/backups tmp/pids tmp/cache tmp/sockets public/system public/uploads node_modules public/mirrors)
-set :keep_releases, 10
+set :keep_releases, 3
 # set :default_env, {
 #   'JOB_WORKER_URL' => 'redis://localhost:6379/0',
 #   'REDIS_URL' => 'redis://localhost:6379/0',
