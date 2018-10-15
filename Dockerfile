@@ -1,11 +1,11 @@
 FROM ruby:2.4-alpine
-MAINTAINER icyleaf.cn@gmail.com
+LABEL MAINTAINER="icyleaf.cn@gmail.com"
 
 ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata" \
     DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev mysql-dev" \
     RUBY_PACKAGES="ruby yaml nodejs" \
     RUBY_GEMS="bundler" \
-    RUBYGEMS_SOURCE="https://gems.ruby-china.org/" \
+    RUBYGEMS_SOURCE="https://gems.ruby-china.com/" \
     ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org" \
     MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn" \
     NPM_REGISTRY="https://registry.npm.taobao.org" \
