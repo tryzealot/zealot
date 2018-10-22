@@ -26,7 +26,7 @@ class Api::V2::JenkinsController < ActionController::API
 
   def set_client
     @client = JenkinsApi::Client.new(
-      server_ip: '172.1.1.227',
+      server_ip: '172.1.1.229',
       server_port: '8888'
     )
   end
