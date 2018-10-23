@@ -1,4 +1,4 @@
-FROM ruby:2.4-alpine
+FROM ruby:2.5-alpine
 LABEL MAINTAINER="icyleaf.cn@gmail.com"
 
 ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata" \
@@ -23,12 +23,14 @@ RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     gem install $RUBY_GEMS
 
 WORKDIR /app
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock package.json ./
 
 RUN bundle install --binstubs && \
     mkdir -p /var/lib/app/pids && \
     yarn
 
-EXPOSE 3000
+ADD . .
 
-CMD [ "puma", "-C", "config/puma.rb" ]
+EXPOSE 3000 80
+
+CMD [ "bundle", "exec", "puma" ]

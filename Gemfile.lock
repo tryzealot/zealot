@@ -107,9 +107,6 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.2)
     crass (1.0.4)
-    debase (0.2.3.beta2)
-      debase-ruby_core_source (>= 0.10.2)
-    debase-ruby_core_source (0.10.3)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -329,8 +326,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-debug-ide (0.6.1)
-      rake (>= 0.8.1)
     ruby-progressbar (1.10.0)
     ruby_android (0.7.7)
       rubyzip (>= 1.1.6)
@@ -437,7 +432,6 @@ DEPENDENCIES
   carrierwave
   chronic
   coffee-rails
-  debase (~> 0.2.2.beta14)
   devise (~> 4.4.3)
   exception_handler (~> 0.7.0)
   font-awesome-rails
@@ -472,7 +466,6 @@ DEPENDENCIES
   redis-rails (~> 5.0.1)
   rqrcode
   rubocop (~> 0.45)
-  ruby-debug-ide
   sass-rails
   settingslogic
   sidekiq (< 6)
