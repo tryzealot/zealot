@@ -1,26 +1,32 @@
-version: '2'
+version: "2.1"
 
 services:
   redis:
     image: redis:4.0-alpine
     command: redis-server
     ports:
-      - '6379:6379'
+      - "6379:6379"
     volumes:
-      - 'redis:/var/lib/redis/data'
+      - "redis:/var/lib/redis/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
   mysql:
     image: mariadb:10.2
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: 'qmobile'
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "qmobile"
     ports:
       - "13366:3306"
     volumes:
-      - 'mysql:/var/lib/mysql'
+      - "mysql:/var/lib/mysql"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
   web:
-    depends_on:
-      - redis
-      - mysql
     build: .
     image: qmobile
     env_file:
@@ -29,10 +35,12 @@ services:
       - "3210:3000"
     volumes:
       - .:/app
-  sidekiq:
     depends_on:
-      - redis
-      - mysql
+      redis:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+  sidekiq:
     build: .
     image: qmobile
     command: bundle exec sidekiq
@@ -40,6 +48,11 @@ services:
       - .env
     volumes:
       - .:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
 
 volumes:
   redis:
