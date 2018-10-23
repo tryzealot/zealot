@@ -91,8 +91,8 @@ group :development do
   gem 'terminal-notifier', require: false
 
   # IDE tools(VSCode)
-  gem "ruby-debug-ide"
-  gem "debase", '~> 0.2.2.beta14'
+  # gem "ruby-debug-ide"
+  # gem "debase", '~> 0.2.3.beta2' # ruby 2.5 兼容有问题暂时关闭
 
   # 加速开发环境
   gem 'spring'
