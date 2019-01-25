@@ -31,19 +31,14 @@ Rails.application.routes.draw do
   post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
   delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
 
-  # 自动代理
-  resources :pacs
-
   # dSYM 管理
   resources :dsyms, except: [:show, :edit, :update]
 
-  # Deep Links
-  resources :deep_links, except: [:show]
+  # 自动代理
+  # resources :pacs
 
-  namespace :mirrors do
-    get '/download', action: :download
-    get '/(:directory)', action: :index
-  end
+  # Deep Links
+  # resources :deep_links, except: [:show]
 
   # 用户
   devise_for :users
@@ -85,9 +80,9 @@ Rails.application.routes.draw do
         get '', action: :index
       end
 
-      namespace :pacs do
-        post 'update', to: 'update#create'
-      end
+      # namespace :pacs do
+      #   post 'update', to: 'update#create'
+      # end
 
       namespace :jenkins do
         get 'projects', to: 'projects#index'
