@@ -17,7 +17,7 @@ services:
     image: mariadb:10.2
     environment:
       MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_DATABASE: "qmobile"
+      MYSQL_DATABASE: "zealot"
     ports:
       - "13366:3306"
     volumes:
@@ -28,7 +28,7 @@ services:
       retries: 10
   web:
     build: .
-    image: qmobile
+    image: zealot
     env_file:
       - .env
     ports:
@@ -42,7 +42,7 @@ services:
         condition: service_healthy
   sidekiq:
     build: .
-    image: qmobile
+    image: zealot
     command: bundle exec sidekiq
     env_file:
       - .env

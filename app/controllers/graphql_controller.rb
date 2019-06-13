@@ -6,7 +6,7 @@ class GraphqlController < ApplicationController
     context = {
       current_user: current_user,
     }
-    result = QmobileSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = ZealotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   end
 
