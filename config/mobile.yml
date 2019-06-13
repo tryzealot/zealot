@@ -4,7 +4,6 @@ default: &base
     path: ''
   backup:
     path: ''
-  im_api_key: 2WcCvCk0FxNt50LnbCQ9SFcACItvuFNx
 
 development:
   <<: *base
