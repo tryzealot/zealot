@@ -5,13 +5,13 @@
 # Authors: icyleaf.cn@gmail.com
 
 ### BEGIN INIT INFO
-# Provides:          qmobile
+# Provides:          zealot
 # Required-Start:    $local_fs $remote_fs $network $syslog redis-server
 # Required-Stop:     $local_fs $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: QMobile management
-# Description:       QMobile management
+# Short-Description: Zealot management
+# Description:       Zealot management
 # chkconfig: - 85 14
 ### END INIT INFO
 
@@ -26,10 +26,10 @@
 
 ### Environment variables
 RAILS_ENV="production"
+app_user="wangshen"
 
 # Script variable names should be lower-case not to conflict with
 # internal /bin/sh variables such as PATH, EDITOR or SHELL.
-app_user="wangshen"
 app_root="/home/$app_user/www/mobile/current"
 shared_path="$app_root/../../shared"
 pid_path="$shared_path/tmp/pids"
@@ -42,7 +42,7 @@ sidekiq_pid_path="$pid_path/sidekiq-0.pid"
 shell_path="/bin/bash"
 
 # Read configuration variable file if it is present
-test -f /etc/default/qmobile && . /etc/default/qmobile
+test -f /etc/default/zealot && . /etc/default/zealot
 
 # Switch to the app_user if it is not he/she who is running the script.
 if [ `whoami` != "$app_user" ]; then
@@ -116,11 +116,11 @@ check_status(){
     sidekiq_status="-1"
   fi
   if [ $web_status = 0 ] && [ $sidekiq_status = 0 ]; then
-    qmobile_status=0
+    zealot_status=0
   else
     # http://refspecs.linuxbase.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
     # code 3 means 'program is not running'
-    qmobile_status=3
+    zealot_status=3
   fi
 }
 
@@ -149,20 +149,20 @@ check_stale_pids(){
 exit_if_not_running(){
   check_stale_pids
   if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
-    echo "QMobile is not running."
+    echo "Zealot is not running."
     exit
   fi
 }
 
 ## Starts Puma and Sidekiq if they're not running.
-start_qmobile() {
+start_zealot() {
   check_stale_pids
 
   if [ "$web_status" != "0" ]; then
-    echo "Starting QMobile Puma"
+    echo "Starting Zealot Puma"
   fi
   if [ "$sidekiq_status" != "0" ]; then
-    echo "Starting QMobile Sidekiq"
+    echo "Starting Zealot Sidekiq"
   fi
 
   # Then check if the service is running. If it is: don't start again.
@@ -184,20 +184,20 @@ start_qmobile() {
 
   # Wait for the pids to be planted
   wait_for_pids
-  # Finally check the status to tell wether or not QMobile is running
+  # Finally check the status to tell wether or not Zealot is running
   print_status
 }
 
 ## Asks Puma, Sidekiq and MailRoom if they would be so kind as to stop, if not kills them.
-stop_qmobile() {
+stop_zealot() {
   exit_if_not_running
 
   if [ "$web_status" = "0" ]; then
-    echo "Shutting down QMobile Puma"
+    echo "Shutting down Zealot Puma"
     RAILS_ENV=$RAILS_ENV bin/web stop
   fi
   if [ "$sidekiq_status" = "0" ]; then
-    echo "Shutting down QMobile Sidekiq"
+    echo "Shutting down Zealot Sidekiq"
     RAILS_ENV=$RAILS_ENV bin/background_jobs stop
   fi
 
@@ -220,26 +220,26 @@ stop_qmobile() {
   print_status
 }
 
-## Prints the status of QMobile and its components.
+## Prints the status of Zealot and its components.
 print_status() {
   check_status
   if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
-    echo "QMobile is not running."
+    echo "Zealot is not running."
     return
   fi
   if [ "$web_status" = "0" ]; then
-      echo "The QMobile Puma web server with pid $wpid is running."
+      echo "The Zealot Puma web server with pid $wpid is running."
   else
-      printf "The QMobile Puma web server is \033[31mnot running\033[0m.\n"
+      printf "The Zealot Puma web server is \033[31mnot running\033[0m.\n"
   fi
   if [ "$sidekiq_status" = "0" ]; then
-      echo "The QMobile Sidekiq job dispatcher with pid $spid is running."
+      echo "The Zealot Sidekiq job dispatcher with pid $spid is running."
   else
-      printf "The QMobile Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
+      printf "The Zealot Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
   fi
 
   if [ "$web_status" = "0" ] && [ "$sidekiq_status" = "0" ]; then
-    printf "QMobile and all its components are \033[32mup and running\033[0m.\n"
+    printf "Zealot and all its components are \033[32mup and running\033[0m.\n"
   fi
 }
 
@@ -247,14 +247,14 @@ print_status() {
 reload_mobile(){
   exit_if_not_running
   if [ "$wpid" = "0" ];then
-    echo "The QMobile Puma Web server is not running thus its configuration can't be reloaded."
+    echo "The Zealot Puma Web server is not running thus its configuration can't be reloaded."
     exit 1
   fi
-  printf "Reloading QMobile Puma configuration... "
+  printf "Reloading Zealot Puma configuration... "
   RAILS_ENV=$RAILS_ENV bin/web reload
   echo "Done."
 
-  echo "Restarting QMobile Sidekiq since it isn't capable of reloading its config..."
+  echo "Restarting Zealot Sidekiq since it isn't capable of reloading its config..."
   RAILS_ENV=$RAILS_ENV bin/background_jobs restart
 
   wait_for_pids
@@ -262,12 +262,12 @@ reload_mobile(){
 }
 
 ## Restarts Sidekiq and Puma.
-restart_qmobile(){
+restart_zealot(){
   check_status
   if [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; then
-    stop_qmobile
+    stop_zealot
   fi
-  start_qmobile
+  start_zealot
 }
 
 
@@ -275,23 +275,23 @@ restart_qmobile(){
 
 case "$1" in
   start)
-        start_qmobile
+        start_zealot
         ;;
   stop)
-        stop_qmobile
+        stop_zealot
         ;;
   restart)
-        restart_qmobile
+        restart_zealot
         ;;
   reload|force-reload)
 	reload_mobile
         ;;
   status)
         print_status
-        exit $qmobile_status
+        exit $zealot_status
         ;;
   *)
-        echo "Usage: service qmobile {start|stop|restart|reload|status}"
+        echo "Usage: service zealot {start|stop|restart|reload|status}"
         exit 1
         ;;
 esac
