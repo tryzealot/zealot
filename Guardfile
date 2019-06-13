@@ -15,8 +15,10 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-ENV['TERMINAL_NOTIFIER_BIN'] = '/usr/local/bin/terminal-notifier'
-notification :terminal_notifier if `uname` =~ /Darwin/
+if `uname`.match?(/Darwin/)
+  ENV['TERMINAL_NOTIFIER_BIN'] ||= '/usr/local/bin/terminal-notifier'
+  notification :terminal_notifier
+end
 
 # Guard-Rails supports a lot options with default values:
 # daemon: false                        # runs the server as a daemon.
@@ -57,7 +59,7 @@ end
 #  - :concurrency (defaults to 1)
 #  - :timeout
 #  - :environment (corresponds to RAILS_ENV for the Sidekiq worker)
-guard 'sidekiq', :environment => 'development' do
+guard 'sidekiq', environment: 'development' do
   watch(%r{^workers/(.+)\.rb$})
 end
 
