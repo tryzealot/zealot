@@ -39,7 +39,7 @@ module Backup
 
     include Config
 
-    FOLDERS_TO_BACKUP = %w[apps db]
+    FOLDERS_TO_BACKUP = %w[apps db].freeze
 
     def pack
       # Make sure there is a connection
@@ -53,17 +53,17 @@ module Backup
       s[:db_port]             = db_config[:port] || 3306
       s[:db_database]         = db_config[:database]
       s[:db_user]             = db_config[:username]
-      s[:db_migrator_version] = "#{ActiveRecord::Migrator.current_version}"
+      s[:db_migrator_version] = ActiveRecord::Migrator.current_version
       s[:backup_created_at]   = Time.zone.now.strftime('%Y%m%d%H%M%S')
 
       tar_file = "#{s[:backup_created_at]}_mobile_backup.tar"
       Dir.chdir(backup_path) do
         File.open("#{backup_path}/backup_information.yml", 'w+') do |file|
-          file << s.to_yaml.gsub(/^---\n/,'')
+          file << s.to_yaml.gsub(/^---\n/, '')
         end
 
         print "Creating backup archive: #{File.join(backup_path, tar_file)} ... "
-        tar_system_options = {out: [tar_file, 'w', 0600]}
+        tar_system_options = { out: [tar_file, 'w', 0600] }
         unless Kernel.system('tar', '-cf', '-', *backup_contents, tar_system_options)
           puts "creating archive #{tar_file} failed"
           abort 'Backup failed'
@@ -159,7 +159,7 @@ module Backup
     end
 
     def backup_information
-      @settings ||= YAML.load_file("backup_information.yml")
+      @settings ||= YAML.load_file('backup_information.yml')
     end
   end
 end
