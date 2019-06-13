@@ -290,7 +290,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.1)
+    rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -461,7 +461,7 @@ DEPENDENCIES
   rack-cors (~> 0.4.1)
   rails (~> 5.1.4)
   rails-i18n (~> 5.1.1)
-  rake (~> 12.3.1)
+  rake (~> 12.3.2)
   redis-namespace (~> 1.5.3)
   redis-rails (~> 5.0.1)
   rqrcode
