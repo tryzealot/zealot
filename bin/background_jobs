@@ -8,7 +8,7 @@ cd $app_root
 
 sidekiq_pidfile="$shared_root/tmp/pids/sidekiq-0.pid"
 sidekiq_logfile="$shared_root/log/sidekiq.log"
-qmobile_user=$(ls -l config.ru | awk '{print $3}')
+app_user=$(ls -l config.ru | awk '{print $3}')
 
 sidekiq_cmd="bundle exec sidekiq --index 0 --pidfile $sidekiq_pidfile --environment $RAILS_ENV"
 
@@ -24,7 +24,7 @@ stop()
 
 killall()
 {
-  pkill -u $qmobile_user -f 'sidekiq [0-9]'
+  pkill -u $app_user -f 'sidekiq [0-9]'
 }
 
 restart()

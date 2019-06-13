@@ -19,14 +19,14 @@ default: &default
 
 development:
   <<: *default
-  database: qmobile_development
+  database: zealot_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: qmobile_test
+  database: zealot_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: qmobile_production
+  database: zealot_production
   username: root
-  password: <%= ENV['QMOBILE_DATABASE_PASSWORD'] %>
+  password: <%= ENV['ZEALOT_DATABASE_PASSWORD'] %>
