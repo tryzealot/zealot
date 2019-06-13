@@ -32,7 +32,7 @@ module Zealot
 
     # Redis for cache
     config.cache_store = :redis_store, (ENV['REDIS_URL'] || 'redis://localhost:6379/0/cache'), {
-      namespace: 'qyer:mobile:web',
+      namespace: 'zealot:mobile:web',
       expires_in: 90.minutes
     }
 
