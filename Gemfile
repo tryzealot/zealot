@@ -1,17 +1,14 @@
 source 'https://gems.ruby-china.com'
 
-gem 'puma', '~> 3.11.0'
+gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.1.4'
 gem 'rails-i18n', '~> 5.1.1'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
-gem 'mysql2', '~> 0.4.10'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'redis-namespace', '~> 1.5.3'
 gem 'redis-rails', '~> 5.0.1'
-
-# APM
-gem 'newrelic_rpm'
 
 # API
 gem 'active_model_serializers', '~> 0.10.7'
@@ -78,8 +75,8 @@ gem 'exception_handler', '~> 0.7.0'
 
 group :development do
   # 调试控制台
-  gem 'listen', '~> 3.0.5'
-  gem 'web-console'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
   gem 'byebug'
@@ -121,4 +118,4 @@ group :development, :test do
   gem 'pry-rescue'
 end
 
-gem 'tzinfo-data'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
