@@ -1,5 +1,20 @@
 version: "2.1"
 
+x-defaults: &defaults
+  restart: unless-stopped
+  build: .
+  depends_on:
+    redis:
+      condition: service_healthy
+    mysql:
+      condition: service_healthy
+  env_file: .env
+  environment:
+    ZEALOT_REDIS_HOST: redis
+    ZEALOT_MYSQL_HOST: mysql
+  volumes:
+    - .:/app
+
 services:
   redis:
     image: redis:4.0-alpine
@@ -27,32 +42,13 @@ services:
       timeout: 20s
       retries: 10
   web:
-    build: .
-    image: zealot
-    env_file:
-      - .env
+    <<: *defaults
+    command: bundle exec puma -p 3000
     ports:
       - "3210:3000"
-    volumes:
-      - .:/app
-    depends_on:
-      redis:
-        condition: service_healthy
-      mysql:
-        condition: service_healthy
-  sidekiq:
-    build: .
-    image: zealot
+  worker:
+    <<: *defaults
     command: bundle exec sidekiq
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-    depends_on:
-      redis:
-        condition: service_healthy
-      mysql:
-        condition: service_healthy
 
 volumes:
   redis:

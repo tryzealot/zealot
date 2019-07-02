@@ -1,6 +1,6 @@
 # Bind on a specific TCP address. We won't bother using unix sockets because
 # nginx will be running in a different Docker container.
-bind "tcp://#{ENV.fetch("BIND_ON") { "0.0.0.0:3000" }}"
+bind "tcp://#{ENV.fetch('BIND_ON') { '0.0.0.0:3000' }}"
 
 # Puma supports threading. Requests are served through an internal thread pool.
 # Even on MRI, it is beneficial to leverage multiple threads because I/O
@@ -18,7 +18,7 @@ threads threads_count, threads_count
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Puma supports spawning multiple workers. It will fork out a process at the
 # OS level to support concurrent requests. This typically requires more RAM.
