@@ -231,7 +231,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
-    newrelic_rpm (5.3.0.346)
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
@@ -391,8 +390,6 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2018.5)
-      tzinfo (>= 1.0.0)
     uglifier (4.1.18)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -449,15 +446,14 @@ DEPENDENCIES
   js-routes
   kaminari
   letter_opener
-  listen (~> 3.0.5)
+  listen (>= 3.0.5, < 3.2)
   mini_magick
   multi_xml
-  mysql2 (~> 0.4.10)
-  newrelic_rpm
+  mysql2 (>= 0.4.4, < 0.6.0)
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 3.11.0)
+  puma (~> 3.11)
   rack-cors (~> 0.4.1)
   rails (~> 5.1.4)
   rails-i18n (~> 5.1.1)
@@ -479,7 +475,7 @@ DEPENDENCIES
   turbolinks
   tzinfo-data
   uglifier
-  web-console
+  web-console (>= 3.3.0)
   whenever
 
 BUNDLED WITH
