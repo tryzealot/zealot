@@ -1,9 +1,9 @@
 FROM ruby:2.5-alpine
 LABEL MAINTAINER="icyleaf.cn@gmail.com"
 
-ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata" \
+ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev mysql-dev" \
-    RUBY_PACKAGES="ruby yaml nodejs" \
+    RUBY_PACKAGES="ruby yaml nodejs yarn" \
     RUBY_GEMS="bundler" \
     RUBYGEMS_SOURCE="https://gems.ruby-china.com/" \
     ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org" \
@@ -15,7 +15,6 @@ RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
     sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
-    npm install -g yarn --registry=$NPM_REGISTRY && \
     yarn config set registry $NPM_REGISTRY && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
@@ -31,6 +30,6 @@ RUN bundle install --binstubs && \
 
 ADD . .
 
-EXPOSE 3000 80
+EXPOSE 3000
 
-CMD [ "bundle", "exec", "puma" ]
+CMD [ "bundle", "exec", "puma", "-c", "config/puma.rb" ]
