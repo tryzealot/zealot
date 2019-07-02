@@ -18,7 +18,7 @@ module AppsHelper
 
   def git_commit_url(git_url, commit, commit_length = 8)
     if git_url.include?('git@')
-      # git@git.2b6.me:mobile/qyer_app_iphone.gi
+      # git@git.example.com:user/repo.git
       git_url = git_url.sub(':', '/').sub('git@', 'http://').sub('.git', '')
     end
     commit_url = File.join(git_url, 'commit', commit)

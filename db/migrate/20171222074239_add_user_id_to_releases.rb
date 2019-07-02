@@ -5,7 +5,7 @@ class AddUserIdToReleases < ActiveRecord::Migration[5.1]
     add_reference :releases, :user, after: :app_id
 
     # 更新默认上传者
-    Releases.all.update_all user_id: User.find_by(email: 'mobile@qyer.com')
+    Releases.all.update_all user_id: User.find_by(email: 'mobile@zealot.com')
   end
 
   def down
