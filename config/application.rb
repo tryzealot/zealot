@@ -62,10 +62,16 @@ module Zealot
     # Use default logging formatter so that PID and timestamp are not suppressed.
     config.log_formatter = ::Logger::Formatter.new
 
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
+    config.log_level = ENV.fetch('LOG_LEVEL', 'debug')
+
+    # Prepend all log lines with the following tags.
+    config.log_tags = [:request_id]
+
     # Use a different logger for distributed setups.
     # require 'syslog/logger'
     # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
     if ENV['RAILS_LOG_TO_STDOUT'].present?
       logger = ActiveSupport::Logger.new(STDOUT)
       logger.formatter = config.log_formatter
