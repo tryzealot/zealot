@@ -22,7 +22,7 @@ RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     gem install $RUBY_GEMS
 
 WORKDIR /app
-COPY Gemfile Gemfile.lock package.json ./
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
 RUN bundle install --binstubs && \
     mkdir -p /var/lib/app/pids && \
