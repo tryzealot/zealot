@@ -56,14 +56,14 @@ gem 'sinatra', '~> 2.0.0', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'turbolinks'
 gem 'coffee-rails'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'js-routes'
 gem 'sass-rails'
+gem 'turbolinks'
 gem 'uglifier'
-gem 'font-awesome-rails'
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
@@ -98,15 +98,6 @@ group :development do
   # rails 更友好错误输出
   gem 'better_errors'
   gem 'awesome_print'
-
-  ## cap 插件
-  gem 'capistrano', '~> 3.11.0'
-  gem 'capistrano-rails', '~> 1.4.0'
-  gem 'capistrano-bundler', '~> 1.3.0'
-  gem 'capistrano-yarn', '~> 2.0.2'
-  gem 'capistrano-rvm', '~> 0.1.2'
-  gem 'capistrano-sidekiq', '~> 1.0.2'
-  gem 'capistrano3-puma', '~> 3.1.1'
 end
 
 group :development, :test do
