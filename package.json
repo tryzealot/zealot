@@ -2,6 +2,6 @@
   "name": "zealot",
   "private": true,
   "dependencies": {
-    "admin-lte": "^2.4.8"
+    "admin-lte": "^2.4.12"
   }
 }
