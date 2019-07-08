@@ -29,10 +29,6 @@ aside.main-sidebar
         /     span.pull-right-container
         /       small.label.pull-right.bg-yellow
         /         | 实验
-        / li class="treeview #{active_class(mirrors_path)}"
-        /   a href="#{mirrors_path}"
-        /     i.fa.fa-cloud-download
-        /     span 软件下载
       - if current_user.roles?(:admin)
         li class="treeview #{active_class(users_path)}"
           a href="#{users_path}"
