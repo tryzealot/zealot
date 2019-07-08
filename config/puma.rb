@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Bind on a specific TCP address. We won't bother using unix sockets because
 # nginx will be running in a different Docker container.
 bind "tcp://#{ENV.fetch('BIND_ON') { '0.0.0.0:3000' }}"
@@ -52,7 +54,7 @@ restart_command 'puma'
 # forking the application. This takes advantage of Copy On Write process
 # behavior so workers use less memory. If you use this option you need to make
 # sure to reconnect any threads in the `on_worker_boot` block.
-# preload_app!
+preload_app!
 
 #  on_worker_boot do
 # Since you'll likely use > 1 worker in production, we'll need to configure

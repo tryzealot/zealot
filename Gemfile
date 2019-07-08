@@ -1,29 +1,29 @@
+# frozen_string_literal: true
+
 source 'https://gems.ruby-china.com'
 
-gem 'puma', '~> 3.11.0'
-gem 'rails', '~> 5.1.4'
-gem 'rails-i18n', '~> 5.1.1'
+gem 'puma', '~> 3.11'
+gem 'rails', '~> 5.2.3'
+gem 'rails-i18n', '~> 5.1'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
-gem 'mysql2', '~> 0.4.10'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'redis-namespace', '~> 1.5.3'
 gem 'redis-rails', '~> 5.0.1'
 
-# APM
-gem 'newrelic_rpm'
-
 # API
-gem 'active_model_serializers', '~> 0.10.7'
-gem 'rack-cors', '~> 0.4.1'
-gem 'graphql'
+gem 'active_model_serializers', '~> 0.10.9'
 gem 'graphiql-rails'
+gem 'graphql'
+gem 'rack-cors', '~> 0.4.1'
 
 # View
 ## 模板引擎
-gem 'slim-rails', '~> 3.1.3'
+gem 'slim-rails', '~> 3.2.0'
 ## 表单生成
-gem 'simple_form', '~> 3.5.0'
+gem 'simple_form', '~> 4.1'
+
 gem 'multi_xml'
 
 # Model
@@ -59,14 +59,15 @@ gem 'sinatra', '~> 2.0.0', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'turbolinks'
-gem 'coffee-rails'
+gem 'coffee-rails', '~> 4.2'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'js-routes'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'font-awesome-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
+
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
 
@@ -76,10 +77,13 @@ gem 'app-info', '~> 1.0.4', require: false
 # 异常处理
 gem 'exception_handler', '~> 0.7.0'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
 group :development do
   # 调试控制台
-  gem 'listen', '~> 3.0.5'
-  gem 'web-console'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
   gem 'byebug'
@@ -101,15 +105,6 @@ group :development do
   # rails 更友好错误输出
   gem 'better_errors'
   gem 'awesome_print'
-
-  ## cap 插件
-  gem 'capistrano', '~> 3.11.0'
-  gem 'capistrano-rails', '~> 1.4.0'
-  gem 'capistrano-bundler', '~> 1.3.0'
-  gem 'capistrano-yarn', '~> 2.0.2'
-  gem 'capistrano-rvm', '~> 0.1.2'
-  gem 'capistrano-sidekiq', '~> 1.0.2'
-  gem 'capistrano3-puma', '~> 3.1.1'
 end
 
 group :development, :test do
@@ -121,4 +116,4 @@ group :development, :test do
   gem 'pry-rescue'
 end
 
-gem 'tzinfo-data'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
