@@ -16,11 +16,11 @@ class User < ActiveRecord::Base
     params[:activation_token] = nil
     params[:actived_at] = Time.now.utc
 
-    self.update(params)
+    update(params)
   end
 
   def current_roles
-    roles.all.map {|r| r.name }.join('/')
+    roles.all.map(&:name).join('/')
   end
 
   def update_roles(ids)
@@ -44,10 +44,10 @@ class User < ActiveRecord::Base
   end
 
   def generate_activation_token
-    if self.activation_token# && !activation_period_expired?
-      self.activation_token
+    if activation_token# && !activation_period_expired?
+      activation_token
     else
-      self.activation_token = Digest::MD5.hexdigest("#{self.key}:#{self.secret}")
+      self.activation_token = Digest::MD5.hexdigest("#{key}:#{secret}")
       self.activation_sent_at = Time.now.utc
     end
   end

@@ -87,12 +87,12 @@ group :development do
 
   # 断点调试器
   gem 'byebug'
-  gem 'guard-rails', require: false
   gem 'guard-bundler', require: false
-  gem 'guard-sidekiq', require: false
   gem 'guard-migrate', require: false
-  gem 'terminal-notifier-guard', require: false
+  gem 'guard-rails', require: false
+  gem 'guard-sidekiq', require: false
   gem 'terminal-notifier', require: false
+  gem 'terminal-notifier-guard', require: false
 
   # IDE tools(VSCode)
   # gem "ruby-debug-ide"
@@ -103,8 +103,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # rails 更友好错误输出
-  gem 'better_errors'
   gem 'awesome_print'
+  gem 'better_errors'
 end
 
 group :development, :test do
@@ -116,4 +116,4 @@ group :development, :test do
   gem 'pry-rescue'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
