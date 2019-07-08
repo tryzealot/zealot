@@ -1,6 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: '"Zealot" <no-reply@zealot.com>', reply_to: '"icyleaf" <icyleaf.cn@gmail.com>'
-
+  default from: ENV['ACTION_MAILER_DEFAULT_FROM']
   layout 'mailer'
 end
 

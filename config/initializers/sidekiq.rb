@@ -1,15 +1,9 @@
-sidekiq_config_url = ENV['ACTIVE_JOB_URL'] || 'redis://localhost:6379/0'
+sidekiq_config = { url: ENV['ACTIVE_JOB_URL'] || 'redis://localhost:6379/0' }
 
 Sidekiq.configure_server do |config|
-  config.redis = {
-    url: sidekiq_config_url,
-    namespace: 'zealot:mobile:sidekiq'
-  }
+  config.redis = sidekiq_config
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = {
-    url: sidekiq_config_url,
-    namespace: 'zealot:mobile:sidekiq'
-  }
+  config.redis = sidekiq_config
 end

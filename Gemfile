@@ -9,7 +9,6 @@ gem 'rake', '~> 12.3.2'
 
 # DB & Cache
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'redis-namespace', '~> 1.5.3'
 gem 'redis-rails', '~> 5.0.1'
 
 # API
@@ -86,7 +85,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
-  gem 'byebug'
+  gem 'byebug', platform: :mri
   gem 'guard-bundler', require: false
   gem 'guard-migrate', require: false
   gem 'guard-rails', require: false
@@ -108,6 +107,7 @@ group :development do
 end
 
 group :development, :test do
+  # gem 'dotenv-rails'
   gem 'letter_opener'
   gem 'rubocop', '~> 0.45', require: false
 
