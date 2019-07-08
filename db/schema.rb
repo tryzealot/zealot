@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "git_url"
     t.string "password"
     t.string "key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.index ["device_type"], name: "index_apps_on_device_type"
     t.index ["identifier"], name: "index_apps_on_identifier"
     t.index ["name"], name: "index_apps_on_name"
     t.index ["slug"], name: "index_apps_on_slug", unique: true
     t.index ["user_id"], name: "index_apps_on_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "deep_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -86,8 +86,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "file"
     t.text "devices", limit: 16777215
     t.text "extra", limit: 16777215
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.index ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true
     t.index ["app_id"], name: "index_releases_on_app_id"
     t.index ["channel"], name: "index_releases_on_channel"
@@ -96,6 +94,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["release_version"], name: "index_releases_on_release_version"
     t.index ["user_id"], name: "index_releases_on_user_id"
     t.index ["version"], name: "index_releases_on_version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -110,15 +110,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "role_id", null: false
     t.index ["role_id"], name: "role_id"
     t.index ["user_id"], name: "user_id"
-  end
-
-  create_table "settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "value", null: false
-    t.string "note", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -136,14 +127,14 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "activation_token"
-    t.datetime "actived_at"
-    t.datetime "activation_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.index ["activation_token"], name: "index_users_on_activation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["key"], name: "index_users_on_key", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.datetime "actived_at"
+    t.datetime "activation_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "web_hooks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -151,10 +142,10 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "app_id"
     t.integer "upload_events"
     t.integer "changelog_events"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id"
     t.index ["url"], name: "index_web_hooks_on_url", length: 191
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
