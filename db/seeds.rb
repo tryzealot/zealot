@@ -5,5 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Dump default roles
+CreateRolesService.new.call
+
+# Create default admin account
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
