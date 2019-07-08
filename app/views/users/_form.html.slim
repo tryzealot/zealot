@@ -2,7 +2,7 @@
   = f.error_notification
 
   = f.input :name, label: '昵称', required: true
-  = f.input :email, label: '登录邮箱', required: true, hint: '创建成功后，会给该邮箱发确认邮件。'
+  = f.input :email, label: '登录邮箱', required: true, hint: '创建成功后，会给该邮箱发确认邮件并设置登录密码。'
   - if @user.id
     = f.input :password, label: '登录密码'
   = f.association :roles, label: '特殊权限', label_method: :name, value_method: :id, as: :check_boxes
