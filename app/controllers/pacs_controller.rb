@@ -82,17 +82,17 @@ class PacsController < ApplicationController
     @default_script = <<-PAC
 function FindProxyForURL(url, host) {
     // 匹配单个域名走多个代理，第一个失败后将会尝试后面的代理
-    // if (dnsDomainIs(host, "open.qyer.com")
+    // if (dnsDomainIs(host, "subdomain.example.com")
     //     return "PROXY 172.1.30.123:8080; PROXY 7.8.9.10:8080";
 
     // 使用通配符匹配域名，先走代理，失败后直连网络
-    // if (shExpMatch(host, "*.qyer.com"))
+    // if (shExpMatch(host, "*.example.com"))
     //     return "PROXY 172.1.30.123:8080; DIRECT";
 
     // 如果使用 `qma pac` 上报本机 IP 和端口号，可用如下变量：
     // @host - IP 地址
     // @port - 端口号
-    // if (shExpMatch(host, "*.qyer.com"))
+    // if (shExpMatch(host, "*.example.com"))
     //     return "PROXY @host:@port; PROXY 172.1.30.123:8080; DIRECT";
 
     // 默认规则：其他所有流量直连网络
