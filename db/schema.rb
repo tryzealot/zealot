@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225081003) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id"
     t.string "name", null: false
     t.string "slug", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.index ["user_id"], name: "index_apps_on_user_id"
   end
 
-  create_table "deep_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "deep_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "category"
     t.text "links"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "dsyms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "dsyms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.bigint "app_id"
     t.string "release_version"
     t.string "build_version"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.index ["app_id"], name: "index_dsyms_on_app_id"
   end
 
-  create_table "pacs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "pacs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.string "host"
     t.string "port"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "permissions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "permissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "role_id"
     t.string "action"
     t.string "resource"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "releases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "app_id", null: false
     t.bigint "user_id"
     t.string "channel"
@@ -98,21 +98,21 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.index ["version"], name: "index_releases_on_version"
   end
 
-  create_table "roles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "roles_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "roles_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "role_id", null: false
     t.index ["role_id"], name: "role_id"
     t.index ["user_id"], name: "user_id"
   end
 
-  create_table "settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "value", null: false
     t.string "note", default: "", null: false
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "web_hooks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+  create_table "web_hooks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "url"
     t.integer "app_id"
     t.integer "upload_events"
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20171225081003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_web_hooks_on_app_id"
-    t.index ["url"], name: "index_web_hooks_on_url", length: { url: 191 }
+    t.index ["url"], name: "index_web_hooks_on_url", length: 191
   end
 
 end
