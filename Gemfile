@@ -81,8 +81,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
+  # gem 'listen', '>= 3.0.5', '< 3.2'
+  # gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
   gem 'byebug', platform: :mri

@@ -27,5 +27,3 @@ README.*
 .DS_Store
 .ruby-gemset
 .ruby-version
-config/puma.rb
-db/schema.rb

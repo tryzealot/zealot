@@ -28,8 +28,8 @@ RUN bundle install --binstubs && \
     mkdir -p /var/lib/app/pids && \
     yarn
 
-ADD . .
+COPY . .
 
 EXPOSE 3000
 
-CMD [ "bundle", "exec", "puma", "-c", "config/puma.rb" ]
+CMD [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
