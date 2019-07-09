@@ -13,7 +13,7 @@ x-defaults: &defaults
     ZEALOT_REDIS_HOST: redis
     ZEALOT_MYSQL_HOST: mysql
   volumes:
-    - .:/app
+    - .:/app:cached
 
 services:
   redis:
@@ -33,6 +33,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "password"
       MYSQL_DATABASE: "zealot"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "13366:3306"
     volumes:
@@ -43,12 +44,11 @@ services:
       retries: 10
   web:
     <<: *defaults
-    command: bundle exec puma -p 3000
     ports:
       - "3210:3000"
   worker:
     <<: *defaults
-    command: bundle exec sidekiq
+    command: bundle exec sidekiq -C config/sidekiq.yml.erb
 
 volumes:
   redis:
