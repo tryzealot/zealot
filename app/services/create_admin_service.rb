@@ -4,7 +4,7 @@ class CreateAdminService
       user.name = 'Administrator'
       user.password = Rails.application.secrets.admin_password
       user.password_confirmation = Rails.application.secrets.admin_password
-      user.roles << Role.find_by(name: 'admin')
+      user.roles << Role.find_by(value: 'admin')
     end
   end
 end
