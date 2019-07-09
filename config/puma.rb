@@ -54,7 +54,7 @@ restart_command 'puma'
 # forking the application. This takes advantage of Copy On Write process
 # behavior so workers use less memory. If you use this option you need to make
 # sure to reconnect any threads in the `on_worker_boot` block.
-preload_app!
+# preload_app!
 
 #  on_worker_boot do
 # Since you'll likely use > 1 worker in production, we'll need to configure
@@ -64,6 +64,3 @@ preload_app!
 # we'll set the connection pool value in the DATABASE_URL later.
 #    defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
 #  end
-
-# Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
