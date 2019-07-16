@@ -5,17 +5,11 @@ require 'fileutils'
 
 # USAGE
 # =====
-# bundle exec rake mobile:backup  RAILS_ENV=production MAX=15 DIR=db/db.bak
-# bundle exec rake mobile:restore RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz
-namespace :mobile do
-
-  task test: :environment do
-    puts Mobile.version
-  end
-
-  desc 'Mobile | Create a backup of the Mobile system. Options: DIR=backups RAILS_ENV=production MAX=7'
+# bundle exec rake zealot:backup  RAILS_ENV=production MAX=15 DIR=db/db.bak
+# bundle exec rake zealot:restore RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz
+namespace :zealot do
+  desc 'Zealot | Create a backup of the Mobile system. Options: DIR=backups RAILS_ENV=production MAX=7'
   task backup: :environment do
-
     Rake::Task['mobile:db:backup'].invoke
     Rake::Task['mobile:upload:backup'].invoke
 
@@ -25,7 +19,7 @@ namespace :mobile do
     backup.remove_old
   end
 
-  desc 'Mobile | Restore a previously created backup. Options: RAILS_ENV=production BACKUP=backup_file.tar'
+  desc 'Zealot | Restore a previously created backup. Options: RAILS_ENV=production BACKUP=backup_file.tar'
   task restore: :environment do
     backup = Backup::Manager.new
 
@@ -65,13 +59,13 @@ namespace :mobile do
     backup.cleanup
   end
 
-  desc 'Mobile | List backups files'
+  desc 'Zealot | List backups files'
   task list_backups: :environment do
     backup = Backup::Manager.new
     files_list = backup.backups_list
 
-    if files_list.count == 0
-      puts "No backups found"
+    if files_list.count.empty?
+      puts 'No backups found'
       exit 1
     end
 
