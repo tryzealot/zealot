@@ -22,3 +22,7 @@
 //= require_tree .
 
 var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
+
+document.addEventListener('turbolinks:load', function () {
+  $(window).trigger('resize');
+});
