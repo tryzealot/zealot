@@ -57,3 +57,10 @@ node_modules/
 .history
 public/assets/
 mirrors/
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
