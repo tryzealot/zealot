@@ -3,7 +3,7 @@
 source 'https://gems.ruby-china.com'
 
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0.rc1'
 gem 'rails-i18n', '~> 5.1'
 gem 'rake', '~> 12.3.2'
 
@@ -59,7 +59,7 @@ gem 'sinatra', '~> 2.0.0', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
@@ -67,6 +67,7 @@ gem 'js-routes'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'webpacker', '~> 4.0'
 
 # JS Ace 文本编辑器
 gem 'ace-rails-ap'
@@ -78,7 +79,7 @@ gem 'app-info', '~> 1.0.4', require: false
 gem 'exception_handler', '~> 0.7.0'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development do
   # 调试控制台
@@ -86,7 +87,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
-  gem 'byebug', platform: :mri
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'guard-bundler', require: false
   gem 'guard-migrate', require: false
   gem 'guard-rails', require: false

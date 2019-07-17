@@ -8,7 +8,7 @@ Rails.application.config.assets.version = '1.0'
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
-# Pre-compile additional assets.
+# Precompile additional assets.
 Rails.application.config.assets.precompile << proc do |path|
   true if path =~ /\.(eot|svg|ttf|woff|png)\z/
 end
