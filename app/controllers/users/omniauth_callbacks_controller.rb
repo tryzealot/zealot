@@ -11,6 +11,7 @@ class Users::OmniauthCallbacksController < ApplicationController
   end
 
   def passthru
+    # render plain: 'hello'
   end
 
   def failure
