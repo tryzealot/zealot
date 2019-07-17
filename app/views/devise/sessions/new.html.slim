@@ -1,11 +1,11 @@
 - content_for :title do
   | 用户登录
-  
+
 .login-box-body
   p.login-box-msg 用户登录
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| 
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
     = devise_error_messages!
-    
+
     .form-group.has-feedback
       = f.email_field :email, :autofocus => true, class: 'form-control', placeholder: '电子邮箱'
       span.glyphicon.glyphicon-envelope.form-control-feedback
@@ -19,3 +19,6 @@
           | 记住我
       .col-xs-4
         button.btn.btn-primary.btn-block.btn-flat type="submit" 登录
+    .row
+      .col-xs-8
+        = link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path

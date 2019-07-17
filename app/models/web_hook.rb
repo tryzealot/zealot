@@ -1,3 +1,3 @@
-class WebHook < ActiveRecord::Base
+class WebHook < ApplicationRecord
   belongs_to :app
 end

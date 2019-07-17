@@ -1,4 +1,4 @@
-class Release < ActiveRecord::Base
+class Release < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   mount_uploader :file, AppFileUploader
