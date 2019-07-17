@@ -39,6 +39,7 @@ gem 'mini_magick'
 gem 'http'
 # 用户认证
 gem 'devise', '~> 4.4.3'
+gem 'omniauth-google-oauth2', '~> 0.7.0'
 # Crontab
 gem 'whenever', require: false
 # # GEO 坐标计算
@@ -81,8 +82,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   # 调试控制台
-  # gem 'listen', '>= 3.0.5', '< 3.2'
-  # gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 
   # 断点调试器
   gem 'byebug', platform: :mri

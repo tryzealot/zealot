@@ -1,4 +1,4 @@
-class App < ActiveRecord::Base
+class App < ApplicationRecord
   include FriendlyId
 
   friendly_id :slug
