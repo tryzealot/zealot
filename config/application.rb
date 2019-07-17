@@ -9,11 +9,11 @@ Bundler.require(*Rails.groups)
 module Zealot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
@@ -29,7 +29,7 @@ module Zealot
     config.log_level = ENV['LOG_LEVEL'] || 'debug'
 
     # Log to STDOUT because Docker expects all processes to log here. You could
-    # then redirect logs to a third party service on your own such as systemd,
+    # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
