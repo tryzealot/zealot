@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :groups
   namespace :apps, path: 'apps/:slug', slug: /\w+/ do
     get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
 
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
   # resources :deep_links, except: [:show]
 
   # 用户
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   get 'users', to: 'users#index', as: 'users'
   get 'users/new', to: 'users#new', as: 'new_user'
@@ -58,11 +59,11 @@ Rails.application.routes.draw do
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
   end
 
   # graphql api
-  post "/graphql", to: "graphql#execute"
+  post '/graphql', to: 'graphql#execute'
 
   # api
   namespace :api do
