@@ -10,8 +10,8 @@ require 'fileutils'
 namespace :zealot do
   desc 'Zealot | Create a backup of the Mobile system. Options: DIR=backups RAILS_ENV=production MAX=7'
   task backup: :environment do
-    Rake::Task['mobile:db:backup'].invoke
-    Rake::Task['mobile:upload:backup'].invoke
+    Rake::Task['zealot:db:backup'].invoke
+    Rake::Task['zealot:upload:backup'].invoke
 
     backup = Backup::Manager.new
     backup.pack
@@ -45,7 +45,7 @@ namespace :zealot do
     Rake::Task['db:create'].invoke
     puts '[DONE]'
 
-    Rake::Task['mobile:db:restore'].invoke
+    Rake::Task['zealot:db:restore'].invoke
 
     unless File.exist?(backup.apps_backup_path)
       puts 'No apps found, automitac clean old data ...'
@@ -55,7 +55,7 @@ namespace :zealot do
       exit 1
     end
 
-    Rake::Task['mobile:upload:restore'].invoke
+    Rake::Task['zealot:upload:restore'].invoke
     backup.cleanup
   end
 
