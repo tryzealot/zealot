@@ -1,8 +1,8 @@
-require 'yaml'
+require_relative 'config'
 
 module Backup
   class Upload
-    include Backup::Manager::Config
+    include Backup::Config
 
     def dump
       prepare
