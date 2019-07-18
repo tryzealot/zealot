@@ -13,7 +13,7 @@ gem 'redis-rails', '~> 5.0.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.9'
-gem 'graphiql-rails'
+gem 'graphiql-rails' # Web IDE
 gem 'graphql'
 gem 'rack-cors', '~> 0.4.1'
 
@@ -119,3 +119,4 @@ group :development, :test do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'graphiql-rails', group: :development

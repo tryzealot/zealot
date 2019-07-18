@@ -1,4 +1,4 @@
-ZealotSchema = GraphQL::Schema.define do
-  mutation(Types::MutationType)
-  query(Types::QueryType)
+class ZealotSchema < GraphQL::Schema
+  # mutation(Types::MutationType)
+  query QueryType
 end
