@@ -1,22 +1,25 @@
-Types::AppType = GraphQL::ObjectType.define do
-  name "App"
-  description "App 信息"
+# frozen_string_literal: true
 
-  field :id, !types.Int
-  field :slug, !types.String
-  field :name, !types.String
-  field :platform, !types.String
-  field :identifier, !types.String
+module Types
+  class AppType < Types::BaseObject
+    description 'App 信息'
 
-  field :version, types.Int
-  field :release_version, types.String
-  field :build_version, types.String
-  field :icon_url, types.String
-  field :install_url, types.String
-  field :changelog, types.String
+    field :id, Int, null: false
+    field :slug, String, null: false
+    field :name, String, null: false
+    field :platform, String, null: false
+    field :identifier, String, null: false
 
-  field :key, !types.String
+    field :version, Int, null: true
+    field :release_version, String, null: true
+    field :build_version, String, null: true
+    field :icon_url, String, null: true
+    field :install_url, String, null: true
+    field :changelog, String, null: true
 
-  field :created_at, !types.String
-  field :updated_at, !types.String
+    field :key, String, null: false
+
+    field :created_at, String, null: false
+    field :updated_at, String, null: false
+  end
 end
