@@ -1,41 +1,31 @@
 class WebHooksController < ApplicationController
-  before_action :set_app #, only: [:index, :create, :test, :destroy]
+  before_action :set_app
 
   # GET /apps/:slug/web_hooks
-  # GET /web_hooks.json
   def index
     @web_hooks = @app.web_hooks
     @web_hook = WebHook.new
   end
 
-  # POST /web_hooks
-  # POST /web_hooks.json
+  # POST /apps/:slug/web_hooks
   def create
     @web_hook = WebHook.new(web_hook_params)
 
-    respond_to do |format|
-      if @web_hook.save
-        format.html { redirect_to web_hooks_path(@app), notice: '网络钩子创建成功' }
-        format.json { render :show, status: :created, location: @web_hook }
-      else
-        format.html { render :new }
-        format.json { render json: @web_hook.errors, status: :unprocessable_entity }
-      end
+    if @web_hook.save
+      redirect_to web_hooks_url, notice: '网络钩子创建成功'
+    else
+      :index
     end
   end
 
-  # DELETE /web_hooks/1
-  # DELETE /web_hooks/1.json
+  # DELETE /apps/:slug/web_hooks/1
   def destroy
     @web_hook = WebHook.find(params[:hook_id])
     @web_hook.destroy
-    respond_to do |format|
-      format.html { redirect_to web_hooks_url, notice: '网络钩子已经成功删除' }
-      format.json { head :no_content }
-    end
+    redirect_to web_hooks_url, notice: '网络钩子已经成功删除'
   end
 
-  # POST /web_hooks/1/test
+  # POST /apps/:slug/web_hooks/1/test
   def test
     web_hook = WebHook.find(params[:hook_id])
     AppWebHookJob.perform_later 'upload_events', web_hook
