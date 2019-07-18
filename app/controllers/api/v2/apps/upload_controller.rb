@@ -1,4 +1,4 @@
-class Api::V2::Apps::UploadController < API::BaseController
+class Api::V2::Apps::UploadController < Api::BaseController
   before_action :validate_user_key
 
   def create

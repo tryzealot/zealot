@@ -1,4 +1,4 @@
-class API::BaseController < ActionController::API
+class Api::BaseController < ActionController::API
 
   def validate_user_key
     @user = User.find_by(key: params[:key])
