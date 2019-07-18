@@ -8,7 +8,7 @@ require 'fileutils'
 # bundle exec rake zealot:backup  RAILS_ENV=production MAX=15 DIR=db/db.bak
 # bundle exec rake zealot:restore RAILS_ENV=production BACKUP_FILE=db/db.bak/backup_file.sql.gz
 namespace :zealot do
-  desc 'Zealot | Create a backup of the Mobile system. Options: DIR=backups RAILS_ENV=production MAX=7'
+  desc 'Zealot | Create a backup of the Zealot. Options: DIR=backups RAILS_ENV=production MAX=7'
   task backup: :environment do
     Rake::Task['zealot:db:backup'].invoke
     Rake::Task['zealot:upload:backup'].invoke
@@ -64,12 +64,12 @@ namespace :zealot do
     backup = Backup::Manager.new
     files_list = backup.backups_list
 
-    if files_list.count.empty?
+    if files_list.count.zero?
       puts 'No backups found'
       exit 1
     end
 
-    puts "Mobile backups found (#{files_list.count}):\n\n"
+    puts "Zealot backups found (#{files_list.count}):\n\n"
     files_list.each do |f|
       puts " * #{f}"
     end
