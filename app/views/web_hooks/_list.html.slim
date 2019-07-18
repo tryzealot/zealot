@@ -1,7 +1,7 @@
 .col-xs-12
   .box
     .box-header
-      h3.box-title 
+      h3.box-title
         | 启用钩子列表(
         = @app.web_hooks.count
         | )
@@ -11,10 +11,10 @@
           tr
             td
               .pull-right
-                a.btn.btn-sm.btn-default.btn-grouped data-method="post" href="#{test_web_hooks_path(slug: @app.slug, hook_id: hook.id)}" 测试
-                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" data-method="delete" href="#{destroy_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
+                a.btn.btn-sm.btn-default.btn-grouped data-method="post" href="#{test_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 测试
+                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" data-method="delete" href="#{web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
               .clearfix
-                = hook.url 
+                = hook.url
               p
                 - if hook.upload_events == 1
                   span.label.bg-gray
