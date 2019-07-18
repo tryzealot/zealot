@@ -1,4 +1,4 @@
-class Api::V2::Apps::DownloadController < API::BaseController
+class Api::V2::Apps::DownloadController < Api::BaseController
   def show
     @app = App.friendly.find(params[:slug])
     @release =
