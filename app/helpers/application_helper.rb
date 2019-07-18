@@ -1,17 +1,17 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   ##
   # 激活 li 的 class
   def active_class(link_path = nil)
     if link_path
       current_page?(link_path) ? 'active' : ''
+    elsif current_page?(controller: 'groups', action: 'messages') ||
+          current_page?(controller: 'groups', action: 'index') ||
+          current_page?(controller: 'users', action: 'groups')
+      'active'
     else
-      if current_page?(controller: 'groups', action: 'messages') ||
-         current_page?(controller: 'groups', action: 'index') ||
-         current_page?(controller: 'users', action: 'groups')
-        'active'
-      else
-        ''
-      end
+      ''
     end
   end
 
