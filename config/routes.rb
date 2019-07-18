@@ -1,44 +1,39 @@
 Rails.application.routes.draw do
-  resources :groups
-  namespace :apps, path: 'apps/:slug', slug: /\w+/ do
-    get '(:version)/qrcode', to: 'qrcode#show', as: 'qrcode', version: /\d+/
+  #############################################
+  # App
+  #############################################
+  resources :apps, param: :slug, constraints: { slug: /(?!new)\w+/ }, except: %i[show] do
+    member do
+      get :auth
+      scope '(:version)', version: /\d+/ do
+        get :show, as: ''
+        get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
+      end
 
-    namespace :releases do
-      get '', action: :index
-      # 查看应用指定主版本号下面的开发版本列表
-      get ':version', action: :show, as: 'builds', version: /\d+(.\d+){0,4}/
+      resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
+        member do
+          post :test
+        end
+      end
+
+      scope module: 'apps', as: 'app' do
+        # resources :changelogs, only: %i[edit update]
+
+        resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
+      end
     end
-
-    resources :changelogs, only: [:edit, :update]
   end
 
-  # app
-  get 'apps', to: 'apps#index', as: 'apps'
-  get 'apps/new', to: 'apps#new', as: 'new_app'
-  post 'apps', to: 'apps#create'
-
-  # 为 web 上传提供的路由，功能还没做
-  get 'apps/upload', to: 'apps#upload', as: 'upload_app'
-  get 'apps/build/:id', to: 'apps#build', as: 'build_app'
-
-  get 'apps/:slug/auth', to: 'apps#auth', as: 'auth_app', slug: /\w+/
-  get 'apps/:slug/(:version)', to: 'apps#show', as: 'app', slug: /\w+/, version: /\d+/
-  patch 'apps/:slug', to: 'apps#update', as: 'update_app_slug', slug: /\w+/
-  get 'apps/:slug/edit', to: 'apps#edit', as: 'edit_app', slug: /\w+/
-  get 'apps/:slug/destroy', to: 'apps#destroy', as: 'destroy_app', slug: /\w+/
-
-  get 'apps/:slug/web_hooks', to: 'web_hooks#index', as: 'web_hooks', slug: /\w+/
-  post 'apps/:slug/web_hooks', to: 'web_hooks#create', slug: /\w+/
-  post 'apps/:slug/web_hooks/:hook_id/test', to: 'web_hooks#test', as: 'test_web_hooks', slug: /\w+/, hook_id: /\d+/
-  delete 'apps/:slug/web_hooks/:hook_id', to: 'web_hooks#destroy', as: 'destroy_web_hook', slug: /\w+/, hook_id: /\d+/
-
+  #############################################
+  # Other
+  #############################################
   # dSYM 管理
   resources :dsyms, except: [:show, :edit, :update]
 
-  # 自动代理
+  # # 自动代理
   # resources :pacs
 
-  # Deep Links
+  # # Deep Links
   # resources :deep_links, except: [:show]
 
   # 用户

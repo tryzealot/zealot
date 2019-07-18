@@ -93,7 +93,7 @@ class Api::V2::Apps::UploadController < Api::BaseController
     extra.delete(:file)
     extra.delete(:icon) if extra.key?(:icon)
 
-    @extra ||= extra
+    @param_extra ||= extra
   end
 
   def app_params

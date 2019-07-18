@@ -23,8 +23,14 @@
                   = image_tag('touch-icon-60.png', class: 'app-icon img-circle img-bordered-sm')
                 .app-block
                   .app-name
-                    = link_to app.name, app_path(app.slug)
+                    - if app.latest_release
+                      = link_to app.name, app_path(app.slug)
+                    - else
+                      = app.name
                     span.pull-right
+                      - unless app.latest_release
+                        span.label.bg-navy 等待上传版本
+                        | &nbsp
                       span.label.bg-gray
                         = app.slug
                       - if app.password && !app.password.empty?
@@ -35,16 +41,18 @@
                             = app.password
                   .app-dest
                     = display_app_device(app)
-                    |  -&nbsp
-                    = "#{app.latest_release.release_version} (#{app.latest_release.build_version})"
-                    |  -&nbsp
-                    = time_ago_in_words(app.latest_release.created_at)
+                    - if app.latest_release
+                      |  -&nbsp
+                      = "#{app.latest_release.release_version} (#{app.latest_release.build_version})"
+                      |  -&nbsp
+                      = time_ago_in_words(app.latest_release.created_at)
+
                 / .app-changelog
                 /   = simple_format(app.latest_release.plain_text_changelog)
                 .app-actions-bar
                   ul.actions
                     li
-                      a href="#{apps_releases_path(app.slug)}"
+                      a href="#{app_releases_path(app.slug)}"
                         i.fa.fa-clock-o
                         |  历史版本
                     li
@@ -56,7 +64,7 @@
                         i.fa.fa-edit
                         |  编辑
                     li
-                      a href="#{destroy_app_path(app.slug)}" onclick='return confirm("确定删除？")'
+                      a href="#{app_path(app.slug)}" data-confirm="确定删除?" data-method="delete"
                         i.fa.fa-remove
                         |  删除
                   input.form-control.input-sm value="#{app.key}" disabled="true"
