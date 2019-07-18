@@ -18,6 +18,7 @@ module Backup
       # saving additional informations
       s = {}
       s[:rails_env]           = Rails.env.to_s
+      s[:app_version]         = Setting.version
       s[:db_adapter]          = db_config[:adapter]
       s[:db_host]             = db_config[:host]
       s[:db_port]             = db_config[:port] || 3306
@@ -84,7 +85,7 @@ module Backup
     def unpack
       Dir.chdir(backup_path)
 
-      puts 'No backups found' if backups_list.count.empty?
+      puts 'No backups found' if backups_list.count.zero?
 
       if backups_list.count > 1 && ENV['BACKUP'].nil?
         puts 'Found more than one backup, please specify which one you want to restore:'
@@ -98,7 +99,7 @@ module Backup
         exit 1
       end
 
-      print "Unpacking backup ... #{tar_file}"
+      print "Unpacking backup ... #{tar_file} "
       unless Kernel.system(*%W(tar -xf #{tar_file}))
         puts 'unpacking backup failed'
         exit 1
@@ -108,7 +109,7 @@ module Backup
 
       if backup_information[:app_version] != Setting.version
         puts 'Zealot version mismatch:'
-        puts "  Your current Zealot version (#{Setting.version}) differs from the Mobile version in the backup!"
+        puts "  Your current Zealot version (#{Setting.version}) differs from the Zealot version in the backup!"
         puts '  Please switch to the following version and try again:'
         puts "  version: #{backup_information[:app_version]}"
         puts
