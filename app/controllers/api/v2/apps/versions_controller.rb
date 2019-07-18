@@ -1,4 +1,4 @@
-class Api::V2::Apps::VersionsController < API::BaseController
+class Api::V2::Apps::VersionsController < Api::BaseController
   before_action :validate_app_key, only: [:index, :show]
 
   def index
