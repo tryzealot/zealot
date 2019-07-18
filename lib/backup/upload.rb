@@ -57,7 +57,7 @@ module Backup
     def prepare
       FileUtils.rm_rf(apps_backup_path)
       # Fail if somebody raced to create backup_repos_path before us
-      FileUtils.mkdir_p(apps_backup_path, mode: 0700)
+      FileUtils.mkdir_p(apps_backup_path, mode: 0_700)
     end
   end
 end
