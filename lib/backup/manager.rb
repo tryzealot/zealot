@@ -1,5 +1,6 @@
-require 'yaml'
 require_relative 'config'
+require_relative '../setting'
+require 'yaml'
 
 module Backup
   class Manager
@@ -105,9 +106,9 @@ module Backup
         puts '[DONE]'
       end
 
-      if backup_information[:app_version] != Zealot.version
+      if backup_information[:app_version] != Setting.version
         puts 'Zealot version mismatch:'
-        puts "  Your current Zealot version (#{Zealot.version}) differs from the Mobile version in the backup!"
+        puts "  Your current Zealot version (#{Setting.version}) differs from the Mobile version in the backup!"
         puts '  Please switch to the following version and try again:'
         puts "  version: #{backup_information[:app_version]}"
         puts
