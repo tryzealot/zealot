@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   before_action :check_user_logged_in, except: [:show, :auth]
-  before_action :set_app, except: [:index, :create, :new]
+  before_action :set_app, except: [:index, :create, :new, :upload]
   before_action :fetch_apps, only: [:index]
 
   ##
@@ -96,15 +96,10 @@ class AppsController < ApplicationController
     end
   end
 
-  ##
-  # 上传新版本页面
-  def upload
-  end
-
-  ##
-  # 创建新的构建
-  def build
-  end
+  # ##
+  # # 创建新的构建
+  # def build
+  # end
 
   protected
 

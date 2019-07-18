@@ -110,6 +110,6 @@ class App < ApplicationRecord
 
   def generate_key_or_slug
     self.key = Digest::MD5.hexdigest(SecureRandom.uuid + identifier)
-    self.slug = Digest::SHA1.base64digest(key).gsub(%r{[+\/=]}, '')[0..4] unless slug
+    self.slug = Digest::SHA1.base64digest(key).gsub(%r{[+\/=]}, '')[0..4] unless slug.present?
   end
 end
