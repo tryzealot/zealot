@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module AppsHelper
   def app_icon?(release, options = {})
-    if release && release.icon && release.icon.file && release.icon.file.exists?
+    if release&.icon && release.icon.file && release.icon.file.exists?
       size = options.delete(:size) || :thumb
       image_tag(release.icon_url(size), options)
     end
@@ -23,7 +25,7 @@ module AppsHelper
     end
     commit_url = File.join(git_url, 'commit', commit)
 
-    raw "<a href='#{commit_url}' >#{commit[0..commit_length-1]}</a>"
+    raw "<a href='#{commit_url}' >#{commit[0..(commit_length - 1)]}</a>"
   end
 
   def display_app_device(app)
