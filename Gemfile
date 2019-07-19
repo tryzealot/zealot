@@ -59,7 +59,6 @@ gem 'sinatra', '~> 2.0.0', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'coffee-rails', '~> 5.0.0'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
