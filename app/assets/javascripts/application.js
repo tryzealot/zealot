@@ -10,15 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require jquery.turbolinks
 //= require turbolinks
 //= require js-routes
+//= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.min
 //= require admin-lte/dist/js/adminlte.min
-//= require ace-rails-ap
-//= require ace/theme-tomorrow_night
 //= require_tree .
 
 var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
