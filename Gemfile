@@ -60,16 +60,11 @@ gem 'settingslogic'
 
 # Assets
 gem 'font-awesome-rails'
-gem 'jquery-rails'
-gem 'jquery-turbolinks'
 gem 'js-routes'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
-
-# JS Ace 文本编辑器
-gem 'ace-rails-ap'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 1.0.4', require: false
