@@ -16,8 +16,10 @@ class Api::V2::Apps::UploadController < Api::BaseController
   def create_or_update_app
     if app_new_record?
       @app = App.new(app_params)
+      @app.user = @user
       @app.save!
     else
+      @app.user = @user
       @app.update!(app_params)
     end
   end
@@ -66,7 +68,7 @@ class Api::V2::Apps::UploadController < Api::BaseController
       :file, :icon, :extra, :devices, :release_type
     )
 
-    attributes[:channel] = 'jenkins' if attributes[:ci_url]
+    attributes[:channel] = 'jenkins' if attributes[:ci_url].present?
     attributes[:devices] = param_devices
     attributes[:extra] = JSON.dump(param_extra)
 
