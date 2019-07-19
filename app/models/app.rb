@@ -3,6 +3,7 @@ class App < ApplicationRecord
 
   friendly_id :slug
 
+  belongs_to :user
   has_many :releases, dependent: :destroy
   has_many :web_hooks, dependent: :destroy
 
