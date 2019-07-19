@@ -18,51 +18,33 @@ Rails.application.routes.draw do
 
       scope module: 'apps', as: 'app' do
         # resources :changelogs, only: %i[edit update]
-
         resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
       end
     end
   end
 
   #############################################
-  # Other
+  # User
   #############################################
-  # dSYM 管理
-  resources :dsyms, except: [:show, :edit, :update]
-
-  # # 自动代理
-  # resources :pacs
-
-  # # Deep Links
-  # resources :deep_links, except: [:show]
-
-  # 用户
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-
-  get 'users', to: 'users#index', as: 'users'
-  get 'users/new', to: 'users#new', as: 'new_user'
-  post 'users/create', to: 'users#create', as: 'create_user'
-  get 'users/:id/edit', to: 'users#edit', as: 'edit_user'
-  patch 'users/:id/update', to: 'users#update', as: 'update_user'
-  put 'users/:id/update', to: 'users#update'
-  delete 'users/:id', to: 'users#destroy', as: 'user'
+  resources :users, except: %i[show]
   scope :users, module: 'users' do
     get 'active/:token', to: 'activations#edit', as: 'active_user'
     patch 'active/:token', to: 'activations#update'
   end
 
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
+
     if Rails.env.development?
       mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
     end
   end
 
-  # graphql api
-  post '/graphql', to: 'graphql#execute'
-
-  # api
+  #############################################
+  # API v2
+  #############################################
   namespace :api do
     namespace :v2 do
       namespace :apps do
@@ -90,6 +72,23 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  #############################################
+  # API v3
+  #############################################
+  post '/graphql', to: 'graphql#execute'
+
+  #############################################
+  # Other
+  #############################################
+  # dSYM 管理
+  resources :dsyms, except: [:show, :edit, :update]
+
+  # # 自动代理
+  # resources :pacs
+
+  # # Deep Links
+  # resources :deep_links, except: [:show]
 
   root to: 'dashboards#index'
 end
