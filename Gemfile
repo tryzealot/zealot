@@ -4,7 +4,7 @@ source 'https://gems.ruby-china.com'
 
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 6.0.0.rc1'
-gem 'rails-i18n', '~> 5.1'
+gem 'rails-i18n', '~> 6.0.0.beta1'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
@@ -13,7 +13,6 @@ gem 'redis-rails', '~> 5.0.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.9'
-gem 'graphiql-rails' # Web IDE
 gem 'graphql'
 gem 'rack-cors', '~> 0.4.1'
 
@@ -22,7 +21,6 @@ gem 'rack-cors', '~> 0.4.1'
 gem 'slim-rails', '~> 3.2.0'
 ## 表单生成
 gem 'simple_form', '~> 4.1'
-
 gem 'multi_xml'
 
 # Model
@@ -76,6 +74,9 @@ gem 'exception_handler', '~> 0.7.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development do
+  # graphiql web editor
+  gem 'graphiql-rails'
+
   # 调试控制台
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
@@ -113,4 +114,3 @@ group :development, :test do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'graphiql-rails', group: :development
