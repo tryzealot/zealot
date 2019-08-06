@@ -38,6 +38,7 @@ class Release < ApplicationRecord
 
     text.blank? ? empty_text_changelog : text
   rescue
+    # note: 历史遗漏临时处理
     (changelog.blank? || changelog == '(此版本由 Jenkins 自动构建)') ? empty_text_changelog : changelog
   end
 
@@ -47,6 +48,7 @@ class Release < ApplicationRecord
     return [] if changelog.blank?
 
     changelog.split("\n").each_with_object([]) do |item, obj|
+      # note: 历史遗漏临时处理
       next if item == '(此版本由 Jenkins 自动构建)'
 
       _, body = item.split('. ')
@@ -63,7 +65,7 @@ class Release < ApplicationRecord
 
   def file_extname
     case app.device_type.downcase
-    when 'iphone', 'ipad', 'ios'
+    when 'iphone', 'ipad', 'ios', 'universal'
       '.ipa'
     when 'android'
       '.apk'

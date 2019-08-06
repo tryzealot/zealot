@@ -89,7 +89,7 @@ class AppsController < ApplicationController
   def auth
     if @app.password == params[:password]
       cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
-      redirect_to app_path(@app.slug)
+      redirect_to app_path(@app)
     else
       flash[:danger] = '密码错误，请重新输入'
       render :show
