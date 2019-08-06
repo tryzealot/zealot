@@ -2,26 +2,27 @@
 
 source 'https://gems.ruby-china.com'
 
-gem 'puma', '~> 3.11'
-gem 'rails', '~> 6.0.0.rc1'
+gem 'puma', '~> 4.0.1'
+gem 'rails', '~> 6.0.0.rc2'
 gem 'rails-i18n', '~> 6.0.0.beta1'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'redis-rails', '~> 5.0.1'
+gem 'redis-rails', '~> 5.0.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.9'
-gem 'graphql'
+gem 'graphql', '~> 1.9.9'
 gem 'rack-cors', '~> 0.4.1'
 
 # View
+## 生成 ios download plist
+gem 'multi_xml'
 ## 模板引擎
 gem 'slim-rails', '~> 3.2.0'
 ## 表单生成
 gem 'simple_form', '~> 4.1'
-gem 'multi_xml'
 
 # Model
 ## 生成友好 id

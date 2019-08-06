@@ -1,19 +1,4 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
-
-## Uncomment and set this to only include directories you want to watch
-# directories %w(app lib config test spec features) \
-#  .select{|d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist")}
-
-## Note: if you are using the `directories` clause above and you are not
-## watching the project directory ('.'), then you will want to move
-## the Guardfile to a watched dir and symlink it back, e.g.
-#
-#  $ mkdir config
-#  $ mv Guardfile config/
-#  $ ln -s config/Guardfile .
-#
-# and, you'll have to watch "config/Guardfile" instead of "Guardfile"
+# frozen_string_literal: true
 
 if `uname`.match?(/Darwin/)
   ENV['TERMINAL_NOTIFIER_BIN'] ||= '/usr/local/bin/terminal-notifier'
@@ -35,7 +20,7 @@ end
 # zeus_plan: server                    # custom plan in zeus, only works with `zeus: true`.
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
-guard 'rails' do
+guard :rails do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
@@ -59,11 +44,11 @@ end
 #  - :concurrency (defaults to 1)
 #  - :timeout
 #  - :environment (corresponds to RAILS_ENV for the Sidekiq worker)
-guard 'sidekiq', environment: 'development' do
-  watch(%r{^workers/(.+)\.rb$})
+guard :sidekiq, environment: 'development' do
+  watch(%r{^app/jobs/(.+)\.rb$})
 end
 
-# guard 'migrate' do
-#   watch(%r{^db/migrate/(\d+).+\.rb})
-#   watch('db/seeds.rb')
-# end
+guard :migrate do
+  watch(%r{^db/migrate/(\d+).+\.rb})
+  watch('db/seeds.rb')
+end
