@@ -24,7 +24,7 @@
                 .app-block
                   .app-name
                     - if app.latest_release
-                      = link_to app.name, app_path(app.slug)
+                      = link_to app.name, app_path(app)
                     - else
                       = app.name
                     span.pull-right
@@ -52,19 +52,19 @@
                 .app-actions-bar
                   ul.actions
                     li
-                      a href="#{app_releases_path(app.slug)}"
+                      a href="#{app_releases_path(app)}"
                         i.fa.fa-clock-o
                         |  历史版本
                     li
-                      a href="#{web_hooks_path(app.slug)}"
+                      a href="#{web_hooks_path(app)}"
                         i.fa.fa-anchor
                         |  网络钩子
                     li
-                      a href="#{edit_app_path(app.slug)}"
+                      a href="#{edit_app_path(app)}"
                         i.fa.fa-edit
                         |  编辑
                     li
-                      a href="#{app_path(app.slug)}" data-confirm="确定删除?" data-method="delete"
+                      a href="#{app_path(app)}" data-confirm="确定删除?" data-method="delete"
                         i.fa.fa-remove
                         |  删除
                   input.form-control.input-sm value="#{app.key}" disabled="true"
