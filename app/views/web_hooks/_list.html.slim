@@ -11,8 +11,8 @@
           tr
             td
               .pull-right
-                a.btn.btn-sm.btn-default.btn-grouped data-method="post" href="#{test_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 测试
-                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" data-method="delete" href="#{web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
+                a.btn.btn-sm.btn-default.btn-grouped data-method="post" rel="nofollow" href="#{test_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 测试
+                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
               .clearfix
                 = hook.url
               p

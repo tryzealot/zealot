@@ -72,7 +72,7 @@
               i.fa.fa-paper-plane
               |  在线安装
           - else
-            a href="#{api_v2_apps_download_path(@app.slug, @release.version)}" class="btn btn-success btn-lg" target="_blank"
+            a href="#{api_v2_apps_download_path(@app, @release.version)}" class="btn btn-success btn-lg" target="_blank"
               i.fa.fa-download
               |  本地下载
             span style="margin:0 5px"
@@ -102,7 +102,7 @@
             i.fa.fa-minus
       .box-body.text-center
         div.qr_code
-          = image_tag(qrcode_app_path(@app.slug, params[:version], size: :large))
+          = image_tag(qrcode_app_path(@app, params[:version], size: :large))
       .box-footer.text-center
         | 任何支持二维码识别的 App 均可
 
@@ -120,7 +120,7 @@
             - @app.release_versions.each do |release_version|
               tr
                 td
-                  = link_to release_version, app_release_path(@app.slug, release_version)
+                  = link_to release_version, app_release_path(@app, release_version)
 
   / - if @job
   /     .sidebar-module.sidebar-module-inset

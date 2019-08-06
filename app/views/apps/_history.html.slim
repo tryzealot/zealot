@@ -20,7 +20,7 @@ div.history
                 - if release == @release
                   = release.version
                 - else
-                  = link_to release.version, app_path(@app.slug, release.version)
+                  = link_to release.version, app_path(@app, release.version)
               td
                 = release.release_version
               td
@@ -34,6 +34,6 @@ div.history
                   p
                     = simple_format(release.plain_text_changelog)
     .box-footer.text-center
-      = link_to '查看更多', app_releases_path(@app.slug)
+      = link_to '查看更多', app_releases_path(@app)
 
 
