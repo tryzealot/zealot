@@ -26,13 +26,13 @@ Rails.application.routes.draw do
   #############################################
   # User
   #############################################
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users, except: %i[show]
   scope :users, module: 'users' do
     get 'active/:token', to: 'activations#edit', as: 'active_user'
     patch 'active/:token', to: 'activations#update'
   end
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
