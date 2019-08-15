@@ -1,8 +1,8 @@
-class CreateUserProviders < ActiveRecord::Migration[5.2]
+class CreateUserProviders < ActiveRecord::Migration[6.0]
   def change
     create_table :user_providers do |t|
+      t.references :user, index: true, foreign_key: { on_delete: :cascade }
       t.string :name
-      t.references :user
       t.string :uid
       t.string :token
       t.integer :expires_at

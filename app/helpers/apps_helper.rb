@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 module AppsHelper
+  SelectOption = Struct.new(:name, :value)
+
+  DEFAULT_SCHEMES = %w[测试版 内测版 产品版].freeze
+  DEFAULT_CHANNELS = [
+    SelectOption.new('Android', 'android'),
+    SelectOption.new('iOS', 'ios'),
+    SelectOption.new('Android 和 iOS', 'both')
+  ].freeze
+
+  def default_schemes
+    DEFAULT_SCHEMES
+  end
+
+  def default_channels
+    DEFAULT_CHANNELS
+  end
+
   def app_icon?(release, options = {})
     return unless release&.icon && release.icon.file && release.icon.file.exists?
 
@@ -28,20 +45,24 @@ module AppsHelper
     raw "<a href='#{commit_url}' >#{commit[0..(commit_length - 1)]}</a>"
   end
 
-  def display_app_device(app)
-    case app.device_type.downcase
-    when 'ios'
-      'iOS'
-    when 'iphone'
-      'iPhone'
-    when 'ipad'
-      'iPad'
-    when 'universal'
-      'Universal'
-    when 'android'
-      'Android'
-    else
-      app.device_type
-    end
+  def display_app_device(channel)
+    return channel.name if channel.name.downcase == channel.device_type.downcase
+
+    device_type = case channel.device_type.downcase
+                  when 'ios'
+                    'iOS'
+                  when 'iphone'
+                    'iPhone'
+                  when 'ipad'
+                    'iPad'
+                  when 'universal'
+                    'Universal'
+                  when 'android'
+                    'Android'
+                  else
+                    channel.device_type
+                  end
+
+    "#{channel.name} (#{device_type})"
   end
 end

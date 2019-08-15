@@ -2,6 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Rake task",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceRoot}/bin/rake",
+      "args": [
+        "test:release"
+      ]
+    },
+    {
       "name": "Debug Local File",
       "type": "Ruby",
       "request": "launch",

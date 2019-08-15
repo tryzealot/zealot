@@ -12,3 +12,5 @@ CreateRolesService.new.call
 # Create default admin account
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
+
+CreateSampleAppsService.new.call(user)

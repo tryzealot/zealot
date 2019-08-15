@@ -1,0 +1,11 @@
+.box.box-solid
+  .box-header.with-border
+    h3.box-title 渠道
+    .box-tools
+      button.btn.btn-box-tool data-widget="collapse" type="button"
+        i.fa.fa-minus
+  .box-body.no-padding
+    ul.nav.nav-pills.nav-stacked
+      - @channel.scheme.channels.each do |channel|
+        li class="#{params[:id] == channel.slug ? 'active' : ''}"
+          = link_to display_app_device(channel), channel_path(channel)

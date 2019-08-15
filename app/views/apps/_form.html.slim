@@ -1,13 +1,20 @@
-= simple_form_for(@app) do |f|
-  = f.error_notification
+.col-xs-12
+  .box
+    .box-header
+      h3.box-title
+        = @title
+      .box-tools
+        a href="#{apps_path}"
+          i.fa.fa-list-alt
+          |  应用管理
+    .box-body
+      = simple_form_for @app do |f|
+        = f.error_notification
 
-  = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
-  = f.input :name, hint: '应用名', required: true
-  = f.input :device_type, collection: ["iOS",  "Android"], prompt: "选择类型", required: true
-  = f.input :identifier, required: true
-  = f.input :jenkins_job, hint: 'Jenkins 的 Job 名称'
-  = f.input :git_url, hint: 'Gitlab 的项目地址'
-  = f.input :slug, hint: 'URL 的唯一标识'
-  = f.input :password, input_html: { type: 'input', value: @app.password }
-  = f.input :key, input_html: { disabled: true }
-  = f.button :submit, value: '保存'
+        = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+        = f.input :name, hint: '应用名', required: true
+        - if params[:action] == 'new'
+          = f.simple_fields_for :schemes do |n|
+            = n.input :name, as: :check_boxes, collection: default_schemes, hint: "渠道", checked: default_schemes.last
+          = f.input :channel, collection: default_channels, hint: "应用会使用的平台", label_method: :name, value_method: :value, selected: 0
+        = f.button :submit

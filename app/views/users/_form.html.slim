@@ -1,7 +1,7 @@
 = simple_form_for(@user, url: @user.id ? update_user_path(@user) : create_user_path(@user)) do |f|
   = f.error_notification
 
-  = f.input :name, label: '昵称', required: true
+  = f.input :username, label: '昵称', required: true
   = f.input :email, label: '登录邮箱', required: true, hint: '创建成功后，会给该邮箱发确认邮件并设置登录密码。'
   - if @user.id
     = f.input :password, label: '登录密码'

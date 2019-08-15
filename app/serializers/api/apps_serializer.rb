@@ -1,6 +1,5 @@
 class Api::AppsSerializer < Api::BaseSerializer
-  attributes :id, :name, :identifier, :device_type, :slug, :version, :release_version, :build_version, :icon_url, :install_url,
-             :changelog, :commits, :created_at, :updated_at
+  attributes :id, :name, :created_at, :updated_at
 
   def changelog
     if commits.empty?
