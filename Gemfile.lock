@@ -241,7 +241,6 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
-    os (1.0.1)
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
@@ -432,7 +431,7 @@ DEPENDENCIES
   chronic
   devise (~> 4.4.3)
   exception_handler (~> 0.7.0)
-  font-awesome-rails
+  font-awesome-rails (~> 4.7.0)
   friendly_id
   graphiql-rails
   graphql (~> 1.9.9)
@@ -450,7 +449,6 @@ DEPENDENCIES
   multi_xml
   mysql2 (>= 0.4.4, < 0.6.0)
   omniauth-google-oauth2 (~> 0.7.0)
-  os
   pry-byebug
   pry-rails
   pry-rescue

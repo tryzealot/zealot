@@ -7,6 +7,20 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 namespace :test do
+  task release: :environment do
+    # c = Channel.take
+    # r = c.releases.new
+    # r.bundle_id = 'ss'
+    # r.release_version = '33'
+    # r.build_version = '32'
+    # r.changelog = "adfadf\nasdfasdf\n"
+    # r.save validate:false
+
+    r = Release.take
+    r.changelog = [ { message: 'dddd' } ].to_json
+    r.save validate: false
+  end
+
   task env: :environment do
     ENV.each do |k, v|
       puts "#{k} = #{v}"

@@ -1,0 +1,15 @@
+.box
+  .box-header.with-border
+    i.fa.fa-info-circle
+    h3.box-title 更新日志
+  .box-body
+    ul.products-list.product-list-in-box
+      - @release.changelog_list.each do |changelog|
+        li.item
+          = simple_format changelog['message']
+          - if changelog['date']
+            span.label.label-default.pull-right
+              = time_ago_in_words(changelog['date'])
+          - if changelog['date']
+            span.product-description
+              = changelog['user']

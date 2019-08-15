@@ -19,8 +19,8 @@
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
           = devise_error_messages!
           .form-group
-            = f.label :name
-            = f.text_field :name, :autofocus => true, class: 'form-control'
+            = f.label :username
+            = f.text_field :username, :autofocus => true, class: 'form-control'
           .form-group
             = f.label :email
             = f.email_field :email, class: 'form-control'
