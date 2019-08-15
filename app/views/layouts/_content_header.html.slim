@@ -1,2 +1,11 @@
+ruby:
+  breadcrumb = yield :section_breadcrumb
+
 section.content-header
+  h1 = yield :section_title
+
+  - if breadcrumb
+    ol.breadcrumb
+      = breadcrumb
+
   == render 'layouts/messages'

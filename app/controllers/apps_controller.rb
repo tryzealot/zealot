@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :check_user_logged_in, except: [:show, :auth]
+  before_action :authenticate_user!, except: [:show, :auth]
   before_action :set_app, except: [:index, :create, :new, :upload]
   before_action :fetch_apps, only: [:index]
 
@@ -14,15 +14,7 @@ class AppsController < ApplicationController
   # 查看应用详情
   # GET /apps/:slug
   def show
-    redirect_to new_user_session_path unless !wechat? || @app.password.blank? || !user_signed_in?
-
-    app_info
-    @custom_data =
-      if @release.extra.blank? && !@release.extra.is_a?(Hash)
-        {}
-      else
-        JSON.parse(@release.extra)
-      end
+    @title = @app.name
   end
 
   ##
@@ -31,23 +23,22 @@ class AppsController < ApplicationController
   def new
     @title = '新建应用'
     @app = App.new
+    @app.schemes.build
   end
 
   ##
   # 创建新应用
   # POST /apps/create
   def create
-    @app = App.new(app_params)
+    schemes = app_params.delete(:schemes_attributes)
+    channel = app_params.delete(:channel)
 
-    respond_to do |format|
-      if @app.save
-        format.html { redirect_to apps_path, notice: 'App was successfully created.' }
-        format.json { render :show, status: :created, location: @app }
-      else
-        format.html { render :new }
-        format.json { render json: @app.errors, status: :unprocessable_entity }
-      end
-    end
+    # return render json: channels
+    @app = App.new(app_params)
+    return render :new unless @app.save
+
+    create_schemes_by(@app, schemes, channel)
+    redirect_to apps_path, notice: '应用已经创建成功！'
   end
 
   ##
@@ -73,7 +64,6 @@ class AppsController < ApplicationController
   # DELETE /apps/:slug/destroy
   def destroy
     @app.destroy
-    @app.releases.destroy_all
 
     require 'fileutils'
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
@@ -83,19 +73,6 @@ class AppsController < ApplicationController
     redirect_to apps_path
   end
 
-  ##
-  # 应用密码认证
-  # GET /apps/auth
-  def auth
-    if @app.password == params[:password]
-      cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
-      redirect_to app_path(@app)
-    else
-      flash[:danger] = '密码错误，请重新输入'
-      render :show
-    end
-  end
-
   # ##
   # # 创建新的构建
   # def build
@@ -103,13 +80,29 @@ class AppsController < ApplicationController
 
   protected
 
-  def set_app
-    @app =
-      if params[:slug]
-        App.friendly.find(params[:slug])
-      else
-        App.find(params[:id])
+  def create_schemes_by(app, schemes, channel)
+    schemes.values[0][:name].each do |scheme_name|
+      next if scheme_name.empty?
+
+      scheme = app.schemes.create name: scheme_name
+      next unless channels = channel_value(channel)
+
+      channels.each do |channel_name|
+        scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
       end
+    end
+  end
+
+  def channel_value(platform)
+    case platform
+    when 'ios' then ['iOS']
+    when 'android' then ['Android']
+    when 'both' then ['Android', 'iOS']
+    end
+  end
+
+  def set_app
+    @app = App.find(params[:id])
   end
 
   def fetch_apps
@@ -127,18 +120,11 @@ class AppsController < ApplicationController
     raise ActiveRecord::RecordNotFound, "Not found release = #{params[:version]}" unless @release
   end
 
-  def check_user_logged_in
-    authenticate_user! unless wechat?
-  end
-
-  def wechat?
-    request.user_agent.include? 'MicroMessenger'
-  end
-
   def app_params
-    params.require(:app).permit(
-      :user_id, :name, :device_type, :identifier, :slug, :password,
-      :jenkins_job, :git_url
-    )
+    @app_params ||= params.require(:app)
+                          .permit(
+                            :user_id, :name, :channel,
+                            schemes_attributes: { name: [] }
+                          )
   end
 end

@@ -161,9 +161,10 @@ div.app-container p.qr_code img {
   font-size: 0.9em;
 }
 
-.app-detail .box-body {
-  text-align: center;
-}
+// .app-detail .box-body {
+//   text-align: center;
+// }
+
 .app-detail .app-metadata {
   list-style: none;
   font-size: 1.2em;
@@ -173,6 +174,10 @@ div.app-container p.qr_code img {
 .app-detail .app-metadata>li {
   display: inline-block;
   padding: 0 10px;
+}
+
+.app-detail .app-metadata>li>i {
+  margin-right: 5px;
 }
 
 @media (min-width: 300px) {

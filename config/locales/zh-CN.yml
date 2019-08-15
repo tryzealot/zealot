@@ -141,6 +141,10 @@ zh-CN:
       create: 新增%{model}
       submit: 储存%{model}
       update: 更新%{model}
+      app:
+        create: "新增应用"
+        update: "更新应用"
+
   number:
     currency:
       format:
