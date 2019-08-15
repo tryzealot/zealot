@@ -2,10 +2,10 @@
 
 module AppsHelper
   def app_icon?(release, options = {})
-    if release&.icon && release.icon.file && release.icon.file.exists?
-      size = options.delete(:size) || :thumb
-      image_tag(release.icon_url(size), options)
-    end
+    return unless release&.icon && release.icon.file && release.icon.file.exists?
+
+    size = options.delete(:size) || :thumb
+    image_tag(release.icon_url(size), options)
   end
 
   # def qr_code(url)
@@ -36,6 +36,8 @@ module AppsHelper
       'iPhone'
     when 'ipad'
       'iPad'
+    when 'universal'
+      'Universal'
     when 'android'
       'Android'
     else
