@@ -2,26 +2,38 @@ Rails.application.routes.draw do
   #############################################
   # App
   #############################################
-  resources :apps, param: :slug, constraints: { slug: /(?!new)\w+/ }, except: %i[show] do
-    member do
-      get :auth
-      scope '(:version)', version: /\d+/ do
-        get :show, as: ''
-        get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
-      end
 
-      resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
-        member do
-          post :test
-        end
-      end
-
-      scope module: 'apps', as: 'app' do
-        # resources :changelogs, only: %i[edit update]
-        resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
-      end
+  resources :channels, except: [:index] do
+    resources :releases, except: [:index] do # , param: :version, constraints: { version: /\d+/ }
+      get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
     end
   end
+
+  resources :apps do
+    resources :schemes
+
+    member do
+
+      # get :auth
+      # scope '(:version)', version: /\d+/ do
+      #   get :show, as: ''
+      #   get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
+      # end
+
+      # resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
+      #   member do
+      #     post :test
+      #   end
+      # end
+
+      # scope module: 'apps', as: 'app' do
+      #   # resources :changelogs, only: %i[edit update]
+      #   resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
+      # end
+    end
+  end
+
+  # resources :channels, path: '/', param: :slug, constraints: { slug: /(?!new)\w+/ }
 
   #############################################
   # User
@@ -60,10 +72,6 @@ Rails.application.routes.draw do
         get '', action: :index
       end
 
-      # namespace :pacs do
-      #   post 'update', to: 'update#create'
-      # end
-
       namespace :jenkins do
         get 'projects', to: 'projects#index'
         get 'projects/:project', to: 'projects#show', as: 'project'
@@ -83,12 +91,6 @@ Rails.application.routes.draw do
   #############################################
   # dSYM 管理
   resources :dsyms, except: [:show, :edit, :update]
-
-  # # 自动代理
-  # resources :pacs
-
-  # # Deep Links
-  # resources :deep_links, except: [:show]
 
   root to: 'dashboards#index'
 end

@@ -1,0 +1,9 @@
+.sidebar
+  .box
+    .box-header
+      i.fa.fa-qrcode
+      h3.box-title 二维码安装
+    .box-body.text-center
+      .qr_code
+        = image_tag channel_release_qrcode_path(@release.channel, @release, size: :medium)
+    .box-footer.text-center 任何支持二维码识别的 App 均可

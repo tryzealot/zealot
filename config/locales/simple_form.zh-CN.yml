@@ -10,15 +10,14 @@ zh-CN:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "请检查如下问题:"
-    # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
+    labels:
+      defaults:
+        name: '名称'
+        password: '密码'
+      app:
+        name: '应用名称'
+        platrom: '应用平台'
+
     # hints:
     #   defaults:
     #     username: 'User name to sign in.'

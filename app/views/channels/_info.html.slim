@@ -1,0 +1,17 @@
+ruby:
+  @schemes = @channel.scheme.app.schemes
+
+.col-sm-12
+  .nav-tabs-custom
+    ul.nav.nav-tabs
+      == render 'schemes/channels/list'
+      / li.pull-right.header
+      /   i.fa.fa-adn
+      /   = @title
+    .box
+      .box-header.with-border
+        h3.box-title
+          = image_tag('touch-icon-60.png', class: 'img-circle')
+          .app-name
+            = @title
+

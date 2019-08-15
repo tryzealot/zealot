@@ -1,12 +1,5 @@
 - content_for :title do
-  = "#{@app.name} - #{@app.device_type}"
+  = @app.name
 
-div.row.app-container
-  - if ! user_signed_in? 
-    - if !@app.password.to_s.empty? && cookies[:auth] != Digest::MD5.hexdigest(@app.password)
-      == render 'auth'
-    - else
-      == render 'info'
-  
-  - else
-    == render 'info'
+.row
+  == render 'info'
