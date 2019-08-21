@@ -3,13 +3,13 @@
 source 'https://gems.ruby-china.com'
 
 gem 'puma', '~> 4.0.1'
-gem 'rails', '~> 6.0.0.rc2'
-gem 'rails-i18n', '~> 6.0.0.beta1'
+gem 'rails', '~> 6.0.0'
+gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'redis-rails', '~> 5.0.2'
+gem 'redis', '~> 4.1.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.9'
@@ -37,7 +37,7 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'http'
 # 用户认证
-gem 'devise', '~> 4.4.3'
+gem 'devise', '~> 4.7.0'
 gem 'omniauth-google-oauth2', '~> 0.7.0'
 # Crontab
 gem 'whenever', require: false
