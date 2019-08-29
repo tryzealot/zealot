@@ -1,4 +1,4 @@
-class Api::AppsSerializer < Api::BaseSerializer
+class Api::AppsSerializer < ApplicationSerializer
   attributes :id, :name, :created_at, :updated_at
 
   def changelog

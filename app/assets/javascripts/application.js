@@ -12,7 +12,6 @@
 //
 //= require turbolinks
 //= require rails-ujs
-//= require js-routes
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.min
 //= require admin-lte/dist/js/adminlte.min

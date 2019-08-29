@@ -1,4 +1,4 @@
-class Api::AppReleasesSerializer < Api::BaseSerializer
+class Api::AppReleasesSerializer < ApplicationSerializer
   attributes :id, :name, :identifier, :device_type, :slug, :icon_url
 
   has_many :releases do
