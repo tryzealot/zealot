@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   resources :channels, except: [:index] do
     resources :releases, except: [:index] do # , param: :version, constraints: { version: /\d+/ }
-      get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
+      scope module: 'apps' do
+        resources :qrcode, only: :index
+        resources :download, only: :index
+      end
+      # get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
     end
   end
 
@@ -45,13 +49,11 @@ Rails.application.routes.draw do
     patch 'active/:token', to: 'activations#update'
   end
 
-  authenticate :user do
+  authenticate :user, lambda { |u| u.admin? } do
     require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
 
-    if Rails.env.development?
-      mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
-    end
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql', as: :graphql
   end
 
   #############################################
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v2 do
       namespace :apps do
+        get 'test', to: 'test#show'
+
         post 'upload', to: 'upload#create'
         get 'latest', to: 'latest#show'
         get 'versions', to: 'versions#index'

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include UserRoles
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
@@ -43,10 +45,6 @@ class User < ApplicationRecord
 
       roles << Role.find(role_id)
     end
-  end
-
-  def roles?(*values)
-    roles.where(value: values).exists?
   end
 
   private

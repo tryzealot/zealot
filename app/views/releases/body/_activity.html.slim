@@ -20,4 +20,4 @@ ruby:
                 = " 上传了新版本 #{release.release_version} (#{release.build_version})"
               - unless release.changelog.blank?
                 .timeline-body
-                  = release.changelog_list
+                  = changelog_format release.changelog_list
