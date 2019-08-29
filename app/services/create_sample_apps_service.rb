@@ -19,7 +19,7 @@ class CreateSampleAppsService
                        when '开发版'
                          'debug'
                        when '测试版'
-                         channel_name == 'iOS' ? 'adhoc' : 'beta'
+                         channel.name == 'iOS' ? 'adhoc' : 'beta'
                        when '产品版'
                          'release'
                        end

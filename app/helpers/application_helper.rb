@@ -20,6 +20,14 @@ module ApplicationHelper
     end
   end
 
+  def changelog_format(changelog)
+    raw = changelog.each_with_object([]) do |line, obj|
+      obj << "- #{line['message']}"
+    end.join("\n")
+
+    simple_format raw
+  end
+
   # 获取浏览器 user agent
   def user_agent
     request.user_agent

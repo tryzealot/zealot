@@ -37,7 +37,7 @@
         i.fa.fa-calendar
         = time_ago_in_words(@release.created_at)
     .app-actions
-      a.btn.btn-success.btn-social href="/api/v2/apps/icQYER/2934/download" target="_blank"
+      a.btn.btn-success.btn-social href="#{channel_release_download_index_path(@release.channel, @release)}" target="_blank"
         i.fa.fa-download
         | 本地下载
       span style=("margin:0 5px")

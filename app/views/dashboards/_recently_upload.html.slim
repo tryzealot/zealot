@@ -36,12 +36,12 @@ section.recently-upload
                       | &nbsp
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
-                      = link_to " #{release.app_name}", app_path(release.app)
+                      = link_to " #{release.app_name}", channel_release_path(release.channel, release)
                       |  上传了新版本
                       = " #{release.release_version} (#{release.build_version})"
-                    - unless release.changelog.blank?
+                    - if release.changelog?
                       .timeline-body
-                        = simple_format(release.changelog)
+                        = changelog_format(release.changelog_list)
                     .timeline-footer
                       - if release.release_type
                         small.label.label-default
