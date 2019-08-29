@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://gems.ruby-china.com'
+ruby '>= 2.4.0', '< 2.7.0'
 
 gem 'puma', '~> 4.0.1'
 gem 'rails', '~> 6.0.0'
@@ -12,9 +13,9 @@ gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'redis', '~> 4.1.2'
 
 # API
-gem 'active_model_serializers', '~> 0.10.9'
-gem 'graphql', '~> 1.9.9'
-gem 'rack-cors', '~> 0.4.1'
+gem 'active_model_serializers', '~> 0.10.10'
+gem 'graphql', '~> 1.9.10'
+gem 'rack-cors', '~> 1.0.3'
 
 # View
 ## 生成 ios download plist
@@ -40,7 +41,7 @@ gem 'http'
 gem 'devise', '~> 4.7.0'
 gem 'omniauth-google-oauth2', '~> 0.7.0'
 # Crontab
-gem 'whenever', require: false
+gem 'whenever', '~> 1.0.0', require: false
 # # GEO 坐标计算
 # gem 'haversine'
 
@@ -51,33 +52,33 @@ gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
 # 异步队列
-gem 'sidekiq', '< 6'
+gem 'sidekiq', '<= 6'
 # 支持 sidekiq 使用界面
-gem 'sinatra', '~> 2.0.0', require: false
+gem 'sinatra', '~> 2.0.5', require: false
 # Mobile config
 gem 'settingslogic'
 
 # Assets
 gem 'font-awesome-rails', '~> 4.7.0'
-gem 'js-routes'
+# gem 'js-routes'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 1.0.4', require: false
+gem 'app-info', '~> 1.1.0', require: false
 
 # 异常处理
-gem 'exception_handler', '~> 0.7.0'
+gem 'exception_handler', '~> 0.8.0'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
+
+# graphiql web editor
+gem 'graphiql-rails', '~> 1.7.0'
 
 group :development do
-  # graphiql web editor
-  gem 'graphiql-rails'
-
   # 调试控制台
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
