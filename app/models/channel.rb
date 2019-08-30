@@ -19,7 +19,7 @@ class Channel < ApplicationRecord
   end
 
   def app_name
-    "#{app.name} #{scheme.name} #{name}"
+    "#{app.name} #{name} #{scheme.name}"
   end
 
   def recently_releases(limit = 10)
