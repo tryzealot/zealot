@@ -47,28 +47,12 @@ class Api::V2::Apps::UploadController < Api::BaseController
     message = "bundle id `#{app_info.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
     raise TypeError, message unless @channel.bundle_id_matched? app_info.bundle_id
 
-    create_release @channel
+    create_release with_updated_channel
   end
 
   def new_record?
     @channel.blank?
   end
-
-  def set_channel
-    @channel = Channel.find_by(key: params[:app_key])
-  end
-
-  # def release_new_record?
-  #   release_find_by_params =
-  #     if params[:last_commit].blank?
-  #       params.permit(:release_version, :build_version)
-  #     else
-  #       params.permit(:release_version, :build_version, :last_commit)
-  #     end
-
-  #   @release = @app.releases.find_or_initialize_by(release_find_by_params)
-  #   @new_record = @release.new_record?
-  # end
 
   # def perform_app_web_hook_job
   #   web_hooks = WebHook.where(upload_events: 1, app: @app)
@@ -77,20 +61,6 @@ class Api::V2::Apps::UploadController < Api::BaseController
   #   web_hooks.each do |web_hook|
   #     AppWebHookJob.perform_later 'upload_events', web_hook
   #   end
-  # end
-
-  # def release_params
-  #   attributes = params.permit(
-  #     :identifier, :release_version, :build_version,
-  #     :changelog, :channel, :branch, :last_commit, :ci_url,
-  #     :file, :icon, :extra, :devices, :release_type
-  #   )
-
-  #   attributes[:channel] = 'jenkins' if attributes[:ci_url].present?
-  #   attributes[:devices] = param_devices
-  #   attributes[:extra] = JSON.dump(param_extra)
-
-  #   attributes
   # end
 
   # def param_devices
@@ -106,35 +76,26 @@ class Api::V2::Apps::UploadController < Api::BaseController
   #   @device = nil
   # end
 
-  # def param_extra
-  #   return @extra if @extra
-
-  #   extra = params.clone.to_unsafe_h
-  #   extra.delete(:file)
-  #   extra.delete(:icon) if extra.key?(:icon)
-
-  #   @param_extra ||= extra
-  # end
-
-  def app_info
-    @app_info ||= AppInfo.parse(params[:file].path)
+  ###########################
+  # new build methods
+  ###########################
+  def with_updated_channel
+    @channel.update! channel_params
+    @channel
   end
 
-  ###########################
-  # Create a new app
-  ###########################
   def create_release(channel)
-    @release = channel.releases.create! params.permit(:file) do |release|
+    @release = channel.releases.create! release_params do |release|
       release.bundle_id = app_info.bundle_id
       release.release_version = app_info.release_version
       release.build_version = app_info.build_version
-      release.release_type = app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
+      release.release_type ||= app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
       release.icon = File.open(app_info.icons.last[:file])
     end
   end
 
   def with_channel(scheme)
-    scheme.channels.create! params.permit(:slug, :password, :git_url, :source) do |channel|
+    scheme.channels.create! channel_params do |channel|
       channel.name = app_info.os
       channel.device_type = app_info.os
     end
@@ -167,5 +128,21 @@ class Api::V2::Apps::UploadController < Api::BaseController
     when AppInfo::Parser::IPA::ExportType::RELEASE
       '线上版'
     end
+  end
+
+  def release_params
+    params.permit(:file, :release_type, :source, :branch, :git_commit, :ci_url, :changelog, :devices)
+  end
+
+  def channel_params
+    params.permit(:slug, :password, :git_url)
+  end
+
+  def set_channel
+    @channel = Channel.find_by(key: params[:app_key])
+  end
+
+  def app_info
+    @app_info ||= AppInfo.parse(params[:file].path)
   end
 end
