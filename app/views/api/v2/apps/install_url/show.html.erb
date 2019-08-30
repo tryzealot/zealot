@@ -11,7 +11,7 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string><%= api_v2_apps_download_url(@app.slug, @release.version, :protocol => Rails.env.development? ? 'http' : 'https') %></string>
+          <string><%= api_v2_apps_download_url(@release.channel.slug, @release.version, :protocol => Rails.env.development? ? 'http' : 'https') %></string>
         </dict>
         <% if @release.icon && @release.icon.file && @release.icon.file.exists? %>
         <dict>
@@ -27,13 +27,13 @@
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string><%= @app.identifier %></string>
+        <string><%= @release.bundle_id %></string>
         <key>bundle-version</key>
         <string><%= @release.release_version %></string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string><%= @app.name %></string>
+        <string><%= @release.app_name %></string>
       </dict>
     </dict>
   </array>
