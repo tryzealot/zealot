@@ -148,7 +148,7 @@ class Api::V2::Apps::UploadController < Api::BaseController
       release.bundle_id = app_info.bundle_id
       release.release_version = app_info.release_version
       release.build_version = app_info.build_version
-      release.release_type = app_info.release_type
+      release.release_type = app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
       release.icon = File.open(app_info.icons.last[:file])
     end
   end

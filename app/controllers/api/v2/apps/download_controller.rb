@@ -1,15 +1,9 @@
 class Api::V2::Apps::DownloadController < Api::BaseController
   def show
-    @app = App.friendly.find(params[:slug])
-    @release =
-      if params[:version]
-        @app.releases.find_by(version: params[:version])
-      else
-        @app.latest_release
-      end
+    @release = Release.find_by_channel params[:slug], params[:version]
 
-    if @app && @release && File.exist?(@release.file.path)
-      headers['Content-Length'] = @release.filesize
+    if @release && File.exist?(@release.file.path)
+      headers['Content-Length'] = @release.size
       send_file @release.file.path,
                 filename: @release.download_filename,
                 disposition: 'attachment'
