@@ -105,7 +105,6 @@ class Release < ApplicationRecord
   def empty_changelog
     @empty_changelog ||= [
       {
-        'type' => 'default',
         'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
         # date: Time.now.strftime("%Y-%m-%d %H:%M:%S %z")
       }
