@@ -6,6 +6,9 @@
 Mime::Type.register 'application/javascript', :pac
 Mime::Type.register 'text/plist', :plist
 
+Mime::Type.register 'application/vnd.iphone', :ipa
+Mime::Type.register 'application/vnd.android.package-archive', :apk
+
 ActionController::Renderers.add :qrcode do |string, options|
   data = RQRCode::QRCode.new(string).as_png(options)
   self.content_type ||= Mime[:png]

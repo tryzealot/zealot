@@ -16,6 +16,16 @@ class Release < ApplicationRecord
   paginates_per     20
   max_paginates_per 50
 
+
+  def self.find_by_channel(slug, version = nil)
+    channel = Channel.friendly.find slug
+    if version
+      channel.releases.find_by version: version
+    else
+      channel.releases.latest
+    end
+  end
+
   def self.latest
     order(version: :desc).first
   end
@@ -29,7 +39,7 @@ class Release < ApplicationRecord
   end
 
   def app_name
-    "#{app.name} #{scheme.name} #{channel.name}"
+    "#{app.name} #{channel.name} #{scheme.name}"
   end
 
   def short_git_commit
@@ -57,36 +67,38 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    if channel.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(app.slug, version)
-    else
-      'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
-        channel.slug,
-        version,
-        protocol: Rails.env.development? ? 'http' : 'https'
-      )
-    end
+    return api_v2_apps_download_url(channel.slug, version) if channel.device_type.casecmp('android').zero?
+
+    download_url = api_v2_apps_install_url(
+      channel.slug, version,
+      protocol: Rails.env.development? ? 'http' : 'https'
+    )
+    "itms-services://?action=download-manifest&url=#{download_url}"
   end
 
   def file_extname
-    case app.channel.device_type.downcase
+    case channel.device_type.downcase
     when 'iphone', 'ipad', 'ios', 'universal'
       '.ipa'
     when 'android'
       '.apk'
+    else
+      '.ipa_or_apk.zip'
     end
   end
 
   def download_filename
-    [app.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')].join('_') + file_extname
+    [
+      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
+    ].join('_') + file_extname
   end
 
-  def content_type
+  def mime_type
     case channel.device_type
     when 'iOS'
-      'application/vnd.iphone'
+      :ipa
     when 'Android'
-      'application/vnd.android.package-archive'
+      :apk
     end
   end
 

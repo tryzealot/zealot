@@ -1,4 +1,5 @@
 class Api::BaseController < ActionController::API
+  respond_to :json
 
   def validate_user_key
     @user = User.find_by(key: params[:key])
@@ -23,7 +24,7 @@ class Api::BaseController < ActionController::API
   def render_unprocessable_entity_response(exception)
     render json: {
       error: 'resource could not be processed with errors',
-      entry: exception.record.errors
+      entry: Rails.env.development? ? exception.record.errors : nil
     }, status: :unprocessable_entity
   end
 
