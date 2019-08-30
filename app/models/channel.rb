@@ -36,7 +36,11 @@ class Channel < ApplicationRecord
     releases.where(release_version: version).count
   end
 
+  def bundle_id_matched?(value)
+    return true if bundle_id.blank? || bundle_id == '*'
 
+    value.match?(bundle_id)
+  end
 
   # def self.find_by_release(release)
   #   instance = release.app

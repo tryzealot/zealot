@@ -2,6 +2,7 @@ require 'app-info'
 
 class Api::V2::Apps::UploadController < Api::BaseController
   before_action :validate_user_key
+  before_action :set_channel
 
   # Upload an App
   #
@@ -17,65 +18,44 @@ class Api::V2::Apps::UploadController < Api::BaseController
   # @param ci_url        [String] optional ci url
   # @return              [String] json formatted app info
   def create
-    create_or_update_app
+    create_or_update_release
 
-    # create_or_update_release
-    # perform_app_web_hook_job
-
-    # render json: @app,
-    #        serializer: Api::AppsSerializer,
-    #        status: @new_record ? :created : :ok
+    render json: @release,
+           serializer: Api::UploadAppSerializer,
+           status: :created
   end
 
   private
 
-  def create_or_update_app
-    if app_new_record?
-      create_new_build
-
-      render json: @release,
-             serializer: Api::UploadAppSerializer,
-             status: :created
-      # @app = App.new(app_params)
-      # @app.user = @user
-      # @app.save!
-    else
-      update_existed_build
-      # @app.user = @user
-      # @app.update!(app_params)
+  def create_or_update_release
+    ActiveRecord::Base.transaction do
+      if new_record?
+        create_new_build
+      else
+        update_new_build
+      end
     end
   end
 
+  # 创建 App 并创建新版本
   def create_new_build
     create_release with_channel and_scheme and_app
-
-    # app = App.create! app_params
-    # scheme = app.scheme.create! scheme_params
-    # channel = scheme.channel.create! channel_params
-    # @release = channel.create! release_params
   end
 
-  def update_existed_build
-    render json: {yes: true}
+  # 使用现有 App 创建新版本
+  def update_new_build
+    message = "bundle id `#{app_info.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
+    raise TypeError, message unless @channel.bundle_id_matched? app_info.bundle_id
+
+    create_release @channel
   end
 
-  # def create_or_update_release
-  #   if release_new_record?
-  #     @release = Release.new(release_params)
-  #     @release.app = @app
-  #     @release.user = @user
-  #     @release.save!
-  #   end
+  def new_record?
+    @channel.blank?
+  end
 
-  #   @app = App.find_by_release(@release)
-  # end
-
-  def app_new_record?
-    channel = Channel.find_by(key: params[:app_key])
-    return true unless channel
-
-    @channel ||= channel
-    false
+  def set_channel
+    @channel = Channel.find_by(key: params[:app_key])
   end
 
   # def release_new_record?
