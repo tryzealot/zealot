@@ -1,36 +1,35 @@
 class Api::V2::Apps::VersionsController < Api::BaseController
-  before_action :validate_app_key, only: [:index, :show]
+  before_action :validate_user_key
+  before_action :validate_channel_key
 
   def index
-    @releases = @app.releases.order(version: :desc)
-                             .page(params.fetch(:page, 1))
-                             .per(params.fetch(:per_page, 20))
+    # @releases = @channel.releases
+    #                     .order(version: :desc)
+    #                     .page(params.fetch(:page, 1))
+    #                     .per(params.fetch(:per_page, 20))
 
-    data = {
-      id: @app.id,
-      name: @app.name,
-      identifier: @app.identifier,
-      device_type: @app.device_type,
-      slug: @app.slug,
-      releases: []
-    }
 
-    @releases.each do |release|
-      data[:releases] << {
-        id: release.id,
-        version: release.version,
-        release_version: release.release_version,
-        build_version: release.build_version,
-        icon_url: release.icon_url,
-        install_url: release.install_url,
-        changelog: release.changelog
-      }
-    end
+    # @releases.each do |release|
+    #   data[:releases] << {
+    #     id: release.id,
+    #     version: release.version,
+    #     release_version: release.release_version,
+    #     build_version: release.build_version,
+    #     icon_url: release.icon_url,
+    #     install_url: release.install_url,
+    #     changelog: release.changelog
+    #   }
+    # end
 
-    render json: data
+    render json: @channel,
+           serializer: Api::AppVersionsSerializer,
+           page: params.fetch(:page, 1).to_i,
+           per_page: params.fetch(:per_page, 1).to_i
   end
 
-  def show
+  private
 
+  def set_channel
+    @channel = Channel.friendly.find params[:slug]
   end
 end

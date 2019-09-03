@@ -2,13 +2,18 @@ class Api::BaseController < ActionController::API
   respond_to :json
 
   def validate_user_key
-    @user = User.find_by(key: params[:key])
+    @user = User.find_by(key: params[:token])
     raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
   end
 
   def validate_app_key
     @app = App.find_by(key: params[:key])
     raise ActionCable::Connection::Authorization::UnauthorizedError, '无效的 App Key' unless @app
+  end
+
+  def validate_channel_key
+    @channel = Channel.find_by(key: params[:app_key])
+    raise ActionCable::Connection::Authorization::UnauthorizedError, '无效的应用渠道 Key' unless @channel
   end
 
   rescue_from TypeError, with: :render_unmatched_bundle_id_serror

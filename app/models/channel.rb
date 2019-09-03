@@ -14,16 +14,23 @@ class Channel < ApplicationRecord
   validates :name, presence: true
   validates :slug, uniqueness: true
 
+  def recently_releases(limit = 10)
+    releases.limit(limit).order(id: :desc)
+  end
+
+  def find_since_version(release_version, build_version)
+    source_release = releases.find_by(release_version: release_version, build_version: build_version)
+    return [] unless source_release
+
+    releases.where('id > ?', source_release.id).order(id: :desc)
+  end
+
   def app
     scheme.app
   end
 
   def app_name
     "#{app.name} #{name} #{scheme.name}"
-  end
-
-  def recently_releases(limit = 10)
-    releases.limit(limit).order(id: :desc)
   end
 
   def release_versions

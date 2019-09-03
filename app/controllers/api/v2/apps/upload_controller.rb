@@ -2,7 +2,7 @@ require 'app-info'
 
 class Api::V2::Apps::UploadController < Api::BaseController
   before_action :validate_user_key
-  before_action :set_channel
+  before_action :validate_channel_key
 
   # Upload an App
   #
@@ -136,10 +136,6 @@ class Api::V2::Apps::UploadController < Api::BaseController
 
   def channel_params
     params.permit(:slug, :password, :git_url)
-  end
-
-  def set_channel
-    @channel = Channel.find_by(key: params[:app_key])
   end
 
   def app_info
