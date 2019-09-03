@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       namespace :apps do
         post 'upload', to: 'upload#create'
+
         get 'latest', to: 'latest#show'
         get 'versions', to: 'versions#index'
         get 'versions/(:release_version)', to: 'versions#show'
