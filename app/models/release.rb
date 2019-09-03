@@ -16,7 +16,6 @@ class Release < ApplicationRecord
   paginates_per     20
   max_paginates_per 50
 
-
   def self.find_by_channel(slug, version = nil)
     channel = Channel.friendly.find slug
     if version
@@ -48,11 +47,11 @@ class Release < ApplicationRecord
     git_commit[0..8]
   end
 
-  def changelog_list
-    return empty_changelog if changelog.blank?
+  def changelog_list(use_default_changelog = true)
+    return empty_changelog(use_default_changelog) if changelog.blank?
 
     data = JSON.parse changelog
-    return empty_changelog if data.empty?
+    return empty_changelog(use_default_changelog) if data.empty?
 
     data
   end
@@ -102,7 +101,9 @@ class Release < ApplicationRecord
     end
   end
 
-  def empty_changelog
+  def empty_changelog(use_default_changelog = true)
+    return [] unless use_default_changelog
+
     @empty_changelog ||= [
       {
         'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
