@@ -8,16 +8,4 @@ class Api::UploadAppSerializer < ApplicationSerializer
   belongs_to :app
   belongs_to :scheme
   belongs_to :channel
-
-  class ChannelSerializer < ApplicationSerializer
-    attributes :id, :name, :device_type, :bundle_id, :slug, :git_url
-  end
-
-  class SchemeSerializer < ApplicationSerializer
-    attributes :id, :name
-  end
-
-  class AppSerializer < ApplicationSerializer
-    attributes :id, :name
-  end
 end
