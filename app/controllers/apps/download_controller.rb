@@ -2,11 +2,11 @@ class Apps::DownloadController < ApplicationController
   before_action :set_release
 
   ##
-  # 显示应用的二维码
+  # 下载应用
   # GET /apps/:slug/(:version)/qrcode
   def index
     if @release.file&.path && File.exist?(@release.file.path)
-      headers['Content-Length'] = @release.filesize
+      headers['Content-Length'] = @release.size
       send_file @release.file.path,
                 filename: @release.download_filename,
                 disposition: 'attachment'
