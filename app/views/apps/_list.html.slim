@@ -14,8 +14,7 @@
           .box.box-widget.widget-user-2
             .widget-user-header.bg-yellow
               .widget-user-image
-                / = app_icon(release, size: :medium, class: 'app-icon img-circle')
-                = image_tag('touch-icon-60.png', class: 'app-icon img-circle')
+                = app_icon(app.recently_release, size: :medium, class: 'app-icon img-circle')
 
               h3.widget-user-username
                 = link_to app.name, app_path(app), style: "color: white"
@@ -29,32 +28,3 @@
                       = scheme.name
                       span.pull-right.badge.bg-blue
                         = scheme.total_releases
-
-      / .app.col-md-3
-      /   .box.box-widget.widget-user-2
-      /     .widget-user-header.bg-yellow
-      /       .widget-user-image
-      /         = image_tag('touch-icon-60.png', class: 'app-icon img-circle')
-
-      /       h3.widget-user-username
-      /         | 测试应用
-      /       h5.widget-user-desc
-      /         | 渠道数: 12
-      /     .box-footer.no-padding
-      /       ul.nav.nav-stacked
-      /         li
-      /           a href="#"
-      /             | 测试版
-      /             span.pull-right.badge.bg-blue 10
-      /         li
-      /           a href="#"
-      /             | 预发版
-      /             span.pull-right.badge.bg-blue 10
-      /         li
-      /           a href="#"
-      /             | 稳定测试版
-      /             span.pull-right.badge.bg-blue 10
-      /         li
-      /           a href="#"
-      /             | 产品版
-      /             span.pull-right.badge.bg-blue 10
