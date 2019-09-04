@@ -1,7 +1,7 @@
 class ReleasesController < ApplicationController
-  # before_action :authenticate_user!, except: [:show, :auth]
-  # before_action :set_app, only: [:show]
+  before_action :authenticate_user!, except: [:show, :auth]
   before_action :set_channel, only: [:new, :create]
+  before_action :set_release, only: [:show]
 
   ##
   # 查看应用详情
@@ -69,35 +69,11 @@ class ReleasesController < ApplicationController
 
   protected
 
-  def set_app
+  def set_release
     @release = Release.find(params[:id])
-    @app = @release.channel.scheme.app
   end
 
   def set_channel
     @channel = Channel.friendly.find params[:channel_id]
   end
-
-  # def fetch_apps
-  #   @apps = App.all
-  # end
-
-  # def app_info
-  #   @release =
-  #     if params[:version]
-  #       @app.releases.find_by(app: @app, version: params[:version])
-  #     else
-  #       @app.releases.last
-  #     end
-
-  #   raise ActiveRecord::RecordNotFound, "Not found release = #{params[:version]}" unless @release
-  # end
-
-  # def app_params
-  #   @app_params ||= params.require(:app)
-  #                         .permit(
-  #                           :user_id, :name, :channel,
-  #                           schemes_attributes: { name: [] }
-  #                         )
-  # end
 end

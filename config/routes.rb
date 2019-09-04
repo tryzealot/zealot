@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # App
   #############################################
 
-  resources :channels do
+  resources :channels, only: [:index, :show] do
     resources :releases, except: [:index], path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: 'apps' do
         resources :qrcode, only: :index
@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   end
 
   resources :apps do
-    resources :schemes
+    resources :schemes do
+      resources :channels, except: [:index, :show]
+    end
 
     member do
 
