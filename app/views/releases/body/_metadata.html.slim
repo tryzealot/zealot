@@ -1,7 +1,7 @@
 .app-detail.box
   .box-header.with-border
     h3.box-title
-      = image_tag('touch-icon-60.png', class: 'app-icon img-circle img-bordered-sm')
+      = app_icon(@release, size: :medium, class: 'app-icon img-circle img-bordered-sm')
       .app-name
         = @release.app_name
         .app-identifier

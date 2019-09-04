@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   # App
   #############################################
 
-  resources :channels, except: [:index] do
-    resources :releases, except: [:index] do # , param: :version, constraints: { version: /\d+/ }
+  resources :channels do
+    resources :releases, except: [:index], path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: 'apps' do
         resources :qrcode, only: :index
         resources :download, only: :index

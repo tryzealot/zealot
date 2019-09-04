@@ -14,6 +14,10 @@ class Channel < ApplicationRecord
   validates :name, presence: true
   validates :slug, uniqueness: true
 
+  def latest_release
+    releases.take.order(id: :desc)
+  end
+
   def recently_releases(limit = 10)
     releases.limit(limit).order(id: :desc)
   end

@@ -18,11 +18,89 @@ module AppsHelper
     DEFAULT_CHANNELS
   end
 
-  def app_icon?(release, options = {})
-    return unless release&.icon && release.icon.file && release.icon.file.exists?
+  def app_icon(release, options = {})
+    return image_tag('touch-icon-60.png', options) unless release&.icon && release.icon.file && release.icon.file.exists?
 
     size = options.delete(:size) || :thumb
     image_tag(release.icon_url(size), options)
+  end
+
+  def create_or_update_release
+    ActiveRecord::Base.transaction do
+      if new_record?
+        create_new_build
+      else
+        update_new_build
+      end
+    end
+  end
+
+  def new_record?
+    @channel.blank?
+  end
+
+  # 创建 App 并创建新版本
+  def create_new_build
+    create_release with_channel and_scheme and_app
+  end
+
+  # 使用现有 App 创建新版本
+  def update_new_build
+    message = "bundle id `#{app_info.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
+    raise TypeError, message unless @channel.bundle_id_matched? app_info.bundle_id
+
+    create_release with_updated_channel
+  end
+
+  def with_updated_channel
+    @channel.update! channel_params
+    @channel
+  end
+
+  def create_release(channel)
+    @release = channel.releases.create! release_params do |release|
+      release.bundle_id = app_info.bundle_id
+      release.release_version = app_info.release_version
+      release.build_version = app_info.build_version
+      release.release_type ||= app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
+      release.icon = File.open(app_info.icons.last[:file])
+    end
+  end
+
+  def with_channel(scheme)
+    scheme.channels.create! channel_params do |channel|
+      channel.name = app_info.os
+      channel.device_type = app_info.os
+    end
+  end
+
+  def and_scheme(app)
+    name = parse_scheme_name || '测试版'
+    app.schemes.create! name: name
+  end
+
+  def and_app
+    permitted = params.permit(:name)
+    permitted[:name] = app_info.name unless permitted.key?(:name)
+
+    App.create! permitted do |app|
+      app.user = @user
+    end
+  end
+
+  def parse_scheme_name
+    return unless app_info.os == AppInfo::Parser::Platform::IOS
+
+    case app_info.release_type
+    when AppInfo::Parser::IPA::ExportType::DEBUG
+      '开发版'
+    when AppInfo::Parser::IPA::ExportType::ADHOC
+      '测试版'
+    when AppInfo::Parser::IPA::ExportType::INHOUSE
+      '企业版'
+    when AppInfo::Parser::IPA::ExportType::RELEASE
+      '线上版'
+    end
   end
 
   # def qr_code(url)

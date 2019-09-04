@@ -66,7 +66,7 @@ class SchemesController < ApplicationController
     return unless channels = channel_value(channel)
 
     channels.each do |channel_name|
-      scheme.channels.create name: channel_name
+      scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
     end
   end
 
