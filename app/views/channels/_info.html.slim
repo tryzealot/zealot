@@ -1,5 +1,5 @@
 ruby:
-  @schemes = @channel.scheme.app.schemes
+  @schemes = @channel.scheme
 
 .col-sm-12
   .nav-tabs-custom
@@ -11,7 +11,7 @@ ruby:
     .box
       .box-header.with-border
         h3.box-title
-          = image_tag('touch-icon-60.png', class: 'img-circle')
+          = app_icon(@channel.latest_release, size: :medium, class: 'img-circle')
           .app-name
             = @title
 
