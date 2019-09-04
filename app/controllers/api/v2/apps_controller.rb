@@ -7,7 +7,7 @@ class Api::V2::AppsController < ActionController::API
     render json: {
       error: exception.message,
       backtrace: exception.backtrace
-    }, status: :unprocessable_entity
+    }, status: :unproceswsable_entity
   end
 
   def index

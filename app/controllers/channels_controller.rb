@@ -1,21 +1,22 @@
 class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_channel, except: [:index, :create, :new, :upload]
+  before_action :set_scheme, except: [:index, :show]
 
   ##
   # 查看应用详情
   # GET /apps/:slug
   def show
-    @releases = @channel.releases.page(params.fetch(:page, 1))
-                                 .per(params.fetch(:per_page, 10))
-                                 .order(id: :desc)
+    @releases = @channel.releases
+                        .page(params.fetch(:page, 1))
+                        .per(params.fetch(:per_page, 10))
+                        .order(id: :desc)
   end
 
   ##
   # 新应用页面
   # GET /apps/new
   def new
-    @scheme = Scheme.find params[:scheme_id]
     @channel = Channel.new
 
     @title = "新建#{@scheme.app_name}渠道"
@@ -86,6 +87,10 @@ class ChannelsController < ApplicationController
   # end
 
   protected
+
+  def set_scheme
+    @scheme = Scheme.find params[:scheme_id]
+  end
 
   def set_channel
     @channel = Channel.friendly.find params[:id]
