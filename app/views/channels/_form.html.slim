@@ -15,12 +15,12 @@ ruby:
         = f.error_notification
 
         = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
-        = f.input :name, hint: '渠道名称', required: true
-        = f.input :device_type, collection: Channel.device_types, prompt: "选择类型", label_method: :last, value_method: :first, selected: 0, required: true
-        = f.input :bundle_id, hint: '校验应用 bundle id（package name)，为空或 * 为不校验'
-        = f.input :git_url, hint: 'Git 项目地址'
-        = f.input :slug, hint: 'URL 的唯一标识'
-        = f.input :password, input_html: { type: 'input', value: @channel.password }, hint: '设置后对非登录用户会要求输入密码'
+        = f.input :name, required: true
+        = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: 0, required: true
+        = f.input :bundle_id
+        = f.input :git_url
+        = f.input :slug
+        = f.input :password, input_html: { type: 'input', value: @channel.password }
         - if params[:action] != 'new'
           = f.input :key, input_html: { disabled: true }
-        = f.button :submit, value: '保存'
+        = f.button :submit

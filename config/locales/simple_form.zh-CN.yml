@@ -15,6 +15,11 @@ zh-CN:
         name: '名称'
         password: '密码'
         channel: '渠道名称'
+      user:
+        username: '昵称'
+        email: '登录邮箱'
+        password: '登录密码'
+        roles: '账户权限'
       app:
         name: '应用名称'
         schemes:
@@ -29,10 +34,25 @@ zh-CN:
         slug: '唯一地址'
         password: '访问密码'
 
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
+    hints:
+      defaults:
+        channel: '应用会使用的平台'
+      user:
+        email: '创建成功后系统会给该邮箱发送确认邮件并设置密码'
+      app:
+        name: '起一个响亮亮的名称吧'
+        schemes:
+          name: '勾选预设的应用类型，后续还可以自己修改和添加'
+      scheme:
+          name: '比如开发版、内测版、线上版'
+      channel:
+        name: '可以和应用平台同名，Android 的可以是各个渠道包的名称'
+        device_type: '手机设备类型'
+        bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
+        git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
+        slug: 'URL 的唯一标识'
+        password: '设置后对非登录用户会要求输入密码'
+
     # include_blanks:
     #   defaults:
     #     age: 'Rather not say'
