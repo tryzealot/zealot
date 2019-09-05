@@ -19,9 +19,9 @@ ruby:
         = f.error_notification
 
         = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
-        = f.input :name, hint: '应用名', required: true
+        = f.input :name, required: true
         - if params[:action] == 'new'
           = f.simple_fields_for :schemes do |n|
-            = n.input :name, as: :check_boxes, collection: default_schemes, hint: "渠道", checked: default_schemes.last
-          = f.input :channel, collection: default_channels, hint: "应用会使用的平台", label_method: :name, value_method: :value, selected: 0
+            = n.input :name, as: :check_boxes, collection: default_schemes, checked: default_schemes.last
+          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
         = f.button :submit
