@@ -2,14 +2,4 @@
   = @title
 
 .row
-  .col-xs-12
-    .box
-      .box-header
-        h3.box-title
-          = @title
-        .box-tools
-          a href="#{apps_path}"
-            i.fa.fa-list-alt
-            |  返回应用
-      .box-body
-        == render 'form'
+  == render 'form'
