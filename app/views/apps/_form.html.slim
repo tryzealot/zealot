@@ -1,12 +1,19 @@
+ruby:
+  head_title, back_url = if params[:action] == 'new'
+    ['应用管理', apps_path]
+  else
+    ['返回应用', app_path(@app)]
+  end
+
 .col-xs-12
   .box
     .box-header
       h3.box-title
         = @title
       .box-tools
-        a href="#{apps_path}"
+        a href="#{back_url}"
           i.fa.fa-list-alt
-          |  应用管理
+          = " #{head_title}"
     .box-body
       = simple_form_for @app do |f|
         = f.error_notification

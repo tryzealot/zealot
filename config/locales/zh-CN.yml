@@ -144,6 +144,12 @@ zh-CN:
       app:
         create: "新增应用"
         update: "更新应用"
+      scheme:
+        create: "新增类型"
+        update: "更新类型"
+      channel:
+        create: "新增渠道"
+        update: "更新渠道"
 
   number:
     currency:

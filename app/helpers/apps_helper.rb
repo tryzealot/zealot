@@ -5,9 +5,9 @@ module AppsHelper
 
   DEFAULT_SCHEMES = %w[测试版 内测版 产品版].freeze
   DEFAULT_CHANNELS = [
+    SelectOption.new('Android 和 iOS', 'both'),
     SelectOption.new('Android', 'android'),
-    SelectOption.new('iOS', 'ios'),
-    SelectOption.new('Android 和 iOS', 'both')
+    SelectOption.new('iOS', 'ios')
   ].freeze
 
   def default_schemes
