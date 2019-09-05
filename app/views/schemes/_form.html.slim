@@ -14,7 +14,7 @@ ruby:
       = simple_form_for(@scheme, url: form_url) do |f|
         = f.error_notification
 
-        = f.input :name, hint: '应用类型，比如开发版、内测版、线上版', required: true
+        = f.input :name, required: true
         - if params[:action] == 'new'
-          = f.input :channel, collection: default_channels, hint: "应用会使用的平台", label_method: :name, value_method: :value, selected: 0
+          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
         = f.button :submit
