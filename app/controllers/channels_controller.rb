@@ -48,38 +48,32 @@ class ChannelsController < ApplicationController
   # PUT /apps/:slug/update
   def update
     rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
-    @app.update(app_params)
+    @channel.update(channel_params)
 
-    redirect_to apps_path
+    redirect_to app_path(@app)
   end
 
   ##
   # 清除应用及所属所有发型版本和上传的二进制文件
   # DELETE /apps/:slug/destroy
   def destroy
-    @app.destroy
-    @app.releases.destroy_all
+    @channel.destroy
 
-    require 'fileutils'
-    app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
-    logger.debug "Delete app all binary and icons in #{app_binary_path}"
-    FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
-
-    redirect_to apps_path
+    redirect_to app_path(@app)
   end
 
-  ##
-  # 应用密码认证
-  # GET /apps/auth
-  def auth
-    if @app.password == params[:password]
-      cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
-      redirect_to app_path(@app)
-    else
-      flash[:danger] = '密码错误，请重新输入'
-      render :show
-    end
-  end
+  # ##
+  # # 应用密码认证
+  # # GET /apps/auth
+  # def auth
+  #   if @app.password == params[:password]
+  #     cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
+  #     redirect_to app_path(@app)
+  #   else
+  #     flash[:danger] = '密码错误，请重新输入'
+  #     render :show
+  #   end
+  # end
 
   # ##
   # # 创建新的构建
