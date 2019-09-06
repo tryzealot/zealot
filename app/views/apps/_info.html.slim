@@ -1,5 +1,5 @@
 .col-xs-12
-  .box
+  .box.box-success
     .box-header.with-border
       h3.box-title
         = @app.name
@@ -31,17 +31,19 @@
             i.fa.fa-remove
             |  删除类型
       .box-body.no-padding
-        table.table.table-bordered
+        table.table
           - if scheme.channels.count > 0
             - scheme.channels.each do |channel|
               tr
                 td
                   = link_to channel.name, channel_path(channel)
-                td style="width: 70px"
+                td style="width: 170px"
                   a.btn.btn-box-tool href="#{edit_app_scheme_channel_path(@app, scheme, channel)}"
                     i.fa.fa-edit
+                    |  编辑渠道
                   a.btn.btn-box-tool href="#{app_scheme_channel_path(@app, scheme, channel)}" data-confirm="确定删除#{channel.app_name}渠道?" data-method="delete"
                     i.fa.fa-remove
+                    |  删除渠道
           - else
             tr
               td colspan="2"
