@@ -89,7 +89,7 @@ class ChannelsController < ApplicationController
   def set_channel
     @channel = Channel.friendly.find params[:id]
     @app = @channel.scheme.app
-    @title = "#{@app.name} #{@channel.scheme.name} #{@channel.name}"
+    @title = @channel.app_name
   end
 
   def channel_params
