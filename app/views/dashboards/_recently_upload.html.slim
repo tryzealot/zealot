@@ -10,6 +10,9 @@ section.recently-upload
           h3.box-title
             i.fa.fa-rss
             |  上传时间线
+          .box-tools.pull-right
+            = paginate @releases
+
         .box-body
           ul.timeline
             - unless @releases.empty?
@@ -59,6 +62,7 @@ section.recently-upload
               li.time-label
                 span
                   | 没有任何上传，快快上传吧。
-
-          - unless @releases.empty?
-            = paginate @releases
+        - unless @releases.empty?
+          .box-footer.clearfix
+            .pull-right
+              = paginate @releases

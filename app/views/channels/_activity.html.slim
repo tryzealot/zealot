@@ -2,23 +2,27 @@
   .box-header.with-border
     h3.box-title 最近上传动态
     .box-tools.pull-right
-      span style="padding-right: 8px"
-        = "1-10/200"
-      button.btn.btn-default.btn-sm type="button"
-        i.fa.fa-chevron-left
-      button.btn.btn-default.btn-sm type="button"
-        i.fa.fa-chevron-right
+      = paginate @releases
+
   .box-body
     ul.products-list.product-list-in-box
-      - @releases.each do |release|
+      - if @releases.count > 0
+        - @releases.each do |release|
+          li.item
+            .product-img
+              = app_icon(release, size: :medium, class: 'img-circle')
+            .product-info
+              a.product-title href="javascript:void(0)"
+                = link_to release.app_name, channel_release_path(release.channel, release)
+              small
+              span.label.label-warning.pull-right data-toggle="tooltip" title="#{release.created_at}"
+                = time_ago_in_words(release.created_at)
+              span.product-description
+                = "#{release.release_version} (#{release.build_version})"
+      - else
         li.item
-          .product-img
-            = app_icon(release, size: :medium, class: 'img-circle')
-          .product-info
-            a.product-title href="javascript:void(0)"
-              = link_to release.app_name, channel_release_path(release.channel, release)
-            small
-            span.label.label-warning.pull-right data-toggle="tooltip" title="#{release.created_at}"
-              = time_ago_in_words(release.created_at)
-            span.product-description
-              = "#{release.release_version} (#{release.build_version})"
+          | 还没有收到任何上传记录，赶快上传吧。
+  - if @releases.count > 0
+    .box-footer.clearfix
+      .pull-right
+        = paginate @releases
