@@ -2,4 +2,85 @@
   = @app.name
 
 .row
-  == render 'info'
+  .col-xs-12
+    .box.box-success
+      .box-header.with-border
+        h3.box-title
+          = @app.name
+      .box-body
+        section.actions
+          a.btn.btn-app href="#{new_app_scheme_path(@app)}"
+              i.fa.fa-plus-square-o
+              | 新增类型
+          a.btn.btn-app href="#{edit_app_path(@app)}"
+            i.fa.fa-edit
+            | 编辑应用
+          a.btn.btn-app href="#{app_path(@app)}" data-confirm="确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?" data-method="delete"
+            i.fa.fa-remove
+            | 删除应用
+
+        - @app.schemes.each do |scheme|
+          section id="scheme-#{scheme.id}"
+            h4
+              = scheme.name
+            .sections-actions
+              a.btn.btn-default.btn-sm href="#{new_app_scheme_channel_path(@app, scheme)}"
+                i.fa.fa-plus-square-o
+              a.btn.btn-default.btn-sm href="#{edit_app_scheme_path(@app, scheme)}"
+                i.fa.fa-edit
+              a.btn.btn-default.btn-sm href="#{app_scheme_path(@app, scheme)}" data-confirm="确定删除#{scheme.app_name}类型?" data-method="delete"
+                i.fa.fa-remove
+
+            table.table style="margin-top: 10px"
+              - if scheme.channels.count > 0
+                - scheme.channels.each do |channel|
+                  tr
+                    td
+                      = link_to channel.name, channel_path(channel)
+                    td style="width: 65px"
+                      a.btn.btn-box-tool href="#{edit_app_scheme_channel_path(@app, scheme, channel)}"
+                        i.fa.fa-edit
+                      a.btn.btn-box-tool href="#{app_scheme_channel_path(@app, scheme, channel)}" data-confirm="确定删除#{channel.app_name}渠道?" data-method="delete"
+                        i.fa.fa-remove
+              - else
+                tr
+                  td colspan="2"
+                    small
+                      | 没有发现任何渠道，选择上面&nbsp;
+                      i.fa.fa-plus-square-o
+                      |  添加新渠道。
+
+  / - @app.schemes.each do |scheme|
+  /   .col-xs-12
+  /     .box.box-default
+  /       .box-header.with-border
+  /         h3.box-title
+  /           = scheme.name
+  /         .box-tools.pull-right
+  /           a.btn.btn-default.btn-sm href="#{new_app_scheme_channel_path(@app, scheme)}"
+  /             i.fa.fa-plus-square-o
+  /           a.btn.btn-default.btn-sm href="#{edit_app_scheme_path(@app, scheme)}"
+  /             i.fa.fa-edit
+  /           a.btn.btn-default.btn-sm href="#{app_scheme_path(@app, scheme)}" data-confirm="确定删除#{scheme.app_name}类型?" data-method="delete"
+  /             i.fa.fa-remove
+  /       .box-body.no-padding
+  /         table.table
+  /           - if scheme.channels.count > 0
+  /             - scheme.channels.each do |channel|
+  /               tr
+  /                 td
+  /                   = link_to channel.name, channel_path(channel)
+  /                 td style="width: 270px"
+  /                   a.btn.btn-box-tool href="#{new_app_scheme_channel_web_hook_path(@app, scheme, channel)}"
+  /                     i.fa.fa-plus-square-o
+  /                     |  WebHook 管理
+  /                   a.btn.btn-box-tool href="#{edit_app_scheme_channel_path(@app, scheme, channel)}"
+  /                     i.fa.fa-edit
+  /                     |  编辑渠道
+  /                   a.btn.btn-box-tool href="#{app_scheme_channel_path(@app, scheme, channel)}" data-confirm="确定删除#{channel.app_name}渠道?" data-method="delete"
+  /                     i.fa.fa-remove
+  /                     |  删除渠道
+  /           - else
+  /             tr
+  /               td colspan="2"
+  /                 small 暂无渠道，点击右上角添加。

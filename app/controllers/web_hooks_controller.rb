@@ -1,49 +1,46 @@
 class WebHooksController < ApplicationController
-  before_action :set_app
+  before_action :set_channel
+  before_action :set_web_hook, only: [:test, :destroy]
 
-  # GET /apps/:slug/web_hooks
-  def index
-    @web_hooks = @app.web_hooks
-    @web_hook = WebHook.new
-  end
-
-  # POST /apps/:slug/web_hooks
-  def create
-    @web_hook = WebHook.new(web_hook_params)
-
-    if @web_hook.save
-      redirect_to web_hooks_url, notice: '网络钩子创建成功'
-    else
-      :index
-    end
-  end
-
-  # DELETE /apps/:slug/web_hooks/1
-  def destroy
-    @web_hook = WebHook.find(params[:hook_id])
-    @web_hook.destroy
-    redirect_to web_hooks_url, notice: '网络钩子已经成功删除'
-  end
-
-  # POST /apps/:slug/web_hooks/1/test
   def test
-    web_hook = WebHook.find(params[:hook_id])
     AppWebHookJob.perform_later 'upload_events', web_hook
     render json: web_hook
   end
 
+  def create
+    @web_hook = WebHook.new(web_hook_params)
+    return redirect_to_channel_url unless @web_hook.save
+
+    redirect_to_channel_url notice: '网络钩子创建成功'
+  end
+
+  def destroy
+    @web_hook.destroy
+    redirect_to_channel_url notice: '网络钩子已经成功删除'
+  end
+
   private
 
-  def set_app
-    @app =
-      if params[:slug]
-        App.friendly.find(params[:slug])
-      else
-        App.find(params[:id])
-      end
+  def set_channel
+    @channel = if params[:slug]
+                 Channel.friendly.find(params[:slug])
+               else
+                 Channel.friendly.find(params[:channel_id])
+               end
+  end
+
+  def set_web_hook
+    @web_hook = WebHook.find(params[:id])
   end
 
   def web_hook_params
-    params.require(:web_hook).permit(:app_id, :url, :upload_events, :changelog_events)
+    params.require(:web_hook).permit(
+      :channel_id, :url,
+      :upload_events, :changelog_events, :download_events
+    )
+  end
+
+  def redirect_to_channel_url(**options)
+    redirect_to channel_path(@channel), **options
   end
 end

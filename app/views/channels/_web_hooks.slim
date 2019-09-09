@@ -1,0 +1,49 @@
+.box
+  .box-header.with-border
+    h3.box-title 网络钩子
+  .box-body
+    section#add-webhooks
+      == render 'web_hooks/form'
+
+    section#webhooks-list
+      == render 'web_hooks/list'
+
+      / == render 'web_hooks/list'
+
+
+    /   h4 已启用 (2)
+
+    /   table.table
+    /     tr
+    /       td
+    /         strong https://open.feishu.cn/open-apis/bot/hook/63b9da5d24144929af226c8969b4904f
+    /         p
+    /           span.label.bg-gray
+    /             | Uplaod Events
+    /           span.label.bg-gray
+    /             | Changelog Events
+    /       td style="width: 115px"
+    /         a.btn.btn-default.btn-sm href="#"
+    /           i.fa.fa-plus-square-o
+    /         a.btn.btn-default.btn-sm href="#"
+    /           i.fa.fa-edit
+    /         a.btn.btn-default.btn-sm href="#" data-confirm="确定删除类型?" data-method="delete"
+    /           i.fa.fa-remove
+
+    / ul.products-list.product-list-in-box
+    /   - if @channel.web_hooks.count > 0
+    /     - @releases.each do |release|
+    /       li.item
+    /         .product-img
+    /           = app_icon(release, size: :medium, class: 'img-circle')
+    /         .product-info
+    /           a.product-title href="javascript:void(0)"
+    /             = link_to release.app_name, channel_release_path(release.channel, release)
+    /           small
+    /           span.label.label-warning.pull-right data-toggle="tooltip" title="#{release.created_at}"
+    /             = time_ago_in_words(release.created_at)
+    /           span.product-description
+    /             = "#{release.release_version} (#{release.build_version})"
+    /   - else
+    /     li.item
+    /       | 还没有收到任何上传记录，赶快上传吧。

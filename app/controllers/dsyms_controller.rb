@@ -2,19 +2,16 @@ class DsymsController < ApplicationController
   before_action :set_dsym, only: [:show, :edit, :update, :destroy]
   before_action :set_app_list, only: [:new, :create]
 
-  # GET /dsyms
   def index
     @title = 'dSYM 列表'
     @dsyms = Dsym.all.order(id: :desc)
   end
 
-  # GET /dsyms/new
   def new
     @title = '上传 dSYM 文件'
     @dsym = Dsym.new
   end
 
-  # POST /dsyms
   def create
     @title = '上传 dSYM 文件'
     @dsym = Dsym.new(dsym_params)
@@ -26,7 +23,6 @@ class DsymsController < ApplicationController
     end
   end
 
-  # DELETE /dsyms/1
   def destroy
     @dsym.destroy
     redirect_to dsyms_url, notice: 'dSYM 删除成功'
