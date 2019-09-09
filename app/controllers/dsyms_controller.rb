@@ -46,8 +46,6 @@ class DsymsController < ApplicationController
   end
 
   def set_app_list
-    @apps = App.where(device_type: 'iOS')
-               .where("identifier NOT LIKE '%inhouse%'")
-               .where("identifier NOT LIKE '%adhoc%'")
+    @apps = App.all
   end
 end
