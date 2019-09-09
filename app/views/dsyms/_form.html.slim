@@ -1,7 +1,7 @@
 = simple_form_for(@dsym) do |f|
   = f.error_notification
 
-  = f.input :app_id, label: '应用', prompt: '请选择应用', collection: @apps, label_method: :identifier,
+  = f.input :app_id, label: '应用', prompt: '请选择应用', collection: @apps, label_method: :name,
     required: true, error: '请选择要上传对于的应用'
 
   = f.input :release_version, label: '外部版本号', placeholder: '7.10', required: true
