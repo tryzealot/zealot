@@ -142,14 +142,17 @@ zh-CN:
       submit: 储存%{model}
       update: 更新%{model}
       app:
-        create: "新增应用"
-        update: "更新应用"
+        create: 新增应用
+        update: 更新应用
       scheme:
-        create: "新增类型"
-        update: "更新类型"
+        create: 新增类型
+        update: 更新类型
       channel:
-        create: "新增渠道"
-        update: "更新渠道"
+        create: 新增渠道
+        update: 更新渠道
+      web_hook:
+        create: 新增网络钩子
+        update: 更新网络钩子
 
   number:
     currency:

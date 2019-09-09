@@ -7,42 +7,39 @@ class AppWebHookJob < ApplicationJob
 
   def perform(event, web_hook)
     @web_hook = web_hook
-    @app = @web_hook.app
-    @release = @app.releases.last
+    @channel = @web_hook.channel
+    @release = @channel.releases.last
 
     logger.info(log_message("trigger event: #{event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
 
-    detect_service(web_hook)
+    send_request
   end
-
-  def detect_service(web_hook)
-    case web_hook.url
-    when /bearychat/i
-      request_bearychat
-    end
-  end
-
   private
 
-  def log_message(message)
-    "[App] #{@app.id} #{message}"
-  end
-
-  def request_url
-    r = HTTP.get(@web_hook.url)
-    logger.info(log_message('trigger successfully')) if r.code == 200
-  rescue HTTP::Error => e
-    logger.error(log_message("trigger fail: #{e}"))
-  end
-
-  def request_bearychat
+  def send_request
     r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, json: request_bearychat_params)
-
+            .post(@web_hook.url, json: commom_params)
     logger.info(log_message('trigger successfully')) if r.code == 200
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
+  end
+
+  def commom_params
+    {
+      text: "[#{@channel.app_name}](#{app_url}) - [##{@release.version}](#{release_url}) 发布于#{@release.created_at}",
+      attachments: [
+        {
+          title: description,
+          text: @release.changelog_list,
+          images: [
+            {
+              url: "#{app_url}/#{@release.version}/qrcode"
+            }
+          ]
+        }
+      ]
+    }
   end
 
   def app_url
@@ -74,21 +71,7 @@ class AppWebHookJob < ApplicationJob
     ].join(' / ')
   end
 
-  def request_bearychat_params
-    {
-      text: "[#{@app.name}](#{app_url}) - [##{@release.version}](#{release_url}) 发布于#{@release.created_at}",
-      attachments: [
-        {
-          title: description,
-          text: @release.plain_text_changelog,
-          color: '#FFA500',
-          images: [
-            {
-              url: "#{app_url}/#{@release.version}/qrcode"
-            }
-          ]
-        }
-      ]
-    }
+  def log_message(message)
+    "[Channel] #{@channel.id} #{message}"
   end
 end
