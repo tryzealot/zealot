@@ -3,23 +3,27 @@ Rails.application.routes.draw do
   # App
   #############################################
 
-  resources :channels, only: [:index, :show] do
-    resources :releases, except: [:index], path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
+  resources :channels, only: %i[index show] do
+    resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: 'apps' do
         resources :qrcode, only: :index
         resources :download, only: :index
       end
-      # get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
     end
   end
 
   resources :apps do
     resources :schemes do
-      resources :channels, except: [:index, :show]
+      resources :channels, except: %i[index show] do
+        resources :web_hooks, only: %i[new create destroy] do
+          member do
+            post :test
+          end
+        end
+      end
     end
 
-    member do
-
+    # member do
       # get :auth
       # scope '(:version)', version: /\d+/ do
       #   get :show, as: ''
@@ -36,7 +40,7 @@ Rails.application.routes.draw do
       #   # resources :changelogs, only: %i[edit update]
       #   resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
       # end
-    end
+    # end
   end
 
   # resources :channels, path: '/', param: :slug, constraints: { slug: /(?!new)\w+/ }
