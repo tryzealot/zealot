@@ -1,30 +1,22 @@
 class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_channel, except: [:index, :create, :new, :upload]
+  before_action :set_channel, only: [:show, :edit, :destroy]
   before_action :set_scheme, except: [:index, :show]
 
-  ##
-  # 查看应用详情
-  # GET /apps/:slug
   def show
+    @web_hook = @channel.web_hooks.new
     @releases = @channel.releases
                         .page(params.fetch(:page, 1))
                         .per(params.fetch(:per_page, 10))
                         .order(id: :desc)
   end
 
-  ##
-  # 新应用页面
-  # GET /apps/new
   def new
     @channel = Channel.new
 
     @title = "新建#{@scheme.app_name}渠道"
   end
 
-  ##
-  # 创建新应用
-  # POST /apps/create
   def create
     @channel = Channel.new(channel_params)
 
@@ -35,27 +27,18 @@ class ChannelsController < ApplicationController
     end
   end
 
-  ##
-  # 编辑应用页面
-  # GET /apps/:slug/edit
   def edit
-    @title = '编辑应用'
-    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    @title = "编辑#{@scheme.app_name}渠道"
+    raise ActionController::RoutingError, '这里没有你找的东西' unless @app
   end
 
-  ##
-  # 更新应用
-  # PUT /apps/:slug/update
   def update
-    rails ActionController::RoutingError.new('这里没有你找的东西') unless @app
-    @channel.update(channel_params)
+    raise ActionController::RoutingError, '这里没有你找的东西' unless @app
 
+    @channel.update(channel_params)
     redirect_to app_path(@app)
   end
 
-  ##
-  # 清除应用及所属所有发型版本和上传的二进制文件
-  # DELETE /apps/:slug/destroy
   def destroy
     @channel.destroy
 
@@ -75,11 +58,6 @@ class ChannelsController < ApplicationController
   #   end
   # end
 
-  # ##
-  # # 创建新的构建
-  # def build
-  # end
-
   protected
 
   def set_scheme
@@ -90,6 +68,7 @@ class ChannelsController < ApplicationController
     @channel = Channel.friendly.find params[:id]
     @app = @channel.scheme.app
     @title = @channel.app_name
+    @subtitle = "#{@app.schemes.count} 种类型共 #{@channel.scheme.channels.count} 个渠道"
   end
 
   def channel_params

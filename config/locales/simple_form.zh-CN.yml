@@ -33,6 +33,11 @@ zh-CN:
         git_url: 'Git URL'
         slug: '唯一地址'
         password: '访问密码'
+      web_hook:
+        url: 'URL'
+        upload_events: '上传事件'
+        download_events: '下载事件'
+        changelog_events: '日志变更事件'
 
     hints:
       defaults:
@@ -52,6 +57,10 @@ zh-CN:
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
+
+    placeholders:
+      web_hook:
+        url: 'http://example.com/web-hooks'
 
     # include_blanks:
     #   defaults:
