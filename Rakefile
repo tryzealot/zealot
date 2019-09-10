@@ -21,6 +21,31 @@ namespace :test do
     r.save validate: false
   end
 
+  task body: :environment do
+    @release = Release.take
+    j = eval "{ app_name: @release.app_name }"
+    puts j
+    # j.each do |item|
+    #   case item
+    #   when Hash
+    #     item
+    #   when Array
+    #   end
+    # end
+
+
+    # @release = Release.take
+    # puts '{"app_name":":app_name:","changelog":":changelog:"}'.gsub(':app_name:', @release.app_name)
+    # .gsub(':version:', @release.version.to_s)
+    # .gsub(':release_version:', @release.release_version)
+    # .gsub(':build_version:', @release.build_version)
+    # .gsub(':bundle_id:', @release.bundle_id)
+    # .gsub(':size:', @release.size.to_s)
+    # .gsub(':changelog:', @release.changelog)
+    # .gsub(':device_type', @release.channel.device_type)
+    # .gsub(':install_url:', @release.install_url)
+  end
+
   task env: :environment do
     ENV.each do |k, v|
       puts "#{k} = #{v}"

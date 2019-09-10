@@ -35,6 +35,7 @@ zh-CN:
         password: '访问密码'
       web_hook:
         url: 'URL'
+        body: '自定义消息体'
         upload_events: '上传事件'
         download_events: '下载事件'
         changelog_events: '日志变更事件'
@@ -57,11 +58,22 @@ zh-CN:
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
-
+      web_hook:
+        body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
     placeholders:
       web_hook:
         url: 'http://example.com/web-hooks'
-
+        body: |
+          {
+            name: @release.app_name,
+            device_type: @release.device_type,
+            release_version: @release.release_version,
+            build_version: @release.build_version,
+            size: @release.size,
+            changelog: @release.changelog,
+            install_url: @release.install_url,
+            icon_url: @release.icon_url,
+          }
     # include_blanks:
     #   defaults:
     #     age: 'Rather not say'

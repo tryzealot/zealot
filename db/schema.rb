@@ -152,9 +152,10 @@ ActiveRecord::Schema.define(version: 2019_07_17_093259) do
   create_table "web_hooks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "channel_id"
     t.string "url"
-    t.integer "upload_events"
-    t.integer "download_events"
-    t.integer "changelog_events"
+    t.text "body"
+    t.integer "upload_events", limit: 1
+    t.integer "download_events", limit: 1
+    t.integer "changelog_events", limit: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["channel_id"], name: "index_web_hooks_on_channel_id"
