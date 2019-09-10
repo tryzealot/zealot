@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         resources :qrcode, only: :index
         resources :download, only: :index
       end
+
+      member do
+        post :auth
+      end
     end
   end
 
