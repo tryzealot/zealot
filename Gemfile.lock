@@ -166,6 +166,8 @@ GEM
     image_size (1.5.0)
     interception (0.5)
     jaro_winkler (1.5.3)
+    jb (0.7.0)
+      multi_json
     jenkins_api_client (1.5.3)
       json (>= 1.0)
       mixlib-shellout (>= 1.1.0)
@@ -426,6 +428,7 @@ DEPENDENCIES
   guard-rails
   guard-sidekiq
   http
+  jb
   jenkins_api_client
   kaminari
   letter_opener

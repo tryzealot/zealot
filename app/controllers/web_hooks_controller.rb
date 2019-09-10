@@ -3,8 +3,8 @@ class WebHooksController < ApplicationController
   before_action :set_web_hook, only: [:test, :destroy]
 
   def test
-    AppWebHookJob.perform_later 'upload_events', web_hook
-    render json: web_hook
+    AppWebHookJob.perform_later 'upload_events', @web_hook
+    redirect_to_channel_url notice: '网络钩子请求测试已发送'
   end
 
   def create

@@ -41,6 +41,10 @@ class Release < ApplicationRecord
     "#{app.name} #{channel.name} #{scheme.name}"
   end
 
+  def device_type
+    channel.device_type
+  end
+
   def short_git_commit
     return nil if git_commit.blank?
 
@@ -73,6 +77,14 @@ class Release < ApplicationRecord
       protocol: Rails.env.development? ? 'http' : 'https'
     )
     "itms-services://?action=download-manifest&url=#{download_url}"
+  end
+
+  def release_url
+    channel_release_url channel, self
+  end
+
+  def qrcode_url(size = :thumb)
+    channel_release_qrcode_index_url channel, self, size: size
   end
 
   def file_extname

@@ -22,6 +22,7 @@ gem 'rack-cors', '~> 1.0.3'
 gem 'multi_xml'
 ## 模板引擎
 gem 'slim-rails', '~> 3.2.0'
+gem 'jb'
 ## 表单生成
 gem 'simple_form', '~> 4.1'
 
