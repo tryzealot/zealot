@@ -90,8 +90,13 @@ class Api::V2::Apps::UploadController < Api::BaseController
       release.release_version = app_info.release_version
       release.build_version = app_info.build_version
       release.release_type ||= app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
-      release.icon = File.open(app_info.icons.last[:file])
+      release.icon = decode_icon app_info.icons.last[:file]
     end
+  end
+
+  def decode_icon(icon_file)
+    Pngdefry.defry icon_file, icon_file
+    File.open icon_file
   end
 
   def with_channel(scheme)
