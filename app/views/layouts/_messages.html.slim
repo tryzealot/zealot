@@ -1,11 +1,10 @@
-/ Rails flash messages styled for Bootstrap 3.0
 - flash.each do |name, msg|
   - if msg.is_a?(String)
-    .alert.alert-dismissible class="alert-#{name.to_s == 'notice' ? 'info' : 'danger'}"
+    .alert.alert-dismissible class="alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"
       button.close data-dismiss="alert" aria-hidden="true"
         | ×
       h4
         i.icon.fa class="fa-#{name.to_s == 'notice' ? 'check' : 'warning'}"
         = content_tag :span, msg, :id => "flash_#{name}"
   - else
-    .callout class="callout-#{name.to_s == 'notice' ? 'info' : 'danger'}"
+    .callout class="callout-#{name.to_s == 'notice' ? 'success' : 'danger'}"
