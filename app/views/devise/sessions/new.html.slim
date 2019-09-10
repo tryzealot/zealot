@@ -1,24 +1,30 @@
 - content_for :title do
   | 用户登录
 
-.login-box-body
-  p.login-box-msg 用户登录
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
-    = devise_error_messages!
+.login-box
+  .login-box-body
+    p.login-box-msg 用户登录
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f|
+      = devise_error_messages!
+      == render 'layouts/messages'
 
-    .form-group.has-feedback
-      = f.email_field :email, :autofocus => true, class: 'form-control', placeholder: '电子邮箱'
-      span.glyphicon.glyphicon-envelope.form-control-feedback
-    .form-group.has-feedback
-      = f.password_field :password, class: 'form-control', placeholder: '********'
-      span.glyphicon.glyphicon-lock.form-control-feedback
-    .row
-      .col-xs-8
-        .checkbox.icheck style="padding-left: 20px"
-          = f.check_box :remember_me
-          | 记住我
-      .col-xs-4
-        button.btn.btn-primary.btn-block.btn-flat type="submit" 登录
-    .row
-      .col-xs-8
-        = link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path
+      .form-group.has-feedback
+        = f.email_field :email, :autofocus => true, class: 'form-control', placeholder: '电子邮箱'
+        span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password, class: 'form-control', placeholder: '********'
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+          .checkbox.icheck style="padding-left: 20px"
+            = f.check_box :remember_me
+            | 记住我
+        .col-xs-4
+          button.btn.btn-primary.btn-block.btn-flat type="submit" 登录
+
+    .social-auth-links.text-center
+      p - 或者 -
+      a.btn.btn-block.btn-social.btn-google.btn-flat href="#{user_google_oauth2_omniauth_authorize_path}"
+        i.fa.fa-google
+        | 使用 Google 账号登录
+    = link_to "忘记密码", user_google_oauth2_omniauth_authorize_path

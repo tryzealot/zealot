@@ -1,5 +1,5 @@
 class SchemesController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!
   before_action :set_scheme, except: [:index, :create, :new]
   before_action :set_app
 

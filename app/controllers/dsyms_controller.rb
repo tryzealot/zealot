@@ -1,4 +1,5 @@
 class DsymsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_dsym, only: [:show, :edit, :update, :destroy]
   before_action :set_app_list, only: [:new, :create]
 

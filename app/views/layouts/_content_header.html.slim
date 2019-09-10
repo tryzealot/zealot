@@ -4,6 +4,6 @@ ruby:
 section.content-header
   h1 = yield :section_title
 
-  - if breadcrumb
+  - unless breadcrumb.blank?
     ol.breadcrumb
       = breadcrumb
