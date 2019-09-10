@@ -1,4 +1,5 @@
 class WebHooksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_channel
   before_action :set_web_hook, only: [:test, :destroy]
 

@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :auth]
+  before_action :authenticate_user!
   before_action :set_app, except: [:index, :create, :new, :upload]
   before_action :fetch_apps, only: [:index]
 
