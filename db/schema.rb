@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_093259) do
+ActiveRecord::Schema.define(version: 2019_07_17_063420) do
 
   create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id"
@@ -40,11 +40,10 @@ ActiveRecord::Schema.define(version: 2019_07_17_093259) do
 
   create_table "dsyms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "app_id"
-    t.string "bundle_id"
     t.string "release_version"
     t.string "build_version"
     t.string "file"
-    t.string "file_hash"
+    t.string "checksum"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["app_id"], name: "index_dsyms_on_app_id"
