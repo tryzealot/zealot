@@ -60,7 +60,6 @@ gem 'sinatra', '~> 2.0.5', require: false
 gem 'settingslogic'
 
 # Assets
-gem 'font-awesome-rails', '~> 4.7.0'
 # gem 'js-routes'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
