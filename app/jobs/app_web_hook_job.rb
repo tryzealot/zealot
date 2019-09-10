@@ -12,34 +12,45 @@ class AppWebHookJob < ApplicationJob
 
     logger.info(log_message("trigger event: #{event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
+    logger.info(log_message("trigger json body: #{json_body}"))
 
     send_request
   end
+
   private
 
   def send_request
     r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, json: commom_params)
+            .post(@web_hook.url, body: json_body)
     logger.info(log_message('trigger successfully')) if r.code == 200
+    logger.debug("trigger response body: #{r.body}")
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
-  def commom_params
-    {
-      text: "[#{@channel.app_name}](#{app_url}) - [##{@release.version}](#{release_url}) 发布于#{@release.created_at}",
-      attachments: [
-        {
-          title: description,
-          text: @release.changelog_list,
-          images: [
-            {
-              url: "#{app_url}/#{@release.version}/qrcode"
-            }
-          ]
-        }
-      ]
-    }
+  def json_body
+    return format_body unless @web_hook.body.blank?
+
+    WebHooks::PushSerializer.new(@channel).to_json
+  end
+
+  def format_body
+    ApplicationController.render inline: @web_hook.body,
+                                 type: :jb,
+                                 assigns: {
+                                   name: @release.app_name,
+                                   device_type: @channel.device_type,
+                                   release_version: @release.release_version,
+                                   build_version: @release.build_version,
+                                   bundle_id: @release.bundle_id,
+                                   changelog: @release.changelog,
+                                   file_size: @release.size,
+                                   app_url: @release.release_url,
+                                   install_url: @release.install_url,
+                                   icon_url: @release.icon_url(:medium),
+                                   qrcode_url: @release.qrcode_url,
+                                   created_at: @release.created_at
+                                 }
   end
 
   def app_url
