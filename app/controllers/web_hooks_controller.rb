@@ -35,7 +35,7 @@ class WebHooksController < ApplicationController
 
   def web_hook_params
     params.require(:web_hook).permit(
-      :channel_id, :url,
+      :channel_id, :url, :body,
       :upload_events, :changelog_events, :download_events
     )
   end
