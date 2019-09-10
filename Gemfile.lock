@@ -113,8 +113,6 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
-    font-awesome-rails (4.7.0.5)
-      railties (>= 3.2, < 6.1)
     formatador (0.2.5)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
@@ -419,7 +417,6 @@ DEPENDENCIES
   chronic
   devise (~> 4.7.0)
   exception_handler (~> 0.8.0)
-  font-awesome-rails (~> 4.7.0)
   friendly_id
   graphiql-rails (~> 1.7.0)
   graphql (~> 1.9.10)
