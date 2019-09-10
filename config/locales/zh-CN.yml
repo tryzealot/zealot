@@ -153,6 +153,8 @@ zh-CN:
       web_hook:
         create: 新增网络钩子
         update: 更新网络钩子
+      dsym:
+        create: 上传 DSYM
 
   number:
     currency:
