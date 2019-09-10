@@ -1,13 +1,25 @@
 - content_for :title do
   = @title
 
-.row
-  .col-md-9
-    = render 'releases/body/metadata'
-    = render 'releases/body/changelog'
-    = render 'releases/body/activity'
+- if logged_in_or_without_auth?(@release)
+  .row
+    .col-md-9
+      = render 'releases/body/metadata'
+      = render 'releases/body/changelog'
+      = render 'releases/body/activity'
 
-  .col-md-3
-    = render 'releases/sidebar/qrcode'
-    = render 'releases/sidebar/devices'
-    = render 'releases/sidebar/version'
+    .col-md-3
+      = render 'releases/sidebar/qrcode'
+      = render 'releases/sidebar/devices'
+      = render 'releases/sidebar/version'
+- else
+  .login-box
+    .login-box-body
+      .login-box-msg 访问密码
+      form.form action="#{auth_channel_release_path(@channel, @release)}" method="post" role="form"
+        .input-group.input-group
+          span.input-group-addon
+            i.fa.fa-key
+          input.form-control name="password" placeholder='******' type="password"
+          span.input-group-btn
+            button.btn.btn-danger.btn-flat 验证
