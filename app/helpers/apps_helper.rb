@@ -25,6 +25,26 @@ module AppsHelper
     image_tag(release.icon_url(size), options)
   end
 
+  def app_release_auth_key(release)
+    "app_release_#{release.id}_auth"
+  end
+
+  def logged_in_or_without_auth?(release)
+    user_signed_in? || matched_password?(release)
+  end
+
+  def matched_password?(release)
+    channel = release.channel
+    password = channel.password
+    return false if password.blank?
+
+    cookies[app_release_auth_key(release)] == encode_password(channel)
+  end
+
+  def encode_password(channel)
+    Digest::MD5.hexdigest(channel.password)
+  end
+
   def create_or_update_release
     ActiveRecord::Base.transaction do
       if new_record?

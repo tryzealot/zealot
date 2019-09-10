@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!
   before_action :set_channel, only: [:show, :edit, :destroy]
   before_action :set_scheme, except: [:index, :show]
 
@@ -44,19 +44,6 @@ class ChannelsController < ApplicationController
 
     redirect_to app_path(@app)
   end
-
-  # ##
-  # # 应用密码认证
-  # # GET /apps/auth
-  # def auth
-  #   if @app.password == params[:password]
-  #     cookies[:auth] = { value: Digest::MD5.hexdigest(@app.password), expires: Time.zone.now + 1.week }
-  #     redirect_to app_path(@app)
-  #   else
-  #     flash[:danger] = '密码错误，请重新输入'
-  #     render :show
-  #   end
-  # end
 
   protected
 
