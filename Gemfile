@@ -69,7 +69,7 @@ gem 'webpacker', '~> 4.0'
 gem 'app-info', '~> 1.0.4', require: false
 
 # 异常处理
-gem 'exception_handler', '~> 0.7.0'
+gem 'exception_handler', '~> 0.8.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
