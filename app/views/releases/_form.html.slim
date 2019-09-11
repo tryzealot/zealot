@@ -1,0 +1,14 @@
+= simple_form_for(@release, url: channel_releases_path(@channel)) do |f|
+  = f.error_notification
+
+  / = f.input :channel_id, as: :hidden, input_html: { value: @channel.id }
+  = f.input :file
+  = f.input :changelog
+
+  = f.input :release_type
+  = f.input :source, input_html: { value: 'Web' }
+  = f.input :branch
+  = f.input :git_commit
+  = f.input :ci_url
+
+  = f.button :submit, value: '保存'

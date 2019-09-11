@@ -1,0 +1,30 @@
+.col-xs-12
+  .box
+    .box-header
+      h3.box-title
+        i.fa.fa-adn
+        |  应用列表
+      .box-tools
+        a href="#{new_app_path}"
+          i.fa.fa-plus-square-o
+          |  新建应用
+    #apps-list.box-body
+      - @apps.each_with_index do |app, i|
+        .app.col-md-3
+          .box.box-widget.widget-user-2
+            .widget-user-header.bg-yellow
+              .widget-user-image
+                = app_icon(app.recently_release, size: :medium, class: 'app-icon img-circle')
+
+              h3.widget-user-username
+                = link_to app.name, app_path(app), style: "color: white"
+              h5.widget-user-desc
+                = "渠道数: #{app.schemes.count}"
+            .box-footer.no-padding
+              ul.nav.nav-stacked
+                - app.schemes.each do |scheme|
+                  li
+                    a href="#{app_scheme_path(app, scheme)}"
+                      = scheme.name
+                      span.pull-right.badge.bg-blue
+                        = scheme.total_releases

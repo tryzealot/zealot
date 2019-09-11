@@ -2,26 +2,52 @@ Rails.application.routes.draw do
   #############################################
   # App
   #############################################
-  resources :apps, param: :slug, constraints: { slug: /(?!new)\w+/ }, except: %i[show] do
-    member do
-      get :auth
-      scope '(:version)', version: /\d+/ do
-        get :show, as: ''
-        get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
+
+  resources :channels, only: %i[index show] do
+    resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
+      scope module: 'apps' do
+        resources :qrcode, only: :index
+        resources :download, only: :index
       end
 
-      resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
-        member do
-          post :test
-        end
-      end
-
-      scope module: 'apps', as: 'app' do
-        # resources :changelogs, only: %i[edit update]
-        resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
+      member do
+        post :auth
       end
     end
   end
+
+  resources :apps do
+    resources :schemes do
+      resources :channels, except: %i[index show] do
+        resources :web_hooks, only: %i[new create destroy] do
+          member do
+            post :test
+          end
+        end
+      end
+    end
+
+    # member do
+      # get :auth
+      # scope '(:version)', version: /\d+/ do
+      #   get :show, as: ''
+      #   get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
+      # end
+
+      # resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
+      #   member do
+      #     post :test
+      #   end
+      # end
+
+      # scope module: 'apps', as: 'app' do
+      #   # resources :changelogs, only: %i[edit update]
+      #   resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
+      # end
+    # end
+  end
+
+  # resources :channels, path: '/', param: :slug, constraints: { slug: /(?!new)\w+/ }
 
   #############################################
   # User
@@ -33,13 +59,11 @@ Rails.application.routes.draw do
     patch 'active/:token', to: 'activations#update'
   end
 
-  authenticate :user do
+  authenticate :user, lambda { |u| u.admin? } do
     require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
 
-    if Rails.env.development?
-      mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
-    end
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql', as: :graphql
   end
 
   #############################################
@@ -49,6 +73,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       namespace :apps do
         post 'upload', to: 'upload#create'
+
         get 'latest', to: 'latest#show'
         get 'versions', to: 'versions#index'
         get 'versions/(:release_version)', to: 'versions#show'
@@ -59,10 +84,6 @@ Rails.application.routes.draw do
         delete ':id', action: :destroy
         get '', action: :index
       end
-
-      # namespace :pacs do
-      #   post 'update', to: 'update#create'
-      # end
 
       namespace :jenkins do
         get 'projects', to: 'projects#index'
@@ -83,12 +104,6 @@ Rails.application.routes.draw do
   #############################################
   # dSYM 管理
   resources :dsyms, except: [:show, :edit, :update]
-
-  # # 自动代理
-  # resources :pacs
-
-  # # Deep Links
-  # resources :deep_links, except: [:show]
 
   root to: 'dashboards#index'
 end

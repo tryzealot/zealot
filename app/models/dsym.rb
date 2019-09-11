@@ -3,14 +3,14 @@ class Dsym < ApplicationRecord
 
   belongs_to :app
 
-  before_validation :generate_file_hash
-
   validates :app_id, :release_version, :build_version, :file, presence: true
-  validates_uniqueness_of :file_hash, :on => :create
+  validates_uniqueness_of :checksum, on: :create
+
+  before_validation :generate_checksum
 
   private
 
-  def generate_file_hash
-    self.file_hash = file.md5
+  def generate_checksum
+    self.checksum = file.checksum
   end
 end

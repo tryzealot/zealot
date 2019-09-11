@@ -1,0 +1,23 @@
+ruby:
+  releases = @release.channel.recently_releases
+
+- if releases.size > 0
+  .box
+    .box-header.with-border
+      i.fa.fa-history
+      h3.box-title 最近 10 次上传
+    .box-body.no-padding
+      ul.timeline
+        - releases.each do |release|
+          li
+            i.fa.fa-apple.bg-black
+            .timeline-item
+              span.time
+                i.fa.fa-clock-o
+                = time_ago_in_words(release.created_at)
+              h3.timeline-header
+                = link_to release.app_name, channel_release_path(@release.channel, release)
+                = " 上传了新版本 #{release.release_version} (#{release.build_version})"
+              - unless release.changelog.blank?
+                .timeline-body
+                  = changelog_format release.changelog_list

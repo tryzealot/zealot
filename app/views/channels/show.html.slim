@@ -1,0 +1,25 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+  small
+    = @subtitle
+
+- content_for :section_breadcrumb do
+    li
+      a href="#"
+        i.fa.fa-dashboard
+        | 控制台
+    li.active 应用管理
+
+.row
+  .col-md-9
+    == render 'activity'
+    == render 'web_hooks'
+  .col-md-3
+    / a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
+    == render 'schemes'
+    == render 'channels'
+    == render 'versions'
+    a.btn.btn-success.btn-block.margin-bottom href="#{app_path(@channel.app)}" 应用管理

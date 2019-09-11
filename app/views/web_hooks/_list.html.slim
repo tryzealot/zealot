@@ -1,24 +1,55 @@
-.col-xs-12
-  .box
-    .box-header
-      h3.box-title
-        | 启用钩子列表(
-        = @app.web_hooks.count
-        | )
-    .box-body.table-responsive.no-padding
-      table.table
-        - @app.web_hooks.each do |hook|
-          tr
-            td
-              .pull-right
-                a.btn.btn-sm.btn-default.btn-grouped data-method="post" rel="nofollow" href="#{test_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 测试
-                a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
-              .clearfix
-                = hook.url
-              p
-                - if hook.upload_events == 1
-                  span.label.bg-gray
-                    | Uplaod Events
-                - if hook.changelog_events == 1
-                  span.label.bg-gray
-                    | Changelog Events
+h4
+  | 已启用 (
+  = @channel.web_hooks.count
+  | )
+- if @channel.web_hooks.count > 0
+  table.table
+    - @channel.web_hooks.all.each do |web_hook|
+      tr
+        td
+          strong
+            = web_hook.url
+          p
+            - if web_hook.upload_events == 1
+              span.label.bg-light-gray
+                | 上传事件
+            - if web_hook.download_events == 1
+              span.label.bg-light-gray
+                | 下载事件
+            - if web_hook.changelog_events == 1
+              span.label.bg-light-gray
+                | 日志变更事件
+        td style="width: 110px"
+          a.btn.btn-sm.btn-default.btn-grouped data-method="post" rel="nofollow" href="#{test_app_scheme_channel_web_hook_path(@app, @channel.scheme, @channel, web_hook)}" 测试
+          a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{app_scheme_channel_web_hook_path(@app, @channel.scheme, @channel, web_hook)}" 删除
+
+- else
+  small 还没有添加网络钩子。
+
+
+
+
+/ .col-xs-12
+/   .box
+/     .box-header
+/       h3.box-title
+/         | 启用钩子列表(
+/         = @channel.web_hooks.count
+/         | )
+/     .box-body.table-responsive.no-padding
+/       table.table
+/         - @channel.web_hooks.each do |hook|
+/           tr
+/             td
+/               .pull-right
+/                 a.btn.btn-sm.btn-default.btn-grouped data-method="post" rel="nofollow" href="#{test_web_hook_path(slug: @app.slug, hook_id: hook.id)}" 测试
+/                 a.btn.btn-sm.btn-danger.btn-grouped data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{web_hook_path(slug: @app.slug, hook_id: hook.id)}" 删除
+/               .clearfix
+/                 = hook.url
+/               p
+/                 - if hook.upload_events == 1
+/                   span.label.bg-gray
+/                     | Uplaod Events
+/                 - if hook.changelog_events == 1
+/                   span.label.bg-gray
+/                     | Changelog Events

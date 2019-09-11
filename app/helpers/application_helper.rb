@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  ##
+  RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
+
+  def random_color
+    "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
+  end
+
   # 激活 li 的 class
   def active_class(link_path = nil)
     if link_path
@@ -13,6 +18,14 @@ module ApplicationHelper
     else
       ''
     end
+  end
+
+  def changelog_format(changelog)
+    raw = changelog.each_with_object([]) do |line, obj|
+      obj << "- #{line['message']}"
+    end.join("\n")
+
+    simple_format raw
   end
 
   # 获取浏览器 user agent

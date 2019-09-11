@@ -1,0 +1,15 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title
+          = @title
+        .box-tools
+          a href="#{channel_path(@channel)}"
+            i.fa.fa-list-alt
+            |  返回#{@channel.app_name}
+      .box-body
+        == render 'form'

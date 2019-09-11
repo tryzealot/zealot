@@ -10,45 +10,12 @@ header.main-header
         span.sr-only Toggle navigation
       .navbar-custom-menu
         ul.nav.navbar-nav
-          / li.dropdown.notifications-menu
-          /   a.dropdown-toggle data-toggle="dropdown" href="#"
-          /     i.fa.fa-bell-o
-          /     span.label.label-warning 10
-          /   ul.dropdown-menu
-          /     li.header You have 10 notifications
-          /     li
-          /       /! inner menu: contains the actual data
-          /       ul.menu
-          /         li
-          /           a href="#"
-          /             i.fa.fa-users.text-aqua
-          /             | 5 new members joined today
-          /         li
-          /           a href="#"
-          /             i.fa.fa-warning.text-yellow
-          /             | Very long description here that may not fit into the
-          /             | page and may cause design problems
-          /         li
-          /           a href="#"
-          /             i.fa.fa-users.text-red
-          /             | 5 new members joined
-          /         li
-          /           a href="#"
-          /             i.fa.fa-shopping-cart.text-green
-          /             | 25 sales made
-          /         li
-          /           a href="#"
-          /             i.fa.fa-user.text-red
-          /             | You changed your username
-          /     li.footer
-          /       a href="#"  View all
           li.dropdown.user.user-menu
             a.dropdown-toggle data-toggle="dropdown" href="#"
               img.user-image alt="User Image" src="#{image_url('default-user.png')}"
               span.hidden-xs
-                = current_user.name
+                = current_user.username
             ul.dropdown-menu
-
                 li.user-header
                   img.img-circle alt="用户头像" src="#{image_url('default-user.png')}"
                   p
@@ -61,8 +28,6 @@ header.main-header
                   .pull-right
                     = link_to '登出', destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete
   - else
-    nav.navbar.navbar-static-top
-      .container
-        .navbar-header
-          a.navbar-brand href="#{ root_path }"
-            | Zealot
+    nav.navbar.navbar-static-top.guest
+      a.navbar-brand-center href="#{ root_path }"
+        | Zealot

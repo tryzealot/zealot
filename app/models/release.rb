@@ -4,112 +4,157 @@ class Release < ApplicationRecord
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
 
-  belongs_to :app
-  belongs_to :user
+  belongs_to :channel
 
-  validates :identifier, :release_version, :build_version, :file, :extra, presence: true
+  validates :bundle_id, :release_version, :build_version, :file, presence: true
 
   before_create :auto_release_version
   before_create :auto_file_size
+  before_create :default_source
+  before_save   :changelog_format, if: :changelog_is_not_json?
 
   paginates_per     20
   max_paginates_per 50
+
+  def self.find_by_channel(slug, version = nil)
+    channel = Channel.friendly.find slug
+    if version
+      channel.releases.find_by version: version
+    else
+      channel.releases.latest
+    end
+  end
 
   def self.latest
     order(version: :desc).first
   end
 
+  def scheme
+    channel.scheme
+  end
+
+  def app
+    scheme.app
+  end
+
+  def app_name
+    "#{app.name} #{channel.name} #{scheme.name}"
+  end
+
+  def device_type
+    channel.device_type
+  end
+
+  def short_git_commit
+    return nil if git_commit.blank?
+
+    git_commit[0..8]
+  end
+
+  def changelog_list(use_default_changelog = true)
+    return empty_changelog(use_default_changelog) if changelog.blank?
+
+    data = JSON.parse changelog
+    return empty_changelog(use_default_changelog) if data.empty?
+
+    data
+  end
+
+  def devices_list
+    return [] if devices.blank?
+
+    data = devices.to_json
+    return [] if data.empty?
+
+    data
+  end
+
   def install_url
-    if app.device_type.casecmp('android').zero?
-      api_v2_apps_download_url(app.slug, version)
-    else
-      'itms-services://?action=download-manifest&url=' + api_v2_apps_install_url(
-        app.slug,
-        version,
-        protocol: Rails.env.development? ? 'http' : 'https'
-      )
-    end
+    return api_v2_apps_download_url(channel.slug, version) if channel.device_type.casecmp('android').zero?
+
+    download_url = api_v2_apps_install_url(
+      channel.slug, version,
+      protocol: Rails.env.development? ? 'http' : 'https'
+    )
+    "itms-services://?action=download-manifest&url=#{download_url}"
   end
 
-  def plain_text_changelog
-    text = JSON.parse(changelog).each_with_object([]) do |item, obj|
-      obj << "- #{item['message']}"
-    end.join("\n")
-
-    text.blank? ? empty_text_changelog : text
-  rescue
-    # note: 历史遗漏临时处理
-    (changelog.blank? || changelog == '(此版本由 Jenkins 自动构建)') ? empty_text_changelog : changelog
+  def release_url
+    channel_release_url channel, self
   end
 
-  def pure_changelog
-    JSON.parse(changelog)
-  rescue
-    return [] if changelog.blank?
-
-    changelog.split("\n").each_with_object([]) do |item, obj|
-      # note: 历史遗漏临时处理
-      next if item == '(此版本由 Jenkins 自动构建)'
-
-      _, body = item.split('. ')
-      message, date = body.split(' [')
-      message = message.strip
-      date = date.sub(']', '').strip
-
-      obj << {
-        'date': date,
-        'message': message
-      }
-    end
+  def qrcode_url(size = :thumb)
+    channel_release_qrcode_index_url channel, self, size: size
   end
 
   def file_extname
-    case app.device_type.downcase
+    case channel.device_type.downcase
     when 'iphone', 'ipad', 'ios', 'universal'
       '.ipa'
     when 'android'
       '.apk'
+    else
+      '.ipa_or_apk.zip'
     end
   end
 
   def download_filename
-    [app.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')].join('_') + file_extname
+    [
+      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
+    ].join('_') + file_extname
   end
 
-  def content_type
-    case app.platform
+  def mime_type
+    case channel.device_type
     when 'iOS'
-      'application/vnd.iphone'
+      :ipa
     when 'Android'
-      'application/vnd.android.package-archive'
+      :apk
     end
   end
 
-  def empty_changelog
-    return @empty_changelog if @empty_changelog
+  def empty_changelog(use_default_changelog = true)
+    return [] unless use_default_changelog
 
-    @empty_changelog = [
+    @empty_changelog ||= [
       {
-        message: "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
+        'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
         # date: Time.now.strftime("%Y-%m-%d %H:%M:%S %z")
       }
     ]
   end
 
-  def empty_text_changelog
-    return @empty_text_changelog if @empty_text_changelog
-
-    @empty_text_changelog = empty_changelog.map { |v| v[:message] }.join("\n")
-  end
-
   private
 
   def auto_release_version
-    latest_version = Release.where(app_id: app_id).last
+    latest_version = Release.where(channel: channel).limit(1).order(id: :desc).last
     self.version = latest_version ? (latest_version.version + 1) : 1
   end
 
   def auto_file_size
-    self.filesize = file.size if file.present? && file_changed?
+    self.size = file.size if file.present? && file_changed?
+  end
+
+  def changelog_format
+    hash = []
+    changelog.split("\n").each do |message|
+      next if message.blank?
+
+      hash << { message: message }
+    end
+    self.changelog = hash.to_json
+  end
+
+  def default_source
+    self.source ||= 'API'
+  end
+
+  def changelog_is_not_json?
+    return false if changelog.blank?
+
+    JSON.parse changelog
+    false
+  rescue JSON::ParserError
+    true
   end
 end

@@ -1,0 +1,16 @@
+ruby:
+  @schemes = @app.schemes
+
+.box.box-solid
+  .box-header.with-border
+    h3.box-title 应用类型
+    .box-tools
+      button.btn.btn-box-tool data-widget="collapse" type="button"
+        i.fa.fa-minus
+  .box-body.no-padding
+    ul.nav.nav-pills.nav-stacked
+      - @app.schemes.each do |scheme|
+        li class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
+          a href="#{app_scheme_path(@app, scheme)}"
+            = scheme.name
+            / span.label.label-primary.pull-right 12

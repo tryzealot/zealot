@@ -19,23 +19,23 @@
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
           = devise_error_messages!
           .form-group
-            = f.label :name
-            = f.text_field :name, :autofocus => true, class: 'form-control'
+            = f.label :username, value: '昵称'
+            = f.text_field :username, :autofocus => true, class: 'form-control'
           .form-group
-            = f.label :email
+            = f.label :email, value: 'Email 邮箱'
             = f.email_field :email, class: 'form-control'
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               div
                 | Currently waiting confirmation for:
                 = resource.unconfirmed_email
           .form-group
-            label 当前密码
+            = f.label :current_password, value: '当前密码'
             = f.password_field :current_password, :autocomplete => 'off', class: 'form-control'
           .form-group
-            label 新密码
+            = f.label :password, value: '新密码'
             = f.password_field :password, class: 'form-control'
           .form-group
-            label 密码确认
+            = f.label :password_confirmation, value: '密码确认'
             = f.password_field :password_confirmation, class: 'form-control'
 
           = f.submit '更新', :class => 'btn btn-lg btn-primary'

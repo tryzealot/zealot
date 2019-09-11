@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!
 
   def index
     @title = '我的控制台'
@@ -11,15 +11,14 @@ class DashboardsController < ApplicationController
   private
 
   def recently_upload
-    @releases = Release.order(id: :desc).page(params.fetch(:page, 1)).per(params.fetch(:per_page, 10))
+    @releases = Release.page(params.fetch(:page, 1)).per(params.fetch(:per_page, 10)).order(id: :desc)
   end
 
   def system_analytics
     @analytics = {
       apps: App.count,
       releases: Release.count,
-      dsyms: Dsym.count,
-      pacs: Pac.count
+      dsyms: Dsym.count
     }
   end
 end
