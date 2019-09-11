@@ -41,7 +41,7 @@
         i.fa.fa-download
         | 本地下载
       span style=("margin:0 5px")
-      - if @release.ci_url
+      - unless @release.ci_url.blank?
         button#build_it.btn.btn-success.btn-social data-app-id="22" data-job="qyer_app_iphone_inhouse" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
           i.fa.fa-wrench
           | 构建新版
