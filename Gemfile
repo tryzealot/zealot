@@ -3,7 +3,7 @@
 source 'https://gems.ruby-china.com'
 ruby '>= 2.4.0', '< 2.7.0'
 
-gem 'puma', '~> 4.0.1'
+gem 'puma', '~> 4.1.1'
 gem 'rails', '~> 6.0.0'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 12.3.2'
