@@ -1,0 +1,28 @@
+.box
+  .box-header.with-border
+    i.fa.fa-info-circle
+    h3.box-title 更新日志
+  .box-body
+    / table.table.no-padding
+    /   - @release.changelog_list.each do |changelog|
+    /     tr
+    /       td
+    /         = simple_format changelog['message']
+    /         - if changelog['date']
+    /           br
+    /           span style=("color: #b0b3b7")
+    /             = changelog['user']
+    /       - if changelog['date']
+    /         td style=("width: 100px")
+    /           = time_ago_in_words(changelog['date'])
+
+    ul.products-list.product-list-in-box
+      - @release.changelog_list.each do |changelog|
+        li.item
+          = simple_format changelog['message']
+          - if changelog['date']
+            span.label.label-default.pull-right
+              = time_ago_in_words(changelog['date'])
+          - if changelog['date']
+            span.product-description
+              = changelog['user']

@@ -1,3 +1,5 @@
+require 'app-info'
+
 class Api::V2::AppsController < ActionController::API
   before_action :set_app, only: [:show]
 
@@ -5,11 +7,11 @@ class Api::V2::AppsController < ActionController::API
     render json: {
       error: exception.message,
       backtrace: exception.backtrace
-    }, status: :unprocessable_entity
+    }, status: :unproceswsable_entity
   end
 
   def index
-    @apps = App.page(1).per(10)
+    @apps = App.all
     render json: @apps, each_serializer: Api::AppsSerializer, meta: { page: 1, per_page: 10 }
   end
 

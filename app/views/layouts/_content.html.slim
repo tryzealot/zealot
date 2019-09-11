@@ -1,4 +1,7 @@
 == render 'layouts/content_header'
 
 section.content
+  - if user_signed_in?
+    == render 'layouts/messages'
+
   == yield

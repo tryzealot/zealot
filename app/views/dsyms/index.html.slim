@@ -28,7 +28,7 @@
                   td
                     = i + 1
                   td
-                    = link_to "#{dsym.app.identifier}", app_path(dsym.app), class: "dsym-title"
+                    = link_to "#{dsym.app.name}", app_path(dsym.app), class: "dsym-title"
                   td.dsym-version
                     span.dsym-release-version
                       = dsym.release_version

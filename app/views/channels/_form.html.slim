@@ -1,0 +1,26 @@
+ruby:
+  form_url = params[:action] == 'new' ? app_scheme_channels_path(@scheme.app, @scheme) : app_scheme_channel_path(@app, @scheme, @channel)
+
+.col-xs-12
+  .box
+    .box-header
+      h3.box-title
+        = @title
+      .box-tools
+        a href="#{app_path(@scheme.app)}"
+          i.fa.fa-list-alt
+          |  返回应用
+    .box-body
+      = simple_form_for(@channel, url: form_url) do |f|
+        = f.error_notification
+
+        = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
+        = f.input :name, required: true
+        = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: 0, required: true
+        = f.input :bundle_id
+        = f.input :git_url
+        = f.input :slug
+        = f.input :password, input_html: { type: 'input', value: @channel.password }
+        - if params[:action] != 'new'
+          = f.input :key, input_html: { disabled: true }
+        = f.button :submit

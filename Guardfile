@@ -48,7 +48,7 @@ guard :sidekiq, environment: 'development' do
   watch(%r{^app/jobs/(.+)\.rb$})
 end
 
-guard :migrate do
-  watch(%r{^db/migrate/(\d+).+\.rb})
-  watch('db/seeds.rb')
-end
+# guard :migrate do
+#   watch(%r{^db/migrate/(\d+).+\.rb})
+#   watch('db/seeds.rb')
+# end

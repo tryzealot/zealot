@@ -10,13 +10,14 @@ section.recently-upload
           h3.box-title
             i.fa.fa-rss
             |  上传时间线
+          .box-tools.pull-right
+            = paginate @releases
+
         .box-body
           ul.timeline
             - unless @releases.empty?
               - @releases.each_with_index do |release, i|
                 ruby:
-                  app = release.app
-
                 - if i == 0
                   ruby:
                     loop_date = release.created_at
@@ -31,36 +32,37 @@ section.recently-upload
                     span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
                       = release.created_at.strftime('%Y-%m-%d')
                 li
-                  i.fa class="#{app.device_type.downcase == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
+                  i.fa class="#{release.channel.device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
                   .timeline-item
                     span.time
                       i.fa.fa-clock-o
                       | &nbsp
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
-                      = link_to " #{app.name}", app_path(app.slug)
+                      = link_to " #{release.app_name}", channel_release_path(release.channel, release)
                       |  上传了新版本
                       = " #{release.release_version} (#{release.build_version})"
-                    - unless release.plain_text_changelog.blank?
+                    - if release.changelog?
                       .timeline-body
-                        = simple_format(release.plain_text_changelog)
+                        = changelog_format(release.changelog_list)
+                    .timeline-footer
+                      - if release.release_type
+                        small.label.label-default
+                          = release.release_type
+                      - if release.branch
+                        small.label.label-default
+                          = release.branch
+                      - if release.short_git_commit
+                        small.label.label-default
+                          = release.short_git_commit
 
-                    - if !release.branch.blank? || !release.last_commit.blank? || !release.release_type.blank?
-                      .timeline-footer
-                        - unless release.release_type.blank?
-                          span.btn.btn-xs.btn-danger
-                            = release.release_type
-                        - unless release.branch.blank?
-                          span.btn.btn-xs.btn-primary
-                            = release.branch
-                        - unless release.last_commit.blank?
-                          span.btn.btn-xs.btn-info
-                            = release.last_commit[0..7]
-                li
-                  i.fa.fa-clock-o.bg-gray
-
-              = paginate @releases
+              li
+                i.fa.fa-clock-o.bg-gray
             - else
               li.time-label
-                    span
-                      | 没有任何上传，快快上传吧。
+                span
+                  | 没有任何上传，快快上传吧。
+        - unless @releases.empty?
+          .box-footer.clearfix
+            .pull-right
+              = paginate @releases

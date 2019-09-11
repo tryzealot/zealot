@@ -1,6 +1,4 @@
 class AppIconUploader < CarrierWave::Uploader::Base
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -33,15 +31,15 @@ class AppIconUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(png)
+    [:png]
   end
 
-  def md5
+  def checksum
     chunk = model.send(mounted_as)
-    @md5 ||= Digest::MD5.hexdigest(chunk.read.to_s)
+    @checksum ||= Digest::MD5.hexdigest(chunk.read.to_s)
   end
 
   def filename
-    @name ||= "#{md5}#{File.extname(super)}" if super
+    @name ||= "#{checksum}#{File.extname(super)}" if super
   end
 end

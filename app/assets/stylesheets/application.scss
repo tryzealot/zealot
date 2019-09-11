@@ -10,10 +10,22 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require font-awesome
  *= require bootstrap/dist/css/bootstrap.min
  *= require admin-lte/dist/css/AdminLTE.min
  *= require admin-lte/dist/css/skins/_all-skins
+ *= require font-awesome/css/font-awesome.min
  *= require_tree .
  *= require_self
  */
+
+.main-header .guest {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.main-header .guest a.navbar-brand-center {
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000;
+}

@@ -10,128 +10,157 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_093259) do
+ActiveRecord::Schema.define(version: 2019_09_10_082808) do
 
-  create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.string "slug", null: false
-    t.string "identifier"
-    t.string "device_type", null: false
-    t.string "jenkins_job"
-    t.string "git_url"
-    t.string "password"
-    t.string "key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["device_type"], name: "index_apps_on_device_type"
-    t.index ["identifier"], name: "index_apps_on_identifier"
+    t.text "body", size: :long
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_apps_on_name"
-    t.index ["slug"], name: "index_apps_on_slug", unique: true
     t.index ["user_id"], name: "index_apps_on_user_id"
   end
 
-  create_table "deep_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "category"
-    t.text "links"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "channels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "scheme_id"
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "bundle_id", default: "*"
+    t.string "device_type", null: false
+    t.string "git_url"
+    t.string "password"
+    t.string "key"
+    t.index ["bundle_id"], name: "index_channels_on_bundle_id"
+    t.index ["device_type"], name: "index_channels_on_device_type"
+    t.index ["name"], name: "index_channels_on_name"
+    t.index ["scheme_id", "device_type"], name: "index_channels_on_scheme_id_and_device_type"
+    t.index ["scheme_id"], name: "index_channels_on_scheme_id"
+    t.index ["slug"], name: "index_channels_on_slug", unique: true
   end
 
-  create_table "dsyms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "dsyms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "app_id"
     t.string "release_version"
     t.string "build_version"
     t.string "file"
-    t.string "file_hash"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["app_id"], name: "index_dsyms_on_app_id"
   end
 
-  create_table "pacs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "title"
-    t.string "host"
-    t.string "port"
-    t.text "script"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "permissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "role_id"
+  create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "role_id"
     t.string "action"
     t.string "resource"
-    t.integer "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["role_id"], name: "index_permissions_on_role_id"
   end
 
   create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "app_id", null: false
-    t.bigint "user_id"
-    t.string "channel"
-    t.integer "filesize"
+    t.bigint "channel_id"
+    t.string "bundle_id", null: false
+    t.integer "version", null: false
     t.string "release_version", null: false
     t.string "build_version", null: false
-    t.string "identifier", null: false
-    t.integer "version"
     t.string "release_type"
-    t.string "icon"
+    t.string "source"
     t.string "branch"
-    t.string "last_commit"
+    t.string "git_commit"
+    t.string "icon"
     t.string "ci_url"
-    t.text "changelog", size: :medium
+    t.text "changelog"
     t.string "file"
-    t.text "devices", size: :medium
-    t.text "extra", size: :medium
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["app_id", "version"], name: "index_releases_on_app_id_and_version", unique: true
-    t.index ["app_id"], name: "index_releases_on_app_id"
-    t.index ["channel"], name: "index_releases_on_channel"
-    t.index ["identifier"], name: "index_releases_on_identifier"
+    t.bigint "size"
+    t.text "devices"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["build_version"], name: "index_releases_on_build_version"
+    t.index ["bundle_id"], name: "index_releases_on_bundle_id"
+    t.index ["channel_id", "version"], name: "index_releases_on_channel_id_and_version", unique: true
+    t.index ["channel_id"], name: "index_releases_on_channel_id"
     t.index ["release_type"], name: "index_releases_on_release_type"
+    t.index ["release_version", "build_version"], name: "index_releases_on_release_version_and_build_version"
     t.index ["release_version"], name: "index_releases_on_release_version"
-    t.index ["user_id"], name: "index_releases_on_user_id"
+    t.index ["source"], name: "index_releases_on_source"
     t.index ["version"], name: "index_releases_on_version"
   end
 
-  create_table "roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["value"], name: "index_roles_on_value"
   end
 
-  create_table "roles_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "role_id", null: false
-    t.index ["role_id"], name: "role_id"
-    t.index ["user_id"], name: "user_id"
+  create_table "roles_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
+    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
+  end
+
+  create_table "schemes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "app_id"
+    t.string "name", null: false
+    t.index ["app_id"], name: "index_schemes_on_app_id"
+    t.index ["name"], name: "index_schemes_on_name"
   end
 
   create_table "user_providers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
     t.bigint "user_id"
+    t.string "name"
     t.string "uid"
     t.string "token"
     t.integer "expires_at"
     t.boolean "expires"
     t.string "refresh_token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "uid"], name: "index_user_providers_on_name_and_uid"
     t.index ["user_id"], name: "index_user_providers_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "username"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "key"
-    t.string "secret"
+    t.string "key", default: "", null: false
+    t.string "secret", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -143,23 +172,33 @@ ActiveRecord::Schema.define(version: 2019_07_17_093259) do
     t.string "activation_token"
     t.datetime "actived_at"
     t.datetime "activation_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["activation_token"], name: "index_users_on_activation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["key"], name: "index_users_on_key", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "web_hooks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "web_hooks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "channel_id"
     t.string "url"
-    t.integer "app_id"
-    t.integer "upload_events"
-    t.integer "changelog_events"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_id"], name: "index_web_hooks_on_app_id"
-    t.index ["url"], name: "index_web_hooks_on_url", length: 191
+    t.text "body"
+    t.integer "upload_events", limit: 1
+    t.integer "download_events", limit: 1
+    t.integer "changelog_events", limit: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["channel_id"], name: "index_web_hooks_on_channel_id"
+    t.index ["url"], name: "index_web_hooks_on_url"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "apps", "users", on_delete: :cascade
+  add_foreign_key "channels", "schemes", on_delete: :cascade
+  add_foreign_key "dsyms", "apps", on_delete: :cascade
+  add_foreign_key "permissions", "roles", on_delete: :cascade
+  add_foreign_key "releases", "channels", on_delete: :cascade
+  add_foreign_key "schemes", "apps", on_delete: :cascade
+  add_foreign_key "user_providers", "users", on_delete: :cascade
+  add_foreign_key "web_hooks", "channels", on_delete: :cascade
 end
