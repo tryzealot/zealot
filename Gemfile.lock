@@ -261,7 +261,7 @@ GEM
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-cors (1.0.3)
-    rack-protection (2.0.5)
+    rack-protection (2.0.7)
       rack
     rack-proxy (0.6.5)
       rack
@@ -342,10 +342,10 @@ GEM
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    sinatra (2.0.5)
+    sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.5)
+      rack-protection (= 2.0.7)
       tilt (~> 2.0)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
@@ -449,7 +449,7 @@ DEPENDENCIES
   settingslogic
   sidekiq (<= 6)
   simple_form (~> 4.1)
-  sinatra (~> 2.0.5)
+  sinatra (~> 2.0.7)
   slim-rails (~> 3.2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
