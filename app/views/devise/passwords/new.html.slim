@@ -1,0 +1,20 @@
+
+- content_for :title do
+  | 找回密码
+
+.login-box
+  .login-box-body
+    p.login-box-msg 找回密码
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+
+      .form-group.has-feedback
+        = f.input :email, hint: '',
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "email" }
+      .row
+        .col-xs-4
+          = f.submit '发送重置邮件', class: 'btn btn-primary btn-flat'
+
+    == render 'devise/shared/links'
