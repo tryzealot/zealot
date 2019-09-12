@@ -38,7 +38,8 @@ class Channel < ApplicationRecord
   end
 
   def release_versions
-    releases.group(:release_version)
+    releases.select(:release_version)
+            .group(:release_version)
             .map(&:release_version)
             .reverse
   end

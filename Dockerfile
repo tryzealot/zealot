@@ -1,8 +1,8 @@
-FROM ruby:2.5-alpine
+FROM ruby:2.6-alpine
 LABEL MAINTAINER="icyleaf.cn@gmail.com"
 
 ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
-    DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev mysql-dev" \
+    DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev postgresql-dev" \
     RUBY_PACKAGES="ruby yaml nodejs yarn" \
     RUBY_GEMS="bundler" \
     RUBYGEMS_SOURCE="https://gems.ruby-china.com/" \
@@ -26,7 +26,7 @@ COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
 RUN bundle install --binstubs && \
     mkdir -p /var/lib/app/pids && \
-    yarn
+    yarn install
 
 COPY . .
 

@@ -1,6 +1,6 @@
 class CreateReleases < ActiveRecord::Migration[6.0]
   def change
-    create_table :releases, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci' do |t|
+    create_table :releases do |t|
       t.references :channel, index: true, foreign_key: { on_delete: :cascade }
       t.string :bundle_id, null: false, index: true
       t.integer :version, null: false, index: true
