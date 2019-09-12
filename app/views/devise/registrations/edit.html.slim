@@ -1,5 +1,5 @@
 - content_for :title do
-  | 编辑用户
+  = "编辑 #{resource_name.to_s.humanize}"
 
 .row
   .col-xs-12
@@ -7,38 +7,30 @@
       .box-header.box-border
         h3.box-title 个人信息
       .box-body
-        / = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-        /   = f.error_notification
-        /
-        /   = f.input :name, required: true
-        /   = f.email_field :email, required: true
-        /   = f.password_field :password
-        /   = f.password_field :password_confirmation
-        /   = f.password_field :current_password
-        /   = f.button :submit, value: '更新'
-        = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
-          = devise_error_messages!
-          .form-group
-            = f.label :username, value: '昵称'
-            = f.text_field :username, :autofocus => true, class: 'form-control'
-          .form-group
-            = f.label :email, value: 'Email 邮箱'
-            = f.email_field :email, class: 'form-control'
-            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-              div
-                | Currently waiting confirmation for:
-                = resource.unconfirmed_email
-          .form-group
-            = f.label :current_password, value: '当前密码'
-            = f.password_field :current_password, :autocomplete => 'off', class: 'form-control'
-          .form-group
-            = f.label :password, value: '新密码'
-            = f.password_field :password, class: 'form-control'
-          .form-group
-            = f.label :password_confirmation, value: '密码确认'
-            = f.password_field :password_confirmation, class: 'form-control'
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+          = f.error_notification
 
-          = f.submit '更新', :class => 'btn btn-lg btn-primary'
+          = f.input :username, required: true, :autofocus => true
+          = f.input :email, required: true, autofocus: true, hint: ''
+
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            p
+              | 等待确认邮件:
+              = resource.unconfirmed_email
+
+          = f.input :password, label: '当前密码',
+                    hint: '如果不修改密码的话请留空',
+                    required: false,
+                    input_html: { autocomplete: "new-password" }
+          = f.input :password_confirmation, label: '新密码',
+                    required: false,
+                    input_html: { autocomplete: "new-password" }
+          = f.input :current_password, label: '重复新密码',
+                    hint: "请重复输入新密码保证输入的是正确的",
+                    required: true,
+                    input_html: { autocomplete: "current-password" }
+
+          = f.submit '更新', class: 'btn btn-lg btn-primary'
 
     .box.box-info
       .box-header.box-border
@@ -57,4 +49,4 @@
       .box-body
         p
           | 注销账户后，您的数据将会彻底移除！
-        = button_to "确认注销", registration_path(resource_name), :data => { :confirm => "最后确认你要注销自己的账户?" }, :method => :delete, :class => 'btn btn-lg btn-danger'
+        = button_to "确认注销", registration_path(resource_name), data: { confirm: "最后确认你要注销自己的账户?" }, method: :delete, class: 'btn btn-lg btn-danger'
