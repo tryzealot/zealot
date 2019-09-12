@@ -1,6 +1,6 @@
 class CreateChannels < ActiveRecord::Migration[6.0]
   def change
-    create_table :channels, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci' do |t|
+    create_table :channels do |t|
       t.references :scheme, index: true, foreign_key: { on_delete: :cascade }
       t.string :name, null: false, index: true
       t.string :slug, null: false, index: { unique: true }
