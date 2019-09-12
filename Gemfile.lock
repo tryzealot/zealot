@@ -233,10 +233,10 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-google-oauth2 (0.7.0)
+    omniauth-google-oauth2 (0.8.0)
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.5)
+      omniauth-oauth2 (>= 1.6)
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
@@ -432,7 +432,7 @@ DEPENDENCIES
   mini_magick
   multi_xml
   mysql2 (>= 0.4.4, < 0.6.0)
-  omniauth-google-oauth2 (~> 0.7.0)
+  omniauth-google-oauth2 (~> 0.8.0)
   pry-byebug
   pry-rails
   pry-rescue
