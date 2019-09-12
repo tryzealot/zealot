@@ -39,7 +39,7 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'http'
 # 用户认证
-gem 'devise', '~> 4.7.0'
+gem 'devise', '~> 4.7.1'
 gem 'omniauth-google-oauth2', '~> 0.7.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
