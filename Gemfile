@@ -9,7 +9,7 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'pg', '~> 1.1.4'
 gem 'redis', '~> 4.1.2'
 
 # API
@@ -21,8 +21,8 @@ gem 'rack-cors', '~> 1.0.3'
 ## 生成 ios download plist
 gem 'multi_xml'
 ## 模板引擎
+gem 'jb', '~> 0.7.0'
 gem 'slim-rails', '~> 3.2.0'
-gem 'jb'
 ## 表单生成
 gem 'simple_form', '~> 4.1'
 
@@ -39,8 +39,8 @@ gem 'mini_magick'
 # HTTP 请求
 gem 'http'
 # 用户认证
-gem 'devise', '~> 4.7.0'
-gem 'omniauth-google-oauth2', '~> 0.7.0'
+gem 'devise', '~> 4.7.1'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
 # # GEO 坐标计算
@@ -61,7 +61,7 @@ gem 'settingslogic'
 
 # Assets
 # gem 'js-routes'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
