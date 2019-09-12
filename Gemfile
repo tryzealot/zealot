@@ -40,7 +40,7 @@ gem 'mini_magick'
 gem 'http'
 # 用户认证
 gem 'devise', '~> 4.7.1'
-gem 'omniauth-google-oauth2', '~> 0.7.0'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
 # # GEO 坐标计算
