@@ -9,7 +9,7 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 12.3.2'
 
 # DB & Cache
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'pg', '~> 1.1.4'
 gem 'redis', '~> 4.1.2'
 
 # API
@@ -21,8 +21,8 @@ gem 'rack-cors', '~> 1.0.3'
 ## 生成 ios download plist
 gem 'multi_xml'
 ## 模板引擎
+gem 'jb', '~> 0.7.0'
 gem 'slim-rails', '~> 3.2.0'
-gem 'jb'
 ## 表单生成
 gem 'simple_form', '~> 4.1'
 

@@ -82,14 +82,14 @@ module Zealot
     config.active_job.queue_name_prefix = "#{active_job_queue_prefix}_#{Rails.env}"
 
     # Action Cable setting to de-couple it from the main Rails process.
-    config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
+    # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
 
     # Action Cable setting to allow connections from these domains.
-    if origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS']
-      origins = origins.split(',')
-      origins.map! { |url| /#{url}/ }
-      config.action_cable.allowed_request_origins = origins
-    end
+    # if origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS']
+    #   origins = origins.split(',')
+    #   origins.map! { |url| /#{url}/ }
+    #   config.action_cable.allowed_request_origins = origins
+    # end
 
     ################################################################
 
@@ -101,5 +101,8 @@ module Zealot
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Disable yarn check(this must disable with docker)
+    config.webpacker.check_yarn_integrity = false
   end
 end
