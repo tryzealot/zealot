@@ -7,7 +7,7 @@
 - Linux
 - Ruby 2.2+
 - Rails 5.0+
-- Mysql 5.3+/Mariadb 10.0+
+- Postgres 8.0+
 - Redis 2.7+
 - Sidekiq
 - ImageMagick/GraphicsMagick
