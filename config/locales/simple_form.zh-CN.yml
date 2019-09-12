@@ -20,6 +20,7 @@ zh-CN:
         email: '登录邮箱'
         password: '登录密码'
         roles: '账户权限'
+        remember_me: '记住我'
       app:
         name: '应用名称'
         schemes:
