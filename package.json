@@ -9,7 +9,7 @@
     "trix": "^1.0.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.1"
   },
   "version": "4.0.0"
 }
