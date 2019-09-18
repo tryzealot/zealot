@@ -10,7 +10,7 @@ gem 'rake', '~> 12.3.2'
 
 # DB & Cache
 gem 'pg', '~> 1.1.4'
-gem 'redis', '~> 4.1.2'
+gem 'redis', '~> 4.1.3'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
