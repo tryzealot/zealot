@@ -24,7 +24,7 @@ gem 'multi_xml'
 gem 'jb', '~> 0.7.0'
 gem 'slim-rails', '~> 3.2.0'
 ## 表单生成
-gem 'simple_form', '~> 4.1'
+gem 'simple_form', '~> 5.0'
 
 # Model
 ## 生成友好 id
