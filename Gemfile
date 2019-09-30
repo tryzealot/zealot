@@ -108,7 +108,7 @@ end
 group :development, :test do
   # gem 'dotenv-rails'
   gem 'letter_opener'
-  gem 'rubocop', '~> 0.45', require: false
+  gem 'rubocop', '~> 0.75', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'
