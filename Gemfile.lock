@@ -192,10 +192,9 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    listen (3.1.5)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-      ruby_dep (~> 1.2)
+    listen (3.2.0)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -321,7 +320,6 @@ GEM
       ffi (~> 1.9)
     ruby_android (0.7.7)
       rubyzip (>= 1.1.6)
-    ruby_dep (1.5.0)
     rubyzip (1.2.3)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -430,7 +428,7 @@ DEPENDENCIES
   jenkins_api_client
   kaminari
   letter_opener
-  listen (>= 3.0.5, < 3.2)
+  listen (>= 3.0.5, < 3.3)
   mini_magick
   multi_xml
   omniauth-google-oauth2 (~> 0.8.0)
