@@ -1,7 +1,7 @@
 GEM
   remote: https://gems.ruby-china.com/
   specs:
-    CFPropertyList (3.0.0)
+    CFPropertyList (3.0.1)
     actioncable (6.0.0)
       actionpack (= 6.0.0)
       nio4r (~> 2.0)
@@ -64,7 +64,7 @@ GEM
       zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    app-info (1.1.0)
+    app-info (1.1.2)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       image_size (~> 1.5.0)
       pngdefry (~> 0.1.2)
@@ -320,7 +320,7 @@ GEM
       ffi (~> 1.9)
     ruby_android (0.7.7)
       rubyzip (>= 1.1.6)
-    rubyzip (1.2.3)
+    rubyzip (2.0.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.2.0)
@@ -407,7 +407,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.10)
-  app-info (~> 1.1.0)
+  app-info (~> 1.1.2)
   awesome_print
   better_errors
   bootsnap (>= 1.4.4)
