@@ -67,7 +67,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 1.1.0', require: false
+gem 'app-info', '~> 1.1.2', require: false
 
 # 异常处理
 gem 'exception_handler', '~> 0.8.0'
