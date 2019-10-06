@@ -304,7 +304,7 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rqrcode (1.0.1)
+    rqrcode (1.1.1)
       chunky_png (~> 1.0)
       rqrcode_core (~> 0.1.0)
     rqrcode_core (0.1.0)
