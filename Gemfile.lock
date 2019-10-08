@@ -104,7 +104,7 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    erubi (1.8.0)
+    erubi (1.9.0)
     exception_handler (0.8.0.0)
       bundler
       rails (>= 4.2.0)
@@ -338,7 +338,7 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    simple_form (4.1.0)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     sinatra (2.0.7)
@@ -447,7 +447,7 @@ DEPENDENCIES
   sass-rails (~> 6.0)
   settingslogic
   sidekiq (<= 6)
-  simple_form (~> 4.1)
+  simple_form (~> 5.0)
   sinatra (~> 2.0.7)
   slim-rails (~> 3.2.0)
   spring
