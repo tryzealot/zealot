@@ -40,11 +40,11 @@ zh-CN:
         upload_events: '上传事件'
         download_events: '下载事件'
         changelog_events: '日志变更事件'
-      dsym:
+      debug_file:
         app_id: '应用'
         release_version: '外部版本号'
         build_version: '内部版本号'
-        file: 'dSYM 文件'
+        file: 'Debug File 文件'
         checksum: '唯一校验码'
 
     hints:
@@ -67,7 +67,7 @@ zh-CN:
         password: '设置后对非登录用户会要求输入密码'
       web_hook:
         body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
-      dsym:
+      debug_file:
         file: '必须使用 zip 文件'
 
     placeholders:
@@ -84,7 +84,7 @@ zh-CN:
             install_url: @release.install_url,
             icon_url: @release.icon_url,
           }
-      dsym:
+      debug_file:
         release_version: '1.0.0'
         build_version: '1.0'
         checksum: '纯校验使用，随文件生成无需填写'

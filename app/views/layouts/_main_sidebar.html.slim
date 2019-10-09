@@ -11,10 +11,10 @@ aside.main-sidebar
           i.fa.fa-adn
           span 应用管理
       - if current_user.roles?(:admin, :mobile)
-        li class="treeview #{active_class(dsyms_path)}"
-          a href="#{dsyms_path}"
+        li class="treeview #{active_class(debug_files_path)}"
+          a href="#{debug_files_path}"
             i.fa.fa-bug
-            span dSYM 管理
+            span Debug File 管理
         / li class="treeview #{active_class(deep_links_path)}"
         /   a href="#{deep_links_path}"
         /     i.fa.fa-external-link

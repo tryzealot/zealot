@@ -1,5 +1,5 @@
-class Dsym < ApplicationRecord
-  mount_uploader :file, DsymFileUploader
+class DebugFile < ApplicationRecord
+  mount_uploader :file, DebugFileUploader
 
   belongs_to :app
 
