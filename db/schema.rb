@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_10_082808) do
+ActiveRecord::Schema.define(version: 2019_09_10_082807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "action_text_rich_texts", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "body"
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,7 +62,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_082808) do
     t.index ["slug"], name: "index_channels_on_slug", unique: true
   end
 
-  create_table "dsyms", force: :cascade do |t|
+  create_table "debug_files", force: :cascade do |t|
     t.bigint "app_id"
     t.string "release_version"
     t.string "build_version"
@@ -80,7 +70,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_082808) do
     t.string "checksum"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["app_id"], name: "index_dsyms_on_app_id"
+    t.index ["app_id"], name: "index_debug_files_on_app_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -198,7 +188,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_082808) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "apps", "users", on_delete: :cascade
   add_foreign_key "channels", "schemes", on_delete: :cascade
-  add_foreign_key "dsyms", "apps", on_delete: :cascade
+  add_foreign_key "debug_files", "apps", on_delete: :cascade
   add_foreign_key "permissions", "roles", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade
   add_foreign_key "schemes", "apps", on_delete: :cascade
