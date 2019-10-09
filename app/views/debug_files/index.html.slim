@@ -8,9 +8,9 @@
         h3.box-title
           = @title
         .box-tools
-          a href="#{new_dsym_path}"
+          a href="#{new_debug_file_path}"
             i.fa.fa-plus-square-o
-            |  上传 dSYM 文件
+            |  上传 Debug File 文件
       .box-body
         table.table.no-padding
           thead
@@ -22,26 +22,26 @@
               th 上传时间
               th 操作
           tbody
-            - unless @dsyms.empty?
-              - @dsyms.each_with_index do |dsym, i|
-                tr id="dsym-info-#{dsym.id}"
+            - unless @debug_files.empty?
+              - @debug_files.each_with_index do |debug, i|
+                tr id="debug-file-info-#{debug.id}"
                   td
                     = i + 1
                   td
-                    = link_to "#{dsym.app.name}", app_path(dsym.app), class: "dsym-title"
-                  td.dsym-version
-                    span.dsym-release-version
-                      = dsym.release_version
+                    = link_to "#{debug.app.name}", app_path(debug.app), class: "debug-file-title"
+                  td.debug-file-version
+                    span.debug-file-release-version
+                      = debug.release_version
                     | &nbsp (
-                    span.dsym-build-version
-                      = dsym.build_version
+                    span.debug-file-build-version
+                      = debug.build_version
                     | )
                   td
-                    = link_to 'dSYM 下载', dsym.file.url
+                    = link_to 'Debug File 下载', debug.file.url
                   td
-                    = dsym.created_at
+                    = debug.created_at
                   td
-                    button.btn.btn-sm.btn-danger.destroy_dsym data-id="#{dsym.id}" data-toggle="modal"
+                    button.btn.btn-sm.btn-danger.destroy-debug-file data-id="#{debug.id}" data-toggle="modal"
                       | 删除
             - else
               tr
