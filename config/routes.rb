@@ -102,8 +102,8 @@ Rails.application.routes.draw do
   #############################################
   # Other
   #############################################
-  # dSYM 管理
-  resources :dsyms, except: [:show, :edit, :update]
+  # Debug File 管理
+  resources :debug_files, except: [:show, :edit, :update]
 
   root to: 'dashboards#index'
 end

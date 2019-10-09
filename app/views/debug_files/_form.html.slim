@@ -1,4 +1,4 @@
-= simple_form_for(@dsym) do |f|
+= simple_form_for(@debug_file) do |f|
   = f.error_notification
 
   = f.input :app_id, collection: @apps, prompt: '请选择应用', label_method: :name, required: true, error: '请选择要上传对于的应用'
