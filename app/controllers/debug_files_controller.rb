@@ -18,7 +18,7 @@ class DebugFilesController < ApplicationController
     @debug_file = DebugFile.new(debug_file_params)
 
     if @debug_file.save
-      redirect_to debug_file_url, notice: 'Debug File 上传成功'
+      redirect_to debug_files_url, notice: 'Debug File 上传成功'
     else
       render :new
     end
