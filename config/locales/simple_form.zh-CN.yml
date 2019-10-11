@@ -42,6 +42,7 @@ zh-CN:
         changelog_events: '日志变更事件'
       debug_file:
         app_id: '应用'
+        device_type: '应用平台'
         release_version: '外部版本号'
         build_version: '内部版本号'
         file: 'Debug File 文件'
@@ -60,7 +61,7 @@ zh-CN:
           name: '比如开发版、内测版、线上版'
       channel:
         name: '可以和应用平台同名，Android 的可以是各个渠道包的名称'
-        device_type: '手机设备类型'
+        device_type: '应用设备类型'
         bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
@@ -68,6 +69,7 @@ zh-CN:
       web_hook:
         body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:
+        device_type: '应用设备类型'
         file: '必须使用 zip 文件'
 
     placeholders:
@@ -91,7 +93,7 @@ zh-CN:
 
     # include_blanks:
     #   defaults:
-    #     age: 'Rather not say'
+    #     device_type: 'Rather not say'
     # prompts:
     #   defaults:
-    #     age: 'Select your age'
+    #     device_type: 'Select your age'
