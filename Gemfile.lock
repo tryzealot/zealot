@@ -64,12 +64,13 @@ GEM
       zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    app-info (2.0.0.beta1)
+    app-info (2.0.0.beta2)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       image_size (>= 1.5, < 2.1)
       pngdefry (~> 0.1.2)
       ruby-macho (~> 2.2.0)
       ruby_android (~> 0.7.7)
+      rubyzip (>= 1.2, < 3.0)
     ast (2.4.0)
     awesome_print (1.8.0)
     bcrypt (3.1.13)
@@ -409,7 +410,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.10)
-  app-info (~> 2.0.0.beta1)
+  app-info (~> 2.0.0.beta2)
   awesome_print
   better_errors
   bootsnap (>= 1.4.4)
