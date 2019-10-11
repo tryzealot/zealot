@@ -60,10 +60,13 @@ Rails.application.routes.draw do
   end
 
   authenticate :user, lambda { |u| u.admin? } do
-    require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq', as: :sidekiq
+    namespace :admin do
+      require 'sidekiq/web'
+      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
+      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphql
 
-    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql', as: :graphql
+      resources :background_jobs, only: [:index]
+    end
   end
 
   #############################################

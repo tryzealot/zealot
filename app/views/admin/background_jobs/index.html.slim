@@ -1,0 +1,11 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-xs-12
+    .box
+      .box-header.with-border
+        h3.box-title
+          = @title
+      .box-body.no-padding
+        iframe src="#{admin_sidekiq_path}" style="border: 0" width="100%" height="970"
