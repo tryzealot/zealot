@@ -11,12 +11,13 @@
           a href="#{new_debug_file_path}"
             i.fa.fa-plus-square-o
             |  上传 Debug File 文件
-      .box-body
-        table.table.no-padding
+      .box-body.no-padding
+        table.table
           thead
             tr
               th ID
               th 应用
+              th 平台
               th 版本
               th 文件
               th 上传时间
@@ -29,6 +30,8 @@
                     = i + 1
                   td
                     = link_to "#{debug.app.name}", app_path(debug.app), class: "debug-file-title"
+                  td.debug-file-device-type
+                    = debug.device_type
                   td.debug-file-version
                     span.debug-file-release-version
                       = debug.release_version
@@ -41,16 +44,22 @@
                   td
                     = debug.created_at
                   td
-                    button.btn.btn-sm.btn-danger.destroy-debug-file data-id="#{debug.id}" data-toggle="modal"
+                    button.btn.btn-sm.btn-success.btn-flat href="#{debug.file.url}"
+                      i.fa.fa-download
+                      | 下载
+                    button.btn.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug.id}" data-toggle="modal"
+                      i.fa.fa-close
                       | 删除
             - else
               tr
                 td colspan=6 无
+
   .col-xs-12
     .box.box-warning
       .box-header.box-border
         h3.box-title 使用帮助
       .box-body.table-responsive
+
         p 一般情况下，项目编译完 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
         ul
           li 进入 XCode
@@ -71,10 +80,10 @@
       .modal-header
         button.close aria-label="Close" data-dismiss="modal" type="button"
           span aria-hidden="true"  &times;
-        h4.modal-title 删除确认
+        h4.modal-title 删除确认 Debug File?
       .modal-body
-        p.empty-content
         p 一旦删除数据将永久无法找回或恢复，请慎重操作！
+        p.empty-content
       .modal-footer
         input type="hidden" id="dsym-destory-id" value=""
         button.btn.btn-default data-dismiss="modal" type="button" 还是算了

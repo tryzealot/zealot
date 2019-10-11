@@ -2,6 +2,7 @@
   = f.error_notification
 
   = f.input :app_id, collection: @apps, prompt: '请选择应用', label_method: :name, required: true, error: '请选择要上传对于的应用'
+  = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, selected: DebugFile.device_types.first
   = f.input :release_version, required: true
   = f.input :build_version, required: true
   = f.input :file, required: true, error: '必须选择一个 zip 文件'
