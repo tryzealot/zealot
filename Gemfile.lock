@@ -336,7 +336,7 @@ GEM
       tilt
     settingslogic (2.0.9)
     shellany (0.0.1)
-    sidekiq (6.0.0)
+    sidekiq (6.0.1)
       connection_pool (>= 2.2.2)
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
@@ -449,7 +449,7 @@ DEPENDENCIES
   rubocop (~> 0.75)
   sass-rails (~> 6.0)
   settingslogic
-  sidekiq (<= 6)
+  sidekiq (<= 7)
   simple_form (~> 5.0)
   sinatra (~> 2.0.7)
   slim-rails (~> 3.2.0)
