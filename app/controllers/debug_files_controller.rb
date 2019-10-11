@@ -38,7 +38,7 @@ class DebugFilesController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def debug_file_params
     params.require(:debug_file).permit(
-      :app_id, :release_version, :build_version, :file
+      :app_id, :device_type, :release_version, :build_version, :file
     )
   end
 

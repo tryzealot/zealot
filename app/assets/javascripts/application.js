@@ -12,8 +12,6 @@
 //
 //= require turbolinks
 //= require rails-ujs
-// require trix/dist/trix
-// require @rails/actiontext/app/javascript/actiontext/index
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.min
 //= require admin-lte/dist/js/adminlte.min
