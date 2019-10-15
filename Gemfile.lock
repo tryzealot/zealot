@@ -124,7 +124,7 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.9.13)
+    graphql (1.9.14)
     guard (2.15.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -311,7 +311,7 @@ GEM
       chunky_png (~> 1.0)
       rqrcode_core (~> 0.1.0)
     rqrcode_core (0.1.0)
-    rubocop (0.75.0)
+    rubocop (0.75.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -337,7 +337,7 @@ GEM
       tilt
     settingslogic (2.0.9)
     shellany (0.0.1)
-    sidekiq (6.0.0)
+    sidekiq (6.0.2)
       connection_pool (>= 2.2.2)
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
@@ -423,7 +423,7 @@ DEPENDENCIES
   exception_handler (~> 0.8.0)
   friendly_id
   graphiql-rails (~> 1.7.0)
-  graphql (~> 1.9.13)
+  graphql (~> 1.9.14)
   guard-bundler
   guard-migrate
   guard-rails
@@ -451,7 +451,7 @@ DEPENDENCIES
   rubocop (~> 0.75)
   sass-rails (~> 6.0)
   settingslogic
-  sidekiq (<= 6)
+  sidekiq (<= 7)
   simple_form (~> 5.0)
   sinatra (~> 2.0.7)
   slim-rails (~> 3.2.0)
