@@ -16,6 +16,10 @@ aside.main-sidebar
           span Debug File 管理
       - if current_user.admin?
         li.header 管理区域
+        li class="treeview #{active_class(admin_system_info_index_path)}"
+          a href="#{admin_system_info_index_path}"
+            i.fa.fa-desktop
+            span 系统信息
         li class="treeview #{active_class(users_path)}"
           a href="#{users_path}"
             i.fa.fa-user
@@ -28,3 +32,5 @@ aside.main-sidebar
           a href="#{admin_graphql_console_index_path}"
             i.fa.fa-columns
             span GraphQL 控制台
+            span.pull-right-container
+              small.label.pull-right.bg-green 测试

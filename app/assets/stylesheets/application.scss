@@ -18,6 +18,13 @@
  *= require_self
  */
 
+@media (prefers-color-scheme: dark) {
+  .main-header .guest {
+    text-align: center;
+    padding-top: 15px;
+  }
+}
+
 .main-header .guest {
   text-align: center;
   padding-top: 15px;
