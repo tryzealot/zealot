@@ -1,16 +1,17 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  a.btn.bg-green href="#{new_user_path}"
+    i.fa.fa-plus-circle
+    | 新建用户
+
 .row
   .col-xs-12
     .box
-      .box-header.with-border
-        h3.box-title
-          = @title
-        .box-tools
-          a href="#{new_user_path}"
-            i.fa.fa-plus-square-o
-            |  新建用户
       .box-body
         table.table.no-padding
           thead
