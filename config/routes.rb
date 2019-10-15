@@ -1,5 +1,26 @@
 Rails.application.routes.draw do
   #############################################
+  # User
+  #############################################
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  resources :users, except: %i[show]
+  scope :users, module: 'users' do
+    get 'active/:token', to: 'activations#edit', as: 'active_user'
+    patch 'active/:token', to: 'activations#update'
+  end
+
+  authenticate :user, ->(user) { user.admin? } do
+    namespace :admin do
+      require 'sidekiq/web'
+      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
+      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
+
+      resources :background_jobs, only: [:index]
+      resources :graphql_console, only: [:index]
+    end
+  end
+
+  #############################################
   # App
   #############################################
   resources :channels, only: %i[index show] do
@@ -27,28 +48,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Debug File 管理
+  #############################################
+  # Debug File
+  #############################################
   resources :debug_files, except: [:show]
-
-  #############################################
-  # User
-  #############################################
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  resources :users, except: %i[show]
-  scope :users, module: 'users' do
-    get 'active/:token', to: 'activations#edit', as: 'active_user'
-    patch 'active/:token', to: 'activations#update'
-  end
-
-  authenticate :user, ->(user) { user.admin? } do
-    namespace :admin do
-      require 'sidekiq/web'
-      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
-      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphql
-
-      resources :background_jobs, only: [:index]
-    end
-  end
 
   #############################################
   # API v2
