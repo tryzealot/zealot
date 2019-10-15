@@ -44,6 +44,10 @@
                         button.btn.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug_file.id}" data-url="#{debug_file_path(debug_file)}" data-toggle="modal"
                           i.fa.fa-close
                           | 删除
+                        .div.text-center
+                          small style="color: #999"
+                            | 上传于
+                            = debug_file.created_at.strftime("%Y年%m月%d日 %H:%M:%S")
                     .debug-file-section-body
                       table.table.table-striped
                         - debug_file.metadata.each do |metadata|
