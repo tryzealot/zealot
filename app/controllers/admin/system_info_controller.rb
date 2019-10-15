@@ -37,7 +37,22 @@ class Admin::SystemInfoController < ApplicationController
     'token',
     'key',
     'password',
+    'api_key',
+    'client_key',
     'secret'
+  ].freeze
+
+  EXCLUDED_ENV_KEYS = [
+    'SHELL',
+    'TERM',
+    'USER',
+    'EDITOR',
+    'PWD',
+    'PATH',
+    'LANG',
+    'HOME',
+    'GEM_HOME',
+    '_'
   ].freeze
 
   # GET /admin/system_info
@@ -69,6 +84,11 @@ class Admin::SystemInfoController < ApplicationController
     end
 
     @env = ENV.each_with_object({}) do |(key, value), obj|
+<<<<<<< HEAD
+=======
+      next unless EXCLUDED_ENV_KEYS.select { |k| key == k }.empty?
+
+>>>>>>> c1dd834b... feat: 添加系统信息页面
       obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.empty?
                    value
                  else
