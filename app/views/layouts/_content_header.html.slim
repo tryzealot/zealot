@@ -1,7 +1,12 @@
 ruby:
-  breadcrumb = yield :section_breadcrumb
+  right_panel = yield :section_rightpanel
+  breadcrumb = yield :breadcrumb
 
 section.content-header
+  - unless right_panel.blank?
+    .right-panel
+      = right_panel
+
   h1 = yield :section_title
 
   - unless breadcrumb.blank?

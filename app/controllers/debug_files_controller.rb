@@ -1,15 +1,15 @@
 class DebugFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_debug_file, only: [:show, :edit, :update, :destroy]
-  before_action :set_app_list, only: [:new, :create]
 
   def index
     @title = 'Debug File 列表'
-    @debug_files = DebugFile.all.order(id: :desc)
+    @apps = App.avaiable_debug_files
   end
 
   def new
     @title = '上传 Debug File 文件'
+    @apps = App.all
     @debug_file = DebugFile.new
   end
 
@@ -18,7 +18,9 @@ class DebugFilesController < ApplicationController
     @debug_file = DebugFile.new(debug_file_params)
 
     if @debug_file.save
-      redirect_to debug_files_url, notice: 'Debug File 上传成功'
+      DebugFileTeardownJob.perform_later @debug_file
+
+      redirect_to debug_files_url, notice: 'Debug File 上传成功，后台正在解析文件请稍后查看详情'
     else
       render :new
     end
@@ -26,7 +28,7 @@ class DebugFilesController < ApplicationController
 
   def destroy
     @debug_file.destroy
-    redirect_to debug_file_url, notice: 'Debug File 删除成功'
+    redirect_to debug_files_url, notice: 'Debug File 删除成功'
   end
 
   private
@@ -40,9 +42,5 @@ class DebugFilesController < ApplicationController
     params.require(:debug_file).permit(
       :app_id, :device_type, :release_version, :build_version, :file
     )
-  end
-
-  def set_app_list
-    @apps = App.all
   end
 end
