@@ -56,8 +56,6 @@ gem 'rqrcode'
 gem 'chronic'
 # 异步队列
 gem 'sidekiq', '<= 7'
-# 支持 sidekiq 使用界面
-gem 'sinatra', '~> 2.0.7', require: false
 # Mobile config
 gem 'settingslogic'
 
