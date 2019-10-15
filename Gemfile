@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 source 'https://gems.ruby-china.com'
+# source 'https://rubygems.org'
+
 ruby '>= 2.4.0', '< 2.7.0'
 
 gem 'puma', '~> 4.2.1'
@@ -67,7 +69,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.0.0.beta3', require: false
+gem 'app-info', '~> 2.0.0.beta7', require: false
 
 # 异常处理
 gem 'exception_handler', '~> 0.8.0'

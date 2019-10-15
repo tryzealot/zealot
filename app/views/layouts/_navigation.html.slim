@@ -27,6 +27,10 @@ header.main-header
                     = link_to '详情', edit_user_registration_path, class: 'btn btn-default btn-flat'
                   .pull-right
                     = link_to '登出', destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete
+          / - if current_user.admin?
+          /   li
+          /     a href="#{admin_background_jobs_path}"
+          /       i.fa.fa-wrench
   - else
     nav.navbar.navbar-static-top.guest
       a.navbar-brand-center href="#{ root_path }"

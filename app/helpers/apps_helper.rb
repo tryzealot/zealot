@@ -146,21 +146,6 @@ module AppsHelper
   def display_app_device(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 
-    device_type = case channel.device_type.downcase
-                  when 'ios'
-                    'iOS'
-                  when 'iphone'
-                    'iPhone'
-                  when 'ipad'
-                    'iPad'
-                  when 'universal'
-                    'Universal'
-                  when 'android'
-                    'Android'
-                  else
-                    channel.device_type
-                  end
-
-    "#{channel.name} (#{device_type})"
+    "#{channel.name} (#{device_name(device_type)})"
   end
 end

@@ -23,12 +23,12 @@
           section id="scheme-#{scheme.id}"
             h4
               = scheme.name
-            .sections-actions
-              a.btn.btn-default.btn-sm href="#{new_app_scheme_channel_path(@app, scheme)}"
+            .sections-actions.btn-group
+              a.btn.btn-default.btn-sm.btn-flat href="#{new_app_scheme_channel_path(@app, scheme)}"
                 i.fa.fa-plus-square-o
-              a.btn.btn-default.btn-sm href="#{edit_app_scheme_path(@app, scheme)}"
+              a.btn.btn-default.btn-sm.btn-flat href="#{edit_app_scheme_path(@app, scheme)}"
                 i.fa.fa-edit
-              a.btn.btn-default.btn-sm href="#{app_scheme_path(@app, scheme)}" data-confirm="确定删除#{scheme.app_name}类型?" data-method="delete"
+              a.btn.btn-default.btn-sm.btn-flat href="#{app_scheme_path(@app, scheme)}" data-confirm="确定删除#{scheme.app_name}类型?" data-method="delete"
                 i.fa.fa-remove
 
             table.table style="margin-top: 10px"
