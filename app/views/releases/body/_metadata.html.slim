@@ -22,9 +22,10 @@
       li
         i.fa.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
-      li
-        i.fa.fa-retweet
-        | 90.5 MB
+      - unless @release.file.blank?
+        li
+          i.fa.fa-retweet
+          = " #{number_to_human_size(@release.file.size)}"
       - if @release.git_commit
         li
           i.fa.fa-git

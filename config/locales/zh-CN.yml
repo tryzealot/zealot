@@ -2,11 +2,16 @@ zh-CN:
   errors:
     messages:
       mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
-    template:
-      body: 如下字段出现错误：
-      header:
-        one: 有 1 个错误发生导致「%{model}」无法被保存。
-        other: 有 %{count} 个错误发生导致「%{model}」无法被保存。
+  activerecord:
+    errors:
+      models:
+        debug_file:
+          attributes:
+            app_id:
+              blank: 请选择要上传对于的应用
+            file:
+              blank: 必须选择一个 zip 文件
+
   helpers:
     submit:
       app:

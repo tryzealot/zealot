@@ -28,6 +28,36 @@ module ApplicationHelper
     simple_format raw
   end
 
+  def device_name(device_type)
+    case device_type.downcase
+    when 'ios'
+      'iOS'
+    when 'iphone'
+      'iPhone'
+    when 'ipad'
+      'iPad'
+    when 'universal'
+      'Universal'
+    when 'android'
+      'Android'
+    else
+      device_type
+    end
+  end
+
+  def device_icon(device_type)
+    icon = case device_type.downcase
+           when 'ios', 'iphone', 'ipad', 'mac', 'ipa'
+             'fa-apple'
+           when 'android', 'apk'
+             'fa-android'
+           else
+             'fa-adn'
+           end
+
+    raw %(<i class="fa #{icon}"></i>)
+  end
+
   # 获取浏览器 user agent
   def user_agent
     request.user_agent
