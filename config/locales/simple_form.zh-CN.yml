@@ -70,7 +70,7 @@ zh-CN:
         body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:
         device_type: '应用设备类型'
-        file: '必须使用 zip 文件'
+        file: '无论是 iOS 还是 Android 都必须使用 zip 文件'
 
     placeholders:
       web_hook:

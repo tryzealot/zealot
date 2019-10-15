@@ -1,7 +1,7 @@
 aside.main-sidebar
   section.sidebar
     ul.sidebar-menu
-      li.header 功能导航
+      li.header 功能区域
       li class="treeview #{active_class(root_path)}"
         a href="#{ root_path }"
           i.fa.fa-th
@@ -10,20 +10,17 @@ aside.main-sidebar
         a href="#{apps_path}"
           i.fa.fa-adn
           span 应用管理
-      - if current_user.roles?(:admin, :mobile)
-        li class="treeview #{active_class(debug_files_path)}"
-          a href="#{debug_files_path}"
-            i.fa.fa-bug
-            span Debug File 管理
-        / li class="treeview #{active_class(deep_links_path)}"
-        /   a href="#{deep_links_path}"
-        /     i.fa.fa-external-link
-        /     span Deep Links
-        /     span.pull-right-container
-        /       small.label.pull-right.bg-blue
-        /         | 测试
-      - if current_user.roles?(:admin)
+      li class="treeview #{active_class(debug_files_path)}"
+        a href="#{debug_files_path}"
+          i.fa.fa-bug
+          span Debug File 管理
+      - if current_user.admin?
+        li.header 管理区域
         li class="treeview #{active_class(users_path)}"
           a href="#{users_path}"
             i.fa.fa-user
             span 用户管理
+        li class="treeview #{active_class(admin_background_jobs_path)}"
+          a href="#{admin_background_jobs_path}"
+            i.fa.fa-bar-chart
+            span 后台任务

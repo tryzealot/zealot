@@ -1,10 +1,10 @@
 = simple_form_for(@debug_file) do |f|
   = f.error_notification
 
-  = f.input :app_id, collection: @apps, prompt: '请选择应用', label_method: :name, required: true, error: '请选择要上传对于的应用'
+  = f.input :app_id, collection: @apps, label_method: :name, selected: 0
   = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, selected: DebugFile.device_types.first
-  = f.input :release_version, required: true
-  = f.input :build_version, required: true
-  = f.input :file, required: true, error: '必须选择一个 zip 文件'
+  = f.input :release_version
+  = f.input :build_version
+  = f.input :file, required: true
   = f.input :checksum, disabled: true, error: '文件不能重复上传'
   = f.button :submit

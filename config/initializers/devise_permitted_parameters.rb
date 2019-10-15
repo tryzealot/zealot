@@ -13,4 +13,6 @@ module DevisePermittedParameters
   end
 end
 
-DeviseController.send :include, DevisePermittedParameters
+ActiveSupport.on_load(:devise_controller) do
+  include DevisePermittedParameters
+end

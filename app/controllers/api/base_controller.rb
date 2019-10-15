@@ -19,7 +19,7 @@ class Api::BaseController < ActionController::API
   rescue_from TypeError, with: :render_unmatched_bundle_id_serror
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActionCable::Connection::Authorization::UnauthorizedError, with: :render_unauthorized_user_key
-  rescue_from ArgumentError, NoMethodError, Mysql2::Error, with: :render_internal_server_error
+  rescue_from ArgumentError, NoMethodError, PG::Error, with: :render_internal_server_error
 
   def render_unmatched_bundle_id_serror(exception)
     render json: {

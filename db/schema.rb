@@ -74,14 +74,14 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
 
   create_table "debug_file_metadata", force: :cascade do |t|
     t.bigint "debug_file_id", null: false
-    t.string "uuid", null: false
+    t.string "uuid"
     t.string "type"
     t.string "object"
+    t.jsonb "data", default: "{}", null: false
     t.integer "size"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["debug_file_id"], name: "index_debug_file_metadata_on_debug_file_id"
-    t.index ["uuid"], name: "index_debug_file_metadata_on_uuid"
   end
 
   create_table "debug_files", force: :cascade do |t|
