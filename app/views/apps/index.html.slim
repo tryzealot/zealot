@@ -1,6 +1,14 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  a.btn.bg-green href="#{new_app_path}"
+    i.fa.fa-plus-circle
+    | 新建应用
+
 .row
   == render 'list'
   == render 'help'

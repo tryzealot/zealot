@@ -65,58 +65,6 @@
                               td
                                 = number_to_human_size(metadata.size)
 
-  / .col-xs-12
-  /   .box
-  /     .box-header.with-border
-  /       h3.box-title
-  /         = @title
-  /       .box-tools
-  /         a href="#{new_debug_file_path}"
-  /           i.fa.fa-plus-square-o
-  /           |  上传 Debug File 文件
-  /     .box-body.no-padding
-  /       table.table
-  /         thead
-  /           tr
-  /             th ID
-  /             th 应用
-  /             th 平台
-  /             th 版本
-  /             th 上传时间
-  /             th 操作
-  /         tbody
-  /           - unless @debug_files.empty?
-  /             - @debug_files.each_with_index do |debug, i|
-  /               tr id="debug-file-info-#{debug.id}"
-  /                 td
-  /                   = i + 1
-  /                 td
-  /                   = link_to "#{debug.app.name}", app_path(debug.app), class: "debug-file-title"
-  /                 td.debug-file-device-type
-  /                   = debug.device_type
-  /                 td.debug-file-version
-  /                   span.debug-file-release-version
-  /                     = debug.release_version
-  /                   | &nbsp (
-  /                   span.debug-file-build-version
-  /                     = debug.build_version
-  /                   | )
-  /                 td
-  /                   = debug.created_at
-  /                 td
-  /                   button.btn.btn-sm.btn-success.btn-flat href="#{debug.file.url}"
-  /                     i.fa.fa-download
-  /                     | 包内容
-  /                   button.btn.btn-sm.btn-success.btn-flat href="#{debug.file.url}"
-  /                     i.fa.fa-download
-  /                     | 下载
-  /                   button.btn.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug.id}" data-toggle="modal"
-  /                     i.fa.fa-close
-  /                     | 删除
-  /           - else
-  /             tr
-  /               td colspan=6 无
-
   .col-xs-12
     .box.box-warning
       .box-header.box-border
