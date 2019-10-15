@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   #############################################
   # App
   #############################################
-
   resources :channels, only: %i[index show] do
     resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: 'apps' do
@@ -26,28 +25,10 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    # member do
-      # get :auth
-      # scope '(:version)', version: /\d+/ do
-      #   get :show, as: ''
-      #   get '/qrcode', to: 'apps/qrcode#show', as: 'qrcode'
-      # end
-
-      # resources :web_hooks, param: :hook_id, constraints: { hook_id: /\d+/ }, only: %i[index create destroy] do
-      #   member do
-      #     post :test
-      #   end
-      # end
-
-      # scope module: 'apps', as: 'app' do
-      #   # resources :changelogs, only: %i[edit update]
-      #   resources :releases, param: :version, constraints: { version: /\d+(.\d+){0,4}/ }, only: %i[index show]
-      # end
-    # end
   end
 
-  # resources :channels, path: '/', param: :slug, constraints: { slug: /(?!new)\w+/ }
+  # Debug File 管理
+  resources :debug_files, except: [:show]
 
   #############################################
   # User
@@ -59,7 +40,7 @@ Rails.application.routes.draw do
     patch 'active/:token', to: 'activations#update'
   end
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
       require 'sidekiq/web'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
@@ -101,12 +82,6 @@ Rails.application.routes.draw do
   # API v3
   #############################################
   post '/graphql', to: 'graphql#execute'
-
-  #############################################
-  # Other
-  #############################################
-  # Debug File 管理
-  resources :debug_files, except: [:show, :edit, :update]
 
   root to: 'dashboards#index'
 end

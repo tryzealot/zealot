@@ -1,13 +1,6 @@
 .col-xs-12
   .box
     .box-header
-      h3.box-title
-        i.fa.fa-adn
-        |  应用列表
-      .box-tools
-        a href="#{new_app_path}"
-          i.fa.fa-plus-square-o
-          |  新建应用
     #apps-list.box-body
       - @apps.each_with_index do |app, i|
         .app.col-md-3
