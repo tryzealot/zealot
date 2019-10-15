@@ -22,3 +22,11 @@ var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' +
 document.addEventListener('turbolinks:load', function () {
   $(window).trigger('resize');
 });
+
+// auto switch dark mode
+// $(document).ready(function () {
+//   var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+//   if (isDarkMode) {
+//     $('body').removeClass('skin-black-light').addClass('skin-black');
+//   }
+// });
