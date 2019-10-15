@@ -45,8 +45,9 @@ gem 'devise', '~> 4.7.1'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
-# # GEO 坐标计算
-# gem 'haversine'
+# 系统信息
+gem 'sys-filesystem', '~> 1.3.0'
+gem 'vmstat', '~> 2.3.0'
 
 # Jenkins SDK
 gem 'jenkins_api_client'
@@ -60,7 +61,6 @@ gem 'sidekiq', '<= 7'
 gem 'settingslogic'
 
 # Assets
-# gem 'js-routes'
 gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'

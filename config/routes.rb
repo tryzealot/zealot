@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
 
       resources :background_jobs, only: [:index]
+      resources :system_info, only: [:index]
       resources :graphql_console, only: [:index]
     end
   end
