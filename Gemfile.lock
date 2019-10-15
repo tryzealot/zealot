@@ -217,7 +217,6 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mustermann (1.0.3)
     nenv (0.3.0)
     nio4r (2.5.2)
     nokogiri (1.10.4)
@@ -345,11 +344,6 @@ GEM
     simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    sinatra (2.0.7)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.7)
-      tilt (~> 2.0)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -453,7 +447,6 @@ DEPENDENCIES
   settingslogic
   sidekiq (<= 7)
   simple_form (~> 5.0)
-  sinatra (~> 2.0.7)
   slim-rails (~> 3.2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
