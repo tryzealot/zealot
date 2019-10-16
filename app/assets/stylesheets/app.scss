@@ -2,28 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@media (min-width: 1200px) {
-  .container {
-    width: 670px;
-  }
-}
-
-div.install-cert-notices {
-  text-align: center;
-  padding-top: 1.2em;
-  color: #FFF;
-}
-
-.label-ms, span.label-ms {
-  font-size: 8px;
-  margin-left: 0.5em;
-}
-
-div.app-container p.qr_code img {
-  max-width: 240px;
-  max-height: 240px;
-}
-
 .cover {
   position: fixed;
   top: 0;
@@ -75,31 +53,6 @@ div.app-container p.qr_code img {
   }
 }
 
-.container #dropzone {
-  margin-top: 20px;
-}
-
-.container .dropzone h4.dz-message {
-  color: #646C7F;
-}
-
-.container .dropzone {
-  border: 2px dashed #0087F7;
-  border-radius: 5px;
-  background: white;
-}
-
-.container .dropzone .dz-message {
-  font-weight: 400;
-}
-
-.container .dropzone .dz-message .note {
-  font-size: 0.8em;
-  font-weight: 200;
-  display: block;
-  margin-top: 1.4em;
-}
-
 // App 列表
 .apps {
   .app-icon {
@@ -110,122 +63,49 @@ div.app-container p.qr_code img {
   }
 }
 
-// .app-list {
-//   list-style: none;
-//   padding-left: 0;
-//   margin-bottom: 0;
-// }
+// App 详情
+.app-detail {
+  .app-icon {
+    width: 50px;
+    height: 50px;
+    float: left;
+  }
 
-// .app-actions-bar .actions {
-//   list-style: none;
-//   padding-left: 0;
-//   margin-bottom: 10px;
-// }
+  .app-name {
+    padding-top: 10px;
+    padding-left: 60px;
+  }
 
-// .app-actions-bar .actions>li {
-//   display: inline-block;
-//   padding-right: 5px;
-//   padding-left: 5px;
-// }
+  .app-identifier {
+    padding-top:4px;
+    color: #9f9f9f;
+    font-size: 0.9em;
+  }
 
-// .app-list .app-item {
-//   padding-top: 20px;
-//   border-top: 1px solid #d2d6de;
-// }
+  .app-metadata {
+    list-style: none;
+    font-size: 1.2em;
+    padding: 10px 0;
+  }
 
-// .app-list .app-item .app-block {
-//   margin-bottom: 10px;
-//   padding-left: 50px;
-// }
+  .app-metadata>li {
+    display: inline-block;
+    padding: 0 10px;
+  }
 
-// .app-list .app-item .app-icon {
-//   float: left;
-//   max-width: 40px;
-//   max-height: 40px;
-// }
-
-// .app-list .app-item .app-dest {
-//   color: #999;
-// }
-
-// .app-list .app-actions-bar {
-//   margin-bottom: 20px;
-// }
-
-// // App 详情
-// .app-detail .app-icon {
-//   width: 50px;
-//   height: 50px;
-//   float: left;
-// }
-
-// .app-detail .app-name {
-//   padding-top: 10px;
-//   padding-left: 60px;
-// }
-
-// .app-detail .app-identifier {
-//   padding-top:4px;
-//   color: #9f9f9f;
-//   font-size: 0.9em;
-// }
-
-// // .app-detail .box-body {
-// //   text-align: center;
-// // }
-
-// .app-detail .app-metadata {
-//   list-style: none;
-//   font-size: 1.2em;
-//   padding: 10px 0;
-// }
-
-// .app-detail .app-metadata>li {
-//   display: inline-block;
-//   padding: 0 10px;
-// }
-
-// .app-detail .app-metadata>li>i {
-//   margin-right: 5px;
-// }
-
-// @media (min-width: 300px) {
-//   .app-detail .box-tools {
-//     margin-top: 10px;
-//   }
-// }
-
-// @media (min-width: 550px) {
-//   .app-detail .box-tools {
-//     margin-top: 20px;
-//   }
-// }
-
-
-// App 密码认证
-.container .app-auth {
-  float: none;
-  margin: 0 auto;
-  margin-top: 20px;
+  .app-metadata>li>i {
+    margin-right: 5px;
+  }
 }
 
-.container .app-auth form {
-  margin: 0 auto;
-}
-.app-info .release-changelogs-toggle {
-  cursor: pointer;
-}
-
-// App 最近上传
-
-.release-changelogs-toggle {
-  cursor: pointer;
+@media (min-width: 300px) {
+  .app-detail .box-tools {
+    margin-top: 10px;
+  }
 }
 
-.release-changelogs-toggle:hover {
-  background-color: #EFEFEF;
-}
-
-.release-changelog-current {
-  background-color: #fffee8 !important;
+@media (min-width: 550px) {
+  .app-detail .box-tools {
+    margin-top: 20px;
+  }
 }

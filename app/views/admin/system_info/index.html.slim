@@ -11,7 +11,9 @@
         dl.system-info
           dt 服务器版本
           dd
-            pre = ::Setting.version
+            pre
+              small#latest_version.pull-right.label.label-danger
+              span#current_version = ::Setting.version
           dt Ruby 版本
           dd
             pre = RUBY_DESCRIPTION
