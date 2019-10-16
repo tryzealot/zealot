@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'app-info'
+
 class ReleasesController < ApplicationController
   include AppsHelper
 
@@ -7,7 +11,6 @@ class ReleasesController < ApplicationController
 
   def show
     redirect_to new_user_session_path unless !wechat? || @channel.password.blank? || !user_signed_in?
-    # redirect_to auth_channel_release_path(@channel, @release) unless @channel.password.blank?
 
     @title = @release.app_name
   end
@@ -15,6 +18,13 @@ class ReleasesController < ApplicationController
   def new
     @title = '上传应用'
     @release = @channel.releases.new
+  end
+
+  def create
+    @release = @channel.releases.upload_file(release_params)
+    return render :new unless @release.save
+
+    redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
   end
 
   def auth
@@ -43,5 +53,11 @@ class ReleasesController < ApplicationController
 
   def wechat?
     request.user_agent.include? 'MicroMessenger'
+  end
+
+  def release_params
+    params.require(:release).permit(
+      :file, :changelog, :release_type, :branch, :git_commit, :ci_url
+    )
   end
 end

@@ -23,6 +23,8 @@ zh-CN:
       channel:
         create: 新增渠道
         update: 更新渠道
+      release:
+        create: 上传应用
       web_hook:
         create: 新增网络钩子
         update: 更新网络钩子
