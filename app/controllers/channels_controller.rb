@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
   before_action :set_channel, only: [:show, :edit, :destroy]
   before_action :set_scheme, except: [:index, :show]
 
