@@ -35,6 +35,10 @@ Rails.application.routes.draw do
         post :auth
       end
     end
+
+    scope module: 'channels' do
+      resources :versions, only: :show, id: /\d+(.\d+){0,4}/
+    end
   end
 
   resources :apps do
