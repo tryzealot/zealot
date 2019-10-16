@@ -1,5 +1,5 @@
 class DebugFileMetadatum < ApplicationRecord
-  serialize :data, HashSerializer
+  # serialize :data, HashSerializer
 
   belongs_to :debug_file
 
