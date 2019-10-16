@@ -146,6 +146,6 @@ module AppsHelper
   def display_app_device(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 
-    "#{channel.name} (#{device_name(device_type)})"
+    "#{channel.name} (#{device_name(channel.device_type)})"
   end
 end
