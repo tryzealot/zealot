@@ -22,21 +22,6 @@ class Api::V2::AppsController < ActionController::API
   protected
 
   def set_app
-    @app =
-      case params[:id].to_i
-      when Integer
-        App.find(params[:id])
-      else
-        App.find_by(identifier: params[:id])
-      end
-  end
-
-  def validate_app_key
-    @app = App.find_by(identifier: params[:id], key: params[:key])
-    return if @app
-
-    render json: {
-      error: '未授权或无效的 App Key'
-    }, status: 401
+    @app = App.find(params[:id])
   end
 end
