@@ -1,0 +1,46 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+.row
+  .col-xs-12
+    .box
+      .box-header
+        h3.box-title
+          | 开发版本列表
+        .box-tools
+          a href="#{@back_url}"
+            i.fa.fa-list-alt
+            |  返回上级页面
+      .box-body.table-responsive.no-padding
+        table.table.table-striped.table-hover
+          tr
+            th ID
+            th 开发版本
+            th 打包类型
+            th 分支
+            th Git 提交信息
+            th 包信息
+            th style="width: 200px; text-align: right;padding-right: 18px" 上传时间
+          - unless @releases.empty?
+            - @releases.each_with_index do |release, index|
+              tr
+                td
+                  = index + 1
+                td
+                  = link_to release.build_version
+                td
+                  = release.release_type
+                td
+                  = release.branch
+                td
+                  = release.short_git_commit
+                td
+                  = link_to '下载本地', api_v2_apps_download_path(@channel, release), { target: '_blank' }
+                td
+                  = release.created_at
+          - else
+            tr
+              th colspan="5" 该版本没有任何上传记录！
