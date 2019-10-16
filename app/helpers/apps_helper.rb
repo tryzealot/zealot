@@ -86,7 +86,7 @@ module AppsHelper
       release.bundle_id = app_info.bundle_id
       release.release_version = app_info.release_version
       release.build_version = app_info.build_version
-      release.release_type ||= app_info.release_type if app_info.os == AppInfo::Parser::Platform::IOS
+      release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
       release.icon = File.open(app_info.icons.last[:file])
     end
   end
@@ -113,16 +113,16 @@ module AppsHelper
   end
 
   def parse_scheme_name
-    return unless app_info.os == AppInfo::Parser::Platform::IOS
+    return unless app_info.os == AppInfo::Platform::IOS
 
     case app_info.release_type
-    when AppInfo::Parser::IPA::ExportType::DEBUG
+    when AppInfo::IPA::ExportType::DEBUG
       '开发版'
-    when AppInfo::Parser::IPA::ExportType::ADHOC
+    when AppInfo::IPA::ExportType::ADHOC
       '测试版'
-    when AppInfo::Parser::IPA::ExportType::INHOUSE
+    when AppInfo::IPA::ExportType::INHOUSE
       '企业版'
-    when AppInfo::Parser::IPA::ExportType::RELEASE
+    when AppInfo::IPA::ExportType::RELEASE
       '线上版'
     end
   end

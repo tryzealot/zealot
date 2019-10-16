@@ -6,14 +6,15 @@ ruby:
     .box-header.with-border
       i.fa.fa-history
       h3.box-title 最近 10 次上传
-    .box-body.no-padding
+    .box-body
       ul.timeline
         - releases.each do |release|
           li
-            i.fa.fa-apple.bg-black
+            i.fa class="#{release.channel.device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
             .timeline-item
               span.time
                 i.fa.fa-clock-o
+                | &nbsp
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to release.app_name, channel_release_path(@release.channel, release)
@@ -21,3 +22,15 @@ ruby:
               - unless release.changelog.blank?
                 .timeline-body
                   = changelog_format release.changelog_list
+                .timeline-footer
+                  - if release.release_type
+                    small.label.label-default
+                      = release.release_type
+                  - if release.branch
+                    small.label.label-default
+                      = release.branch
+                  - if release.short_git_commit
+                    small.label.label-default
+                      = release.short_git_commit
+        li
+          i.fa.fa-clock-o.bg-gray
