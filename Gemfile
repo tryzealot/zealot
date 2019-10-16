@@ -46,7 +46,7 @@ gem 'omniauth-google-oauth2', '~> 0.8.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
 # 系统信息
-gem 'sys-filesystem', '~> 1.3.0'
+gem 'sys-filesystem', '~> 1.3.1'
 gem 'vmstat', '~> 2.3.0'
 
 # Jenkins SDK
