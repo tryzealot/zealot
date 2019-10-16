@@ -1,3 +1,5 @@
+require 'app-info'
+
 class Release < ApplicationRecord
   include Rails.application.routes.url_helpers
 
@@ -7,6 +9,8 @@ class Release < ApplicationRecord
   belongs_to :channel
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
+
+  validate :force_bundle_id, on: :create
 
   before_create :auto_release_version
   before_create :auto_file_size
@@ -27,6 +31,26 @@ class Release < ApplicationRecord
 
   def self.latest
     order(version: :desc).first
+  end
+
+  # 上传 App
+  def self.upload_file(params, source = 'Web')
+    create(params) do |release|
+      unless release.file.blank?
+        app_info = AppInfo.parse(release.file.path)
+        release.source = source
+        release.bundle_id = app_info.bundle_id
+        release.release_version = app_info.release_version
+        release.build_version = app_info.build_version
+        release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
+        release.icon = decode_icon app_info.icons.last[:file]
+      end
+    end
+  end
+
+  def self.decode_icon(icon_file)
+    Pngdefry.defry icon_file, icon_file
+    File.open icon_file
   end
 
   def scheme
@@ -130,6 +154,15 @@ class Release < ApplicationRecord
     return lastest if lastest.id > id
   end
 
+  def force_bundle_id
+    return if file.blank?
+    return if channel.bundle_id.blank?
+    return if channel.bundle_id_matched?(app_info.bundle_id)
+
+    message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
+    errors.add(:file, message)
+  end
+
   private
 
   def auto_release_version
@@ -162,5 +195,14 @@ class Release < ApplicationRecord
     false
   rescue JSON::ParserError
     true
+  end
+
+  def enabled_validate_bundle_id?
+    bundle_id = channel.bundle_id
+    !(bundle_id.blank? || bundle_id == '*')
+  end
+
+  def app_info
+    @app_info ||= AppInfo.parse(file.file.file)
   end
 end
