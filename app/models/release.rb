@@ -124,6 +124,12 @@ class Release < ApplicationRecord
     ]
   end
 
+  def outdated?
+    lastest = channel.releases.last
+
+    return lastest if lastest.id > id
+  end
+
   private
 
   def auto_release_version

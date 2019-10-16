@@ -209,12 +209,15 @@ div.app-container p.qr_code img {
   margin-top: 20px;
 }
 
-.container .app-auth form {
-  margin: 0 auto;
-}
-.app-info .release-changelogs-toggle {
-  cursor: pointer;
-}
+  .box-tools>.label {
+    margin-right: 3px;
+  }
+
+  .app-metadata {
+    list-style: none;
+    font-size: 1.2em;
+    padding: 10px 0;
+  }
 
 // App 最近上传
 
