@@ -69,22 +69,22 @@ module ApplicationHelper
 
   def ios?(source = nil)
     source ||= user_agent
-    !(source =~ /iPhone|iPad/i).nil?
+    !(source =~ /iPhone|iPad|Unversal|ios|iOS/i).nil?
   end
 
   def android?(source = nil)
     source ||= user_agent
-    !(source =~ /Android/i).nil?
+    !(source =~ /Android|android/i).nil?
   end
 
-  # 移动设备甄别
+  # 检查移动设备
   def detect_device(device)
     if ios?(user_agent) && ios?(device)
-      'iOS'
+      :ios
     elsif android?(user_agent) && android?(device)
-      'Android'
+      :android
     else
-      'Other'
+      :unkown
     end
   end
 end

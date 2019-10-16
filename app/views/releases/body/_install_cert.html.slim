@@ -1,0 +1,21 @@
+- if ios?
+  #install-tips.modal.fade role="dialog" tabindex="-1" style="display: none" aria-labelledby="install-tips-label"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+          h4#install-tips-label.modal-title
+            i.fa.fa-circle-o-notch.fa-spin
+            span style="padding-left:5px" 正在安装，返回主屏幕在桌面查看
+        .modal-body
+          ol
+            li
+              | 安装 AdHoc 版本前请确认已经
+              strong 卸载
+              | 该 App 的线上版本，否则无法进行安装。这个是 Apple 的限制。
+            li
+              | 在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
+              | 选择该应用对应的企业证书，点击文字 "信任企业开发者"。
+        .modal-footer
+          button.btn.btn-primary data-dismiss="modal" 确定

@@ -30,13 +30,17 @@ module AppsHelper
   end
 
   def logged_in_or_without_auth?(release)
+    puts user_signed_in?
+    puts matched_password?(release)
     user_signed_in? || matched_password?(release)
   end
 
   def matched_password?(release)
     channel = release.channel
     password = channel.password
-    return false if password.blank?
+
+    # no password euqal matched password
+    return true if password.blank?
 
     cookies[app_release_auth_key(release)] == encode_password(channel)
   end
@@ -134,13 +138,16 @@ module AppsHelper
   # end
 
   def git_commit_url(git_url, commit, commit_length = 8)
+    commit_name = commit[0..(commit_length - 1)]
+    return commit_name if git_url.blank?
+
     if git_url.include?('git@')
       # git@git.example.com:user/repo.git
       git_url = git_url.sub(':', '/').sub('git@', 'http://').sub('.git', '')
     end
     commit_url = File.join(git_url, 'commit', commit)
 
-    raw "<a href='#{commit_url}' >#{commit[0..(commit_length - 1)]}</a>"
+    raw "<a href='#{commit_url}' >#{commit_name}</a>"
   end
 
   def display_app_device(channel)
