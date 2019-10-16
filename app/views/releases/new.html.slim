@@ -1,6 +1,9 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @channel.app_name
+
 .row
   .col-xs-12
     .box
@@ -10,6 +13,6 @@
         .box-tools
           a href="#{channel_path(@channel)}"
             i.fa.fa-list-alt
-            |  返回#{@channel.app_name}
+            |  返回应用
       .box-body
         == render 'form'

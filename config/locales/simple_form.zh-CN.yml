@@ -34,6 +34,13 @@ zh-CN:
         git_url: 'Git URL'
         slug: '唯一地址'
         password: '访问密码'
+      release:
+        file: 应用文件
+        changelog: 变更日志
+        release_type: 发布类型
+        branch: 分支名称
+        git_commit: Git 最后提交 Commit Hash
+        ci_url: CI URL
       web_hook:
         url: 'URL'
         body: '自定义消息体'
@@ -66,6 +73,11 @@ zh-CN:
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
+      release:
+        file: 仅支持 .ipa 和 .apk 文件
+        release_type: 一般来说取值位 debug、adhoc、release
+        branch: 通常情况是 master 或 develop
+        ci_url: Jenkins、Gitlab CI 等
       web_hook:
         body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:
@@ -73,6 +85,8 @@ zh-CN:
         file: '无论是 iOS 还是 Android 都必须使用 zip 文件'
 
     placeholders:
+      release:
+        changelog: 开发者很懒什么都没有填写
       web_hook:
         url: 'http://example.com/web-hooks'
         body: |
