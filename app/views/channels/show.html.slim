@@ -6,12 +6,13 @@
   small
     = @subtitle
 
-- content_for :breadcrumb do
-    li
-      a href="#"
-        i.fa.fa-dashboard
-        | 控制台
-    li.active 应用管理
+/ - content_for :breadcrumb do
+/     li
+/       a href="root_path"
+/         i.fa.fa-dashboard
+/         | 控制台
+/     li.active
+/       = link_to '应用管理', apps_path
 
 .row
   .col-md-9
