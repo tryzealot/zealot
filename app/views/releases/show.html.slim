@@ -4,14 +4,16 @@
 - if logged_in_or_without_auth?(@release)
   .row
     .col-md-9
-      = render 'releases/body/metadata'
-      = render 'releases/body/changelog'
-      = render 'releases/body/activity'
+      - if wechat?
+        == render 'releases/body/wechat'
+      == render 'releases/body/metadata'
+      == render 'releases/body/changelog'
+      == render 'releases/body/activity'
 
     .col-md-3
-      = render 'releases/sidebar/qrcode'
-      = render 'releases/sidebar/devices'
-      = render 'releases/sidebar/version'
+      == render 'releases/sidebar/qrcode'
+      == render 'releases/sidebar/devices'
+      == render 'releases/sidebar/version'
 - else
   .login-box
     .login-box-body

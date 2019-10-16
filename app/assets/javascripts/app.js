@@ -73,34 +73,34 @@ $('#latest_version').ready(function () {
 });
 
 
-// function sleep(ms) {
-//   var start = new Date().getTime();
-//   while (new Date().getTime() - start < ms)
-//     continue
-// }
+function sleep(ms) {
+  var start = new Date().getTime();
+  while (new Date().getTime() - start < ms)
+    continue
+}
 
-// function download() {
-//   var wechat_regex = /MicroMessenger/i;
-//   var that = $('#download_it');
-//   if (wechat_regex.test(navigator.userAgent)) {
-//     $('.cover').removeClass('hide');
-//     $('.wechat-tips').removeClass('hide');
-//     $('.navbar-fixed-top').css('z-index', 0);
-//   }
+function download() {
+  var wechat_regex = /MicroMessenger/i;
+  var that = $('#download_it');
+  if (wechat_regex.test(navigator.userAgent)) {
+    $('.cover').removeClass('hide');
+    $('.wechat-tips').removeClass('hide');
+    $('.navbar-fixed-top').css('z-index', 0);
+  }
 
-//   that.button('loading');
+  that.button('loading');
 
-//   setTimeout(function () {
-//     that.button('reset');
-//   }, 8000)
+  setTimeout(function () {
+    that.button('reset');
+  }, 8000)
 
-//   // var slug = that.data('slug');
-//   // var release_version = that.data('release-version');
-//   var install_url = that.data('install-url');
+  // var slug = that.data('slug');
+  // var release_version = that.data('release-version');
+  var install_url = that.data('install-url');
 
-//   console.log('install url: '+ install_url);
-//   window.location.href = install_url;
-// }
+  console.log('install url: '+ install_url);
+  window.location.href = install_url;
+}
 
 // function build() {
 //   var button = $('#build_it');
@@ -143,11 +143,11 @@ $('#latest_version').ready(function () {
 //   });
 // }
 
-// function hideCover() {
-//   $('.cover').addClass('hide');
-//   $('.wechat-tips').addClass('hide');
-//   $('.navbar-fixed-top').css('z-index', 1030);
-// }
+function hideCover() {
+  $('.cover').addClass('hide');
+  $('.wechat-tips').addClass('hide');
+  $('.navbar-fixed-top').css('z-index', 1030);
+}
 
 // function getAverageRGB(imgEl) {
 //   var blockSize = 5, // only visit every 5 pixels
