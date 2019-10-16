@@ -20,9 +20,9 @@
     - if user_signed_in?
       == render 'web_hooks'
   .col-md-3
-    / a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
+    a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
     == render 'schemes'
     == render 'channels'
     == render 'versions'
     - if user_signed_in?
-      a.btn.btn-success.btn-block.margin-bottom href="#{app_path(@channel.app)}" 应用管理
+      a.btn.btn-default.btn-block.margin-bottom href="#{app_path(@channel.app)}" 应用管理
