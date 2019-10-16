@@ -27,21 +27,23 @@
       li
         i.fa.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
-      li
-        i.fa.fa-cubes
-        = @release.release_type
-      li
-        i.fa.fa-code-fork
-        = @release.branch
+      - unless @release.release_type.blank?
+        li
+          i.fa.fa-cubes
+          = @release.release_type
+      - unless @release.branch.blank?
+        li
+          i.fa.fa-code-fork
+          = @release.branch
       - unless @release.file.blank?
         li
           i.fa.fa-retweet
           = " #{number_to_human_size(@release.file.size)}"
-      - if @release.git_commit
+      - unless @release.git_commit.blank?
         li
           i.fa.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-      - if @release.ci_url && !['api', 'web'].include?(@release.source.downcase)
+      - unless @release.ci_url.blank? && ['api', 'web'].include?(@release.source.downcase)
         li
           i.fa.fa-gears
           = link_to @release.source, @release.ci_url
@@ -53,17 +55,17 @@
         - if detect_device(@release.channel.device_type) == :ios
           == render 'releases/body/install_cert'
 
-          button.btn.btn-success.btn-lg id="download_it" onclick="download()" data-install-url="#{@release.install_url}" data-release-version="#{@release.version}" data-slug="#{@release.channel.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips"
+          button.btn.bg-purple.btn-lg id="download_it" onclick="download()" data-install-url="#{@release.install_url}" data-release-version="#{@release.version}" data-slug="#{@release.channel.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips"
             i.fa.fa-paper-plane
             | 在线安装
         - else
-          a.btn.btn-success.btn-social href="#{channel_release_download_index_path(@release.channel, @release)}" target="_blank"
+          a.btn.bg-purple.btn-social href="#{channel_release_download_index_path(@release.channel, @release)}" target="_blank"
             i.fa.fa-download
             | 本地下载
 
         span style=("margin:0 5px")
         - unless @release.ci_url.blank?
-          button#build_it.btn.btn-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
+          button#build_it.btn.bg-purple.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
             i.fa.fa-wrench
             | 构建新版
 

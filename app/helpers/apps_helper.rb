@@ -30,8 +30,6 @@ module AppsHelper
   end
 
   def logged_in_or_without_auth?(release)
-    puts user_signed_in?
-    puts matched_password?(release)
     user_signed_in? || matched_password?(release)
   end
 

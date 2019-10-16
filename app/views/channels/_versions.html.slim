@@ -1,9 +1,8 @@
 .box.box-solid
   .box-header.with-border
     h3.box-title 历史版本
-    .box-tools.pull-right
-      button.btn.btn-box-tool data-widget="collapse" type="button"
-        i.fa.fa-minus
+    .box-tools
+      span.badge.bg-yellow = @channel.releases.count
   .box-body.table-responsive.no-padding
     table.table.table-striped.table-borderd
       tr

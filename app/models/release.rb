@@ -43,7 +43,12 @@ class Release < ApplicationRecord
         release.release_version = app_info.release_version
         release.build_version = app_info.build_version
         release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
-        release.icon = decode_icon app_info.icons.last[:file]
+
+        puts "dddddd"
+        puts app_info.icons
+        if icon_file = app_info.icons.last.try(:[], :file)
+          release.icon = decode_icon(icon_file)
+        end
       end
     end
   end
