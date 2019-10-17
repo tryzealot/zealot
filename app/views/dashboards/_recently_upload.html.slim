@@ -34,7 +34,7 @@ section.recently-upload
                 li
                   i.fa class="#{release.channel.device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
                   .timeline-item
-                    span.time
+                    span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
                       i.fa.fa-clock-o
                       | &nbsp
                       = time_ago_in_words(release.created_at)
