@@ -2,11 +2,11 @@ class CreateRolesService
   def call
     roles = [
       {
-        name: 'User',
+        name: '用户',
         value: 'user'
       },
       {
-        name: 'Administrator',
+        name: '管理员',
         value: 'admin'
       }
     ]
