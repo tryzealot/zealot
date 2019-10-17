@@ -42,19 +42,20 @@ section.recently-upload
                       = link_to " #{release.app_name}", channel_release_path(release.channel, release)
                       |  上传了新版本
                       = " #{release.release_version} (#{release.build_version})"
-                    - if release.changelog?
+                    - unless release.changelog.blank?
                       .timeline-body
                         = changelog_format(release.changelog_list)
-                    .timeline-footer
-                      - if release.release_type
-                        small.label.label-default
-                          = release.release_type
-                      - if release.branch
-                        small.label.label-default
-                          = release.branch
-                      - if release.short_git_commit
-                        small.label.label-default
-                          = release.short_git_commit
+                    - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
+                      .timeline-footer
+                        - if release.release_type
+                          small.label.label-default
+                            = release.release_type
+                        - if release.branch
+                          small.label.label-default
+                            = release.branch
+                        - if release.short_git_commit
+                          small.label.label-default
+                            = release.short_git_commit
 
               li
                 i.fa.fa-clock-o.bg-gray
