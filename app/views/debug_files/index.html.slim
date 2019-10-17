@@ -17,11 +17,11 @@
           h3.box-title
             = app.name
         .box-body.no-padding
-          table.table
+          table.table.table-hover
             - app.debug_files.each do |debug_file|
               tr
                 td
-                  .debug-file-section id="debug-file-info-#{debug_file.id}" data-app-name="#{app.name}"
+                  .debug-file-section id="debug-file-info-#{debug_file.id}" data-id="#{debug_file.id}" data-app-name="#{app.name}"
                     .debug-file-section-header
                       h3.debug-file-section-title
                         - unless debug_file.build_version.blank?
@@ -33,6 +33,7 @@
                         - if debug_file.build_version.blank?
                           | 后台任务正在解析中，请稍候刷新。
                         - else
+                          | 内部版本：
                           = debug_file.build_version
 
                       .debug-file-section-size
@@ -48,7 +49,7 @@
                           small style="color: #999"
                             | 上传于
                             = debug_file.created_at.strftime("%Y年%m月%d日 %H:%M:%S")
-                    .debug-file-section-body
+                    .debug-file-section-body.hidden id="debug-file-metadata-#{debug_file.id}"
                       table.table.table-striped
                         - debug_file.metadata.each do |metadata|
                           - if metadata.type == 'proguard'
