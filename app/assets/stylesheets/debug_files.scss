@@ -45,6 +45,10 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+
+    .table {
+      cursor: default;
+    }
   }
 
   .debug-file-section-body table {
