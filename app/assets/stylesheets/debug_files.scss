@@ -1,13 +1,15 @@
 .debug-file-section {
-  padding: 5px;
   position: relative;
   width: 100%;
   cursor: pointer;
 
   .debug-file-section-header {
     display: block;
-    padding: 10px 2px;
     position: relative;
+
+    .debug-file-toggle {
+      padding: 10px 2px;
+    }
 
     .debug-file-section-title {
       display: inline-block;

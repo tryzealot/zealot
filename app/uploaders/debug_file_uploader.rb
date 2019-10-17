@@ -2,7 +2,7 @@ class DebugFileUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/debug_files/apps/a#{model.app.id}/"
+    "uploads/debug_files/a#{model.app.id}/"
   end
 
   def size

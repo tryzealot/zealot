@@ -12,90 +12,77 @@
 .row
   - @apps.each do |app|
     .col-xs-12
-      .box
-        .box-header.with-border
-          h3.box-title
+      .nav-tabs-custom
+        ul.nav.nav-tabs.pull-right
+          - DebugFile.device_types.each_with_index do |(value, name), i|
+            li class="#{i == 0 ? 'active' : ''}"
+              a data-toggle="tab" href="#tab-#{value.downcase}" = name
+          li.header.pull-left
             = app.name
-        .box-body.no-padding
-          table.table.table-hover
-            - app.debug_files.each do |debug_file|
-              tr
-                td
-                  .debug-file-section id="debug-file-info-#{debug_file.id}" data-id="#{debug_file.id}" data-app-name="#{app.name}"
-                    .debug-file-section-header
-                      h3.debug-file-section-title
-                        - unless debug_file.build_version.blank?
-                          span.debug-file-version
-                            = debug_file.release_version
-                        span.debug-file-device-type
-                          = device_name(debug_file.device_type)
-                      .debug-file-build-version
-                        - if debug_file.build_version.blank?
-                          | 后台任务正在解析中，请稍候刷新。
-                        - else
-                          | 内部版本：
-                          = debug_file.build_version
+        .tab-content.no-padding
+          - DebugFile.device_types.each_with_index do |(value, name), i|
+            == render 'debug_file', app: app, value: value, name: name, i: i
 
-                      .debug-file-section-size
-                        a.btn.btn-sm.btn-success.btn-flat href="#{debug_file.file.url}"
-                          i.fa.fa-download
-                          | 下载 (
-                          = number_to_human_size(debug_file.file.size)
-                          | )
-                        button.btn.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug_file.id}" data-url="#{debug_file_path(debug_file)}" data-toggle="modal"
-                          i.fa.fa-close
-                          | 删除
-                        .div.text-center
-                          small style="color: #999"
-                            | 上传于
-                            = debug_file.created_at.strftime("%Y年%m月%d日 %H:%M:%S")
-                    .debug-file-section-body.hidden id="debug-file-metadata-#{debug_file.id}"
-                      table.table.table-striped
-                        - debug_file.metadata.each do |metadata|
-                          - if metadata.type == 'proguard'
-                            - metadata.data['files'].each do |file|
-                              tr
-                                td colspan="2"
-                                  = file["name"]
-                                td colspan="2"
-                                  = number_to_human_size(file["size"])
-                          - else
-                            tr
-                              td
-                                = metadata.uuid
-                              td
-                                = metadata.type
-                              td
-                                = metadata.object
-                              td
-                                = number_to_human_size(metadata.size)
 
-  .col-xs-12
-    .box.box-warning
-      .box-header.box-border
-        h3.box-title 什么是 Debug File
-      .box-body.table-responsive
-        div
-          h4 iOS
-          p 使用 XCode 打包（Archive）成功后 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
-          ul
-            li 进入 XCode
-            li 打开工程（已编译过）
-            li 在左栏找到 "Product" 项
-            li 鼠标右键点击编译生成的 "xxx.app"
-            li 点击 "Show in Finder" 即可看到 dsym 文件
+      / .box
+      /   .box-header.with-border
+      /     h3.box-title
+      /       = app.name
+      /   .box-body.no-padding
+      /     table.table.table-hover
+      /       - app.debug_files.each do |debug_file|
+      /         tr
+      /           td
+      /             .debug-file-section id="debug-file-info-#{debug_file.id}" data-id="#{debug_file.id}" data-app-name="#{app.name}"
+      /               .debug-file-section-header
+      /                 h3.debug-file-section-title
+      /                   - unless debug_file.build_version.blank?
+      /                     span.debug-file-version
+      /                       = debug_file.release_version
+      /                   span.debug-file-device-type
+      /                     = device_name(debug_file.device_type)
+      /                 .debug-file-build-version
+      /                   - if debug_file.build_version.blank?
+      /                     | 后台任务正在解析中，请稍候刷新。
+      /                   - else
+      /                     | 内部版本：
+      /                     = debug_file.build_version
 
-          p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
-            pre
-              code Debug Information Format = "DWARF with dSYM File"
-          p 如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。
-        div
-          h4 Android
-          p
-            | 通常指的是 Mapping Files，主要用于被
-            a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn"
-              |  proguard 混淆
-            |  后代码复原使用。如果你是要了 tinker 还可以把 AndroidManifest.xml 和 R.txt 等文件也做备份。
+      /                 .debug-file-section-size
+      /                   a.btn.btn-sm.btn-success.btn-flat href="#{debug_file.file.url}"
+      /                     i.fa.fa-download
+      /                     | 下载 (
+      /                     = number_to_human_size(debug_file.file.size)
+      /                     | )
+      /                   button.btn.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug_file.id}" data-url="#{debug_file_path(debug_file)}" data-toggle="modal"
+      /                     i.fa.fa-close
+      /                     | 删除
+      /                   .div.text-center
+      /                     small style="color: #999"
+      /                       | 上传于
+      /                       = debug_file.created_at.strftime("%Y年%m月%d日 %H:%M:%S")
+      /               .debug-file-section-body.hidden id="debug-file-metadata-#{debug_file.id}"
+      /                 table.table.table-striped
+      /                   - debug_file.metadata.each do |metadata|
+      /                     - if metadata.type == 'proguard'
+      /                       - metadata.data['files'].each do |file|
+      /                         tr
+      /                           td colspan="2"
+      /                             = file["name"]
+      /                           td colspan="2"
+      /                             = number_to_human_size(file["size"])
+      /                     - else
+      /                       tr
+      /                         td
+      /                           = metadata.uuid
+      /                         td
+      /                           = metadata.type
+      /                         td
+      /                           = metadata.object
+      /                         td
+      /                           = number_to_human_size(metadata.size)
+
+  == render 'help'
 
 #destory_modal.modal.fade role="dialog" tabindex="-1"
   .modal-dialog role="document"

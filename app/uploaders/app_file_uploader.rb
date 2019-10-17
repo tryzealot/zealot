@@ -10,7 +10,7 @@ class AppFileUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(ipa apk)
+    %w[ipa apk].freeze
   end
 
   def md5
