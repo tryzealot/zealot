@@ -1,10 +1,20 @@
-.timeline li i {
-  margin-top: 4px;
-}
+.timeline {
+  li {
+    .timeline-item {
+      background-color: #f8f8f8;
+    }
 
-.timeline .timeline-footer small.label {
-  margin-left: 5px;
-  color: #777;
-  background-color: #f4f4f4;
-  border-color: #ddd;
+    .fa {
+      margin-top: 4px;
+    }
+
+    .timeline-footer {
+      .label {
+        margin-left: 5px;
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+      }
+    }
+  }
 }
