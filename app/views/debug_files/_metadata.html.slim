@@ -1,0 +1,20 @@
+.debug-file-section-body.hidden id="debug-file-metadata-#{debug_file.id}"
+  table.table.table-striped
+    - debug_file.metadata.each do |metadata|
+      - if metadata.type == 'proguard'
+        - metadata.data['files'].each do |file|
+          tr
+            td colspan="2"
+              = file["name"]
+            td colspan="2"
+              = number_to_human_size(file["size"])
+      - else
+        tr
+          td
+            = metadata.uuid
+          td
+            = metadata.type
+          td
+            = metadata.object
+          td
+            = number_to_human_size(metadata.size)

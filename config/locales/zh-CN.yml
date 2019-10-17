@@ -1,4 +1,19 @@
 zh-CN:
+  datetime:
+    distance_in_words:
+      about_x_hours: 大约 %{count} 小时前
+      about_x_months: 大约 %{count} 个月前
+      about_x_years: 大约 %{count} 年前
+      almost_x_years: 接近 %{count} 年前
+      half_a_minute: 半分钟前
+      less_than_x_seconds: 不到 %{count} 秒前
+      less_than_x_minutes: 不到 %{count} 分钟前
+      over_x_years: " %{count} 年多前"
+      x_seconds: " %{count} 秒前"
+      x_minutes: " %{count} 分钟前"
+      x_days: " %{count} 天前"
+      x_months: " %{count} 个月前"
+      x_years: " %{count} 年前"
   errors:
     messages:
       mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
