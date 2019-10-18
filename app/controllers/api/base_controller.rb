@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Api::BaseController < ActionController::API
   respond_to :json
 
-  def validate_user_key
-    @user = User.find_by(key: params[:key])
+  def validate_user_token
+    @user = User.find_by(token: params[:token])
     raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
   end
 

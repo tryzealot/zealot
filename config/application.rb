@@ -64,10 +64,10 @@ module Zealot
     }
 
     config.action_mailer.default_url_options = {
-      host: ENV['ACTION_MAILER_HOST']
+      host: ENV['ACTION_MAILER_HOST'] || 'localhost:3000'
     }
     config.action_mailer.default_options = {
-      from: ENV['ACTION_MAILER_DEFAULT_FROM']
+      from: ENV['ACTION_MAILER_DEFAULT_FROM'] || 'Zealot'
     }
 
     # Set Redis as the back-end for the cache.

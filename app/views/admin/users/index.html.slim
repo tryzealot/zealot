@@ -31,6 +31,6 @@
                 td
                   = user.email
                 td
-                  = user.roles.select(:name).all.map {|r| r.name }.join('/')
+                  = user.current_roles
                 td
                   = link_to '删除', admin_user_path(user), method: :delete, data: { confirm: '你确定？'}

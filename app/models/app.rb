@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 class App < ApplicationRecord
-  belongs_to :user
+  scope :avaiable_debug_files, -> { joins(:debug_files).distinct }
+
+  has_and_belongs_to_many :users
   has_many :schemes, dependent: :destroy
   has_many :debug_files, dependent: :destroy
+
   accepts_nested_attributes_for :schemes
 
   validates :name, presence: true
-
-  def self.avaiable_debug_files
-    App.joins(:debug_files).distinct #.order('debug_files.id DESC')
-  end
 
   def recently_release
     return unless scheme = schemes.take

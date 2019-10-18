@@ -106,7 +106,7 @@ module AppsHelper
     permitted[:name] = app_info.name unless permitted.key?(:name)
 
     App.create! permitted do |app|
-      app.user = @user
+      app.users << @user
     end
   end
 

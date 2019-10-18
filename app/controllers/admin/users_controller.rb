@@ -26,12 +26,9 @@ class Admin::UsersController < ApplicationController
     return render :new unless @user.save
 
     # 更新权限
-    @user.update_roles(params[:user][:role_ids])
+    # @user.grant_roles(params[:user][:role_ids].to_i)
 
-    # 发送激活邮件
-    UserMailer.activation_email(@user).deliver_later
-
-    redirect_to admin_users_url, notice: "用户创建成功，打开 #{@user.email} 邮箱查收激活邮件"
+    redirect_to admin_users_url, notice: '用户创建成功'
   end
 
   def edit
@@ -39,13 +36,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    @title = '编辑用户'
 
     # 没有设置密码的情况下不更新该字段
     # user_params[:password] = @user.password if user_params[:password].blank?
 
     if @user.update(user_params)
-      @user.update_roles(params[:user][:role_ids])
+      @user.update_roles(params[:user][:role_ids].to_i)
       redirect_to admin_users_url, notice: '用户已经更新'
     else
       render :edit
@@ -72,7 +68,7 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :username, :email, :password
+      :username, :email, :password, :role_ids
     )
   end
 end
