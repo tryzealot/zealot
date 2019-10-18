@@ -29,6 +29,9 @@ zh-CN:
 
   helpers:
     submit:
+      user:
+        create: 新增用户
+        update: 更新用户
       app:
         create: 新增应用
         update: 更新应用
