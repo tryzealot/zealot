@@ -1,3 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+
 Metrics/LineLength:
   Max: 215
 
@@ -21,3 +27,12 @@ Style/ClassAndModuleChildren:
 
 Style/SymbolArray:
   Enabled: false
+
+# Some blocks are longer.
+Metrics/BlockLength:
+  ExcludedMethods:
+    - "namespace"
+    - "create_table"
+  Exclude:
+    - "config/**/*.rb"
+    - "spec/**/*.rb"

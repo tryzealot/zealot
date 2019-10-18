@@ -47,12 +47,18 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
   end
 
   create_table "apps", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "name", null: false
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_apps_on_name"
-    t.index ["user_id"], name: "index_apps_on_user_id"
+  end
+
+  create_table "apps_users", id: false, force: :cascade do |t|
+    t.bigint "app_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["app_id", "user_id"], name: "index_apps_users_on_app_id_and_user_id"
+    t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id"
   end
 
   create_table "channels", force: :cascade do |t|
@@ -144,8 +150,8 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
   end
 
   create_table "roles_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "role_id", null: false
+    t.bigint "user_id", null: false
     t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
     t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
   end
@@ -175,8 +181,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.string "username"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "key", default: "", null: false
-    t.string "secret", default: "", null: false
+    t.string "token", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -185,9 +190,10 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "activation_token"
-    t.datetime "actived_at"
-    t.datetime "activation_sent_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -209,7 +215,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "apps", "users", on_delete: :cascade
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade

@@ -15,7 +15,8 @@ class CreateSampleAppsService
     channels = %i[Android iOS].freeze
     changelog = "release: 发布 0.1.0\nfix: 修复 xxx 问题\nfeat: 初始化项目"
 
-    app = App.find_or_create_by name: app_name, user: user
+    app = create_app(app_name, user)
+
     schemes.each do |scheme_name|
       scheme = app.schemes.find_or_create_by name: scheme_name
       channels.each do |channel_name|
@@ -54,7 +55,8 @@ class CreateSampleAppsService
     channels = %i[华为 小米 oppo viio 魅族 应用宝 百度 GooglePlay].freeze
     changelog = "release: 发布 0.1.0\nfix: 修复 xxx 问题\nfeat: 初始化项目"
 
-    app = App.find_or_create_by name: app_name, user: user
+    app = create_app(app_name, user)
+
     schemes.each do |scheme_name|
       scheme = app.schemes.find_or_create_by name: scheme_name
       channels.each do |channel_name|
@@ -71,6 +73,14 @@ class CreateSampleAppsService
         release.changelog = changelog
         release.save validate: false
       end
+    end
+  end
+
+  private
+
+  def create_app(name, user)
+    App.find_or_create_by name: name do |a|
+      a.users << user
     end
   end
 

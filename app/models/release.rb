@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'app-info'
 
 class Release < ApplicationRecord
@@ -6,10 +8,11 @@ class Release < ApplicationRecord
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
 
+  scope :latest, -> { order(version: :desc).first }
+
   belongs_to :channel
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
-
   validate :force_bundle_id, on: :create
 
   before_create :auto_release_version
@@ -29,10 +32,6 @@ class Release < ApplicationRecord
     end
   end
 
-  def self.latest
-    order(version: :desc).first
-  end
-
   # 上传 App
   def self.upload_file(params, source = 'Web')
     create(params) do |release|
@@ -44,8 +43,6 @@ class Release < ApplicationRecord
         release.build_version = app_info.build_version
         release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
 
-        puts "dddddd"
-        puts app_info.icons
         if icon_file = app_info.icons.last.try(:[], :file)
           release.icon = decode_icon(icon_file)
         end
@@ -57,6 +54,7 @@ class Release < ApplicationRecord
     Pngdefry.defry icon_file, icon_file
     File.open icon_file
   end
+  private_class_method :decode_icon
 
   def scheme
     channel.scheme
