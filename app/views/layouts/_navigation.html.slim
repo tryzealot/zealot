@@ -19,9 +19,9 @@ header.main-header
                 li.user-header
                   img.img-circle alt="用户头像" src="#{image_url('default-user.png')}"
                   p
-                    | User Key
+                    | 用户密钥
                     small
-                      = current_user.key
+                      = current_user.token
                 li.user-footer
                   .pull-left
                     = link_to '详情', edit_user_registration_path, class: 'btn btn-default btn-flat'
