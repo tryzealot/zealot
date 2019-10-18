@@ -32,11 +32,13 @@
           .app-debug-files.direct-chat-contacts
             table.table
               tr
+                th 设备
                 th 版本
                 th 文件大小
                 th style="width: 200px; text-align: right" 上传时间
               - app.debug_files.order(id: :desc).each do |debug_file|
                 tr
+                  td = DebugFile.device_types[debug_file.device_type]
                   td = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file.file.url
                   td = number_to_human_size(debug_file.file.size)
                   td = debug_file.created_at

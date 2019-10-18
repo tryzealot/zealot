@@ -1,4 +1,4 @@
-= simple_form_for(@user) do |f|
+= simple_form_for(@user, url: @user.id ? admin_user_path(@user) : admin_users_path) do |f|
   = f.error_notification
 
   = f.input :username, required: true
