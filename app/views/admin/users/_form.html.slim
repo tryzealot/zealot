@@ -5,6 +5,6 @@
   = f.input :email, required: true
   - unless @user.id.blank?
     = f.input :password
-  = f.association :roles, label_method: :name, value_method: :id, as: :check_boxes
+  = f.association :roles, label_method: :name, value_method: :id, as: :radio_buttons
 
   = f.button :submit

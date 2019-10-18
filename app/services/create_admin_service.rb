@@ -4,9 +4,11 @@ class CreateAdminService
       user.username = '管理员'
       user.password = Rails.application.secrets.admin_password
       user.password_confirmation = Rails.application.secrets.admin_password
-      user.actived_at = Time.now
+      user.confirmed_at = Time.now
 
-      user.roles << Role.find_by(value: 'admin')
+      Role.all.each do |role|
+        user.roles << role unless user.roles.exists?(role.id)
+      end
     end
   end
 end

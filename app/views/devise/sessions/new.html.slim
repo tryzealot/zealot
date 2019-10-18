@@ -8,9 +8,9 @@
       == render 'layouts/messages'
 
       .form-group.has-feedback
-        = f.input :email, required: false, autofocus: true, hint: '', input_html: { autocomplete: "email", class: 'form-control' }
+        = f.input :email, required: true, autofocus: true, hint: '', input_html: { autocomplete: "email", class: 'form-control' }
       .form-group.has-feedback
-        = f.input :password, required: false, input_html: { autocomplete: "current-password" }
+        = f.input :password, required: true, input_html: { autocomplete: "current-password" }
       .row
         .col-xs-8
           = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
