@@ -19,6 +19,7 @@ zh-CN:
         username: '昵称'
         email: '登录邮箱'
         password: '登录密码'
+        password_confirmation: '密码确认'
         roles: '账户权限'
         remember_me: '记住我'
       app:
