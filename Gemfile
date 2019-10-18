@@ -42,6 +42,7 @@ gem 'mini_magick'
 gem 'http'
 # 用户认证
 gem 'devise', '~> 4.7.1'
+gem 'devise-i18n', '~> 1.8.2'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
