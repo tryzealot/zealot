@@ -3,49 +3,49 @@
 module UserRoles
   extend ActiveSupport::Concern
 
-  def admin?
-    roles? 'admin'
+  ROLE_NAMES = {
+    user: '用户',
+    developer: '开发者',
+    admin: '管理员'
+  }.freeze
+
+  included do
+    scope :admins, -> { where(role: :admin) }
+    scope :developers, -> { where(role: :developer) }
+    scope :users, -> { where(role: :user) }
   end
 
-  def user?
-    roles? 'user'
+  def manage?
+    admin? || developer?
   end
 
   def grant_admin!
-    set_role('admin', true)
+    update!(role: :admin)
   end
 
   def revoke_admin!
-    set_role('admin', false)
+    update!(role: :user)
   end
 
-  def current_roles
-    roles.all.map(&:name).join('/')
+  def grant_developer!
+    update!(role: :developer)
   end
 
-  def grant_roles(id)
-    return unless role = Role.find(id)
+  def revoke_developer!
+    update!(role: :user)
+  end
 
-    default_role = Role.default_role
-    if default_role.id == role.id
-      roles << role
+  def roles?(value)
+    roles.where(role: value.to_sym).exists?
+  end
+
+  def role_name
+    if admin?
+      '管理员'
+    elsif developer?
+      '开发者'
     else
-      roles << Role.default_role << role
-    end
-  end
-
-  def roles?(*values)
-    roles.where(value: values).exists?
-  end
-
-  def set_role(role_value, value)
-    role = Role.find_by(value: role_value)
-    return if (value && role) || (!value && !role)
-
-    if value
-      roles << role
-    else
-      roles.destroy(role)
+      '用户'
     end
   end
 end

@@ -20,7 +20,7 @@ zh-CN:
         email: '登录邮箱'
         password: '登录密码'
         password_confirmation: '密码确认'
-        roles: '账户权限'
+        role: '账户权限'
         remember_me: '记住我'
       app:
         name: '应用名称'
@@ -60,7 +60,6 @@ zh-CN:
       defaults:
         channel: '应用会使用的平台'
       user:
-        email: '创建成功后系统会给该邮箱发送确认邮件并设置密码'
       app:
         name: '起一个响亮亮的名称吧'
         schemes:
