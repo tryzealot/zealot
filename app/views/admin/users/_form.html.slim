@@ -1,10 +1,11 @@
-= simple_form_for(@user, url: @user.id ? admin_user_path(@user) : admin_users_path) do |f|
-  = f.error_notification
+= simple_form_for(@user, url: @user.new_record? ? admin_users_path : admin_user_path(@user)) do |f|
+  .box-body
+    = f.error_notification
 
-  = f.input :username, required: true
-  = f.input :email, required: true
-  - unless @user.id.blank?
-    = f.input :password
-  = f.association :roles, label_method: :name, value_method: :id, as: :radio_buttons
+    = f.input :username, required: true
+    = f.input :email, required: true
+    = f.input :password, required: true
+    = f.input :role, collection: roles, include_blank: false
 
-  = f.button :submit
+  .box-footer
+    = f.button :submit

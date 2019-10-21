@@ -1,4 +1,4 @@
-class DeviseCreateUsers < ActiveRecord::Migration[6.0]
+class CreateUsers < ActiveRecord::Migration[6.0]
   def change
     create_table(:users) do |t|
       ## Database authenticatable
@@ -6,6 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :email,              null: false, default: '', unique: true
       t.string :encrypted_password, null: false, default: ''
       t.string :token,              null: false, default: '', unique: true
+      t.integer :role,              null: false, unique: true
 
       ## Recoverable
       t.string   :reset_password_token, unique: true
