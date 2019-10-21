@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < ApplicationController
-  before_action :admin_user?
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,8 +9,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @roles = Role.all
-    redirect_back fallback_location: root_path , notice: '你没有权限管理。' unless @user.roles?(:admin)
+    redirect_back fallback_location: root_path
   end
 
   def new
@@ -18,15 +18,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params) do |u|
-      # 新建用户需要激活才能设置密码，这里生成一个随机密码
-      u.password = Time.now.utc
-    end
-
+    @user = User.new(user_params)
     return render :new unless @user.save
-
-    # 更新权限
-    # @user.grant_roles(params[:user][:role_ids].to_i)
 
     redirect_to admin_users_url, notice: '用户创建成功'
   end
@@ -36,16 +29,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-
     # 没有设置密码的情况下不更新该字段
-    # user_params[:password] = @user.password if user_params[:password].blank?
+    user_params.delete(:password) if user_params[:password].blank?
+    return render :edit unless @user.update(user_params)
 
-    if @user.update(user_params)
-      @user.update_roles(params[:user][:role_ids].to_i)
-      redirect_to admin_users_url, notice: '用户已经更新'
-    else
-      render :edit
-    end
+    redirect_to admin_users_url, notice: '用户已经更新'
   end
 
   def destroy
@@ -55,20 +43,11 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def admin_user?
-    authenticate_user!
-    # unless current_user.roles?(:admin)
-    #   redirect_back fallback_location: root_path, notice: '你没有权限管理。'
-    # end
-  end
-
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(
-      :username, :email, :password, :role_ids
-    )
+    params.require(:user).permit(:username, :email, :password, :role)
   end
 end
