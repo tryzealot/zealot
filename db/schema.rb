@@ -102,15 +102,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.index ["app_id"], name: "index_debug_files_on_app_id"
   end
 
-  create_table "permissions", force: :cascade do |t|
-    t.bigint "role_id"
-    t.string "action"
-    t.string "resource"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["role_id"], name: "index_permissions_on_role_id"
-  end
-
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
     t.string "bundle_id", null: false
@@ -140,22 +131,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.index ["version"], name: "index_releases_on_version"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_roles_on_name"
-    t.index ["value"], name: "index_roles_on_value"
-  end
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
-  end
-
   create_table "schemes", force: :cascade do |t|
     t.bigint "app_id"
     t.string "name", null: false
@@ -182,6 +157,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "token", default: "", null: false
+    t.integer "role", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -218,7 +194,6 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
-  add_foreign_key "permissions", "roles", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade
   add_foreign_key "schemes", "apps", on_delete: :cascade
   add_foreign_key "user_providers", "users", on_delete: :cascade
