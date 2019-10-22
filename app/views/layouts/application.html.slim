@@ -11,26 +11,15 @@ html
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags
 
-  - if user_signed_in?
-    body.hold-transition.skin-black-light.sidebar-mini
-      .wrapper
-        == render 'layouts/tips'
-        == render 'layouts/navigation'
+  body.hold-transition.skin-black-light class="#{user_signed_in? ? 'sidebar-mini' : 'layout-top-nav'}"
+    .wrapper
+      == render 'layouts/tips'
+      == render 'layouts/navigation'
+      - if user_signed_in?
         == render 'layouts/main_sidebar'
 
-        .content-wrapper
-          == render 'layouts/content'
+      .content-wrapper
+        == render 'layouts/content'
 
-        == render 'layouts/footer'
-        == render 'layouts/control_sidebar'
-  - else
-    body.hold-transition.skin-black-light.layout-top-nav
-      .wrapper
-        == render 'layouts/tips'
-        == render 'layouts/navigation'
-
-        .content-wrapper
-          == render 'layouts/content'
-
-        == render 'layouts/footer'
-        == render 'layouts/control_sidebar'
+      == render 'layouts/footer'
+      == render 'layouts/control_sidebar'
