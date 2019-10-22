@@ -16,7 +16,6 @@ class Release < ApplicationRecord
   validate :force_bundle_id, on: :create
 
   before_create :auto_release_version
-  before_create :auto_file_size
   before_create :default_source
   before_save   :changelog_format, if: :changelog_is_plaintext?
 
@@ -71,6 +70,11 @@ class Release < ApplicationRecord
   def device_type
     channel.device_type
   end
+
+  def size
+    file.size
+  end
+  alias file_size size
 
   def short_git_commit
     return nil if git_commit.blank?
@@ -154,15 +158,15 @@ class Release < ApplicationRecord
     errors.add(:file, message)
   end
 
+  def app_info
+    @app_info ||= AppInfo.parse(file.file.file)
+  end
+
   private
 
   def auto_release_version
     latest_version = Release.where(channel: channel).limit(1).order(id: :desc).last
     self.version = latest_version ? (latest_version.version + 1) : 1
-  end
-
-  def auto_file_size
-    self.size = file.size if file.present? && file_changed?
   end
 
   def changelog_format
@@ -188,9 +192,5 @@ class Release < ApplicationRecord
   def enabled_validate_bundle_id?
     bundle_id = channel.bundle_id
     !(bundle_id.blank? || bundle_id == '*')
-  end
-
-  def app_info
-    @app_info ||= AppInfo.parse(file.file.file)
   end
 end
