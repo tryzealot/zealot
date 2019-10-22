@@ -5,7 +5,7 @@ class CreateDebugFileMetadata < ActiveRecord::Migration[6.0]
       t.string  :uuid
       t.string  :type
       t.string  :object
-      t.jsonb   :data, null: false, default: '{}'
+      t.jsonb   :data, null: false, default: {}
       t.integer :size
 
       t.timestamps

@@ -44,7 +44,7 @@ class AppWebHookJob < ApplicationJob
                                    build_version: @release.build_version,
                                    bundle_id: @release.bundle_id,
                                    changelog: @release.changelog,
-                                   file_size: @release.size,
+                                   file_size: @release.file.size,
                                    app_url: @release.release_url,
                                    install_url: @release.install_url,
                                    icon_url: @release.icon_url(:medium),
