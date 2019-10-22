@@ -6,18 +6,10 @@
   small
     = @subtitle
 
-/ - content_for :breadcrumb do
-/     li
-/       a href="root_path"
-/         i.fa.fa-dashboard
-/         | 控制台
-/     li.active
-/       = link_to '应用管理', apps_path
-
 .row
   .col-md-8
     == render 'activity'
-    - if user_signed_in?
+    - if user_signed_in? && current_user.manage?
       == render 'web_hooks'
   .col-md-4
     a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
