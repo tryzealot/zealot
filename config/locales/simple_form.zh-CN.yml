@@ -91,14 +91,18 @@ zh-CN:
         url: 'http://example.com/web-hooks'
         body: |
           {
-            name: @release.app_name,
-            device_type: @release.device_type,
-            release_version: @release.release_version,
-            build_version: @release.build_version,
-            size: @release.file.size,
-            changelog: @release.changelog,
-            install_url: @release.install_url,
-            icon_url: @release.icon_url,
+            event: @event,
+            title: @title,
+            app_name: @name,
+            device_type: @device_type,
+            release_version: @release_version,
+            build_version: @build_version,
+            size: @file_size,
+            changelog: @changelog,
+            install_url: @install_url,
+            icon_url: @icon_url,
+            qrcode_url: @qrcode_url,
+            uploaded_at: @uploaded_at
           }
       debug_file:
         release_version: '1.0.0'
