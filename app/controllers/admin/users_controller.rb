@@ -6,6 +6,7 @@ class Admin::UsersController < ApplicationController
   def index
     @title = '用户管理'
     @users = User.all
+    authorize @users
   end
 
   def show
@@ -15,10 +16,13 @@ class Admin::UsersController < ApplicationController
   def new
     @title = '新建用户'
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
+
     return render :new unless @user.save
 
     redirect_to admin_users_url, notice: '用户创建成功'
@@ -45,6 +49,7 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def user_params

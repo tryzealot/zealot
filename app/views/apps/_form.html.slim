@@ -18,7 +18,6 @@ ruby:
       = simple_form_for @app do |f|
         = f.error_notification
 
-        = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
         = f.input :name, required: true
         - if params[:action] == 'new'
           = f.simple_fields_for :schemes do |n|

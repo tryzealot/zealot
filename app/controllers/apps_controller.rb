@@ -1,10 +1,11 @@
 class AppsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_app, except: [:index, :create, :new, :upload]
-  before_action :fetch_apps, only: [:index]
+  before_action :set_app, only: [:show, :edit, :update, :destroy]
 
   def index
     @title = '应用管理'
+    @apps = App.all
+    authorize @apps
   end
 
   def show
@@ -14,45 +15,50 @@ class AppsController < ApplicationController
   def new
     @title = '新建应用'
     @app = App.new
+    authorize @app
+
     @app.schemes.build
+  end
+
+  def edit
+    @title = '编辑应用'
   end
 
   def create
     schemes = app_params.delete(:schemes_attributes)
     channel = app_params.delete(:channel)
 
-    # return render json: channels
     @app = App.new(app_params)
+    authorize @app
+
     return render :new unless @app.save
 
-    create_schemes_by(@app, schemes, channel)
-    redirect_to apps_path, notice: '应用已经创建成功！'
-  end
+    @app.users << current_user
 
-  def edit
-    @title = '编辑应用'
-    raise ActionController::RoutingError.new('这里没有你找的东西') unless @app
+    create_schemes_by(@app, schemes, channel)
+    redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
   end
 
   def update
-    raise ActionController::RoutingError.new('这里没有你找的东西') unless @app
     @app.update(app_params)
-
     redirect_to apps_path
   end
 
   def destroy
     @app.destroy
-
-    require 'fileutils'
-    app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
-    logger.debug "Delete app all binary and icons in #{app_binary_path}"
-    FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
+    destory_app_data
 
     redirect_to apps_path
   end
 
-  protected
+  private
+
+  def destory_app_data
+    require 'fileutils'
+    app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
+    logger.debug "Delete app all binary and icons in #{app_binary_path}"
+    FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
+  end
 
   def create_schemes_by(app, schemes, channel)
     schemes.values[0][:name].each do |scheme_name|
@@ -77,10 +83,7 @@ class AppsController < ApplicationController
 
   def set_app
     @app = App.find(params[:id])
-  end
-
-  def fetch_apps
-    @apps = App.all
+    authorize @app
   end
 
   def app_info
@@ -97,7 +100,7 @@ class AppsController < ApplicationController
   def app_params
     @app_params ||= params.require(:app)
                           .permit(
-                            :user_id, :name, :channel,
+                            :name, :channel,
                             schemes_attributes: { name: [] }
                           )
   end
