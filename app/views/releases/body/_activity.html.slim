@@ -10,7 +10,7 @@ ruby:
       ul.timeline
         - releases.each do |release|
           li
-            i.fa class="#{release.channel.device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'}"
+            i.fa class="#{@release == release ? 'fa-circle' : ' fa-circle-o'}"
             .timeline-item
               span.time
                 i.fa.fa-clock-o
@@ -23,6 +23,9 @@ ruby:
                 .timeline-body
                   = changelog_format release.changelog_list
                 .timeline-footer
+                  - if @release == release
+                    small.label.label-default
+                      | 当前版本
                   - if release.release_type
                     small.label.label-default
                       = release.release_type
