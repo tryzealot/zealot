@@ -6,15 +6,9 @@
 
 - content_for :section_rightpanel do
   .btn-group
-    a.btn.btn-default.btn-sm.btn-flat href="#{new_app_scheme_path(@app)}"
-      i.fa.fa-plus-square-o
-      | 新增类型
-    a.btn.btn-default.btn-sm.btn-flat href="#{edit_app_path(@app)}"
-      i.fa.fa-edit
-      | 编辑应用
-    a.btn.btn-default.btn-sm.btn-flat href="#{app_path(@app)}" data-confirm="确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?" data-method="delete"
-      i.fa.fa-remove
-      | 删除应用
+    = button_link_to '新增类型', new_app_scheme_path(@app), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
+    = button_link_to '编辑应用', edit_app_path(@app), 'edit', class: 'btn-default btn-sm btn-flat'
+    = button_link_to '删除应用', app_path(@app), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?", method: "delete" }
 
 .row
   .col-xs-12
@@ -25,15 +19,9 @@
             h4
               = scheme.name
             .sections-actions.btn-group
-              a.btn.btn-default.btn-sm.btn-flat href="#{new_app_scheme_channel_path(@app, scheme)}"
-                i.fa.fa-plus-square-o
-                | 新增渠道
-              a.btn.btn-default.btn-sm.btn-flat href="#{edit_app_scheme_path(@app, scheme)}"
-                i.fa.fa-edit
-                | 编辑渠道
-              a.btn.btn-default.btn-sm.btn-flat href="#{app_scheme_path(@app, scheme)}" data-confirm="确定删除#{scheme.app_name}类型?" data-method="delete"
-                i.fa.fa-remove
-                | 删除渠道
+              = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
+              = button_link_to '编辑渠道', app_scheme_path(@app, scheme), 'edit', class: 'btn-default btn-sm btn-flat'
+              = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
 
             table.table style="margin-top: 10px"
               - if scheme.channels.count > 0
@@ -42,10 +30,8 @@
                     td
                       = link_to channel.name, channel_path(channel)
                     td style="width: 80px"
-                      a.btn.btn-box-tool href="#{edit_app_scheme_channel_path(@app, scheme, channel)}"
-                        i.fa.fa-edit
-                      a.btn.btn-box-tool href="#{app_scheme_channel_path(@app, scheme, channel)}" data-confirm="确定删除#{channel.app_name}渠道?" data-method="delete"
-                        i.fa.fa-remove
+                      = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
+                      = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'remove', class: 'btn-box-tool', data: { confirm: "确定删除#{channel.app_name}渠道?", method: "delete" }
               - else
                 tr
                   td colspan="2"
