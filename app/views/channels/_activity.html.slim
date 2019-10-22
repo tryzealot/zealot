@@ -22,6 +22,7 @@
       - else
         li.item
           | 还没有收到任何上传记录，赶快上传吧。
-  .box-footer.clearfix
-    .pull-right
-      = paginate @releases
+  - if @releases.total_pages > 1
+    .box-footer.clearfix
+      .pull-right
+        = paginate @releases
