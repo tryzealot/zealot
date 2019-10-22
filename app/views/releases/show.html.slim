@@ -11,7 +11,8 @@
       == render 'releases/body/activity'
 
     .col-md-3
-      a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
+      - if user_signed_in?
+        a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
       == render 'releases/sidebar/qrcode'
       == render 'releases/sidebar/devices'
       == render 'releases/sidebar/version'

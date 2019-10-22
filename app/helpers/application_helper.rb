@@ -3,6 +3,14 @@
 module ApplicationHelper
   RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
 
+  def button_link_to(title, url, icon = nil, **options)
+    options[:class] += ' btn'
+
+    title = %(<i class="fa fa-#{icon}"></i>#{title}) unless icon.blank?
+
+    link_to raw(title), url, **options
+  end
+
   def random_color
     "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
   end

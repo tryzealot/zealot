@@ -5,17 +5,20 @@ class DebugFilesController < ApplicationController
   def index
     @title = 'Debug File 列表'
     @apps = App.avaiable_debug_files
+    authorize @apps
   end
 
   def new
     @title = '上传 Debug File 文件'
     @apps = App.all
     @debug_file = DebugFile.new
+    authorize @debug_file
   end
 
   def create
     @title = '上传 Debug File 文件'
     @debug_file = DebugFile.new(debug_file_params)
+    authorize @debug_file
 
     if @debug_file.save
       DebugFileTeardownJob.perform_later @debug_file
@@ -35,6 +38,7 @@ class DebugFilesController < ApplicationController
 
   def set_debug_file
     @debug_file = DebugFile.find(params[:id])
+    authorize @debug_file
   end
 
   # Only allow a trusted parameter "white list" through.

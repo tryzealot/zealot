@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_channel, only: [:show, :edit, :destroy]
+  before_action :set_channel, only: [:show, :edit, :update, :destroy]
   before_action :set_scheme, except: [:index, :show]
 
   def show
@@ -13,12 +13,14 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = Channel.new
+    authorize @channel
 
     @title = "新建#{@scheme.app_name}渠道"
   end
 
   def create
     @channel = Channel.new(channel_params)
+    authorize @channel
 
     if @channel.save
       redirect_to app_path(@channel.scheme.app), notice: "#{@channel.scheme.name} #{@channel.name} 渠道创建成功"
@@ -53,6 +55,8 @@ class ChannelsController < ApplicationController
 
   def set_channel
     @channel = Channel.friendly.find params[:id]
+    authorize @channel
+
     @app = @channel.scheme.app
     @title = @channel.app_name
     @subtitle = "#{@app.schemes.count} 种类型共 #{@channel.scheme.channels.count} 个渠道"

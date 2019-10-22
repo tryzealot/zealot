@@ -18,10 +18,13 @@ class ReleasesController < ApplicationController
   def new
     @title = '上传应用'
     @release = @channel.releases.new
+    authorize @release
   end
 
   def create
     @release = @channel.releases.upload_file(release_params)
+    authorize @release
+
     return render :new unless @release.save
 
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
