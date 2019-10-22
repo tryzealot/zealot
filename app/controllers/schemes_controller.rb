@@ -11,12 +11,14 @@ class SchemesController < ApplicationController
   def new
     @title = "新建#{@app.name}类型"
     @scheme = Scheme.new
+    authorize @scheme
   end
 
   def create
     channel = scheme_params.delete(:channel)
-
     @scheme = Scheme.new(scheme_params)
+    authorize @scheme
+
     @scheme.app = @app
     return render :new unless @scheme.save
 
@@ -66,6 +68,7 @@ class SchemesController < ApplicationController
 
   def set_scheme
     @scheme = Scheme.find(params[:id])
+    authorize @scheme
   end
 
   def scheme_params

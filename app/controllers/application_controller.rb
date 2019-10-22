@@ -1,7 +1,23 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
+  include Pundit
+
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   skip_before_action :verify_authenticity_token
+
+  # Handle pundit error
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  private
+
+  def user_not_authorized
+    flash[:warning] = '没有权限进行本次操作。'
+    redirect_to(request.referrer || root_path)
+  end
 
   # before_action :cors_preflight_check
   # after_action :cors_set_access_control_headers
