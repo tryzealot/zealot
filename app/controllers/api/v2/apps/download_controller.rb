@@ -3,7 +3,7 @@ class Api::V2::Apps::DownloadController < Api::BaseController
     @release = Release.find_by_channel params[:slug], params[:version]
 
     if @release && File.exist?(@release.file.path)
-      headers['Content-Length'] = @release.size
+      headers['Content-Length'] = @release.file.size
       send_file @release.file.path,
                 filename: @release.download_filename,
                 disposition: 'attachment'

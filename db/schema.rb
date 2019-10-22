@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.string "uuid"
     t.string "type"
     t.string "object"
-    t.jsonb "data", default: "{}", null: false
+    t.jsonb "data", default: {}, null: false
     t.integer "size"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -114,10 +114,9 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.string "git_commit"
     t.string "icon"
     t.string "ci_url"
-    t.text "changelog"
+    t.jsonb "changelog", default: [], null: false
     t.string "file"
-    t.bigint "size"
-    t.text "devices"
+    t.jsonb "devices", default: [], null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["build_version"], name: "index_releases_on_build_version"

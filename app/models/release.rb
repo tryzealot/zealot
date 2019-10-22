@@ -18,7 +18,7 @@ class Release < ApplicationRecord
   before_create :auto_release_version
   before_create :auto_file_size
   before_create :default_source
-  before_save   :changelog_format, if: :changelog_is_not_json?
+  before_save   :changelog_format, if: :changelog_is_plaintext?
 
   paginates_per     20
   max_paginates_per 50
@@ -79,21 +79,9 @@ class Release < ApplicationRecord
   end
 
   def changelog_list(use_default_changelog = true)
-    return empty_changelog(use_default_changelog) if changelog.blank?
+    return empty_changelog(use_default_changelog) if changelog.empty?
 
-    data = JSON.parse changelog
-    return empty_changelog(use_default_changelog) if data.empty?
-
-    data
-  end
-
-  def devices_list
-    return [] if devices.blank?
-
-    data = devices.to_json
-    return [] if data.empty?
-
-    data
+    changelog
   end
 
   def install_url
@@ -184,20 +172,17 @@ class Release < ApplicationRecord
 
       hash << { message: message }
     end
-    self.changelog = hash.to_json
+    self.changelog = hash
   end
 
   def default_source
     self.source ||= 'API'
   end
 
-  def changelog_is_not_json?
+  def changelog_is_plaintext?
     return false if changelog.blank?
 
-    JSON.parse changelog
-    false
-  rescue JSON::ParserError
-    true
+    changelog.is_a?(String)
   end
 
   def enabled_validate_bundle_id?

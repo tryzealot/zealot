@@ -3,14 +3,14 @@
 
 - if logged_in_or_without_auth?(@release)
   .row
-    .col-md-9
+    .col-md-8
       - if wechat?
         == render 'releases/body/wechat'
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/activity'
 
-    .col-md-3
+    .col-md-4
       - if user_signed_in?
         a.btn.btn-success.btn-block.margin-bottom href="#{new_channel_release_path(@channel)}" 上传应用
       == render 'releases/sidebar/qrcode'
