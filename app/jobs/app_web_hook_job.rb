@@ -6,11 +6,12 @@ class AppWebHookJob < ApplicationJob
   queue_as :default
 
   def perform(event, web_hook)
+    @event = event
     @web_hook = web_hook
     @channel = @web_hook.channel
     @release = @channel.releases.last
 
-    logger.info(log_message("trigger event: #{event}"))
+    logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
     logger.info(log_message("trigger json body: #{json_body}"))
 
@@ -29,15 +30,17 @@ class AppWebHookJob < ApplicationJob
   end
 
   def json_body
-    return format_body unless @web_hook.body.blank?
+    return build_body unless @web_hook.body.blank?
 
     WebHooks::PushSerializer.new(@channel).to_json
   end
 
-  def format_body
+  def build_body
     ApplicationController.render inline: @web_hook.body,
                                  type: :jb,
                                  assigns: {
+                                   event: @event,
+                                   title: title,
                                    name: @release.app_name,
                                    device_type: @channel.device_type,
                                    release_version: @release.release_version,
@@ -49,8 +52,19 @@ class AppWebHookJob < ApplicationJob
                                    install_url: @release.install_url,
                                    icon_url: @release.icon_url(:medium),
                                    qrcode_url: @release.qrcode_url,
-                                   created_at: @release.created_at
+                                   uploaded_at: @release.created_at
                                  }
+  end
+
+  def title
+    case @event
+    when 'upload_event'
+      "#{@release.app_name} 上传了 #{@release.release_version} 版本"
+    when 'download_event'
+      "#{@release.app_name} #{@release.release_version} 版本被下载"
+    when 'changelog_event'
+      "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
+    end
   end
 
   def app_url
