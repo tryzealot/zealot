@@ -95,7 +95,7 @@ zh-CN:
             device_type: @release.device_type,
             release_version: @release.release_version,
             build_version: @release.build_version,
-            size: @release.size,
+            size: @release.file.size,
             changelog: @release.changelog,
             install_url: @release.install_url,
             icon_url: @release.icon_url,

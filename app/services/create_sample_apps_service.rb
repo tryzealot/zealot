@@ -13,7 +13,23 @@ class CreateSampleAppsService
     app_bundle_id = 'com.zealot.app-demo'
     schemes = %i[开发版 测试版 产品版].freeze
     channels = %i[Android iOS].freeze
-    changelog = "release: 发布 0.1.0\nfix: 修复 xxx 问题\nfeat: 初始化项目"
+    changelog = [
+      {
+        user: '管理员',
+        date: '2019-10-24 23:0:24 +0800',
+        message: 'release: 发布 0.1.0'
+      },
+      {
+        user: '管理员',
+        date: '2019-10-23 17:41:41 +0800',
+        message: 'fix: 修复 xxx 问题'
+      },
+      {
+        user: '管理员',
+        date: '2019-10-22 11:11:11 +0800',
+        message: 'feat: 初始化项目'
+      }
+    ]
 
     app = create_app(app_name, user)
 
@@ -75,8 +91,6 @@ class CreateSampleAppsService
       end
     end
   end
-
-  private
 
   def create_app(name, user)
     App.find_or_create_by name: name do |a|

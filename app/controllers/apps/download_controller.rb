@@ -6,7 +6,7 @@ class Apps::DownloadController < ApplicationController
   # GET /apps/:slug/(:version)/qrcode
   def index
     if @release.file&.path && File.exist?(@release.file.path)
-      headers['Content-Length'] = @release.size
+      headers['Content-Length'] = @release.file.size
       send_file @release.file.path,
                 filename: @release.download_filename,
                 disposition: 'attachment'
