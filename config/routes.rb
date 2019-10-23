@@ -1,47 +1,14 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   #############################################
   # User
   #############################################
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-  scope :users, module: 'users' do
-    get 'active/:token', to: 'activations#edit', as: 'active_user'
-    patch 'active/:token', to: 'activations#update'
-  end
-
-  authenticate :user, ->(user) { user.admin? } do
-    namespace :admin do
-      require 'sidekiq/web'
-      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
-      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
-
-      resources :users, except: %i[show]
-      resources :background_jobs, only: [:index]
-      resources :system_info, only: [:index]
-      resources :graphql_console, only: [:index]
-    end
-  end
-
   #############################################
   # App
   #############################################
-  resources :channels, only: %i[index show] do
-    resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
-      scope module: 'apps' do
-        resources :qrcode, only: :index
-        resources :download, only: :index
-      end
-
-      member do
-        post :auth
-      end
-    end
-
-    scope module: 'channels' do
-      resources :versions, only: :show, id: /\d+(.\d+){0,4}/
-    end
-  end
-
   resources :apps do
     resources :schemes do
       resources :channels, except: %i[index show] do
@@ -54,10 +21,42 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :channels, only: %i[index show] do
+    resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
+      scope module: 'releases' do
+        resources :qrcode, only: :show
+      end
+
+      member do
+        post :auth
+      end
+    end
+
+    scope module: 'channels' do
+      resources :versions, only: :show, id: /\d+(.\d+){0,4}/
+    end
+  end
+
   #############################################
   # Debug File
   #############################################
   resources :debug_files, except: [:show]
+
+  #############################################
+  # Admin
+  #############################################
+  authenticate :user, ->(user) { user.admin? } do
+    namespace :admin do
+      resources :users, except: :show
+      get :background_jobs, to: 'background_jobs#show'
+      get :system_info, to: 'system_info#show'
+      get :graphql_console, to: 'graphql_console#show'
+
+      require 'sidekiq/web'
+      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
+      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
+    end
+  end
 
   #############################################
   # API v2
