@@ -19,6 +19,7 @@ class Api::V2::Apps::UploadController < Api::BaseController
   # @return              [String] json formatted app info
   def create
     create_or_update_release
+    perform_app_web_hook_job
 
     render json: @release,
            serializer: Api::UploadAppSerializer,
@@ -54,27 +55,9 @@ class Api::V2::Apps::UploadController < Api::BaseController
     @channel.blank?
   end
 
-  # def perform_app_web_hook_job
-  #   web_hooks = WebHook.where(upload_events: 1, app: @app)
-  #   return if web_hooks.empty?
-
-  #   web_hooks.each do |web_hook|
-  #     AppWebHookJob.perform_later 'upload_events', web_hook
-  #   end
-  # end
-
-  # def param_devices
-  #   @devices = nil
-  #   @devices = if params[:devices] && params[:devices].present?
-  #                JSON.dump(params[:devices])
-  #              elsif (extra = JSON.dump(param_extra)) && extra['devices'].present?
-  #                extra['devices']
-  #              else
-  #                nil
-  #              end
-  # rescue
-  #   @device = nil
-  # end
+  def perform_app_web_hook_job
+    @channel.perform_web_hook('upload_events')
+  end
 
   ###########################
   # new build methods
@@ -91,6 +74,11 @@ class Api::V2::Apps::UploadController < Api::BaseController
       release.build_version = app_info.build_version
       release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
       release.icon = decode_icon app_info.icons.last[:file]
+
+      if app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
+        (devices = app_info.devices) && !device.nil?
+        release.devices = devices
+      end
     end
   end
 
