@@ -17,6 +17,7 @@ class Release < ApplicationRecord
 
   before_create :auto_release_version
   before_create :default_source
+  before_create :default_changelog
   before_save   :changelog_format, if: :changelog_is_plaintext?
 
   paginates_per     20
@@ -181,6 +182,10 @@ class Release < ApplicationRecord
 
   def default_source
     self.source ||= 'API'
+  end
+
+  def default_changelog
+    self.changelog ||= []
   end
 
   def changelog_is_plaintext?

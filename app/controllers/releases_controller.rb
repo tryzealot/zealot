@@ -27,6 +27,9 @@ class ReleasesController < ApplicationController
 
     return render :new unless @release.save
 
+    # 触发 web_hook
+    @release.channel.perform_web_hook('upload_events')
+
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
   end
 

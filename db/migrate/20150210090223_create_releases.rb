@@ -12,7 +12,7 @@ class CreateReleases < ActiveRecord::Migration[6.0]
       t.string :git_commit, null: true
       t.string :icon, null: true
       t.string :ci_url, null: true
-      t.jsonb :changelog, null: false, default: []
+      t.jsonb :changelog, null: false
       t.string :file, null: true
       t.jsonb :devices, null: false, default: []
 
