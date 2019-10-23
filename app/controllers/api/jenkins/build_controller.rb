@@ -1,5 +1,5 @@
 
-class Api::V2::Jenkins::BuildController < Api::V2::JenkinsController
+class Api::Jenkins::BuildController < Api::JenkinsController
 
   def create
     status = project_status

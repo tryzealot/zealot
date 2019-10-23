@@ -1,4 +1,4 @@
-class Api::V2::Apps::VersionsController < Api::BaseController
+class Api::Apps::VersionsController < Api::BaseController
   before_action :validate_user_key
   before_action :validate_channel_key
 

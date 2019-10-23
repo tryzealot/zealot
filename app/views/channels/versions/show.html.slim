@@ -38,7 +38,7 @@
                 td
                   = release.short_git_commit
                 td
-                  = link_to '下载本地', api_v2_apps_download_path(@channel, release), { target: '_blank' }
+                  = link_to '下载本地', release.download_url, { target: '_blank' }
                 td
                   = release.created_at
           - else

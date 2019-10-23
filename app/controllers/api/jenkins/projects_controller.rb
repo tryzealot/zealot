@@ -1,5 +1,5 @@
 
-class Api::V2::Jenkins::ProjectsController < Api::V2::JenkinsController
+class Api::Jenkins::ProjectsController < Api::JenkinsController
 
   def index
     projects = []
