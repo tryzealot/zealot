@@ -36,6 +36,7 @@ class AppsController < ApplicationController
     @app.users << current_user
 
     create_schemes_by(@app, schemes, channel)
+
     redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
   end
 

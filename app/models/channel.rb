@@ -54,6 +54,12 @@ class Channel < ApplicationRecord
     value.match?(bundle_id)
   end
 
+  def perform_web_hook(event_name)
+    web_hooks.where(event_name => 1).each do |web_hook|
+      AppWebHookJob.perform_later event_name, web_hook
+    end
+  end
+
   # def self.find_by_release(release)
   #   instance = release.app
   #   instance.current_release = release
