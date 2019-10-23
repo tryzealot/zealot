@@ -104,7 +104,7 @@ class Release < ApplicationRecord
   end
 
   def qrcode_url(size = :thumb)
-    channel_release_qrcode_index_url channel, self, size: size
+    channel_release_qrcode_url channel, self, size: size
   end
 
   def file_extname

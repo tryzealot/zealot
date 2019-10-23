@@ -59,7 +59,7 @@
             i.fa.fa-paper-plane
             | 在线安装
         - else
-          a.btn.bg-purple.btn-social href="#{channel_release_download_index_path(@release.channel, @release)}" target="_blank"
+          a.btn.bg-purple.btn-social href="#{@release.install_url}" target="_blank"
             i.fa.fa-download
             | 本地下载
 
