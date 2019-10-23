@@ -56,7 +56,7 @@ class Admin::SystemInfoController < ApplicationController
   ].freeze
 
   # GET /admin/system_info
-  def index
+  def show
     @title = '系统信息'
 
     @cpus = Vmstat.cpu rescue nil
