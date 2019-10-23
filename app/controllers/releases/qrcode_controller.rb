@@ -1,10 +1,12 @@
-class Apps::QrcodeController < ApplicationController
+# frozen_string_literal: true
+
+class Releases::QrcodeController < ApplicationController
   before_action :set_release
 
   ##
   # 显示应用的二维码
   # GET /apps/:slug/(:version)/qrcode
-  def index
+  def show
     render qrcode: channel_release_url(@release.channel, @release),
            module_px_size: qrcode_size,
            fill: '#FFFFFF',
@@ -15,6 +17,8 @@ class Apps::QrcodeController < ApplicationController
 
   def qrcode_size
     case params[:size]
+    when 'thumb'
+      3
     when 'medium'
       5
     when 'large'
