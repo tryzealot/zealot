@@ -1,6 +1,5 @@
 require 'app-info'
-
-class Api::V2::AppsController < ActionController::API
+class Api::AppsController < ActionController::API
   before_action :set_app, only: [:show]
 
   rescue_from(Exception) do |exception|

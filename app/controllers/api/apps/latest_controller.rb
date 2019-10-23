@@ -1,4 +1,4 @@
-class Api::V2::Apps::LatestController < Api::BaseController
+class Api::Apps::LatestController < Api::BaseController
   before_action :validate_channel_key
 
   def show

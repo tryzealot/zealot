@@ -1,6 +1,6 @@
 require 'app-info'
 
-class Api::V2::Apps::UploadController < Api::BaseController
+class Api::Apps::UploadController < Api::BaseController
   before_action :validate_user_token
   before_action :validate_channel_key
 
