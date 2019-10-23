@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
+
+  root to: 'dashboards#index'
+
   #############################################
   # User
   #############################################
@@ -23,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :channels, only: %i[index show] do
     resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
-      scope module: 'releases' do
+      scope module: :releases do
         resources :qrcode, only: :show
       end
 
@@ -32,7 +36,7 @@ Rails.application.routes.draw do
       end
     end
 
-    scope module: 'channels' do
+    scope module: :channels do
       resources :versions, only: :show, id: /\d+(.\d+){0,4}/
     end
   end
@@ -59,37 +63,33 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # API v2
+  # API v1
   #############################################
   namespace :api do
-    namespace :v2 do
-      namespace :apps do
-        post 'upload', to: 'upload#create'
+    namespace :apps do
+      post 'upload', to: 'upload#create'
 
-        get 'latest', to: 'latest#show'
-        get 'versions', to: 'versions#index'
-        get 'versions/(:release_version)', to: 'versions#show'
-        get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
-        get ':slug(/:version)/download', to: 'download#show', as: 'download'
-        get ':id', action: :show
-        patch ':id', action: :update
-        delete ':id', action: :destroy
-        get '', action: :index
-      end
+      get 'latest', to: 'latest#show'
+      get 'versions', to: 'versions#index'
+      get 'versions/(:release_version)', to: 'versions#show'
+      get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
+      get ':slug(/:version)/download', to: 'download#show', as: 'download'
+      get ':id', action: :show
+      patch ':id', action: :update
+      delete ':id', action: :destroy
+      get '', action: :index
+    end
 
-      namespace :jenkins do
-        get 'projects', to: 'projects#index'
-        get 'projects/:project', to: 'projects#show', as: 'project'
-        get 'projects/:project/build', to: 'build#create', as: 'project_build'
-        get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
-      end
+    namespace :jenkins do
+      get 'projects', to: 'projects#index'
+      get 'projects/:project', to: 'projects#show', as: 'project'
+      get 'projects/:project/build', to: 'build#create', as: 'project_build'
+      get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
     end
   end
 
   #############################################
-  # API v3
+  # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
-
-  root to: 'dashboards#index'
 end

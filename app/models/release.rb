@@ -89,10 +89,14 @@ class Release < ApplicationRecord
     changelog
   end
 
-  def install_url
-    return api_v2_apps_download_url(channel.slug, version) if channel.device_type.casecmp('android').zero?
+  def download_url
+    api_apps_download_url(channel.slug, version)
+  end
 
-    download_url = api_v2_apps_install_url(
+  def install_url
+    return download_url if channel.device_type.casecmp('android').zero?
+
+    download_url = api_apps_install_url(
       channel.slug, version,
       protocol: Rails.env.development? ? 'http' : 'https'
     )

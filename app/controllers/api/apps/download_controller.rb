@@ -1,4 +1,4 @@
-class Api::V2::Apps::DownloadController < Api::BaseController
+class Api::Apps::DownloadController < Api::BaseController
   def show
     @release = Release.find_by_channel params[:slug], params[:version]
 

@@ -36,6 +36,11 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # If using a Heroku, Vagrant or generic remote development environment,
+  # use letter_opener_web, accessible at  /letter_opener.
+  # Otherwise, use letter_opener, which launches a browser window to view sent mail.
+  config.action_mailer.delivery_method = (ENV['HEROKU'] || ENV['VAGRANT'] || ENV['REMOTE_DEV']) ? :letter_opener_web : :letter_opener
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -53,6 +58,11 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Adds additional error checking when serving assets at runtime.
+  # Checks for improperly declared sprockets dependencies.
+  # Raises helpful error messages.
+  config.assets.raise_runtime_errors = true
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
@@ -60,5 +70,3 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
-
-Rails.application.routes.default_url_options = { host: 'localhost:3000' }

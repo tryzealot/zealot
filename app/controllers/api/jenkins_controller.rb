@@ -1,5 +1,5 @@
 
-class Api::V2::JenkinsController < ActionController::API
+class Api::JenkinsController < ActionController::API
   before_action :set_client
 
   def project_status
