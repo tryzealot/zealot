@@ -11,7 +11,7 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string><%= api_v2_apps_download_url(@release.channel.slug, @release.version, :protocol => Rails.env.development? ? 'http' : 'https') %></string>
+          <string><%= @release.download_url %></string>
         </dict>
         <% if @release.icon && @release.icon.file && @release.icon.file.exists? %>
         <dict>
