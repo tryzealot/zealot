@@ -14,3 +14,52 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// Import CSS
+import 'bootstrap/dist/css/bootstrap'
+import 'admin-lte/dist/css/AdminLTE'
+import 'admin-lte/dist/css/skins/_all-skins'
+import 'font-awesome/css/font-awesome'
+import 'stylesheets/application'
+
+// Import JS
+import 'jquery'
+import 'bootstrap'
+import 'admin-lte'
+
+require('@rails/ujs').start()
+require('turbolinks').start()
+require('javascripts/debug_files')
+require('javascripts/releases')
+require('javascripts/admin/system_info')
+
+var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
+
+
+document.addEventListener('turbolinks:load', function () {
+  // fix body height for AdminLTE 2.4.0 and turbolinks 5
+  $(window).trigger('resize');
+
+  $('[data-widget="collapse"]').each(function () {
+    $(this).click(function () {
+      $(this).parents('.box').boxWidget('toggle');
+    })
+  });
+
+  // var collapse_buttons = document.querySelectorAll('[data-widget="collapse"]');
+  // collapse_buttons.forEach(function (element) {
+  //   element.addEventListener('click', function(event) {
+  //     event.preventDefault();
+
+  //     $(element).collapse()
+  //   });
+  // });
+});
+
+// auto switch dark mode
+// $(document).ready(function () {
+//   var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+//   if (isDarkMode) {
+//     $('body').removeClass('skin-black-light').addClass('skin-black');
+//   }
+// });

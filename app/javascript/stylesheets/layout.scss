@@ -1,0 +1,35 @@
+
+@media (prefers-color-scheme: dark) {
+  .main-header .guest {
+    text-align: center;
+    padding-top: 15px;
+  }
+}
+
+.main-header .guest {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.main-header .guest a.navbar-brand-center {
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000;
+}
+
+.content-header .right-panel {
+  float: right;
+  background: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  padding: 7px 5px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.btn>.fa {
+  margin-right: 5px;
+}

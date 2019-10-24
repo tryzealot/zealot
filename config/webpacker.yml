@@ -9,9 +9,6 @@ default: &default
   check_yarn_integrity: false
   webpack_compile_output: false
 
-  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: false
-
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
   resolved_paths: []
@@ -37,6 +34,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .erb
     - .mjs
     - .js
     - .sass
@@ -54,6 +52,9 @@ default: &default
 development:
   <<: *default
   compile: true
+
+  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
+  check_yarn_integrity: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
