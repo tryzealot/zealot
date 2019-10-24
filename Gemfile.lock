@@ -154,6 +154,9 @@ GEM
     guard-sidekiq (0.1.0)
       guard (>= 2)
       sidekiq
+    guard-webpacker (0.1.0)
+      guard (>= 2)
+      guard-compat (~> 1.0)
     hashie (3.6.0)
     http (4.2.0)
       addressable (~> 2.3)
@@ -438,6 +441,7 @@ DEPENDENCIES
   guard-migrate
   guard-rails
   guard-sidekiq
+  guard-webpacker
   http
   jb (~> 0.7.0)
   jenkins_api_client
