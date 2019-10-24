@@ -7,8 +7,8 @@ html
     link[rel="apple-touch-icon" sizes="120x120" href="#{image_url('touch-icon-60@2x.png')}"]
     link[rel="apple-touch-icon" sizes="180x180" href="#{image_url('touch-icon-60@3x.png')}"]
     link[rel="icon" type="image/x-icon" href="#{image_url('touch-icon-60@3x.png')}"]
-    == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
-    == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     == csrf_meta_tags
 
   body.hold-transition.skin-black-light class="#{user_signed_in? ? 'sidebar-mini' : 'layout-top-nav'}"
