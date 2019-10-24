@@ -20,7 +20,7 @@
               = scheme.name
             .sections-actions.btn-group
               = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
-              = button_link_to '编辑渠道', app_scheme_path(@app, scheme), 'edit', class: 'btn-default btn-sm btn-flat'
+              = button_link_to '编辑渠道', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-default btn-sm btn-flat'
               = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
 
             table.table style="margin-top: 10px"
