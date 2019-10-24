@@ -39,10 +39,6 @@ module Zealot
     config.i18n.default_locale = locale.to_sym
     config.i18n.available_locales = [locale, :en]
 
-    # Set up logging to be the same in all environments but control the level
-    # through an environment variable.
-    config.log_level = ENV['LOG_LEVEL'] || 'debug'
-
     # Log to STDOUT because Docker expects all processes to log here. You could
     # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
@@ -54,7 +50,7 @@ module Zealot
     # Action mailer settings.
     config.action_mailer.default_options = {
       from: ENV['ACTION_MAILER_DEFAULT_FROM'] || 'Zealot'
-  }
+    }
 
     # Set Redis as the back-end for the cache.
     config.cache_store = :redis_cache_store, {
