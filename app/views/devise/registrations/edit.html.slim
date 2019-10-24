@@ -27,7 +27,7 @@
                     input_html: { autocomplete: "new-password" }
           = f.input :current_password, label: '重复新密码',
                     hint: "请重复输入新密码保证输入的是正确的",
-                    required: true,
+                    required: false,
                     input_html: { autocomplete: "current-password" }
 
           = f.submit '更新', class: 'btn btn-lg btn-primary'
