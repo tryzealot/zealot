@@ -92,6 +92,7 @@ group :development do
   gem 'guard-migrate', require: false
   gem 'guard-rails', require: false
   gem 'guard-sidekiq', require: false
+  gem 'guard-webpacker', require: false
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
 
