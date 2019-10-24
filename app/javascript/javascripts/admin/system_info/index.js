@@ -53,6 +53,8 @@ function check_new_version() {
       }
     }).done(function (response) {
       latest_version = response['tag_name'].replace('v', '');
+      console.info(latest_version);
+
       if (compare_version(latest_version, current_version) > 0) {
         set_cookie('zealot_latest_version', latest_version, 1);
         set_cookie('zealot_latest_version_full', response['name'], 1);
@@ -68,84 +70,10 @@ function check_new_version() {
   }
 }
 
-function sleep(ms) {
-  var start = new Date().getTime();
-  while (new Date().getTime() - start < ms)
-    continue
-}
-
-function download() {
-  var wechat_regex = /MicroMessenger/i;
-  var that = $('#download_it');
-  if (wechat_regex.test(navigator.userAgent)) {
-    $('.cover').removeClass('hide');
-    $('.wechat-tips').removeClass('hide');
-    $('.navbar-fixed-top').css('z-index', 0);
-  }
-
-  that.button('loading');
-
-  setTimeout(function () {
-    that.button('reset');
-  }, 8000)
-
-  // var slug = that.data('slug');
-  // var release_version = that.data('release-version');
-  var install_url = that.data('install-url');
-
-  console.log('install url: '+ install_url);
-  window.location.href = install_url;
-}
-
-// function build() {
-//   var button = $('#build_it');
-//   button.button('loading');
-
-//   var app_job = button.data('job');
-//   var url = HOST + "api/v2/jenkins/projects/" + app_job + "/build";
-//   console.log('build url: ', url);
-
-//   $.ajax({
-//     url: url,
-//     type: 'get',
-//     dataType: 'json',
-//     success: function (data) {
-//       console.log(data)
-//       if (data.code == 201 || data.code == 200) {
-//         var url = data.url + 'console';
-//         message = '请求成功！访问这里查看详情：<a href="' + url + '">' + url + '</a>';
-//       } else {
-//         message = '错误：' + data.message;
-//       }
-
-//       if (data.code == 201) {
-//         sleep(8000);
-//       }
-
-//       $('#jekins_buld_alert').removeClass('hidden').html(message);
-//     },
-//     error: function (xhr, ajaxOptions, thrownError) {
-//       button.button('reset');
-//       //  $('#cache-info').data('key', xhr.responseJSON.cache).removeClass('hide')
-//       //  $("#result")
-//       //      .html('请求失败！接口返回：' + xhr.responseJSON.message)
-//       //      .addClass("alert alert-danger")
-//       //      .show()
-//     },
-//     complete: function () {
-//       button.button('reset');
-//     }
-//   });
-// }
-
-function hideCover() {
-  $('.cover').addClass('hide');
-  $('.wechat-tips').addClass('hide');
-  $('.navbar-fixed-top').css('z-index', 1030);
-}
-
-$('#latest_version').ready(function () {
-  if (window.location.pathname == '/admin/system_info') {
-    check_new_version();
-  }
+$(document).on('turbolinks:load', function () {
+  $('#latest_version').ready(function () {
+    if (window.location.pathname == '/admin/system_info') {
+      check_new_version();
+    }
+  });
 });

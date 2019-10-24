@@ -1,4 +1,9 @@
-document.addEventListener('turbolinks:load', function () {
+$(document).on('turbolinks:load', function () {
+  $('.debug-file-toggle').click(function () {
+    debug_file_id = $(this).data('id');
+    $('#debug-file-metadata-' + debug_file_id).toggleClass('hidden');
+  });
+
   $('.destroy-debug-file').click(function () {
     var debug_id = $(this).data('id');
     var that = $("#debug-file-info-" + debug_id);
