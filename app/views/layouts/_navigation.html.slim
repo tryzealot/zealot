@@ -12,12 +12,12 @@ header.main-header
         ul.nav.navbar-nav
           li.dropdown.user.user-menu
             a.dropdown-toggle data-toggle="dropdown" href="#"
-              img.user-image alt="User Image" src="#{image_url('default-user.png')}"
+              img.user-image alt="User Image" src="#{asset_pack_path('media/images/default-user.png')}"
               span.hidden-xs
                 = current_user.username
             ul.dropdown-menu
                 li.user-header
-                  img.img-circle alt="用户头像" src="#{image_url('default-user.png')}"
+                  img.img-circle alt="用户头像" src="#{asset_pack_path('media/images/default-user.png')}"
                   p
                     | 用户密钥
                     small

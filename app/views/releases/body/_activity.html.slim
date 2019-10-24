@@ -6,6 +6,9 @@ ruby:
     .box-header.with-border
       i.fa.fa-history
       h3.box-title 最近 10 次上传
+      .box-tools.pull-right
+        button.btn.btn-box-tool data-widget="collapse"
+          i.fa.fa-minus
     .box-body
       ul.timeline
         - releases.each do |release|
