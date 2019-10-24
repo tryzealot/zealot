@@ -12,7 +12,7 @@
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
 //
-// const images = require.context('../images', true)
+const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
 // Import CSS
@@ -35,25 +35,18 @@ require('javascripts/admin/system_info')
 
 var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
 
-
 document.addEventListener('turbolinks:load', function () {
   // fix body height for AdminLTE 2.4.0 and turbolinks 5
   $(window).trigger('resize');
 
+  // fix collapse with no response
   $('[data-widget="collapse"]').each(function () {
-    $(this).click(function () {
-      $(this).parents('.box').boxWidget('toggle');
+    $(this).on('click', function (event) {
+      var box = $(this).parents('.box');
+      $(box).removeClass('collapsed-box');
+      $(box).boxWidget('toggle');
     })
   });
-
-  // var collapse_buttons = document.querySelectorAll('[data-widget="collapse"]');
-  // collapse_buttons.forEach(function (element) {
-  //   element.addEventListener('click', function(event) {
-  //     event.preventDefault();
-
-  //     $(element).collapse()
-  //   });
-  // });
 });
 
 // auto switch dark mode
