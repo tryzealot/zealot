@@ -3,6 +3,9 @@
     .box-header
       i.fa.fa-qrcode
       h3.box-title 二维码安装
+      .box-tools.pull-right
+        button.btn.btn-box-tool data-widget="collapse"
+          i.fa.fa-minus
     .box-body.text-center
       .qr_code
         = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)

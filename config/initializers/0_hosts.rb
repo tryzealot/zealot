@@ -10,6 +10,7 @@ Rails.application.configure do
   config.x.local_domain = host
   config.x.use_https    = https
   config.x.url_options = url_options
+  config.x.host = "#{url_options[:protocol]}#{url_options[:host]}"
 
   config.action_mailer.default_url_options = url_options
 end

@@ -30,7 +30,7 @@
                 td
                   = index + 1
                 td
-                  = link_to release.build_version
+                  = link_to release.build_version, channel_release_path(release.channel, release)
                 td
                   = release.release_type
                 td
