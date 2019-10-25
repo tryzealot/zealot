@@ -4,6 +4,9 @@
       .box-header.with-border
         i.fa.fa-mobile-phone
         h3.box-title = "#{@release.devices.count} 台测试设备 (UDID)"
+        .box-tools.pull-right
+          button.btn.btn-box-tool data-widget="collapse"
+            i.fa.fa-minus
       .box-body.no-padding
         table.table
           - @release.devices.each do |device|

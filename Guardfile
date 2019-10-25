@@ -21,6 +21,8 @@ end
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 guard :rails, host: '0.0.0.0' do
+  ignore(%r{^config/(locales|webpack)/.*})
+
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
@@ -52,3 +54,8 @@ end
 #   watch(%r{^db/migrate/(\d+).+\.rb})
 #   watch('db/seeds.rb')
 # end
+
+guard :webpacker do
+  watch('config/webpacker.yml')
+  watch(%r{^config/webpack/.*$})
+end

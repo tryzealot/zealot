@@ -9,7 +9,7 @@ require 'active_storage/engine'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 # require 'action_mailbox/engine'
-require 'action_text/engine'
+# require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 require 'sprockets/railtie'
@@ -39,10 +39,6 @@ module Zealot
     config.i18n.default_locale = locale.to_sym
     config.i18n.available_locales = [locale, :en]
 
-    # Set up logging to be the same in all environments but control the level
-    # through an environment variable.
-    config.log_level = ENV['LOG_LEVEL'] || 'debug'
-
     # Log to STDOUT because Docker expects all processes to log here. You could
     # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
@@ -52,20 +48,6 @@ module Zealot
     config.logger = ActiveSupport::TaggedLogging.new(logger)
 
     # Action mailer settings.
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address:              ENV['SMTP_ADDRESS'],
-      port:                 ENV['SMTP_PORT'].to_i,
-      domain:               ENV['SMTP_DOMAIN'],
-      user_name:            ENV['SMTP_USERNAME'],
-      password:             ENV['SMTP_PASSWORD'],
-      authentication:       ENV['SMTP_AUTH'],
-      enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == 'true'
-    }
-
-    config.action_mailer.default_url_options = {
-      host: ENV['ACTION_MAILER_HOST'] || 'localhost:3000'
-    }
     config.action_mailer.default_options = {
       from: ENV['ACTION_MAILER_DEFAULT_FROM'] || 'Zealot'
     }

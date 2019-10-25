@@ -7,10 +7,13 @@ ruby:
       .box-header
         i.fa.fa-archive
         h3.box-title 历史主版本
+        .box-tools.pull-right
+          button.btn.btn-box-tool data-widget="collapse"
+            i.fa.fa-minus
       .box-body.no-padding
         table.table
           - channel.release_versions.each do |version|
             tr
               td
-                = link_to version, channel_release_path(channel, version)
+                = link_to version, channel_version_path(channel, version)
 

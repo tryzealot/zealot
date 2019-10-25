@@ -1,7 +1,8 @@
-div.cover.hide onclick="hideCover()"
-div.wechat-tips.hide onclick="hideCover()"
-  span
-    = "点击右上角菜单"
-    br
-    = "在 Safari 中打开并安装"
-  img src="#{image_url('wechat/short-arrow.png')}"
+- if wechat?
+  div.cover
+  div.wechat-tips
+    span
+      = "点击右上角菜单"
+      br
+      = "在 Safari 中打开并安装"
+    = image_pack_path('media/images/wechat/short-arrow.png')

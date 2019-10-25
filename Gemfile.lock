@@ -154,6 +154,9 @@ GEM
     guard-sidekiq (0.1.0)
       guard (>= 2)
       sidekiq
+    guard-webpacker (0.1.0)
+      guard (>= 2)
+      guard-compat (~> 1.0)
     hashie (3.6.0)
     http (4.2.0)
       addressable (~> 2.3)
@@ -201,6 +204,10 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.7.0)
       launchy (~> 2.2)
+    letter_opener_web (1.3.4)
+      actionmailer (>= 3.2)
+      letter_opener (~> 1.0)
+      railties (>= 3.2)
     listen (3.2.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -434,11 +441,13 @@ DEPENDENCIES
   guard-migrate
   guard-rails
   guard-sidekiq
+  guard-webpacker
   http
   jb (~> 0.7.0)
   jenkins_api_client
   kaminari
-  letter_opener
+  letter_opener (~> 1.7)
+  letter_opener_web (~> 1.3)
   listen (>= 3.0.5, < 3.3)
   mini_magick
   multi_xml

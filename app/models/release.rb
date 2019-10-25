@@ -16,8 +16,8 @@ class Release < ApplicationRecord
   validate :force_bundle_id, on: :create
 
   before_create :auto_release_version
-  before_create :auto_file_size
   before_create :default_source
+  before_create :default_changelog
   before_save   :changelog_format, if: :changelog_is_plaintext?
 
   paginates_per     20
@@ -72,6 +72,11 @@ class Release < ApplicationRecord
     channel.device_type
   end
 
+  def size
+    file.size
+  end
+  alias file_size size
+
   def short_git_commit
     return nil if git_commit.blank?
 
@@ -84,10 +89,14 @@ class Release < ApplicationRecord
     changelog
   end
 
-  def install_url
-    return api_v2_apps_download_url(channel.slug, version) if channel.device_type.casecmp('android').zero?
+  def download_url
+    api_apps_download_url(channel.slug, version)
+  end
 
-    download_url = api_v2_apps_install_url(
+  def install_url
+    return download_url if channel.device_type.casecmp('android').zero?
+
+    download_url = api_apps_install_url(
       channel.slug, version,
       protocol: Rails.env.development? ? 'http' : 'https'
     )
@@ -99,7 +108,7 @@ class Release < ApplicationRecord
   end
 
   def qrcode_url(size = :thumb)
-    channel_release_qrcode_index_url channel, self, size: size
+    channel_release_qrcode_url channel, self, size: size
   end
 
   def file_extname
@@ -154,15 +163,15 @@ class Release < ApplicationRecord
     errors.add(:file, message)
   end
 
+  def app_info
+    @app_info ||= AppInfo.parse(file.file.file)
+  end
+
   private
 
   def auto_release_version
     latest_version = Release.where(channel: channel).limit(1).order(id: :desc).last
     self.version = latest_version ? (latest_version.version + 1) : 1
-  end
-
-  def auto_file_size
-    self.size = file.size if file.present? && file_changed?
   end
 
   def changelog_format
@@ -179,6 +188,10 @@ class Release < ApplicationRecord
     self.source ||= 'API'
   end
 
+  def default_changelog
+    self.changelog ||= []
+  end
+
   def changelog_is_plaintext?
     return false if changelog.blank?
 
@@ -188,9 +201,5 @@ class Release < ApplicationRecord
   def enabled_validate_bundle_id?
     bundle_id = channel.bundle_id
     !(bundle_id.blank? || bundle_id == '*')
-  end
-
-  def app_info
-    @app_info ||= AppInfo.parse(file.file.file)
   end
 end
