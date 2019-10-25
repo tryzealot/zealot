@@ -3,17 +3,14 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-# Add additional assets to the asset load path.
-# Rails.application.config.assets.paths << Emoji.images_path
-# Add Yarn node_modules folder to the asset load path.
-Rails.application.config.assets.paths << Rails.root.join('node_modules')
+# Add additional assets to the asset load path
+Rails.application.config.assets.paths << 'node_modules'
 
-# Precompile additional assets.
-Rails.application.config.assets.precompile << proc do |path|
-  true if path =~ /\.(eot|svg|ttf|woff|png)\z/
-end
+# # Precompile additional assets.
+# Rails.application.config.assets.precompile << proc do |path|
+#   true if path =~ /\.(eot|svg|ttf|woff|png)\z/
+# end
 
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( admin-lte/bootstrap/fonts/* )
-Rails.application.config.assets.precompile += %w( font-awesome/fonts/* )
+# Rails.application.config.assets.precompile += %w( admin-lte/bootstrap/fonts/* )
