@@ -88,13 +88,13 @@ group :development do
 
   # 断点调试器
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'guard-bundler', require: false
-  gem 'guard-migrate', require: false
-  gem 'guard-rails', require: false
-  gem 'guard-sidekiq', require: false
-  gem 'guard-webpacker', require: false
-  gem 'terminal-notifier', require: false
-  gem 'terminal-notifier-guard', require: false
+  gem 'guard-bundler'
+  gem 'guard-migrate'
+  gem 'guard-rails'
+  gem 'guard-sidekiq'
+  gem 'guard-webpacker'
+  gem 'terminal-notifier'
+  gem 'terminal-notifier-guard'
 
   # IDE tools(VSCode)
   # gem "ruby-debug-ide"
@@ -115,7 +115,7 @@ end
 
 group :development, :test do
   # gem 'dotenv-rails'
-  gem 'rubocop', '~> 0.75', require: false
+  gem 'rubocop', '~> 0.75'
 
   gem 'pry-byebug'
   gem 'pry-rails'
