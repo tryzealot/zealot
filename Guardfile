@@ -25,6 +25,7 @@ guard :rails, host: '0.0.0.0' do
 
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
+  watch('app/assets/config/manifest.js')
 end
 
 guard :bundler do
