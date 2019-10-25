@@ -43,8 +43,9 @@ gem 'http'
 # 用户认证
 gem 'devise', '~> 4.7.1'
 gem 'devise-i18n', '~> 1.8.2'
-gem 'pundit', '~> 2.1.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem 'pundit', '~> 2.1.0'
+
 # Crontab
 gem 'whenever', '~> 1.0.0', require: false
 # 系统信息
@@ -91,6 +92,7 @@ group :development do
   gem 'guard-migrate', require: false
   gem 'guard-rails', require: false
   gem 'guard-sidekiq', require: false
+  gem 'guard-webpacker', require: false
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
 
@@ -105,11 +107,14 @@ group :development do
   # rails 更友好错误输出
   gem 'awesome_print'
   gem 'better_errors'
+
+  # 在线查看 Action Mailer 内容
+  gem 'letter_opener', '~> 1.7'
+  gem 'letter_opener_web', '~> 1.3'
 end
 
 group :development, :test do
   # gem 'dotenv-rails'
-  gem 'letter_opener'
   gem 'rubocop', '~> 0.75', require: false
 
   gem 'pry-byebug'

@@ -35,7 +35,7 @@ Rails.application.configure do
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system
   # (see config/storage.yml for options)
@@ -54,7 +54,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info').to_sym
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -84,6 +84,25 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-end
 
-Rails.application.routes.default_url_options = { host: ENV['HOST'] }
+  # Action Mailer
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address:              ENV['SMTP_ADDRESS'],
+    port:                 ENV['SMTP_PORT'],
+    domain:               ENV['SMTP_DOMAIN'] || ENV['ZEALOT_DOMAIN'],
+    user_name:            ENV['SMTP_USERNAME'].presence,
+    password:             ENV['SMTP_PASSWORD'].presence,
+    authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
+    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
+    openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
+  }
+
+  config.action_dispatch.default_headers = {
+    'Server'                 => 'Zealot',
+    'X-Frame-Options'        => 'DENY',
+    'X-Content-Type-Options' => 'nosniff',
+    'X-XSS-Protection'       => '1; mode=block',
+  }
+end
