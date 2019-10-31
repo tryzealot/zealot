@@ -1,0 +1,61 @@
+- content_for :title do
+  | App 解析结果
+
+.row
+  .col-xs-12
+    .box
+      .box-header.with-border
+        h3.box-title
+          | App 解析加载中
+      .box-body
+        #parse-loading.text-center
+          .btn-block.btn-lg.ajax
+            i.fa.fa-spin.fa-refresh
+            |  解析中 ...
+        #parse-result
+
+.row
+  .col-xs-12
+    .box
+      .box-body
+        h4 App 信息
+        .aa
+          span 名称：
+          span AppName
+          br
+
+          span 版本：
+          span 1.0.0 (1.0)
+          br
+
+          span BundleId：
+          span com.icyleaf.demoapp
+
+        h4 签名证书
+        .aa
+          span 名称：
+          span AppName
+          br
+
+          span 版本：
+          span 1.0.0 (1.0)
+          br
+
+          span BundleId：
+          span com.icyleaf.demoapp
+        h4 开发者证书
+
+        h4 设备列表
+        .aa
+          table.table.table-striped
+            tr
+              th UDID
+            tr
+              td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+            tr
+              td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+            tr
+              td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+            tr
+              td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+

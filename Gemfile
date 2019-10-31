@@ -58,8 +58,11 @@ gem 'jenkins_api_client'
 gem 'rqrcode'
 # 个性化时间解析
 gem 'chronic'
+
 # 异步队列
+gem 'activejob-status'
 gem 'sidekiq', '<= 7'
+
 # Mobile config
 gem 'settingslogic'
 

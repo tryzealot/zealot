@@ -1,0 +1,74 @@
+.row
+  .col-md-8
+    .box
+      .box-header.with-border
+        h3.box-title App 信息
+      .box-body
+        dl.system-info
+          dt 名称
+          dd
+            pre = @app_info.name
+          dt 版本
+          dd
+            pre = "#{@app_info.release_version} (#{@app_info.build_version})"
+          dt 包名
+          dd
+            pre = @app_info.package_name
+          dt 支持设备
+          dd
+            pre = @app_info.device_type
+          dt Android 最低版本 / 目标版本
+          dd
+            pre = "#{@app_info.min_sdk_version} / #{@app_info.target_sdk_version}"
+          dt 文件大小
+          dd
+            pre = number_to_human_size(@app_info.size)
+
+    .box
+      .box-header.with-border
+        h3.box-title Activities
+      .box-body
+        table.table.table-striped
+          - @app_info.activities.each do |activity|
+            - unless activity.blank?
+              tr
+                td = activity.name
+
+    .box
+      .box-header.with-border
+        h3.box-title Services
+      .box-body
+        table.table.table-striped
+          - @app_info.services.each do |service|
+            - unless service.blank?
+              tr
+                td = service.name
+
+  .col-md-4
+    .box
+      .box-header.with-border
+        h3.box-title Features
+      .box-body
+        table.table.table-striped
+          - @app_info.use_features.each do |feature|
+            - unless feature.blank?
+              tr
+                td = feature
+
+    .box
+      .box-header.with-border
+        h3.box-title Certificates
+      .box-body
+        table.table.table-striped
+          - @app_info.certificates.each do |certificate|
+            tr
+             td = certificate.certificate.subject.to_a
+
+    .box
+      .box-header.with-border
+        h3.box-title Signs
+      .box-body
+        table.table.table-striped
+          - @app_info.signs.each do |sign|
+            tr
+              td = sign.sign.class

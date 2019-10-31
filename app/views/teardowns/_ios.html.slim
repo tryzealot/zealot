@@ -1,0 +1,104 @@
+.row
+  .col-md-8
+    .box
+      .box-header.with-border
+        h3.box-title App 信息
+      .box-body
+        dl.system-info
+          dt 名称
+          dd
+            pre = @app_info.name
+          dt 版本
+          dd
+            pre = "#{@app_info.release_version} (#{@app_info.build_version})"
+          dt Bundle Id
+          dd
+            pre = @app_info.bundle_id
+          dt 支持设备
+          dd
+            pre = @app_info.device_type
+          dt 最低 iOS 版本
+          dd
+            pre = @app_info.min_sdk_version
+          dt 文件大小
+          dd
+            pre = number_to_human_size(@app_info.size)
+
+    - if @app_info.mobileprovision?
+      .box
+        .box-header.with-border
+          h3.box-title 描述文件
+        .box-body
+          dl.system-info
+            dt 名称
+            dd
+              pre = @app_info.profile_name
+            dt UUID
+            dd
+              pre = @app_info.mobileprovision.UUID
+            dt 类型
+            dd
+              pre = @app_info.release_type
+            dt 团队名称
+            dd
+              pre = "#{@app_info.team_name} (#{@app_info.team_identifier.first}"
+            dt 创建时间
+            dd
+              pre = @app_info.mobileprovision.created_date
+            dt 过期时间
+            dd
+              pre
+                = "#{@app_info.expired_date} ("
+                span.text-green.text-bold
+                  = "还有#{distance_of_time_in_words(Time.now, @app_info.expired_date)}过期"
+                | )
+      .box
+        .box-header.with-border
+          h3.box-title 开发者证书
+        .box-body
+          dl.system-info
+            dt 名称
+            dd
+              pre = @app_info.profile_name
+            dt 过期时间
+            dd
+              pre = @app_info.mobileprovision.UUID
+
+  - if @app_info.release_type == AppInfo::IPA::ExportType::ADHOC
+    .box
+      .box-header.with-border
+        h3.box-title 设备列表
+      .box-body
+        table.table.table-striped
+          tr
+            th UDID
+          tr
+            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+          tr
+            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+          tr
+            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+          tr
+            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+
+  .col-md-4
+    .box
+      .box-header.with-border
+        h3.box-title URL Schemes
+      .box-body
+        table.table.table-striped
+          - @app_info.info['CFBundleURLTypes'].each do |type|
+            tr
+              td = type['CFBundleURLSchemes'].join(', ')
+
+
+  - if @app_info.mobileprovision.Entitlements['com.apple.developer.']
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3.box-title Universal Links
+        .box-body
+          table.table.table-striped
+            - @app_info.mobileprovision.Entitlements.each do |scheme|
+              tr
+                td = scheme
