@@ -1,0 +1,11 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-xs-12
+    .box
+      .box-header.box-border
+        h3.box-title
+          = @title
+      .box-body
+        == render 'form'

@@ -47,6 +47,11 @@ Rails.application.routes.draw do
   resources :debug_files, except: [:show]
 
   #############################################
+  # Teardown
+  #############################################
+  resources :teardowns, only: [:show, :new, :create], path_names: { new: 'upload' }
+
+  #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
