@@ -2,7 +2,7 @@
   "name": "zealot",
   "private": true,
   "dependencies": {
-    "@rails/ujs": "^6.0.0-alpha",
+    "@rails/ujs": "^6.0.1",
     "@rails/webpacker": "^4.0.7",
     "admin-lte": "^2.4.18",
     "jquery": "^3.4.1",
