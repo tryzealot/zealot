@@ -67,7 +67,7 @@ gem 'settingslogic'
 gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.1.0', require: false
