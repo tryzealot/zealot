@@ -408,7 +408,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (4.0.7)
+    webpacker (4.2.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -480,7 +480,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
-  webpacker (~> 4.0)
+  webpacker (~> 4.2)
   whenever (~> 1.0.0)
 
 RUBY VERSION
