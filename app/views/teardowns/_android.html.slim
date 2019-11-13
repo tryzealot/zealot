@@ -29,7 +29,7 @@
         h3.box-title Activities
       .box-body
         table.table.table-striped
-          - @app_info.activities.each do |activity|
+          - @app_info.activities.sort_by(&:name).each do |activity|
             - unless activity.blank?
               tr
                 td = activity.name
@@ -39,21 +39,34 @@
         h3.box-title Services
       .box-body
         table.table.table-striped
-          - @app_info.services.each do |service|
+          - @app_info.services.sort_by(&:name).each do |service|
             - unless service.blank?
               tr
                 td = service.name
 
-  .col-md-4
-    .box
-      .box-header.with-border
-        h3.box-title Features
-      .box-body
-        table.table.table-striped
-          - @app_info.use_features.each do |feature|
-            - unless feature.blank?
-              tr
-                td = feature
+  - unless @app_info.use_permissions.blank?
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3.box-title Permissions
+        .box-body
+          table.table.table-striped
+            - @app_info.use_permissions.sort.each do |permission|
+              - unless permission.blank?
+                tr
+                  td = permission
+
+  - unless @app_info.use_features.blank?
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3.box-title Features
+        .box-body
+          table.table.table-striped
+            - @app_info.use_features.sort.each do |feature|
+              - unless feature.blank?
+                tr
+                  td = feature
 
     .box
       .box-header.with-border
@@ -62,13 +75,6 @@
         table.table.table-striped
           - @app_info.certificates.each do |certificate|
             tr
-             td = certificate.certificate.subject.to_a
-
-    .box
-      .box-header.with-border
-        h3.box-title Signs
-      .box-body
-        table.table.table-striped
-          - @app_info.signs.each do |sign|
+              td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
             tr
-              td = sign.sign.class
+              td = certificate.certificate.not_before
