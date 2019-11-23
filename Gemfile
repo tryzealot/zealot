@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 
 ruby '>= 2.4.0', '< 2.7.0'
 
-gem 'puma', '~> 4.2.1'
-gem 'rails', '~> 6.0.0'
+gem 'puma', '~> 4.3.0'
+gem 'rails', '~> 6.0.1'
 gem 'rails-i18n', '~> 6.0.0'
-gem 'rake', '~> 13.0.0'
+gem 'rake', '~> 13.0.1'
 
 # DB & Cache
 gem 'pg', '~> 1.1.4'
@@ -16,8 +16,8 @@ gem 'redis', '~> 4.1.3'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
-gem 'graphql', '~> 1.9.14'
-gem 'rack-cors', '~> 1.0.3'
+gem 'graphql', '~> 1.9.15'
+gem 'rack-cors', '~> 1.1.0'
 
 # View
 ## 生成 ios download plist
@@ -67,10 +67,10 @@ gem 'settingslogic'
 gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.0.0.rc1', require: false
+gem 'app-info', '~> 2.1.0', require: false
 
 # 异常处理
 gem 'exception_handler', '~> 0.8.0'
@@ -115,7 +115,7 @@ end
 
 group :development, :test do
   # gem 'dotenv-rails'
-  gem 'rubocop', '~> 0.75'
+  gem 'rubocop', '~> 0.76'
 
   gem 'pry-byebug'
   gem 'pry-rails'
