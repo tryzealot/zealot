@@ -14,6 +14,11 @@ aside.main-sidebar
         a href="#{debug_files_path}"
           i.fa.fa-bug
           span Debug File 管理
+      li class="treeview #{active_class(new_teardown_path)}"
+        a href="#{new_teardown_path}"
+          i.fa.fa-gavel
+          span App 解析
+
       - if current_user.admin?
         li.header 管理区域
         li class="treeview #{active_class(admin_users_path)}"
