@@ -4,41 +4,29 @@
 
 ## 安装依赖
 
-- Linux
-- Ruby 2.2+
-- Rails 5.0+
+- Ruby 2.3+
 - Postgres 8.0+
 - Redis 2.7+
-- Sidekiq
 - ImageMagick/GraphicsMagick
 - Nodejs 6.0+
 - Yarn
 
 ## 部署
 
+### 源码部署
+
+安装完成上面的依赖后，配置 config/database.yml 数据库信息可从 ENV 环境变量获取，之后顺序执行：
+
+```
+$ bundle install
+$ bundle exec guard start
+```
+
+打开浏览器 `http://localhost:3000`
+
 ### Docker 部署
 
 > TODO
-
-### 源码部署
-
-本机部署脚本位于 `config/deploy.rb`
-
-```
-cap production deploy
-```
-
-#### 服务化
-
-复制项目的 `lib/support/init.d/zealot` 到系统的 `/etc/init.d` 可操作如下命令：
-
-```bash
-Usage: service zealot {start|stop|restart|reload|status}
-```
-
-#### 定时任务
-
-脚本位于 `config/schedule.rb`
 
 ## 最佳实践
 
