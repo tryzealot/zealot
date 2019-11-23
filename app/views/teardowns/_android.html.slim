@@ -1,0 +1,81 @@
+.row
+  .col-md-8
+    .box
+      .box-header.with-border
+        h3.box-title App 信息
+      .box-body
+        dl.system-info
+          dt 名称
+          dd
+            pre = @app_info.name
+          dt 版本
+          dd
+            pre = "#{@app_info.release_version} (#{@app_info.build_version})"
+          dt 包名
+          dd
+            pre = @app_info.package_name
+          dt 支持设备
+          dd
+            pre = @app_info.device_type
+          dt Android 最低版本 / 目标版本
+          dd
+            pre = "#{@app_info.min_sdk_version} / #{@app_info.target_sdk_version}"
+          dt 文件大小
+          dd
+            pre = number_to_human_size(@app_info.size)
+
+    .box
+      .box-header.with-border
+        h3.box-title Activities
+      .box-body
+        table.table.table-striped
+          - @app_info.activities.sort_by(&:name).each do |activity|
+            - unless activity.blank?
+              tr
+                td = activity.name
+
+    .box
+      .box-header.with-border
+        h3.box-title Services
+      .box-body
+        table.table.table-striped
+          - @app_info.services.sort_by(&:name).each do |service|
+            - unless service.blank?
+              tr
+                td = service.name
+
+  - unless @app_info.use_permissions.blank?
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3.box-title Permissions
+        .box-body
+          table.table.table-striped
+            - @app_info.use_permissions.sort.each do |permission|
+              - unless permission.blank?
+                tr
+                  td = permission
+
+  - unless @app_info.use_features.blank?
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3.box-title Features
+        .box-body
+          table.table.table-striped
+            - @app_info.use_features.sort.each do |feature|
+              - unless feature.blank?
+                tr
+                  td = feature
+
+  / .col-md-4
+    / .box
+    /   .box-header.with-border
+    /     h3.box-title Certificates
+    /   .box-body
+    /     table.table.table-striped
+    /       - @app_info.certificates.each do |certificate|
+    /         tr
+    /           td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
+    /         tr
+    /           td = certificate.certificate.not_before

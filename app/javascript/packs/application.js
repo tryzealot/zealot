@@ -32,6 +32,7 @@ require('turbolinks').start()
 require('javascripts/debug_files')
 require('javascripts/releases')
 require('javascripts/admin/system_info')
+require('javascripts/teardown/upload')
 
 var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' + location.port : '') + '/';
 
