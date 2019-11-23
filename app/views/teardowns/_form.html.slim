@@ -1,4 +1,11 @@
 
 = form_tag(teardowns_path, multipart: true) do |form|
-  = file_field_tag 'file'
-  = submit_tag
+  .form-group.file.required
+    label.control-label.file.required
+      abbr title="必填项" *
+      |  App 文件
+    = file_field_tag 'file'
+    p.help-block 支持 .apk 和 .ipa 文件
+  = submit_tag '开始解析', class: 'btn btn-primary'
+
+

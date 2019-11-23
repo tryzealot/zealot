@@ -68,13 +68,14 @@
                 tr
                   td = feature
 
-    .box
-      .box-header.with-border
-        h3.box-title Certificates
-      .box-body
-        table.table.table-striped
-          - @app_info.certificates.each do |certificate|
-            tr
-              td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
-            tr
-              td = certificate.certificate.not_before
+  / .col-md-4
+    / .box
+    /   .box-header.with-border
+    /     h3.box-title Certificates
+    /   .box-body
+    /     table.table.table-striped
+    /       - @app_info.certificates.each do |certificate|
+    /         tr
+    /           td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
+    /         tr
+    /           td = certificate.certificate.not_before
