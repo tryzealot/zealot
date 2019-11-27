@@ -2,40 +2,40 @@
   nav.mt-2
     ul.nav.nav-pills.nav-sidebar.flex-column data-widget="treeview" role="menu" data-accordion="false"
       li.nav-header 功能区域
-      li class="nav-item"
-        a.nav-link href="#{ root_path }" class="#{active_class(root_path)}"
+      li class="nav-item #{active_class(root_path)}"
+        a.nav-link href="#{ root_path }"
           i.nav-icon.fa.fa-th
-          p 控制台
-      li class="nav-item"
-        a.nav-link href="#{apps_path}" class="#{active_class(apps_path)}"
+          span 控制台
+      li class="nav-item #{active_class(apps_path)}"
+        a.nav-link href="#{apps_path}"
           i.nav-icon.fa.fa-adn
-          p 应用管理
-      li class="nav-item"
-        a.nav-link href="#{debug_files_path}" class="#{active_class(debug_files_path)}"
+          span 应用管理
+      li class="nav-item #{active_class(debug_files_path)}"
+        a.nav-link href="#{debug_files_path}"
           i.nav-icon.fa.fa-bug
-          p Debug File 管理
-      li class="nav-item"
-        a.nav-link href="#{new_teardown_path}" class="#{active_class(new_teardown_path)}"
+          span Debug File 管理
+      li class="nav-item #{active_class(new_teardown_path)}"
+        a.nav-link href="#{new_teardown_path}"
           i.nav-icon.fa.fa-gavel
-          p App 解析
+          span App 解析
 
       - if current_user.admin?
         li.nav-header 管理区域
-        li class="nav-item"
-          a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
+        li class="nav-item #{active_class(admin_users_path)}"
+          a.nav-link href="#{admin_users_path}"
             i.nav-icon.fa.fa-user
-            p 用户管理
-        li class="nav-item"
-          a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
+            span 用户管理
+        li class="nav-item #{active_class(admin_background_jobs_path)}"
+          a.nav-link href="#{admin_background_jobs_path}"
             i.nav-icon.fa.fa-bar-chart
-            p 后台任务
-        li class="nav-item"
-          a.nav-link href="#{admin_graphql_console_path}" class="#{active_class(admin_graphql_console_path)}"
+            span 后台任务
+        li class="nav-item #{active_class(admin_graphql_console_path)}"
+          a.nav-link href="#{admin_graphql_console_path}"
             i.nav-icon.fa.fa-columns
             p
               | GraphQL 控制台
               span.badge.badge-success.right 测试
-        li class="nav-item"
-          a.nav-link href="#{admin_system_info_path}" class="#{active_class(admin_system_info_path)}"
+        li class="nav-item #{active_class(admin_system_info_path)}"
+          a.nav-link href="#{admin_system_info_path}"
             i.nav-icon.fa.fa-desktop
-            p 系统信息
+            span 系统信息
