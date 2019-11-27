@@ -15,11 +15,9 @@ html
     .wrapper
       == render 'layouts/tips'
       == render 'layouts/navigation'
-      - if user_signed_in?
-        == render 'layouts/main_sidebar'
 
       .content-wrapper
         == render 'layouts/content'
 
-      == render 'layouts/footer'
-      == render 'layouts/control_sidebar'
+      / == render 'layouts/footer'
+      / == render 'layouts/control_sidebar'
