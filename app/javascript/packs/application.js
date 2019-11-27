@@ -17,8 +17,7 @@ const images = require.context('../images', true)
 
 // Import CSS
 import 'bootstrap/dist/css/bootstrap'
-import 'admin-lte/dist/css/AdminLTE'
-import 'admin-lte/dist/css/skins/_all-skins'
+import 'admin-lte/dist/css/adminlte'
 import 'font-awesome/css/font-awesome'
 import 'stylesheets/application'
 
