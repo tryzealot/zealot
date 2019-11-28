@@ -8,15 +8,15 @@
     = link_to '点击查看最新版本', channel_release_path(latest_release.channel, latest_release)
     | 。
 
-.app-detail.box
-  .box-header.with-border
-    h3.box-title
+.app-detail.card
+  .card-header
+    h3.card-title
       = app_icon(@release, size: :medium, class: 'app-icon img-circle img-bordered-sm')
       .app-name
         = @release.app_name
         .app-identifier
           = @release.bundle_id
-  .box-body
+  .card-body
     ul.app-metadata
       li
         i.fa.fa-gg
@@ -69,4 +69,4 @@
             i.fa.fa-wrench
             | 构建新版
 
-    p#jekins_buld_alert.alert.alert-warning.hidden role="alert" style=("margin-top: 10px")
+    p#jekins_buld_alert.alert.alert-warning.d-none role="alert" style=("margin-top: 10px")

@@ -20,10 +20,11 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
           a.dropdown-item href="#{destroy_user_session_path}" 登出
 
 // Main Sidebar Container
-aside.main-sidebar.sidebar-dark-primary.elevation-4
+aside.main-sidebar.sidebar-light-primary.elevation-4
   // Brand Logo
   a.brand-link href="#{ root_path }"
-    span.brand-image Z
+    / span.brand-image Z
+    span.brand-bighead-text Z
     span.brand-text.font-weight-light ealot
 
   - if user_signed_in?

@@ -2,22 +2,22 @@
   = @title
 
 .row
-  .col-xs-12
-    .box
-      .box-header.box-border
-        h3.box-title
+  .col-md-12
+    .card
+      .card-header.card-border
+        h3.card-title
           = @title
-        .box-tools
+        .card-tools
           a href="#{debug_files_path}"
             i.fa.fa-list-alt
             |  返回列表
-      .box-body
+      .card-body
         == render 'form'
 
-    .box.box-warning
-      .box-header.box-border
-        h3.box-title 如何找到 Debug File 文件
-      .box-body.table-responsive
+    .card
+      .card-header.card-border
+        h3.card-title 如何找到 Debug File 文件
+      .card-body.table-responsive
         p 一般情况下，项目编译完 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
         ul
           li 进入 XCode

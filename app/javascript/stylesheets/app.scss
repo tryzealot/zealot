@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+// index page
+.card-body {
+  .direct-chat-messages {
+    padding: 0;
+  }
+}
+
+
+// show page
+
 .cover {
   position: fixed;
   top: 0;
@@ -72,7 +83,7 @@
   }
 
   .app-name {
-    padding-top: 10px;
+    padding-top: 6px;
     padding-left: 60px;
   }
 
@@ -89,7 +100,7 @@
   .app-metadata {
     list-style: none;
     font-size: 1.2em;
-    padding: 10px 0;
+    padding: 0;
   }
 
   .app-metadata>li {
