@@ -11,25 +11,27 @@
     = button_link_to '删除应用', app_path(@app), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?", method: "delete" }
 
 .row
-  .col-xs-12
-    .box.box-success
-      .box-body
-        - @app.schemes.each do |scheme|
-          section.app-section id="scheme-#{scheme.id}" style="border-bottom: 1px solid #ddd; margin-bottom: 30px"
-            h4
-              = scheme.name
+  .col-md-12
+    - @app.schemes.each do |scheme|
+      .card
+        .card-header
+          h3.card-title
+            = scheme.name
+          .card-tools
             .sections-actions.btn-group
               = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
               = button_link_to '编辑渠道', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-default btn-sm btn-flat'
               = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
 
-            table.table style="margin-top: 10px"
+        .card-body.p-0
+          section.app-section id="scheme-#{scheme.id}"
+            table.table
               - if scheme.channels.count > 0
                 - scheme.channels.each do |channel|
                   tr
                     td
                       = link_to channel.name, channel_path(channel)
-                    td style="width: 80px"
+                    td style="width: 130px"
                       = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
                       = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'remove', class: 'btn-box-tool', data: { confirm: "确定删除#{channel.app_name}渠道?", method: "delete" }
               - else

@@ -1,14 +1,23 @@
 ruby:
+  section_title = yield :section_title
   right_panel = yield :section_rightpanel
   breadcrumb = yield :breadcrumb
 
-section.content-header
-  - unless right_panel.blank?
-    .right-panel
-      = right_panel
+// Content Header (Page header)
 
-  h1 = yield :section_title
+- unless section_title.empty?
+  section.content-header
+    .container-fluid
+      .row
+        .col-sm-6
+          h1 = yield :section_title
+        .col-sm-6
+          - unless right_panel.blank?
+            div.float-sm-right
+              = right_panel
 
-  - unless breadcrumb.blank?
-    ol.breadcrumb
-      = breadcrumb
+          - unless breadcrumb.blank?
+            ol.breadcrumb.float-sm-right
+              = breadcrumb
+- else
+  div style="padding: 7px 0;"

@@ -1,9 +1,9 @@
 .row
   .col-md-8
-    .box
-      .box-header.with-border
-        h3.box-title App 信息
-      .box-body
+    .card
+      .card-header
+        h3.card-title App 信息
+      .card-body
         dl.system-info
           dt 名称
           dd
@@ -25,10 +25,10 @@
             pre = number_to_human_size(@app_info.size)
 
     - if @app_info.mobileprovision?
-      .box
-        .box-header.with-border
-          h3.box-title 描述文件
-        .box-body
+      .card
+        .card-header
+          h3.card-title 描述文件
+        .card-body
           dl.system-info
             dt 名称
             dd
@@ -52,10 +52,10 @@
                 span.text-green.text-bold
                   = "还有#{distance_of_time_in_words(Time.now, @app_info.expired_date)}过期"
                 | )
-      .box
-        .box-header.with-border
-          h3.box-title 开发者证书
-        .box-body
+      .card
+        .card-header
+          h3.card-title 开发者证书
+        .card-body
           dl.system-info
             dt 名称
             dd
@@ -65,10 +65,10 @@
               pre = @app_info.mobileprovision.UUID
 
   - if @app_info.release_type == AppInfo::IPA::ExportType::ADHOC
-    .box
-      .box-header.with-border
-        h3.box-title 设备列表
-      .box-body
+    .card
+      .card-header
+        h3.card-title 设备列表
+      .card-body
         table.table.table-striped
           tr
             th UDID
@@ -82,10 +82,10 @@
             td 18cf53cddee60c5af9c97b1521e7cbf8342628da
 
   .col-md-4
-    .box
-      .box-header.with-border
-        h3.box-title URL Schemes
-      .box-body
+    .card
+      .card-header
+        h3.card-title URL Schemes
+      .card-body
         table.table.table-striped
           - @app_info.info['CFBundleURLTypes'].each do |type|
             tr
@@ -94,10 +94,10 @@
 
   - if @app_info.mobileprovision.Entitlements['com.apple.developer.']
     .col-md-4
-      .box
-        .box-header.with-border
-          h3.box-title Universal Links
-        .box-body
+      .card
+        .card-header
+          h3.card-title Universal Links
+        .card-body
           table.table.table-striped
             - @app_info.mobileprovision.Entitlements.each do |scheme|
               tr
