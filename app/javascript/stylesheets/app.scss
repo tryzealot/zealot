@@ -2,27 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@media (min-width: 1200px) {
-  .container {
-    width: 670px;
-  }
-}
-
-div.install-cert-notices {
-  text-align: center;
-  padding-top: 1.2em;
-  color: #FFF;
-}
-
-.label-ms, span.label-ms {
-  font-size: 8px;
-  margin-left: 0.5em;
-}
-
-div.app-container p.qr_code img {
-  max-width: 240px;
-  max-height: 240px;
-}
 
 // index page
 .card-body {
