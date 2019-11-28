@@ -1,8 +1,8 @@
-.box.box-solid
-  .box-header.with-border
-    h3.box-title 渠道
-  .box-body.no-padding
-    ul.nav.nav-pills.nav-stacked
+.card.card-solid
+  .card-header
+    h3.card-title 渠道
+  .card-body.p-0
+    ul.nav.nav-pills.flex-column
       - @channel.scheme.channels.each do |channel|
-        li class="#{params[:id] == channel.slug ? 'active' : ''}"
-          = link_to display_app_device(channel), channel_path(channel)
+        li.nav-item
+          = link_to display_app_device(channel), channel_path(channel), class: "nav-link #{params[:id] == channel.slug ? 'active' : ''}"

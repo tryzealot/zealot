@@ -1,28 +1,28 @@
 - @apps.each_with_index do |app, i|
   ruby:
     has_debug_files = app.debug_files.count > 0
-  .col-xs-12
-    .box.apps.direct-chat
-      .box-header
-        h3.box-title
+  .col-md-12
+    .card.apps.direct-chat
+      .card-header
+        h3.card-title
           = app_icon(app.recently_release, class: 'app-icon img-circle')
           = link_to app.name, app_path(app), style: "color: #000"
-        .box-tools.pull-right
+        .card-tools
           - if has_debug_files
-            button.btn.btn-box-tool data-toggle="tooltip" data-original-title="Debug Files" data-widget="chat-pane-toggle"
+            button.btn.btn-tool data-toggle="tooltip" data-original-title="Debug Files" data-widget="chat-pane-toggle"
               i.fa.fa-bug
-          a.btn.btn-box-tool href="#{new_app_scheme_path(app)}"
+          a.btn.btn-tool href="#{new_app_scheme_path(app)}"
             i.fa.fa-plus-square-o
-          a.btn.btn-box-tool href="#{edit_app_path(app)}"
+          a.btn.btn-tool href="#{edit_app_path(app)}"
             i.fa.fa-edit
-          a.btn.btn-box-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
+          a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
             i.fa.fa-remove
-      .box-body
+      .card-body.p-0
         .app-schemes class="#{has_debug_files ? 'direct-chat-messages' : ''}"
           table.table
             tr
               th 类型名称
-              th style="width: 75px" 渠道数量
+              th style="width: 100px" 渠道数量
             - app.schemes.each do |scheme|
               tr
                 td = link_to scheme.name, app_scheme_path(app, scheme)

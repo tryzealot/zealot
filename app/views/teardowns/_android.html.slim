@@ -1,9 +1,9 @@
 .row
   .col-md-8
-    .box
-      .box-header.with-border
-        h3.box-title App 信息
-      .box-body
+    .card
+      .card-header
+        h3.card-title App 信息
+      .card-body
         dl.system-info
           dt 名称
           dd
@@ -24,20 +24,20 @@
           dd
             pre = number_to_human_size(@app_info.size)
 
-    .box
-      .box-header.with-border
-        h3.box-title Activities
-      .box-body
+    .card
+      .card-header
+        h3.card-title Activities
+      .card-body
         table.table.table-striped
           - @app_info.activities.sort_by(&:name).each do |activity|
             - unless activity.blank?
               tr
                 td = activity.name
 
-    .box
-      .box-header.with-border
-        h3.box-title Services
-      .box-body
+    .card
+      .card-header
+        h3.card-title Services
+      .card-body
         table.table.table-striped
           - @app_info.services.sort_by(&:name).each do |service|
             - unless service.blank?
@@ -46,10 +46,10 @@
 
   - unless @app_info.use_permissions.blank?
     .col-md-4
-      .box
-        .box-header.with-border
-          h3.box-title Permissions
-        .box-body
+      .card
+        .card-header
+          h3.card-title Permissions
+        .card-body
           table.table.table-striped
             - @app_info.use_permissions.sort.each do |permission|
               - unless permission.blank?
@@ -58,10 +58,10 @@
 
   - unless @app_info.use_features.blank?
     .col-md-4
-      .box
-        .box-header.with-border
-          h3.box-title Features
-        .box-body
+      .card
+        .card-header
+          h3.card-title Features
+        .card-body
           table.table.table-striped
             - @app_info.use_features.sort.each do |feature|
               - unless feature.blank?
@@ -69,10 +69,10 @@
                   td = feature
 
   / .col-md-4
-    / .box
-    /   .box-header.with-border
-    /     h3.box-title Certificates
-    /   .box-body
+    / .card
+    /   .card-header
+    /     h3.card-title Certificates
+    /   .card-body
     /     table.table.table-striped
     /       - @app_info.certificates.each do |certificate|
     /         tr
