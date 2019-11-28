@@ -5,14 +5,14 @@
   = @channel.app_name
 
 .row
-  .col-xs-12
-    .box
-      .box-header
-        h3.box-title
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title
           = @title
-        .box-tools
+        .card-tools
           a href="#{channel_path(@channel)}"
             i.fa.fa-list-alt
             |  返回应用
-      .box-body
+      .card-body
         == render 'form'

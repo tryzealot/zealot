@@ -2,17 +2,18 @@ ruby:
   releases = @release.channel.recently_releases
 
 - if releases.size > 0
-  .box
-    .box-header.with-border
-      i.fa.fa-history
-      h3.box-title 最近 10 次上传
-      .box-tools.pull-right
-        button.btn.btn-box-tool data-widget="collapse"
+  .card
+    .card-header
+      h3.card-title
+        i.fa.fa-history
+        |  最近 10 次上传
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
           i.fa.fa-minus
-    .box-body
-      ul.timeline
+    .card-body
+      .timeline
         - releases.each do |release|
-          li
+          div
             i.fa class="#{@release == release ? 'fa-circle' : ' fa-circle-o'}"
             .timeline-item
               span.time
@@ -38,5 +39,5 @@ ruby:
                   - if release.short_git_commit
                     small.label.label-default
                       = release.short_git_commit
-        li
+        div
           i.fa.fa-clock-o.bg-gray

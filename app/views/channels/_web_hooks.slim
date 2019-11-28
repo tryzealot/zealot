@@ -1,11 +1,12 @@
-.box
-  .box-header.with-border
-    h3.box-title 网络钩子
-  .box-body
+.card
+  .card-header
+    h3.card-title 网络钩子
+  .card-body
     section#add-webhooks
+      h5 添加网络钩子
       == render 'web_hooks/form'
 
-    section#webhooks-list
+    section#webhooks-list.mt-4
       == render 'web_hooks/list'
 
       / == render 'web_hooks/list'

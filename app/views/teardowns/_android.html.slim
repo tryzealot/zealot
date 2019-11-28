@@ -1,9 +1,9 @@
 .row
   .col-md-8
-    .box
-      .box-header.with-border
-        h3.box-title App 信息
-      .box-body
+    .card
+      .card-header
+        h3.card-title App 信息
+      .card-body
         dl.system-info
           dt 名称
           dd
@@ -24,51 +24,58 @@
           dd
             pre = number_to_human_size(@app_info.size)
 
-    .box
-      .box-header.with-border
-        h3.box-title Activities
-      .box-body
+    .card
+      .card-header
+        h3.card-title Activities
+      .card-body
         table.table.table-striped
           - @app_info.activities.each do |activity|
             - unless activity.blank?
               tr
                 td = activity.name
 
-    .box
-      .box-header.with-border
-        h3.box-title Services
-      .box-body
+    .card
+      .card-header
+        h3.card-title Services
+      .card-body
         table.table.table-striped
           - @app_info.services.each do |service|
             - unless service.blank?
               tr
                 td = service.name
 
-  .col-md-4
-    .box
-      .box-header.with-border
-        h3.box-title Features
-      .box-body
-        table.table.table-striped
-          - @app_info.use_features.each do |feature|
-            - unless feature.blank?
-              tr
-                td = feature
+  - unless @app_info.use_permissions.blank?
+    .col-md-4
+      .card
+        .card-header
+          h3.card-title Permissions
+        .card-body
+          table.table.table-striped
+            - @app_info.use_permissions.sort.each do |permission|
+              - unless permission.blank?
+                tr
+                  td = permission
 
-    .box
-      .box-header.with-border
-        h3.box-title Certificates
-      .box-body
-        table.table.table-striped
-          - @app_info.certificates.each do |certificate|
-            tr
-             td = certificate.certificate.subject.to_a
+  - unless @app_info.use_features.blank?
+    .col-md-4
+      .card
+        .card-header
+          h3.card-title Features
+        .card-body
+          table.table.table-striped
+            - @app_info.use_features.sort.each do |feature|
+              - unless feature.blank?
+                tr
+                  td = feature
 
-    .box
-      .box-header.with-border
-        h3.box-title Signs
-      .box-body
-        table.table.table-striped
-          - @app_info.signs.each do |sign|
-            tr
-              td = sign.sign.class
+  / .col-md-4
+    / .card
+    /   .card-header
+    /     h3.card-title Certificates
+    /   .card-body
+    /     table.table.table-striped
+    /       - @app_info.certificates.each do |certificate|
+    /         tr
+    /           td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
+    /         tr
+    /           td = certificate.certificate.not_before

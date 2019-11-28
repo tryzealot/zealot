@@ -1,4 +1,4 @@
-h4
+h5
   | 已启用 (
   = @channel.web_hooks.count
   | )
@@ -29,14 +29,14 @@ h4
 
 
 
-/ .col-xs-12
-/   .box
-/     .box-header
-/       h3.box-title
+/ .col-md-12
+/   .card
+/     .card-header
+/       h3.card-title
 /         | 启用钩子列表(
 /         = @channel.web_hooks.count
 /         | )
-/     .box-body.table-responsive.no-padding
+/     .card-body.table-responsive.p-0
 /       table.table
 /         - @channel.web_hooks.each do |hook|
 /           tr

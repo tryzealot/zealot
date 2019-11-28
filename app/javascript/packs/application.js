@@ -40,13 +40,13 @@ document.addEventListener('turbolinks:load', function () {
   $(window).trigger('resize');
 
   // fix collapse with no response
-  $('[data-widget="collapse"]').each(function () {
-    $(this).on('click', function (event) {
-      var box = $(this).parents('.box');
-      $(box).removeClass('collapsed-box');
-      $(box).boxWidget('toggle');
-    })
-  });
+  // $('[data-widget="collapse"]').each(function () {
+  //   $(this).on('click', function () {
+  //     var card = $(this).parents('.card');
+  //     $(card).removeClass('collapsed-box');
+  //     $(card).boxWidget('toggle');
+  //   })
+  // });
 });
 
 // auto switch dark mode
