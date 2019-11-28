@@ -24,6 +24,16 @@ div.app-container p.qr_code img {
   max-height: 240px;
 }
 
+// index page
+.card-body {
+  .direct-chat-messages {
+    padding: 0;
+  }
+}
+
+
+// show page
+
 .cover {
   position: fixed;
   top: 0;
@@ -110,6 +120,7 @@ div.app-container p.qr_code img {
   }
 }
 
+<<<<<<< HEAD
 // .app-list {
 //   list-style: none;
 //   padding-left: 0;
@@ -208,6 +219,26 @@ div.app-container p.qr_code img {
   margin: 0 auto;
   margin-top: 20px;
 }
+=======
+// App 详情
+.app-detail {
+  .app-icon {
+    width: 50px;
+    height: 50px;
+    float: left;
+  }
+
+  .app-name {
+    padding-top: 6px;
+    padding-left: 60px;
+  }
+
+  .app-identifier {
+    padding-top:4px;
+    color: #9f9f9f;
+    font-size: 0.9em;
+  }
+>>>>>>> 3fd7e5c4... style: 全部 UI 迁移到 AdminLTE3
 
   .box-tools>.label {
     margin-right: 3px;
@@ -216,7 +247,7 @@ div.app-container p.qr_code img {
   .app-metadata {
     list-style: none;
     font-size: 1.2em;
-    padding: 10px 0;
+    padding: 0;
   }
 
 // App 最近上传

@@ -1,5 +1,5 @@
-.debug-file-section-body.hidden id="debug-file-metadata-#{debug_file.id}"
-  table.table.table-striped
+.debug-file-section-body.d-none.p-1 id="debug-file-metadata-#{debug_file.id}"
+  table.table
     - debug_file.metadata.each do |metadata|
       - if metadata.type == 'proguard'
         - metadata.data['files'].each do |file|

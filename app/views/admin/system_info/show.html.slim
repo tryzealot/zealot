@@ -5,11 +5,13 @@
   = @title
 
 .row
-  .col-xs-12
-    .box
-      .box-body
+  .col-md-6
+    .card
+      .card-header
+        h3.card-title 服务器信息
+      .card-body
         dl.system-info
-          dt 服务器版本
+          dt Zealot 版本
           dd
             pre = ::Setting.version
           dt Ruby 版本
@@ -36,11 +38,10 @@
               |  (
               = @booted_at
               | )
-  .col-xs-12
-    .box
-      .box-header.with-border
-        h3.box-title 磁盘信息
-      .box-body
+    .card
+      .card-header
+        h3.card-title 磁盘信息
+      .card-body
         - unless @disks.blank?
           dl.system-info
             - @disks.each do |disk|
@@ -50,16 +51,15 @@
                   = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
         - else
           | 硬盘信息无法获取
-  .col-xs-12
-    .box
-      .box-header.with-border
-        h3.box-title 系统变量
-      .box-body
+
+  .col-md-6
+    .card
+      .card-header
+        h3.card-title 系统变量
+      .card-body
         dl.system-info
           - @env.each do |key, value|
             dt = key
             dd
               pre
                 = value
-
-
