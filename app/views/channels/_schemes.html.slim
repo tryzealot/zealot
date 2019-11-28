@@ -1,13 +1,13 @@
 ruby:
   @schemes = @app.schemes
 
-.box.box-solid
-  .box-header.with-border
-    h3.box-title 应用类型
-  .box-body.no-padding
-    ul.nav.nav-pills.nav-stacked
+.card.card-solid
+  .card-header
+    h3.card-title 应用类型
+  .card-body.p-0
+    ul.nav.nav-pills.flex-column
       - @app.schemes.each do |scheme|
-        li class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
-          a href="#{app_scheme_path(@app, scheme)}"
+        li.nav-item
+          a.nav-link href="#{app_scheme_path(@app, scheme)}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
             = scheme.name
             / span.label.label-primary.pull-right 12
