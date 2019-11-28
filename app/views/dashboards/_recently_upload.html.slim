@@ -2,37 +2,37 @@ ruby:
   loop_date = Time.now
   random_colors = %w(blue purple navy maroon yellow)
 
-section.recently-upload
+section
   .row
     .col-md-12
-      .box
-        .box-header.with-border
-          h3.box-title
-            i.fa.fa-rss
+      .card
+        .card-header
+          h3.card-title
+            i.fa.fa-history
             |  上传时间线
-          .box-tools.pull-right
+          .card-tools
             = paginate @releases
 
-        .box-body
-          ul.timeline
+        .card-body
+          .timeline
             - unless @releases.empty?
               - @releases.each_with_index do |release, i|
                 ruby:
                 - if i == 0
                   ruby:
                     loop_date = release.created_at
-                  li.time-label
+                  .time-label
                     span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
                       = release.created_at.strftime('%Y-%m-%d')
                 - elsif loop_date.to_date != release.created_at.to_date
                   ruby:
                     loop_date = release.created_at
 
-                  li.time-label
+                  .time-label
                     span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
                       = release.created_at.strftime('%Y-%m-%d')
-                li
-                  i.fa class="#{timeline_app_icon(release.channel.device_type)}"
+                div
+                  i.fa class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
                   .timeline-item
                     span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
                       i.fa.fa-clock-o
@@ -48,22 +48,22 @@ section.recently-upload
                     - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
                       .timeline-footer
                         - if release.release_type
-                          small.label.label-default
+                          small.badge
                             = release.release_type
                         - if release.branch
-                          small.label.label-default
+                          small.badge
                             = release.branch
                         - if release.short_git_commit
-                          small.label.label-default
+                          small.badge
                             = release.short_git_commit
 
-              li
+              div
                 i.fa.fa-clock-o.bg-gray
             - else
-              li.time-label
+              .time-label
                 span
                   | 没有任何上传，快快上传吧。
         - unless @releases.empty?
-          .box-footer.clearfix
+          .card-footer
             .pull-right
               = paginate @releases

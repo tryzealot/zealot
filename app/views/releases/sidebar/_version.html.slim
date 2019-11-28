@@ -2,18 +2,18 @@ ruby:
   channel = @release.channel
 
 - if channel.release_versions.count > 0
-  .sidebar
-    .box
-      .box-header
+  .card
+    .card-header
+      h3.card-title
         i.fa.fa-archive
-        h3.box-title 历史主版本
-        .box-tools.pull-right
-          button.btn.btn-box-tool data-widget="collapse"
-            i.fa.fa-minus
-      .box-body.no-padding
-        table.table
-          - channel.release_versions.each do |version|
-            tr
-              td
-                = link_to version, channel_version_path(channel, version)
+        |  历史主版本
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fa.fa-minus
+    .card-body.p-0
+      table.table
+        - channel.release_versions.each do |version|
+          tr
+            td
+              = link_to version, channel_version_path(channel, version)
 

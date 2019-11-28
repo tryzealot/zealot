@@ -1,5 +1,5 @@
 = simple_form_for(@user, url: @user.new_record? ? admin_users_path : admin_user_path(@user)) do |f|
-  .box-body
+  .card-body
     = f.error_notification
 
     = f.input :username, required: true
@@ -7,5 +7,5 @@
     = f.input :password, required: true
     = f.input :role, collection: roles, include_blank: false
 
-  .box-footer
+  .card-footer
     = f.button :submit

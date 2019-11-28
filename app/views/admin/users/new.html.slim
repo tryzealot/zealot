@@ -1,13 +1,15 @@
+- content_for :section_title do
+  = @title
+
 - content_for :title do
   = @title
 
 .row
-  .col-xs-12
-    .box
-      .box-header.with-border
-        h3.box-title
-          = @title
-        .box-tools
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title 用户信息
+        .card-tools
           a href="#{admin_users_path}"
             i.fa.fa-list-alt
             |  返回列表
