@@ -11,17 +11,20 @@
 
 .row
   - @apps.each do |app|
-    .col-xs-12
-      .nav-tabs-custom
-        ul.nav.nav-tabs.pull-right
-          - DebugFile.device_types.each_with_index do |(value, name), i|
-            li class="#{i == 0 ? 'active' : ''}"
-              a data-toggle="tab" href="#tab-#{value.downcase}" = name
-          li.header.pull-left
-            = app.name
-        .tab-content.no-padding
-          - DebugFile.device_types.each_with_index do |(value, name), i|
-            == render 'debug_file', app: app, value: value, name: name, i: i
+    .col-md-12
+      .card
+        .card-header
+          h3.card-title
+           = app.name
+          .card-tools
+            ul.nav.nav-pills.ml-auto
+              - DebugFile.device_types.each_with_index do |(value, name), i|
+                li.nav-item
+                  a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{value.downcase}" = name
+        .card-body.p-0
+          .tab-content
+            - DebugFile.device_types.each_with_index do |(value, name), i|
+              == render 'debug_file', app: app, value: value, name: name, i: i
 
   == render 'help'
 
