@@ -1,11 +1,13 @@
-.box.box-success
-  .box-header.with-border
-    h3.box-title 最近上传动态
-    .box-tools.pull-right
+.card
+  .card-header
+    h3.card-title
+      i.fa.fa-history
+      |  最近上传动态
+    .card-tools
       = paginate @releases
 
-  .box-body
-    ul.products-list.product-list-in-box
+  .card-body.p-0
+    ul.products-list.product-list-in-card
       - if @releases.count > 0
         - @releases.each do |release|
           li.item
@@ -15,14 +17,14 @@
               a.product-title href="javascript:void(0)"
                 = link_to release.app_name, channel_release_path(release.channel, release)
               small
-              span.label.label-warning.pull-right data-toggle="tooltip" title="#{release.created_at}"
-                = time_ago_in_words(release.created_at)
+                span.badge.badge-light.float-right data-toggle="tooltip" title="#{release.created_at}"
+                  = time_ago_in_words(release.created_at)
               span.product-description
                 = "#{release.release_version} (#{release.build_version})"
       - else
         li.item
           | 还没有收到任何上传记录，赶快上传吧。
   - if @releases.total_pages > 1
-    .box-footer.clearfix
+    .card-footer.clearfix
       .pull-right
         = paginate @releases

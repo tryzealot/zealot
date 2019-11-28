@@ -1,5 +1,5 @@
 .timeline {
-  li {
+  div {
     .timeline-item {
       background-color: #f8f8f8;
     }
@@ -9,7 +9,7 @@
     }
 
     .timeline-footer {
-      .label {
+      .badge {
         margin-left: 5px;
         color: #31708f;
         background-color: #d9edf7;

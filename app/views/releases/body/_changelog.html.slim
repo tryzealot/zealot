@@ -1,24 +1,12 @@
-.box
-  .box-header.with-border
-    i.fa.fa-info-circle
-    h3.box-title 更新日志
-    .box-tools.pull-right
-      button.btn.btn-box-tool data-widget="collapse"
+.card
+  .card-header
+    h3.card-title
+      i.fa.fa-info-circle
+      |  更新日志
+    .card-tools
+      button.btn.btn-tool data-card-widget="collapse"
         i.fa.fa-minus
-  .box-body
-    / table.table.no-padding
-    /   - @release.changelog_list.each do |changelog|
-    /     tr
-    /       td
-    /         = simple_format changelog['message']
-    /         - if changelog['date']
-    /           br
-    /           span style=("color: #b0b3b7")
-    /             = changelog['user']
-    /       - if changelog['date']
-    /         td style=("width: 100px")
-    /           = time_ago_in_words(changelog['date'])
-
+  .card-body
     ul.products-list.product-list-in-box
       - @release.changelog_list.each do |changelog|
         li.item
