@@ -269,7 +269,7 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
-    parallel (1.18.0)
+    parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
     pg (1.1.4)
@@ -341,7 +341,7 @@ GEM
       chunky_png (~> 1.0)
       rqrcode_core (~> 0.1)
     rqrcode_core (0.1.1)
-    rubocop (0.76.0)
+    rubocop (0.77.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -480,7 +480,7 @@ DEPENDENCIES
   rake (~> 13.0.1)
   redis (~> 4.1.3)
   rqrcode
-  rubocop (~> 0.76)
+  rubocop (~> 0.77)
   sass-rails (~> 6.0)
   settingslogic
   sidekiq (<= 7)
