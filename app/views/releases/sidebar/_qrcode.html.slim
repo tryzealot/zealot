@@ -1,12 +1,13 @@
-.sidebar
-  .box
-    .box-header
+
+.card
+  .card-header
+    h3.card-title
       i.fa.fa-qrcode
-      h3.box-title 二维码安装
-      .box-tools.pull-right
-        button.btn.btn-box-tool data-widget="collapse"
-          i.fa.fa-minus
-    .box-body.text-center
-      .qr_code
-        = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)
-    .box-footer.text-center 任何支持二维码识别的 App 均可
+      |  二维码安装
+    .card-tools
+      button.btn.btn-tool data-card-widget="collapse"
+        i.fa.fa-minus
+  .card-body.text-center
+    .qr_code
+      = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)
+  .card-footer.text-center 任何支持二维码识别的 App 均可

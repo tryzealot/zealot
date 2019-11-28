@@ -8,9 +8,9 @@ ruby:
       / li.pull-right.header
       /   i.fa.fa-adn
       /   = @title
-    .box
-      .box-header.with-border
-        h3.box-title
+    .card
+      .card-header
+        h3.card-title
           = app_icon(@channel.latest_release, size: :medium, class: 'img-circle')
           .app-name
             = @title

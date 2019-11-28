@@ -1,16 +1,16 @@
 ruby:
   form_url = params[:action] == 'new' ? app_scheme_channels_path(@scheme.app, @scheme) : app_scheme_channel_path(@app, @scheme, @channel)
 
-.col-xs-12
-  .box
-    .box-header
-      h3.box-title
+.col-md-12
+  .card
+    .card-header
+      h3.card-title
         = @title
-      .box-tools
+      .card-tools
         a href="#{app_path(@scheme.app)}"
           i.fa.fa-list-alt
           |  返回应用
-    .box-body
+    .card-body
       = simple_form_for(@channel, url: form_url) do |f|
         = f.error_notification
 
