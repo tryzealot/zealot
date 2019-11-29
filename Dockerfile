@@ -25,14 +25,19 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
 RUN mkdir -p /app/pids && \
-    bundle install --deployment --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
+    bundle install --binstubs --deployment --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 RUN yarn install
 
+ENV S6_OVERLAY_VERSION=1.22.1.0
+RUN apk add --update --no-cache curl redis postgresql-client postgresql-libs && \
+    curl -sSL https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C / && \
+    apk del --no-cache curl
+
+EXPOSE 80
+
 COPY . .
 
-RUN bundle exec rake assets:precompile
+COPY docker/root /
 
-EXPOSE 3000
-
-CMD [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
+ENTRYPOINT [ "/init" ]
