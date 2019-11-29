@@ -2,34 +2,30 @@
   | 用户注册
 
 .login-box
-  .login-box-body
-    p.login-box-msg 用户注册
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = render "devise/shared/error_messages", resource: resource
+  .card
+    .card-body.login-card-body
+      p.login-box-msg 用户注册
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = render "devise/shared/error_messages", resource: resource
 
-      .form-group.has-feedback
         = f.input :username,
                   required: true,
                   autofocus: true,
                   hint: '',
                   input_html: { autocomplete: "username", class: 'form-control' }
-      .form-group.has-feedback
         = f.input :email,
                   required: true,
                   autofocus: true,
                   hint: '',
                   input_html: { autocomplete: "email", class: 'form-control' }
-      .form-group.has-feedback
         = f.input :password,
                   required: true,
                   hint: ("最小 #{@minimum_password_length} 个字符" if @minimum_password_length),
                   input_html: { autocomplete: "new-password" }
-      .form-group.has-feedback
         = f.input :password_confirmation,
                   required: true,
                   input_html: { autocomplete: "new-password" }
-      .row
-        .col-xs-4
-          button.btn.btn-primary.btn-block.btn-flat type="submit" 注册
 
-    == render 'devise/shared/links'
+        = f.button :submit, value: '注册', class: 'btn-block'
+
+      == render 'devise/shared/links'
