@@ -9,7 +9,7 @@ class TeardownsController < ApplicationController
 
   # GET /teardowns/upload
   def new
-    @title = '上传 App 解析'
+    @title = 'App 解析'
   end
 
   # POST /teardowns
