@@ -75,9 +75,6 @@ gem 'webpacker', '~> 4.2'
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.1.0', require: false
 
-# 异常处理
-gem 'exception_handler', '~> 0.8.0'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

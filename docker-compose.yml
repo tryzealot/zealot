@@ -8,7 +8,7 @@ x-defaults: &defaults
       condition: service_healthy
     postgres:
       condition: service_healthy
-  env_file: .env
+  env_file: .docker.env
   environment:
     ZEALOT_REDIS_HOST: redis
     ZEALOT_POSTGRES_HOST: postgres
@@ -32,6 +32,10 @@ services:
     image: postgres:11-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: zealot
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: zealot
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-U", "postgres"]
       interval: 10s
