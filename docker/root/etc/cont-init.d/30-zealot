@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv sh
+
+# remove unused docker rootfs
+rm -rf /app/docker
+
+RAILS_SERVE_STATIC_FILES:true
+
+/app/bundle exec rails assets:precompile
+/app/bundle exec rails db:create
+/app/bundle exec rails db:migrate
+/app/bundle exec rails db:seed
