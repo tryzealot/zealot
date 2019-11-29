@@ -2,12 +2,12 @@
   | 邮箱确认
 
 .login-box
-  .login-box-body
-    p.login-box-msg 邮箱确认
-    = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-      = render "devise/shared/error_messages", resource: resource
+  .card
+    .card-body.login-card-body
+      p.login-box-msg 邮箱确认
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        = render "devise/shared/error_messages", resource: resource
 
-      .form-group.has-feedback
         = f.input :email,
                   required: true,
                   autofocus: true,
@@ -15,6 +15,6 @@
                   value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
                   input_html: { autocomplete: 'email', class: 'form-control' }
 
-      = f.button :submit, value: '重新发送确认邮件'
+        = f.button :submit, value: '重新发送确认邮件', class: 'btn-block'
 
-    == render 'devise/shared/links'
+      == render 'devise/shared/links'
