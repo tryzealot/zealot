@@ -2,19 +2,18 @@
   | 用户登录
 
 .login-box
-  .login-box-body
-    p.login-box-msg 用户登录
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      == render 'layouts/messages'
+  .card
+    .card-body.login-card-body
+      p.login-box-msg 用户登录
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        == render 'layouts/messages'
 
-      .form-group.has-feedback
         = f.input :email, required: true, autofocus: true, hint: '', input_html: { autocomplete: "email", class: 'form-control' }
-      .form-group.has-feedback
         = f.input :password, required: true, input_html: { autocomplete: "current-password" }
-      .row
-        .col-xs-8
-          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-        .col-xs-4
-          button.btn.btn-primary.btn-block.btn-flat type="submit" 登录
+        .row
+          .col-8
+            = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck-primary', style: 'margin-top: 6px!important'}, label_html: { style: 'font-weight: 700'} if devise_mapping.rememberable?
+          .col-4
+            = f.button :submit, value: '登录', class: 'btn-block'
 
-    == render 'devise/shared/links'
+      == render 'devise/shared/links'
