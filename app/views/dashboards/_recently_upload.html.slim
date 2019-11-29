@@ -1,7 +1,3 @@
-ruby:
-  loop_date = Time.now
-  random_colors = %w(blue purple navy maroon yellow)
-
 section
   .row
     .col-md-12
@@ -16,21 +12,16 @@ section
         .card-body
           .timeline
             - unless @releases.empty?
+              ruby:
+                loop_date = Time.now
               - @releases.each_with_index do |release, i|
-                ruby:
-                - if i == 0
+                - if i == 0 || (loop_date.to_date != release.created_at.to_date)
                   ruby:
                     loop_date = release.created_at
                   .time-label
-                    span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
+                    span class="bg-maroon"
                       = release.created_at.strftime('%Y-%m-%d')
-                - elsif loop_date.to_date != release.created_at.to_date
-                  ruby:
-                    loop_date = release.created_at
 
-                  .time-label
-                    span class="bg-#{random_colors[rand(random_colors.size - 1)]}"
-                      = release.created_at.strftime('%Y-%m-%d')
                 div
                   i.fa class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
                   .timeline-item
@@ -43,8 +34,8 @@ section
                       |  上传了新版本
                       = " #{release.release_version} (#{release.build_version})"
                     - unless release.changelog.blank?
-                      .timeline-body
-                        = changelog_format(release.changelog_list)
+                      .timeline-body.pb-1
+                        = changelog_format release.changelog_list, class: 'mb-0'
                     - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
                       .timeline-footer
                         - if release.release_type
