@@ -3,6 +3,10 @@
 module ApplicationHelper
   RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
 
+  def devise_page?
+    params[:controller].start_with?('devise/')
+  end
+
   def button_link_to(title, url, icon = nil, **options)
     options[:class] += ' btn'
 

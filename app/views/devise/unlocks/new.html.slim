@@ -2,18 +2,16 @@
   | 解锁账户
 
 .login-box
-  .login-box-body
-    p.login-box-msg 解锁账户
-    = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
-      = render "devise/shared/error_messages", resource: resource
+  .card
+    .card-body.login-card-body
+      p.login-box-msg 解锁账户
+      = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+        = render "devise/shared/error_messages", resource: resource
 
-      .form-group.has-feedback
         = f.input :email, hint: '',
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email" }
-      .row
-        .col-xs-4
-          = f.submit '发送解锁邮件', class: 'btn btn-primary btn-flat'
+        = f.button :submit, value: '发送解锁邮件', class: 'btn-block'
 
-    == render 'devise/shared/links'
+      == render 'devise/shared/links'

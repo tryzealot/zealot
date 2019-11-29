@@ -1,29 +1,31 @@
 - if devise_mapping.omniauthable?
-  .social-auth-links.text-center
+  .social-auth-links.text-center.mb-3
     p - 或者 -
     - resource_class.omniauth_providers.each do |provider|
-      a.btn.btn-block.btn-social.btn-google.btn-flat href="#{public_send("user_#{provider.to_s}_omniauth_authorize_path")}"
-        i.fa.fa-google
-        = "使用 #{OmniAuth::Utils.camelize(provider).sub('Oauth2', '')} 账号登录"
-      br
+      ruby:
+        name = OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
+
+      a.btn.btn-block.btn-danger href="#{public_send("user_#{provider}_omniauth_authorize_path")}"
+        i.fa class="fa-#{name.downcase}"
+        = "使用 #{name} 账号登录"
 
 - if controller_name != 'sessions'
-  = link_to "登录账户", new_session_path(resource_name)
-  br
+  p.mb-1
+    = link_to "登录账户", new_session_path(resource_name)
 
 - if devise_mapping.registerable? && controller_name != 'registrations'
-  = link_to "注册账号", new_registration_path(resource_name)
-  br
+  p.mb-1
+    = link_to "注册账号", new_registration_path(resource_name)
 
 - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-  = link_to "忘记密码?", new_password_path(resource_name)
-  br
+  p.mb-1
+    = link_to "忘记密码?", new_password_path(resource_name)
 
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
-  = link_to "没有收到确认邮件?", new_confirmation_path(resource_name)
-  br
+  p.mb-1
+    = link_to "没有收到确认邮件?", new_confirmation_path(resource_name)
 
 - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-  = link_to "没有收到解锁账号确认邮件?", new_unlock_path(resource_name)
-  br
+  p.mb-0
+    = link_to "没有收到解锁账号确认邮件?", new_unlock_path(resource_name)
 
