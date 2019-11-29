@@ -12,7 +12,8 @@ ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     TZ="Asia/Shanghai" \
     RAILS_ENV="production"
 
-RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
+RUN set -ex && \
+    REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
     sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
@@ -24,15 +25,13 @@ RUN REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
 WORKDIR /app
 COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
-RUN mkdir -p /app/pids && \
-    bundle install --deployment --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
+RUN mkdir -p tmp/pids tmp/cache tmp/sockets log && \
+    bundle install --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 RUN yarn install
 
-COPY . .
-
-RUN bundle exec rake assets:precompile
-
 EXPOSE 3000
 
-CMD [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
+COPY . .
+
+ENTRYPOINT [ "./docker-endpoint.sh" ]

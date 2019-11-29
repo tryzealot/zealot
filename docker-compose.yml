@@ -8,7 +8,7 @@ x-defaults: &defaults
       condition: service_healthy
     postgres:
       condition: service_healthy
-  env_file: .docker.env
+  env_file: .env
   environment:
     ZEALOT_REDIS_HOST: redis
     ZEALOT_POSTGRES_HOST: postgres
@@ -17,7 +17,7 @@ x-defaults: &defaults
 
 services:
   redis:
-    image: redis:4.0-alpine
+    image: redis:5-alpine
     command: redis-server
     ports:
       - "16379:6379"
@@ -25,29 +25,30 @@ services:
       - redis:/var/lib/redis/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 30
   postgres:
-    image: postgres:11-alpine
+    image: postgres:12-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: zealot
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: zealot
+      POSTGRES_PASSWORD: ze@l0t
+    ports:
+      - "15432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-U", "postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - "18080:8080"
   web:
     <<: *defaults
+    command: [ "run_server" ]
     ports:
       - "10080:3000"
   worker:
     <<: *defaults
-    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml.erb"]
+    command: [ "run_worker" ]
 
 volumes:
   redis:
