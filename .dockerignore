@@ -5,6 +5,9 @@ doc
 spec
 db/*.sqlite3
 db/*.sqlite3-journal
+public/assets/*
+public/packs/*
+public/uploads/*
 public/system/*
 vendor/bundle/*
 node_modules/*
