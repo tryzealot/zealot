@@ -5,10 +5,6 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
       li.nav-item
         a.nav-link data-widget="pushmenu" href="#"
           i.fa.fa-bars
-  - else
-    div.navbar-collapse.justify-content-md-center
-      h4
-        a href="#{ root_path }" style="color: black" Zealot
 
     // Right navbar links
     ul.navbar-nav.ml-auto
@@ -23,6 +19,11 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
             = link_to '详情', edit_user_registration_path, class: 'dropdown-item'
             .dropdown-divider
             = link_to '登出', destroy_user_session_path, class: 'dropdown-item', method: :delete
+
+  - else
+    div.navbar-collapse.justify-content-md-center
+      h4
+        a href="#{ root_path }" style="color: black" Zealot
 
 // Main Sidebar Container
 aside.main-sidebar.sidebar-light-primary.elevation-4
