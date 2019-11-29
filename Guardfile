@@ -5,6 +5,8 @@ if `uname`.match?(/Darwin/)
   notification :terminal_notifier
 end
 
+environment = ENV.fetch('RAILS_ENV', 'development')
+
 # Guard-Rails supports a lot options with default values:
 # daemon: false                        # runs the server as a daemon.
 # debugger: false                      # enable ruby-debug gem.
@@ -20,7 +22,7 @@ end
 # zeus_plan: server                    # custom plan in zeus, only works with `zeus: true`.
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
-guard :rails, host: '0.0.0.0' do
+guard :rails, host: '0.0.0.0', environment: environment  do
   ignore(%r{^config/(locales|webpack)/.*})
 
   watch('Gemfile.lock')
@@ -47,7 +49,7 @@ end
 #  - :concurrency (defaults to 1)
 #  - :timeout
 #  - :environment (corresponds to RAILS_ENV for the Sidekiq worker)
-guard :sidekiq, environment: 'development' do
+guard :sidekiq, environment: environment do
   watch(%r{^app/jobs/(.+)\.rb$})
 end
 

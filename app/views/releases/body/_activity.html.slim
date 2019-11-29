@@ -24,20 +24,18 @@ ruby:
                 = link_to release.app_name, channel_release_path(@release.channel, release)
                 = " 上传了新版本 #{release.release_version} (#{release.build_version})"
               - unless release.changelog.blank?
-                .timeline-body
-                  = changelog_format release.changelog_list
+                .timeline-body.pb-0
+                  = changelog_format release.changelog_list, class: 'mb-0'
+              - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
                 .timeline-footer
-                  - if @release == release
-                    small.label.label-default
-                      | 当前版本
                   - if release.release_type
-                    small.label.label-default
+                    small.badge
                       = release.release_type
                   - if release.branch
-                    small.label.label-default
+                    small.badge
                       = release.branch
                   - if release.short_git_commit
-                    small.label.label-default
+                    small.badge
                       = release.short_git_commit
         div
           i.fa.fa-clock-o.bg-gray
