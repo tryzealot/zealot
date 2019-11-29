@@ -1,11 +1,11 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
 .row
   .col-md-12
     .card
-      .card-header.card-border
-        h3.card-title
-          = @title
       .card-body
         == render 'form'
