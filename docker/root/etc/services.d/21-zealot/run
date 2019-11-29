@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+echo "Starting zealot..."
+exec /app/bundle exec puma -C /config/puma.rb
