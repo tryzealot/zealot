@@ -12,7 +12,7 @@ require 'action_mailer/railtie'
 # require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-require 'sprockets/railtie'
+# require 'sprockets/railtie'
 # require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
@@ -79,7 +79,7 @@ module Zealot
     config.exception_handler = { dev: false }
 
     # Auto load path
-    # config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('lib')
 
     # Don't generate system test files.
     config.generators.system_tests = nil
