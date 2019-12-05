@@ -29,12 +29,13 @@
           a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
             i.nav-icon.fa.fa-bar-chart
             p 后台任务
-        li class="nav-item"
-          a.nav-link href="#{admin_graphql_console_path}" class="#{active_class(admin_graphql_console_path)}"
-            i.nav-icon.fa.fa-columns
-            p
-              | GraphQL 控制台
-              span.badge.badge-success.right 测试
+        - if Rails.env.development?
+          li class="nav-item"
+            a.nav-link href="#{admin_graphql_console_path}" class="#{active_class(admin_graphql_console_path)}"
+              i.nav-icon.fa.fa-columns
+              p
+                | GraphQL 控制台
+                span.badge.badge-success.right 测试
         li class="nav-item"
           a.nav-link href="#{admin_system_info_path}" class="#{active_class(admin_system_info_path)}"
             i.nav-icon.fa.fa-desktop

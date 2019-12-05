@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://gems.ruby-china.com/
   specs:
     CFPropertyList (3.0.1)
     actioncable (6.0.1)
@@ -270,7 +270,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (4.0.1)
-    puma (4.3.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -455,7 +455,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 4.3.0)
+  puma (~> 4.3.1)
   pundit (~> 2.1.0)
   rack-cors (~> 1.1.0)
   rails (~> 6.0.1)

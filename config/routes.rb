@@ -59,11 +59,14 @@ Rails.application.routes.draw do
       resources :users, except: :show
       get :background_jobs, to: 'background_jobs#show'
       get :system_info, to: 'system_info#show'
-      get :graphql_console, to: 'graphql_console#show'
 
       require 'sidekiq/web'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
-      mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
+
+      if Rails.env.development?
+        get :graphql_console, to: 'graphql_console#show'
+        mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
+      end
     end
   end
 
