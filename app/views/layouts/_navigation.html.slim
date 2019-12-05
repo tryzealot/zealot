@@ -14,11 +14,15 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
             img.user-image alt="User Image" src="#{asset_pack_path('media/images/default-user.png')}"
               span.hidden-xs
                 = current_user.username
-          .dropdown-menu.dropdown-menu-lg.dropdown-menu-right
-            .dropdown-divider
-            = link_to '详情', edit_user_registration_path, class: 'dropdown-item'
-            .dropdown-divider
-            = link_to '登出', destroy_user_session_path, class: 'dropdown-item', method: :delete
+          ul.dropdown-menu.dropdown-menu-lg.dropdown-menu-right
+            li.user-header.bg-primary
+              img.user-image alt="User Image" src="#{asset_pack_path('media/images/default-user.png')}"
+              p
+                = current_user.username
+                small = current_user.role_name
+            li.user-footer
+              = link_to '详情', edit_user_registration_path, class: 'btn btn-default btn-flat'
+              = link_to '登出', destroy_user_session_path, method: :delete, class: 'btn btn-default btn-flat float-right'
 
   - else
     div.navbar-collapse.justify-content-md-center
