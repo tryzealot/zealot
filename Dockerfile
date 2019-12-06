@@ -12,6 +12,7 @@ ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     TZ="Asia/Shanghai" \
     RAILS_ENV="production"
 
+# System dependencies
 RUN set -ex && \
     REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
@@ -23,15 +24,20 @@ RUN set -ex && \
     gem install $RUBY_GEMS
 
 WORKDIR /app
-COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
-RUN mkdir -p tmp/pids tmp/cache tmp/sockets log && \
-    bundle install --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
-
+# Node dependencies
+COPY package.json yarn.lock ./
 RUN yarn install
 
-EXPOSE 3000
+# Ruby dependencies
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
+# Compile Assets
 COPY . .
+RUN SECRET_TOKEN=precompile_placeholder rails assets:precompile && \
+    yarn cache clean
+
+EXPOSE 3000
 
 ENTRYPOINT [ "./docker-endpoint.sh" ]
