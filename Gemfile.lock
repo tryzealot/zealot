@@ -418,7 +418,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   carrierwave
-  chronic
   devise (~> 4.7.1)
   devise-i18n (~> 1.8.2)
   friendly_id
