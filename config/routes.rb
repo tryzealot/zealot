@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :channels, only: %i[index show] do
     resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: :releases do
-        resources :qrcode, only: :show
+        get :qrcode, to: 'qrcode#show'
       end
 
       member do
