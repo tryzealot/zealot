@@ -7,10 +7,8 @@ class Api::AppVersionsSerializer < ApplicationSerializer
   has_many   :releases
 
   def releases
-    release_version = instance_options[:release_version]
-    build_version = instance_options[:build_version]
-    object.releases
-          .where('release_version >= ? AND build_version > ?', release_version, build_version)
-          .order(version: :desc)
+    page = instance_options[:page]
+    per_page = instance_options[:per_page]
+    object.releases.page(page).per(per_page).order(id: :desc)
   end
 end
