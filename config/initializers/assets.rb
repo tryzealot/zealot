@@ -6,11 +6,11 @@ Rails.application.config.assets.version = '1.0'
 # Add additional assets to the asset load path
 Rails.application.config.assets.paths << 'node_modules'
 
-# # Precompile additional assets.
+# Precompile additional assets.
 # Rails.application.config.assets.precompile << proc do |path|
 #   true if path =~ /\.(eot|svg|ttf|woff|png)\z/
 # end
 
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin-lte/bootstrap/fonts/* )
+Rails.application.config.assets.precompile += %w[graphiql/rails/application.js graphiql/rails/application.css] if Rails.env.development?
