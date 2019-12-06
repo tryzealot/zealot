@@ -17,4 +17,4 @@
     == render 'channels'
     == render 'versions'
     - if user_signed_in?
-      a.btn.btn-default.btn-block href="#{app_path(@channel.app)}" 应用管理
+      == render 'metadata'
