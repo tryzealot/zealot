@@ -1,3 +1,10 @@
+ruby:
+  begin
+    app_name = @app_info.name
+  rescue Android::NotFoundError
+    app_name = '未知'
+  end
+
 .row
   .col-md-8
     .card
@@ -7,7 +14,7 @@
         dl.system-info
           dt 名称
           dd
-            pre = @app_info.name
+            pre = app_name
           dt 版本
           dd
             pre = "#{@app_info.release_version} (#{@app_info.build_version})"
@@ -27,6 +34,9 @@
     .card
       .card-header
         h3.card-title Activities
+        .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fa.fa-minus
       .card-body
         table.table.table-striped
           - @app_info.activities.each do |activity|
@@ -34,21 +44,14 @@
               tr
                 td = activity.name
 
-    .card
-      .card-header
-        h3.card-title Services
-      .card-body
-        table.table.table-striped
-          - @app_info.services.each do |service|
-            - unless service.blank?
-              tr
-                td = service.name
-
-  - unless @app_info.use_permissions.blank?
-    .col-md-4
+  .col-md-4
+    - unless @app_info.use_permissions.blank?
       .card
         .card-header
           h3.card-title Permissions
+          .card-tools
+            button.btn.btn-tool data-card-widget="collapse"
+              i.fa.fa-minus
         .card-body
           table.table.table-striped
             - @app_info.use_permissions.sort.each do |permission|
@@ -56,11 +59,13 @@
                 tr
                   td = permission
 
-  - unless @app_info.use_features.blank?
-    .col-md-4
+    - unless @app_info.use_features.blank?
       .card
         .card-header
           h3.card-title Features
+          .card-tools
+            button.btn.btn-tool data-card-widget="collapse"
+              i.fa.fa-minus
         .card-body
           table.table.table-striped
             - @app_info.use_features.sort.each do |feature|
@@ -68,6 +73,19 @@
                 tr
                   td = feature
 
+    - unless @app_info.services.blank?
+      .card
+        .card-header
+          h3.card-title Services
+          .card-tools
+            button.btn.btn-tool data-card-widget="collapse"
+              i.fa.fa-minus
+        .card-body
+          table.table.table-striped
+            - @app_info.services.sort_by(&:name).each do |service|
+              - unless service.blank?
+                tr
+                  td = service.name
   / .col-md-4
     / .card
     /   .card-header
