@@ -11,7 +11,7 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
 
 # DB & Cache
-gem 'pg', '~> 1.1.4'
+gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.1.3'
 
 # API
@@ -20,11 +20,11 @@ gem 'graphql', '~> 1.9.16'
 gem 'rack-cors', '~> 1.1.0'
 
 # View
-## 生成 ios download plist
-gem 'multi_xml'
 ## 模板引擎
 gem 'jb', '~> 0.7.0'
 gem 'slim-rails', '~> 3.2.0'
+## 生成 ios download plist
+gem 'multi_xml'
 ## 表单生成
 gem 'simple_form', '~> 5.0'
 
@@ -57,7 +57,7 @@ gem 'jenkins_api_client'
 # 生成条形码/二维码
 gem 'rqrcode'
 # 个性化时间解析
-gem 'chronic'
+# gem 'chronic'
 
 # 异步队列
 gem 'activejob-status'
@@ -67,9 +67,9 @@ gem 'sidekiq', '<= 7'
 gem 'settingslogic'
 
 # Assets
-gem 'sass-rails', '~> 6.0'
+# gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
+# gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包

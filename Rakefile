@@ -65,3 +65,27 @@ namespace :test do
     end
   end
 end
+
+
+
+require 'uri'
+require 'base64'
+require 'json'
+
+def build_query(url, query)
+  encode_query = Base64.strict_encode64 JSON.dump query
+  uri = URI.parse url
+  uri.query = "protego=#{encode_query}" #.map { |k, v| "#{k}=#{v} " }.join('&')
+  uri.to_s
+end
+
+task :test do
+  url = 'niceliving://open/wechat_miniprogram'
+  query = {
+    username: 'gh_863a2c58e0ca',
+    path: 'pages/audioGlasses/index/index'
+  }
+
+  puts "#{url}?#{query.map { |k, v| "#{k.to_s.chomp}=#{v.chomp}" }.join('&')}"
+  puts build_query(url, query)
+end
