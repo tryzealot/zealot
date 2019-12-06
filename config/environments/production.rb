@@ -27,6 +27,9 @@ Rails.application.configure do
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
+  # Compress JavaScripts and CSS.
+  # config.assets.js_compressor = :uglifier
+
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
@@ -34,8 +37,10 @@ Rails.application.configure do
   # config.action_controller.asset_host = Rails.application.secrets.domain
 
   # Specifies the header that your server uses for sending files.
-  # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  unless ENV['RAILS_SERVE_STATIC_FILES'].present?
+    # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
+    config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  end
 
   # Store uploaded files on the local file system
   # (see config/storage.yml for options)
