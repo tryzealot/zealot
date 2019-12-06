@@ -1,5 +1,5 @@
 class Api::Apps::VersionsController < Api::BaseController
-  before_action :validate_user_key
+  before_action :validate_user_token
   before_action :validate_channel_key
 
   def index
@@ -24,7 +24,7 @@ class Api::Apps::VersionsController < Api::BaseController
     render json: @channel,
            serializer: Api::AppVersionsSerializer,
            page: params.fetch(:page, 1).to_i,
-           per_page: params.fetch(:per_page, 1).to_i
+           per_page: params.fetch(:per_page, 10).to_i
   end
 
   private
