@@ -12,6 +12,7 @@ ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     TZ="Asia/Shanghai" \
     RAILS_ENV="production"
 
+# System dependencies
 RUN set -ex && \
     REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
     SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
@@ -23,21 +24,21 @@ RUN set -ex && \
     gem install $RUBY_GEMS
 
 WORKDIR /app
-COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
-RUN mkdir -p /app/pids && \
-    bundle install --binstubs --deployment --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
-
+# Node dependencies
+COPY package.json yarn.lock ./
 RUN yarn install
 
-ENV S6_OVERLAY_VERSION=1.22.1.0
-RUN apk add --update --no-cache curl redis postgresql-client postgresql-libs && \
-    curl -sSL https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C / && \
-    apk del --no-cache curl
+# Ruby dependencies
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
-EXPOSE 80
-
+# Compile Assets
 COPY . .
+RUN SECRET_TOKEN=precompile_placeholder rails assets:precompile && \
+    yarn cache clean
+
+EXPOSE 3000
 
 COPY docker/root /
 
