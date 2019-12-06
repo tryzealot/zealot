@@ -9,7 +9,7 @@ class Api::BaseController < ActionController::API
   end
 
   def validate_channel_key
-    @channel = Channel.find_by(key: params[:app_key])
+    @channel = Channel.find_by(key: params[:channel_key])
     raise ActionCable::Connection::Authorization::UnauthorizedError, '无效的应用渠道 Key' unless @channel
   end
 
