@@ -6,7 +6,7 @@ class AppFileUploader < CarrierWave::Uploader::Base
   end
 
   def size
-    @size = file.size
+    @size = file&.size
   end
 
   def extension_white_list

@@ -73,7 +73,7 @@ class Release < ApplicationRecord
   end
 
   def size
-    file.size
+    file&.size
   end
   alias file_size size
 
