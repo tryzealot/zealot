@@ -1,4 +1,7 @@
+# git
 .git*
+
+# rails
 log
 tmp
 doc
@@ -13,10 +16,12 @@ vendor/bundle/*
 node_modules/*
 Guardfile
 
+# docker
 Dockerfile*
 docker-compose*
 .dockerignore
 
+# project
 README.*
 .travis.yml
 .editorconfig
