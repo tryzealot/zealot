@@ -25,8 +25,11 @@ db/*.sqlite3
 /doc/app/
 /doc/features.html
 /doc/specs.html
+/public/assets
+/public/packs
+/public/packs-test
 /public/system/
-/public/uploads/*
+/public/uploads
 /spec/tmp/*
 /cache
 /capybara*
@@ -38,29 +41,25 @@ pickle-email-*.html
 .zeus.sock
 .cap_*
 **.orig
+*.pem
 .DS_Store
 
-# RubyMine project files
-.idea
+# vscode
+.vscode
+.history
 
 # if using bower-rails ignore default bower_components path bower.json files
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
 node_modules/
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
 
 # Environment files that may contain sensitive data
 .*env
 .powenv
 .rvmrc
 .byebug_history
-.history
-public/assets/
-mirrors/
-
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
