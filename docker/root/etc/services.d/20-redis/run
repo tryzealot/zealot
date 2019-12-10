@@ -1,4 +1,0 @@
-#!/usr/bin/execlineb -P
-
-echo "Starting redis..."
-redis-server /etc/redis.conf
