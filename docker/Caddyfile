@@ -1,0 +1,20 @@
+zealot.test {
+    gzip
+    log stdout
+
+    # mkcert - https://github.com/FiloSottile/mkcert
+    tls /app/docker/certs/zealot.test.pem /app/docker/certs/zealot.test-key.pem
+
+    # serve assets
+    root /app/public
+
+    proxy / http://zealot:3000 {
+        except /assets /packs /uploads /config /favicon.ico /robots.txt
+
+        transparent
+        header_upstream X-Marotagem true
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+    }
+}
