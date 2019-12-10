@@ -3584,10 +3584,10 @@ file-loader@^4.2.0:
     loader-utils "^1.2.3"
     schema-utils "^2.0.0"
 
-filepond@^4.7.4:
-  version "4.7.4"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.7.4.tgz#29dfbf6f4629c6991591017277e2575b8b594411"
-  integrity sha512-dxzocBhVYg8GRfvjK3kXBWsIfSBuPhSmfQOQnUU2wZzdnnz8Mw8xGhODDww0edCkl8gLDyUKLdq9jhBJxaZFZQ==
+filepond@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.8.0.tgz#2ea356004c76685e0a4532dceb2df95bb6f70aa5"
+  integrity sha512-2jBZHPzHT3oZKIwgWhO24xyM6Z2zmLx+qqz3J8rrnlY/Lr++kbcLH4QtP0xoj67kdHCz9uBmaKINbX7IX3LhSA==
 
 fill-range@^4.0.0:
   version "4.0.0"
