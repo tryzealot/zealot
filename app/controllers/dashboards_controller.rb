@@ -18,7 +18,8 @@ class DashboardsController < ApplicationController
     @analytics = {
       apps: App.count,
       releases: Release.count,
-      debug_files: DebugFile.count
+      debug_files: DebugFile.count,
+      users: User.count
     }
   end
 end
