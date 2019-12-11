@@ -21,7 +21,7 @@
               ul.nav.nav-pills.ml-auto
                 - DebugFile.device_types.each_with_index do |(value, name), i|
                   li.nav-item
-                    a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{value.downcase}" = name
+                    a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{app.id}-#{value.downcase}" = name
           .card-body.p-0
             .tab-content
               - DebugFile.device_types.each_with_index do |(value, name), i|
