@@ -2,14 +2,14 @@
   ruby:
     has_debug_files = app.debug_files.count > 0
   .col-md-12
-    .card.apps.direct-chat
+    .card.apps
       .card-header
         h3.card-title
           = app_icon(app.recently_release, class: 'app-icon img-circle')
           = link_to app.name, app_path(app), style: "color: #000"
         .card-tools
           - if has_debug_files
-            button.btn.btn-tool data-toggle="tooltip" data-original-title="Debug Files" data-widget="chat-pane-toggle"
+            a.btn.btn-tool href="#{debug_files_path}"
               i.fa.fa-bug
           a.btn.btn-tool href="#{new_app_scheme_path(app)}"
             i.fa.fa-plus-square-o
@@ -18,7 +18,7 @@
           a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
             i.fa.fa-remove
       .card-body.p-0
-        .app-schemes class="#{has_debug_files ? 'direct-chat-messages' : ''}"
+        .app-schemes
           - if app.schemes.count > 0
             table.table
               tr
@@ -46,18 +46,3 @@
                 li
                   i.fa.fa-remove
                   |  删除应用类型
-
-        - if has_debug_files
-          .app-debug-files.direct-chat-contacts
-            table.table
-              tr
-                th 设备
-                th 版本
-                th 文件大小
-                th style="width: 200px; text-align: right" 上传时间
-              - app.debug_files.order(id: :desc).each do |debug_file|
-                tr
-                  td = DebugFile.device_types[debug_file.device_type]
-                  td = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file.file.url
-                  td = number_to_human_size(debug_file.file.size)
-                  td = debug_file.created_at
