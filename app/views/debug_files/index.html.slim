@@ -10,21 +10,33 @@
     | 上传 Debug File 文件
 
 .row
-  - @apps.each do |app|
-    .col-md-12
-      .card
-        .card-header
-          h3.card-title
-           = app.name
-          .card-tools
-            ul.nav.nav-pills.ml-auto
+  .col-md-12
+    - if @apps
+      - @apps.each do |app|
+        .card
+          .card-header
+            h3.card-title
+            = app.name
+            .card-tools
+              ul.nav.nav-pills.ml-auto
+                - DebugFile.device_types.each_with_index do |(value, name), i|
+                  li.nav-item
+                    a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{value.downcase}" = name
+          .card-body.p-0
+            .tab-content
               - DebugFile.device_types.each_with_index do |(value, name), i|
-                li.nav-item
-                  a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{value.downcase}" = name
-        .card-body.p-0
-          .tab-content
-            - DebugFile.device_types.each_with_index do |(value, name), i|
-              == render 'debug_file', app: app, value: value, name: name, i: i
+                == render 'debug_file', app: app, value: value, name: name, i: i
+    - else
+      .callout.callout-warning
+        h5 没有发现任何应用类型！
+        p
+          | 创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：
+          ul
+            li 开发版本、内测版本、公测版本、线上版本
+        p
+          | 如果应用仅提供 Android 版本，可以按照应用渠道划分为：
+          ul
+            li Google Play、酷安、小米、华为、vivo、oppo、应用宝等
 
   == render 'help'
 

@@ -10,8 +10,8 @@ section
             = paginate @releases
 
         .card-body
-          .timeline
-            - unless @releases.empty?
+          - unless @releases.empty?
+            .timeline
               ruby:
                 loop_date = Time.now
               - @releases.each_with_index do |release, i|
@@ -50,10 +50,9 @@ section
 
               div
                 i.fa.fa-clock-o.bg-gray
-            - else
-              .time-label
-                span
-                  | 没有任何上传，快快上传吧。
+          - else
+            .time-label 没有任何上传，快快上传吧。
+
         - unless @releases.empty?
           .card-footer
             .pull-right
