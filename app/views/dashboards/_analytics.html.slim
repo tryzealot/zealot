@@ -12,15 +12,6 @@ section.analytics
 
     .col-md-3.col-sm-6.col-xs-12
       .info-box
-        span.info-box-icon.bg-teal
-          i.fa.fa-paper-plane-o
-        .info-box-content
-          span.info-box-text 上传次数
-          span.info-box-number
-            = @analytics[:releases]
-
-    .col-md-3.col-sm-6.col-xs-12
-      .info-box
         span.info-box-icon.bg-red
           i.fa.fa-bug
         .info-box-content
@@ -28,3 +19,22 @@ section.analytics
             a href="#{debug_files_path}" data-no-turbolink="true" Debug Files 数量
           span.info-box-number
             = @analytics[:debug_files]
+
+    .col-md-3.col-sm-6.col-xs-12
+      .info-box
+        span.info-box-icon.bg-warning
+          i.fa.fa-user-o
+        .info-box-content
+          span.info-box-text
+            a href="#{admin_users_path}" data-no-turbolink="true" 用户数量
+          span.info-box-number
+            = @analytics[:users]
+
+    .col-md-3.col-sm-6.col-xs-12
+      .info-box
+        span.info-box-icon.bg-teal
+          i.fa.fa-paper-plane-o
+        .info-box-content
+          span.info-box-text 上传次数
+          span.info-box-number
+            = @analytics[:releases]
