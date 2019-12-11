@@ -1,9 +1,17 @@
 # Zealot
 
+
+<a class="github-button" href="https://github.com/icyleaf/zealot" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star icyleaf/zealot on GitHub">Star</a>
+<a class="github-button" href="https://github.com/icyleaf/zealot/subscription" data-icon="octicon-eye" data-size="large" data-show-count="true" aria-label="Watch icyleaf/zealot on GitHub">Watch</a>
+<a class="github-button" href="https://github.com/icyleaf/zealot/fork" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork icyleaf/zealot on GitHub">Fork</a>
+<a class="github-button" href="https://github.com/iocyleaf" data-size="large" data-show-count="true" aria-label="Follow @icyleaf on GitHub">Follow @icyleaf</a>
+
 [![GitHub release](https://img.shields.io/github/release/icyleaf/zealot.svg)](https://github.com/icyleaf/zealot/releases)
 [![License](https://img.shields.io/github/license/icyleaf/zealot)](LICENSE)
 
 移动应用上传没有如此简单、解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，深度与 Jenkins 和 Gitlab 集成。
+
+![Zealot Dashboard](_media/screenshot/product-1.png)
 
 ## 特性
 
@@ -19,50 +27,3 @@
 - [ ] 支持 GraphGL 接口（进行中）
 - [ ] 提供 fastlane 插件提供上传服务（旧插件需要移植即可）
 - [ ] 提供 cli 命令行工具（旧插件需要移植即可但貌似没有啥必要，有用没用先列在这）
-
-## 最佳实践
-
-本系统配合 zealot-cli 及 fastlane 插件 zealot 服用为佳。
-
-## 部署
-
-**技术栈:**
-
-- Ruby on Rails 驱动 Web 和 API 服务
-- Sidekiq 提供异步后台任务管理
-
-**环境依赖:**
-
-- Ruby 2.4+
-- Postgres 9.5+
-- Redis
-- Nodejs 8+
-- ImageMagick/GraphicsMagick
-
-### Docker
-
-```
-$ git clone git@github.com:icyleaf/zealot.git
-$ cd zealot
-$ docker-compose up
-```
-
-### 本地部署
-
-#### 源码
-
-安装完成上面的依赖后，克隆本项目配置 config/database.yml 数据库信息可从 ENV 环境变量获取，之后顺序执行：
-
-```
-$ git clone git@github.com:icyleaf/zealot.git
-$ cd zealot
-$ bundle install
-$ bundle exec guard start
-```
-
-打开浏览器 `http://localhost:3000`
-
-## 关于项目名
-
-Zealot 来自星际争霸 2 的神族的基础兵种，项目可能会使用到对于的图标版权归属[暴雪](https://www.blizzard.com)，
-如果有热心设计师能够帮助设计更好的图标，本人代表本项目表示衷心的感谢。
