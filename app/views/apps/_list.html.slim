@@ -19,15 +19,34 @@
             i.fa.fa-remove
       .card-body.p-0
         .app-schemes class="#{has_debug_files ? 'direct-chat-messages' : ''}"
-          table.table
-            tr
-              th 类型名称
-              th style="width: 100px" 渠道数量
-            - app.schemes.each do |scheme|
+          - if app.schemes.count > 0
+            table.table
               tr
-                td = link_to scheme.name, app_scheme_path(app, scheme)
-                td
-                  span.pull-right.badge.bg-blue = scheme.total_releases
+                th 类型名称
+                th style="width: 100px" 渠道数量
+              - app.schemes.each do |scheme|
+                tr
+                  td = link_to scheme.name, app_scheme_path(app, scheme)
+                  td
+                    span.pull-right.badge.bg-blue = scheme.total_releases
+          - else
+            .p-3
+              | 还没有任何应用类型和渠道，开始
+              a href="#{new_app_scheme_path(app)}" 创建第一个应用类型和渠道
+              | 吧。
+            .p-3
+              | 右上角的按钮是本应用的功能区：
+              ul
+                li
+                  i.fa.fa-plus-square-o
+                  |  创建应用类型和渠道
+                li
+                  i.fa.fa-edit
+                  |  编辑应用类型
+                li
+                  i.fa.fa-remove
+                  |  删除应用类型
+
         - if has_debug_files
           .app-debug-files.direct-chat-contacts
             table.table

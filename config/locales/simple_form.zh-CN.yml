@@ -51,15 +51,14 @@ zh-CN:
       debug_file:
         app_id: '应用'
         device_type: '应用平台'
-        release_version: '外部版本号'
-        build_version: '内部版本号'
+        release_version: '发布版本'
+        build_version: '构建版本'
         file: 'Debug File 文件'
         checksum: '唯一校验码'
 
     hints:
       defaults:
         channel: '应用会使用的平台'
-      user:
       app:
         name: '起一个响亮亮的名称吧'
         schemes:
