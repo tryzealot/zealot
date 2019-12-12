@@ -20,7 +20,7 @@
 安装完成上面的依赖后，克隆本项目配置 config/database.yml 数据库信息可从 ENV 环境变量获取，之后顺序执行：
 
 ```
-$ git clone git@github.com:icyleaf/zealot.git
+$ git clone git@github.com:getzealot/zealot.git
 $ cd zealot
 $ bundle install
 $ bundle exec guard start

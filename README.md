@@ -1,7 +1,7 @@
 # Zealot
 
-[![GitHub release](https://img.shields.io/github/release/icyleaf/zealot.svg)](https://github.com/icyleaf/zealot/releases)
-[![License](https://img.shields.io/github/license/icyleaf/zealot)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/getzealot/zealot.svg)](https://github.com/getzealot/zealot/releases)
+[![License](https://img.shields.io/github/license/getzealot/zealot)](LICENSE)
 
 移动应用上传没有如此简单、解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，深度与 Jenkins 和 Gitlab 集成。
 
@@ -42,7 +42,7 @@
 ### Docker
 
 ```
-$ git clone git@github.com:icyleaf/zealot.git
+$ git clone git@github.com:getzealot/zealot.git
 $ cd zealot
 $ docker-compose up
 ```
@@ -54,7 +54,7 @@ $ docker-compose up
 安装完成上面的依赖后，克隆本项目配置 config/database.yml 数据库信息可从 ENV 环境变量获取，之后顺序执行：
 
 ```
-$ git clone git@github.com:icyleaf/zealot.git
+$ git clone git@github.com:getzealot/zealot.git
 $ cd zealot
 $ bundle install
 $ bundle exec guard start

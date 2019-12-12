@@ -3,6 +3,8 @@
 require 'setting'
 
 class Admin::SystemInfoController < ApplicationController
+  VERSION_URL = 'https://api.github.com/repos/getzealot/zealot/releases/latest'
+
   EXCLUDED_MOUNT_OPTIONS = [
     'nobrowse',
     'read-only',

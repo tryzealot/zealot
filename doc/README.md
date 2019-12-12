@@ -1,13 +1,13 @@
 # Zealot
 
 
-<a class="github-button" href="https://github.com/icyleaf/zealot" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star icyleaf/zealot on GitHub">Star</a>
-<a class="github-button" href="https://github.com/icyleaf/zealot/subscription" data-icon="octicon-eye" data-size="large" data-show-count="true" aria-label="Watch icyleaf/zealot on GitHub">Watch</a>
-<a class="github-button" href="https://github.com/icyleaf/zealot/fork" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork icyleaf/zealot on GitHub">Fork</a>
+<a class="github-button" href="https://github.com/getzealot/zealot" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star getzealot/zealot on GitHub">Star</a>
+<a class="github-button" href="https://github.com/getzealot/zealot/subscription" data-icon="octicon-eye" data-size="large" data-show-count="true" aria-label="Watch getzealot/zealot on GitHub">Watch</a>
+<a class="github-button" href="https://github.com/getzealot/zealot/fork" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork getzealot/zealot on GitHub">Fork</a>
 <a class="github-button" href="https://github.com/iocyleaf" data-size="large" data-show-count="true" aria-label="Follow @icyleaf on GitHub">Follow @icyleaf</a>
 
-[![GitHub release](https://img.shields.io/github/release/icyleaf/zealot.svg)](https://github.com/icyleaf/zealot/releases)
-[![License](https://img.shields.io/github/license/icyleaf/zealot)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/getzealot/zealot.svg)](https://github.com/getzealot/zealot/releases)
+[![License](https://img.shields.io/github/license/getzealot/zealot)](LICENSE)
 
 移动应用上传没有如此简单、解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，深度与 Jenkins 和 Gitlab 集成。
 
