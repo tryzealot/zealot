@@ -75,8 +75,9 @@ class Api::Apps::UploadController < Api::BaseController
       release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
       release.icon = decode_icon app_info.icons.last[:file]
 
-      if app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
-        (devices = app_info.devices) && !device.nil?
+      if app_info.os == AppInfo::Platform::IOS &&
+         app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
+         (devices = app_info.devices) && !device.blank?
         release.devices = devices
       end
     end
