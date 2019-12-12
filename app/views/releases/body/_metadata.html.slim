@@ -45,9 +45,11 @@
         li
           i.fa.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-      - unless @release.ci_url.blank? && ['api', 'web'].include?(@release.source.downcase)
-        li
-          i.fa.fa-gears
+      li
+        i.fa.fa-gears
+        - if @release.ci_url.blank?
+          = @release.source
+        - else
           = link_to @release.source, @release.ci_url
       li
         i.fa.fa-calendar
