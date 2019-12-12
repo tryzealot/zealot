@@ -112,6 +112,10 @@ GEM
       devise (>= 4.7.1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.9.0)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
@@ -419,6 +423,7 @@ DEPENDENCIES
   carrierwave
   devise (~> 4.7.1)
   devise-i18n (~> 1.9.0)
+  dotenv-rails
   friendly_id
   graphiql-rails (~> 1.7.0)
   graphql (~> 1.9.16)
