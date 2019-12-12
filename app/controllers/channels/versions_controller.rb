@@ -2,12 +2,12 @@ class Channels::VersionsController < ApplicationController
   before_action :set_channel
 
   def show
-    version = params[:id]
-    @title = "#{@channel.app_name} - #{version} 版本列表"
+    @version = params[:id]
+    @title = @channel.app_name
 
     @back_url = URI(request.referer || '').path
     @releases = @channel.releases
-                        .where(release_version: version)
+                        .where(release_version: @version)
                         .order(id: :desc)
   end
 
