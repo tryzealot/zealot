@@ -4,7 +4,7 @@ Zealot 提供 iOS 和 Android 的上传、下载和手机安装服务，鉴于 i
 
 ## Docker
 
-!> 即使使用 Docker 部署也需要提前克隆 [Zealot](https://github.com/icyleaf/zealot) 后配置，本教程提供了配置和使用 [Caddy](https://caddyserver.com/) Web 服务器的配置文件，请跟着教程来完成配置，最后如果您没有安装 [Docker](https://docs.docker.com/install/) 和 [docker-compose](https://docs.docker.com/compose/install/)。
+!> 即使使用 Docker 部署也需要提前克隆 [Zealot](https://github.com/getzealot/zealot) 后配置，本教程提供了配置和使用 [Caddy](https://caddyserver.com/) Web 服务器的配置文件，请跟着教程来完成配置，最后如果您没有安装 [Docker](https://docs.docker.com/install/) 和 [docker-compose](https://docs.docker.com/compose/install/)。
 
 ### 自签名 SSL 证书
 

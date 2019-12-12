@@ -99,106 +99,6 @@
   }
 }
 
-<<<<<<< HEAD
-// .app-list {
-//   list-style: none;
-//   padding-left: 0;
-//   margin-bottom: 0;
-// }
-
-// .app-actions-bar .actions {
-//   list-style: none;
-//   padding-left: 0;
-//   margin-bottom: 10px;
-// }
-
-// .app-actions-bar .actions>li {
-//   display: inline-block;
-//   padding-right: 5px;
-//   padding-left: 5px;
-// }
-
-// .app-list .app-item {
-//   padding-top: 20px;
-//   border-top: 1px solid #d2d6de;
-// }
-
-// .app-list .app-item .app-block {
-//   margin-bottom: 10px;
-//   padding-left: 50px;
-// }
-
-// .app-list .app-item .app-icon {
-//   float: left;
-//   max-width: 40px;
-//   max-height: 40px;
-// }
-
-// .app-list .app-item .app-dest {
-//   color: #999;
-// }
-
-// .app-list .app-actions-bar {
-//   margin-bottom: 20px;
-// }
-
-// // App 详情
-// .app-detail .app-icon {
-//   width: 50px;
-//   height: 50px;
-//   float: left;
-// }
-
-// .app-detail .app-name {
-//   padding-top: 10px;
-//   padding-left: 60px;
-// }
-
-// .app-detail .app-identifier {
-//   padding-top:4px;
-//   color: #9f9f9f;
-//   font-size: 0.9em;
-// }
-
-// // .app-detail .box-body {
-// //   text-align: center;
-// // }
-
-// .app-detail .app-metadata {
-//   list-style: none;
-//   font-size: 1.2em;
-//   padding: 10px 0;
-// }
-
-// .app-detail .app-metadata>li {
-//   display: inline-block;
-//   padding: 0 10px;
-// }
-
-// .app-detail .app-metadata>li>i {
-//   margin-right: 5px;
-// }
-
-// @media (min-width: 300px) {
-//   .app-detail .box-tools {
-//     margin-top: 10px;
-//   }
-// }
-
-// @media (min-width: 550px) {
-//   .app-detail .box-tools {
-//     margin-top: 20px;
-//   }
-// }
-
-
-// App 密码认证
-.container .app-auth {
-  float: none;
-  margin: 0 auto;
-  margin-top: 20px;
-}
-=======
 // App 详情
 .app-detail {
   .app-icon {
@@ -217,7 +117,6 @@
     color: #9f9f9f;
     font-size: 0.9em;
   }
->>>>>>> 3fd7e5c4... style: 全部 UI 迁移到 AdminLTE3
 
   .box-tools>.label {
     margin-right: 3px;

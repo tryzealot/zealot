@@ -47,7 +47,7 @@ function check_new_version() {
   var stored_version = get_cookie('zealot_latest_version');
   if (stored_version == null) {
     $.ajax({
-      url: 'https://api.github.com/repos/icyleaf/zealot/releases/latest?client_id=44389300f0e99215e109&client_secret=6e70de02dc2fe43a7737b2dff96e919226c0a26a',
+      url: 'https://api.github.com/repos/getzealot/zealot/releases/latest?client_id=44389300f0e99215e109&client_secret=6e70de02dc2fe43a7737b2dff96e919226c0a26a',
       headers: {
         accept: 'application/vnd.github.v3+json',
       }
