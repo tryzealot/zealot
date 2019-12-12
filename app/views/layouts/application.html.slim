@@ -13,10 +13,10 @@ html
   head
     title = yield :title
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
-    link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon-60.png')}"]
-    link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon-60@2x.png')}"]
-    link[rel="apple-touch-icon" sizes="180x180" href="#{asset_pack_path('media/images/touch-icon-60@3x.png')}"]
-    link[rel="icon" type="image/x-icon" href="#{asset_pack_path('media/images/touch-icon-60@3x.png')}"]
+    link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon.png')}"]
+    link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
+    link[rel="apple-touch-icon" sizes="180x180" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
+    link[rel="icon" type="image/x-icon" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
     == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     == csrf_meta_tags
