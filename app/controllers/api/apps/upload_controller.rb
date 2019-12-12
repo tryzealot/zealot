@@ -6,17 +6,19 @@ class Api::Apps::UploadController < Api::BaseController
 
   # Upload an App
   #
-  # @param token         [String] required user token
-  # @param channel_key   [String] required app‘s channel key
-  # @param file          [String] required app file
-  # @param name          [String] optional app name
-  # @param release_type  [String] optional release type(debug, beta, adhoc, release, enterprise etc)
-  # @param source        [String] optional upload source(api, cli, jenkins, gitlab-ci etc)
-  # @param changelog     [String] optional changelog
-  # @param branch        [String] optional git branch
-  # @param git_commit    [String] optional git commit
-  # @param ci_url        [String] optional ci url
-  # @return              [String] json formatted app info
+  # @param token         [String]   required  user token
+  # @param channel_key   [String]   required  channel key of app
+  # @param file          [String]   required  file of app
+  # @param name          [String]   optional  name of app
+  # @param password      [String]   optional  password to download app
+  # @param release_type  [String]   optional  release type(debug, beta, adhoc, release, enterprise etc)
+  # @param source        [String]   optional  upload source(api, cli, jenkins, gitlab-ci etc)
+  # @param changelog     [String]   optional  changelog
+  # @param branch        [String]   optional  git branch
+  # @param git_commit    [String]   optional  git commit
+  # @param ci_url        [String]   optional  ci url
+  # @param allow_duplice [Boolean]  optional  allow duplice upload, default is false (true, false)
+  # @return              [String]   json formatted app info
   def create
     create_or_update_release
     perform_app_web_hook_job

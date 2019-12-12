@@ -64,31 +64,6 @@
   }
 }
 
-.container #dropzone {
-  margin-top: 20px;
-}
-
-.container .dropzone h4.dz-message {
-  color: #646C7F;
-}
-
-.container .dropzone {
-  border: 2px dashed #0087F7;
-  border-radius: 5px;
-  background: white;
-}
-
-.container .dropzone .dz-message {
-  font-weight: 400;
-}
-
-.container .dropzone .dz-message .note {
-  font-size: 0.8em;
-  font-weight: 200;
-  display: block;
-  margin-top: 1.4em;
-}
-
 // App 列表
 .apps {
   .app-icon {
@@ -126,8 +101,17 @@
     list-style: none;
     font-size: 1.2em;
     padding: 0;
-  }
 
+    li {
+      display: inline-block;
+      padding: 0 10px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+}
 // App 最近上传
 
 .release-changelogs-toggle {
