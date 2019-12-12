@@ -112,7 +112,7 @@ group :development do
 end
 
 group :development, :test do
-  # gem 'dotenv-rails'
+  gem 'dotenv-rails'
   gem 'rubocop', '~> 0.77'
 
   gem 'pry-byebug'
