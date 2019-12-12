@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
 
     scope module: :channels do
-      resources :versions, only: :show, id: /\d+(.\d+){0,4}/
+      resources :versions, only: :show, id: /(.+)+/
     end
   end
 
