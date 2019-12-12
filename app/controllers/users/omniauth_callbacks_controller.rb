@@ -1,8 +1,11 @@
-class Users::OmniauthCallbacksController < ApplicationController
+# frozen_string_literal: true
+
+class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def google_oauth2
     @user = User.from_omniauth(request.env['omniauth.auth'])
     if @user.persisted?
-      flash[:success] = 'Logined with Google Account'
+      flash[:success] = 'Google Account 授权并登录成功'
       sign_in_and_redirect @user #, event: :authentication # this will throw if @user is not activated
     else
       session['devise.google_data'] = request.env['omniauth.auth']
@@ -10,11 +13,8 @@ class Users::OmniauthCallbacksController < ApplicationController
     end
   end
 
-  def passthru
-  end
-
   def failure
-    flash[:error] = 'Failure to login' # if using sinatra-flash or rack-flash
+    flash[:error] = '授权失败，请检查你的信息是否正确'
     redirect_to root_path
   end
 end

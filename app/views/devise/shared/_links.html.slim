@@ -1,7 +1,7 @@
 - if devise_mapping.omniauthable?
   .social-auth-links.text-center.mb-3
     p - 或者 -
-    - resource_class.omniauth_providers.each do |provider|
+    - resource_class.oauth_providers.each do |provider|
       ruby:
         name = OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
 

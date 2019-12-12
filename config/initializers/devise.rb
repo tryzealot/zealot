@@ -279,9 +279,9 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   if defined?(OmniAuth::Strategies::GoogleOauth2) &&
-     (key = Rails.application.secrets[:google_client_id]).present? &&
-     (secret = Rails.application.secrets[:google_secret]).present?
-    config.omniauth :google_oauth2, key, secret, {
+     (google_client_id = Rails.application.secrets[:google_client_id]).present? &&
+     (google_secret = Rails.application.secrets[:google_secret]).present?
+    config.omniauth :google_oauth2, google_client_id, google_secret, {
       prompt: 'select_account',
       access_type: 'offline',
       scope: 'email,profile'
