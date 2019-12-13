@@ -103,4 +103,13 @@ module ApplicationHelper
       :unkown
     end
   end
+
+  def omniauth_display_name(provider)
+    case provider
+    when :ldap
+      provider.to_s.upcase
+    else
+      OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
+    end
+  end
 end
