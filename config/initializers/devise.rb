@@ -289,4 +289,19 @@ Devise.setup do |config|
       access_type: 'offline',
       scope: 'email,profile'
   end
+
+  # LDAP
+  if defined?(OmniAuth::Strategies::LDAP) &&
+     (ldap_host = Rails.application.secrets[:ldap_host]).present? &&
+     (ldap_port = Rails.application.secrets[:ldap_port]).present? &&
+     (ldap_method = Rails.application.secrets[:ldap_method]).present? &&
+     (ldap_base = Rails.application.secrets[:ldap_base]).present? &&
+     (ldap_uid = Rails.application.secrets[:ldap_uid]).present?
+
+    config.omniauth :ldap, host: ldap_host,
+                           port: ldap_port,
+                           method: (ldap_method || 'plain').to_sym,
+                           base: ldap_base,
+                           uid: ldap_uid
+  end
 end
