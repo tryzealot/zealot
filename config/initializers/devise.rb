@@ -278,13 +278,15 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  # Google OAuth
   if defined?(OmniAuth::Strategies::GoogleOauth2) &&
      (google_client_id = Rails.application.secrets[:google_client_id]).present? &&
      (google_secret = Rails.application.secrets[:google_secret]).present?
-    config.omniauth :google_oauth2, google_client_id, google_secret, {
+
+    config.omniauth :google_oauth2, google_client_id, google_secret,
+      skip_jwt: true,
       prompt: 'select_account',
       access_type: 'offline',
       scope: 'email,profile'
-    }
   end
 end
