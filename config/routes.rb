@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       post 'upload', to: 'upload#create'
 
       get 'latest', to: 'latest#show'
+      get 'exist', to: 'exist#show'
       get 'versions', to: 'versions#index'
       get 'versions/(:release_version)', to: 'versions#show'
       get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
