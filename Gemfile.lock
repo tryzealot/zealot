@@ -83,6 +83,8 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.8.1)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -102,6 +104,7 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.5)
+    debug_inspector (0.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -419,6 +422,7 @@ DEPENDENCIES
   app-info (~> 2.1.0)
   awesome_print
   better_errors
+  binding_of_caller
   bootsnap (>= 1.4.4)
   byebug
   carrierwave
@@ -442,6 +446,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.3)
   mini_magick
   multi_xml
+  omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8.0)
   pg (>= 0.18, < 2.0)
   pry-byebug

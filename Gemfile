@@ -43,6 +43,7 @@ gem 'http'
 # 用户认证
 gem 'devise', '~> 4.7.1'
 gem 'devise-i18n', '~> 1.9.0'
+gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'pundit', '~> 2.1.0'
 
@@ -105,6 +106,7 @@ group :development do
   # rails 更友好错误输出
   gem 'awesome_print'
   gem 'better_errors'
+  gem 'binding_of_caller'
 
   # 在线查看 Action Mailer 内容
   gem 'letter_opener', '~> 1.7'
