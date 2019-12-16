@@ -866,10 +866,10 @@
   resolved "https://registry.yarnpkg.com/@lgaitan/pace-progress/-/pace-progress-1.0.7.tgz#c96fbbd9fd4cf528feed34ea0c8f9d8b3e98f0dd"
   integrity sha1-yW+72f1M9Sj+7TTqDI+diz6Y8N0=
 
-"@rails/ujs@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.1.tgz#5eb013bd7f18a1cc7c314602d3b4d68302e20b60"
-  integrity sha512-IwUGMGke2u5W/hkJLOSU5xcQT3Y0gjIdiEsG27kHyLvsPOzdABKeAD8l37j6romhzeCmM56Wv52OGqSueUmyig==
+"@rails/ujs@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.2.tgz#8d32452d51c5e115374a218fb5475803dc17f4c0"
+  integrity sha512-KSQjJG8yzSWC1IT+UtFQglefABU37hpJ7uAz39K1/iWtoaJaI9ydGIaxxpJBT/PmYv4kS6lCSjXq13DELeJocw==
 
 "@rails/webpacker@^4.2.2":
   version "4.2.2"
@@ -3584,10 +3584,10 @@ file-loader@^4.2.0:
     loader-utils "^1.2.3"
     schema-utils "^2.0.0"
 
-filepond@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.8.1.tgz#e43755367472f6f12b4c70a2a8564f5d5d5a254d"
-  integrity sha512-tgvQeYTz14J+SNBAUUUjaVN5H2G5HnMNHuIMVL9xa6i7in6F2Q2G7+bNwODZOYL2ufTzopnYcfmlj26515f51Q==
+filepond@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.9.2.tgz#306fec5312e72fb4055943d7f05f8a75442d8766"
+  integrity sha512-YJGwIPFnkHxtG88LLpSuZSCySaxRDOKqSKywQ7KgPCRoUzHD8e5uC8Ii78+mjfBaU5QDOND/FFQLXLoLE99oJw==
 
 fill-range@^4.0.0:
   version "4.0.0"

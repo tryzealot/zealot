@@ -2,10 +2,10 @@
   "name": "zealot",
   "private": true,
   "dependencies": {
-    "@rails/ujs": "^6.0.1",
+    "@rails/ujs": "^6.0.2",
     "@rails/webpacker": "^4.2.2",
     "admin-lte": "^3.0.1",
-    "filepond": "^4.8.1",
+    "filepond": "^4.9.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "rails-erb-loader": "^5.5.2",

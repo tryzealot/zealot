@@ -3,10 +3,12 @@
 source 'https://gems.ruby-china.com'
 # source 'https://rubygems.org'
 
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
 ruby '>= 2.4.0', '< 2.7.0'
 
 gem 'puma', '~> 4.3.1'
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.0.2'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
 
@@ -45,6 +47,7 @@ gem 'devise', '~> 4.7.1'
 gem 'devise-i18n', '~> 1.9.0'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'set-omniauth-minimum-version-to-1.9.0' # 无法和 omniauth-oauth2 兼容，依赖 omniauth 版本比较低
 gem 'pundit', '~> 2.1.0'
 
 # Crontab
