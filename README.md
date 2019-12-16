@@ -15,14 +15,10 @@
 - [x] 可接入 Jenkins 服务实现远程构建
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
 - [x] 支持丰富的 REST APIs
-- [x] 支持 OAuth 认证登录（目前以接入 Google，后续会加入 LDAP）
+- [x] 支持 OAuth 认证登录（目前以接入 Google，LDAP）
 - [ ] 支持 GraphGL 接口（进行中）
-- [ ] 提供 fastlane 插件提供上传服务（旧插件需要移植即可）
+- [x] 提供 fastlane 插件 [zealot](https://github.com/getzealot/fastlane-plugin-zealot)提供上传服务
 - [ ] 提供 cli 命令行工具（旧插件需要移植即可但貌似没有啥必要，有用没用先列在这）
-
-## 最佳实践
-
-本系统配合 zealot-cli 及 fastlane 插件 zealot 服用为佳。
 
 ## 部署
 
