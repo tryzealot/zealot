@@ -6,7 +6,7 @@ source 'https://gems.ruby-china.com'
 ruby '>= 2.4.0', '< 2.7.0'
 
 gem 'puma', '~> 4.3.1'
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.0.2'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
 
