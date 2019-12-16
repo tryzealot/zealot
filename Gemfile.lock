@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/icyleaf/omniauth-ldap
+  revision: f35ca8817b0105220f0c274717afa7748ffcc125
+  branch: set-omniauth-minimum-version-to-1.9.0
+  specs:
+    omniauth-ldap (2.0.0)
+      net-ldap (~> 0.16)
+      omniauth (~> 1.9)
+      pyu-ruby-sasl (~> 0.0.3.3)
+      rubyntlm (~> 0.6.2)
+
 GEM
   remote: https://gems.ruby-china.com/
   specs:
@@ -236,6 +247,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
+    net-ldap (0.16.2)
     nio4r (2.5.2)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
@@ -280,6 +292,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
+    pyu-ruby-sasl (0.0.3.3)
     rack (2.0.7)
     rack-cors (1.1.0)
       rack (>= 2.0.0)
@@ -344,6 +357,7 @@ GEM
       ffi (~> 1.9)
     ruby_android (0.7.7)
       rubyzip (>= 1.1.6)
+    rubyntlm (0.6.2)
     rubyzip (2.0.0)
     settingslogic (2.0.9)
     shellany (0.0.1)
@@ -448,6 +462,7 @@ DEPENDENCIES
   multi_xml
   omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8.0)
+  omniauth-ldap!
   pg (>= 0.18, < 2.0)
   pry-byebug
   pry-rails
