@@ -249,11 +249,6 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
-  # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
@@ -280,13 +275,39 @@ Devise.setup do |config|
 
   # Google OAuth
   if defined?(OmniAuth::Strategies::GoogleOauth2) &&
-     (google_client_id = Rails.application.secrets[:google_client_id]).present? &&
-     (google_secret = Rails.application.secrets[:google_secret]).present?
+     Rails.application.secrets[:google_oauth_enabled]
 
-    config.omniauth :google_oauth2, google_client_id, google_secret,
-      skip_jwt: true,
-      prompt: 'select_account',
-      access_type: 'offline',
-      scope: 'email,profile'
+    google_client_id = Rails.application.secrets[:google_client_id]
+    google_secret = Rails.application.secrets[:google_secret]
+
+    config.omniauth :google_oauth2,
+                    google_client_id,
+                    google_secret,
+                    skip_jwt: true,
+                    prompt: 'select_account',
+                    access_type: 'offline',
+                    scope: 'email,profile'
+  end
+
+  # LDAP
+  if defined?(OmniAuth::Strategies::LDAP) &&
+     Rails.application.secrets[:ldap_enabled]
+
+    ldap_host = Rails.application.secrets[:ldap_host]
+    ldap_port = Rails.application.secrets[:ldap_port]
+    ldap_method = (Rails.application.secrets[:ldap_method] || 'plain').to_sym
+    ldap_base_dn = Rails.application.secrets[:ldap_base_dn]
+    ldap_password = Rails.application.secrets[:ldap_password]
+    ldap_base = Rails.application.secrets[:ldap_base]
+    ldap_uid = Rails.application.secrets[:ldap_uid]
+
+    config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
+                           host: ldap_host,
+                           port: ldap_port,
+                           method: ldap_method,
+                           bind_dn: ldap_base_dn,
+                           password: ldap_password,
+                           base: ldap_base,
+                           uid: ldap_uid
   end
 end
