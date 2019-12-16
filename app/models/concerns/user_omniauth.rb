@@ -32,14 +32,11 @@ module UserOmniauth
   end
 
   def enabled_google_oauth2?
-    defined?(OmniAuth::Strategies::GoogleOauth2) &&
-      secrets[:google_client_id].present? && secrets[:google_secret].present?
+    defined?(OmniAuth::Strategies::GoogleOauth2) && secrets[:google_oauth_enabled]
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::LDAP) &&
-      secrets[:ldap_host].present? && secrets[:ldap_port].present? &&
-      secrets[:ldap_base].present? && secrets[:ldap_uid].present?
+    defined?(OmniAuth::Strategies::LDAP) && secrets[:ldap_enabled]
   end
 
   def secrets
