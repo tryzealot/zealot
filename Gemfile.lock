@@ -293,7 +293,7 @@ GEM
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-cors (1.1.0)
       rack (>= 2.0.0)
     rack-protection (2.0.7)
