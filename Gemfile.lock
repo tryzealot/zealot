@@ -170,7 +170,7 @@ GEM
     guard-sidekiq (0.1.0)
       guard (>= 2)
       sidekiq
-    guard-webpacker (0.1.1)
+    guard-webpacker (0.2.0)
       guard (>= 2)
       guard-compat (~> 1.0)
     hashie (3.6.0)
