@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_034952) do
+ActiveRecord::Schema.define(version: 2019_12_20_112323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.index ["scheme_id", "device_type"], name: "index_channels_on_scheme_id_and_device_type"
     t.index ["scheme_id"], name: "index_channels_on_scheme_id"
     t.index ["slug"], name: "index_channels_on_slug", unique: true
+  end
+
+  create_table "channels_web_hooks", id: false, force: :cascade do |t|
+    t.bigint "channel_id", null: false
+    t.bigint "web_hook_id", null: false
+    t.datetime "created_at"
+    t.index ["channel_id", "web_hook_id"], name: "index_channels_web_hooks_on_channel_id_and_web_hook_id"
+    t.index ["web_hook_id", "channel_id"], name: "index_channels_web_hooks_on_web_hook_id_and_channel_id"
   end
 
   create_table "debug_file_metadata", force: :cascade do |t|
@@ -83,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
     t.string "git_commit"
     t.string "icon"
     t.string "ci_url"
-    t.jsonb "changelog", default: [], null: false
+    t.jsonb "changelog", null: false
     t.string "file"
     t.jsonb "devices", default: [], null: false
     t.datetime "created_at", precision: 6, null: false
@@ -147,6 +155,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_034952) do
 
   create_table "web_hooks", force: :cascade do |t|
     t.bigint "channel_id"
+    t.string "title"
     t.string "url"
     t.text "body"
     t.integer "upload_events", limit: 2
