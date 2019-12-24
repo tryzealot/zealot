@@ -5,9 +5,12 @@ class Channel < ApplicationRecord
 
   belongs_to :scheme
   has_many :releases, dependent: :destroy
-  has_many :web_hooks, dependent: :destroy
+  has_and_belongs_to_many :web_hooks, dependent: :destroy
 
   enum device_type: { ios: 'iOS', android: 'Android' }
+
+  delegate :count, to: :enabled_web_hooks, prefix: true
+  delegate :count, to: :available_web_hooks, prefix: true
 
   before_create :generate_default_values
 
@@ -56,7 +59,21 @@ class Channel < ApplicationRecord
 
   def perform_web_hook(event_name)
     web_hooks.where(event_name => 1).each do |web_hook|
-      AppWebHookJob.perform_later event_name, web_hook
+      AppWebHookJob.perform_later event_name, web_hook, self
+    end
+  end
+
+  def enabled_web_hooks
+    self.web_hooks
+  end
+
+  def available_web_hooks
+    ChannelsWebHook.select(:web_hook_id).distinct
+                   .where.not(web_hook_id: web_hooks.select(:id))
+                   .where.not(channel_id: id)
+                   .each_with_object([]) do |item, obj|
+
+      obj << item.web_hook
     end
   end
 

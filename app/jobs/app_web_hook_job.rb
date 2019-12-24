@@ -5,10 +5,10 @@ class AppWebHookJob < ApplicationJob
 
   queue_as :default
 
-  def perform(event, web_hook)
+  def perform(event, web_hook, channel)
     @event = event
     @web_hook = web_hook
-    @channel = @web_hook.channel
+    @channel = channel
     @release = @channel.releases.last
 
     logger.info(log_message("trigger event: #{@event}"))

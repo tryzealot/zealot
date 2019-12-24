@@ -5,6 +5,14 @@ class WebHookPolicy < ApplicationPolicy
     manage?
   end
 
+  def enable?
+    manage?
+  end
+
+  def disable?
+    manage?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

@@ -1,4 +1,4 @@
-= simple_form_for(@web_hook, url: app_scheme_channel_web_hooks_path(@app, @channel.scheme, @channel)) do |f|
+= simple_form_for(@web_hook, url: channel_web_hooks_path(@channel)) do |f|
   = f.error_notification
 
   .form-inputs
