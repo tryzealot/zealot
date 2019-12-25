@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/icyleaf/omniauth-ldap
-  revision: f35ca8817b0105220f0c274717afa7748ffcc125
-  branch: set-omniauth-minimum-version-to-1.9.0
+  revision: e70a456c4cc36720a79c2fac1d0a71950b20df25
+  branch: master
   specs:
     omniauth-ldap (2.0.0)
       net-ldap (~> 0.16)
