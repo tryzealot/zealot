@@ -15,17 +15,19 @@ Rails.application.routes.draw do
   #############################################
   resources :apps do
     resources :schemes do
-      resources :channels, except: %i[index show] do
-        resources :web_hooks, only: %i[new create destroy] do
-          member do
-            post :test
-          end
-        end
-      end
+      resources :channels, except: %i[index show]
     end
   end
 
   resources :channels, only: %i[index show] do
+    resources :web_hooks, only: %i[new create destroy] do
+      member do
+        get :enable
+        get :disable
+        get 'test/:event', to: 'web_hooks#test', as: :test
+      end
+    end
+
     resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
       scope module: :releases do
         get :qrcode, to: 'qrcode#show'
