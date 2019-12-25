@@ -6,9 +6,9 @@
 
 - content_for :section_rightpanel do
   .btn-group
-    = button_link_to '新增类型', new_app_scheme_path(@app), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
-    = button_link_to '编辑应用', edit_app_path(@app), 'edit', class: 'btn-default btn-sm btn-flat'
-    = button_link_to '删除应用', app_path(@app), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?", method: "delete" }
+    = button_link_to '新增类型', new_app_scheme_path(@app), 'plus-square-o', class: 'btn-icon btn-default btn-sm btn-flat'
+    = button_link_to '编辑应用', edit_app_path(@app), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
+    = button_link_to '删除应用', app_path(@app), 'remove', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?", method: "delete" }
 
 .row
   .col-md-12
@@ -20,9 +20,9 @@
               = scheme.name
             .card-tools
               .sections-actions.btn-group
-                = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square-o', class: 'btn-default btn-sm btn-flat'
-                = button_link_to '编辑渠道', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-default btn-sm btn-flat'
-                = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'remove', class: 'btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
+                = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square-o', class: 'btn-icon btn-default btn-sm btn-flat'
+                = button_link_to '编辑渠道', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
+                = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'remove', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
 
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"

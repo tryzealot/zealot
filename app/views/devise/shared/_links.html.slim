@@ -5,7 +5,7 @@
       ruby:
         name = omniauth_display_name(provider)
 
-      a.btn.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="#{provider == :google_oauth2 ? 'btn-danger' : 'btn-default'}"
+      a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="#{provider == :google_oauth2 ? 'btn-danger' : 'btn-default'}"
         i.fa class="fa-#{name.downcase}"
         = "使用 #{name} 账号登录"
 
