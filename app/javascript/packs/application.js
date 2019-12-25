@@ -13,7 +13,7 @@
 // or the `imagePath` JavaScript helper below.
 //
 const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
+const imagePath = (name) => images(name, true)
 
 // Import CSS
 import 'bootstrap/dist/css/bootstrap'
@@ -38,6 +38,9 @@ var HOST = location.protocol + "//" + location.hostname + (location.port ? ':' +
 document.addEventListener('turbolinks:load', function () {
   // fix body height for AdminLTE 2.4.0 and turbolinks 5
   $(window).trigger('resize');
+
+  // enable tooltip global
+  $('[data-toggle="tooltip"]').tooltip()
 
   // fix collapse with no response
   // $('[data-widget="collapse"]').each(function () {

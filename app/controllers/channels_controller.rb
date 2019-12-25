@@ -59,7 +59,7 @@ class ChannelsController < ApplicationController
 
     @app = @channel.scheme.app
     @title = @channel.app_name
-    @subtitle = "#{@app.schemes.count} 种类型共 #{@channel.scheme.channels.count} 个渠道"
+    @subtitle = " #{@app.schemes.count} 类型共 #{@channel.scheme.channels.count} 渠道"
   end
 
   def channel_params

@@ -8,9 +8,6 @@
           = app_icon(app.recently_release, class: 'app-icon img-circle')
           = link_to app.name, app_path(app), style: "color: #000"
         .card-tools
-          - if has_debug_files
-            a.btn.btn-tool href="#{debug_files_path}"
-              i.fa.fa-bug
           a.btn.btn-tool href="#{new_app_scheme_path(app)}"
             i.fa.fa-plus-square-o
           a.btn.btn-tool href="#{edit_app_path(app)}"
@@ -37,12 +34,12 @@
             .p-3
               | 右上角的按钮是本应用的功能区：
               ul
-                li
+                li.btn-icon
                   i.fa.fa-plus-square-o
-                  |  创建应用类型和渠道
-                li
+                  | 创建应用类型和渠道
+                li.btn-icon
                   i.fa.fa-edit
-                  |  编辑应用类型
-                li
+                  | 编辑应用类型
+                li.btn-icon
                   i.fa.fa-remove
-                  |  删除应用类型
+                  | 删除应用类型
