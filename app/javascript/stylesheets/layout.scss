@@ -30,10 +30,6 @@
   right: 10px;
 }
 
-.btn>.fa {
-  margin-right: 5px;
-}
-
 .brand-bighead-text {
   float: left;
   margin-left: 1.4rem;
@@ -48,6 +44,12 @@
 
 .login-box {
   margin: auto;
+}
+
+.btn-icon {
+  .fa {
+    margin-right: 5px;
+  }
 }
 
 // .custom-file-input2 {
