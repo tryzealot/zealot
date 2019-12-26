@@ -40,6 +40,6 @@ RUN SECRET_TOKEN=precompile_placeholder rails assets:precompile && \
 
 EXPOSE 3000
 
-COPY docker/root /
+COPY docker /
 
-ENTRYPOINT [ "/init" ]
+ENTRYPOINT [ "./docker-endpoint.sh" ]
