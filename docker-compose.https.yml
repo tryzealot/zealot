@@ -23,9 +23,7 @@ services:
     volumes:
       - ./docker/Caddyfile:/etc/Caddyfile:ro
       - zealot:/app:ro
-    environment:
-      ZEALOT_CERT: /app/docker/certs/zealot.test.pem
-      ZEALOT_CERT_KEY: /app/docker/certs/zealot.test-key.pem
+    env_file: .env
   redis:
     image: redis:5-alpine
     command: redis-server
