@@ -5,15 +5,22 @@ cd /app
 
 mkdir -p tmp/pids tmp/cache tmp/sockets log
 
-if [ "$1" = 'run_server' ]; then
-  echo "Waiting zealot to be ready please ... tea time"
-  # Init database
-  rails db:create
-  rails db:migrate
-  rails db:seed
+ZEALOT_READY_FILE=/app/zealot.ready
 
-  # Update cron jobs
-  bundle exec whenever --update-crontab
+if [ "$1" = 'run_server' ]; then
+  if [ ! -f "$ZEALOT_READY_FILE" ]; then
+    echo "Waiting zealot to be ready please ... tea time"
+    # Init database
+    rails db:create
+    rails db:migrate
+    rails db:seed
+
+    # Update cron jobs
+    bundle exec whenever --update-crontab
+
+    echo $ZEALOT_VERSION > $ZEALOT_READY_FILE
+    echo $(date) >> $ZEALOT_READY_FILE
+  fi
 
   # Start the server
   echo "Zealot server is ready to run ..."

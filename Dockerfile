@@ -38,6 +38,8 @@ COPY . .
 RUN SECRET_TOKEN=precompile_placeholder rails assets:precompile && \
     yarn cache clean
 
+ENV ZEALOT_VERSION="4.0.0"
+
 EXPOSE 3000
 
 COPY docker /
