@@ -18,7 +18,7 @@ if [ "$1" = 'run_server' ]; then
     # Update cron jobs
     bundle exec whenever --update-crontab
 
-    echo $ZEALOT_VERSION > $ZEALOT_READY_FILE
+    echo "$ZEALOT_VERSION" > $ZEALOT_READY_FILE
     echo $(date) >> $ZEALOT_READY_FILE
   fi
 
