@@ -1,12 +1,15 @@
-zealot.test {
+0.0.0.0 {
     gzip
     log stdout
 
-    # mkcert - https://github.com/FiloSottile/mkcert
-    tls /app/docker/certs/zealot.test.pem /app/docker/certs/zealot.test-key.pem
+    # generate cert tool: mkcert - https://github.com/FiloSottile/mkcert
+    tls {$ZEALOT_CERT} {$ZEALOT_CERT_KEY}
 
-    # serve assets
+    # serve assets of rails
     root /app/public
+
+    # self-signed ssl need to open download
+    # rewrite /cert/zealot.pem {$ZEALOT_CERT}
 
     proxy / http://zealot:3000 {
         except /assets /packs /uploads /config /favicon.ico /robots.txt
