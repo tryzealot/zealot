@@ -42,6 +42,4 @@ ENV ZEALOT_VERSION="4.0.0"
 
 EXPOSE 3000
 
-COPY docker /
-
 ENTRYPOINT [ "./docker-endpoint.sh" ]
