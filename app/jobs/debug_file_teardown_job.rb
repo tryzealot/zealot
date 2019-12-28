@@ -6,7 +6,7 @@ class DebugFileTeardownJob < ApplicationJob
   queue_as :default
 
   def perform(debug_file)
-    parser = AppInfo.parse debug_file.file.file.file
+    parser = AppInfo.parse debug_file.file.path
 
     case parser.file_type
     when AppInfo::Platform::DSYM
