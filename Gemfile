@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-source 'https://gems.ruby-china.com'
-# source 'https://rubygems.org'
+# source 'https://gems.ruby-china.com'
+source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-ruby '>= 2.4.0', '< 2.7.0'
+ruby '>= 2.3.0', '< 2.8.0'
 
 gem 'puma', '~> 4.3.1'
 gem 'rails', '~> 6.0.2'
@@ -77,7 +77,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.1.0', require: false
+gem 'app-info', '~> 2.1.1', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
