@@ -26,6 +26,10 @@
             i.nav-icon.fa.fa-user
             p 用户管理
         li class="nav-item"
+          a.nav-link href="#{admin_web_hooks_path}" class="#{active_class(admin_web_hooks_path)}"
+            i.nav-icon.fa.fa-anchor
+            p 网络钩子管理
+        li class="nav-item"
           a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
             i.nav-icon.fa.fa-bar-chart
             p 后台任务

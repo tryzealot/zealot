@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
       resources :users, except: :show
+      resources :web_hooks, except: [:edit, :update]
+
       get :background_jobs, to: 'background_jobs#show'
       get :system_info, to: 'system_info#show'
 
