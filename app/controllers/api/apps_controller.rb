@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'app-info'
 class Api::AppsController < ActionController::API
   before_action :set_app, only: [:show]
