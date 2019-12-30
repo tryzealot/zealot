@@ -10,8 +10,7 @@ LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
       im.ews.zealot.url="https://zealot.ews.im/" \
       im.ews.zealot.vcs-url="https://github.com/getzealot/zealot" \
-      im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>" \
-      im.ews.zealot.schema-version="1.0"
+      im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
 
 ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev postgresql-dev" \
