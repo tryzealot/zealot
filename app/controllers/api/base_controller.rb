@@ -14,10 +14,17 @@ class Api::BaseController < ActionController::API
   end
 
   rescue_from TypeError, with: :render_unmatched_bundle_id_serror
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActionCable::Connection::Authorization::UnauthorizedError, with: :render_unauthorized_user_key
   rescue_from ArgumentError, NoMethodError, PG::Error, with: :render_internal_server_error
   rescue_from ActionController::ParameterMissing, with: :render_missing_params_error
+
+  def render_not_found_entity_response(exception)
+    render json: {
+      error: exception.message
+    }, status: :not_found
+  end
 
   def render_missing_params_error(exception)
     render json: {
