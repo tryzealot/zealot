@@ -1,23 +1,16 @@
 # frozen_string_literal: true
 
-require 'app-info'
-class Api::AppsController < ActionController::API
-  before_action :set_app, only: [:show]
-
-  rescue_from(Exception) do |exception|
-    render json: {
-      error: exception.message,
-      backtrace: exception.backtrace
-    }, status: :unproceswsable_entity
-  end
+class Api::AppsController < Api::BaseController
+  before_action :validate_user_token
+  before_action :set_app, only: [ :show ]
 
   def index
     @apps = App.all
-    render json: @apps, each_serializer: Api::AppsSerializer, meta: { page: 1, per_page: 10 }
+    render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
   def show
-    render json: @app, serializer: Api::AppsSerializer, release_version: @app.releases.last.version
+    render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
   protected

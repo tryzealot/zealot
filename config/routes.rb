@@ -82,7 +82,7 @@ Rails.application.routes.draw do
       post 'upload', to: 'upload#create'
 
       get 'latest', to: 'latest#show'
-      get 'exist', to: 'exist#show'
+      get 'version_exist', to: 'version_exist#show'
       get 'versions', to: 'versions#index'
       get 'versions/(:release_version)', to: 'versions#show'
       get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
@@ -93,7 +93,8 @@ Rails.application.routes.draw do
       get '', action: :index
     end
 
-    resources :debug_files, except: [:new, :edit]
+    resources :debug_files, except: [:create, :new, :edit]
+    post 'debug_files/upload', to: 'debug_files#create'
 
     namespace :jenkins do
       get 'projects', to: 'projects#index'

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'app-info'
+
 class Api::DebugFilesController < Api::BaseController
   before_action :validate_user_token
   before_action :validate_channel_key, only: [:index, :create]

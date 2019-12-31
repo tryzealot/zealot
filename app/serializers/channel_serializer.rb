@@ -1,3 +1,7 @@
 class ChannelSerializer < ApplicationSerializer
-  attributes :id, :name, :device_type, :bundle_id, :slug, :git_url
+  attributes :slug, :name, :device_type, :bundle_id, :git_url, :has_password
+
+  def has_password
+    !object.password.blank?
+  end
 end
