@@ -93,6 +93,8 @@ Rails.application.routes.draw do
       get '', action: :index
     end
 
+    resources :debug_files, except: [:new, :edit]
+
     namespace :jenkins do
       get 'projects', to: 'projects#index'
       get 'projects/:project', to: 'projects#show', as: 'project'
