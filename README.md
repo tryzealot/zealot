@@ -1,6 +1,6 @@
 # Zealot
 
-[![GitHub release](https://img.shields.io/github/release/getzealot/zealot.svg)](https://github.com/getzealot/zealot/releases)
+[![GitHub release](https://img.shields.io/github/v/release/getzealot/zealot?include_prereleases)](https://github.com/getzealot/zealot/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/icyleafcn/zealot.svg)](https://hub.docker.com/r/icyleafcn/zealot/)
 [![Maintainability](https://codeclimate.com/github/getzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/getzealot/zealot)
 [![License](https://img.shields.io/github/license/getzealot/zealot)](LICENSE)
