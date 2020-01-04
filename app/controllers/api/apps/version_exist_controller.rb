@@ -4,6 +4,7 @@ class Api::Apps::VersionExistController < Api::BaseController
   before_action :validate_user_token
   before_action :validate_channel_key
 
+  # GET /api/apps/version_exist
   def show
     determine_params!
 

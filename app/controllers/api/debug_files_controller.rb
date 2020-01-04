@@ -7,6 +7,8 @@ class Api::DebugFilesController < Api::BaseController
   before_action :validate_channel_key, only: [:index, :create]
   before_action :set_debug_file, only: [:show, :destroy]
 
+
+  # GET /api/debug_files
   def index
     @debug_files = DebugFile.where(app: @channel.app)
       .page(params.fetch(:page, 1).to_i)
@@ -18,10 +20,12 @@ class Api::DebugFilesController < Api::BaseController
     render json: @debug_files, each_serializer: Api::DebugFileSerializer
   end
 
+  # GET /api/debug_files/:id
   def show
     render json: @debug_file, serializer: Api::DebugFileSerializer
   end
 
+  # POST /api/debug_files/upload
   def create
     @debug_file = DebugFile.new(debug_file_params)
     @debug_file.app = @channel.app
@@ -34,10 +38,12 @@ class Api::DebugFilesController < Api::BaseController
     end
   end
 
+  # PUT /api/debug_files/:id
   def update
     @debug_file.update(debug_file_params)
   end
 
+  # DELETE /api/debug_files/:id
   def destroy
     @debug_file.destroy
     render json: { mesage: 'OK' }

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class Api::Apps::DownloadController < Api::BaseController
+  # GET /api/apps/download
   def show
     @release = Release.find_by_channel params[:slug], params[:version]
 

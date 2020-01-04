@@ -6,6 +6,8 @@ class Api::Apps::UploadController < Api::BaseController
 
   # Upload an App
   #
+  # POST /api/apps/upload
+  #
   # @param token         [String]   required  user token
   # @param channel_key   [String]   required  channel key of app
   # @param file          [String]   required  file of app

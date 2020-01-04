@@ -93,8 +93,9 @@ Rails.application.routes.draw do
       get '', action: :index
     end
 
-    resources :debug_files, except: [:create, :new, :edit]
     post 'debug_files/upload', to: 'debug_files#create'
+    get 'debug_files/download', to: 'debug_files/download#show'
+    resources :debug_files, except: [:create, :new, :edit]
 
     namespace :jenkins do
       get 'projects', to: 'projects#index'
