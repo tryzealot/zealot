@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
 
     scope module: :channels do
-      resources :versions, only: :show, id: /(.+)+/
+      resources :versions, only: [:index, :show], id: /(.+)+/
     end
   end
 
