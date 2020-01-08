@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppWebHookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::DateHelper

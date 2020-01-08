@@ -3,10 +3,9 @@
 require 'app-info'
 
 class Api::DebugFilesController < Api::BaseController
-  before_action :validate_user_token
+  before_action :validate_user_token, only: [:create]
   before_action :validate_channel_key, only: [:index, :create]
   before_action :set_debug_file, only: [:show, :destroy]
-
 
   # GET /api/debug_files
   def index
