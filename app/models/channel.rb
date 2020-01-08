@@ -26,10 +26,9 @@ class Channel < ApplicationRecord
   end
 
   def find_since_version(release_version, build_version)
-    source_release = releases.find_by(release_version: release_version, build_version: build_version)
-    return [] unless source_release
-
-    releases.where('id > ?', source_release.id).order(id: :desc)
+    releases.where("release_version >= '#{release_version}'")
+            .where("build_version > '#{build_version}'")
+            .order(id: :desc)
   end
 
   def app
