@@ -14,7 +14,7 @@ class Api::Apps::DownloadController < Api::BaseController
                 filename: @release.download_filename,
                 disposition: 'attachment'
     else
-      render json: { error: 'No found app file' }, status: :not_found
+      render json: { error: '没有找到应用安装文件' }, status: :not_found
     end
   end
 end

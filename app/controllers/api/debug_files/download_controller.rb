@@ -30,7 +30,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
     if @debug_file && File.exist?(@debug_file.file.path)
       redirect_to @debug_file.file.url, status: :found
     else
-      render json: { error: 'No found debug file' }, status: :not_found
+      render json: { error: '没有找到调试文件' }, status: :not_found
     end
   end
 

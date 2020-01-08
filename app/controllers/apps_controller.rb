@@ -95,7 +95,7 @@ class AppsController < ApplicationController
         @app.releases.last
       end
 
-    raise ActiveRecord::RecordNotFound, "Not found release = #{params[:version]}" unless @release
+    raise ActiveRecord::RecordNotFound, "没有找到应用版本 version: #{params[:version]}" unless @release
   end
 
   def app_params
