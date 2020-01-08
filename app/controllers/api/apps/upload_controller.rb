@@ -71,23 +71,12 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.create! release_params do |release|
-      release.bundle_id = app_info.bundle_id
-      release.release_version = app_info.release_version
-      release.build_version = app_info.build_version
-      release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
-      release.icon = decode_icon app_info.icons.last[:file]
-
-      if app_info.os == AppInfo::Platform::IOS &&
-         app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
-         (devices = app_info.devices) && !device.blank?
-        release.devices = devices
-      end
-    end
+    @release = channel.releases.upload_file release_params
+    @release.save!
   end
 
   def with_channel(scheme)
-    @channel = scheme.channels.create! channel_params do |channel|
+    @channel = scheme.channels.find_or_create_by channel_params do |channel|
       channel.name = app_info.os
       channel.device_type = app_info.os
     end
@@ -95,14 +84,14 @@ class Api::Apps::UploadController < Api::BaseController
 
   def and_scheme(app)
     name = parse_scheme_name || '测试版'
-    app.schemes.create! name: name
+    app.schemes.find_or_create_by name: name
   end
 
   def and_app
-    permitted = params.permit(:name)
-    permitted[:name] = app_info.name unless permitted.key?(:name)
+    permitted = params.permit :name
+    permitted[:name] ||= app_info.name
 
-    App.create! permitted do |app|
+    App.find_or_create_by permitted do |app|
       app.users << @user
     end
   end
