@@ -36,15 +36,25 @@ class Release < ApplicationRecord
   def self.upload_file(params, source = 'Web')
     create(params) do |release|
       unless release.file.blank?
-        app_info = AppInfo.parse(release.file.path)
-        release.source = source
-        release.bundle_id = app_info.bundle_id
-        release.release_version = app_info.release_version
-        release.build_version = app_info.build_version
-        release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
+        begin
+          app_info = AppInfo.parse(release.file.path)
+          release.source = source
+          release.bundle_id = app_info.bundle_id
+          release.release_version = app_info.release_version
+          release.build_version = app_info.build_version
+          release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
 
-        if icon_file = app_info.icons.last.try(:[], :file)
-          release.icon = decode_icon(icon_file)
+          if icon_file = app_info.icons.last.try(:[], :file)
+            release.icon = decode_icon(icon_file)
+          end
+
+          if app_info.os == AppInfo::Platform::IOS &&
+            app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
+            (devices = app_info.devices) && !device.blank?
+            release.devices = devices
+          end
+        rescue AppInfo::UnkownFileTypeError
+          release.errors.add(:file, '上传的应用无法正确识别')
         end
       end
     end
@@ -156,7 +166,9 @@ class Release < ApplicationRecord
 
   def force_bundle_id
     return if file.blank?
+    return if channel.blank?
     return if channel.bundle_id.blank?
+    return if app_info.blank?
     return if channel.bundle_id_matched?(app_info.bundle_id)
 
     message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
@@ -164,7 +176,10 @@ class Release < ApplicationRecord
   end
 
   def app_info
-    @app_info ||= AppInfo.parse(file.file.file)
+    @app_info ||= AppInfo.parse(file.path)
+  rescue AppInfo::UnkownFileTypeError
+    errors.add(:file, '上传的文件不是有效应用格式')
+    return nil
   end
 
   private
