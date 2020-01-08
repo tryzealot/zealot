@@ -7,7 +7,7 @@ class ReleasesController < ApplicationController
 
   before_action :check_user_logged_in, except: [:show, :auth]
   before_action :set_channel
-  before_action :set_release, only: [:show, :auth]
+  before_action :set_release, only: [:show, :auth, :destroy]
 
   def show
     redirect_to new_user_session_path unless !wechat? || @channel.password.blank? || !user_signed_in?
@@ -31,6 +31,11 @@ class ReleasesController < ApplicationController
     @release.channel.perform_web_hook('upload_events')
 
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
+  end
+
+  def destroy
+    @release.destroy
+    redirect_to channel_versions_url(@channel), notice: '应用版本删除成功'
   end
 
   def auth

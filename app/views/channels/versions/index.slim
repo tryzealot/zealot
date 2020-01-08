@@ -9,10 +9,9 @@
     .card
       .card-header
         h3.card-title
-          = @version
-          |  开发版本列表
+          | 上传版本列表
         .card-tools
-          a href="#{@back_url}"
+          a href="#{channel_path(@channel)}"
             i.fa.fa-list-alt
             |  返回上级页面
       .card-body.table-responsive.p-0
