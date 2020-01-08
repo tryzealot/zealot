@@ -21,7 +21,7 @@ class Api::Apps::VersionExistController < Api::BaseController
               channel_params.key?(:build_version))
 
     raise ActionController::ParameterMissing,
-          'Choose bundle_id, release_version, build_version or bundleid_id, git_commit'
+          '参数缺失，请使用 bundle_id, release_version, build_version 或 bundleid_id, git_commit 组合参数'
   end
 
   def channel_params

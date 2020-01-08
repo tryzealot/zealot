@@ -8,7 +8,7 @@ class Api::Apps::InstallUrlController < ApplicationController
     if @release
       render content_type: 'text/xml', layout: false
     else
-      render json: { error: 'No found app or release version' }, status: :not_found
+      render json: { error: '没有找到对应的应用或版本' }, status: :not_found
     end
   end
 end
