@@ -22,6 +22,7 @@ class ReleasesController < ApplicationController
   end
 
   def create
+    @title = '上传应用'
     @release = @channel.releases.upload_file(release_params)
     authorize @release
 
