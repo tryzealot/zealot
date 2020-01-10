@@ -37,21 +37,28 @@ class Release < ApplicationRecord
     create(params) do |release|
       unless release.file.blank?
         begin
-          app_info = AppInfo.parse(release.file.path)
+          parser = AppInfo.parse(release.file.path)
           release.source = source
-          release.bundle_id = app_info.bundle_id
-          release.release_version = app_info.release_version
-          release.build_version = app_info.build_version
-          release.release_type ||= app_info.release_type if app_info.os == AppInfo::Platform::IOS
+          release.bundle_id = parser.bundle_id
+          release.release_version = parser.release_version
+          release.build_version = parser.build_version
 
-          if icon_file = app_info.icons.last.try(:[], :file)
-            release.icon = decode_icon(icon_file)
+          if parser.os == AppInfo::Platform::IOS
+            release.release_type ||= parser.release_type
+
+            icon_file = parser.icons.last.try(:[], :file)
+            release.icon = decode_icon(icon_file) if icon_file
+          else
+            # 处理 Android anydpi 自适应图标
+            icon_file = parser.icons.select {|f| File.extname(f[:file]) != '.xml' }.last.try(:[], :file)
+            release.icon = icon_file
           end
 
-          if app_info.os == AppInfo::Platform::IOS &&
-            app_info.release_type == AppInfo::IPA::ExportType::ADHOC &&
-            (devices = app_info.devices) && !device.blank?
-            release.devices = devices
+          # iOS 且是 AdHoc 尝试解析 UDID 列表
+          if parser.os == AppInfo::Platform::IOS &&
+             parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+             !parser.devices.blank?
+            release.devices = parser.devices
           end
         rescue AppInfo::UnkownFileTypeError
           release.errors.add(:file, '上传的应用无法正确识别')
