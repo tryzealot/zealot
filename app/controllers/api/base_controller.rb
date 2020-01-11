@@ -46,8 +46,8 @@ class Api::BaseController < ActionController::API
 
   def render_unprocessable_entity_response(exception)
     render json: {
-      error: 'resource could not be processed with errors',
-      entry: Rails.env.development? ? exception.record.errors : nil
+      error: '参数错误，请检查请求的参数是否正确',
+      entry: exception.record.errors
     }, status: :unprocessable_entity
   end
 

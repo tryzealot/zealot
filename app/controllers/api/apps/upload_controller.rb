@@ -2,6 +2,7 @@ require 'app-info'
 
 class Api::Apps::UploadController < Api::BaseController
   before_action :validate_user_token
+  before_action :get_channel
 
   # Upload an App
   #
@@ -126,5 +127,9 @@ class Api::Apps::UploadController < Api::BaseController
 
   def app_info
     @app_info ||= AppInfo.parse(params[:file].path)
+  end
+
+  def get_channel
+    @channel = Channel.find_by(key: params[:channel_key])
   end
 end
