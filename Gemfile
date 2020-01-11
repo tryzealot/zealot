@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# source 'https://gems.ruby-china.com'
 source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
@@ -25,8 +24,6 @@ gem 'rack-cors', '~> 1.1.1'
 ## 模板引擎
 gem 'jb', '~> 0.7.0'
 gem 'slim-rails', '~> 3.2.0'
-## 生成 ios download plist
-gem 'multi_xml'
 ## 表单生成
 gem 'simple_form', '~> 5.0'
 
@@ -71,9 +68,7 @@ gem 'sidekiq', '<= 7'
 gem 'settingslogic'
 
 # Assets
-# gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
-# gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
@@ -99,8 +94,8 @@ group :development do
   gem 'terminal-notifier-guard'
 
   # IDE tools(VSCode)
-  # gem "ruby-debug-ide"
-  # gem "debase", '~> 0.2.3.beta2' # ruby 2.5 兼容有问题暂时关闭
+  gem "ruby-debug-ide"
+  gem "debase"
 
   # 加速开发环境
   gem 'spring'
