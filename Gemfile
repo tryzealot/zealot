@@ -53,6 +53,9 @@ gem 'whenever', '~> 1.0.0', require: false
 gem 'sys-filesystem', '~> 1.3.2'
 gem 'vmstat', '~> 2.3.0'
 
+# 异常报错上报
+gem "sentry-raven"
+
 # Jenkins SDK
 gem 'jenkins_api_client'
 # 生成条形码/二维码
