@@ -6,6 +6,13 @@
 
 .row
   .col-md-12
+    - if @token
+      .card
+        .card-header.card-border
+          h3.card-title 激活链接
+        .card-body
+          input.form-control value="#{confirmation_url(@user, confirmation_token: @token)}" disabled=true
+          small.form-text.text-muted 如果邮件系统设置有问题或对方没有收到可以把本链接发给他
     .card
       .card-header.card-border
         h3.card-title 用户信息
