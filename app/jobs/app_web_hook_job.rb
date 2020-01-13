@@ -5,7 +5,7 @@ class AppWebHookJob < ApplicationJob
   include ActionView::Helpers::DateHelper
   include ActiveSupport::NumberHelper
 
-  queue_as :default
+  queue_as :webhook
 
   def perform(event, web_hook, channel)
     @event = event

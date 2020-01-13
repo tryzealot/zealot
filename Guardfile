@@ -7,6 +7,23 @@ end
 
 environment = ENV.fetch('RAILS_ENV', 'development')
 
+### Guard::Sidekiq
+#  available options:
+#  - :verbose
+#  - :queue (defaults to "default") can be an array
+#  - :concurrency (defaults to 1)
+#  - :timeout
+#  - :environment (corresponds to RAILS_ENV for the Sidekiq worker)
+guard :sidekiq, environment: environment, concurrency: 5 do
+  watch(%r{^config/sidekiq.yml$})
+  watch(%r{^app/jobs/(.+)\.rb$})
+end
+
+guard :webpacker do
+  watch('config/webpacker.yml')
+  watch(%r{^config/webpack/.*$})
+end
+
 # Guard-Rails supports a lot options with default values:
 # daemon: false                        # runs the server as a daemon.
 # debugger: false                      # enable ruby-debug gem.
@@ -42,23 +59,7 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-### Guard::Sidekiq
-#  available options:
-#  - :verbose
-#  - :queue (defaults to "default") can be an array
-#  - :concurrency (defaults to 1)
-#  - :timeout
-#  - :environment (corresponds to RAILS_ENV for the Sidekiq worker)
-guard :sidekiq, environment: environment do
-  watch(%r{^app/jobs/(.+)\.rb$})
-end
-
 # guard :migrate do
 #   watch(%r{^db/migrate/(\d+).+\.rb})
 #   watch('db/seeds.rb')
 # end
-
-guard :webpacker do
-  watch('config/webpacker.yml')
-  watch(%r{^config/webpack/.*$})
-end
