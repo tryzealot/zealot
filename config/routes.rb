@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get :system_info, to: 'system_info#show'
 
       require 'sidekiq/web'
+      require 'sidekiq/cron/web'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
 
       if Rails.env.development?
