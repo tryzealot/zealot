@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -59,9 +61,8 @@ module Zealot
     }
 
     # Set Sidekiq as the back-end for Active Job.
-    active_job_queue_prefix = ENV['ACTIVE_JOB_QUEUE_PREFIX'] || 'zealot:jobs'
+    # Sidekiq not suggest to use perfix: https://github.com/mperham/sidekiq/issues/4034#issuecomment-442988685
     config.active_job.queue_adapter = :sidekiq
-    config.active_job.queue_name_prefix = "#{active_job_queue_prefix}_#{Rails.env}"
 
     # Action Cable setting to de-couple it from the main Rails process.
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'

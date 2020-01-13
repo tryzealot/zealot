@@ -47,25 +47,23 @@ gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法和 omniauth-oauth2 兼容，依赖 omniauth 版本比较低
 gem 'pundit', '~> 2.1.0'
 
-# Crontab
-gem 'whenever', '~> 1.0.0', require: false
 # 系统信息
 gem 'sys-filesystem', '~> 1.3.2'
 gem 'vmstat', '~> 2.3.0'
 
 # 异常报错上报
-gem "sentry-raven"
+gem 'sentry-raven'
 
 # Jenkins SDK
 gem 'jenkins_api_client'
+
 # 生成条形码/二维码
 gem 'rqrcode'
-# 个性化时间解析
-# gem 'chronic'
 
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '<= 7'
+gem 'sidekiq-cron', '~> 1.0'
 
 # Mobile config
 gem 'settingslogic'

@@ -1,7 +1,7 @@
 require 'fileutils'
 
-namespace :apps do
-  desc 'Mobile | Remove old app history versions except the latest build version by each release version'
+namespace :zealot do
+  desc 'Zealot | Remove old app history versions except the latest build version by each release version'
   task remove_old: :environment do
     apps = App.all
     apps_count = apps.count
@@ -47,10 +47,10 @@ namespace :apps do
       end
     end
 
-    Rake::Task['apps:cleanup'].invoke
+    # Rake::Task['apps:cleanup'].invoke
   end
 
-  desc 'Mobile | Reverse remove directory if release is not exist of app'
+  desc 'Zealot | Reverse remove directory if release is not exist of app'
   task cleanup: :environment do
     store_path = File.join(Rails.root, 'public', 'uploads')
     Dir.glob("#{store_path}/apps/*").each do |app_path|
@@ -68,24 +68,5 @@ namespace :apps do
     end
 
     `find #{File.join(store_path, 'apps')} -type d -depth -empty -exec rmdir "{}" \;`
-  end
-
-  desc 'Mobile | List all app details'
-  task list: :environment do
-    App.all.each do |app|
-      puts "#{app.id} - #{app.device_type} - #{app.name}"
-      app.release_versions.each do |version|
-        puts "-> #{version}"
-      end
-    end
-  end
-
-  desc 'Mobile | Generate app key'
-  task update_app_key: :environment do
-    App.all.each do |app|
-      next unless app.key.blank?
-      app.key = Digest::MD5.hexdigest(SecureRandom.uuid + app.identifier)
-      app.save!
-    end
   end
 end
