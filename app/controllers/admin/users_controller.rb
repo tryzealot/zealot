@@ -9,10 +9,6 @@ class Admin::UsersController < ApplicationController
     authorize @users
   end
 
-  def show
-    redirect_back fallback_location: root_path
-  end
-
   def new
     @title = '新建用户'
     @user = User.new
@@ -29,7 +25,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    @title = '编辑用户'
+    @title = @user.email
+    @token = @user.confirmation_token
   end
 
   def update
