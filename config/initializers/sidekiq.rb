@@ -14,4 +14,11 @@ Sidekiq.configure_client do |config|
   config.redis = sidekiq_config
 end
 
-Sidekiq::Cron::Job.load_from_hash ::Setting.cron_jobs if Sidekiq.server?
+if Sidekiq.server?
+  cron_jobs = ::Setting.cron_jobs
+
+  keep_uploads = ENV['ZEALOT_KEEP_UPLOADS']
+  keep_uploads = keep_uploads.present? && keep_uploads.downcase != 'false'
+  cron_jobs.delete_if { |k, _| keep_uploads && k == 'clean_old_releases' }
+  Sidekiq::Cron::Job.load_from_hash cron_jobs
+end
