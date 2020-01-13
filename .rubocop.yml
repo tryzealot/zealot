@@ -4,7 +4,7 @@ AllCops:
     - "bin/**/*"
     - "db/**/*"
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 215
 
 Metrics/MethodLength:
