@@ -20,6 +20,8 @@ ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
     ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org" \
     MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn" \
     NPM_REGISTRY="https://registry.npm.taobao.org" \
+    ZEALOT_VERSION="$VERSION" \
+    ZEALOT_VCS_REF="$VCS_REF" \
     TZ="Asia/Shanghai" \
     RAILS_ENV="production"
 
