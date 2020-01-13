@@ -22,7 +22,7 @@ gem 'rack-cors', '~> 1.1.1'
 
 # View
 ## 模板引擎
-gem 'jb', '~> 0.7.0'
+gem 'jb', '~> 0.7.1'
 gem 'slim-rails', '~> 3.2.0'
 ## 表单生成
 gem 'simple_form', '~> 5.0'

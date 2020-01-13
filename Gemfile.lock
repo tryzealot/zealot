@@ -177,14 +177,14 @@ GEM
       guard (>= 2)
       guard-compat (~> 1.0)
     hashie (3.6.0)
-    http (4.2.0)
+    http (4.3.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 2.0)
+      http-form_data (~> 2.2)
       http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (2.1.1)
+    http-form_data (2.2.0)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.7.0)
@@ -195,7 +195,7 @@ GEM
     image_size (2.0.2)
     interception (0.5)
     jaro_winkler (1.5.4)
-    jb (0.7.0)
+    jb (0.7.1)
       multi_json
     jenkins_api_client (1.5.3)
       json (>= 1.0)
@@ -240,7 +240,7 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
     mimemagic (0.3.3)
-    mini_magick (4.9.5)
+    mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
@@ -290,7 +290,7 @@ GEM
     pry-rescue (1.5.0)
       interception (>= 0.5)
       pry (>= 0.12.0)
-    public_suffix (4.0.1)
+    public_suffix (4.0.3)
     puma (4.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
@@ -460,7 +460,7 @@ DEPENDENCIES
   guard-sidekiq
   guard-webpacker
   http
-  jb (~> 0.7.0)
+  jb (~> 0.7.1)
   jenkins_api_client
   kaminari
   letter_opener (~> 1.7)
