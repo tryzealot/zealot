@@ -20,6 +20,8 @@
               th 用户昵称
               th 邮箱
               th 权限
+              th 状态
+              th 最后登录时间
               th 操作
           tbody
             - @users.each_with_index do |user, i|
@@ -32,5 +34,15 @@
                   = user.email
                 td
                   = user.role_name
+                td
+                  - if user.confirmed_at
+                    | 已激活
+                  - else
+                    = link_to '未激活', edit_admin_user_path(user)
+                td
+                  - if user.last_sign_in_at
+                    = time_ago_in_words(user.last_sign_in_at)
+                  - else
+                    | 从未登录
                 td
                   = link_to '删除', admin_user_path(user), method: :delete, data: { confirm: '你确定？'}
