@@ -46,7 +46,8 @@ COPY . $APP_ROOT
 RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
-RUN rm -rf node_modules tmp/cache spec
+RUN rm -rf node_modules tmp/cache spec .browserslistrc babel.config.js \
+    package.json postcss.config.js yarn.lock
 
 ##################################################################################
 
