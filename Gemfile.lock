@@ -195,7 +195,7 @@ GEM
     image_size (2.0.2)
     interception (0.5)
     jaro_winkler (1.5.4)
-    jb (0.7.0)
+    jb (0.7.1)
       multi_json
     jenkins_api_client (1.5.3)
       json (>= 1.0)
@@ -460,7 +460,7 @@ DEPENDENCIES
   guard-sidekiq
   guard-webpacker
   http
-  jb (~> 0.7.0)
+  jb (~> 0.7.1)
   jenkins_api_client
   kaminari
   letter_opener (~> 1.7)
