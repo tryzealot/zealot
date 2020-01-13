@@ -502,7 +502,6 @@ DEPENDENCIES
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
-  tzinfo-data
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
   webpacker (~> 4.2)

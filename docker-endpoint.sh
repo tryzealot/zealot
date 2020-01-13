@@ -3,7 +3,7 @@ set -eo pipefail
 
 cd /app
 
-mkdir -p tmp/pids tmp/cache tmp/sockets log
+mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 
 ZEALOT_READY_FILE=/app/zealot.ready
 
