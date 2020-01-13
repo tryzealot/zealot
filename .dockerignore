@@ -29,6 +29,9 @@ README.*
 .ruby-gemset
 .ruby-version
 .*env
+.powenv
+.rvmrc
+.byebug_history
 .history
 .bundle
 .vscode
