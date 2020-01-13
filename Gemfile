@@ -75,7 +75,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.1.1', require: false
+gem 'app-info', '~> 2.1.2', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
