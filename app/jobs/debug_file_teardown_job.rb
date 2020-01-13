@@ -3,7 +3,7 @@
 require 'app-info'
 
 class DebugFileTeardownJob < ApplicationJob
-  queue_as :default
+  queue_as :app_parse
 
   def perform(debug_file)
     parser = AppInfo.parse debug_file.file.path
