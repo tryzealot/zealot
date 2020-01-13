@@ -364,6 +364,8 @@ GEM
       rubyzip (>= 1.1.6)
     rubyntlm (0.6.2)
     rubyzip (2.0.0)
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     settingslogic (2.0.9)
     shellany (0.0.1)
     sidekiq (6.0.4)
@@ -482,6 +484,7 @@ DEPENDENCIES
   rqrcode
   rubocop (~> 0.77)
   ruby-debug-ide
+  sentry-raven
   settingslogic
   sidekiq (<= 7)
   simple_form (~> 5.0)

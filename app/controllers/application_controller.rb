@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :set_raven_context
+
   include Pundit
 
   # Prevent CSRF attacks by raising an exception.
@@ -13,6 +15,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
 
   def user_not_authorized
     flash[:warning] = '没有权限进行本次操作。'
