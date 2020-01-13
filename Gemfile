@@ -95,8 +95,8 @@ group :development do
   gem 'terminal-notifier-guard'
 
   # IDE tools(VSCode)
-  gem "ruby-debug-ide"
-  gem "debase"
+  gem 'debase'
+  gem 'ruby-debug-ide'
 
   # 加速开发环境
   gem 'spring'
@@ -121,4 +121,5 @@ group :development, :test do
   gem 'pry-rescue'
 end
 
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+# docker 部署无需此 gem
+# gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
