@@ -1,8 +1,70 @@
+FROM ruby:2.6-alpine as builder
+
+ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
+ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev imagemagick-dev postgresql-dev nodejs npm yarn"
+ARG RUBY_PACKAGES="tzdata"
+
+ARG REPLACE_CHINA_MIRROR="true"
+ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
+ARG NPM_REGISTRY="https://registry.npm.taobao.org"
+ARG RUBY_GEMS="bundler"
+ARG APP_ROOT="/app"
+
+ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
+    RAILS_ENV="production"
+
+# System dependencies
+RUN set -ex && \
+    if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
+      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
+      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
+      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/ && \
+      bundle config mirror.https://rubygems.org $RUBYGEMS_SOURCE; \
+    fi && \
+    apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
+    if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
+      yarn config set registry $NPM_REGISTRY; \
+    fi && \
+    gem install $RUBY_GEMS
+
+WORKDIR $APP_ROOT
+
+# Node dependencies
+COPY package.json yarn.lock ./
+RUN yarn install
+
+# Ruby dependencies
+COPY Gemfile Gemfile.lock ./
+RUN bundle config --global frozen 1 && \
+    bundle install --path=vendor/bundle --without development test \
+      --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
+
+COPY . $APP_ROOT
+RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache spec .browserslistrc babel.config.js \
+    package.json postcss.config.js yarn.lock
+
+##################################################################################
+
 FROM ruby:2.6-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+
+ARG REPLACE_CHINA_MIRROR="true"
+ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
+ARG PACKAGES="tzdata imagemagick imagemagick-dev postgresql-dev"
+ARG RUBY_GEMS="bundler"
+ARG APP_ROOT=/app
+
 LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-ref=$VCS_REF \
       im.ews.zealot.version=$VERSION \
@@ -12,44 +74,28 @@ LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-url="https://github.com/getzealot/zealot" \
       im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
 
-ENV BUILD_PACKAGES="build-base libxml2 libxslt libxslt imagemagick tzdata git" \
-    DEV_PACKAGES="ruby-dev curl-dev libxml2-dev libxslt-dev imagemagick-dev postgresql-dev" \
-    RUBY_PACKAGES="ruby yaml nodejs npm yarn" \
-    RUBY_GEMS="bundler" \
-    RUBYGEMS_SOURCE="https://gems.ruby-china.com/" \
-    ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org" \
-    MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn" \
-    NPM_REGISTRY="https://registry.npm.taobao.org" \
+ENV TZ="Asia/Shanghai" \
+    BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     ZEALOT_VERSION="$VERSION" \
     ZEALOT_VCS_REF="$VCS_REF" \
-    TZ="Asia/Shanghai" \
     RAILS_ENV="production"
 
 # System dependencies
 RUN set -ex && \
-    REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
-    SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
-    sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
-    apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
+    if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
+      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
+      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
+      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
+    fi && \
+    apk --update --no-cache add $PACKAGES && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
-    gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/ && \
     gem install $RUBY_GEMS
 
-WORKDIR /app
+WORKDIR $APP_ROOT
 
-# Node dependencies
-COPY package.json yarn.lock ./
-RUN yarn install
-
-# Ruby dependencies
-COPY Gemfile Gemfile.lock ./
-RUN bundle install --without development test --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
-
-# Compile Assets
-COPY . .
-RUN SECRET_TOKEN=precompile_placeholder rails assets:precompile && \
-    yarn cache clean
+COPY --from=builder $APP_ROOT $APP_ROOT
 
 ENV ZEALOT_VERSION="4.0.0"
 

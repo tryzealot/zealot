@@ -3,7 +3,7 @@ set -eo pipefail
 
 cd /app
 
-mkdir -p tmp/pids tmp/cache tmp/sockets log
+mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 
 ZEALOT_READY_FILE=/app/zealot.ready
 
@@ -11,9 +11,9 @@ ZEALOT_READY_FILE=/app/zealot.ready
 if [ ! -f "$ZEALOT_READY_FILE" ]; then
   echo "Waiting zealot to be ready please ... tea time"
   # Init database
-  rails db:create
-  rails db:migrate
-  rails db:seed
+  bin/rails db:create
+  bin/rails db:migrate
+  bin/rails db:seed
 
   # Update cron jobs
   bundle exec whenever --update-crontab
