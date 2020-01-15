@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class Release < ApplicationRecord
   include Rails.application.routes.url_helpers
 
@@ -13,7 +11,7 @@ class Release < ApplicationRecord
   belongs_to :channel
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
-  validate :force_bundle_id, on: :create
+  validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
   before_create :default_source
@@ -50,7 +48,7 @@ class Release < ApplicationRecord
             release.icon = decode_icon(icon_file) if icon_file
           else
             # 处理 Android anydpi 自适应图标
-            icon_file = parser.icons.select {|f| File.extname(f[:file]) != '.xml' }.last.try(:[], :file)
+            icon_file = parser.icons.reject { |f| File.extname(f[:file]) == '.xml' }.last.try(:[], :file)
             release.icon = File.open(icon_file) if icon_file
           end
 
@@ -157,12 +155,9 @@ class Release < ApplicationRecord
   def empty_changelog(use_default_changelog = true)
     return [] unless use_default_changelog
 
-    @empty_changelog ||= [
-      {
-        'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
-        # date: Time.now.strftime("%Y-%m-%d %H:%M:%S %z")
-      }
-    ]
+    @empty_changelog ||= [{
+      'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
+    }]
   end
 
   def outdated?
@@ -171,12 +166,9 @@ class Release < ApplicationRecord
     return lastest if lastest.id > id
   end
 
-  def force_bundle_id
-    return if file.blank?
-    return if channel.blank?
-    return if channel.bundle_id.blank?
-    return if app_info.blank?
-    return if channel.bundle_id_matched?(app_info.bundle_id)
+  def bundle_id_matched
+    return if file.blank? || channel&.bundle_id.blank?
+    return if app_info.blank? || channel.bundle_id_matched?(app_info.bundle_id)
 
     message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
     errors.add(:file, message)
@@ -186,7 +178,7 @@ class Release < ApplicationRecord
     @app_info ||= AppInfo.parse(file.path)
   rescue AppInfo::UnkownFileTypeError
     errors.add(:file, '上传的文件不是有效应用格式')
-    return nil
+    nil
   end
 
   private

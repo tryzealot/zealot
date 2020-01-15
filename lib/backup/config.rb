@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Backup
   module Config
     def backup_path

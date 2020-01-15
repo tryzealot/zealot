@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Apps::VersionsController < Api::BaseController
   before_action :validate_channel_key
 

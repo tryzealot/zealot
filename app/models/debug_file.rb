@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DebugFile < ApplicationRecord
   mount_uploader :file, DebugFileUploader
 
