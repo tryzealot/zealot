@@ -18,10 +18,13 @@ class Release < ApplicationRecord
   before_create :default_changelog
   before_save   :changelog_format, if: :changelog_is_plaintext?
 
+  delegate :scheme, :device_type, to: :channel
+  delegate :app, to: :scheme
+
   paginates_per     20
   max_paginates_per 50
 
-  def self.find_by_channel(slug, version = nil)
+  def self.version_by_channel(slug, version = nil)
     channel = Channel.friendly.find slug
     if version
       channel.releases.find_by version: version
@@ -33,7 +36,7 @@ class Release < ApplicationRecord
   # 上传 App
   def self.upload_file(params, source = 'Web')
     create(params) do |release|
-      unless release.file.blank?
+      if release.file.present?
         begin
           parser = AppInfo.parse(release.file.path)
           release.source = source
@@ -55,7 +58,7 @@ class Release < ApplicationRecord
           # iOS 且是 AdHoc 尝试解析 UDID 列表
           if parser.os == AppInfo::Platform::IOS &&
              parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-             !parser.devices.blank?
+             parser.devices.present?
             release.devices = parser.devices
           end
         rescue AppInfo::UnkownFileTypeError
@@ -71,20 +74,8 @@ class Release < ApplicationRecord
   end
   private_class_method :decode_icon
 
-  def scheme
-    channel.scheme
-  end
-
-  def app
-    scheme.app
-  end
-
   def app_name
     "#{app.name} #{channel.name} #{scheme.name}"
-  end
-
-  def device_type
-    channel.device_type
   end
 
   def size

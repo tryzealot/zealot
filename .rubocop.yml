@@ -1,8 +1,8 @@
-# require: rubocop-rails
+require: rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.6
-  # TargetRailsVersion: 6.0
+  TargetRailsVersion: 6.0
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'

@@ -2,7 +2,7 @@
 
 class SchemesController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_scheme, except: %i[index create new]
+  before_action :set_scheme, except: %i[create new]
   before_action :set_app
 
   def show

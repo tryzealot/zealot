@@ -10,7 +10,7 @@ class DebugFile < ApplicationRecord
 
   validates :app_id, :device_type, :file, presence: true
   validates :release_version, :build_version, presence: true, if: :upload_is_android?
-  validates_uniqueness_of :checksum, on: :create
+  validates :checksum, uniqueness: true, on: :create
 
   before_validation :generate_checksum
 
