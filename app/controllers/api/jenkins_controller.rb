@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class Api::JenkinsController < ActionController::API
   before_action :set_client

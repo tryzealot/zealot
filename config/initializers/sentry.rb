@@ -8,7 +8,7 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
     config.excluded_exceptions += ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
     config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
     config.sanitize_fields << 'token'
-    config.async = -> (event) { SentryJob.perform_later(event) }
+    config.async = ->(event) { SentryJob.perform_later(event) }
 
     version = ENV['ZEALOT_VERSION'] || Setting.version
     vcs_ref = ENV['ZEALOT_VCS_REF']

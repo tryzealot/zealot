@@ -65,7 +65,7 @@ class Channel < ApplicationRecord
   end
 
   def enabled_web_hooks
-    self.web_hooks
+    web_hooks
   end
 
   def available_web_hooks
@@ -73,9 +73,12 @@ class Channel < ApplicationRecord
                    .where.not(web_hook_id: web_hooks.select(:id))
                    .where.not(channel_id: id)
                    .each_with_object([]) do |item, obj|
-
       obj << item.web_hook
     end
+  end
+
+  def encode_password
+    Digest::MD5.hexdigest(password)
   end
 
   # def self.find_by_release(release)

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class SchemesController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_scheme, except: [:index, :create, :new]
+  before_action :set_scheme, except: %i[index create new]
   before_action :set_app
 
   def show
@@ -28,13 +30,13 @@ class SchemesController < ApplicationController
 
   def edit
     @title = "编辑#{@app.name}类型"
-    raise ActionController::RoutingError.new('这里没有你找的东西') unless @scheme
+    raise ActionController::RoutingError, '这里没有你找的东西' unless @scheme
   end
 
   def update
-    raise ActionController::RoutingError.new('这里没有你找的东西') unless @scheme
-    @scheme.update(scheme_params)
+    raise ActionController::RoutingError, '这里没有你找的东西' unless @scheme
 
+    @scheme.update(scheme_params)
     redirect_to app_path(@app)
   end
 

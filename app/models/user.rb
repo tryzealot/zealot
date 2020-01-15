@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :ldap]
+         :omniauthable, omniauth_providers: %i[google_oauth2 ldap]
 
-  enum role: [:user, :developer, :admin]
+  enum role: %i[user developer admin]
 
   has_and_belongs_to_many :apps
   has_many :user_providers
