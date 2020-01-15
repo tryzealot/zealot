@@ -1,8 +1,9 @@
 # Zealot
 
-[![GitHub release](https://img.shields.io/github/v/release/getzealot/zealot?include_prereleases)](https://github.com/getzealot/zealot/releases)
+[![GitHub release](https://img.shields.io/github/v/release/getzealot/zealot?include_prereleases)](https://github.com/getzealot/zealot/blob/develop/CHANGELOG.md)
 [![Docker Pulls](https://img.shields.io/docker/pulls/icyleafcn/zealot.svg)](https://hub.docker.com/r/icyleafcn/zealot/)
 [![Maintainability](https://codeclimate.com/github/getzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/getzealot/zealot)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcff7d9de5ba48528bc80aa01bd525c6)](https://www.codacy.com/manual/icyleaf/zealot)
 [![License](https://img.shields.io/github/license/getzealot/zealot)](LICENSE)
 
 移动应用上传竟然如此简单、解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
