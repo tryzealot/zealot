@@ -3,24 +3,10 @@ set -eo pipefail
 
 cd /app
 
+# 清除可能异常退出但没有请 pid 的问题
+rm -f tmp/pids/.pid
+
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
-
-ZEALOT_READY_FILE=/app/zealot.ready
-
-# Prepare works
-if [ ! -f "$ZEALOT_READY_FILE" ]; then
-  echo "Waiting zealot to be ready please ... tea time"
-  # Init database
-  bin/rails db:create
-  bin/rails db:migrate
-  bin/rails db:seed
-
-  # Update cron jobs
-  bundle exec whenever --update-crontab
-
-  echo "$ZEALOT_VERSION" > $ZEALOT_READY_FILE
-  echo $(date) >> $ZEALOT_READY_FILE
-fi
 
 if [ "$1" = 'run_server' ]; then
   # Start the server
