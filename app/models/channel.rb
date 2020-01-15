@@ -13,6 +13,7 @@ class Channel < ApplicationRecord
 
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
+  delegate :app, to: :scheme
 
   before_create :generate_default_values
 
@@ -31,10 +32,6 @@ class Channel < ApplicationRecord
     releases.where("release_version >= '#{release_version}'")
             .where("build_version > '#{build_version}'")
             .order(id: :desc)
-  end
-
-  def app
-    scheme.app
   end
 
   def app_name
@@ -59,7 +56,7 @@ class Channel < ApplicationRecord
   end
 
   def perform_web_hook(event_name)
-    web_hooks.where(event_name => 1).each do |web_hook|
+    web_hooks.where(event_name => 1).find_each do |web_hook|
       AppWebHookJob.perform_later event_name, web_hook, self
     end
   end
@@ -180,6 +177,6 @@ class Channel < ApplicationRecord
 
   def generate_default_values
     self.key = Digest::MD5.hexdigest(File.join(SecureRandom.uuid, name))
-    self.slug = Digest::SHA1.base64digest(key).gsub(%r{[+\/=]}, '')[0..4] unless slug.present?
+    self.slug = Digest::SHA1.base64digest(key).gsub(%r{[+\/=]}, '')[0..4] if slug.blank?
   end
 end

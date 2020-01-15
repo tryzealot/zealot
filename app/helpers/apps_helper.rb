@@ -55,7 +55,7 @@ module AppsHelper
     end
     commit_url = File.join(git_url, 'commit', commit)
 
-    raw "<a href='#{commit_url}' >#{commit_name}</a>"
+    content_tag(:a, commit_name, href: commit_url)
   end
 
   def display_app_device(channel)

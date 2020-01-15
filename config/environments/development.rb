@@ -20,7 +20,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
@@ -45,7 +45,7 @@ Rails.application.configure do
   # If using a Heroku, Vagrant or generic remote development environment,
   # use letter_opener_web, accessible at  /letter_opener.
   # Otherwise, use letter_opener, which launches a browser window to view sent mail.
-  config.action_mailer.delivery_method = %w[HEROKU VAGRANT REMOTE_DEV].select { |k| ENV.present?(k) }.empty? ? :letter_opener_web : :letter_opener
+  config.action_mailer.delivery_method = %w[HEROKU VAGRANT REMOTE_DEV].select { |k| ENV[k].present? }.empty? ? :letter_opener_web : :letter_opener
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

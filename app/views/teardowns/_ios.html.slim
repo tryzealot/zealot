@@ -50,7 +50,7 @@
               pre
                 = "#{@app_info.expired_date} ("
                 span.text-green.text-bold
-                  = "还有#{distance_of_time_in_words(Time.now, @app_info.expired_date)}过期"
+                  = "还有#{distance_of_time_in_words(Time.current, @app_info.expired_date)}过期"
                 | )
       .card
         .card-header

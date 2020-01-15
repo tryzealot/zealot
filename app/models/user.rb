@@ -11,7 +11,7 @@ class User < ApplicationRecord
   enum role: %i[user developer admin]
 
   has_and_belongs_to_many :apps
-  has_many :user_providers
+  has_many :user_providers, dependent: :destroy
 
   validates :username, presence: true
   validates :email, presence: true

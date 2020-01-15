@@ -10,7 +10,7 @@ class Api::Jenkins::BuildController < Api::JenkinsController
     project = @client.job.list_details(params[:project])
     number = project['nextBuildNumber']
     render json: {
-      code: 201,
+      code: :created,
       number: number,
       url: "#{project['url']}#{number}/"
     }
