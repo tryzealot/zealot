@@ -16,6 +16,9 @@ elif [ "$1" = 'run_worker' ]; then
   # Start the sidekiq
   echo "Zealot worker is wait the comming job ..."
   bundle exec sidekiq -C config/sidekiq.yml
+elif [ "$1" = 'run_upgrade' ]; then
+  ./bin/rails zealot:upgrade
+  exit 0
 fi
 
 exec "$@"
