@@ -2,7 +2,7 @@
 
 class Api::AppsController < Api::BaseController
   before_action :validate_user_token
-  before_action :set_app, only: [ :show ]
+  before_action :set_app, only: %i[show]
 
   # GET /api/apps
   def index

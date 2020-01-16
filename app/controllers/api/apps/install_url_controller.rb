@@ -4,7 +4,7 @@
 class Api::Apps::InstallUrlController < ApplicationController
   # GET /api/apps/install
   def show
-    @release = Release.find_by_channel params[:slug], params[:version]
+    @release = Release.version_by_channel(params[:slug], params[:version])
     if @release
       render content_type: 'text/xml', layout: false
     else
