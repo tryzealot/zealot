@@ -4,7 +4,7 @@ class AppIconUploader < ApplicationUploader
   include CarrierWave::MiniMagick
 
   def store_dir
-    "uploads/apps/a#{model.app.id}/r#{model.id}/icons"
+    "#{base_store_dir}/apps/a#{model.app.id}/r#{model.id}/icons"
   end
 
   # def default_url

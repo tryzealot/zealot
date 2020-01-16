@@ -2,7 +2,7 @@
 
 class DebugFileUploader < ApplicationUploader
   def store_dir
-    "uploads/debug_files/a#{model.app.id}/"
+    "#{base_store_dir}/debug_files/a#{model.app.id}"
   end
 
   def extension_white_list
