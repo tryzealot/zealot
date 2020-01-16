@@ -51,8 +51,11 @@ class Release < ApplicationRecord
             release.icon = decode_icon(icon_file) if icon_file
           else
             # 处理 Android anydpi 自适应图标
-            icon_file = parser.icons.reject { |f| File.extname(f[:file]) == '.xml' }.last.try(:[], :file)
-            release.icon = File.open(icon_file) if icon_file
+            icon_file = parser.icons
+                              .reject { |f| File.extname(f[:file]) == '.xml' }
+                              .last
+                              .try(:[], :file)
+            release.icon = File.open(icon_file, 'rb') if icon_file
           end
 
           # iOS 且是 AdHoc 尝试解析 UDID 列表
