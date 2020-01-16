@@ -15,7 +15,7 @@ if [ "$1" = 'run_server' ]; then
 elif [ "$1" = 'run_worker' ]; then
   # Start the sidekiq
   echo "Zealot worker is wait the comming job ..."
-  bundle exec sidekiq -C config/sidekiq.yml.erb
+  bundle exec sidekiq -C config/sidekiq.yml
 fi
 
 exec "$@"
