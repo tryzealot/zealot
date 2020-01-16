@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Channels::VersionsController < ApplicationController
   before_action :set_channel
 
