@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Admin::WebHooksController < ApplicationController
-  before_action :set_web_hook, only: [:show, :edit, :update, :destroy]
+  before_action :set_web_hook, only: %i[show edit update destroy]
 
   def index
     @title = '网络钩子管理'
-    @web_hooks =  WebHook.all
+    @web_hooks = WebHook.all
     authorize @web_hooks
   end
 
@@ -51,5 +53,4 @@ class Admin::WebHooksController < ApplicationController
   def web_hook_params
     params.require(:web_hook).permit(:url, :upload_events, :download_events, :changelog_events)
   end
-
 end

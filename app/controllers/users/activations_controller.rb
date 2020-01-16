@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::ActivationsController < ApplicationController
   before_action :verify_user
   rescue_from ActiveRecord::RecordNotFound, with: :render_unprocessable_entity_response
@@ -16,15 +18,13 @@ class Users::ActivationsController < ApplicationController
   private
 
   def verify_user
-    if current_user
-      return redirect_back fallback_location: root_path , notice: '你已经登录，无法激活其他账户。'
-    end
+    return redirect_back fallback_location: root_path, notice: '你已经登录，无法激活其他账户。' if current_user
 
     @title = '激活你的账户'
     @user = User.find_by!(activation_token: params[:token])
   end
 
-  def render_unprocessable_entity_response(exception)
+  def render_unprocessable_entity_response(_)
     flash[:alert] = '无效的激活码'
     render 'empty'
   end

@@ -49,16 +49,7 @@ class CreateSampleAppsService
                        end
 
         2.times do
-          release = channel.releases.new
-          release.bundle_id = bundle_id
-          release.release_version = '1.0.0'
-          release.build_version = '1'
-          release.release_type = release_type
-          release.source = 'API'
-          release.branch = 'develop'
-          release.git_commit = SecureRandom.hex
-          release.changelog = changelog
-          release.save validate: false
+          generate_release(channel, bundle_id, release_type, changelog)
         end
       end
     end
@@ -78,18 +69,22 @@ class CreateSampleAppsService
       channels.each do |channel_name|
         channel = scheme.channels.find_or_create_by name: channel_name,
                                                     device_type: :android
-        release = channel.releases.new
-        release.bundle_id = app_bundle_id
-        release.release_version = '1.0.0'
-        release.build_version = '1'
-        release.release_type = 'release'
-        release.source = 'API'
-        release.branch = 'develop'
-        release.git_commit = SecureRandom.hex
-        release.changelog = changelog
-        release.save validate: false
+        generate_release(channel, app_bundle_id, 'release', changelog)
       end
     end
+  end
+
+  def generate_release(channel, app_bundle_id, release_type, changelog)
+    release = channel.releases.new
+    release.bundle_id = app_bundle_id
+    release.release_version = '1.0.0'
+    release.build_version = '1'
+    release.release_type = release_type
+    release.source = 'API'
+    release.branch = 'develop'
+    release.git_commit = SecureRandom.hex
+    release.changelog = changelog
+    release.save validate: false
   end
 
   def create_app(name, user)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::UploadAppSerializer < ApplicationSerializer
   # release model based
   attributes :version, :app_name, :bundle_id, :release_version, :build_version,
