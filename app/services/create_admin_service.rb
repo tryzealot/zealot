@@ -7,7 +7,7 @@ class CreateAdminService
       user.password = Rails.application.secrets.admin_password
       user.password_confirmation = Rails.application.secrets.admin_password
       user.role = :admin
-      user.confirmed_at = Time.now
+      user.confirmed_at = Time.current
     end
   end
 end

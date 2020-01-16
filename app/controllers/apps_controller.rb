@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AppsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_app, only: [:show, :edit, :update, :destroy]
+  before_action :set_app, only: %i[show edit update destroy]
 
   def index
     @title = '应用管理'

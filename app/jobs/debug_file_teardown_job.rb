@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class DebugFileTeardownJob < ApplicationJob
   queue_as :app_parse
 
   def perform(debug_file)
-    parser = AppInfo.parse debug_file.file.path
+    parser = AppInfo.parse(debug_file.file.path)
 
     case parser.file_type
     when AppInfo::Platform::DSYM
@@ -42,7 +40,7 @@ class DebugFileTeardownJob < ApplicationJob
 
   def update_debug_file_version(debug_file, parser)
     if (release_version = parser.release_version) &&
-      (build_version = parser.build_version)
+       (build_version = parser.build_version)
       debug_file.update!(
         release_version: release_version,
         build_version: build_version

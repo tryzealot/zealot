@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class Release < ApplicationRecord
   include Rails.application.routes.url_helpers
 
@@ -13,17 +11,20 @@ class Release < ApplicationRecord
   belongs_to :channel
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
-  validate :force_bundle_id, on: :create
+  validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
   before_create :default_source
   before_create :default_changelog
   before_save   :changelog_format, if: :changelog_is_plaintext?
 
+  delegate :scheme, :device_type, to: :channel
+  delegate :app, to: :scheme
+
   paginates_per     20
   max_paginates_per 50
 
-  def self.find_by_channel(slug, version = nil)
+  def self.version_by_channel(slug, version = nil)
     channel = Channel.friendly.find slug
     if version
       channel.releases.find_by version: version
@@ -35,7 +36,7 @@ class Release < ApplicationRecord
   # 上传 App
   def self.upload_file(params, source = 'Web')
     create(params) do |release|
-      unless release.file.blank?
+      if release.file.present?
         begin
           parser = AppInfo.parse(release.file.path)
           release.source = source
@@ -50,14 +51,14 @@ class Release < ApplicationRecord
             release.icon = decode_icon(icon_file) if icon_file
           else
             # 处理 Android anydpi 自适应图标
-            icon_file = parser.icons.select {|f| File.extname(f[:file]) != '.xml' }.last.try(:[], :file)
+            icon_file = parser.icons.reject { |f| File.extname(f[:file]) == '.xml' }.last.try(:[], :file)
             release.icon = File.open(icon_file) if icon_file
           end
 
           # iOS 且是 AdHoc 尝试解析 UDID 列表
           if parser.os == AppInfo::Platform::IOS &&
              parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-             !parser.devices.blank?
+             parser.devices.present?
             release.devices = parser.devices
           end
         rescue AppInfo::UnkownFileTypeError
@@ -73,20 +74,8 @@ class Release < ApplicationRecord
   end
   private_class_method :decode_icon
 
-  def scheme
-    channel.scheme
-  end
-
-  def app
-    scheme.app
-  end
-
   def app_name
     "#{app.name} #{channel.name} #{scheme.name}"
-  end
-
-  def device_type
-    channel.device_type
   end
 
   def size
@@ -157,12 +146,9 @@ class Release < ApplicationRecord
   def empty_changelog(use_default_changelog = true)
     return [] unless use_default_changelog
 
-    @empty_changelog ||= [
-      {
-        'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
-        # date: Time.now.strftime("%Y-%m-%d %H:%M:%S %z")
-      }
-    ]
+    @empty_changelog ||= [{
+      'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
+    }]
   end
 
   def outdated?
@@ -171,12 +157,9 @@ class Release < ApplicationRecord
     return lastest if lastest.id > id
   end
 
-  def force_bundle_id
-    return if file.blank?
-    return if channel.blank?
-    return if channel.bundle_id.blank?
-    return if app_info.blank?
-    return if channel.bundle_id_matched?(app_info.bundle_id)
+  def bundle_id_matched
+    return if file.blank? || channel&.bundle_id.blank?
+    return if app_info.blank? || channel.bundle_id_matched?(app_info.bundle_id)
 
     message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
     errors.add(:file, message)
@@ -186,7 +169,7 @@ class Release < ApplicationRecord
     @app_info ||= AppInfo.parse(file.path)
   rescue AppInfo::UnkownFileTypeError
     errors.add(:file, '上传的文件不是有效应用格式')
-    return nil
+    nil
   end
 
   private

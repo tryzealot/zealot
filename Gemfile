@@ -73,7 +73,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.1.2', require: false
+gem 'app-info', '~> 2.1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -85,7 +85,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'guard-bundler'
   gem 'guard-migrate'
   gem 'guard-rails'
@@ -114,7 +114,8 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'rubocop', '~> 0.77'
+  gem 'rubocop', '~> 0.77', require: false
+  gem 'rubocop-rails', '~> 2.4.0', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'
