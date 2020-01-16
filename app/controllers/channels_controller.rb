@@ -52,7 +52,7 @@ class ChannelsController < ApplicationController
   protected
 
   def set_scheme
-    @scheme = Scheme.find params[:scheme_id]
+    @scheme = Scheme.find(params[:scheme_id])
   end
 
   def set_channel
