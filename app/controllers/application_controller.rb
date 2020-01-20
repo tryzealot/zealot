@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :set_raven_context
-
   include Pundit
 
   # Prevent CSRF attacks by raising an exception.
@@ -10,6 +8,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   skip_before_action :verify_authenticity_token
+
+  before_action :set_raven_context
 
   # Handle pundit error
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -49,9 +49,5 @@ class ApplicationController < ActionController::Base
   #   headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
   #   headers['Access-Control-Allow-Headers'] = '*'
   #   headers['Access-Control-Max-Age'] = '1728000'
-  # end
-  #
-  # def user_not_authorized
-  #   redirect_to root_url, alert: '你没有相应的权限访问该资源。'
   # end
 end
