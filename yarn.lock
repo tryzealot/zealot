@@ -1080,8 +1080,8 @@ acorn@^7.0.0:
 
 admin-lte@^3.0.2:
   version "3.0.2"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-3.0.2.tgz#8335714263af8b049799cc9effabd4fe9debdbb0"
-  integrity sha512-D5eoQRAIXjUDDDO4/WK4Cd4ZJOjvVOP0bYYC38INV0XlmjQmOEvEZbcgKPraTjwEgNBFHctNIRtXFJbm8KpCOg==
+  resolved "https://registry.npm.taobao.org/admin-lte/download/admin-lte-3.0.2.tgz#8335714263af8b049799cc9effabd4fe9debdbb0"
+  integrity sha1-gzVxQmOviwSXmcye/6vU/p3r27A=
   dependencies:
     "@fortawesome/fontawesome-free" "^5.11.2"
     "@fullcalendar/bootstrap" "^4.3.0"
