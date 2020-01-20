@@ -65,15 +65,15 @@ gem 'activejob-status'
 gem 'sidekiq', '<= 7'
 gem 'sidekiq-cron', '~> 1.0'
 
-# Mobile config
-gem 'settingslogic'
-
 # Assets
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.1.3'
+
+# Mobile config
+gem 'settingslogic', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
