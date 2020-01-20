@@ -15,7 +15,7 @@ Sidekiq.configure_client do |config|
 end
 
 if Sidekiq.server?
-  cron_jobs = ::Setting.cron_jobs
+  cron_jobs = Zealot::Setting.cron_jobs
 
   keep_uploads = ENV['ZEALOT_KEEP_UPLOADS']
   keep_uploads = keep_uploads.present? && keep_uploads.downcase != 'false'

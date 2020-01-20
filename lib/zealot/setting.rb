@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Setting < Settingslogic
+require 'settingslogic'
+
+class Zealot::Setting < Settingslogic
   source Rails.root.join('config/zealot.yml')
   namespace Rails.env
 end

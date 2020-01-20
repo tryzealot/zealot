@@ -37,8 +37,6 @@ namespace :zealot do
   end
 
   task version: :environment do
-    require_relative '../setting'
-
-    puts ::Setting.version
+    puts Zealot::Setting.version
   end
 end
