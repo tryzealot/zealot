@@ -70,7 +70,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.1.3'
+gem 'app-info', '~> 2.1.4'
 
 # Mobile config
 gem 'settingslogic', require: false
