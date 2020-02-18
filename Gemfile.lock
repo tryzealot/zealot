@@ -152,7 +152,7 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.9.17)
+    graphql (1.10.3)
     guard (2.16.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -462,7 +462,7 @@ DEPENDENCIES
   dotenv-rails
   friendly_id
   graphiql-rails (~> 1.7.0)
-  graphql (~> 1.9.17)
+  graphql (~> 1.10.3)
   guard-bundler
   guard-migrate
   guard-rails
