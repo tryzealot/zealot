@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '>= 2.3.0', '< 2.8.0'
 
-gem 'puma', '~> 4.3.1'
+gem 'puma', '~> 4.3.3'
 gem 'rails', '~> 6.0.2'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
@@ -48,7 +48,7 @@ gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法�
 gem 'pundit', '~> 2.1.0'
 
 # 系统信息
-gem 'sys-filesystem', '~> 1.3.2'
+gem 'sys-filesystem', '~> 1.3.3'
 gem 'vmstat', '~> 2.3.0'
 
 # 异常报错上报
@@ -65,15 +65,15 @@ gem 'activejob-status'
 gem 'sidekiq', '<= 7'
 gem 'sidekiq-cron', '~> 1.0'
 
-# Mobile config
-gem 'settingslogic'
-
 # Assets
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.1.2', require: false
+gem 'app-info', '~> 2.1.4'
+
+# Mobile config
+gem 'settingslogic', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -85,7 +85,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'guard-bundler'
   gem 'guard-migrate'
   gem 'guard-rails'
@@ -114,7 +114,8 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'rubocop', '~> 0.77'
+  gem 'rubocop', '~> 0.77', require: false
+  gem 'rubocop-rails', '~> 2.4.0', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'

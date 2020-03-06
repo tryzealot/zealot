@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'setting'
-
 class Admin::SystemInfoController < ApplicationController
   VERSION_URL = 'https://api.github.com/repos/getzealot/zealot/releases/latest'
 
@@ -60,12 +58,40 @@ class Admin::SystemInfoController < ApplicationController
   # GET /admin/system_info
   def show
     @title = '系统信息'
-
-    @cpus = Vmstat.cpu rescue nil
-    @memory = Vmstat.memory rescue nil
     @booted_at = Rails.application.config.booted_at
-    mounts = ::Sys::Filesystem.mounts
 
+    set_cpus
+    set_memory
+    set_disks
+    set_env
+  end
+
+  private
+
+  def set_cpus
+    Vmstat.cpu
+  rescue
+    nil
+  end
+
+  def set_memory
+    Vmstat.memory
+  rescue
+    nil
+  end
+
+  def set_env
+    @env = ENV.each_with_object({}) do |(key, value), obj|
+      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.empty?
+                   value
+                 else
+                   '*' * 10
+                 end
+    end
+  end
+
+  def set_disks
+    mounts = ::Sys::Filesystem.mounts
     @disks = mounts.each_with_object([]) do |mount, obj|
       mount_options = mount.options.split(',')
 
@@ -81,16 +107,8 @@ class Admin::SystemInfoController < ApplicationController
           mount_path: disk.path
         )
       rescue Sys::Filesystem::Error
-        # do nothing
+        next
       end
-    end
-
-    @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.empty?
-                   value
-                 else
-                   '*' * 10
-                 end
     end
   end
 end

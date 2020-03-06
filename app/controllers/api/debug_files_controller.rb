@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class Api::DebugFilesController < Api::BaseController
-  before_action :validate_user_token, only: [:create]
-  before_action :validate_channel_key, only: [:index, :create]
-  before_action :set_debug_file, only: [:show, :destroy]
+  before_action :validate_user_token, only: :create
+  before_action :validate_channel_key, only: %i[index create]
+  before_action :set_debug_file, only: %i[show destroy]
 
   # GET /api/debug_files
   def index
     @debug_files = DebugFile.where(app: @channel.app)
-      .page(params.fetch(:page, 1).to_i)
-      .per(params.fetch(:per_page, 10).to_i)
-      .order(id: :desc)
+                            .page(params.fetch(:page, 1).to_i)
+                            .per(params.fetch(:per_page, 10).to_i)
+                            .order(id: :desc)
 
     @debug_files = @debug_files.where(device_type: @channel.device_type)
 
@@ -31,7 +29,7 @@ class Api::DebugFilesController < Api::BaseController
     @debug_file.device_type = @channel.device_type
     if @debug_file.save!
       DebugFileTeardownJob.perform_now @debug_file
-      render json: @debug_file, serializer: Api::DebugFileSerializer, status: 201
+      render json: @debug_file, serializer: Api::DebugFileSerializer, status: :created
     else
       render json: @debug_file.errors
     end

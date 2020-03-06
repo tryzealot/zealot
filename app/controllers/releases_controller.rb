@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class ReleasesController < ApplicationController
-  include AppsHelper
-
-  before_action :check_user_logged_in, except: [:show, :auth]
+  before_action :check_user_logged_in, except: %i[show auth]
   before_action :set_channel
-  before_action :set_release, only: [:show, :auth, :destroy]
+  before_action :set_release, only: %i[show auth destroy]
 
   def show
     redirect_to new_user_session_path unless !wechat? || @channel.password.blank? || !user_signed_in?
@@ -41,7 +37,7 @@ class ReleasesController < ApplicationController
 
   def auth
     if @channel.password == params[:password]
-      cookies[app_release_auth_key(@release)] = encode_password(@channel)
+      cookies[app_release_auth_key(@release)] = @channel.encode_password
       redirect_to channel_release_path(@channel, @release)
     else
       flash[:danger] = '密码错误，请重新输入'

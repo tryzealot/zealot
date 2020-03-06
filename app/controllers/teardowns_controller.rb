@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'app-info'
-
 class TeardownsController < ApplicationController
   # GET /teardowns/
   def show
@@ -17,7 +15,7 @@ class TeardownsController < ApplicationController
     file = params[:file]
     @app_info = AppInfo.parse(file.tempfile)
   rescue AppInfo::UnkownFileTypeError
-    flash.now[:message] = "无法识别上传的应用类型"
+    flash.now[:message] = '无法识别上传的应用类型'
     render :new
   end
 end

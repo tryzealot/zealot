@@ -13,7 +13,7 @@ section
           - unless @releases.empty?
             .timeline
               ruby:
-                loop_date = Time.now
+                loop_date = Time.current
               - @releases.each_with_index do |release, i|
                 - if i == 0 || (loop_date.to_date != release.created_at.to_date)
                   ruby:

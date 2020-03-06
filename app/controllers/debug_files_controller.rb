@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class DebugFilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_debug_file, only: [:show, :edit, :update, :destroy]
+  before_action :set_debug_file, only: %i[destroy]
 
   def index
     @title = '调试文件列表'

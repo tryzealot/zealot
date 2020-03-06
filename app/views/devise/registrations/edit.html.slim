@@ -18,18 +18,12 @@
               | 等待确认邮件:
               = resource.unconfirmed_email
 
-          = f.input :password, label: '当前密码',
-                    hint: '如果不修改密码的话请留空',
-                    required: false,
-                    input_html: { autocomplete: "new-password" }
-          = f.input :password_confirmation, label: '新密码',
-                    required: false,
-                    input_html: { autocomplete: "new-password" }
-          = f.input :current_password, label: '重复新密码',
-                    hint: "请重复输入新密码保证输入的是正确的",
-                    required: false,
+          = f.input :current_password, label: '当前密码',
                     input_html: { autocomplete: "current-password" }
-
+          = f.input :password, label: '新密码',
+                    input_html: { autocomplete: "new-password" }
+          = f.input :password_confirmation, label: '重复新密码',
+                    input_html: { autocomplete: "new-password" }
           = f.submit '更新', class: 'btn btn-lg btn-primary'
 
     .card.card-info

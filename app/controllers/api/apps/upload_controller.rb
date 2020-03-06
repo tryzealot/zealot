@@ -1,4 +1,4 @@
-require 'app-info'
+# frozen_string_literal: true
 
 class Api::Apps::UploadController < Api::BaseController
   before_action :validate_user_token

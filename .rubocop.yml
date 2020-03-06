@@ -1,17 +1,54 @@
+require: rubocop-rails
+
 AllCops:
   TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
   Exclude:
-    - "bin/**/*"
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
     - "db/**/*"
+  CacheRootDirectory: tmp
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'Guardfile'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'lib/tasks/**/*'
+
+# Some blocks are longer.
+Metrics/BlockLength:
+  ExcludedMethods:
+    - 'namespace'
+    - 'create_table'
+  Exclude:
+    - 'config/**/*.rb'
+    - 'spec/**/*.rb'
+    - 'lib/tasks/**/*'
 
 Layout/LineLength:
-  Max: 215
+  Max: 120
+  Exclude:
+    - 'config/**/*.rb'
 
 Metrics/MethodLength:
   Max: 60
 
 Metrics/ClassLength:
   Max: 150
+
+Metrics/ModuleLength:
+  Max: 150
+
+# Raise complexity metrics
+Metrics/AbcSize:
+  Max: 20
 
 Style/AsciiComments:
   Enabled: false
@@ -25,14 +62,38 @@ Style/SpecialGlobalVars:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+# We do not need to support Ruby 1.9, so this is good to use.
 Style/SymbolArray:
+  Enabled: true
+
+Lint/EmptyWhen:
   Enabled: false
 
-# Some blocks are longer.
-Metrics/BlockLength:
-  ExcludedMethods:
-    - "namespace"
-    - "create_table"
+Style/EmptyMethod:
+  Enabled: false
+
+# Disable %w or %W instead for an array of words
+Style/WordArray:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: true
   Exclude:
-    - "config/**/*.rb"
-    - "spec/**/*.rb"
+    - 'app/controllers/**/*'
+
+Style/RescueStandardError:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: true
+  Exclude:
+    - 'app/serializers/channel_serializer.rb'
+
+Layout/HashAlignment:
+  Enabled: false
