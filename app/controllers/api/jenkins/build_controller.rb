@@ -1,30 +1,43 @@
+# frozen_string_literal: true
 
 class Api::Jenkins::BuildController < Api::JenkinsController
+  before_action :set_project_status
 
   def create
-    status = project_status
-    if status[:status] != 'running'
-      if @client.job.build(params[:project]).to_i != 201
-        return render json: {
-          code: 500,
-          message: '构建请求失败，请重新尝试'
-        }
-      end
+    return render_running_status if running?
+    return render_build_failed if @client.job.build(params[:project]).to_i != 201
 
-      project = @client.job.list_details(params[:project])
-      number = project['nextBuildNumber']
-      url = "#{project['url']}#{number}/"
-      code = 201
-    else
-      url = status[:project]['url']
-      number = status[:number]
-      code = 200
-    end
-
+    project = @client.job.list_details(params[:project])
+    number = project['nextBuildNumber']
     render json: {
-      code: code,
+      code: :created,
       number: number,
-      url: url
+      url: "#{project['url']}#{number}/"
     }
+  end
+
+  private
+
+  def render_running_status
+    render json: {
+      code: 200,
+      number: @status[:number],
+      url: @status[:project]['url']
+    }
+  end
+
+  def render_build_failed
+    render json: {
+      code: 500,
+      message: '构建请求失败，请重新尝试'
+    }
+  end
+
+  def running?
+    @status[:status] == 'running'
+  end
+
+  def set_project_status
+    @status = project_status
   end
 end

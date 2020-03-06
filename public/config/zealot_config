@@ -1,5 +1,0 @@
----
-key: {private_key}
-host:
-  external: http://external.zealot.com
-  intranet: http://17.0.0.1:3000

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_channel, only: [:show, :edit, :update, :destroy]
-  before_action :set_scheme, except: [:index, :show]
+  before_action :set_channel, only: %i[show edit update destroy]
+  before_action :set_scheme, except: %i[show]
 
   def show
     @web_hook = @channel.web_hooks.new
@@ -50,7 +52,7 @@ class ChannelsController < ApplicationController
   protected
 
   def set_scheme
-    @scheme = Scheme.find params[:scheme_id]
+    @scheme = Scheme.find(params[:scheme_id])
   end
 
   def set_channel

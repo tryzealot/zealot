@@ -16,7 +16,7 @@ class CleanOldReleasesJob < ApplicationJob
     return if versions.empty?
 
     latest_version = versions.max
-    previous_versions = versions.delete_if { |v| v == latest_version}
+    previous_versions = versions.delete_if { |v| v == latest_version }
     previous_versions.each do |value|
       clean_previouse_build_version(channel, value)
     end

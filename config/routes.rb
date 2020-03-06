@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :releases, except: :index, path_names: { new: 'upload' } do # , param: :version, constraints: { version: /\d+/ }
+    resources :releases, except: :index, path_names: { new: 'upload' } do
       scope module: :releases do
         get :qrcode, to: 'qrcode#show'
       end
@@ -39,19 +39,19 @@ Rails.application.routes.draw do
     end
 
     scope module: :channels do
-      resources :versions, only: [:index, :show], id: /(.+)+/
+      resources :versions, only: %i[index show], id: /(.+)+/
     end
   end
 
   #############################################
   # Debug File
   #############################################
-  resources :debug_files, except: [:show]
+  resources :debug_files, except: %i[show]
 
   #############################################
   # Teardown
   #############################################
-  resources :teardowns, only: [:show, :new, :create], path_names: { new: 'upload' }
+  resources :teardowns, only: %i[show new create], path_names: { new: 'upload' }
 
   #############################################
   # Admin
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
       resources :users, except: :show
-      resources :web_hooks, except: [:edit, :update]
+      resources :web_hooks, except: %i[edit update]
 
       get :background_jobs, to: 'background_jobs#show'
       get :system_info, to: 'system_info#show'
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
 
     post 'debug_files/upload', to: 'debug_files#create'
     get 'debug_files/download', to: 'debug_files/download#show'
-    resources :debug_files, except: [:create, :new, :edit]
+    resources :debug_files, except: %i[create new edit]
 
     namespace :jenkins do
       get 'projects', to: 'projects#index'

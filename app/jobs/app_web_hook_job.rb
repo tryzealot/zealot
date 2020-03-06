@@ -32,7 +32,7 @@ class AppWebHookJob < ApplicationJob
   end
 
   def json_body
-    return build_body unless @web_hook.body.blank?
+    return build_body if @web_hook.body.present?
 
     WebHooks::PushSerializer.new(@channel).to_json
   end

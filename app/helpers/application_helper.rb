@@ -10,9 +10,13 @@ module ApplicationHelper
   def button_link_to(title, url, icon = nil, **options)
     options[:class] += ' btn'
 
-    title = %(<i class="fa fa-#{icon}"></i>#{title}) unless icon.blank?
+    content = title
+    if icon.present?
+      content = tag.i(class: "fa fa-#{icon}")
+      content += title
+    end
 
-    link_to raw(title), url, **options
+    link_to content, url, **options
   end
 
   def random_color
@@ -71,13 +75,11 @@ module ApplicationHelper
              'fa-adn'
            end
 
-    raw %(<i class="fa #{icon}"></i>)
+    tag.i(class: "fa #{icon}")
   end
 
   # 获取浏览器 user agent
-  def user_agent
-    request.user_agent
-  end
+  delegate :user_agent, to: :request
 
   def wechat?
     user_agent.include?('MicroMessenger')

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class Api::JenkinsController < ActionController::API
   before_action :set_client
@@ -17,19 +18,11 @@ class Api::JenkinsController < ActionController::API
   private
 
   def build_number
-    if params[:id].to_s.blank?
-      @client.job.get_current_build_number(params[:project])
-    else
-      params[:id].to_s
-    end
+    params[:id].presence || @client.job.get_current_build_number(params[:project])
   end
 
   def build_status(build_detail)
-    if build_detail['result'].to_s.empty?
-      'running'
-    else
-      build_detail['result'].downcase
-    end
+    build_detail['result']&.downcase || 'running'
   end
 
   def set_client

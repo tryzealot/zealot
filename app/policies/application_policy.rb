@@ -58,6 +58,6 @@ class ApplicationPolicy
   private
 
   def user_signed_in?
-    !user.blank?
+    user.present?
   end
 end
