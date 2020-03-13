@@ -1,3 +1,3 @@
 # Used fro heroku
-web: bundle exec puma -C config/puma.rb
-sidekid: bundle exec sidekiq -C config/sidekiq.yml
+web: bin/rails server -p $PORT -e $RAILS_ENV
+worker: bundle exec sidekiq -C config/sidekiq.yml
