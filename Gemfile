@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '>= 2.3.0', '< 2.8.0'
 
-gem 'puma', '~> 4.3.1'
+gem 'puma', '~> 4.3.3'
 gem 'rails', '~> 6.0.2'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
@@ -48,7 +48,7 @@ gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法�
 gem 'pundit', '~> 2.1.0'
 
 # 系统信息
-gem 'sys-filesystem', '~> 1.3.2'
+gem 'sys-filesystem', '~> 1.3.3'
 gem 'vmstat', '~> 2.3.0'
 
 # 异常报错上报
