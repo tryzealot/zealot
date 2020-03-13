@@ -58,8 +58,8 @@ module Zealot
 
     # Set Redis as the back-end for the cache.
     config.cache_store = :redis_cache_store, {
-      url: (ENV['REDIS_CACHE_URL'] || 'redis://localhost:6379/0'),
-      namespace: ENV['REDIS_CACHE_NAMESPACE'] || 'cache'
+      url: (ENV['REDIS_URL'] || 'redis://localhost:6379/0'),
+      namespace: ENV['REDIS_NAMESPACE'] || 'cache'
     }
 
     # Set Sidekiq as the back-end for Active Job.
