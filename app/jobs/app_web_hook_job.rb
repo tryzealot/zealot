@@ -71,7 +71,7 @@ class AppWebHookJob < ApplicationJob
 
   def app_url
     url_for(
-      host: Rails.application.secrets.domain_name,
+      host: Rails.configuration.x.url_options[:host],
       controller: 'apps',
       action: 'show',
       slug: @app.slug
@@ -80,7 +80,7 @@ class AppWebHookJob < ApplicationJob
 
   def release_url
     url_for(
-      host: Rails.application.secrets.domain_name,
+      host: Rails.configuration.x.url_options[:host],
       controller: 'apps',
       action: 'show',
       slug: @app.slug,
