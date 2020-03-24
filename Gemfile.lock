@@ -376,7 +376,7 @@ GEM
       faraday (>= 1.0)
     settingslogic (2.0.9)
     shellany (0.0.1)
-    sidekiq (6.0.5)
+    sidekiq (6.0.6)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       rack-protection (>= 2.0.0)
