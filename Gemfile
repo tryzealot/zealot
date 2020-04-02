@@ -48,7 +48,7 @@ gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法�
 gem 'pundit', '~> 2.1.0'
 
 # 系统信息
-gem 'sys-filesystem', '~> 1.3.3'
+gem 'sys-filesystem', '~> 1.3.4'
 gem 'vmstat', '~> 2.3.0'
 
 # 异常报错上报
