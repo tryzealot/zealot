@@ -62,7 +62,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '<= 7'
+gem 'sidekiq', '6.0.5' # 6.0.6 有 bug：https://github.com/mperham/sidekiq/pull/4502
 gem 'sidekiq-cron', '~> 1.0'
 
 # Assets
