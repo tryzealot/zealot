@@ -17,7 +17,7 @@ gem 'redis', '~> 4.1.3'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
-gem 'graphql', '~> 1.9.17'
+gem 'graphql', '~> 1.10.5'
 gem 'rack-cors', '~> 1.1.1'
 
 # View
@@ -48,7 +48,7 @@ gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法�
 gem 'pundit', '~> 2.1.0'
 
 # 系统信息
-gem 'sys-filesystem', '~> 1.3.3'
+gem 'sys-filesystem', '~> 1.3.4'
 gem 'vmstat', '~> 2.3.0'
 
 # 异常报错上报
@@ -67,7 +67,7 @@ gem 'sidekiq-cron', '~> 1.0'
 
 # Assets
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 4.2'
+gem 'webpacker', '~> 5.0'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.1.4'
@@ -115,7 +115,7 @@ end
 group :development, :test do
   gem 'dotenv-rails'
   gem 'rubocop', '~> 0.77', require: false
-  gem 'rubocop-rails', '~> 2.4.0', require: false
+  gem 'rubocop-rails', '~> 2.5.0', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'
