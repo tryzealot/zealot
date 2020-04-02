@@ -44,7 +44,7 @@ gem 'devise', '~> 4.7.1'
 gem 'devise-i18n', '~> 1.9.0'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
-gem 'omniauth-ldap', github: 'icyleaf/omniauth-ldap', branch: 'master' # 无法和 omniauth-oauth2 兼容，依赖 omniauth 版本比较低
+gem 'gitlab_omniauth-ldap', '~> 2.1.1'
 gem 'pundit', '~> 2.1.0'
 
 # 系统信息
