@@ -16,7 +16,7 @@ class Release < ApplicationRecord
   before_create :auto_release_version
   before_create :default_source
   before_create :default_changelog
-  before_save   :changelog_format, if: :changelog_is_plaintext?
+  before_save   :changelog_format
 
   delegate :scheme, :device_type, to: :channel
   delegate :app, to: :scheme
@@ -183,13 +183,19 @@ class Release < ApplicationRecord
   end
 
   def changelog_format
-    hash = []
-    changelog.split("\n").each do |message|
-      next if message.blank?
+    if changelog_is_json_string?
+      self.changelog = JSON.parse(changelog)
+    elsif changelog.blank?
+      self.changelog = []
+    elsif changelog.is_a?(String)
+      hash = []
+      changelog.split("\n").each do |message|
+        next if message.blank?
 
-      hash << { message: message }
+        hash << { message: message }
+      end
+      self.changelog = hash
     end
-    self.changelog = hash
   end
 
   def default_source
@@ -200,10 +206,11 @@ class Release < ApplicationRecord
     self.changelog ||= []
   end
 
-  def changelog_is_plaintext?
-    return false if changelog.blank?
-
-    changelog.is_a?(String)
+  def changelog_is_json_string?
+    JSON.parse(changelog)
+    true
+  rescue
+    false
   end
 
   def enabled_validate_bundle_id?
