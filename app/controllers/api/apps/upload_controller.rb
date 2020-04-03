@@ -72,7 +72,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file release_params
+    @release = channel.releases.upload_file(release_params)
     @release.save!
   end
 
