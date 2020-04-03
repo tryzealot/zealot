@@ -34,12 +34,12 @@ class Release < ApplicationRecord
   end
 
   # 上传 App
-  def self.upload_file(params, source = 'Web')
+  def self.upload_file(params)
     create(params) do |release|
       if release.file.present?
         begin
           parser = AppInfo.parse(release.file.path)
-          release.source = source
+          release.source ||= 'Web'
           release.bundle_id = parser.bundle_id
           release.release_version = parser.release_version
           release.build_version = parser.build_version
