@@ -113,7 +113,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.9.0)
+    devise-i18n (1.9.1)
       devise (>= 4.7.1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -415,7 +415,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.6)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
@@ -455,7 +455,7 @@ DEPENDENCIES
   carrierwave
   debase
   devise (~> 4.7.1)
-  devise-i18n (~> 1.9.0)
+  devise-i18n (~> 1.9.1)
   dotenv-rails
   friendly_id
   gitlab_omniauth-ldap (~> 2.1.1)
