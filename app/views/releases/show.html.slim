@@ -16,8 +16,7 @@
       == render 'releases/sidebar/qrcode'
       == render 'releases/sidebar/devices'
       == render 'releases/sidebar/version'
-      - if user_signed_in?
-        a.btn.btn-default.btn-block href="#{channel_path(@channel)}" 应用管理
+      a.btn.btn-default.btn-block href="#{channel_path(@channel)}" 应用管理
 - else
   .login-box
     .card
