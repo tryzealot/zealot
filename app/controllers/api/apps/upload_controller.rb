@@ -118,7 +118,10 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def release_params
-    params.permit(:file, :release_type, :source, :branch, :git_commit, :ci_url, :changelog, :devices)
+    params.permit(
+      :file, :release_type, :source, :branch, :git_commit,
+      :ci_url, :changelog, :devices, :custom_fields
+    )
   end
 
   def channel_params
