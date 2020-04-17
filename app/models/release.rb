@@ -15,8 +15,8 @@ class Release < ApplicationRecord
 
   before_create :auto_release_version
   before_create :default_source
-  before_create :default_changelog
-  before_save   :changelog_format
+  before_save   :convert_changelog
+  before_save   :convert_custom_fields
 
   delegate :scheme, :device_type, to: :channel
   delegate :app, to: :scheme
@@ -33,8 +33,9 @@ class Release < ApplicationRecord
     end
   end
 
-  # 上传 App
+  # 上传pp
   def self.upload_file(params)
+    logger.debug "upload file params: #{params}"
     create(params) do |release|
       if release.file.present?
         begin
@@ -182,8 +183,8 @@ class Release < ApplicationRecord
     self.version = latest_version ? (latest_version.version + 1) : 1
   end
 
-  def changelog_format
-    if changelog_is_json_string?
+  def convert_changelog
+    if json_string?(changelog)
       self.changelog = JSON.parse(changelog)
     elsif changelog.blank?
       self.changelog = []
@@ -195,6 +196,18 @@ class Release < ApplicationRecord
         hash << { message: message }
       end
       self.changelog = hash
+    else
+      self.changelog ||= []
+    end
+  end
+
+  def convert_custom_fields
+    if json_string?(custom_fields)
+      self.custom_fields = JSON.parse(custom_fields)
+    elsif custom_fields.blank?
+      self.custom_fields = []
+    else
+      self.custom_fields ||= []
     end
   end
 
@@ -202,12 +215,8 @@ class Release < ApplicationRecord
     self.source ||= 'API'
   end
 
-  def default_changelog
-    self.changelog ||= []
-  end
-
-  def changelog_is_json_string?
-    JSON.parse(changelog)
+  def json_string?(value)
+    JSON.parse(value)
     true
   rescue
     false
