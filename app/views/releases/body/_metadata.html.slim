@@ -20,40 +20,46 @@
           = @release.bundle_id
   .card-body
     ul.app-metadata
-      li
+      li title="上传版本"
         i.fa.fa-gg
         = @release.version
-      li
+      li title="平台"
         i.fa.fa-archive
         = display_app_device(@release.channel)
-      li
+      li title="主版本"
         i.fa.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
       - unless @release.release_type.blank?
-        li
+        li title="类型"
           i.fa.fa-cubes
           = @release.release_type
       - unless @release.branch.blank?
-        li
+        li title="分支"
           i.fa.fa-code-fork
           = @release.branch
       - unless @release.file.blank?
-        li
+        li title="文件体积"
           i.fa.fa-retweet
           = " #{number_to_human_size(@release.file.size)}"
       - unless @release.git_commit.blank?
-        li
+        li title="Git Commit"
           i.fa.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-      li
+
+      - @release.custom_fields.each do |field|
+        li title="#{field['name']}"
+          i.fa class="fa-#{field['icon']}"
+          = field['value']
+      li title="上传来源"
         i.fa.fa-gears
         - if @release.ci_url.blank?
           = @release.source
         - else
           = link_to @release.source, @release.ci_url
-      li
+      li title="上传时间"
         i.fa.fa-calendar
         = time_ago_in_words(@release.created_at)
+
     .app-actions
       - unless wechat?
         - if detect_device(@release.channel.device_type) == :ios
