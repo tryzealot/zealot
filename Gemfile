@@ -114,8 +114,8 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'rubocop', '~> 0.77', require: false
-  gem 'rubocop-rails', '~> 2.5.2', require: false
+  gem 'rubocop', '>= 0.70', require: false
+  gem 'rubocop-rails', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'
