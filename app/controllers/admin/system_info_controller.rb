@@ -87,7 +87,7 @@ class Admin::SystemInfoController < ApplicationController
                  else
                    '*' * 10
                  end
-    end
+    end.sort
   end
 
   def set_disks
