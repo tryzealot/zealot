@@ -17,7 +17,7 @@ gem 'redis', '~> 4.1.3'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
-gem 'graphql', '~> 1.10.5'
+gem 'graphql', '~> 1.10.7'
 gem 'rack-cors', '~> 1.1.1'
 
 # View
@@ -115,7 +115,7 @@ end
 group :development, :test do
   gem 'dotenv-rails'
   gem 'rubocop', '~> 0.77', require: false
-  gem 'rubocop-rails', '~> 2.5.0', require: false
+  gem 'rubocop-rails', '~> 2.5.2', require: false
 
   gem 'pry-byebug'
   gem 'pry-rails'
