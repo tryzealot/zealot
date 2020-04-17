@@ -4,6 +4,27 @@
 
 > 如下罗列的变更是还未发布的列表
 
+### 新功能
+
+- [Docker] 支持 Heroku 部署
+- [Web] 游客模式允许查看 App 详情、列表和上传 App 详情
+- [API] 上传 App 支持自定义字段 [#178](https://github.com/getzealot/zealot/issues/178)
+
+### 修复
+
+- [Web] 修正用户密码描述文案
+- [Web] 修复网络钩子包含 url 字段的地址错误
+- [Web/API] 修复上传 iOS dSYM 文件上传报错
+- [API] 修复获取 App 接口 has_password 参数异常
+- [API] 修复上传 App 记录的 source 来源都是 Web
+- [API] 修复并支持上传 App 传递字符串类型的 json 格式的 changelog
+- [Web] 修复系统信息没有正常获取 CPU 和内存信息
+
+### 变更
+
+- [Web] 开发环境移除 GraphQL 控制台功能，推荐使用 [graphql-playground](https://github.com/prisma-labs/graphql-playground)
+- [Web] 页面底部移除 footbar，版本信息可以在系统信息查看
+
 ## [4.0.0.beta3] (2020-01-16)
 
 ### 新功能
@@ -41,7 +62,7 @@
 
 🌈 第一个公测版本发布啦
 
-[未发布]: https://github.com/getzealot/zealot/compare/4.0.0.beta3..HEAD
+[未发布]: https://github.com/getzealot/zealot/compare/4.0.0.beta3...HEAD
 [4.0.0.beta3]: https://github.com/getzealot/zealot/compare/4.0.0.beta2...4.0.0.beta3
 [4.0.0.beta2]: https://github.com/getzealot/zealot/compare/4.0.0.beta1...4.0.0.beta2
 
