@@ -80,7 +80,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development do
   # 调试控制台
-  gem 'graphiql-rails', '~> 1.7.0'
   gem 'listen', '>= 3.0.5', '< 3.3'
   gem 'web-console', '>= 3.3.0'
 

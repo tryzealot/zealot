@@ -67,11 +67,6 @@ Rails.application.routes.draw do
       require 'sidekiq/web'
       require 'sidekiq/cron/web'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
-
-      if Rails.env.development?
-        get :graphql_console, to: 'graphql_console#show'
-        mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
-      end
     end
   end
 
