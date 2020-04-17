@@ -69,15 +69,15 @@ class Admin::SystemInfoController < ApplicationController
   private
 
   def set_cpus
-    Vmstat.cpu
+    @cpus = Vmstat.cpu
   rescue
-    nil
+    @cpus = nil
   end
 
   def set_memory
-    Vmstat.memory
+    @memory = Vmstat.memory
   rescue
-    nil
+    @memory = nil
   end
 
   def set_env
