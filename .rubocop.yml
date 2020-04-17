@@ -1,8 +1,10 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.6
   TargetRailsVersion: 6.0
+  DisabledByDefault: true
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'
