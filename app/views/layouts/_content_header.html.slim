@@ -12,11 +12,11 @@ ruby:
         .col-sm-6
           h1 = yield :section_title
         .col-sm-6
-          - unless right_panel.blank?
+          - if right_panel.present?
             div.float-sm-right
               = right_panel
 
-          - unless breadcrumb.blank?
+          - if breadcrumb.present?
             ol.breadcrumb.float-sm-right
               = breadcrumb
 - else
