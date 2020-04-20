@@ -67,7 +67,7 @@ gem 'sidekiq-cron', '~> 1.2'
 
 # Assets
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.1'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.1.4'
