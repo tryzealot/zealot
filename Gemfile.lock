@@ -369,7 +369,7 @@ GEM
       faraday (>= 1.0)
     settingslogic (2.0.9)
     shellany (0.0.1)
-    sidekiq (6.0.5)
+    sidekiq (6.0.7)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       rack-protection (>= 2.0.0)
@@ -490,7 +490,7 @@ DEPENDENCIES
   ruby-debug-ide
   sentry-raven
   settingslogic
-  sidekiq (= 6.0.5)
+  sidekiq (= 6.0.7)
   sidekiq-cron (~> 1.2)
   simple_form (~> 5.0)
   slim-rails (~> 3.2.0)
