@@ -928,10 +928,10 @@
   resolved "https://registry.npm.taobao.org/@rails/ujs/download/@rails/ujs-6.0.2.tgz#8d32452d51c5e115374a218fb5475803dc17f4c0"
   integrity sha1-jTJFLVHF4RU3SiGPtUdYA9wX9MA=
 
-"@rails/webpacker@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-5.0.1.tgz#f7bdb8d0b36e41aa2f219aad332f50194ad4fc46"
-  integrity sha512-r74Od+YO5OxkrePNLL9M3Mi3DQNPLSXkv+cGDdiFvTGeFc+VtI8j0sNGoulBMlEZFH8GVlb7LLy/FVLjPJq1/Q==
+"@rails/webpacker@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-5.1.0.tgz#1583d192027222492f22a1d858270b78af636663"
+  integrity sha512-+m7EDh6zIr0Y74oaEVjd6TUtkPBFF7DGu1bGny9t2G1Icjofox20FIx1lgKKTOpyIQ60j4BChf2C5Xir+sXBWQ==
   dependencies:
     "@babel/core" "^7.9.0"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
