@@ -23,10 +23,10 @@ ruby:
               h3.timeline-header
                 = link_to release.app_name, channel_release_path(@release.channel, release)
                 = " 上传了新版本 #{release.release_version} (#{release.build_version})"
-              - unless release.changelog.blank?
+              - if release.changelog.present?
                 .timeline-body.pb-0
                   = changelog_format release.changelog_list, class: 'mb-0'
-              - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
+              - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                 .timeline-footer
                   - if release.release_type
                     small.badge

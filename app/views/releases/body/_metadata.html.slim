@@ -29,19 +29,19 @@
       li title="主版本"
         i.fa.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
-      - unless @release.release_type.blank?
+      - if @release.release_type.present?
         li title="类型"
           i.fa.fa-cubes
           = @release.release_type
-      - unless @release.branch.blank?
+      - if @release.branch.present?
         li title="分支"
           i.fa.fa-code-fork
           = @release.branch
-      - unless @release.file.blank?
+      - if @release.file.present?
         li title="文件体积"
           i.fa.fa-retweet
           = " #{number_to_human_size(@release.file.size)}"
-      - unless @release.git_commit.blank?
+      - if @release.git_commit.present?
         li title="Git Commit"
           i.fa.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
@@ -74,7 +74,7 @@
             | 本地下载
 
         span style=("margin:0 5px")
-        - unless @release.ci_url.blank?
+        - if @release.ci_url.present?
           button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
             i.fa.fa-wrench
             | 构建新版

@@ -40,12 +40,12 @@ ruby:
       .card-body
         table.table.table-striped
           - @app_info.activities.each do |activity|
-            - unless activity.blank?
+            - if activity.present?
               tr
                 td = activity.name
 
   .col-md-4
-    - unless @app_info.use_permissions.blank?
+    - if @app_info.use_permissions.present?
       .card
         .card-header
           h3.card-title Permissions
@@ -55,11 +55,11 @@ ruby:
         .card-body
           table.table.table-striped
             - @app_info.use_permissions.sort.each do |permission|
-              - unless permission.blank?
+              - if permission.present?
                 tr
                   td = permission
 
-    - unless @app_info.use_features.blank?
+    - if @app_info.use_features.present?
       .card
         .card-header
           h3.card-title Features
@@ -69,11 +69,11 @@ ruby:
         .card-body
           table.table.table-striped
             - @app_info.use_features.sort.each do |feature|
-              - unless feature.blank?
+              - if feature.present?
                 tr
                   td = feature
 
-    - unless @app_info.services.blank?
+    - if @app_info.services.present?
       .card
         .card-header
           h3.card-title Services
@@ -83,7 +83,7 @@ ruby:
         .card-body
           table.table.table-striped
             - @app_info.services.sort_by(&:name).each do |service|
-              - unless service.blank?
+              - if service.present?
                 tr
                   td = service.name
   / .col-md-4
