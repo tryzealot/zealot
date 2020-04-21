@@ -2,6 +2,7 @@ name: Publish Nightly Docker Image
 on:
   push:
     paths-ignore:
+      - '.github/*.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'
