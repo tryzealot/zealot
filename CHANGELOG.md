@@ -19,6 +19,7 @@
 - [API] 修复上传 App 记录的 source 来源都是 Web
 - [API] 修复并支持上传 App 传递字符串类型的 json 格式的 changelog
 - [Web] 修复系统信息没有正常获取 CPU 和内存信息
+- [Web] 修复在线解析 Android 应用偶尔报错
 
 ### 变更
 
