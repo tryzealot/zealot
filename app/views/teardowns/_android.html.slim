@@ -68,7 +68,7 @@ ruby:
               i.fa.fa-minus
         .card-body
           table.table.table-striped
-            - @app_info.use_features.sort.each do |feature|
+            - @app_info.use_features.compact.sort.each do |feature|
               - if feature.present?
                 tr
                   td = feature
