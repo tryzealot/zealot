@@ -13,7 +13,7 @@
   p.mb-1
     = link_to "登录账户", new_session_path(resource_name)
 
-- if devise_mapping.registerable? && controller_name != 'registrations'
+- if Zealot::Setting.register_enabled && devise_mapping.registerable? && controller_name != 'registrations'
   p.mb-1
     = link_to "注册账号", new_registration_path(resource_name)
 
