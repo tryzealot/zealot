@@ -20,6 +20,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
+        REPLACE_CHINA_MIRROR: false
         VCS_REF: ${{ github.sha }}
         BUILD_DATE: ${{ steps.date.outputs.date }}
         VERSION: nightly
