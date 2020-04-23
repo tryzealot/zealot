@@ -25,10 +25,10 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         VERSION: nightly
       with:
-        name: icyleafcn/zealot:nightly
+        name: icyleafcn/zealot:${{ env.VERSION }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        buildargs: BUILD_DATE,VCS_REF,VERSION
+        buildargs: BUILD_DATE,VCS_REF,VERSION,REPLACE_CHINA_MIRROR
     - name: Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
       env:
