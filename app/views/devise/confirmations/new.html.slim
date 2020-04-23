@@ -1,20 +1,23 @@
 - content_for :title do
   | 邮箱确认
 
-.login-box
-  .card
-    .card-body.login-card-body
-      p.login-box-msg 邮箱确认
-      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-        = render "devise/shared/error_messages", resource: resource
+.row.mb-3.mt-3
+  .col-sm-7.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .login-box.col-sm-5.order-1.order-sm-12
+    .card
+      .card-body.login-card-body
+        p.login-box-msg 邮箱确认
+        = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+          = render "devise/shared/error_messages", resource: resource
 
-        = f.input :email,
-                  required: true,
-                  autofocus: true,
-                  hint: '',
-                  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-                  input_html: { autocomplete: 'email', class: 'form-control' }
+          = f.input :email,
+                    required: true,
+                    autofocus: true,
+                    hint: '',
+                    value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                    input_html: { autocomplete: 'email', class: 'form-control' }
 
-        = f.button :submit, '重新发送确认邮件', class: 'btn-block'
+          = f.button :submit, '重新发送确认邮件', class: 'btn-block'
 
-      == render 'devise/shared/links'
+        == render 'devise/shared/links'
