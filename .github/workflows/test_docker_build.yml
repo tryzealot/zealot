@@ -6,4 +6,4 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build the Docker image
-      run: docker build .
+      run: docker build --build-arg REPLACE_CHINA_MIRROR=false .
