@@ -78,7 +78,7 @@ GEM
     ast (2.4.0)
     awesome_print (1.8.0)
     bcrypt (3.1.13)
-    better_errors (2.6.0)
+    better_errors (2.7.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -143,7 +143,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    graphql (1.10.7)
+    graphql (1.10.8)
     guard (2.16.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -456,7 +456,7 @@ DEPENDENCIES
   dotenv-rails
   friendly_id
   gitlab_omniauth-ldap (~> 2.1.1)
-  graphql (~> 1.10.7)
+  graphql (~> 1.10.8)
   guard (~> 2.16.2)
   guard-bundler
   guard-migrate
