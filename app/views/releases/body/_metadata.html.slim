@@ -33,19 +33,21 @@
         li title="类型"
           i.fa.fa-cubes
           = @release.release_type
-      - if @release.branch.present?
-        li title="分支"
-          i.fa.fa-code-fork
-          = @release.branch
       - if @release.file.present?
         li title="文件体积"
           i.fa.fa-retweet
           = " #{number_to_human_size(@release.file.size)}"
+      li title="上传时间"
+        i.fa.fa-calendar
+        = time_ago_in_words(@release.created_at)
+      - if @release.branch.present?
+        li title="Git 分支"
+          i.fa.fa-code-fork
+          = @release.branch
       - if @release.git_commit.present?
         li title="Git Commit"
           i.fa.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
           i.fa class="fa-#{field['icon']}"
@@ -56,9 +58,6 @@
           = @release.source
         - else
           = link_to @release.source, @release.ci_url
-      li title="上传时间"
-        i.fa.fa-calendar
-        = time_ago_in_words(@release.created_at)
 
     .app-actions
       - unless wechat?
