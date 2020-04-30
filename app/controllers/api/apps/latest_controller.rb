@@ -9,6 +9,7 @@ class Api::Apps::LatestController < Api::BaseController
 
     render json: @channel,
            serializer: Api::LatestAppSerializer,
+           bundle_id: params[:bundle_id],
            release_version: params[:release_version],
            build_version: params[:build_version]
   end
