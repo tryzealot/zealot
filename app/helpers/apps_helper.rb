@@ -46,6 +46,8 @@ module AppsHelper
   end
 
   def git_commit_url(git_url, commit, commit_length = 8)
+    return if commit.blank?
+
     commit_name = commit[0..(commit_length - 1)]
     return commit_name if git_url.blank?
 
