@@ -28,9 +28,10 @@ class Channel < ApplicationRecord
     releases.limit(limit).order(id: :desc)
   end
 
-  def find_since_version(release_version, build_version)
+  def find_since_version(bundle_id, release_version, build_version)
     releases.where("release_version >= '#{release_version}'")
             .where("build_version > '#{build_version}'")
+            .where(bundle_id: bundle_id)
             .order(id: :desc)
   end
 
