@@ -143,7 +143,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    graphql (1.10.8)
+    graphql (1.10.9)
     guard (2.16.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -456,7 +456,7 @@ DEPENDENCIES
   dotenv-rails
   friendly_id
   gitlab_omniauth-ldap (~> 2.1.1)
-  graphql (~> 1.10.8)
+  graphql (~> 1.10.9)
   guard (~> 2.16.2)
   guard-bundler
   guard-migrate
