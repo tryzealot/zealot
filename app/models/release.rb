@@ -17,7 +17,7 @@ class Release < ApplicationRecord
   before_create :default_source
   before_save   :convert_changelog
   before_save   :convert_custom_fields
-  before_save   :trip_git_branch
+  before_save   :trip_branch
 
   delegate :scheme, :device_type, to: :channel
   delegate :app, to: :scheme
@@ -213,10 +213,10 @@ class Release < ApplicationRecord
   end
 
   ORIGIN_PREFIX = 'origin/'
-  def trip_git_branch
-    return unless git_branch.start_with?(ORIGIN_PREFIX)
+  def trip_branch
+    return unless branch.start_with?(ORIGIN_PREFIX)
 
-    self.git_branch = git_branch[ORIGIN_PREFIX.length..-1]
+    self.branch = branch[ORIGIN_PREFIX.length..-1]
   end
 
   def default_source
