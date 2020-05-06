@@ -13,11 +13,11 @@ gem 'rake', '~> 13.0.1'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.1.3'
+gem 'redis', '~> 4.1.4'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
-gem 'graphql', '~> 1.10.8'
+gem 'graphql', '~> 1.10.9'
 gem 'rack-cors', '~> 1.1.1'
 
 # View
