@@ -923,10 +923,10 @@
   dependencies:
     infer-owner "^1.0.4"
 
-"@rails/ujs@^6.0.2":
-  version "6.0.2"
-  resolved "https://registry.npm.taobao.org/@rails/ujs/download/@rails/ujs-6.0.2.tgz#8d32452d51c5e115374a218fb5475803dc17f4c0"
-  integrity sha1-jTJFLVHF4RU3SiGPtUdYA9wX9MA=
+"@rails/ujs@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.3.tgz#e68a03278e30daea6a110aac5dfa33c60c53055d"
+  integrity sha512-CM9OEvoN9eXkaX7PXEnbsQLULJ97b9rVmwliZbz/iBOERLJ68Rk3ClJe+fQEMKU4CBZfky2lIRnfslOdUs9SLQ==
 
 "@rails/webpacker@^5.0.1":
   version "5.0.1"
