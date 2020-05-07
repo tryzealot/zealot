@@ -4,25 +4,33 @@
 
 > 如下罗列的变更是还未发布的列表
 
+## [4.0.0.beta4] (2020-05-07)
+
 ### 新功能
 
 - [Docker] 支持 Heroku 部署
 - [Web] 游客模式允许查看 App 详情、列表和上传 App 详情
 - [API] 上传 App 支持自定义字段 [#178](https://github.com/getzealot/zealot/issues/178)
+- [Web/API] 上传 App 传递了 `branch` 值开头包含 `origin/` 开头会自动清理掉
+- [Web] 登录、注册、找回密码、重设密码等用户认证界面增加项目简介
 
 ### 修复
 
 - [Web] 修正用户密码描述文案
-- [Web] 修复网络钩子包含 url 字段的地址错误
+- [Web] 修复网络钩子（WebHook）包含 url 字段的地址错误
 - [Web/API] 修复上传 iOS dSYM 文件上传报错
 - [API] 修复获取 App 接口 has_password 参数异常
 - [API] 修复上传 App 记录的 source 来源都是 Web
 - [API] 修复并支持上传 App 传递字符串类型的 json 格式的 changelog
 - [Web] 修复系统信息没有正常获取 CPU 和内存信息
 - [Web] 修复在线解析 Android 应用偶尔报错
+- [Web] 修复使用微信扫描二维码页面报错
 
 ### 变更
 
+- [API] 应用最新版本接口(`apps/latest`)增加 bundle_id 纬度的验证
+- [Web] 游客模式可以访问应用版本详情和下载操作
+- [Web] 应用版本详情对于 iOS AdHoc 右侧的设备列表左移并默认收起状态
 - [Web] 开发环境移除 GraphQL 控制台功能，推荐使用 [graphql-playground](https://github.com/prisma-labs/graphql-playground)
 - [Web] 页面底部移除 footbar，版本信息可以在系统信息查看
 
