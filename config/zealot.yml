@@ -1,5 +1,5 @@
 default: &base
-  version: 4.0.0
+  version: 4.0.0.beta4
   register_enabled: <%= ENV['ZEALOT_REGISTER_ENABLED'] || 'true' %>
   cron_jobs:
     clean_old_releases:
