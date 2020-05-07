@@ -214,6 +214,7 @@ class Release < ApplicationRecord
 
   ORIGIN_PREFIX = 'origin/'
   def trip_branch
+    return if branch.blank?
     return unless branch.start_with?(ORIGIN_PREFIX)
 
     self.branch = branch[ORIGIN_PREFIX.length..-1]
