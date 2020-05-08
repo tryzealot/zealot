@@ -2,7 +2,7 @@
 - if latest_release = @release.outdated?
   .callout.callout-warning
     h5
-      i.icon.fa.fa-info
+      i.icon.fas.fa-info
       |  当前不是最新版本！
     p
       = " #{latest_release.release_version} (#{latest_release.build_version}) "
@@ -21,39 +21,39 @@
   .card-body
     ul.app-metadata
       li title="上传版本"
-        i.fa.fa-gg
+        i.fab.fa-gg
         = @release.version
       li title="平台"
-        i.fa.fa-archive
+        i.fas.fa-archive
         = display_app_device(@release.channel)
       li title="主版本"
-        i.fa.fa-server
+        i.fas.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
       - if @release.release_type.present?
         li title="类型"
-          i.fa.fa-cubes
+          i.fas.fa-cubes
           = @release.release_type
       - if @release.file.present?
         li title="文件体积"
-          i.fa.fa-retweet
+          i.fas.fa-retweet
           = " #{number_to_human_size(@release.file.size)}"
       li title="上传时间"
-        i.fa.fa-calendar
+        i.fas.fa-calendar
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?
         li title="Git 分支"
-          i.fa.fa-code-fork
+          i.fas.fa-code-fork
           = @release.branch
       - if @release.git_commit.present?
         li title="Git Commit"
-          i.fa.fa-git
+          i.fas.fa-git
           = git_commit_url(@release.channel.git_url, @release.git_commit)
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
-          i.fa class="fa-#{field['icon']}"
+          i.fas class="fa-#{field['icon']}"
           = field['value']
       li title="上传来源"
-        i.fa.fa-gears
+        i.fas.fa-cogs
         - if @release.ci_url.blank?
           = @release.source
         - else
@@ -65,17 +65,17 @@
           == render 'releases/body/install_cert'
 
           button.btn.btn-icon.bg-success.btn-lg id="download_it" data-install-url="#{@release.install_url}" data-release-version="#{@release.version}" data-slug="#{@release.channel.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips"
-            i.fa.fa-paper-plane
+            i.fas.fa-paper-plane
             | 在线安装
         - else
           a.btn.btn-icon.bg-success.btn-social href="#{@release.download_url}" target="_blank"
-            i.fa.fa-download
+            i.fas.fa-download
             | 本地下载
 
         span style=("margin:0 5px")
         - if @release.ci_url.present?
           button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
-            i.fa.fa-wrench
+            i.fas.fa-wrench
             | 构建新版
 
     p#jekins_buld_alert.alert.alert-warning.d-none role="alert" style=("margin-top: 10px")

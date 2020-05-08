@@ -3,11 +3,11 @@
     .card.collapsed-card
       .card-header
         h3.card-title
-          i.fa.fa-mobile-phone
+          i.fas.fa-mobile-alt
           = " #{@release.devices.count} 台测试设备 (UDID)"
         .card-tools
           button.btn.btn-tool data-card-widget="collapse"
-            i.fa.fa-plus
+            i.fas.fa-plus
       .card-body.p-0
         table.table
           - @release.devices.each do |device|

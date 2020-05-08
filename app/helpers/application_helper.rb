@@ -12,7 +12,7 @@ module ApplicationHelper
 
     content = title
     if icon.present?
-      content = tag.i(class: "fa fa-#{icon}")
+      content = tag.i(class: "fas fa-#{icon}")
       content += title
     end
 

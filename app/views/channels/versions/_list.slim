@@ -31,7 +31,7 @@ table.table.table-striped.table-hover
             = time_ago_in_words(release.created_at)
         td
           a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="确定删除?" data-method="delete"
-            i.fa.fa-remove
+            i.fas.fa-trash-alt
   - else
     tr
       th colspan="5" 该版本没有任何上传记录！

@@ -36,7 +36,7 @@ ruby:
         h3.card-title Activities
         .card-tools
           button.btn.btn-tool data-card-widget="collapse"
-            i.fa.fa-minus
+            i.fas.fa-minus
       .card-body
         table.table.table-striped
           - @app_info.activities.each do |activity|
@@ -51,7 +51,7 @@ ruby:
           h3.card-title Permissions
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
-              i.fa.fa-minus
+              i.fas.fa-minus
         .card-body
           table.table.table-striped
             - @app_info.use_permissions.sort.each do |permission|
@@ -65,7 +65,7 @@ ruby:
           h3.card-title Features
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
-              i.fa.fa-minus
+              i.fas.fa-minus
         .card-body
           table.table.table-striped
             - @app_info.use_features.compact.sort.each do |feature|
@@ -79,7 +79,7 @@ ruby:
           h3.card-title Services
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
-              i.fa.fa-minus
+              i.fas.fa-minus
         .card-body
           table.table.table-striped
             - @app_info.services.sort_by(&:name).each do |service|

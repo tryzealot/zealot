@@ -4,36 +4,36 @@
       li.nav-header 功能区域
       li class="nav-item"
         a.nav-link href="#{ root_path }" class="#{active_class(root_path)}"
-          i.nav-icon.fa.fa-th
+          i.nav-icon.fas.fa-th
           p 控制台
       li class="nav-item"
         a.nav-link href="#{apps_path}" class="#{active_class(apps_path)}"
-          i.nav-icon.fa.fa-adn
+          i.nav-icon.fab.fa-adn
           p 应用管理
       li class="nav-item"
         a.nav-link href="#{debug_files_path}" class="#{active_class(debug_files_path)}"
-          i.nav-icon.fa.fa-bug
+          i.nav-icon.fas.fa-bug
           p 调试文件管理
       li class="nav-item"
         a.nav-link href="#{new_teardown_path}" class="#{active_class(new_teardown_path)}"
-          i.nav-icon.fa.fa-gavel
+          i.nav-icon.fas.fa-gavel
           p 应用解析
 
       - if current_user.admin?
         li.nav-header 管理区域
         li class="nav-item"
           a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
-            i.nav-icon.fa.fa-user
+            i.nav-icon.fas.fa-user
             p 用户管理
         li class="nav-item"
           a.nav-link href="#{admin_web_hooks_path}" class="#{active_class(admin_web_hooks_path)}"
-            i.nav-icon.fa.fa-anchor
+            i.nav-icon.fas.fa-anchor
             p 网络钩子管理
         li class="nav-item"
           a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
-            i.nav-icon.fa.fa-bar-chart
+            i.nav-icon.fas.fa-chart-bar
             p 后台任务
         li class="nav-item"
           a.nav-link href="#{admin_system_info_path}" class="#{active_class(admin_system_info_path)}"
-            i.nav-icon.fa.fa-desktop
+            i.nav-icon.fas.fa-desktop
             p 系统信息
