@@ -30,18 +30,15 @@
           h3.card-title 描述文件
         .card-body
           dl.system-info
-            dt 名称
+            dt 名称 (类型)
             dd
-              pre = @app_info.profile_name
+              pre = "#{@app_info.profile_name} (#{@app_info.release_type})"
             dt UUID
             dd
               pre = @app_info.mobileprovision.UUID
-            dt 类型
+            dt 团队名称 (Team ID)
             dd
-              pre = @app_info.release_type
-            dt 团队名称
-            dd
-              pre = "#{@app_info.team_name} (#{@app_info.team_identifier.first}"
+              pre = "#{@app_info.team_name} (#{@app_info.team_identifier.first})"
             dt 创建时间
             dd
               pre = @app_info.mobileprovision.created_date
@@ -52,53 +49,65 @@
                 span.text-green.text-bold
                   = "还有#{distance_of_time_in_words(Time.current, @app_info.expired_date)}过期"
                 | )
+
+      - if @app_info.mobileprovision.developer_certs.present?
+        .card
+          .card-header
+            h3.card-title
+              | 开发者证书 (
+              = @app_info.mobileprovision.developer_certs.size
+              | )
+          .card-body
+            dl.system-info
+              - @app_info.mobileprovision.developer_certs.each_with_index do |cert, i|
+                dt
+                  | 证书
+                  = i + 1
+                dd
+                  pre = cert.name
+                dt 创建时间
+                dd
+                  pre = cert.created_date
+                dt 过期时间
+                dd
+                  pre = cert.expired_date
+
+    - if @app_info.release_type == AppInfo::IPA::ExportType::ADHOC
       .card
         .card-header
-          h3.card-title 开发者证书
+          h3.card-title 设备列表
+          .card-tools
+            button.btn.btn-tool data-card-widget="collapse"
+              i.fa.fa-plus
         .card-body
-          dl.system-info
-            dt 名称
-            dd
-              pre = @app_info.profile_name
-            dt 过期时间
-            dd
-              pre = @app_info.mobileprovision.UUID
-
-  - if @app_info.release_type == AppInfo::IPA::ExportType::ADHOC
-    .card
-      .card-header
-        h3.card-title 设备列表
-      .card-body
-        table.table.table-striped
-          tr
-            th UDID
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-
-  .col-md-4
-    .card
-      .card-header
-        h3.card-title URL Schemes
-      .card-body
-        table.table.table-striped
-          - @app_info.info['CFBundleURLTypes'].each do |type|
+          table.table.table-striped
             tr
-              td = type['CFBundleURLSchemes'].join(', ')
+              th UDID
+            - @app_info.devices.each do |device|
+              tr
+                td = device
 
-
-  - if @app_info.mobileprovision.Entitlements['com.apple.developer.']
-    .col-md-4
+    - if @app_info.mobileprovision.Entitlements
       .card
         .card-header
-          h3.card-title Universal Links
+          h3.card-title Entitlements
+          .card-tools
+            button.btn.btn-tool data-card-widget="collapse"
+              i.fa.fa-plus
         .card-body
           table.table.table-striped
             - @app_info.mobileprovision.Entitlements.each do |scheme|
               tr
-                td = scheme
+                td = scheme[0]
+                td = scheme[1]
+
+  - if @app_info.info['CFBundleURLTypes'].present?
+    .col-md-4
+      .card
+        .card-header
+          h3.card-title URL Schemes
+        .card-body
+          table.table.table-striped
+            - @app_info.info['CFBundleURLTypes'].each do |type|
+              tr
+                td = type['CFBundleURLSchemes'].join(', ')
