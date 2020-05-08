@@ -25,7 +25,7 @@
                 tr
                   td = link_to scheme.name, app_scheme_path(app, scheme)
                   td
-                    span.pull-right.badge.bg-blue = scheme.total_releases
+                    span.float-right.badge.bg-blue = scheme.total_releases
           - else
             .p-3
               | 还没有任何应用类型和渠道，开始

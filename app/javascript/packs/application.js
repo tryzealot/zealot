@@ -18,7 +18,7 @@ const imagePath = (name) => images(name, true)
 // Import CSS
 import 'bootstrap/dist/css/bootstrap'
 import 'admin-lte/dist/css/adminlte'
-import 'font-awesome/css/font-awesome'
+import '@fortawesome/fontawesome-free/css/all.css'
 import 'stylesheets/application'
 
 // Import JS
