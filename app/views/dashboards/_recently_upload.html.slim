@@ -4,7 +4,7 @@ section
       .card
         .card-header
           h3.card-title
-            i.fa.fa-history
+            i.fas.fa-history
             |  上传时间线
           .card-tools
             = paginate @releases
@@ -23,10 +23,10 @@ section
                       = release.created_at.strftime('%Y-%m-%d')
 
                 div
-                  i.fa class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
+                  i.fab class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
                   .timeline-item
                     span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
-                      i.fa.fa-clock-o
+                      i.fas.fa-clock
                       | &nbsp
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
@@ -49,7 +49,7 @@ section
                             = release.short_git_commit
 
               div
-                i.fa.fa-clock-o.bg-gray
+                i.bg-gray.fas.fa-clock
           - else
             .time-label 没有任何上传，快快上传吧。
 

@@ -24,7 +24,7 @@ tr
       .btn-group-vertical
         .btn-group
           button.btn.btn-sm.btn-default data-toggle="tooltip" data-placement="top" title="测试"
-            i.fa.fa-bullhorn
+            i.fas.fa-bullhorn
           button.btn.btn-sm.btn-default.dropdown-toggle.dropdown-icon.dropdown-hover data-toggle="dropdown"
           ul.dropdown-menu role="menu" x-placement="bottom-start"
             li
@@ -35,10 +35,10 @@ tr
               a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}" 日志变更事件
         - if web_hook.channels_count == 1
           a.btn.btn-sm.btn-danger data-toggle="tooltip" data-placement="bottom" title="删除" data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{channel_web_hook_path(@channel, web_hook)}"
-            i.fa.fa-trash
+            i.fas.fa-trash-alt
         - else
           a.btn.btn-sm.btn-warning data-toggle="tooltip" data-placement="bottom" title="禁用" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
-            i.fa.fa-ban
+            i.fas.fa-ban
     - elsif type == :shared
       a.btn.btn-sm.btn-default del="nofollow" data-toggle="tooltip" data-placement="bottom" title="启用" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
-        i.fa.fa-check
+        i.fas.fa-check

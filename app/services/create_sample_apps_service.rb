@@ -48,7 +48,7 @@ class CreateSampleAppsService
                          'release'
                        end
 
-        2.times do
+        100.times do
           generate_release(channel, bundle_id, release_type, changelog)
         end
       end
