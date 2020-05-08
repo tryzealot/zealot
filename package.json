@@ -6,8 +6,6 @@
     "@rails/webpacker": "^5.0.1",
     "admin-lte": "^3.0.4",
     "filepond": "^4.9.3",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0"
   },
