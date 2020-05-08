@@ -42,6 +42,7 @@ class Release < ApplicationRecord
         begin
           parser = AppInfo.parse(release.file.path)
           release.source ||= 'Web'
+          release.name = parser.name
           release.bundle_id = parser.bundle_id
           release.release_version = parser.release_version
           release.build_version = parser.build_version

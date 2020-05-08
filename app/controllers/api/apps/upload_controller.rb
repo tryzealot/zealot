@@ -9,8 +9,8 @@ class Api::Apps::UploadController < Api::BaseController
   # POST /api/apps/upload
   #
   # @param token         [String]   required  user token
-  # @param channel_key   [String]   required  channel key of app
   # @param file          [String]   required  file of app
+  # @param channel_key   [String]   optional  channel key of app
   # @param name          [String]   optional  name of app
   # @param password      [String]   optional  password to download app
   # @param release_type  [String]   optional  release type(debug, beta, adhoc, release, enterprise etc)
