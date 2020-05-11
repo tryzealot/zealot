@@ -23,10 +23,6 @@ module ApplicationHelper
     "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
   end
 
-  def timeline_app_icon(device_type)
-    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
-  end
-
   # 激活 li 的 class
   def active_class(link_path = nil)
     if link_path
@@ -75,7 +71,11 @@ module ApplicationHelper
              'fa-adn'
            end
 
-    tag.i(class: "fa #{icon}")
+    tag.i(class: "fab #{icon}")
+  end
+
+  def timeline_app_icon(device_type)
+    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
   end
 
   # 获取浏览器 user agent

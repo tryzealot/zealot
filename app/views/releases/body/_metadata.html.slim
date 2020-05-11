@@ -24,7 +24,7 @@
         i.fab.fa-gg
         = @release.version
       li title="平台"
-        i.fas.fa-archive
+        = device_icon(@release.device_type)
         = display_app_device(@release.channel)
       - if @release.name.present?
         li title="应用名"
@@ -39,7 +39,7 @@
           = @release.release_type
       - if @release.file.present?
         li title="文件体积"
-          i.fas.fa-retweet
+          i.fas.fa-weight
           = " #{number_to_human_size(@release.file.size)}"
       li title="上传时间"
         i.fas.fa-calendar
