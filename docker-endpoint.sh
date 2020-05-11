@@ -3,12 +3,29 @@ set -eo pipefail
 
 cd /app
 
-# 清除可能异常退出但没有请 pid 的问题
+# Clear pid if unexpected exception exit
 rm -f tmp/pids/.pid
 
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 
 if [ "$1" = 'run_server' ]; then
+  if [ -d "new_public" ]; then
+    echo "Zealot updating public ..."
+    for x in public/*; do
+      if [ -z `echo $x | grep uploads` ]; then
+        rm -rf $x
+      fi
+    done
+
+    for x in new_public/*; do
+      if [ -z `echo $x | grep uploads` ]; then
+        mv $x public
+      fi
+    done
+
+    rm -rf new_public
+  fi
+
   # Start the server
   echo "Zealot server is ready to run ..."
   bundle exec puma -C config/puma.rb
