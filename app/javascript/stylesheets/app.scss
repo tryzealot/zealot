@@ -3,6 +3,12 @@
   .direct-chat-messages {
     padding: 0;
   }
+
+  .qr_code {
+    img {
+      width: 100%;
+    }
+  }
 }
 
 // show page
@@ -106,6 +112,7 @@
     }
   }
 }
+
 // App 最近上传
 
 .release-changelogs-toggle {
