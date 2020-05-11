@@ -12,14 +12,14 @@ if [ "$1" = 'run_server' ]; then
   if [ -d "new_public" ]; then
     echo "Zealot updating public ..."
     for x in public/*; do
-      if [ -z `echo $x | grep uploads` ]; then
-        rm -rf $x
+      if [ -z $(echo "$x" | grep uploads) ]; then
+        rm -rf "$x"
       fi
     done
 
     for x in new_public/*; do
-      if [ -z `echo $x | grep uploads` ]; then
-        mv $x public
+      if [ -z $(echo "$x" | grep uploads) ]; then
+        mv "$x" "public"
       fi
     done
 
