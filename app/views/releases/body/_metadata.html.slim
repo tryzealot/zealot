@@ -26,6 +26,10 @@
       li title="平台"
         i.fas.fa-archive
         = display_app_device(@release.channel)
+      - if @release.name.present?
+        li title="应用名"
+          i.fas.fa-file
+          = @release.name
       li title="主版本"
         i.fas.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
@@ -42,18 +46,18 @@
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?
         li title="Git 分支"
-          i.fas.fa-code-fork
+          i.fas.fa-code-branch
           = @release.branch
       - if @release.git_commit.present?
         li title="Git Commit"
-          i.fas.fa-git
+          i.fab.fa-git-alt
           = git_commit_url(@release.channel.git_url, @release.git_commit)
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
           i.fas class="fa-#{field['icon']}"
           = field['value']
       li title="上传来源"
-        i.fas.fa-cogs
+        i.fas.fa-compass
         - if @release.ci_url.blank?
           = @release.source
         - else
