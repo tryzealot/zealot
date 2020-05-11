@@ -15,9 +15,9 @@
               small.float-right
                 span.badge.badge-light data-toggle="tooltip" title="#{date}"
                   = time_ago_in_words(date)
-            - if changelog['user']
+            - if changelog['author']
               small.float-right.mr-1
-                span.badge.badge-info
-                  = changelog['user']
+                span.badge.badge-info data-toggle="tooltip" title="#{changelog['email']}"
+                  = changelog['author']
 
             = simple_format changelog['message'], class: 'mb-1'
