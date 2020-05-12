@@ -28,14 +28,17 @@ ruby:
                   = changelog_format release.changelog_list, class: 'mb-0'
               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                 .timeline-footer
-                  - if release.release_type
+                  - if release.release_type.present?
                     small.badge
                       = release.release_type
-                  - if release.branch
+                  - if release.branch.present?
                     small.badge
                       = release.branch
-                  - if release.short_git_commit
+                  - if release.short_git_commit.present?
                     small.badge
-                      = release.short_git_commit
+                      - if release.channel.git_url.present?
+                        = git_commit_url(@release.channel.git_url, @release.git_commit)
+                      - else
+                        = release.short_git_commit
         div
           i.fas.fa-clock.bg-gray
