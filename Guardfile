@@ -43,6 +43,7 @@ end
 guard :rails, host: '0.0.0.0', environment: environment do
   ignore(%r{^config/(locales|webpack)/.*})
 
+  watch('.env')
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
   watch('app/assets/config/manifest.js')
