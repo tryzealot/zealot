@@ -6,6 +6,11 @@ namespace :zealot do
     Rake::Task['zealot:db:upgrade'].invoke
   end
 
+  desc 'Zealot | Remove all data and init demo data and user'
+  task reset: :environment do
+    ResetForDemoModeJob.perform_now
+  end
+
   namespace :db do
     task upgrade: :environment do
       begin
