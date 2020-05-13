@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CreateSampleAppsService
+  RELEASE_COUNT = 3
+
   def call(user)
     stardford_app user
     android_channels_app user
@@ -51,7 +53,7 @@ class CreateSampleAppsService
                          'release'
                        end
 
-        100.times do
+        RELEASE_COUNT.times do
           generate_release(channel, bundle_id, release_type, changelog)
         end
       end

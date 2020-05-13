@@ -6,6 +6,10 @@ default: &base
       cron: '0 6 * * *'
       class: 'CleanOldReleasesJob'
       queue: schedule
+    reset_for_demo_mode:
+      cron: '0 0 * * *'
+      class: 'ResetForDemoModeJob'
+      queue: schedule
 
 development:
   <<: *base
