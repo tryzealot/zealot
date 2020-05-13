@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if admin_email? && demo_mode?
+    if helpers.default_admin_in_demo_mode?(@user)
       return redirect_to admin_users_url, alert: '演示模式不能编辑默认管理员'
     end
 
@@ -42,7 +42,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if admin_email? && demo_mode?
+    if helpers.default_admin_in_demo_mode?(@user)
       return redirect_to admin_users_url, alert: '演示模式不能删除默认管理员!'
     end
 

@@ -18,8 +18,6 @@
               | 等待确认邮件:
               = resource.unconfirmed_email
 
-          = f.input :current_password, label: '当前密码',
-                    input_html: { autocomplete: "current-password" }
           = f.input :password, label: '新密码',
                     input_html: { autocomplete: "new-password" }
           = f.input :password_confirmation, label: '重复新密码',
