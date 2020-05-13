@@ -26,8 +26,8 @@
 
 ## 最新版本
 
-- [ ] 稳定版本 - v4.0.0 - `icyleafcn/zealot:latest` - 还在研发测试中，尚未发布。
 - [x] 测试版本 - develop - `icyleafcn/zealot:nightly` - 基于 develop 分支每次提交构建的版本
+- [ ] 稳定版本 - v4.0.0 - `icyleafcn/zealot:latest` - 还在研发测试中，尚未发布。
 
 ## 演示
 
