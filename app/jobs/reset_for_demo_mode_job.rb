@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class ResetForDemoModeJob < ApplicationJob
+  include DemomodeHelper
+
   queue_as :schedule
 
   def perform
-    return unless demo_mode?
+    unless demo_mode?
+      logger.warn("Zealot is not in demo mode, can not execute ResetForDemoModeJob.")
+      return
+    end
 
     clean_apps
     clean_users
@@ -12,17 +17,6 @@ class ResetForDemoModeJob < ApplicationJob
   end
 
   private
-
-  def demo_mode?
-    if (value = ENV['ZEALOT_DEMO_MODE']) && value.present?
-      return true if value.to_i == 1
-      return true if value.downcase == 'true'
-    end
-
-    logger.warn("Zealot is not in demo mode, can not execute ResetForDemoModeJob.")
-
-    false
-  end
 
   def clean_apps
     apps = App.all

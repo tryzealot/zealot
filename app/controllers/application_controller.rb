@@ -14,21 +14,6 @@ class ApplicationController < ActionController::Base
   # Handle pundit error
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  protected
-
-  def demo_mode?
-    if (value = ENV['ZEALOT_DEMO_MODE']) && value.present?
-      return true if value.to_i == 1
-      return true if value.downcase == 'true'
-    end
-
-    false
-  end
-
-  def admin_email?
-    @user.email == Rails.application.secrets.admin_email
-  end
-
   private
 
   def set_raven_context
