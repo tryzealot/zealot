@@ -30,6 +30,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    if admin_email? && demo_mode?
+      return redirect_to admin_users_url, alert: '演示模式不能编辑默认管理员'
+    end
+
     # 没有设置密码的情况下不更新该字段
     user_params.delete(:password) if user_params[:password].blank?
     return render :edit unless @user.update(user_params)
@@ -38,6 +42,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    if admin_email? && demo_mode?
+      return redirect_to admin_users_url, alert: '演示模式不能删除默认管理员!'
+    end
+
     @user.destroy
     redirect_to admin_users_url, notice: '用户已经删除'
   end
