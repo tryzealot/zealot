@@ -29,6 +29,14 @@
 - [ ] 稳定版本 - v4.0.0 - `icyleafcn/zealot:latest` - 还在研发测试中，尚未发布。
 - [x] 测试版本 - develop - `icyleafcn/zealot:nightly` - 基于 develop 分支每次提交构建的版本
 
+## 演示
+
+- 演示地址：https://tryzealot.herokuapp.com/
+- 电子邮箱: `admin@zealot.com`
+- 登录密码：`ze@l0t`
+
+> **注意**: 演示服务的数据每日都会重新初始化，请勿上传重要数据！
+
 ## 快速上手
 
 ```
