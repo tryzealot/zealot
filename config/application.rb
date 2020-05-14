@@ -2,8 +2,6 @@
 
 require_relative 'boot'
 
-
-
 require 'rails'
 # Pick the frameworks you want:
 require 'active_model/railtie'
@@ -46,10 +44,11 @@ module Zealot
     # Log to STDOUT because Docker expects all processes to log here. You could
     # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.log_tags  = %i[subdomain uuid]
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    config.log_tags = [ :subdomain, :request_id ]
+    ActiveSupport::Logger.new(STDOUT).tap do |logger|
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
 
     # Action mailer settings.
     config.action_mailer.default_options = {
