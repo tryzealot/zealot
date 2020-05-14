@@ -68,18 +68,26 @@
         - if detect_device(@release.channel.device_type) == :ios
           == render 'releases/body/install_cert'
 
-          button.btn.btn-icon.bg-success.btn-lg id="download_it" data-install-url="#{@release.install_url}" data-release-version="#{@release.version}" data-slug="#{@release.channel.slug}" data-toggle="modal" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> 正在安装..." data-target="#install-tips"
+          button.btn.btn-icon.bg-success.btn-lg[
+              id="download_it"
+              data-install-url="#{@release.install_url}"
+              data-loading-text="<i class='fas fa-pulse fa-spinner'></i> 等待系统弹窗确认安装 ..."]
             i.fas.fa-paper-plane
             | 在线安装
+
         - else
           a.btn.btn-icon.bg-success.btn-social href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
             | 本地下载
 
-        span style=("margin:0 5px")
-        - if @release.ci_url.present?
-          button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
-            i.fas.fa-wrench
-            | 构建新版
+        / span style=("margin:0 5px")
+        / - if @release.ci_url.present?
+        /   button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
+        /     i.fas.fa-wrench
+        /     | 构建新版
+
+        div.ios-install-issues.d-none
+          i.fas.fa-asterisk
+          a href="javascript:void();" 无法安装或遇到 "未受信任的企业级开发者" 错误？
 
     p#jekins_buld_alert.alert.alert-warning.d-none role="alert" style=("margin-top: 10px")

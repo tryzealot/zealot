@@ -1,3 +1,5 @@
+$ios-install-issue-color: rgb(245, 39, 90);
+
 // index page
 .card-body {
   .direct-chat-messages {
@@ -108,6 +110,19 @@
 
       i {
         margin-right: 5px;
+      }
+    }
+  }
+
+  .app-actions {
+    .ios-install-issues {
+      padding-top: 10px;
+      font-size: 0.3em;
+      color: $ios-install-issue-color;
+
+      a {
+        color: $ios-install-issue-color;
+        padding-left: 3px;
       }
     }
   }
