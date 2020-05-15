@@ -1,5 +1,7 @@
 default: &base
-  version: 4.0.0.beta4
+  version: <%= ENV['VERSION'] || '4.0.0.beta3' %>
+  vcs_ref: <%= ENV['VCS_REF'] %>
+  build_date: <%= ENV['BUILD_DATE'] %>
   register_enabled: <%= ENV['ZEALOT_REGISTER_ENABLED'] || 'true' %>
   cron_jobs:
     clean_old_releases:

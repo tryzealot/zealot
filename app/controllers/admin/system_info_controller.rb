@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::SystemInfoController < ApplicationController
-  VERSION_URL = 'https://api.github.com/repos/getzealot/zealot/releases/latest'
+  VERSION_CHECK_URL = 'https://api.github.com/repos/getzealot/zealot/releases/latest'
 
   EXCLUDED_MOUNT_OPTIONS = [
     'nobrowse',
@@ -64,6 +64,7 @@ class Admin::SystemInfoController < ApplicationController
     set_memory
     set_disks
     set_env
+    get_version
   end
 
   private
@@ -110,5 +111,25 @@ class Admin::SystemInfoController < ApplicationController
         next
       end
     end
+  end
+
+  def get_version
+    version = Rails.cache.fetch('zealot_version_check', expires_in: 1.hours) do
+      HTTP.headers(accept: 'application/vnd.github.v3+json')
+          .get(VERSION_CHECK_URL)
+          .parse
+    end
+
+    latest_version = version['tag_name']
+    @version = {
+      update_available: update_available?(latest_version),
+      current_version: Zealot::Setting.version,
+      latest_version: latest_version,
+      release_link: version['html_url'],
+    }
+  end
+
+  def update_available?(new_version)
+    Gem::Version.new(new_version) > Gem::Version.new(Zealot::Setting.version)
   end
 end
