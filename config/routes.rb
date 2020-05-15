@@ -108,6 +108,10 @@ Rails.application.routes.draw do
       get 'projects/:project/build', to: 'build#create', as: 'project_build'
       get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
     end
+
+    namespace :zealot do
+      resources :version, only: :index
+    end
   end
 
   #############################################
