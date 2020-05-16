@@ -69,7 +69,7 @@ ARG APP_ROOT=/app
 
 LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-ref=$VCS_REF \
-      im.ews.zealot.version="$ZEALOT_VERSION-$VERSION" \
+      im.ews.zealot.version="$ZEALOT_VERSION-$TAG" \
       im.ews.zealot.name="Zealot" \
       im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
       im.ews.zealot.url="https://zealot.ews.im/" \
@@ -99,8 +99,6 @@ RUN set -ex && \
 WORKDIR $APP_ROOT
 
 COPY --from=builder $APP_ROOT $APP_ROOT
-
-ENV ZEALOT_VERSION="4.0.0"
 
 EXPOSE 3000
 
