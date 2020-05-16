@@ -15,13 +15,16 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
     config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
     config.sanitize_fields << 'token'
 
-    version = ENV['ZEALOT_VERSION'] || Zealot::Setting.version
-    vcs_ref = ENV['ZEALOT_VCS_REF']
+    version = Zealot::Setting.version
+    vcs_ref = Zealot::Setting.vcs_ref
     version = "#{version}-#{vcs_ref}" if vcs_ref.present?
     config.release = version
 
-    tags = {}
-    tags[:docker] = true if vcs_ref.present?
-    config.tags = tags
+    if vcs_ref.present?
+      config.tags = {
+        docker: true,
+        docker_tag: ENV['DOCKER_TAG']
+      }
+    end
   end
 end
