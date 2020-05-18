@@ -1,6 +1,20 @@
+.timeline::before {
+  left: 13px;
+}
+
 .timeline {
   div {
+    margin-right: 0;
+
+    .fas,
+    .fa,
+    .fab,
+    .far {
+      left: 0;
+    }
+
     .timeline-item {
+      margin-left: 40px;
       background-color: #f8f8f8;
     }
 
