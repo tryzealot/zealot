@@ -102,21 +102,18 @@ class Release < ApplicationRecord
   end
 
   def download_url
-    api_apps_download_url(channel.slug, version)
+    download_release_url(id)
   end
 
   def install_url
     return download_url if channel.device_type.casecmp('android').zero?
 
-    download_url = api_apps_install_url(
-      channel.slug, version,
-      protocol: Rails.env.development? ? 'http' : 'https'
-    )
+    download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
   end
 
   def release_url
-    channel_release_url channel, self
+    channel_release_url(channel, self)
   end
 
   def qrcode_url(size = :thumb)
