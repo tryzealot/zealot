@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-# 依赖 view 只能继承 ApplicationController
-class Api::Apps::InstallUrlController < ApplicationController
-  # GET /api/apps/install
+class Releases::InstallController < ApplicationController
   def show
-    @release = Release.version_by_channel(params[:slug], params[:version])
+    @release = Release.version_by_channel(params[:channel_id], params[:id])
+
     if @release
       render content_type: 'text/xml', layout: false
     else
@@ -12,3 +11,4 @@ class Api::Apps::InstallUrlController < ApplicationController
     end
   end
 end
+
