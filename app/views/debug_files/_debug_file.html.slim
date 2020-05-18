@@ -24,7 +24,7 @@ ruby:
                       = debug_file.build_version
 
                 .debug-file-section-size
-                  a.btn.btn-icon.btn-sm.btn-success.btn-flat href="#{debug_file.file_url}"
+                  a.btn.btn-icon.btn-sm.btn-success.btn-flat href="#{debug_file.file_url}" target="_blank"
                     i.fas.fa-download
                     | 下载 (
                     = number_to_human_size(debug_file.file.size)
