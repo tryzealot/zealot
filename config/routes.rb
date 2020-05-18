@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
-
   root to: 'dashboards#index'
 
   #############################################
@@ -39,6 +37,10 @@ Rails.application.routes.draw do
 
     resources :releases, except: :index, path_names: { new: 'upload' } do
       scope module: :releases do
+        get :install, to: 'install#show'
+      end
+
+      scope module: :releases do
         get :qrcode, to: 'qrcode#show'
       end
 
@@ -63,6 +65,17 @@ Rails.application.routes.draw do
   resources :teardowns, only: %i[show new create], path_names: { new: 'upload' }
 
   #############################################
+  # Download
+  #############################################
+  namespace :download do
+    resources :releases, only: :show
+    resources :debug_files, only: :show
+  end
+
+  # get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
+  # get ':slug(/:version)/download', to: 'download#show', as: 'download'
+
+  #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
@@ -80,6 +93,11 @@ Rails.application.routes.draw do
   end
 
   #############################################
+  # Development Only
+  #############################################
+  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
+
+  #############################################
   # API v1
   #############################################
   namespace :api do
@@ -90,8 +108,7 @@ Rails.application.routes.draw do
       get 'version_exist', to: 'version_exist#show'
       get 'versions', to: 'versions#index'
       get 'versions/(:release_version)', to: 'versions#show'
-      get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
-      get ':slug(/:version)/download', to: 'download#show', as: 'download'
+
       get ':id', action: :show
       patch ':id', action: :update
       delete ':id', action: :destroy
