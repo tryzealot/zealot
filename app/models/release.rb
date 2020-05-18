@@ -113,7 +113,7 @@ class Release < ApplicationRecord
   end
 
   def release_url
-    channel_release_url channel, self
+    channel_release_url(channel, self)
   end
 
   def qrcode_url(size = :thumb)

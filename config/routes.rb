@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   resources :teardowns, only: %i[show new create], path_names: { new: 'upload' }
 
   #############################################
-  # Install & Download
+  # Download
   #############################################
   namespace :download do
     resources :releases, only: :show
