@@ -1,8 +1,10 @@
 class Download::ReleasesController < ApplicationController
   before_action :set_release
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
+
   def show
-    return render_not_found unless @release && File.exist?(@release.file.path.to_s)
+    return render_not_found_entity_response unless File.exist?(@release.file.path.to_s)
 
     # 触发 web_hook
     @release.channel.perform_web_hook('download_events')
@@ -15,12 +17,15 @@ class Download::ReleasesController < ApplicationController
 
   private
 
-  def set_release
-    @release = Release.find(params[:id])
+  def render_not_found_entity_response
+    render json: {
+      error: '没有找到应用文件'
+    }, status: :not_found
   end
 
-  def render_not_found
-    render json: { error: '没有找到应用安装文件' }, status: :not_found
+
+  def set_release
+    @release = Release.find(params[:id])
   end
 end
 
