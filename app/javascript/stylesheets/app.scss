@@ -128,6 +128,14 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
+.devices {
+  .table {
+    td {
+      word-break: break-all;
+    }
+  }
+}
+
 // App 最近上传
 
 .release-changelogs-toggle {
