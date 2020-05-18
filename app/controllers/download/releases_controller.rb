@@ -1,11 +1,8 @@
-# frozen_string_literal: true
+class Download::ReleasesController < ApplicationController
+  before_action :set_release
 
-class Api::Apps::DownloadController < Api::BaseController
-  # GET /api/apps/download
   def show
-    @release = Release.version_by_channel(params[:slug], params[:version])
-
-    return render_not_found unless @release && File.exist?(@release.file.path)
+    return render_not_found unless @release && File.exist?(@release.file.path.to_s)
 
     # 触发 web_hook
     @release.channel.perform_web_hook('download_events')
@@ -18,7 +15,13 @@ class Api::Apps::DownloadController < Api::BaseController
 
   private
 
+  def set_release
+    @release = Release.find(params[:id])
+  end
+
   def render_not_found
     render json: { error: '没有找到应用安装文件' }, status: :not_found
   end
 end
+
+
