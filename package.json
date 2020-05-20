@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/ujs": "^6.0.3",
     "@rails/webpacker": "^5.0.1",
-    "admin-lte": "^3.0.4",
+    "admin-lte": "^3.0.5",
     "filepond": "^4.9.3",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0"

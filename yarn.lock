@@ -1235,10 +1235,10 @@ acorn@^7.0.0:
   resolved "https://registry.npm.taobao.org/acorn/download/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
   integrity sha1-lJ028sKSU12mAig1hsJHfFfrLWw=
 
-admin-lte@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-3.0.4.tgz#c80d0b1e2c7e657c9557a653318437c722e31842"
-  integrity sha512-OsA/yzAPyZgm3WsQYBXOMO8FZx2+kYoiSV6vYWwluSvenTYW/8CRrsIZFck2WndcZnMx9/HReWo5ePJXD3Xc2g==
+admin-lte@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-3.0.5.tgz#664664863bb7a5bf306b3a7b76fd16b345f0b00f"
+  integrity sha512-VkwBy6KukhuQk8A0GrryZorkDHVK52azkCu4l2Kw5kJt4tMQD2ezb268ssFpd6uKM8swLJ64td2Dx6y/MHA7Ew==
   dependencies:
     "@fortawesome/fontawesome-free" "^5.13.0"
     "@fullcalendar/bootstrap" "^4.4.0"
