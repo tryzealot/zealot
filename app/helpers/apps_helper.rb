@@ -60,6 +60,20 @@ module AppsHelper
     content_tag(:a, commit_name, href: commit_url)
   end
 
+  def git_branch_url(release)
+    return unless branch = release.branch
+    return if branch.blank?
+
+    link_to(branch, channel_branches_path(release.channel, name: branch))
+  end
+
+  def release_type_url(release)
+    return unless release_type = release.release_type
+    return if release_type.blank?
+
+    link_to(release_type, channel_release_types_path(release.channel, name: release_type))
+  end
+
   def display_app_device(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 

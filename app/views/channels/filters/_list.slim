@@ -19,9 +19,9 @@ table.table.table-striped.table-hover
         td
           = release.build_version
         td
-          = link_to release.release_type, channel_release_types_path(release.channel, name: release.release_type)
+          = release_type_url(release)
         td
-          = link_to release.branch, channel_branches_path(release.channel, name: release.branch)
+          = git_branch_url(release)
         td
           = git_commit_url(release.channel.git_url, release.git_commit)
         td
