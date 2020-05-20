@@ -25,13 +25,9 @@ class Release < ApplicationRecord
   paginates_per     20
   max_paginates_per 50
 
-  def self.version_by_channel(slug, version = nil)
-    channel = Channel.friendly.find slug
-    if version
-      channel.releases.find_by version: version
-    else
-      channel.releases.latest
-    end
+  def self.version_by_channel(slug, id = nil)
+    channel = Channel.friendly.find(slug)
+    id.present? ? channel.releases.find(id) : channel.releases.latest
   end
 
   # 上传pp
