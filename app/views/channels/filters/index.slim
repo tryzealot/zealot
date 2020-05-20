@@ -8,12 +8,10 @@
   .col-md-12
     .card
       .card-header
-        h3.card-title
-          = @version
-          |  开发版本列表
+        h3.card-title = @subtitle
         .card-tools
-          a href="#{@back_url}"
+          a href="#{channel_path(@channel)}"
             i.far.fa-list-alt
             |  返回上级页面
       .card-body.table-responsive.p-0
-        == render 'list'
+        == render 'channels/filters/list'
