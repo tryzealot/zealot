@@ -51,6 +51,8 @@ Rails.application.routes.draw do
 
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
+      resources :branches, only: %i[index]
+      resources :release_types, only: %i[index]
     end
   end
 
