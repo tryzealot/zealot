@@ -36,7 +36,7 @@
       - if @release.release_type.present?
         li title="类型"
           i.fas.fa-cubes
-          = @release.release_type
+          = release_type_url(@release)
       - if @release.file.present?
         li title="文件体积"
           i.fas.fa-weight
@@ -47,7 +47,7 @@
       - if @release.branch.present?
         li title="Git 分支"
           i.fas.fa-code-branch
-          = @release.branch
+          = git_branch_url(@release)
       - if @release.git_commit.present?
         li title="Git Commit"
           i.fab.fa-git-alt
