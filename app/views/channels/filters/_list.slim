@@ -13,15 +13,15 @@ table.table.table-striped.table-hover
     - @releases.each_with_index do |release, index|
       tr
         td
-          = index + 1
+          = link_to index + 1, channel_release_path(release.channel, release)
         td
           = link_to release.release_version, channel_version_path(release.channel, release.release_version)
         td
-          = link_to release.build_version, channel_release_path(release.channel, release)
+          = release.build_version
         td
-          = release.release_type
+          = link_to release.release_type, channel_release_types_path(release.channel, name: release.release_type)
         td
-          = release.branch
+          = link_to release.branch, channel_branches_path(release.channel, name: release.branch)
         td
           = git_commit_url(release.channel.git_url, release.git_commit)
         td
