@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :releases, except: :index, path_names: { new: 'upload' } do
+    resources :releases, path_names: { new: 'upload' } do
       scope module: :releases do
         get :install, to: 'install#show'
       end

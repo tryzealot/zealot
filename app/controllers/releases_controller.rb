@@ -5,6 +5,10 @@ class ReleasesController < ApplicationController
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
 
+  def index
+    redirect_to channel_release_path(@channel, @channel.releases.last)
+  end
+
   def show
     redirect_to new_user_session_path unless !wechat? || @channel.password.blank? || !user_signed_in?
 
@@ -67,5 +71,9 @@ class ReleasesController < ApplicationController
     params.require(:release).permit(
       :file, :changelog, :release_type, :branch, :git_commit, :ci_url
     )
+  end
+
+  def render_not_found_entity_response(e)
+    redirect_to channel_releases_path, notice: "没有找到版本 #{e.id}，跳转至最新版本"
   end
 end

@@ -107,4 +107,8 @@ class AppsController < ApplicationController
                             schemes_attributes: { name: [] }
                           )
   end
+
+  def render_not_found_entity_response(e)
+    redirect_to apps_path, notice: "没有找到应用 #{e.id}，跳转至应用列表"
+  end
 end
