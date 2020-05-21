@@ -27,6 +27,7 @@ db/*.sqlite3
 /doc/specs.html
 /public/assets
 /public/packs
+/public/backup
 /public/packs-test
 /public/system/
 /public/uploads
