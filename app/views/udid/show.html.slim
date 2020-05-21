@@ -5,7 +5,7 @@
   = @title
 
 .row
-  .col-md-6
+  .col-md-12
     .card.system_info
       .card-header
         h3.card-title 设备信息
@@ -13,13 +13,29 @@
         dl.system-info
           dt UDID
           dd
-            pre = params[:udid]
+            .input-group.mb-3
+              input#udid-text.form-control.rounded-0 value="#{params[:udid]}" readonly="true"
+              span.input-group-append
+                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#udid-text"
+                  i.far.fa-clipboard
           dt 型号
           dd
-            pre = params[:product]
+            .input-group.mb-3
+              input#product-text.form-control.rounded-0 value="#{params[:product]}" readonly="true"
+              span.input-group-append
+                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#product-text"
+                  i.far.fa-clipboard
           dt 序列号
           dd
-            pre = params[:serial]
+            .input-group.mb-3
+              input#serial-text.form-control.rounded-0 value="#{params[:serial]}" readonly="true"
+              span.input-group-append
+                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#serial-text"
+                  i.far.fa-clipboard
           dt 版本
           dd
-            pre = params[:version]
+            .input-group.mb-3
+              input#version-text.form-control.rounded-0 value="#{params[:version]}" readonly="true"
+              span.input-group-append
+                  button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#version-text"
+                    i.far.fa-clipboard
