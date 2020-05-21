@@ -74,8 +74,12 @@ Rails.application.routes.draw do
     resources :debug_files, only: :show
   end
 
-  # get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
-  # get ':slug(/:version)/download', to: 'download#show', as: 'download'
+  #############################################
+  # UDID (iOS)
+  #############################################
+  get 'udid/install', to: 'udid#install'
+  post 'udid/retrieve', to: 'udid#create'
+  get 'udid/:udid', to: 'udid#show', as: 'udid_result'
 
   #############################################
   # Admin

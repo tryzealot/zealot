@@ -24,6 +24,7 @@ gem 'rack-cors', '~> 1.1.1'
 ## 模板引擎
 gem 'jb', '~> 0.7.1'
 gem 'slim-rails', '~> 3.2.0'
+
 ## 表单生成
 gem 'simple_form', '~> 5.0'
 
@@ -37,9 +38,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 # Helper
-# HTTP 请求
+## HTTP 请求
 gem 'http'
-# 用户认证
+## 用户认证
 gem 'devise', '~> 4.7.1'
 gem 'devise-i18n', '~> 1.9.0'
 gem 'omniauth', '~> 1.9'
@@ -47,17 +48,21 @@ gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 gem 'pundit', '~> 2.1.0'
 
-# 系统信息
+## UDID
+gem 'openssl', '~> 2.2.0'
+gem 'plist', '~> 3.5.0'
+
+## 系统信息
 gem 'sys-filesystem', '~> 1.3.4'
 gem 'vmstat', '~> 2.3.0'
 
-# 异常报错上报
+## 异常报错上报
 gem 'sentry-raven'
 
-# Jenkins SDK
+## Jenkins SDK
 gem 'jenkins_api_client'
 
-# 生成条形码/二维码
+## 生成条形码/二维码
 gem 'rqrcode'
 
 # 异步队列
