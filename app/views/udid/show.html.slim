@@ -1,0 +1,25 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+.row
+  .col-md-6
+    .card.system_info
+      .card-header
+        h3.card-title 设备信息
+      .card-body
+        dl.system-info
+          dt UDID
+          dd
+            pre = params[:udid]
+          dt 型号
+          dd
+            pre = params[:product]
+          dt 序列号
+          dd
+            pre = params[:serial]
+          dt 版本
+          dd
+            pre = params[:version]
