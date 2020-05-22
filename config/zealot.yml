@@ -11,6 +11,11 @@ default: &base
       cron: '0 0 * * *'
       class: 'ResetForDemoModeJob'
       queue: schedule
+  backup:
+    path: 'public/backup'
+    keep_time: 604800
+    pg_schema: public
+
 
 development:
   <<: *base

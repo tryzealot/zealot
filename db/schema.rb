@@ -157,7 +157,6 @@ ActiveRecord::Schema.define(version: 2020_05_08_074228) do
 
   create_table "web_hooks", force: :cascade do |t|
     t.bigint "channel_id"
-    t.string "title"
     t.string "url"
     t.text "body"
     t.integer "upload_events", limit: 2
