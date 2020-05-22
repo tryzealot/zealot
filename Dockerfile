@@ -63,7 +63,7 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata imagemagick imagemagick-dev postgresql-dev"
+ARG PACKAGES="tzdata imagemagick imagemagick-dev postgresql-dev openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 
