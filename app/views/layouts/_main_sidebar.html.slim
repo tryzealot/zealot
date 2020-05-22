@@ -14,10 +14,16 @@
         a.nav-link href="#{debug_files_path}" class="#{active_class(debug_files_path)}"
           i.nav-icon.fas.fa-bug
           p 调试文件管理
+
+      li.nav-header 工具箱
       li class="nav-item"
         a.nav-link href="#{new_teardown_path}" class="#{active_class(new_teardown_path)}"
           i.nav-icon.fas.fa-gavel
           p 应用解析
+      li class="nav-item"
+        a.nav-link href="#{udid_path}" class="#{active_class(udid_path)}"
+          i.nav-icon.fas.fa-mobile
+          p 获取 iOS 设备 UDID
 
       - if current_user.admin?
         li.nav-header 管理区域

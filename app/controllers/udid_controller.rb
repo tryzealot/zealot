@@ -2,6 +2,8 @@
 
 class UdidController < ApplicationController
   def index
+    @title = '获取设备 UDID'
+    @qrcode = RQRCode::QRCode.new(udid_url)
   end
 
   def create
@@ -27,7 +29,7 @@ class UdidController < ApplicationController
   def install
     @udid = Rails.cache.fetch('ios-udid', expires_in: 1.week) { SecureRandom.uuid.upcase }
 
-    content_type = params[:preview].present? ? 'html/text' : 'application/x-apple-aspen-config'
+    content_type = params[:preview].present? ? 'application/xml' : 'application/x-apple-aspen-config'
     render content_type: content_type, layout: false
 
     # plist = render_to_string(layout: false)

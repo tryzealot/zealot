@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   #############################################
   # UDID (iOS)
   #############################################
+  get 'udid', to: 'udid#index'
   get 'udid/install', to: 'udid#install'
   post 'udid/retrieve', to: 'udid#create'
   get 'udid/:udid', to: 'udid#show', as: 'udid_result'
