@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# frozen_string_literal: true
+
 class Download::ReleasesController < ApplicationController
   before_action :set_release
 

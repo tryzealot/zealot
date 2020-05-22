@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: :registrations, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     resource :registration,
-      only: [:new, :create, :edit, :update],
+      only: %i[new create edit update],
       path: 'users',
       path_names: { new: 'sign_up' },
       controller: 'users/registrations',
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :releases, except: :index, path_names: { new: 'upload' } do
+    resources :releases, path_names: { new: 'upload' } do
       scope module: :releases do
         get :install, to: 'install#show'
       end

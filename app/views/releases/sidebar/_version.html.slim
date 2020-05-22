@@ -15,5 +15,5 @@ ruby:
         - channel.release_versions.each do |version|
           tr
             td
-              = link_to version, channel_version_path(channel_id: channel.id, id: version)
+              = link_to version, channel_version_path(channel.slug, version)
 
