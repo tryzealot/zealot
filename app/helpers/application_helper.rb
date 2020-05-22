@@ -95,6 +95,10 @@ module ApplicationHelper
     !(source =~ /Android|android/i).nil?
   end
 
+  def phone?
+    ios? || android?
+  end
+
   # 检查移动设备
   def detect_device(device)
     if ios?(user_agent) && ios?(device)
