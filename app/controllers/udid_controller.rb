@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UdidController < ApplicationController
   def index
   end
