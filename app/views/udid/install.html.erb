@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadContent</key>
+        <dict>
+            <key>URL</key>
+            <string><%= udid_retrieve_url %></string>
+            <key>DeviceAttributes</key>
+            <array>
+                <string>UDID</string>
+                <string>IMEI</string>
+                <string>SERIAL</string>
+                <string>VERSION</string>
+                <string>PRODUCT</string>
+            </array>
+        </dict>
+        <key>PayloadOrganization</key>
+        <string>Zealot</string>
+        <key>PayloadIdentifier</key>
+        <string>im.ews.zealot.profile-service</string>
+        <key>PayloadDisplayName</key>
+        <string>获取设备UDID</string>
+        <key>PayloadDescription</key>
+        <string>本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+
+本服务由 <%= root_url %> 提供。
+        </string>
+        <key>PayloadType</key>
+        <string>Profile Service</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadUUID</key>
+        <string><%= @udid %></string>
+    </dict>
+</plist>

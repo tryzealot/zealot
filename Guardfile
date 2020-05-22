@@ -5,6 +5,8 @@ if `uname`.match?(/Darwin/)
   notification :terminal_notifier
 end
 
+ignore_rails = ENV['IGNORE_RAILS'] || 'false'
+
 environment = ENV.fetch('RAILS_ENV', 'development')
 
 ### Guard::Sidekiq
@@ -47,7 +49,7 @@ guard :rails, host: '0.0.0.0', environment: environment do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
   watch('app/assets/config/manifest.js')
-end
+end if ignore_rails == 'false'
 
 guard :bundler do
   require 'guard/bundler'

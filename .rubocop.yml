@@ -33,11 +33,15 @@ Metrics/BlockLength:
     - 'config/**/*.rb'
     - 'spec/**/*.rb'
     - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
 
 Layout/LineLength:
   Max: 120
   Exclude:
+    - 'Rakefile'
     - 'config/**/*.rb'
+    - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
 
 Metrics/MethodLength:
   Max: 60
@@ -51,6 +55,8 @@ Metrics/ModuleLength:
 # Raise complexity metrics
 Metrics/AbcSize:
   Max: 20
+  Exclude:
+    - 'lib/backup/**/*'
 
 Style/AsciiComments:
   Enabled: false
