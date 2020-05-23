@@ -37,7 +37,7 @@ ruby:
         .card-tools
           button.btn.btn-tool data-card-widget="collapse"
             i.fas.fa-minus
-      .card-body
+      .card-body.p-0
         table.table.table-striped
           - @app_info.activities.each do |activity|
             - if activity.present?
@@ -52,7 +52,7 @@ ruby:
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
               i.fas.fa-minus
-        .card-body
+        .card-body.p-0
           table.table.table-striped
             - @app_info.use_permissions.sort.each do |permission|
               - if permission.present?
@@ -66,7 +66,7 @@ ruby:
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
               i.fas.fa-minus
-        .card-body
+        .card-body.p-0
           table.table.table-striped
             - @app_info.use_features.compact.sort.each do |feature|
               - if feature.present?
@@ -80,7 +80,7 @@ ruby:
           .card-tools
             button.btn.btn-tool data-card-widget="collapse"
               i.fas.fa-minus
-        .card-body
+        .card-body.p-0
           table.table.table-striped
             - @app_info.services.sort_by(&:name).each do |service|
               - if service.present?
