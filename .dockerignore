@@ -38,3 +38,4 @@ README.*
 .DS_Store
 .ruby-gemset
 .ruby-version
+.codeclimate.yml
