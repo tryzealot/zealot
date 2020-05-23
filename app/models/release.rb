@@ -9,6 +9,7 @@ class Release < ApplicationRecord
   scope :latest, -> { order(version: :desc).first }
 
   belongs_to :channel
+  has_and_belongs_to_many :devices
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
   validate :bundle_id_matched, on: :create
@@ -83,7 +84,7 @@ class Release < ApplicationRecord
   def size
     file&.size
   end
-  alias file_size size
+  alias_method :file_size, :size
 
   def short_git_commit
     return nil if git_commit.blank?

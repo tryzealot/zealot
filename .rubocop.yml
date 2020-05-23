@@ -58,6 +58,9 @@ Metrics/AbcSize:
   Exclude:
     - 'lib/backup/**/*'
 
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
 Style/AsciiComments:
   Enabled: false
 

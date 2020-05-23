@@ -44,6 +44,7 @@ end
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 guard :rails, host: '0.0.0.0', environment: environment do
   ignore(%r{^config/(locales|webpack)/.*})
+  ignore(%r{^lib/tasks/.*})
 
   watch('.env')
   watch('Gemfile.lock')

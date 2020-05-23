@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     post 'debug_files/upload', to: 'debug_files#create'
     get 'debug_files/download', to: 'debug_files/download#show'
     resources :debug_files, except: %i[create new edit]
+    resources :devices, only: %i[update]
 
     namespace :jenkins do
       get 'projects', to: 'projects#index'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_074228) do
+ActiveRecord::Schema.define(version: 2020_05_23_081718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 2020_05_08_074228) do
     t.index ["app_id"], name: "index_debug_files_on_app_id"
   end
 
+  create_table "devices", force: :cascade do |t|
+    t.string "udid", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["udid"], name: "index_devices_on_udid"
+  end
+
+  create_table "devices_releases", id: false, force: :cascade do |t|
+    t.bigint "release_id", null: false
+    t.bigint "device_id", null: false
+    t.index ["device_id", "release_id"], name: "index_devices_releases_on_device_id_and_release_id"
+    t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
+  end
+
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
     t.string "bundle_id", null: false
@@ -93,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_074228) do
     t.string "ci_url"
     t.jsonb "changelog", null: false
     t.string "file"
-    t.jsonb "devices", default: [], null: false
+    t.jsonb "legacy_devices", default: [], null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "custom_fields", default: [], null: false
