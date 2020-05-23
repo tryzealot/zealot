@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   #############################################
   # Teardown
   #############################################
-  resources :teardowns, only: %i[show new create], path_names: { new: 'upload' }
+  resources :teardowns, only: %i[index show new create], path_names: { new: 'upload' }
 
   #############################################
   # Download

@@ -6,6 +6,16 @@
 
 .row
   .col-md-12
-    .card
+    .card.card-outline-tabs.card-primary.card-outline
+      .card-header.p-0.border-bottom-0
+        ul.nav.nav-tabs role="tablist"
+          li.nav-item
+            a.nav-link.active data-toggle="tab" href="#tab-upload" 上传应用
+          li.nav-item
+            a.nav-link data-toggle="tab" href="#tab-exists" 已上传应用
       .card-body
-        == render 'form'
+        .tab-content
+          .tab-pane.active id="tab-upload"
+            == render 'upload_form'
+          .tab-pane id="tab-exists"
+            == render 'exists_form'
