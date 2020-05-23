@@ -28,3 +28,12 @@
     }
   }
 }
+
+// 适配 card 内内容超长
+.card-body {
+  .table {
+    td {
+      word-break: break-all;
+    }
+  }
+}
