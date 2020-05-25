@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     redirect_to new_teardown_path, alert: "链接失效，请重新解析文件"
@@ -17,6 +18,7 @@ class TeardownsController < ApplicationController
     if params[:file]
       parse_file
     else
+      authorize :teardown, :create?
       parse_exists_app
     end
 
@@ -35,7 +37,7 @@ class TeardownsController < ApplicationController
 
   def parse_file
     file = params[:file]
-    @app_info = AppInfo.parse(file.tempfile)
+    authorize @app_info = AppInfo.parse(file.tempfile)
   end
 
   def parse_exists_app
@@ -45,6 +47,6 @@ class TeardownsController < ApplicationController
     end
 
     release = Release.find(data[:id])
-    @app_info = AppInfo.parse(release.file.file.path)
+    authorize @app_info = AppInfo.parse(release.file.file.path)
   end
 end
