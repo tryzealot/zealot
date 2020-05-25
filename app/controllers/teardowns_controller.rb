@@ -15,13 +15,16 @@ class TeardownsController < ApplicationController
   end
 
   def create
-    if params[:file]
+    # return render json: params
+    case params[:type]
+    when 'upload'
       parse_file
-    else
-      authorize :teardown, :create?
+    when 'url'
       parse_exists_app
+    else
+      flash[:error] = '错误请求，无法解析'
+      render :new
     end
-
   rescue ActionController::RoutingError => e
     flash[:error] = e.message
     render :new
@@ -36,8 +39,11 @@ class TeardownsController < ApplicationController
   private
 
   def parse_file
-    file = params[:file]
-    authorize @app_info = AppInfo.parse(file.tempfile)
+    unless file = params[:file]
+      raise ActionController::RoutingError, '请选择需要解析的 ipa 或 apk 安装包'
+    end
+
+    @app_info = AppInfo.parse(file.tempfile)
   end
 
   def parse_exists_app
@@ -47,6 +53,6 @@ class TeardownsController < ApplicationController
     end
 
     release = Release.find(data[:id])
-    authorize @app_info = AppInfo.parse(release.file.file.path)
+    @app_info = AppInfo.parse(release.file.file.path)
   end
 end

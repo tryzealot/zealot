@@ -114,18 +114,27 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def get_version
-    version = Rails.cache.fetch('zealot_version_check', expires_in: 1.hours) do
-      HTTP.headers(accept: 'application/vnd.github.v3+json')
-          .get(VERSION_CHECK_URL)
-          .parse
+    begin
+      version = Rails.cache.fetch('zealot_version_check', expires_in: 1.hours) do
+        HTTP.headers(accept: 'application/vnd.github.v3+json')
+            .get(VERSION_CHECK_URL)
+            .parse
+      end
+
+      latest_version = version['tag_name']
+      update_available = update_available?(latest_version)
+      release_link = version['html_url']
+    rescue HTTP::ConnectionError
+      update_available = false
+      latest_version = nil
+      release_link = nil
     end
 
-    latest_version = version['tag_name']
     @version = {
-      update_available: update_available?(latest_version),
+      update_available: update_available,
       current_version: Zealot::Setting.version,
       latest_version: latest_version,
-      release_link: version['html_url'],
+      release_link: release_link,
     }
   end
 
