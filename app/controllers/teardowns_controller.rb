@@ -20,6 +20,9 @@ class TeardownsController < ApplicationController
       parse_exists_app
     end
 
+  rescue ActionController::RoutingError => e
+    flash[:error] = e.message
+    render :new
   rescue AppInfo::UnkownFileTypeError
     flash[:error] = '无法识别上传的应用类型'
     render :new
@@ -38,7 +41,7 @@ class TeardownsController < ApplicationController
   def parse_exists_app
     data = Rails.application.routes.recognize_path(params[:url])
     unless data[:controller] == 'releases' && data[:action] == 'show'
-      raise ActionController::RoutingError, '链接不匹配'
+      raise ActionController::RoutingError, '不是正确的版本详情链接，请重试'
     end
 
     release = Release.find(data[:id])
