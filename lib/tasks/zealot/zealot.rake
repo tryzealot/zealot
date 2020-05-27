@@ -19,7 +19,6 @@ namespace :zealot do
           Rake::Task['zealot:db:setup'].invoke
         else
           Rake::Task['zealot:db:migrate'].invoke
-          Rake::Task['zealot:migration:upgrade'].invoke
         end
       rescue PG::ConnectionBad, ActiveRecord::NoDatabaseError
         # 无法连接数据库
