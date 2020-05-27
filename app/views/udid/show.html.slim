@@ -39,3 +39,46 @@
               span.input-group-append
                   button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#version-text"
                     i.far.fa-clipboard
+
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title 关联的应用
+      .card-body
+        - if @device && @device.channels.present?
+          .timeline
+            - @device.channels.each do |channel|
+              ruby:
+                release = @device.last_release
+              div
+                i.far.fa-circle
+                .timeline-item
+                  span.time
+                    i.fas.fa-clock
+                    | &nbsp
+                    = time_ago_in_words(release.created_at)
+                  h3.timeline-header
+                    = link_to release.app_name, channel_release_path(channel, release)
+                    = " 上传了新版本 #{release.release_version} (#{release.build_version})"
+                  - if release.changelog.present?
+                    .timeline-body.pb-0
+                      = changelog_format release.changelog_list, class: 'mb-0'
+                  - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
+                    .timeline-footer
+                      - if release.release_type.present?
+                        small.badge
+                          = release.release_type
+                      - if release.branch.present?
+                        small.badge
+                          = release.branch
+                      - if release.short_git_commit.present?
+                        small.badge
+                          - if release.channel.git_url.present?
+                            = git_commit_url(channel.git_url, release.git_commit)
+                          - else
+                            = release.short_git_commit
+            div
+              i.fas.fa-clock.bg-gray
+        - else
+          p 没有关联设备
+

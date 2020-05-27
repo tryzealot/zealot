@@ -79,6 +79,10 @@ class Channel < ApplicationRecord
     Digest::MD5.hexdigest(password)
   end
 
+  def devices
+    releases.distinct.left_joins(:devices)
+  end
+
   # def self.find_by_release(release)
   #   instance = release.app
   #   instance.current_release = release
