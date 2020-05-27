@@ -24,6 +24,7 @@ class UdidController < ApplicationController
   end
 
   def show
+    @device = Device.find_by(udid: params[:udid])
   end
 
   def install

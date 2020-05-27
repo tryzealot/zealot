@@ -53,6 +53,6 @@ class ApplicationController < ActionController::Base
   # end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: "没有找到 ID #{e.id}，跳转至应用列表"
+    # redirect_to apps_path, notice: "没有找到 ID #{e.id}，跳转至应用列表"
   end
 end
