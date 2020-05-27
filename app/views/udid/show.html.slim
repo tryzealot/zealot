@@ -8,8 +8,25 @@
   .col-md-12
     .card.system_info
       .card-header
-        h3.card-title 设备信息
+        h3.card-title
+          i.fas.fa-info-circle
+          |  设备信息
       .card-body
+        .pl-2.pr-2
+          - if @device
+            .alert.alert-success
+              strong Wooh！
+              | 本设备已注册
+              - if @device.name.present?
+               | 【
+               = @device.name
+               | 】
+              | ，快往下看看有没有关联的应用吧！
+          - else
+            .alert.alert-warning
+              strong Ta-Da！
+              | 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
+
         dl.system-info
           dt UDID
           dd
@@ -43,13 +60,15 @@
   .col-md-12
     .card
       .card-header
-        h3.card-title 关联的应用
+        h3.card-title
+          i.fas.fa-cubes
+          |  可安装应用
       .card-body
         - if @device && @device.channels.present?
           .timeline
             - @device.channels.each do |channel|
               ruby:
-                release = @device.last_release
+                release = channel.latest_release
               div
                 i.far.fa-circle
                 .timeline-item
@@ -80,5 +99,9 @@
             div
               i.fas.fa-clock.bg-gray
         - else
-          p 没有关联设备
+          .p-2
+            p
+              strong 没有发现可安装应用！
+              | 请复制上面设备 UDID 并发给 iOS 工程师来添加测试设备并重新打包。
+              | 新安装包上传之后可以刷新本页面检查是否出现对应的应用。
 
