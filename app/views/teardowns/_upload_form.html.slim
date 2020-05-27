@@ -3,12 +3,12 @@
   .form-group
     label.control-label.required for="file"
       abbr title="必填项" *
-      |  应用文件
+      |  解析文件
     .input-group
       = file_field_tag 'file', class: 'custom-file-input2'
       input name="type" value="upload" type="hidden"
 
-    p.help-block 支持 .apk 和 .ipa 文件
+    p.help-block 支持 .apk、 .ipa 以及 .mobileprovision 文件
 
   = submit_tag '开始解析', class: 'btn btn-primary'
 
