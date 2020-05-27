@@ -19,6 +19,6 @@ class Api::DevicesController < Api::BaseController
   end
 
   def device_params
-    params.permit(:name)
+    params.permit(:name, :model)
   end
 end

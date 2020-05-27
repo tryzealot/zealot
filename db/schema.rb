@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_081718) do
+ActiveRecord::Schema.define(version: 2020_05_27_121707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_05_23_081718) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "model"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 
@@ -108,7 +109,6 @@ ActiveRecord::Schema.define(version: 2020_05_23_081718) do
     t.string "ci_url"
     t.jsonb "changelog", null: false
     t.string "file"
-    t.jsonb "legacy_devices", default: [], null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "custom_fields", default: [], null: false
