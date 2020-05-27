@@ -11,7 +11,7 @@ class TeardownsController < ApplicationController
   end
 
   def new
-    @title = '应用解析'
+    @title = '文件解析'
   end
 
   def create
@@ -32,7 +32,7 @@ class TeardownsController < ApplicationController
     flash[:error] = '无法识别上传的应用类型'
     render :new
   rescue AppInfo::NotFoundError => e
-    flash[:error] = "无法找到安装包: #{e}"
+    flash[:error] = "无法找到解析文件: #{e}"
     render :new
   end
 
@@ -40,7 +40,7 @@ class TeardownsController < ApplicationController
 
   def parse_file
     unless file = params[:file]
-      raise ActionController::RoutingError, '请选择需要解析的 ipa 或 apk 安装包'
+      raise ActionController::RoutingError, '请选择需要解析的 ipa、apk 安装包或 .mobileprovision 文件'
     end
 
     @app_info = AppInfo.parse(file.tempfile)
