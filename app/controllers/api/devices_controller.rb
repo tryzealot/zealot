@@ -6,7 +6,6 @@ class Api::DevicesController < Api::BaseController
 
   # POST /api/devices/:id?name=MyiPhone
   def update
-    raise ActiveRecord::RecordNotFound, "设备 UDID (#{params[:id]}) 不存在" unless @device
     raise ActionController::ParameterMissing, 'name' if device_params[:name].blank?
 
     @device.update(device_params)
@@ -16,7 +15,7 @@ class Api::DevicesController < Api::BaseController
   protected
 
   def set_device
-    @device = Device.find_by(udid: params[:id])
+    @device = Device.find_or_create_by(udid: params[:id])
   end
 
   def device_params
