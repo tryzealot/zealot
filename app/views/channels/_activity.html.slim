@@ -4,7 +4,8 @@
       i.fas.fa-history
       |  最近上传动态
     .card-tools
-      = paginate @releases
+      span.badge.bg-yellow
+        = @channel.releases.count
 
   .card-body.p-0
     ul.products-list.product-list-in-card
