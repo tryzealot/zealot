@@ -1,4 +1,4 @@
-table.table.table-striped.table-hover
+table.table.table-hover
   tr
     th ID
     th 主版本
@@ -6,7 +6,6 @@ table.table.table-striped.table-hover
     th 打包类型
     th 分支
     th Git 提交信息
-    th 包信息
     th 上传时间
     th 操作
   - unless @releases.empty?
@@ -24,8 +23,6 @@ table.table.table-striped.table-hover
           = git_branch_url(release)
         td
           = git_commit_url(release.channel.git_url, release.git_commit)
-        td
-          = link_to '下载本地', release.download_url, { target: '_blank' }
         td
           span data-toggle="tooltip" title="#{release.created_at}"
             = time_ago_in_words(release.created_at)
