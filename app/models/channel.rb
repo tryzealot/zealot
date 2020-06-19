@@ -43,7 +43,7 @@ class Channel < ApplicationRecord
     releases.select(:release_version)
             .group(:release_version)
             .map(&:release_version)
-            .reverse
+            .sort { |a,b| Gem::Version.new(b) <=> Gem::Version.new(a) }
   end
 
   def release_version_count(version)
