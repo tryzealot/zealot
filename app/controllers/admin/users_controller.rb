@@ -35,8 +35,9 @@ class Admin::UsersController < ApplicationController
     end
 
     # 没有设置密码的情况下不更新该字段
-    user_params.delete(:password) if user_params[:password].blank?
-    return render :edit unless @user.update(user_params)
+    params = user_params.dup
+    params = params.delete(:password) if params[:password].blank?
+    return render :edit unless @user.update(params)
 
     redirect_to admin_users_url, notice: '用户已经更新'
   end
