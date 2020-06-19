@@ -6,7 +6,7 @@ class CleanOldReleasesJob < ApplicationJob
   def perform
     channels = Channel.all
     channels.each do |channel|
-      logger.info("channel #{channel.id}")
+      logger.debug("Checking channel #{channel.id}")
       clean_old_releases(channel)
     end
   end
@@ -15,7 +15,7 @@ class CleanOldReleasesJob < ApplicationJob
     versions = channel.release_versions
     return if versions.empty?
 
-    latest_version = versions.max
+    latest_version = versions.max { |a,b| Gem::Version.new(a) <=> Gem::Version.new(b) }
     previous_versions = versions.delete_if { |v| v == latest_version }
     previous_versions.each do |value|
       clean_previouse_build_version(channel, value)
@@ -27,7 +27,7 @@ class CleanOldReleasesJob < ApplicationJob
     return if releases.size <= 1
 
     versions = releases.map(&:version)
-    latest_version = versions.max
+    latest_version = versions.max { |a,b| Gem::Version.new(a) <=> Gem::Version.new(b) }
     logger.info("Delete channel [#{channel.id}] has versions: #{versions} and latest verison is #{latest_version}")
 
     remove_releases(channel, releases, latest_version)
