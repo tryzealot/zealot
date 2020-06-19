@@ -94,7 +94,11 @@ RUN set -ex && \
     apk --update --no-cache add $PACKAGES && \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
-    gem install $RUBY_GEMS
+    gem install $RUBY_GEMS && \
+    echo "0 */5 * * * /bin/sh -l -c 'find /tmp -type f -mmin +300 -exec rm -f {} \;' >> /var/log/clean_tmp_cron.log 2>&1" > /etc/crontabs/clean_tmp && \
+    chmod 0644 /etc/crontabs/clean_tmp && \
+    touch /var/log/clean_tmp_cron.log && \
+    crontab /etc/crontabs/clean_tmp
 
 WORKDIR $APP_ROOT
 
