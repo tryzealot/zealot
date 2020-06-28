@@ -8,6 +8,10 @@ class Download::DebugFilesController < ApplicationController
   def show
     return render_not_found_entity_response unless File.exist?(@debug_file.file.path.to_s)
 
+    redirect_to filename_download_debug_file_url(@debug_file, @debug_file.download_filename)
+  end
+
+  def download
     headers['Content-Length'] = @debug_file.file.size
     send_file @debug_file.file.path,
               filename: @debug_file.download_filename,
