@@ -44,8 +44,6 @@ module Backup
       new.restore
     end
 
-    attr_reader :uploads_path, :backup_tarball
-
     def dump
       FileUtils.mkdir_p(backup_path)
       FileUtils.rm_f(backup_tarball)
