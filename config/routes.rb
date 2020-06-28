@@ -70,8 +70,17 @@ Rails.application.routes.draw do
   # Download
   #############################################
   namespace :download do
-    resources :releases, only: :show
-    resources :debug_files, only: :show
+    resources :releases, only: :show do
+      member do
+        get ':filename', action: :download, filename: /.+/, as: 'filename'
+      end
+    end
+
+    resources :debug_files, only: :show do
+      member do
+        get ':filename', action: :download, filename: /.+/, as: 'filename'
+      end
+    end
   end
 
   #############################################

@@ -9,6 +9,10 @@ class Download::ReleasesController < ApplicationController
   def show
     return render_not_found_entity_response unless File.exist?(@release.file.path.to_s)
 
+    redirect_to filename_download_release_url(@release, @release.download_filename)
+  end
+
+  def download
     # 触发 web_hook
     @release.channel.perform_web_hook('download_events')
 
