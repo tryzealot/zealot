@@ -34,8 +34,6 @@ module Backup
 
     class Error < StandardError; end
 
-    attr_reader :config, :db_file_name
-
     def self.dump
       new.dump
     end
