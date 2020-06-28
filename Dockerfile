@@ -47,7 +47,7 @@ RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile && \
     cp -r public/ new_public/
 
 # Remove folders not needed in resulting image
-RUN rm -rf node_modules tmp/cache spec .browserslistrc babel.config.js \
+RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
     package.json postcss.config.js yarn.lock
 
 ##################################################################################
@@ -63,9 +63,10 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
+ARG PACKAGES="tzdata curl shadow logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
+ARG S6_OVERLAY_VERSION="2.0.0.1"
 
 LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-ref=$VCS_REF \
@@ -77,11 +78,13 @@ LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
 
 ENV TZ="Asia/Shanghai" \
+    PS1="$(whoami)@$(hostname):$(pwd)$ " \
     DOCKER_TAG="$TAG" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     ZEALOT_VCS_REF="$VCS_REF" \
     ZEALOT_VERSION="$ZEALOT_VERSION" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    ENABLE_BOOTSNAP="false"
 
 # System dependencies
 RUN set -ex && \
@@ -92,18 +95,15 @@ RUN set -ex && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \
-    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone && \
+    curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xvzf - -C / && \
     gem install $RUBY_GEMS && \
-    echo "0 */5 * * * /bin/sh -l -c 'find /tmp -type f -mmin +300 -exec rm -f {} \;' >> /var/log/clean_tmp_cron.log 2>&1" > /etc/crontabs/clean_tmp && \
-    chmod 0644 /etc/crontabs/clean_tmp && \
-    touch /var/log/clean_tmp_cron.log && \
-    crontab /etc/crontabs/clean_tmp
+    adduser -D -u 911 -g zealot -h /app -s /sbin/nologin zealot
 
 WORKDIR $APP_ROOT
 
+COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
 
 EXPOSE 3000
 
-ENTRYPOINT [ "./docker-endpoint.sh" ]
+ENTRYPOINT ["/init"]
