@@ -1,0 +1,3 @@
+/app true zealot,911:911 0644 0755
+/app/bin true zealot,911:911 0755 0755
+/app/vendor true zealot,911:911 0755 0755
