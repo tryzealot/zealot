@@ -39,7 +39,8 @@ RUN yarn install
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1 && \
-    bundle install --path=vendor/bundle --without development test \
+    bundle config set without 'development test' && \
+    bundle install --path=vendor/bundle \
       --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
@@ -63,7 +64,7 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl shadow logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
+ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.0.0.1"
@@ -96,13 +97,18 @@ RUN set -ex && \
     fi && \
     apk --update --no-cache add $PACKAGES && \
     curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xvzf - -C / && \
-    gem install $RUBY_GEMS && \
-    adduser -D -u 911 -g zealot -h /app -s /sbin/nologin zealot
+    gem install $RUBY_GEMS
 
 WORKDIR $APP_ROOT
 
 COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
+
+# Remove unnecessary files
+RUN cd /app/vendor/bundle/ruby/2.6.0 && \
+    rm -rf cache/*.gem && \
+    find gems/ -name "*.c" -delete && \
+    find gems/ -name "*.o" -delete
 
 EXPOSE 3000
 
