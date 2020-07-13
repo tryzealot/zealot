@@ -2,13 +2,13 @@
 
 if [[ ! -f /mnt/config/etc/logrotate.conf ]]; then
   if [[ ! -d /mnt/config/etc ]]; then
-    s6-setuidgid guardian mkdir -p /mnt/config/etc
+    mkdir -p /mnt/config/etc
   fi
 
-  s6-setuidgid guardian cp /etc/logrotate.conf /mnt/config/etc/logrotate.conf
+  cp /etc/logrotate.conf /mnt/config/etc/logrotate.conf
 fi
 
 if [[ ! -d /mnt/config/etc/logrotate.d ]]; then
-  s6-setuidgid guardian mkdir -p /mnt/config/etc/logrotate.d
-  s6-setuidgid guardian cp -n /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
+  mkdir -p /mnt/config/etc/logrotate.d
+  cp -n /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
 fi
