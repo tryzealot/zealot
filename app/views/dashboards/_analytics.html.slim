@@ -20,7 +20,7 @@ section.analytics
           span.info-box-number
             = @analytics[:debug_files]
 
-    - if current_user.admin?
+    - if user_signed_in? && current_user.admin?
       .col-md-3.col-sm-6.col-xs-12
         .info-box
           span.info-box-icon.bg-warning

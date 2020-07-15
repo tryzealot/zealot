@@ -20,9 +20,10 @@
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.git_url == '' ? '未设置' : @channel.git_url
       span.text-muted Git 仓库地址
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.password == '' ? '未设置' : @channel.password
-      span.text-muted 访问密码
+    - if user_signed_in?
+      p.d-flex.flex-column.border-bottom.pl-3.pb-3
+        span.font-weight-bold = @channel.password == '' ? '未设置' : @channel.password
+        span.text-muted 访问密码
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.key
       span.text-muted 渠道 KEY
