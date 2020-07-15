@@ -7,7 +7,8 @@ table.table.table-hover
     th 分支
     th Git 提交信息
     th 上传时间
-    th 操作
+    - if user_signed_in?
+      th 操作
   - unless @releases.empty?
     - @releases.each_with_index do |release, index|
       tr
@@ -26,9 +27,10 @@ table.table.table-hover
         td
           span data-toggle="tooltip" title="#{release.created_at}"
             = time_ago_in_words(release.created_at)
-        td
-          a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="确定删除?" data-method="delete"
-            i.fas.fa-trash-alt
+        - if user_signed_in?
+          td
+            a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="确定删除?" data-method="delete"
+              i.fas.fa-trash-alt
   - else
     tr
       th colspan="5" 该版本没有任何上传记录！

@@ -9,11 +9,11 @@ class ApplicationPolicy
   end
 
   def index?
-    user_signed_in?
+    Zealot::Setting.guest_mode || user_signed_in?
   end
 
   def show?
-    scope.where(id: record.id).exists? || user?
+    scope.where(id: record.id).exists? || Zealot::Setting.guest_mode || user?
   end
 
   def create?
