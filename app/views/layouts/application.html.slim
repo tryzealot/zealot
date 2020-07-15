@@ -1,6 +1,6 @@
 ruby:
   body_class = 'skin-black-light'
-  if user_signed_in?
+  if Zealot::Setting.guest_mode || user_signed_in?
     body_class += ' sidebar-mini'
   elsif devise_page?
     body_class += ' layout-top-nav'
