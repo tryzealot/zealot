@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user! unless Zealot::Setting.guest_mode
 
   def index
     redirect_to new_teardown_path, alert: "链接失效，请重新解析文件"

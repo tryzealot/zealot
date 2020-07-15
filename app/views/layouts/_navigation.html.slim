@@ -1,6 +1,6 @@
 // Navbar
 nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-  - if user_signed_in?
+  - if Zealot::Setting.guest_mode
     ul.navbar-nav
       li.nav-item
         a.nav-link data-widget="pushmenu" href="#"
@@ -19,13 +19,16 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
             = link_to '详情', edit_user_registration_path, class: 'dropdown-item'
             .dropdown-divider
             = link_to '登出', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+      - else
+        li.nav-item
+          = link_to '登录', new_user_session_path, class: 'dropdown-item'
   - else
     div.navbar-collapse.justify-content-md-center
       h4
         a href="#{ root_path }" style="color: black" Zealot
 
 // Main Sidebar Container
-- if user_signed_in?
+- if Zealot::Setting.guest_mode || user_signed_in?
   aside.main-sidebar.sidebar-light-primary.elevation-4
     // Brand Logo
     a.brand-link href="#{ root_path }"
