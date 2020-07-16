@@ -2,6 +2,19 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
+  SITE_KEYS = %w[
+    site_title
+    site_https
+    site_domain
+
+    registrations_mode
+    guest_mode
+
+    mailer_default_from
+    mailer_default_to
+    keep_uploads
+  ]
+
   cache_prefix { 'v1' }
 
   # 系统配置
@@ -40,6 +53,14 @@ class Setting < RailsSettings::Base
     keep_time: 604800,
     pg_schema: 'public',
   }
+
+  class << self
+    def site_configs
+      SITE_KEYS.each_with_object({}) do |key, obj|
+        obj[key] = Setting.send(key.to_sym)
+      end
+    end
+  end
 
   # field :default_locale, default: "en", type: :string
   # field :confirmable_enable, default: "0", type: :boolean

@@ -1,0 +1,6 @@
+form.form-horizontal
+  - @settings.each do |key, value|
+    .form-group.row
+      label.col-sm-3.col-form-label = key
+      .col-sm-9
+        input.form-control value="#{value}"
