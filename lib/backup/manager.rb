@@ -78,7 +78,7 @@ module Backup
 
     def remove_old
       puts_time('Deleting old backups ... ', false)
-      keep_time = Zealot::Setting.backup.keep_time.to_i
+      keep_time = Setting.backup[:keep_time]
 
       if keep_time > 0
         removed = 0
@@ -149,7 +149,7 @@ module Backup
     def verify_backup_version
       Dir.chdir(backup_path) do
         # restoring mismatching backups can lead to unexpected problems
-        current_version = Zealot::Setting.version
+        current_version = Setting.version
         if settings[:zealot_version] != current_version
           logger.puts(<<~HEREDOC.color(:red))
             Zealot version mismatch:
@@ -172,9 +172,9 @@ module Backup
       @backup_information ||= {
         db_version: ActiveRecord::Migrator.current_version.to_s,
         backup_created_at: Time.now,
-        zealot_version: Zealot::Setting.version,
+        zealot_version: Setting.version,
         tar_version: tar_version,
-        vcs_ref: Zealot::Setting.vcs_ref || false,
+        vcs_ref: Setting.vcs_ref || false,
         docker_tag: ENV['DOCKER_TAG'] || false
       }
     end
