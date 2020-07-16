@@ -1,8 +1,8 @@
 default: &base
   version: <%= ENV['ZEALOT_VERSION'] || 'development' %>
   vcs_ref: <%= ENV['ZEALOT_VCS_REF'] %>
-  register_enabled: <%= ENV['ZEALOT_REGISTER_ENABLED'] || 'true' %>
-  guest_mode: <%= ENV['ZEALOT_GUEST_MODE'] || 'false' %>
+  register_enabled: <%= (ENV['ZEALOT_REGISTER_ENABLED'] || 'true') == 'true' %>
+  guest_mode: <%= (ENV['ZEALOT_GUEST_MODE'] || 'false') == 'true' %>
   cron_jobs:
     clean_old_releases:
       cron: '0 6 * * *'
