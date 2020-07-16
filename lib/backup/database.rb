@@ -56,9 +56,9 @@ module Backup
           puts_time("Dumping PostgreSQL database #{config['database']} ... ", false)
           pg_env
           pgsql_args = ["--clean"] # Pass '--clean' to include 'DROP TABLE' statements in the DB dump.
-          if Zealot::Setting.backup.pg_schema
+          if Setting.backup[:pg_schema]
             pgsql_args << "-n"
-            pgsql_args << Zealot::Setting.backup.pg_schema
+            pgsql_args << Setting.backup[:pg_schema]
           end
 
           spawn('pg_dump', *pgsql_args, config['database'], out: compress_wr)

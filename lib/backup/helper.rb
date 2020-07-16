@@ -87,7 +87,7 @@ module Backup
     end
 
     def backup_path
-      Rails.root.join(Zealot::Setting.backup.path)
+      Rails.root.join(Setting.backup[:path])
     end
 
     def puts_time(msg, new_line = true)
