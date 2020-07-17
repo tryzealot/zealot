@@ -2,18 +2,23 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
-  SITE_KEYS = %w[
-    site_title
-    site_https
-    site_domain
-
-    registrations_mode
-    guest_mode
-
-    mailer_default_from
-    mailer_default_to
-    keep_uploads
-  ]
+  SITE_KEYS = {
+    general: %w[
+      site_title
+      site_https
+      site_domain
+    ],
+    visits: %w[
+      registrations_mode
+      guest_mode
+    ],
+    mail: %w[
+      mailer_default_from
+      mailer_default_to
+      mailer_options
+    ],
+    archives: %w[keep_uploads]
+  }
 
   cache_prefix { 'v1' }
 
@@ -41,7 +46,7 @@ class Setting < RailsSettings::Base
 
   # 系统信息（只读）
   field :demo_mode, default: (ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true
-  field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS']), type: :boolean, readonly: true
+  field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean, readonly: true
 
   field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
   field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
@@ -56,8 +61,11 @@ class Setting < RailsSettings::Base
 
   class << self
     def site_configs
-      SITE_KEYS.each_with_object({}) do |key, obj|
-        obj[key] = Setting.send(key.to_sym)
+      SITE_KEYS.each_with_object({}) do |(section, keys), obj|
+        obj[section] = {}
+        keys.each do |key|
+          obj[section][key] = Setting.send(key.to_sym)
+        end
       end
     end
   end
