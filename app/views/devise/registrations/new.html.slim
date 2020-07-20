@@ -1,7 +1,7 @@
 - content_for :title do
   | 用户注册
 
-- if Zealot::Setting.register_enabled
+- if Setting.registrations_mode
   .row.mb-3.mt-3
     .col-sm-7.order-12.order-sm-1
       == render 'devise/shared/intro'

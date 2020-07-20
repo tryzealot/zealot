@@ -132,7 +132,7 @@ class Admin::SystemInfoController < ApplicationController
 
     @version = {
       update_available: update_available,
-      current_version: Zealot::Setting.version,
+      current_version: Setting.version,
       latest_version: latest_version,
       release_link: release_link,
     }
@@ -141,6 +141,6 @@ class Admin::SystemInfoController < ApplicationController
   def update_available?(new_version)
     return true if Rails.env.development?
 
-    Gem::Version.new(new_version) > Gem::Version.new(Zealot::Setting.version)
+    Gem::Version.new(new_version) > Gem::Version.new(Setting.version)
   end
 end

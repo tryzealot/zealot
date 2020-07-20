@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DashboardsController < ApplicationController
-  before_action :authenticate_user! unless Zealot::Setting.guest_mode
+  before_action :authenticate_user! unless Setting.guest_mode
 
   def index
     @title = '我的控制台'
