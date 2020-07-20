@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AppsController < ApplicationController
-  before_action :authenticate_user! unless Zealot::Setting.guest_mode
+  before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy]
 
   def index

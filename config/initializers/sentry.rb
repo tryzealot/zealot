@@ -2,8 +2,6 @@
 
 # 默认开启 Sentry，如果不想使用设置 ZEALOT_SENTRY_DISABLE=1
 if ENV['ZEALOT_SENTRY_DISABLE'].blank?
-  require 'zealot/setting'
-
   Raven.configure do |config|
     config.silence_ready = true
     config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@sentry.io/1878137'
@@ -15,8 +13,8 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
     config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
     config.sanitize_fields << 'token'
 
-    version = Zealot::Setting.version
-    vcs_ref = Zealot::Setting.vcs_ref
+    version = Setting.version
+    vcs_ref = Setting.vcs_ref
     version = "#{version}-#{vcs_ref}" if vcs_ref.present?
     config.release = version
 
