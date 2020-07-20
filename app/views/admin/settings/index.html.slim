@@ -4,10 +4,16 @@
 - content_for :section_title do
   = @title
 
-.row
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title = @title
-      .card-body
-        == render 'form'
+form.form-horizontal
+  - @settings.each do |section, keys|
+    .row
+      .col-md-12
+        .card.system_info
+          .card-header
+            h3.card-title = t("admin.settings.#{section}")
+          .card-body
+            - keys.each do |key, value|
+              dl.system-info
+                dt = t("admin.settings.#{key}")
+                dd
+                  pre = link_to value.to_s, edit_admin_setting_path(key)

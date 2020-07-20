@@ -379,7 +379,6 @@ GEM
     semantic_range (2.3.0)
     sentry-raven (3.0.0)
       faraday (>= 1.0)
-    settingslogic (2.0.9)
     shellany (0.0.1)
     sidekiq (6.0.7)
       connection_pool (>= 2.2.2)
@@ -504,7 +503,6 @@ DEPENDENCIES
   rubocop-rails
   ruby-debug-ide
   sentry-raven
-  settingslogic
   sidekiq (= 6.0.7)
   sidekiq-cron (~> 1.2)
   simple_form (~> 5.0)

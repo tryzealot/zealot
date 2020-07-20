@@ -1,22 +1,25 @@
 zh-CN:
   admin:
     settings:
-      form:
-        general: 通用配置
-        site_title: 站点标题
-        site_https: 站点启用 HTTPS
-        site_domain: 站点域名
+      general: 通用配置
+      site_title: 站点标题
+      site_https: 站点启用 HTTPS
+      site_domain: 站点域名
 
-        visits: 访问模式
-        registrations_mode: 开启注册模式
-        guest_mode: 开启游客模式
+      visits: 访问模式
+      registrations_mode: 开启注册模式
+      guest_mode: 开启游客模式
 
-        mail: 邮件配置
-        mailer_default_from: 默认邮件发件地址
-        mailer_default_to: 默认邮件发件人
+      mail: 邮件配置
+      mailer_default_from: 默认邮件发件地址
+      mailer_default_to: 默认邮件发件人
 
-        archives: 上传文件
-        keep_uploads: 永久保存上传应用版本
+      archives: 上传文件
+      keep_uploads: 永久保存上传应用版本
+
+      submit:
+        create: 新增设置
+        update: 更新设置
 
   datetime:
     distance_in_words:
