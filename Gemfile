@@ -78,7 +78,7 @@ gem 'webpacker', '~> 5.0'
 gem 'app-info', '~> 2.1.4'
 
 # Mobile config
-gem 'settingslogic', require: false
+gem 'rails-settings-cached', '~> 2.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
