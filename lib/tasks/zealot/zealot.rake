@@ -42,6 +42,6 @@ namespace :zealot do
   end
 
   task version: :environment do
-    puts Zealot::Setting.version
+    puts Setting.version
   end
 end
