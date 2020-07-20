@@ -5,8 +5,6 @@ class Setting < RailsSettings::Base
   SITE_KEYS = {
     general: %w[
       site_title
-      site_https
-      site_domain
     ],
     visits: %w[
       registrations_mode
@@ -46,7 +44,7 @@ class Setting < RailsSettings::Base
 
   # 系统信息（只读）
   field :demo_mode, default: (ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true
-  field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean, readonly: true
+  field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean
 
   field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
   field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
@@ -60,6 +58,10 @@ class Setting < RailsSettings::Base
   }
 
   class << self
+    def find_or_default(var:)
+      find_by(var: var) || new(var: var)
+    end
+
     def site_configs
       SITE_KEYS.each_with_object({}) do |(section, keys), obj|
         obj[section] = {}
@@ -69,10 +71,4 @@ class Setting < RailsSettings::Base
       end
     end
   end
-
-  # field :default_locale, default: "en", type: :string
-  # field :confirmable_enable, default: "0", type: :boolean
-  # field :admin_emails, default: "admin@rubyonrails.org", type: :array
-  # field :omniauth_google_client_id, default: (ENV["OMNIAUTH_GOOGLE_CLIENT_ID"] || ""), type: :string, readonly: true
-  # field :omniauth_google_client_secret, default: (ENV["OMNIAUTH_GOOGLE_CLIENT_SECRET"] || ""), type: :string, readonly: true
 end
