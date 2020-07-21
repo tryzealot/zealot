@@ -55,6 +55,7 @@ gem 'plist', '~> 3.5.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.3.4'
 gem 'vmstat', '~> 2.3.0'
+gem 'pghero'
 
 ## 异常报错上报
 gem 'sentry-raven'
