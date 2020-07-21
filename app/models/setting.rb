@@ -8,7 +8,6 @@ class Setting < RailsSettings::Base
     ],
     visits: %w[
       registrations_mode
-      guest_mode
     ],
     mail: %w[
       mailer_default_from
@@ -26,7 +25,7 @@ class Setting < RailsSettings::Base
 
   # 模式
   field :registrations_mode, default: (ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean
-  field :guest_mode, default: (ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean
+  field :guest_mode, default: (ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean, readonly: true
 
   # 邮件配置
   field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string
