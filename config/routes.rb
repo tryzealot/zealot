@@ -92,6 +92,11 @@ Rails.application.routes.draw do
   get 'udid/:udid', to: 'udid#show', as: 'udid_result'
 
   #############################################
+  # Health check
+  #############################################
+  health_check_routes
+
+  #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
