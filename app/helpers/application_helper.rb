@@ -24,16 +24,18 @@ module ApplicationHelper
   end
 
   # 激活 li 的 class
-  def active_class(link_path = nil)
-    if link_path
-      current_page?(link_path) ? 'active' : ''
-    elsif current_page?(controller: 'groups', action: 'messages') ||
-          current_page?(controller: 'groups', action: 'index') ||
-          current_page?(controller: 'users', action: 'groups')
-      'active'
-    else
-      ''
+  def active_class(link_paths, class_name = 'active')
+    link_paths = [ link_paths ] if link_paths.is_a?(String)
+
+    is_current = false
+    link_paths.each do |link|
+      if current_page?(link)
+        is_current = true
+        break
+      end
     end
+
+    is_current ? class_name : ''
   end
 
   def changelog_format(changelog, **options)
