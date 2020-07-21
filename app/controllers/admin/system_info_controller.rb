@@ -56,7 +56,7 @@ class Admin::SystemInfoController < ApplicationController
   ].freeze
 
   # GET /admin/system_info
-  def show
+  def index
     @title = '系统信息'
     @booted_at = Rails.application.config.booted_at
 
