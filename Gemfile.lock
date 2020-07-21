@@ -67,14 +67,14 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    app-info (2.1.4)
+    app-info (2.2.0)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       image_size (>= 1.5, < 2.1)
       pngdefry (~> 0.1.2)
       ruby-macho (~> 2.2.0)
       ruby_android (~> 0.7.7)
       rubyzip (>= 1.2, < 3.0)
-      uuidtools (~> 2.1.5)
+      uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.1)
     awesome_print (1.8.0)
     bcrypt (3.1.13)
@@ -377,7 +377,7 @@ GEM
     ruby_android (0.7.7)
       rubyzip (>= 1.1.6)
     rubyntlm (0.6.2)
-    rubyzip (2.0.0)
+    rubyzip (2.3.0)
     semantic_range (2.3.0)
     sentry-raven (3.0.0)
       faraday (>= 1.0)
@@ -431,7 +431,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
-    uuidtools (2.1.5)
+    uuidtools (2.2.0)
     vmstat (2.3.1)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -456,7 +456,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.10)
   activejob-status
-  app-info (~> 2.1.4)
+  app-info (~> 2.2.0)
   awesome_print
   better_errors
   binding_of_caller
