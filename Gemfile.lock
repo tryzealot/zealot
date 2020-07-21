@@ -172,6 +172,8 @@ GEM
       guard (>= 2)
       guard-compat (~> 1.0)
     hashie (4.1.0)
+    health_check (3.0.0)
+      railties (>= 5.0)
     http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -476,6 +478,7 @@ DEPENDENCIES
   guard-rails
   guard-sidekiq
   guard-webpacker
+  health_check (~> 3.0.0)
   http
   jb (~> 0.7.1)
   jenkins_api_client
