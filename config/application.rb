@@ -77,8 +77,8 @@ module Zealot
     # end
 
     # Disable Asset Pipeline/Sprockets
-    config.assets.enabled = false
-    config.assets.compile = false
+    # config.assets.enabled = false
+    # config.assets.compile = false
 
     ################################################################
 
