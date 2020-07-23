@@ -21,7 +21,7 @@ class Setting < RailsSettings::Base
   # 系统配置
   field :site_title, default: 'Zealot', type: :string
   field :site_https, default: ENV['ZEALOT_USE_HTTPS'].present?, type: :boolean, readonly: true
-  field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"), type: :string, readonly: true
+  field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || (site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}")), type: :string, readonly: true
 
   # 模式
   field :registrations_mode, default: (ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean
