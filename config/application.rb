@@ -26,12 +26,6 @@ module Zealot
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    # config.autoloader = :classic
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
     config.active_record.default_timezone = :local
@@ -80,16 +74,19 @@ module Zealot
     # config.assets.enabled = false
     # config.assets.compile = false
 
+    # Use a real queuing backend for Active Job (and separate queues per environment)
+    config.active_job.queue_adapter      = :sidekiq
+
     ################################################################
 
     # Auto load path
-    config.autoload_paths += %W(
-      #{config.root}/lib
-    )
+    config.autoload_paths += [
+      Rails.root.join('lib')
+    ]
 
-    config.eager_load_paths += %W(
-      #{config.root}/lib
-    )
+    # config.eager_load_paths += %W(
+    #   #{config.root}/lib
+    # )
 
     # Don't generate system test files.
     config.generators.system_tests = nil
