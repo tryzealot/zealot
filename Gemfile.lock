@@ -465,7 +465,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  bootsnap (>= 1.4.4)
+  bootsnap (>= 1.4.7)
   byebug
   carrierwave
   debase

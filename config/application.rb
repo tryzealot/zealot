@@ -92,6 +92,6 @@ module Zealot
     config.generators.system_tests = nil
 
     # Disable yarn check(this must disable with docker)
-    config.webpacker.check_yarn_integrity = false
+    # config.webpacker.check_yarn_integrity = false
   end
 end

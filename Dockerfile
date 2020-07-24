@@ -84,8 +84,7 @@ ENV TZ="Asia/Shanghai" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     ZEALOT_VCS_REF="$VCS_REF" \
     ZEALOT_VERSION="$ZEALOT_VERSION" \
-    RAILS_ENV="production" \
-    ENABLE_BOOTSNAP="false"
+    RAILS_ENV="production"
 
 # System dependencies
 RUN set -ex && \
