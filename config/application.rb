@@ -36,6 +36,10 @@ module Zealot
     config.i18n.default_locale = locale.to_sym
     config.i18n.available_locales = [locale, :en]
 
+    # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+    # the I18n.default_locale when a translation cannot be found).
+    config.i18n.fallbacks = [I18n.default_locale]
+
     # Log to STDOUT because Docker expects all processes to log here. You could
     # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
