@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine as builder
+FROM ruby:2.7-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev imagemagick-dev postgresql-dev nodejs npm yarn"
@@ -39,6 +39,7 @@ RUN yarn install
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1 && \
+    bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle install --path=vendor/bundle \
       --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
@@ -49,11 +50,15 @@ RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile && \
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
-    package.json postcss.config.js yarn.lock
+    package.json postcss.config.js yarn.lock && \
+    cd /app/vendor/bundle/ruby/2.7.0 && \
+      rm -rf cache/*.gem && \
+      find gems/ -name "*.c" -delete && \
+      find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM ruby:2.6-alpine
+FROM ruby:2.7-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -102,12 +107,6 @@ WORKDIR $APP_ROOT
 
 COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
-
-# Remove unnecessary files
-RUN cd /app/vendor/bundle/ruby/2.6.0 && \
-    rm -rf cache/*.gem && \
-    find gems/ -name "*.c" -delete && \
-    find gems/ -name "*.o" -delete
 
 EXPOSE 3000
 
