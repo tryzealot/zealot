@@ -11,7 +11,7 @@ if [ -d "new_public" ]; then
   echo "Zealot updating public ..."
   for x in public/*; do
     if [ -z $(echo "$x" | grep uploads) ]; then
-      rm -rf "$x"
+      rm -rf "$x" > /dev/null
     fi
   done
 
