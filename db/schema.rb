@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_041345) do
+ActiveRecord::Schema.define(version: 2020_07_24_084528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_041345) do
     t.index ["device_type"], name: "index_channels_on_device_type"
     t.index ["name"], name: "index_channels_on_name"
     t.index ["scheme_id", "device_type"], name: "index_channels_on_scheme_id_and_device_type"
-    t.index ["scheme_id"], name: "index_channels_on_scheme_id"
     t.index ["slug"], name: "index_channels_on_slug", unique: true
   end
 
@@ -116,10 +115,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_041345) do
     t.index ["build_version"], name: "index_releases_on_build_version"
     t.index ["bundle_id"], name: "index_releases_on_bundle_id"
     t.index ["channel_id", "version"], name: "index_releases_on_channel_id_and_version", unique: true
-    t.index ["channel_id"], name: "index_releases_on_channel_id"
     t.index ["release_type"], name: "index_releases_on_release_type"
     t.index ["release_version", "build_version"], name: "index_releases_on_release_version_and_build_version"
-    t.index ["release_version"], name: "index_releases_on_release_version"
     t.index ["source"], name: "index_releases_on_source"
     t.index ["version"], name: "index_releases_on_version"
   end
