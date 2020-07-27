@@ -9,17 +9,18 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
       config.excluded_exceptions += [
         'ActionController::RoutingError',
         'ActiveRecord::RecordNotFound',
-        'ActiveRecord::RecordInvalid'
+        'ActiveRecord::RecordInvalid',
+        'ActiveRecord::NoDatabaseError',
+        'PG::ConnectionBad',
       ]
       config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
       config.sanitize_fields << 'token'
 
       version = Setting.version
       vcs_ref = Setting.vcs_ref
-      version = "#{version}-#{vcs_ref}" if vcs_ref.present?
-      config.release = version
 
       if vcs_ref.present?
+        config.release = "#{version}-#{vcs_ref}"
         config.tags = {
           docker: true,
           docker_tag: ENV['DOCKER_TAG']
