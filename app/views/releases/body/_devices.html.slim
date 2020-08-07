@@ -1,4 +1,4 @@
-- unless @release.devices.empty?
+- if @release.devices.present?
   .devices
     .card.collapsed-card
       .card-header
@@ -18,7 +18,7 @@
             i.fas.fa-plus
       .card-body.p-0
         table.table
-          - @release.devices.sort_by(&:name).each do |device|
+          - @release.devices.each do |device|
             tr
               td
                 span = device.udid
