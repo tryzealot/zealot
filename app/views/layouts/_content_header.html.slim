@@ -5,7 +5,7 @@ ruby:
 
 // Content Header (Page header)
 
-- unless section_title.empty?
+- if section_title.present?
   section.content-header
     .container-fluid
       .row.pl-2

@@ -10,7 +10,7 @@ section
             = paginate @releases
 
         .card-body
-          - unless @releases.empty?
+          - if @releases.present?
             .timeline
               ruby:
                 loop_date = Time.current
@@ -53,7 +53,7 @@ section
           - else
             .time-label 没有任何上传，快快上传吧。
 
-        - unless @releases.empty?
+        - if @releases.present?
           .card-footer
             .float-right
               = paginate @releases

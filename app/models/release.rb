@@ -96,7 +96,7 @@ class Release < ApplicationRecord
   end
 
   def changelog_list(use_default_changelog = true)
-    return empty_changelog(use_default_changelog) if changelog.empty?
+    return empty_changelog(use_default_changelog) if changelog.blank?
 
     changelog
   end
