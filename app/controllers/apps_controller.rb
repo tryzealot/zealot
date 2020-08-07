@@ -65,7 +65,7 @@ class AppsController < ApplicationController
 
   def create_schemes_by(app, schemes, channel)
     schemes.values[0][:name].each do |scheme_name|
-      next if scheme_name.empty?
+      next if scheme_name.blank?
 
       scheme = app.schemes.create name: scheme_name
       next unless channels = channel_value(channel)

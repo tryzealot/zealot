@@ -13,7 +13,7 @@ class CleanOldReleasesJob < ApplicationJob
 
   def clean_old_releases(channel)
     versions = channel.release_versions
-    return if versions.empty?
+    return if versions.blank?
 
     latest_version = versions.max { |a,b| Gem::Version.new(a) <=> Gem::Version.new(b) }
     previous_versions = versions.delete_if { |v| v == latest_version }

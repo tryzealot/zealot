@@ -9,7 +9,7 @@ table.table.table-hover
     th 上传时间
     - if user_signed_in?
       th 操作
-  - unless @releases.empty?
+  - if @releases.present?
     - @releases.each_with_index do |release, index|
       tr
         td

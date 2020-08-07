@@ -83,7 +83,7 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_env
     @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.empty?
+      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.blank?
                    value
                  else
                    '*' * 10
