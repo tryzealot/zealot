@@ -97,6 +97,7 @@ class Release < ApplicationRecord
 
   def changelog_list(use_default_changelog = true)
     return empty_changelog(use_default_changelog) if changelog.blank?
+    return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
   end
