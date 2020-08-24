@@ -43,7 +43,7 @@ gem 'mini_magick'
 gem 'http'
 ## 用户认证
 gem 'devise', '~> 4.7.2'
-gem 'devise-i18n', '~> 1.9.0'
+gem 'devise-i18n', '~> 1.9.2'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
