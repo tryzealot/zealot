@@ -6,14 +6,14 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '>= 2.3.0', '< 2.8.0'
 
-gem 'puma', '~> 4.3.5'
+gem 'puma', '~> 4.3.6'
 gem 'rails', '~> 6.0.3'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.1.4'
+gem 'redis', '~> 4.2.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
@@ -43,7 +43,7 @@ gem 'mini_magick'
 gem 'http'
 ## 用户认证
 gem 'devise', '~> 4.7.2'
-gem 'devise-i18n', '~> 1.9.0'
+gem 'devise-i18n', '~> 1.9.2'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
@@ -69,7 +69,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '6.0.7' # 6.0.6 有 bug：https://github.com/mperham/sidekiq/pull/4502
+gem 'sidekiq', '6.1.2' # 6.0.6 有 bug：https://github.com/mperham/sidekiq/pull/4502
 gem 'sidekiq-cron', '~> 1.2'
 
 # Assets
