@@ -145,8 +145,13 @@ Rails.application.routes.draw do
     end
 
     post 'debug_files/upload', to: 'debug_files#create'
-    get 'debug_files/download', to: 'debug_files/download#show'
-    resources :debug_files, except: %i[create new edit]
+    resources :debug_files, except: %i[new edit create] do
+      collection do
+        get :version_exist, to: 'debug_files/version_exist#show'
+        get :download, to: 'debug_files/download#show'
+      end
+    end
+
     resources :devices, only: %i[update]
 
     namespace :jenkins do
