@@ -102,6 +102,10 @@ class Release < ApplicationRecord
     changelog
   end
 
+  def has_file?
+    File.exist?(file.path)
+  end
+
   def download_url
     download_release_url(id)
   end
