@@ -74,7 +74,7 @@ gem 'sidekiq-cron', github: 'MikeRogers0/sidekiq-cron', branch: 'bug/fix-redis-w
 
 # Assets
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.2'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.2.0'
