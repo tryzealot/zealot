@@ -103,6 +103,8 @@ class Release < ApplicationRecord
   end
 
   def has_file?
+    return false if file.blank?
+
     File.exist?(file.path)
   end
 
