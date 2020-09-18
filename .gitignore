@@ -4,6 +4,7 @@
 /vendor/ruby/
 build_info/
 extensions/
+bundler/
 
 # minimal Rails specific artifacts
 db/*.sqlite3
