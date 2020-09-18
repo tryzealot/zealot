@@ -20,6 +20,10 @@ class DebugFile < ApplicationRecord
     "#{app.name}_#{device_type}_#{release_version}_#{build_version}_#{file.file.filename}"
   end
 
+  def has_file?
+    File.exist?(file.path)
+  end
+
   def file_url
     download_debug_file_url(id)
   end
