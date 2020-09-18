@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DEFAULT_JOBS = {
+SCHEDULED_JOBS = {
   clean_old_releases: {
     cron: '0 6 * * *',
     class: 'CleanOldReleasesJob',
@@ -14,16 +14,18 @@ DEFAULT_JOBS = {
 }
 
 if Sidekiq.server?
-  cron_jobs = DEFAULT_JOBS
+  cron_jobs = {}
+  if Setting.keep_uploads
+    cron_jobs[:clean_old_releases] = SCHEDULED_JOBS[:clean_old_releases]
+  else
+    Sidekiq::Cron::Job.destroy('clean_old_releases')
+  end
 
-  keep_uploads = Setting.keep_uploads
-  cron_jobs.delete_if { |k, _| keep_uploads && k == 'clean_old_releases' }
-
-  demo_mode = Setting.demo_mode
-  cron_jobs.delete_if { |k, _| !demo_mode && k == 'reset_for_demo_mode' }
-
-  # 从 demo mode 禁用后需要删除定时任务
-  Sidekiq::Cron::Job.destroy('reset_for_demo_mode') unless demo_mode
+  if Setting.demo_mode
+    cron_jobs[:reset_for_demo_mode] = SCHEDULED_JOBS[:reset_for_demo_mode]
+  else
+    Sidekiq::Cron::Job.destroy('reset_for_demo_mode')
+  end
 
   Sidekiq::Cron::Job.load_from_hash cron_jobs
 end
