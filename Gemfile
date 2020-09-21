@@ -31,7 +31,7 @@ gem 'simple_form', '~> 5.0'
 
 # Model
 ## 生成友好 id
-gem 'friendly_id', '~> 5.3.0' # NOTE: Do not upgrade to 5.4.0
+gem 'friendly_id', '~> 5.4.0' # NOTE: Do not upgrade to 5.4.0
 ## 数据分页
 gem 'kaminari'
 ## 文件上传
