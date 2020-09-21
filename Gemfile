@@ -42,7 +42,7 @@ gem 'mini_magick'
 ## HTTP 请求
 gem 'http'
 ## 用户认证
-gem 'devise', '~> 4.7.2'
+gem 'devise', '~> 4.7.3'
 gem 'devise-i18n', '~> 1.9.2'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
