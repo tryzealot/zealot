@@ -98,10 +98,11 @@ class Admin::SystemInfoController < ApplicationController
 
       next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
       next if (EXCLUDED_MOUNT_TYPES & [mount.mount_type]).any?
-      next if obj.any? { |i| i[:mount_path] == disk.path }
 
       begin
         disk = Sys::Filesystem.stat(mount.mount_point)
+        next if obj.any? { |i| i[:mount_path] == disk.path }
+
         obj.push(
           bytes_total: disk.bytes_total,
           bytes_used: disk.bytes_used,
