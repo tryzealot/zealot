@@ -395,7 +395,7 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
-    simple_form (5.0.2)
+    simple_form (5.0.3)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     slim (4.0.1)
