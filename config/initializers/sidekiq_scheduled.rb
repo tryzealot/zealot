@@ -16,9 +16,9 @@ SCHEDULED_JOBS = {
 if Sidekiq.server?
   cron_jobs = {}
   if Setting.keep_uploads
-    cron_jobs[:clean_old_releases] = SCHEDULED_JOBS[:clean_old_releases]
-  else
     Sidekiq::Cron::Job.destroy('clean_old_releases')
+  else
+    cron_jobs[:clean_old_releases] = SCHEDULED_JOBS[:clean_old_releases]
   end
 
   if Setting.demo_mode
