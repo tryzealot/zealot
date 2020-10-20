@@ -72,7 +72,7 @@ ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
-ARG S6_OVERLAY_VERSION="2.0.0.1"
+ARG S6_OVERLAY_VERSION="2.1.0.1"
 
 LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-ref=$VCS_REF \
@@ -107,6 +107,8 @@ WORKDIR $APP_ROOT
 
 COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
+
+RUN ln -s /app/bin/rails /usr/local/bin/
 
 EXPOSE 3000
 
