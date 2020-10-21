@@ -11,19 +11,18 @@
 ## 特性
 
 - [x] 支持 iOS 和 Android 应用的上传和下载
-- [x] 支持应用创建各种类型（Debug、AdHoc、Release）和渠道（小米、华为、Oppp、Vivo、应用宝等）
+- [x] 支持应用创建各种类型（Debug、AdHoc、Enterprise、Release）和渠道（小米、华为、Oppp、Vivo、应用宝等）
 - [x] 支持 iOS dSYM 和 Android Progruard 文件的备份管理和解析
-- [x] 支持单次上传解析 iOS 和 Android 包信息
-- [x] 支持自定义网络（WebHooks）数据来实时发送给通知服务（钉钉、企业微信、Slack 等）
-- [x] 支持获取 iOS 设备 UDID
-- [x] 支持丰富的 REST APIs
+- [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息
+- [x] 支持自定义网络钩子（WebHooks）发送给通知各种服务（钉钉、企业微信、Slack 等）
+- [x] 支持获取 iOS 设备 UDID 及显示支持安装的应用
 - [x] 支持 OAuth 认证登录（目前以接入 Google，LDAP）
 - [x] 提供检查新版本和安装服务的 iOS 和 Android 组件
-- [x] 提供 fastlane 插件 [zealot](https://github.com/getzealot/fastlane-plugin-zealot) 提供上传服务
+- [x] 提供 fastlane 插件 [zealot](https://github.com/getzealot/fastlane-plugin-zealot) 提供上传应用和调试文件服务
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
 - [ ] 可接入 Jenkins 服务实现远程构建
+- [x] 支持丰富的 REST APIs
 - [ ] 支持 GraphGL 接口（进行中）
-- [ ] 提供 cli 命令行工具（旧插件需要移植即可但貌似没有啥必要，有用没用先列在这）
 
 ## 最新版本
 
