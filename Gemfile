@@ -83,7 +83,7 @@ gem 'app-info', '~> 2.2.0'
 gem 'rails-settings-cached', '~> 2.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
