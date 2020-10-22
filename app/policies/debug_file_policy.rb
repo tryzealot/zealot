@@ -3,7 +3,7 @@
 class DebugFilePolicy < ApplicationPolicy
 
   def download?
-    manage?
+    show?
   end
 
   class Scope < Scope
