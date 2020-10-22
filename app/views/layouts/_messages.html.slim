@@ -1,8 +1,7 @@
-
 - flash.each do |name, msg|
   ruby:
     color, icon = case name
-                  when :notice, :success
+                  when 'notice', 'success'
                     ['success', 'check']
                   else
                     ['danger', 'exclamation-triangle']
