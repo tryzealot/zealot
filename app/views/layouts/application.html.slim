@@ -1,8 +1,8 @@
 ruby:
   body_class = 'skin-black-light'
-  if Setting.guest_mode || user_signed_in?
+  if user_signed_in_or_guest_mode?
     body_class += ' sidebar-mini'
-  elsif devise_page?
+  elsif Setting.guest_mode && devise_page?
     body_class += ' layout-top-nav'
   else
     body_class += ' layout-top-nav'
