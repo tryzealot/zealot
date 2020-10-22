@@ -3,6 +3,10 @@
 module ApplicationHelper
   RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
 
+  def user_signed_in_or_guest_mode?
+    user_signed_in? || (Setting.guest_mode && !devise_page?)
+  end
+
   def devise_page?
     params[:controller].start_with?('devise/')
   end
