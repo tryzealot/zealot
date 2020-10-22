@@ -1,6 +1,6 @@
 // Navbar
 nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-  - if Setting.guest_mode || user_signed_in?
+  - if user_signed_in_or_guest_mode?
     ul.navbar-nav
       li.nav-item
         a.nav-link data-widget="pushmenu" href="#"
@@ -28,8 +28,8 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
         a href="#{ root_path }" style="color: black" = Setting.site_title
 
 // Main Sidebar Container
-- if Setting.guest_mode || user_signed_in?
-  aside.main-sidebar.sidebar-light-primary.elevation-4
+- if user_signed_in_or_guest_mode?
+  aside.main-sidebar.sidebar-light-primary.elevation-2
     // Brand Logo
     a.brand-link href="#{ root_path }"
       = image_tag asset_pack_path('media/images/touch-icon.png'), class: %w[brand-image]
