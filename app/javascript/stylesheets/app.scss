@@ -122,6 +122,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
 
       a {
         color: $ios-install-issue-color;
+        text-decoration: underline;
         padding-left: 3px;
       }
     }
