@@ -66,22 +66,20 @@
     .app-actions
       - unless wechat?
         - if @release.has_file?
-          - if detect_device(@release.channel.device_type) == :ios
-            == render 'releases/body/install_cert'
+          == render 'releases/body/install_cert'
 
-            button.btn.btn-icon.bg-success.btn-lg[
-                id="download_it"
-                data-install-url="#{@release.install_url}"
-                data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待系统弹窗确认安装 ..."]
-              i.fas.fa-paper-plane
-              | 在线安装
+          button.btn.btn-icon.bg-success[
+              id="download_it"
+              data-install-url="#{@release.install_url}"
+              data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待系统弹窗确认安装 ..."]
+            i.fas.fa-paper-plane
+            | 在线安装
 
-          - else
-            a.btn.btn-icon.bg-success.btn-social href="#{@release.download_url}" target="_blank"
-              i.fas.fa-download
-              | 下载应用
+          a.btn.btn-icon.bg-success href="#{@release.download_url}" target="_blank"
+            i.fas.fa-download
+            | 下载应用
         - else
-          button.btn.btn-secondary.btn-icon.btn-lg.disabled
+          button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost
             | 遗失文件不可安装或下载
 
