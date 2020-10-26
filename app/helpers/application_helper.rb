@@ -92,17 +92,24 @@ module ApplicationHelper
   end
 
   def ios?(source = nil)
+    # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15
     source ||= user_agent
-    !(source =~ /iPhone|iPad|Unversal|ios|iOS/i).nil?
+    (source =~ /iPhone|iPad|Unversal|ios|iOS/i).present?
   end
 
   def android?(source = nil)
     source ||= user_agent
-    !(source =~ /Android|android/i).nil?
+    source.downcase.include?('android')
   end
 
   def phone?
     ios? || android?
+  end
+
+  def mac?
+    # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
+    source ||= user_agent
+    source.downcase.include?('macintosh')
   end
 
   # 检查移动设备
