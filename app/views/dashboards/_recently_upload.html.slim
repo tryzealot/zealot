@@ -36,6 +36,9 @@ section
                         = changelog_format release.changelog_list, class: 'mb-0'
                     - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                       .timeline-footer
+                        - if release.device
+                          small.badge
+                            = device_name(release.device)
                         - if release.release_type
                           small.badge
                             = release.release_type

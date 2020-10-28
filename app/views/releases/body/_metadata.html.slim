@@ -24,8 +24,8 @@
         i.fab.fa-gg
         = @release.version
       li title="平台"
-        = device_icon(@release.device_type)
-        = display_app_device(@release.channel)
+        = device_icon(@release.channel.device_type)
+        = display_app_device(@release)
       - if @release.name.present?
         li title="应用名"
           i.fas.fa-file
