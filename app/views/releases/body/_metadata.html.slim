@@ -73,11 +73,11 @@
               data-install-url="#{@release.install_url}"
               data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待安装 ..."]
             i.fas.fa-paper-plane
-            | 在线安装
+            | 安装应用
 
           a.btn.btn-icon.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            | 下载应用
+            | 保存本地
         - else
           button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost
