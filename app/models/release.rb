@@ -19,8 +19,9 @@ class Release < ApplicationRecord
   before_save   :convert_changelog
   before_save   :convert_custom_fields
   before_save   :trip_branch
+  before_save   :detect_device
 
-  delegate :scheme, :device_type, to: :channel
+  delegate :scheme, to: :channel
   delegate :app, to: :scheme
 
   paginates_per     20
@@ -214,6 +215,14 @@ class Release < ApplicationRecord
       self.custom_fields = []
     else
       self.custom_fields ||= []
+    end
+  end
+
+  def detect_device
+    if app_info.blank?
+      self.device = channel.device_type
+    else
+      self.device = app_info.device_type
     end
   end
 
