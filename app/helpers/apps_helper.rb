@@ -74,10 +74,14 @@ module AppsHelper
     link_to(release_type, channel_release_types_path(release.channel, name: release_type))
   end
 
-  def display_app_device(release)
-    channel = release.channel
+  def display_app_device(value)
+    if value.is_a?(Release)
+      channel = value.channel
+      return "#{device_name(channel.device_type)} (#{value.device})" if value.device
+    else
+      channel = value
+    end
 
-    return "#{device_name(channel.device_type)} (#{release.device})" if release.device
     return channel.name if channel.name.downcase == channel.device_type.downcase
     return "#{channel.name} (#{device_name(channel.device_type)})"
   end
