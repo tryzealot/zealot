@@ -68,16 +68,21 @@
         - if @release.has_file?
           == render 'releases/body/install_cert'
 
-          button.btn.btn-icon.bg-success[
-              id="download_it"
-              data-install-url="#{@release.install_url}"
-              data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待安装 ..."]
-            i.fas.fa-paper-plane
-            | 安装应用
+          - if detect_device(@release.channel.device_type) == :ios
+            / iOS 和 Mac 显示此按钮
+            button.btn.btn-icon.btn-lg.bg-success[
+                id="download_it"
+                data-install-url="#{@release.install_url}"
+                data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待安装 ..."]
+              i.fas.fa-paper-plane
+              | 安装
 
-          a.btn.btn-icon.bg-success href="#{@release.download_url}" target="_blank"
+          a.btn.btn-icon.btn-lg.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            | 保存本地
+            - if android?(user_agent)
+              | 安装
+            - else
+              | 下载
         - else
           button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost
