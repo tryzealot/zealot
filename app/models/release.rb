@@ -178,6 +178,8 @@ class Release < ApplicationRecord
 
   def app_info
     @app_info ||= AppInfo.parse(file.path)
+  rescue TypeError
+    nil
   rescue AppInfo::UnkownFileTypeError
     errors.add(:file, '上传的文件不是有效应用格式')
     nil
