@@ -1,6 +1,7 @@
 ruby:
   key = @setting.var
   value = @setting.value || Setting.send(key)
+  type = Setting.get_field(key)[:type]
 
 .row
   .col-md-12
@@ -10,6 +11,11 @@ ruby:
       = simple_form_for(@setting, url: admin_setting_path(key), method: :patch) do |f|
         .card-body
           = f.error_notification
-          = f.text_area :value, value: value, class: 'form-control', rows: 15
+          - if type == :boolean
+            = f.input :value, label: '开启', as: :boolean, checked: true
+          - elsif type == :hash
+            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15
+          - else
+            = f.text_area :value, value: value, class: 'form-control', rows: 15
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')

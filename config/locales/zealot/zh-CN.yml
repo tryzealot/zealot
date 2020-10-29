@@ -7,7 +7,7 @@ zh-CN:
       site_domain: 站点域名
 
       visits: 访问模式
-      registrations_mode: 开启注册模式
+      registrations_mode: 注册模式
       guest_mode: 开启游客模式
 
       mail: 邮件配置
