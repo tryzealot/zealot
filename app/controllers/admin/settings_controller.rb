@@ -18,12 +18,11 @@ class Admin::SettingsController < ApplicationController
       @setting.save
       redirect_to admin_settings_path, notice: "保存成功."
     else
-      redirect_to :edit
+      redirect_to admin_settings_path
     end
   end
 
   private
-
 
     def set_setting
       @setting = Setting.find_or_default(var: params[:id])
