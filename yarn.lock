@@ -3685,10 +3685,10 @@ file-uri-to-path@1.0.0:
   resolved "https://registry.npm.taobao.org/file-uri-to-path/download/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
   integrity sha1-VTp7hEb/b2hDWcRF8eN6BdrMM90=
 
-filepond@^4.20.1:
-  version "4.20.1"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.20.1.tgz#d0e2ce447dc785f8cc51abd207805b886090b2b7"
-  integrity sha512-qYwE/xSODJuAJH0E2BHeD8f3X66nxZ/aUQSaGhUTVXuAWe0wvIjxaRcMZUIsZm2f7truScxAe16l5ITzxi5TFw==
+filepond@^4.22.1:
+  version "4.22.1"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.22.1.tgz#670cbae014200d10da127fbcf5be929df4902db2"
+  integrity sha512-tLlR3mBDmA191K66Xi8D8HhiSRNdAjzU3we6Hsxe1/avBT4Sdxey4lxmrsjG1XMAe7GdBquCPUkJqUfKKt8r/w==
 
 fill-range@^4.0.0:
   version "4.0.0"
