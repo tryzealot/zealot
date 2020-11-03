@@ -6,7 +6,7 @@
     "@rails/webpacker": "^5.2.1",
     "admin-lte": "^3.0.5",
     "clipboard": "^2.0.6",
-    "filepond": "^4.20.1",
+    "filepond": "^4.23.1",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0"
   },
