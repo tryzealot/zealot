@@ -350,7 +350,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.4)
+    redis (4.2.5)
     regexp_parser (1.8.2)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -506,7 +506,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0.0)
   rails-settings-cached (~> 2.3)
   rake (~> 13.0.1)
-  redis (~> 4.2.4)
+  redis (~> 4.2.5)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
