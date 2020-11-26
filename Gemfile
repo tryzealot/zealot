@@ -13,7 +13,7 @@ gem 'rake', '~> 13.0.1'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.2.2'
+gem 'redis', '~> 4.2.5'
 
 # API
 gem 'active_model_serializers', '~> 0.10.10'
@@ -54,7 +54,7 @@ gem 'openssl', '~> 2.2.0'
 gem 'plist', '~> 3.5.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.3.4'
+gem 'sys-filesystem', '~> 1.4.0'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 
