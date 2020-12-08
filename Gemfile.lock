@@ -1,10 +1,11 @@
 GIT
   remote: https://github.com/MikeRogers0/sidekiq-cron
-  revision: 48f08625ce6ea4354cca3d00dc5afe0cda3ccc7f
+  revision: 6d24cb0e98116009cb81b855b68176fe3cd20fb9
   branch: bug/fix-redis-warning
   specs:
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
+      redis (>= 4.2.0)
       sidekiq (>= 4.2.1)
 
 GEM
