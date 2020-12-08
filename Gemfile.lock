@@ -47,7 +47,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_serializers (0.10.10)
+    active_model_serializers (0.10.11)
       actionpack (>= 4.1, < 6.1)
       activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
@@ -456,7 +456,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.10)
+  active_model_serializers (~> 0.10.11)
   activejob-status
   app-info (~> 2.2.0)
   awesome_print
