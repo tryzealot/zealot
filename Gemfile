@@ -23,7 +23,7 @@ gem 'health_check', '~> 3.0.0'
 
 # View
 ## 模板引擎
-gem 'jb', '~> 0.7.1'
+gem 'jb', '~> 0.8.0'
 gem 'slim-rails', '~> 3.2.0'
 
 ## 表单生成
