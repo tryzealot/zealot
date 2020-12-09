@@ -232,7 +232,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.2.1)
+    listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.8.0)
@@ -346,7 +346,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.5)
@@ -485,7 +485,7 @@ DEPENDENCIES
   kaminari
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.3)
-  listen (>= 3.0.5, < 3.3)
+  listen (>= 3.0.5, < 3.4)
   mini_magick
   omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8.0)
