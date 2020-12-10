@@ -1,10 +1,11 @@
 GIT
   remote: https://github.com/MikeRogers0/sidekiq-cron
-  revision: 48f08625ce6ea4354cca3d00dc5afe0cda3ccc7f
+  revision: 6d24cb0e98116009cb81b855b68176fe3cd20fb9
   branch: bug/fix-redis-warning
   specs:
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
+      redis (>= 4.2.0)
       sidekiq (>= 4.2.1)
 
 GEM
@@ -47,7 +48,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_serializers (0.10.10)
+    active_model_serializers (0.10.11)
       actionpack (>= 4.1, < 6.1)
       activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
@@ -130,7 +131,7 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    erubi (1.9.0)
+    erubi (1.10.0)
     et-orbi (1.2.4)
       tzinfo
     faraday (1.0.1)
@@ -200,8 +201,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     image_size (2.0.2)
     interception (0.5)
-    jb (0.7.1)
-      multi_json
+    jb (0.8.0)
     jenkins_api_client (1.5.3)
       json (>= 1.0)
       mixlib-shellout (>= 1.1.0)
@@ -232,10 +232,10 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.2.1)
+    listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.7.0)
+    loofah (2.8.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.4)
@@ -251,7 +251,7 @@ GEM
     minitest (5.14.2)
     mixlib-shellout (3.0.7)
     msgpack (1.3.3)
-    multi_json (1.14.1)
+    multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
@@ -336,9 +336,8 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    rails-settings-cached (2.3.5)
-      rails (>= 4.2.0)
-      request_store
+    rails-settings-cached (2.5.1)
+      rails (>= 5.0.0)
     railties (6.0.3.4)
       actionpack (= 6.0.3.4)
       activesupport (= 6.0.3.4)
@@ -347,13 +346,11 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.5)
     regexp_parser (1.8.2)
-    request_store (1.5.0)
-      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -453,13 +450,13 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.4.1)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.10)
+  active_model_serializers (~> 0.10.11)
   activejob-status
   app-info (~> 2.2.0)
   awesome_print
@@ -483,12 +480,12 @@ DEPENDENCIES
   guard-webpacker
   health_check (~> 3.0.0)
   http
-  jb (~> 0.7.1)
+  jb (~> 0.8.0)
   jenkins_api_client
   kaminari
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.3)
-  listen (>= 3.0.5, < 3.3)
+  listen (>= 3.0.5, < 3.4)
   mini_magick
   omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8.0)
@@ -504,7 +501,7 @@ DEPENDENCIES
   rack-cors (~> 1.1.1)
   rails (~> 6.0.3)
   rails-i18n (~> 6.0.0)
-  rails-settings-cached (~> 2.3)
+  rails-settings-cached (~> 2.5)
   rake (~> 13.0.1)
   redis (~> 4.2.5)
   rqrcode
