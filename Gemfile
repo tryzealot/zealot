@@ -16,14 +16,14 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.2.5'
 
 # API
-gem 'active_model_serializers', '~> 0.10.10'
+gem 'active_model_serializers', '~> 0.10.11'
 gem 'graphql', '~> 1.10.10'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.0.0'
 
 # View
 ## 模板引擎
-gem 'jb', '~> 0.7.1'
+gem 'jb', '~> 0.8.0'
 gem 'slim-rails', '~> 3.2.0'
 
 ## 表单生成
@@ -80,14 +80,14 @@ gem 'webpacker', '~> 5.2'
 gem 'app-info', '~> 2.2.0'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.3'
+gem 'rails-settings-cached', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.3'
+  gem 'listen', '>= 3.0.5', '< 3.4'
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
