@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '>= 2.3.0', '< 2.8.0'
 
-gem 'puma', '~> 5.0.4'
+gem 'puma', '~> 5.1.1'
 gem 'rails', '~> 6.0.3'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.1'
@@ -16,7 +16,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.2.5'
 
 # API
-gem 'active_model_serializers', '~> 0.10.11'
+gem 'active_model_serializers', '~> 0.10.12'
 gem 'graphql', '~> 1.10.10'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.0.0'
