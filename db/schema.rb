@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_070958) do
+ActiveRecord::Schema.define(version: 2020_12_16_070418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,37 @@ ActiveRecord::Schema.define(version: 2020_10_28_070958) do
     t.bigint "device_id", null: false
     t.index ["device_id", "release_id"], name: "index_devices_releases_on_device_id_and_release_id"
     t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
+  end
+
+  create_table "metadata", force: :cascade do |t|
+    t.bigint "release_id"
+    t.bigint "user_id"
+    t.string "platform", null: false
+    t.string "device", null: false
+    t.string "name"
+    t.string "release_version"
+    t.string "build_version"
+    t.string "bundle_id"
+    t.integer "size"
+    t.string "min_sdk_version"
+    t.string "target_sdk_version"
+    t.jsonb "activities", default: [], null: false
+    t.jsonb "services", default: [], null: false
+    t.jsonb "permissions", default: [], null: false
+    t.jsonb "features", default: [], null: false
+    t.string "release_type"
+    t.jsonb "mobileprovision", default: {}, null: false
+    t.jsonb "developer_certs", default: [], null: false
+    t.jsonb "entitlements", default: {}, null: false
+    t.jsonb "devices", default: [], null: false
+    t.jsonb "capabilities", default: [], null: false
+    t.jsonb "url_schemes", default: [], null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["checksum"], name: "index_metadata_on_checksum"
+    t.index ["release_id"], name: "index_metadata_on_release_id"
+    t.index ["user_id"], name: "index_metadata_on_user_id"
   end
 
   create_table "releases", force: :cascade do |t|
@@ -192,6 +223,8 @@ ActiveRecord::Schema.define(version: 2020_10_28_070958) do
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
+  add_foreign_key "metadata", "releases", on_delete: :cascade
+  add_foreign_key "metadata", "users", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade
   add_foreign_key "schemes", "apps", on_delete: :cascade
   add_foreign_key "user_providers", "users", on_delete: :cascade
