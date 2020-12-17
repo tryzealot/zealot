@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_070958) do
+ActiveRecord::Schema.define(version: 2020_12_16_070418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,9 @@ ActiveRecord::Schema.define(version: 2020_10_28_070958) do
     t.index ["device_id", "release_id"], name: "index_devices_releases_on_device_id_and_release_id"
     t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
   end
+
+# Could not dump table "metadata" because of following StandardError
+#   Unknown type 'metadata_platform' for column 'platform'
 
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
@@ -192,6 +195,8 @@ ActiveRecord::Schema.define(version: 2020_10_28_070958) do
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
+  add_foreign_key "metadata", "releases", on_delete: :cascade
+  add_foreign_key "metadata", "users", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade
   add_foreign_key "schemes", "apps", on_delete: :cascade
   add_foreign_key "user_providers", "users", on_delete: :cascade

@@ -1,102 +1,41 @@
 ruby:
   begin
-    app_name = @app_info.name
+    app_name = @metadata.name
   rescue Android::NotFoundError
     app_name = '未知'
   end
 
-.row
-  .col-md-8
-    .card
-      .card-header
-        h3.card-title 应用信息
-        .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-minus
-      .card-body
-        dl.system-info
-          dt 名称
-          dd
-            pre = app_name
-          dt 版本
-          dd
-            pre = "#{@app_info.release_version} (#{@app_info.build_version})"
-          dt 包名
-          dd
-            pre = @app_info.package_name
-          dt 支持设备
-          dd
-            pre = @app_info.device_type
-          dt Android 最低版本 / 目标版本
-          dd
-            pre = "#{@app_info.min_sdk_version} / #{@app_info.target_sdk_version}"
-          dt 文件大小
-          dd
-            pre = number_to_human_size(@app_info.size)
+.col-md-8
+  .card
+    .card-header
+      h3.card-title 应用信息
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body
+      dl.system-info
+        dt 名称
+        dd
+          pre = app_name
+        dt 版本
+        dd
+          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
+        dt 包名
+        dd
+          pre = @metadata.packet_name
+        dt 支持设备
+        dd
+          pre = @metadata.device
+        dt Android 最低版本 / 目标版本
+        dd
+          pre = "#{@metadata.min_sdk_version} / #{@metadata.target_sdk_version}"
+        dt 文件大小
+        dd
+          pre = number_to_human_size(@metadata.size)
 
-    .card
-      .card-header
-        h3.card-title Activities
-        .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-minus
-      .card-body.p-0
-        table.table.table-striped
-          - @app_info.activities.each do |activity|
-            - if activity.present?
-              tr
-                td = activity.name
+  = render 'card', title: 'Activities', raw: @metadata.activities
+  = render 'card', title: 'Services', raw: @metadata.services
 
-  .col-md-4
-    - if @app_info.use_permissions.present?
-      .card
-        .card-header
-          h3.card-title Permissions
-          .card-tools
-            button.btn.btn-tool data-card-widget="collapse"
-              i.fas.fa-minus
-        .card-body.p-0
-          table.table.table-striped
-            - @app_info.use_permissions.sort.each do |permission|
-              - if permission.present?
-                tr
-                  td = permission
-
-    - if @app_info.use_features.present?
-      .card
-        .card-header
-          h3.card-title Features
-          .card-tools
-            button.btn.btn-tool data-card-widget="collapse"
-              i.fas.fa-minus
-        .card-body.p-0
-          table.table.table-striped
-            - @app_info.use_features.compact.sort.each do |feature|
-              - if feature.present?
-                tr
-                  td = feature
-
-    - if @app_info.services.present?
-      .card
-        .card-header
-          h3.card-title Services
-          .card-tools
-            button.btn.btn-tool data-card-widget="collapse"
-              i.fas.fa-minus
-        .card-body.p-0
-          table.table.table-striped
-            - @app_info.services.sort_by(&:name).each do |service|
-              - if service.present?
-                tr
-                  td = service.name
-  / .col-md-4
-    / .card
-    /   .card-header
-    /     h3.card-title Certificates
-    /   .card-body
-    /     table.table.table-striped
-    /       - @app_info.certificates.each do |certificate|
-    /         tr
-    /           td = - certificate.certificate.subject.to_a.map {|c| "#{c[0]} = #{c[1]}"}.join(' / ')
-    /         tr
-    /           td = certificate.certificate.not_before
+.col-md-4
+  = render 'card', title: 'Features', raw: @metadata.features
+  = render 'card', title: 'Permissions', raw: @metadata.permissions
