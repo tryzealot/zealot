@@ -1,9 +1,8 @@
-class CreateMetadata < ActiveRecord::Migration[6.1]
-  def change
+class CreateMetadata < ActiveRecord::Migration[6.0]
+  def up
     create_table :metadata do |t|
       t.references :release, index: true, foreign_key: { on_delete: :cascade }
       t.references :user, index: true, foreign_key: { on_delete: :cascade }
-      t.string :platform, null: false
       t.string :device, null: false
       t.string :name
       t.string :release_version
@@ -30,6 +29,21 @@ class CreateMetadata < ActiveRecord::Migration[6.1]
 
       t.string :checksum, null: false, index: true
       t.timestamps
+    end
+
+    execute <<-SQL
+      CREATE TYPE metadata_platform AS ENUM ('ios', 'android', 'mobileprovision');
+    SQL
+
+    add_column :metadata, :platform, :metadata_platform
+  end
+
+  def down
+    def down
+      drop_table :metadata
+      execute <<-SQL
+        DROP TYPE metadata_platform;
+      SQL
     end
   end
 end

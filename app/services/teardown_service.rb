@@ -9,9 +9,8 @@ class TeardownService < ApplicationService
 
   def call
     file_type = AppInfo.file_type(file)
-    unless file_type == :ipa || file_type == :apk
-      # FIXME: 处理未知文件类型
-      puts "Can not process file: #{file}, file type: #{file_type}"
+    unless file_type == :ipa || file_type == :apk || file_type == :mobileprovision
+      raise "无法处理文件: #{file}, 不支持本文件类型: #{file_type}"
     end
 
     process
@@ -25,11 +24,21 @@ class TeardownService < ApplicationService
     return metadata unless metadata.new_record?
 
     parser = AppInfo.parse(file)
-    case parser.os
-    when AppInfo::Platform::IOS
-      process_ios(parser, metadata)
-    when AppInfo::Platform::ANDROID
-      process_android(parser, metadata)
+    if parser.respond_to?(:os)
+      case parser.os
+      when AppInfo::Platform::IOS
+        process_ios(parser, metadata)
+      when AppInfo::Platform::ANDROID
+        process_android(parser, metadata)
+      end
+    elsif parser.is_a?(AppInfo::MobileProvision)
+      metadata.name = parser.app_name
+      metadata.platform = :mobileprovision
+      metadata.device = parser.platform
+      metadata.release_type = parser.type
+      metadata.size = File.size(file)
+
+      process_mobileprovision(parser, metadata)
     end
 
     metadata.save!(validate: false)
@@ -49,7 +58,7 @@ class TeardownService < ApplicationService
 
   def process_ios(parser, metadata)
     process_app_common(parser, metadata)
-    process_mobileprovision(parser, metadata)
+    process_mobileprovision(parser.mobileprovision, metadata) if parser.mobileprovision?
 
     metadata.bundle_id = parser.bundle_id
     metadata.release_type = parser.release_type
@@ -75,29 +84,28 @@ class TeardownService < ApplicationService
     metadata.min_sdk_version = parser.min_sdk_version
   end
 
-  def process_mobileprovision(parser, metadata)
-    return unless parser.mobileprovision?
+  def process_mobileprovision(mobileprovision, metadata)
+    return unless mobileprovision
 
-    process_mobileprovision_metadata(parser, metadata)
-    process_developer_certs(parser, metadata)
-    process_entitlements(parser, metadata)
-    process_entitlements(parser, metadata)
+    process_mobileprovision_metadata(mobileprovision, metadata)
+    process_developer_certs(mobileprovision, metadata)
+    process_entitlements(mobileprovision, metadata)
+    process_entitlements(mobileprovision, metadata)
   end
 
-  def process_mobileprovision_metadata(parser, metadata)
+  def process_mobileprovision_metadata(mobileprovision, metadata)
     metadata.mobileprovision = {
-      uuid: parser.mobileprovision.UUID,
-      profile_name: parser.profile_name,
-      team_identifier: parser.team_identifier,
-      release_type: parser.release_type,
-      team_name: parser.team_name,
-      created_at: parser.mobileprovision.created_date,
-      expired_at: parser.expired_date
+      uuid: mobileprovision.UUID,
+      profile_name: mobileprovision.profile_name,
+      team_identifier: mobileprovision.team_identifier,
+      team_name: mobileprovision.team_name,
+      created_at: mobileprovision.created_date,
+      expired_at: mobileprovision.expired_date
     }
   end
 
-  def process_developer_certs(parser, metadata)
-    if developer_certs = parser.mobileprovision.developer_certs
+  def process_developer_certs(mobileprovision, metadata)
+    if developer_certs = mobileprovision.developer_certs
       metadata.developer_certs = developer_certs.each_with_object([]) do |cert, obj|
         obj << {
           name: cert.name,
@@ -108,8 +116,8 @@ class TeardownService < ApplicationService
     end
   end
 
-  def process_entitlements(parser, metadata)
-    if entitlements = parser.mobileprovision.Entitlements
+  def process_entitlements(mobileprovision, metadata)
+    if entitlements = mobileprovision.Entitlements
       metadata.entitlements = entitlements.sort.each_with_object({}) do |e, obj|
         key, value = e
 
@@ -118,8 +126,8 @@ class TeardownService < ApplicationService
     end
   end
 
-  def process_entitlements(parser, metadata)
-    if capabilities = parser.mobileprovision.enabled_capabilities
+  def process_entitlements(mobileprovision, metadata)
+    if capabilities = mobileprovision.enabled_capabilities
       metadata.capabilities = capabilities.sort
     end
   end

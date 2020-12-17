@@ -25,7 +25,7 @@
               td
                 = md.platform
               td
-                = "#{md.release_version} (#{md.build_version})"
+                = md.mobileprovision? ? '-' : "#{md.release_version} (#{md.build_version})"
               td
                 = md.user&.username || '匿名者'
               td
