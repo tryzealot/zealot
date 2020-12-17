@@ -1,0 +1,44 @@
+.col-md-12
+  .card
+    .card-header
+      h3.card-title
+        i.fas.fa-history
+        |  上传历史
+    .card-body.p-0
+      - if @metadata.present?
+        table.table.table-hover
+          tr
+            th ID
+            th 应用名
+            th 平台
+            th 版本
+            th 提交者
+            th 上传时间
+            - if user_signed_in?
+              th 操作
+          - @metadata.each_with_index do |md, index|
+            tr
+              td
+                = md.id
+              td
+                = link_to md.name, teardown_path(md)
+              td
+                = md.platform
+              td
+                = "#{md.release_version} (#{md.build_version})"
+              td
+                = md.user&.username || '匿名者'
+              td
+                span data-toggle="tooltip" title="#{md.created_at}"
+                  = time_ago_in_words(md.created_at)
+              - if user_signed_in?
+                td
+                  a.btn.btn-tool href="#{teardown_path(md)}" data-confirm="确定删除?" data-method="delete"
+                    i.fas.fa-trash-alt
+      - else
+        .p-3 还没有任何文件解析记录！
+
+    - if @metadata.total_pages > 1
+      .card-footer.clearfix
+        .float-right
+          = paginate @metadata

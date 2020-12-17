@@ -5,7 +5,11 @@ class TeardownsController < ApplicationController
   before_action :set_metadata, only: %i[show destroy]
 
   def index
-    redirect_to new_teardown_path, alert: "链接失效，请重新解析文件"
+    # redirect_to new_teardown_path, alert: "链接失效，请重新解析文件"
+    @title = '文件解析'
+    @metadata = Metadatum.page(params.fetch(:page, 1))
+                         .per(params.fetch(:per_page, 10))
+                         .order(id: :desc)
   end
 
   def show
@@ -40,6 +44,12 @@ class TeardownsController < ApplicationController
     render :new
   end
 
+  def destroy
+    @metadata.destroy
+
+    redirect_to teardowns_path, notice: "[#{@metadata.id}] #{@metadata.name} 应用解析记录删除成功！"
+  end
+
   private
 
   def set_metadata
@@ -63,7 +73,8 @@ class TeardownsController < ApplicationController
 
   def parse(file, release_id = nil)
     metadata = TeardownService.call(file)
-    metadata.update(release_id: release_id) if release_id
+    metadata.update_attribute(:release_id, release_id) if release_id.present?
+    metadata.update_attribute(:user_id, current_user.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
   end
