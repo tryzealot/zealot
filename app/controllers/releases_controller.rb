@@ -28,8 +28,9 @@ class ReleasesController < ApplicationController
 
     return render :new unless @release.save
 
-    # 触发 web_hook
+    # 触发异步任务
     @release.channel.perform_web_hook('upload_events')
+    TeardownJob.perform_later(@release.id, current_user&.id)
 
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
   end
