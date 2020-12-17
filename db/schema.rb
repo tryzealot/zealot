@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `bin/rails
-# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -94,36 +94,8 @@ ActiveRecord::Schema.define(version: 2020_12_16_070418) do
     t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
   end
 
-  create_table "metadata", force: :cascade do |t|
-    t.bigint "release_id"
-    t.bigint "user_id"
-    t.string "platform", null: false
-    t.string "device", null: false
-    t.string "name"
-    t.string "release_version"
-    t.string "build_version"
-    t.string "bundle_id"
-    t.integer "size"
-    t.string "min_sdk_version"
-    t.string "target_sdk_version"
-    t.jsonb "activities", default: [], null: false
-    t.jsonb "services", default: [], null: false
-    t.jsonb "permissions", default: [], null: false
-    t.jsonb "features", default: [], null: false
-    t.string "release_type"
-    t.jsonb "mobileprovision", default: {}, null: false
-    t.jsonb "developer_certs", default: [], null: false
-    t.jsonb "entitlements", default: {}, null: false
-    t.jsonb "devices", default: [], null: false
-    t.jsonb "capabilities", default: [], null: false
-    t.jsonb "url_schemes", default: [], null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["checksum"], name: "index_metadata_on_checksum"
-    t.index ["release_id"], name: "index_metadata_on_release_id"
-    t.index ["user_id"], name: "index_metadata_on_user_id"
-  end
+# Could not dump table "metadata" because of following StandardError
+#   Unknown type 'metadata_platform' for column 'platform'
 
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
