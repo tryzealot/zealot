@@ -23,6 +23,7 @@ class Api::Apps::UploadController < Api::BaseController
   # @return              [String]   json formatted app info
   def create
     create_or_update_release
+    perform_teardown_job
     perform_app_web_hook_job
 
     render json: @release,
@@ -61,6 +62,10 @@ class Api::Apps::UploadController < Api::BaseController
 
   def perform_app_web_hook_job
     @channel.perform_web_hook('upload_events')
+  end
+
+  def perform_teardown_job
+    TeardownJob.perform_later(@release.id, @user.id)
   end
 
   ###########################
