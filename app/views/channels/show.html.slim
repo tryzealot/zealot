@@ -9,7 +9,7 @@
 .row
   .col-md-8
     == render 'activity'
-    - if user_signed_in? && current_user.manage?
+    - if current_user&.manage?
       == render 'web_hooks'
   .col-md-4
     - if user_signed_in?
