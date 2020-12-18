@@ -35,23 +35,19 @@ class Api::Apps::UploadController < Api::BaseController
 
   def create_or_update_release
     ActiveRecord::Base.transaction do
-      if new_record?
-        create_new_build
-      else
-        update_new_build
-      end
+      new_record? ? create_new_app_build : create_build_from_exist_app
     end
   end
 
   # 创建 App 并创建新版本
-  def create_new_build
+  def create_new_app_build
     create_release with_channel and_scheme and_app
   end
 
   # 使用现有 App 创建新版本
-  def update_new_build
-    message = "bundle id `#{app_info.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
-    raise TypeError, message unless @channel.bundle_id_matched? app_info.bundle_id
+  def create_build_from_exist_app
+    message = "bundle id `#{app_parser.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
+    raise TypeError, message unless @channel.bundle_id_matched? app_parser.bundle_id
 
     create_release with_updated_channel
   end
@@ -77,14 +73,14 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file(release_params)
+    @release = channel.releases.upload_file(release_params, app_parser)
     @release.save!
   end
 
   def with_channel(scheme)
     @channel = scheme.channels.find_or_create_by channel_params do |channel|
-      channel.name = app_info.os
-      channel.device_type = app_info.os
+      channel.name = app_parser.os
+      channel.device_type = app_parser.os
     end
   end
 
@@ -95,7 +91,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def and_app
     permitted = params.permit :name
-    permitted[:name] ||= app_info.name
+    permitted[:name] ||= app_parser.name
 
     App.find_or_create_by permitted do |app|
       app.users << @user
@@ -103,9 +99,9 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def parse_scheme_name
-    return unless app_info.os == AppInfo::Platform::IOS
+    return unless app_parser.os == AppInfo::Platform::IOS
 
-    case app_info.release_type
+    case app_parser.release_type
     when AppInfo::IPA::ExportType::DEBUG
       '开发版'
     when AppInfo::IPA::ExportType::ADHOC
@@ -115,11 +111,6 @@ class Api::Apps::UploadController < Api::BaseController
     when AppInfo::IPA::ExportType::RELEASE
       '线上版'
     end
-  end
-
-  def decode_icon(icon_file)
-    Pngdefry.defry icon_file, icon_file
-    File.open icon_file
   end
 
   def release_params
@@ -133,8 +124,8 @@ class Api::Apps::UploadController < Api::BaseController
     params.permit(:slug, :password, :git_url)
   end
 
-  def app_info
-    @app_info ||= AppInfo.parse(params[:file].path)
+  def app_parser
+    @app_parser ||= AppInfo.parse(params[:file].path)
   end
 
   def get_channel
