@@ -34,17 +34,18 @@ class Release < ApplicationRecord
   end
 
   # 上传pp
-  def self.upload_file(params)
+  def self.upload_file(params, parser = nil)
     logger.debug "upload file params: #{params}"
     create(params) do |release|
       if release.file.present?
         begin
-          parser = AppInfo.parse(release.file.path)
+          parser ||= AppInfo.parse(release.file.path)
           release.source ||= 'Web'
           release.name = parser.name
           release.bundle_id = parser.bundle_id
           release.release_version = parser.release_version
           release.build_version = parser.build_version
+          release.device = parser.device_type
 
           if parser.os == AppInfo::Platform::IOS
             release.release_type ||= parser.release_type
@@ -171,19 +172,10 @@ class Release < ApplicationRecord
 
   def bundle_id_matched
     return if file.blank? || channel&.bundle_id.blank?
-    return if app_info.blank? || channel.bundle_id_matched?(app_info.bundle_id)
+    return if channel.bundle_id_matched?(self.bundle_id)
 
-    message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
+    message = "#{channel.app_name} 的 bundle id 或 packet name `#{self.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
     errors.add(:file, message)
-  end
-
-  def app_info
-    @app_info ||= AppInfo.parse(file.path)
-  rescue TypeError
-    nil
-  rescue AppInfo::UnkownFileTypeError
-    errors.add(:file, '上传的文件不是有效应用格式')
-    nil
   end
 
   private
@@ -222,11 +214,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    if app_info.blank?
-      self.device = channel.device_type
-    else
-      self.device = app_info.device_type
-    end
+    self.device ||= channel.device_type
   end
 
   ORIGIN_PREFIX = 'origin/'
