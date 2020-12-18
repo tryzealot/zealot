@@ -9,6 +9,7 @@ class Release < ApplicationRecord
   scope :latest, -> { order(version: :desc).first }
 
   belongs_to :channel
+  has_one :metadata, class_name: 'Metadatum', dependent: :destroy
   has_and_belongs_to_many :devices
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
