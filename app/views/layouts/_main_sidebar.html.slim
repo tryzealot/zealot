@@ -25,7 +25,7 @@
           i.nav-icon.fas.fa-eye
           p 获取 iOS 设备 UDID
 
-      - if user_signed_in? && current_user.admin?
+      - if current_user&.admin?
         li.nav-header 管理区域
         li.nav-item
           a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
