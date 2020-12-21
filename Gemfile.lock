@@ -347,7 +347,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
-    rake (13.0.1)
+    rake (13.0.3)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -505,7 +505,7 @@ DEPENDENCIES
   rails (~> 6.0.3.4)
   rails-i18n (~> 6.0.0)
   rails-settings-cached (~> 2.5)
-  rake (~> 13.0.1)
+  rake (~> 13.0.3)
   redis (~> 4.2.5)
   rqrcode
   rubocop (>= 0.70)
