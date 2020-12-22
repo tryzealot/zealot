@@ -5,7 +5,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
   before_action :set_app
 
   # GET /api/debug_files/download
-  def show
+  def index
     release_version = params[:release_version]
     build_version = params[:build_version]
     order = convert_order(params[:order])
