@@ -338,7 +338,7 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    rails-settings-cached (2.5.1)
+    rails-settings-cached (2.5.2)
       rails (>= 5.0.0)
     railties (6.0.3.4)
       actionpack (= 6.0.3.4)
