@@ -144,11 +144,15 @@ Rails.application.routes.draw do
       get '', action: :index
     end
 
-    post 'debug_files/upload', to: 'debug_files#create'
     resources :debug_files, except: %i[new edit create] do
       collection do
-        get :version_exist, to: 'debug_files/version_exist#show'
+        post :upload, action: :create
         get :download, to: 'debug_files/download#show'
+        # get :version_exist, to: 'debug_files/version_exist#show'
+
+        get 'exists/version', to: 'debug_files/exists#version'
+        get 'exists/binary', to: 'debug_files/exists#binary'
+        get 'exists/uuid', to: 'debug_files/exists#uuid'
       end
     end
 
