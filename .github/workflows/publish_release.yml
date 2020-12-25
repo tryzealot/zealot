@@ -1,0 +1,49 @@
+name: Publish Release Docker Image
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Get build date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S %z')"
+    - name: Get the version
+      id: version
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: ${{ steps.version.outputs.tag }}
+      with:
+        name: icyleafcn/zealot:${{ env.TAG }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+    - name: Docker Hub Description
+      uses: peter-evans/dockerhub-description@v2.1.0
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKERHUB_REPOSITORY: icyleafcn/zealot
+    - name: Trigger Microbadger update
+      uses: wei/curl@master
+      with:
+        args: -X POST ${{ secrets.MICROBADGER_WEBHOOK_URL }}
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ steps.version.outputs.tag }}
+        draft: false
+        prerelease: false
