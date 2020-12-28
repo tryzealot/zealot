@@ -93,7 +93,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.8.1)
-    binding_of_caller (1.0.0)
+    binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
@@ -108,7 +108,7 @@ GEM
       mini_mime (>= 0.1.3)
     case_transform (0.2)
       activesupport
-    chunky_png (1.3.11)
+    chunky_png (1.3.15)
     coderay (1.1.3)
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
@@ -116,7 +116,7 @@ GEM
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.9)
-    debug_inspector (1.0.0)
+    debug_inspector (0.0.3)
     devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -137,7 +137,7 @@ GEM
     faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    ffi (1.14.2)
+    ffi (1.13.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -288,7 +288,7 @@ GEM
     pg (1.2.1)
     pghero (2.7.3)
       activerecord (>= 5)
-    plist (3.6.0)
+    plist (3.5.0)
     pngdefry (0.1.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -357,10 +357,10 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
-    rqrcode (1.1.2)
+    rqrcode (1.2.0)
       chunky_png (~> 1.0)
-      rqrcode_core (~> 0.1)
-    rqrcode_core (0.1.1)
+      rqrcode_core (~> 0.2)
+    rqrcode_core (0.2.0)
     rubocop (1.2.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.5)
@@ -376,7 +376,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.87.0)
-    ruby-debug-ide (0.7.2)
+    ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
     ruby-macho (2.2.0)
     ruby-progressbar (1.10.1)
@@ -417,7 +417,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sys-filesystem (1.4.1)
+    sys-filesystem (1.4.0)
       ffi (~> 1.1)
     temple (0.8.2)
     terminal-notifier (2.0.0)
@@ -495,7 +495,7 @@ DEPENDENCIES
   openssl (~> 2.2.0)
   pg (>= 0.18, < 2.0)
   pghero
-  plist (~> 3.6.0)
+  plist (~> 3.5.0)
   pry-byebug
   pry-rails
   pry-rescue
@@ -518,7 +518,7 @@ DEPENDENCIES
   slim-rails (~> 3.2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sys-filesystem (~> 1.4.1)
+  sys-filesystem (~> 1.4.0)
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
