@@ -137,7 +137,7 @@ GEM
     faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    ffi (1.13.1)
+    ffi (1.14.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -417,7 +417,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sys-filesystem (1.4.0)
+    sys-filesystem (1.4.1)
       ffi (~> 1.1)
     temple (0.8.2)
     terminal-notifier (2.0.0)
@@ -518,7 +518,7 @@ DEPENDENCIES
   slim-rails (~> 3.2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sys-filesystem (~> 1.4.0)
+  sys-filesystem (~> 1.4.1)
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
