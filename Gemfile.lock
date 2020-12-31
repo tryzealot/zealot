@@ -376,7 +376,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.87.0)
-    ruby-debug-ide (0.7.0)
+    ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
     ruby-macho (2.2.0)
     ruby-progressbar (1.10.1)
