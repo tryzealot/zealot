@@ -1,0 +1,14 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  a.btn.btn-icon.bg-green href="#{new_teardown_path}"
+    i.far.fa-plus-square
+    | 开始解析
+
+.row
+  == render 'list'
+

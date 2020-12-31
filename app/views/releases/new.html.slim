@@ -1,0 +1,18 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @channel.app_name
+
+.row
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title
+          = @title
+        .card-tools
+          a href="#{channel_path(@channel)}"
+            i.far.fa-list-alt
+            |  返回应用
+      .card-body
+        == render 'form'

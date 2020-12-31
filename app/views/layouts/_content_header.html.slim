@@ -1,0 +1,23 @@
+ruby:
+  section_title = yield :section_title
+  right_panel = yield :section_rightpanel
+  breadcrumb = yield :breadcrumb
+
+// Content Header (Page header)
+
+- if section_title.present?
+  section.content-header
+    .container-fluid
+      .row.pl-2
+        .col-sm-6
+          h1 = yield :section_title
+        .col-sm-6
+          - if right_panel.present?
+            div.float-sm-right
+              = right_panel
+
+          - if breadcrumb.present?
+            ol.breadcrumb.float-sm-right
+              = breadcrumb
+- else
+  div style="padding: 7px 0;"

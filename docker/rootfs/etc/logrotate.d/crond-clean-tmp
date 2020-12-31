@@ -1,0 +1,4 @@
+/var/log/clean_tmp_cron.log {
+  missingok
+  notifempty
+}

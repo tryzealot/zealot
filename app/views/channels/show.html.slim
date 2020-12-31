@@ -1,0 +1,20 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+  small
+    = @subtitle
+
+.row
+  .col-md-8
+    == render 'activity'
+    - if current_user&.manage?
+      == render 'web_hooks'
+  .col-md-4
+    - if user_signed_in?
+      a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
+    == render 'schemes'
+    == render 'channels'
+    == render 'versions'
+    == render 'metadata'

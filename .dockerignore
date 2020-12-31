@@ -1,0 +1,48 @@
+# git
+.git*
+
+#ruby
+specifications/*
+extensions/*
+gems/*
+build_info/*
+cache/*
+
+# rails
+log
+tmp
+doc
+spec
+db/*.sqlite3
+db/*.sqlite3-journal
+public/assets/*
+public/packs/*
+public/uploads/*
+public/system/*
+vendor/bundle/*
+node_modules/*
+Guardfile
+
+# docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# project
+README.*
+.travis.yml
+.editorconfig
+.rubocop.yml
+.ruby-gemset
+.ruby-version
+.*env
+.powenv
+.rvmrc
+.byebug_history
+.history
+.bundle
+.vscode
+.DS_Store
+.ruby-gemset
+.ruby-version
+.codeclimate.yml

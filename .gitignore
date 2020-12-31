@@ -1,0 +1,69 @@
+# bundler state
+/.bundle
+/vendor/bundle/
+/vendor/ruby/
+build_info/
+extensions/
+bundler/
+
+# minimal Rails specific artifacts
+db/*.sqlite3
+/db/*.sqlite3-journal
+/log/*
+/tmp/*
+
+# various artifacts
+**.war
+*.rbc
+*.sassc
+.redcar/
+**.swp
+.sass-cache
+/config/config.yml
+/coverage.data
+/coverage/
+/db/*.javadb/
+/db/*.sqlite3
+/doc/api/
+/doc/app/
+/doc/features.html
+/doc/specs.html
+/public/assets
+/public/packs
+/public/backup
+/public/packs-test
+/public/system/
+/public/uploads
+/spec/tmp/*
+/cache
+/capybara*
+/capybara-*.html
+/gems
+/specifications
+rerun.txt
+pickle-email-*.html
+.zeus.sock
+.cap_*
+**.orig
+*.pem
+.DS_Store
+
+# vscode
+.vscode
+.history
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+node_modules/
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# Environment files that may contain sensitive data
+.*env
+.powenv
+.rvmrc
+.byebug_history

@@ -1,0 +1,20 @@
+- if @metadata.release_type == AppInfo::IPA::ExportType::ADHOC
+  .card
+    .card-header
+      h3.card-title
+        | 设备列表 (
+        = @metadata.devices.size
+        | )
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body.p-0
+      table.table
+        - @metadata.devices.each do |udid|
+          tr
+            td
+              span = udid
+              - if (device = Device.find_by(udid: udid)) && device.name.present?
+                .float-right
+                  small.badge.badge-light
+                    = device.name

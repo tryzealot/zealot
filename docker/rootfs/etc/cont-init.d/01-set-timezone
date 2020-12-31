@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv sh
+
+TZ=${TZ:-"Asia/Shanghai"}
+
+if [[ -f "/usr/share/zoneinfo/$TZ" ]]; then
+  ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
+  echo "$TZ" > /etc/timezone
+fi

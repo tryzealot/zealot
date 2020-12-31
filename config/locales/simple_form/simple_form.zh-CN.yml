@@ -1,0 +1,116 @@
+zh-CN:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: '必填项'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "请检查如下问题:"
+    labels:
+      defaults:
+        name: '名称'
+        password: '密码'
+        channel: '渠道名称'
+      user:
+        username: '昵称'
+        email: '登录邮箱'
+        password: '登录密码'
+        password_confirmation: '密码确认'
+        role: '账户权限'
+        remember_me: '记住我'
+      app:
+        name: '应用名称'
+        schemes:
+          name: :'simple_form.labels.scheme.name'
+      scheme:
+        name: '类型名称'
+      channel:
+        name: '渠道名称'
+        device_type: '应用平台'
+        bundle_id: '校验包名'
+        git_url: 'Git URL'
+        slug: '唯一地址'
+        password: '访问密码'
+      release:
+        file: 应用文件
+        changelog: 变更日志
+        release_type: 发布类型
+        branch: 分支名称
+        git_commit: Git 最后提交 Commit Hash
+        ci_url: CI URL
+      web_hook:
+        url: 'URL'
+        body: '自定义消息体'
+        upload_events: '上传事件'
+        download_events: '下载事件'
+        changelog_events: '日志变更事件'
+      debug_file:
+        app_id: '应用'
+        device_type: '应用平台'
+        release_version: '发布版本'
+        build_version: '构建版本'
+        file: 'Debug File 文件'
+        checksum: '唯一校验码'
+
+    hints:
+      defaults:
+        channel: '应用会使用的平台'
+      app:
+        name: '起一个响亮亮的名称吧'
+        schemes:
+          name: '勾选预设的应用类型，后续还可以自己修改和添加'
+      scheme:
+          name: '比如开发版、内测版、线上版'
+      channel:
+        name: '可以和应用平台同名，Android 的可以是各个渠道包的名称'
+        device_type: '应用设备类型'
+        bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
+        git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
+        slug: 'URL 的唯一标识'
+        password: '设置后对非登录用户会要求输入密码'
+      release:
+        file: 仅支持 .ipa 和 .apk 文件
+        release_type: 一般来说取值位 debug、adhoc、release
+        branch: 通常情况是 master 或 develop
+        ci_url: Jenkins、Gitlab CI 等
+      web_hook:
+        body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
+      debug_file:
+        device_type: '应用设备类型'
+        file: '无论是 iOS 还是 Android 都必须使用 zip 文件'
+
+    placeholders:
+      release:
+        changelog: 开发者很懒什么都没有填写
+      web_hook:
+        url: 'http://example.com/web-hooks'
+        body: |
+          {
+            event: @event,
+            title: @title,
+            app_name: @name,
+            device_type: @device_type,
+            release_version: @release_version,
+            build_version: @build_version,
+            size: @file_size,
+            changelog: @changelog,
+            install_url: @install_url,
+            icon_url: @icon_url,
+            qrcode_url: @qrcode_url,
+            uploaded_at: @uploaded_at
+          }
+      debug_file:
+        release_version: '1.0.0'
+        build_version: '1.0'
+        checksum: '纯校验使用，随文件生成无需填写'
+
+    # include_blanks:
+    #   defaults:
+    #     device_type: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     device_type: 'Select your age'

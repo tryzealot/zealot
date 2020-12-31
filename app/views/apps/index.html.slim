@@ -1,0 +1,15 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  - if user_signed_in?
+    a.btn.btn-icon.bg-green href="#{new_app_path}"
+      i.far.fa-plus-square
+      | 新建应用
+
+.row
+  == render 'list'
+  == render 'help'

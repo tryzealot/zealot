@@ -1,0 +1,36 @@
+table.table.table-hover
+  tr
+    th ID
+    th 主版本
+    th 开发版本
+    th 打包类型
+    th 分支
+    th Git 提交信息
+    th 上传时间
+    - if user_signed_in?
+      th 操作
+  - if @releases.present?
+    - @releases.each_with_index do |release, index|
+      tr
+        td
+          = link_to index + 1, channel_release_path(release.channel, release)
+        td
+          = link_to release.release_version, channel_version_path(release.channel, release.release_version)
+        td
+          = release.build_version
+        td
+          = release_type_url(release)
+        td
+          = git_branch_url(release)
+        td
+          = git_commit_url(release.channel.git_url, release.git_commit)
+        td
+          span data-toggle="tooltip" title="#{release.created_at}"
+            = time_ago_in_words(release.created_at)
+        - if user_signed_in?
+          td
+            a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="确定删除?" data-method="delete"
+              i.fas.fa-trash-alt
+  - else
+    tr
+      th colspan="5" 该版本没有任何上传记录！

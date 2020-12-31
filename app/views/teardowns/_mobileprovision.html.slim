@@ -1,0 +1,9 @@
+.col-md-8
+  == render 'mobileprovision_part'
+  == render 'developer_certs_part'
+  == render 'devices_part'
+  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+
+.col-md-4
+  == render 'card', title: '启用能力', raw: @metadata.capabilities
+  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes

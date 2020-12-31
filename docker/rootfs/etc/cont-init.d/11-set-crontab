@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+touch /var/log/clean_tmp_cron.log
+crontab /etc/crontabs/clean_tmp

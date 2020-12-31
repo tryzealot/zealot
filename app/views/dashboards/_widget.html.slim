@@ -1,0 +1,13 @@
+.col-md-3.col-sm-6
+  .info-box
+    span.info-box-icon class="#{color_style}"
+      i class="#{icon}"
+    .info-box-content
+      span.info-box-text
+        - if url.present?
+          a href="#{url}" data-no-turbolink="true"
+            = title
+        - else
+          = title
+      span.info-box-number
+        = count

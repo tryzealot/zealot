@@ -1,0 +1,110 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
+  DisabledByDefault: true
+  Exclude:
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - "db/**/*"
+  CacheRootDirectory: tmp
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'Guardfile'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'lib/tasks/**/*'
+
+# Some blocks are longer.
+Metrics/BlockLength:
+  ExcludedMethods:
+    - 'namespace'
+    - 'create_table'
+  Exclude:
+    - 'config/**/*.rb'
+    - 'spec/**/*.rb'
+    - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'Rakefile'
+    - 'config/**/*.rb'
+    - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
+
+Metrics/MethodLength:
+  Max: 60
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/ModuleLength:
+  Max: 150
+
+# Raise complexity metrics
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'lib/backup/**/*'
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# We do not need to support Ruby 1.9, so this is good to use.
+Style/SymbolArray:
+  Enabled: true
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+# Disable %w or %W instead for an array of words
+Style/WordArray:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: true
+  Exclude:
+    - 'app/controllers/**/*'
+
+Style/RescueStandardError:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: true
+  Exclude:
+    - 'app/serializers/channel_serializer.rb'
+
+Layout/HashAlignment:
+  Enabled: false

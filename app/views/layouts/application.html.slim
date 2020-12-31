@@ -1,0 +1,32 @@
+ruby:
+  body_class = 'skin-black-light'
+  if user_signed_in_or_guest_mode?
+    body_class += ' sidebar-mini'
+  elsif Setting.guest_mode && devise_page?
+    body_class += ' layout-top-nav'
+  else
+    body_class += ' layout-top-nav'
+  end
+
+doctype html
+html
+  head
+    title = yield :title
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon.png')}"]
+    link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
+    link[rel="apple-touch-icon" sizes="180x180" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
+    link[rel="icon" type="image/x-icon" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
+    == favicon_link_tag asset_pack_path('media/images/touch-icon.png')
+    == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    == csrf_meta_tags
+
+  body class="#{body_class}"
+    .wrapper
+      == render 'layouts/navigation'
+
+      .content-wrapper
+        == render 'layouts/content'
+
+      / == render 'layouts/footer'

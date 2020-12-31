@@ -1,0 +1,26 @@
+ruby:
+  head_title, back_url = if params[:action] == 'new'
+    ['应用管理', apps_path]
+  else
+    ['返回应用', app_path(@app)]
+  end
+
+.col-md-12
+  .card
+    .card-header
+      h3.card-title
+        = @title
+      .card-tools
+        a href="#{back_url}"
+          i.far.fa-list-alt
+          = " #{head_title}"
+    .card-body
+      = simple_form_for @app do |f|
+        = f.error_notification
+
+        = f.input :name, required: true
+        - if params[:action] == 'new'
+          = f.simple_fields_for :schemes do |n|
+            = n.input :name, as: :check_boxes, collection: default_schemes, checked: default_schemes.last
+          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
+        = f.button :submit

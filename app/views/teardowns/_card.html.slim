@@ -1,0 +1,19 @@
+- if raw.present?
+  .card
+    .card-header
+      h3.card-title = title
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body.p-0
+      table.table.table-striped
+        - if raw.respond_to?(:keys)
+          - raw.each do |key, value|
+            tr
+              td = key
+              td = value.is_a?(Array) ? value.join(', ') : value
+        - else
+          - raw.each do |value|
+            tr
+              tr
+                td = value.is_a?(Array) ? value.join(', ') : value

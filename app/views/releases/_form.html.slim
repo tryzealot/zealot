@@ -1,0 +1,11 @@
+= simple_form_for(@release, url: channel_releases_path(@channel)) do |f|
+  = f.error_notification
+
+  = f.input :file
+  = f.input :changelog
+  = f.input :release_type
+  = f.input :branch
+  = f.input :git_commit
+  = f.input :ci_url
+
+  = f.button :submit

@@ -1,0 +1,60 @@
+section
+  .row
+    .col-md-12
+      .card
+        .card-header
+          h3.card-title
+            i.fas.fa-history
+            |  上传时间线
+
+        .card-body
+          - if @releases.present?
+            .timeline
+              ruby:
+                loop_date = Time.current
+              - @releases.each_with_index do |release, i|
+                - if i == 0 || (loop_date.to_date != release.created_at.to_date)
+                  ruby:
+                    loop_date = release.created_at
+                  .time-label
+                    span.bg-olive
+                      = release.created_at.strftime('%Y-%m-%d')
+
+                div
+                  i.fab class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
+                  .timeline-item
+                    span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
+                      i.fas.fa-clock
+                      | &nbsp
+                      = time_ago_in_words(release.created_at)
+                    h3.timeline-header
+                      = link_to " #{release.app_name}", channel_release_path(release.channel, release)
+                      |  上传了新版本
+                      = " #{release.release_version} (#{release.build_version})"
+                    - if release.changelog.present?
+                      .timeline-body.pb-1
+                        = changelog_format release.changelog_list, class: 'mb-0'
+                    - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
+                      .timeline-footer
+                        - if release.device
+                          small.badge
+                            = device_name(release.device)
+                        - if release.release_type
+                          small.badge
+                            = release.release_type
+                        - if release.branch
+                          small.badge
+                            = release.branch
+                        - if release.short_git_commit
+                          small.badge
+                            = release.short_git_commit
+
+              div
+                i.bg-gray.fas.fa-clock
+          - else
+            .time-label 没有任何上传，快快上传吧。
+
+        - if @releases.present?
+          .card-footer
+            .float-right
+              = paginate @releases
