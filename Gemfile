@@ -51,7 +51,7 @@ gem 'pundit', '~> 2.1.0'
 
 ## UDID
 gem 'openssl', '~> 2.2.0'
-gem 'plist', '~> 3.5.0'
+gem 'plist', '~> 3.6.0'
 
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.0'
