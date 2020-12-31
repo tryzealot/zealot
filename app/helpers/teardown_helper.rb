@@ -7,7 +7,7 @@ module TeardownHelper
     time_in_words = distance_of_time_in_words(time, Time.now)
 
     style_name = 'text-green'
-    message = "还有#{time_in_words}过期"
+    message = "还有#{time_in_words}左右过期"
 
     if duration.value < 0
       style_name = 'text-red'
@@ -16,7 +16,7 @@ module TeardownHelper
       style_name = 'text-red'
       message = '此时此刻刚好过期了！'
     else
-      style_name = duration.in_months <= 3 ? 'text-yellow' : 'text-green'
+      style_name = duration.parts[:months] <= 3 ? 'text-yellow' : 'text-green'
     end
 
     content_tag(:span, message, class: [style_name, 'text-bold'])
