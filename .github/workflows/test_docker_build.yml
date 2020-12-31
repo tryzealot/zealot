@@ -6,4 +6,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build the Docker image
-      run: docker build --build-arg REPLACE_CHINA_MIRROR=false .
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: pr-test
+      with:
+        name: icyleafcn/zealot:${{ env.TAG }}
+        no_push: true
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
