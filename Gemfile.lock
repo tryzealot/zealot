@@ -288,7 +288,7 @@ GEM
     pg (1.2.1)
     pghero (2.7.3)
       activerecord (>= 5)
-    plist (3.5.0)
+    plist (3.6.0)
     pngdefry (0.1.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -495,7 +495,7 @@ DEPENDENCIES
   openssl (~> 2.2.0)
   pg (>= 0.18, < 2.0)
   pghero
-  plist (~> 3.5.0)
+  plist (~> 3.6.0)
   pry-byebug
   pry-rails
   pry-rescue
