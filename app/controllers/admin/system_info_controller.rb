@@ -141,7 +141,7 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def update_available?(new_version)
-    return true if Rails.env.development?
+    return true if Rails.env.development? || Setting.version == 'development'
 
     Gem::Version.new(new_version) > Gem::Version.new(Setting.version)
   end
