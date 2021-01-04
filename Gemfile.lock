@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/MikeRogers0/sidekiq-cron
-  revision: 6d24cb0e98116009cb81b855b68176fe3cd20fb9
+  revision: a8af9750327248ab4e3a77a36bd9b93c98b97ab0
   branch: bug/fix-redis-warning
   specs:
     sidekiq-cron (1.2.0)
@@ -144,7 +144,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.3.0)
       activerecord (>= 4.0.0)
-    fugit (1.4.0)
+    fugit (1.4.1)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.1.1)
