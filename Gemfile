@@ -7,7 +7,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 ruby '>= 2.3.0', '< 2.8.0'
 
 gem 'puma', '~> 5.1.1'
-gem 'rails', '~> 6.0.3.4'
+gem 'rails', '~> 6.1.0'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.3'
 
@@ -87,7 +87,7 @@ gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.4'
+  gem 'listen', '>= 3.0.5', '< 3.5'
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
