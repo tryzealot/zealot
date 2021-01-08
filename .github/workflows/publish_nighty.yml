@@ -25,7 +25,7 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: nightly
       with:
-        name: icyleafcn/zealot:${{ env.TAG }}
+        name: tryzealot/zealot:${{ env.TAG }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
@@ -34,7 +34,7 @@ jobs:
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKERHUB_REPOSITORY: icyleafcn/zealot
+        DOCKERHUB_REPOSITORY: tryzealot/zealot
     - name: Trigger Microbadger update
       uses: wei/curl@master
       with:
