@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::SystemInfoController < ApplicationController
-  VERSION_CHECK_URL = 'https://api.github.com/repos/getzealot/zealot/releases/latest'
+  VERSION_CHECK_URL = 'https://api.github.com/repos/tryzealot/zealot/releases/latest'
 
   EXCLUDED_MOUNT_OPTIONS = [
     'nobrowse',
