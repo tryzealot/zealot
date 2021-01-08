@@ -13,6 +13,6 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: pr-test
       with:
-        name: icyleafcn/zealot:${{ env.TAG }}
+        name: tryzealot/zealot:${{ env.TAG }}
         no_push: true
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
