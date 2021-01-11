@@ -43,7 +43,15 @@ class Channel < ApplicationRecord
     releases.select(:release_version)
             .group(:release_version)
             .map(&:release_version)
-            .sort { |a,b| Gem::Version.new(b) <=> Gem::Version.new(a) }
+            .sort do |a,b|
+              begin
+                Gem::Version.new(b) <=> Gem::Version.new(a)
+              rescue ArgumentError => e
+                # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
+                # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
+                e.message.include?(a) ? 1 : -1
+              end
+            end
   end
 
   def release_version_count(version)
