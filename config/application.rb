@@ -2,8 +2,6 @@
 
 require_relative 'boot'
 
-
-
 require 'rails'
 # Pick the frameworks you want:
 require 'active_model/railtie'
@@ -28,28 +26,28 @@ module Zealot
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    # config.autoloader = :classic
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
     config.active_record.default_timezone = :local
 
     # Set default locale
     locale = ENV['LOCALE'] || 'zh-CN'
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = locale.to_sym
     config.i18n.available_locales = [locale, :en]
+
+    # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+    # the I18n.default_locale when a translation cannot be found).
+    config.i18n.fallbacks = [I18n.default_locale]
 
     # Log to STDOUT because Docker expects all processes to log here. You could
     # the framework and any gems in your application.
     # or a third party host such as Loggly, etc..
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.log_tags  = %i[subdomain uuid]
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    config.log_tags = %i[subdomain request_id]
+    ActiveSupport::Logger.new(STDOUT).tap do |logger|
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
 
     # Action mailer settings.
     config.action_mailer.default_options = {
@@ -58,8 +56,8 @@ module Zealot
 
     # Set Redis as the back-end for the cache.
     config.cache_store = :redis_cache_store, {
-      url: (ENV['REDIS_CACHE_URL'] || 'redis://localhost:6379/0'),
-      namespace: ENV['REDIS_CACHE_NAMESPACE'] || 'cache'
+      url: (ENV['REDIS_URL'] || 'redis://localhost:6379/0'),
+      namespace: ENV['REDIS_NAMESPACE'] || 'cache'
     }
 
     # Set Sidekiq as the back-end for Active Job.
@@ -77,24 +75,27 @@ module Zealot
     # end
 
     # Disable Asset Pipeline/Sprockets
-    config.assets.enabled = false
-    config.assets.compile = false
+    # config.assets.enabled = false
+    # config.assets.compile = false
+
+    # Use a real queuing backend for Active Job (and separate queues per environment)
+    config.active_job.queue_adapter      = :sidekiq
 
     ################################################################
 
     # Auto load path
-    config.autoload_paths += %W(
-      #{config.root}/lib
-    )
+    config.autoload_paths += [
+      Rails.root.join('lib')
+    ]
 
-    config.eager_load_paths += %W(
-      #{config.root}/lib
-    )
+    # config.eager_load_paths += %W(
+    #   #{config.root}/lib
+    # )
 
     # Don't generate system test files.
     config.generators.system_tests = nil
 
     # Disable yarn check(this must disable with docker)
-    config.webpacker.check_yarn_integrity = false
+    # config.webpacker.check_yarn_integrity = false
   end
 end

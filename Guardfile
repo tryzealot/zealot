@@ -5,6 +5,8 @@ if `uname`.match?(/Darwin/)
   notification :terminal_notifier
 end
 
+ignore_rails = ENV['IGNORE_RAILS'] || 'false'
+
 environment = ENV.fetch('RAILS_ENV', 'development')
 
 ### Guard::Sidekiq
@@ -42,11 +44,13 @@ end
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 guard :rails, host: '0.0.0.0', environment: environment do
   ignore(%r{^config/(locales|webpack)/.*})
+  ignore(%r{^lib/tasks/.*})
 
+  watch('.env')
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
   watch('app/assets/config/manifest.js')
-end
+end if ignore_rails == 'false'
 
 guard :bundler do
   require 'guard/bundler'

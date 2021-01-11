@@ -1,0 +1,79 @@
+zh-CN:
+  admin:
+    settings:
+      general: 通用配置
+      site_title: 站点标题
+      site_https: 站点启用 HTTPS
+      site_domain: 站点域名
+
+      visits: 访问模式
+      registrations_mode: 注册模式
+      guest_mode: 开启游客模式
+
+      mail: 邮件配置
+      mailer_default_from: 默认邮件发件地址
+      mailer_default_to: 默认邮件发件人
+
+      archives: 上传文件
+      keep_uploads: 永久保存上传应用版本
+
+      submit:
+        create: 新增设置
+        update: 更新设置
+
+  datetime:
+    distance_in_words:
+      about_x_hours: 大约 %{count} 小时
+      about_x_months: 大约 %{count} 个月
+      about_x_years: 大约 %{count} 年
+      almost_x_years: 接近 %{count} 年
+      half_a_minute: 半分钟前
+      less_than_x_seconds: 不到 %{count} 秒
+      less_than_x_minutes: 不到 %{count} 分钟
+      over_x_years: " %{count} 年多"
+      x_seconds: " %{count} 秒"
+      x_minutes: " %{count} 分钟"
+      x_days: " %{count} 天"
+      x_months: " %{count} 个月"
+      x_years: " %{count} 年"
+  errors:
+    messages:
+      mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
+  activerecord:
+    errors:
+      models:
+        debug_file:
+          attributes:
+            app_id:
+              blank: 请选择要上传对于的应用
+            file:
+              blank: 必须选择一个 zip 文件
+
+  helpers:
+    submit:
+      user:
+        create: 新增用户
+        update: 更新用户
+      app:
+        create: 新增应用
+        update: 更新应用
+      scheme:
+        create: 新增类型
+        update: 更新类型
+      channel:
+        create: 新增渠道
+        update: 更新渠道
+      release:
+        create: 上传应用
+      web_hook:
+        create: 新增网络钩子
+        update: 更新网络钩子
+      debug_file:
+        create: 上传 Debug File
+  views:
+    pagination:
+      truncate: ...
+      first: 首页
+      previous: 前页
+      next: 后页
+      last: 尾页

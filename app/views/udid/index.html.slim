@@ -1,0 +1,34 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+.row
+  .col-md-12
+    == render 'releases/body/wechat'
+
+    .card
+      .card-body.text-center
+        - if phone?
+          = link_to '点击获取设备 UDID', udid_install_path, class: 'btn bg-success btn-lg btn-block'
+        - else
+          = raw @qrcode.as_svg
+      - unless phone?
+        .card-footer.text-center 请使用 iPhone 或 iPad 上的 Safari 浏览器打开本页面或者扫描上面的二维码，即可快速获取 UDID
+
+  .col-md-12
+    .card
+      .card-header.card-border
+        h3.card-title 使用帮助
+      .card-body
+        strong 获取步骤
+        ol
+          li 点击系统会弹窗的 “允许” 下载描述文件
+          li 打开手机 ”设置” 找到顶部的 ”已下载描述文件“ 点击可以待安装的 ”获取设备UDID“ 的描述文件
+          li 一路点击 ”安装“ 并输入锁屏密码允许安装描述文件
+          li 安装之后描述文件会自动删除并跳转一个结果页面
+        strong 什么是UDID?
+        p
+          | UDID 全称 Unique Device Identifier 是 iOS 设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
+          | 之后版本不再允许从应用内随意获取，因此需要通过外部安装描述文件的方式单次授权获取。

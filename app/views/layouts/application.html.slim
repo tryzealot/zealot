@@ -1,8 +1,8 @@
 ruby:
   body_class = 'skin-black-light'
-  if user_signed_in?
+  if user_signed_in_or_guest_mode?
     body_class += ' sidebar-mini'
-  elsif devise_page?
+  elsif Setting.guest_mode && devise_page?
     body_class += ' layout-top-nav'
   else
     body_class += ' layout-top-nav'
@@ -17,16 +17,16 @@ html
     link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
     link[rel="apple-touch-icon" sizes="180x180" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
     link[rel="icon" type="image/x-icon" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
+    == favicon_link_tag asset_pack_path('media/images/touch-icon.png')
     == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     == csrf_meta_tags
 
   body class="#{body_class}"
     .wrapper
-      == render 'layouts/tips'
       == render 'layouts/navigation'
 
       .content-wrapper
         == render 'layouts/content'
 
-      == render 'layouts/footer'
+      / == render 'layouts/footer'

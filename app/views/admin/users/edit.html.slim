@@ -12,12 +12,12 @@
           h3.card-title 激活链接
         .card-body
           input.form-control value="#{confirmation_url(@user, confirmation_token: @token)}" disabled=true
-          small.form-text.text-muted 如果邮件系统设置有问题或对方没有收到可以把本链接发给他
+          small.form-text.text-muted 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
     .card
       .card-header.card-border
         h3.card-title 用户信息
         .card-tools
           a href="#{admin_users_path}"
-            i.fa.fa-list-alt
+            i.far.fa-list-alt
             |  返回列表
       == render 'form'

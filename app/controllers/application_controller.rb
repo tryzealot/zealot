@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   # Handle pundit error
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
 
   private
 
@@ -50,4 +51,8 @@ class ApplicationController < ActionController::Base
   #   headers['Access-Control-Allow-Headers'] = '*'
   #   headers['Access-Control-Max-Age'] = '1728000'
   # end
+
+  def render_not_found_entity_response(e)
+    # redirect_to apps_path, notice: "没有找到 ID #{e.id}，跳转至应用列表"
+  end
 end

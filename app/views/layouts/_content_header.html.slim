@@ -5,18 +5,18 @@ ruby:
 
 // Content Header (Page header)
 
-- unless section_title.empty?
+- if section_title.present?
   section.content-header
     .container-fluid
-      .row
+      .row.pl-2
         .col-sm-6
           h1 = yield :section_title
         .col-sm-6
-          - unless right_panel.blank?
+          - if right_panel.present?
             div.float-sm-right
               = right_panel
 
-          - unless breadcrumb.blank?
+          - if breadcrumb.present?
             ol.breadcrumb.float-sm-right
               = breadcrumb
 - else

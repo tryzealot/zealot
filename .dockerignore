@@ -1,6 +1,13 @@
 # git
 .git*
 
+#ruby
+specifications/*
+extensions/*
+gems/*
+build_info/*
+cache/*
+
 # rails
 log
 tmp
@@ -38,3 +45,4 @@ README.*
 .DS_Store
 .ruby-gemset
 .ruby-version
+.codeclimate.yml

@@ -1,0 +1,16 @@
+# Number of days of inactivity before an issue becomes stale
+daysUntilStale: 60
+# Number of days of inactivity before a stale issue is closed
+daysUntilClose: 5
+# Issues with these labels will never be considered stale
+exemptLabels:
+  - pinned
+  - security
+# Label to use when marking an issue as stale
+staleLabel: wontfix
+# Comment to post when marking an issue as stale. Set to `false` to disable
+markComment: >
+  由于太长时间没有得到回复本问题会自动被关闭，如果您还有问题可以重新开启或提交新问题。感谢你对于 Zealot 的关注！
+
+# Comment to post when closing a stale issue. Set to `false` to disable
+closeComment: false

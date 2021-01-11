@@ -9,11 +9,11 @@ class ApplicationPolicy
   end
 
   def index?
-    user_signed_in?
+    Setting.guest_mode || user_signed_in?
   end
 
   def show?
-    scope.where(id: record.id).exists? || user?
+    scope.where(id: record.id).exists? || Setting.guest_mode || user?
   end
 
   def create?

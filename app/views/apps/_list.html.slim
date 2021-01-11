@@ -7,13 +7,14 @@
         h3.card-title
           = app_icon(app.recently_release, class: 'app-icon img-circle')
           = link_to app.name, app_path(app), style: "color: #000"
-        .card-tools
-          a.btn.btn-tool href="#{new_app_scheme_path(app)}"
-            i.fa.fa-plus-square-o
-          a.btn.btn-tool href="#{edit_app_path(app)}"
-            i.fa.fa-edit
-          a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
-            i.fa.fa-remove
+        - if user_signed_in?
+          .card-tools
+            a.btn.btn-tool href="#{new_app_scheme_path(app)}"
+              i.far.fa-plus-square
+            a.btn.btn-tool href="#{edit_app_path(app)}"
+              i.fas.fa-edit
+            a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
+              i.fas.fa-trash-alt
       .card-body.p-0
         .app-schemes
           - if app.schemes.count > 0
@@ -25,7 +26,7 @@
                 tr
                   td = link_to scheme.name, app_scheme_path(app, scheme)
                   td
-                    span.pull-right.badge.bg-blue = scheme.total_releases
+                    span.float-right.badge.bg-blue = scheme.total_releases
           - else
             .p-3
               | 还没有任何应用类型和渠道，开始
@@ -35,11 +36,11 @@
               | 右上角的按钮是本应用的功能区：
               ul
                 li.btn-icon
-                  i.fa.fa-plus-square-o
+                  i.far.fa-plus-square
                   | 创建应用类型和渠道
                 li.btn-icon
-                  i.fa.fa-edit
+                  i.fas.fa-edit
                   | 编辑应用类型
                 li.btn-icon
-                  i.fa.fa-remove
+                  i.fas.fa-trash-alt
                   | 删除应用类型

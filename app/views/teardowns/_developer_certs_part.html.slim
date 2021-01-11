@@ -1,0 +1,24 @@
+- if @metadata.developer_certs.present?
+  .card
+    .card-header
+      h3.card-title
+        | 开发者证书 (
+        = @metadata.developer_certs.size
+        | )
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body
+      dl.system-info
+        - @metadata.developer_certs.each_with_index do |cert, i|
+          dt
+            | 证书
+            = i + 1
+          dd
+            pre = cert['name']
+          dt 创建时间
+          dd
+            pre = cert['created_at']
+          dt 过期时间
+          dd
+            pre = cert['expired_at']

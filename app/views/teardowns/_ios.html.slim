@@ -1,104 +1,41 @@
-.row
-  .col-md-8
-    .card
-      .card-header
-        h3.card-title 应用信息
-      .card-body
-        dl.system-info
-          dt 名称
-          dd
-            pre = @app_info.name
-          dt 版本
-          dd
-            pre = "#{@app_info.release_version} (#{@app_info.build_version})"
-          dt Bundle Id
-          dd
-            pre = @app_info.bundle_id
-          dt 支持设备
-          dd
-            pre = @app_info.device_type
-          dt 最低 iOS 版本
-          dd
-            pre = @app_info.min_sdk_version
-          dt 文件大小
-          dd
-            pre = number_to_human_size(@app_info.size)
 
-    - if @app_info.mobileprovision?
-      .card
-        .card-header
-          h3.card-title 描述文件
-        .card-body
-          dl.system-info
-            dt 名称
-            dd
-              pre = @app_info.profile_name
-            dt UUID
-            dd
-              pre = @app_info.mobileprovision.UUID
-            dt 类型
-            dd
-              pre = @app_info.release_type
-            dt 团队名称
-            dd
-              pre = "#{@app_info.team_name} (#{@app_info.team_identifier.first}"
-            dt 创建时间
-            dd
-              pre = @app_info.mobileprovision.created_date
-            dt 过期时间
-            dd
-              pre
-                = "#{@app_info.expired_date} ("
-                span.text-green.text-bold
-                  = "还有#{distance_of_time_in_words(Time.current, @app_info.expired_date)}过期"
-                | )
-      .card
-        .card-header
-          h3.card-title 开发者证书
-        .card-body
-          dl.system-info
-            dt 名称
-            dd
-              pre = @app_info.profile_name
-            dt 过期时间
-            dd
-              pre = @app_info.mobileprovision.UUID
+.col-md-8
+  .card
+    .card-header
+      h3.card-title 应用信息
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body
+      dl.system-info
+        dt 名称
+        dd
+          pre = @metadata.name
+        dt 支持设备
+        dd
+          pre #{@metadata.device} (#{@metadata.platform})
+        dt 版本
+        dd
+          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
+        dt Bundle Id
+        dd
+          pre = @metadata.bundle_id
+        dt 打包类型
+        dd
+          pre = @metadata.release_type
 
-  - if @app_info.release_type == AppInfo::IPA::ExportType::ADHOC
-    .card
-      .card-header
-        h3.card-title 设备列表
-      .card-body
-        table.table.table-striped
-          tr
-            th UDID
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
-          tr
-            td 18cf53cddee60c5af9c97b1521e7cbf8342628da
+        dt 最低 iOS 版本
+        dd
+          pre = @metadata.min_sdk_version
+        dt 文件大小
+        dd
+          pre = number_to_human_size(@metadata.size)
 
-  .col-md-4
-    .card
-      .card-header
-        h3.card-title URL Schemes
-      .card-body
-        table.table.table-striped
-          - @app_info.info['CFBundleURLTypes'].each do |type|
-            tr
-              td = type['CFBundleURLSchemes'].join(', ')
+  == render 'mobileprovision_part'
+  == render 'developer_certs_part'
+  == render 'devices_part'
+  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
 
-
-  - if @app_info.mobileprovision.Entitlements['com.apple.developer.']
-    .col-md-4
-      .card
-        .card-header
-          h3.card-title Universal Links
-        .card-body
-          table.table.table-striped
-            - @app_info.mobileprovision.Entitlements.each do |scheme|
-              tr
-                td = scheme
+.col-md-4
+  == render 'card', title: '启用能力', raw: @metadata.capabilities
+  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes

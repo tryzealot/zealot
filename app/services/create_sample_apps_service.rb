@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CreateSampleAppsService
+  RELEASE_COUNT = 3
+
   def call(user)
     stardford_app user
     android_channels_app user
@@ -15,19 +17,22 @@ class CreateSampleAppsService
     channels = %i[Android iOS].freeze
     changelog = [
       {
-        user: '管理员',
+        author: '管理员',
         date: '2019-10-24 23:0:24 +0800',
-        message: 'release: 发布 0.1.0'
+        message: 'release: 发布 0.1.0',
+        email: 'admin@zealt.com'
       },
       {
-        user: '管理员',
+        author: '管理员',
         date: '2019-10-23 17:41:41 +0800',
-        message: 'fix: 修复 xxx 问题'
+        message: 'fix: 修复 xxx 问题',
+        email: 'admin@zealt.com'
       },
       {
-        user: '管理员',
+        author: '管理员',
         date: '2019-10-22 11:11:11 +0800',
-        message: 'feat: 初始化项目'
+        message: 'feat: 初始化项目',
+        email: 'admin@zealt.com'
       }
     ]
 
@@ -48,7 +53,7 @@ class CreateSampleAppsService
                          'release'
                        end
 
-        2.times do
+        RELEASE_COUNT.times do
           generate_release(channel, bundle_id, release_type, changelog)
         end
       end

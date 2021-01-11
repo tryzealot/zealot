@@ -9,12 +9,12 @@
 .row
   .col-md-8
     == render 'activity'
-    - if user_signed_in? && current_user.manage?
+    - if current_user&.manage?
       == render 'web_hooks'
   .col-md-4
-    a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
+    - if user_signed_in?
+      a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
     == render 'schemes'
     == render 'channels'
     == render 'versions'
-    - if user_signed_in?
-      == render 'metadata'
+    == render 'metadata'

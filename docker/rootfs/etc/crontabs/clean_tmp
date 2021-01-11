@@ -1,0 +1,1 @@
+0 */5 * * * /bin/sh -l -c 'find /tmp -type f -mmin +300 -exec rm -f {} \;' >> /var/log/clean_tmp_cron.log 2>&1

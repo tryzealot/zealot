@@ -50,11 +50,13 @@ $(document).on('turbolinks:load', function () {
       $('.navbar-fixed-top').css('z-index', 0);
     }
 
-    that.button('loading');
+    var text = $(that).html();
+    that.html(that.data('loading-text'));
 
     setTimeout(function () {
-      that.button('reset');
-    }, 8000)
+      that.html(text);
+      $('.ios-install-issues').removeClass('d-none');
+    }, 8000);
 
     var install_url = that.data('install-url');
 
@@ -66,5 +68,9 @@ $(document).on('turbolinks:load', function () {
     $(this).addClass('hide');
     $('.wechat-tips').addClass('hide');
     $('.navbar-fixed-top').css('z-index', 1030);
-  })
+  });
+
+  $('.ios-install-issues a').click(function () {
+    $('#install-issues').modal('toggle');
+  });
 });

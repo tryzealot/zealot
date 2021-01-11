@@ -1,8 +1,10 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6
-  TargetRailsVersion: 6.0
+  TargetRubyVersion: 2.7
+  TargetRailsVersion: 6.1
+  DisabledByDefault: true
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'
@@ -31,11 +33,15 @@ Metrics/BlockLength:
     - 'config/**/*.rb'
     - 'spec/**/*.rb'
     - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
 
 Layout/LineLength:
   Max: 120
   Exclude:
+    - 'Rakefile'
     - 'config/**/*.rb'
+    - 'lib/tasks/**/*'
+    - 'lib/backup/**/*'
 
 Metrics/MethodLength:
   Max: 60
@@ -49,6 +55,11 @@ Metrics/ModuleLength:
 # Raise complexity metrics
 Metrics/AbcSize:
   Max: 20
+  Exclude:
+    - 'lib/backup/**/*'
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
 
 Style/AsciiComments:
   Enabled: false

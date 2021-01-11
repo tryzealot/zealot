@@ -4,20 +4,18 @@
 - if logged_in_or_without_auth?(@release)
   .row
     .col-md-8
-      - if wechat?
-        == render 'releases/body/wechat'
+      == render 'releases/body/wechat'
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
+      == render 'releases/body/devices'
       == render 'releases/body/activity'
 
     .col-md-4
       - if user_signed_in?
         a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
       == render 'releases/sidebar/qrcode'
-      == render 'releases/sidebar/devices'
       == render 'releases/sidebar/version'
-      - if user_signed_in?
-        a.btn.btn-default.btn-block href="#{channel_path(@channel)}" 应用管理
+      a.btn.btn-default.btn-block href="#{channel_path(@channel)}" 应用管理
 - else
   .login-box
     .card
@@ -27,8 +25,8 @@
           .input-group
             .input-group-prepend
               span.input-group-text style="border-left: 1px solid #ced4da"
-                i.fa.fa-key
+                i.fas.fa-key
             input.form-control name="password" placeholder='******' type="password"
             span.input-group-append
               button.btn.btn-default.btn-flat
-                i.fa.fa-arrow-right
+                i.fas.fa-arrow-right

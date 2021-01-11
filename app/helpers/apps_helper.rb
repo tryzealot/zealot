@@ -46,6 +46,8 @@ module AppsHelper
   end
 
   def git_commit_url(git_url, commit, commit_length = 8)
+    return if commit.blank?
+
     commit_name = commit[0..(commit_length - 1)]
     return commit_name if git_url.blank?
 
@@ -58,9 +60,29 @@ module AppsHelper
     content_tag(:a, commit_name, href: commit_url)
   end
 
-  def display_app_device(channel)
-    return channel.name if channel.name.downcase == channel.device_type.downcase
+  def git_branch_url(release)
+    return unless branch = release.branch
+    return if branch.blank?
 
-    "#{channel.name} (#{device_name(channel.device_type)})"
+    link_to(branch, channel_branches_path(release.channel, name: branch))
+  end
+
+  def release_type_url(release)
+    return unless release_type = release.release_type
+    return if release_type.blank?
+
+    link_to(release_type, channel_release_types_path(release.channel, name: release_type))
+  end
+
+  def display_app_device(value)
+    if value.is_a?(Release)
+      channel = value.channel
+      return "#{device_name(channel.device_type)} (#{value.device})" if value.device
+    else
+      channel = value
+    end
+
+    return channel.name if channel.name.downcase == channel.device_type.downcase
+    return "#{channel.name} (#{device_name(channel.device_type)})"
   end
 end

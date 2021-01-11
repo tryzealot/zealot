@@ -9,40 +9,43 @@ class Release < ApplicationRecord
   scope :latest, -> { order(version: :desc).first }
 
   belongs_to :channel
+  has_one :metadata, class_name: 'Metadatum', dependent: :destroy
+  has_and_belongs_to_many :devices
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
   validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
   before_create :default_source
-  before_create :default_changelog
-  before_save   :changelog_format, if: :changelog_is_plaintext?
+  before_save   :convert_changelog
+  before_save   :convert_custom_fields
+  before_save   :trip_branch
+  before_save   :detect_device
 
-  delegate :scheme, :device_type, to: :channel
+  delegate :scheme, to: :channel
   delegate :app, to: :scheme
 
   paginates_per     20
   max_paginates_per 50
 
-  def self.version_by_channel(slug, version = nil)
-    channel = Channel.friendly.find slug
-    if version
-      channel.releases.find_by version: version
-    else
-      channel.releases.latest
-    end
+  def self.version_by_channel(channel_slug, release_id)
+    channel = Channel.friendly.find(channel_slug)
+    channel.releases.find(release_id)
   end
 
-  # 上传 App
-  def self.upload_file(params, source = 'Web')
+  # 上传pp
+  def self.upload_file(params, parser = nil)
+    logger.debug "upload file params: #{params}"
     create(params) do |release|
       if release.file.present?
         begin
-          parser = AppInfo.parse(release.file.path)
-          release.source = source
+          parser ||= AppInfo.parse(release.file.path)
+          release.source ||= 'Web'
+          release.name = parser.name
           release.bundle_id = parser.bundle_id
           release.release_version = parser.release_version
           release.build_version = parser.build_version
+          release.device = parser.device_type
 
           if parser.os == AppInfo::Platform::IOS
             release.release_type ||= parser.release_type
@@ -62,7 +65,10 @@ class Release < ApplicationRecord
           if parser.os == AppInfo::Platform::IOS &&
              parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
              parser.devices.present?
-            release.devices = parser.devices
+
+            parser.devices.each do |udid|
+              release.devices << Device.find_or_create_by(udid: udid)
+            end
           end
         rescue AppInfo::UnkownFileTypeError
           release.errors.add(:file, '上传的应用无法正确识别')
@@ -84,7 +90,7 @@ class Release < ApplicationRecord
   def size
     file&.size
   end
-  alias file_size size
+  alias_method :file_size, :size
 
   def short_git_commit
     return nil if git_commit.blank?
@@ -93,27 +99,31 @@ class Release < ApplicationRecord
   end
 
   def changelog_list(use_default_changelog = true)
-    return empty_changelog(use_default_changelog) if changelog.empty?
+    return empty_changelog(use_default_changelog) if changelog.blank?
+    return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
   end
 
+  def has_file?
+    return false if file.blank?
+
+    File.exist?(file.path)
+  end
+
   def download_url
-    api_apps_download_url(channel.slug, version)
+    download_release_url(id)
   end
 
   def install_url
     return download_url if channel.device_type.casecmp('android').zero?
 
-    download_url = api_apps_install_url(
-      channel.slug, version,
-      protocol: Rails.env.development? ? 'http' : 'https'
-    )
+    download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
   end
 
   def release_url
-    channel_release_url channel, self
+    channel_release_url(channel, self)
   end
 
   def qrcode_url(size = :thumb)
@@ -162,17 +172,10 @@ class Release < ApplicationRecord
 
   def bundle_id_matched
     return if file.blank? || channel&.bundle_id.blank?
-    return if app_info.blank? || channel.bundle_id_matched?(app_info.bundle_id)
+    return if channel.bundle_id_matched?(self.bundle_id)
 
-    message = "#{channel.app_name} 的 bundle id `#{app_info.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
+    message = "#{channel.app_name} 的 bundle id 或 packet name `#{self.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
     errors.add(:file, message)
-  end
-
-  def app_info
-    @app_info ||= AppInfo.parse(file.path)
-  rescue AppInfo::UnkownFileTypeError
-    errors.add(:file, '上传的文件不是有效应用格式')
-    nil
   end
 
   private
@@ -182,28 +185,55 @@ class Release < ApplicationRecord
     self.version = latest_version ? (latest_version.version + 1) : 1
   end
 
-  def changelog_format
-    hash = []
-    changelog.split("\n").each do |message|
-      next if message.blank?
+  def convert_changelog
+    if json_string?(changelog)
+      self.changelog = JSON.parse(changelog)
+    elsif changelog.blank?
+      self.changelog = []
+    elsif changelog.is_a?(String)
+      hash = []
+      changelog.split("\n").each do |message|
+        next if message.blank?
 
-      hash << { message: message }
+        hash << { message: message }
+      end
+      self.changelog = hash
+    else
+      self.changelog ||= []
     end
-    self.changelog = hash
+  end
+
+  def convert_custom_fields
+    if json_string?(custom_fields)
+      self.custom_fields = JSON.parse(custom_fields)
+    elsif custom_fields.blank?
+      self.custom_fields = []
+    else
+      self.custom_fields ||= []
+    end
+  end
+
+  def detect_device
+    self.device ||= channel.device_type
+  end
+
+  ORIGIN_PREFIX = 'origin/'
+  def trip_branch
+    return if branch.blank?
+    return unless branch.start_with?(ORIGIN_PREFIX)
+
+    self.branch = branch[ORIGIN_PREFIX.length..-1]
   end
 
   def default_source
     self.source ||= 'API'
   end
 
-  def default_changelog
-    self.changelog ||= []
-  end
-
-  def changelog_is_plaintext?
-    return false if changelog.blank?
-
-    changelog.is_a?(String)
+  def json_string?(value)
+    JSON.parse(value)
+    true
+  rescue
+    false
   end
 
   def enabled_validate_bundle_id?

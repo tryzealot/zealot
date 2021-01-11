@@ -1,4 +1,9 @@
 - content_for :title do
-  | 应用解析结果
+  | 文件解析结果
 
-== render "#{@app_info.os.downcase.to_s}"
+- if @app_info.respond_to?(:os)
+  == render "#{@app_info.os.downcase.to_s}"
+- elsif @app_info.respond_to?(:mobileprovision)
+  == render "mobileprovision"
+- else
+  p 抱歉无法解析，类型无法匹配！

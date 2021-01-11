@@ -1,15 +1,22 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
-
   root to: 'dashboards#index'
 
   #############################################
   # User
   #############################################
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-
+  devise_for :users, skip: :registrations, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
+    resource :registration,
+      only: %i[new create edit update],
+      path: 'users',
+      path_names: { new: 'sign_up' },
+      controller: 'users/registrations',
+      as: :user_registration do
+        get :cancel
+      end
+  end
   #############################################
   # App
   #############################################
@@ -28,7 +35,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :releases, except: :index, path_names: { new: 'upload' } do
+    resources :releases, path_names: { new: 'upload' } do
+      scope module: :releases do
+        get :install, to: 'install#show'
+      end
+
       scope module: :releases do
         get :qrcode, to: 'qrcode#show'
       end
@@ -40,6 +51,8 @@ Rails.application.routes.draw do
 
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
+      resources :branches, only: %i[index]
+      resources :release_types, only: %i[index]
     end
   end
 
@@ -51,29 +64,67 @@ Rails.application.routes.draw do
   #############################################
   # Teardown
   #############################################
-  resources :teardowns, only: %i[show new create], path_names: { new: 'upload' }
+  resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
+
+  #############################################
+  # Download
+  #############################################
+  namespace :download do
+    resources :releases, only: :show do
+      member do
+        get ':filename', action: :download, filename: /.+/, as: 'filename'
+      end
+    end
+
+    resources :debug_files, only: :show do
+      member do
+        get ':filename', action: :download, filename: /.+/, as: 'filename'
+      end
+    end
+  end
+
+  #############################################
+  # UDID (iOS)
+  #############################################
+  get 'udid', to: 'udid#index'
+  get 'udid/install', to: 'udid#install'
+  post 'udid/retrieve', to: 'udid#create'
+  get 'udid/:udid', to: 'udid#show', as: 'udid_result'
+
+  #############################################
+  # Health check
+  #############################################
+  health_check_routes
 
   #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
+      root to: 'settings#index'
+
       resources :users, except: :show
       resources :web_hooks, except: %i[edit update]
+      resources :settings
 
-      get :background_jobs, to: 'background_jobs#show'
-      get :system_info, to: 'system_info#show'
+      resources :background_jobs, only: :index
+      resources :system_info, only: :index
+      resources :database_analytics, only: :index
+
+      # get :background_jobs, to: 'background_jobs#show'
+      # get :system_info, to: 'system_info#show'
 
       require 'sidekiq/web'
       require 'sidekiq/cron/web'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
-
-      if Rails.env.development?
-        get :graphql_console, to: 'graphql_console#show'
-        mount GraphiQL::Rails::Engine, at: 'graphiql', graphql_path: '/graphql', as: :graphiql
-      end
+      mount PgHero::Engine, at: 'pghero', as: :pghero
     end
   end
+
+  #############################################
+  # Development Only
+  #############################################
+  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
   #############################################
   # API v1
@@ -86,23 +137,35 @@ Rails.application.routes.draw do
       get 'version_exist', to: 'version_exist#show'
       get 'versions', to: 'versions#index'
       get 'versions/(:release_version)', to: 'versions#show'
-      get ':slug(/:version)/install', to: 'install_url#show', as: 'install'
-      get ':slug(/:version)/download', to: 'download#show', as: 'download'
+
       get ':id', action: :show
       patch ':id', action: :update
       delete ':id', action: :destroy
       get '', action: :index
     end
 
-    post 'debug_files/upload', to: 'debug_files#create'
-    get 'debug_files/download', to: 'debug_files/download#show'
-    resources :debug_files, except: %i[create new edit]
+    resources :debug_files, except: %i[new edit create] do
+      collection do
+        post :upload, action: :create
+        get :download, to: 'debug_files/download#show'
+
+        get 'exists/version', to: 'debug_files/exists#version'
+        get 'exists/binary', to: 'debug_files/exists#binary'
+        get 'exists/uuid', to: 'debug_files/exists#uuid'
+      end
+    end
+
+    resources :devices, only: %i[update]
 
     namespace :jenkins do
       get 'projects', to: 'projects#index'
       get 'projects/:project', to: 'projects#show', as: 'project'
       get 'projects/:project/build', to: 'build#create', as: 'project_build'
       get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
+    end
+
+    namespace :zealot do
+      resources :version, only: :index
     end
   end
 

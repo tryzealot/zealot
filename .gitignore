@@ -2,6 +2,9 @@
 /.bundle
 /vendor/bundle/
 /vendor/ruby/
+build_info/
+extensions/
+bundler/
 
 # minimal Rails specific artifacts
 db/*.sqlite3
@@ -27,6 +30,7 @@ db/*.sqlite3
 /doc/specs.html
 /public/assets
 /public/packs
+/public/backup
 /public/packs-test
 /public/system/
 /public/uploads
