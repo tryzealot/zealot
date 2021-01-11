@@ -50,7 +50,7 @@ class AppWebHookJob < ApplicationJob
                                    bundle_id: @release.bundle_id,
                                    changelog: @release.changelog,
                                    file_size: @release.file.size,
-                                   app_url: @release.release_url,
+                                   release_url: @release.release_url,
                                    install_url: @release.install_url,
                                    icon_url: @release.icon_url(:medium),
                                    qrcode_url: @release.qrcode_url,
@@ -67,25 +67,6 @@ class AppWebHookJob < ApplicationJob
     when 'changelog_event'
       "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
     end
-  end
-
-  def app_url
-    url_for(
-      host: Rails.application.secrets.domain_name,
-      controller: 'apps',
-      action: 'show',
-      slug: @app.slug
-    )
-  end
-
-  def release_url
-    url_for(
-      host: Rails.application.secrets.domain_name,
-      controller: 'apps',
-      action: 'show',
-      slug: @app.slug,
-      version: @release.version
-    )
   end
 
   def description

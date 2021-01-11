@@ -5,15 +5,15 @@ ruby:
   .card
     .card-header
       h3.card-title
-        i.fa.fa-archive
+        i.fas.fa-archive
         |  历史主版本
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
-          i.fa.fa-minus
+          i.fas.fa-minus
     .card-body.p-0
       table.table
         - channel.release_versions.each do |version|
           tr
             td
-              = link_to version, channel_version_path(channel_id: channel.id, id: version)
+              = link_to version, channel_version_path(channel.slug, version)
 

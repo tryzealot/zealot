@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DebugFile < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   mount_uploader :file, DebugFileUploader
 
   belongs_to :app
@@ -13,6 +15,20 @@ class DebugFile < ApplicationRecord
   validates :checksum, uniqueness: true, on: :create
 
   before_validation :generate_checksum
+
+  def download_filename
+    "#{app.name}_#{device_type}_#{release_version}_#{build_version}_#{file.file.filename}"
+  end
+
+  def has_file?
+    return false if file.blank?
+
+    File.exist?(file.path)
+  end
+
+  def file_url
+    download_debug_file_url(id)
+  end
 
   private
 

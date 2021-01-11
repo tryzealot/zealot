@@ -5,9 +5,10 @@
   = @title
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.bg-green href="#{new_app_path}"
-    i.fa.fa-plus-circle
-    | 新建应用
+  - if user_signed_in?
+    a.btn.btn-icon.bg-green href="#{new_app_path}"
+      i.far.fa-plus-square
+      | 新建应用
 
 .row
   == render 'list'

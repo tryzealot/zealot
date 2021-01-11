@@ -1,10 +1,10 @@
 // Navbar
 nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-  - if user_signed_in?
+  - if user_signed_in_or_guest_mode?
     ul.navbar-nav
       li.nav-item
         a.nav-link data-widget="pushmenu" href="#"
-          i.fa.fa-bars
+          i.fas.fa-bars
 
     // Right navbar links
     ul.navbar-nav.ml-auto
@@ -19,19 +19,21 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
             = link_to '详情', edit_user_registration_path, class: 'dropdown-item'
             .dropdown-divider
             = link_to '登出', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+      - else
+        li.nav-item
+          = link_to '登录', new_user_session_path, class: 'dropdown-item'
   - else
     div.navbar-collapse.justify-content-md-center
       h4
-        a href="#{ root_path }" style="color: black" Zealot
+        a href="#{ root_path }" style="color: black" = Setting.site_title
 
 // Main Sidebar Container
-- if user_signed_in?
-  aside.main-sidebar.sidebar-light-primary.elevation-4
+- if user_signed_in_or_guest_mode?
+  aside.main-sidebar.sidebar-light-primary.elevation-2
     // Brand Logo
     a.brand-link href="#{ root_path }"
-      / span.brand-image Z
-      span.brand-bighead-text Z
-      span.brand-text.font-weight-light ealot
+      = image_tag asset_pack_path('media/images/touch-icon.png'), class: %w[brand-image]
+      span.brand-text.font-weight-light = Setting.site_title
 
     // Sidebar
     == render 'layouts/main_sidebar'

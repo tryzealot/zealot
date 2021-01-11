@@ -21,16 +21,17 @@ class Channel < ApplicationRecord
   validates :slug, uniqueness: true
 
   def latest_release
-    releases.take.order(id: :desc)
+    releases.last
   end
 
   def recently_releases(limit = 10)
     releases.limit(limit).order(id: :desc)
   end
 
-  def find_since_version(release_version, build_version)
+  def find_since_version(bundle_id, release_version, build_version)
     releases.where("release_version >= '#{release_version}'")
             .where("build_version > '#{build_version}'")
+            .where(bundle_id: bundle_id)
             .order(id: :desc)
   end
 
@@ -42,7 +43,15 @@ class Channel < ApplicationRecord
     releases.select(:release_version)
             .group(:release_version)
             .map(&:release_version)
-            .reverse
+            .sort do |a,b|
+              begin
+                Gem::Version.new(b) <=> Gem::Version.new(a)
+              rescue ArgumentError => e
+                # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
+                # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
+                e.message.include?(a) ? 1 : -1
+              end
+            end
   end
 
   def release_version_count(version)
@@ -78,100 +87,9 @@ class Channel < ApplicationRecord
     Digest::MD5.hexdigest(password)
   end
 
-  # def self.find_by_release(release)
-  #   instance = release.app
-  #   instance.current_release = release
-  #   instance
-  # end
-
-  # def platform
-  #   case device_type.downcase
-  #   when 'iphone', 'ipad', 'ios'
-  #     'iOS'
-  #   when 'android'
-  #     'Android'
-  #   else
-  #     'Unkown'
-  #   end
-  # end
-
-  # def branches
-  #   Rails.cache.fetch("app_#{id}_branches", expires_in: 1.week) do
-  #     releases
-  #       .select([:id, 'branch AS name', :app_id, 'COUNT(*) AS count', :created_at])
-  #       .group(:branch)
-  #       .order(created_at: :desc)
-  #       .select { |m| !m.name.to_s.empty? }
-  #       .sort_by(&:created_at)
-  #       .reverse
-  #   end
-  # end
-
-  # def release_versions
-  #   releases.group(:release_version)
-  #           .map(&:release_version)
-  #           .reverse
-  # end
-
-  # def build_versions(release_version)
-  #   releases.where(release_version: release_version)
-  #           .group(:build_version)
-  #           .map(&:build_version)
-  # end
-
-  # def version
-  #   current_release.try(:[], :version)
-  # end
-
-  # def release_version
-  #   current_release.try(:[], :release_version)
-  # end
-
-  # def build_version
-  #   current_release.try(:[], :build_version)
-  # end
-
-  # def changelog(since_release_version: nil, since_build_version: nil)
-  #   unless since_release_version.blank? && since_build_version.blank?
-  #     previous_release = Release.find_by(
-  #       app: self,
-  #       release_version: since_release_version,
-  #       build_version: since_build_version
-  #     )
-
-  #     return releases.where("id > #{previous_release.id}").order(id: :desc).each_with_object([]) do |release, obj|
-  #       next if release.changelog.blank? || release.changelog == '[]'
-
-  #       begin
-  #         obj.concat JSON.parse(release.changelog)
-  #       rescue
-  #         obj.concat release.pure_changelog
-  #       end
-  #     end if previous_release
-  #   end
-
-  #   current_release.pure_changelog
-  # end
-
-  # def icon_url
-  #   current_release.icon.url
-  # end
-
-  # def install_url
-  #   current_release.install_url
-  # end
-
-  # def current_release
-  #   @current_release ||= latest_release
-  # end
-
-  # def current_release=(current_release)
-  #   @current_release = current_release
-  # end
-
-  # def latest_release
-  #   @latest_release = releases.last
-  # end
+  def devices
+    releases.distinct.left_joins(:devices)
+  end
 
   private
 

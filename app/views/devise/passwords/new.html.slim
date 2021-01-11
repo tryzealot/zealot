@@ -2,18 +2,21 @@
 - content_for :title do
   | 找回密码
 
-.login-box
-  .card
-    .card-body.login-card-body
-      p.login-box-msg 找回密码
-      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-        = f.error_notification
+.row.mb-3.mt-3
+  .col-sm-7.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .login-box.col-sm-5.order-1.order-sm-12
+    .card
+      .card-body.login-card-body
+        p.login-box-msg 找回密码
+        = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          = f.error_notification
 
-        = f.input :email, hint: '',
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }
+          = f.input :email, hint: '',
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "email" }
 
-        = f.button :submit, '发送重置邮件', class: 'btn-block'
+          = f.button :submit, '发送重置邮件', class: 'btn-block'
 
-      == render 'devise/shared/links'
+        == render 'devise/shared/links'

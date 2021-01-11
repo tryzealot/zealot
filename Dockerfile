@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine as builder
+FROM ruby:2.7-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev imagemagick-dev postgresql-dev nodejs npm yarn"
@@ -39,45 +39,56 @@ RUN yarn install
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1 && \
-    bundle install --path=vendor/bundle --without development test \
+    bundle config set deployment 'true' && \
+    bundle config set without 'development test' && \
+    bundle install --path=vendor/bundle \
       --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
+RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile && \
+    cp -r public/ new_public/
 
 # Remove folders not needed in resulting image
-RUN rm -rf node_modules tmp/cache spec .browserslistrc babel.config.js \
-    package.json postcss.config.js yarn.lock
+RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
+    package.json postcss.config.js yarn.lock && \
+    cd /app/vendor/bundle/ruby/2.7.0 && \
+      rm -rf cache/*.gem && \
+      find gems/ -name "*.c" -delete && \
+      find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM ruby:2.6-alpine
+FROM ruby:2.7-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
-ARG VERSION
+ARG TAG
 
+ARG ZEALOT_VERSION="4.0.0"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata imagemagick imagemagick-dev postgresql-dev"
+ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
+ARG S6_OVERLAY_VERSION="2.1.0.1"
 
 LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.vcs-ref=$VCS_REF \
-      im.ews.zealot.version=$VERSION \
+      im.ews.zealot.version="$ZEALOT_VERSION-$TAG" \
       im.ews.zealot.name="Zealot" \
       im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
       im.ews.zealot.url="https://zealot.ews.im/" \
-      im.ews.zealot.vcs-url="https://github.com/getzealot/zealot" \
+      im.ews.zealot.vcs-url="https://github.com/tryzealot/zealot" \
       im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
 
 ENV TZ="Asia/Shanghai" \
+    PS1="$(whoami)@$(hostname):$(pwd)$ " \
+    DOCKER_TAG="$TAG" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
-    ZEALOT_VERSION="$VERSION" \
     ZEALOT_VCS_REF="$VCS_REF" \
+    ZEALOT_VERSION="$ZEALOT_VERSION" \
     RAILS_ENV="production"
 
 # System dependencies
@@ -89,16 +100,16 @@ RUN set -ex && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \
-    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone && \
+    curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xvzf - -C / && \
     gem install $RUBY_GEMS
 
 WORKDIR $APP_ROOT
 
+COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
 
-ENV ZEALOT_VERSION="4.0.0"
+RUN ln -s /app/bin/rails /usr/local/bin/
 
 EXPOSE 3000
 
-ENTRYPOINT [ "./docker-endpoint.sh" ]
+ENTRYPOINT ["/init"]

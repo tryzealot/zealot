@@ -1,10 +1,11 @@
 .card
   .card-header
     h3.card-title
-      i.fa.fa-history
+      i.fas.fa-history
       |  最近上传动态
     .card-tools
-      = paginate @releases
+      span.badge.bg-yellow
+        = @channel.releases.count
 
   .card-body.p-0
     ul.products-list.product-list-in-card
@@ -28,5 +29,5 @@
           | 吧。
   - if @releases.total_pages > 1
     .card-footer.clearfix
-      .pull-right
+      .float-right
         = paginate @releases

@@ -1,29 +1,33 @@
 - content_for :title do
   | 修改密码
 
-.login-box
-  .login-box-body
-    p.login-box-msg 修改密码
-    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-      = f.error_notification
+.row.mb-3.mt-3
+  .col-sm-7.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .login-box.col-sm-5.order-1.order-sm-12
+    .card
+      .login-box-body
+        p.login-box-msg 修改密码
+        = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+          = f.error_notification
 
-      = f.input :reset_password_token, as: :hidden
-      = f.full_error :reset_password_token
+          = f.input :reset_password_token, as: :hidden
+          = f.full_error :reset_password_token
 
-      .form-group.has-feedback
-        = f.input :password,
-                label: "新密码",
-                required: true,
-                autofocus: true,
-                hint: ("最小 #{@minimum_password_length} 个字符" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" }
-      .form-group.has-feedback
-        = f.input :password_confirmation,
-                label: "重复新密码",
-                required: true,
-                input_html: { autocomplete: "new-password" }
-      .row
-        .col-xs-4
-          = f.submit '重置密码', class: 'btn btn-primary btn-flat'
+          .form-group.has-feedback
+            = f.input :password,
+                    label: "新密码",
+                    required: true,
+                    autofocus: true,
+                    hint: ("最小 #{@minimum_password_length} 个字符" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" }
+          .form-group.has-feedback
+            = f.input :password_confirmation,
+                    label: "重复新密码",
+                    required: true,
+                    input_html: { autocomplete: "new-password" }
+          .row
+            .col-xs-4
+              = f.submit '重置密码', class: 'btn btn-primary btn-flat'
 
-    == render 'devise/shared/links'
+        == render 'devise/shared/links'

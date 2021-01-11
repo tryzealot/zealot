@@ -2,6 +2,7 @@ name: Publish Nightly Docker Image
 on:
   push:
     paths-ignore:
+      - '.github/*.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'
@@ -19,20 +20,21 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
+        REPLACE_CHINA_MIRROR: false
         VCS_REF: ${{ github.sha }}
         BUILD_DATE: ${{ steps.date.outputs.date }}
-        VERSION: nightly
+        TAG: nightly
       with:
-        name: icyleafcn/zealot:nightly
+        name: tryzealot/zealot:${{ env.TAG }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        buildargs: BUILD_DATE,VCS_REF,VERSION
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
     - name: Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKERHUB_REPOSITORY: icyleafcn/zealot
+        DOCKERHUB_REPOSITORY: tryzealot/zealot
     - name: Trigger Microbadger update
       uses: wei/curl@master
       with:

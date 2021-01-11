@@ -8,8 +8,4 @@ class Api::DebugFileSerializer < ApplicationSerializer
   def app_name
     object.app.name
   end
-
-  def file_url
-    object.file.url
-  end
 end

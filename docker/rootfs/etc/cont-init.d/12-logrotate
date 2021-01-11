@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+if [[ ! -f /mnt/config/etc/logrotate.conf ]]; then
+  if [[ ! -d /mnt/config/etc ]]; then
+    mkdir -p /mnt/config/etc
+  fi
+
+  cp /etc/logrotate.conf /mnt/config/etc/logrotate.conf
+fi
+
+if [[ ! -d /mnt/config/etc/logrotate.d ]]; then
+  mkdir -p /mnt/config/etc/logrotate.d
+  cp -n /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
+fi

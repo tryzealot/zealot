@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_112323) do
+ActiveRecord::Schema.define(version: 2020_12_16_070418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
     t.index ["device_type"], name: "index_channels_on_device_type"
     t.index ["name"], name: "index_channels_on_name"
     t.index ["scheme_id", "device_type"], name: "index_channels_on_scheme_id_and_device_type"
-    t.index ["scheme_id"], name: "index_channels_on_scheme_id"
     t.index ["slug"], name: "index_channels_on_slug", unique: true
   end
 
@@ -79,6 +78,25 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
     t.index ["app_id"], name: "index_debug_files_on_app_id"
   end
 
+  create_table "devices", force: :cascade do |t|
+    t.string "udid", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "model"
+    t.index ["udid"], name: "index_devices_on_udid"
+  end
+
+  create_table "devices_releases", id: false, force: :cascade do |t|
+    t.bigint "release_id", null: false
+    t.bigint "device_id", null: false
+    t.index ["device_id", "release_id"], name: "index_devices_releases_on_device_id_and_release_id"
+    t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
+  end
+
+# Could not dump table "metadata" because of following StandardError
+#   Unknown type 'metadata_platform' for column 'platform'
+
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
     t.string "bundle_id", null: false
@@ -93,16 +111,16 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
     t.string "ci_url"
     t.jsonb "changelog", null: false
     t.string "file"
-    t.jsonb "devices", default: [], null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "custom_fields", default: [], null: false
+    t.string "name"
+    t.string "device"
     t.index ["build_version"], name: "index_releases_on_build_version"
     t.index ["bundle_id"], name: "index_releases_on_bundle_id"
     t.index ["channel_id", "version"], name: "index_releases_on_channel_id_and_version", unique: true
-    t.index ["channel_id"], name: "index_releases_on_channel_id"
     t.index ["release_type"], name: "index_releases_on_release_type"
     t.index ["release_version", "build_version"], name: "index_releases_on_release_version_and_build_version"
-    t.index ["release_version"], name: "index_releases_on_release_version"
     t.index ["source"], name: "index_releases_on_source"
     t.index ["version"], name: "index_releases_on_version"
   end
@@ -112,6 +130,14 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
     t.string "name", null: false
     t.index ["app_id"], name: "index_schemes_on_app_id"
     t.index ["name"], name: "index_schemes_on_name"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "var", null: false
+    t.text "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
   create_table "user_providers", force: :cascade do |t|
@@ -155,7 +181,6 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
 
   create_table "web_hooks", force: :cascade do |t|
     t.bigint "channel_id"
-    t.string "title"
     t.string "url"
     t.text "body"
     t.integer "upload_events", limit: 2
@@ -170,6 +195,8 @@ ActiveRecord::Schema.define(version: 2019_12_20_112323) do
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
+  add_foreign_key "metadata", "releases", on_delete: :cascade
+  add_foreign_key "metadata", "users", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade
   add_foreign_key "schemes", "apps", on_delete: :cascade
   add_foreign_key "user_providers", "users", on_delete: :cascade

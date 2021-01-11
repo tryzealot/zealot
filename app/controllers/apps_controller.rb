@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AppsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy]
 
   def index
@@ -65,7 +65,7 @@ class AppsController < ApplicationController
 
   def create_schemes_by(app, schemes, channel)
     schemes.values[0][:name].each do |scheme_name|
-      next if scheme_name.empty?
+      next if scheme_name.blank?
 
       scheme = app.schemes.create name: scheme_name
       next unless channels = channel_value(channel)
@@ -106,5 +106,9 @@ class AppsController < ApplicationController
                             :name, :channel,
                             schemes_attributes: { name: [] }
                           )
+  end
+
+  def render_not_found_entity_response(e)
+    redirect_to apps_path, notice: "没有找到应用 #{e.id}，跳转至应用列表"
   end
 end

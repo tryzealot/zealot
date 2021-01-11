@@ -5,37 +5,43 @@ ruby:
   .card
     .card-header
       h3.card-title
-        i.fa.fa-history
+        i.fas.fa-history
         |  最近 10 次上传
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
-          i.fa.fa-minus
+          i.fas.fa-minus
     .card-body
       .timeline
         - releases.each do |release|
           div
-            i.fa class="#{@release == release ? 'fa-circle' : ' fa-circle-o'}"
+            i.fa-circle class="#{@release == release ? 'fas' : 'far'}"
             .timeline-item
               span.time
-                i.fa.fa-clock-o
+                i.fas.fa-clock
                 | &nbsp
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to release.app_name, channel_release_path(@release.channel, release)
                 = " 上传了新版本 #{release.release_version} (#{release.build_version})"
-              - unless release.changelog.blank?
+              - if release.changelog.present?
                 .timeline-body.pb-0
                   = changelog_format release.changelog_list, class: 'mb-0'
-              - if !release.release_type.blank? || !release.branch.blank? || !release.short_git_commit.blank?
+              - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                 .timeline-footer
-                  - if release.release_type
+                  - if release.device
+                    small.badge
+                      = device_name(release.device)
+                  - if release.release_type.present?
                     small.badge
                       = release.release_type
-                  - if release.branch
+                  - if release.branch.present?
                     small.badge
                       = release.branch
-                  - if release.short_git_commit
+                  - if release.short_git_commit.present?
                     small.badge
-                      = release.short_git_commit
+                      - if release.channel.git_url.present?
+                        = git_commit_url(@release.channel.git_url, @release.git_commit)
+                      - else
+                        = release.short_git_commit
         div
-          i.fa.fa-clock-o.bg-gray
+          i.fas.fa-clock.bg-gray

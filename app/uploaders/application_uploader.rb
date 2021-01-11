@@ -18,7 +18,12 @@ class ApplicationUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    @name ||= "#{checksum}#{File.extname(super)}" if super
+    @filename ||= case
+                  when identifier
+                    identifier
+                  when super
+                    "#{checksum}#{File.extname(super)}"
+                  end
   end
 
   protected

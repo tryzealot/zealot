@@ -10,16 +10,20 @@
       span.text-muted 唯一地址
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.bundle_id
-      span.text-muted 匹配模式
+      span.text-muted
+        | 匹配模式，
+        code *
+        |  表示不限制上传包的包名
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.releases.count
       span.text-muted 上传版本
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.git_url || '未设置'
+      span.font-weight-bold = @channel.git_url == '' ? '未设置' : @channel.git_url
       span.text-muted Git 仓库地址
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.password || '未设置'
-      span.text-muted 访问密码
+    - if user_signed_in?
+      p.d-flex.flex-column.border-bottom.pl-3.pb-3
+        span.font-weight-bold = @channel.password == '' ? '未设置' : @channel.password
+        span.text-muted 访问密码
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.key
       span.text-muted 渠道 KEY

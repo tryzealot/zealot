@@ -1,19 +1,17 @@
 - content_for :title do
   | 用户登录
 
-.login-box
-  .card
-    .card-body.login-card-body
-      p.login-box-msg 用户登录
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        == render 'layouts/messages'
+.row.mb-3.mt-3
+  .col-sm-7.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .login-box.col-sm-5.order-1.order-sm-12
+    .card.card-primary.card-outline.card-outline-tabs
+      .card-header.p-0.border-bottom-0
+        ul.nav.nav-tabs role="tablist"
+          == render 'devise/shared/tab_normal'
+          == render 'devise/shared/tab_ldap'
 
-        = f.input :email, required: true, autofocus: true, hint: '', input_html: { autocomplete: "email", class: 'form-control' }
-        = f.input :password, required: true, input_html: { autocomplete: "current-password" }
-        .row
-          .col-8
-            = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck-primary', style: 'margin-top: 6px!important'}, label_html: { style: 'font-weight: 700'} if devise_mapping.rememberable?
-          .col-4
-            = f.button :submit, '登录', class: 'btn-block'
-
-      == render 'devise/shared/links'
+      .card-body
+        #login-box-tabs.tab-content
+          == render 'devise/shared/form_normal'
+          == render 'devise/shared/form_ldap'

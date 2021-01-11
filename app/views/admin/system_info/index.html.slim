@@ -1,0 +1,70 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+.row
+  .col-md-6
+    .card.system_info
+      .card-header
+        h3.card-title 服务器信息
+      .card-body
+        dl.system-info
+          dt Zealot 版本
+          dd
+            pre
+              - if @version[:update_available]
+                a.new-version.float-right href="#{@version[:release_link]}" target="_blank"
+                  i.fas.fa-rainbow
+                  | 发现新版本: #{@version[:latest_version]}
+              = @version[:current_version]
+          dt Ruby 版本
+          dd
+            pre = RUBY_DESCRIPTION
+          dt CPU
+          dd
+            pre
+              - if @cpus
+                = "#{@cpus.length} 核"
+              - else
+                | CPU 信息监测失败
+          dt 内存
+          dd
+            pre
+              - if @memory
+                = "#{number_to_human_size(@memory.active_bytes)} / #{number_to_human_size(@memory.total_bytes)}"
+              - else
+                | 内存信息监测失败
+          dt 运行时间
+          dd
+            pre
+              = distance_of_time_in_words_to_now(@booted_at)
+              |  (
+              = @booted_at
+              | )
+    .card
+      .card-header
+        h3.card-title 磁盘信息
+      .card-body
+        - unless @disks.blank?
+          dl.system-info
+            - @disks.each do |disk|
+              dt = disk[:mount_path]
+              dd
+                pre
+                  = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
+        - else
+          | 硬盘信息无法获取
+
+  .col-md-6
+    .card
+      .card-header
+        h3.card-title 系统变量
+      .card-body
+        dl.system-info
+          - @env.each do |key, value|
+            dt = key
+            dd
+              pre
+                = value

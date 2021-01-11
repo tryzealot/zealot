@@ -9,9 +9,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omniauth_callback('LDAP', 'ldap_data')
   end
 
-  def failure
-    redirect_to root_path, error: '授权失败，请检查你的信息是否正确'
-  end
+  # def failure
+  #   flash[:error] = failure_message
+  #   flash[:error] = '授权失败！请检查你的账户和密码是否正确，如果输入确认无误还是失败请联系管理员检查配置是否正确'
+  #   redirect_to root_path
+  # end
 
   private
 

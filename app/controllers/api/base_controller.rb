@@ -21,24 +21,28 @@ class Api::BaseController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :render_missing_params_error
 
   def render_not_found_entity_response(exception)
+    logger_error exception
     render json: {
       error: exception.message
     }, status: :not_found
   end
 
   def render_missing_params_error(exception)
+    logger_error exception
     render json: {
       error: exception.message
     }, status: :unprocessable_entity
   end
 
   def render_unmatched_bundle_id_serror(exception)
+    logger_error exception
     render json: {
-      error: exception.message
+      error: exception.message,
     }, status: :unauthorized
   end
 
   def render_unauthorized_user_key(exception)
+    logger_error exception
     render json: {
       error: exception.message
     }, status: :unprocessable_entity
@@ -52,9 +56,18 @@ class Api::BaseController < ActionController::API
   end
 
   def render_internal_server_error(exception)
+    logger_error exception
     render json: {
-      error: exception.message,
-      entry: Rails.env.development? ? exception.backtrace : nil
+      error: exception.message
     }, status: :internal_server_error
+  end
+
+  private
+
+  def logger_error(exception)
+    return unless Rails.env.development?
+
+    logger.error exception
+    logger.error exception.backtrace.join("\n")
   end
 end

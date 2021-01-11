@@ -6,8 +6,17 @@ class SchemesController < ApplicationController
   before_action :set_app
 
   def show
-    @channel = @scheme.latest_channel
-    redirect_to controller: :channels, action: :show, id: @channel.slug if @channel
+    if (referer = request.referer) &&
+       (segment = Rails.application.routes.recognize_path(referer)) &&
+       segment[:controller] == 'channels' &&
+       segment[:action] == 'show'
+      previouse_channel = Channel.friendly.find(segment[:id])
+      @channel = @scheme.channels.find_by(device_type:  previouse_channel.device_type)
+    else
+      @channel = @scheme.latest_channel
+    end
+
+    redirect_to channel_path(@channel)
   end
 
   def new

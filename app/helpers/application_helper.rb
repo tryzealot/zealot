@@ -3,6 +3,10 @@
 module ApplicationHelper
   RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
 
+  def user_signed_in_or_guest_mode?
+    user_signed_in? || (Setting.guest_mode && !devise_page?)
+  end
+
   def devise_page?
     params[:controller].start_with?('devise/')
   end
@@ -12,7 +16,7 @@ module ApplicationHelper
 
     content = title
     if icon.present?
-      content = tag.i(class: "fa fa-#{icon}")
+      content = tag.i(class: "fas fa-#{icon}")
       content += title
     end
 
@@ -23,21 +27,19 @@ module ApplicationHelper
     "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
   end
 
-  def timeline_app_icon(device_type)
-    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
-  end
-
   # 激活 li 的 class
-  def active_class(link_path = nil)
-    if link_path
-      current_page?(link_path) ? 'active' : ''
-    elsif current_page?(controller: 'groups', action: 'messages') ||
-          current_page?(controller: 'groups', action: 'index') ||
-          current_page?(controller: 'users', action: 'groups')
-      'active'
-    else
-      ''
+  def active_class(link_paths, class_name = 'active')
+    link_paths = [ link_paths ] if link_paths.is_a?(String)
+
+    is_current = false
+    link_paths.each do |link|
+      if current_page?(link)
+        is_current = true
+        break
+      end
     end
+
+    is_current ? class_name : ''
   end
 
   def changelog_format(changelog, **options)
@@ -75,7 +77,11 @@ module ApplicationHelper
              'fa-adn'
            end
 
-    tag.i(class: "fa #{icon}")
+    tag.i(class: "fab #{icon}")
+  end
+
+  def timeline_app_icon(device_type)
+    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
   end
 
   # 获取浏览器 user agent
@@ -86,13 +92,24 @@ module ApplicationHelper
   end
 
   def ios?(source = nil)
+    # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15
     source ||= user_agent
-    !(source =~ /iPhone|iPad|Unversal|ios|iOS/i).nil?
+    (source =~ /Macintosh|iPhone|iPad|Unversal|ios|iOS/i).present?
   end
 
   def android?(source = nil)
     source ||= user_agent
-    !(source =~ /Android|android/i).nil?
+    source.downcase.include?('android')
+  end
+
+  def phone?
+    ios? || android?
+  end
+
+  def mac?
+    # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
+    source ||= user_agent
+    source.downcase.include?('macintosh')
   end
 
   # 检查移动设备

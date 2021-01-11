@@ -47,7 +47,12 @@
 }
 
 .btn-icon {
-  .fa {
+  margin-right: 10px;
+
+  .fa,
+  .fab,
+  .far,
+  .fas {
     margin-right: 5px;
   }
 }
