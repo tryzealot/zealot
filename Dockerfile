@@ -80,7 +80,7 @@ LABEL im.ews.zealot.build-date=$BUILD_DATE \
       im.ews.zealot.name="Zealot" \
       im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
       im.ews.zealot.url="https://zealot.ews.im/" \
-      im.ews.zealot.vcs-url="https://github.com/getzealot/zealot" \
+      im.ews.zealot.vcs-url="https://github.com/tryzealot/zealot" \
       im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
 
 ENV TZ="Asia/Shanghai" \

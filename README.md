@@ -1,10 +1,10 @@
 # Zealot
 
-[![GitHub release](https://img.shields.io/github/v/release/getzealot/zealot?include_prereleases)](https://github.com/getzealot/zealot/blob/develop/CHANGELOG.md)
-[![Docker Pulls](https://img.shields.io/docker/pulls/icyleafcn/zealot.svg)](https://hub.docker.com/r/icyleafcn/zealot/)
-[![Maintainability](https://codeclimate.com/github/getzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/getzealot/zealot)
+[![GitHub release](https://img.shields.io/github/v/release/tryzealot/zealot?include_prereleases)](https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tryzealot/zealot.svg)](https://hub.docker.com/r/tryzealot/zealot/)
+[![Maintainability](https://codeclimate.com/github/tryzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/tryzealot/zealot)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcff7d9de5ba48528bc80aa01bd525c6)](https://www.codacy.com/manual/icyleaf/zealot)
-[![License](https://img.shields.io/github/license/getzealot/zealot)](LICENSE)
+[![License](https://img.shields.io/github/license/tryzealot/zealot)](LICENSE)
 
 移动应用上传竟然如此简单、解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
 
@@ -18,7 +18,7 @@
 - [x] 支持获取 iOS 设备 UDID 及显示支持安装的应用
 - [x] 支持 OAuth 认证登录（目前以接入 Google，LDAP）
 - [x] 提供检查新版本和安装服务的 iOS 和 Android 组件
-- [x] 提供 fastlane 插件 [zealot](https://github.com/getzealot/fastlane-plugin-zealot) 提供上传应用和调试文件服务
+- [x] 提供 fastlane 插件 [zealot](https://github.com/tryzealot/fastlane-plugin-zealot) 提供上传应用和调试文件服务
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
 - [ ] 可接入 Jenkins 服务实现远程构建
 - [x] 支持丰富的 REST APIs
@@ -26,8 +26,8 @@
 
 ## 最新版本
 
-- [x] 测试版本 - develop - `icyleafcn/zealot:nightly` - 基于 develop 分支每次提交构建的版本
-- [ ] 稳定版本 - v4.0.0 - `icyleafcn/zealot:latest` - 还在研发测试中，尚未发布。
+- [x] 测试版本 - develop - `tryzealot/zealot:nightly` - 基于 develop 分支每次提交构建的版本
+- [ ] 稳定版本 - 4.0.0 - `tryzealot/zealot:latest` - 还在研发测试中，尚未发布。
 
 ## 演示
 
@@ -40,7 +40,7 @@
 ## 快速上手
 
 ```
-$ git clone https://github.com/getzealot/zealot-docker.git
+$ git clone https://github.com/tryzealot/zealot-docker.git
 $ cd zealot-docker
 $ ./deploy
 ```
@@ -58,9 +58,9 @@ https://zealot.ews.im
 
 对 Zealot 有疑问或者建议，发个问题告知下
 
-https://github.com/getzealot/zealot/issues/new
+https://github.com/tryzealot/zealot/issues/new
 
 
-[fastlan-plugin-link]: https://github.com/getzealot/fastlane-plugin-zealot
-[ios-sdk-link]: https://github.com/getzealot/zealot-ios
-[android-sdk-link]: https://github.com/getzealot/zealot-android
+[fastlan-plugin-link]: https://github.com/tryzealot/fastlane-plugin-zealot
+[ios-sdk-link]: https://github.com/tryzealot/zealot-ios
+[android-sdk-link]: https://github.com/tryzealot/zealot-android
