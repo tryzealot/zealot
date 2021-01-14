@@ -956,10 +956,10 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@rails/ujs@^6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.0.tgz#9a48df6511cb2b472c9f596c1f37dc0af022e751"
-  integrity sha512-kQNKyM4ePAc4u9eR1c4OqrbAHH+3SJXt++8izIjeaZeg+P7yBtgoF/dogMD/JPPowNC74ACFpM/4op0Ggp/fPw==
+"@rails/ujs@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.1.tgz#25c4e60018274b37e5ba0850134f6445429de2f5"
+  integrity sha512-uF6zEbXpGkNa7Vvxrd9Yqas8xsbc3lsC733V6I7fXgPuj8xXiuZakdE4uIyQSFRVmZKe12qmC6CNJNtIEvt4bA==
 
 "@rails/webpacker@^5.2.1":
   version "5.2.1"
@@ -2078,9 +2078,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001093, caniuse-lite@^1.0.30001097:
-  version "1.0.30001100"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001100.tgz?cache=0&sync_timestamp=1594778759647&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001100.tgz#2a58615e0c01cf716ab349b20ca4d86ef944aa4e"
-  integrity sha1-KlhhXgwBz3Fqs0myDKTYbvlEqk4=
+  version "1.0.30001173"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001173.tgz"
+  integrity sha512-R3aqmjrICdGCTAnSXtNyvWYMK3YtV5jwudbq0T7nN9k4kmE4CBuwPqyJ+KBzepSTh0huivV2gLbSMEzTTmfeYw==
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.3.0"
