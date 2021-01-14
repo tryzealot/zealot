@@ -160,7 +160,7 @@ module Backup
           logger.puts
           logger.puts "Hint:"
           logger.puts "  1. git checkout v#{settings[:zealot_version]}"
-          logger.puts "  2. docker pull icyleafcn/zealot:#{settings[:zealot_version]}"
+          logger.puts "  2. docker pull tryzealot/zealot:#{settings[:zealot_version]}"
           exit 1
         end
       end
