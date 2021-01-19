@@ -69,7 +69,7 @@ zh-CN:
         create: 新增网络钩子
         update: 更新网络钩子
       debug_file:
-        create: 上传 Debug File
+        create: 上传调试文件
   views:
     pagination:
       truncate: ...
