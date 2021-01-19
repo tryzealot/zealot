@@ -53,7 +53,7 @@ zh-CN:
         device_type: '应用平台'
         release_version: '发布版本'
         build_version: '构建版本'
-        file: 'Debug File 文件'
+        file: '调试文件'
         checksum: '唯一校验码'
 
     hints:
