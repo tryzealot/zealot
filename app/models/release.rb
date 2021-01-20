@@ -84,7 +84,7 @@ class Release < ApplicationRecord
   private_class_method :decode_icon
 
   def app_name
-    "#{app.name} #{channel.name} #{scheme.name}"
+    "#{app.name} #{scheme.name} #{channel.name}"
   end
 
   def size
