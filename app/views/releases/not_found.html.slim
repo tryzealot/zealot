@@ -1,0 +1,18 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title
+          i.fas.fa-cloud-rain
+          = " #{@channel.app_name}"
+      .card-body
+        p = "抱歉，你要找的 #{@release_id} 版本已经不存在，可能存在以下原因："
+        ul
+          li 可能当前版本被人工删除
+          li 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
+          li 您访问的应用版本真的不存在
+      .card-footbar
+        a.btn.btn-success.btn-block href="#{channel_releases_path(@channel)}" 点击访问最新版本
