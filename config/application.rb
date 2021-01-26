@@ -97,5 +97,8 @@ module Zealot
 
     # Disable yarn check(this must disable with docker)
     # config.webpacker.check_yarn_integrity = false
+
+    # Manage exception page
+    # config.exceptions_app = self.routes
   end
 end

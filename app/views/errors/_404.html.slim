@@ -1,0 +1,9 @@
+
+h3
+  i.fa.fa-warning.text-red = "#{@code} #{@title}"
+
+- if content.present?
+  p
+    = "#{content}，请返回"
+    = link_to '控制台', root_path
+    | 看看。
