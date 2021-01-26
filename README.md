@@ -8,6 +8,7 @@
 
 开源自部署移动应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、解决开发人员频繁打包的烦恼 🖖
 
+![Zealot Showcase](https://zealot.ews.im/_media/showcase.png)
 ## 特性
 
 - [x] 支持 iOS 和 Android 应用的上传、在线安装和本地下载
