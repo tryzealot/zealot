@@ -10,7 +10,7 @@ class TeardownService < ApplicationService
   def call
     file_type = AppInfo.file_type(file)
     unless file_type == :ipa || file_type == :apk || file_type == :mobileprovision
-      raise "无法处理文件: #{file}, 不支持本文件类型: #{file_type}"
+      raise ActionController::UnknownFormat, "无法处理文件: #{file}, 不支持本文件类型: #{file_type}"
     end
 
     process
