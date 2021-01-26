@@ -1,0 +1,7 @@
+h3
+  i.fa.fa-warning.text-warning = "#{@code} #{@title}"
+
+p
+  | 请返回
+  = link_to '上级页面', session[:return_to] || request.referer
+  | 看看。
