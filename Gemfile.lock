@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/MikeRogers0/sidekiq-cron
-  revision: 9957edc965a9c12dbdc1d3d2dd08d12be61bc347
-  branch: bug/fix-redis-warning
+  remote: https://github.com/wolfemm/sidekiq-cron
+  revision: c63f0dd1cbd26a40954525520a12747436ffade3
+  branch: master
   specs:
-    sidekiq-cron (1.2.0)
+    sidekiq-cron (1.2.1)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
 
@@ -532,8 +532,5 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webpacker (~> 5.2)
 
-RUBY VERSION
-   ruby 2.7.1p83
-
 BUNDLED WITH
-   2.1.4
+   2.2.4
