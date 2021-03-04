@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-ruby '~> 2.7.0'
-
 gem 'puma', '~> 5.2.2'
 gem 'rails', '~> 6.1.3'
 gem 'rails-i18n', '~> 6.0.0'
@@ -70,7 +68,7 @@ gem 'rqrcode'
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '6.1.3'
-gem 'sidekiq-cron', github: 'MikeRogers0/sidekiq-cron', branch: 'bug/fix-redis-warning' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
+gem 'sidekiq-cron', github: 'wolfemm/sidekiq-cron', branch: 'master' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
 
 # Assets
 gem 'turbolinks', '~> 5'
