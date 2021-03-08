@@ -31,6 +31,7 @@ class TeardownService < ApplicationService
       when AppInfo::Platform::ANDROID
         process_android(parser, metadata)
       end
+      parser.clear!
     elsif parser.is_a?(AppInfo::MobileProvision)
       metadata.name = parser.app_name
       metadata.platform = :mobileprovision

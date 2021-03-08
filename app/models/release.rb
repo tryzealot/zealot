@@ -72,6 +72,8 @@ class Release < ApplicationRecord
           end
         rescue AppInfo::UnkownFileTypeError
           release.errors.add(:file, '上传的应用无法正确识别')
+        ensure
+          parser.clear!
         end
       end
     end
