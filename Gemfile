@@ -33,7 +33,7 @@ gem 'friendly_id', '~> 5.3.0' # NOTE: Do not upgrade to 5.4.0
 ## 数据分页
 gem 'kaminari'
 ## 文件上传
-gem 'carrierwave'
+gem 'carrierwave', '~> 2.2.0'
 gem 'mini_magick'
 
 # Helper
