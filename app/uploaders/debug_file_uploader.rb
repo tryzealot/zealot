@@ -5,7 +5,7 @@ class DebugFileUploader < ApplicationUploader
     "#{base_store_dir}/debug_files/a#{model.app.id}/d#{model.id}"
   end
 
-  def extension_white_list
+  def extension_allowlist
     %w[zip]
   end
 end
