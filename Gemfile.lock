@@ -89,7 +89,7 @@ GEM
       rubyzip (>= 1.2, < 3.0)
       uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.1)
-    awesome_print (1.8.0)
+    awesome_print (1.9.2)
     bcrypt (3.1.16)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
