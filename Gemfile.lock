@@ -102,7 +102,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
-    carrierwave (2.1.1)
+    carrierwave (2.2.0)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
       addressable (~> 2.6)
@@ -473,7 +473,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap (>= 1.4.7)
   byebug
-  carrierwave
+  carrierwave (~> 2.2.0)
   debase
   devise (~> 4.7.3)
   devise-i18n (~> 1.9.2)
