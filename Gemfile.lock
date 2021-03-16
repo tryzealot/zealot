@@ -403,9 +403,9 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
-    simple_form (5.0.3)
-      actionpack (>= 5.0)
-      activemodel (>= 5.0)
+    simple_form (5.1.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -522,7 +522,7 @@ DEPENDENCIES
   sentry-raven
   sidekiq (= 6.2.0)
   sidekiq-cron!
-  simple_form (~> 5.0)
+  simple_form (~> 5.1)
   slim-rails (~> 3.2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
