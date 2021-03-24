@@ -85,7 +85,7 @@ gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.5'
+  gem 'listen', '>= 3.0.5', '< 3.6'
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
