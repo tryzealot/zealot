@@ -41,9 +41,9 @@ gem 'mini_magick'
 gem 'http'
 ## 用户认证
 gem 'devise', '~> 4.7.3'
-gem 'devise-i18n', '~> 1.9.2'
+gem 'devise-i18n', '~> 1.9.3'
 gem 'omniauth', '~> 1.9'
-gem 'omniauth-google-oauth2', '~> 0.8.1'
+gem 'omniauth-google-oauth2', '~> 0.8.2'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 gem 'pundit', '~> 2.1.0'
 
@@ -67,7 +67,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '6.1.3'
+gem 'sidekiq', '6.2.0'
 gem 'sidekiq-cron', github: 'wolfemm/sidekiq-cron', branch: 'master' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
 
 # Assets
@@ -85,7 +85,7 @@ gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.5'
+  gem 'listen', '>= 3.0.5', '< 3.6'
   gem 'web-console', '>= 3.3.0'
 
   # 调试器
