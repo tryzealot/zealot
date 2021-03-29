@@ -35,6 +35,7 @@ gem 'kaminari'
 ## 文件上传
 gem 'carrierwave', '~> 2.2.0'
 gem 'mini_magick'
+gem 'mimemagic', '~> 0.3.0' # FIXME: 等待 carrierwave 更新新版本后移除
 
 # Helper
 ## HTTP 请求

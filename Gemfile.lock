@@ -250,7 +250,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
     method_source (1.0.0)
-    mimemagic (0.4.3)
+    mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
     mini_magick (4.11.0)
@@ -498,6 +498,7 @@ DEPENDENCIES
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.3)
   listen (>= 3.0.5, < 3.6)
+  mimemagic (~> 0.3.0)
   mini_magick
   omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8.2)
