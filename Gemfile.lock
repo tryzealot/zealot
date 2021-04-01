@@ -291,7 +291,7 @@ GEM
     parser (2.7.2.0)
       ast (~> 2.4.1)
     pg (1.2.1)
-    pghero (2.8.0)
+    pghero (2.8.1)
       activerecord (>= 5)
     plist (3.6.0)
     pngdefry (0.1.3)
