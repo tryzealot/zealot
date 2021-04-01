@@ -29,12 +29,11 @@ gem 'simple_form', '~> 5.0'
 
 # Model
 ## 生成友好 id
-gem 'friendly_id', '~> 5.3.0' # NOTE: Do not upgrade to 5.4.0
+gem 'friendly_id', '~> 5.4.2'
 ## 数据分页
 gem 'kaminari'
 ## 文件上传
-gem 'carrierwave', '~> 2.2.0'
-gem 'mini_magick'
+gem 'carrierwave', '~> 2.2.1'
 
 # Helper
 ## HTTP 请求
@@ -78,7 +77,7 @@ gem 'webpacker', '~> 5.2'
 gem 'app-info', '~> 2.4.1'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.5'
+gem 'rails-settings-cached', '~> 2.5.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
