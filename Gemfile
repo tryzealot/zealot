@@ -33,9 +33,7 @@ gem 'friendly_id', '~> 5.4.2'
 ## 数据分页
 gem 'kaminari'
 ## 文件上传
-gem 'carrierwave', '~> 2.2.0'
-gem 'mini_magick'
-gem 'mimemagic', '~> 0.3.0' # FIXME: 等待 carrierwave 更新新版本后移除
+gem 'carrierwave', '~> 2.2.1'
 
 # Helper
 ## HTTP 请求
@@ -79,7 +77,7 @@ gem 'webpacker', '~> 5.2'
 gem 'app-info', '~> 2.4.1'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.5'
+gem 'rails-settings-cached', '~> 2.5.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
