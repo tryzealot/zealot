@@ -394,7 +394,7 @@ GEM
     rubyntlm (0.6.2)
     rubyzip (2.3.0)
     semantic_range (2.3.0)
-    sentry-raven (3.1.1)
+    sentry-raven (3.1.2)
       faraday (>= 1.0)
     shellany (0.0.1)
     sidekiq (6.2.0)
