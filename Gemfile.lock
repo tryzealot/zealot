@@ -397,7 +397,7 @@ GEM
     sentry-raven (3.1.2)
       faraday (>= 1.0)
     shellany (0.0.1)
-    sidekiq (6.2.0)
+    sidekiq (6.2.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
@@ -517,7 +517,7 @@ DEPENDENCIES
   rubocop-rails
   ruby-debug-ide
   sentry-raven
-  sidekiq (= 6.2.0)
+  sidekiq (= 6.2.1)
   sidekiq-cron!
   simple_form (~> 5.1)
   slim-rails (~> 3.2.0)
