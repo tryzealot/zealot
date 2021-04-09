@@ -16,7 +16,7 @@ class DebugFileTeardownJob < ApplicationJob
     end
 
     # 清理掉临时生成的文件
-    debug_file.clear!
+    parser.clear!
   rescue => e
     logger.error "Can not teardown debug file: #{e}"
     logger.error e.backtrace.join("\n")
