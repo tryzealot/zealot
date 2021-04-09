@@ -80,6 +80,8 @@ class Release < ApplicationRecord
   end
 
   def self.decode_icon(icon_file)
+    require 'pngdefry'
+
     Pngdefry.defry icon_file, icon_file
     File.open icon_file
   end
