@@ -74,7 +74,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.2'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.4.2'
+gem 'app-info', '~> 2.4.3'
 gem 'pngdefry', '~> 0.1.2', require: false
 
 # Mobile config
