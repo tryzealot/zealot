@@ -50,8 +50,8 @@ class Release < ApplicationRecord
           if parser.os == AppInfo::Platform::IOS
             release.release_type ||= parser.release_type
 
-            icon_file = parser.icons.last.try(:[], :file)
-            release.icon = decode_icon(icon_file) if icon_file
+            icon_file = parser.icons.last.try(:[], :uncrushed_file)
+            release.icon = icon_file if icon_file
           else
             # 处理 Android anydpi 自适应图标
             icon_file = parser.icons
@@ -78,14 +78,6 @@ class Release < ApplicationRecord
       end
     end
   end
-
-  def self.decode_icon(icon_file)
-    require 'pngdefry'
-
-    Pngdefry.defry icon_file, icon_file
-    File.open icon_file
-  end
-  private_class_method :decode_icon
 
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
