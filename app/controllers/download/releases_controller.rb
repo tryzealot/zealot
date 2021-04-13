@@ -9,8 +9,7 @@ class Download::ReleasesController < ApplicationController
   def show
     return render_not_found_entity_response unless File.exist?(@release.file.path.to_s)
 
-    protocol = Rails.application.routes.default_url_options[:protocol]
-    redirect_to filename_download_release_url(@release, @release.download_filename, protocol: protocol)
+    redirect_to filename_download_release_url(@release, @release.download_filename)
   end
 
   def download
