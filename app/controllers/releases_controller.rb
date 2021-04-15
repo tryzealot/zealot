@@ -5,8 +5,11 @@ class ReleasesController < ApplicationController
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
   before_action :authenticate_app!, only: :show
+
   def index
-    redirect_to channel_release_path(@channel, @channel.releases.last), notice: "没有找到版本1111，跳转至最新版本"
+    return redirect_to root_path, notice: "应用不存在或已经被移除，页面跳转至首页" unless @channel
+    return redirect_to channel_path(@channel), notice: "应用版本不存在或已经被移除，页面跳转至应用渠道详情" if @channel.releases.empty?
+    redirect_to channel_release_path(@channel, @channel.releases.last), notice: "版本不存在或已经被移除，跳转至最新版本"
   end
 
   def show
