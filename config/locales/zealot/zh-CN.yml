@@ -19,7 +19,27 @@ zh-CN:
     page_analytics: 页面统计分析
     database_analytics: 数据库分析
   admin:
+    system_info:
+      server_info: 服务器信息
+      zealot_version:  Zealot 版本
+      found_new_version: '发现新版本: %{version}'
+      ruby_version: Ruby 版本
+      cpu_info: CPU
+      cpu_core: '%{size} 核'
+      fail_detect_cpu: CPU 信息监测失败
+      memory_info: 内存
+      fail_detect_memory: 内存信息监测失败
+      disk_info: 磁盘
+      fail_detect_disk: 磁盘监测失败
+      lauched_time: 运行时间
+      volume_mounted: 挂载信息
+      fail_detect_disk: 硬盘信息无法获取
+      system_enviroment: 系统变量
     settings:
+      enable: 开启
+      disable: 关闭
+      validates: '条件：%{value}'
+
       general: 通用配置
       site_title: 网站标题
       site_https: 启用 HTTPS
@@ -59,6 +79,32 @@ zh-CN:
       submit:
         create: 新增设置
         update: 更新设置
+    users:
+      new_user: 新建用户
+      user_info: 用户信息
+      goback_to_list: 返回列表
+      number: '#'
+      nickname: 用户昵称
+      email: 邮箱
+      role: 权限
+      status: 状态
+      last_login_time: 最后登录时间
+      action: 操作
+      actived: 已激活
+      unactive: 未激活
+      never_logined: 从未登录
+      destroy_user: 删除
+      destroy_user_confirm: 你确定要删除【%{user}】用户？
+      active_link: 激活链接
+      active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+    web_hooks:
+      number: '#'
+      url: URL
+      channels: 渠道列表
+      action: 操作
+      empty_content: 没有发现网络钩子
+      destroy: 删除
+      destroy_confirm: 你确定？
   dashboard:
     my_dashboard: 我的控制台
     analytics:
@@ -118,18 +164,12 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
-    help:
-      title: 使用帮助
-      body_html: |
-        <p>
-          Zealot 支持通过网页直接上传和 API 接口上传，更新日志是从自动打包分发系统当前构建
-          git commit 的信息检索到上次构建成功之后聚合而成。
-        </p>
-        <p>
-          <strong>需要注意的是：</strong>
-          所有上传的版本并非完整保留，系统会定期检查所有的版本鉴定为历史版本号的将会保留最后一个构建的版本，
-          之前的会被从磁盘中清除（节省硬盘空间和备份数据带来的耗时操作），最新版本所有的构建版本将会全部保留。
-        </p>
+
+  settings:
+    default_schemes:
+      beta: 测试版
+      adhoc: 内测版
+      production: 产品版
 
   datetime:
     distance_in_words:

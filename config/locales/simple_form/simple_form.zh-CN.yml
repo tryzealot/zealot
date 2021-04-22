@@ -55,6 +55,8 @@ zh-CN:
         build_version: '构建版本'
         file: '调试文件'
         checksum: '唯一校验码'
+      setting:
+        value: 值
 
     hints:
       defaults:
@@ -83,6 +85,8 @@ zh-CN:
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
+      setting:
+        value: '按照 JSON 标准格式编辑，否则会保存失败'
 
     placeholders:
       release:

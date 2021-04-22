@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[edit update destroy]
 
   def index
-    @title = '用户管理'
+    @title = t('menu.users')
     @users = User.all
     authorize @users
   end

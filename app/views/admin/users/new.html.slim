@@ -8,9 +8,9 @@
   .col-md-12
     .card
       .card-header
-        h3.card-title 用户信息
+        h3.card-title = t('admin.users.user_info')
         .card-tools
           a href="#{admin_users_path}"
             i.far.fa-list-alt
-            |  返回列表
+            = t('admin.users.goback_to_list')
       == render 'form'

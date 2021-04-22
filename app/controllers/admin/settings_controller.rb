@@ -5,7 +5,7 @@ class Admin::SettingsController < ApplicationController
   before_action :verify_editable_setting, only: %i[edit]
 
   def index
-    @title = '系统配置'
+    @title = t('menu.system_settings')
     @settings = Setting.site_configs
   end
 
