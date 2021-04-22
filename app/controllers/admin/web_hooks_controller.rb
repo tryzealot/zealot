@@ -4,7 +4,7 @@ class Admin::WebHooksController < ApplicationController
   before_action :set_web_hook, only: %i[show edit update destroy]
 
   def index
-    @title = '网络钩子管理'
+    @title = t('menu.web_hooks')
     @web_hooks = WebHook.all
     authorize @web_hooks
   end

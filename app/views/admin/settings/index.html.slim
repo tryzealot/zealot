@@ -21,9 +21,9 @@ form.form-horizontal
                                 when Array
                                   value.join(', ')
                                 when TrueClass
-                                  '开启'
+                                  t('admin.settings.enable')
                                 when FalseClass
-                                  '关闭'
+                                  t('admin.settings.disable')
                                 else
                                   value.blank? ? t('admin.settings.empty_value') : value.to_s
                                 end
