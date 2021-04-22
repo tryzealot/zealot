@@ -1,6 +1,6 @@
 ruby:
   key = @setting.var
-  value = @setting.value || Setting.send(key)
+  value = @setting.value || Setting.send(key.to_sym)
   type = Setting.get_field(key)[:type]
 
 .row
@@ -24,15 +24,14 @@ ruby:
 
           input.hidden type="hidden" value="#{type}" name="setting[type]"
           - if type == :boolean
-            = f.input :value, label: '开启', as: :boolean, checked: type
+            = f.input :value, label: t('admin.settings.enable'), as: :boolean, checked: type, hint: false
           - elsif type == :hash || type == :array
-            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15, hint: '按照 JSON 标准格式编辑，否则会保存失败'
+            = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(value) }
           - else
-            = f.text_area :value, value: value, class: 'form-control', rows: 15
+            = f.input :value, as: :text, input_html: { value: value }, hint: false
 
           - unless @setting.field_validates.empty?
             small.form-text.text-muted
-              | 条件：
-              = @setting.field_validates.join(" / ")
+              = t("admin.settings.validates", value: @setting.field_validates.join(" / "))
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')

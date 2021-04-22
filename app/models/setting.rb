@@ -6,6 +6,11 @@ class Setting < RailsSettings::Base
 
   DEFAULT_SITE_HTTPS = Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
   DEFAULT_SITE_DOMAIN = DEFAULT_SITE_HTTPS ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
+  DEFAULT_SCHEMES = [
+    I18n.t('settings.default_schemes.beta'),
+    I18n.t('settings.default_schemes.adhoc'),
+    I18n.t('settings.default_schemes.production'),
+  ]
 
   class << self
     def site_configs
@@ -55,7 +60,7 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :default_schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+    field :default_schemes, default: DEFAULT_SCHEMES, type: :array, display: true
     field :default_role, default: 'user', type: :string, display: true,
                          validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
   end

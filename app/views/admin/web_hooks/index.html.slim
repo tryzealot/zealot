@@ -17,10 +17,10 @@
           table.table.p-0
             thead
               tr
-                th NO
-                th URL
-                th style="width: 240px" 应用渠道
-                th style="width: 70px" 操作
+                th = t('admin.web_hooks.number')
+                th = t('admin.web_hooks.url')
+                th style="width: 240px" = t('admin.web_hooks.channels')
+                th style="width: 70px" = t('admin.web_hooks.action')
             tbody
               - @web_hooks.each_with_index do |web_hook, i|
                 tr
@@ -31,8 +31,8 @@
                   td
                     = raw web_hook.channels.map {|c| c.app_name }.join("<br />")
                   td
-                    = link_to '删除', admin_web_hook_path(web_hook), method: :delete, data: { confirm: '你确定？'}
+                    = link_to t('admin.web_hooks.destroy'), admin_web_hook_path(web_hook), method: :delete, data: { confirm: t('admin.web_hooks.destroy_confirm') }
       - else
         .card-body.p-0
           .bg-warning.p-2.text-center
-            | 没有发现网络钩子
+            = t('admin.web_hooks.empty_content')

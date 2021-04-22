@@ -36,7 +36,7 @@ class Admin::SystemInfoController < ApplicationController
 
   # GET /admin/system_info
   def index
-    @title = '系统信息'
+    @title = t('menu.system_info')
     @booted_at = Rails.application.config.booted_at
     @current_version = Setting.version
 
