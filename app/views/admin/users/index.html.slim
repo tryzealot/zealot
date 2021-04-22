@@ -7,7 +7,7 @@
 - content_for :section_rightpanel do
   a.btn.btn-icon.bg-green href="#{new_admin_user_path}"
     i.far.fa-plus-square
-    | 新建用户
+    = t('admin.users.new_user')
 
 .row
   .col-md-12
@@ -16,13 +16,13 @@
         table.table.p-0
           thead
             tr
-              th NO
-              th 用户昵称
-              th 邮箱
-              th 权限
-              th 状态
-              th 最后登录时间
-              th 操作
+              th = t('admin.users.number')
+              th = t('admin.users.nickname')
+              th = t('admin.users.email')
+              th = t('admin.users.role')
+              th = t('admin.users.status')
+              th = t('admin.users.last_login_time')
+              th = t('admin.users.action')
           tbody
             - @users.each_with_index do |user, i|
               tr
@@ -36,13 +36,13 @@
                   = user.role_name
                 td
                   - if user.confirmed_at
-                    | 已激活
+                    = t('admin.users.actived')
                   - else
-                    = link_to '未激活', edit_admin_user_path(user)
+                    = link_to t('admin.users.unactive'), edit_admin_user_path(user)
                 td
                   - if user.last_sign_in_at
                     = time_ago_in_words(user.last_sign_in_at)
                   - else
-                    | 从未登录
+                    = t('admin.users.never_logined')
                 td
-                  = link_to '删除', admin_user_path(user), method: :delete, data: { confirm: '你确定？'}
+                  = link_to t('admin.users.destroy_user'), admin_user_path(user), method: :delete, data: { confirm: t('admin.users.destroy_user_confirm', user: user.username)}
