@@ -7,7 +7,7 @@ class AppsController < ApplicationController
 
 
   def index
-    @title = '应用管理'
+    @title = t('apps.apps')
     @apps = App.all
     authorize @apps
   end
@@ -17,7 +17,7 @@ class AppsController < ApplicationController
   end
 
   def new
-    @title = '新建应用'
+    @title = t('apps.new_app')
     @app = App.new
     authorize @app
 
@@ -25,20 +25,18 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @title = '编辑应用'
+    @title = t('apps.edit_app')
   end
 
   def create
     @app = App.new(app_params)
     authorize @app
 
-    if @app.save
-      @app.users << current_user
-      app_create_schemes_and_channels
-      redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
-    else
-      render :new
-    end
+    return render :new unless @app.save
+
+    @app.users << current_user
+    app_create_schemes_and_channels
+    redirect_to apps_path, notice: t('apps.messages.create_app_success', name: @app.name)
   end
 
   def update
@@ -93,6 +91,6 @@ class AppsController < ApplicationController
   end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: "没有找到应用 #{e.id}，跳转至应用列表"
+    redirect_to apps_path, notice: t('apps.messages.not_found_app', id: e.id)
   end
 end

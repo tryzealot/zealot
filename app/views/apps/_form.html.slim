@@ -2,9 +2,9 @@ ruby:
   checked_scheme = @schemes ? @schemes[:name] : 0
   checked_channel = @channels ? @channels[:name] : 0
   head_title, back_url = if new_or_create_route?
-    ['应用管理', apps_path]
+    [t('apps.apps'), apps_path]
   else
-    ['返回应用', app_path(@app)]
+    [t('apps.goback_to_app'), app_path(@app)]
   end
 
 .col-md-12
