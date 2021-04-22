@@ -8,8 +8,7 @@
   - if user_signed_in?
     a.btn.btn-icon.bg-green href="#{new_app_path}"
       i.far.fa-plus-square
-      | 新建应用
+      = t('apps.new_app')
 
 .row
   == render 'list'
-  == render 'help'

@@ -6,9 +6,9 @@
 
 - content_for :section_rightpanel do
   .btn-group
-    = button_link_to '新增类型', new_app_scheme_path(@app), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
-    = button_link_to '编辑应用', edit_app_path(@app), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-    = button_link_to '删除应用', app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "确定删除【#{@app.name}】应用及其下面所有频道和上传的版本?", method: "delete" }
+    = button_link_to t('apps.menu.new_scheme'), new_app_scheme_path(@app), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
+    = button_link_to t('apps.menu.edit_app'), edit_app_path(@app), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
+    = button_link_to t('apps.menu.destroy_app'), app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.delete_app_confirm', name: @app.name)}", method: "delete" }
 
 .row
   .col-md-12
@@ -20,9 +20,9 @@
               = scheme.name
             .card-tools
               .sections-actions.btn-group
-                = button_link_to '新增渠道', new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
-                = button_link_to '编辑渠道', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-                = button_link_to '删除渠道', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "确定删除#{scheme.app_name}类型?", method: "delete" }
+                = button_link_to t('apps.menu.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
+                = button_link_to t('apps.menu.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
+                = button_link_to t('apps.menu.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.delete_app_scheme_confirm', name: scheme.app_name)}", method: "delete" }
 
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"
@@ -34,24 +34,12 @@
                         = link_to channel.name, channel_path(channel)
                       td style="width: 120px"
                         = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
-                        = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', data: { confirm: "确定删除#{channel.app_name}渠道?", method: "delete" }
+                        = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', data: { confirm: "#{t('apps.messages.delete_app_channel_confirm', name: channel.app_name)}", method: "delete" }
                 - else
                   tr
                     td colspan="2"
-                      small
-                        | 没有发现任何渠道，选择上面&nbsp;
-                        i.far.fa-plus-square
-                        |  添加新渠道。
+                      = t('apps.table.app.not_found_channel_body_html')
     - else
-      .callout.callout-warning
-        h5 没有发现任何应用类型！
-        p
-          | 创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：
-          ul
-            li 开发版本、内测版本、公测版本、线上版本
-        p
-          | 如果应用仅提供 Android 版本，可以按照应用渠道划分为：
-          ul
-            li Google Play、酷安、小米、华为、vivo、oppo、应用宝等
+      .callout.callout-warning = t('apps.table.app.emtpy_content_body_html')
 
 

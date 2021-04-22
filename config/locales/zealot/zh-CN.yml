@@ -59,9 +59,8 @@ zh-CN:
       submit:
         create: 新增设置
         update: 更新设置
-
   dashboard:
-    title: 我的控制台
+    my_dashboard: 我的控制台
     analytics:
       apps: 应用
       debug_files: 调试文件
@@ -77,7 +76,60 @@ zh-CN:
       not_found: 没有任何上传，快快上传吧。
 
   apps:
-
+    apps: 应用管理
+    new_app: 新建应用
+    edit_app: 编辑应用
+    goback_to_app: 返回应用
+    messages:
+      create_app_success: '%{name} 应用已经创建成功！'
+      not_found_app_by_version: '没有找到应用版本: %{version}'
+      not_found_app: 没有找到应用 %{id}，跳转至应用列表
+      delete_app_confirm: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
+      delete_app_scheme_confirm: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
+      delete_app_channel_confirm: 确定删除【%{name}】渠道和已上传的应用数据?
+    menu:
+      new_scheme: 新增类型
+      edit_app: 编辑应用
+      destroy_app: 删除应用
+      new_channel: 新增渠道
+      edit_scheme: 编辑类型
+      destory_scheme: 删除类型
+    table:
+      apps:
+        type: 类型名称
+        channel_count: 渠道数量
+        new_app_scheme: 还没有任何应用类型和渠道，开始%{link}吧。
+        new_app_scheme_link_title: 创建第一个应用类型和渠道
+        tips:
+          title: 右上角的按钮是本应用的功能区：
+          create_app_scheme_and_channel: 创建应用类型和渠道
+          edit_app_name: 编辑应用名称
+          destroy_app: 删除应用
+      app:
+        not_found_channel_body_html: |
+          没有发现任何渠道，选择右上角的 <i class="far fa-plus-square" /> 新增渠道。
+        emtpy_content_body_html: |
+          <h5>没有发现任何应用类型！</h5>
+          <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
+          <ul>
+            <li>开发版本、内测版本、公测版本、线上版本</li>
+          </ul>
+          <p>如果应用仅提供 Android 版本，可以按照应用渠道划分为：</p>
+          <ul>
+            <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
+          </ul>
+    help:
+      title: 使用帮助
+      body_html: |
+        <p>
+          Zealot 支持通过网页直接上传和 API 接口上传，更新日志是从自动打包分发系统当前构建
+          git commit 的信息检索到上次构建成功之后聚合而成。
+        </p>
+        <p>
+          <strong>需要注意的是：</strong>
+          所有上传的版本并非完整保留，系统会定期检查所有的版本鉴定为历史版本号的将会保留最后一个构建的版本，
+          之前的会被从磁盘中清除（节省硬盘空间和备份数据带来的耗时操作），最新版本所有的构建版本将会全部保留。
+        </p>
 
   datetime:
     distance_in_words:
