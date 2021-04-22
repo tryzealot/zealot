@@ -13,34 +13,31 @@
               i.far.fa-plus-square
             a.btn.btn-tool href="#{edit_app_path(app)}"
               i.fas.fa-edit
-            a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
+            a.btn.btn-tool href="#{app_path(app)}" data-confirm="#{t('apps.messages.delete_app_confirm', name: app.name)}" data-method="delete"
               i.fas.fa-trash-alt
       .card-body.p-0
         .app-schemes
           - if app.schemes.count > 0
             table.table
               tr
-                th 类型名称
-                th style="width: 100px" 渠道数量
+                th = t('apps.table.apps.type')
+                th style="width: 100px"  = t('apps.table.apps.channel_count')
               - app.schemes.each do |scheme|
                 tr
                   td = link_to scheme.name, app_scheme_path(app, scheme)
                   td
                     span.float-right.badge.bg-blue = scheme.total_releases
           - else
+            .p-3 = t('apps.table.apps.new_app_scheme', link: link_to(t('apps.table.apps.new_app_scheme_link_title'), new_app_scheme_path(app))).html_safe
             .p-3
-              | 还没有任何应用类型和渠道，开始
-              a href="#{new_app_scheme_path(app)}" 创建第一个应用类型和渠道
-              | 吧。
-            .p-3
-              | 右上角的按钮是本应用的功能区：
+              = t('apps.table.apps.tips.title')
               ul
                 li.btn-icon
                   i.far.fa-plus-square
-                  | 创建应用类型和渠道
+                  = t('apps.table.apps.tips.create_app_scheme_and_channel')
                 li.btn-icon
                   i.fas.fa-edit
-                  | 编辑应用类型
+                  = t('apps.table.apps.tips.edit_app_name')
                 li.btn-icon
                   i.fas.fa-trash-alt
-                  | 删除应用类型
+                  = t('apps.table.apps.tips.destroy_app')
