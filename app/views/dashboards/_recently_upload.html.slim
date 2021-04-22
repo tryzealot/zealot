@@ -5,7 +5,7 @@ section
         .card-header
           h3.card-title
             i.fas.fa-history
-            |  上传时间线
+            = t('dashboard.timeline.title')
 
         .card-body
           - if @releases.present?
@@ -29,8 +29,7 @@ section
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
                       = link_to " #{release.app_name}", channel_release_path(release.channel, release)
-                      |  上传了新版本
-                      = " #{release.release_version} (#{release.build_version})"
+                      = " #{t('dashboard.timeline.upload_release', release_version: release.release_version, build_version: release.build_version)}"
                     - if release.changelog.present?
                       .timeline-body.pb-1
                         = changelog_format release.changelog_list, class: 'mb-0'
@@ -52,7 +51,7 @@ section
               div
                 i.bg-gray.fas.fa-clock
           - else
-            .time-label 没有任何上传，快快上传吧。
+            .time-label = t('dashboard.timeline.not_found')
 
         - if @releases.present?
           .card-footer
