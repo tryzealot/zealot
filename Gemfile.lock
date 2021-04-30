@@ -289,7 +289,7 @@ GEM
     parallel (1.19.2)
     parser (2.7.2.0)
       ast (~> 2.4.1)
-    pg (1.2.1)
+    pg (1.2.3)
     pghero (2.8.1)
       activerecord (>= 5)
     plist (3.6.0)
