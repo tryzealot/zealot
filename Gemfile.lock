@@ -100,7 +100,7 @@ GEM
     bootsnap (1.7.4)
       msgpack (~> 1.0)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.3)
     carrierwave (2.2.1)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
