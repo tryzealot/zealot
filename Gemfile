@@ -39,7 +39,7 @@ gem 'carrierwave', '~> 2.2.1'
 ## HTTP 请求
 gem 'http'
 ## 用户认证
-gem 'devise', '~> 4.7.3'
+gem 'devise', '~> 4.8.0'
 gem 'devise-i18n', '~> 1.9.4'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
