@@ -40,7 +40,7 @@ gem 'carrierwave', '~> 2.2.1'
 gem 'http'
 ## 用户认证
 gem 'devise', '~> 4.7.3'
-gem 'devise-i18n', '~> 1.9.3'
+gem 'devise-i18n', '~> 1.9.4'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
