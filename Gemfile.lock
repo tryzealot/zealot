@@ -305,7 +305,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (4.0.6)
-    puma (5.2.2)
+    puma (5.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -365,13 +365,13 @@ GEM
       chunky_png (~> 1.0)
       rqrcode_core (~> 0.2)
     rqrcode_core (0.2.0)
-    rubocop (1.13.0)
+    rubocop (1.14.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.2.0, < 2.0)
+      rubocop-ast (>= 1.5.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.5.0)
@@ -502,7 +502,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 5.2.2)
+  puma (~> 5.3.1)
   pundit (~> 2.1.0)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.3)
