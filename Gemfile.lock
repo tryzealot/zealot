@@ -261,7 +261,7 @@ GEM
     nenv (0.3.0)
     net-ldap (0.16.3)
     nio4r (2.5.7)
-    nokogiri (1.11.3)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     notiffany (0.1.3)
