@@ -15,7 +15,7 @@ gem 'redis', '~> 4.2.5'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.10.10'
+gem 'graphql', '~> 1.12.12'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.0.0'
 
@@ -113,7 +113,7 @@ group :development do
 
   # 在线查看 Action Mailer 内容
   gem 'letter_opener', '~> 1.7'
-  gem 'letter_opener_web', '~> 1.3'
+  gem 'letter_opener_web', '~> 1.4'
 end
 
 group :development, :test do
