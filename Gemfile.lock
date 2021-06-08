@@ -1,11 +1,10 @@
 GIT
-  remote: https://github.com/MikeRogers0/sidekiq-cron
-  revision: 6d24cb0e98116009cb81b855b68176fe3cd20fb9
-  branch: bug/fix-redis-warning
+  remote: https://github.com/farainc/sidekiq-cron
+  revision: d94c5b3562627c2ab476400a18f92845765e6eb7
+  branch: master
   specs:
-    sidekiq-cron (1.2.0)
+    sidekiq-cron (1.1.1)
       fugit (~> 1.1)
-      redis (>= 4.2.0)
       sidekiq (>= 4.2.1)
 
 GEM
@@ -148,7 +147,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.3.0)
       activerecord (>= 4.0.0)
-    fugit (1.4.0)
+    fugit (1.5.0)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.1.1)
@@ -249,7 +248,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
