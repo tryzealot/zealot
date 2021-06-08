@@ -66,8 +66,8 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '6.2.1'
-gem 'sidekiq-cron', github: 'wolfemm/sidekiq-cron', branch: 'master' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
+gem 'sidekiq', '~> 6.2.1'
+gem 'sidekiq-scheduler', '~> 3.1.0'
 
 # Assets
 gem 'turbolinks', '~> 5'
