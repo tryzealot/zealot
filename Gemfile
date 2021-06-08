@@ -113,7 +113,7 @@ group :development do
 
   # 在线查看 Action Mailer 内容
   gem 'letter_opener', '~> 1.7'
-  gem 'letter_opener_web', '~> 1.3'
+  gem 'letter_opener_web', '~> 1.4'
 end
 
 group :development, :test do
