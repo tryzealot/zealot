@@ -1,59 +1,15 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
 version: 2
 updates:
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: byebug
-    versions:
-    - "> 11.0.1"
-  - dependency-name: pg
-    versions:
-    - "> 1.2.1, < 1.3"
-  - dependency-name: rubocop
-    versions:
-    - "> 1.2.0"
-  - dependency-name: rubocop-rails
-    versions:
-    - "> 2.7.0"
-  - dependency-name: rubocop-rails
-    versions:
-    - ">= 2.8.a, < 2.9"
-  - dependency-name: graphql
-    versions:
-    - 1.12.3
-    - 1.12.4
-    - 1.12.5
-    - 1.12.6
-    - 1.12.7
-  - dependency-name: app-info
-    versions:
-    - 2.4.2
-  - dependency-name: rails
-    versions:
-    - 6.1.2
-    - 6.1.2.1
-    - 6.1.3.1
-  - dependency-name: carrierwave
-    versions:
-    - 2.2.0
-  - dependency-name: bootsnap
-    versions:
-    - 1.7.1
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: filepond
-    versions:
-    - ">= 4.19.a, < 4.20"
-  - dependency-name: filepond
-    versions:
-    - "> 4.20.1"
-  - dependency-name: "@rails/ujs"
-    versions:
-    - 6.1.2
+  - package-ecosystem: "bundler" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
