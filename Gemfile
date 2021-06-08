@@ -70,7 +70,7 @@ gem 'rqrcode'
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '6.1.2'
-gem 'sidekiq-cron', github: 'MikeRogers0/sidekiq-cron', branch: 'bug/fix-redis-warning' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
+gem 'sidekiq-cron', github: 'farainc/sidekiq-cron', branch: 'master' # See https://github.com/ondrejbartas/sidekiq-cron/issues/286
 
 # Assets
 gem 'turbolinks', '~> 5'
