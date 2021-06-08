@@ -149,7 +149,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
-    fugit (1.4.2)
+    fugit (1.5.0)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.1.1)
@@ -249,6 +249,9 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
     method_source (1.0.0)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.11.0)
     mini_mime (1.0.3)
     mini_portile2 (2.5.1)
