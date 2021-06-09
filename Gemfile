@@ -73,7 +73,7 @@ gem 'sidekiq-scheduler', '~> 3.1.0'
 
 # Assets
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.2'
+gem 'webpacker', '~> 5.4'
 
 # 用于解析 ipa 和 apk 包
 gem 'app-info', '~> 2.5.2'
