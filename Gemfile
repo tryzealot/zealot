@@ -33,7 +33,7 @@ gem 'friendly_id', '~> 5.4.2'
 ## 数据分页
 gem 'kaminari'
 ## 文件上传
-gem 'carrierwave', '~> 2.2.1'
+gem 'carrierwave', '~> 2.2.2'
 
 # Helper
 ## HTTP 请求
