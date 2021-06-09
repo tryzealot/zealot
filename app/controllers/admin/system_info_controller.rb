@@ -7,7 +7,7 @@ class Admin::SystemInfoController < ApplicationController
     'nobrowse',
     'read-only',
     'ro'
-  ].freeze
+  ]
 
   EXCLUDED_MOUNT_TYPES = [
     'autofs',
@@ -31,7 +31,7 @@ class Admin::SystemInfoController < ApplicationController
     'tmpfs',
     'tracefs',
     'vfat'
-  ].freeze
+  ]
 
   HIDDEN_ENV_VALUES = [
     'token',
@@ -40,7 +40,7 @@ class Admin::SystemInfoController < ApplicationController
     'api_key',
     'client_key',
     'secret'
-  ].freeze
+  ]
 
   EXCLUDED_ENV_KEYS = [
     'SHELL',
@@ -53,7 +53,7 @@ class Admin::SystemInfoController < ApplicationController
     'HOME',
     'GEM_HOME',
     '_'
-  ].freeze
+  ]
 
   # GET /admin/system_info
   def index
