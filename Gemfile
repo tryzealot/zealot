@@ -56,7 +56,9 @@ gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 
 ## 异常报错上报
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'sentry-sidekiq'
 
 ## Jenkins SDK
 gem 'jenkins_api_client'
