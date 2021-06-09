@@ -3518,10 +3518,10 @@ file-uri-to-path@1.0.0:
   resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
-filepond@^4.28.0:
-  version "4.28.0"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.28.0.tgz#f8dac9d0d3e4ed205b2937fb817d74867a077974"
-  integrity sha512-9NavyNQa6dxg++ifLewb/cBVgx+9pvfzNxu/bnDWIBi6Arclc0k2ed1OwUSScNzUJQyqOD376NwP1zDZv9/SbA==
+filepond@^4.28.1:
+  version "4.28.1"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.28.1.tgz#d8ccdcd958554411434b37f3f828de8ea2563e2d"
+  integrity sha512-vy//xkDOW9xoYJLLZJabkpsZOWoWiKtugmTPXRPkvVMFsjOStYq2A8C/JHVGSYFIOQREE0BirzebN2Pf8OTjcw==
 
 fill-range@^4.0.0:
   version "4.0.0"
