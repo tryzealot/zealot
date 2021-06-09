@@ -37,7 +37,7 @@ gem 'carrierwave', '~> 2.2.1'
 
 # Helper
 ## HTTP 请求
-gem 'http'
+gem 'http', '~> 5.0.0'
 ## 用户认证
 gem 'devise', '~> 4.8.0'
 gem 'devise-i18n', '~> 1.9.4'
