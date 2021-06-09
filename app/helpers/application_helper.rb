@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
-
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
@@ -21,10 +19,6 @@ module ApplicationHelper
     end
 
     link_to content, url, **options
-  end
-
-  def random_color
-    "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
   end
 
   # 激活 li 的 class
