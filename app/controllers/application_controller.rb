@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  before_action :set_raven_context
+  before_action :set_sentry_context
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
@@ -25,9 +25,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_raven_context
-    Raven.user_context(id: session[:current_user_id])
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  def set_sentry_context
+    Sentry.set_user(id: session[:current_user_id])
+    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
   end
 
   def forbidden(e)
@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   def respond_with_error(code, exception)
     if code >= 500
       logger.error exception.full_message
-      Raven.capture exception
+      Sentry.capture_exception exception
     end
 
     respond_to do |format|
