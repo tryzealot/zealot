@@ -120,7 +120,7 @@ class Admin::SystemInfoController < ApplicationController
       version = Rails.cache.fetch('zealot_version_check', expires_in: 1.hours) do
         HTTP.headers(accept: 'application/vnd.github.v3+json')
             .get(VERSION_CHECK_URL)
-            .parse
+            .parse(:json)
       end
 
       latest_version = version['tag_name']
