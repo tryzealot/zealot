@@ -908,7 +908,7 @@
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.3.tgz#90ef26caa0925492b1a3b1495db09cfbe49e745e"
   integrity sha512-9mip5o+LVouWAqLMNJWhxda+D5uP+4RziNECgOGJlL6k3rc5SC/ljCHpV9Cym4i3oeGZkpZJ2tu4frCwt84kzQ==
 
-"@rails/webpacker@^5.2.1":
+"@rails/webpacker@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-5.4.0.tgz#2c64a9ea7e85d2a33e50e86319fe6751df0c47e8"
   integrity sha512-J973mzTUJbkbBu+sMwKgWRahoSfwdp5uHT80iDWr6hi8YAC7kj47HapQnn2SGPmv/onTT8WC3jFM62Hkh213yQ==
@@ -3518,10 +3518,10 @@ file-uri-to-path@1.0.0:
   resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
-filepond@^4.20.1:
-  version "4.27.3"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.27.3.tgz#7fe54cad8967d8518336f1934ad7792e2a5e0a43"
-  integrity sha512-3LYjT/YiVj1rnvtM8zo7k8sjrpDj3dLgiZ1SsL4c7Bx/ywT+LwGxeK+VAG+pqSwl7I8+2D5kcuKAgcnYF+EcTQ==
+filepond@^4.28.0:
+  version "4.28.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.28.0.tgz#f8dac9d0d3e4ed205b2937fb817d74867a077974"
+  integrity sha512-9NavyNQa6dxg++ifLewb/cBVgx+9pvfzNxu/bnDWIBi6Arclc0k2ed1OwUSScNzUJQyqOD376NwP1zDZv9/SbA==
 
 fill-range@^4.0.0:
   version "4.0.0"
