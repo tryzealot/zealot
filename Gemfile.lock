@@ -180,7 +180,7 @@ GEM
       guard (>= 2)
       guard-compat (~> 1.0)
     hashie (4.1.0)
-    health_check (3.0.0)
+    health_check (3.1.0)
       railties (>= 5.0)
     http (5.0.0)
       addressable (~> 2.3)
@@ -499,7 +499,7 @@ DEPENDENCIES
   guard-rails
   guard-sidekiq
   guard-webpacker
-  health_check (~> 3.0.0)
+  health_check (~> 3.1.0)
   http (~> 5.0.0)
   jb (~> 0.8.0)
   jenkins_api_client
