@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.3'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.2.5'
+gem 'redis', '~> 4.3.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
