@@ -152,7 +152,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     graphql (1.12.12)
-    guard (2.16.2)
+    guard (2.17.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
       lumberjack (>= 1.0.12, < 2.0)
@@ -180,7 +180,7 @@ GEM
       guard (>= 2)
       guard-compat (~> 1.0)
     hashie (4.1.0)
-    health_check (3.0.0)
+    health_check (3.1.0)
       railties (>= 5.0)
     http (5.0.0)
       addressable (~> 2.3)
@@ -345,10 +345,10 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.3)
-    rb-fsevent (0.10.4)
+    rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.5)
+    redis (4.3.1)
     regexp_parser (2.1.1)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -493,13 +493,13 @@ DEPENDENCIES
   friendly_id (~> 5.4.2)
   gitlab_omniauth-ldap (~> 2.1.1)
   graphql (~> 1.12.12)
-  guard (~> 2.16.2)
+  guard (~> 2.17.0)
   guard-bundler
   guard-migrate
   guard-rails
   guard-sidekiq
   guard-webpacker
-  health_check (~> 3.0.0)
+  health_check (~> 3.1.0)
   http (~> 5.0.0)
   jb (~> 0.8.0)
   jenkins_api_client
@@ -523,7 +523,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0.0)
   rails-settings-cached (~> 2.5.2)
   rake (~> 13.0.3)
-  redis (~> 4.2.5)
+  redis (~> 4.3.1)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
