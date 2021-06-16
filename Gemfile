@@ -11,13 +11,13 @@ gem 'rake', '~> 13.0.3'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.2.5'
+gem 'redis', '~> 4.3.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
 gem 'graphql', '~> 1.12.12'
 gem 'rack-cors', '~> 1.1.1'
-gem 'health_check', '~> 3.0.0'
+gem 'health_check', '~> 3.1.0'
 
 # View
 ## 模板引擎
@@ -91,7 +91,7 @@ group :development do
 
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'guard', '~> 2.16.2'
+  gem 'guard', '~> 2.17.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
   gem 'guard-rails'
