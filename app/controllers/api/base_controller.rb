@@ -12,6 +12,8 @@ class Api::BaseController < ActionController::API
   rescue_from ArgumentError, NoMethodError, PG::Error, with: :render_internal_server_error
   rescue_from ActionController::ParameterMissing, with: :render_missing_params_error
 
+  before_action :record_page_view
+
   def validate_user_token
     @user = User.find_by(token: params[:token])
     raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
@@ -65,6 +67,10 @@ class Api::BaseController < ActionController::API
   end
 
   private
+
+  def record_page_view
+    ActiveAnalytics.record_request(request)
+  end
 
   def set_cache_headers
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
