@@ -1,0 +1,11 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @title
+
+.row
+  .col-md-12
+    .card
+      .card-body.p-0
+        iframe src="#{admin_active_analytics_path}" style="border: 0" width="100%" height="970"
