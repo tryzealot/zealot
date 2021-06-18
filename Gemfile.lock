@@ -40,6 +40,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_analytics (0.2.0)
+      rails (>= 5.2.0)
     active_model_serializers (0.10.12)
       actionpack (>= 4.1, < 6.2)
       activemodel (>= 4.1, < 6.2)
@@ -477,6 +479,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_analytics
   active_model_serializers (~> 0.10.12)
   activejob-status
   app-info (~> 2.5.3)
