@@ -17,6 +17,7 @@ zh-CN:
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
 
+      empty_value: 空值
       submit:
         create: 新增设置
         update: 更新设置
