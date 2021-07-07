@@ -5,9 +5,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.3.2'
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
-gem 'rake', '~> 13.0.3'
+gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
@@ -15,7 +15,7 @@ gem 'redis', '~> 4.3.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.12.12'
+gem 'graphql', '~> 1.12.13'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -54,6 +54,7 @@ gem 'plist', '~> 3.6.0'
 gem 'sys-filesystem', '~> 1.4.1'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
+gem 'active_analytics'
 
 ## 异常报错上报
 gem 'sentry-ruby'
