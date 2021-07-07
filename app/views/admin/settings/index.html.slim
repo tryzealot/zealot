@@ -16,4 +16,4 @@ form.form-horizontal
               dl.system-info
                 dt = t("admin.settings.#{key}")
                 dd
-                  pre = link_to value.to_s, edit_admin_setting_path(key)
+                  pre = link_to value.blank? ? t('admin.settings.empty_value') : value.to_s, edit_admin_setting_path(key)
