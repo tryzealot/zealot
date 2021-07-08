@@ -1182,10 +1182,10 @@ acorn@^7.0.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
 
-admin-lte@^3.0.5:
+admin-lte@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-3.1.0.tgz#3e9e76267c53d0d19746bb592f24d82a4d262c15"
-  integrity sha512-JkmmkjbGgB5RCPwpaUCEktpZz/Ez/vBdfCNx8J3u8doaRRUUV1/oj4PuIiOV+xrNMt05q87131xoGySr/eA4uA==
+  resolved "https://registry.yarnpkg.com/admin-lte/download/admin-lte-3.1.0.tgz#3e9e76267c53d0d19746bb592f24d82a4d262c15"
+  integrity sha1-Pp52JnxT0NGXRrtZLyTYKk0mLBU=
   dependencies:
     "@fortawesome/fontawesome-free" "^5.15.3"
     "@lgaitan/pace-progress" "^1.0.7"
