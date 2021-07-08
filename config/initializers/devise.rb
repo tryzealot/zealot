@@ -289,6 +289,16 @@ Devise.setup do |config|
                     scope: 'email,profile'
   end
 
+  # Google OAuth
+  if defined?(OmniAuth::Strategies::Feishu) &&
+     Rails.application.secrets[:feishu_enabled]
+
+    feishu_app_id = Rails.application.secrets[:feishu_app_id]
+    feishu_app_secret = Rails.application.secrets[:feishu_app_secret]
+
+    config.omniauth :feishu, feishu_app_id, feishu_app_secret
+  end
+
   # LDAP
   if defined?(OmniAuth::Strategies::LDAP) &&
      Rails.application.secrets[:ldap_enabled]
