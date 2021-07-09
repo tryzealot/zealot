@@ -115,9 +115,6 @@ Devise.setup do |config|
   # Send a notification email when the user's password is changed
   config.send_password_change_notification = true
 
-  # Send a notification email when the user's password is changed
-  config.send_password_change_notification = true
-
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
   # confirming their account. For instance, if set to 2.days, the user will be
@@ -274,49 +271,27 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # Google OAuth
-  if defined?(OmniAuth::Strategies::GoogleOauth2) &&
-     Rails.application.secrets[:google_oauth_enabled]
-
-    google_client_id = Rails.application.secrets[:google_client_id]
-    google_secret = Rails.application.secrets[:google_secret]
-
-    config.omniauth :google_oauth2,
-                    google_client_id,
-                    google_secret,
-                    skip_jwt: true,
-                    prompt: 'select_account',
-                    access_type: 'offline',
+  google_oauth = Setting.google_oauth
+  if defined?(OmniAuth::Strategies::GoogleOauth2) && google_oauth[:enabled]
+    config.omniauth :google_oauth2, google_oauth[:client_id], google_oauth[:secret],
+                    skip_jwt: true, prompt: 'select_account', access_type: 'offline',
                     scope: 'email,profile'
   end
 
   # 飞书
-  if defined?(OmniAuth::Strategies::Feishu) &&
-     Rails.application.secrets[:feishu_enabled]
-
-    feishu_app_id = Rails.application.secrets[:feishu_app_id]
-    feishu_app_secret = Rails.application.secrets[:feishu_app_secret]
-    config.omniauth :feishu, feishu_app_id, feishu_app_secret
+  feishu = Setting.feishu
+  if defined?(OmniAuth::Strategies::Feishu) && feishu[:enabled]
+    config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
   end
-
+[]
   # LDAP
-  if defined?(OmniAuth::Strategies::LDAP) &&
-     Rails.application.secrets[:ldap_enabled]
-
-    ldap_host = Rails.application.secrets[:ldap_host]
-    ldap_port = Rails.application.secrets[:ldap_port]
-    ldap_method = (Rails.application.secrets[:ldap_method] || 'plain').to_sym
-    ldap_base_dn = Rails.application.secrets[:ldap_base_dn]
-    ldap_password = Rails.application.secrets[:ldap_password]
-    ldap_base = Rails.application.secrets[:ldap_base]
-    ldap_uid = Rails.application.secrets[:ldap_uid]
-
+  ldap = Setting.ldap
+  if defined?(OmniAuth::Strategies::LDAP) && ldap[:ldap_enabled]
     config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
-                           host: ldap_host,
-                           port: ldap_port,
-                           method: ldap_method,
-                           bind_dn: ldap_base_dn,
-                           password: ldap_password,
-                           base: ldap_base,
-                           uid: ldap_uid
+                    host: ldap[:ldap_host], port: ldap[:ldap_port],
+                    method: (ldap[:ldap_method] || 'plain').to_sym,
+                    bind_dn: ldap[:ldap_base_dn],
+                    password: ldap[:ldap_password],
+                    base: ldap[:ldap_base], uid: ldap[:ldap_uid]
   end
 end
