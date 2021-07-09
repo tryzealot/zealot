@@ -1,5 +1,5 @@
 ruby:
-  head_title, back_url = if params[:action] == 'new'
+  head_title, back_url = if params[:action] == 'new' || params[:action] == 'create'
     ['应用管理', apps_path]
   else
     ['返回应用', app_path(@app)]
@@ -20,7 +20,11 @@ ruby:
 
         = f.input :name, required: true
         - if params[:action] == 'new'
-          = f.simple_fields_for :schemes do |n|
+          = f.simple_fields_for :schemes_attributes do |n|
             = n.input :name, as: :check_boxes, collection: default_schemes, checked: default_schemes.last
           = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
+        - elsif params[:action] == 'create'
+          = f.simple_fields_for :schemes_attributes do |n|
+            = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes[:name].compact
+          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: @channel
         = f.button :submit

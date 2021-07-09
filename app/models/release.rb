@@ -50,7 +50,7 @@ class Release < ApplicationRecord
           if parser.os == AppInfo::Platform::IOS
             release.release_type ||= parser.release_type
 
-            icon_file = parser.icons.last.try(:[], :uncrushed_file)
+            icon_file = parser.icons.last.try(:[], :uncrushed_file) || parser.icons.last.try(:[], :file)
             release.icon = icon_file if icon_file
           else
             # 处理 Android anydpi 自适应图标
