@@ -33,18 +33,14 @@ module UserOmniauth
   end
 
   def enabled_google_oauth2?
-    defined?(OmniAuth::Strategies::GoogleOauth2) && secrets[:google_oauth_enabled]
+    defined?(OmniAuth::Strategies::GoogleOauth2) && Setting.google_oauth[:enabled]
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::LDAP) && secrets[:ldap_enabled]
+    defined?(OmniAuth::Strategies::LDAP) && Setting.ldap[:enabled]
   end
 
   def enabled_feishu?
-    defined?(OmniAuth::Strategies::Feishu) && secrets[:feishu_enabled]
-  end
-
-  def secrets
-    Rails.application.secrets
+    defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
   end
 end
