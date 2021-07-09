@@ -15,7 +15,8 @@ class Admin::SettingsController < ApplicationController
   def update
     if @setting.value != setting_param[:value]
       @setting.value = setting_param[:value]
-      @setting.save
+      return render :edit unless @setting.save
+
       redirect_to admin_settings_path, notice: "保存成功."
     else
       redirect_to admin_settings_path
