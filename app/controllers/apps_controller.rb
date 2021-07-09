@@ -27,19 +27,19 @@ class AppsController < ApplicationController
   end
 
   def create
-    schemes = app_params.delete(:schemes_attributes)
-    channel = app_params.delete(:channel)
+    @schemes = app_params.delete(:schemes_attributes)
+    @channel = app_params.delete(:channel)
 
     @app = App.new(app_params)
     authorize @app
 
-    return render :new unless @app.save
-
-    @app.users << current_user
-
-    create_schemes_by(@app, schemes, channel)
-
-    redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
+    if @app.save
+      @app.users << current_user
+      create_schemes_by(@app, @schemes, @channel)
+      redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
+    else
+      render :new
+    end
   end
 
   def update
@@ -64,7 +64,7 @@ class AppsController < ApplicationController
   end
 
   def create_schemes_by(app, schemes, channel)
-    schemes.values[0][:name].each do |scheme_name|
+    schemes[:name].each do |scheme_name|
       next if scheme_name.blank?
 
       scheme = app.schemes.create name: scheme_name
@@ -87,17 +87,6 @@ class AppsController < ApplicationController
   def set_app
     @app = App.find(params[:id])
     authorize @app
-  end
-
-  def app_info
-    @release =
-      if params[:version]
-        @app.releases.find_by(app: @app, version: params[:version])
-      else
-        @app.releases.last
-      end
-
-    raise ActiveRecord::RecordNotFound, "没有找到应用版本 version: #{params[:version]}" unless @release
   end
 
   def app_params
