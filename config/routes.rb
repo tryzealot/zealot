@@ -110,14 +110,14 @@ Rails.application.routes.draw do
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
-
-      # get :background_jobs, to: 'background_jobs#show'
-      # get :system_info, to: 'system_info#show'
+      resources :page_analytics, only: :index
 
       require 'sidekiq/web'
-      require 'sidekiq/cron/web'
+      require 'sidekiq-scheduler/web'
+
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
       mount PgHero::Engine, at: 'pghero', as: :pghero
+      mount ActiveAnalytics::Engine, at: :analytics
     end
   end
 

@@ -6,6 +6,6 @@ class AppFileUploader < ApplicationUploader
   end
 
   def extension_allowlist
-    %w[ipa apk].freeze
+    %w[ipa apk]
   end
 end
