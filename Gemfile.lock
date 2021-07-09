@@ -121,8 +121,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.9.4)
-      devise (>= 4.7.1)
+    devise-i18n (1.10.0)
+      devise (>= 4.8.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
@@ -508,7 +508,7 @@ DEPENDENCIES
   carrierwave (~> 2.2.2)
   debase
   devise (~> 4.8.0)
-  devise-i18n (~> 1.9.4)
+  devise-i18n (~> 1.10.0)
   dotenv-rails
   friendly_id (~> 5.4.2)
   gitlab_omniauth-ldap (~> 2.1.1)
