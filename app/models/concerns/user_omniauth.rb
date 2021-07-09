@@ -14,8 +14,9 @@ module UserOmniauth
     user = User.new(email: email, username: username, password: password)
     user.skip_confirmation!
     user.remember_me!
-    user.save!
+    user.save!(validate: false)
 
+    UserProvider.create_from_omniauth(auth, user)
     UserMailer.omniauth_welcome_email(user, password).deliver_later
 
     user
@@ -37,6 +38,10 @@ module UserOmniauth
 
   def enabled_ldap?
     defined?(OmniAuth::Strategies::LDAP) && secrets[:ldap_enabled]
+  end
+
+  def enabled_feishu?
+    defined?(OmniAuth::Strategies::Feishu) && secrets[:feishu_enabled]
   end
 
   def secrets
