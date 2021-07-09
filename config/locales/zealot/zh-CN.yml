@@ -6,11 +6,20 @@ zh-CN:
       site_https: 站点启用 HTTPS
       site_domain: 站点域名
 
-      visits: 访问模式
+      switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 开启游客模式
+      demo_mode: 演示模式（定时恢复默认数据）
 
-      mail: 邮件配置
+      third_party_auth: 第三方登录
+      ldap: LDAP
+      feishu: 飞书
+      google_oauth: Google OAuth
+
+      backup: 备份
+      misc: 杂项
+
+      stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_to: 默认邮件发件人
 
@@ -64,6 +73,8 @@ zh-CN:
   activerecord:
     errors:
       models:
+        setting:
+          default_message: "请检查 '%{key}' 的如下问题："
         debug_file:
           attributes:
             app_id:
