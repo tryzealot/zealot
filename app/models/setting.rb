@@ -28,7 +28,7 @@ class Setting < RailsSettings::Base
 
   # 第三方登录
   scope :third_party_auth do
-    field :ldap, type: :hash, readonly: true, display: true, default: {
+    field :ldap, type: :hash, display: true, default: {
       enabled: ENV['LDAP_ENABLED'] || false,
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'],
@@ -39,13 +39,13 @@ class Setting < RailsSettings::Base
       uid: ENV['LDAP_UID'],
     }
 
-    field :feishu, type: :hash, readonly: true, display: true, default: {
+    field :feishu, type: :hash, display: true, default: {
       enabled: ENV['FEISHU_ENABLED'] || false,
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
 
-    field :google_oauth, type: :hash, readonly: true, display: true, default: {
+    field :google_oauth, type: :hash, display: true, default: {
       enabled: ENV['GOOGLE_OAUTH_ENABLED'] || false,
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
@@ -89,7 +89,10 @@ class Setting < RailsSettings::Base
         obj[scope] = items.each_with_object({}) do |item, inner|
           key = item[:key]
           value = Setting.send(key.to_sym)
-          inner[key] = value
+          inner[key] = {
+            value: value,
+            readonly: item[:readonly]
+          }
         end
       end
     end
