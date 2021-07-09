@@ -1184,8 +1184,8 @@ acorn@^7.0.0:
 
 admin-lte@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/admin-lte/download/admin-lte-3.1.0.tgz#3e9e76267c53d0d19746bb592f24d82a4d262c15"
-  integrity sha1-Pp52JnxT0NGXRrtZLyTYKk0mLBU=
+  resolved "https://registry.npmjs.org/admin-lte/-/admin-lte-3.1.0.tgz#3e9e76267c53d0d19746bb592f24d82a4d262c15"
+  integrity sha512-JkmmkjbGgB5RCPwpaUCEktpZz/Ez/vBdfCNx8J3u8doaRRUUV1/oj4PuIiOV+xrNMt05q87131xoGySr/eA4uA==
   dependencies:
     "@fortawesome/fontawesome-free" "^5.15.3"
     "@lgaitan/pace-progress" "^1.0.7"
