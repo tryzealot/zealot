@@ -27,5 +27,7 @@ ruby:
             = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15
           - else
             = f.text_area :value, value: value, class: 'form-control', rows: 15
+
+          input.hidden type="hidden" value="#{type}" name="setting[type]"
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')
