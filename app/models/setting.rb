@@ -9,6 +9,9 @@ class Setting < RailsSettings::Base
     field :site_title, default: 'Zealot', type: :string, validates: { presence: true, length: { in: 3..16 } }, display: true
     field :site_https, default: (Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?), type: :boolean, readonly: true
     field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || (site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}")), type: :string, readonly: true
+
+    field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
+    field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end
 
   # 模式开关
