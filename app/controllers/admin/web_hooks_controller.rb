@@ -22,7 +22,6 @@ class Admin::WebHooksController < ApplicationController
   def create
     @web_hook = WebHook.new(web_hook_params)
     authorize @web_hook
-
     return render :new unless @web_hook.save
 
     redirect_to admin_users_url, notice: '网络钩子创建成功'

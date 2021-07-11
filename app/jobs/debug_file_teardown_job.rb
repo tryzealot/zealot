@@ -14,10 +14,9 @@ class DebugFileTeardownJob < ApplicationJob
       update_debug_file_version(debug_file, parser)
       parse_proguard(debug_file, parser)
     end
-  rescue => e
-    logger.error "Can not teardown debug file: #{e}"
-    logger.error e.backtrace.join("\n")
-    Raven.capture_exception(e)
+
+    # 清理掉临时生成的文件
+    parser.clear!
   end
 
   private

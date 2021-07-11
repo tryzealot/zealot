@@ -53,7 +53,7 @@ zh-CN:
         device_type: '应用平台'
         release_version: '发布版本'
         build_version: '构建版本'
-        file: 'Debug File 文件'
+        file: '调试文件'
         checksum: '唯一校验码'
 
     hints:
@@ -92,12 +92,14 @@ zh-CN:
           {
             event: @event,
             title: @title,
-            app_name: @name,
+            name: @app_name,
+            app_name: @app_name,
             device_type: @device_type,
             release_version: @release_version,
             build_version: @build_version,
             size: @file_size,
             changelog: @changelog,
+            release_url: @release_url,
             install_url: @install_url,
             icon_url: @icon_url,
             qrcode_url: @qrcode_url,

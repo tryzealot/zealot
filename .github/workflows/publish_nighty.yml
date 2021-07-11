@@ -35,7 +35,3 @@ jobs:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKERHUB_REPOSITORY: tryzealot/zealot
-    - name: Trigger Microbadger update
-      uses: wei/curl@master
-      with:
-        args: -X POST ${{ secrets.MICROBADGER_WEBHOOK_URL }}

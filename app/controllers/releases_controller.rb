@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class ReleasesController < ApplicationController
-  before_action :check_user_logged_in, except: %i[show auth]
+  before_action :authenticate_login!, except: %i[show auth]
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
+  before_action :authenticate_app!, only: :show
 
   def index
-    redirect_to channel_release_path(@channel, @channel.releases.last)
+    return redirect_to root_path, notice: "应用不存在或已经被移除，页面跳转至首页" unless @channel
+    return redirect_to channel_path(@channel), notice: "应用版本不存在或已经被移除，页面跳转至应用渠道详情" if @channel.releases.empty?
+    redirect_to channel_release_path(@channel, @channel.releases.last), notice: "版本不存在或已经被移除，跳转至最新版本"
   end
 
   def show
-    redirect_to new_user_session_path unless !wechat? || @channel.password.blank? || !user_signed_in?
-
     @title = @release.app_name
   end
 
@@ -52,20 +53,24 @@ class ReleasesController < ApplicationController
 
   protected
 
-  def set_release
-    @release = Release.find(params[:id])
+  def authenticate_login!
+    authenticate_user! unless wechat? || Setting.guest_mode
   end
 
-  def set_channel
-    @channel = Channel.friendly.find params[:channel_id]
-  end
-
-  def check_user_logged_in
-    authenticate_user! unless wechat?
+  def authenticate_app!
+    return if wechat? || @channel.password.present? || user_signed_in? || Setting.guest_mode
   end
 
   def wechat?
     request.user_agent.include? 'MicroMessenger'
+  end
+
+  def set_release
+    @release = Release.find params[:id]
+  end
+
+  def set_channel
+    @channel = Channel.friendly.find params[:channel_id]
   end
 
   def release_params
@@ -75,6 +80,8 @@ class ReleasesController < ApplicationController
   end
 
   def render_not_found_entity_response(e)
-    redirect_to channel_releases_path, notice: "没有找到版本 #{e.id}，跳转至最新版本"
+    @title = "#{@channel.app_name} 找不到 #{e.id} 版本"
+    @release_id = params[:id]
+    render :not_found, status: :not_found
   end
 end

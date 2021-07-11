@@ -19,5 +19,5 @@ Rails.configuration.to_prepare do
     config.action_mailer.default_url_options = url_options
   end
 
-  Rails.application.routes.default_url_options = Rails.configuration.x.url_options
+  Rails.application.routes.default_url_options = Zealot.config.url_options
 end
