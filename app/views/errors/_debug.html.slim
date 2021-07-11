@@ -1,0 +1,11 @@
+- if Rails.env.development?
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title
+          i.fas.fa-error
+          = "#{@exception.class}: #{@exception.message}"
+        .card-tools
+          small.badge 仅开发环境显示
+      .card-body
+        = debug @exception.backtrace

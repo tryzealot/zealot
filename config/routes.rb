@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   #############################################
   # User
   #############################################
-  devise_for :users, skip: :registrations, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     resource :registration,
       only: %i[new create edit update],
@@ -110,14 +110,14 @@ Rails.application.routes.draw do
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
-
-      # get :background_jobs, to: 'background_jobs#show'
-      # get :system_info, to: 'system_info#show'
+      resources :page_analytics, only: :index
 
       require 'sidekiq/web'
-      require 'sidekiq/cron/web'
+      require 'sidekiq-scheduler/web'
+
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
       mount PgHero::Engine, at: 'pghero', as: :pghero
+      mount ActiveAnalytics::Engine, at: :analytics
     end
   end
 
@@ -173,4 +173,7 @@ Rails.application.routes.draw do
   # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
+
+  match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
+  match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end

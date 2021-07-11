@@ -11,7 +11,7 @@ module DemomodeHelper
   end
 
   def default_admin?(user)
-    user.email == Rails.application.secrets.admin_email
+    user.email == Setting.admin_email
   end
 
   def default_admin_in_demo_mode?(user)
