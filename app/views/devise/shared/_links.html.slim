@@ -5,8 +5,16 @@
       - unless provider == :ldap
         ruby:
           name = omniauth_display_name(provider)
+          button_style = case provider
+                         when :google_oauth2
+                          'btn-google'
+                         when :feishu
+                          'btn-feishu'
+                         else
+                          'btn-default'
+                         end
 
-        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="#{provider == :google_oauth2 ? 'btn-danger' : 'btn-default'}"
+        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="#{button_style}"
           i.fab class="fa-#{name.downcase}"
           = "使用 #{name} 账号登录"
 
