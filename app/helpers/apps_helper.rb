@@ -3,12 +3,12 @@
 module AppsHelper
   SelectOption = Struct.new(:name, :value)
 
-  DEFAULT_SCHEMES = %w[测试版 内测版 产品版].freeze
+  DEFAULT_SCHEMES = %w[测试版 内测版 产品版]
   DEFAULT_CHANNELS = [
     SelectOption.new('Android 和 iOS', 'both'),
     SelectOption.new('Android', 'android'),
     SelectOption.new('iOS', 'ios')
-  ].freeze
+  ]
 
   def default_schemes
     DEFAULT_SCHEMES

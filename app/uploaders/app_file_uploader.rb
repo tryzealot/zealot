@@ -5,7 +5,7 @@ class AppFileUploader < ApplicationUploader
     "#{base_store_dir}/apps/a#{model.app.id}/r#{model.id}/binary"
   end
 
-  def extension_white_list
-    %w[ipa apk].freeze
+  def extension_allowlist
+    %w[ipa apk]
   end
 end

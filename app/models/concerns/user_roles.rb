@@ -7,7 +7,7 @@ module UserRoles
     user: '用户',
     developer: '开发者',
     admin: '管理员'
-  }.freeze
+  }
 
   included do
     scope :admins, -> { where(role: :admin) }
