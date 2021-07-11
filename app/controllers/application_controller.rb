@@ -27,7 +27,11 @@ class ApplicationController < ActionController::Base
   private
 
   def set_sentry_context
-    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
+    Sentry.configure_scope do |scope|
+      scope.set_context('params', params.to_unsafe_h)
+      scope.set_context('url', request.url)
+    end
+
     if current_user = session[:current_user_id]
       Sentry.set_user(id: current_user)
     end
