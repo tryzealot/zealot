@@ -1,11 +1,5 @@
 #!/usr/bin/with-contenv sh
 
-echo "========================================"
-echo "  Zealot had change run-way inside, if fail to run make sure "
-echo "  to upgrade the zealot-docker repospitory and re-generate the docker-compose.yml!"
-echo "========================================"
-echo
-
 echo "Starting Zealot"
 cd /app
 bundle exec puma -C config/puma.rb  | tee /app/log/zealot.log
