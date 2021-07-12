@@ -21,14 +21,13 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'PG::ConnectionBad',
       ]
 
-      vcs_ref = Setting.vcs_ref
-      if vcs_ref.present?
-        version = Setting.version
-        config.release = "#{version}-#{vcs_ref}"
-        config.tags = {
-          docker: ENV['DOCKER_TAG'].present?,
-          docker_tag: ENV['DOCKER_TAG']
-        }
+      if (vcs_ref = Setting.vcs_ref) && vcs_ref.present?
+        release = [Setting.version, vcs_ref]
+        if (docker_tag = ENV['DOCKER_TAG']) && docker_tag.present?
+          release << ENV['DOCKER_TAG']
+        end
+
+        config.release = release.join('-')
       end
     end
   end
