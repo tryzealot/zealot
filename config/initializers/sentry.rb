@@ -10,11 +10,8 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
       config.breadcrumbs_logger = [:active_support_logger, :sentry_logger, :http_logger]
 
       config.send_default_pii = true
-      # config.environment = Rails.env
-      # config.enabled_environments = %w[development production]
-
-      #
-      config.traces_sample_rate = 0.5
+      config.environment = Rails.env
+      config.enabled_environments = %w[development production]
 
       config.excluded_exceptions += [
         'ActionController::RoutingError',
