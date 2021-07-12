@@ -5,8 +5,8 @@ ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev imagemagick-dev postgresql-de
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
-ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
-ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG NPM_REGISTRY="https://registry.npm.taobao.org"
 ARG RUBY_GEMS="bundler"
@@ -18,9 +18,7 @@ ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
 # System dependencies
 RUN set -ex && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
-      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
-      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
-      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      sed -i "s/$ORIGINAL_REPO_URL/$MIRROR_REPO_URL/g" /etc/apk/repositories && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/ && \
       bundle config mirror.https://rubygems.org $RUBYGEMS_SOURCE; \
     fi && \
@@ -66,8 +64,8 @@ ARG TAG
 
 ARG ZEALOT_VERSION="4.0.0"
 ARG REPLACE_CHINA_MIRROR="true"
-ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
-ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
@@ -94,9 +92,7 @@ ENV TZ="Asia/Shanghai" \
 # System dependencies
 RUN set -ex && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
-      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
-      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
-      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      sed -i "s/$ORIGINAL_REPO_URL/$MIRROR_REPO_URL/g" /etc/apk/repositories && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \
