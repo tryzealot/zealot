@@ -13,6 +13,9 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
       # config.environment = Rails.env
       # config.enabled_environments = %w[development production]
 
+      #
+      config.traces_sample_rate = 0.5
+
       config.excluded_exceptions += [
         'ActionController::RoutingError',
         'ActiveRecord::RecordNotFound',
