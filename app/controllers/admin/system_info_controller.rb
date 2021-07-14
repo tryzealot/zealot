@@ -33,28 +33,6 @@ class Admin::SystemInfoController < ApplicationController
     'vfat'
   ]
 
-  HIDDEN_ENV_VALUES = [
-    'token',
-    'key',
-    'password',
-    'api_key',
-    'client_key',
-    'secret'
-  ]
-
-  EXCLUDED_ENV_KEYS = [
-    'SHELL',
-    'TERM',
-    'USER',
-    'EDITOR',
-    'PWD',
-    'PATH',
-    'LANG',
-    'HOME',
-    'GEM_HOME',
-    '_'
-  ]
-
   # GET /admin/system_info
   def index
     @title = '系统信息'
@@ -83,11 +61,7 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_env
     @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.blank?
-                   value
-                 else
-                   '*' * 10
-                 end
+      obj[key] = value
     end.sort
   end
 

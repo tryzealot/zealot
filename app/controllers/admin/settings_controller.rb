@@ -13,9 +13,12 @@ class Admin::SettingsController < ApplicationController
   end
 
   def update
-    if @setting.value != setting_param[:value]
-      @setting.value = setting_param[:value]
-      @setting.save
+    new_value = setting_param[:value]
+    new_value = JSON.parse(new_value) if setting_param[:type] == 'hash'
+    if @setting.value != new_value
+      @setting.value = new_value
+      return render :edit unless @setting.save
+
       redirect_to admin_settings_path, notice: "保存成功."
     else
       redirect_to admin_settings_path
@@ -24,11 +27,11 @@ class Admin::SettingsController < ApplicationController
 
   private
 
-    def set_setting
-      @setting = Setting.find_or_default(var: params[:id])
-    end
+  def set_setting
+    @setting = Setting.find_or_default(var: params[:id])
+  end
 
-    def setting_param
-      params[:setting].permit!
-    end
+  def setting_param
+    params[:setting].permit!
+  end
 end
