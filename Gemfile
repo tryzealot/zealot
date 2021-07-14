@@ -39,12 +39,14 @@ gem 'carrierwave', '~> 2.2.2'
 ## HTTP 请求
 gem 'http', '~> 5.0.0'
 ## 用户认证
+gem 'pundit', '~> 2.1.0'
 gem 'devise', '~> 4.8.0'
 gem 'devise-i18n', '~> 1.9.4'
+
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
-gem 'pundit', '~> 2.1.0'
+gem 'omniauth-feishu', '~> 0.1.6'
 
 ## UDID
 gem 'openssl', '~> 2.2.0'
@@ -77,10 +79,10 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.5.3'
+gem 'app-info', '~> 2.5.4'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.5.2'
+gem 'rails-settings-cached', '~> 2.7.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false

@@ -66,3 +66,12 @@
     transform: translateX(26px);
   }
 }
+
+.system-info {
+  dd {
+    .disabled {
+      background-color: #e9ecef;
+      color: gray;
+    }
+  }
+}
