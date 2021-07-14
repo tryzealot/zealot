@@ -8,14 +8,26 @@ ruby:
     .card
       .card-header
         h3.card-title = t("admin.settings.#{key}")
+        .card-tools
+          a href="#{admin_settings_path}"
+            i.far.fa-list-alt
+            |  返回系统配置
+
       = simple_form_for(@setting, url: admin_setting_path(key), method: :patch) do |f|
         .card-body
-          = f.error_notification
+          - if @setting.errors.size > 0
+            .callout.callout-danger
+              h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{key}"))
+              ul style="margin-bottom: 0"
+                - @setting.errors.each do |error|
+                  li = error.message
           - if type == :boolean
-            = f.input :value, label: '开启', as: :boolean, checked: true
+            = f.input :value, label: '开启', as: :boolean, checked: type
           - elsif type == :hash
             = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15
           - else
             = f.text_area :value, value: value, class: 'form-control', rows: 15
+
+          input.hidden type="hidden" value="#{type}" name="setting[type]"
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')
