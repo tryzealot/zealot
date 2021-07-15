@@ -282,7 +282,7 @@ Devise.setup do |config|
   if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
     options = { scope: 'read_user' }
     if (scope = gitlab[:scope]) && scope.present?
-      options[:scope] = scope.split(',').map(&:chmop).join(' ')
+      options[:scope] = scope.split(',').map(&:chomp).join(' ')
     end
 
     if (site = gitlab[:site]) && site.present?
