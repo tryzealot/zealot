@@ -47,6 +47,7 @@ gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 gem 'omniauth-feishu', '~> 0.1.6'
+gem 'omniauth-gitlab', '~> 2.0.0'
 
 ## UDID
 gem 'openssl', '~> 2.2.0'

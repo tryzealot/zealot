@@ -13,6 +13,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omniauth_callback('飞书', 'feishu_data')
   end
 
+  def gitlab
+    omniauth_callback('Gitlab', 'gitlab_data')
+  end
+
   # def failure
   #   flash[:error] = failure_message
   #   flash[:error] = '授权失败！请检查你的账户和密码是否正确，如果输入确认无误还是失败请联系管理员检查配置是否正确'
