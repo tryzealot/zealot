@@ -277,6 +277,21 @@ Devise.setup do |config|
     config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
   end
 
+  # Gitlab
+  gitlab = Setting.gitlab
+  if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
+    options = { scope: 'read_user' }
+    if (scope = gitlab[:scope]) && scope.present?
+      options[:scope] = scope.split(',').map(&:chmop).join(' ')
+    end
+
+    if (site = gitlab[:site]) && site.present?
+      options[:client_options] = { site: site }
+    end
+
+    config.omniauth :gitlab, gitlab[:app_id], gitlab[:secret], options
+  end
+
   # Google OAuth
   google_oauth = Setting.google_oauth
   if defined?(OmniAuth::Strategies::GoogleOauth2) && google_oauth[:enabled]
