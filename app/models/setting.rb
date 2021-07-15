@@ -29,7 +29,7 @@ class Setting < RailsSettings::Base
   # 第三方登录
   scope :third_party_auth do
     field :feishu, type: :hash, display: true, default: {
-      enabled: ENV['GITLAB_ENABLED'] || false,
+      enabled: ENV['FEISHU_ENABLED'] || false,
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
