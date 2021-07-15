@@ -288,6 +288,9 @@ GEM
       rack (>= 1.6.2, < 3)
     omniauth-feishu (0.1.6)
       omniauth-oauth2 (~> 1.6.0)
+    omniauth-gitlab (2.0.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-google-oauth2 (0.8.2)
       jwt (>= 2.0)
       oauth2 (~> 1.1)
@@ -529,6 +532,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.6)
   omniauth (~> 1.9)
   omniauth-feishu (~> 0.1.6)
+  omniauth-gitlab (~> 2.0.0)
   omniauth-google-oauth2 (~> 0.8.2)
   openssl (~> 2.2.0)
   pg (>= 0.18, < 2.0)
@@ -567,4 +571,4 @@ DEPENDENCIES
   webpacker (~> 5.4)
 
 BUNDLED WITH
-   2.2.17
+   2.2.20

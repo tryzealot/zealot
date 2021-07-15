@@ -43,4 +43,8 @@ module UserOmniauth
   def enabled_feishu?
     defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
   end
+
+  def enabled_gitlab?
+    defined?(OmniAuth::Strategies::GitLab) && Setting.gitlab[:enabled]
+  end
 end
