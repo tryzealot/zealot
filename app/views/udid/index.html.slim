@@ -10,12 +10,10 @@
 
     .card
       .card-body.text-center
-        - if phone?
-          = link_to '点击获取设备 UDID', udid_install_path, class: 'btn bg-success btn-lg btn-block'
-        - else
-          = raw @qrcode.as_svg
-      - unless phone?
-        .card-footer.text-center 请使用 iPhone 或 iPad 上的 Safari 浏览器打开本页面或者扫描上面的二维码，即可快速获取 UDID
+        = raw @qrcode.as_svg
+        .pt-4.text-center 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
+      .card-footer
+        = link_to '点击获取设备 UDID', udid_install_path, class: 'btn bg-success btn-lg btn-block'
 
   .col-md-12
     .card

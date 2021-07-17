@@ -9,50 +9,83 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  before_action :set_raven_context
+  before_action :set_sentry_context
+  before_action :record_page_view
 
-  # Handle pundit error
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
+  rescue_from ActionController::UnknownFormat, with: :not_acceptable
+  rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
+  rescue_from Pundit::NotAuthorizedError, with: :forbidden
+
+  def raise_not_found
+    raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
+  end
 
   private
 
-  def set_raven_context
-    Raven.user_context(id: session[:current_user_id])
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  def set_sentry_context
+    Sentry.configure_scope do |scope|
+      context = params.to_unsafe_h || {}
+      context[:url] = request.url
+      scope.set_context('params', context)
+    end
+
+    if current_user = session[:current_user_id]
+      Sentry.set_user(id: current_user)
+    end
   end
 
-  def user_not_authorized
-    flash[:warning] = '没有权限进行本次操作。'
-    redirect_to(request.referer || root_path)
+  def record_page_view
+    ActiveAnalytics.record_request(request)
   end
 
-  # before_action :cors_preflight_check
-  # after_action :cors_set_access_control_headers
-  #
-  # def after_sign_in_path_for(resource)
-  #   sign_in_url = new_user_session_url
-  #   if request.referer == sign_in_url
-  #     super
-  #   else
-  #     stored_location_for(resource) || request.referer || root_path
-  #   end
-  # end
-  #
-  # def cors_set_access_control_headers
-  #   headers['Access-Control-Allow-Origin'] = '*'
-  #   headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-  #   headers['Access-Control-Max-Age'] = '1728000'
-  # end
-  #
-  # def cors_preflight_check
-  #   headers['Access-Control-Allow-Origin'] = '*'
-  #   headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-  #   headers['Access-Control-Allow-Headers'] = '*'
-  #   headers['Access-Control-Max-Age'] = '1728000'
-  # end
+  def forbidden(e)
+    respond_with_error(403, e)
+  end
 
-  def render_not_found_entity_response(e)
-    # redirect_to apps_path, notice: "没有找到 ID #{e.id}，跳转至应用列表"
+  def not_found(e)
+    respond_with_error(404, e)
+  end
+
+  def gone(e)
+    respond_with_error(410, e)
+  end
+
+  def unprocessable_entity(e)
+    respond_with_error(422, e)
+  end
+
+  def not_acceptable(e)
+    respond_with_error(406, e)
+  end
+
+  def bad_request(e)
+    respond_with_error(400, e)
+  end
+
+  def internal_server_error(e)
+    respond_with_error(500)
+  end
+
+  def service_unavailable(e)
+    respond_with_error(503, e)
+  end
+
+  def respond_with_error(code, exception)
+    if code >= 500
+      logger.error exception.full_message
+      Sentry.capture_exception exception
+    end
+
+    respond_to do |format|
+      @code = code
+      @exception = exception
+      @title = t("errors.#{@code}.title")
+      format.any  { render 'errors/index', status: code, formats: [:html] }
+      format.json { render json: { code: code, error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
+    end
   end
 end
