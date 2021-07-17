@@ -23,7 +23,7 @@
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
 - [ ] 可接入 Jenkins 服务实现远程构建
 - [x] 支持丰富的 REST APIs
-- [ ] 支持 GraphGL 接口（进行中）
+- [ ] 支持 GraphQL 接口（进行中）
 
 ## 在线演示
 
