@@ -17,7 +17,7 @@
 - [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息并存储编译分享他人
 - [x] 支持自定义网络钩子（WebHooks）发送给通知各种服务（钉钉、企业微信、Slack 等）
 - [x] 支持获取 iOS 设备 UDID 及显示该设备可以安装的应用
-- [x] 支持第三方服务的一键登录（目前以接入飞书、Google 和 LDAP）
+- [x] 支持第三方服务的一键登录（目前以接入飞书、Gitlab、Google 和 LDAP）
 - [x] 提供检查新版本和安装服务的 iOS 和 Android 组件
 - [x] 提供 fastlane 插件 [zealot](https://github.com/tryzealot/fastlane-plugin-zealot) 提供上传应用和调试文件服务、同步 iOS 设备 UDID 名单
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
