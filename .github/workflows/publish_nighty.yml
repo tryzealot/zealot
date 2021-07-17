@@ -49,6 +49,6 @@ jobs:
       with:
         name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.CR_PAT }}
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
         registry: ghcr.io
