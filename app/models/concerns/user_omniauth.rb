@@ -14,8 +14,9 @@ module UserOmniauth
     user = User.new(email: email, username: username, password: password)
     user.skip_confirmation!
     user.remember_me!
-    user.save!
+    user.save!(validate: false)
 
+    UserProvider.create_from_omniauth(auth, user)
     UserMailer.omniauth_welcome_email(user, password).deliver_later
 
     user
@@ -32,14 +33,18 @@ module UserOmniauth
   end
 
   def enabled_google_oauth2?
-    defined?(OmniAuth::Strategies::GoogleOauth2) && secrets[:google_oauth_enabled]
+    defined?(OmniAuth::Strategies::GoogleOauth2) && Setting.google_oauth[:enabled]
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::LDAP) && secrets[:ldap_enabled]
+    defined?(OmniAuth::Strategies::LDAP) && Setting.ldap[:enabled]
   end
 
-  def secrets
-    Rails.application.secrets
+  def enabled_feishu?
+    defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
+  end
+
+  def enabled_gitlab?
+    defined?(OmniAuth::Strategies::GitLab) && Setting.gitlab[:enabled]
   end
 end
