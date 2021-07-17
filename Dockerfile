@@ -72,14 +72,14 @@ ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.1.0.1"
 
-LABEL im.ews.zealot.build-date=$BUILD_DATE \
-      im.ews.zealot.vcs-ref=$VCS_REF \
-      im.ews.zealot.version="$ZEALOT_VERSION-$TAG" \
-      im.ews.zealot.name="Zealot" \
-      im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
-      im.ews.zealot.url="https://zealot.ews.im/" \
-      im.ews.zealot.vcs-url="https://github.com/tryzealot/zealot" \
-      im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
+LABEL org.opencontainers.image.title="Zealot" \
+      org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
+      org.opencontainers.image.url="https://zealot.ews.im/" \
+      org.opencontainers.image.authors="icyleaf <icyleaf.cn@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/tryzealot/zealot" \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.revision=$VCS_REF \
+      org.opencontainers.image.version=$ZEALOT_VERSION
 
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
