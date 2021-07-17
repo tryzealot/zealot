@@ -28,7 +28,7 @@ class CleanOldReleasesJob < ApplicationJob
 
     versions = releases.map(&:version)
     latest_version = versions.max { |a,b| compare_version(a, b) }
-    logger.info("Delete channel [#{channel.id}] has versions: #{versions} and latest verison is #{latest_version}")
+    logger.info("Delete channel [#{channel.id} - #{channel.app_name}] has versions: #{versions} and latest verison is #{latest_version}")
 
     remove_releases(channel, releases, latest_version)
   end
@@ -43,7 +43,7 @@ class CleanOldReleasesJob < ApplicationJob
   end
 
   def compare_version(a, b)
-    Gem::Version.new(b) <=> Gem::Version.new(a)
+    Gem::Version.new(a) <=> Gem::Version.new(b)
   rescue ArgumentError => e
     # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
     # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准

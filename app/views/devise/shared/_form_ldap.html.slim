@@ -1,6 +1,6 @@
 - if ldap_auth_enable?
   #login-tabs-ldap.tab-pane.fade aria-labelledby="login-tabs-ldap-tab" role="tabpanel"
-    = form_tag(omniauth_callback_path(:user, :ldap)) do
+    = form_tag(user_ldap_omniauth_authorize_path) do
       .form-group
         = label_tag :username, "LDAP 账户"
         = text_field_tag :username, nil, class: "form-control top", title: "This field is required.", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true

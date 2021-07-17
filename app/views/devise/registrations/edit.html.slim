@@ -38,4 +38,4 @@
       .card-body
         p
           | 注销账户后，您的数据将会彻底移除！
-        = button_to "确认注销", registration_path(resource_name), data: { confirm: "最后确认你要注销自己的账户?" }, method: :delete, class: 'btn btn-lg btn-danger'
+        = button_to "确认注销", user_registration_path, data: { confirm: "最后确认你要注销自己的账户?" }, method: :delete, class: 'btn btn-lg btn-danger'

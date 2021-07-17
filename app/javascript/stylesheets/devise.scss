@@ -1,3 +1,33 @@
 .login-box {
   width: 440px;
 }
+
+.btn-auth-google {
+  background-color: #ea4335;
+  color: #fff;
+}
+
+.btn-auth-google:hover {
+  background-color: #ba4335;
+  color: #fff;
+}
+
+.btn-auth-feishu {
+  background-color: #3370ff;
+  color: #fff;
+}
+
+.btn-auth-feishu:hover {
+  background-color: #2851b3;
+  color: #fff;
+}
+
+.btn-auth-gitlab {
+  background-color: #fa7035;
+  color: #fff;
+}
+
+.btn-auth-gitlab:hover {
+  background-color: #e45432;
+  color: #fff;
+}

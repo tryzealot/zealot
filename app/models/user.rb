@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include UserRoles
   extend UserOmniauth
-
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable,
-         :omniauthable, omniauth_providers: %i[google_oauth2 ldap]
+         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap]
 
+  include UserRoles
   enum role: %i[user developer admin]
 
   has_and_belongs_to_many :apps
-  has_many :user_providers, dependent: :destroy
+  has_many :providers, dependent: :destroy, class_name: 'UserProvider'
 
   validates :username, presence: true
   validates :email, presence: true

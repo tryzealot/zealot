@@ -26,7 +26,7 @@ class AppIconUploader < ApplicationUploader
     process resize_to_fit: [120, 120]
   end
 
-  def extension_white_list
+  def extension_allowlist
     [:png]
   end
 end

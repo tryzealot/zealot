@@ -5,6 +5,7 @@
 build_info/
 extensions/
 bundler/
+storage/
 
 # minimal Rails specific artifacts
 db/*.sqlite3
