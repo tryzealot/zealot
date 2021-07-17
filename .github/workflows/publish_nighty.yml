@@ -21,6 +21,19 @@ jobs:
     - name: Get build date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S %z')"
+    - name: Publish to Github Hub Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: nightly
+      with:
+        name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+        registry: ghcr.io
     - name: Publish to Docker Hub Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
@@ -39,16 +52,3 @@ jobs:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKERHUB_REPOSITORY: tryzealot/zealot
-    - name: Publish to Github Hub Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      env:
-        REPLACE_CHINA_MIRROR: false
-        VCS_REF: ${{ github.sha }}
-        BUILD_DATE: ${{ steps.date.outputs.date }}
-        TAG: nightly
-      with:
-        name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.CR_PAT }}
-        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
-        registry: ghcr.io
