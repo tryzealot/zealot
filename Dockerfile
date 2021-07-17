@@ -5,8 +5,8 @@ ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev imagemagick-dev postgresql-de
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
-ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
-ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG NPM_REGISTRY="https://registry.npm.taobao.org"
 ARG RUBY_GEMS="bundler"
@@ -18,9 +18,7 @@ ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
 # System dependencies
 RUN set -ex && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
-      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
-      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
-      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      sed -i "s/$ORIGINAL_REPO_URL/$MIRROR_REPO_URL/g" /etc/apk/repositories && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/ && \
       bundle config mirror.https://rubygems.org $RUBYGEMS_SOURCE; \
     fi && \
@@ -64,24 +62,24 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 
-ARG ZEALOT_VERSION="4.0.0"
+ARG ZEALOT_VERSION="4.1.0"
 ARG REPLACE_CHINA_MIRROR="true"
-ARG ORIGINAL_REPO_URL="http://dl-cdn.alpinelinux.org"
-ARG MIRROR_REPO_URL="https://mirrors.tuna.tsinghua.edu.cn"
+ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
+ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.1.0.1"
 
-LABEL im.ews.zealot.build-date=$BUILD_DATE \
-      im.ews.zealot.vcs-ref=$VCS_REF \
-      im.ews.zealot.version="$ZEALOT_VERSION-$TAG" \
-      im.ews.zealot.name="Zealot" \
-      im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
-      im.ews.zealot.url="https://zealot.ews.im/" \
-      im.ews.zealot.vcs-url="https://github.com/tryzealot/zealot" \
-      im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
+LABEL org.opencontainers.image.title="Zealot" \
+      org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
+      org.opencontainers.image.url="https://zealot.ews.im/" \
+      org.opencontainers.image.authors="icyleaf <icyleaf.cn@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/tryzealot/zealot" \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.revision=$VCS_REF \
+      org.opencontainers.image.version=$ZEALOT_VERSION
 
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
@@ -94,9 +92,7 @@ ENV TZ="Asia/Shanghai" \
 # System dependencies
 RUN set -ex && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
-      REPLACE_STRING=$(echo $MIRROR_REPO_URL | sed 's/\//\\\//g') && \
-      SEARCH_STRING=$(echo $ORIGINAL_REPO_URL | sed 's/\//\\\//g') && \
-      sed -i "s/$SEARCH_STRING/$REPLACE_STRING/g" /etc/apk/repositories && \
+      sed -i "s/$ORIGINAL_REPO_URL/$MIRROR_REPO_URL/g" /etc/apk/repositories && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \

@@ -5,15 +5,21 @@
   = @title
 
 form.form-horizontal
-  - @settings.each do |section, keys|
+  - @settings.each do |scope, keys|
     .row
       .col-md-12
         .card.system_info
           .card-header
-            h3.card-title = t("admin.settings.#{section}")
+            h3.card-title = t("admin.settings.#{scope}")
           .card-body
-            - keys.each do |key, value|
+            - keys.each do |key, params|
+              ruby:
+                value = params[:value]
+                display_value = value.is_a?(Hash) ? JSON.pretty_generate(value) : ((value != false && value.blank?) ? t('admin.settings.empty_value') : value.to_s)
               dl.system-info
                 dt = t("admin.settings.#{key}")
                 dd
-                  pre = link_to value.to_s, edit_admin_setting_path(key)
+                  - if params[:readonly]
+                    pre.disabled = display_value
+                  - else
+                    pre = link_to display_value, edit_admin_setting_path(key)

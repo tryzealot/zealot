@@ -4,11 +4,12 @@
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
         ruby:
-          name = omniauth_display_name(provider)
+          title = omniauth_display_name(provider)
+          key = title.downcase
 
-        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="#{provider == :google_oauth2 ? 'btn-danger' : 'btn-default'}"
-          i.fab class="fa-#{name.downcase}"
-          = "使用 #{name} 账号登录"
+        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-default btn-auth-#{key}"
+          i.fab class="fa-#{key}"
+          = "使用 #{title} 账号登录"
 
 - if controller_name != 'sessions'
   p.mb-1

@@ -40,15 +40,6 @@ module Zealot
     # the I18n.default_locale when a translation cannot be found).
     config.i18n.fallbacks = [I18n.default_locale]
 
-    # Log to STDOUT because Docker expects all processes to log here. You could
-    # the framework and any gems in your application.
-    # or a third party host such as Loggly, etc..
-    config.log_tags = %i[subdomain request_id]
-    ActiveSupport::Logger.new(STDOUT).tap do |logger|
-      logger.formatter = config.log_formatter
-      config.logger = ActiveSupport::TaggedLogging.new(logger)
-    end
-
     # Action mailer settings.
     config.action_mailer.default_options = {
       from: ENV['ACTION_MAILER_DEFAULT_FROM'] || 'Zealot'
@@ -81,6 +72,13 @@ module Zealot
     # Use a real queuing backend for Active Job (and separate queues per environment)
     config.active_job.queue_adapter      = :sidekiq
 
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
+    config.generators.javascripts = false
+    config.generators.stylesheets = false
+
     ################################################################
 
     # Auto load path
@@ -97,5 +95,12 @@ module Zealot
 
     # Disable yarn check(this must disable with docker)
     # config.webpacker.check_yarn_integrity = false
+
+    # Manage exception page
+    # config.exceptions_app = self.routes
+  end
+
+  def self.config
+    @config ||= Rails.configuration.x
   end
 end

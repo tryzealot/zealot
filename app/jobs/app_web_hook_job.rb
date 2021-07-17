@@ -25,15 +25,17 @@ class AppWebHookJob < ApplicationJob
   def send_request
     r = HTTP.headers(content_type: 'application/json')
             .post(@web_hook.url, body: json_body)
-    logger.info(log_message('trigger successfully')) if r.code == 200
     logger.debug("trigger response body: #{r.body}")
+    logger.info(log_message('trigger successfully')) if r.code == 200
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
   def json_body
+    # 如果发现自定义钩子就进行组装
     return build_body if @web_hook.body.present?
 
+    # 默认结构体
     WebHooks::PushSerializer.new(@channel).to_json
   end
 
@@ -43,7 +45,8 @@ class AppWebHookJob < ApplicationJob
                                  assigns: {
                                    event: @event,
                                    title: title,
-                                   name: @release.app_name,
+                                   name: @release.name,
+                                   app_name: @release.app_name,
                                    device_type: @channel.device_type,
                                    release_version: @release.release_version,
                                    build_version: @release.build_version,
@@ -60,23 +63,15 @@ class AppWebHookJob < ApplicationJob
 
   def title
     case @event
-    when 'upload_event'
+    when 'upload_events'
       "#{@release.app_name} 上传了 #{@release.release_version} 版本"
-    when 'download_event'
+    when 'download_events'
       "#{@release.app_name} #{@release.release_version} 版本被下载"
-    when 'changelog_event'
+    when 'changelog_events'
       "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
+    else
+      "#{@release.app_name} 触发了未知事件: #{@event}"
     end
-  end
-
-  def description
-    [
-      "平台：#{@app.device_type}",
-      "标识：#{@app.identifier}",
-      "版本：#{@release.release_version} (#{@release.build_version})",
-      "大小：#{number_to_human_size(@release.filesize)}",
-      "渠道：#{@release.channel}"
-    ].join(' / ')
   end
 
   def log_message(message)
