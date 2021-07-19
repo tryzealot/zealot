@@ -95,7 +95,7 @@ group :development do
 
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'guard', '~> 2.17.0'
+  gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
   gem 'guard-rails'
