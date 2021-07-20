@@ -16,8 +16,8 @@ const images = require.context("../images", true);
 const imagePath = (name) => images(name, true);
 
 // Import CSS
-import "bootstrap/dist/css/bootstrap";
-import "admin-lte/dist/css/adminlte";
+// import "bootstrap/dist/css/bootstrap";
+// import "admin-lte/dist/css/adminlte";
 import "@fortawesome/fontawesome-free/css/all";
 import "stylesheets/application";
 
