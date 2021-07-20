@@ -2,9 +2,9 @@
   .card-header
     h3.card-title 渠道信息
   .card-body.p-0.pt-3
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.releases.count
-      span.text-muted 上传版本
+    p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
+      span.font-weight-bold = @channel.device_type.capitalize
+      span.text-muted 设备类型
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
       span.text-muted 唯一地址
@@ -13,19 +13,24 @@
         span.font-weight-bold = @channel.password.blank? ? '未设置' : @channel.password
         span.text-muted 访问密码
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.key
-      span.text-muted 渠道 KEY
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
-      span.font-weight-bold = @channel.device_type.capitalize
-      span.text-muted 设备类型
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.bundle_id
       span.text-muted
         | 匹配模式
         - if @channel.bundle_id == '*'
           |  (不限制上传包的包名)
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold = @channel.git_url.blank? ? '未设置' : @channel.git_url
+      span.font-weight-bold
+        - if @channel.git_url.blank?
+          | 未设置 (
+          = link_to '修改', edit_app_scheme_channel_path(@channel.app, @channel.scheme, @channel)
+          | )
+        - else @channel.git_url
       span.text-muted Git 仓库地址
+    p.d-flex.flex-column.border-bottom.pl-3.pb-3
+      span.font-weight-bold = @channel.releases.count
+      span.text-muted 上传版本
+    p.d-flex.flex-column.border-bottom.pl-3.pb-3
+      span.font-weight-bold = @channel.key
+      span.text-muted 渠道 KEY
   .card-footbar.pl-3.pr-3.pb-3
     a.btn.btn-default.btn-block href="#{app_path(@channel.app)}" 应用管理
