@@ -32,7 +32,7 @@ zh-CN:
         name: '渠道名称'
         device_type: '应用平台'
         bundle_id: '校验包名'
-        git_url: 'Git URL'
+        git_url: 'Git 仓库地址'
         slug: '唯一地址'
         password: '访问密码'
       release:
