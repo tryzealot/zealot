@@ -111,7 +111,7 @@ module ApplicationHelper
 
   # 检查移动设备
   def detect_device(device)
-    if ios?(user_agent) && ios?(device)
+    if ios?(user_agent) || ios?(device)
       :ios
     elsif android?(user_agent) && android?(device)
       :android
