@@ -244,7 +244,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.5.1)
+    listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     llhttp-ffi (0.3.1)
@@ -439,7 +439,7 @@ GEM
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
-    slim-rails (3.2.0)
+    slim-rails (3.3.0)
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
@@ -456,7 +456,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    sys-filesystem (1.4.1)
+    sys-filesystem (1.4.2)
       ffi (~> 1.1)
     temple (0.8.2)
     terminal-notifier (2.0.0)
@@ -529,7 +529,7 @@ DEPENDENCIES
   kaminari
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.4)
-  listen (>= 3.0.5, < 3.6)
+  listen (>= 3.0.5, < 3.7)
   omniauth (~> 1.9)
   omniauth-feishu (~> 0.1.6)
   omniauth-gitlab (~> 2.0.0)
@@ -559,10 +559,10 @@ DEPENDENCIES
   sidekiq (~> 6.2.1)
   sidekiq-scheduler (~> 3.1.0)
   simple_form (~> 5.1)
-  slim-rails (~> 3.2.0)
+  slim-rails (~> 3.3.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sys-filesystem (~> 1.4.1)
+  sys-filesystem (~> 1.4.2)
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
