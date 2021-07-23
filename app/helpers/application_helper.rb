@@ -85,6 +85,15 @@ module ApplicationHelper
     user_agent.include?('MicroMessenger')
   end
 
+  # FIXME: 后续 mac? 和 ios? 需要解决 iPad 和 M1 的判断，要不然根本解决
+
+  def mac?
+    # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
+    # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
+    source ||= user_agent
+    source.downcase.include?('macintosh')
+  end
+
   def ios?(source = nil)
     # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15
     source ||= user_agent
@@ -98,12 +107,6 @@ module ApplicationHelper
 
   def phone?
     ios? || android?
-  end
-
-  def mac?
-    # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
-    source ||= user_agent
-    source.downcase.include?('macintosh')
   end
 
   # 检查移动设备
