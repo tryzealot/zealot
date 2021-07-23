@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/tryzealot/zealot?include_prereleases)](https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md)
 [![Docker Pulls](https://img.shields.io/docker/pulls/tryzealot/zealot.svg)](https://hub.docker.com/r/tryzealot/zealot/)
 [![Maintainability](https://codeclimate.com/github/tryzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/tryzealot/zealot)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcff7d9de5ba48528bc80aa01bd525c6)](https://www.codacy.com/manual/icyleaf/zealot)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5e5c7bbeb1214fa39b11a7414f0d7171)](https://www.codacy.com/gh/tryzealot/zealot)
 [![License](https://img.shields.io/github/license/tryzealot/zealot)](LICENSE)
 
 开源自部署移动应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、解决开发人员频繁打包的烦恼 En Taro Adun! 🖖
