@@ -85,8 +85,6 @@ module ApplicationHelper
     user_agent.include?('MicroMessenger')
   end
 
-  # FIXME: 后续 mac? 和 ios? 需要解决 iPad 和 M1 的判断，要不然根本解决
-
   def mac?
     # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
     # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
@@ -105,12 +103,9 @@ module ApplicationHelper
     source.downcase.include?('android')
   end
 
-  def phone?
-    ios? || android?
-  end
-
-  # 检查移动设备
+  # 检查设备
   def detect_device(device)
+    # FIXME: iPad 和 M1 芯片设备都是桌面的 UA，因此这里暂时改为 iOS 设备或文件是 iOS 设备文件
     if ios?(user_agent) || ios?(device)
       :ios
     elsif android?(user_agent) && android?(device)
