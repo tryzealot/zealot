@@ -14,11 +14,9 @@
           dt Zealot 版本
           dd
             pre
-              - if @version[:update_available]
-                a.new-version.float-right href="#{@version[:release_link]}" target="_blank"
-                  i.fas.fa-rainbow
-                  | 发现新版本: #{@version[:latest_version]}
-              = @version[:current_version]
+              #new-version.float-right
+              #current-version
+                = @current_version
           dt Ruby 版本
           dd
             pre = RUBY_DESCRIPTION
