@@ -2,7 +2,6 @@ $(document).on('turbolinks:load', function () {
   $('.debug-file-toggle').on('click', function () {
     debug_file_id = $(this).data('id');
     $('#debug-file-metadata-' + debug_file_id).toggleClass('d-none');
-    alert('dddd');
   });
 
   $('.destroy-debug-file').on('click', function () {
