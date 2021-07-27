@@ -1,10 +1,10 @@
 $(document).on('turbolinks:load', function () {
-  $('.debug-file-toggle').click(function () {
+  $('.debug-file-toggle').on('click', function () {
     debug_file_id = $(this).data('id');
     $('#debug-file-metadata-' + debug_file_id).toggleClass('d-none');
   });
 
-  $('.destroy-debug-file').click(function () {
+  $('.destroy-debug-file').on('click', function () {
     var debug_id = $(this).data('id');
     var that = $("#debug-file-info-" + debug_id);
     var app_name = that.data('app-name');
