@@ -14,7 +14,7 @@
 - [x] 支持 iOS 和 Android 应用的上传、在线安装和本地下载
 - [x] 支持应用创建各种类型（Debug、AdHoc、Enterprise、Release）和渠道（小米、华为、Oppp、Vivo、应用宝等）
 - [x] 支持 iOS dSYM 和 Android Progruard 文件的备份管理和解析
-- [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息并存储编译分享他人
+- [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息并存储便于分享他人
 - [x] 支持自定义网络钩子（WebHooks）发送给通知各种服务（钉钉、企业微信、Slack 等）
 - [x] 支持获取 iOS 设备 UDID 及显示该设备可以安装的应用
 - [x] 支持第三方服务的一键登录（目前以接入飞书、Gitlab、Google 和 LDAP）
