@@ -23,17 +23,13 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
         li.nav-item
           = link_to '登录', new_user_session_path, class: 'dropdown-item'
   - else
-    .navbar-collapse.justify-content-md-center
-      h4
-        a href="#{ root_path }" style="color: black" = Setting.site_title
+    .navbar-empty
+      == render 'layouts/brand_logo'
 
 // Main Sidebar Container
 - if user_signed_in_or_guest_mode?
   aside.main-sidebar.sidebar-light-primary.elevation-2
-    // Brand Logo
-    a.brand-link href="#{ root_path }"
-      = image_tag asset_pack_path('media/images/touch-icon.png'), class: %w[brand-image]
-      span.brand-text.font-weight-light = Setting.site_title
+    == render 'layouts/brand_logo'
 
     // Sidebar
     == render 'layouts/main_sidebar'
