@@ -23,7 +23,7 @@ class DebugFilesController < ApplicationController
     authorize @debug_file
 
     if @debug_file.save
-      DebugFileTeardownJob.perform_later @debug_file
+      DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
 
       redirect_to debug_files_url, notice: '调试文件上传成功，后台正在应用解包请稍后查看详情'
     else
