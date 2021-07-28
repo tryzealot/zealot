@@ -45,13 +45,13 @@ document.addEventListener("turbolinks:load", function () {
   $("[data-toggle='tooltip']").tooltip();
 
   // fix collapse with no response
-  // $("[data-widget="collapse"]").each(function () {
-  //   $(this).on("click", function () {
-  //     var card = $(this).parents(".card");
-  //     $(card).removeClass("collapsed-box");
-  //     $(card).boxWidget("toggle");
-  //   })
-  // });
+  $("[data-widget='collapse']").each(function () {
+    $(this).on("click", function () {
+      var card = $(this).parents(".card");
+      $(card).removeClass("collapsed-box");
+      $(card).boxWidget("toggle");
+    })
+  });
 });
 
 // auto switch dark mode
