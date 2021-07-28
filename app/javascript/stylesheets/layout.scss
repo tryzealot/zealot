@@ -1,4 +1,25 @@
 
+.navbar-empty {
+  @extend .navbar-collapse !optional;
+  @extend .justify-content-md-center !optional;
+
+  .brand-link {
+    padding: 0;
+
+    [class*="navbar-white"] & {
+      color: $black;
+    }
+
+    [class*="navbar-black"] & {
+      color: $white;
+    }
+  }
+}
+
+.layout-top-nav .wrapper .main-header .navbar-empty .brand-image {
+  margin-top: -0.1rem;
+}
+
 @media (prefers-color-scheme: dark) {
   .main-header .guest {
     text-align: center;
