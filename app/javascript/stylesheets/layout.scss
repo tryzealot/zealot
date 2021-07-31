@@ -1,39 +1,23 @@
 
-@media (prefers-color-scheme: dark) {
-  .main-header .guest {
-    text-align: center;
-    padding-top: 15px;
+.navbar-empty {
+  @extend .navbar-collapse !optional;
+  @extend .justify-content-md-center !optional;
+
+  .brand-link {
+    padding: 0;
+
+    [class*="navbar-white"] & {
+      color: $black;
+    }
+
+    [class*="navbar-black"] & {
+      color: $white;
+    }
   }
 }
 
-.main-header .guest {
-  text-align: center;
-  padding-top: 15px;
-}
-
-.main-header .guest a.navbar-brand-center {
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
-  color: #000;
-}
-
-.content-header .right-panel {
-  float: right;
-  background: transparent;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 12px;
-  padding: 7px 5px;
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-.brand-bighead-text {
-  float: left;
-  margin-left: 1.4rem;
-  width: auto;
+.layout-top-nav .wrapper .main-header .navbar-empty .brand-image {
+  margin-top: -0.1rem;
 }
 
 .card-body {
@@ -56,35 +40,3 @@
     margin-right: 5px;
   }
 }
-
-// .custom-file-input2 {
-//   color: transparent;
-// }
-// .custom-file-input2::-webkit-file-upload-button {
-//   visibility: hidden;
-// }
-// .custom-file-input2::before {
-//   content: 'Select some files';
-//   color: black;
-//   display: inline-block;
-//   background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-//   border: 1px solid #999;
-//   border-radius: 3px;
-//   padding: 5px 8px;
-//   outline: none;
-//   white-space: nowrap;
-//   -webkit-user-select: none;
-//   cursor: pointer;
-//   text-shadow: 1px 1px #fff;
-//   font-weight: 700;
-//   font-size: 10pt;
-// }
-// .custom-file-input2:hover::before {
-//   border-color: black;
-// }
-// .custom-file-input2:active {
-//   outline: 0;
-// }
-// .custom-file-input2:active::before {
-//   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-// }
