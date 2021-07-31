@@ -50,7 +50,7 @@ document.addEventListener("turbolinks:load", function () {
       var card = $(this).parents(".card");
       $(card).removeClass("collapsed-box");
       $(card).boxWidget("toggle");
-    })
+    });
   });
 });
 
