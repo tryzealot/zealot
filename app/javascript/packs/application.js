@@ -39,19 +39,19 @@ var HOST = location.protocol + "//" + location.hostname + (location.port ? ":" +
 
 document.addEventListener("turbolinks:load", function () {
   // fix body height for AdminLTE 2.4.0 and turbolinks 5
-  // $(window).trigger("resize");
+  $(window).trigger("resize");
 
   // enable tooltip global
-  // $("[data-toggle='tooltip']").tooltip();
+  $("[data-toggle='tooltip']").tooltip();
 
   // fix collapse with no response
-  // $("[data-widget="collapse"]").each(function () {
-  //   $(this).on("click", function () {
-  //     var card = $(this).parents(".card");
-  //     $(card).removeClass("collapsed-box");
-  //     $(card).boxWidget("toggle");
-  //   })
-  // });
+  $("[data-widget='collapse']").each(function () {
+    $(this).on("click", function () {
+      var card = $(this).parents(".card");
+      $(card).removeClass("collapsed-box");
+      $(card).boxWidget("toggle");
+    })
+  });
 });
 
 // auto switch dark mode
