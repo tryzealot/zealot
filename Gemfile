@@ -4,14 +4,14 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.3.2'
+gem 'puma', '~> 5.4.0'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.3.1'
+gem 'redis', '~> 4.4.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
