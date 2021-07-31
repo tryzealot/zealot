@@ -320,7 +320,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (4.0.6)
-    puma (5.3.2)
+    puma (5.4.0)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -370,7 +370,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.3.1)
+    redis (4.4.0)
     regexp_parser (2.1.1)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -541,14 +541,14 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 5.3.2)
+  puma (~> 5.4.0)
   pundit (~> 2.1.0)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.4)
   rails-i18n (~> 6.0.0)
   rails-settings-cached (~> 2.7.1)
   rake (~> 13.0.4)
-  redis (~> 4.3.1)
+  redis (~> 4.4.0)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
