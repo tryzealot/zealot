@@ -43,8 +43,7 @@ RUN bundle config --global frozen 1 && \
       --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile && \
-    cp -r public/ new_public/
+RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
@@ -70,7 +69,7 @@ ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev caddy"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
-ARG S6_OVERLAY_VERSION="2.1.0.1"
+ARG S6_OVERLAY_VERSION="2.2.0.3"
 
 LABEL org.opencontainers.image.title="Zealot" \
       org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
