@@ -28,7 +28,7 @@ class Api::DebugFilesController < Api::BaseController
     @debug_file.app = @channel.app
     @debug_file.device_type = @channel.device_type
     if @debug_file.save!
-      DebugFileTeardownJob.perform_now @debug_file
+      DebugFileTeardownJob.perform_now(@debug_file)
       render json: @debug_file, serializer: Api::DebugFileSerializer, status: :created
     else
       render json: @debug_file.errors
