@@ -21,6 +21,8 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 
 // Import CSS
+import "bootstrap/dist/css/bootstrap";
+import "admin-lte/dist/css/adminlte";
 import "@fortawesome/fontawesome-free/css/all";
 import "stylesheets/application";
 
