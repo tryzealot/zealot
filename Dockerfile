@@ -67,7 +67,7 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
+ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev caddy"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.1.0.1"
@@ -106,6 +106,8 @@ COPY --from=builder $APP_ROOT $APP_ROOT
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
-EXPOSE 3000
+EXPOSE 80
+
+VOLUME [ "/app/public/uploads", "/app/public/backup" ]
 
 ENTRYPOINT ["/init"]
