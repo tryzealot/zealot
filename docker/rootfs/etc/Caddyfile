@@ -1,0 +1,27 @@
+:80
+
+root * /app/public
+encode zstd gzip
+file_server
+log
+
+@notStatic {
+  not file
+}
+
+reverse_proxy @notStatic {
+  to localhost:3000
+  @accel header X-Accel-Redirect *
+  handle_response @accel {
+    root    * /app/public
+    rewrite   {http.reverse_proxy.header.X-Accel-Redirect}
+    file_server
+  }
+
+  @error status 500 502 503
+  handle_response @error {
+    root    * /app/public
+    rewrite * /500.html
+    file_server
+  }
+}
