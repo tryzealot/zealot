@@ -3,7 +3,7 @@
 class TeardownJob < ApplicationJob
   queue_as :app_parse
 
-  def perform(release_id, user_id = nil)
+  def perform(release_id, user_id)
     return unless file = determine_file!(release_id)
 
     metadata = TeardownService.call(file.path)
