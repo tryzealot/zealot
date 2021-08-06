@@ -1,5 +1,4 @@
 #!/usr/bin/with-contenv sh
 
 echo "Starting Zealot Worker"
-cd /app
-bundle exec sidekiq -C config/sidekiq.yml  | tee /app/log/sidekiq.log
+/app/bin/sidekiq -C /app/config/sidekiq.yml  | tee /app/log/sidekiq.log
