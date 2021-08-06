@@ -31,7 +31,7 @@ class ReleasesController < ApplicationController
 
     # 触发异步任务
     @release.channel.perform_web_hook('upload_events')
-    @release.perform_teardown_job
+    @release.perform_teardown_job(current_user.id)
 
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
   end
