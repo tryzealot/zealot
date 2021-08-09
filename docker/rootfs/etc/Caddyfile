@@ -5,12 +5,19 @@ encode zstd gzip
 file_server
 log
 
-@notStatic {
+@zealot {
+  # # websockets
+  # header Connection *Upgrade*
+  # header Upgrade websocket
+
+  # static files
   not file
 }
 
-reverse_proxy @notStatic {
+# Docoument: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
+reverse_proxy @zealot {
   to localhost:3000
+
   @accel header X-Accel-Redirect *
   handle_response @accel {
     root    * /app/public

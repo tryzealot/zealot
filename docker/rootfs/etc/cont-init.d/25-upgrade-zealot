@@ -1,4 +1,10 @@
 #!/usr/bin/with-contenv sh
 
+echo "**************************************************"
+echo " WARNING: Using zealot-uploads and zealot-backups "
+echo "          instead of zealot-data volume, detail:  "
+echo "          https://git.io/JR0Gw                    "
+echo "**************************************************"
+
 cd /app && ./bin/rails zealot:upgrade
 exit 0
