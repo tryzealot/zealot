@@ -12,7 +12,7 @@
 
 .row
   .col-md-12
-    - if @apps
+    - if DebugFile.count > 0
       - @apps.each do |app|
         .card
           .card-header
