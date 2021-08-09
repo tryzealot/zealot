@@ -62,7 +62,7 @@
           = @release.source
         - else
           = link_to @release.source, @release.ci_url
-      - if @release.metadata.present? && detect_device(@release.channel.device_type) == :ios
+      - if @release.metadata.present?
         li title="更多信息"
           i.fas.fa-layer-group
           = link_to '解包信息', teardown_path(@release.metadata)
