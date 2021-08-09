@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/usr/bin/with-contenv sh
 
 if [[ ! -f /mnt/config/etc/logrotate.conf ]]; then
   if [[ ! -d /mnt/config/etc ]]; then
