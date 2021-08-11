@@ -51,12 +51,12 @@ class Setting < RailsSettings::Base
     field :ldap, type: :hash, display: true, default: {
       enabled: ENV['LDAP_ENABLED'] || false,
       host: ENV['LDAP_HOST'],
-      port: ENV['LDAP_PORT'],
-      method: ENV['LDAP_METHOD'],
-      base_dn: ENV['LDAP_BASE_DN'],
+      port: ENV['LDAP_PORT'] || '389',
+      encryption: ENV['LDAP_METHOD'] || ENV['LDAP_ENCRYPTION'] || 'plain', # LDAP_METHOD will be abandon in the future
+      bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD'],
       base: ENV['LDAP_BASE'],
-      uid: ENV['LDAP_UID'],
+      uid: ENV['LDAP_UID'] || 'sAMAccountName'
     }
   end
 
