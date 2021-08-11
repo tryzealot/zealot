@@ -10,5 +10,5 @@ fi
 
 if [[ ! -d /mnt/config/etc/logrotate.d ]]; then
   mkdir -p /mnt/config/etc/logrotate.d
-  cp -n /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
+  cp /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
 fi
