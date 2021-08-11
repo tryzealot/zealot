@@ -302,12 +302,13 @@ Devise.setup do |config|
 
   # LDAP
   ldap = Setting.ldap
-  if defined?(OmniAuth::Strategies::LDAP) && ldap[:ldap_enabled]
+  if defined?(OmniAuth::Strategies::LDAP) && ldap[:enabled]
     config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
-                    host: ldap[:ldap_host], port: ldap[:ldap_port],
-                    method: (ldap[:ldap_method] || 'plain').to_sym,
-                    bind_dn: ldap[:ldap_base_dn],
-                    password: ldap[:ldap_password],
-                    base: ldap[:ldap_base], uid: ldap[:ldap_uid]
+                    host: ldap[:host], port: ldap[:port].to_i,
+                    encryption: ldap[:encryption].to_sym,
+                    bind_dn: ldap[:bind_dn],
+                    password: ldap[:password],
+                    base: ldap[:base], uid: ldap[:uid]
+                    # try_sasl: true, sasl_mechanisms: ['DIGEST-MD5']
   end
 end
