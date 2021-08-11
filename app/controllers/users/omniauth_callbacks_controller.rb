@@ -17,17 +17,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omniauth_callback('Gitlab', 'gitlab_data')
   end
 
-  # def failure
-  #   flash[:error] = failure_message
-  #   flash[:error] = '授权失败！请检查你的账户和密码是否正确，如果输入确认无误还是失败请联系管理员检查配置是否正确'
-  #   redirect_to root_path
-  # end
+  def failure
+    flash[:error] = "授权失败！请检查你的账户和密码是否正确，原始错误信息：#{failure_message}"
+    redirect_to goback_path
+  end
 
   private
 
   def omniauth_callback(name, session_key)
     auth = request.env['omniauth.auth']
-    # binding.pry
     provider = UserProvider.find_by(name: auth.provider, uid: auth.uid)
 
     # Existed provider?
@@ -39,18 +37,29 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if user_signed_in?
-      # Connect provider to existed user
-      omni_params = request.env['omniauth.params']
-      current_user.providers.from_omniauth(auth)
-
-      bypass_sign_in(current_user)
-      redirect_path = omni_params['back'].presence || root_path
-      redirect_to redirect_path, notice: "#{name}账户已关联"
+      connect_user_to_provider(name, auth)
     else
-      # New user logged in with provider
-      user = User.from_omniauth(auth)
-      flash[:notice] = "#{name}账户已授权并创建用户"
-      sign_in_and_redirect user
+      store_new_user(name, auth)
     end
+  end
+
+  private
+
+  def connect_user_to_provider(name, auth)
+    current_user.providers.from_omniauth(auth)
+
+    bypass_sign_in(current_user)
+    redirect_to goback_path, notice: "#{name}账户已关联"
+  end
+
+  def store_new_user(name, auth)
+    user = User.from_omniauth(auth)
+    flash[:notice] = "#{name}账户已授权并创建用户"
+    sign_in_and_redirect user
+  end
+
+  def goback_path
+    omni_params = request.env['omniauth.params']
+    redirect_path = omni_params['back'].presence || root_path
   end
 end
