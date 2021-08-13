@@ -322,7 +322,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.4.0)
       nio4r (~> 2.0)
-    pundit (2.1.0)
+    pundit (2.1.1)
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
@@ -543,7 +543,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   puma (~> 5.4.0)
-  pundit (~> 2.1.0)
+  pundit (~> 2.1.1)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.4)
   rails-i18n (~> 6.0.0)
