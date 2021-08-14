@@ -5,18 +5,21 @@ module UserOmniauth
 
   def from_omniauth(auth)
     email = auth.info.email
-    username = auth.info.name
     password = Devise.friendly_token[0, 20]
-    user = User.find_by(email: email)
+    user = User.find_or_initialize_by(email: auth.info.email) do |u|
+      u.username = auth.info.name
+      u.password = password
+    end
+    new_record = user.new_record?
 
-    return user unless user.nil?
-
-    user = User.new(email: email, username: username, password: password)
     user.skip_confirmation!
     user.remember_me!
     user.save!(validate: false)
 
-    UserProvider.create_from_omniauth(auth, user)
+    user.providers.from_omniauth(auth)
+
+    return user unless new_record
+
     UserMailer.omniauth_welcome_email(user, password).deliver_later
 
     user
@@ -42,5 +45,9 @@ module UserOmniauth
 
   def enabled_feishu?
     defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
+  end
+
+  def enabled_gitlab?
+    defined?(OmniAuth::Strategies::GitLab) && Setting.gitlab[:enabled]
   end
 end

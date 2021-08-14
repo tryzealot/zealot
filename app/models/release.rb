@@ -79,6 +79,10 @@ class Release < ApplicationRecord
     end
   end
 
+  def perform_teardown_job(user_id)
+    TeardownJob.perform_later(id, user_id)
+  end
+
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
   end

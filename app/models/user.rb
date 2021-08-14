@@ -4,7 +4,7 @@ class User < ApplicationRecord
   extend UserOmniauth
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable,
-         :omniauthable, omniauth_providers: %i[google_oauth2 ldap feishu]
+         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap]
 
   include UserRoles
   enum role: %i[user developer admin]

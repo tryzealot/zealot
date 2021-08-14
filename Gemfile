@@ -4,25 +4,25 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.3.2'
+gem 'puma', '~> 5.4.0'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.3.1'
+gem 'redis', '~> 4.4.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.12.13'
+gem 'graphql', '~> 1.12.14'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.2.0'
+gem 'slim-rails', '~> 3.3.0'
 
 ## 表单生成
 gem 'simple_form', '~> 5.1'
@@ -47,13 +47,14 @@ gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
 gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 gem 'omniauth-feishu', '~> 0.1.6'
+gem 'omniauth-gitlab', '~> 2.0.0'
 
 ## UDID
 gem 'openssl', '~> 2.2.0'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.1'
+gem 'sys-filesystem', '~> 1.4.2'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 gem 'active_analytics'
@@ -82,14 +83,14 @@ gem 'webpacker', '~> 5.4'
 gem 'app-info', '~> 2.5.4'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.7.0'
+gem 'rails-settings-cached', '~> 2.7.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.6'
+  gem 'listen', '>= 3.0.5', '< 3.7'
   gem 'web-console', '>= 3.3.0'
 
   # 调试器

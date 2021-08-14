@@ -2,6 +2,7 @@
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -270,6 +271,27 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  # 飞书
+  feishu = Setting.feishu
+  if defined?(OmniAuth::Strategies::Feishu) && feishu[:enabled]
+    config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
+  end
+
+  # Gitlab
+  gitlab = Setting.gitlab
+  if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
+    options = { scope: 'read_user' }
+    if (scope = gitlab[:scope]) && scope.present?
+      options[:scope] = scope.split(',').map(&:chomp).join(' ')
+    end
+
+    if (site = gitlab[:site]) && site.present?
+      options[:client_options] = { site: site }
+    end
+
+    config.omniauth :gitlab, gitlab[:app_id], gitlab[:secret], options
+  end
+
   # Google OAuth
   google_oauth = Setting.google_oauth
   if defined?(OmniAuth::Strategies::GoogleOauth2) && google_oauth[:enabled]
@@ -278,20 +300,15 @@ Devise.setup do |config|
                     scope: 'email,profile'
   end
 
-  # 飞书
-  feishu = Setting.feishu
-  if defined?(OmniAuth::Strategies::Feishu) && feishu[:enabled]
-    config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
-  end
-[]
   # LDAP
   ldap = Setting.ldap
-  if defined?(OmniAuth::Strategies::LDAP) && ldap[:ldap_enabled]
+  if defined?(OmniAuth::Strategies::LDAP) && ldap[:enabled]
     config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
-                    host: ldap[:ldap_host], port: ldap[:ldap_port],
-                    method: (ldap[:ldap_method] || 'plain').to_sym,
-                    bind_dn: ldap[:ldap_base_dn],
-                    password: ldap[:ldap_password],
-                    base: ldap[:ldap_base], uid: ldap[:ldap_uid]
+                    host: ldap[:host], port: ldap[:port].to_i,
+                    encryption: ldap[:encryption].to_sym,
+                    bind_dn: ldap[:bind_dn],
+                    password: ldap[:password],
+                    base: ldap[:base], uid: ldap[:uid]
+                    # try_sasl: true, sasl_mechanisms: ['DIGEST-MD5']
   end
 end

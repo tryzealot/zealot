@@ -1,5 +1,5 @@
 - content_for :title do
-  = @title || '解析结果信息'
+  = @title || '解包结果信息'
 
 .row
   - if @metadata.release.present?
@@ -7,7 +7,7 @@
       .callout.callout-info
         h5 关联提醒
         p
-          | 当前解析关联的应用是
+          | 当前解包关联的应用是
           = link_to @metadata.release.app_name, channel_release_path(@metadata.release.channel, @metadata.release)
 
   == render @metadata.platform.downcase.to_s
