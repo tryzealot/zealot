@@ -10,11 +10,8 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
       config.breadcrumbs_logger = [:active_support_logger, :sentry_logger, :http_logger]
 
       config.send_default_pii = true
-      # config.environment = Rails.env
-      # config.enabled_environments = %w[development production]
-
-      #
-      config.traces_sample_rate = 0.5
+      config.environment = Rails.env
+      config.enabled_environments = %w[development production]
 
       config.excluded_exceptions += [
         'ActionController::RoutingError',
@@ -22,16 +19,17 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'ActiveRecord::RecordInvalid',
         'ActiveRecord::NoDatabaseError',
         'PG::ConnectionBad',
+        'Interrupt',
+        'SystemExit',
       ]
 
-      vcs_ref = Setting.vcs_ref
-      if vcs_ref.present?
-        version = Setting.version
-        config.release = "#{version}-#{vcs_ref}"
-        config.tags = {
-          docker: ENV['DOCKER_TAG'].present?,
-          docker_tag: ENV['DOCKER_TAG']
-        }
+      if (vcs_ref = Setting.vcs_ref) && vcs_ref.present?
+        release = [Setting.version, vcs_ref]
+        if (docker_tag = ENV['DOCKER_TAG']) && docker_tag.present?
+          release << ENV['DOCKER_TAG']
+        end
+
+        config.release = release.join('-')
       end
     end
   end

@@ -3,10 +3,10 @@
 [![GitHub release](https://img.shields.io/github/v/release/tryzealot/zealot?include_prereleases)](https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md)
 [![Docker Pulls](https://img.shields.io/docker/pulls/tryzealot/zealot.svg)](https://hub.docker.com/r/tryzealot/zealot/)
 [![Maintainability](https://codeclimate.com/github/tryzealot/zealot/badges/gpa.svg)](https://codeclimate.com/github/tryzealot/zealot)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcff7d9de5ba48528bc80aa01bd525c6)](https://www.codacy.com/manual/icyleaf/zealot)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5e5c7bbeb1214fa39b11a7414f0d7171)](https://www.codacy.com/gh/tryzealot/zealot)
 [![License](https://img.shields.io/github/license/tryzealot/zealot)](LICENSE)
 
-开源自部署移动应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、解决开发人员频繁打包的烦恼 🖖
+开源自部署移动应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、解决开发人员频繁打包的烦恼 En Taro Adun! 🖖
 
 ![Zealot Showcase](https://zealot.ews.im/_media/showcase.png)
 ## 特性
@@ -14,16 +14,16 @@
 - [x] 支持 iOS 和 Android 应用的上传、在线安装和本地下载
 - [x] 支持应用创建各种类型（Debug、AdHoc、Enterprise、Release）和渠道（小米、华为、Oppp、Vivo、应用宝等）
 - [x] 支持 iOS dSYM 和 Android Progruard 文件的备份管理和解析
-- [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息并存储编译分享他人
+- [x] 支持单次上传解析 iOS、Android 包甚至是 mobileprovision 文件的信息并存储便于分享他人
 - [x] 支持自定义网络钩子（WebHooks）发送给通知各种服务（钉钉、企业微信、Slack 等）
 - [x] 支持获取 iOS 设备 UDID 及显示该设备可以安装的应用
-- [x] 支持 OAuth 认证登录（目前以接入 Google，LDAP）
+- [x] 支持第三方服务的一键登录（目前以接入飞书、Gitlab、Google 和 LDAP）
 - [x] 提供检查新版本和安装服务的 iOS 和 Android 组件
 - [x] 提供 fastlane 插件 [zealot](https://github.com/tryzealot/fastlane-plugin-zealot) 提供上传应用和调试文件服务、同步 iOS 设备 UDID 名单
 - [x] 可接入 Gitlab 服务直接挂钩源码管理
 - [ ] 可接入 Jenkins 服务实现远程构建
 - [x] 支持丰富的 REST APIs
-- [ ] 支持 GraphGL 接口（进行中）
+- [ ] 支持 GraphQL 接口（进行中）
 
 ## 在线演示
 

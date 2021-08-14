@@ -15,12 +15,14 @@ bind "tcp://#{ENV.fetch('BIND_ON') { '0.0.0.0:3000' }}"
 # it based on your app's demands.
 #
 # RAILS_MAX_THREADS will match the default thread size for Active Record.
-threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i
-threads threads_count, threads_count
+max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
+min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
+threads min_threads_count, max_threads_count
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch('RAILS_ENV') { 'development' }
+rails_env = ENV.fetch('RAILS_ENV') { 'development' }
+environment rails_env
 
 # Puma supports spawning multiple workers. It will fork out a process at the
 # OS level to support concurrent requests. This typically requires more RAM.
@@ -37,6 +39,7 @@ environment ENV.fetch('RAILS_ENV') { 'development' }
 # If using threads and workers together, the concurrency of your application
 # will be THREADS * WORKERS.
 workers ENV.fetch('WEB_CONCURRENCY') { 2 }
+silence_single_worker_warning if rails_env == 'development'
 
 # An internal health check to verify that workers have checked in to the master
 # process within a specific time frame. If this time is exceeded, the worker
@@ -44,7 +47,7 @@ workers ENV.fetch('WEB_CONCURRENCY') { 2 }
 #
 # Under most situations you will not have to tweak this value, which is why it
 # is coded into the config rather than being an environment variable.
-worker_timeout 30
+worker_timeout rails_env == 'development' ? 3600 : 30
 
 # The path to the puma binary without any arguments.
 restart_command 'puma'
@@ -56,11 +59,5 @@ restart_command 'puma'
 # sure to reconnect any threads in the `on_worker_boot` block.
 # preload_app!
 
-#  on_worker_boot do
-# Since you'll likely use > 1 worker in production, we'll need to configure
-# Puma to do a few things when a worker boots.
-
-# We need to connect to the database. Pooling is handled automatically since
-# we'll set the connection pool value in the DATABASE_URL later.
-#    defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
-#  end
+# Allow puma to be restarted by `rails restart` command.
+plugin :tmp_restart
