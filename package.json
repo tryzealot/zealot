@@ -8,7 +8,7 @@
     "admin-lte": "^3.1.0",
     "clipboard": "^2.0.8",
     "compare-versions": "^3.6.0",
-    "filepond": "^4.28.1",
+    "filepond": "^4.29.0",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0"
   },
