@@ -33,55 +33,62 @@ class Release < ApplicationRecord
     channel.releases.find(release_id)
   end
 
-  # 上传pp
+  # 上传 app
   def self.upload_file(params, parser = nil)
     logger.debug "upload file params: #{params}"
+    file = params[:file].path
+    return if file.blank?
+
     create(params) do |release|
-      if release.file.present?
-        begin
-          parser ||= AppInfo.parse(release.file.path)
-          release.source ||= 'Web'
-          release.name = parser.name
-          release.bundle_id = parser.bundle_id
-          release.release_version = parser.release_version
-          release.build_version = parser.build_version
-          release.device = parser.device_type
+      rescuing_app_parse_errors do
+        parser ||= AppInfo.parse(file)
 
-          if parser.os == AppInfo::Platform::IOS
-            release.release_type ||= parser.release_type
+        release.source ||= 'Web'
+        release.name = parser.name
+        release.bundle_id = parser.bundle_id
+        release.release_version = parser.release_version
+        release.build_version = parser.build_version
+        release.device = parser.device_type
 
-            icon_file = parser.icons.last.try(:[], :uncrushed_file) || parser.icons.last.try(:[], :file)
-            release.icon = icon_file if icon_file
-          else
-            # 处理 Android anydpi 自适应图标
-            icon_file = parser.icons
-                              .reject { |f| File.extname(f[:file]) == '.xml' }
-                              .last
-                              .try(:[], :file)
-            release.icon = File.open(icon_file, 'rb') if icon_file
+        if parser.os == AppInfo::Platform::IOS
+          release.release_type ||= parser.release_type
+
+          icon_file = parser.icons.last.try(:[], :uncrushed_file) || parser.icons.last.try(:[], :file)
+          release.icon = icon_file if icon_file
+        else
+          # 处理 Android anydpi 自适应图标
+          icon_file = parser.icons
+                            .reject { |f| File.extname(f[:file]) == '.xml' }
+                            .last
+                            .try(:[], :file)
+          release.icon = File.open(icon_file, 'rb') if icon_file
+        end
+
+        # iOS 且是 AdHoc 尝试解析 UDID 列表
+        if parser.os == AppInfo::Platform::IOS &&
+            parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+            parser.devices.present?
+
+          parser.devices.each do |udid|
+            release.devices << Device.find_or_create_by(udid: udid)
           end
-
-          # iOS 且是 AdHoc 尝试解析 UDID 列表
-          if parser.os == AppInfo::Platform::IOS &&
-             parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-             parser.devices.present?
-
-            parser.devices.each do |udid|
-              release.devices << Device.find_or_create_by(udid: udid)
-            end
-          end
-        rescue AppInfo::UnkownFileTypeError
-          release.errors.add(:file, '上传的应用无法正确识别')
-        ensure
-          parser.clear!
         end
       end
     end
   end
 
-  def perform_teardown_job(user_id)
-    TeardownJob.perform_later(id, user_id)
+  def self.rescuing_app_parse_errors
+    yield
+  rescue AppInfo::UnkownFileTypeError
+    raise CarrierWave::InvalidParameter, '上传应用的文件类型不支持'
+  rescue NoMethodError
+    raise ActionController::InvalidAuthenticityToken, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
+  rescue => e
+    raise ActionController::InvalidAuthenticityToken, "上传应用解析发现未知异常，原始错误：#{e.message}"
+  ensure
+    parser&.clear!
   end
+  private_methods :rescuing_app_parse_errors
 
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
@@ -105,7 +112,7 @@ class Release < ApplicationRecord
     changelog
   end
 
-  def has_file?
+  def file?
     return false if file.blank?
 
     File.exist?(file.path)
@@ -176,6 +183,10 @@ class Release < ApplicationRecord
 
     message = "#{channel.app_name} 的 bundle id 或 packet name `#{self.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
     errors.add(:file, message)
+  end
+
+  def perform_teardown_job(user_id)
+    TeardownJob.perform_later(id, user_id)
   end
 
   private
