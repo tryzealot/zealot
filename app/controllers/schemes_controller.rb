@@ -16,6 +16,8 @@ class SchemesController < ApplicationController
       @channel = @scheme.latest_channel
     end
 
+    raise ActiveRecord::RecordNotFound unless @channel
+
     redirect_to channel_path(@channel)
   end
 
