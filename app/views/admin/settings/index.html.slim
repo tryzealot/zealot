@@ -15,7 +15,18 @@ form.form-horizontal
             - keys.each do |key, params|
               ruby:
                 value = params[:value]
-                display_value = value.is_a?(Hash) ? JSON.pretty_generate(value) : ((value != false && value.blank?) ? t('admin.settings.empty_value') : value.to_s)
+                display_value = case value
+                                when Hash
+                                  JSON.pretty_generate(value)
+                                when Array
+                                  value.join(', ')
+                                when TrueClass
+                                  '开启'
+                                when FalseClass
+                                  '关闭'
+                                else
+                                  ((value != false && value.blank?) ? t('admin.settings.empty_value') : value.to_s)
+                                end
               dl.system-info
                 dt = t("admin.settings.#{key}")
                 dd

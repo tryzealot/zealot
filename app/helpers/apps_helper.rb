@@ -1,21 +1,12 @@
 # frozen_string_literal: true
 
 module AppsHelper
-  SelectOption = Struct.new(:name, :value)
-
-  DEFAULT_SCHEMES = %w[测试版 内测版 产品版]
-  DEFAULT_CHANNELS = [
-    SelectOption.new('Android 和 iOS', 'both'),
-    SelectOption.new('Android', 'android'),
-    SelectOption.new('iOS', 'ios')
-  ]
-
   def default_schemes
-    DEFAULT_SCHEMES
+    Setting.schemes
   end
 
   def default_channels
-    DEFAULT_CHANNELS
+    Channel.device_types.values
   end
 
   def app_icon(release, options = {})
