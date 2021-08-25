@@ -26,14 +26,14 @@ class SchemesController < ApplicationController
   end
 
   def create
-    channel = scheme_params.delete(:channel)
+    @channel = scheme_params.delete(:channel)
     @scheme = Scheme.new(scheme_params)
     authorize @scheme
 
     @scheme.app = @app
     return render :new unless @scheme.save
 
-    create_channel_by(@scheme, channel)
+    create_channel_by(@scheme, @channel)
     redirect_to app_path(@app), notice: '类型已经创建成功！'
   end
 
