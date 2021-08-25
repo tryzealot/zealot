@@ -38,9 +38,9 @@ zh-CN:
       release:
         file: 应用文件
         changelog: 变更日志
-        release_type: 发布类型
-        branch: 分支名称
-        git_commit: Git 最后提交 Commit Hash
+        release_type: 打包类型
+        branch: Git 分支名称
+        git_commit: Git 最后提交 SHA
         ci_url: CI URL
       web_hook:
         url: 'URL'
@@ -73,10 +73,12 @@ zh-CN:
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
       release:
-        file: 仅支持 .ipa 和 .apk 文件
-        release_type: 一般来说取值位 debug、adhoc、release
+        file: 支持 iOS.ipa、Android.apk 以及 macOS.app.zip 文件
+        changelog: 这个应用包含了什么新特性，修复了什么问题等
+        release_type: iOS 的 debug、adhoc、release；Android 的 debug、release 等
         branch: 通常情况是 main 或 develop
-        ci_url: Jenkins、Gitlab CI 等
+        git_commit: 通常是 40 位长度的哈希值
+        ci_url: Jenkins、Gitlab CI 具体构建的地址
       web_hook:
         body: '自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:

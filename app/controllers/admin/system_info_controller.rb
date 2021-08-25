@@ -61,7 +61,7 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_env
     @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = value
+      obj[key] = secure_key?(key) ? filtered_token(value) : value
     end.sort
   end
 
@@ -87,5 +87,25 @@ class Admin::SystemInfoController < ApplicationController
         next
       end
     end
+  end
+
+  def secure_key?(key)
+    Rails.application
+         .config
+         .filter_parameters
+         .select { |p| key.downcase.include?(p.to_s) }
+         .size
+         .positive?
+  end
+
+  def filtered_token(chars)
+    chars = chars.to_s
+    return '*' * chars.size if chars.size < 4
+
+    average = chars.size / 4
+    prefix = chars[0..average - 1]
+    hidden = '*' * (average * 2)
+    suffix = chars[(prefix.size + average * 2)..-1]
+    "#{prefix}#{hidden}#{suffix}"
   end
 end
