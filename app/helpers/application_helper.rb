@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def new_or_create_route?
+    new_route? || create_route?
+  end
+
+  def new_route?
+    params[:action] == 'new'
+  end
+
+  def create_route?
+    params[:action] == 'create'
+  end
+
+
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
