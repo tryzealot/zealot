@@ -24,7 +24,7 @@ ruby:
                       = debug_file.build_version
 
                 .debug-file-section-size
-                  - if debug_file.has_file?
+                  - if debug_file.file?
                     a.btn.btn-icon.btn-sm.btn-success.btn-flat href="#{debug_file.file_url}" target="_blank"
                       i.fas.fa-download
                       | 下载 (
