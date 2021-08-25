@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
-  rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, with: :bad_request
+  rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, JSON::ParserError, with: :bad_request
   rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 

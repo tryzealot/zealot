@@ -3,7 +3,7 @@
     h3.card-title 渠道信息
   .card-body.p-0.pt-3
     p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
-      span.font-weight-bold = @channel.device_type.capitalize
+      span.font-weight-bold = device_name(@channel.device_type)
       span.text-muted 设备类型
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
