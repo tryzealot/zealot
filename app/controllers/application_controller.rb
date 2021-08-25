@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
-  rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, with: :bad_request
   rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   end
 
   def internal_server_error(e)
-    respond_with_error(500)
+    respond_with_error(500, e)
   end
 
   def service_unavailable(e)
@@ -84,6 +84,8 @@ class ApplicationController < ActionController::Base
       @code = code
       @exception = exception
       @title = t("errors.#{@code}.title")
+      @message = exception.message if code < 500
+
       format.any  { render 'errors/index', status: code, formats: [:html] }
       format.json { render json: { code: code, error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
     end
