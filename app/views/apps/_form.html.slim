@@ -1,4 +1,6 @@
 ruby:
+  checked_scheme = @schemes ? @schemes[:name] : 0
+  checked_channel = @channels ? @channels[:name] : 0
   head_title, back_url = if new_or_create_route?
     ['应用管理', apps_path]
   else
@@ -19,11 +21,8 @@ ruby:
         = f.error_notification
 
         = f.input :name, required: true
-        - if new_route?
-          = f.simple_fields_for :schemes_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_schemes, checked: default_schemes.last
-        - elsif create_route?
-          = f.simple_fields_for :schemes_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes[:name].compact
-        = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: @channel || 0
+        = f.simple_fields_for :scheme_attributes do |n|
+          = n.input :name, as: :check_boxes, collection: default_schemes, checked: checked_scheme
+        = f.simple_fields_for :channel_attributes do |n|
+          = n.input :name, as: :check_boxes, collection: default_channels, checked: checked_channel
         = f.button :submit
