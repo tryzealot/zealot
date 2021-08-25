@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
-  rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, with: :bad_request
   rescue_from HTTP::Error, OpenSSL::SSL::SSLError, with: :internal_server_error
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
@@ -43,35 +43,35 @@ class ApplicationController < ActionController::Base
   end
 
   def forbidden(e)
-    respond_with_error(403, e)
+    respond_with_error(:forbidden, e)
   end
 
   def not_found(e)
-    respond_with_error(404, e)
+    respond_with_error(:not_found, e)
   end
 
   def gone(e)
-    respond_with_error(410, e)
+    respond_with_error(:gone, e)
   end
 
   def unprocessable_entity(e)
-    respond_with_error(422, e)
+    respond_with_error(:unprocessable_entity, e)
   end
 
   def not_acceptable(e)
-    respond_with_error(406, e)
+    respond_with_error(:not_acceptable, e)
   end
 
   def bad_request(e)
-    respond_with_error(400, e)
+    respond_with_error(:bad_request, e)
   end
 
   def internal_server_error(e)
-    respond_with_error(500)
+    respond_with_error(:internal_server_error, e)
   end
 
   def service_unavailable(e)
-    respond_with_error(503, e)
+    respond_with_error(:service_unavailable, e)
   end
 
   def respond_with_error(code, exception)
@@ -84,6 +84,8 @@ class ApplicationController < ActionController::Base
       @code = code
       @exception = exception
       @title = t("errors.#{@code}.title")
+      @message = exception.message if code < 500
+
       format.any  { render 'errors/index', status: code, formats: [:html] }
       format.json { render json: { code: code, error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
     end
