@@ -73,6 +73,8 @@ class Release < ApplicationRecord
             release.devices << Device.find_or_create_by(udid: udid)
           end
         end
+      ensure
+        parser&.clear!
       end
     end
   end
@@ -85,8 +87,6 @@ class Release < ApplicationRecord
     raise ActionController::InvalidAuthenticityToken, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
   rescue => e
     raise ActionController::InvalidAuthenticityToken, "上传应用解析发现未知异常，原始错误：#{e.message}"
-  ensure
-    parser&.clear!
   end
   private_methods :rescuing_app_parse_errors
 
