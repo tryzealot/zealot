@@ -54,7 +54,7 @@
           = git_commit_url(@release.channel.git_url, @release.git_commit)
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
-          i.fas class="fa-#{field['icon'] || 'hashtag'}"
+          i class="#{field['icon'] || 'fas fa-hashtag'}"
           = field['value']
       li title="上传来源"
         i.fas.fa-compass
