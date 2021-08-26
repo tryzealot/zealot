@@ -42,7 +42,7 @@ module AppsHelper
     # no password euqal matched password
     return true if password.blank?
 
-    cookies[app_release_auth_key(release)] == channel.encode_password
+    cookies["app_release_#{release.id}_auth"] == channel.encode_password
   end
 
   def git_commit_url(git_url, commit, commit_length = 8)
