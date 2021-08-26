@@ -43,7 +43,7 @@ class ReleasesController < ApplicationController
 
   def auth
     if @channel.password == params[:password]
-      cookies[app_release_auth_key(@release)] = @channel.encode_password
+      cookies["app_release_#{release.id}_auth"] = @channel.encode_password
       redirect_to channel_release_path(@channel, @release)
     else
       flash[:danger] = '密码错误，请重新输入'
