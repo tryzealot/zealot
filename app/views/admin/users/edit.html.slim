@@ -6,13 +6,13 @@
 
 .row
   .col-md-12
-    - if @token
+    - unless @user.confirmed?
       .card
         .card-header.card-border
           h3.card-title 激活链接
         .card-body
-          input.form-control value="#{confirmation_url(@user, confirmation_token: @token)}" disabled=true
-          small.form-text.text-muted 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+          input.form-control value="#{confirmation_url(@user, confirmation_token: @user.confirmation_token)}" disabled=true
+          small.form-text.text-muted 若邀请用户没有收到激活邮件或者没有正确配置发送邮件设置，可通过本链接激活邮箱。
     .card
       .card-header.card-border
         h3.card-title 用户信息

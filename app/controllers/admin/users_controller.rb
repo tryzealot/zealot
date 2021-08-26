@@ -26,7 +26,6 @@ class Admin::UsersController < ApplicationController
 
   def edit
     @title = @user.email
-    @token = @user.confirmation_token
   end
 
   def update
@@ -36,7 +35,7 @@ class Admin::UsersController < ApplicationController
 
     # 没有设置密码的情况下不更新该字段
     params = user_params.dup
-    params = params.delete(:password) if params[:password].blank?
+    params.delete(:password) if params[:password].blank?
     return render :edit unless @user.update(params)
 
     redirect_to admin_users_url, notice: '用户已经更新'
