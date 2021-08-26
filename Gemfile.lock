@@ -73,7 +73,7 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    app-info (2.6.0)
+    app-info (2.6.1)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       icns (~> 0.2.0)
       image_size (>= 1.5, < 2.2)
@@ -507,7 +507,7 @@ DEPENDENCIES
   active_analytics
   active_model_serializers (~> 0.10.12)
   activejob-status
-  app-info (~> 2.6.0)
+  app-info (~> 2.6.1)
   awesome_print
   better_errors
   binding_of_caller
