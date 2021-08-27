@@ -119,7 +119,7 @@ class TeardownService < ApplicationService
     if developer_certs = mobileprovision.developer_certs
       metadata.developer_certs = developer_certs.each_with_object([]) do |cert, obj|
         obj << {
-          name: cert.name,
+          name: cert.name.force_encoding('UTF-8'),
           created_at: cert.created_date,
           expired_at: cert.expired_date
         }

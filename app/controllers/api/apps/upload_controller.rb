@@ -61,7 +61,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def perform_teardown_job
-    TeardownJob.perform_later(@release.id, @user.id)
+    @release.perform_teardown_job(user.id)
   end
 
   ###########################
