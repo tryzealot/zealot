@@ -23,8 +23,8 @@ ruby:
                   li = error.message
           - if type == :boolean
             = f.input :value, label: '开启', as: :boolean, checked: type
-          - elsif type == :hash
-            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15
+          - elsif type == :hash || type == :array
+            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15, hint: '按照 JSON 标准格式编辑，否则会保存失败'
           - else
             = f.text_area :value, value: value, class: 'form-control', rows: 15
 

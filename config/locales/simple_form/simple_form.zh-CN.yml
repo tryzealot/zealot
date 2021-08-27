@@ -60,11 +60,10 @@ zh-CN:
       defaults:
         channel: '应用会使用的平台'
       app:
-        name: '起一个响亮亮的名称吧'
         schemes:
           name: '应用在功能、面向受众划分的类型'
       scheme:
-          name: '比如开发版、内测版、线上版'
+          name: '应用在功能、面向受众划分的类型'
       channel:
         name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
         device_type: '应用设备类型'
