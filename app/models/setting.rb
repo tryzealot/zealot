@@ -14,6 +14,11 @@ class Setting < RailsSettings::Base
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end
 
+  # 预值
+  scope :presets do
+    field :schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+  end
+
   # 模式开关
   scope :switch_mode do
     field :registrations_mode, default: (ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean, display: true

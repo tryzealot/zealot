@@ -16,5 +16,5 @@ ruby:
 
         = f.input :name, required: true
         - if new_or_create_route?
-          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: @channel || 0
+          = f.input :channel, collection: default_channels, selected: @channel || 0
         = f.button :submit
