@@ -4,11 +4,38 @@
 class Setting < RailsSettings::Base
   cache_prefix { 'v1' }
 
+  DEFAULT_SITE_HTTPS = Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
+  DEFAULT_SITE_DOMAIN = DEFAULT_SITE_HTTPS ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
+
+  class << self
+    def site_configs
+      group_configs.each_with_object({}) do |(scope, items), obj|
+        obj[scope] = items.each_with_object({}) do |item, inner|
+          key = item[:key]
+          value = Setting.send(key.to_sym)
+          inner[key] = {
+            value: value,
+            readonly: item[:readonly]
+          }
+        end
+      end
+    end
+
+    def find_or_default(var:)
+      find_by(var: var) || new(var: var)
+    end
+
+    def group_configs
+      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
+    end
+  end
+
   # 系统配置
   scope :general do
-    field :site_title, default: 'Zealot', type: :string, validates: { presence: true, length: { in: 3..16 } }, display: true
-    field :site_https, default: (Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?), type: :boolean, readonly: true
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || (site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}")), type: :string, readonly: true
+    field :site_title, default: 'Zealot', type: :string, display: true,
+                       validates: { presence: true, length: { in: 3..16 } }
+    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
@@ -16,7 +43,9 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+    field :default_schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+    field :default_role, default: 'user', type: :string, display: true,
+                         validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
   end
 
   # 模式开关
@@ -96,26 +125,28 @@ class Setting < RailsSettings::Base
     field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
   end
 
-  class << self
-    def site_configs
-      group_configs.each_with_object({}) do |(scope, items), obj|
-        obj[scope] = items.each_with_object({}) do |item, inner|
-          key = item[:key]
-          value = Setting.send(key.to_sym)
-          inner[key] = {
-            value: value,
-            readonly: item[:readonly]
-          }
-        end
-      end
-    end
+  def field_validates
+    validates = Setting.validators_on(var)
+    validates.each_with_object([]) do |validate, obj|
+      next unless value = validate_value(validate)
 
-    def find_or_default(var:)
-      find_by(var: var) || new(var: var)
+      obj << value
     end
+  end
 
-    def group_configs
-      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
+  private
+
+  def validate_value(validate)
+    case validate
+    when ActiveModel::Validations::PresenceValidator
+      '不能为空值'
+    when ActiveRecord::Validations::LengthValidator
+      minimum = validate.options[:minimum]
+      maximum = validate.options[:maximum]
+      "长度限制： #{minimum} ~ #{maximum} 位"
+    when ActiveModel::Validations::InclusionValidator
+      values = validate.send(:delimiter)
+      "可选值： #{values.join(', ')}"
     end
   end
 end
