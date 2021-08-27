@@ -49,20 +49,10 @@ class Release < ApplicationRecord
         release.release_version = parser.release_version
         release.build_version = parser.build_version
         release.device = parser.device_type
+        release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
 
-        if parser.os == AppInfo::Platform::IOS
-          release.release_type ||= parser.release_type
-
-          icon_file = parser.icons.last.try(:[], :uncrushed_file) || parser.icons.last.try(:[], :file)
-          release.icon = icon_file if icon_file
-        else
-          # 处理 Android anydpi 自适应图标
-          icon_file = parser.icons
-                            .reject { |f| File.extname(f[:file]) == '.xml' }
-                            .last
-                            .try(:[], :file)
-          release.icon = File.open(icon_file, 'rb') if icon_file
-        end
+        icon_file = fetch_icon(parser)
+        release.icon = icon_file if icon_file
 
         # iOS 且是 AdHoc 尝试解析 UDID 列表
         if parser.os == AppInfo::Platform::IOS &&
@@ -79,14 +69,37 @@ class Release < ApplicationRecord
     end
   end
 
+  def self.fetch_icon(parser)
+    case parser.os
+    when AppInfo::Platform::IOS
+      parser.icons.last.try(:[], :uncrushed_file)
+    when AppInfo::Platform::MACOS
+      return if parser.icons.blank?
+
+      file = parser.icons[:sets].last.try(:[], :file)
+      File.open(file, 'rb') if file
+    when AppInfo::Platform::ANDROID
+      # 处理 Android anydpi 自适应图标
+      file = parser.icons
+                   .reject { |f| File.extname(f[:file]) == '.xml' }
+                   .last
+                   .try(:[], :file)
+
+      File.open(file, 'rb') if file
+    end
+  end
+  private_methods :fetch_icon
+
   def self.rescuing_app_parse_errors
     yield
   rescue AppInfo::UnkownFileTypeError
-    raise CarrierWave::InvalidParameter, '上传应用的文件类型不支持'
-  rescue NoMethodError
-    raise ActionController::InvalidAuthenticityToken, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
+    raise AppInfo::UnkownFileTypeError, '上传应用的文件类型不支持'
+  rescue NoMethodError => e
+    logger.error e.full_message
+    raise AppInfo::Error, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
   rescue => e
-    raise ActionController::InvalidAuthenticityToken, "上传应用解析发现未知异常，原始错误：#{e.message}"
+    logger.error e.full_message
+    raise AppInfo::Error, "上传应用解析发现未知异常，原始错误：#{e.message}"
   end
   private_methods :rescuing_app_parse_errors
 

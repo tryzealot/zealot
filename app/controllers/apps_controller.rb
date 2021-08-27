@@ -3,6 +3,8 @@
 class AppsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy]
+  before_action :process_scheme_and_channel, only: %i[create]
+
 
   def index
     @title = '应用管理'
@@ -27,15 +29,12 @@ class AppsController < ApplicationController
   end
 
   def create
-    @schemes = app_params.delete(:schemes_attributes)
-    @channel = app_params.delete(:channel)
-
     @app = App.new(app_params)
     authorize @app
 
     if @app.save
       @app.users << current_user
-      create_schemes_by(@app, @schemes, @channel)
+      app_create_schemes_and_channels
       redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
     else
       render :new
@@ -63,24 +62,14 @@ class AppsController < ApplicationController
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 
-  def create_schemes_by(app, schemes, channel)
-    schemes[:name].each do |scheme_name|
-      next if scheme_name.blank?
+  def app_create_schemes_and_channels
+    @schemes.each do |scheme_name|
+      scheme = @app.schemes.create(name: scheme_name)
+      next if @channels.empty?
 
-      scheme = app.schemes.create name: scheme_name
-      next unless channels = channel_value(channel)
-
-      channels.each do |channel_name|
+      @channels.each do |channel_name|
         scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
       end
-    end
-  end
-
-  def channel_value(platform)
-    case platform
-    when 'ios' then ['iOS']
-    when 'android' then ['Android']
-    when 'both' then ['Android', 'iOS']
     end
   end
 
@@ -89,11 +78,17 @@ class AppsController < ApplicationController
     authorize @app
   end
 
+  def process_scheme_and_channel
+    @schemes = app_params.delete(:scheme_attributes)[:name].reject(&:empty?)
+    @channels = app_params.delete(:channel_attributes)[:name].reject(&:empty?)
+  end
+
   def app_params
     @app_params ||= params.require(:app)
                           .permit(
-                            :name, :channel,
-                            schemes_attributes: { name: [] }
+                            :name,
+                            scheme_attributes: { name: [] },
+                            channel_attributes: { name: [] },
                           )
   end
 
