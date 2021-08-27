@@ -92,7 +92,7 @@ class TeardownService < ApplicationService
     metadata.release_version = parser.release_version
     metadata.build_version = parser.build_version
     metadata.size = parser.size
-    metadata.min_sdk_version = parser.min_os_version
+    metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
   end
 
   def process_mobileprovision(mobileprovision, metadata)
