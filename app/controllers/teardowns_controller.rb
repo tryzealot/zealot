@@ -37,10 +37,14 @@ class TeardownsController < ApplicationController
     flash[:error] = '上传应用的文件类型不支持'
     render :new
   rescue NoMethodError => e
+    logger.error "Teardown error: #{e}"
+    Sentry.capture_exception e
     flash[:error] = '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
     render :new
   rescue => e
-    rflash[:error] = "上传应用解析发现未知异常，原始错误：#{e.message}"
+    logger.error "Teardown error: #{e}"
+    Sentry.capture_exception e
+    flash[:error] = "上传应用解析发现未知异常，原始错误：#{e.message}"
     render :new
   end
 
