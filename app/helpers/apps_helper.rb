@@ -2,7 +2,7 @@
 
 module AppsHelper
   def default_schemes
-    Setting.schemes
+    Setting.default_schemes
   end
 
   def default_channels
