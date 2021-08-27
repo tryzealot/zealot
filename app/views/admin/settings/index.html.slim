@@ -25,7 +25,7 @@ form.form-horizontal
                                 when FalseClass
                                   '关闭'
                                 else
-                                  ((value != false && value.blank?) ? t('admin.settings.empty_value') : value.to_s)
+                                  value.blank? ? t('admin.settings.empty_value') : value.to_s
                                 end
               dl.system-info
                 dt = t("admin.settings.#{key}")
