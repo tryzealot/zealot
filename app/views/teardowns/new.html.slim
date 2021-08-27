@@ -7,15 +7,16 @@
 .row
   .col-md-12
     .card.card-outline-tabs.card-primary.card-outline
-      .card-header.p-0.border-bottom-0
-        ul.nav.nav-tabs role="tablist"
-          li.nav-item
-            a.nav-link.active data-toggle="tab" href="#tab-upload" 上传应用
-          li.nav-item
-            a.nav-link data-toggle="tab" href="#tab-exists" 已上传应用
       .card-body
-        .tab-content
-          .tab-pane.active id="tab-upload"
-            == render 'upload_form'
-          .tab-pane id="tab-exists"
-            == render 'exists_form'
+        = form_tag(teardowns_path, multipart: true) do |form|
+          .form-group
+            label.control-label.required for="file"
+              abbr title="必填项" *
+              |  解包文件
+            .input-group
+              = file_field_tag 'file', class: 'custom-file-input2'
+              input name="type" value="upload" type="hidden"
+
+            p.help-block 支持 .apk、 .ipa、.mobileprovision 以及 macOS.app.Zip 文件
+
+          = submit_tag '开始解包', class: 'btn btn-primary'
