@@ -9,7 +9,7 @@ class Channel < ApplicationRecord
   has_many :releases, dependent: :destroy
   has_and_belongs_to_many :web_hooks, dependent: :destroy
 
-  enum device_type: { ios: 'iOS', android: 'Android' }
+  enum device_type: { ios: 'iOS', android: 'Android', macos: 'macOS' }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
