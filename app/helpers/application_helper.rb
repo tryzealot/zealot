@@ -69,26 +69,35 @@ module ApplicationHelper
       'Universal'
     when 'android'
       'Android'
+    when 'macos'
+      'macOS'
     else
       device_type
     end
   end
 
   def device_icon(device_type)
-    icon = case device_type.downcase
-           when 'ios', 'iphone', 'ipad', 'mac', 'ipa'
-             'fa-apple'
-           when 'android', 'apk'
-             'fa-android'
-           else
-             'fa-adn'
-           end
-
+    icon, _ = device_style(device_type)
     tag.i(class: "fab #{icon}")
   end
 
   def timeline_app_icon(device_type)
-    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
+    device_style(device_type).join(' ')
+  end
+
+  def device_style(device_type)
+    case device_type.downcase
+    when 'ios'
+      ['fa-apple', 'bg-black']
+    when 'android'
+      ['fa-android', 'bg-green']
+    when 'windows'
+      ['fa-windows', 'bg-warning']
+    when 'macos'
+      ['fa-app-store', 'bg-blue']
+    else
+      ['fa-adn', 'bg-lightblue']
+    end
   end
 
   # 获取浏览器 user agent
@@ -98,7 +107,7 @@ module ApplicationHelper
     user_agent.include?('MicroMessenger')
   end
 
-  def mac?
+  def mac?(source = nil)
     # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
     # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
     source ||= user_agent
@@ -119,10 +128,12 @@ module ApplicationHelper
   # 检查设备
   def detect_device(device)
     # FIXME: iPad 和 M1 芯片设备都是桌面的 UA，因此这里暂时改为 iOS 设备或文件是 iOS 设备文件
-    if ios?(user_agent) || ios?(device)
+    if ios? || ios?(device)
       :ios
-    elsif android?(user_agent) && android?(device)
+    elsif android? && android?(device)
       :android
+    # elsif mac? && mac?(device)
+    #   :macos
     else
       :unkown
     end

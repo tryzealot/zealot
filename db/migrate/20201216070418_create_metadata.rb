@@ -39,11 +39,9 @@ class CreateMetadata < ActiveRecord::Migration[6.0]
   end
 
   def down
-    def down
-      drop_table :metadata
-      execute <<-SQL
-        DROP TYPE metadata_platform;
-      SQL
-    end
+    drop_table :metadata
+    execute <<-SQL
+      DROP TYPE metadata_platform;
+    SQL
   end
 end
