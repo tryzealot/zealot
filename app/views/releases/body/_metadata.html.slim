@@ -72,7 +72,7 @@
         - if @release.file?
           == render 'releases/body/install_cert'
 
-          - if detect_device(@release.channel.device_type) == :ios
+          - if detect_device(@release.channel.device_type, :ios) && (ios? || macos?)
             / iOS 和 Mac 显示此按钮
             button.btn.btn-icon.btn-lg.bg-success[
                 id="download_it"
@@ -83,10 +83,7 @@
 
           a.btn.btn-icon.btn-lg.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            - if android?(user_agent)
-              | 安装
-            - else
-              | 下载
+            | 下载
         - else
           button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost
