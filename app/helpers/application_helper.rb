@@ -107,7 +107,7 @@ module ApplicationHelper
     user_agent.include?('MicroMessenger')
   end
 
-  def mac?(source = nil)
+  def macos?(source = nil)
     # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
     # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
     source ||= user_agent
@@ -126,17 +126,18 @@ module ApplicationHelper
   end
 
   # 检查设备
-  def detect_device(device)
-    # FIXME: iPad 和 M1 芯片设备都是桌面的 UA，因此这里暂时改为 iOS 设备或文件是 iOS 设备文件
-    if ios? || ios?(device)
-      :ios
-    elsif android? && android?(device)
-      :android
-    # elsif mac? && mac?(device)
-    #   :macos
-    else
-      :unkown
-    end
+  def detect_device(device, target)
+    value = if ios?(device)
+              :ios
+            elsif android?(device)
+              :android
+            elsif macos?(device)
+              :macos
+            else
+              :unkown
+            end
+
+    value == target.to_sym
   end
 
   def omniauth_display_name(provider)
