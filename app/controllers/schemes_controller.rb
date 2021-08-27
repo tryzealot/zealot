@@ -16,9 +16,11 @@ class SchemesController < ApplicationController
       @channel = @scheme.latest_channel
     end
 
-    raise ActiveRecord::RecordNotFound unless @channel
-
-    redirect_to channel_path(@channel)
+    if @channel
+      redirect_to channel_path(@channel)
+    else
+      redirect_to new_app_scheme_channel_path(@scheme.app, @scheme), alert: '没有发现已创建的渠道，请新建一个'
+    end
   end
 
   def new
