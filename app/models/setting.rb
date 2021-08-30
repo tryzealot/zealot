@@ -106,23 +106,22 @@ class Setting < RailsSettings::Base
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
       enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'],
-    }, display: true
+    }
   end
 
   # 备份
-  field :backup, type: :hash, readonly: true, display: true, default: {
+  field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
     keep_time: 604800,
     pg_schema: 'public',
   }
 
-
-  # 系统信息（只读）
+  # 版本信息（只读）
   scope :information do
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true, display: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
+    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true, display: true
   end
 
   def field_validates
