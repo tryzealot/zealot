@@ -26,9 +26,15 @@ zh-CN:
       stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_to: 默认邮件发件人
+      mailer_options: 发件服务器配置
 
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
+
+      information: 版本信息
+      version: 版本
+      vcs_ref: 哈希值
+      build_date: 构建日期
 
       empty_value: 空值
       submit:
