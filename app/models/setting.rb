@@ -57,7 +57,7 @@ class Setting < RailsSettings::Base
 
   # 上传文件保留策略
   scope :limits do
-    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean, readonly: true
+    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'true'), type: :boolean, readonly: true
   end
 
   # 第三方登录
