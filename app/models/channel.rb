@@ -9,7 +9,7 @@ class Channel < ApplicationRecord
   has_many :releases, dependent: :destroy
   has_and_belongs_to_many :web_hooks, dependent: :destroy
 
-  enum device_type: { ios: 'iOS', android: 'Android' }
+  enum device_type: { ios: 'iOS', android: 'Android', macos: 'macOS' }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
@@ -39,19 +39,20 @@ class Channel < ApplicationRecord
     "#{app.name} #{scheme.name} #{name}"
   end
 
-  def release_versions
-    releases.select(:release_version)
-            .group(:release_version)
-            .map(&:release_version)
-            .sort do |a,b|
-              begin
-                Gem::Version.new(b) <=> Gem::Version.new(a)
-              rescue ArgumentError => e
-                # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
-                # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
-                e.message.include?(a) ? 1 : -1
-              end
-            end
+  def release_versions(limit = 10)
+    versions = releases.select(:release_version)
+                       .group(:release_version)
+                       .map(&:release_version)
+                       .sort do |a,b|
+                         begin
+                           Gem::Version.new(b) <=> Gem::Version.new(a)
+                         rescue ArgumentError => e
+                           # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
+                           # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
+                           e.message.include?(a) ? 1 : -1
+                         end
+                       end
+    versions.size >= limit ? versions[0..limit - 1] : versions
   end
 
   def release_version_count(version)

@@ -14,11 +14,9 @@
           dt Zealot 版本
           dd
             pre
-              - if @version[:update_available]
-                a.new-version.float-right href="#{@version[:release_link]}" target="_blank"
-                  i.fas.fa-rainbow
-                  | 发现新版本: #{@version[:latest_version]}
-              = @version[:current_version]
+              #new-version.float-right
+              #current-version
+                = @current_version
           dt Ruby 版本
           dd
             pre = RUBY_DESCRIPTION
@@ -33,9 +31,19 @@
           dd
             pre
               - if @memory
-                = "#{number_to_human_size(@memory.active_bytes)} / #{number_to_human_size(@memory.total_bytes)}"
+                = "#{number_to_human_size(@memory[:used])} / #{number_to_human_size(@memory[:total])}"
+                .progress.progress-bar-striped class="#{@memory[:color]}" role="progressbar" aria-valuenow="#{@memory[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{@memory[:percent]}%"
               - else
                 | 内存信息监测失败
+          dt
+            | 磁盘
+          dd
+            pre
+              - if @diskspace
+                = "#{number_to_human_size(@diskspace[:used])} / #{number_to_human_size(@diskspace[:total])}"
+                .progress.progress-bar-striped class="#{@diskspace[:color]}" role="progressbar" aria-valuenow="#{@diskspace[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{@diskspace[:percent]}%"
+              - else
+                | 监测失败
           dt 运行时间
           dd
             pre
@@ -45,7 +53,7 @@
               | )
     .card
       .card-header
-        h3.card-title 磁盘信息
+        h3.card-title 挂载信息
       .card-body
         - unless @disks.blank?
           dl.system-info
@@ -54,6 +62,7 @@
               dd
                 pre
                   = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
+                  .progress.progress-bar-striped class="#{disk[:color]}" role="progressbar" aria-valuenow="#{disk[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{disk[:percent]}%"
         - else
           | 硬盘信息无法获取
 

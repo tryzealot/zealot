@@ -1,21 +1,12 @@
 # frozen_string_literal: true
 
 module AppsHelper
-  SelectOption = Struct.new(:name, :value)
-
-  DEFAULT_SCHEMES = %w[测试版 内测版 产品版]
-  DEFAULT_CHANNELS = [
-    SelectOption.new('Android 和 iOS', 'both'),
-    SelectOption.new('Android', 'android'),
-    SelectOption.new('iOS', 'ios')
-  ]
-
   def default_schemes
-    DEFAULT_SCHEMES
+    Setting.default_schemes
   end
 
   def default_channels
-    DEFAULT_CHANNELS
+    Channel.device_types.values
   end
 
   def app_icon(release, options = {})
@@ -42,7 +33,7 @@ module AppsHelper
     # no password euqal matched password
     return true if password.blank?
 
-    cookies[app_release_auth_key(release)] == channel.encode_password
+    cookies["app_release_#{release.id}_auth"] == channel.encode_password
   end
 
   def git_commit_url(git_url, commit, commit_length = 8)
@@ -77,12 +68,17 @@ module AppsHelper
   def display_app_device(value)
     if value.is_a?(Release)
       channel = value.channel
-      return "#{device_name(channel.device_type)} (#{value.device})" if value.device
+      channal_device_type = device_name(channel.device_type)
+      if value.device
+        return channal_device_type == value.device ? channal_device_type : "#{channal_device_type} (#{value.device})"
+      end
     else
       channel = value
     end
 
     return channel.name if channel.name.downcase == channel.device_type.downcase
-    return "#{channel.name} (#{device_name(channel.device_type)})"
+
+    platform = device_name(channel.device_type)
+    channel.name == platform ? channel.name : "#{channel.name} (#{device_name(channel.device_type)})"
   end
 end
