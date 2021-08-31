@@ -31,7 +31,7 @@ class ReleasesController < ApplicationController
 
     # 触发异步任务
     @release.channel.perform_web_hook('upload_events')
-    TeardownJob.perform_later(@release.id, current_user&.id)
+    @release.perform_teardown_job(current_user.id)
 
     redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
   end
@@ -43,7 +43,7 @@ class ReleasesController < ApplicationController
 
   def auth
     if @channel.password == params[:password]
-      cookies[app_release_auth_key(@release)] = @channel.encode_password
+      cookies["app_release_#{release.id}_auth"] = @channel.encode_password
       redirect_to channel_release_path(@channel, @release)
     else
       flash[:danger] = '密码错误，请重新输入'

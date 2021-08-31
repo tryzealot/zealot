@@ -19,6 +19,8 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'ActiveRecord::RecordInvalid',
         'ActiveRecord::NoDatabaseError',
         'PG::ConnectionBad',
+        'Interrupt',
+        'SystemExit',
       ]
 
       if (vcs_ref = Setting.vcs_ref) && vcs_ref.present?

@@ -1,10 +1,10 @@
+#webhooks-list {
+  @extend .mt-4 !optional;
 
-.bg-light-gray {
-  background-color: #f3f2f2;
-  color: #585858;
-  text-shadow: none;
-}
-
-section#webhooks-list span {
-  margin-right: 5px;
+  .bg-light-gray {
+    margin-right: 5px;
+    background-color: #f3f2f2;
+    color: #585858;
+    text-shadow: none;
+  }
 }
