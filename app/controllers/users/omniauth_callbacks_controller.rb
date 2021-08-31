@@ -19,7 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def failure
     flash[:error] = "授权失败！请检查你的账户和密码是否正确，原始错误信息：#{failure_message}"
-    redirect_to goback_path
+    redirect_to after_omniauth_failure_path_for(resource_name)
   end
 
   private
@@ -60,6 +60,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def goback_path
     omni_params = request.env['omniauth.params']
-    redirect_path = omni_params['back'].presence || root_path
+    redirect_path = omni_params['back'].presence ||
+                    request.env['HTTP_REFERER'] ||
+                    root_path
   end
 end
