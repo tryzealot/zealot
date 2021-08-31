@@ -32,15 +32,15 @@ zh-CN:
         name: '渠道名称'
         device_type: '应用平台'
         bundle_id: '校验包名'
-        git_url: 'Git URL'
+        git_url: 'Git 仓库地址'
         slug: '唯一地址'
         password: '访问密码'
       release:
         file: 应用文件
         changelog: 变更日志
-        release_type: 发布类型
-        branch: 分支名称
-        git_commit: Git 最后提交 Commit Hash
+        release_type: 打包类型
+        branch: Git 分支名称
+        git_commit: Git 最后提交 SHA
         ci_url: CI URL
       web_hook:
         url: 'URL'
@@ -60,28 +60,29 @@ zh-CN:
       defaults:
         channel: '应用会使用的平台'
       app:
-        name: '起一个响亮亮的名称吧'
         schemes:
-          name: '勾选预设的应用类型，后续还可以自己修改和添加'
+          name: '应用在功能、面向受众划分的类型'
       scheme:
-          name: '比如开发版、内测版、线上版'
+          name: '应用在功能、面向受众划分的类型'
       channel:
-        name: '可以和应用平台同名，Android 的可以是各个渠道包的名称'
+        name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
         device_type: '应用设备类型'
         bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
       release:
-        file: 仅支持 .ipa 和 .apk 文件
-        release_type: 一般来说取值位 debug、adhoc、release
-        branch: 通常情况是 master 或 develop
-        ci_url: Jenkins、Gitlab CI 等
+        file: 支持 iOS.ipa、Android.apk 以及 macOS.app.zip 文件
+        changelog: 这个应用包含了什么新特性，修复了什么问题等
+        release_type: iOS 的 debug、adhoc、release；Android 的 debug、release 等
+        branch: 通常情况是 main 或 develop
+        git_commit: 通常是 40 位长度的哈希值
+        ci_url: Jenkins、Gitlab CI 具体构建的地址
       web_hook:
-        body: '这里可以自定义 JSON 消息体，以满足不同第三方服务消息体的要求，不填写会使用默认结构'
+        body: '自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:
         device_type: '应用设备类型'
-        file: '无论是 iOS 还是 Android 都必须使用 zip 文件'
+        file: '必须使用 zip 文件压缩后的调试文件'
 
     placeholders:
       release:

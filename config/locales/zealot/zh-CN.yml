@@ -6,6 +6,10 @@ zh-CN:
       site_https: 站点启用 HTTPS
       site_domain: 站点域名
 
+      presets: 默认值
+      default_schemes: 应用的类型名称
+      default_role: 用户注册默认权限
+
       switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 开启游客模式
@@ -22,9 +26,15 @@ zh-CN:
       stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_to: 默认邮件发件人
+      mailer_options: 发件服务器配置
 
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
+
+      information: 版本信息
+      version: 版本
+      vcs_ref: 哈希值
+      build_date: 构建日期
 
       empty_value: 空值
       submit:
@@ -48,26 +58,26 @@ zh-CN:
       x_years: " %{count} 年"
   errors:
     '400':
-      title: 您提交的请求无效或格式不正确。
+      title: 您提交的请求无效或格式不正确
     '403':
-      title: 你没有访问这个页面的权限。
+      title: 你没有访问这个页面的权限
     '404':
       title: 找不到你想要的内容
       content: 当前访问的页面不存在或者已经被移动
     '406':
-      title: 页面无法处理请求。
+      title: 页面无法处理请求
     '410':
-      title: 你所要访问的页面此处已不存在。
+      title: 你所要访问的页面此处已不存在
     '422':
       content: 无法确认登录信息。你是不是屏蔽了 Cookie？
       title: 无法确认登录信息
     '429':
       title: 请求被限制
     '500':
-      content: 抱歉，我们的后台出错了。
+      content: 抱歉，我们的后台出错了
       title: 这个页面有问题
     '503':
-      title: 服务暂时不可用，无法请求该页面。
+      title: 服务暂时不可用，无法请求该页面
     messages:
       mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
   activerecord:

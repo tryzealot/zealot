@@ -3,13 +3,15 @@
 class TeardownService < ApplicationService
   attr_reader :file
 
+  SUPPORT_APP = %i[apk ipa mobileprovision macos]
+
   def initialize(file)
     @file = file
   end
 
   def call
     file_type = AppInfo.file_type(file)
-    unless file_type == :ipa || file_type == :apk || file_type == :mobileprovision
+    unless SUPPORT_APP.include?(file_type)
       raise ActionController::UnknownFormat, "无法处理文件: #{file}, 不支持本文件类型: #{file_type}"
     end
 
@@ -30,6 +32,8 @@ class TeardownService < ApplicationService
         process_ios(parser, metadata)
       when AppInfo::Platform::ANDROID
         process_android(parser, metadata)
+      when AppInfo::Platform::MACOS
+        process_macos(parser, metadata)
       end
       parser.clear!
     elsif parser.is_a?(AppInfo::MobileProvision)
@@ -75,6 +79,12 @@ class TeardownService < ApplicationService
     end
   end
 
+  def process_macos(parser, metadata)
+    process_app_common(parser, metadata)
+    metadata.bundle_id = parser.bundle_id
+    # metadata.target_sdk_version = parser.target_sdk_version
+  end
+
   def process_app_common(parser, metadata)
     metadata.name = parser.name
     metadata.platform = parser.os.downcase
@@ -82,7 +92,7 @@ class TeardownService < ApplicationService
     metadata.release_version = parser.release_version
     metadata.build_version = parser.build_version
     metadata.size = parser.size
-    metadata.min_sdk_version = parser.min_sdk_version
+    metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
   end
 
   def process_mobileprovision(mobileprovision, metadata)

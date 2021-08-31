@@ -54,7 +54,7 @@
           = git_commit_url(@release.channel.git_url, @release.git_commit)
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
-          i.fas class="fa-#{field['icon'] || 'hashtag'}"
+          i class="#{field['icon'] || 'fas fa-hashtag'}"
           = field['value']
       li title="上传来源"
         i.fas.fa-compass
@@ -62,17 +62,17 @@
           = @release.source
         - else
           = link_to @release.source, @release.ci_url
-      - if @release.metadata.present? && detect_device(@release.channel.device_type) == :ios
+      - if @release.metadata.present?
         li title="更多信息"
           i.fas.fa-layer-group
-          = link_to '解析信息', teardown_path(@release.metadata)
+          = link_to '解包信息', teardown_path(@release.metadata)
 
     .app-actions
       - unless wechat?
-        - if @release.has_file?
+        - if @release.file?
           == render 'releases/body/install_cert'
 
-          - if detect_device(@release.channel.device_type) == :ios
+          - if detect_device(@release.channel.device_type, :ios) && (ios? || macos?)
             / iOS 和 Mac 显示此按钮
             button.btn.btn-icon.btn-lg.bg-success[
                 id="download_it"
@@ -83,10 +83,7 @@
 
           a.btn.btn-icon.btn-lg.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            - if android?(user_agent)
-              | 安装
-            - else
-              | 下载
+            | 下载
         - else
           button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost

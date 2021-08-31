@@ -8,6 +8,7 @@
 
 .row
   .col-md-8
+    == render 'mobile_menu'
     == render 'activity'
     - if current_user&.manage?
       == render 'web_hooks'

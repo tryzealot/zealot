@@ -43,8 +43,7 @@ RUN bundle config --global frozen 1 && \
       --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile && \
-    cp -r public/ new_public/
+RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
@@ -62,24 +61,24 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 
-ARG ZEALOT_VERSION="4.0.0"
+ARG ZEALOT_VERSION="4.1.0"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev"
+ARG PACKAGES="tzdata curl logrotate imagemagick imagemagick-dev postgresql-dev postgresql-client openssl openssl-dev caddy"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
-ARG S6_OVERLAY_VERSION="2.1.0.1"
+ARG S6_OVERLAY_VERSION="2.2.0.3"
 
-LABEL im.ews.zealot.build-date=$BUILD_DATE \
-      im.ews.zealot.vcs-ref=$VCS_REF \
-      im.ews.zealot.version="$ZEALOT_VERSION-$TAG" \
-      im.ews.zealot.name="Zealot" \
-      im.ews.zealot.description="Over The Air Server for deployment of Android and iOS apps" \
-      im.ews.zealot.url="https://zealot.ews.im/" \
-      im.ews.zealot.vcs-url="https://github.com/tryzealot/zealot" \
-      im.ews.zealot.maintaner="icyleaf <icyleaf.cn@gmail.com>"
+LABEL org.opencontainers.image.title="Zealot" \
+      org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
+      org.opencontainers.image.url="https://zealot.ews.im/" \
+      org.opencontainers.image.authors="icyleaf <icyleaf.cn@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/tryzealot/zealot" \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.revision=$VCS_REF \
+      org.opencontainers.image.version=$ZEALOT_VERSION
 
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
@@ -106,6 +105,8 @@ COPY --from=builder $APP_ROOT $APP_ROOT
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
-EXPOSE 3000
+EXPOSE 80
+
+VOLUME [ "/app/public/uploads", "/app/public/backup" ]
 
 ENTRYPOINT ["/init"]

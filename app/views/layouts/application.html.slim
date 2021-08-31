@@ -1,11 +1,8 @@
 ruby:
-  body_class = 'skin-black-light'
   if user_signed_in_or_guest_mode?
-    body_class += ' sidebar-mini'
-  elsif Setting.guest_mode && devise_page?
-    body_class += ' layout-top-nav'
+    body_class = 'sidebar-mini'
   else
-    body_class += ' layout-top-nav'
+    body_class = 'layout-top-nav'
   end
 
 doctype html
@@ -22,7 +19,7 @@ html
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     == csrf_meta_tags
 
-  body class="#{body_class}"
+  body class="hold-transition #{body_class}"
     .wrapper
       == render 'layouts/navigation'
 

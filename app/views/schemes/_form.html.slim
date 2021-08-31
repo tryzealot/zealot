@@ -1,5 +1,5 @@
 ruby:
-  form_url = params[:action] == 'new' ? app_schemes_path : app_scheme_path(@scheme.app, @scheme)
+  form_url = new_or_create_route? ? app_schemes_path : app_scheme_path(@scheme.app, @scheme)
 
 .col-md-12
   .card
@@ -15,6 +15,6 @@ ruby:
         = f.error_notification
 
         = f.input :name, required: true
-        - if params[:action] == 'new'
-          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
+        - if new_or_create_route?
+          = f.input :channel, collection: default_channels, selected: @channel || 0
         = f.button :submit
