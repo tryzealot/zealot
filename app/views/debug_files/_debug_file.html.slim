@@ -18,13 +18,13 @@ ruby:
                       = device_name(debug_file.device_type)
                   .debug-file-build-version
                     - if debug_file.build_version.blank?
-                      | 后台任务正在解析中，请稍候刷新。
+                      | 后台任务正在解包中，请稍候刷新。
                     - else
                       | 构建版本：
                       = debug_file.build_version
 
                 .debug-file-section-size
-                  - if debug_file.has_file?
+                  - if debug_file.file?
                     a.btn.btn-icon.btn-sm.btn-success.btn-flat href="#{debug_file.file_url}" target="_blank"
                       i.fas.fa-download
                       | 下载 (
