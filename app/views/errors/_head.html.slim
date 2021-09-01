@@ -1,0 +1,6 @@
+ruby:
+  color = @code == 404 ? 'text-red' : 'text-warning'
+
+h3
+  i.fa.fa-warning class="#{color}"
+    = "#{@code} #{@title}"

@@ -3,7 +3,7 @@
 class DebugFileTeardownJob < ApplicationJob
   queue_as :app_parse
 
-  def perform(debug_file)
+  def perform(debug_file, user_id = nil)
     parser = AppInfo.parse(debug_file.file.path)
 
     case parser.file_type
@@ -17,9 +17,21 @@ class DebugFileTeardownJob < ApplicationJob
 
     # 清理掉临时生成的文件
     parser.clear!
+
+    notification_user(debug_file, user_id)
   end
 
   private
+
+  def notification_user(debug_file, user_id)
+    return if user_id.blank?
+
+    ActionCable.server.broadcast "notification:#{user_id}", {
+      type: 'teardown',
+      status: 'success',
+      message: "调试文件 #{debug_file.id} 解析完成，需要手动刷新页面才能看到哟"
+  }
+end
 
   def parse_dsym(debug_file, parser)
     parser.machos.each do |macho|

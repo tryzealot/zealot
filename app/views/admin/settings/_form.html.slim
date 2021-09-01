@@ -21,13 +21,18 @@ ruby:
               ul style="margin-bottom: 0"
                 - @setting.errors.each do |error|
                   li = error.message
+
+          input.hidden type="hidden" value="#{type}" name="setting[type]"
           - if type == :boolean
             = f.input :value, label: '开启', as: :boolean, checked: type
-          - elsif type == :hash
-            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15
+          - elsif type == :hash || type == :array
+            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15, hint: '按照 JSON 标准格式编辑，否则会保存失败'
           - else
             = f.text_area :value, value: value, class: 'form-control', rows: 15
 
-          input.hidden type="hidden" value="#{type}" name="setting[type]"
+          - unless @setting.field_validates.empty?
+            small.form-text.text-muted
+              | 条件：
+              = @setting.field_validates.join(" / ")
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')
