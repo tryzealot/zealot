@@ -14,7 +14,7 @@ class Admin::SettingsController < ApplicationController
 
   def update
     new_value = setting_param[:value]
-    new_value = JSON.parse(new_value) if setting_param[:type] == 'hash'
+    new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
     if @setting.value != new_value
       @setting.value = new_value
       return render :edit unless @setting.save

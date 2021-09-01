@@ -11,6 +11,7 @@ class ChannelsController < ApplicationController
                         .page(params.fetch(:page, 1))
                         .per(params.fetch(:per_page, 10))
                         .order(id: :desc)
+    @versions = @channel.release_versions(5)
   end
 
   def new

@@ -41,7 +41,7 @@
 // }
 
 $(document).on('turbolinks:load', function () {
-  $('#download_it').click(function () {
+  $('#download_it').on('click', function () {
     var wechat_regex = /MicroMessenger/i;
     var that = $('#download_it');
     if (wechat_regex.test(navigator.userAgent)) {
@@ -64,13 +64,13 @@ $(document).on('turbolinks:load', function () {
     window.location.href = install_url;
   });
 
-  $('.cover').click(function () {
+  $('.cover').on('click', function () {
     $(this).addClass('hide');
     $('.wechat-tips').addClass('hide');
     $('.navbar-fixed-top').css('z-index', 1030);
   });
 
-  $('.ios-install-issues a').click(function () {
+  $('.ios-install-issues a').on('click', function () {
     $('#install-issues').modal('toggle');
   });
 });
