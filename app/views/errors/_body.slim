@@ -1,0 +1,16 @@
+ruby:
+  content = t("errors.#{@code}.content")
+  content = nil if content.include?('translation_missing')
+
+- if content.present?
+  p = content
+
+- if @message.present?
+  p = @message
+
+p
+  | 请返回
+  = link_to '上级页面', session[:return_to] || request.referer
+  | 或
+  = link_to '控制台', root_path
+  | 看看

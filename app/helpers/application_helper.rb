@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def new_or_create_route?
+    new_route? || create_route?
+  end
+
+  def new_route?
+    params[:action] == 'new'
+  end
+
+  def create_route?
+    params[:action] == 'create'
+  end
+
+
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
@@ -56,26 +69,35 @@ module ApplicationHelper
       'Universal'
     when 'android'
       'Android'
+    when 'macos'
+      'macOS'
     else
       device_type
     end
   end
 
   def device_icon(device_type)
-    icon = case device_type.downcase
-           when 'ios', 'iphone', 'ipad', 'mac', 'ipa'
-             'fa-apple'
-           when 'android', 'apk'
-             'fa-android'
-           else
-             'fa-adn'
-           end
-
+    icon, _ = device_style(device_type)
     tag.i(class: "fab #{icon}")
   end
 
   def timeline_app_icon(device_type)
-    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
+    device_style(device_type).join(' ')
+  end
+
+  def device_style(device_type)
+    case device_type.downcase
+    when 'ios'
+      ['fa-apple', 'bg-black']
+    when 'android'
+      ['fa-android', 'bg-green']
+    when 'windows'
+      ['fa-windows', 'bg-warning']
+    when 'macos'
+      ['fa-app-store', 'bg-blue']
+    else
+      ['fa-adn', 'bg-lightblue']
+    end
   end
 
   # 获取浏览器 user agent
@@ -83,6 +105,13 @@ module ApplicationHelper
 
   def wechat?
     user_agent.include?('MicroMessenger')
+  end
+
+  def macos?(source = nil)
+    # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
+    # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
+    source ||= user_agent
+    source.downcase.include?('macintosh')
   end
 
   def ios?(source = nil)
@@ -96,25 +125,19 @@ module ApplicationHelper
     source.downcase.include?('android')
   end
 
-  def phone?
-    ios? || android?
-  end
+  # 检查设备
+  def detect_device(device, target)
+    value = if ios?(device)
+              :ios
+            elsif android?(device)
+              :android
+            elsif macos?(device)
+              :macos
+            else
+              :unkown
+            end
 
-  def mac?
-    # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
-    source ||= user_agent
-    source.downcase.include?('macintosh')
-  end
-
-  # 检查移动设备
-  def detect_device(device)
-    if ios?(user_agent) && ios?(device)
-      :ios
-    elsif android?(user_agent) && android?(device)
-      :android
-    else
-      :unkown
-    end
+    value == target.to_sym
   end
 
   def omniauth_display_name(provider)

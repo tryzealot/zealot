@@ -1,7 +1,0 @@
-= form_tag(teardowns_path, class:'form') do |form|
-  .form-group
-    input.form-control name="url" value="#{params[:url]}" placeholder="#{channel_release_url(Channel.take, Release.take)}"
-    input name="type" value="url" type="hidden"
-
-  .form-group
-    = submit_tag '开始解析', class: 'btn btn-primary'
