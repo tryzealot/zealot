@@ -1,46 +1,46 @@
 .sidebar
   nav.mt-2
-    ul.nav.nav-pills.nav-sidebar.nav-child-indent.flex-column data-widget="treeview" role="menu"
+    ul.nav.nav-pills.nav-sidebar.flex-column data-widget="treeview" role="menu" data-accordion="false"
       li.nav-header 功能区域
-      li class="nav-item"
+      li.nav-item
         a.nav-link href="#{root_path}" class="#{active_class(root_path)}"
           i.nav-icon.fas.fa-th
           p 控制台
-      li class="nav-item"
+      li.nav-item
         a.nav-link href="#{apps_path}" class="#{active_class(apps_path)}"
           i.nav-icon.fab.fa-adn
-          p 应用管理
-      li class="nav-item"
+          p 应用
+      li.nav-item
         a.nav-link href="#{debug_files_path}" class="#{active_class(debug_files_path)}"
           i.nav-icon.fas.fa-bug
-          p 调试文件管理
+          p 调试文件
 
       li.nav-header 工具箱
-      li class="nav-item"
+      li.nav-item
         a.nav-link href="#{teardowns_path}" class="#{active_class(teardowns_path)}"
           i.nav-icon.fas.fa-layer-group
-          p 文件解析
-      li class="nav-item"
+          p 应用解包
+      li.nav-item
         a.nav-link href="#{udid_path}" class="#{active_class(udid_path)}"
           i.nav-icon.fas.fa-eye
-          p 获取 iOS 设备 UDID
+          p 获取 UDID
 
       - if current_user&.admin?
         li.nav-header 管理区域
         li.nav-item
           a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
             i.nav-icon.fas.fa-user
-            p 用户管理
+            p 用户
         li.nav-item
           a.nav-link href="#{admin_web_hooks_path}" class="#{active_class(admin_web_hooks_path)}"
             i.nav-icon.fas.fa-anchor
-            p 网络钩子管理
+            p 网络钩子
         li.nav-item
           a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
             i.nav-icon.fas.fa-cog
             p 系统设置
-        li.nav-item.has-treeview class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_database_analytics_path], 'menu-open')}"
-          a.nav-link href="#" class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_database_analytics_path])}"
+        li.nav-item.has-treeview class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_database_analytics_path, admin_page_analytics_path], 'menu-open')}"
+          a.nav-link href="#" class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_database_analytics_path, admin_page_analytics_path])}"
             i.nav-icon.fas.fa-laptop-code
             p
               | 监控

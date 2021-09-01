@@ -4,14 +4,48 @@
 class Setting < RailsSettings::Base
   cache_prefix { 'v1' }
 
+  DEFAULT_SITE_HTTPS = Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
+  DEFAULT_SITE_DOMAIN = DEFAULT_SITE_HTTPS ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
+
+  class << self
+    def site_configs
+      group_configs.each_with_object({}) do |(scope, items), obj|
+        obj[scope] = items.each_with_object({}) do |item, inner|
+          key = item[:key]
+          value = Setting.send(key.to_sym)
+          inner[key] = {
+            value: value,
+            readonly: item[:readonly]
+          }
+        end
+      end
+    end
+
+    def find_or_default(var:)
+      find_by(var: var) || new(var: var)
+    end
+
+    def group_configs
+      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
+    end
+  end
+
   # 系统配置
   scope :general do
-    field :site_title, default: 'Zealot', type: :string, validates: { presence: true, length: { in: 3..16 } }, display: true
-    field :site_https, default: (Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?), type: :boolean, readonly: true
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || (site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}")), type: :string, readonly: true
+    field :site_title, default: 'Zealot', type: :string, display: true,
+                       validates: { presence: true, length: { in: 3..16 } }
+    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
+  end
+
+  # 预值
+  scope :presets do
+    field :default_schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+    field :default_role, default: 'user', type: :string, display: true,
+                         validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
   end
 
   # 模式开关
@@ -23,7 +57,7 @@ class Setting < RailsSettings::Base
 
   # 上传文件保留策略
   scope :limits do
-    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean, readonly: true
+    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'true'), type: :boolean, readonly: true
   end
 
   # 第三方登录
@@ -51,12 +85,12 @@ class Setting < RailsSettings::Base
     field :ldap, type: :hash, display: true, default: {
       enabled: ENV['LDAP_ENABLED'] || false,
       host: ENV['LDAP_HOST'],
-      port: ENV['LDAP_PORT'],
-      method: ENV['LDAP_METHOD'],
-      base_dn: ENV['LDAP_BASE_DN'],
+      port: ENV['LDAP_PORT'] || '389',
+      encryption: ENV['LDAP_METHOD'] || ENV['LDAP_ENCRYPTION'] || 'plain', # LDAP_METHOD will be abandon in the future
+      bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD'],
       base: ENV['LDAP_BASE'],
-      uid: ENV['LDAP_UID'],
+      uid: ENV['LDAP_UID'] || 'sAMAccountName'
     }
   end
 
@@ -72,45 +106,46 @@ class Setting < RailsSettings::Base
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
       enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'],
-    }, display: true
+    }
   end
 
   # 备份
-  field :backup, type: :hash, readonly: true, display: true, default: {
+  field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
     keep_time: 604800,
     pg_schema: 'public',
   }
 
-
-  # 系统信息（只读）
+  # 版本信息（只读）
   scope :information do
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true, display: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
+    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true, display: true
   end
 
-  class << self
-    def site_configs
-      group_configs.each_with_object({}) do |(scope, items), obj|
-        obj[scope] = items.each_with_object({}) do |item, inner|
-          key = item[:key]
-          value = Setting.send(key.to_sym)
-          inner[key] = {
-            value: value,
-            readonly: item[:readonly]
-          }
-        end
-      end
-    end
+  def field_validates
+    validates = Setting.validators_on(var)
+    validates.each_with_object([]) do |validate, obj|
+      next unless value = validate_value(validate)
 
-    def find_or_default(var:)
-      find_by(var: var) || new(var: var)
+      obj << value
     end
+  end
 
-    def group_configs
-      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
+  private
+
+  def validate_value(validate)
+    case validate
+    when ActiveModel::Validations::PresenceValidator
+      '不能为空值'
+    when ActiveRecord::Validations::LengthValidator
+      minimum = validate.options[:minimum]
+      maximum = validate.options[:maximum]
+      "长度限制： #{minimum} ~ #{maximum} 位"
+    when ActiveModel::Validations::InclusionValidator
+      values = validate.send(:delimiter)
+      "可选值： #{values.join(', ')}"
     end
   end
 end

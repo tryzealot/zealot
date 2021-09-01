@@ -2,4 +2,4 @@
 
 echo "Starting Zealot"
 cd /app
-bundle exec puma -C config/puma.rb  | tee /app/log/zealot.log
+./bin/puma -C /app/config/puma.rb  | tee /app/log/zealot.log

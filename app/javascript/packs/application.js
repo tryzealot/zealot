@@ -14,10 +14,13 @@
 //
 const images = require.context("../images", true);
 const imagePath = (name) => images(name, true);
+const HOST = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/";
+
+// Import Rails
+import Rails from "@rails/ujs";
+import Turbolinks from "turbolinks";
 
 // Import CSS
-import "bootstrap/dist/css/bootstrap";
-import "admin-lte/dist/css/adminlte";
 import "@fortawesome/fontawesome-free/css/all";
 import "stylesheets/application";
 
@@ -26,24 +29,25 @@ import "jquery";
 import "bootstrap";
 import "admin-lte";
 import "clipboard";
+import "channels";
 
-require("@rails/ujs").start();
-require("turbolinks").start();
-require("javascripts/debug_files");
-require("javascripts/releases");
-require("javascripts/teardown/upload");
-require("javascripts/udid");
+import "javascripts/debug_files";
+import "javascripts/releases";
+import "javascripts/teardown/upload";
+import "javascripts/udid";
+import "javascripts/admin";
 
-var HOST = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/";
+Rails.start();
+Turbolinks.start();
 
-document.addEventListener("turbolinks:load", function () {
+$(document).on("turbolinks:load", function () {
   // fix body height for AdminLTE 2.4.0 and turbolinks 5
   $(window).trigger("resize");
 
   // enable tooltip global
   $("[data-toggle='tooltip']").tooltip();
 
-  // fix collapse with no response
+  // // fix collapse with no response
   // $("[data-widget="collapse"]").each(function () {
   //   $(this).on("click", function () {
   //     var card = $(this).parents(".card");
@@ -51,12 +55,19 @@ document.addEventListener("turbolinks:load", function () {
   //     $(card).boxWidget("toggle");
   //   })
   // });
-});
 
-// auto switch dark mode
-// $(document).ready(function () {
-//   var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-//   if (isDarkMode) {
-//     $("body").removeClass("skin-black-light").addClass("skin-black");
-//   }
-// });
+  // // auto switch dark mode
+  // var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // console.log("darkmode: " + isDarkMode);
+
+  // if (isDarkMode == true) {
+  //   $("body").addClass("dark-mode");
+  //   $(".main-header").addClass("navbar-dark").removeClass("navbar-white");
+  //   $(".main-sidebar").addClass("sidebar-dark-primary").removeClass("sidebar-light-primary");
+  // }
+
+  // $(document).Toasts('create', {
+  //   title: 'Toast Title',
+  //   body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+  // })
+});
