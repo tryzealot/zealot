@@ -96,10 +96,12 @@ class Release < ApplicationRecord
     raise AppInfo::UnkownFileTypeError, '上传应用的文件类型不支持'
   rescue NoMethodError => e
     logger.error e.full_message
+    Sentry.capture_exception e
     raise AppInfo::Error, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
   rescue => e
     logger.error e.full_message
-    raise AppInfo::Error, "上传应用解析发现未知异常，原始错误：#{e.message}"
+    Sentry.capture_exception e
+    raise AppInfo::Error, "上传应用解析发现未知异常，原始错误 [#{e.class}]：#{e.message}"
   end
   private_methods :rescuing_app_parse_errors
 
