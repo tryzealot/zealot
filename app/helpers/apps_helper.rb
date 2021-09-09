@@ -2,7 +2,9 @@
 
 module AppsHelper
   def default_schemes
-    Setting.default_schemes
+    schemes = Setting.default_schemes
+    schemes = Setting.present_schemes if schemes.empty?
+    schemes
   end
 
   def default_channels
