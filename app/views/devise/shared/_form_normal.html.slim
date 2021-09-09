@@ -7,9 +7,10 @@
 
     .row
       .col-12
-        = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck-primary', style: 'margin-top: 6px!important'}, label_html: { style: 'font-weight: 700'} if devise_mapping.rememberable?
+        - if devise_mapping.rememberable?
+          = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck-primary', style: 'margin-top: 6px!important'}, label_html: { style: 'font-weight: 700'}
     .row
       .col-12
-        = f.button :submit, '登录', class: 'btn-block'
+        = f.button :submit, t('devise.sessions.new.sign_in'), class: 'btn-block'
 
   == render 'devise/shared/links'
