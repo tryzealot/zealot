@@ -21,7 +21,7 @@ zh-CN:
         password: '登录密码'
         password_confirmation: '密码确认'
         role: '账户权限'
-        remember_me: '记住我'
+        remember_me: '记住登录信息'
       app:
         name: '应用名称'
         schemes:

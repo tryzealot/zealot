@@ -22,6 +22,7 @@ zh-CN:
   admin:
     link:
       back_to_list: 返回列表
+
     system_info:
       server_info: 服务器信息
       zealot_version:  Zealot 版本
@@ -38,6 +39,7 @@ zh-CN:
       volume_mounted: 挂载信息
       fail_detect_disk: 硬盘信息无法获取
       system_enviroment: 系统变量
+
     settings:
       enable: 开启
       disable: 关闭
@@ -83,6 +85,7 @@ zh-CN:
       submit:
         create: 新增设置
         update: 更新设置
+
     users:
       new_user: 新建用户
       user_info: 用户信息
@@ -100,7 +103,12 @@ zh-CN:
       destroy_user_confirm: 你确定要删除【%{user}】用户？
       active_link: 激活链接
       active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+
     web_hooks:
+      show: 网络钩子详情
+      new: 新建网络钩子
+      edit: 编辑网络钩子
+
       number: '#'
       url: URL
       channels: 渠道列表
@@ -108,6 +116,12 @@ zh-CN:
       empty_content: 没有发现网络钩子
       destroy: 删除
       destroy_confirm: 你确定？
+      messages:
+        success:
+          enable: 网络钩子已经成功启用
+          disable: 网络钩子已经取消启用
+          test: 网络钩子请求测试已发送
+
   dashboard:
     my_dashboard: 我的控制台
     analytics:
@@ -130,12 +144,15 @@ zh-CN:
     edit_app: 编辑应用
     goback_to_app: 返回应用
     messages:
-      create_app_success: '%{name} 应用已经创建成功！'
-      not_found_app_by_version: '没有找到应用版本: %{version}'
-      not_found_app: 没有找到应用 %{id}，跳转至应用列表
-      delete_app_confirm: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
-      delete_app_scheme_confirm: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
-      delete_app_channel_confirm: 确定删除【%{name}】渠道和已上传的应用数据?
+      success:
+        create: '%{name} 应用已经创建成功！'
+      failture:
+        not_found_app_by_version: '没有找到应用版本: %{version}'
+        not_found_app: 没有找到应用 %{id}，跳转至应用列表
+      confirm:
+        delete_app_confirm: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
+        delete_app_scheme_confirm: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
+        delete_app_channel_confirm: 确定删除【%{name}】渠道和已上传的应用数据?
     menu:
       new_scheme: 新增类型
       edit_app: 编辑应用
@@ -189,6 +206,7 @@ zh-CN:
       x_days: " %{count} 天"
       x_months: " %{count} 个月"
       x_years: " %{count} 年"
+
   errors:
     '400':
       title: 您提交的请求无效或格式不正确
@@ -213,7 +231,13 @@ zh-CN:
       title: 服务暂时不可用，无法请求该页面
     messages:
       mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
+      invaild_in_demo_mode: 演示模式不能编辑默认管理员
+
   activerecord:
+    success:
+      create: "%{key}创建成功"
+      update: "%{key}更新成功"
+      destroy: "%{key}删除成功"
     errors:
       models:
         setting:
@@ -224,6 +248,17 @@ zh-CN:
               blank: 请选择要上传对于的应用
             file:
               blank: 必须选择一个 zip 文件
+
+  devise:
+    normal:
+      title: 标准登录
+    ldap:
+      title: LDAP 登录
+      username: LDAP 账户
+      password: LDAP 密码
+    shared:
+      hint: '- 或者 -'
+      # sign_in_with_provider: "使用%{provider}账号登录"
 
   helpers:
     submit:

@@ -36,7 +36,7 @@ class AppsController < ApplicationController
 
     @app.users << current_user
     app_create_schemes_and_channels
-    redirect_to apps_path, notice: t('apps.messages.create_app_success', name: @app.name)
+    redirect_to apps_path, notice: t('apps.messages.success.create', name: @app.name)
   end
 
   def update
@@ -91,6 +91,6 @@ class AppsController < ApplicationController
   end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: t('apps.messages.not_found_app', id: e.id)
+    redirect_to apps_path, notice: t('apps.messages.failture.not_found_app', id: e.id)
   end
 end
