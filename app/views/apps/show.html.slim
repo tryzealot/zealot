@@ -8,7 +8,7 @@
   .btn-group
     = button_link_to t('apps.menu.new_scheme'), new_app_scheme_path(@app), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
     = button_link_to t('apps.menu.edit_app'), edit_app_path(@app), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-    = button_link_to t('apps.menu.destroy_app'), app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.delete_app_confirm', name: @app.name)}", method: "delete" }
+    = button_link_to t('apps.menu.destroy_app'), app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}", method: "delete" }
 
 .row
   .col-md-12
@@ -22,7 +22,7 @@
               .sections-actions.btn-group
                 = button_link_to t('apps.menu.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
                 = button_link_to t('apps.menu.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-                = button_link_to t('apps.menu.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.delete_app_scheme_confirm', name: scheme.app_name)}", method: "delete" }
+                = button_link_to t('apps.menu.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}", method: "delete" }
 
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"
@@ -34,7 +34,7 @@
                         = link_to channel.name, channel_path(channel)
                       td style="width: 120px"
                         = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
-                        = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', data: { confirm: "#{t('apps.messages.delete_app_channel_confirm', name: channel.app_name)}", method: "delete" }
+                        = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', data: { confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}", method: "delete" }
                 - else
                   tr
                     td colspan="2"

@@ -12,28 +12,28 @@ class WebHooksController < ApplicationController
     authorize @web_hook
     return redirect_to_channel_url unless @web_hook.save
 
-    redirect_to_channel_url notice: '网络钩子创建成功'
+    redirect_to_channel_url notice: t('activerecord.success.create', key: t('menu.web_hooks'))
   end
 
   def destroy
     @web_hook.destroy
-    redirect_to_channel_url notice: '网络钩子已经成功删除'
+    redirect_to_channel_url notice: t('activerecord.success.destroy', key: t('menu.web_hooks'))
   end
 
   def disable
     @channel.web_hooks.delete @web_hook
-    redirect_to_channel_url notice: '网络钩子已经取消启用'
+    redirect_to_channel_url notice: t('admin.web_hooks.messages.success.disable')
   end
 
   def enable
     @web_hook.channels << @channel
-    redirect_to channel_url(@channel, anchor: 'enabled'), notice: '网络钩子已经成功启用'
+    redirect_to channel_url(@channel, anchor: 'enabled'), notice: t('admin.web_hooks.messages.success.enable')
   end
 
   def test
     event = params[:event] || 'upload_events'
     AppWebHookJob.perform_later event, @web_hook, @channel
-    redirect_to_channel_url notice: '网络钩子请求测试已发送'
+    redirect_to_channel_url notice: t('admin.web_hooks.messages.success.test')
   end
 
   private
