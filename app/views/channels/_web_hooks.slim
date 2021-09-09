@@ -1,24 +1,24 @@
 .card
   .card-header
-    h3.card-title 网络钩子
+    h3.card-title = t('menu.web_hooks')
     .card-tools
       button.btn.btn-tool data-card-widget="collapse"
         i.fas.fa-minus
   .card-body
     section#add-webhooks
-      h5 添加网络钩子
+      h5 = t('web_hooks.create')
       == render 'web_hooks/form'
 
     section#webhooks-list
       ul.nav.nav-tabs id="web_hooks_list" role="tablist"
         li.nav-item
           a.nav-link.active data-toggle="tab" role="tab" id="enabled-tab" href="#enabled" aria-controls="enabled" aria-selected="true"
-            | 启用
+            = t('web_hooks.enable')
             span.badge.badge-secondary.badge-pill.ml-1
               = @channel.enabled_web_hooks_count
         li.nav-item
           a.nav-link data-toggle="tab" role="tab" id="shared-tab" href="#shared" aria-controls="shared" aria-selected="false"
-            | 共享
+            = t('web_hooks.shared')
             span.badge.badge-secondary.badge-pill.ml-1
               = @channel.available_web_hooks_count
 
