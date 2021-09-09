@@ -10,7 +10,8 @@ class Admin::SettingsController < ApplicationController
   end
 
   def edit
-    @title = '编辑设置'
+    @title = t('admin.settings.edit_value')
+    @value = @setting.value || @setting.default_value
   end
 
   def update
