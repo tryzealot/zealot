@@ -10,11 +10,11 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def show
-    @title = '网络钩子详情'
+    @title = t('admin.web_hooks.show')
   end
 
   def new
-    @title = '新建网络钩子'
+    @title = t('admin.web_hooks.new')
     @web_hook = WebHook.new
     authorize @web_hook
   end
@@ -24,23 +24,23 @@ class Admin::WebHooksController < ApplicationController
     authorize @web_hook
     return render :new unless @web_hook.save
 
-    redirect_to admin_users_url, notice: '网络钩子创建成功'
+    redirect_to admin_users_url, notice: t('activerecord.success.create', key: t('menu.web_hooks'))
   end
 
   def edit
-    @title = '编辑网络钩子'
+    @title = t('admin.web_hooks.edit')
   end
 
   def update
     channel_ids = web_hook_params.delete(:channel_ids)
     return render :edit unless @web_hook.update(web_hook_params)
 
-    redirect_to admin_web_hooks_url, notice: '网络钩子已经更新'
+    redirect_to admin_web_hooks_url, notice: t('activerecord.success.update', key: t('menu.web_hooks'))
   end
 
   def destroy
     @web_hook.destroy
-    redirect_to admin_web_hooks_url, notice: '网络钩子已经删除'
+    redirect_to admin_web_hooks_url, notice: t('activerecord.success.destroy', key: t('menu.web_hooks'))
   end
 
   private

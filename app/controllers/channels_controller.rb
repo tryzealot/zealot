@@ -26,7 +26,7 @@ class ChannelsController < ApplicationController
     authorize @channel
 
     if @channel.save
-      redirect_to app_path(@channel.scheme.app), notice: "#{@channel.scheme.name} #{@channel.name} 渠道创建成功"
+      redirect_to app_path(@channel.scheme.app), notice: t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} 渠道")
     else
       @channel.errors
     end
