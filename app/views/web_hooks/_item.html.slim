@@ -5,40 +5,43 @@ tr
     p
       - if web_hook.upload_events == 1
         span.badge.bg-light-gray
-          | 上传事件
+          = t('simple_form.labels.web_hook.upload_events')
       - if web_hook.download_events == 1
         span.badge.bg-light-gray
-          | 下载事件
+          = t('simple_form.labels.web_hook.download_events')
       - if web_hook.changelog_events == 1
         span.badge.bg-light-gray
-          | 日志变更事件
+          = t('simple_form.labels.web_hook.changelog_events')
   td style="width: 140px"
     - web_hook.channels.all.each do |shared_channel|
       span.badge.bg-light-gray
         - if shared_channel == current_channel
-          | 当前渠道
+          = t('web_hooks.current_channel')
         - else
           = link_to shared_channel.app_name, channel_path(shared_channel)
   td style="width: 70px"
     - if type == :enabled
       .btn-group-vertical
         .btn-group
-          button.btn.btn-sm.btn-default data-toggle="tooltip" data-placement="top" title="测试"
+          button.btn.btn-sm.btn-default data-toggle="tooltip" data-placement="top" title="#{t('web_hooks.test')}"
             i.fas.fa-bullhorn
           button.btn.btn-sm.btn-default.dropdown-toggle.dropdown-icon.dropdown-hover data-toggle="dropdown"
           ul.dropdown-menu role="menu" x-placement="bottom-start"
             li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}" 上传事件
+              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}"
+                = t('simple_form.labels.web_hook.upload_events')
             li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'download_events')}" 下载事件
+              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'download_events')}"
+                = t('simple_form.labels.web_hook.download_events')
             li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}" 日志变更事件
+              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}"
+                = t('simple_form.labels.web_hook.changelog_events')
         - if web_hook.channels_count == 1
-          a.btn.btn-sm.btn-danger data-toggle="tooltip" data-placement="bottom" title="删除" data-confirm="确定删除?" rel="nofollow" data-method="delete" href="#{channel_web_hook_path(@channel, web_hook)}"
+          a.btn.btn-sm.btn-danger data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.destroy')}" data-confirm="#{t('web_hooks.messages.confirm.destroy')}" rel="nofollow" data-method="delete" href="#{channel_web_hook_path(@channel, web_hook)}"
             i.fas.fa-trash-alt
         - else
-          a.btn.btn-sm.btn-warning data-toggle="tooltip" data-placement="bottom" title="禁用" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
-            i.fas.fa-ban
+          a.btn.btn-sm.btn-warning data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.disable')}" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
+            i.fas.fa-stop
     - elsif type == :shared
-      a.btn.btn-sm.btn-default del="nofollow" data-toggle="tooltip" data-placement="bottom" title="启用" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
-        i.fas.fa-check
+      a.btn.btn-sm.btn-default del="nofollow" data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
+        i.fas.fa-play
