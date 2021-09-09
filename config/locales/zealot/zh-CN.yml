@@ -150,9 +150,9 @@ zh-CN:
         not_found_app_by_version: '没有找到应用版本: %{version}'
         not_found_app: 没有找到应用 %{id}，跳转至应用列表
       confirm:
-        delete_app_confirm: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
-        delete_app_scheme_confirm: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
-        delete_app_channel_confirm: 确定删除【%{name}】渠道和已上传的应用数据?
+        delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
+        delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
+        delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
     menu:
       new_scheme: 新增类型
       edit_app: 编辑应用
@@ -184,6 +184,19 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
+  web_hooks:
+    create: 添加网络钩子
+    enable: 启用
+    shared: 共享
+    not_found: 没有发现网络钩子
+    current_channel: 当前渠道
+    test: 测试
+    destroy: 删除
+    disable: 禁用
+    enable: 启用
+    messages:
+      confirm:
+        destroy: 确定删除?
 
   settings:
     default_schemes:
