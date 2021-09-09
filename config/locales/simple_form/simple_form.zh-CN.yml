@@ -48,6 +48,7 @@ zh-CN:
         upload_events: '上传事件'
         download_events: '下载事件'
         changelog_events: '日志变更事件'
+        channels: 启用的应用渠道
       debug_file:
         app_id: '应用'
         device_type: '应用平台'

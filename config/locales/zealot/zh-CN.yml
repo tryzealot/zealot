@@ -18,7 +18,10 @@ zh-CN:
     background_jobs: 后台任务
     page_analytics: 页面统计分析
     database_analytics: 数据库分析
+
   admin:
+    link:
+      back_to_list: 返回列表
     system_info:
       server_info: 服务器信息
       zealot_version:  Zealot 版本
@@ -39,6 +42,7 @@ zh-CN:
       enable: 开启
       disable: 关闭
       validates: '条件：%{value}'
+      edit_value: 编辑设置
 
       general: 通用配置
       site_title: 网站标题
@@ -82,7 +86,6 @@ zh-CN:
     users:
       new_user: 新建用户
       user_info: 用户信息
-      goback_to_list: 返回列表
       number: '#'
       nickname: 用户昵称
       email: 邮箱

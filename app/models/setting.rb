@@ -2,17 +2,27 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
+  extend ActionView::Helpers::TranslationHelper
+
   cache_prefix { 'v1' }
 
-  DEFAULT_SITE_HTTPS = Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
-  DEFAULT_SITE_DOMAIN = DEFAULT_SITE_HTTPS ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
-  DEFAULT_SCHEMES = [
-    I18n.t('settings.default_schemes.beta'),
-    I18n.t('settings.default_schemes.adhoc'),
-    I18n.t('settings.default_schemes.production'),
-  ]
-
   class << self
+    def present_schemes
+      [
+        t('settings.default_schemes.beta', raise: false),
+        t('settings.default_schemes.adhoc', raise: false),
+        t('settings.default_schemes.production', raise: false)
+      ]
+    end
+
+    def site_https
+      Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
+    end
+
+    def site_domain
+      site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
+    end
+
     def site_configs
       group_configs.each_with_object({}) do |(scope, items), obj|
         obj[scope] = items.each_with_object({}) do |item, inner|
@@ -60,7 +70,7 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :default_schemes, default: DEFAULT_SCHEMES, type: :array, display: true
+    field :default_schemes, default: present_schemes, type: :array, display: true
     field :default_role, default: 'user', type: :string, display: true,
                          validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
   end
@@ -146,12 +156,22 @@ class Setting < RailsSettings::Base
   end
 
   def field_validates
-    validates = Setting.validators_on(var)
+    validates = self.class.validators_on(var)
     validates.each_with_object([]) do |validate, obj|
       next unless value = validate_value(validate)
 
       obj << value
     end
+  end
+
+  def default_value
+    self.class.send(self.var.to_sym)
+  end
+  alias_method :default, :default_value
+
+  def type
+    @option ||= self.class.get_field(self.var)
+    @option[:type]
   end
 
   private
