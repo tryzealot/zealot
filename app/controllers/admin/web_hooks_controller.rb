@@ -32,6 +32,7 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def update
+    channel_ids = web_hook_params.delete(:channel_ids)
     return render :edit unless @web_hook.update(web_hook_params)
 
     redirect_to admin_web_hooks_url, notice: '网络钩子已经更新'
@@ -50,6 +51,9 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def web_hook_params
-    params.require(:web_hook).permit(:url, :upload_events, :download_events, :changelog_events)
+    params.require(:web_hook).permit(
+      :url, :body, :upload_events, :download_events, :changelog_events,
+      channel_ids: []
+    )
   end
 end
