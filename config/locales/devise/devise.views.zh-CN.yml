@@ -112,8 +112,8 @@ zh-CN:
       already_signed_out: 您已登出。
       new:
         sign_in: 登录
-      signed_in: 登录成功。
-      signed_out: 登出成功。
+      signed_in: 登录成功
+      signed_out: 登出成功
     shared:
       links:
         back: 返回
