@@ -3,12 +3,16 @@
 root * /app/public
 encode zstd gzip
 file_server
-log
+log {
+  output file /app/log/caddy.log {
+    roll_size 50mb
+    roll_keep 5
+    roll_keep_for 720h
+  }
+}
 
 @zealot {
-  # # websockets
-  # header Connection *Upgrade*
-  # header Upgrade websocket
+  path *
 
   # static files
   not file
@@ -31,4 +35,8 @@ reverse_proxy @zealot {
     rewrite * /500.html
     file_server
   }
+
+  # websockets
+  # header Connection *Upgrade*
+  # header Upgrade websocket
 }
