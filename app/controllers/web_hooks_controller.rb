@@ -12,12 +12,12 @@ class WebHooksController < ApplicationController
     authorize @web_hook
     return redirect_to_channel_url unless @web_hook.save
 
-    redirect_to_channel_url notice: t('activerecord.success.create', key: t('menu.web_hooks'))
+    redirect_to_channel_url notice: t('activerecord.success.create', key: t('web_hooks.title'))
   end
 
   def destroy
     @web_hook.destroy
-    redirect_to_channel_url notice: t('activerecord.success.destroy', key: t('menu.web_hooks'))
+    redirect_to_channel_url notice: t('activerecord.success.destroy', key: t('web_hooks.title'))
   end
 
   def disable
