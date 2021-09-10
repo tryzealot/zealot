@@ -13,7 +13,7 @@
         - @releases.each do |release|
           li.item
             .product-img
-              = app_icon(release, size: :medium, class: 'img-circle')
+              = app_icon(release, class: 'img-circle')
             .product-info
               a.product-title href="javascript:void(0)"
                 = link_to release.name || release.app_name, channel_release_path(release.channel, release)
