@@ -16,6 +16,6 @@ class Scheme < ApplicationRecord
   end
 
   def total_releases
-    channels.count
+    channels.size
   end
 end

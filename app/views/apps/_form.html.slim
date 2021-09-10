@@ -1,11 +1,7 @@
 ruby:
   checked_scheme = @schemes ? @schemes[:name] : 0
   checked_channel = @channels ? @channels[:name] : 0
-  head_title, back_url = if new_or_create_route?
-    [t('apps.apps'), apps_path]
-  else
-    [t('apps.goback_to_app'), app_path(@app)]
-  end
+  link_url = new_or_create_route? ? apps_path : app_path(@app)
 
 .col-md-12
   .card
@@ -13,9 +9,9 @@ ruby:
       h3.card-title
         = @title
       .card-tools
-        a href="#{back_url}"
+        a href="#{link_url}"
           i.far.fa-list-alt
-          = " #{head_title}"
+          = t('links.goback_to_list')
     .card-body
       = simple_form_for @app do |f|
         = f.error_notification
