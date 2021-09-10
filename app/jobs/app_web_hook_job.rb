@@ -55,7 +55,7 @@ class AppWebHookJob < ApplicationJob
                                    file_size: @release.file.size,
                                    release_url: @release.release_url,
                                    install_url: @release.install_url,
-                                   icon_url: @release.icon_url(:medium),
+                                   icon_url: @release.icon_url,
                                    qrcode_url: @release.qrcode_url,
                                    uploaded_at: @release.created_at
                                  }

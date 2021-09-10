@@ -70,23 +70,23 @@ class Release < ApplicationRecord
   end
 
   def self.fetch_icon(parser)
-    case parser.os
-    when AppInfo::Platform::IOS
-      parser.icons.last.try(:[], :uncrushed_file)
-    when AppInfo::Platform::MACOS
-      return if parser.icons.blank?
+    file = case parser.os
+           when AppInfo::Platform::IOS
+             parser.icons.last.try(:[], :uncrushed_file)
+           when AppInfo::Platform::MACOS
+             return if parser.icons.blank?
 
-      file = parser.icons[:sets].last.try(:[], :file)
-      File.open(file, 'rb') if file
-    when AppInfo::Platform::ANDROID
-      # 处理 Android anydpi 自适应图标
-      file = parser.icons
+             parser.icons[:sets].last.try(:[], :file)
+           when AppInfo::Platform::ANDROID
+             # 处理 Android anydpi 自适应图标
+             parser.icons
                    .reject { |f| File.extname(f[:file]) == '.xml' }
                    .last
                    .try(:[], :file)
+           end
 
-      File.open(file, 'rb') if file
-    end
+
+    File.open(file, 'rb') if file
   end
   private_methods :fetch_icon
 
