@@ -2,6 +2,6 @@
 
 class Admin::DatabaseAnalyticsController < ApplicationController
   def index
-    @title = t('menu.database_analytics')
+    @title = t('database_analytics.title')
   end
 end
