@@ -24,8 +24,6 @@ zh-CN:
         remember_me: '记住登录信息'
       app:
         name: '应用名称'
-        schemes:
-          name: :'simple_form.labels.scheme.name'
       scheme:
         name: '类型名称'
       channel:
