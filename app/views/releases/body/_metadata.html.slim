@@ -13,7 +13,7 @@
 .app-detail.card
   .card-header
     h3.card-title
-      = app_icon(@release, size: :medium, class: 'app-icon img-circle img-bordered-sm')
+      = app_icon(@release, class: 'app-icon img-circle img-bordered-sm')
       .app-name
         = @release.name || @release.app_name
         .app-identifier

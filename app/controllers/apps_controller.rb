@@ -5,9 +5,8 @@ class AppsController < ApplicationController
   before_action :set_app, only: %i[show edit update destroy]
   before_action :process_scheme_and_channel, only: %i[create]
 
-
   def index
-    @title = t('apps.apps')
+    @title = t('.title')
     @apps = App.all
     authorize @apps
   end
@@ -17,7 +16,7 @@ class AppsController < ApplicationController
   end
 
   def new
-    @title = t('apps.new_app')
+    @title = t('.title')
     @app = App.new
     authorize @app
 
@@ -25,7 +24,7 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @title = t('apps.edit_app')
+    @title = t('.title')
   end
 
   def create
@@ -55,6 +54,7 @@ class AppsController < ApplicationController
 
   def destory_app_data
     require 'fileutils'
+
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
     logger.debug "Delete app all binary and icons in #{app_binary_path}"
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)

@@ -4,6 +4,10 @@ zh-CN:
   admin_section: 管理面板
   monitors_section: 监控
 
+  links:
+    goback_to_list: 返回列表
+    goback: 返回
+
   admin:
     link:
       back_to_list: 返回列表
@@ -109,15 +113,14 @@ zh-CN:
 
   dashboard:
     title: 控制台
-    my_dashboard: 我的控制台
     analytics:
-      apps: 应用
-      debug_files: 调试文件
-      teardowns: 文件解析
+      apps: :'apps.title'
+      debug_files: :'debug_files.title'
+      teardowns: :'teardowns.title'
       uploads: 上传次数
-      web_hooks: 网络钩子
-      users: 用户
-      background_jobs: 后台任务
+      web_hooks: :'web_hooks.title'
+      users: :'users.title'
+      background_jobs: :'background_jobs.title'
       disk_usage: 磁盘使用率
     timeline:
       title: 上传时间线
@@ -126,30 +129,9 @@ zh-CN:
 
   apps:
     title: 应用
-    apps: 应用管理
-    new_app: 新建应用
-    edit_app: 编辑应用
-    goback_to_app: 返回应用
-    messages:
-      success:
-        create: '%{name} 应用已经创建成功！'
-      failture:
-        not_found_app_by_version: '没有找到应用版本: %{version}'
-        not_found_app: 没有找到应用 %{id}，跳转至应用列表
-      confirm:
-        delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
-        delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
-        delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
-    menu:
-      new_scheme: 新增类型
-      edit_app: 编辑应用
-      destroy_app: 删除应用
-      new_channel: 新增渠道
-      edit_scheme: 编辑类型
-      destory_scheme: 删除类型
-    table:
+    index:
       apps:
-        type: 类型名称
+        type: 类型
         channel_count: 渠道数量
         new_app_scheme: 还没有任何应用类型和渠道，开始%{link}吧。
         new_app_scheme_link_title: 创建第一个应用类型和渠道
@@ -171,11 +153,32 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
+    new:
+      title: 新建应用
+    edit:
+      title: 编辑应用
+    messages:
+      success:
+        create: '%{name} 应用已经创建成功！'
+      failture:
+        not_found_app_by_version: '没有找到应用版本: %{version}'
+        not_found_app: 没有找到应用 %{id}，跳转至应用列表
+      confirm:
+        delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
+        delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
+        delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
+    menu:
+      new_scheme: 新增类型
+      edit_app: 编辑应用
+      destroy_app: 删除应用
+      new_channel: 新增渠道
+      edit_scheme: 编辑类型
+      destory_scheme: 删除类型
 
   debug_files:
     title: 调试文件
 
-  teardown:
+  teardowns:
     title: 应用解包
 
   fetch_ios_udid:
