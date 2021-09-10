@@ -1,23 +1,8 @@
 zh-CN:
-  menu:
-    function_section: 功能区域
-    dashboard: 控制台
-    apps: 应用
-    debug_files: 调试文件
-
-    toolbox_section: 工具箱
-    teardown: 应用解包
-    fetch_ios_udid: 获取 UDID
-
-    admin_section: 管理面板
-    users: 用户
-    web_hooks: 网络钩子
-    system_settings: 系统设置
-    monitors: 监控
-    system_info: 环境信息
-    background_jobs: 后台任务
-    page_analytics: 页面统计分析
-    database_analytics: 数据库分析
+  function_section: 功能区域
+  toolbox_section: 工具箱
+  admin_section: 管理面板
+  monitors_section: 监控
 
   admin:
     link:
@@ -123,6 +108,7 @@ zh-CN:
           test: 网络钩子请求测试已发送
 
   dashboard:
+    title: 控制台
     my_dashboard: 我的控制台
     analytics:
       apps: 应用
@@ -139,6 +125,7 @@ zh-CN:
       not_found: 没有任何上传，快快上传吧。
 
   apps:
+    title: 应用
     apps: 应用管理
     new_app: 新建应用
     edit_app: 编辑应用
@@ -184,7 +171,21 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
+
+  debug_files:
+    title: 调试文件
+
+  teardown:
+    title: 应用解包
+
+  fetch_ios_udid:
+    title: 获取 UDID
+
+  users:
+    title: 用户
+
   web_hooks:
+    title: 网络钩子
     create: 添加网络钩子
     enable: 启用
     shared: 共享
@@ -197,6 +198,21 @@ zh-CN:
     messages:
       confirm:
         destroy: 确定删除?
+
+  system_settings:
+    title: 系统设置
+
+  system_info:
+    title: 环境信息
+
+  background_jobs:
+    title: 后台任务
+
+  page_analytics:
+    title: 页面统计分析
+
+  database_analytics:
+    title: 数据库分析
 
   settings:
     default_schemes:

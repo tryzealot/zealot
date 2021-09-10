@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[edit update destroy]
 
   def index
-    @title = t('menu.users')
+    @title = t('users.title')
     @users = User.all
     authorize @users
   end
@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
 
     return render :new unless @user.save
 
-    redirect_to admin_users_url, notice: t('activerecord.success.create', key: t('menu.users'))
+    redirect_to admin_users_url, notice: t('activerecord.success.create', key: t('users.title'))
   end
 
   def edit
@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
     params.delete(:password) if params[:password].blank?
     return render :edit unless @user.update(params)
 
-    redirect_to admin_users_url, notice: t('activerecord.success.update', key: t('menu.users'))
+    redirect_to admin_users_url, notice: t('activerecord.success.update', key: t('users.title'))
   end
 
   def destroy
@@ -47,7 +47,7 @@ class Admin::UsersController < ApplicationController
     end
 
     @user.destroy
-    redirect_to admin_users_url, notice: t('activerecord.success.destroy', key: t('menu.users'))
+    redirect_to admin_users_url, notice: t('activerecord.success.destroy', key: t('users.title'))
   end
 
   private

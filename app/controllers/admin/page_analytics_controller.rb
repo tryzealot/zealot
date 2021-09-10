@@ -2,6 +2,6 @@
 
 class Admin::PageAnalyticsController < ApplicationController
   def index
-    @title = t('menu.page_analytics')
+    @title = t('page_analytics.title')
   end
 end
