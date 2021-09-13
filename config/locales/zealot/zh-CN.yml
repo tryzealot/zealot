@@ -2,9 +2,9 @@ zh-CN:
   admin:
     settings:
       general: 通用配置
-      site_title: 站点标题
-      site_https: 站点启用 HTTPS
-      site_domain: 站点域名
+      site_title: 网站标题
+      site_https: 启用 HTTPS
+      site_domain: 网站域名
 
       presets: 默认值
       default_schemes: 应用的类型名称
