@@ -12,7 +12,7 @@
 
     .col-md-4
       - if user_signed_in?
-        a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
+        a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" = t('channels.show.upload_release')
       == render 'releases/sidebar/qrcode'
       == render 'releases/sidebar/version'
       a.btn.btn-default.btn-block href="#{channel_path(@channel)}" 应用管理

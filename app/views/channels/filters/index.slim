@@ -12,6 +12,6 @@
         .card-tools
           a href="#{channel_path(@channel)}"
             i.far.fa-list-alt
-            |  返回上级页面
+            = t('links.goback_to_list')
       .table-responsive
         == render 'channels/filters/list'

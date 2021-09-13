@@ -132,21 +132,26 @@ zh-CN:
   apps:
     title: 应用
     index:
-      apps:
-        type: 类型
-        channel_count: 渠道数量
-        new_app_scheme: 还没有任何应用类型和渠道，开始%{link}吧。
-        new_app_scheme_link_title: 创建第一个应用类型和渠道
-        tips:
-          title: 右上角的按钮是本应用的功能区：
-          create_app_scheme_and_channel: 创建应用类型和渠道
-          edit_app_name: 编辑应用名称
-          destroy_app: 删除应用
-      app:
-        not_found_channel_body_html: |
-          没有发现任何渠道，选择右上角的 <i class="far fa-plus-square" /> 新增渠道。
-        emtpy_content_body_html: |
-          <h5>没有发现任何应用类型！</h5>
+      schemes: 类型
+      channels: 渠道
+      uploads: 上传
+      created_at: 创建于%{time}
+      not_found:
+        title: 没有发现任何应用
+        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增应用。
+    show:
+      new_scheme: 新增类型
+      edit_app: 编辑应用
+      destroy_app: 删除应用
+      new_channel: 新增渠道
+      edit_scheme: 编辑类型
+      destory_scheme: 删除类型
+      not_found_channel_body_html: |
+        没有发现任何渠道，选择右上角的 <i class="far fa-plus-square"></i> 新增渠道
+      not_found_scheme:
+        title: 没有发现任何应用类型
+        body_html: |
+          <p>选择右上角的 <i class="far fa-plus-square"></i> 新增类型</p>
           <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
           <ul>
             <li>开发版本、内测版本、公测版本、线上版本</li>
@@ -160,8 +165,6 @@ zh-CN:
     edit:
       title: 编辑应用
     messages:
-      success:
-        create: '%{name} 应用已经创建成功！'
       failture:
         not_found_app_by_version: '没有找到应用版本: %{version}'
         not_found_app: 没有找到应用 %{id}，跳转至应用列表
@@ -169,13 +172,53 @@ zh-CN:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
-    menu:
-      new_scheme: 新增类型
-      edit_app: 编辑应用
-      destroy_app: 删除应用
-      new_channel: 新增渠道
-      edit_scheme: 编辑类型
-      destory_scheme: 删除类型
+
+  schemes:
+    title: 应用类型
+    show:
+      empty_channel: 没有发现已创建的渠道，请新建一个
+    new:
+      title: '%{app}新建类型'
+    edit:
+      title: '%{app}编辑类型'
+
+  channels:
+    title: 应用渠道
+    show:
+      scheme: :'schemes.title'
+      channel: :'channels.title'
+      activity: 最近上传动态
+      upload_release: 上传应用
+      metadata: 渠道信息
+      device_type: 设备类型
+      slug: 唯一地址
+      password: 访问密码
+      git_url: Git 仓库地址
+      match_rule: 匹配模式 %{value}
+      wildmatch: (不限制上传包的包名)
+      total_releases: 上传版本
+      channel_key: 渠道 KEY
+      manage_app: 应用管理
+      none: 未设置
+      not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
+
+      recently_versions: 最近版本
+      release_version: 主版本号
+      total_version: 版本数量
+      empty_version_shortly: 暂无版本
+      empty_version: 该版本没有任何上传记录！
+      more: 查看更多
+
+      id: ID
+      build_version: 开发版本
+      git_branch: 分支
+      git_commit: 开发版本
+      release_type: 打包类型
+      uploaded_at: 上传时间
+      actions: 操作
+    messages:
+      confirm:
+        destroy: :'web_hooks.messages.confirm.destroy'
 
   debug_files:
     title: 调试文件
@@ -189,17 +232,8 @@ zh-CN:
       missing_file: 遗失文件无法下载
       empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
       not_found:
-        title: 没有发现任何应用类型！
-        body_html: |
-          <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
-          <ul>
-            <li>开发版本、内测版本、公测版本、线上版本</li>
-          </ul>
-          <p></p>
-          <p>如果应用仅提供 Android 版本，可以按照应用渠道划分为：</p>
-          <ul>
-            <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
-          </ul>
+        title: 没有发现任何调试文件！
+        body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
     help:
       title: 什么是调试文件，如何找到它？
       body_html: |
