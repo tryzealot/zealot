@@ -153,7 +153,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffi (1.15.3)
+    ffi (1.15.4)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -201,11 +201,11 @@ GEM
     hashie (4.1.0)
     health_check (3.1.0)
       railties (>= 5.0)
-    http (5.0.1)
-      addressable (~> 2.3)
+    http (5.0.2)
+      addressable (~> 2.8)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
-      llhttp-ffi (~> 0.3.0)
+      llhttp-ffi (~> 0.4.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
@@ -251,7 +251,7 @@ GEM
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    llhttp-ffi (0.3.1)
+    llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     loofah (2.12.0)
@@ -528,7 +528,7 @@ DEPENDENCIES
   guard-sidekiq
   guard-webpacker
   health_check (~> 3.1.0)
-  http (~> 5.0.0)
+  http (~> 5.0.2)
   jb (~> 0.8.0)
   jenkins_api_client
   kaminari
