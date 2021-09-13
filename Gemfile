@@ -37,7 +37,7 @@ gem 'carrierwave', '~> 2.2.2'
 
 # Helper
 ## HTTP 请求
-gem 'http', '~> 5.0.0'
+gem 'http', '~> 5.0.2'
 ## 用户认证
 gem 'pundit', '~> 2.1.0'
 gem 'devise', '~> 4.8.0'
