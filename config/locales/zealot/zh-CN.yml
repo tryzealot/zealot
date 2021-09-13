@@ -179,6 +179,57 @@ zh-CN:
 
   debug_files:
     title: 调试文件
+    index:
+      upload: 上传调试文件
+      processing: 后台任务正在解包中，请稍候刷新。
+      version: 构建版本：%{version}
+      download: 下载 (%{size}）
+      destroy: 删除
+      uploaded_at: 上传于%{time}
+      missing_file: 遗失文件无法下载
+      empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
+      not_found:
+        title: 没有发现任何应用类型！
+        body_html: |
+          <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
+          <ul>
+            <li>开发版本、内测版本、公测版本、线上版本</li>
+          </ul>
+          <p></p>
+          <p>如果应用仅提供 Android 版本，可以按照应用渠道划分为：</p>
+          <ul>
+            <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
+          </ul>
+    help:
+      title: 什么是调试文件，如何找到它？
+      body_html: |
+        <h4>iOS</h4>
+        <p>下面以 XCode 作为 IDE 详细说明定位 dSYM 文件：</p>
+        <ul>
+          <li>打开 XCode 后点击顶部菜单 "Window" -> "Organizer"</li>
+          <li>左栏找到对应的项目并查看 "Products" 下面的 "Archivers"</li>
+          <li>右侧选择对应的构建版本点击右键 "Show in Finder" 即可 .xcarchive 目录</li>
+          <li>在该文件继续右键选择 "显示包内容" 并进入 dSYMs 目录</li>
+          <li>最后就可以找到 Target 的 dSYM 文件，最后进行压缩处理即可</li>
+        </ul>
+        <p>
+          XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
+          <code>Debug Information Format = "DWARF with dSYM File"</code>
+        </p>
+        <p>如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。</p>
+
+        <h4>Android</h4>
+        <p>
+          通常指的是 Mapping Files，主要用于被
+          <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard 混淆</a>
+          后代码复原使用。如果使用了 tinker 还可以生成的 AndroidManifest.xml 和 R.txt 等文件也做一起压缩处理。
+        </p>
+    confirm:
+      destroy:
+        title: 删除确认调试文件?
+        body: 一旦删除数据将永久无法找回或恢复，请慎重操作！
+        ok: 我心已决
+        cancel: 还是算了
 
   teardowns:
     title: 应用解包
@@ -320,6 +371,8 @@ zh-CN:
               blank: 请选择要上传对于的应用
             file:
               blank: 必须选择一个 zip 文件
+            checksum:
+              taken: 文件已经存在，不能重复上传
 
   devise:
     normal:
