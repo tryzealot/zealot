@@ -1,5 +1,6 @@
 ruby:
   form_url = new_or_create_route? ? app_schemes_path : app_scheme_path(@scheme.app, @scheme)
+  checked_channel = @channels ? @channels[:name] : 0
 
 .col-md-12
   .card
@@ -9,12 +10,13 @@ ruby:
       .card-tools
         a href="#{app_path(@app)}"
           i.far.fa-list-alt
-          |  返回应用
+          = t('links.goback_to_list')
     .card-body
       = simple_form_for(@scheme, url: form_url) do |f|
         = f.error_notification
 
         = f.input :name, required: true
         - if new_or_create_route?
-          = f.input :channel, collection: default_channels, selected: @channel || 0
+          = f.simple_fields_for :channel_attributes do |n|
+            = n.input :name, as: :check_boxes, collection: default_channels, checked: checked_channel
         = f.button :submit

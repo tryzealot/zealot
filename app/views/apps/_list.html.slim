@@ -5,7 +5,7 @@
         h3.widget-user-username
           = link_to app.name, app_path(app), style: "color: #FFF"
         small.widget-user-desc
-          | 创建于#{time_ago_in_words(app.created_at)}
+          = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
       .widget-user-image
         = app_icon(app.recently_release, class: 'elevation-2 img-circle')
       .card-footer
@@ -14,55 +14,14 @@
             .description-block
               h5.description-header
                 = app.total_schemes
-              span.description-text 类型
+              span.description-text = t('apps.index.schemes')
           .col-sm-4.border-right
             .description-block
               h5.description-header
                 = app.total_channels
-              span.description-text 渠道
+              span.description-text = t('apps.index.channels')
           .col-sm-4
             .description-block
               h5.description-header
                 = app.total_releases
-              span.description-text 上传
-
-
-    / .apps.card
-    /   .card-header
-    /     h3.card-title
-    /       = app_icon(app.recently_release, class: 'app-icon img-circle')
-    /       = link_to app.name, app_path(app), style: "color: #000"
-    /     - if user_signed_in?
-    /       .card-tools
-    /         a.btn.btn-tool href="#{new_app_scheme_path(app)}"
-    /           i.far.fa-plus-square
-    /         a.btn.btn-tool href="#{edit_app_path(app)}"
-    /           i.fas.fa-edit
-    /         a.btn.btn-tool href="#{app_path(app)}" data-confirm="#{t('apps.messages.confirm.delete_app', name: app.name)}" data-method="delete"
-    /           i.fas.fa-trash-alt
-    /   .card-body.p-0
-    /     .app-schemes
-    /       - if app.schemes.count > 0
-    /         table.table
-    /           tr
-    /             th = t('apps.index.apps.type')
-    /             th style="width: 100px"  = t('apps.index.apps.channel_count')
-    /           - app.schemes.each do |scheme|
-    /             tr
-    /               td = link_to scheme.name, app_scheme_path(app, scheme)
-    /               td
-    /                 span.float-right.badge.bg-blue = scheme.total_releases
-    /       - else
-    /         .p-3 = t('apps.index.apps.new_app_scheme', link: link_to(t('apps.index.apps.new_app_scheme_link_title'), new_app_scheme_path(app))).html_safe
-    /         .p-3
-    /           = t('apps.index.apps.tips.title')
-    /           ul
-    /             li.btn-icon
-    /               i.far.fa-plus-square
-    /               = t('apps.index.apps.tips.create_app_scheme_and_channel')
-    /             li.btn-icon
-    /               i.fas.fa-edit
-    /               = t('apps.index.apps.tips.edit_app_name')
-    /             li.btn-icon
-    /               i.fas.fa-trash-alt
-    /               = t('apps.index.apps.tips.destroy_app')
+              span.description-text = t('apps.index.uploads')
