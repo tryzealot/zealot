@@ -46,8 +46,8 @@ class Setting < RailsSettings::Base
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
                        validates: { presence: true, length: { in: 3..16 } }
-    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true, display: true
+    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
@@ -134,6 +134,10 @@ class Setting < RailsSettings::Base
     field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true, display: true
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
     field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true, display: true
+  end
+
+  def readonly?
+    self.class.get_field(var.to_sym).try(:[], :readonly) === true
   end
 
   def field_validates
