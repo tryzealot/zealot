@@ -44,6 +44,6 @@ class Admin::SettingsController < ApplicationController
   end
 
   def verify_editable_setting
-    raise Pundit::NotAuthorizedError, '当前设置为可读，无法修改' if @setting.readonly? === true
+    raise Pundit::NotAuthorizedError, t('admin.settings.no_editable_key') if @setting.readonly? === true
   end
 end
