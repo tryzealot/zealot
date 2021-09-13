@@ -183,8 +183,46 @@ zh-CN:
   teardowns:
     title: 应用解包
 
-  fetch_ios_udid:
-    title: 获取 UDID
+  udid:
+    title: 设备 UDID
+    index:
+      tip: 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
+      fetch_udid: 点击获取设备 UDID
+      help:
+        title: 为什么需要设备 UDID?
+        body_html: |
+          <p>
+            UDID 全称 Unique Device Identifier 是 iOS 设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
+            之后版本不再允许从应用内随意获取，iOS 的应用打包如使用 AdHoc 的方式签名必须设置设备白名单来保证设备测试的安全性
+            （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
+          </p>
+          <strong>获取步骤</strong>
+          <ol>
+            <li>点击系统会弹窗的 “允许” 下载描述文件</li>
+            <li>打开手机 ”设置” 找到顶部的 ”已下载描述文件“ 点击可以待安装的 ”获取设备UDID“ 的描述文件</li>
+            <li>一路点击 ”安装“ 并输入锁屏密码允许安装描述文件</li>
+            <li>安装之后描述文件会自动删除并跳转一个结果页面</li>
+          </ol>
+    show:
+      title: 设备信息
+      registered: 本设备已注册%{device}，快往下看看有没有关联的应用吧！
+      unregistered: 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
+      registered_apps: 可安装应用
+      udid: UDID
+      product: 型号
+      serial: 序列化
+      version: 版本
+      not_found_html: |
+        <strong>没有发现可安装应用！</strong>
+        请复制上面设备 UDID 并发给 iOS 工程师来添加测试设备并重新打包。
+        新安装包上传之后可以刷新本页面检查是否出现对应的应用。
+
+    install:
+      title: 获取设备 UDID
+      description: |
+        本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+
+        本服务由 %{url} 提供。
 
   users:
     title: 用户
