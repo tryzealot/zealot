@@ -28,6 +28,18 @@ class Setting < RailsSettings::Base
     def group_configs
       defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
     end
+
+    def protocol
+      site_https ? 'https://' : 'http://'
+    end
+
+    def url_options
+      {
+        host: site_domain,
+        protocol: protocol,
+        trailing_slash: false
+      }
+    end
   end
 
   # 系统配置
