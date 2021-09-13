@@ -35,7 +35,7 @@ class AppsController < ApplicationController
 
     @app.users << current_user
     app_create_schemes_and_channels
-    redirect_to apps_path, notice: t('apps.messages.success.create', name: @app.name)
+    redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
 
   def update
@@ -56,7 +56,6 @@ class AppsController < ApplicationController
     require 'fileutils'
 
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
-    logger.debug "Delete app all binary and icons in #{app_binary_path}"
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 

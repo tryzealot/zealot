@@ -2,7 +2,7 @@
   .card-header
     h3.card-title
       i.fas.fa-history
-      |  最近上传动态
+      = t('channels.show.activity')
     .card-tools
       span.badge.bg-yellow
         = @channel.releases.count
@@ -24,9 +24,7 @@
                 = "#{release.release_version} (#{release.build_version})"
       - else
         li.item.p-3
-          | 还没有收到任何上传记录，开始
-          a href="#{new_channel_release_path(@channel)}" 上传第一个版本
-          | 吧。
+          = raw t('channels.show.not_found')
   - if @releases.total_pages > 1
     .card-footer.clearfix
       .float-right
