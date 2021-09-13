@@ -1,26 +1,6 @@
 .col-md-12
   .card
     .card-header.card-border
-      h3.card-title 什么是调试文件？
+      h3.card-title = t('debug_files.help.title')
     .card-body.table-responsive
-      div
-        h4 iOS
-        p 使用 XCode 打包（Archive）成功后 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
-        ul
-          li 进入 XCode
-          li 打开工程（已编译过）
-          li 在左栏找到 "Product" 项
-          li 鼠标右键点击编译生成的 "xxx.app"
-          li 点击 "Show in Finder" 即可看到 dsym 文件
-
-        p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
-          pre
-            code Debug Information Format = "DWARF with dSYM File"
-        p 如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。
-      div
-        h4 Android
-        p
-          | 通常指的是 Mapping Files，主要用于被
-          a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn"
-            |  proguard 混淆
-          |  后代码复原使用。如果你是要了 tinker 还可以把 AndroidManifest.xml 和 R.txt 等文件也做备份。
+      = t('debug_files.help.body_html')
