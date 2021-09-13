@@ -71,6 +71,8 @@ zh-CN:
       build_date: 构建日期
 
       empty_value: 空值
+
+      no_editable_key: 当前设置为可读，无法修改
       submit:
         create: 新增设置
         update: 更新设置

@@ -9,10 +9,10 @@ class Setting < RailsSettings::Base
   class << self
     def present_schemes
       [
-        t('settings.default_schemes.beta', raise: false, default: nil),
-        t('settings.default_schemes.adhoc', raise: false, default: nil),
-        t('settings.default_schemes.production', raise: false, default: nil)
-      ].compact
+        t('settings.default_schemes.beta', raise: false),
+        t('settings.default_schemes.adhoc', raise: false),
+        t('settings.default_schemes.production', raise: false)
+      ]
     end
 
     def site_https
@@ -61,8 +61,8 @@ class Setting < RailsSettings::Base
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
                        validates: { presence: true, length: { in: 3..16 } }
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true, display: true
-    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true, display: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string, readonly: true, display: true
+    field :site_https, default: site_https, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
