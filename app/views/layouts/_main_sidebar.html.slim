@@ -23,7 +23,7 @@
       li class="nav-item"
         a.nav-link href="#{udid_path}" class="#{active_class(udid_path)}"
           i.nav-icon.fas.fa-eye
-          p = t('fetch_ios_udid.title')
+          p = t('udid.title')
 
       - if current_user&.admin?
         li.nav-header = t('admin_section.title')
