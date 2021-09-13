@@ -1,12 +1,12 @@
 .card.card-solid
   .card-header
-    h3.card-title 近期版本
+    h3.card-title = t('channels.show.recently_versions')
   .card-body.table-responsive.p-0
     - if @versions.count > 0
       table.table.table-striped.table-borderd
         tr
-          th 主版本号
-          th 版本数量
+          th = t('channels.show.release_version')
+          th = t('channels.show.total_version')
         - @versions.each do |version|
           tr
             td
@@ -14,9 +14,8 @@
             td
               = @channel.release_version_count(version)
     - else
-      .p-3
-        | 暂无版本
+      .p-3 = t('channels.show.empty_version_shortly')
   - if @versions.count > 0
     .card-footbar
       a.btn.btn-default.btn-block href="#{channel_versions_path(@channel)}"
-        | 查看更多
+        = t('channels.show.more')

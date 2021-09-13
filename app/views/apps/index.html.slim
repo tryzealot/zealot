@@ -11,4 +11,11 @@
       = t('apps.new.title')
 
 .row
-  == render 'list'
+  - if @apps.size > 0
+    == render 'list'
+  - else
+    .col-md-12
+      .card.card-outline.card-warning
+        .card-header.card-border
+          h3.card-title = t('apps.index.not_found.title')
+        .card-body = t('apps.index.not_found.body_html')
