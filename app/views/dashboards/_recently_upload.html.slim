@@ -4,10 +4,10 @@ section
       .card
         .card-header
           h3.card-title
-            i.fas.fa-history
+            i.icon.fas.fa-history
             = t('dashboard.timeline.title')
 
-        .card-body
+        .card-body.pb-0
           - if @releases.present?
             .timeline
               ruby:
@@ -24,8 +24,7 @@ section
                   i.fab class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
                   .timeline-item
                     span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
-                      i.fas.fa-clock
-                      | &nbsp
+                      i.icon.fas.fa-clock
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
                       = link_to " #{release.app_name}", channel_release_path(release.channel, release)
@@ -53,7 +52,7 @@ section
           - else
             .time-label = t('dashboard.timeline.not_found')
 
-        - if @releases.present?
+        - if @releases.total_pages > 1
           .card-footer
             .float-right
               = paginate @releases

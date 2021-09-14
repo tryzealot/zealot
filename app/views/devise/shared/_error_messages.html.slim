@@ -3,7 +3,7 @@
     button.close data-dismiss="alert" aria-hidden="true" ×
     h4
       i.icon.fas.fa-ban
-      = I18n.t("errors.messages.not_saved", count: resource.errors.count, resource: resource.class.model_name.human.downcase)
-    ul style="padding-left: 20px"
+      = t('errors.messages.not_saved', count: resource.errors.count, resource: resource.class.model_name.human.downcase)
+    ul.pl-3
       - resource.errors.full_messages.each do |message|
         li = message

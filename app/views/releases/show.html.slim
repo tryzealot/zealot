@@ -20,7 +20,7 @@
   .login-box
     .card
       .card-body.login-card-body
-        p.login-box-msg 访问密码
+        p.login-box-msg = t('releases.show.enter_password')
         form.form action="#{auth_channel_release_path(@channel, @release)}" method="post" role="form"
           .input-group
             .input-group-prepend

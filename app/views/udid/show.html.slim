@@ -9,7 +9,7 @@
     .card.system_info
       .card-header
         h3.card-title
-          i.fas.fa-info-circle
+          i.icon.fas.fa-info-circle
           = @title
       .card-body
         .pl-2.pr-2
@@ -56,7 +56,7 @@
     .card
       .card-header
         h3.card-title
-          i.fas.fa-cubes
+          i.icon.fas.fa-cubes
           = t('udid.show.registered_apps')
       .card-body
         - if @device && @device.channels.present?
@@ -68,8 +68,7 @@
                 i.far.fa-circle
                 .timeline-item
                   span.time
-                    i.fas.fa-clock
-                    | &nbsp
+                    i.icon.fas.fa-clock
                     = time_ago_in_words(release.created_at)
                   h3.timeline-header
                     = link_to release.app_name, channel_release_path(channel, release)

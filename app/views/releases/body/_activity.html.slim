@@ -5,20 +5,19 @@ ruby:
   .card
     .card-header
       h3.card-title
-        i.fas.fa-history
-        |  最近 10 次上传
+        i.icon.fas.fa-history
+        | 最近 10 次上传
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body
+    .card-body.pb-0
       .timeline
         - releases.each do |release|
           div
             i.fa-circle class="#{@release == release ? 'fas' : 'far'}"
             .timeline-item
               span.time
-                i.fas.fa-clock
-                | &nbsp
+                i.icon.fas.fa-clock
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to release.app_name, channel_release_path(@release.channel, release)
