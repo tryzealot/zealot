@@ -5,7 +5,7 @@
         h3.card-title = t("admin.settings.#{@setting.var}")
         .card-tools
           a href="#{admin_settings_path}"
-            i.far.fa-list-alt
+            i.icon.far.fa-list-alt
             = t('admin.link.back_to_list')
 
       = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
@@ -13,7 +13,7 @@
           - if @setting.errors.size > 0
             .callout.callout-danger
               h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
-              ul style="margin-bottom: 0"
+              ul.mb-0
                 - @setting.errors.each do |error|
                   li = error.message
 

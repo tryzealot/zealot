@@ -3,7 +3,7 @@
   .callout.callout-warning
     h5
       i.icon.fas.fa-info
-      |  当前不是最新版本！
+      = t('releases.show.not_latest_release')
     p
       = " #{latest_release.release_version} (#{latest_release.build_version}) "
       = "于 #{time_ago_in_words(latest_release.created_at)}发布了，"
@@ -77,13 +77,13 @@
             button.btn.btn-icon.btn-lg.bg-success[
                 id="download_it"
                 data-install-url="#{@release.install_url}"
-                data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待安装 ..."]
-              i.fas.fa-paper-plane
-              | 安装
+                data-loading-text="<i class='fas fa-spin fa-sync'></i> 安装到桌面 ..."]
+              i.fas.fa-mobile-alt
+              | 设备安装
 
           a.btn.btn-icon.btn-lg.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            | 下载
+            | 本地下载
         - else
           button.btn.btn-secondary.btn-icon.disabled
             i.fas.fa-ghost
@@ -91,16 +91,15 @@
           - if current_user&.manage?
             a.btn.btn-danger.btn-icon href="#{channel_release_path(@release.channel, @release)}" data-confirm="确定删除?" data-method="delete"
                 i.fas.fa-trash-alt
-                | 删除
+                | 删除版本
 
-        / span style=("margin:0 5px")
         / - if @release.ci_url.present?
-        /   button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
+        /   button#build_it.btn.btn-icon.btn-lg.btn-success data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()"
         /     i.fas.fa-wrench
-        /     | 构建新版
+        /     | 构建
 
         div.ios-install-issues.d-none
           i.fas.fa-asterisk
           a href="javascript:void(0);" 无法安装或遇到 "未受信任的企业级开发者" 错误？
 
-    p#jekins_buld_alert.alert.alert-warning.d-none role="alert" style=("margin-top: 10px")
+    p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"
