@@ -270,6 +270,11 @@ zh-CN:
     new:
       title: :'channels.show.upload_release'
     messages:
+      default_changelog: |
+        没有找到更新日志，可能的原因：
+
+        - 开发者很懒没有留下更新日志😂
+        - 有不可抗拒的因素造成日志丢失👽
       install_error:
         title: 安装中的错误及解决办法
         body_html: |
@@ -295,6 +300,7 @@ zh-CN:
         deleted_programly: 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
         not_found_really: 您访问的应用版本真的不存在
         invalid_password: 密码错误，请重新输入
+        bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
 
   debug_files:
     title: 调试文件
@@ -343,6 +349,16 @@ zh-CN:
 
   teardowns:
     title: 应用解包
+    show:
+      title: '%{name} %{release_version} (%{build_version}) 解包信息'
+    messages:
+      errors:
+        not_found_file: '无法找到解包文件: %{message}'
+        failed_detect_file_type: 无法识别应用类型
+        not_support_file_type: 应用的文件类型不支持
+        failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
+        unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
+        choose_supported_file_type: 请选择需要解包的 ipa、apk 安装包或 .mobileprovision 文件
 
   udid:
     title: 设备 UDID
