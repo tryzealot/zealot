@@ -16,13 +16,13 @@ class ReleasesController < ApplicationController
   end
 
   def new
-    @title = t('release.new.title')
+    @title = t('releases.new.title')
     @release = @channel.releases.new
     authorize @release
   end
 
   def create
-    @title = t('release.new.title')
+    @title = t('releases.new.title')
     @release = @channel.releases.upload_file(release_params)
     authorize @release
 
