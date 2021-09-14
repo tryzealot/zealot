@@ -16,13 +16,13 @@ class ReleasesController < ApplicationController
   end
 
   def new
-    @title = '上传应用'
+    @title = t('release.new.title')
     @release = @channel.releases.new
     authorize @release
   end
 
   def create
-    @title = '上传应用'
+    @title = t('release.new.title')
     @release = @channel.releases.upload_file(release_params)
     authorize @release
 
@@ -32,20 +32,20 @@ class ReleasesController < ApplicationController
     @release.channel.perform_web_hook('upload_events')
     @release.perform_teardown_job(current_user.id)
 
-    redirect_to channel_release_url(@channel, @release), notice: '应用上传成功'
+    redirect_to channel_release_url(@channel, @release), notice: t('activerecord.success.create', key: "#{t('apps.title')}")
   end
 
   def destroy
     @release.destroy
-    redirect_to channel_versions_url(@channel), notice: '应用版本删除成功'
+    redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('apps.title')}")
   end
 
   def auth
     if @channel.password == params[:password]
-      cookies["app_release_#{release.id}_auth"] = @channel.encode_password
+      cookies["app_release_#{@release.id}_auth"] = @channel.encode_password
       redirect_to channel_release_path(@channel, @release)
     else
-      flash[:danger] = '密码错误，请重新输入'
+      @error_message = t('releases.messages.errors.invalid_password')
       render :show
     end
   end

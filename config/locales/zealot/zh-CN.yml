@@ -184,7 +184,7 @@ zh-CN:
 
   channels:
     title: 应用渠道
-    subtitle: '%{total_scheme} 类型共 %{total_channel} 渠道'
+    subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
@@ -209,7 +209,7 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
-      recently_versions: 最近版本
+      majar_versions: 历史主版本
       release_version: 主版本号
       total_version: 版本数量
       empty_version_shortly: 暂无版本
@@ -232,9 +232,57 @@ zh-CN:
       wechat_touch_menu: 点击右上角菜单
       wechat_open_in_safari: 在 Safari 中打开并安装
       wechat_open_in_webbrower: 在任意浏览器中打开并安装
-
       not_latest_release: 当前不是最新版本！
+      released_new_version: '%{release_version} (%{build_version}) 于%{time}发布了，%{link}。'
+      view_latest_version: 查看最新版本
+
+      name: 应用
+      version: 上传版本
+      device: 平台
+      release_version: 构建版本
+      release_type: 打包类型
+      filesize: 文件体积
+      uploaded_at: 上传时间
+      git_branch: Git 分支
+      git_commit: Git 提交 SHA
+      source: 上传来源
+      metadata: 更多信息
+      teardown_meatdata: 解包信息
+      install: 设备安装
+      download: 本地下载
+      installing: 安装到桌面 ...
+      destroy: 删除版本
+      missing_file: 遗失文件不可安装或下载
+      more: 更多上传
+      cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
+
+      last_ten_uploads: 最近 10 次上传
+      upload_release: :'dashboard.timeline.upload_release'
+      changelog: 更新日志
+      devices: '%{count} 台测试设备 (UDID)'
+      use_fastlane_plugin_sync_devices: 使用 %{link} fastlane 插件同步设备名称
+
+      qrcode: 二维码
+      scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
+
+      majar_versions: :'channels.show.majar_versions'
+      view_detail: 渠道详情
+    new:
+      title: :'channels.show.upload_release'
     messages:
+      install_error:
+        title: 安装中的错误及解决办法
+        body_html: |
+          <ol class="mb-0">
+            <li>
+              在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
+              选择该应用对应的企业证书，点击文字 "信任企业开发者"。
+            </li>
+            <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
+          </ol>
+        ok: 明白了
+      confirm:
+        destroy: :'web_hooks.messages.confirm.destroy'
       errors:
         not_found_release_and_redirect_to_channel: 应用版本不存在或已经被移除，页面跳转至应用渠道详情
         not_found_release_and_redirect_to_latest_release: 版本不存在或已经被移除，跳转至最新版本
@@ -246,6 +294,7 @@ zh-CN:
         deleted_manually: 可能当前版本被人工删除
         deleted_programly: 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
         not_found_really: 您访问的应用版本真的不存在
+        invalid_password: 密码错误，请重新输入
 
   debug_files:
     title: 调试文件
@@ -324,6 +373,7 @@ zh-CN:
       product: 型号
       serial: 序列化
       version: 版本
+      upload_release: :'dashboard.timeline.upload_release'
       not_found_html: |
         <strong>没有发现可安装应用！</strong>
         请复制上面设备 UDID 并发给 iOS 工程师来添加测试设备并重新打包。
@@ -413,9 +463,11 @@ zh-CN:
       title: 这个页面有问题
     '503':
       title: 服务暂时不可用，无法请求该页面
-    messages:
-      mini_magick_processing_error: "无法使用 MiniMagick 处理，请检查文件是否是标准图片格式，原始错误: %{e}"
-      invaild_in_demo_mode: 演示模式不能编辑默认管理员
+    invaild_in_demo_mode: 演示模式不能编辑默认管理员
+    development_only: 仅开发环境显示
+    goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
+    goback_title: 上级页面
+    homepage_title: 首页
 
   activerecord:
     success:

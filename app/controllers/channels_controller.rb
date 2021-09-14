@@ -37,7 +37,7 @@ class ChannelsController < ApplicationController
 
   def update
     @channel.update(channel_params)
-    redirect_to app_path(@app)
+    redirect_to channel_path(@channel)
   end
 
   def destroy
