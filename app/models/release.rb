@@ -138,7 +138,7 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    return download_url if channel.device_type.casecmp('android').zero?
+    return download_url if channel.device_type.casecmp?('android') || channel.device_type.casecmp?('macos')
 
     download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
@@ -153,29 +153,15 @@ class Release < ApplicationRecord
   end
 
   def file_extname
-    case channel.device_type.downcase
-    when 'iphone', 'ipad', 'ios', 'universal'
-      '.ipa'
-    when 'android'
-      '.apk'
-    else
-      '.ipa_or_apk.zip'
-    end
+    return '.zip' if file.blank? || !File.file?(file&.path)
+
+    File.extname(file.path)
   end
 
   def download_filename
     [
       channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
     ].join('_') + file_extname
-  end
-
-  def mime_type
-    case channel.device_type
-    when 'iOS'
-      :ipa
-    when 'Android'
-      :apk
-    end
   end
 
   def empty_changelog(use_default_changelog = true)
