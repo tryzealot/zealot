@@ -8,7 +8,7 @@
           key = title.downcase
 
         a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-default btn-auth-#{key}"
-          i.fab class="fa-#{key}"
+          i.icon.fab class="fa-#{key}"
           = t('devise.shared.links.sign_in_with_provider', provider: title)
 
 - if controller_name != 'sessions'

@@ -184,6 +184,7 @@ zh-CN:
 
   channels:
     title: 应用渠道
+    subtitle: '%{total_scheme} 类型共 %{total_channel} 渠道'
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
@@ -198,17 +199,9 @@ zh-CN:
       wildmatch: (不限制上传包的包名)
       total_releases: 上传版本
       channel_key: 渠道 KEY
-      manage_app: 应用管理
+      edit_channel: 渠道管理
       none: 未设置
       not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
-
-      recently_versions: 最近版本
-      release_version: 主版本号
-      total_version: 版本数量
-      empty_version_shortly: 暂无版本
-      empty_version: 该版本没有任何上传记录！
-      more: 查看更多
-
       id: ID
       build_version: 开发版本
       git_branch: 分支
@@ -216,9 +209,43 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
+      recently_versions: 最近版本
+      release_version: 主版本号
+      total_version: 版本数量
+      empty_version_shortly: 暂无版本
+      empty_version: 该版本没有任何上传记录！
+      more: 查看更多
+    new:
+      title: '%{name}新建渠道'
+    edit:
+      title: '%{name}编辑渠道'
     messages:
       confirm:
         destroy: :'web_hooks.messages.confirm.destroy'
+      errors:
+        not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
+
+  releases:
+    show:
+      enter_password: 访问密码
+      wechat_limited: 应用限制请按照提示安装
+      wechat_touch_menu: 点击右上角菜单
+      wechat_open_in_safari: 在 Safari 中打开并安装
+      wechat_open_in_webbrower: 在任意浏览器中打开并安装
+
+      not_latest_release: 当前不是最新版本！
+    messages:
+      errors:
+        not_found_release_and_redirect_to_channel: 应用版本不存在或已经被移除，页面跳转至应用渠道详情
+        not_found_release_and_redirect_to_latest_release: 版本不存在或已经被移除，跳转至最新版本
+        not_found: 页面找不到
+        not_found_app: 应用不存在或已经被移除
+        not_found_release: 应用渠道没有找到版本
+        redirect_to_app_list: 跳转到应用列表
+        reidrect_channel_detal: 跳转应用渠道详情
+        deleted_manually: 可能当前版本被人工删除
+        deleted_programly: 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
+        not_found_really: 您访问的应用版本真的不存在
 
   debug_files:
     title: 调试文件

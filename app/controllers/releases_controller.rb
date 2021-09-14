@@ -7,9 +7,8 @@ class ReleasesController < ApplicationController
   before_action :authenticate_app!, only: :show
 
   def index
-    return redirect_to root_path, notice: "应用不存在或已经被移除，页面跳转至首页" unless @channel
-    return redirect_to channel_path(@channel), notice: "应用版本不存在或已经被移除，页面跳转至应用渠道详情" if @channel.releases.empty?
-    redirect_to channel_release_path(@channel, @channel.releases.last), notice: "版本不存在或已经被移除，跳转至最新版本"
+    return redirect_to channel_path(@channel), notice: t('releases.messages.errors.not_found_release_and_redirect_to_channel') if @channel.releases.empty?
+    redirect_to channel_release_path(@channel, @channel.releases.last), notice: t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
   end
 
   def show
@@ -79,9 +78,23 @@ class ReleasesController < ApplicationController
     )
   end
 
-  def render_not_found_entity_response(e)
-    @title = "#{@channel.app_name} 找不到 #{e.id} 版本"
-    @release_id = params[:id]
+  def not_found(e)
+    @e = e
+    @title = t('releases.messages.errors.not_found')
+    @link_title = t('releases.messages.errors.redirect_to_app_list')
+    @link_href = apps_path
+    case e
+    when ActiveRecord::RecordNotFound
+      case e.model
+      when 'Channel'
+        @title = t('releases.messages.errors.not_found_app')
+      when 'Release'
+        @title = t('releases.messages.errors.not_found_release')
+        @link_title = t('releases.messages.errors.reidrect_channel_detal')
+        @link_href = channel_path(@channel)
+      end
+    end
+
     render :not_found, status: :not_found
   end
 end
