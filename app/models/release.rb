@@ -138,7 +138,7 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    return download_url if channel.device_type.casecmp?('android') || channel.device_type.casecmp?('macos')
+    return download_url if device.casecmp?('android') || device.casecmp?('macos')
 
     download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
