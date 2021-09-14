@@ -104,7 +104,8 @@ zh-CN:
       url: URL
       channels: 渠道列表
       action: 操作
-      empty_content: 没有发现网络钩子
+      not_found: 没有发现网络钩子
+      create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
       destroy: 删除
       destroy_confirm: 你确定？
       messages:
