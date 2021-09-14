@@ -14,8 +14,24 @@ class App < ApplicationRecord
   def recently_release
     return unless scheme = schemes.take
     return unless channel = scheme.channels.take
-    return unless release = channel.releases.take
+    return unless release = channel.releases.last
 
     release
+  end
+
+  def total_schemes
+    schemes.size
+  end
+
+  def total_channels
+    schemes.all.sum { |s| s.channels.size }
+  end
+
+  def total_releases
+    schemes.all.sum do |scheme|
+      scheme.channels.all.sum do |channel|
+        channel.releases.size
+      end
+    end
   end
 end

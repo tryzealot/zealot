@@ -70,23 +70,23 @@ class Release < ApplicationRecord
   end
 
   def self.fetch_icon(parser)
-    case parser.os
-    when AppInfo::Platform::IOS
-      parser.icons.last.try(:[], :uncrushed_file)
-    when AppInfo::Platform::MACOS
-      return if parser.icons.blank?
+    file = case parser.os
+           when AppInfo::Platform::IOS
+             parser.icons.last.try(:[], :uncrushed_file)
+           when AppInfo::Platform::MACOS
+             return if parser.icons.blank?
 
-      file = parser.icons[:sets].last.try(:[], :file)
-      File.open(file, 'rb') if file
-    when AppInfo::Platform::ANDROID
-      # 处理 Android anydpi 自适应图标
-      file = parser.icons
+             parser.icons[:sets].last.try(:[], :file)
+           when AppInfo::Platform::ANDROID
+             # 处理 Android anydpi 自适应图标
+             parser.icons
                    .reject { |f| File.extname(f[:file]) == '.xml' }
                    .last
                    .try(:[], :file)
+           end
 
-      File.open(file, 'rb') if file
-    end
+
+    File.open(file, 'rb') if file
   end
   private_methods :fetch_icon
 
@@ -96,10 +96,12 @@ class Release < ApplicationRecord
     raise AppInfo::UnkownFileTypeError, '上传应用的文件类型不支持'
   rescue NoMethodError => e
     logger.error e.full_message
+    Sentry.capture_exception e
     raise AppInfo::Error, '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
   rescue => e
     logger.error e.full_message
-    raise AppInfo::Error, "上传应用解析发现未知异常，原始错误：#{e.message}"
+    Sentry.capture_exception e
+    raise AppInfo::Error, "上传应用解析发现未知异常，原始错误 [#{e.class}]：#{e.message}"
   end
   private_methods :rescuing_app_parse_errors
 
@@ -136,7 +138,7 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    return download_url if channel.device_type.casecmp('android').zero?
+    return download_url if device.casecmp?('android') || device.casecmp?('macos')
 
     download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
@@ -151,29 +153,15 @@ class Release < ApplicationRecord
   end
 
   def file_extname
-    case channel.device_type.downcase
-    when 'iphone', 'ipad', 'ios', 'universal'
-      '.ipa'
-    when 'android'
-      '.apk'
-    else
-      '.ipa_or_apk.zip'
-    end
+    return '.zip' if file.blank? || !File.file?(file&.path)
+
+    File.extname(file.path)
   end
 
   def download_filename
     [
       channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
     ].join('_') + file_extname
-  end
-
-  def mime_type
-    case channel.device_type
-    when 'iOS'
-      :ipa
-    when 'Android'
-      :apk
-    end
   end
 
   def empty_changelog(use_default_changelog = true)

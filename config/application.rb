@@ -57,6 +57,7 @@ module Zealot
 
     # Action Cable setting to de-couple it from the main Rails process.
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
+    config.action_cable.mount_path = '/cable'
 
     # Action Cable setting to allow connections from these domains.
     # if origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS']
@@ -98,9 +99,5 @@ module Zealot
 
     # Manage exception page
     # config.exceptions_app = self.routes
-  end
-
-  def self.config
-    @config ||= Rails.configuration.x
   end
 end

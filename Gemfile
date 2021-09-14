@@ -37,7 +37,7 @@ gem 'carrierwave', '~> 2.2.2'
 
 # Helper
 ## HTTP 请求
-gem 'http', '~> 5.0.0'
+gem 'http', '~> 5.0.2'
 ## 用户认证
 gem 'pundit', '~> 2.1.0'
 gem 'devise', '~> 4.8.0'
@@ -80,7 +80,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.6.3'
+gem 'app-info', '~> 2.6.4'
 
 # Mobile config
 gem 'rails-settings-cached', '~> 2.7.1'

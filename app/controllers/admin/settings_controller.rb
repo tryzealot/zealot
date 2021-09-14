@@ -2,6 +2,7 @@
 
 class Admin::SettingsController < ApplicationController
   before_action :set_setting, only: %i[edit update]
+  before_action :verify_editable_setting, only: %i[edit]
 
   def index
     @title = '系统配置'
@@ -33,5 +34,9 @@ class Admin::SettingsController < ApplicationController
 
   def setting_param
     params[:setting].permit!
+  end
+
+  def verify_editable_setting
+    raise Pundit::NotAuthorizedError, '当前设置为可读，无法修改' if @setting.readonly? === true
   end
 end
