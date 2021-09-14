@@ -73,7 +73,7 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    app-info (2.6.3)
+    app-info (2.6.4)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       icns (~> 0.2.0)
       image_size (>= 1.5, < 2.2)
@@ -134,7 +134,7 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.4)
       tzinfo
-    faraday (1.7.0)
+    faraday (1.7.1)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -153,7 +153,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffi (1.15.3)
+    ffi (1.15.4)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -201,11 +201,11 @@ GEM
     hashie (4.1.0)
     health_check (3.1.0)
       railties (>= 5.0)
-    http (5.0.1)
-      addressable (~> 2.3)
+    http (5.0.2)
+      addressable (~> 2.8)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
-      llhttp-ffi (~> 0.3.0)
+      llhttp-ffi (~> 0.4.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
@@ -251,7 +251,7 @@ GEM
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    llhttp-ffi (0.3.1)
+    llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     loofah (2.12.0)
@@ -275,7 +275,7 @@ GEM
     nenv (0.3.0)
     net-ldap (0.17.0)
     nio4r (2.5.8)
-    nokogiri (1.12.3)
+    nokogiri (1.12.4)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -413,18 +413,18 @@ GEM
     rufus-scheduler (3.7.0)
       fugit (~> 1.1, >= 1.1.6)
     semantic_range (3.0.0)
-    sentry-rails (4.6.5)
+    sentry-rails (4.7.2)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.6.0)
-    sentry-ruby (4.6.5)
+      sentry-ruby-core (~> 4.7.0)
+    sentry-ruby (4.7.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (>= 1.0)
-      sentry-ruby-core (= 4.6.5)
-    sentry-ruby-core (4.6.5)
+      sentry-ruby-core (= 4.7.2)
+    sentry-ruby-core (4.7.2)
       concurrent-ruby
       faraday
-    sentry-sidekiq (4.6.5)
-      sentry-ruby-core (~> 4.6.0)
+    sentry-sidekiq (4.7.2)
+      sentry-ruby-core (~> 4.7.0)
       sidekiq (>= 3.0)
     shellany (0.0.1)
     sidekiq (6.2.2)
@@ -507,7 +507,7 @@ DEPENDENCIES
   active_analytics
   active_model_serializers (~> 0.10.12)
   activejob-status
-  app-info (~> 2.6.3)
+  app-info (~> 2.6.4)
   awesome_print
   better_errors
   binding_of_caller
@@ -528,7 +528,7 @@ DEPENDENCIES
   guard-sidekiq
   guard-webpacker
   health_check (~> 3.1.0)
-  http (~> 5.0.0)
+  http (~> 5.0.2)
   jb (~> 0.8.0)
   jenkins_api_client
   kaminari

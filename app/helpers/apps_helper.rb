@@ -14,8 +14,7 @@ module AppsHelper
       return image_pack_tag('media/images/touch-icon.png', options)
     end
 
-    size = options.delete(:size) || :thumb
-    image_tag(release.icon_url(size), options)
+    image_tag(release.icon_url, options)
   end
 
   def app_release_auth_key(release)

@@ -44,7 +44,7 @@ class TeardownsController < ApplicationController
   rescue => e
     logger.error "Teardown error: #{e}"
     Sentry.capture_exception e
-    flash[:error] = "上传应用解析发现未知异常，原始错误：#{e.message}"
+    flash[:error] = "上传应用解析发现未知异常，原始错误 [#{e.class}]：#{e.message}"
     render :new
   end
 
