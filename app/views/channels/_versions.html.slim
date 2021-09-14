@@ -1,9 +1,11 @@
 .card.card-solid
   .card-header
-    h3.card-title = t('channels.show.recently_versions')
+    h3.card-title
+      i.icon.fas.fa-archive
+      = t('channels.show.majar_versions')
   .card-body.table-responsive.p-0
     - if @versions.count > 0
-      table.table.table-striped.table-borderd
+      table.table
         tr
           th = t('channels.show.release_version')
           th = t('channels.show.total_version')

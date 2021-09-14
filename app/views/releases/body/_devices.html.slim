@@ -4,15 +4,13 @@
       .card-header
         h3.card-title
           i.icon.fas.fa-mobile-alt
-          = " #{@release.devices.count} 台测试设备 (UDID)"
+          = t('releases.show.devices', count: @release.devices.count)
         .card-tools
-          button.btn.btn-tool data-toggle="dropdown"  title="显示设备名称需要使用 zealot_sync_device fastlane 插件"
+          button.btn.btn-tool data-toggle="dropdown" title="#{t('releases.show.use_fastlane_plugin_sync_devices', link: 'zealot_sync_device')}"
             i.fas.fa-info-circle
           .dropdown-menu.dropdown-menu-right
             small.dropdown-item
-              | 使用&nbsp
-              a href="http://zealot.ews.im/#/modules?id=zealot_sync_devices" target="_blank" zealot_sync_device
-              |  同步设备名称
+              = raw t('releases.show.use_fastlane_plugin_sync_devices', link: link_to('zealot_sync_device', 'http://zealot.ews.im/#/modules?id=zealot_sync_devices', target: '_blank'))
 
           button.btn.btn-tool data-card-widget="collapse"
             i.fas.fa-plus

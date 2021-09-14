@@ -1,7 +1,9 @@
 .card.card-solid
   .card-header
-    h3.card-title = t('channels.show.metadata')
-  .card-body.p-0.pt-3
+    h3.card-title
+      i.icon.fas.fa-sticky-note
+      = t('channels.show.metadata')
+  .card-body.p-0
     p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
       span.font-weight-bold = device_name(@channel.device_type)
       span.text-muted = t('channels.show.device_type')
