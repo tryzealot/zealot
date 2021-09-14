@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: t('errors.messages.invaild_in_demo_mode')
+      return redirect_to admin_users_url, alert: t('errors.invaild_in_demo_mode')
     end
 
     # 没有设置密码的情况下不更新该字段
@@ -43,7 +43,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: t('errors.messages.invaild_in_demo_mode')
+      return redirect_to admin_users_url, alert: t('errors.invaild_in_demo_mode')
     end
 
     @user.destroy

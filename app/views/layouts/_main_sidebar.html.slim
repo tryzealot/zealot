@@ -26,7 +26,7 @@
           p = t('udid.title')
 
       - if current_user&.admin?
-        li.nav-header = t('admin_section.title')
+        li.nav-header = t('admin_section')
         li.nav-item
           a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
             i.nav-icon.fas.fa-user
