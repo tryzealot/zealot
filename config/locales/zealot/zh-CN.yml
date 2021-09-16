@@ -511,6 +511,11 @@ zh-CN:
             checksum:
               taken: 文件已经存在，不能重复上传
 
+  user_mailer:
+    omniauth_welcome_email:
+      subject: 欢迎使用 %{title}
+      default_password: 您已经使用第三方登录成功授权注册了 Zealot 账号，系统随机生成了默认的密码：
+
   devise:
     confirmations:
       new:
