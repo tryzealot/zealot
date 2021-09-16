@@ -4,6 +4,10 @@ zh-CN:
   admin_section: 管理面板
   monitors_section: 监控
 
+  intro:
+    title: 移动应用上传竟然如此简单、移动 App 应用分发系统
+    description: 解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
+
   links:
     goback_to_list: 返回列表
     goback: 返回
@@ -505,6 +509,17 @@ zh-CN:
               taken: 文件已经存在，不能重复上传
 
   devise:
+    confirmations:
+      new:
+        title: 邮箱确认
+    registrations:
+      new:
+        error: 错误！
+        register_closed: 服务没有开放注册功能！请联系管理员开通账户。
+        register: 注册
+      edit:
+        api: API
+        token: 密钥
     normal:
       title: 标准登录
     ldap:
