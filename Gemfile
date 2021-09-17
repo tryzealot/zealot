@@ -80,7 +80,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.6.4'
+gem 'app-info', '~> 2.6.5'
 
 # Mobile config
 gem 'rails-settings-cached', '~> 2.7.1'
