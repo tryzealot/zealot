@@ -227,6 +227,17 @@ zh-CN:
       title: '%{name}新建渠道'
     edit:
       title: '%{name}编辑渠道'
+    branches:
+      index:
+        subtitle: '%{branch} 分支版本列表'
+    release_types:
+      index:
+        subtitle: '%{type} 类型版本列表'
+    versions:
+      index:
+        subtitle: 版本列表
+      show:
+        subtitle: '%{version} 主版本列表'
     messages:
       confirm:
         destroy: :'web_hooks.messages.confirm.destroy'
@@ -277,6 +288,9 @@ zh-CN:
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'
+    install:
+      show:
+        not_found: 找不到应用文件，无法提供下载服务
     messages:
       default_changelog: |
         没有找到更新日志，可能的原因：
@@ -461,6 +475,14 @@ zh-CN:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
+
+  download:
+    releases:
+      show:
+        not_found: 找不到应用文件，无法提供下载服务
+    debug_files:
+      show:
+        not_found: 找不到调试文件，无法提供下载服务
 
   api:
     unauthorized_channel_key: 无效的应用渠道 Key
