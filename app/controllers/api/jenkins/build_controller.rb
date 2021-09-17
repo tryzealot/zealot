@@ -29,7 +29,7 @@ class Api::Jenkins::BuildController < Api::JenkinsController
   def render_build_failed
     render json: {
       code: 500,
-      message: '构建请求失败，请重新尝试'
+      message: t('api.jenkins.build.failed_request')
     }
   end
 
