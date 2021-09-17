@@ -27,7 +27,7 @@ class Admin::SettingsController < ApplicationController
       @setting.value = new_value
       return render :edit unless @setting.save
 
-      redirect_to admin_settings_path, notice: "保存成功."
+      redirect_to admin_settings_path, notice: t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
     else
       redirect_to admin_settings_path
     end
