@@ -359,7 +359,15 @@ zh-CN:
     title: 应用解包
     show:
       title: '%{name} %{release_version} (%{build_version}) 解包信息'
+      expired_in: 还有%{time}左右过期
+      already_expired: 已经过期%{time}
+      expired: 此时此刻刚好过期了！
     messages:
+      upload_events: '%{name} 上传了 %{version} 版本'
+      download_events: '%{name} %{version} 版本被下载'
+      changelog_events: '%{name} %{version} 版本更新了变更日志'
+      unknown_events: '%{name} 触发了未知事件: %{event}'
+      parse_done: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
       errors:
         not_found_file: '无法找到解包文件: %{message}'
         failed_detect_file_type: 无法识别应用类型
@@ -412,6 +420,10 @@ zh-CN:
 
   users:
     title: 用户
+    roles:
+      user: 用户
+      developer: 开发者
+      admin: 管理员
 
   web_hooks:
     title: 网络钩子
@@ -425,6 +437,7 @@ zh-CN:
     disable: 禁用
     enable: 启用
     messages:
+      done: 调试文件解析完成！
       confirm:
         destroy: 确定删除?
 
@@ -448,6 +461,16 @@ zh-CN:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
+
+  demo:
+    app_name1: 默认应用
+    app_name2: 默认 Android 应用
+    android_channels:
+      channel1: 华为
+      channel2: 小米
+      channel3: oppo
+      channel4: vivo
+      channel5: 应用宝
 
   datetime:
     distance_in_words:
@@ -492,6 +515,7 @@ zh-CN:
     goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
     goback_title: 上级页面
     homepage_title: 首页
+    unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
 
   activerecord:
     success:

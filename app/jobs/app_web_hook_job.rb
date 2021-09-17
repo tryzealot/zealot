@@ -3,6 +3,7 @@
 class AppWebHookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::TranslationHelper
   include ActiveSupport::NumberHelper
 
   queue_as :webhook
@@ -25,7 +26,7 @@ class AppWebHookJob < ApplicationJob
   def send_request
     r = HTTP.headers(content_type: 'application/json')
             .post(@web_hook.url, body: json_body)
-    logger.debug("trigger response body: #{r.body}")
+    logger.debug(log_message("trigger response body: #{r.body}"))
     logger.info(log_message('trigger successfully')) if r.code == 200
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
@@ -64,13 +65,13 @@ class AppWebHookJob < ApplicationJob
   def title
     case @event
     when 'upload_events'
-      "#{@release.app_name} 上传了 #{@release.release_version} 版本"
+      t('teardowns.messages.upload_events', name: @release.app_name, version: @release.release_version)
     when 'download_events'
-      "#{@release.app_name} #{@release.release_version} 版本被下载"
+      t('teardowns.messages.download_events', name: @release.app_name, version: @release.release_version)
     when 'changelog_events'
-      "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
+      t('teardowns.messages.changelog_events', name: @release.app_name, version: @release.release_version)
     else
-      "#{@release.app_name} 触发了未知事件: #{@event}"
+      t('teardowns.messages.unknown_events', name: @release.app_name, event: @event)
     end
   end
 

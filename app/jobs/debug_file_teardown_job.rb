@@ -29,7 +29,7 @@ class DebugFileTeardownJob < ApplicationJob
     ActionCable.server.broadcast "notification:#{user_id}", {
       type: 'teardown',
       status: 'success',
-      message: "调试文件 #{debug_file.id} 解析完成，需要手动刷新页面才能看到哟"
+      message: t('web_hooks.messages.parse_done', id: debug_file.i)}
   }
 end
 

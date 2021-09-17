@@ -2,6 +2,7 @@
 
 class ApplicationJob < ActiveJob::Base
   include ActiveJob::Status
+  include ActionView::Helpers::TranslationHelper
 
   protected
 
@@ -11,7 +12,7 @@ class ApplicationJob < ActiveJob::Base
         status: status,
         html: "<div class='alert alert-success alert-block text-center'>
                 <i class='fa fa-circle-o-notch fa-spin'></i>
-                调试文件解析完成！
+                #{t('web_hooks.messages.done')}
               </div>"
     }
   end
