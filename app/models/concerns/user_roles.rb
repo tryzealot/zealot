@@ -4,9 +4,9 @@ module UserRoles
   extend ActiveSupport::Concern
 
   ROLE_NAMES = {
-    user: '用户',
-    developer: '开发者',
-    admin: '管理员'
+    user: I18n.t('users.roles.user'),
+    developer: I18n.t('users.roles.developer'),
+    admin: I18n.t('users.roles.admin')
   }
 
   included do
@@ -41,11 +41,11 @@ module UserRoles
 
   def role_name
     if admin?
-      '管理员'
+      ROLE_NAMES[:admin]
     elsif developer?
-      '开发者'
+      ROLE_NAMES[:developer]
     else
-      '用户'
+      ROLE_NAMES[:user]
     end
   end
 end
