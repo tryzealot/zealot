@@ -6,6 +6,10 @@ class ApplicationJob < ActiveJob::Base
 
   protected
 
+  def logger
+    @logger ||= Sidekiq.logger
+  end
+
   def notification_user(type:, status:, user_id:, message:)
       ActionCable.server.broadcast "notification:#{user_id}", {
         type: type,
