@@ -7,8 +7,13 @@ class ReleasesController < ApplicationController
   before_action :authenticate_app!, only: :show
 
   def index
-    return redirect_to channel_path(@channel), notice: t('releases.messages.errors.not_found_release_and_redirect_to_channel') if @channel.releases.empty?
-    redirect_to channel_release_path(@channel, @channel.releases.last), notice: t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
+    if @channel.releases.empty?
+      return redirect_to channel_path(@channel),
+        notice: t('releases.messages.errors.not_found_release_and_redirect_to_channel')
+    end
+
+    redirect_to channel_release_path(@channel, @channel.releases.last),
+      notice: t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
   end
 
   def show
@@ -32,7 +37,8 @@ class ReleasesController < ApplicationController
     @release.channel.perform_web_hook('upload_events')
     @release.perform_teardown_job(current_user.id)
 
-    redirect_to channel_release_url(@channel, @release), notice: t('activerecord.success.create', key: "#{t('apps.title')}")
+    message = t('activerecord.success.create', key: "#{t('apps.title')}")
+    redirect_to channel_release_url(@channel, @release), notice: message
   end
 
   def destroy
