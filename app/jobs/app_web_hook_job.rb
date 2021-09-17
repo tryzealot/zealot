@@ -16,7 +16,7 @@ class AppWebHookJob < ApplicationJob
 
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
-    logger.info(log_message("trigger json body: #{json_body}"))
+    logger.info(log_message("trigger json body: #{message_body}"))
 
     send_request
   end
@@ -25,23 +25,20 @@ class AppWebHookJob < ApplicationJob
 
   def send_request
     r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, body: json_body)
+            .post(@web_hook.url, body: message_body)
     logger.debug(log_message("trigger response body: #{r.body}"))
     logger.info(log_message('trigger successfully')) if r.code == 200
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
-  def json_body
-    # 如果发现自定义钩子就进行组装
-    return build_body if @web_hook.body.present?
-
-    # 默认结构体
-    WebHooks::PushSerializer.new(@channel).to_json
+  def message_body
+    body = @web_hook.body.present? ? @web_hook.body : default_body
+    build(body)
   end
 
-  def build_body
-    ApplicationController.render inline: @web_hook.body,
+  def build(body)
+    ApplicationController.render inline: body,
                                  type: :jb,
                                  assigns: {
                                    event: @event,
@@ -60,6 +57,25 @@ class AppWebHookJob < ApplicationJob
                                    qrcode_url: @release.qrcode_url,
                                    uploaded_at: @release.created_at
                                  }
+  end
+
+  def default_body
+    '{
+      event: @event,
+      title: @title,
+      name: @app_name,
+      app_name: @app_name,
+      device_type: @device_type,
+      release_version: @release_version,
+      build_version: @build_version,
+      size: @file_size,
+      changelog: @changelog,
+      release_url: @release_url,
+      install_url: @install_url,
+      icon_url: @icon_url,
+      qrcode_url: @qrcode_url,
+      uploaded_at: @uploaded_at
+    }'
   end
 
   def title
