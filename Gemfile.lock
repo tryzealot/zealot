@@ -136,7 +136,7 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.4)
       tzinfo
-    faraday (1.7.1)
+    faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -413,7 +413,7 @@ GEM
     rufus-scheduler (3.7.0)
       fugit (~> 1.1, >= 1.1.6)
     semantic_range (3.0.0)
-    sentry-rails (4.7.2)
+    sentry-rails (4.7.3)
       railties (>= 5.0)
       sentry-ruby-core (~> 4.7.0)
     sentry-ruby (4.7.2)
