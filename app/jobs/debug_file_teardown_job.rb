@@ -26,12 +26,12 @@ class DebugFileTeardownJob < ApplicationJob
   def notification_user(debug_file, user_id)
     return if user_id.blank?
 
-    ActionCable.server.broadcast "notification:#{user_id}", {
+    ActionCable.server.broadcast("notification:#{user_id}",
       type: 'teardown',
       status: 'success',
-      message: t('web_hooks.messages.parse_done', id: debug_file.i)}
-  }
-end
+      message: t('web_hooks.messages.parse_done', id: debug_file.id)
+    )
+  end
 
   def parse_dsym(debug_file, parser)
     parser.machos.each do |macho|
