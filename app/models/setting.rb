@@ -9,10 +9,10 @@ class Setting < RailsSettings::Base
   class << self
     def present_schemes
       [
-        t('settings.default_schemes.beta', raise: false),
-        t('settings.default_schemes.adhoc', raise: false),
-        t('settings.default_schemes.production', raise: false)
-      ]
+        t('settings.default_schemes.beta', default: nil),
+        t('settings.default_schemes.adhoc', default: nil),
+        t('settings.default_schemes.production', default: nil)
+      ].compact
     end
 
     def site_https
