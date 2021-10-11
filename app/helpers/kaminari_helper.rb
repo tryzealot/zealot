@@ -8,7 +8,7 @@ module KaminariHelper
   end
 
   def build_link(url, css_class, rel, linkt_text, remote)
-    content_tag :li, class: css_class do
+    content_tag(:li, class: css_class) do
       concat(link_to(raw(linkt_text), url, rel: rel, remote: remote, class: 'page-link').html_safe)
     end
   end

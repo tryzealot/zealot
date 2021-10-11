@@ -15,10 +15,9 @@ class ChannelsController < ApplicationController
   end
 
   def new
+    @title = t('channels.new.title', name: @scheme.app_name)
     @channel = Channel.new
     authorize @channel
-
-    @title = "新建#{@scheme.app_name}渠道"
   end
 
   def create
@@ -26,22 +25,20 @@ class ChannelsController < ApplicationController
     authorize @channel
 
     if @channel.save
-      redirect_to app_path(@channel.scheme.app), notice: "#{@channel.scheme.name} #{@channel.name} 渠道创建成功"
+      message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
+      redirect_to app_path(@channel.scheme.app), notice: message
     else
       @channel.errors
     end
   end
 
   def edit
-    @title = "编辑#{@scheme.app_name}渠道"
-    raise ActionController::RoutingError, '这里没有你找的东西' unless @app
+    @title = t('channels.edit.title', name: @scheme.app_name)
   end
 
   def update
-    raise ActionController::RoutingError, '这里没有你找的东西' unless @app
-
     @channel.update(channel_params)
-    redirect_to app_path(@app)
+    redirect_to channel_path(@channel)
   end
 
   def destroy
@@ -62,7 +59,7 @@ class ChannelsController < ApplicationController
 
     @app = @channel.scheme.app
     @title = @channel.app_name
-    @subtitle = " #{@app.schemes.count} 类型共 #{@channel.scheme.channels.count} 渠道"
+    @subtitle = t('channels.subtitle', total_scheme: @app.schemes.count, total_channel: @channel.scheme.channels.count)
   end
 
   def channel_params
@@ -73,6 +70,6 @@ class ChannelsController < ApplicationController
   end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: "没有找到应用渠道 #{e.id}，跳转至应用列表"
+    redirect_to apps_path, notice: t('channels.messages.errors.not_found_channel', id: e.id)
   end
 end

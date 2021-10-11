@@ -9,24 +9,9 @@
           = @title
         .card-tools
           a href="#{debug_files_path}"
-            i.far.fa-list-alt
-            |  返回列表
+            i.icon.far.fa-list-alt
+            = t('links.goback_to_list')
       .card-body
         == render 'form'
 
-    .card
-      .card-header.card-border
-        h3.card-title 如何找到调试文件
-      .card-body.table-responsive
-        p 一般情况下，项目编译完 dSYM 文件跟 app 文件在同一个目录下，下面以 XCode 作为 IDE 详细说明定位 dSYM 文件。
-        ul
-          li 进入 XCode
-          li 打开工程（已编译过）
-          li 在左栏找到 "Product" 项
-          li 鼠标右键点击编译生成的 "xxx.app"
-          li 点击 "Show in Finder" 即可看到 dsym 文件
-
-        h4 XCode 编译后没有生成 dSYM 文件？
-        p XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
-        pre
-          code Debug Information Format = "DWARF with dSYM File"
+    == render 'help'

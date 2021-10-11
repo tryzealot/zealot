@@ -1,17 +1,25 @@
 - content_for :title do
-  | 解锁账户
+  = t('.resend_unlock_instructions')
 
-.login-box
-  .card
-    .card-body.login-card-body
-      p.login-box-msg 解锁账户
-      = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
-        = render "devise/shared/error_messages", resource: resource
+/ zealot not use lockable
+.row.m-3
+  .col-md-6.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .col-md-6.order-1.order-sm-12.mb-4
+    - if Setting.registrations_mode
+      .card
+        .card-header
+          h3.card-title = t('.resend_unlock_instructions')
+        .card-body
+          .row
+            .auth-form.col-md-6
+              = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+                == render "devise/shared/error_messages", resource: resource
 
-        = f.input :email, hint: '',
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }
-        = f.button :submit, '发送解锁邮件', class: 'btn-block'
-
-      == render 'devise/shared/links'
+                = f.input :email, hint: '',
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email" }
+                = f.button :submit, t('.resend_unlock_instructions'), class: 'btn-block'
+            .auth-providers.col-md-6
+              == render 'devise/shared/links'

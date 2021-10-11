@@ -21,11 +21,9 @@ zh-CN:
         password: '登录密码'
         password_confirmation: '密码确认'
         role: '账户权限'
-        remember_me: '记住我'
+        remember_me: '记住登录信息'
       app:
         name: '应用名称'
-        schemes:
-          name: :'simple_form.labels.scheme.name'
       scheme:
         name: '类型名称'
       channel:
@@ -48,6 +46,7 @@ zh-CN:
         upload_events: '上传事件'
         download_events: '下载事件'
         changelog_events: '日志变更事件'
+        channels: 启用的应用渠道
       debug_file:
         app_id: '应用'
         device_type: '应用平台'
@@ -55,13 +54,15 @@ zh-CN:
         build_version: '构建版本'
         file: '调试文件'
         checksum: '唯一校验码'
+      setting:
+        value: 值
 
     hints:
       defaults:
         channel: '应用会使用的平台'
       app:
         schemes:
-          name: '应用在功能、面向受众划分的类型'
+          name: :'simple_form.hits.scheme.name'
       scheme:
           name: '应用在功能、面向受众划分的类型'
       channel:
@@ -83,6 +84,8 @@ zh-CN:
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
+      setting:
+        value: '按照 JSON 标准格式编辑，否则会保存失败'
 
     placeholders:
       release:

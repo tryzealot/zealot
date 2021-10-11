@@ -74,13 +74,24 @@ SimpleForm.setup do |config|
     end
   end
 
+  # vertical input for text area
+  config.wrappers :vertical_text_area, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label
+    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid', rows: 15
+    b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
+    b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+  end
+
   # vertical input for radio buttons and check boxes
   config.wrappers :vertical_collection, item_wrapper_class: 'form-check', item_label_class: 'form-check-label', tag: 'fieldset', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
     b.optional :readonly
-    b.wrapper :legend_tag, tag: 'legend', class: 'col-form-label pt-0' do |ba|
-      ba.use :label_text
-    end
+    b.use :label
     b.use :input, class: 'form-check-input', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
@@ -416,18 +427,7 @@ SimpleForm.setup do |config|
     file:          :vertical_file,
     radio_buttons: :vertical_collection,
     range:         :vertical_range,
-    time:          :vertical_multi_select
+    time:          :vertical_multi_select,
+    text:          :vertical_text_area
   }
-
-  # enable custom form wrappers
-  # config.wrapper_mappings = {
-  #   boolean:       :custom_boolean,
-  #   check_boxes:   :custom_collection,
-  #   date:          :custom_multi_select,
-  #   datetime:      :custom_multi_select,
-  #   file:          :custom_file,
-  #   radio_buttons: :custom_collection,
-  #   range:         :custom_range,
-  #   time:          :custom_multi_select
-  # }
 end
