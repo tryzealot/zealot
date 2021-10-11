@@ -1,11 +1,11 @@
 - content_for :title do
-  = "编辑 #{resource_name.to_s.humanize}"
+  = t('.title', resource: resource.model_name.human)
 
 .row
   .col-md-12
     .card
       .card-header.card-border
-        h3.card-title 个人信息
+        h3.card-title = t('.title', resource: resource.model_name.human)
       .card-body
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
           = f.error_notification
@@ -15,26 +15,24 @@
 
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
             p
-              | 等待确认邮件:
-              = resource.unconfirmed_email
+              = t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email)
 
-          = f.input :current_password, label: '当前密码', input_html: { autocomplete: "password" }
-          = f.input :password, label: '新密码', input_html: { autocomplete: "new-password" }
-          = f.input :password_confirmation, label: '重复新密码', input_html: { autocomplete: "new-password" }
-          = f.submit '更新', class: 'btn btn-lg btn-primary'
+          = f.input :current_password, input_html: { autocomplete: "password" }
+          = f.input :password, input_html: { autocomplete: "new-password" }
+          = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
+          = f.submit class: 'btn btn-lg btn-primary'
 
     .card.card-info
       .card-header.card-border
-        h3.card-title API
+        h3.card-title = t('.api')
       .card-body
         .form-group
-          label 密钥
+          label = t('.token')
           input type="text" class="form-control" disabled="true" value="#{@user.token}"
 
     .card.card-danger
       .card-header.card-border
-        h3.card-title 注销您的账户
+        h3.card-title = t('.cancel_my_account')
       .card-body
-        p
-          | 注销账户后，您的数据将会彻底移除！
-        = button_to "确认注销", user_registration_path, data: { confirm: "最后确认你要注销自己的账户?" }, method: :delete, class: 'btn btn-lg btn-danger'
+        p = t('.unhappy')
+        = button_to t('.cancel_my_account'), user_registration_path, data: { confirm: t('.are_you_sure') }, method: :delete, class: 'btn btn-lg btn-danger'

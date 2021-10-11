@@ -104,7 +104,7 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks, except: %i[edit update]
+      resources :web_hooks#, except: %i[edit update]
       resources :settings
 
       resources :background_jobs, only: :index
