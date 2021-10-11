@@ -363,7 +363,7 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    rails-settings-cached (2.8.0)
+    rails-settings-cached (2.8.1)
       rails (>= 5.0.0)
     railties (6.1.4.1)
       actionpack (= 6.1.4.1)
@@ -551,7 +551,7 @@ DEPENDENCIES
   rack-cors (~> 1.1.1)
   rails (~> 6.1.4)
   rails-i18n (~> 6.0.0)
-  rails-settings-cached (~> 2.8.0)
+  rails-settings-cached (~> 2.8.1)
   rake (~> 13.0.4)
   redis (~> 4.4.0)
   rqrcode
