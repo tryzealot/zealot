@@ -8,43 +8,42 @@
   .col-md-6
     .card.system_info
       .card-header
-        h3.card-title 服务器信息
+        h3.card-title = t('admin.system_info.server_info')
       .card-body
         dl.system-info
-          dt Zealot 版本
+          dt = t('admin.system_info.zealot_version')
           dd
             pre
               #new-version.float-right
               #current-version
                 = @current_version
-          dt Ruby 版本
+          dt = t('admin.system_info.ruby_version')
           dd
             pre = RUBY_DESCRIPTION
-          dt CPU
+          dt = t('admin.system_info.cpu_info')
           dd
             pre
               - if @cpus
-                = "#{@cpus.length} 核"
+                = t('admin.system_info.cpu_core', size: @cpus.length)
               - else
-                | CPU 信息监测失败
-          dt 内存
+                = t('admin.system_info.fail_detect_cpu')
+          dt = t('admin.system_info.memory_info')
           dd
             pre
               - if @memory
                 = "#{number_to_human_size(@memory[:used])} / #{number_to_human_size(@memory[:total])}"
                 .progress.progress-bar-striped class="#{@memory[:color]}" role="progressbar" aria-valuenow="#{@memory[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{@memory[:percent]}%"
               - else
-                | 内存信息监测失败
-          dt
-            | 磁盘
+                = t('admin.system_info.fail_detect_memory')
+          dt = t('admin.system_info.disk_info')
           dd
             pre
               - if @diskspace
                 = "#{number_to_human_size(@diskspace[:used])} / #{number_to_human_size(@diskspace[:total])}"
                 .progress.progress-bar-striped class="#{@diskspace[:color]}" role="progressbar" aria-valuenow="#{@diskspace[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{@diskspace[:percent]}%"
               - else
-                | 监测失败
-          dt 运行时间
+                = t('admin.system_info.fail_detect_disk')
+          dt = t('admin.system_info.lauched_time')
           dd
             pre
               = distance_of_time_in_words_to_now(@booted_at)
@@ -53,7 +52,7 @@
               | )
     .card
       .card-header
-        h3.card-title 挂载信息
+        h3.card-title = t('admin.system_info.volume_mounted')
       .card-body
         - unless @disks.blank?
           dl.system-info
@@ -64,12 +63,12 @@
                   = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
                   .progress.progress-bar-striped class="#{disk[:color]}" role="progressbar" aria-valuenow="#{disk[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{disk[:percent]}%"
         - else
-          | 硬盘信息无法获取
+          = t('admin.system_info.fail_detect_disk')
 
   .col-md-6
     .card
       .card-header
-        h3.card-title 系统变量
+        h3.card-title = t('admin.system_info.system_enviroment')
       .card-body
         dl.system-info
           - @env.each do |key, value|

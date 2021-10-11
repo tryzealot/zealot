@@ -8,8 +8,8 @@ ruby:
         = @title
       .card-tools
         a href="#{app_path(@scheme.app)}"
-          i.far.fa-list-alt
-          |  返回应用
+          i.icon.far.fa-list-alt
+          = t('links.goback_to_list')
     .card-body
       = simple_form_for(@channel, url: form_url) do |f|
         = f.error_notification

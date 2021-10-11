@@ -5,7 +5,7 @@ ruby:
     app_name = '未知'
   end
 
-.col-md-8
+.col-md-6
   .card
     .card-header
       h3.card-title 应用信息
@@ -34,8 +34,8 @@ ruby:
           pre = number_to_human_size(@metadata.size)
 
   = render 'card', title: 'Activities', raw: @metadata.activities
-  = render 'card', title: 'Services', raw: @metadata.services
 
-.col-md-4
+.col-md-6
   = render 'card', title: 'Features', raw: @metadata.features
   = render 'card', title: 'Permissions', raw: @metadata.permissions
+  = render 'card', title: 'Services', raw: @metadata.services

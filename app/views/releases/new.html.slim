@@ -12,7 +12,7 @@
           = @title
         .card-tools
           a href="#{channel_path(@channel)}"
-            i.far.fa-list-alt
-            |  返回应用
+            i.icon.far.fa-list-alt
+            = t('links.goback_to_list')
       .card-body
         == render 'form'
