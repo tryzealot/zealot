@@ -9,6 +9,7 @@ zh-CN:
         current_password: 当前密码
         current_sign_in_at: 最近登录于
         current_sign_in_ip: 最近登录 IP
+        username: 昵称
         email: 电子邮箱
         encrypted_password: 密码被加密
         failed_attempts: 失败尝试
@@ -53,7 +54,8 @@ zh-CN:
       email_changed:
         greeting: 您好 %{recipient}！
         message: 收到此邮件是因为您的电子邮件地址已被更改为 %{email}。
-        subject: 电邮已被修改
+        message_unconfirmed: 收到此邮件是因为您的电子邮件地址正被更改为 %{email}。
+        subject: 电子邮件已被修改
       password_change:
         greeting: 您好 %{recipient}！
         message: 收到此邮件是因为您的帐户密码已被修改。
@@ -81,8 +83,8 @@ zh-CN:
         confirm_new_password: 确认新密码
         new_password: 新密码
       new:
-        forgot_your_password: 忘记密码？
-        send_me_reset_password_instructions: 请给我发送重设密码的邮件
+        forgot_your_password: 找回密码
+        send_me_reset_password_instructions: 发送重设密码邮件
       no_token: 无重置邮件不可访问密码重置页面。如果您是从重置邮件来到了这个页面，请确保您输入的 URL 链接的完整。
       send_instructions: 您的电子邮箱将在几分钟后收到一封重置密码的邮件。
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封找回密码的邮件。
@@ -91,16 +93,16 @@ zh-CN:
     registrations:
       destroyed: 再见！您的帐户已成功注销。我们希望很快可以再见到您。
       edit:
-        are_you_sure: 您确定吗？
+        are_you_sure: 最后确认要注销自己的账户，您确定吗？
         cancel_my_account: 注销我的帐户
         currently_waiting_confirmation_for_email: 等待确认 %{email}
         leave_blank_if_you_don_t_want_to_change_it: 如不想更改，则无需填写
-        title: 修改%{resource}
-        unhappy: 不喜欢
+        title: '%{resource}信息'
+        unhappy: 注销账户后，您的数据将会彻底移除！
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认更改
       new:
-        sign_up: 注册
+        sign_up: 用户注册
       signed_up: 欢迎您！您已注册成功。
       signed_up_but_inactive: 您的帐户还未被激活。激活前无法登录。
       signed_up_but_locked: 您已成功注册，但帐号被锁定了，因此无法登录。
@@ -111,18 +113,18 @@ zh-CN:
     sessions:
       already_signed_out: 您已登出。
       new:
-        sign_in: 登录
-      signed_in: 登录成功。
-      signed_out: 登出成功。
+        sign_in: 用户登录
+      signed_in: 登录成功
+      signed_out: 登出成功
     shared:
       links:
         back: 返回
-        didn_t_receive_confirmation_instructions: 没有收到确认邮件？
-        didn_t_receive_unlock_instructions: 没有收到解锁邮件？
+        didn_t_receive_confirmation_instructions: 没有收到确认邮件?
+        didn_t_receive_unlock_instructions: 没有收到解锁账号确认邮件?
         forgot_your_password: 忘记密码？
-        sign_in: 登录
-        sign_in_with_provider: 通过 %{provider} 登录
-        sign_up: 注册
+        sign_in: 登录账户
+        sign_in_with_provider: 通过%{provider}登录
+        sign_up: 注册账户
       minimum_password_length: "（最少%{count}个字符）"
     unlocks:
       new:
@@ -138,5 +140,5 @@ zh-CN:
       not_found: 找不到
       not_locked: 未被锁定
       not_saved:
-        one: 发生一个错误导致%{resource}保存失败：
-        other: 发生 %{count} 个错误导致%{resource}保存失败：
+        one: 一个%{resource}错误：
+        other: '%{count} 个%{resource}错误：'

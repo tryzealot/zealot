@@ -12,7 +12,7 @@ class TeardownService < ApplicationService
   def call
     file_type = AppInfo.file_type(file)
     unless SUPPORT_APP.include?(file_type)
-      raise ActionController::UnknownFormat, "无法处理文件: #{file}, 不支持本文件类型: #{file_type}"
+      raise ActionController::UnknownFormat, t('teardowns.messages.errors.not_support_file_type')
     end
 
     process
