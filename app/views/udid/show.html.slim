@@ -9,47 +9,42 @@
     .card.system_info
       .card-header
         h3.card-title
-          i.fas.fa-info-circle
-          |  设备信息
+          i.icon.fas.fa-info-circle
+          = @title
       .card-body
         .pl-2.pr-2
           - if @device
             .alert.alert-success
               strong Woo-ha！
-              | 本设备已注册
-              - if @device.name.present?
-               | 【
-               = @device.name
-               | 】
-              | ，快往下看看有没有关联的应用吧！
+              = t('udid.show.registered', device: @device.name.present? ? "【#{@device.name}】" : '')
           - else
             .alert.alert-warning
               strong Ta-Da！
-              | 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
+              = t('udid.show.unregistered')
 
         dl.system-info
-          dt UDID
+          dt = t('udid.show.udid')
           dd
             .input-group.mb-3
               input#udid-text.form-control.rounded-0 value="#{params[:udid]}" readonly="true"
               span.input-group-append
                 button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#udid-text"
                   i.far.fa-clipboard
-          dt 型号
+          dt = t('udid.show.product')
           dd
             .input-group.mb-3
               input#product-text.form-control.rounded-0 value="#{params[:product]}" readonly="true"
               span.input-group-append
                 button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#product-text"
                   i.far.fa-clipboard
-          dt 序列号
+          dt = t('udid.show.serial')
           dd
             .input-group.mb-3
               input#serial-text.form-control.rounded-0 value="#{params[:serial]}" readonly="true"
               span.input-group-append
                 button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#serial-text"
                   i.far.fa-clipboard
-          dt 版本
+          dt = t('udid.show.version')
           dd
             .input-group.mb-3
               input#version-text.form-control.rounded-0 value="#{params[:version]}" readonly="true"
@@ -61,8 +56,8 @@
     .card
       .card-header
         h3.card-title
-          i.fas.fa-cubes
-          |  可安装应用
+          i.icon.fas.fa-cubes
+          = t('udid.show.registered_apps')
       .card-body
         - if @device && @device.channels.present?
           .timeline
@@ -73,12 +68,11 @@
                 i.far.fa-circle
                 .timeline-item
                   span.time
-                    i.fas.fa-clock
-                    | &nbsp
+                    i.icon.fas.fa-clock
                     = time_ago_in_words(release.created_at)
                   h3.timeline-header
-                    = link_to release.app_name, channel_release_path(channel, release)
-                    = " 上传了新版本 #{release.release_version} (#{release.build_version})"
+                    = link_to(release.app_name, channel_release_path(channel, release), class: 'pr-1')
+                    = t('udid.show.upload_release', release_version: release.release_version, build_version: release.build_version)
                   - if release.changelog.present?
                     .timeline-body.pb-0
                       = changelog_format release.changelog_list, class: 'mb-0'
@@ -100,8 +94,5 @@
               i.fas.fa-clock.bg-gray
         - else
           .p-2
-            p
-              strong 没有发现可安装应用！
-              | 请复制上面设备 UDID 并发给 iOS 工程师来添加测试设备并重新打包。
-              | 新安装包上传之后可以刷新本页面检查是否出现对应的应用。
+            p = t('udid.show.not_found_html')
 

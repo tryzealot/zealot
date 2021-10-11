@@ -18,6 +18,6 @@ class AppFileUploader < ApplicationUploader
   def validate_app_type
     return if SUPPORT_APP.include?(AppInfo.file_type(file.path))
 
-    raise CarrierWave::InvalidParameter, "无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App"
+    raise CarrierWave::InvalidParameter, I18n.t('errors.unknown_file_type')
   end
 end

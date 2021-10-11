@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  settings:
+    default_schemes:
+      beta: Beta
+      adhoc: Adhoc
+      production: Production

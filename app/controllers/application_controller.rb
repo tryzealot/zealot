@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :set_sentry_context
   before_action :record_page_view
 
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
   rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, JSON::ParserError, AppInfo::UnkownFileTypeError, with: :bad_request

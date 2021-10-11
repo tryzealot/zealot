@@ -5,9 +5,8 @@ class AppsController < ApplicationController
   before_action :set_app, only: %i[show edit update destroy]
   before_action :process_scheme_and_channel, only: %i[create]
 
-
   def index
-    @title = '应用管理'
+    @title = t('.title')
     @apps = App.all
     authorize @apps
   end
@@ -17,7 +16,7 @@ class AppsController < ApplicationController
   end
 
   def new
-    @title = '新建应用'
+    @title = t('.title')
     @app = App.new
     authorize @app
 
@@ -25,20 +24,18 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @title = '编辑应用'
+    @title = t('.title')
   end
 
   def create
     @app = App.new(app_params)
     authorize @app
 
-    if @app.save
-      @app.users << current_user
-      app_create_schemes_and_channels
-      redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
-    else
-      render :new
-    end
+    return render :new unless @app.save
+
+    @app.users << current_user
+    app_create_schemes_and_channels
+    redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
 
   def update
@@ -57,8 +54,8 @@ class AppsController < ApplicationController
 
   def destory_app_data
     require 'fileutils'
+
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
-    logger.debug "Delete app all binary and icons in #{app_binary_path}"
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 
@@ -93,6 +90,6 @@ class AppsController < ApplicationController
   end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: "没有找到应用 #{e.id}，跳转至应用列表"
+    redirect_to apps_path, notice: t('apps.messages.failture.not_found_app', id: e.id)
   end
 end
