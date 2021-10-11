@@ -5,53 +5,52 @@ class TeardownsController < ApplicationController
   before_action :set_metadata, only: %i[show destroy]
 
   def index
-    @title = '应用解包'
+    @title = t('teardowns.title')
     @metadata = Metadatum.page(params.fetch(:page, 1))
                          .per(params.fetch(:per_page, 10))
                          .order(id: :desc)
   end
 
   def show
-    @title = "#{@metadata.name} #{@metadata.release_version} (#{@metadata.build_version}) 解包信息"
+    @title = t('teardowns.show.title', name: @metadata.name,
+                                       release_version: @metadata.release_version,
+                                       build_version: @metadata.build_version)
   end
 
   def new
-    @title = '应用解包'
+    @title = t('teardowns.title')
   end
 
   def create
     parse_app
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:error] = "无法找到解包文件: #{e}"
+  rescue AppInfo::NotFoundError, ActiveRecord::RecordNotFound => e
+    flash[:error] = t('teardowns.messages.errors.not_found_file', message: e.message)
     render :new
   rescue ActionController::RoutingError => e
     flash[:error] = e.message
     render :new
   rescue AppInfo::UnkownFileTypeError
-    flash[:error] = '无法识别上传的应用类型'
-    render :new
-  rescue AppInfo::NotFoundError => e
-    flash[:error] = "无法找到解包文件: #{e}"
+    flash[:error] = t('teardowns.messages.errors.failed_detect_file_type')
     render :new
   rescue AppInfo::UnkownFileTypeError
-    flash[:error] = '上传应用的文件类型不支持'
+    flash[:error] = t('teardowns.messages.errors.not_support_file_type')
     render :new
   rescue NoMethodError => e
     logger.error "Teardown error: #{e}"
     Sentry.capture_exception e
-    flash[:error] = '上传应用解析异常，请确保应用是支持的文件类型且没有安全加固处理'
+    flash[:error] = t('teardowns.messages.errors.failed_get_metadata')
     render :new
   rescue => e
     logger.error "Teardown error: #{e}"
     Sentry.capture_exception e
-    flash[:error] = "上传应用解析发现未知异常，原始错误 [#{e.class}]：#{e.message}"
+    flash[:error] = t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
     render :new
   end
 
   def destroy
     @metadata.destroy
 
-    redirect_to teardowns_path, notice: "[#{@metadata.id}] #{@metadata.name} 应用解包记录删除成功！"
+    redirect_to teardowns_path, notice: t('activerecord.success.destroy', key: "#{t('teardowns.title')}")
   end
 
   private
@@ -63,7 +62,7 @@ class TeardownsController < ApplicationController
 
   def parse_app
     unless file = params[:file]
-      raise ActionController::RoutingError, '请选择需要解包的 ipa、apk 安装包或 .mobileprovision 文件'
+      raise ActionController::RoutingError, t('teardowns.messages.errors.choose_supported_file_type')
     end
 
     metadata = TeardownService.call(file)

@@ -11,7 +11,7 @@
     .card-body.card-comments
       - @metadata.developer_certs.each_with_index do |cert, i|
         .card-comment
-          .comment-text style="margin-left: 0"
+          .comment-text.ml-0
             span.username
               | 证书
               = i + 1

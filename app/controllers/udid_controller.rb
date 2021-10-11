@@ -2,7 +2,7 @@
 
 class UdidController < ApplicationController
   def index
-    @title = '获取设备 UDID'
+    @title = t('udid.title')
     @qrcode = RQRCode::QRCode.new(udid_url)
   end
 
@@ -24,6 +24,7 @@ class UdidController < ApplicationController
   end
 
   def show
+    @title = t('udid.show.title')
     @device = Device.find_by(udid: params[:udid])
   end
 
@@ -33,6 +34,7 @@ class UdidController < ApplicationController
     content_type = params[:preview].present? ? 'application/xml' : 'application/x-apple-aspen-config'
     render content_type: content_type, layout: false
 
+    # TODO: 做不做都可，以下是使用 tls 签名后的 profile
     # plist = render_to_string(layout: false)
 
     # server = File.read('public/certs/server.pem')

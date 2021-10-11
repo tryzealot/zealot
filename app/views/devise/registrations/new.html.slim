@@ -1,41 +1,43 @@
 - content_for :title do
-  | 用户注册
+  = t('.resend_confirmation_instructions')
 
-- if Setting.registrations_mode
-  .row.mb-3.mt-3
-    .col-sm-7.order-12.order-sm-1
-      == render 'devise/shared/intro'
-    .login-box.col-sm-5.order-1.order-sm-12
+.row.m-3
+  .col-md-6.order-12.order-sm-1
+    == render 'devise/shared/intro'
+  .col-md-6.order-1.order-sm-12.mb-4
+    - if Setting.registrations_mode
       .card
-        .card-body.login-card-body
-          p.login-box-msg 用户注册
-          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-            = render "devise/shared/error_messages", resource: resource
+        .card-header
+          h3.card-title = t('.sign_up')
+        .card-body
+          .row
+            .auth-form.col-md-6
+              = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+                == render "devise/shared/error_messages", resource: resource
 
-            = f.input :username,
-                      required: true,
-                      autofocus: true,
-                      hint: '',
-                      input_html: { autocomplete: "username", class: 'form-control' }
-            = f.input :email,
-                      required: true,
-                      autofocus: true,
-                      hint: '',
-                      input_html: { autocomplete: "email", class: 'form-control' }
-            = f.input :password,
-                      required: true,
-                      hint: ("最小 #{@minimum_password_length} 个字符" if @minimum_password_length),
-                      input_html: { autocomplete: "new-password" }
-            = f.input :password_confirmation,
-                      required: true,
-                      input_html: { autocomplete: "new-password" }
+                = f.input :username,
+                          required: true,
+                          autofocus: true,
+                          hint: '',
+                          input_html: { autocomplete: "username", class: 'form-control' }
+                = f.input :email,
+                          required: true,
+                          autofocus: true,
+                          hint: '',
+                          input_html: { autocomplete: "email", class: 'form-control' }
+                = f.input :password,
+                          required: true,
+                          hint: t('devise.shared.minimum_password_length', count: @minimum_password_length),
+                          input_html: { autocomplete: "new-password" }
+                = f.input :password_confirmation,
+                          required: true,
+                          input_html: { autocomplete: "new-password" }
 
-            = f.button :submit, '注册', class: 'btn-block'
-
-          == render 'devise/shared/links'
-- else
-  .alert.alert-warning
-    h5
-      i.icon.fas.fa-exclamation-triangle
-      | 错误！
-    | 服务没有开放注册功能！请联系管理员开通账户。
+                = f.button :submit, t('.register'), class: 'btn-block'
+            .auth-providers.col-md-6
+              == render 'devise/shared/links'
+    - else
+      .card.card-outline.card-warning
+        .card-header.card-border
+          h3.card-title = t('.error')
+        .card-body = t('.register_closed')

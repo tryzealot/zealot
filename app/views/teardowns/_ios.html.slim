@@ -1,5 +1,5 @@
 
-.col-md-8
+.col-md-6
   .card
     .card-header
       h3.card-title 应用信息
@@ -31,11 +31,11 @@
         dd
           pre = number_to_human_size(@metadata.size)
 
-  == render 'mobileprovision_part'
-  == render 'developer_certs_part'
   == render 'devices_part'
-  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+  == render 'developer_certs_part'
 
-.col-md-4
+.col-md-6
+  == render 'mobileprovision_part'
   == render 'card', title: '启用能力', raw: @metadata.capabilities
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
+  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
