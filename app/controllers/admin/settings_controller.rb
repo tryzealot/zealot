@@ -5,12 +5,19 @@ class Admin::SettingsController < ApplicationController
   before_action :verify_editable_setting, only: %i[edit]
 
   def index
-    @title = '系统配置'
+    @title = t('system_settings.title')
     @settings = Setting.site_configs
   end
 
   def edit
-    @title = '编辑设置'
+    @title = t('admin.settings.edit_value')
+    @value = @setting.value || @setting.default_value
+
+    # FIXME: RailsSettings::Base 初始化会缓存造成 i18n 第一时间拿不到
+    # 以至于 index, edit 好些地方都需要兼容
+    if @setting.var == 'default_schemes' && (@setting.value.blank? || @setting.value.empty?)
+      @value = Setting.present_schemes
+    end
   end
 
   def update
@@ -20,7 +27,8 @@ class Admin::SettingsController < ApplicationController
       @setting.value = new_value
       return render :edit unless @setting.save
 
-      redirect_to admin_settings_path, notice: "保存成功."
+      message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
+      redirect_to admin_settings_path, notice: message
     else
       redirect_to admin_settings_path
     end
@@ -37,6 +45,6 @@ class Admin::SettingsController < ApplicationController
   end
 
   def verify_editable_setting
-    raise Pundit::NotAuthorizedError, '当前设置为可读，无法修改' if @setting.readonly? === true
+    raise Pundit::NotAuthorizedError, t('admin.settings.no_editable_key') if @setting.readonly? === true
   end
 end

@@ -1,14 +1,14 @@
 table.table.table-hover
   tr
-    th ID
-    th 主版本
-    th 开发版本
-    th 打包类型
-    th 分支
-    th Git 提交信息
-    th 上传时间
+    th = t('channels.show.id')
+    th = t('channels.show.release_version')
+    th = t('channels.show.build_version')
+    th = t('channels.show.release_type')
+    th = t('channels.show.git_branch')
+    th = t('channels.show.git_commit')
+    th = t('channels.show.uploaded_at')
     - if user_signed_in?
-      th 操作
+      th = t('channels.show.actions')
   - if @releases.present?
     - @releases.each_with_index do |release, index|
       tr
@@ -29,8 +29,8 @@ table.table.table-hover
             = time_ago_in_words(release.created_at)
         - if user_signed_in?
           td
-            a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="确定删除?" data-method="delete"
+            a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="#{t('channels.messages.confirm.destroy')}" data-method="delete"
               i.fas.fa-trash-alt
   - else
     tr
-      th colspan="5" 该版本没有任何上传记录！
+      th colspan="5" = t('channels.show.empty_version')

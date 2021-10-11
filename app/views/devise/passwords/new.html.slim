@@ -1,22 +1,26 @@
 
 - content_for :title do
-  | 找回密码
+  = t('.forgot_your_password')
 
-.row.mb-3.mt-3
-  .col-sm-7.order-12.order-sm-1
+.row.m-3
+  .col-md-6.order-12.order-sm-1
     == render 'devise/shared/intro'
-  .login-box.col-sm-5.order-1.order-sm-12
+  .col-md-6.order-1.order-sm-12.mb-4
     .card
-      .card-body.login-card-body
-        p.login-box-msg 找回密码
-        = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-          = f.error_notification
+      .card-header
+        h3.card-title = t('.forgot_your_password')
+      .card-body
+        .row
+          .auth-form.col-md-6
+            = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+              = f.error_notification
 
-          = f.input :email, hint: '',
-                  required: true,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" }
+              = f.input :email, hint: '',
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" }
 
-          = f.button :submit, '发送重置邮件', class: 'btn-block'
+              = f.button :submit, t('.send_me_reset_password_instructions'), class: 'btn-block'
 
-        == render 'devise/shared/links'
+          .auth-providers.col-md-6
+            == render 'devise/shared/links'

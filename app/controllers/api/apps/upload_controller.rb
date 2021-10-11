@@ -85,7 +85,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def and_scheme(app)
-    name = parse_scheme_name || '测试版'
+    name = parse_scheme_name
     app.schemes.find_or_create_by name: name
   end
 
@@ -101,16 +101,7 @@ class Api::Apps::UploadController < Api::BaseController
   def parse_scheme_name
     return unless app_parser.os == AppInfo::Platform::IOS
 
-    case app_parser.release_type
-    when AppInfo::IPA::ExportType::DEBUG
-      '开发版'
-    when AppInfo::IPA::ExportType::ADHOC
-      '测试版'
-    when AppInfo::IPA::ExportType::INHOUSE
-      '企业版'
-    when AppInfo::IPA::ExportType::RELEASE
-      '线上版'
-    end
+    t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: t('api.apps.upload.create.adhoc'))
   end
 
   def release_params
