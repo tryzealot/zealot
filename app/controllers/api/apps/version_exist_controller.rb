@@ -8,7 +8,7 @@ class Api::Apps::VersionExistController < Api::BaseController
     determine_params!
 
     where_params = channel_params.merge(channel_id: @channel.id)
-    raise ActiveRecord::RecordNotFound, '应用版本不存在' unless Release.exists?(where_params)
+    raise ActiveRecord::RecordNotFound, t('.not_found') unless Release.exists?(where_params)
 
     render json: Release.find_by(where_params)
   end
@@ -20,8 +20,7 @@ class Api::Apps::VersionExistController < Api::BaseController
               (channel_params.key?(:bundle_id) && channel_params.key?(:release_version) &&
               channel_params.key?(:build_version))
 
-    raise ActionController::ParameterMissing,
-          '参数缺失，请使用 bundle_id, release_version, build_version 或 bundle_id, git_commit 组合参数'
+    raise ActionController::ParameterMissing, t('api.apps.version_exist.missing_params')
   end
 
   def channel_params

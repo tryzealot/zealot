@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.4.0'
+gem 'puma', '~> 5.5.0'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
@@ -37,7 +37,7 @@ gem 'carrierwave', '~> 2.2.2'
 
 # Helper
 ## HTTP 请求
-gem 'http', '~> 5.0.2'
+gem 'http', '~> 5.0.4'
 ## 用户认证
 gem 'pundit', '~> 2.1.0'
 gem 'devise', '~> 4.8.0'
@@ -83,7 +83,7 @@ gem 'webpacker', '~> 5.4'
 gem 'app-info', '~> 2.6.5'
 
 # Mobile config
-gem 'rails-settings-cached', '~> 2.8.0'
+gem 'rails-settings-cached', '~> 2.8.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false

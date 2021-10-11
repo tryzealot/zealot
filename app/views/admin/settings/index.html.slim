@@ -15,15 +15,19 @@ form.form-horizontal
             - keys.each do |key, params|
               ruby:
                 value = params[:value]
+                if key == 'default_schemes' && value&.empty?
+                  value = Setting.present_schemes
+                end
+
                 display_value = case value
                                 when Hash
                                   JSON.pretty_generate(value)
                                 when Array
                                   value.join(', ')
                                 when TrueClass
-                                  '开启'
+                                  t('admin.settings.enable')
                                 when FalseClass
-                                  '关闭'
+                                  t('admin.settings.disable')
                                 else
                                   value.blank? ? t('admin.settings.empty_value') : value.to_s
                                 end

@@ -1,21 +1,26 @@
 - if ldap_auth_enable?
   #login-tabs-ldap.tab-pane.fade aria-labelledby="login-tabs-ldap-tab" role="tabpanel"
-    = form_tag(user_ldap_omniauth_callback_path) do
-      .form-group
-        = label_tag :username, "LDAP 账户"
-        = text_field_tag :username, nil, class: "form-control top", title: "This field is required.", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
-      .form-group
-        = label_tag :password, "LDAP 密码"
-        = password_field_tag :password, nil, class: "form-control bottom", title: "This field is required.", data: { qa_selector: 'password_field' }, required: true
+    .row
+      .auth-form.col-md-6
+        = form_tag(user_ldap_omniauth_callback_path) do
+          .form-group
+            = label_tag :username, t('devise.ldap.username')
+            = text_field_tag :username, nil, class: "form-control top", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
+          .form-group
+            = label_tag :password, t('devise.ldap.password')
+            = password_field_tag :password, nil, class: "form-control bottom", data: { qa_selector: 'password_field' }, required: true
 
-      - if devise_mapping.rememberable?
-        .row
-          .col-12
-            fieldset.form-group.boolean.optional.user_remember_me.icheck-primary style=("margin-top: 6px!important")
-              .form-check
-                = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'form-check-input boolean optional'
-                = label_tag :remember_me, '记住我', class: 'form-check-label boolean optional', style: 'font-weight: 700'
-      .row
-        .col-12
-          = submit_tag "登录", class: "btn btn-primary btn-block", data: { qa_selector: 'sign_in_button' }
+          - if devise_mapping.rememberable?
+            .row
+              .col-12
+                fieldset.form-group.boolean.optional.user_remember_me.icheck-primary style=("margin-top: 6px!important")
+                  .form-check
+                    = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'form-check-input boolean optional'
+                    = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'form-check-label boolean optional', style: 'font-weight: 700'
+          .row
+            .col-12
+              = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary btn-block", data: { qa_selector: 'sign_in_button' }
+
+      .auth-providers.col-md-6
+        == render 'devise/shared/links'
 
