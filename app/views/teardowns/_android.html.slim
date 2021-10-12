@@ -2,34 +2,34 @@ ruby:
   begin
     app_name = @metadata.name
   rescue Android::NotFoundError
-    app_name = '未知'
+    app_name = t('teardowns.show.unknow_app_name')
   end
 
 .col-md-6
   .card
     .card-header
-      h3.card-title 应用信息
+      h3.card-title = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
     .card-body
       dl.system-info
-        dt 名称
+        dt = t('teardowns.show.app_name')
         dd
           pre = app_name
-        dt 版本
+        dt = t('teardowns.show.version')
         dd
           pre = "#{@metadata.release_version} (#{@metadata.build_version})"
-        dt 包名
+        dt = t('teardowns.show.package_name')
         dd
           pre = @metadata.packet_name
-        dt 支持设备
+        dt = t('teardowns.show.supported_device')
         dd
           pre = @metadata.device
-        dt Android 最低版本 / 目标版本
+        dt = t('teardowns.show.sdk_version_range')
         dd
           pre = "#{@metadata.min_sdk_version} / #{@metadata.target_sdk_version}"
-        dt 文件大小
+        dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
 

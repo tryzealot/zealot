@@ -371,12 +371,120 @@ zh-CN:
 
   teardowns:
     title: 应用解包
+    new:
+      title: 新建应用解包
+      file: 文件
+      choose_file: 选择文件
+      file_hint: 支持 .apk、 .ipa、.mobileprovision 以及 macOS.app.zip 文件
+      submit: 开始解包
+    create:
+      create: :'teardowns.new.title'
+    index:
+      create: :'teardowns.new.title'
+      upload_history: 上传历史
+      uploaded_at: 上传时间
+      app_name: 应用名称
+      version: 版本
+      type: 类型
+      uploader: 提交者
+      actions: 操作
+      anonymous: 匿名者
+      not_found:
+        title: 没有发现任何应用解包！
+        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
+
     show:
       title: '%{name} %{release_version} (%{build_version}) 解包信息'
       expired_in: 还有%{time}左右过期
       already_expired: 已经过期%{time}
       expired: 此时此刻刚好过期了！
+      related_app: 关联提醒
+      related_body: 当前解包关联的应用是
+      unknow_app_name: 未知
+
+      metadata: 应用信息
+      app_name: 名称
+      version: 版本
+      package_name: 包名
+      supported_device: 支持设备
+      sdk_version_range: Android 最低版本 / 目标版本
+      file_size: 文件大小
+      release_type: 打包类型
+      min_ios_version: 最低 iOS 版本
+      min_macos_version: 最低 macOS 版本
+      capabilities: 启用能力
+      devise_list: '设备列表 (%{total})'
+      developer_certs_list: '开发者证书 (%{total})'
+      cert: '证书 %{index}'
+      cert_expired_at: '%{date} 到期'
+      mobileprovision: 描述文件
+      uuid: UUID
+      mobileprovision_name: 名称 (类型)
+      team_id: 团队名称 (Team ID)
+      created_at: 创建时间
+      expired_at: 过期时间
+
+    help:
+      title: 帮助中心
+      body_html: |
+        <p>
+          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用通过强大的
+          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> 强力驱动读取出来应用中的实用信息用于辅助阅读、
+          参考和定位问题：
+        </p>
+        <table class="table table-bordered">
+          <tr>
+            <th>iOS</th>
+            <th>Android</th>
+          </tr>
+          <tr>
+            <td>名称</td>
+            <td>名称</td>
+          </tr>
+          <tr>
+            <td>支持设备</td>
+            <td>支持设备</td>
+          </tr>
+          <tr>
+            <td>包名（bundle identifier）</td>
+            <td>包名（package name）</td>
+          </tr>
+          <tr>
+            <td>打包类型</td>
+            <td>打包类型</td>
+          </tr>
+          <tr>
+            <td>最低 iOS 版本</td>
+            <td>Android 最低版本 / 目标版本</td>
+          </tr>
+          <tr>
+            <td>Entitlements</td>
+            <td>Activities</td>
+          </tr>
+          <tr>
+            <td>启用能力</td>
+            <td>Services</td>
+          </tr>
+          <tr>
+            <td>URL Schemes</td>
+            <td>Features</td>
+          </tr>
+          <tr>
+            <td>测试设备列表</td>
+            <td>Permissions</td>
+          </tr>
+          <tr>
+            <td>开发者证书</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>描述文件</td>
+            <td></td>
+          </tr>
+        </table>
     messages:
+      confirm:
+        destroy: 确定删除?
       upload_events: '%{name} 上传了 %{version} 版本'
       download_events: '%{name} %{version} 版本被下载'
       changelog_events: '%{name} %{version} 版本更新了变更日志'
@@ -388,7 +496,7 @@ zh-CN:
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
         unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 ipa、apk 安装包或 .mobileprovision 文件
+        choose_supported_file_type: 请选择需要解包的 .apk、 .ipa、.mobileprovision 或 macOS.app.zip 文件
 
   udid:
     title: 设备 UDID
