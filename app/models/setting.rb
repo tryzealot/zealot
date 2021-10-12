@@ -89,13 +89,13 @@ class Setting < RailsSettings::Base
 
   # 第三方登录
   scope :third_party_auth do
-    field :feishu, type: :hash, display: true, default: {
+    field :feishu, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['FEISHU_ENABLED'] || false,
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
 
-    field :gitlab, type: :hash, display: true, default: {
+    field :gitlab, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['GITLAB_ENABLED'] || false,
       site: ENV['GITLAB_SITE'] || 'https://gitlab.com/api/v4',
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
@@ -103,13 +103,13 @@ class Setting < RailsSettings::Base
       secret: ENV['GITLAB_SECRET'],
     }
 
-    field :google_oauth, type: :hash, display: true, default: {
+    field :google_oauth, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['GOOGLE_OAUTH_ENABLED'] || false,
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
     }
 
-    field :ldap, type: :hash, display: true, default: {
+    field :ldap, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['LDAP_ENABLED'] || false,
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'] || '389',
