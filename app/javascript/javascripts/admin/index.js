@@ -1,12 +1,21 @@
 import compareVersion from 'compare-versions';
 const newVesionUrl = 'https://api.github.com/repos/tryzealot/zealot/releases/latest';
 
-$(document).on('turbolinks:load', () => {
+function insert_link(elm, title, link) {
+  elm.html(
+    '<a target="_blank" href="' + link + '">' +
+    '<i class="fas fa-rainbow"></i>' + title + '</a>');
+}
+
+function check_new_version() {
   var elm = $('#new-version');
   if (!elm.length) { return; }
 
   var current_version = $('#current-version').html();
-  if (current_version == 'development') { return; }
+  if (current_version == 'development') {
+    insert_link(elm, '发现新版本 (始终显示)', 'https://github.com/tryzealot/zealot');
+    return;
+  }
 
   fetch(newVesionUrl, {
     method: 'GET',
@@ -20,8 +29,10 @@ $(document).on('turbolinks:load', () => {
       if (compareVersion(latest_version, current_version) <= 0) { return; }
 
       var release_link = json.html_url;
-      elm.html(
-        '<a target="_blank" href="' + release_link + '">' +
-        '<i class="fas fa-rainbow"></i>发现新版本 ' + latest_version + '</a>');
+      insert_link(elm, '发现新版本 ' + latest_version, release_link);
   });
+}
+
+$(document).on('turbolinks:load', () => {
+  check_new_version();
 });

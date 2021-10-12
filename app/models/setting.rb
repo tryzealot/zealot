@@ -145,10 +145,9 @@ class Setting < RailsSettings::Base
 
   # 版本信息（只读）
   scope :information do
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true, display: true
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
-    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true, display: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
+    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
   end
 
   def readonly?
