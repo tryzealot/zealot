@@ -5,23 +5,25 @@ class TeardownsController < ApplicationController
   before_action :set_metadata, only: %i[show destroy]
 
   def index
-    @title = t('teardowns.title')
+    @title = t('.title')
     @metadata = Metadatum.page(params.fetch(:page, 1))
-                         .per(params.fetch(:per_page, 10))
+                         .per(params.fetch(:per_page, 50))
                          .order(id: :desc)
   end
 
   def show
-    @title = t('teardowns.show.title', name: @metadata.name,
+    @title = t('.title', name: @metadata.name,
                                        release_version: @metadata.release_version,
                                        build_version: @metadata.build_version)
   end
 
   def new
-    @title = t('teardowns.title')
+    @title = t('.title')
+    @metadata = Metadatum.new
   end
 
   def create
+    @title = t('.title')
     parse_app
   rescue AppInfo::NotFoundError, ActiveRecord::RecordNotFound => e
     flash[:error] = t('teardowns.messages.errors.not_found_file', message: e.message)

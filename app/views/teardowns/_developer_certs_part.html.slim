@@ -2,9 +2,7 @@
   .card
     .card-header
       h3.card-title
-        | 开发者证书 (
-        = @metadata.developer_certs.size
-        | )
+        = t('teardowns.show.developer_certs_list', total: @metadata.developer_certs.size)
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
@@ -13,9 +11,7 @@
         .card-comment
           .comment-text.ml-0
             span.username
-              | 证书
-              = i + 1
+              = t('teardowns.show.cert', index: i + 1)
               span.text-muted.float-right
-                = cert['expired_at']
-                |  到期
+                = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
             = cert['name']
