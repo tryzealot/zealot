@@ -20,21 +20,30 @@ zh-CN:
       back_to_list: 返回列表
 
     system_info:
-      server_info: 服务器信息
-      zealot_version:  Zealot 版本
-      found_new_version: '发现新版本: %{version}'
-      ruby_version: Ruby 版本
-      cpu_info: CPU
-      cpu_core: '%{size} 核'
-      fail_detect_cpu: CPU 信息监测失败
-      memory_info: 内存
-      fail_detect_memory: 内存信息监测失败
-      disk_info: 磁盘
-      fail_detect_disk: 磁盘监测失败
-      lauched_time: 运行时间
-      volume_mounted: 挂载信息
-      fail_detect_disk: 硬盘信息无法获取
-      system_enviroment: 系统变量
+      index:
+        zealot_version: Zealot 版本
+        vcs_ref: 哈希值
+        build_date: 构建日期
+        server_info: 服务器信息
+        found_new_version: '发现新版本: %{version}'
+        os_info: 操作系统
+        ruby_version: Ruby 版本
+        cpu_info: CPU
+        cpu_core: '%{size} 核'
+        fail_detect_cpu: CPU 信息监测失败
+        memory_info: 内存
+        fail_detect_memory: 内存信息监测失败
+        disk_info: 磁盘
+        fail_detect_disk: 磁盘监测失败
+        lauched_time: 运行时间
+        volume_mounted: 挂载信息
+        fail_detect_disk: 硬盘信息无法获取
+        system_enviroment: 系统变量
+        file_permissions: 文件权限
+        ruby_gems: Ruby Gems
+        logs: 日志
+        messages:
+          file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
 
     settings:
       enable: 开启
@@ -71,11 +80,6 @@ zh-CN:
 
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
-
-      information: 版本信息
-      version: 版本
-      vcs_ref: 哈希值
-      build_date: 构建日期
 
       empty_value: 空值
 
@@ -339,9 +343,10 @@ zh-CN:
         title: 没有发现任何调试文件！
         body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
     help:
-      title: 什么是调试文件，如何找到它？
+      title: 帮助中心
       body_html: |
-        <h4>iOS</h4>
+        <h4>什么是调试文件，如何找到它？</h4>
+        <h5>iOS</h5>
         <p>下面以 XCode 作为 IDE 详细说明定位 dSYM 文件：</p>
         <ul>
           <li>打开 XCode 后点击顶部菜单 "Window" -> "Organizer"</li>
@@ -356,7 +361,7 @@ zh-CN:
         </p>
         <p>如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。</p>
 
-        <h4>Android</h4>
+        <h5>Android</h5>
         <p>
           通常指的是 Mapping Files，主要用于被
           <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard 混淆</a>
@@ -605,7 +610,11 @@ zh-CN:
       password: LDAP 密码
     shared:
       hint: '- 或者 -'
-      # sign_in_with_provider: "使用%{provider}账号登录"
+      links:
+        provider:
+          feishu: 飞书
+          google: ' Google '
+          gitlab: ' Gitlab '
 
   helpers:
     submit:
