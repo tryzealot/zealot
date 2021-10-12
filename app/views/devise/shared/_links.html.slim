@@ -1,14 +1,14 @@
 - if devise_mapping.omniauthable?
-  .social-auth-links.text-center.mb-3
+  .social-auth-links.mb-3
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
         ruby:
           title = omniauth_display_name(provider)
           key = title.downcase
 
-        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-default btn-auth-#{key}"
-          i.icon.fab class="fa-#{key}"
-          = t('devise.shared.links.sign_in_with_provider', provider: title)
+        a.btn.btn-default.btn-block.text-left href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-auth-#{key}"
+          = t('devise.shared.links.sign_in_with_provider', provider: t("devise.shared.links.provider.#{key}", default: title))
+          i.icon.fab.float-right class="fa-#{key}"
 
 - if controller_name != 'sessions'
   p.mb-1
