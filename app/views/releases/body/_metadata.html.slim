@@ -60,7 +60,7 @@
       li title="#{t('releases.show.source')}"
         i.fas.fa-compass
         - if @release.ci_url.blank?
-          = @release.source
+          = t("releases.sources.#{@release.source.downcase}", default: @release.source)
         - else
           = link_to @release.source, @release.ci_url
       - if @release.metadata.present?
