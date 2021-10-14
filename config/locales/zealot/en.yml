@@ -1,37 +1,740 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
+  function_section: Function
+  toolbox_section: Toolbox
+  admin_section: Admin
+  monitors_section: Monitor
+  user_profile: User profile
+  log_out: Log out
+  log_in: Log in
+
+  intro:
+    title: Over The Air Server for deployment of mobile and macOS apps
+    description: Zealot makes it easy to let users to test your apps which it provides rich component libraries to make integration with Jenkins and Gitlab easily.
+
+  links:
+    back_to_list: Back to list
+
+  admin:
+    system_info:
+      index:
+        zealot_version: Zealot version
+        vcs_ref: VCS Ref
+        build_date: Build date
+        server_info: Server info
+        found_new_version: 'Found new version: %{version}'
+        os_info: OS info
+        ruby_version: Ruby version
+        cpu_info: CPU
+        cpu_core:
+          one: 'One Core'
+          other: '%{count} Cores'
+        fail_detect_cpu: Fail to detect CPU information
+        memory_info: Memory
+        fail_detect_memory: Fail to detect memory information
+        disk_info: Disk
+        fail_detect_disk: Fail to detect disk information
+        lauched_time: Launched time
+        volume_mounted: Volume mounted
+        system_environment: System environment
+        file_permissions: File permissions
+        ruby_gems: Ruby Gems
+        logs: Logs
+        new_version: Found new version
+        dev_new_version: Found new version (dev mode)
+        messages:
+          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+
+    settings:
+      index:
+        title: :'settings.title'
+      edit:
+        title: Edit setting
+
+      enable: Enabled
+      disable: Disabled
+      validates: 'Rule：%{value}'
+
+      general: General
+      site_title: Site title
+      site_https: Enable HTTPS
+      site_domain: Site domain
+
+      presets: Presets
+      default_schemes: Default schemes
+      default_role: Default user role
+
+      switch_mode: Switch mode
+      registrations_mode: Registrations mode
+      guest_mode: Guest mode
+      demo_mode: Demo mode (Reset data daily)
+
+      third_party_auth: Third pary auth
+      ldap: LDAP
+      feishu: Feihsu
+      google_oauth: Google OAuth
+
+      backup: Backup
+      misc: Misc
+
+      stmp: Mail STMP
+      mailer_default_from: Default email send from
+      mailer_default_to: Default sender
+      mailer_options: Options
+
+      archives: Archive uploaded binaries
+      keep_uploads: Keep all
+
+      empty_value: Empty
+
+      no_editable_key: Read only
+      submit:
+        create: Create
+        update: Edit
+
+    users:
+      new_user: New user
+      user_info: User information
+      number: '#'
+      nickname: Nickname
+      email: E-mail
+      role: Role
+      status: Status
+      last_login_time: Last login tiem
+      action: Action
+      actived: Actived
+      unactive: Unactive
+      never_logined: Never logined
+      destroy_user: Destroy
+      destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
+      active_link: Active link
+      active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+
+    web_hooks:
+      show: Web hook detail
+      new: New web hook
+      edit: Edit web hook
+
+      number: '#'
+      url: URL
+      channels: Channels
+      action: Action
+      not_found: Not found any web hook.
+      create_web_hook_from_channel_inside: Create the web hook via inside the channel of app, You can edit, destory them here.
+      destroy: Destroy
+      destroy_confirm: Destroy confirm?
+      messages:
+        success:
+          enable: Enabled the web hook successfully
+          disable: Disabled the web hook successfully
+          test: Test sent successfully
+
+  dashboard:
+    title: Dashboard
+    analytics:
+      apps: :'apps.title'
+      debug_files: :'debug_files.title'
+      teardowns: :'teardowns.title'
+      uploads: Uploads
+      web_hooks: :'web_hooks.title'
+      users: :'users.title'
+      background_jobs: :'background_jobs.title'
+      disk_usage: Disk usage
+    timeline:
+      title: Timeline
+      upload_release: uploaded a verison %{release_version} (%{build_version})
+      not_found: Not found any upload.
+
+  apps:
+    title: Apps
+    index:
+      schemes: schemes
+      channels: channels
+      uploads: uploads
+      created_at: Created at %{time}
+      not_found:
+        title: Not found app.
+        body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
+    show:
+      new_scheme: New scheme
+      edit_app: Edit app
+      destroy_app: Destroy app
+      new_channel: New Channel
+      edit_scheme: Edit Scheme
+      destory_scheme: Destroy Scheme
+      not_found_channel_body_html: |
+        Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
+      not_found_scheme:
+        title: Not found any scheme.
+        body_html: |
+          <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
+          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided：</p>
+          <ul>
+            <li>Debug、Adhoc、Public test、Production</li>
+          </ul>
+          <p>Use the app store channal in Android app：</p>
+          <ul>
+            <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
+          </ul>
+    new:
+      title: New app
+    edit:
+      title: Edit app
+    messages:
+      failture:
+        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app: Not found app by id %{id}, redirect to list of app.
+      confirm:
+        delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
+        delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
+        delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
+
+  schemes:
+    title: Schemes
+    show:
+      empty_channel: Not found any channel.
+    new:
+      title: New scheme for %{app}
+    edit:
+      title: Edit scheme for %{app}
+
+  channels:
+    title: Channels
+    subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
+    show:
+      scheme: :'schemes.title'
+      channel: :'channels.title'
+      activity: Activity
+      upload_release: Upload a release
+      metadata: Metadata
+      device_type: Device type
+      slug: Slug
+      password: Visit password
+      git_url: Git URL
+      match_rule: Match Rule %{value}
+      wildmatch: (wild match)
+      total_releases: Total uploads
+      channel_key: Channel KEY
+      edit_channel: Edit channel
+      none: None
+      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
+      id: ID
+      build_version: Build version
+      git_branch: Branch
+      git_commit: Commit SHA
+      release_type: Release type
+      uploaded_at: Uploaded time
+      actions: Action
+      majar_versions: Majar versions
+      release_version: Release version
+      total_version: Versions
+      empty_version_shortly: Nothing
+      empty_version: Not found any release with this version！
+      more: More
+    new:
+      title: Create new channel for %{name}
+    edit:
+      title: Edit channel for %{name}
+    branches:
+      index:
+        subtitle: 'Releases of branch %{branch}'
+    release_types:
+      index:
+        subtitle: 'Releases of scheme %{type}'
+    versions:
+      index:
+        subtitle: Releases
+      show:
+        subtitle: 'Releases of version %{version}'
+    messages:
+      confirm:
+        destroy: :'web_hooks.messages.confirm.destroy'
+      errors:
+        not_found_channel: Not found any channel by id %{id}, redirect to app list
+
+  releases:
+    sources:
+      web: Web
+      api: API
+    show:
+      enter_password: Enter password
+      wechat_limited: Install limited in current app
+      wechat_touch_menu: Click menu right-top concor
+      wechat_open_in_safari: Choose "Open in Safari" and install
+      wechat_open_in_webbrower: Open with any brower and install
+      not_latest_release: New release found!
+      released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
+      view_latest_version: Check it out
+
+      name: App
+      version: Auto Version
+      device: Device
+      release_version: Release version (build version)
+      release_type: Release type
+      filesize: Filesize
+      uploaded_at: Uploaded time
+      git_branch: Git branch
+      git_commit: Git commit SHA
+      source: Source
+      metadata: Metadata
+      teardown_meatdata: More metadata
+      install: Install
+      download: Download
+      installing: Installing ...
+      destroy: Destroy
+      missing_file: Missing file
+      more: More releases
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
+
+      last_ten_uploads: Activity
+      upload_release: :'dashboard.timeline.upload_release'
+      changelog: Changelog
+      devices:
+        one: "One device's UDID"
+        other: "%{count} device's UDIDs"
+      use_fastlane_plugin_sync_devices: Sync device name by using %{link} fastlane plugin
+
+      qrcode: QR Code
+      scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
+
+      majar_versions: :'channels.show.majar_versions'
+      view_detail: Manage channel
+    new:
+      title: :'channels.show.upload_release'
+    install:
+      show:
+        not_found: Can not download, missing binary file.
+    messages:
+      default_changelog: |
+        Not found any changelog, cause:
+
+        - The developer is lazy without leaving anyting 😂
+        - Error occurred 👽
+      install_error:
+        title: What is the solution?
+        body_html: |
+          <ol class="mb-0">
+            <li>
+              If you manually install an app on iOS 9+, you must also manually establish trust.
+              Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
+            </li>
+            <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
+          </ol>
+        ok: Okay
+      confirm:
+        destroy: :'web_hooks.messages.confirm.destroy'
+      errors:
+        not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
+        not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
+        not_found: Not found
+        not_found_app: App not found or had been destroyed
+        not_found_release: Not found any release of channel
+        redirect_to_app_list: Redirect to app list
+        reidrect_channel_detal: Redirect to channel page
+        deleted_manually: Maybe clean up manually
+        deleted_programly: Maybe clean up by enabled auto clean in system
+        not_found_really: Not found release
+        invalid_password: Invailed password
+        bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
+
+  debug_files:
+    title: Debug files
+    index:
+      upload: Upload a debug file
+      processing: Processing in background, refreash the web page later.
+      version: 'Version: %{version}'
+      download: Download (%{size})
+      destroy: Destroy
+      uploaded_at: Uploaded at %{time}
+      missing_file: Missing file
+      empty_content: Not found any debug file.
+      not_found:
+        title: Not found any debug file!
+        body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+    help:
+      title: Help center
+      body_html: |
+        <h4>What is debug file, how to location?</h4>
+        <h5>iOS</h5>
+        <p>Locate with Xcode:</p>
+        <ul>
+          <li>Open XCode app and choose menu "Window" -> "Organizer"</li>
+          <li>Select the project and found Archivers" in "Products"</li>
+          <li>Select build -> "Show in Finder" to open .xcarchive folder</li>
+          <li>Right click -> "Display package" -> dSYMs</li>
+          <li>Zip the dSYM file</li>
+        </ul>
+        <p>
+          Enabled generate dSYM in XCode: "Build Settings" -> "Build Options":
+          <code>Debug Information Format = "DWARF with dSYM File"</code>
+        </p>
+        <p>Or you can try "Download Debug Symbols" in XCode Organizer</p>
+
+        <h5>Android</h5>
+        <p>
+          It means Mapping Files, use it to restore
+          <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard</a>
+          code to debug.
+        </p>
+    confirm:
+      destroy:
+        title: Destroy the debug file confirm?
+        body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
+        ok: Destroy
+        cancel: Cancel
+
+  teardowns:
+    title: Teardowns
+    new:
+      title: New teardown
+      file: File
+      choose_file: Choose file
+      file_hint: Support .apk, .ipa, .mobileprovision and macOS.app.zip file
+      submit: Start work
+    create:
+      create: :'teardowns.new.title'
+    index:
+      create: :'teardowns.new.title'
+      upload_history: History
+      uploaded_at: Uploaded time
+      app_name: App name
+      version: Version
+      type: Type
+      uploader: Uploader
+      actions: Action
+      anonymous: Anonymous
+      not_found:
+        title: Not found any teardown！
+        body_html: Click the button <i class="far fa-plus-square"></i> New teardown
+
+    show:
+      title: 'Teardown: %{name} %{release_version} (%{build_version})'
+      expired_in: Expire in %{time}
+      already_expired: Expired at %{time}
+      expired: Expired now!
+      related_app: Release related
+      related_body: 'This teardown was relates with '
+      unknow_app_name: Unkown
+
+      metadata: Metadat
+      app_name: App name
+      version: Version
+      package_name: Bundle id (package name)
+      supported_device: Supported device
+      sdk_version_range: Android min SDK / target SDK
+      file_size: File size
+      release_type: release type
+      min_ios_version: Min iOS version
+      min_macos_version: Min macOS version
+      capabilities: Capabilities
+      devise_list: UDID (%{count})
+      developer_certs_list:
+        one: 'Developer cert (%{count})'
+        other: 'Developer certs (%{count})'
+      cert: 'Cert %{index}'
+      cert_expired_at: 'Expired at %{date}'
+      mobileprovision: Mobileprovision
+      uuid: UUID
+      mobileprovision_name: Name (Type)
+      team_id: Team ID
+      created_at: Created time
+      expired_at: Expired time
+
+    help:
+      title: Helpe center
+      body_html: |
+        <p>
+          Click the button <i class="far fa-plus-square"></i> to upload app and use
+          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
+        </p>
+        <table class="table table-bordered">
+          <tr>
+            <th>iOS</th>
+            <th>Android</th>
+          </tr>
+          <tr>
+            <td>App Name</td>
+            <td>App Name</td>
+          </tr>
+          <tr>
+            <td>Supported device</td>
+            <td>Supported device</td>
+          </tr>
+          <tr>
+            <td>bundle identifier</td>
+            <td>package name</td>
+          </tr>
+          <tr>
+            <td>Release type</td>
+            <td>Release type</td>
+          </tr>
+          <tr>
+            <td>Min iOS version</td>
+            <td>Android min SDK / targer SDK version</td>
+          </tr>
+          <tr>
+            <td>Entitlements</td>
+            <td>Activities</td>
+          </tr>
+          <tr>
+            <td>Capabilities</td>
+            <td>Services</td>
+          </tr>
+          <tr>
+            <td>URL Schemes</td>
+            <td>Features</td>
+          </tr>
+          <tr>
+            <td>UDID devices</td>
+            <td>Permissions</td>
+          </tr>
+          <tr>
+            <td>Developer certs</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Mobileprovision</td>
+            <td></td>
+          </tr>
+        </table>
+    messages:
+      confirm:
+        destroy: Destroy confirm?
+      upload_events: '%{name} uploaded release %{version}'
+      download_events: '%{name} %{version} downloaded'
+      changelog_events: '%{name} %{version} update the changelog'
+      unknown_events: '%{name} triggered unkown event: %{event}'
+      parse_done: Debug file (%{id}) pare done, Refresh the web page please.
+      errors:
+        not_found_file: 'Not found debug file: %{message}'
+        failed_detect_file_type: Failed to detect file type
+        not_support_file_type: Not support file type
+        failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
+        unknown_parse: 'Unkown parse error [%{class}]: %{message}'
+        choose_supported_file_type: 'Choose support file type: .apk, .ipa, .mobileprovision or macOS.app.zip file'
+
+  udid:
+    title: Fetch UDID
+    index:
+      tip: Use iPhone or iPad to scan the QR Code then click the button below
+      fetch_udid: Click to fetch UDID
+      help:
+        title: Why we need device's UDID?
+        body_html: |
+          <p>
+            UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
+            Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
+            Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
+          </p>
+          <p>
+            The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
+          </p>
+          <strong>Fetch steps:</strong>
+          <ol>
+            <li>Click "Accept" to download profile</li>
+            <li>Open "Setting.app" -> "Downloeded profile" -> "Fetch device's UDID" -> Install</li>
+            <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
+          </ol>
+    show:
+      title: Device
+      registered: '%{device} was registerd the apps'
+      unregistered: New device found, copy the UDID to iOS Developer!
+      registered_apps: Registerd apps
+      udid: UDID
+      product: Product
+      serial: Serial
+      version: Version
+      upload_release: :'dashboard.timeline.upload_release'
+    install:
+      title: :'udids.title'
+      description: |
+        Install this temporary profile to find and display your current device's UDID. It is automatically removed from device right after you get your UDID.
+
+        Powered by %{url}.
+
+  users:
+    title: Users
+    roles:
+      user: User
+      developer: Developer
+      admin: Admin
+
+  web_hooks:
+    title: Webhooks
+    create: New webhook
+    enable: Enabled
+    shared: Shared
+    not_found: Not found any webhook
+    current_channel: Current channel
+    test: Test
+    destroy: Destroy
+    disable: Disable
+    enable: Enable
+    messages:
+      done: Teardown done!
+      confirm:
+        destroy: Destroy confirm?
+
+  system_info:
+    title: System information
+
+  background_jobs:
+    title: Background jobs
+
+  page_analytics:
+    title: Page analytics
+
+  database_analytics:
+    title: Database analytics
+
   settings:
+    title: Settings
     default_schemes:
       beta: Beta
       adhoc: Adhoc
       production: Production
+
+  download:
+    releases:
+      show:
+        not_found: Not found release
+    debug_files:
+      show:
+        not_found: Not found debug file
+
+  api:
+    unauthorized_channel_key: Unauthorized channel key
+    unauthorized_token: Unauthorized user token
+    unprocessable_entity: Unprocessable entity
+    apps:
+      upload:
+        create:
+          debug: Debug
+          adhoc: Adhoc
+          enterpse: Enterpse
+          release: Release
+      version_exist:
+        show:
+          not_found: Not found release
+          missing_params: combo with bundle_id, release_version, build_version or bundle_id, git_commit
+    debug_files:
+      download:
+        default:
+          not_found: Not found debug file
+    jenkins:
+      build:
+        failed_request: Build request failed, please try again
+
+  demo:
+    app_name1: First App
+    app_name2: Android Only App
+    android_channels:
+      channel1: google play
+      channel2: huawei
+      channel3: oppo
+      channel4: vivo
+      channel5: xiaomi
+
+  errors:
+    '400':
+      title: The request you submitted was invalid or malformed
+    '403':
+      title: You don't have permission to view this page
+    '404':
+      title: Not Found
+      content: The page you are looking for isn't here.
+    '406':
+      title: This page is not available in the requested format.
+    '410':
+      title: The page you were looking for doesn't exist here anymore.
+    '422':
+      title: Security verification failed
+      content: Security verification failed. Are you blocking cookies?
+    '429':
+      title: Too many requests
+    '500':
+      title: This page is not correct
+      content: We're sorry, but something went wrong on our end.
+    '503':
+      title: The page could not be served due to a temporary server failure.
+    invaild_in_demo_mode: Forbidden in demo mode
+    development_only: Development only
+    goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+    goback_title: Goback
+    homepage_title: Homepage
+    unknown_file_type: Unkown file type to parse
+
+  activerecord:
+    success:
+      create: Created %{key} successfully
+      update: Updated %{key} successfully
+      destroy: Deleteed %{key} successfully
+    errors:
+      models:
+        debug_file:
+          attributes:
+            app_id:
+              blank: Select the application to be associated
+            file:
+              blank: Choose a zipped file with supported type
+            checksum:
+              taken: File exists, cannot be uploaded
+
+  user_mailer:
+    omniauth_welcome_email:
+      subject: Welcome to %{title}
+      default_password: 'You authorized the third-party service to register Zealot, Here is the password:'
+
+  devise:
+    confirmations:
+      new:
+        title: Confirmation email
+    registrations:
+      new:
+        error: Error!
+        register_closed: Close to register now, contact the administrator please.
+        register: Register
+      edit:
+        api: API
+        token: Token
+    normal:
+      title: Normal
+    ldap:
+      title: LDAP
+      username: LDAP Username
+      password: LDAP Password
+    shared:
+      hint: '- Or -'
+      links:
+        provider:
+          feishu: ' Feishu'
+          google: ' Google'
+          gitlab: ' Gitlab'
+
+  helpers:
+    submit:
+      user:
+        create: Create
+        update: Update
+      app:
+        create: Create
+        update: Update
+      scheme:
+        create: Create
+        update: Update
+      channel:
+        create: Create
+        update: Update
+      release:
+        create: Upload
+      web_hook:
+        create: Create
+        update: Update
+      debug_file:
+        create: Upload
+  views:
+    pagination:
+      truncate: ...
+      first: First
+      previous: Previous
+      next: Next
+      last: Last

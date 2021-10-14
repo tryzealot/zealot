@@ -38,7 +38,7 @@
         li.nav-item
           a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
             i.nav-icon.fas.fa-cog
-            p = t('system_settings.title')
+            p = t('settings.title')
         li.nav-item.has-treeview class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_page_analytics_path, admin_database_analytics_path], 'menu-open')}"
           a.nav-link href="#" class="#{active_class([admin_system_info_index_path, admin_background_jobs_path, admin_page_analytics_path, admin_database_analytics_path])}"
             i.nav-icon.fas.fa-laptop-code

@@ -5,12 +5,12 @@ class Admin::SettingsController < ApplicationController
   before_action :verify_editable_setting, only: %i[edit]
 
   def index
-    @title = t('system_settings.title')
+    @title = t('.title')
     @settings = Setting.site_configs
   end
 
   def edit
-    @title = t('admin.settings.edit_value')
+    @title = t('.title')
     @value = @setting.value || @setting.default_value
 
     # FIXME: RailsSettings::Base 初始化会缓存造成 i18n 第一时间拿不到
@@ -21,6 +21,7 @@ class Admin::SettingsController < ApplicationController
   end
 
   def update
+    @title = t('.title')
     new_value = setting_param[:value]
     new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
     if @setting.value != new_value

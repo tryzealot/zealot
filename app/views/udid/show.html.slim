@@ -52,14 +52,14 @@
                   button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#version-text"
                     i.far.fa-clipboard
 
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title
-          i.icon.fas.fa-cubes
-          = t('udid.show.registered_apps')
-      .card-body
-        - if @device && @device.channels.present?
+  - if @device && @device.channels.present?
+    .col-md-12
+      .card
+        .card-header
+          h3.card-title
+            i.icon.fas.fa-cubes
+            = t('udid.show.registered_apps')
+        .card-body
           .timeline
             - @device.channels.each do |channel|
               ruby:
@@ -92,7 +92,4 @@
                             = release.short_git_commit
             div
               i.fas.fa-clock.bg-gray
-        - else
-          .p-2
-            p = t('udid.show.not_found_html')
 
