@@ -20,7 +20,7 @@ class Api::Apps::VersionExistController < Api::BaseController
               (channel_params.key?(:bundle_id) && channel_params.key?(:release_version) &&
               channel_params.key?(:build_version))
 
-    raise ActionController::ParameterMissing, t('api.apps.version_exist.missing_params')
+    raise ActionController::ParameterMissing, t('api.apps.version_exist.show.missing_params')
   end
 
   def channel_params
