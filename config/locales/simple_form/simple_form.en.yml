@@ -10,22 +10,106 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
-    # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'
+    labels:
+      defaults:
+        name: Name
+        password: Password
+        channel: Channel
+      user:
+        username: Username
+        email: E-mail
+        password: Password
+        password_confirmation: Password confirmation
+        role: 'Role'
+        remember_me: Remember me
+      app:
+        name: App name
+      scheme:
+        name: Scheme name
+      channel:
+        name: Channel name
+        device_type: Device type
+        bundle_id: Bundle id
+        git_url: Git URL
+        slug: Slug
+        password: Password
+      release:
+        file: File
+        changelog: Changelog
+        release_type: Release type
+        branch: Git branch
+        git_commit: Git commit SHA
+        ci_url: CI URL
+      web_hook:
+        url: URL
+        body: Body
+        upload_events: Upload events
+        download_events: Download events
+        changelog_events: Changelog events
+        channels: Enabled channels
+      debug_file:
+        app_id: App
+        device_type: Device type
+        release_version: Release version
+        build_version: Build version
+        file: File
+        checksum: File checksum
+      setting:
+        value: Value
+
+    hints:
+      defaults:
+        channel: For example, the platform of app.
+      app:
+        schemes:
+          name: :'simple_form.hits.scheme.name'
+      scheme:
+          name: App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.
+      channel:
+        name: Recommended to distinguish different channels according to the application platform, single platform applications can also be the name of the distribution market.
+        device_type: Whic device type of app. for example, iOS, Android, macOS etc.
+        bundle_id: Validate the bundle id (package name) of app, leave empty or fill * to skip validate.
+        git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host.
+        slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
+        password: Need password by fill it when user is not log in.
+      release:
+        file: Support iOS.ipa、Android.apk and macOS.app.zip file
+        changelog: a log or record of all notable changes made to a upload.
+        release_type: 'iOS: debug、adhoc、release; Android: debug、release'
+        branch: Git branch. In general either main or develop.
+        git_commit: 40 bit length SHA value of git commit
+        ci_url: the detail URL of Jenkins、Gitlab CI
+      web_hook:
+        body: Custom JSON struct body to apply the third party notification services, Use default struct by leave it empty.
+      debug_file:
+        device_type: Whic device type of app. for example, iOS, Android, macOS etc.
+        file: Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.
+      setting:
+        value: Use JSON standard format to edit, otherwise it will fail to save.
+
+    placeholders:
+      release:
+        changelog: The developer is lazy without leaving anyting.
+      web_hook:
+        url: 'http://example.com/web-hooks'
+        body: |
+          {
+            event: @event,
+            title: @title,
+            name: @app_name,
+            app_name: @app_name,
+            device_type: @device_type,
+            release_version: @release_version,
+            build_version: @build_version,
+            size: @file_size,
+            changelog: @changelog,
+            release_url: @release_url,
+            install_url: @install_url,
+            icon_url: @icon_url,
+            qrcode_url: @qrcode_url,
+            uploaded_at: @uploaded_at
+          }
+      debug_file:
+        release_version: '1.0.0'
+        build_version: '1.0'
+        checksum: Ignore me, pure validate the file use
