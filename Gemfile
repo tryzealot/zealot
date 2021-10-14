@@ -34,6 +34,7 @@ gem 'friendly_id', '~> 5.4.2'
 gem 'kaminari'
 ## 文件上传
 gem 'carrierwave', '~> 2.2.2'
+gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
@@ -79,10 +80,10 @@ gem 'sidekiq-scheduler', '~> 3.1.0'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
-# 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.6.5'
+# 用于解析 iOS, Android 和 macOS 应用
+gem 'app-info', '~> 2.7.0.beta5'
 
-# Mobile config
+# 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.1'
 
 # Reduces boot times through caching; required in config/boot.rb
