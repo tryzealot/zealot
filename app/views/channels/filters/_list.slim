@@ -1,36 +1,36 @@
-table.table.table-hover
-  tr
-    th = t('channels.show.id')
-    th = t('channels.show.release_version')
-    th = t('channels.show.build_version')
-    th = t('channels.show.release_type')
-    th = t('channels.show.git_branch')
-    th = t('channels.show.git_commit')
-    th = t('channels.show.uploaded_at')
-    - if user_signed_in?
-      th = t('channels.show.actions')
-  - if @releases.present?
-    - @releases.each_with_index do |release, index|
-      tr
-        td
-          = link_to index + 1, channel_release_path(release.channel, release)
-        td
-          = link_to release.release_version, channel_version_path(release.channel, release.release_version)
-        td
-          = release.build_version
-        td
-          = release_type_url(release)
-        td
-          = git_branch_url(release)
-        td
-          = git_commit_url(release.channel.git_url, release.git_commit)
-        td
-          span data-toggle="tooltip" title="#{release.created_at}"
-            = time_ago_in_words(release.created_at)
-        - if user_signed_in?
-          td
-            a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="#{t('channels.messages.confirm.destroy')}" data-method="delete"
-              i.fas.fa-trash-alt
-  - else
+- if @releases.present?
+  table.table.table-hover
     tr
-      th colspan="5" = t('channels.show.empty_version')
+      th = t('channels.show.id')
+      th = t('channels.show.release_version')
+      th = t('channels.show.build_version')
+      th = t('channels.show.release_type')
+      th = t('channels.show.git_branch')
+      th = t('channels.show.git_commit')
+      th = t('channels.show.uploaded_at')
+      - if user_signed_in?
+        th = t('channels.show.actions')
+
+      - @releases.each_with_index do |release, index|
+        tr
+          td
+            = link_to index + 1, channel_release_path(release.channel, release)
+          td
+            = link_to release.release_version, channel_version_path(release.channel, release.release_version)
+          td
+            = release.build_version
+          td
+            = release_type_url(release)
+          td
+            = git_branch_url(release)
+          td
+            = git_commit_url(release.channel.git_url, release.git_commit)
+          td
+            span data-toggle="tooltip" title="#{release.created_at}"
+              = time_ago_in_words(release.created_at)
+          - if user_signed_in?
+            td
+              a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="#{t('channels.messages.confirm.destroy')}" data-method="delete"
+                i.fas.fa-trash-alt
+- else
+  p.p-3 = t('channels.show.empty_version')

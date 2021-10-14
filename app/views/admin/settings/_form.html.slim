@@ -6,7 +6,7 @@
         .card-tools
           a href="#{admin_settings_path}"
             i.icon.far.fa-list-alt
-            = t('admin.link.back_to_list')
+            = t('links.back_to_list')
 
       = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
         .card-body

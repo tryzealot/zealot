@@ -12,13 +12,9 @@ zh-CN:
     description: 解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
 
   links:
-    goback_to_list: 返回列表
-    goback: 返回
+    back_to_list: 返回列表
 
   admin:
-    link:
-      back_to_list: 返回列表
-
     system_info:
       index:
         zealot_version: Zealot 版本
@@ -29,7 +25,7 @@ zh-CN:
         os_info: 操作系统
         ruby_version: Ruby 版本
         cpu_info: CPU
-        cpu_core: '%{size} 核'
+        cpu_core: '%{count} 核'
         fail_detect_cpu: CPU 信息监测失败
         memory_info: 内存
         fail_detect_memory: 内存信息监测失败
@@ -38,14 +34,21 @@ zh-CN:
         lauched_time: 运行时间
         volume_mounted: 挂载信息
         fail_detect_disk: 硬盘信息无法获取
-        system_enviroment: 系统变量
+        system_environment: 系统变量
         file_permissions: 文件权限
         ruby_gems: Ruby Gems
         logs: 日志
+        new_version: '发现新版本 '
+        dev_new_version: 发现新版本 (开发环境始终显示)
         messages:
           file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
 
     settings:
+      index:
+        title: :'settings.title'
+      edit:
+        title: 编辑设置
+
       enable: 开启
       disable: 关闭
       validates: '条件：%{value}'
@@ -249,6 +252,9 @@ zh-CN:
         not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
 
   releases:
+    sources:
+      web: 网页上传
+      api: 接口上传
     show:
       enter_password: 访问密码
       wechat_limited: 应用限制请按照提示安装
@@ -418,8 +424,8 @@ zh-CN:
       min_ios_version: 最低 iOS 版本
       min_macos_version: 最低 macOS 版本
       capabilities: 启用能力
-      devise_list: '设备列表 (%{total})'
-      developer_certs_list: '开发者证书 (%{total})'
+      devise_list: '设备列表 (%{count})'
+      developer_certs_list: '开发者证书 (%{count})'
       cert: '证书 %{index}'
       cert_expired_at: '%{date} 到期'
       mobileprovision: 描述文件
@@ -533,10 +539,6 @@ zh-CN:
       serial: 序列化
       version: 版本
       upload_release: :'dashboard.timeline.upload_release'
-      not_found_html: |
-        <strong>没有发现可安装应用！</strong>
-        请复制上面设备 UDID 并发给 iOS 工程师来添加测试设备并重新打包。
-        新安装包上传之后可以刷新本页面检查是否出现对应的应用。
 
     install:
       title: 获取设备 UDID
@@ -568,9 +570,6 @@ zh-CN:
       confirm:
         destroy: 确定删除?
 
-  system_settings:
-    title: 系统设置
-
   system_info:
     title: 环境信息
 
@@ -584,6 +583,7 @@ zh-CN:
     title: 数据库分析
 
   settings:
+    title: 系统设置
     default_schemes:
       beta: 测试版
       adhoc: 内测版
@@ -687,7 +687,7 @@ zh-CN:
         debug_file:
           attributes:
             app_id:
-              blank: 请选择要上传对于的应用
+              blank: 请选择需要关联的应用
             file:
               blank: 必须选择一个 zip 文件
             checksum:

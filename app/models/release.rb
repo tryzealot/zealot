@@ -36,7 +36,7 @@ class Release < ApplicationRecord
   end
 
   # 上传 app
-  def self.upload_file(params, parser = nil)
+  def self.upload_file(params, parser = nil, default_source = 'web')
     file = params[:file].path
     return if file.blank?
 
@@ -44,7 +44,7 @@ class Release < ApplicationRecord
       rescuing_app_parse_errors do
         parser ||= AppInfo.parse(file)
 
-        release.source ||= 'Web'
+        release.source ||= default_source
         release.name = parser.name
         release.bundle_id = parser.bundle_id
         release.release_version = parser.release_version
