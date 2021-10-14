@@ -659,8 +659,8 @@ en:
     invaild_in_demo_mode: Forbidden in demo mode
     development_only: Development only
     goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
-    goback_title: Goback
-    homepage_title: Homepage
+    goback_title: goback
+    homepage_title: homepage
     unknown_file_type: Unkown file type to parse
 
   activerecord:
