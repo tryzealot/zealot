@@ -14,9 +14,9 @@
           dt = t('.zealot_version')
           dd
             pre
-              #new-version.float-right
               #current-version
                 = @server[:zealot_version]
+              #new-version data-title="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
           dt = t('.vcs_ref')
           dd
             pre = @server[:zealot_vcs_ref]
@@ -33,7 +33,7 @@
           dd
             pre
               - if @server[:cpu]
-                = t('.cpu_core', size: @server[:cpu])
+                = t('.cpu_core', count: @server[:cpu])
               - else
                 = t('.fail_detect_cpu')
           dt = t('.memory_info')
@@ -98,7 +98,7 @@
 
     .card.collapsed-card
       .card-header
-        h3.card-title = t('.system_enviroment')
+        h3.card-title = t('.system_environment')
         .card-tools
           button.btn.btn-tool data-card-widget="collapse"
             i.fas.fa-plus
