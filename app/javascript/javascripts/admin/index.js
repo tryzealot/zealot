@@ -12,8 +12,9 @@ function check_new_version() {
   if (!elm.length) { return; }
 
   var current_version = $('#current-version').html();
+  var title = elm.data('title');
   if (current_version == 'development') {
-    insert_link(elm, '发现新版本 (始终显示)', 'https://github.com/tryzealot/zealot');
+    insert_link(elm, title, 'https://github.com/tryzealot/zealot');
     return;
   }
 
@@ -29,7 +30,7 @@ function check_new_version() {
       if (compareVersion(latest_version, current_version) <= 0) { return; }
 
       var release_link = json.html_url;
-      insert_link(elm, '发现新版本 ' + latest_version, release_link);
+      insert_link(elm, title + ' ' + latest_version, release_link);
   });
 }
 
