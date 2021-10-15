@@ -13,7 +13,6 @@ module ApplicationHelper
     params[:action] == 'create'
   end
 
-
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end

@@ -2,12 +2,27 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
+  extend ActionView::Helpers::TranslationHelper
+
   cache_prefix { 'v1' }
 
-  DEFAULT_SITE_HTTPS = Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
-  DEFAULT_SITE_DOMAIN = DEFAULT_SITE_HTTPS ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
-
   class << self
+    def present_schemes
+      [
+        t('settings.default_schemes.beta', default: nil),
+        t('settings.default_schemes.adhoc', default: nil),
+        t('settings.default_schemes.production', default: nil)
+      ].compact
+    end
+
+    def site_https
+      Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
+    end
+
+    def site_domain
+      site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
+    end
+
     def site_configs
       group_configs.each_with_object({}) do |(scope, items), obj|
         obj[scope] = items.each_with_object({}) do |item, inner|
@@ -46,8 +61,8 @@ class Setting < RailsSettings::Base
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
                        validates: { presence: true, length: { in: 3..16 } }
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || DEFAULT_SITE_DOMAIN), type: :string, readonly: true, display: true
-    field :site_https, default: DEFAULT_SITE_HTTPS, type: :boolean, readonly: true, display: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string, readonly: true, display: true
+    field :site_https, default: site_https, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
@@ -55,7 +70,7 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :default_schemes, default: %w[测试版 内测版 产品版], type: :array, display: true
+    field :default_schemes, default: present_schemes, type: :array, display: true
     field :default_role, default: 'user', type: :string, display: true,
                          validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
   end
@@ -74,13 +89,13 @@ class Setting < RailsSettings::Base
 
   # 第三方登录
   scope :third_party_auth do
-    field :feishu, type: :hash, display: true, default: {
+    field :feishu, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['FEISHU_ENABLED'] || false,
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
 
-    field :gitlab, type: :hash, display: true, default: {
+    field :gitlab, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['GITLAB_ENABLED'] || false,
       site: ENV['GITLAB_SITE'] || 'https://gitlab.com/api/v4',
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
@@ -88,13 +103,13 @@ class Setting < RailsSettings::Base
       secret: ENV['GITLAB_SECRET'],
     }
 
-    field :google_oauth, type: :hash, display: true, default: {
+    field :google_oauth, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['GOOGLE_OAUTH_ENABLED'] || false,
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
     }
 
-    field :ldap, type: :hash, display: true, default: {
+    field :ldap, type: :hash, readonly: true, display: true, default: {
       enabled: ENV['LDAP_ENABLED'] || false,
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'] || '389',
@@ -130,10 +145,9 @@ class Setting < RailsSettings::Base
 
   # 版本信息（只读）
   scope :information do
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true, display: true
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true, display: true
-    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true, display: true
+    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
+    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
   end
 
   def readonly?
@@ -141,12 +155,22 @@ class Setting < RailsSettings::Base
   end
 
   def field_validates
-    validates = Setting.validators_on(var)
+    validates = self.class.validators_on(var)
     validates.each_with_object([]) do |validate, obj|
       next unless value = validate_value(validate)
 
       obj << value
     end
+  end
+
+  def default_value
+    self.class.send(self.var.to_sym)
+  end
+  alias_method :default, :default_value
+
+  def type
+    @option ||= self.class.get_field(self.var)
+    @option[:type]
   end
 
   private

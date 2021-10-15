@@ -6,7 +6,7 @@ class Channels::ReleaseTypesController < ApplicationController
 
   def index
     @title = @channel.app_name
-    @subtitle = "#{@type} 类型版本列表"
+    @subtitle = t('.subtitle', type: @type)
 
     render 'channels/filters/index'
   end

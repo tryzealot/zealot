@@ -25,7 +25,7 @@ class TeardownJob < ApplicationJob
     release = release(id: release_id)
     file = release&.file.file
     unless file && File.exist?(file.path)
-      logger.error('文件已经无法找到，可能已经被清理或删除')
+      logger.error('File was not found, it had been clean or deleted')
       return
     end
 

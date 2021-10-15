@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ActionController::API
+  include ActionView::Helpers::TranslationHelper
   respond_to :json
 
   before_action :set_cache_headers
@@ -18,18 +19,18 @@ class Api::BaseController < ActionController::API
 
   def validate_user_token
     @user = User.find_by(token: params[:token])
-    raise ActionCable::Connection::Authorization::UnauthorizedError, '未授权用户' unless @user
+    raise ActionCable::Connection::Authorization::UnauthorizedError, t('api.unauthorized_token') unless @user
   end
 
   def validate_channel_key
     @channel = Channel.find_by(key: params[:channel_key])
-    raise ActionCable::Connection::Authorization::UnauthorizedError, '无效的应用渠道 Key' unless @channel
+    raise ActionCable::Connection::Authorization::UnauthorizedError, t('api.unauthorized_channel_key') unless @channel
   end
 
   def record_invalid(e)
     respond_with_error(
       :unprocessable_entity, e,
-      error: '参数错误，请检查请求的参数是否正确',
+      error: t('api.unprocessable_entity'),
       entry: e.record.errors
     )
   end

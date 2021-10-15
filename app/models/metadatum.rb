@@ -7,4 +7,7 @@ class Metadatum < ApplicationRecord
   enum platform: { ios: 'ios', android: 'android', mobileprovision: 'mobileprovision', macos: 'macos' }
 
   alias_attribute :packet_name, :bundle_id
+
+  paginates_per     50
+  max_paginates_per 100
 end
