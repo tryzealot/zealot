@@ -23,7 +23,7 @@
           - elsif @setting.type == :hash || @setting.type == :array
             = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }
           - elsif @setting.inclusion?
-            = f.input :value, as: :radio_buttons, collection: @setting.inclusion_values, hint: false
+            = f.input :value, as: :radio_buttons, collection: @setting.inclusion_values, checked: @value, hint: false
           - else
             = f.input :value, as: :text, input_html: { value: @value }, hint: false
 
