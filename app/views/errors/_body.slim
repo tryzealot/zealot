@@ -1,6 +1,7 @@
 ruby:
   content = t("errors.#{@code}.content")
   content = nil if content.include?('translation_missing')
+  goback_link = session[:return_to] || request.referer
 
 - if content.present?
   p = content
@@ -8,9 +9,4 @@ ruby:
 - if @message.present?
   p = @message
 
-p
-  | 请返回
-  = link_to '上级页面', session[:return_to] || request.referer
-  | 或
-  = link_to '控制台', root_path
-  | 看看
+p = raw t('errors.goback_or_redirect_to_homepage', goback_link: link_to(t('errors.goback_title'), goback_link), homepage_link: link_to(t('errors.homepage_title'), root_path))

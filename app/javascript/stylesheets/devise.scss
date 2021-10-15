@@ -1,33 +1,21 @@
-.login-box {
-  width: 440px;
+.social-auth-links {
+  i.icon {
+    float: right !important;
+    margin-right: 0;
+    margin-top: 0.5rem;
+  }
 }
 
-.btn-auth-google {
-  background-color: #ea4335;
-  color: #fff;
+@media (min-width: 768px) {
+  .auth-providers {
+    border-left: 1px solid #e2dee6;
+  }
 }
 
-.btn-auth-google:hover {
-  background-color: #ba4335;
-  color: #fff;
-}
-
-.btn-auth-feishu {
-  background-color: #3370ff;
-  color: #fff;
-}
-
-.btn-auth-feishu:hover {
-  background-color: #2851b3;
-  color: #fff;
-}
-
-.btn-auth-gitlab {
-  background-color: #fa7035;
-  color: #fff;
-}
-
-.btn-auth-gitlab:hover {
-  background-color: #e45432;
-  color: #fff;
+@media (max-width: 767px) {
+  .auth-providers {
+    border-top: 1px solid #e2dee6;
+    margin-top: 20px;
+    padding-top: 10px;
+  }
 }
