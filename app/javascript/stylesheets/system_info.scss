@@ -15,11 +15,39 @@ dl.system-info {
       background-color: #f7f8f9;
       color: #2f2936;
 
-      #new-version a {
-        color: rgb(233, 120, 120);
+      #current-version {
+        float: none;
+      }
 
-        i {
-          padding-right: 5px;
+      #new-version {
+        float: none;
+
+        a {
+          color: rgb(233, 120, 120);
+
+          i {
+            padding-right: 5px;
+          }
+        }
+      }
+
+      @media (min-width: 768px) {
+        #current-version {
+          float: left !important;
+        }
+
+        #new-version {
+          float: right !important;
+        }
+      }
+
+      @media (max-width: 767px) {
+        #current-version {
+          float: none;
+        }
+
+        #new-version {
+          float: none;
         }
       }
     }

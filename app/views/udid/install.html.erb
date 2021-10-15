@@ -20,12 +20,9 @@
         <key>PayloadIdentifier</key>
         <string>im.ews.zealot.profile-service</string>
         <key>PayloadDisplayName</key>
-        <string>获取设备UDID</string>
+        <string><%= t('udid.install.title') %></string>
         <key>PayloadDescription</key>
-        <string>本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
-
-本服务由 <%= root_url %> 提供。
-        </string>
+        <string><%= t('udid.install.description', url: root_url) %></string>
         <key>PayloadType</key>
         <string>Profile Service</string>
         <key>PayloadVersion</key>

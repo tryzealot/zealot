@@ -1,41 +1,39 @@
-
-.col-md-8
+.col-md-6
   .card
     .card-header
-      h3.card-title 应用信息
+      h3.card-title = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
     .card-body
       dl.system-info
-        dt 名称
+        dt = t('teardowns.show.app_name')
         dd
           pre = @metadata.name
-        dt 支持设备
+        dt = t('teardowns.show.supported_device')
         dd
-          pre #{@metadata.device} (#{@metadata.platform})
-        dt 版本
+          pre #{@metadata.device} (#{device_name(@metadata.platform)})
+        dt = t('teardowns.show.version')
         dd
           pre = "#{@metadata.release_version} (#{@metadata.build_version})"
-        dt Bundle Id
+        dt = t('teardowns.show.package_name')
         dd
           pre = @metadata.bundle_id
-        dt 打包类型
+        dt = t('teardowns.show.release_type')
         dd
           pre = @metadata.release_type
-
-        dt 最低 iOS 版本
+        dt = t('teardowns.show.min_ios_version')
         dd
           pre = @metadata.min_sdk_version
-        dt 文件大小
+        dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
 
-  == render 'mobileprovision_part'
-  == render 'developer_certs_part'
   == render 'devices_part'
-  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+  == render 'developer_certs_part'
 
-.col-md-4
-  == render 'card', title: '启用能力', raw: @metadata.capabilities
+.col-md-6
+  == render 'mobileprovision_part'
+  == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
+  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
