@@ -18,6 +18,6 @@ class AppFileUploader < ApplicationUploader
   def validate_app_type
     return if SUPPORT_APP.include?(AppInfo.file_type(file.path))
 
-    raise CarrierWave::InvalidParameter, I18n.t('errors.unknown_file_type')
+    raise CarrierWave::InvalidParameter, I18n.t('errors.messages.unknown_file_type')
   end
 end

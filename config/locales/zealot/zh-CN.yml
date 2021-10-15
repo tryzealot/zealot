@@ -46,6 +46,8 @@ zh-CN:
     settings:
       index:
         title: :'settings.title'
+      update:
+        title: 编辑设置
       edit:
         title: 编辑设置
 
@@ -61,8 +63,8 @@ zh-CN:
       site_domain: 网站域名
 
       presets: 默认值
-      default_schemes: 应用的类型名称
-      default_role: 用户注册默认权限
+      default_schemes: 应用类型模板
+      default_role: 初始化权限
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
@@ -550,10 +552,6 @@ zh-CN:
 
   users:
     title: 用户
-    roles:
-      user: 用户
-      developer: 开发者
-      admin: 管理员
 
   web_hooks:
     title: 网络钩子
@@ -589,6 +587,13 @@ zh-CN:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
+    default_role:
+      user: 用户
+      developer: 开发者
+      admin: 管理员
+    site_locale:
+      zh-CN: 简体中文
+      en: 英文
 
   download:
     releases:
@@ -669,12 +674,17 @@ zh-CN:
       title: 这个页面有问题
     '503':
       title: 服务暂时不可用，无法请求该页面
-    invaild_in_demo_mode: 演示模式不能编辑默认管理员
-    development_only: 仅开发环境显示
-    goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
-    goback_title: 上级页面
-    homepage_title: 首页
-    unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
+    messages:
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
+      length_range: 长度限制：%{minimum} ~ %{maximum} 位
+      optional_value: 可选值：%{value}
+      invaild_in_demo_mode: 演示模式不能编辑默认管理员
+      development_only: 仅开发环境显示
+      goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
+      goback_title: 上级页面
+      homepage_title: 首页
+      unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
 
   activerecord:
     success:
