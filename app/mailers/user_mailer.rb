@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
   def omniauth_welcome_email(user, password)
     @user = user
     @password = password
-    mail(to: @user.email, subject: '欢迎使用 Zealot')
+    mail(to: @user.email, subject: t('.subject', title: Setting.site_title))
   end
 end

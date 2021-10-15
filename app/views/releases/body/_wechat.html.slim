@@ -3,9 +3,10 @@
 
   .alert.alert-danger.alert-dismissible
     button.close data-dismiss="alert" aria-hidden="true" ×
-    h4
-      p 微信限制请按照提示安装：
-    ol style="padding-left: 20px"
-      li 点击右上角微信菜单
-      li 选择在 “Safari 中打开”
-      li 账户登录或密码确认后就进行安装
+    h5 = t('releases.show.wechat_limited')
+    ol.pl-4.mb-0
+      li = t('releases.show.wechat_touch_menu')
+      - if ios?
+        li = t('releases.show.wechat_open_in_safari')
+      - else
+        li = t('releases.show.wechat_open_in_webbrower')

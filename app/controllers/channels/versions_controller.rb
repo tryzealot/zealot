@@ -5,7 +5,7 @@ class Channels::VersionsController < ApplicationController
 
   def index
     @title = @channel.app_name
-    @subtitle = '上传版本列表'
+    @subtitle = t('.subtitle')
     @releases = @channel.releases
                         .order(id: :desc)
                         .page(params.fetch(:page, 1))
@@ -17,7 +17,7 @@ class Channels::VersionsController < ApplicationController
   def show
     @version = params[:id]
     @title = @channel.app_name
-    @subtitle = "#{@version} 上传版本列表"
+    @subtitle = t('.subtitle', version: @version)
     @back_url = URI(request.referer || '').path
     @releases = @channel.releases
                         .where(release_version: @version)

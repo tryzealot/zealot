@@ -10,13 +10,9 @@
       .card-body
         = form_tag(teardowns_path, multipart: true) do |form|
           .form-group
-            label.control-label.required for="file"
-              abbr title="必填项" *
-              |  解包文件
+            = label_tag :file, "#{t('.file')} #{content_tag(:abbr, '*', title: 'required')}".html_safe, for: 'file'
             .input-group
-              = file_field_tag 'file', class: 'custom-file-input2'
-              input name="type" value="upload" type="hidden"
+              = file_field_tag 'file', class: 'form-control-file', id: 'file'
+            small.form-text.text-muted = t('.file_hint')
 
-            p.help-block 支持 .apk、 .ipa、.mobileprovision 以及 macOS.app.zip 文件
-
-          = submit_tag '开始解包', class: 'btn btn-primary'
+          = submit_tag t('.submit'), class: 'btn btn-primary'

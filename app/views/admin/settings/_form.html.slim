@@ -1,38 +1,32 @@
-ruby:
-  key = @setting.var
-  value = @setting.value || Setting.send(key)
-  type = Setting.get_field(key)[:type]
-
 .row
   .col-md-12
     .card
       .card-header
-        h3.card-title = t("admin.settings.#{key}")
+        h3.card-title = t("admin.settings.#{@setting.var}")
         .card-tools
           a href="#{admin_settings_path}"
-            i.far.fa-list-alt
-            |  返回系统配置
+            i.icon.far.fa-list-alt
+            = t('links.back_to_list')
 
-      = simple_form_for(@setting, url: admin_setting_path(key), method: :patch) do |f|
+      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
         .card-body
           - if @setting.errors.size > 0
             .callout.callout-danger
-              h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{key}"))
-              ul style="margin-bottom: 0"
+              h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
+              ul.mb-0
                 - @setting.errors.each do |error|
                   li = error.message
 
-          input.hidden type="hidden" value="#{type}" name="setting[type]"
-          - if type == :boolean
-            = f.input :value, label: '开启', as: :boolean, checked: type
-          - elsif type == :hash || type == :array
-            = f.text_area :value, value: JSON.pretty_generate(value), class: 'form-control', rows: 15, hint: '按照 JSON 标准格式编辑，否则会保存失败'
+          input.hidden type="hidden" value="#{@setting.type}" name="setting[type]"
+          - if @setting.type == :boolean
+            = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: @value }, hint: false
+          - elsif @setting.type == :hash || @setting.type == :array
+            = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }
           - else
-            = f.text_area :value, value: value, class: 'form-control', rows: 15
+            = f.input :value, as: :text, input_html: { value: @value }, hint: false
 
           - unless @setting.field_validates.empty?
             small.form-text.text-muted
-              | 条件：
-              = @setting.field_validates.join(" / ")
+              = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
         .card-footer
           = f.button :submit, t('admin.settings.submit.update')
