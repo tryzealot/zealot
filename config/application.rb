@@ -34,7 +34,7 @@ module Zealot
     locale = ENV['LOCALE'] || 'zh-CN'
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = locale.to_sym
-    config.i18n.available_locales = [locale, :en]
+    config.i18n.available_locales = [:'zh-CN', :en]
 
     # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
     # the I18n.default_locale when a translation cannot be found).

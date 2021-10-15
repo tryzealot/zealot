@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
+  before_action :set_locale
   before_action :set_sentry_context
   before_action :record_page_view
 
@@ -24,6 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_locale
+    I18n.locale = Setting.site_locale || I18n.default_locale
+  end
 
   def set_sentry_context
     Sentry.configure_scope do |scope|
@@ -82,7 +87,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       @code = code
       @exception = exception
-      @title = t("errors.#{@code}.title")
+      @title = t("errors.code.#{@code}.title")
       @message = exception.message if code < 500
 
       format.any  { render 'errors/index', status: code, formats: [:html] }

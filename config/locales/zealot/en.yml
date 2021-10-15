@@ -55,8 +55,9 @@ en:
       validates: 'Rule：%{value}'
 
       general: General
-      site_title: Site title
       site_https: Enable HTTPS
+      site_title: Site title
+      site_locale: Site Locale
       site_domain: Site domain
 
       presets: Presets
