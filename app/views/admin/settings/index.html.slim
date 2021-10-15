@@ -29,7 +29,7 @@ form.form-horizontal
                                 when FalseClass
                                   t('admin.settings.disable')
                                 else
-                                  value.blank? ? t('admin.settings.empty_value') : value.to_s
+                                  value.blank? ? t('admin.settings.empty_value') : t("settings.#{key}.#{value}", default: value.to_s)
                                 end
               dl.system-info
                 dt = t("admin.settings.#{key}")
