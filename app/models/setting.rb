@@ -3,6 +3,7 @@
 # RailsSettings Model
 class Setting < RailsSettings::Base
   extend ActionView::Helpers::TranslationHelper
+  include ActionView::Helpers::TranslationHelper
 
   cache_prefix { 'v1' }
 
@@ -157,11 +158,24 @@ class Setting < RailsSettings::Base
   end
 
   def field_validates
-    validates = self.class.validators_on(var)
     validates.each_with_object([]) do |validate, obj|
       next unless value = validate_value(validate)
 
       obj << value
+    end
+  end
+
+  def inclusion?
+    inclusions = validates.select {|v| v.is_a?(ActiveModel::Validations::InclusionValidator) }
+    inclusions&.first
+  end
+
+  def inclusion_values
+    return unless inclusion = inclusion?
+
+    inclusion.send(:delimiter).each_with_object({}) do |v, obj|
+      key = t("settings.#{var}.#{v}", default: v)
+      obj[key] = v
     end
   end
 
@@ -175,19 +189,22 @@ class Setting < RailsSettings::Base
     @option[:type]
   end
 
+  def validates
+    @validates ||= self.class.validators_on(var)
+  end
+
   private
 
   def validate_value(validate)
     case validate
     when ActiveModel::Validations::PresenceValidator
-      '不能为空值'
+      t('errors.messages.blank')
     when ActiveRecord::Validations::LengthValidator
       minimum = validate.options[:minimum]
       maximum = validate.options[:maximum]
-      "长度限制： #{minimum} ~ #{maximum} 位"
+      t('errors.messages.length_range', minimum: minimum, maximum: maximum)
     when ActiveModel::Validations::InclusionValidator
-      values = validate.send(:delimiter)
-      "可选值： #{values.join(', ')}"
+      t('errors.messages.optional_value', value: inclusion_values.values.join(', '))
     end
   end
 end

@@ -4,9 +4,9 @@ module UserRoles
   extend ActiveSupport::Concern
 
   ROLE_NAMES = {
-    user: I18n.t('users.roles.user'),
-    developer: I18n.t('users.roles.developer'),
-    admin: I18n.t('users.roles.admin')
+    user: I18n.t('settings.default_role.user'),
+    developer: I18n.t('settings.default_role.developer'),
+    admin: I18n.t('settings.default_role.admin')
   }
 
   included do

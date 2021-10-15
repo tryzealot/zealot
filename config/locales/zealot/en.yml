@@ -47,6 +47,8 @@ en:
     settings:
       index:
         title: :'settings.title'
+      update:
+        title: Edit setting
       edit:
         title: Edit setting
 
@@ -554,10 +556,6 @@ en:
 
   users:
     title: Users
-    roles:
-      user: User
-      developer: Developer
-      admin: Admin
 
   web_hooks:
     title: Webhooks
@@ -593,6 +591,13 @@ en:
       beta: Beta
       adhoc: Adhoc
       production: Production
+    default_role:
+      user: User
+      developer: Developer
+      admin: Admin
+    site_locale:
+      zh-CN: Simplified Chinese
+      en: English
 
   download:
     releases:
@@ -636,33 +641,37 @@ en:
       channel5: xiaomi
 
   errors:
-    '400':
-      title: The request you submitted was invalid or malformed
-    '403':
-      title: You don't have permission to view this page
-    '404':
-      title: Not Found
-      content: The page you are looking for isn't here.
-    '406':
-      title: This page is not available in the requested format.
-    '410':
-      title: The page you were looking for doesn't exist here anymore.
-    '422':
-      title: Security verification failed
-      content: Security verification failed. Are you blocking cookies?
-    '429':
-      title: Too many requests
-    '500':
-      title: This page is not correct
-      content: We're sorry, but something went wrong on our end.
-    '503':
-      title: The page could not be served due to a temporary server failure.
-    invaild_in_demo_mode: Forbidden in demo mode
-    development_only: Development only
-    goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
-    goback_title: goback
-    homepage_title: homepage
-    unknown_file_type: Unkown file type to parse
+    code:
+      '400':
+        title: The request you submitted was invalid or malformed
+      '403':
+        title: You don't have permission to view this page
+      '404':
+        title: Not Found
+        content: The page you are looking for isn't here.
+      '406':
+        title: This page is not available in the requested format.
+      '410':
+        title: The page you were looking for doesn't exist here anymore.
+      '422':
+        title: Security verification failed
+        content: Security verification failed. Are you blocking cookies?
+      '429':
+        title: Too many requests
+      '500':
+        title: This page is not correct
+        content: We're sorry, but something went wrong on our end.
+      '503':
+        title: The page could not be served due to a temporary server failure.
+    messages:
+      length_range: 'Length range: %{minimum} ~ %{maximum}'
+      optional_value: 'Optinal value: %{value}'
+      invaild_in_demo_mode: Forbidden in demo mode
+      development_only: Development only
+      goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      goback_title: goback
+      homepage_title: homepage
+      unknown_file_type: Unkown file type to parse
 
   activerecord:
     success:
