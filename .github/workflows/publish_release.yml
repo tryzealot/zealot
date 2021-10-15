@@ -27,9 +27,10 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: ${{ steps.version.outputs.tag }}
       with:
-        name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
+        name: ghcr.io/tryzealot/zealot
         username: ${{ github.actor }}
         password: ${{ secrets.CR_PAT }}
+        tags: "latest,${{ env.TAG }}"
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
         registry: ghcr.io
     - name: Publish to Docker Registry
@@ -40,9 +41,10 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: ${{ steps.version.outputs.tag }}
       with:
-        name: tryzealot/zealot:${{ env.TAG }}
+        name: tryzealot/zealot
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest,${{ env.TAG }}"
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
     - name: Update Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
