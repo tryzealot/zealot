@@ -2,9 +2,10 @@
 
 class TeardownService < ApplicationService
   include ActionView::Helpers::TranslationHelper
+
   attr_reader :file
 
-  SUPPORT_APP = %i[apk ipa mobileprovision macos]
+  SUPPORTED_TYPES = %i[apk aab ipa mobileprovision macos]
 
   def initialize(file)
     @file = file
@@ -12,7 +13,7 @@ class TeardownService < ApplicationService
 
   def call
     file_type = AppInfo.file_type(file)
-    unless SUPPORT_APP.include?(file_type)
+    unless SUPPORTED_TYPES.include?(file_type)
       raise ActionController::UnknownFormat, t('teardowns.messages.errors.not_support_file_type')
     end
 
