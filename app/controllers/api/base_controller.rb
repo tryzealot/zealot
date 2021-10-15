@@ -31,7 +31,7 @@ class Api::BaseController < ActionController::API
     respond_with_error(
       :unprocessable_entity, e,
       error: t('api.unprocessable_entity'),
-      entry: exception.record.errors
+      entry: e.record.errors
     )
   end
 
@@ -86,9 +86,9 @@ class Api::BaseController < ActionController::API
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
   end
 
-  def logger_error(exception)
+  def logger_error(e)
     return unless Rails.env.development?
 
-    logger.error exception.full_message
+    logger.error e.full_message
   end
 end
