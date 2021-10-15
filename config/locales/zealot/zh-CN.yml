@@ -55,8 +55,9 @@ zh-CN:
       edit_value: 编辑设置
 
       general: 通用配置
-      site_title: 网站标题
       site_https: 启用 HTTPS
+      site_title: 网站标题
+      site_locale: 网站语言
       site_domain: 网站域名
 
       presets: 默认值
