@@ -19,7 +19,7 @@ jobs:
     - name: Get the version
       id: version
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-    - name: Publish to Github Hub Registry
+    - name: Publish to Github Hub Registry using tag version
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         REPLACE_CHINA_MIRROR: false
@@ -32,7 +32,20 @@ jobs:
         password: ${{ secrets.CR_PAT }}
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
         registry: ghcr.io
-    - name: Publish to Docker Registry
+    - name: Publish to Github Hub Registry using latest version
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: ${{ steps.version.outputs.tag }}
+      with:
+        name: ghcr.io/tryzealot/zealot:latest
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+        registry: ghcr.io
+    - name: Publish to Docker Registry using tag version
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         REPLACE_CHINA_MIRROR: false
@@ -41,6 +54,18 @@ jobs:
         TAG: ${{ steps.version.outputs.tag }}
       with:
         name: tryzealot/zealot:${{ env.TAG }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+    - name: Publish to Docker Registry using latest tag
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: ${{ steps.version.outputs.tag }}
+      with:
+        name: tryzealot/zealot:latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
