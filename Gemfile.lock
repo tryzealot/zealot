@@ -76,7 +76,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     android_parser (2.4.1)
       rubyzip (>= 1.0.0)
-    app-info (2.7.0.beta5)
+    app-info (2.7.0)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (~> 2.4.1)
       google-protobuf (~> 3.18.0)
@@ -513,7 +513,7 @@ DEPENDENCIES
   active_analytics
   active_model_serializers (~> 0.10.12)
   activejob-status
-  app-info (~> 2.7.0.beta5)
+  app-info (~> 2.7.0)
   awesome_print
   better_errors
   binding_of_caller
