@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TeardownService < ApplicationService
+  include ActionView::Helpers::TranslationHelper
   attr_reader :file
 
   SUPPORT_APP = %i[apk ipa mobileprovision macos]
