@@ -19,10 +19,10 @@ class Release < ApplicationRecord
 
   before_create :auto_release_version
   before_create :default_source
+  before_create :detect_device
   before_save   :convert_changelog
   before_save   :convert_custom_fields
   before_save   :trip_branch
-  before_save   :detect_device
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
