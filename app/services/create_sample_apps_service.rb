@@ -23,19 +23,19 @@ class CreateSampleAppsService
     ]
     changelog = [
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-24 23:0:24 +0800',
         message: 'bump 0.1.0',
         email: 'admin@zealt.com'
       },
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-23 17:41:41 +0800',
         message: 'fix: xxx',
         email: 'admin@zealt.com'
       },
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-22 11:11:11 +0800',
         message: 'feat: xxx done',
         email: 'admin@zealt.com'
