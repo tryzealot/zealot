@@ -27,9 +27,9 @@ ruby:
                   = changelog_format(release.changelog_list, class: 'mb-0')
               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                 .timeline-footer
-                  - if release.device
+                  - if release.device_type
                     small.badge
-                      = device_name(release.device)
+                      = device_name(release.device_type)
                   - if release.release_type.present?
                     small.badge
                       = release.release_type
