@@ -93,6 +93,7 @@ class CreateSampleAppsService
     release.release_type = release_type
     release.source = 'API'
     release.branch = 'develop'
+    release.device_type = channel.device_type
     release.git_commit = SecureRandom.hex
     release.changelog = changelog
     release.save validate: false
