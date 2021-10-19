@@ -70,8 +70,8 @@ module AppsHelper
     if value.is_a?(Release)
       channel = value.channel
       channal_device_type = device_name(channel.device_type)
-      if value.device
-        return channal_device_type == value.device ? channal_device_type : "#{channal_device_type} (#{value.device})"
+      if value.device_type
+        return channal_device_type == value.device_type ? channal_device_type : "#{channal_device_type} (#{value.device_type})"
       end
     else
       channel = value

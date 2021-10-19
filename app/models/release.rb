@@ -49,7 +49,7 @@ class Release < ApplicationRecord
         release.bundle_id = parser.bundle_id
         release.release_version = parser.release_version
         release.build_version = parser.build_version
-        release.device = parser.device_type
+        release.device_type = parser.device_type
         release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
 
         icon_file = fetch_icon(parser)
@@ -228,7 +228,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device ||= channel.device_type
+    self.device_type ||= channel.device_type
   end
 
   ORIGIN_PREFIX = 'origin/'
