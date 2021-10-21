@@ -55,7 +55,7 @@ gem 'openssl', '~> 2.2.1'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.2'
+gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 gem 'active_analytics'
