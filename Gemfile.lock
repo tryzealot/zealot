@@ -466,7 +466,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    sys-filesystem (1.4.2)
+    sys-filesystem (1.4.3)
       ffi (~> 1.1)
     temple (0.8.2)
     terminal-notifier (2.0.0)
@@ -575,7 +575,7 @@ DEPENDENCIES
   slim-rails (~> 3.3.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sys-filesystem (~> 1.4.2)
+  sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
