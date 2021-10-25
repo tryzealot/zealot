@@ -69,7 +69,7 @@
           = link_to t('releases.show.teardown_meatdata'), teardown_path(@release.metadata)
 
     .app-actions
-      - unless wechat?
+      - unless app_limited?
         - if @release.file?
           == render 'releases/body/install_cert'
 

@@ -98,8 +98,8 @@ module ApplicationHelper
   # 获取浏览器 user agent
   delegate :user_agent, to: :request
 
-  def wechat?
-    user_agent.include?('MicroMessenger')
+  def app_limited?
+    user_agent.include?('MicroMessenger') || user_agent.include?('DingTalk')
   end
 
   def macos?(source = nil)

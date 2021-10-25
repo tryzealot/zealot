@@ -4,7 +4,7 @@
 .row
   - if logged_in_or_without_auth?(@release)
     .col-md-8
-      == render 'releases/body/wechat'
+      == render 'releases/body/app_limited'
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/devices'
