@@ -8,7 +8,7 @@
         i.fas.fa-minus
   .card-body.p-0
     ul.products-list.product-list-in-card
-      - @release.changelog_list.each do |changelog|
+      - @release.array_changelog.each do |changelog|
         li.item.pl-3.pr-3
           .product-title
             - if date = changelog['date']

@@ -49,11 +49,7 @@ module ApplicationHelper
   end
 
   def changelog_format(changelog, **options)
-    raw = changelog.each_with_object([]) do |line, obj|
-      obj << "- #{line['message']}"
-    end.join("\n")
-
-    simple_format raw, **options
+    simple_format changelog, **options
   end
 
   def device_name(device_type)
