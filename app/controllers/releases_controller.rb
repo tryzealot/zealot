@@ -59,15 +59,15 @@ class ReleasesController < ApplicationController
   protected
 
   def authenticate_login!
-    authenticate_user! unless wechat? || Setting.guest_mode
+    authenticate_user! unless app_limited? || Setting.guest_mode
   end
 
   def authenticate_app!
-    return if wechat? || @channel.password.present? || user_signed_in? || Setting.guest_mode
+    return if app_limited? || @channel.password.present? || user_signed_in? || Setting.guest_mode
   end
 
-  def wechat?
-    request.user_agent.include? 'MicroMessenger'
+  def app_limited?
+    request.user_agent.include?('MicroMessenger') || request.user_agent.include?('DingTalk')
   end
 
   def set_release

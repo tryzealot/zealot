@@ -1,11 +1,11 @@
-- if wechat?
+- if app_limited?
   div.cover
-  div.wechat-tips
+  div.app-limited-tips
     span.text-right
-      = t('releases.show.wechat_touch_menu')
+      = t('releases.show.app_touch_menu')
       br
       - if ios?
-        = t('releases.show.wechat_open_in_safari')
+        = t('releases.show.app_open_in_safari')
       - else
-        = t('releases.show.wechat_open_in_webbrower')
-    = image_pack_tag('media/images/wechat/short-arrow.png')
+        = t('releases.show.app_open_in_webbrower')
+    = image_pack_tag('media/images/icons/short-arrow.png')
