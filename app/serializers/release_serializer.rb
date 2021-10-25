@@ -7,6 +7,6 @@ class ReleaseSerializer < ApplicationSerializer
              :created_at
 
   def changelog
-    object.changelog_list(false)
+    object.array_changelog(false)
   end
 end
