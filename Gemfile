@@ -51,11 +51,11 @@ gem 'omniauth-feishu', '~> 0.1.6'
 gem 'omniauth-gitlab', '~> 2.0.0'
 
 ## UDID
-gem 'openssl', '~> 2.2.0'
+gem 'openssl', '~> 2.2.1'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.2'
+gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 gem 'active_analytics'
