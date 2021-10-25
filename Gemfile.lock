@@ -222,6 +222,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     image_size (2.1.2)
     interception (0.5)
+    ipaddr (1.2.2)
     jb (0.8.0)
     jenkins_api_client (1.5.3)
       json (>= 1.0)
@@ -308,7 +309,8 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    openssl (2.2.0)
+    openssl (2.2.1)
+      ipaddr
     orm_adapter (0.5.0)
     parallel (1.20.1)
     parser (3.0.1.1)
@@ -464,7 +466,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    sys-filesystem (1.4.2)
+    sys-filesystem (1.4.3)
       ffi (~> 1.1)
     temple (0.8.2)
     terminal-notifier (2.0.0)
@@ -545,7 +547,7 @@ DEPENDENCIES
   omniauth-feishu (~> 0.1.6)
   omniauth-gitlab (~> 2.0.0)
   omniauth-google-oauth2 (~> 0.8.2)
-  openssl (~> 2.2.0)
+  openssl (~> 2.2.1)
   pg (>= 0.18, < 2.0)
   pghero
   plist (~> 3.6.0)
@@ -573,7 +575,7 @@ DEPENDENCIES
   slim-rails (~> 3.3.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sys-filesystem (~> 1.4.2)
+  sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard
   turbolinks (~> 5)
