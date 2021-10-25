@@ -260,10 +260,10 @@ en:
       api: API
     show:
       enter_password: Enter password
-      wechat_limited: Install limited in current app
-      wechat_touch_menu: Click menu right-top concor
-      wechat_open_in_safari: Choose "Open in Safari" and install
-      wechat_open_in_webbrower: Open with any brower and install
+      app_limited: Install limited in current app
+      app_touch_menu: Click menu right-top concor
+      app_open_in_safari: Choose "Open in Safari" and install
+      app_open_in_webbrower: Open with any brower and install
       not_latest_release: New release found!
       released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
