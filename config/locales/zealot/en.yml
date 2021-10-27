@@ -270,7 +270,7 @@ en:
 
       name: App
       version: Auto Version
-      device: Device
+      device_type: Device
       release_version: Release version (build version)
       release_type: Release type
       filesize: Filesize
