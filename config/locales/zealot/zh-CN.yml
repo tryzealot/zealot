@@ -270,7 +270,7 @@ zh-CN:
 
       name: 应用
       version: 上传版本
-      device: 平台
+      device_type: 平台
       release_version: 构建版本
       release_type: 打包类型
       filesize: 文件体积
