@@ -75,6 +75,7 @@ gem 'rqrcode'
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.2.1'
 gem 'sidekiq-scheduler', '~> 3.1.0'
+gem 'sidekiq-failures', '~> 1.0.1'
 
 # Assets
 gem 'turbolinks', '~> 5'
