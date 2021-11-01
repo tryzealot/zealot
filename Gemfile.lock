@@ -126,8 +126,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.9.4)
-      devise (>= 4.7.1)
+    devise-i18n (1.10.1)
+      devise (>= 4.8.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
@@ -337,7 +337,7 @@ GEM
       activesupport (>= 3.0.0)
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
@@ -508,7 +508,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
 
 PLATFORMS
   ruby
@@ -526,7 +526,7 @@ DEPENDENCIES
   carrierwave (~> 2.2.2)
   debase
   devise (~> 4.8.0)
-  devise-i18n (~> 1.9.4)
+  devise-i18n (~> 1.10.1)
   dotenv-rails
   friendly_id (~> 5.4.2)
   gitlab_omniauth-ldap (~> 2.1.1)
