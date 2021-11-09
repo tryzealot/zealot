@@ -124,7 +124,7 @@ Rails.application.routes.draw do
   #############################################
   # Development Only
   #############################################
-  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: 'inbox' if Rails.env.development?
 
   #############################################
   # API v1
