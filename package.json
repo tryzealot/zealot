@@ -13,7 +13,7 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.5.0"
   },
   "version": "4.2.2"
 }
