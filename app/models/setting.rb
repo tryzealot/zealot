@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './concerns/user_roles'
+
 # RailsSettings Model
 class Setting < RailsSettings::Base
   extend ActionView::Helpers::TranslationHelper
