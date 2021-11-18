@@ -53,7 +53,7 @@ silence_single_worker_warning if rails_env == 'development'
 worker_timeout rails_env == 'development' ? 3600 : 30
 
 # The path to the puma binary without any arguments.
-restart_command 'puma'
+# restart_command 'puma'
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code before
@@ -63,4 +63,11 @@ restart_command 'puma'
 # preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# plugin :tmp_restart
+
+# Start the Puma control rack application on +url+. This application can
+# be communicated with to control the main server. Additionally, you can
+# provide an authentication token, so all requests to the control server
+# will need to include that token as a query parameter. This allows for
+# simple authentication.
+activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '0.0.0.0:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
