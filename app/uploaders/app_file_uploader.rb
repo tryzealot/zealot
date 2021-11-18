@@ -13,14 +13,6 @@ class AppFileUploader < ApplicationUploader
     %w[ipa apk aab zip]
   end
 
-  def move_to_cache
-    true
-  end
-
-  def move_to_store
-    true
-  end
-
   private
 
   def validate_app_type
