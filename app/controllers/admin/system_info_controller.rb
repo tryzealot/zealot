@@ -85,7 +85,7 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def set_gems
-    @gems ||= Sentry.configuration.gem_specs.sort
+    @gems ||= Hash[Gem::Specification.map { |spec| [spec.name, spec.version.to_s] }].sort
   end
 
   def set_disk_volumes
