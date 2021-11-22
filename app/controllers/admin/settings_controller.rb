@@ -34,7 +34,8 @@ class Admin::SettingsController < ApplicationController
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, notice: message
     else
-      redirect_to admin_settings_path
+      message = t('activerecord.errors.same_value', key: t("admin.settings.#{@setting.var}"))
+      redirect_to admin_settings_path, alert: message
     end
   end
 
