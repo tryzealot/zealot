@@ -106,6 +106,11 @@ Rails.application.routes.draw do
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
 
+      namespace :service do
+        post :restart
+        get :status
+      end
+
       require 'sidekiq/web'
       require 'sidekiq-scheduler/web'
 

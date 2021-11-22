@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require_relative './concerns/user_roles'
-
 # RailsSettings Model
 class Setting < RailsSettings::Base
   extend ActionView::Helpers::TranslationHelper
   include ActionView::Helpers::TranslationHelper
+
+  before_save   :convert_third_party_enabled_value, if: :third_party_auth_scope?
+  before_save   :mark_restart_flag, if: :need_restart?
 
   cache_prefix { 'v2' }
 
@@ -49,6 +50,18 @@ class Setting < RailsSettings::Base
       end
     end
 
+    def need_restart?
+      Rails.configuration.x.restart_required == true
+    end
+
+    def restart_required!
+      Rails.configuration.x.restart_required = true
+    end
+
+    def clear_restart_flag!
+      Rails.configuration.x.restart_required = false
+    end
+
     def find_or_default(var:)
       find_by(var: var) || new(var: var)
     end
@@ -78,7 +91,8 @@ class Setting < RailsSettings::Base
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
           validates: { presence: true, length: { in: 3..16 } }
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string, readonly: true, display: true
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string,
+          restart_required: true, display: true
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
           validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
     field :site_https, default: site_https, type: :boolean, readonly: true, display: true
@@ -96,25 +110,23 @@ class Setting < RailsSettings::Base
 
   # 模式开关
   scope :switch_mode do
-    field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean, display: true
-    field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean, readonly: true, display: true
-    field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true, display: true
-  end
-
-  # 上传文件保留策略
-  scope :limits do
-    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'), type: :boolean, readonly: true
+    field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
+          type: :boolean, display: true
+    field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'),
+          type: :boolean, restart_required: true, display: true
+    field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
+          type: :boolean, readonly: true, display: true
   end
 
   # 第三方登录
   scope :third_party_auth do
-    field :feishu, type: :hash, readonly: true, display: true, default: {
+    field :feishu, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
 
-    field :gitlab, type: :hash, readonly: true, display: true, default: {
+    field :gitlab, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITLAB_ENABLED'] || false),
       site: ENV['GITLAB_SITE'] || 'https://gitlab.com/api/v4',
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
@@ -122,13 +134,13 @@ class Setting < RailsSettings::Base
       secret: ENV['GITLAB_SECRET'],
     }
 
-    field :google_oauth, type: :hash, readonly: true, display: true, default: {
+    field :google_oauth, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
     }
 
-    field :ldap, type: :hash, readonly: true, display: true, default: {
+    field :ldap, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['LDAP_ENABLED'] || false),
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'] || '389',
@@ -142,16 +154,18 @@ class Setting < RailsSettings::Base
 
   # 邮件配置
   scope :stmp do
-    field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string, display: true
-    field :mailer_default_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string, display: true
-    field :mailer_options, type: :hash, readonly: true, default: {
+    field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string,
+          restart_required: true, display: true
+    field :mailer_default_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
+          restart_required: true, display: true
+    field :mailer_options, type: :hash, restart_required: true, display: true, default: {
       address: ENV['SMTP_ADDRESS'],
       port: ENV['SMTP_PORT'].to_i,
       domain: ENV['SMTP_DOMAIN'],
       username: ENV['SMTP_USERNAME'],
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
-      enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'],
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']),
     }
   end
 
@@ -161,6 +175,13 @@ class Setting < RailsSettings::Base
     keep_time: 604800,
     pg_schema: 'public',
   }
+
+  # 杂项
+  scope :misc do
+    # 上传文件保留策略
+    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
+          type: :boolean, restart_required: true, display: true
+  end
 
   # 版本信息（只读）
   scope :information do
@@ -216,6 +237,20 @@ class Setting < RailsSettings::Base
 
   private
 
+  def mark_restart_flag
+    self.class.restart_required!
+  end
+
+  def need_restart?
+    value_of(var, source: :restart_required) == true
+  end
+
+  def convert_third_party_enabled_value
+    new_value = value.dup
+    new_value['enabled'] = ActiveModel::Type::Boolean.new.cast(value['enabled'])
+    self.value = new_value
+  end
+
   def validate_value(validate)
     case validate
     when ActiveModel::Validations::PresenceValidator
@@ -227,5 +262,17 @@ class Setting < RailsSettings::Base
     when ActiveModel::Validations::InclusionValidator
       t('errors.messages.optional_value', value: inclusion_values.values.join(', '))
     end
+  end
+
+  def third_party_auth_scope?
+    value_of(var, source: :scope) == :third_party_auth
+  end
+
+  def value_of(key, source:)
+    scope = Setting.defined_fields
+                   .select { |s| s[:key] == key }
+                   .map { |s| s[source] || s[:options][source] }
+
+    scope.any? ? scope.first : false
   end
 end
