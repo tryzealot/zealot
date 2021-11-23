@@ -91,9 +91,6 @@ zh-CN:
       empty_value: 空值
 
       no_editable_key: 当前设置为可读，无法修改
-      submit:
-        create: 新增设置
-        update: 更新设置
 
     users:
       new_user: 新建用户
@@ -757,6 +754,9 @@ zh-CN:
         update: 更新网络钩子
       debug_file:
         create: 上传调试文件
+      setting:
+        create: 保存设置
+        update: 更新设置
   views:
     pagination:
       truncate: ...
