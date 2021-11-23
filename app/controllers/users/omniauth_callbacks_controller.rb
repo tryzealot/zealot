@@ -7,22 +7,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  # def google_oauth2
-  #   omniauth_callback('Google ', 'google_data')
-  # end
-
-  # def ldap
-  #   omniauth_callback('LDAP ', 'ldap_data')
-  # end
-
-  # def feishu
-  #   omniauth_callback('飞书', 'feishu_data')
-  # end
-
-  # def gitlab
-  #   omniauth_callback('Gitlab', 'gitlab_data')
-  # end
-
   def passthru
     redirect_to root_path(signin: 'true')
   end
