@@ -47,7 +47,11 @@ class ApplicationController < ActionController::Base
   end
 
   def forbidden(e)
-    respond_with_error(403, e)
+    message = t('errors.messages.not_authorized_policy', query: e.query, model: e.record.class)
+    new_exception = StandardError.new(message)
+    new_exception.set_backtrace(e.backtrace)
+
+    respond_with_error(403, new_exception)
   end
 
   def not_found(e)
