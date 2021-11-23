@@ -31,8 +31,6 @@ class Admin::SettingsController < ApplicationController
       @setting.value = new_value
       return render :edit unless @setting.save
 
-      Setting.clear_cache
-
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, notice: message
     else
