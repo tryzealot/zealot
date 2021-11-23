@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = Setting.site_locale || I18n.default_locale
+    I18n.locale = Setting.site_locale
   end
 
   def set_sentry_context

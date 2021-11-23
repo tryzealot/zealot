@@ -65,8 +65,8 @@ class Setting < RailsSettings::Base
     field :site_title, default: 'Zealot', type: :string, display: true,
                        validates: { presence: true, length: { in: 3..16 } }
     field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string, readonly: true, display: true
-    field :site_locale, default: I18n.default_locale.to_s, type: :string, display: true,
-                        validates: { presence: true, inclusion: { in: I18n.available_locales.map(&:to_s) } }
+    field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
+                        validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
     field :site_https, default: site_https, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
@@ -175,9 +175,11 @@ class Setting < RailsSettings::Base
   def inclusion_values
     return unless inclusion = inclusion?
 
-    inclusion.send(:delimiter).each_with_object({}) do |v, obj|
-      key = t("settings.#{var}.#{v}", default: v)
-      obj[key] = v
+    delimiters = inclusion.send(:delimiter)
+    delimiters = delimiters.call if delimiters.respond_to?(:call)
+    delimiters.each_with_object({}) do |value, obj|
+      key = t("settings.#{var}.#{value}", default: value)
+      obj[key] = value
     end
   end
 
