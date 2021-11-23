@@ -651,28 +651,30 @@ zh-CN:
       x_years: " %{count} 年"
 
   errors:
-    '400':
-      title: 您提交的请求无效或格式不正确
-    '403':
-      title: 你没有访问这个页面的权限
-    '404':
-      title: 找不到你想要的内容
-      content: 当前访问的页面不存在或者已经被移动
-    '406':
-      title: 页面无法处理请求
-    '410':
-      title: 你所要访问的页面此处已不存在
-    '422':
-      content: 无法确认登录信息。你是不是屏蔽了 Cookie？
-      title: 无法确认登录信息
-    '429':
-      title: 请求被限制
-    '500':
-      content: 抱歉，我们的后台出错了
-      title: 这个页面有问题
-    '503':
-      title: 服务暂时不可用，无法请求该页面
+    code:
+      '400':
+        title: 您提交的请求无效或格式不正确
+      '403':
+        title: 你没有访问这个页面的权限
+      '404':
+        title: 找不到你想要的内容
+        content: 当前访问的页面不存在或者已经被移动
+      '406':
+        title: 页面无法处理请求
+      '410':
+        title: 你所要访问的页面此处已不存在
+      '422':
+        content: 无法确认登录信息。你是不是屏蔽了 Cookie？
+        title: 无法确认登录信息
+      '429':
+        title: 请求被限制
+      '500':
+        content: 抱歉，我们的后台出错了
+        title: 这个页面有问题
+      '503':
+        title: 服务暂时不可用，无法请求该页面
     messages:
+      not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
       blank: 不能为空值
