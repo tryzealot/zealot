@@ -662,6 +662,8 @@ en:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      not_match_url: "Not match url: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optinal value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode

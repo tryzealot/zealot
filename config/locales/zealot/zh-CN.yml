@@ -673,6 +673,8 @@ zh-CN:
     '503':
       title: 服务暂时不可用，无法请求该页面
     messages:
+      not_match_url: "页面路径不存在 %{url}"
+      unexpected_parameter: "不可使用的参数: %{value}"
       blank: 不能为空值
       inclusion: 不包含在可选值列表中
       length_range: 长度限制：%{minimum} ~ %{maximum} 位
