@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative './concerns/user_roles'
-
 # RailsSettings Model
 class Setting < RailsSettings::Base
   extend ActionView::Helpers::TranslationHelper
@@ -16,6 +14,14 @@ class Setting < RailsSettings::Base
         t('settings.default_schemes.adhoc', default: nil),
         t('settings.default_schemes.production', default: nil)
       ].compact
+    end
+
+    def present_roles
+      {
+        user: t('settings.default_role.user', default: nil),
+        developer: t('settings.default_role.developer', default: nil),
+        admin: t('settings.default_role.admin', default: nil)
+      }
     end
 
     def site_https
@@ -63,10 +69,10 @@ class Setting < RailsSettings::Base
   # 系统配置
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
-                       validates: { presence: true, length: { in: 3..16 } }
+          validates: { presence: true, length: { in: 3..16 } }
     field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string, readonly: true, display: true
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
-                        validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
+          validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
     field :site_https, default: site_https, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
@@ -77,7 +83,7 @@ class Setting < RailsSettings::Base
   scope :presets do
     field :default_schemes, default: present_schemes, type: :array, display: true
     field :default_role, default: 'user', type: :string, display: true,
-                         validates: { presence: true, inclusion: { in: UserRoles::ROLE_NAMES.keys.map(&:to_s) } }
+          validates: { presence: true, inclusion: { in: present_roles.keys.map(&:to_s) } }
   end
 
   # 模式开关
