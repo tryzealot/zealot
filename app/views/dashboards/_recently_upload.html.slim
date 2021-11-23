@@ -7,8 +7,8 @@ section
             i.icon.fas.fa-history
             = t('dashboard.timeline.title')
 
-        .card-body.pb-0
-          - if @releases.present?
+        - if @releases.present?
+          .card-body.pb-0
             .timeline
               ruby:
                 loop_date = Time.current
@@ -49,8 +49,9 @@ section
 
               div
                 i.bg-gray.fas.fa-clock
-          - else
-            .time-label = t('dashboard.timeline.not_found')
+        - else
+          .card-body
+            = t('dashboard.timeline.not_found')
 
         - if @releases.total_pages > 1
           .card-footer
