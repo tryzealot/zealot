@@ -18,7 +18,8 @@ module ApplicationHelper
   end
 
   def devise_page?
-    params[:controller].start_with?('devise/')
+    contoller_name = params[:controller]
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
   end
 
   def button_link_to(title, url, icon = nil, **options)
