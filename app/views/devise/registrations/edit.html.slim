@@ -1,13 +1,17 @@
 - content_for :title do
   = t('.title', resource: resource.model_name.human)
 
+ruby:
+  demo_mode = default_admin_in_demo_mode?(resource)
+  update_url = demo_mode ? root_path : registration_path(resource_name)
+
 .row
   .col-md-12
     .card
       .card-header.card-border
         h3.card-title = t('.title', resource: resource.model_name.human)
       .card-body
-        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = simple_form_for(resource, as: resource_name, url: update_url, html: { method: :put }) do |f|
           = f.error_notification
 
           = f.input :username, required: true, :autofocus => true
@@ -20,7 +24,11 @@
           = f.input :current_password, input_html: { autocomplete: "password" }
           = f.input :password, input_html: { autocomplete: "new-password" }
           = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
-          = f.submit class: 'btn btn-lg btn-primary'
+
+          - if demo_mode
+            = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
+          - else
+            = f.button :submit, class: 'btn-lg'
 
     .card.card-info
       .card-header.card-border
@@ -35,4 +43,8 @@
         h3.card-title = t('.cancel_my_account')
       .card-body
         p = t('.unhappy')
-        = button_to t('.cancel_my_account'), user_registration_path, data: { confirm: t('.are_you_sure') }, method: :delete, class: 'btn btn-lg btn-danger'
+
+        - if demo_mode
+          = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
+        - else
+          = button_to t('.cancel_my_account'), user_registration_path, data: { confirm: t('.are_you_sure') }, method: :delete, class: 'btn btn-lg btn-danger'

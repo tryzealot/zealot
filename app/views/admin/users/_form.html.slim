@@ -1,4 +1,8 @@
-= simple_form_for(@user, url: @user.new_record? ? admin_users_path : admin_user_path(@user)) do |f|
+ruby:
+  demo_mode = default_admin_in_demo_mode?(@user)
+  update_url = demo_mode ? root_path : @user.new_record? ? admin_users_path : admin_user_path(@user)
+
+= simple_form_for(@user, url: update_url) do |f|
   .card-body
     = f.error_notification
 
@@ -8,4 +12,7 @@
     = f.input :role, collection: roles_collection, include_blank: false
 
   .card-footer
-    = f.button :submit
+    - if demo_mode
+      = f.button :button, t('errors.messages.invaild_in_demo_mode'), disabled: true
+    - else
+      = f.button :submit
