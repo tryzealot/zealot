@@ -74,6 +74,7 @@ zh-CN:
       third_party_auth: 第三方登录
       ldap: LDAP
       feishu: 飞书
+      gitlab: Gitlab
       google_oauth: Google OAuth
 
       backup: 备份

@@ -74,6 +74,7 @@ en:
       third_party_auth: Third pary auth
       ldap: LDAP
       feishu: Feihsu
+      gitlab: Gitlab
       google_oauth: Google OAuth
 
       backup: Backup
