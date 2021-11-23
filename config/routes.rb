@@ -6,17 +6,11 @@ Rails.application.routes.draw do
   #############################################
   # User
   #############################################
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  devise_scope :user do
-    resource :registration,
-      only: %i[new create edit update],
-      path: 'users',
-      path_names: { new: 'sign_up' },
-      controller: 'users/registrations',
-      as: :user_registration do
-        get :cancel
-      end
-  end
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
+  }
+
   #############################################
   # App
   #############################################
@@ -122,11 +116,6 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # Development Only
-  #############################################
-  mount LetterOpenerWeb::Engine, at: 'inbox' if Rails.env.development?
-
-  #############################################
   # API v1
   #############################################
   namespace :api do
@@ -173,6 +162,11 @@ Rails.application.routes.draw do
   # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
+
+  #############################################
+  # Development Only
+  #############################################
+  mount LetterOpenerWeb::Engine, at: '/inbox' if Rails.env.development?
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
