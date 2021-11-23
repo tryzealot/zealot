@@ -18,19 +18,17 @@
                 = f.input :reset_password_token, as: :hidden
                 = f.full_error :reset_password_token
 
-                .form-group.has-feedback
-                  = f.input :password,
-                          label: t('.new_password'),
-                          required: true,
-                          autofocus: true,
-                          input_html: { autocomplete: "new-password" }
-                .form-group.has-feedback
-                  = f.input :password_confirmation,
-                          label: t('.confirm_new_password'),
-                          required: true,
-                          input_html: { autocomplete: "new-password" }
-                .row
-                  .col-xs-4
-                    = f.submit t('.change_your_password'), class: 'btn btn-primary btn-flat'
+                = f.input :password,
+                        label: t('.new_password'),
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "new-password" }
+
+                = f.input :password_confirmation,
+                        label: t('.confirm_new_password'),
+                        required: true,
+                        input_html: { autocomplete: "new-password" }
+
+                = f.button :submit, t('.change_your_password'), class: 'btn-block'
             .auth-providers.col-md-6
               == render 'devise/shared/links'
