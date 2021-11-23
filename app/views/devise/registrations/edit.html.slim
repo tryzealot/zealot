@@ -45,6 +45,6 @@ ruby:
         p = t('.unhappy')
 
         - if demo_mode
-          = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
+          = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'btn btn-lg btn-primary', disabled: true
         - else
           = button_to t('.cancel_my_account'), user_registration_path, data: { confirm: t('.are_you_sure') }, method: :delete, class: 'btn btn-lg btn-danger'

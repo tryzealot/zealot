@@ -9,7 +9,7 @@ class ApplicationPolicy
   end
 
   def index?
-    Setting.guest_mode || user_signed_in?
+    guest_mode_or_signed_in?
   end
 
   def show?
@@ -55,7 +55,15 @@ class ApplicationPolicy
     end
   end
 
-  private
+  protected
+
+  def demo_mode?
+    Setting.demo_mode == true
+  end
+
+  def guest_mode_or_signed_in?
+    Setting.guest_mode || user_signed_in?
+  end
 
   def user_signed_in?
     user.present?
