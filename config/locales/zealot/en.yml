@@ -91,9 +91,6 @@ en:
       empty_value: Empty
 
       no_editable_key: Read only
-      submit:
-        create: Create
-        update: Edit
 
     users:
       new_user: New user
@@ -742,6 +739,9 @@ en:
         update: Update
       debug_file:
         create: Upload
+      setting:
+        create: Save
+        update: Save
   views:
     pagination:
       truncate: ...
