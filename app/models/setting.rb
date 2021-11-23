@@ -30,7 +30,7 @@ class Setting < RailsSettings::Base
       group_configs.each_with_object({}) do |(scope, items), obj|
         obj[scope] = items.each_with_object({}) do |item, inner|
           key = item[:key]
-          value = self.class.send(key.to_sym)
+          value = send(key.to_sym)
           inner[key] = {
             value: value,
             readonly: item[:readonly]
