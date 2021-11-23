@@ -35,7 +35,7 @@ class GraphqlController < ApplicationController
     when nil
       {}
     else
-      raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
+      raise ArgumentError, t('errors.messages.unexpected_parameter', value: ambiguous_param)
     end
   end
 

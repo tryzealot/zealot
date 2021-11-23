@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
   def raise_not_found
-    raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
+    raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
   end
 
   private
