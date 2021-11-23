@@ -88,14 +88,14 @@ class Setting < RailsSettings::Base
 
   # 模式开关
   scope :switch_mode do
-    field :registrations_mode, default: (ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean, display: true
-    field :guest_mode, default: (ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean, readonly: true, display: true
-    field :demo_mode, default: (ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true, display: true
+    field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean, display: true
+    field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean, readonly: true, display: true
+    field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true, display: true
   end
 
   # 上传文件保留策略
   scope :limits do
-    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'true'), type: :boolean, readonly: true
+    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'), type: :boolean, readonly: true
   end
 
   # 第三方登录
