@@ -144,4 +144,8 @@ module ApplicationHelper
       OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
     end
   end
+
+  def github_repo_commit(ref)
+    "#{Setting.repo_url}/commit/#{ref}"
+  end
 end
