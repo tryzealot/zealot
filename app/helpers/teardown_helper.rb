@@ -16,7 +16,7 @@ module TeardownHelper
       style_name = 'text-red'
       message = t('teardowns.show.expired')
     else
-      style_name = duration.parts[:months] <= 3 ? 'text-yellow' : 'text-green'
+      style_name = (duration.value <= 3.months.to_i) ? 'text-yellow' : 'text-green'
     end
 
     content_tag(:span, message, class: [style_name, 'text-bold'])
