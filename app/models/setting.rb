@@ -7,6 +7,8 @@ class Setting < RailsSettings::Base
 
   cache_prefix { 'v2' }
 
+  REPO_URL = 'https://github.com/tryzealot/zealot'
+
   class << self
     def present_schemes
       [
@@ -63,6 +65,10 @@ class Setting < RailsSettings::Base
         protocol: protocol,
         trailing_slash: false
       }
+    end
+
+    def repo_url
+      REPO_URL
     end
   end
 
