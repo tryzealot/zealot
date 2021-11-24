@@ -19,7 +19,7 @@
               #new-version data-title="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
           dt = t('.vcs_ref')
           dd
-            pre = @server[:zealot_vcs_ref]
+            pre = link_to @server[:zealot_vcs_ref], github_repo_commit(@server[:zealot_vcs_ref]), target: :blank
           dt = t('.build_date')
           dd
             pre = @server[:build_date]
