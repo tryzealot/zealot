@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def page_title(title)
+    "#{title} - #{site_title}"
+  end
+
+  def site_title
+    Setting.site_title
+  end
+
   def new_or_create_route?
     new_route? || create_route?
   end

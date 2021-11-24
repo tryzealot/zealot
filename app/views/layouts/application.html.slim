@@ -8,7 +8,7 @@ ruby:
 doctype html
 html
   head
-    title = yield :title
+    title = page_title(yield :title)
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon.png')}"]
     link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
