@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../app/models/setting'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -76,8 +78,18 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  if defined?(BetterErrors) && ENV['TRUST_IP']
-    require 'ipaddr'
-    BetterErrors::Middleware.allow_ip! IPAddr.new(ENV['TRUST_IP'])
+  config.action_cable.allowed_request_origins = [
+    /http(s)?:\/\/#{Setting.site_domain}/
+  ]
+
+  if ENV['TRUST_IP']
+    config.web_console.permissions = ENV['TRUST_IP']
+
+    if defined?(BetterErrors)
+      require 'ipaddr'
+      BetterErrors::Middleware.allow_ip! IPAddr.new(ENV['TRUST_IP'])
+    end
   end
+
+  config.hosts << ENV['ZEALOT_DOMAIN'] if ENV['ZEALOT_DOMAIN']
 end
