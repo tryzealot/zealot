@@ -83,13 +83,7 @@ module Zealot
     ################################################################
 
     # Auto load path
-    config.autoload_paths += [
-      Rails.root.join('lib')
-    ]
-
-    # config.eager_load_paths += %W(
-    #   #{config.root}/lib
-    # )
+    config.autoload_paths += Dir[Rails.root.join('lib')]
 
     # Don't generate system test files.
     config.generators.system_tests = nil

@@ -22,6 +22,7 @@ guard :sidekiq, environment: environment, concurrency: 5 do
 end
 
 guard :webpacker do
+  watch(%r{^app/javascript/(channels|javascripts|packs)/.*$})
   watch('config/webpacker.yml')
   watch(%r{^config/webpack/.*$})
 end
