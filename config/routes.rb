@@ -168,14 +168,13 @@ Rails.application.routes.draw do
   #############################################
   post '/graphql', to: 'graphql#execute'
 
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
-
   #############################################
   # Development Only
   #############################################
-  mount LetterOpenerWeb::Engine, at: '/inbox' if Rails.env.development?
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/inbox'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
