@@ -51,7 +51,7 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   config.action_cable.allowed_request_origins = [
-    /http(s)?:\/\/#{Setting.site_domain}/
+    /http(s)?:\/\/#{Setting.site_host}/
   ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -69,8 +69,7 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = false
-  # config.action_mailer.default_url_options = { host: Setting.site_domain }
-
+  # config.action_mailer.default_url_options = { host: Setting.site_host }
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
