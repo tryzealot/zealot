@@ -79,7 +79,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_cable.allowed_request_origins = [
-    /http(s)?:\/\/#{Setting.site_domain}/
+    /http(s)?:\/\/#{Setting.site_host}/
   ]
 
   if ENV['TRUST_IP']

@@ -4,6 +4,19 @@
 - content_for :section_title do
   = @title
 
+- content_for :header_tags do
+  == javascript_pack_tag 'admin_service', 'data-turbolinks-track': 'reload'
+
+- content_for :section_rightpanel do
+  - if Setting.need_restart?
+    button#restart-service-button.btn.btn-icon.bg-warning[
+      data-url="#{admin_settings_url}"
+      data-restart-text="#{t('.service_restarting')}"
+      data-restarted-text="#{t('.service_restarted')}"
+    ]
+      i.icon.fas.fa-redo-alt
+      = t('.apply_for_restart')
+
 form.form-horizontal
   - @settings.each do |scope, keys|
     .row
