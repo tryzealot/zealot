@@ -33,7 +33,7 @@ class Setting < RailsSettings::Base
       Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
     end
 
-    def site_domain
+    def site_host
       site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
     end
 
@@ -76,7 +76,7 @@ class Setting < RailsSettings::Base
 
     def url_options
       {
-        host: site_domain,
+        host: site_host,
         protocol: protocol,
         trailing_slash: false
       }
@@ -91,7 +91,7 @@ class Setting < RailsSettings::Base
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
           validates: { presence: true, length: { in: 3..16 } }
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_domain), type: :string,
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || site_host), type: :string,
           restart_required: true, display: true
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
           validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
@@ -221,7 +221,6 @@ class Setting < RailsSettings::Base
   def default_value
     present[:default]
   end
-  alias_method :default, :default_value
 
   def type
     present[:type]
