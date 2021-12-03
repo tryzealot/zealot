@@ -13,6 +13,7 @@ class ResetForDemoModeJob < ApplicationJob
 
     clean_apps
     clean_users
+    reset_jobs
     init_demo_data
   end
 
@@ -30,6 +31,14 @@ class ResetForDemoModeJob < ApplicationJob
     users.each do |user|
       user.destroy
     end
+  end
+
+  def reset_jobs
+    require 'sidekiq/api'
+
+    Sidekiq::RetrySet.new.clear
+    Sidekiq::DeadSet.new.clear
+    Sidekiq::Stats.new.reset
   end
 
   def init_demo_data
