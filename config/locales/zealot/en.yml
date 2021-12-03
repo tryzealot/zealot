@@ -47,6 +47,9 @@ en:
     settings:
       index:
         title: :'settings.title'
+        apply_for_restart: Apply for restart
+        service_restarting: Service restarting ...
+        service_restarted: Refresh page ...
       update:
         title: Edit setting
       edit:
@@ -680,6 +683,7 @@ en:
       update: Updated %{key} successfully
       destroy: Deleteed %{key} successfully
     errors:
+      same_value: "%{key} not change, skip to update"
       models:
         debug_file:
           attributes:
