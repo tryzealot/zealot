@@ -97,6 +97,7 @@ class Admin::SystemInfoController < ApplicationController
       begin
         disk = Sys::Filesystem.stat(mount.mount_point)
         next if obj.any? { |i| i[:mount_path] == disk.path }
+        next if disk.bytes_total.zero?
 
         percent = percent(disk.bytes_used, disk.bytes_total)
         obj.push(

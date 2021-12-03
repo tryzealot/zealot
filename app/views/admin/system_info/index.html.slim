@@ -17,12 +17,14 @@
               #current-version
                 = @server[:zealot_version]
               #new-version data-title="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
-          dt = t('.vcs_ref')
-          dd
-            pre = link_to @server[:zealot_vcs_ref], github_repo_commit(@server[:zealot_vcs_ref]), target: :blank
-          dt = t('.build_date')
-          dd
-            pre = @server[:build_date]
+          - if @server[:zealot_vcs_ref]
+            dt = t('.vcs_ref')
+            dd
+              pre = link_to @server[:zealot_vcs_ref], github_repo_commit(@server[:zealot_vcs_ref]), target: :blank
+          - if @server[:build_date]
+            dt = t('.build_date')
+            dd
+              pre = @server[:build_date]
           dt = t('.os_info')
           dd
             pre = @server[:os_info]
