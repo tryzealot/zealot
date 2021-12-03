@@ -94,6 +94,7 @@ group :development do
   # 调试控制台
   gem 'listen', '>= 3.0.5', '< 3.8'
   gem 'web-console', '>= 3.3.0'
+  gem 'graphiql-rails'
 
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -133,6 +134,3 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
 end
-
-# docker 部署无需此 gem
-# gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
