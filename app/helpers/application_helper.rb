@@ -25,6 +25,10 @@ module ApplicationHelper
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
 
+  def demo_mode?
+    Setting.demo_mode
+  end
+
   def devise_page?
     contoller_name = params[:controller]
     contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
