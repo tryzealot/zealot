@@ -4,7 +4,7 @@ module Types
   class ReleaseType < Types::BaseObject
     description 'App 的版本列表'
 
-    field :id, Int, null: false
+    field :id, ID, null: false
     field :version, Int, null: false
     field :release_version, String, null: false
     field :build_version, String, null: false

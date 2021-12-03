@@ -2,10 +2,10 @@
 
 module Types
   class UserType < Types::BaseObject
-    field :id, Int, null: false
+    field :id, ID, null: false
     field :username, String, null: true
     field :email, String, null: false
     field :token, String, null: false
-    field :created_at, Time, null: false
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
   end
 end
