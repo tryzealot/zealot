@@ -84,4 +84,11 @@ Rails.application.configure do
     enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
     openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
   }
+
+  config.action_dispatch.default_headers = {
+    'Server'                 => 'Zealot',
+    'X-Frame-Options'        => 'sameorigin',
+    'X-Content-Type-Options' => 'nosniff',
+    'X-XSS-Protection'       => '1; mode=block',
+  }
 end
