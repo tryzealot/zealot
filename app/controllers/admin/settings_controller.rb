@@ -50,6 +50,10 @@ class Admin::SettingsController < ApplicationController
   end
 
   def verify_editable_setting
-    raise Pundit::NotAuthorizedError, t('admin.settings.no_editable_key') if @setting.readonly? === true
+    readonly = @setting.readonly? === true
+    demo_guest_with_secure_key = @setting.value.is_a?(Hash) && helpers.secure_key?(@setting.value)
+    if readonly || demo_guest_with_secure_key
+      raise Pundit::NotAuthorizedError.new({ query: :edit, record: @setting})
+    end
   end
 end
