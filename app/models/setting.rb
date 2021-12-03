@@ -185,7 +185,7 @@ class Setting < RailsSettings::Base
   # 版本信息（只读）
   scope :information do
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
     field :build_date, default: ENV['ZEALOT_BUILD_DATE'], type: :string, readonly: true
   end
 
