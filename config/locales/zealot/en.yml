@@ -72,7 +72,8 @@ en:
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
-      demo_mode: Demo mode (Reset data daily)
+      demo_mode: Demo mode
+      demo_mode_tips: 'Enable demo mode will: RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only'
 
       third_party_auth: Third pary auth
       ldap: LDAP
