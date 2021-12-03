@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../app/models/setting'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -28,31 +26,13 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress CSS using a preprocessor.
-  # config.assets.css_compressor = :sass
-
-  # Compress JavaScripts and CSS.
-  # config.assets.js_compressor = :uglifier
-
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
   # Specifies the header that your server uses for sending files.
   if ENV['RAILS_SERVE_STATIC_FILES'].blank?
-    # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
   end
-
-  # Store uploaded files on the local file system
-  # (see config/storage.yml for options)
-  # config.active_storage.service = :local
-
-  # Mount Action Cable outside main process or domain
-  # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  config.action_cable.allowed_request_origins = [
-    /http(s)?:\/\/#{Setting.site_host}/
-  ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -69,7 +49,6 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = false
-  # config.action_mailer.default_url_options = { host: Setting.site_host }
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -104,12 +83,5 @@ Rails.application.configure do
     authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
     enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
     openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
-  }
-
-  config.action_dispatch.default_headers = {
-    'Server'                 => 'Zealot',
-    'X-Frame-Options'        => 'sameorigin',
-    'X-Content-Type-Options' => 'nosniff',
-    'X-XSS-Protection'       => '1; mode=block',
   }
 end
