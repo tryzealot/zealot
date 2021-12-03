@@ -23,7 +23,7 @@ module AdminHelper
     Rails.application
          .config
          .filter_parameters
-         .select { |p| key.downcase.include?(p.to_s) }
+         .select { |p| key.to_s.downcase.include?(p.to_s) }
          .size
          .positive?
   end
