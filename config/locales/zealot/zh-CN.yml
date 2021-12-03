@@ -46,6 +46,9 @@ zh-CN:
     settings:
       index:
         title: :'settings.title'
+        apply_for_restart: 需重启服务生效
+        service_restarting: 服务重启中 ...
+        service_restarted: 刷新页面 ...
       update:
         title: 编辑设置
       edit:
@@ -694,6 +697,7 @@ zh-CN:
       update: "%{key}更新成功"
       destroy: "%{key}删除成功"
     errors:
+      same_value: "%{key}没有发生变化，无法保存"
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
