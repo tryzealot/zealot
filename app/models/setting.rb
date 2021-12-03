@@ -118,6 +118,8 @@ class Setting < RailsSettings::Base
           type: :boolean, display: true
     field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'),
           type: :boolean, restart_required: true, display: true
+    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
+          type: :boolean, restart_required: true, display: true
     field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
           type: :boolean, readonly: true, display: true
   end
@@ -179,13 +181,6 @@ class Setting < RailsSettings::Base
     keep_time: 604800,
     pg_schema: 'public',
   }
-
-  # 杂项
-  scope :misc do
-    # 上传文件保留策略
-    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
-          type: :boolean, restart_required: true, display: true
-  end
 
   # 版本信息（只读）
   scope :information do
