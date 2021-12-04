@@ -13,8 +13,8 @@ class ResetForDemoModeJob < ApplicationJob
 
     clean_apps
     clean_users
-    reset_jobs
     init_demo_data
+    reset_jobs
   end
 
   private
@@ -38,6 +38,7 @@ class ResetForDemoModeJob < ApplicationJob
 
     Sidekiq::RetrySet.new.clear
     Sidekiq::DeadSet.new.clear
+    Sidekiq::FailureSet.new.clear
     Sidekiq::Stats.new.reset
   end
 
