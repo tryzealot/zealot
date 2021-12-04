@@ -4,8 +4,8 @@ require 'http'
 
 class PumaControlClient
   def initialize(url = nil, token: nil)
-    @uri ||= ENV['PUMA_CONTROL_URL'] { '0.0.0.0:9293' }
-    @token ||= ENV['PUMA_CONTROL_URL_TOKEN'] { 'zealot' }
+    @uri ||= ENV.fetch('PUMA_CONTROL_URL') { '0.0.0.0:9293' }
+    @token ||= ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' }
   end
 
   def stats
