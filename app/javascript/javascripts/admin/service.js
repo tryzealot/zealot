@@ -1,12 +1,18 @@
 function restarting() {
-  fetch("/admin/service/restart", {
-    method: "POST"
-  });
+  try {
+    fetch(window.HOST + "admin/service/restart", {
+      method: "POST"
+    });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 function isOnline() {
   try {
-    fetch("/admin/service/status", {
+    fetch(window.HOST + "admin/service/status", {
       method: "GET"
     });
     return true;
@@ -21,14 +27,21 @@ function sleep(ms) {
 
 export async function restartService(button) {
   $("#notifications").fadeOut();
+  var orinalText = $(button).html();
 
   var restartingText = $(button).data("restart-text");
   var restartedText = $(button).data("restarted-text");
   $(button).html("<i class='fas fa-spin fa-sync'></i>" + restartingText);
   var serverRestarting = true;
 
-  await restarting();
+  var restart_success = await restarting();
+  console.debug(restart_success ? 'success' : 'fail');
   await sleep(2000);
+  if (!restart_success) {
+    console.error('Error restarted');
+    $(button).html(orinalText);
+    return false;
+  }
 
   do {
     var online = await isOnline();
