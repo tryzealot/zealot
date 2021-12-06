@@ -4,11 +4,11 @@ section
       .card
         .card-header
           h3.card-title
-            i.fas.fa-history
-            |  上传时间线
+            i.icon.fas.fa-history
+            = t('dashboard.timeline.title')
 
-        .card-body
-          - if @releases.present?
+        - if @releases.present?
+          .card-body.pb-0
             .timeline
               ruby:
                 loop_date = Time.current
@@ -21,24 +21,22 @@ section
                       = release.created_at.strftime('%Y-%m-%d')
 
                 div
-                  i.fab class="#{timeline_app_icon(release.channel.device_type)}" style="margin-top: 4px"
+                  i.fab.mt-1 class="#{timeline_app_icon(release.channel.device_type)}"
                   .timeline-item
                     span.time data-toggle="tooltip" data-placement="left" title="#{release.created_at}"
-                      i.fas.fa-clock
-                      | &nbsp
+                      i.icon.fas.fa-clock
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
-                      = link_to " #{release.app_name}", channel_release_path(release.channel, release)
-                      |  上传了新版本
-                      = " #{release.release_version} (#{release.build_version})"
+                      = link_to(release.app_name, channel_release_path(release.channel, release), class: 'pr-1')
+                      = t('dashboard.timeline.upload_release', release_version: release.release_version, build_version: release.build_version)
                     - if release.changelog.present?
                       .timeline-body.pb-1
-                        = changelog_format release.changelog_list, class: 'mb-0'
+                        = changelog_format release.text_changelog, class: 'mb-0'
                     - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                       .timeline-footer
-                        - if release.device
+                        - if release.device_type
                           small.badge
-                            = device_name(release.device)
+                            = device_name(release.device_type)
                         - if release.release_type
                           small.badge
                             = release.release_type
@@ -51,10 +49,11 @@ section
 
               div
                 i.bg-gray.fas.fa-clock
-          - else
-            .time-label 没有任何上传，快快上传吧。
+        - else
+          .card-body
+            = t('dashboard.timeline.not_found')
 
-        - if @releases.present?
+        - if @releases.total_pages > 1
           .card-footer
             .float-right
               = paginate @releases

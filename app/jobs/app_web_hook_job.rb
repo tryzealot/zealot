@@ -3,6 +3,7 @@
 class AppWebHookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::TranslationHelper
   include ActiveSupport::NumberHelper
 
   queue_as :webhook
@@ -15,7 +16,7 @@ class AppWebHookJob < ApplicationJob
 
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
-    logger.info(log_message("trigger json body: #{json_body}"))
+    logger.info(log_message("trigger json body: #{message_body}"))
 
     send_request
   end
@@ -24,23 +25,20 @@ class AppWebHookJob < ApplicationJob
 
   def send_request
     r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, body: json_body)
-    logger.debug("trigger response body: #{r.body}")
+            .post(@web_hook.url, body: message_body)
+    logger.debug(log_message("trigger response body: #{r.body}"))
     logger.info(log_message('trigger successfully')) if r.code == 200
   rescue HTTP::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
-  def json_body
-    # 如果发现自定义钩子就进行组装
-    return build_body if @web_hook.body.present?
-
-    # 默认结构体
-    WebHooks::PushSerializer.new(@channel).to_json
+  def message_body
+    body = @web_hook.body.present? ? @web_hook.body : default_body
+    build(body)
   end
 
-  def build_body
-    ApplicationController.render inline: @web_hook.body,
+  def build(body)
+    ApplicationController.render inline: body,
                                  type: :jb,
                                  assigns: {
                                    event: @event,
@@ -51,26 +49,45 @@ class AppWebHookJob < ApplicationJob
                                    release_version: @release.release_version,
                                    build_version: @release.build_version,
                                    bundle_id: @release.bundle_id,
-                                   changelog: @release.changelog,
+                                   changelog: @release.text_changelog,
                                    file_size: @release.file.size,
                                    release_url: @release.release_url,
                                    install_url: @release.install_url,
-                                   icon_url: @release.icon_url(:medium),
+                                   icon_url: @release.icon_url,
                                    qrcode_url: @release.qrcode_url,
                                    uploaded_at: @release.created_at
                                  }
   end
 
+  def default_body
+    '{
+      event: @event,
+      title: @title,
+      name: @app_name,
+      app_name: @app_name,
+      device_type: @device_type,
+      release_version: @release_version,
+      build_version: @build_version,
+      size: @file_size,
+      changelog: @changelog,
+      release_url: @release_url,
+      install_url: @install_url,
+      icon_url: @icon_url,
+      qrcode_url: @qrcode_url,
+      uploaded_at: @uploaded_at
+    }'
+  end
+
   def title
     case @event
     when 'upload_events'
-      "#{@release.app_name} 上传了 #{@release.release_version} 版本"
+      t('teardowns.messages.upload_events', name: @release.app_name, version: @release.release_version)
     when 'download_events'
-      "#{@release.app_name} #{@release.release_version} 版本被下载"
+      t('teardowns.messages.download_events', name: @release.app_name, version: @release.release_version)
     when 'changelog_events'
-      "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
+      t('teardowns.messages.changelog_events', name: @release.app_name, version: @release.release_version)
     else
-      "#{@release.app_name} 触发了未知事件: #{@event}"
+      t('teardowns.messages.unknown_events', name: @release.app_name, event: @event)
     end
   end
 

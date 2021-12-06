@@ -6,7 +6,7 @@ class Channels::BranchesController < ApplicationController
 
   def index
     @title = @channel.app_name
-    @subtitle = "#{@branch} 分支版本列表"
+    @subtitle = t('.subtitle', branch: @branch)
     render 'channels/filters/index'
   end
 

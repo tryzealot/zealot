@@ -1,33 +1,32 @@
 - if devise_mapping.omniauthable?
-  .social-auth-links.text-center.mb-3
-    p - 或者 -
+  .social-auth-links.mb-3
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
         ruby:
           title = omniauth_display_name(provider)
           key = title.downcase
 
-        a.btn.btn-icon.btn-block href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-default btn-auth-#{key}"
-          i.fab class="fa-#{key}"
-          = "使用 #{title} 账号登录"
+        a.btn.btn-default.btn-block.text-left href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-auth-#{key}"
+          = t('devise.shared.links.sign_in_with_provider', provider: t("devise.shared.links.provider.#{key}", default: title))
+          i.icon.fab.float-right class="fa-#{key}"
 
 - if controller_name != 'sessions'
   p.mb-1
-    = link_to "登录账户", new_session_path(resource_name)
+    = link_to t('devise.shared.links.sign_in'), new_session_path(resource_name)
 
 - if Setting.registrations_mode && devise_mapping.registerable? && controller_name != 'registrations'
   p.mb-1
-    = link_to "注册账号", new_registration_path(resource_name)
+    = link_to t('devise.shared.links.sign_up'), new_registration_path(resource_name)
 
 - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
   p.mb-1
-    = link_to "忘记密码?", new_password_path(resource_name)
+    = link_to t('devise.shared.links.forgot_your_password'), new_password_path(resource_name)
 
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
   p.mb-1
-    = link_to "没有收到确认邮件?", new_confirmation_path(resource_name)
+    = link_to t('devise.shared.links.didn_t_receive_confirmation_instructions'), new_confirmation_path(resource_name)
 
 - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
   p.mb-0
-    = link_to "没有收到解锁账号确认邮件?", new_unlock_path(resource_name)
+    = link_to t('devise.shared.links.didn_t_receive_unlock_instructions'), new_unlock_path(resource_name)
 
