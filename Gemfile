@@ -13,6 +13,9 @@ gem 'rake', '~> 13.0.4'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.5.1'
 
+# Logger
+gem 'lograge', '~> 0.11.2'
+
 # API
 gem 'active_model_serializers', '~> 0.10.12'
 gem 'graphql', '~> 1.13.0'
