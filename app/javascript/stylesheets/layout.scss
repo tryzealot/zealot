@@ -40,3 +40,15 @@
     margin-right: 5px;
   }
 }
+
+i.icon {
+  margin-right: 5px;
+}
+
+.timeline-item {
+  .time {
+    i.icon {
+      margin-right: 3px;
+    }
+  }
+}

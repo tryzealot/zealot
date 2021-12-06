@@ -3,6 +3,6 @@
 class Admin::BackgroundJobsController < ApplicationController
   # GET /admin/background_jobs
   def index
-    @title = '后台任务'
+    @title = t('background_jobs.title')
   end
 end

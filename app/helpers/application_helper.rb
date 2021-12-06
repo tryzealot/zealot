@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def page_title(title)
+    "#{title} - #{site_title}"
+  end
+
+  def site_title
+    Setting.site_title
+  end
+
   def new_or_create_route?
     new_route? || create_route?
   end
@@ -13,13 +21,17 @@ module ApplicationHelper
     params[:action] == 'create'
   end
 
-
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
 
+  def demo_mode?
+    Setting.demo_mode
+  end
+
   def devise_page?
-    params[:controller].start_with?('devise/')
+    contoller_name = params[:controller]
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
   end
 
   def button_link_to(title, url, icon = nil, **options)
@@ -50,11 +62,7 @@ module ApplicationHelper
   end
 
   def changelog_format(changelog, **options)
-    raw = changelog.each_with_object([]) do |line, obj|
-      obj << "- #{line['message']}"
-    end.join("\n")
-
-    simple_format raw, **options
+    simple_format changelog, **options
   end
 
   def device_name(device_type)
@@ -103,8 +111,8 @@ module ApplicationHelper
   # 获取浏览器 user agent
   delegate :user_agent, to: :request
 
-  def wechat?
-    user_agent.include?('MicroMessenger')
+  def app_limited?
+    user_agent.include?('MicroMessenger') || user_agent.include?('DingTalk')
   end
 
   def macos?(source = nil)
@@ -147,5 +155,9 @@ module ApplicationHelper
     else
       OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
     end
+  end
+
+  def github_repo_commit(ref)
+    "#{Setting.repo_url}/commit/#{ref}"
   end
 end

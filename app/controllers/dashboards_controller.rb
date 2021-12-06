@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
 
   def index
-    @title = '我的控制台'
+    @title = t('dashboard.title')
 
     system_analytics
     recently_upload

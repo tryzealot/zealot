@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class CreateAdminService
+  include ActionView::Helpers::TranslationHelper
+
   def call
     User.find_or_create_by!(email: Setting.admin_email) do |user|
-      user.username = '管理员'
+      user.username = t('settings.default_role.admin')
       user.password = Setting.admin_password
       user.password_confirmation = Setting.admin_password
       user.role = :admin

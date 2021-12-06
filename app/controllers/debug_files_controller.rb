@@ -5,32 +5,32 @@ class DebugFilesController < ApplicationController
   before_action :set_debug_file, only: %i[destroy]
 
   def index
-    @title = '调试文件'
+    @title = t('debug_files.title')
     @apps = App.avaiable_debug_files
     authorize @apps
   end
 
   def new
-    @title = '上传调试文件'
+    @title = t('debug_files.index.upload')
     @apps = App.all
     @debug_file = DebugFile.new
     authorize @debug_file
   end
 
   def create
-    @title = '上传调试文件'
+    @title = t('debug_files.index.upload')
     @debug_file = DebugFile.new(debug_file_params)
     authorize @debug_file
 
     return render :new unless  @debug_file.save
 
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
-    redirect_to debug_files_url, notice: '调试文件上传成功，后台正在应用解包请稍后查看详情'
+    redirect_to debug_files_url, notice: t('activerecord.success.create', key: t('debug_files.title'))
   end
 
   def destroy
     @debug_file.destroy
-    redirect_to debug_files_url, notice: '调试文件已删除成功'
+    redirect_to debug_files_url, notice: t('activerecord.success.destroy', key: t('debug_files.title'))
   end
 
   private

@@ -6,17 +6,11 @@ Rails.application.routes.draw do
   #############################################
   # User
   #############################################
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  devise_scope :user do
-    resource :registration,
-      only: %i[new create edit update],
-      path: 'users',
-      path_names: { new: 'sign_up' },
-      controller: 'users/registrations',
-      as: :user_registration do
-        get :cancel
-      end
-  end
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
+  }
+
   #############################################
   # App
   #############################################
@@ -104,13 +98,18 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks, except: %i[edit update]
+      resources :web_hooks#, except: %i[edit update]
       resources :settings
 
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
+
+      namespace :service do
+        post :restart
+        get :status
+      end
 
       require 'sidekiq/web'
       require 'sidekiq-scheduler/web'
@@ -120,11 +119,6 @@ Rails.application.routes.draw do
       mount ActiveAnalytics::Engine, at: :analytics
     end
   end
-
-  #############################################
-  # Development Only
-  #############################################
-  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
   #############################################
   # API v1
@@ -173,6 +167,14 @@ Rails.application.routes.draw do
   # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
+
+  #############################################
+  # Development Only
+  #############################################
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/inbox'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
