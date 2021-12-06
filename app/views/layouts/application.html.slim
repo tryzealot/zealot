@@ -6,9 +6,10 @@ ruby:
   end
 
 doctype html
-html
+html lang="#{I18n.locale}"
   head
-    title = yield :title
+    title = page_title(yield :title)
+    meta[charset="utf-8"]
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon.png')}"]
     link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
@@ -17,6 +18,8 @@ html
     == favicon_link_tag asset_pack_path('media/images/touch-icon.png')
     == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    == yield :header_tags
+    == action_cable_meta_tag
     == csrf_meta_tags
 
   body class="hold-transition #{body_class}"

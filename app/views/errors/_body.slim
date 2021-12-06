@@ -1,16 +1,18 @@
 ruby:
-  content = t("errors.#{@code}.content")
-  content = nil if content.include?('translation_missing')
+  card_header_color = @code >= 500 ? 'card-danger' : 'card-warning'
+  content = t("errors.code.#{@code}.content", default: nil)
+  goback_href = session[:return_to] || request.referer
+  goback_link_html = link_to(t('errors.messages.goback_title'), goback_href)
+  homepage_link_html = link_to(t('errors.messages.homepage_title'), root_path)
 
-- if content.present?
-  p = content
+.card class="#{card_header_color}"
+  .card-header
+    - if content.present?
+      h3.card-title
+        i.icon.fas.fa-error
+        = content
 
-- if @message.present?
-  p = @message
-
-p
-  | 请返回
-  = link_to '上级页面', session[:return_to] || request.referer
-  | 或
-  = link_to '控制台', root_path
-  | 看看
+  .card-body
+    - if @message.present?
+      div = @message
+    div = raw t('errors.messages.goback_or_redirect_to_homepage', goback_link: goback_link_html, homepage_link: homepage_link_html)

@@ -31,10 +31,10 @@ module Zealot
     config.active_record.default_timezone = :local
 
     # Set default locale
-    locale = ENV['LOCALE'] || 'zh-CN'
+    locale = ENV['DEFAULT_LOCALE']&.to_sym
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.default_locale = locale.to_sym
-    config.i18n.available_locales = [locale, :en]
+    config.i18n.available_locales = [:'zh-CN', :en]
+    config.i18n.default_locale = config.i18n.available_locales.include?(locale) ? locale : :'zh-CN'
 
     # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
     # the I18n.default_locale when a translation cannot be found).
@@ -57,6 +57,7 @@ module Zealot
 
     # Action Cable setting to de-couple it from the main Rails process.
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
+    config.action_cable.mount_path = '/cable'
 
     # Action Cable setting to allow connections from these domains.
     # if origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS']
@@ -82,13 +83,7 @@ module Zealot
     ################################################################
 
     # Auto load path
-    config.autoload_paths += [
-      Rails.root.join('lib')
-    ]
-
-    # config.eager_load_paths += %W(
-    #   #{config.root}/lib
-    # )
+    config.autoload_paths += Dir[Rails.root.join('lib')]
 
     # Don't generate system test files.
     config.generators.system_tests = nil
@@ -98,9 +93,5 @@ module Zealot
 
     # Manage exception page
     # config.exceptions_app = self.routes
-  end
-
-  def self.config
-    @config ||= Rails.configuration.x
   end
 end

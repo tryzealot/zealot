@@ -1,35 +1,25 @@
 - if @metadata.mobileprovision.present?
   .card
     .card-header
-      h3.card-title 描述文件
+      h3.card-title = t('teardowns.show.mobileprovision')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
     .card-body
       dl.system-info
-        dt 名称 (类型)
+        dt = t('teardowns.show.mobileprovision_name')
         dd
           pre = "#{@metadata.mobileprovision['profile_name']} (#{@metadata.release_type})"
-        dt UUID
+        dt = t('teardowns.show.uuid')
         dd
           pre = @metadata.mobileprovision['uuid']
-        - if @metadata.mobileprovision?
-          dt 应用标识
-          dd
-            pre = @metadata.name
-          dt 平台
-          dd
-            pre = @metadata.platform
-          dt 类型
-          dd
-            pre = @metadata.device
-        dt 团队名称 (Team ID)
+        dt = t('teardowns.show.team_id')
         dd
           pre = "#{@metadata.mobileprovision['team_name']} (#{@metadata.mobileprovision['team_identifier'].first})"
-        dt 创建时间
+        dt = t('teardowns.show.created_at')
         dd
           pre = @metadata.mobileprovision['created_at']
-        dt 过期时间
+        dt = t('teardowns.show.expired_at')
         dd
           pre
             = "#{@metadata.mobileprovision['expired_at']} ("

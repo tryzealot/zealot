@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
+  before_action :set_locale
   before_action :set_sentry_context
   before_action :record_page_view
 
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
   rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
   rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter, JSON::ParserError, AppInfo::UnkownFileTypeError, with: :bad_request
@@ -21,10 +21,14 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
   def raise_not_found
-    raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
+    raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
   end
 
   private
+
+  def set_locale
+    I18n.locale = Setting.site_locale
+  end
 
   def set_sentry_context
     Sentry.configure_scope do |scope|
@@ -43,7 +47,11 @@ class ApplicationController < ActionController::Base
   end
 
   def forbidden(e)
-    respond_with_error(403, e)
+    message = t('errors.messages.not_authorized_policy', query: e.query, model: e.record.class)
+    new_exception = StandardError.new(message)
+    new_exception.set_backtrace(e.backtrace)
+
+    respond_with_error(403, new_exception)
   end
 
   def not_found(e)
@@ -83,7 +91,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       @code = code
       @exception = exception
-      @title = t("errors.#{@code}.title")
+      @title = t("errors.code.#{@code}.title")
       @message = exception.message if code < 500
 
       format.any  { render 'errors/index', status: code, formats: [:html] }

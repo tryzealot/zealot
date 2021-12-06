@@ -46,7 +46,8 @@ class Api::Apps::UploadController < Api::BaseController
 
   # 使用现有 App 创建新版本
   def create_build_from_exist_app
-    message = "bundle id `#{app_parser.bundle_id}` not matched with `#{@channel.bundle_id}` in channel #{@channel.id}"
+    message = t('releases.messages.errors.bundle_id_not_matched', got: app_parser.bundle_id,
+      expect: @channel.bundle_id)
     raise TypeError, message unless @channel.bundle_id_matched? app_parser.bundle_id
 
     create_release with_updated_channel
@@ -73,7 +74,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file(release_params, app_parser)
+    @release = channel.releases.upload_file(release_params, app_parser, 'api')
     @release.save!
   end
 
@@ -85,7 +86,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def and_scheme(app)
-    name = parse_scheme_name || '测试版'
+    name = parse_scheme_name
     app.schemes.find_or_create_by name: name
   end
 
@@ -101,16 +102,7 @@ class Api::Apps::UploadController < Api::BaseController
   def parse_scheme_name
     return unless app_parser.os == AppInfo::Platform::IOS
 
-    case app_parser.release_type
-    when AppInfo::IPA::ExportType::DEBUG
-      '开发版'
-    when AppInfo::IPA::ExportType::ADHOC
-      '测试版'
-    when AppInfo::IPA::ExportType::INHOUSE
-      '企业版'
-    when AppInfo::IPA::ExportType::RELEASE
-      '线上版'
-    end
+    t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: t('api.apps.upload.create.adhoc'))
   end
 
   def release_params
