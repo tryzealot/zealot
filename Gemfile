@@ -4,18 +4,18 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.4.0'
+gem 'puma', '~> 5.5.2'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.4.0'
+gem 'redis', '~> 4.5.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.12.14'
+gem 'graphql', '~> 1.13.0'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -34,14 +34,15 @@ gem 'friendly_id', '~> 5.4.2'
 gem 'kaminari'
 ## 文件上传
 gem 'carrierwave', '~> 2.2.2'
+gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'http', '~> 5.0.0'
+gem 'http', '~> 5.0.4'
 ## 用户认证
 gem 'pundit', '~> 2.1.0'
 gem 'devise', '~> 4.8.0'
-gem 'devise-i18n', '~> 1.9.4'
+gem 'devise-i18n', '~> 1.10.1'
 
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
@@ -50,11 +51,11 @@ gem 'omniauth-feishu', '~> 0.1.6'
 gem 'omniauth-gitlab', '~> 2.0.0'
 
 ## UDID
-gem 'openssl', '~> 2.2.0'
+gem 'openssl', '~> 2.2.1'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.2'
+gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero'
 gem 'active_analytics'
@@ -72,18 +73,19 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.2.1'
+gem 'sidekiq', '~> 6.3.1'
 gem 'sidekiq-scheduler', '~> 3.1.0'
+gem 'sidekiq-failures', '~> 1.0.1'
 
 # Assets
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
-# 用于解析 ipa 和 apk 包
-gem 'app-info', '~> 2.6.3'
+# 用于解析 iOS, Android 和 macOS 应用
+gem 'app-info', '~> 2.7.0'
 
-# Mobile config
-gem 'rails-settings-cached', '~> 2.7.1'
+# 带缓存的配置库
+gem 'rails-settings-cached', '~> 2.8.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
@@ -92,10 +94,11 @@ group :development do
   # 调试控制台
   gem 'listen', '>= 3.0.5', '< 3.8'
   gem 'web-console', '>= 3.3.0'
+  gem 'graphiql-rails'
 
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'guard', '~> 2.17.0'
+  gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
   gem 'guard-rails'
@@ -119,7 +122,7 @@ group :development do
 
   # 在线查看 Action Mailer 内容
   gem 'letter_opener', '~> 1.7'
-  gem 'letter_opener_web', '~> 1.4'
+  gem 'letter_opener_web', '~> 2.0'
 end
 
 group :development, :test do
@@ -131,6 +134,3 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
 end
-
-# docker 部署无需此 gem
-# gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

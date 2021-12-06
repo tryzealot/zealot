@@ -2,7 +2,9 @@
 
 module AppsHelper
   def default_schemes
-    Setting.default_schemes
+    schemes = Setting.default_schemes
+    schemes = Setting.present_schemes if schemes.empty?
+    schemes
   end
 
   def default_channels
@@ -14,8 +16,7 @@ module AppsHelper
       return image_pack_tag('media/images/touch-icon.png', options)
     end
 
-    size = options.delete(:size) || :thumb
-    image_tag(release.icon_url(size), options)
+    image_tag(release.icon_url, options)
   end
 
   def app_release_auth_key(release)
@@ -69,8 +70,8 @@ module AppsHelper
     if value.is_a?(Release)
       channel = value.channel
       channal_device_type = device_name(channel.device_type)
-      if value.device
-        return channal_device_type == value.device ? channal_device_type : "#{channal_device_type} (#{value.device})"
+      if value.device_type
+        return channal_device_type == value.device_type ? channal_device_type : "#{channal_device_type} (#{value.device_type})"
       end
     else
       channel = value

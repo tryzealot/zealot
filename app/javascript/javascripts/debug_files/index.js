@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function () {
     var elm = $('#destory_modal');
 
     elm.find('.empty-content').html(function () {
-      var tips = "删除确认：";
+      var tips = "";
       var conform_text = "<span class='text-danger'>" +
         app_name + " " + device_type +
         " v" + releas_version +

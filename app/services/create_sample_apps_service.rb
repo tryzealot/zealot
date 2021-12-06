@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CreateSampleAppsService
+  include ActionView::Helpers::TranslationHelper
+
   RELEASE_COUNT = 3
 
   def call(user)
@@ -11,27 +13,31 @@ class CreateSampleAppsService
   private
 
   def stardford_app(user)
-    app_name = '演示应用'
+    app_name = t('demo.app_name1')
     app_bundle_id = 'com.zealot.app-demo'
-    schemes = %i[开发版 测试版 产品版]
     channels = %i[Android iOS]
+    schemes = [
+      t('settings.default_schemes.beta'),
+      t('settings.default_schemes.adhoc'),
+      t('settings.default_schemes.production'),
+    ]
     changelog = [
       {
-        author: '管理员',
+        author: t('settings.default_role.developer'),
         date: '2019-10-24 23:0:24 +0800',
-        message: 'release: 发布 0.1.0',
+        message: 'bump 0.1.0',
         email: 'admin@zealt.com'
       },
       {
-        author: '管理员',
+        author: t('settings.default_role.developer'),
         date: '2019-10-23 17:41:41 +0800',
-        message: 'fix: 修复 xxx 问题',
+        message: 'fix: xxx',
         email: 'admin@zealt.com'
       },
       {
-        author: '管理员',
+        author: t('settings.default_role.developer'),
         date: '2019-10-22 11:11:11 +0800',
-        message: 'feat: 初始化项目',
+        message: 'feat: xxx done',
         email: 'admin@zealt.com'
       }
     ]
@@ -45,11 +51,11 @@ class CreateSampleAppsService
                                                     device_type: channel_name.downcase.to_sym
         bundle_id = generate_bundle_id app_bundle_id, channel
         release_type = case scheme.name
-                       when '开发版'
-                         'debug'
-                       when '测试版'
-                         channel.name == 'iOS' ? 'adhoc' : 'beta'
-                       when '产品版'
+                       when t('settings.default_schemes.beta')
+                         'beta'
+                       when t('settings.default_schemes.adhoc')
+                         'adhoc'
+                       when t('settings.default_schemes.production')
                          'release'
                        end
 
@@ -61,11 +67,11 @@ class CreateSampleAppsService
   end
 
   def android_channels_app(user)
-    app_name = '演示桌面'
+    app_name = t('demo.app_name2')
     app_bundle_id = 'com.zealot.android.app-demo'
-    schemes = %i[产品版]
-    channels = %i[华为 小米 oppo viio 魅族 应用宝 百度 GooglePlay]
-    changelog = "release: 发布 0.1.0\nfix: 修复 xxx 问题\nfeat: 初始化项目"
+    schemes = [ t('settings.default_schemes.production') ]
+    channels = t('demo.android_channels').values
+    changelog = "bump 0.1.0\nfix: xxx\nfeat: xxx done"
 
     app = create_app(app_name, user)
 
@@ -80,16 +86,18 @@ class CreateSampleAppsService
   end
 
   def generate_release(channel, app_bundle_id, release_type, changelog)
-    release = channel.releases.new
-    release.bundle_id = app_bundle_id
-    release.release_version = '1.0.0'
-    release.build_version = '1'
-    release.release_type = release_type
-    release.source = 'API'
-    release.branch = 'develop'
-    release.git_commit = SecureRandom.hex
-    release.changelog = changelog
-    release.save validate: false
+    Release.new(
+      channel: channel,
+      bundle_id: app_bundle_id,
+      release_version: '1.0.0',
+      build_version: '1',
+      release_type: release_type,
+      source: 'API',
+      branch: 'develop',
+      device_type: channel.device_type,
+      git_commit: SecureRandom.hex,
+      changelog: changelog
+    ).save(validate: false)
   end
 
   def create_app(name, user)

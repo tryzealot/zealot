@@ -22,7 +22,7 @@ class Download::DebugFilesController < ApplicationController
 
   def render_not_found_entity_response
     render json: {
-      error: '没有找到调试文件'
+      error: t('.not_found')
     }, status: :not_found
   end
 
