@@ -550,9 +550,9 @@ en:
       version: Version
       upload_release: :'dashboard.timeline.upload_release'
     install:
-      title: :'udids.title'
+      title: Zealot fetch device UDID
       description: |
-        Install this temporary profile to find and display your current device's UDID. It is automatically removed from device right after you get your UDID.
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
 
         Powered by %{url}.
 
