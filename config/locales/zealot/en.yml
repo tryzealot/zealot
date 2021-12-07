@@ -393,7 +393,7 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: :'teardowns.new.title'
@@ -515,7 +515,7 @@ en:
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
         unknown_parse: 'Unkown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .ipa, .mobileprovision or macOS.app.zip file'
+        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
 
   udid:
     title: Fetch UDID
