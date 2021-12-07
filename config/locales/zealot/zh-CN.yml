@@ -546,7 +546,7 @@ zh-CN:
       upload_release: :'dashboard.timeline.upload_release'
 
     install:
-      title: 获取设备 UDID
+      title: Zealot 获取设备 UDID
       description: |
         本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
 
