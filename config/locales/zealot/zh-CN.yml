@@ -391,7 +391,7 @@ zh-CN:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk、 .ipa、.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 .apk、 .aab、.ipa、.mobileprovision 以及 macOS.app.zip 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'
@@ -512,7 +512,7 @@ zh-CN:
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
         unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 .apk、 .ipa、.mobileprovision 或 macOS.app.zip 文件
+        choose_supported_file_type: 请选择需要解包的 .apk、.aab、.ipa、.mobileprovision 或 macOS.app.zip 文件
 
   udid:
     title: 设备 UDID
