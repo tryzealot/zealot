@@ -420,7 +420,7 @@ en:
       related_body: 'This teardown was relates with '
       unknow_app_name: Unkown
 
-      metadata: Metadat
+      metadata: Metadata
       app_name: App name
       version: Version
       package_name: Bundle id (package name)
