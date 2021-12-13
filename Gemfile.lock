@@ -178,7 +178,7 @@ GEM
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
-    graphql (1.13.0)
+    graphql (1.13.1)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -542,7 +542,7 @@ DEPENDENCIES
   friendly_id (~> 5.4.2)
   gitlab_omniauth-ldap (~> 2.1.1)
   graphiql-rails
-  graphql (~> 1.13.0)
+  graphql (~> 1.13.1)
   guard (~> 2.18.0)
   guard-bundler
   guard-migrate
