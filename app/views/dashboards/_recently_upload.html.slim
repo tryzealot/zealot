@@ -7,8 +7,8 @@ section
             i.icon.fas.fa-history
             = t('dashboard.timeline.title')
 
-        .card-body.pb-0
-          - if @releases.present?
+        - if @releases.present?
+          .card-body.pb-0
             .timeline
               ruby:
                 loop_date = Time.current
@@ -31,12 +31,12 @@ section
                       = t('dashboard.timeline.upload_release', release_version: release.release_version, build_version: release.build_version)
                     - if release.changelog.present?
                       .timeline-body.pb-1
-                        = changelog_format release.changelog_list, class: 'mb-0'
+                        = changelog_format release.text_changelog, class: 'mb-0'
                     - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                       .timeline-footer
-                        - if release.device
+                        - if release.device_type
                           small.badge
-                            = device_name(release.device)
+                            = device_name(release.device_type)
                         - if release.release_type
                           small.badge
                             = release.release_type
@@ -49,8 +49,9 @@ section
 
               div
                 i.bg-gray.fas.fa-clock
-          - else
-            .time-label = t('dashboard.timeline.not_found')
+        - else
+          .card-body
+            = t('dashboard.timeline.not_found')
 
         - if @releases.total_pages > 1
           .card-footer

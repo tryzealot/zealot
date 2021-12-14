@@ -49,7 +49,7 @@ class AppWebHookJob < ApplicationJob
                                    release_version: @release.release_version,
                                    build_version: @release.build_version,
                                    bundle_id: @release.bundle_id,
-                                   changelog: @release.changelog,
+                                   changelog: @release.text_changelog,
                                    file_size: @release.file.size,
                                    release_url: @release.release_url,
                                    install_url: @release.install_url,

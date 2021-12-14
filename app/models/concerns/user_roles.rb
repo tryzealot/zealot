@@ -3,12 +3,6 @@
 module UserRoles
   extend ActiveSupport::Concern
 
-  ROLE_NAMES = {
-    user: I18n.t('users.roles.user'),
-    developer: I18n.t('users.roles.developer'),
-    admin: I18n.t('users.roles.admin')
-  }
-
   included do
     scope :admins, -> { where(role: :admin) }
     scope :developers, -> { where(role: :developer) }
@@ -40,12 +34,14 @@ module UserRoles
   end
 
   def role_name
-    if admin?
-      ROLE_NAMES[:admin]
-    elsif developer?
-      ROLE_NAMES[:developer]
-    else
-      ROLE_NAMES[:user]
-    end
+    key = if admin?
+            :admin
+          elsif developer?
+            :developer
+          else
+            :user
+          end
+
+    Setting.present_roles[key]
   end
 end
