@@ -24,12 +24,10 @@ class ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     authorize @channel
 
-    if @channel.save
-      message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-      redirect_to app_path(@channel.scheme.app), notice: message
-    else
-      @channel.errors
-    end
+    return render :new unless @channel.save
+
+    message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
+    redirect_to app_path(@channel.scheme.app), notice: message
   end
 
   def edit
