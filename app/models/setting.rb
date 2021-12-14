@@ -189,6 +189,11 @@ class Setting < RailsSettings::Base
     field :build_date, default: ENV['ZEALOT_BUILD_DATE'], type: :string, readonly: true
   end
 
+  # 统计
+  scope :analytics do
+    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
+  end
+
   def readonly?
     self.class.get_field(var.to_sym).try(:[], :readonly) === true
   end
