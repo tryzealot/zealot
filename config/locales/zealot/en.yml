@@ -89,6 +89,9 @@ en:
       mailer_default_to: Default sender
       mailer_options: Options
 
+      analytics: Analytics
+      google_analytics_id: Google Analytics ID
+
       archives: Archive uploaded binaries
       keep_uploads: Keep all
 
