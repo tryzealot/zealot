@@ -47,6 +47,11 @@ en:
     settings:
       index:
         title: :'settings.title'
+        apply_for_restart: Apply for restart
+        service_restarting: Service restarting ...
+        service_restarted: Refresh page ...
+      update:
+        title: Edit setting
       edit:
         title: Edit setting
 
@@ -55,8 +60,9 @@ en:
       validates: 'Rule：%{value}'
 
       general: General
-      site_title: Site title
       site_https: Enable HTTPS
+      site_title: Site title
+      site_locale: Site Locale
       site_domain: Site domain
 
       presets: Presets
@@ -66,11 +72,13 @@ en:
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
-      demo_mode: Demo mode (Reset data daily)
+      demo_mode: Demo mode
+      demo_mode_tips: 'Enable demo mode will: RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only'
 
       third_party_auth: Third pary auth
       ldap: LDAP
       feishu: Feihsu
+      gitlab: Gitlab
       google_oauth: Google OAuth
 
       backup: Backup
@@ -87,9 +95,6 @@ en:
       empty_value: Empty
 
       no_editable_key: Read only
-      submit:
-        create: Create
-        update: Edit
 
     users:
       new_user: New user
@@ -257,17 +262,17 @@ en:
       api: API
     show:
       enter_password: Enter password
-      wechat_limited: Install limited in current app
-      wechat_touch_menu: Click menu right-top concor
-      wechat_open_in_safari: Choose "Open in Safari" and install
-      wechat_open_in_webbrower: Open with any brower and install
+      app_limited: Install limited in current app
+      app_touch_menu: Click menu right-top concor
+      app_open_in_safari: Choose "Open in Safari" and install
+      app_open_in_webbrower: Open with any brower and install
       not_latest_release: New release found!
       released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
 
       name: App
       version: Auto Version
-      device: Device
+      device_type: Device
       release_version: Release version (build version)
       release_type: Release type
       filesize: Filesize
@@ -388,7 +393,7 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: :'teardowns.new.title'
@@ -415,7 +420,7 @@ en:
       related_body: 'This teardown was relates with '
       unknow_app_name: Unkown
 
-      metadata: Metadat
+      metadata: Metadata
       app_name: App name
       version: Version
       package_name: Bundle id (package name)
@@ -510,7 +515,7 @@ en:
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
         unknown_parse: 'Unkown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .ipa, .mobileprovision or macOS.app.zip file'
+        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
 
   udid:
     title: Fetch UDID
@@ -545,18 +550,14 @@ en:
       version: Version
       upload_release: :'dashboard.timeline.upload_release'
     install:
-      title: :'udids.title'
+      title: Zealot fetch device UDID
       description: |
-        Install this temporary profile to find and display your current device's UDID. It is automatically removed from device right after you get your UDID.
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
 
         Powered by %{url}.
 
   users:
     title: Users
-    roles:
-      user: User
-      developer: Developer
-      admin: Admin
 
   web_hooks:
     title: Webhooks
@@ -592,6 +593,13 @@ en:
       beta: Beta
       adhoc: Adhoc
       production: Production
+    default_role:
+      user: User
+      developer: Developer
+      admin: Admin
+    site_locale:
+      zh-CN: Simplified Chinese
+      en: English
 
   download:
     releases:
@@ -635,33 +643,40 @@ en:
       channel5: xiaomi
 
   errors:
-    '400':
-      title: The request you submitted was invalid or malformed
-    '403':
-      title: You don't have permission to view this page
-    '404':
-      title: Not Found
-      content: The page you are looking for isn't here.
-    '406':
-      title: This page is not available in the requested format.
-    '410':
-      title: The page you were looking for doesn't exist here anymore.
-    '422':
-      title: Security verification failed
-      content: Security verification failed. Are you blocking cookies?
-    '429':
-      title: Too many requests
-    '500':
-      title: This page is not correct
-      content: We're sorry, but something went wrong on our end.
-    '503':
-      title: The page could not be served due to a temporary server failure.
-    invaild_in_demo_mode: Forbidden in demo mode
-    development_only: Development only
-    goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
-    goback_title: goback
-    homepage_title: homepage
-    unknown_file_type: Unkown file type to parse
+    code:
+      '400':
+        title: The request you submitted was invalid or malformed
+      '403':
+        title: You don't have permission to view this page
+      '404':
+        title: Not Found
+        content: The page you are looking for isn't here.
+      '406':
+        title: This page is not available in the requested format.
+      '410':
+        title: The page you were looking for doesn't exist here anymore.
+      '422':
+        title: Security verification failed
+        content: Security verification failed. Are you blocking cookies?
+      '429':
+        title: Too many requests
+      '500':
+        title: This page is not correct
+        content: We're sorry, but something went wrong on our end.
+      '503':
+        title: The page could not be served due to a temporary server failure.
+    messages:
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
+      not_match_url: "Not match url: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
+      length_range: 'Length range: %{minimum} ~ %{maximum}'
+      optional_value: 'Optinal value: %{value}'
+      invaild_in_demo_mode: Forbidden in demo mode
+      development_only: Development only
+      goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      goback_title: goback
+      homepage_title: homepage
+      unknown_file_type: Unkown file type to parse
 
   activerecord:
     success:
@@ -669,6 +684,7 @@ en:
       update: Updated %{key} successfully
       destroy: Deleteed %{key} successfully
     errors:
+      same_value: "%{key} not change, skip to update"
       models:
         debug_file:
           attributes:
@@ -731,6 +747,9 @@ en:
         update: Update
       debug_file:
         create: Upload
+      setting:
+        create: Save
+        update: Save
   views:
     pagination:
       truncate: ...

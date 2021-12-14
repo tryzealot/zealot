@@ -1,9 +1,13 @@
+ruby:
+  color = @code >= 500 ? 'text-red' : 'text-warning'
+
 - content_for :title do
   = @title
 
-.row
-  .error-page.col-md-12
-    == render 'errors/head'
-    == render "errors/body"
+- content_for :section_title do
+  = "#{@code} #{@title}"
 
-  == render 'errors/debug'
+.row
+  .col-md-12
+    == render "errors/body"
+    == render 'errors/debug'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_114522) do
+ActiveRecord::Schema.define(version: 2021_10_19_110202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_114522) do
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "custom_fields", default: [], null: false
     t.string "name"
-    t.string "device"
+    t.string "device_type"
     t.index ["build_version"], name: "index_releases_on_build_version"
     t.index ["bundle_id"], name: "index_releases_on_bundle_id"
     t.index ["channel_id", "version"], name: "index_releases_on_channel_id_and_version", unique: true

@@ -23,19 +23,19 @@ class CreateSampleAppsService
     ]
     changelog = [
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-24 23:0:24 +0800',
         message: 'bump 0.1.0',
         email: 'admin@zealt.com'
       },
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-23 17:41:41 +0800',
         message: 'fix: xxx',
         email: 'admin@zealt.com'
       },
       {
-        author: t('users.roles.developer'),
+        author: t('settings.default_role.developer'),
         date: '2019-10-22 11:11:11 +0800',
         message: 'feat: xxx done',
         email: 'admin@zealt.com'
@@ -86,16 +86,18 @@ class CreateSampleAppsService
   end
 
   def generate_release(channel, app_bundle_id, release_type, changelog)
-    release = channel.releases.new
-    release.bundle_id = app_bundle_id
-    release.release_version = '1.0.0'
-    release.build_version = '1'
-    release.release_type = release_type
-    release.source = 'API'
-    release.branch = 'develop'
-    release.git_commit = SecureRandom.hex
-    release.changelog = changelog
-    release.save validate: false
+    Release.new(
+      channel: channel,
+      bundle_id: app_bundle_id,
+      release_version: '1.0.0',
+      build_version: '1',
+      release_type: release_type,
+      source: 'API',
+      branch: 'develop',
+      device_type: channel.device_type,
+      git_commit: SecureRandom.hex,
+      changelog: changelog
+    ).save(validate: false)
   end
 
   def create_app(name, user)

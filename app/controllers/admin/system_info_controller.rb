@@ -79,13 +79,11 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def set_env
-    @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = secure_key?(key) ? filtered_token(value) : value
-    end.sort
+    @env = ENV.sort
   end
 
   def set_gems
-    @gems ||= Sentry.configuration.gem_specs.sort
+    @gems ||= Hash[Gem::Specification.map { |spec| [spec.name, spec.version.to_s] }].sort
   end
 
   def set_disk_volumes
@@ -97,6 +95,7 @@ class Admin::SystemInfoController < ApplicationController
       begin
         disk = Sys::Filesystem.stat(mount.mount_point)
         next if obj.any? { |i| i[:mount_path] == disk.path }
+        next if disk.bytes_total.zero?
 
         percent = percent(disk.bytes_used, disk.bytes_total)
         obj.push(
@@ -162,26 +161,6 @@ class Admin::SystemInfoController < ApplicationController
     }
   rescue
     @diskspace = nil
-  end
-
-  def secure_key?(key)
-    Rails.application
-         .config
-         .filter_parameters
-         .select { |p| key.downcase.include?(p.to_s) }
-         .size
-         .positive?
-  end
-
-  def filtered_token(chars)
-    chars = chars.to_s
-    return '*' * chars.size if chars.size < 4
-
-    average = chars.size / 4
-    prefix = chars[0..average - 1]
-    hidden = '*' * (average * 2)
-    suffix = chars[(prefix.size + average * 2)..-1]
-    "#{prefix}#{hidden}#{suffix}"
   end
 
   def percent(value, n)
