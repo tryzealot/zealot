@@ -96,8 +96,8 @@ en:
       keep_uploads: Keep all
 
       empty_value: Empty
-
       no_editable_key: Read only
+      reset: Reset to default value
 
     users:
       new_user: New user
