@@ -19,10 +19,10 @@ class Release < ApplicationRecord
 
   before_create :auto_release_version
   before_create :default_source
+  before_create :detect_device
   before_save   :convert_changelog
   before_save   :convert_custom_fields
   before_save   :trip_branch
-  before_save   :detect_device
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
@@ -49,7 +49,7 @@ class Release < ApplicationRecord
         release.bundle_id = parser.bundle_id
         release.release_version = parser.release_version
         release.build_version = parser.build_version
-        release.device = parser.device_type
+        release.device_type = parser.device_type
         release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
 
         icon_file = fetch_icon(parser)
@@ -121,11 +121,17 @@ class Release < ApplicationRecord
     git_commit[0..8]
   end
 
-  def changelog_list(use_default_changelog = true)
+  def array_changelog(use_default_changelog = true)
     return empty_changelog(use_default_changelog) if changelog.blank?
     return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
+  end
+
+  def text_changelog(use_default_changelog = true)
+    array_changelog(use_default_changelog).each_with_object([]) do |line, obj|
+      obj << "- #{line['message']}"
+    end.join("\n")
   end
 
   def file?
@@ -139,7 +145,7 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    return download_url if device.casecmp?('android') || device.casecmp?('macos')
+    return download_url if device_type.casecmp?('android') || device_type.casecmp?('macos')
 
     download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
@@ -228,7 +234,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device ||= channel.device_type
+    self.device_type ||= channel.device_type
   end
 
   ORIGIN_PREFIX = 'origin/'

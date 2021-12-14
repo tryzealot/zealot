@@ -46,6 +46,11 @@ zh-CN:
     settings:
       index:
         title: :'settings.title'
+        apply_for_restart: 需重启服务生效
+        service_restarting: 服务重启中 ...
+        service_restarted: 刷新页面 ...
+      update:
+        title: 编辑设置
       edit:
         title: 编辑设置
 
@@ -55,26 +60,29 @@ zh-CN:
       edit_value: 编辑设置
 
       general: 通用配置
-      site_title: 网站标题
       site_https: 启用 HTTPS
+      site_title: 网站标题
+      site_locale: 网站语言
       site_domain: 网站域名
 
-      presets: 默认值
-      default_schemes: 应用的类型名称
-      default_role: 用户注册默认权限
+      presets: 预设值
+      default_schemes: 应用类型模板
+      default_role: 新用户权限
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
-      guest_mode: 开启游客模式
-      demo_mode: 演示模式（定时恢复默认数据）
+      guest_mode: 游客模式
+      demo_mode: 演示模式
+      demo_mode_tips: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
 
       third_party_auth: 第三方登录
       ldap: LDAP
       feishu: 飞书
+      gitlab: Gitlab
       google_oauth: Google OAuth
 
-      backup: 备份
-      misc: 杂项
+      # backup: 备份
+      # misc: 杂项
 
       stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
@@ -87,9 +95,6 @@ zh-CN:
       empty_value: 空值
 
       no_editable_key: 当前设置为可读，无法修改
-      submit:
-        create: 新增设置
-        update: 更新设置
 
     users:
       new_user: 新建用户
@@ -257,17 +262,17 @@ zh-CN:
       api: 接口上传
     show:
       enter_password: 访问密码
-      wechat_limited: 应用限制请按照提示安装
-      wechat_touch_menu: 点击右上角菜单
-      wechat_open_in_safari: 在 Safari 中打开并安装
-      wechat_open_in_webbrower: 在任意浏览器中打开并安装
+      app_limited: 应用限制请按照提示安装
+      app_touch_menu: 点击右上角菜单
+      app_open_in_safari: 在 Safari 中打开并安装
+      app_open_in_webbrower: 在任意浏览器中打开并安装
       not_latest_release: 当前不是最新版本！
       released_new_version: '%{release_version} (%{build_version}) 于%{time}发布了，%{link}。'
       view_latest_version: 查看最新版本
 
       name: 应用
       version: 上传版本
-      device: 平台
+      device_type: 平台
       release_version: 构建版本
       release_type: 打包类型
       filesize: 文件体积
@@ -386,7 +391,7 @@ zh-CN:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk、 .ipa、.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 .apk、 .aab、.ipa、.mobileprovision 以及 macOS.app.zip 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'
@@ -507,7 +512,7 @@ zh-CN:
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
         unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 .apk、 .ipa、.mobileprovision 或 macOS.app.zip 文件
+        choose_supported_file_type: 请选择需要解包的 .apk、.aab、.ipa、.mobileprovision 或 macOS.app.zip 文件
 
   udid:
     title: 设备 UDID
@@ -541,7 +546,7 @@ zh-CN:
       upload_release: :'dashboard.timeline.upload_release'
 
     install:
-      title: 获取设备 UDID
+      title: Zealot 获取设备 UDID
       description: |
         本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
 
@@ -549,10 +554,6 @@ zh-CN:
 
   users:
     title: 用户
-    roles:
-      user: 用户
-      developer: 开发者
-      admin: 管理员
 
   web_hooks:
     title: 网络钩子
@@ -588,6 +589,13 @@ zh-CN:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
+    default_role:
+      user: 用户
+      developer: 开发者
+      admin: 管理员
+    site_locale:
+      zh-CN: 简体中文
+      en: 英文
 
   download:
     releases:
@@ -647,33 +655,42 @@ zh-CN:
       x_years: " %{count} 年"
 
   errors:
-    '400':
-      title: 您提交的请求无效或格式不正确
-    '403':
-      title: 你没有访问这个页面的权限
-    '404':
-      title: 找不到你想要的内容
-      content: 当前访问的页面不存在或者已经被移动
-    '406':
-      title: 页面无法处理请求
-    '410':
-      title: 你所要访问的页面此处已不存在
-    '422':
-      content: 无法确认登录信息。你是不是屏蔽了 Cookie？
-      title: 无法确认登录信息
-    '429':
-      title: 请求被限制
-    '500':
-      content: 抱歉，我们的后台出错了
-      title: 这个页面有问题
-    '503':
-      title: 服务暂时不可用，无法请求该页面
-    invaild_in_demo_mode: 演示模式不能编辑默认管理员
-    development_only: 仅开发环境显示
-    goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
-    goback_title: 上级页面
-    homepage_title: 首页
-    unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
+    code:
+      '400':
+        title: 您提交的请求无效或格式不正确
+      '403':
+        title: 你没有访问这个页面的权限
+      '404':
+        title: 找不到你想要的内容
+        content: 当前访问的页面不存在或者已经被移动
+      '406':
+        title: 页面无法处理请求
+      '410':
+        title: 你所要访问的页面此处已不存在
+      '422':
+        content: 无法确认登录信息。你是不是屏蔽了 Cookie？
+        title: 无法确认登录信息
+      '429':
+        title: 请求被限制
+      '500':
+        content: 抱歉，我们的后台出错了
+        title: 这个页面有问题
+      '503':
+        title: 服务暂时不可用，无法请求该页面
+    messages:
+      not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
+      not_match_url: "页面路径不存在 %{url}"
+      unexpected_parameter: "不可使用的参数: %{value}"
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
+      length_range: 长度限制：%{minimum} ~ %{maximum} 位
+      optional_value: 可选值：%{value}
+      invaild_in_demo_mode: 演示模式不能编辑默认管理员
+      development_only: 仅开发环境显示
+      goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
+      goback_title: 上级页面
+      homepage_title: 首页
+      unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
 
   activerecord:
     success:
@@ -681,6 +698,7 @@ zh-CN:
       update: "%{key}更新成功"
       destroy: "%{key}删除成功"
     errors:
+      same_value: "%{key}没有发生变化，无法保存"
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
@@ -745,6 +763,9 @@ zh-CN:
         update: 更新网络钩子
       debug_file:
         create: 上传调试文件
+      setting:
+        create: 保存设置
+        update: 更新设置
   views:
     pagination:
       truncate: ...

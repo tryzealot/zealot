@@ -11,3 +11,4 @@ user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 
 CreateSampleAppsService.new.call(user)
+puts 'CREATED EXAMPLE APPS'

@@ -19,7 +19,7 @@ jobs:
     - name: Get the version
       id: version
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-    - name: Publish to Github Hub Registry using tag version
+    - name: Publish to Github Hub Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         REPLACE_CHINA_MIRROR: false
@@ -27,12 +27,13 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: ${{ steps.version.outputs.tag }}
       with:
-        name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
+        name: ghcr.io/tryzealot/zealot
         username: ${{ github.actor }}
         password: ${{ secrets.CR_PAT }}
+        tags: "latest,${{ env.TAG }}"
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
         registry: ghcr.io
-    - name: Publish to Github Hub Registry using latest version
+    - name: Publish to Docker Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         REPLACE_CHINA_MIRROR: false
@@ -40,34 +41,10 @@ jobs:
         BUILD_DATE: ${{ steps.date.outputs.date }}
         TAG: ${{ steps.version.outputs.tag }}
       with:
-        name: ghcr.io/tryzealot/zealot:latest
-        username: ${{ github.actor }}
-        password: ${{ secrets.CR_PAT }}
-        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
-        registry: ghcr.io
-    - name: Publish to Docker Registry using tag version
-      uses: elgohr/Publish-Docker-Github-Action@master
-      env:
-        REPLACE_CHINA_MIRROR: false
-        VCS_REF: ${{ github.sha }}
-        BUILD_DATE: ${{ steps.date.outputs.date }}
-        TAG: ${{ steps.version.outputs.tag }}
-      with:
-        name: tryzealot/zealot:${{ env.TAG }}
+        name: tryzealot/zealot
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
-    - name: Publish to Docker Registry using latest tag
-      uses: elgohr/Publish-Docker-Github-Action@master
-      env:
-        REPLACE_CHINA_MIRROR: false
-        VCS_REF: ${{ github.sha }}
-        BUILD_DATE: ${{ steps.date.outputs.date }}
-        TAG: ${{ steps.version.outputs.tag }}
-      with:
-        name: tryzealot/zealot:latest
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest,${{ env.TAG }}"
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
     - name: Update Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
