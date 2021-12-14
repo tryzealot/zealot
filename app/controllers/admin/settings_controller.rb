@@ -19,7 +19,10 @@ class Admin::SettingsController < ApplicationController
       @value = Setting.present_schemes
     end
 
-    @value = t("settings.#{@value}", default: @value) if @value.is_a?(String)
+    # 值的多语言支持显示
+    if @value.is_a?(String) && @value.present?
+      @value = t("settings.#{@value}", default: @value)
+    end
   end
 
   def update
