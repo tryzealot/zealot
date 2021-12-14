@@ -6,11 +6,11 @@
 
 .row
   .col-md-12
-    == render 'releases/body/wechat'
+    == render 'releases/body/app_limited'
 
     .card
       .card-body.text-center
-        = raw @qrcode.as_svg
+        = raw @qrcode.as_svg(module_size: 8)
         .pt-4.text-center = t('udid.index.tip')
       .card-footer
         = link_to t('udid.index.fetch_udid'), udid_install_path, class: 'btn bg-success btn-lg btn-block'

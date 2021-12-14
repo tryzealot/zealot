@@ -18,12 +18,15 @@ class Admin::SettingsController < ApplicationController
     if @setting.var == 'default_schemes' && (@setting.value.blank? || @setting.value.empty?)
       @value = Setting.present_schemes
     end
+
+    @value = t("settings.#{@value}", default: @value) if @value.is_a?(String)
   end
 
   def update
     @title = t('.title')
     new_value = setting_param[:value]
     new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
+
     if @setting.value != new_value
       @setting.value = new_value
       return render :edit unless @setting.save
@@ -31,7 +34,8 @@ class Admin::SettingsController < ApplicationController
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, notice: message
     else
-      redirect_to admin_settings_path
+      message = t('activerecord.errors.same_value', key: t("admin.settings.#{@setting.var}"))
+      redirect_to admin_settings_path, alert: message
     end
   end
 
@@ -46,6 +50,10 @@ class Admin::SettingsController < ApplicationController
   end
 
   def verify_editable_setting
-    raise Pundit::NotAuthorizedError, t('admin.settings.no_editable_key') if @setting.readonly? === true
+    readonly = @setting.readonly? === true
+    demo_guest_with_secure_key = @setting.value.is_a?(Hash) && helpers.secure_key?(@setting.value)
+    if readonly || demo_guest_with_secure_key
+      raise Pundit::NotAuthorizedError.new({ query: :edit, record: @setting})
+    end
   end
 end

@@ -75,7 +75,7 @@
                     = t('udid.show.upload_release', release_version: release.release_version, build_version: release.build_version)
                   - if release.changelog.present?
                     .timeline-body.pb-0
-                      = changelog_format release.changelog_list, class: 'mb-0'
+                      = changelog_format release.text_changelog, class: 'mb-0'
                   - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                     .timeline-footer
                       - if release.release_type.present?
