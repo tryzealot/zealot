@@ -96,8 +96,8 @@ zh-CN:
       keep_uploads: 永久保存上传应用版本
 
       empty_value: 空值
-
       no_editable_key: 当前设置为可读，无法修改
+      reset: 恢复默认值
 
     users:
       new_user: 新建用户
