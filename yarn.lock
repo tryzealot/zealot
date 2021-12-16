@@ -1055,10 +1055,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@rails/actioncable@^6.1.4":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.4.tgz#c3c5a9f8302c429af9722b6c50ab48049016d2a3"
-  integrity sha512-0LmSKJTuo2dL6BQ+9xxLnS9lbkyfz2mBGeBnQ2J7o9Bn0l0q+ZC6VuoZMZZXPvABI4QT7Nfknv5WhfKYL+boew==
+"@rails/actioncable@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.0.tgz#2bcb5ca5d7c1d8c32d53589579d2fc19c4864a04"
+  integrity sha512-uKOGaA8xMNuMwsQrH65l4LxLZ4RD2czP0MKBU7PHIbQS6XvYc6xV9HDveGfgumZSZJYJSfUIiKiqh5mjlCOxPA==
 
 "@rails/ujs@^6.1.4":
   version "6.1.4"
