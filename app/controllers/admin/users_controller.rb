@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
 
     return render :new unless @user.save
 
-    redirect_to admin_users_url, notice: t('activerecord.success.create', key: t('users.title'))
+    redirect_to admin_users_path, notice: t('activerecord.success.create', key: t('users.title'))
   end
 
   def edit
@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: t('errors.messages.invaild_in_demo_mode')
+      return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
     # 没有设置密码的情况下不更新该字段
@@ -38,16 +38,16 @@ class Admin::UsersController < ApplicationController
     params.delete(:password) if params[:password].blank?
     return render :edit unless @user.update(params)
 
-    redirect_to admin_users_url, notice: t('activerecord.success.update', key: t('users.title'))
+    redirect_to admin_users_path, notice: t('activerecord.success.update', key: t('users.title'))
   end
 
   def destroy
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: t('errors.messages.invaild_in_demo_mode')
+      return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
     @user.destroy
-    redirect_to admin_users_url, notice: t('activerecord.success.destroy', key: t('users.title'))
+    redirect_to admin_users_path, notice: t('activerecord.success.destroy', key: t('users.title'))
   end
 
   private
