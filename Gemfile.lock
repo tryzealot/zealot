@@ -120,7 +120,7 @@ GEM
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.12)
     debug_inspector (1.1.0)
-    devise (4.8.0)
+    devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -536,7 +536,7 @@ DEPENDENCIES
   byebug
   carrierwave (~> 2.2.2)
   debase
-  devise (~> 4.8.0)
+  devise (~> 4.8.1)
   devise-i18n (~> 1.10.1)
   dotenv-rails
   friendly_id (~> 5.4.2)
