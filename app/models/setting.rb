@@ -2,94 +2,14 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
-  extend ActionView::Helpers::TranslationHelper
-  include ActionView::Helpers::TranslationHelper
+  include SettingHelper
+  include SettingValidate
+  include SettingSuger
 
   before_save   :convert_third_party_enabled_value, if: :third_party_auth_scope?
   before_save   :mark_restart_flag, if: :need_restart?
 
   cache_prefix { 'v2' }
-
-  REPO_URL = 'https://github.com/tryzealot/zealot'
-
-  class << self
-    def present_schemes
-      [
-        t('settings.default_schemes.beta', default: nil),
-        t('settings.default_schemes.adhoc', default: nil),
-        t('settings.default_schemes.production', default: nil)
-      ].compact
-    end
-
-    def present_roles
-      {
-        user: t('settings.default_role.user', default: nil),
-        developer: t('settings.default_role.developer', default: nil),
-        admin: t('settings.default_role.admin', default: nil)
-      }
-    end
-
-    def site_https
-      Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
-    end
-
-    def site_configs
-      group_configs.each_with_object({}) do |(scope, items), obj|
-        obj[scope] = items.each_with_object({}) do |item, inner|
-          key = item[:key]
-          value = send(key.to_sym)
-          inner[key] = {
-            value: value,
-            readonly: item[:readonly]
-          }
-        end
-      end
-    end
-
-    def need_restart?
-      Rails.configuration.x.restart_required == true
-    end
-
-    def restart_required!
-      Rails.configuration.x.restart_required = true
-    end
-
-    def clear_restart_flag!
-      Rails.configuration.x.restart_required = false
-    end
-
-    def find_or_default(var:)
-      find_by(var: var) || new(var: var)
-    end
-
-    def group_configs
-      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
-    end
-
-    def host
-      "#{protocol}#{site_domain}"
-    end
-
-    def protocol
-      site_https ? 'https://' : 'http://'
-    end
-
-    def url_options
-      {
-        host: site_domain,
-        protocol: protocol,
-        trailing_slash: false
-      }
-    end
-
-    def repo_url
-      REPO_URL
-    end
-
-    def default_domain
-      site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
-    end
-  end
 
   # 系统配置
   scope :general do
@@ -192,90 +112,5 @@ class Setting < RailsSettings::Base
   # 统计
   scope :analytics do
     field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
-  end
-
-  def readonly?
-    self.class.get_field(var.to_sym).try(:[], :readonly) === true
-  end
-
-  def field_validates
-    validates.each_with_object([]) do |validate, obj|
-      next unless value = validate_value(validate)
-
-      obj << value
-    end
-  end
-
-  def inclusion?
-    inclusions = validates.select {|v| v.is_a?(ActiveModel::Validations::InclusionValidator) }
-    inclusions&.first
-  end
-
-  def inclusion_values
-    return unless inclusion = inclusion?
-
-    delimiters = inclusion.send(:delimiter)
-    delimiters = delimiters.call if delimiters.respond_to?(:call)
-    delimiters.each_with_object({}) do |value, obj|
-      key = t("settings.#{var}.#{value}", default: value)
-      obj[key] = value
-    end
-  end
-
-  def default_value
-    present[:default]
-  end
-
-  def type
-    present[:type]
-  end
-
-  def validates
-    @validates ||= self.class.validators_on(var)
-  end
-
-  def present
-    @present ||= self.class.get_field(var)
-  end
-
-  private
-
-  def mark_restart_flag
-    self.class.restart_required!
-  end
-
-  def need_restart?
-    value_of(var, source: :restart_required) == true
-  end
-
-  def convert_third_party_enabled_value
-    new_value = value.dup
-    new_value['enabled'] = ActiveModel::Type::Boolean.new.cast(value['enabled'])
-    self.value = new_value
-  end
-
-  def validate_value(validate)
-    case validate
-    when ActiveModel::Validations::PresenceValidator
-      t('errors.messages.blank')
-    when ActiveRecord::Validations::LengthValidator
-      minimum = validate.options[:minimum]
-      maximum = validate.options[:maximum]
-      t('errors.messages.length_range', minimum: minimum, maximum: maximum)
-    when ActiveModel::Validations::InclusionValidator
-      t('errors.messages.optional_value', value: inclusion_values.values.join(', '))
-    end
-  end
-
-  def third_party_auth_scope?
-    value_of(var, source: :scope) == :third_party_auth
-  end
-
-  def value_of(key, source:)
-    scope = Setting.defined_fields
-                   .select { |s| s[:key] == key }
-                   .map { |s| s[source] || s[:options][source] }
-
-    scope.any? ? scope.first : false
   end
 end

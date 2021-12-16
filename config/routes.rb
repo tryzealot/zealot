@@ -174,6 +174,6 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
+  match '/', via: %i[post put patch delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end
