@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.11.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.13.1'
+gem 'graphql', '~> 1.13.2'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -85,7 +85,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.7.0'
+gem 'app-info', '~> 2.8.0'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.1'
