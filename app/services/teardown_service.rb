@@ -57,12 +57,12 @@ class TeardownService < ApplicationService
 
     metadata.bundle_id = parser.package_name
     metadata.target_sdk_version = parser.target_sdk_version
-    metadata.activities = parser.activities.select(&:present?).map(&:name) if parser.activities.present?
-    metadata.permissions = parser.use_permissions.select(&:present?) if parser.use_permissions.present?
-    metadata.features = parser.use_features.select(&:present?) if parser.use_features.present?
-    metadata.services = parser.services.sort_by(&:name).select(&:present?).map(&:name) if parser.services.present?
-    metadata.url_schemes = parser.schemes.sort if parser.schemes.present?
-    metadata.deep_links = parser.deep_links.sort if parser.deep_links.present?
+    metadata.activities = parser&.activities&.select(&:present?).map(&:name)
+    metadata.permissions = parser&.use_permissions&.select(&:present?)
+    metadata.features = parser&.use_features&.select(&:present?)
+    metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name)
+    metadata.url_schemes = parser&.schemes&.sort
+    metadata.deep_links = parser&.deep_links&.sort
   end
 
   def process_ios(parser, metadata)

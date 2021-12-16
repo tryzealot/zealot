@@ -1,13 +1,9 @@
-ruby:
-  current_year = Time.now.year
-  current_veresion = Setting.version
-
 footer.main-footer
   .float-right.d-none.d-sm-block
     b Version
-    = " #{current_veresion}"
+    = " #{Setting.version}"
   strong
-    | Copyright &copy; 2015-#{current_year}&nbsp
-    a href="https://github.com/tryzealot/zealot" Zealot
+    | Copyright &copy; 2015-#{Time.now.year}&nbsp
+    = link_to Setting.site_title, Setting.repo_url
     | .
   |  All rights reserved.
