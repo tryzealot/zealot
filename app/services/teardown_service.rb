@@ -61,6 +61,8 @@ class TeardownService < ApplicationService
     metadata.permissions = parser.use_permissions.select(&:present?) if parser.use_permissions.present?
     metadata.features = parser.use_features.select(&:present?) if parser.use_features.present?
     metadata.services = parser.services.sort_by(&:name).select(&:present?).map(&:name) if parser.services.present?
+    metadata.url_schemes = parser.schemes.sort if parser.schemes.present?
+    metadata.deep_links = parser.deep_links.sort if parser.deep_links.present?
   end
 
   def process_ios(parser, metadata)
