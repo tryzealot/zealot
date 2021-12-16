@@ -44,7 +44,7 @@ gem 'webp-ffi', '~> 0.3.1'
 gem 'http', '~> 5.0.4'
 ## 用户认证
 gem 'pundit', '~> 2.1.0'
-gem 'devise', '~> 4.8.0'
+gem 'devise', '~> 4.8.1'
 gem 'devise-i18n', '~> 1.10.1'
 
 gem 'omniauth', '~> 1.9'
