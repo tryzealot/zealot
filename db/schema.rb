@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_110202) do
+ActiveRecord::Schema.define(version: 2021_12_16_073222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,32 +108,8 @@ ActiveRecord::Schema.define(version: 2021_10_19_110202) do
     t.index ["release_id", "device_id"], name: "index_devices_releases_on_release_id_and_device_id"
   end
 
-  create_table "metadata", force: :cascade do |t|
-    t.bigint "release_id"
-    t.bigint "user_id"
-    t.string "device", null: false
-    t.string "name"
-    t.string "release_version"
-    t.string "build_version"
-    t.string "bundle_id"
-    t.integer "size"
-    t.string "min_sdk_version"
-    t.string "target_sdk_version"
-    t.jsonb "activities", default: [], null: false
-    t.jsonb "services", default: [], null: false
-    t.jsonb "permissions", default: [], null: false
-    t.jsonb "features", default: [], null: false
-    t.string "release_type"
-    t.jsonb "mobileprovision", default: {}, null: false
-    t.jsonb "developer_certs", default: [], null: false
-    t.jsonb "entitlements", default: {}, null: false
-    t.jsonb "devices", default: [], null: false
-    t.jsonb "capabilities", default: [], null: false
-    t.jsonb "url_schemes", default: [], null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+# Could not dump table "metadata" because of following StandardError
+#   Unknown type 'metadata_platform' for column 'platform'
 
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
@@ -230,4 +206,13 @@ ActiveRecord::Schema.define(version: 2021_10_19_110202) do
     t.index ["url"], name: "index_web_hooks_on_url"
   end
 
+  add_foreign_key "channels", "schemes", on_delete: :cascade
+  add_foreign_key "debug_file_metadata", "debug_files"
+  add_foreign_key "debug_files", "apps", on_delete: :cascade
+  add_foreign_key "metadata", "releases", on_delete: :cascade
+  add_foreign_key "metadata", "users", on_delete: :cascade
+  add_foreign_key "releases", "channels", on_delete: :cascade
+  add_foreign_key "schemes", "apps", on_delete: :cascade
+  add_foreign_key "user_providers", "users", on_delete: :cascade
+  add_foreign_key "web_hooks", "channels", on_delete: :cascade
 end
