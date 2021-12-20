@@ -40,6 +40,11 @@ class AppsController < ApplicationController
   end
 
   def update
+    if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
+      flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
+      return render :edit
+    end
+
     @app.update(app_params)
     redirect_to apps_path
   end

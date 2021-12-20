@@ -189,8 +189,9 @@ en:
       title: Edit app
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app_by_version: 'Not found app version: %{version}.'
         not_found_app: Not found app by id %{id}, redirect to list of app.
+        missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
         delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
