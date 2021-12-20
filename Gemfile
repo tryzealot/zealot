@@ -85,7 +85,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.8.0'
+gem 'app-info', '~> 2.8.1'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.1'
