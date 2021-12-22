@@ -71,7 +71,11 @@ module AppsHelper
       channel = value.channel
       channal_device_type = device_name(channel.device_type)
       if value.device_type
-        return channal_device_type == value.device_type ? channal_device_type : "#{channal_device_type} (#{value.device_type})"
+        if channal_device_type == value.device_type
+          return channal_device_type
+        else
+          return "#{channal_device_type} (#{value.device_type})"
+        end
       end
     else
       channel = value
@@ -81,5 +85,9 @@ module AppsHelper
 
     platform = device_name(channel.device_type)
     channel.name == platform ? channel.name : "#{channel.name} (#{device_name(channel.device_type)})"
+  end
+
+  def changelog_format(changelog, **options)
+    simple_format changelog, **options
   end
 end

@@ -30,3 +30,6 @@ html lang="#{I18n.locale}"
         == render 'layouts/content'
 
       / == render 'layouts/footer'
+
+    - if Setting.google_analytics_id.present?
+      == render 'layouts/google_analytics'
