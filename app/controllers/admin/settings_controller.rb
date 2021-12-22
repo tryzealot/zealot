@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::SettingsController < ApplicationController
-  before_action :set_setting, only: %i[edit update]
-  before_action :verify_editable_setting, only: %i[edit]
+  before_action :set_setting, only: %i[edit update destroy]
+  before_action :verify_editable_setting, only: %i[edit destroy]
 
   def index
     @title = t('.title')
@@ -19,7 +19,10 @@ class Admin::SettingsController < ApplicationController
       @value = Setting.present_schemes
     end
 
-    @value = t("settings.#{@value}", default: @value) if @value.is_a?(String)
+    # 值的多语言支持显示
+    if @value.is_a?(String) && @value.present?
+      @value = t("settings.#{@value}", default: @value)
+    end
   end
 
   def update
@@ -39,10 +42,18 @@ class Admin::SettingsController < ApplicationController
     end
   end
 
+  def destroy
+    key = @setting.var
+    @setting.destroy
+
+    redirect_to admin_settings_path, notice: t('activerecord.success.destroy', key: t("admin.settings.#{key}"))
+  end
+
   private
 
   def set_setting
     @setting = Setting.find_or_default(var: params[:id])
+    authorize @setting
   end
 
   def setting_param

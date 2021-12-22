@@ -89,12 +89,15 @@ zh-CN:
       mailer_default_to: 默认邮件发件人
       mailer_options: 发件服务器配置
 
+      analytics: 统计
+      google_analytics_id: Google Analytics ID
+
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
 
       empty_value: 空值
-
       no_editable_key: 当前设置为可读，无法修改
+      reset: 恢复默认值
 
     users:
       new_user: 新建用户
@@ -188,6 +191,7 @@ zh-CN:
       failture:
         not_found_app_by_version: '没有找到应用版本: %{version}'
         not_found_app: 没有找到应用 %{id}，跳转至应用列表
+        missing_schemes_and_channels: 没有勾选任何应用类型和渠道！
       confirm:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?

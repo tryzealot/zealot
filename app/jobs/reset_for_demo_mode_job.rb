@@ -18,7 +18,7 @@ class ResetForDemoModeJob < ApplicationJob
 
   private
 
-  def clean_apps
+  def clean_app_data
     App.delete_all
     DebugFile.delete_all
     Metadatum.delete_all
