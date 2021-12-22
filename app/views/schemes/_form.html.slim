@@ -1,6 +1,6 @@
 ruby:
   form_url = new_or_create_route? ? app_schemes_path : app_scheme_path(@scheme.app, @scheme)
-  checked_channel = @channels ? @channels[:name] : 0
+  checked_channel = @channels ? @channels : 0
 
 .col-md-12
   .card

@@ -1,6 +1,6 @@
 ruby:
-  checked_scheme = @schemes ? @schemes[:name] : 0
-  checked_channel = @channels ? @channels[:name] : 0
+  @schemes ||= 0
+  @channels ||= 0
   link_url = new_or_create_route? ? apps_path : app_path(@app)
 
 .col-md-12
@@ -18,7 +18,7 @@ ruby:
 
         = f.input :name, required: true
         = f.simple_fields_for :scheme_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: default_schemes, checked: checked_scheme
+          = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes, required: false
         = f.simple_fields_for :channel_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: default_channels, checked: checked_channel
+          = n.input :name, as: :check_boxes, collection: default_channels, checked: @channels, required: false
         = f.button :submit
