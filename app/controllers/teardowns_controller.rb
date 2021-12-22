@@ -13,8 +13,8 @@ class TeardownsController < ApplicationController
 
   def show
     @title = t('.title', name: @metadata.name,
-                                       release_version: @metadata.release_version,
-                                       build_version: @metadata.build_version)
+                release_version: @metadata.release_version,
+                build_version: @metadata.build_version)
   end
 
   def new

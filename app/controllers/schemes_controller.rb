@@ -3,6 +3,7 @@
 class SchemesController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_scheme, except: %i[create new]
+  before_action :process_scheme_params, only: %i[create]
   before_action :set_channel, only: %i[show]
   before_action :set_app
 
@@ -80,6 +81,10 @@ class SchemesController < ApplicationController
 
     previouse_channel = Channel.friendly.find(segment[:id])
     @channel = @scheme.channels.find_by(device_type:  previouse_channel.device_type)
+  end
+
+  def process_scheme_params
+    @channels = scheme_params[:channel_attributes][:name].reject(&:empty?)
   end
 
   def from_channel?
