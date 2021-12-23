@@ -31,7 +31,7 @@
                   - scheme.channels.each do |channel|
                     tr
                       td
-                        = link_to channel.name, channel_path(channel)
+                        = link_to channel.name, friendly_channel_path(channel)
                       td style="width: 120px"
                         = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
                         = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', data: { confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}", method: "delete" }

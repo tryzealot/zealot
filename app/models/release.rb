@@ -141,7 +141,7 @@ class Release < ApplicationRecord
   end
 
   def download_url
-    download_release_url(id)
+    channel_release_download_path(channel, id)
   end
 
   def install_url
@@ -156,7 +156,7 @@ class Release < ApplicationRecord
   end
 
   def qrcode_url(size = :thumb)
-    channel_release_qrcode_url channel, self, size: size
+    channel_release_qrcode_url(channel, self, size: size)
   end
 
   def file_extname
