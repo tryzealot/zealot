@@ -1,6 +1,3 @@
-ruby:
-  @schemes = @app.schemes
-
 .card.card-solid.d-none.d-sm-block
   .card-header
     h3.card-title = t('channels.show.scheme')
@@ -8,5 +5,5 @@ ruby:
     ul.nav.nav-pills.flex-column
       - @app.schemes.each do |scheme|
         li.nav-item
-          a.nav-link href="#{app_scheme_path(@app, scheme)}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
+          a.nav-link href="#{using_friendly_channel_path(scheme, @channel)}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
             = scheme.name
