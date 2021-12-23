@@ -25,10 +25,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+    authorize @user
+
     @title = @user.email
   end
 
   def update
+    authorize @user
+
     if helpers.default_admin_in_demo_mode?(@user)
       return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
@@ -46,6 +50,8 @@ class Admin::UsersController < ApplicationController
       return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
+    authorize @user
+
     @user.destroy
     redirect_to admin_users_path, notice: t('activerecord.success.destroy', key: t('users.title'))
   end
@@ -54,7 +60,6 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-    authorize @user
   end
 
   def user_params

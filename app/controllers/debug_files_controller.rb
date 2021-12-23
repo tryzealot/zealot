@@ -29,6 +29,7 @@ class DebugFilesController < ApplicationController
   end
 
   def destroy
+    authorize @debug_file
     @debug_file.destroy
     redirect_to debug_files_url, notice: t('activerecord.success.destroy', key: t('debug_files.title'))
   end
@@ -37,7 +38,6 @@ class DebugFilesController < ApplicationController
 
   def set_debug_file
     @debug_file = DebugFile.find(params[:id])
-    authorize @debug_file
   end
 
   # Only allow a trusted parameter "white list" through.
