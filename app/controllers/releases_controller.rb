@@ -8,15 +8,16 @@ class ReleasesController < ApplicationController
 
   def index
     if @channel.releases.empty?
-      return redirect_to channel_path(@channel),
+      return redirect_to friendly_channel_path(@channel),
         notice: t('releases.messages.errors.not_found_release_and_redirect_to_channel')
     end
 
-    redirect_to channel_release_path(@channel, @channel.releases.last),
+    redirect_to friendly_channel_release_path(@channel, @channel.releases.last),
       notice: t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
   end
 
   def show
+    authorize @release
     @title = @release.app_name
   end
 
@@ -42,6 +43,7 @@ class ReleasesController < ApplicationController
   end
 
   def destroy
+    authorize @release
     @release.destroy
     redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('apps.title')}")
   end
@@ -49,7 +51,7 @@ class ReleasesController < ApplicationController
   def auth
     if @channel.password == params[:password]
       cookies["app_release_#{@release.id}_auth"] = @channel.encode_password
-      redirect_to channel_release_path(@channel, @release)
+      redirect_to friendly_channel_release_path(@channel, @release)
     else
       @error_message = t('releases.messages.errors.invalid_password')
       render :show
@@ -75,7 +77,7 @@ class ReleasesController < ApplicationController
   end
 
   def set_channel
-    @channel = Channel.friendly.find params[:channel_id]
+    @channel = Channel.friendly.find params[:channel_id] || params[:channel]
   end
 
   def release_params
@@ -97,7 +99,7 @@ class ReleasesController < ApplicationController
       when 'Release'
         @title = t('releases.messages.errors.not_found_release')
         @link_title = t('releases.messages.errors.reidrect_channel_detal')
-        @link_href = channel_path(@channel)
+        @link_href = friendly_channel_path(@channel)
       end
     end
 

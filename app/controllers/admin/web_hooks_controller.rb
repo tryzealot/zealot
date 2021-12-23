@@ -10,6 +10,7 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def show
+    authorize @web_hook
     @title = t('admin.web_hooks.show')
   end
 
@@ -28,10 +29,12 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def edit
+    authorize @web_hook
     @title = t('admin.web_hooks.edit')
   end
 
   def update
+    authorize @web_hook
     channel_ids = web_hook_params.delete(:channel_ids)
     return render :edit unless @web_hook.update(web_hook_params)
 
@@ -39,6 +42,7 @@ class Admin::WebHooksController < ApplicationController
   end
 
   def destroy
+    authorize @web_hook
     @web_hook.destroy
     redirect_to admin_web_hooks_url, notice: t('activerecord.success.destroy', key: t('web_hooks.title'))
   end
@@ -47,7 +51,6 @@ class Admin::WebHooksController < ApplicationController
 
   def set_web_hook
     @web_hook = WebHook.find(params[:id])
-    authorize @web_hook
   end
 
   def web_hook_params
