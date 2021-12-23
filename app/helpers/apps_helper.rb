@@ -56,14 +56,22 @@ module AppsHelper
     return unless branch = release.branch
     return if branch.blank?
 
-    link_to(branch, channel_branches_path(release.channel, name: branch))
+    if params[:name] == branch
+      branch
+    else
+      link_to(branch, friendly_channel_branches_path(release.channel, name: branch))
+    end
   end
 
   def release_type_url(release)
     return unless release_type = release.release_type
     return if release_type.blank?
 
-    link_to(release_type, channel_release_types_path(release.channel, name: release_type))
+    if params[:name] == release_type
+      release_type
+    else
+      link_to(release_type, friendly_channel_release_types_path(release.channel, name: release_type))
+    end
   end
 
   def display_app_device(value)
