@@ -7,9 +7,12 @@ class Admin::SettingsController < ApplicationController
   def index
     @title = t('.title')
     @settings = Setting.site_configs
+    authorize @settings
   end
 
   def edit
+    authorize @setting
+
     @title = t('.title')
     @value = @setting.value || @setting.default_value
 
@@ -26,6 +29,8 @@ class Admin::SettingsController < ApplicationController
   end
 
   def update
+    authorize @setting
+
     @title = t('.title')
     new_value = setting_param[:value]
     new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
@@ -43,6 +48,8 @@ class Admin::SettingsController < ApplicationController
   end
 
   def destroy
+    authorize @setting
+
     key = @setting.var
     @setting.destroy
 
@@ -53,7 +60,6 @@ class Admin::SettingsController < ApplicationController
 
   def set_setting
     @setting = Setting.find_or_default(var: params[:id])
-    authorize @setting
   end
 
   def setting_param
