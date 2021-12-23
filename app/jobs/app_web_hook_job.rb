@@ -33,7 +33,7 @@ class AppWebHookJob < ApplicationJob
   end
 
   def message_body
-    body = @web_hook.body.present? ? @web_hook.body : default_body
+    body = @web_hook.body.presence || default_body
     build(body)
   end
 
