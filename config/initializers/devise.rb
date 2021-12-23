@@ -268,7 +268,6 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # 飞书
   feishu = Setting.feishu
@@ -280,11 +279,11 @@ Devise.setup do |config|
   gitlab = Setting.gitlab
   if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
     options = { scope: 'read_user' }
-    if (scope = gitlab[:scope]) && scope.present?
+    if scope = gitlab[:scope].presence
       options[:scope] = scope.split(',').map(&:chomp).join(' ')
     end
 
-    if (site = gitlab[:site]) && site.present?
+    if site = gitlab[:site].presence
       options[:client_options] = { site: site }
     end
 
