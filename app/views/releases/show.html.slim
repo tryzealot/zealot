@@ -15,7 +15,7 @@
         a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" = t('releases.new.title')
       == render 'releases/sidebar/qrcode'
       == render 'releases/sidebar/version'
-      a.btn.btn-default.btn-block href="#{channel_path(@channel)}" = t('releases.show.view_detail')
+      a.btn.btn-default.btn-block href="#{friendly_channel_path(@channel)}" = t('releases.show.view_detail')
   - else
     .col-md-12
       .card

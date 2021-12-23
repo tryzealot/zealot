@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # App
   #############################################
   resources :apps do
-    resources :schemes do
+    resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
   end
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
     end
 
+    # TODO: remove whole channels module
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
       resources :branches, only: %i[index]
@@ -165,6 +166,19 @@ Rails.application.routes.draw do
   # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
+
+  #############################################
+  # URL Friendly
+  #############################################
+  scope path: ':channel', as: :friendly do
+    get '', to: 'channels#show', as: 'channel'
+    get 'versions', to: 'channels/versions#index', as: 'channel_versions'
+    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'channel_version'
+    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'channel_release_types'
+    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'channel_branches'
+    get ':id', to: 'releases#show', as: 'channel_release'
+    # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
+  end
 
   #############################################
   # Development Only

@@ -23,6 +23,7 @@ class Channels::ReleaseTypesController < ApplicationController
   end
 
   def set_channel
-    @channel = Channel.friendly.find params[:channel_id]
+    @channel = Channel.friendly.find(params[:channel_id] || params[:channel])
+    authorize @channel, :release_types?
   end
 end
