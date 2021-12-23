@@ -2,6 +2,7 @@
 
 class Channels::VersionsController < ApplicationController
   before_action :set_channel
+  before_action :set_version
 
   def index
     @title = @channel.app_name
@@ -15,7 +16,6 @@ class Channels::VersionsController < ApplicationController
   end
 
   def show
-    @version = params[:id]
     @title = @channel.app_name
     @subtitle = t('.subtitle', version: @version)
     @back_url = URI(request.referer || '').path
@@ -29,6 +29,11 @@ class Channels::VersionsController < ApplicationController
   private
 
   def set_channel
-    @channel = Channel.friendly.find params[:channel_id]
+    @channel = Channel.friendly.find(params[:channel_id] || params[:channel])
+    authorize @channel, :versions?
+  end
+
+  def set_version
+    @version = params[:id] || params[:name]
   end
 end

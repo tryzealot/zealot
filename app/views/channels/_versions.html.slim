@@ -12,12 +12,12 @@
         - @versions.each do |version|
           tr
             td
-              = link_to version, channel_version_path(@channel, version)
+              = link_to version, friendly_channel_version_path(@channel, version)
             td
               = @channel.release_version_count(version)
     - else
       .p-3 = t('channels.show.empty_version_shortly')
   - if @versions.count > 0
     .card-footbar
-      a.btn.btn-default.btn-block href="#{channel_versions_path(@channel)}"
+      a.btn.btn-default.btn-block href="#{friendly_channel_versions_path(@channel)}"
         = t('channels.show.more')
