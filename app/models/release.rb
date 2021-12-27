@@ -141,7 +141,7 @@ class Release < ApplicationRecord
   end
 
   def download_url
-    channel_release_download_path(channel, id)
+    download_release_url(id)
   end
 
   def install_url
