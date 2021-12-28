@@ -23,6 +23,6 @@ class Channels::BranchesController < ApplicationController
 
   def set_channel
     @channel = Channel.friendly.find(params[:channel_id] || params[:channel])
-    authorize @channel, :brances?
+    authorize @channel, :branches?
   end
 end

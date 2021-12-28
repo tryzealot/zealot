@@ -25,7 +25,6 @@ class TeardownsController < ApplicationController
   end
 
   def create
-    authorize @metadata
     @title = t('.title')
     parse_app
   rescue AppInfo::NotFoundError, ActiveRecord::RecordNotFound => e
