@@ -7,7 +7,6 @@ class Admin::SettingsController < ApplicationController
   def index
     @title = t('.title')
     @settings = Setting.site_configs
-    authorize @settings
   end
 
   def edit
