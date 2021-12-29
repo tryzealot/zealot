@@ -19,6 +19,8 @@ class DebugFileTeardownJob < ApplicationJob
     parser.clear!
 
     notification_user(debug_file, user_id)
+  rescue AppInfo::NotFoundError
+    logger.info("Can not found debug file #{debug_file.id}, may be removed.")
   end
 
   private
