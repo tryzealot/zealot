@@ -41,7 +41,7 @@ class ChannelsController < ApplicationController
     authorize @channel
 
     @channel.update(channel_params)
-    redirect_to friendly_channel_path(@channel)
+    redirect_to friendly_channel_overview_path(@channel)
   end
 
   def destroy

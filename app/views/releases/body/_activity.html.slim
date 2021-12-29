@@ -46,4 +46,4 @@ ruby:
           i.fas.fa-clock.bg-gray
     - if guest_mode_or_signed_in?
       .card-footbar
-        a.btn.btn-default.btn-block href="#{friendly_channel_path(@release.channel)}" = t('releases.show.more')
+        a.btn.btn-default.btn-block href="#{friendly_channel_overview_path(@release.channel)}" = t('releases.show.more')
