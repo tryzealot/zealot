@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class ReleasesController < ApplicationController
-  before_action :authenticate_login!, except: %i[show auth]
+  before_action :authenticate_login!, except: %i[index show auth]
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
   before_action :authenticate_app!, only: :show
 
   def index
     if @channel.releases.empty?
-      return redirect_to friendly_channel_path(@channel),
+      return redirect_to friendly_channel_overview_path(@channel),
         notice: t('releases.messages.errors.not_found_release_and_redirect_to_channel')
     end
 
-    redirect_to friendly_channel_release_path(@channel, @channel.releases.last),
-      notice: t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
+    @release = @channel.releases.last
+    render :show
   end
 
   def show
@@ -91,6 +91,7 @@ class ReleasesController < ApplicationController
     @title = t('releases.messages.errors.not_found')
     @link_title = t('releases.messages.errors.redirect_to_app_list')
     @link_href = apps_path
+
     case e
     when ActiveRecord::RecordNotFound
       case e.model
@@ -98,8 +99,14 @@ class ReleasesController < ApplicationController
         @title = t('releases.messages.errors.not_found_app')
       when 'Release'
         @title = t('releases.messages.errors.not_found_release')
-        @link_title = t('releases.messages.errors.reidrect_channel_detal')
-        @link_href = friendly_channel_path(@channel)
+        if (current_user || Setting.guest_mode)
+          @link_title = t('releases.messages.errors.reidrect_channel_detal')
+          @link_href = friendly_channel_overview_path(@channel)
+        else
+          @link_title = t('releases.messages.errors.not_found_release_and_redirect_to_latest_release')
+          @link_href = friendly_channel_releases_path(@channel)
+        end
+
       end
     end
 
