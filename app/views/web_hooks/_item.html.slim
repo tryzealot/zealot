@@ -18,7 +18,7 @@ tr
         - if shared_channel == current_channel
           = t('web_hooks.current_channel')
         - else
-          = link_to shared_channel.app_name, friendly_channel_path(shared_channel)
+          = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel)
   td style="width: 70px"
     - if type == :enabled
       .btn-group-vertical

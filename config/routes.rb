@@ -170,13 +170,14 @@ Rails.application.routes.draw do
   #############################################
   # URL Friendly
   #############################################
-  scope path: ':channel', as: :friendly do
-    get '', to: 'channels#show', as: 'channel'
-    get 'versions', to: 'channels/versions#index', as: 'channel_versions'
-    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'channel_version'
-    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'channel_release_types'
-    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'channel_branches'
-    get ':id', to: 'releases#show', as: 'channel_release'
+  scope path: ':channel', as: :friendly_channel do
+    get '/overview', to: 'channels#show'
+    get '', to: 'releases#index', as: 'releases'
+    get 'versions', to: 'channels/versions#index', as: 'versions'
+    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
+    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
+    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
+    get ':id', to: 'releases#show', as: 'release'
     # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
   end
 

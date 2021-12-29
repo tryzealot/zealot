@@ -334,7 +334,7 @@ zh-CN:
         not_found_release_and_redirect_to_latest_release: 版本不存在或已经被移除，跳转至最新版本
         not_found: 页面找不到
         not_found_app: 应用不存在或已经被移除
-        not_found_release: 应用渠道没有找到版本
+        not_found_release: 应用版本不存在或被移除
         redirect_to_app_list: 跳转到应用列表
         reidrect_channel_detal: 跳转应用渠道详情
         deleted_manually: 可能当前版本被人工删除

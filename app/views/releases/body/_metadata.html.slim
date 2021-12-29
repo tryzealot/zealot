@@ -25,7 +25,7 @@
         li title="#{t('releases.show.name')}"
           i.fas.fa-list-ul
           - if guest_mode_or_signed_in?
-            = link_to @release.app_name, friendly_channel_path(@release.channel)
+            = link_to @release.app_name, friendly_channel_overview_path(@release.channel)
           - else
             = @release.app_name
       li title="#{t('releases.show.version')}"
