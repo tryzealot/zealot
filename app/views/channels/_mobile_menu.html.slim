@@ -16,4 +16,4 @@ nav.filter-nav.navbar.navbar-expand.navbar-white.d-block.d-sm-none
         - @channel.scheme.channels.each do |channel|
           - if channel != @channel
             li
-              = link_to display_app_device(channel), friendly_channel_path(channel), class: "dropdown-item"
+              = link_to display_app_device(channel), friendly_channel_overview_path(channel), class: "dropdown-item"

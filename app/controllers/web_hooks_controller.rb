@@ -58,6 +58,6 @@ class WebHooksController < ApplicationController
   end
 
   def redirect_to_channel_url(**options)
-    redirect_to friendly_channel_path(@channel), **options
+    redirect_to friendly_channel_overview_path(@channel), **options
   end
 end
