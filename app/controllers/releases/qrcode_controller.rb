@@ -7,7 +7,7 @@ class Releases::QrcodeController < ApplicationController
   # 显示应用的二维码
   # GET /apps/:slug/(:version)/qrcode
   def show
-    render qrcode: channel_release_url(@release.channel, @release),
+    render qrcode: friendly_channel_release_url(@release.channel, @release),
            module_px_size: qrcode_size,
            fill: '#FFFFFF',
            color: '#465960'
