@@ -13,6 +13,7 @@ class ReleasesController < ApplicationController
     end
 
     @release = @channel.releases.last
+    @title = @release.app_name
     render :show
   end
 
