@@ -69,7 +69,7 @@ gem 'sentry-rails'
 gem 'sentry-sidekiq'
 
 ## Jenkins SDK
-gem 'jenkins_api_client'
+gem 'improved_jenkins_client', '~> 1.6.7'
 
 ## 生成条形码/二维码
 gem 'rqrcode'
@@ -111,7 +111,7 @@ group :development do
   gem 'terminal-notifier-guard'
 
   # IDE tools(VSCode)
-  gem 'debase'
+  gem 'debase', '~> 0.2.5.beta2'
   gem 'ruby-debug-ide'
 
   # 加速开发环境
