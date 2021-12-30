@@ -36,6 +36,7 @@ if Rails.env.production?
   Rails.application.configure do
     # Better log formatting
     config.lograge.enabled = true
+    config.lograge.logger = ActiveSupport::Logger.new(STDOUT)
 
     config.lograge.custom_payload do |controller|
       custom_payload(controller)
