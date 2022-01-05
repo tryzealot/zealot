@@ -54,7 +54,7 @@ gem 'omniauth-feishu', '~> 0.1.6'
 gem 'omniauth-gitlab', '~> 2.0.0'
 
 ## UDID
-gem 'openssl', '~> 2.2.1'
+gem 'openssl', '~> 3.0.0'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
