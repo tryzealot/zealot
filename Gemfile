@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.11.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.13.2'
+gem 'graphql', '~> 1.13.3'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
