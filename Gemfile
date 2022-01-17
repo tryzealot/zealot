@@ -17,7 +17,7 @@ gem 'redis', '~> 4.5.1'
 gem 'lograge', '~> 0.11.2'
 
 # API
-gem 'active_model_serializers', '~> 0.10.12'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql', '~> 1.13.2'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
