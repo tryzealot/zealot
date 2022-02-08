@@ -4,21 +4,21 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.5.2'
+gem 'puma', '~> 5.6.1'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.5.1'
+gem 'redis', '~> 4.6.0'
 
 # Logger
 gem 'lograge', '~> 0.11.2'
 
 # API
-gem 'active_model_serializers', '~> 0.10.12'
-gem 'graphql', '~> 1.13.2'
+gem 'active_model_serializers', '~> 0.10.13'
+gem 'graphql', '~> 1.13.8'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -76,8 +76,8 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.3.1'
-gem 'sidekiq-scheduler', '~> 3.1.0'
+gem 'sidekiq', '~> 6.4.1'
+gem 'sidekiq-scheduler', '~> 3.1.1'
 gem 'sidekiq-failures', '~> 1.0.1'
 
 # Assets
