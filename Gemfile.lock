@@ -136,7 +136,7 @@ GEM
       railties (>= 3.2)
     e2mmap (0.1.0)
     erubi (1.10.0)
-    et-orbi (1.2.4)
+    et-orbi (1.2.6)
       tzinfo
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
@@ -164,7 +164,7 @@ GEM
     formatador (0.3.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
-    fugit (1.5.0)
+    fugit (1.5.2)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.1.1)
@@ -427,7 +427,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyntlm (0.6.3)
     rubyzip (2.3.2)
-    rufus-scheduler (3.7.0)
+    rufus-scheduler (3.8.1)
       fugit (~> 1.1, >= 1.1.6)
     semantic_range (3.0.0)
     sentry-rails (4.8.1)
@@ -450,7 +450,7 @@ GEM
       redis (>= 4.2.0)
     sidekiq-failures (1.0.1)
       sidekiq (>= 4.0.0)
-    sidekiq-scheduler (3.1.0)
+    sidekiq-scheduler (3.1.1)
       e2mmap
       redis (>= 3, < 5)
       rufus-scheduler (~> 3.2)
@@ -587,7 +587,7 @@ DEPENDENCIES
   sentry-sidekiq
   sidekiq (~> 6.4.1)
   sidekiq-failures (~> 1.0.1)
-  sidekiq-scheduler (~> 3.1.0)
+  sidekiq-scheduler (~> 3.1.1)
   simple_form (~> 5.1)
   slim-rails (~> 3.3.0)
   spring
