@@ -43,9 +43,9 @@ GEM
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
     active_analytics (0.2.1)
       rails (>= 5.2.0)
-    active_model_serializers (0.10.12)
-      actionpack (>= 4.1, < 6.2)
-      activemodel (>= 4.1, < 6.2)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (6.1.4.4)
@@ -136,7 +136,7 @@ GEM
       railties (>= 3.2)
     e2mmap (0.1.0)
     erubi (1.10.0)
-    et-orbi (1.2.4)
+    et-orbi (1.2.6)
       tzinfo
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
@@ -157,14 +157,14 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffi (1.15.4)
+    ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
     formatador (0.3.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
-    fugit (1.5.0)
+    fugit (1.5.2)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.1.1)
@@ -178,7 +178,7 @@ GEM
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
-    graphql (1.13.2)
+    graphql (1.13.8)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -259,7 +259,7 @@ GEM
       letter_opener (~> 1.7)
       railties (>= 5.2)
       rexml
-    listen (3.7.0)
+    listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     llhttp-ffi (0.4.0)
@@ -280,7 +280,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
+    mini_portile2 (2.7.1)
     minitest (5.15.0)
     mixlib-shellout (3.2.5)
       chef-utils
@@ -291,8 +291,8 @@ GEM
     nenv (0.3.0)
     net-ldap (0.17.0)
     nio4r (2.5.8)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.13.1)
+      mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -325,7 +325,7 @@ GEM
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
-    pg (1.2.3)
+    pg (1.3.1)
     pghero (2.8.2)
       activerecord (>= 5)
     plist (3.6.0)
@@ -341,7 +341,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (4.0.6)
-    puma (5.5.2)
+    puma (5.6.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -391,7 +391,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.5.1)
+    redis (4.6.0)
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -427,7 +427,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyntlm (0.6.3)
     rubyzip (2.3.2)
-    rufus-scheduler (3.7.0)
+    rufus-scheduler (3.8.1)
       fugit (~> 1.1, >= 1.1.6)
     semantic_range (3.0.0)
     sentry-rails (4.8.1)
@@ -444,13 +444,13 @@ GEM
       sentry-ruby-core (~> 4.8.1)
       sidekiq (>= 3.0)
     shellany (0.0.1)
-    sidekiq (6.3.1)
+    sidekiq (6.4.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
     sidekiq-failures (1.0.1)
       sidekiq (>= 4.0.0)
-    sidekiq-scheduler (3.1.0)
+    sidekiq-scheduler (3.1.1)
       e2mmap
       redis (>= 3, < 5)
       rufus-scheduler (~> 3.2)
@@ -520,14 +520,14 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.5.1)
+    zeitwerk (2.5.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   active_analytics
-  active_model_serializers (~> 0.10.12)
+  active_model_serializers (~> 0.10.13)
   activejob-status
   app-info (~> 2.8.1)
   awesome_print
@@ -543,7 +543,7 @@ DEPENDENCIES
   friendly_id (~> 5.4.2)
   gitlab_omniauth-ldap (~> 2.1.1)
   graphiql-rails
-  graphql (~> 1.13.2)
+  graphql (~> 1.13.8)
   guard (~> 2.18.0)
   guard-bundler
   guard-migrate
@@ -570,14 +570,14 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  puma (~> 5.5.2)
+  puma (~> 5.6.1)
   pundit (~> 2.1.0)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.4)
   rails-i18n (~> 6.0.0)
   rails-settings-cached (~> 2.8.1)
   rake (~> 13.0.4)
-  redis (~> 4.5.1)
+  redis (~> 4.6.0)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
@@ -585,9 +585,9 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 6.3.1)
+  sidekiq (~> 6.4.1)
   sidekiq-failures (~> 1.0.1)
-  sidekiq-scheduler (~> 3.1.0)
+  sidekiq-scheduler (~> 3.1.1)
   simple_form (~> 5.1)
   slim-rails (~> 3.3.0)
   spring
