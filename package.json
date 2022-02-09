@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.1.4",
-    "@rails/ujs": "^6.1.4",
+    "@rails/ujs": "^7.0.2",
     "@rails/webpacker": "^5.4.2",
     "admin-lte": "^3.1.0",
     "clipboard": "^2.0.10",
