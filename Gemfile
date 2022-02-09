@@ -88,7 +88,7 @@ gem 'webpacker', '~> 5.4'
 gem 'app-info', '~> 2.8.1'
 
 # 带缓存的配置库
-gem 'rails-settings-cached', '~> 2.8.1'
+gem 'rails-settings-cached', '~> 2.8.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
