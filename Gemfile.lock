@@ -116,9 +116,9 @@ GEM
     concurrent-ruby (1.1.9)
     connection_pool (2.2.5)
     crass (1.0.6)
-    debase (0.2.5.beta2)
-      debase-ruby_core_source (>= 0.10.12)
-    debase-ruby_core_source (0.10.14)
+    debug (1.4.0)
+      irb (>= 1.3.6)
+      reline (>= 0.2.7)
     debug_inspector (1.1.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -233,7 +233,10 @@ GEM
       terminal-table (>= 1.4.0)
       thor (>= 0.16.0)
     interception (0.5)
+    io-console (0.5.11)
     ipaddr (1.2.2)
+    irb (1.4.1)
+      reline (>= 0.3.0)
     jb (0.8.0)
     json (2.6.1)
     jsonapi-renderer (0.2.2)
@@ -393,6 +396,8 @@ GEM
       ffi (~> 1.0)
     redis (4.6.0)
     regexp_parser (2.1.1)
+    reline (0.3.1)
+      io-console (~> 0.5)
     request_store (1.5.0)
       rack (>= 1.4)
     responders (3.0.1)
@@ -418,8 +423,6 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    ruby-debug-ide (0.7.3)
-      rake (>= 0.8.1)
     ruby-macho (2.5.1)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.2)
@@ -536,7 +539,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.7)
   byebug
   carrierwave (~> 2.2.2)
-  debase (~> 0.2.5.beta2)
+  debug
   devise (~> 4.8.1)
   devise-i18n (~> 1.10.1)
   dotenv-rails
@@ -581,7 +584,6 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  ruby-debug-ide
   sentry-rails
   sentry-ruby
   sentry-sidekiq
@@ -602,4 +604,4 @@ DEPENDENCIES
   webpacker (~> 5.4)
 
 BUNDLED WITH
-   2.2.25
+   2.2.32
