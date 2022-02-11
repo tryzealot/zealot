@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.11.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 1.13.8'
+gem 'graphql', '~> 2.0.0'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -88,7 +88,7 @@ gem 'webpacker', '~> 5.4'
 gem 'app-info', '~> 2.8.1'
 
 # 带缓存的配置库
-gem 'rails-settings-cached', '~> 2.8.1'
+gem 'rails-settings-cached', '~> 2.8.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
