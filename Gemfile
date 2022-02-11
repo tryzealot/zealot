@@ -110,9 +110,8 @@ group :development do
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
 
-  # IDE tools(VSCode)
-  gem 'debase', '~> 0.2.5.beta2'
-  gem 'ruby-debug-ide'
+  # VSCode rdbg Ruby Debugger
+  gem 'debug'
 
   # 加速开发环境
   gem 'spring'
