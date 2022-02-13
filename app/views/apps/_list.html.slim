@@ -1,46 +1,27 @@
 - @apps.each_with_index do |app, i|
-  ruby:
-    has_debug_files = app.debug_files.count > 0
-  .col-md-12
-    .card.apps
-      .card-header
-        h3.card-title
-          = app_icon(app.recently_release, class: 'app-icon img-circle')
-          = link_to app.name, app_path(app), style: "color: #000"
-        - if user_signed_in?
-          .card-tools
-            a.btn.btn-tool href="#{new_app_scheme_path(app)}"
-              i.far.fa-plus-square
-            a.btn.btn-tool href="#{edit_app_path(app)}"
-              i.fas.fa-edit
-            a.btn.btn-tool href="#{app_path(app)}" data-confirm="确定删除【#{app.name}】及其所有的数据?" data-method="delete"
-              i.fas.fa-trash-alt
-      .card-body.p-0
-        .app-schemes
-          - if app.schemes.count > 0
-            table.table
-              tr
-                th 类型名称
-                th style="width: 100px" 渠道数量
-              - app.schemes.each do |scheme|
-                tr
-                  td = link_to scheme.name, app_scheme_path(app, scheme)
-                  td
-                    span.float-right.badge.bg-blue = scheme.total_releases
-          - else
-            .p-3
-              | 还没有任何应用类型和渠道，开始
-              a href="#{new_app_scheme_path(app)}" 创建第一个应用类型和渠道
-              | 吧。
-            .p-3
-              | 右上角的按钮是本应用的功能区：
-              ul
-                li.btn-icon
-                  i.far.fa-plus-square
-                  | 创建应用类型和渠道
-                li.btn-icon
-                  i.fas.fa-edit
-                  | 编辑应用类型
-                li.btn-icon
-                  i.fas.fa-trash-alt
-                  | 删除应用类型
+  .col-md-4
+    .card.widget-user
+      .widget-user-header.bg-gray
+        h3.widget-user-username
+          = link_to app.name, app_path(app), style: "color: #FFF"
+        small.widget-user-desc
+          = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+      .widget-user-image
+        = app_icon(app.recently_release, class: 'elevation-2 img-circle')
+      .card-footer
+        .row
+          .col-sm-4.border-right
+            .description-block
+              h5.description-header
+                = app.total_schemes
+              span.description-text = t('apps.index.schemes')
+          .col-sm-4.border-right
+            .description-block
+              h5.description-header
+                = app.total_channels
+              span.description-text = t('apps.index.channels')
+          .col-sm-4
+            .description-block
+              h5.description-header
+                = app.total_releases
+              span.description-text = t('apps.index.uploads')

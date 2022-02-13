@@ -1,5 +1,5 @@
 ruby:
-  form_url = params[:action] == 'new' ? app_scheme_channels_path(@scheme.app, @scheme) : app_scheme_channel_path(@app, @scheme, @channel)
+  form_url = new_or_create_route? ? app_scheme_channels_path(@scheme.app, @scheme) : app_scheme_channel_path(@app, @scheme, @channel)
 
 .col-md-12
   .card
@@ -8,8 +8,8 @@ ruby:
         = @title
       .card-tools
         a href="#{app_path(@scheme.app)}"
-          i.far.fa-list-alt
-          |  返回应用
+          i.icon.far.fa-list-alt
+          = t('links.back_to_list')
     .card-body
       = simple_form_for(@channel, url: form_url) do |f|
         = f.error_notification

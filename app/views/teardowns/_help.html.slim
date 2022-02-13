@@ -1,53 +1,9 @@
 .col-md-12
-  .card
+  .card.collapsed-card
     .card-header.card-border
-      h3.card-title 什么是应用解包？
+      h3.card-title = t('teardowns.help.title')
+      .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fas.fa-plus
     .card-body.table-responsive
-      div
-        | 通过右上角的&nbsp;
-        i.far.fa-plus-square
-        |  新建解包上传 iOS、Android 移动应用通过一系列复杂的解析和运算读取出来应用中的实用信息用于辅助阅读、参考和定位问题。具体的内容如下：
-      div
-        h5 Android
-        ul
-          li 名称
-          li 支持设备
-          li 版本
-          li 包名（package name）
-          li 打包类型
-          li Android 最低版本 / 目标版本
-          li 文件大小
-          li Activities
-          li Services
-          li Features
-          li Permissions
-      div
-        h5 iOS
-        ul
-          li 名称
-          li 支持设备
-          li 版本
-          li 包名（bundle identifier）
-          li 打包类型
-          li 最低 iOS 版本
-          li 文件大小
-          li Entitlements
-          li 启用能力
-          li URL Schemes
-          li 测试设备列表
-          li 开发者证书
-          li
-            | 描述文件
-            ul
-              li 名称 (类型)
-              li UUID
-              li 应用标识
-              li 平台
-              li 类型
-              li 团队名称 (Team ID）
-              li 创建时间
-              li 过期时间
-      div
-        | 此功能由强大的&nbsp;
-        a href="https://github.com/icyleaf/app_info" target="_blank" app_info
-        |  强力驱动。
+      = t('teardowns.help.body_html')

@@ -1,0 +1,6 @@
+- if value.is_a?(TrueClass)
+  span.text-success style="padding-right: 5px"
+    i.fa.fas.fa-check-circle
+- elsif value.is_a?(FalseClass)
+  span.text-danger style="padding-right: 5px"
+    i.fa.fas.fa-circle

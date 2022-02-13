@@ -20,7 +20,7 @@ class DebugFile < ApplicationRecord
     "#{app.name}_#{device_type}_#{release_version}_#{build_version}_#{file.file.filename}"
   end
 
-  def has_file?
+  def file?
     return false if file.blank?
 
     File.exist?(file.path)

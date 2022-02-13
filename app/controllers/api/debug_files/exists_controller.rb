@@ -11,7 +11,10 @@ class Api::DebugFiles::ExistsController < Api::BaseController
       app_id: @channel.app.id,
       device_type: @channel.device_type
     )
-    raise ActiveRecord::RecordNotFound, '调试文件版本不存在' unless DebugFile.exists?(where_params)
+
+    unless DebugFile.exists?(where_params)
+      raise ActiveRecord::RecordNotFound, t('api.debug_files.download.default.not_found')
+    end
 
     render json: DebugFile.find_by(where_params)
   end
@@ -22,7 +25,7 @@ class Api::DebugFiles::ExistsController < Api::BaseController
     raise ActionController::ParameterMissing, 'checksum' if checksum.blank?
 
     debug_file = DebugFile.find_by(checksum: checksum)
-    raise ActiveRecord::RecordNotFound, "调试文件指纹 #{checksum} 不存在" unless debug_file
+    raise ActiveRecord::RecordNotFound, t('api.debug_files.download.default.not_found') unless debug_file
 
     render json: debug_file
   end
@@ -33,7 +36,7 @@ class Api::DebugFiles::ExistsController < Api::BaseController
     raise ActionController::ParameterMissing, 'uuid' if uuid.blank?
 
     metadata = DebugFileMetadatum.find_by(uuid: uuid)
-    raise ActiveRecord::RecordNotFound, "调试文件 uuid #{uuid} 不存在" unless metadata
+    raise ActiveRecord::RecordNotFound, t('api.debug_files.download.default.not_found') unless metadata
 
     render json: metadata.debug_file
   end

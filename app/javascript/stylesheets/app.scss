@@ -13,8 +13,15 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
-// show page
+.widget-user {
+  .widget-user-image {
+    img {
+      background-color: #fff;
+    }
+  }
+}
 
+// show page
 .cover {
   position: fixed;
   top: 0;
@@ -26,7 +33,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   z-index: 1050;
 }
 
-.wechat-tips {
+.app-limited-tips {
   position: fixed;
   width: 100%;
   text-align: right;
@@ -36,7 +43,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   top: 0;
 }
 
-.wechat-tips span {
+.app-limited-tips span {
   text-align: left;
   vertical-align: middle;
   font-size: 16px;
@@ -47,7 +54,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   display: inline-block;
 }
 
-.wechat-tips img {
+.app-limited-tips img {
   width: 50px;
   display: inline-block;
   vertical-align: middle;
@@ -55,13 +62,12 @@ $ios-install-issue-color: rgb(245, 39, 90);
   margin-right: 30px;
 }
 
-
 @media (min-width: 420px) {
-  .wechat-tips span {
+  .app-limited-tips span {
     margin-right: 15px;
   }
 
-  .wechat-tips img {
+  .app-limited-tips img {
     margin-right: 20px;
   }
 }

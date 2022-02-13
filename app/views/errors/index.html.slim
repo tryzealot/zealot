@@ -1,12 +1,13 @@
+ruby:
+  color = @code >= 500 ? 'text-red' : 'text-warning'
+
 - content_for :title do
   = @title
 
-ruby:
-  content = t("errors.#{@code}.content")
-  content = nil if content.include?('translation_missing')
+- content_for :section_title do
+  = "#{@code} #{@title}"
 
 .row
-  .error-page.col-md-12
-    == render "errors/#{@code}", content: content
-
-  == render 'errors/debug'
+  .col-md-12
+    == render "errors/body"
+    == render 'errors/debug'
