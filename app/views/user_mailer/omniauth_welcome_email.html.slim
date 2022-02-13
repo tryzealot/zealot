@@ -1,10 +1,6 @@
 p
-  | 你好
-  = @user.username
-  | ，欢迎来到 Zealot！
-
+  = t('.welcome', name: @user.username)
 p
-  | 您已经使用第三方登录成功授权注册了 Zealot 账号，系统随机生成了默认的密码：
-  pre
-    code
-      = @password
+  = t('.default_password')
+  h3
+    span.badge.bg-success = @password

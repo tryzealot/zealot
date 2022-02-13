@@ -6,22 +6,16 @@ Rails.application.routes.draw do
   #############################################
   # User
   #############################################
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  devise_scope :user do
-    resource :registration,
-      only: %i[new create edit update],
-      path: 'users',
-      path_names: { new: 'sign_up' },
-      controller: 'users/registrations',
-      as: :user_registration do
-        get :cancel
-      end
-  end
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
+  }
+
   #############################################
   # App
   #############################################
   resources :apps do
-    resources :schemes do
+    resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
   end
@@ -49,6 +43,7 @@ Rails.application.routes.draw do
       end
     end
 
+    # TODO: remove whole channels module
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
       resources :branches, only: %i[index]
@@ -104,13 +99,18 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks, except: %i[edit update]
+      resources :web_hooks#, except: %i[edit update]
       resources :settings
 
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
+
+      namespace :service do
+        post :restart
+        get :status
+      end
 
       require 'sidekiq/web'
       require 'sidekiq-scheduler/web'
@@ -120,11 +120,6 @@ Rails.application.routes.draw do
       mount ActiveAnalytics::Engine, at: :analytics
     end
   end
-
-  #############################################
-  # Development Only
-  #############################################
-  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
   #############################################
   # API v1
@@ -164,9 +159,7 @@ Rails.application.routes.draw do
       get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
     end
 
-    namespace :zealot do
-      resources :version, only: :index
-    end
+    resources :version, only: :index
   end
 
   #############################################
@@ -174,6 +167,28 @@ Rails.application.routes.draw do
   #############################################
   post '/graphql', to: 'graphql#execute'
 
-  match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
+  #############################################
+  # URL Friendly
+  #############################################
+  scope path: ':channel', as: :friendly_channel do
+    get '/overview', to: 'channels#show'
+    get '', to: 'releases#index', as: 'releases'
+    get 'versions', to: 'channels/versions#index', as: 'versions'
+    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
+    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
+    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
+    get ':id', to: 'releases#show', as: 'release'
+    # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
+  end
+
+  #############################################
+  # Development Only
+  #############################################
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/inbox'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  match '/', via: %i[post put patch delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
 end

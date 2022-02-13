@@ -1,9 +1,7 @@
 ruby:
-  head_title, back_url = if params[:action] == 'new' || params[:action] == 'create'
-    ['应用管理', apps_path]
-  else
-    ['返回应用', app_path(@app)]
-  end
+  @schemes ||= 0
+  @channels ||= 0
+  link_url = new_or_create_route? ? apps_path : app_path(@app)
 
 .col-md-12
   .card
@@ -11,20 +9,16 @@ ruby:
       h3.card-title
         = @title
       .card-tools
-        a href="#{back_url}"
-          i.far.fa-list-alt
-          = " #{head_title}"
+        a href="#{link_url}"
+          i.icon.far.fa-list-alt
+          = t('links.back_to_list')
     .card-body
       = simple_form_for @app do |f|
         = f.error_notification
 
         = f.input :name, required: true
-        - if params[:action] == 'new'
-          = f.simple_fields_for :schemes_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_schemes, checked: default_schemes.last
-          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: 0
-        - elsif params[:action] == 'create'
-          = f.simple_fields_for :schemes_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes[:name].compact
-          = f.input :channel, collection: default_channels, label_method: :name, value_method: :value, selected: @channel
+        = f.simple_fields_for :scheme_attributes do |n|
+          = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes, required: false
+        = f.simple_fields_for :channel_attributes do |n|
+          = n.input :name, as: :check_boxes, collection: default_channels, checked: @channels, required: false
         = f.button :submit
