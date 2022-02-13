@@ -11,8 +11,8 @@
         h3.card-title
           = @title
         .card-tools
-          a href="#{channel_path(@channel)}"
-            i.far.fa-list-alt
-            |  返回应用
+          a href="#{friendly_channel_overview_path(@channel)}"
+            i.icon.far.fa-list-alt
+            = t('links.back_to_list')
       .card-body
         == render 'form'

@@ -1,8 +1,8 @@
 .card
   .card-header
     h3.card-title
-      i.fas.fa-history
-      |  最近上传动态
+      i.icon.fas.fa-history
+      = t('channels.show.activity')
     .card-tools
       span.badge.bg-yellow
         = @channel.releases.count
@@ -13,10 +13,10 @@
         - @releases.each do |release|
           li.item
             .product-img
-              = app_icon(release, size: :medium, class: 'img-circle')
+              = app_icon(release, class: 'img-circle')
             .product-info
               a.product-title href="javascript:void(0)"
-                = link_to release.name || release.app_name, channel_release_path(release.channel, release)
+                = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
               small
                 span.badge.badge-light.float-right data-toggle="tooltip" title="#{release.created_at}"
                   = time_ago_in_words(release.created_at)
@@ -24,9 +24,7 @@
                 = "#{release.release_version} (#{release.build_version})"
       - else
         li.item.p-3
-          | 还没有收到任何上传记录，开始
-          a href="#{new_channel_release_path(@channel)}" 上传第一个版本
-          | 吧。
+          = raw t('channels.show.not_found')
   - if @releases.total_pages > 1
     .card-footer.clearfix
       .float-right

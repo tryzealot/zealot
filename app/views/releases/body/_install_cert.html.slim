@@ -1,17 +1,8 @@
-- if ios?
-  #install-issues.modal.fade role="dialog" tabindex="-1" style="display: none" aria-labelledby="install-issues-label"
-    .modal-dialog role="document"
-      .modal-content
-        .modal-header
-          h4.modal-title 安装中的错误及解决办法
-        .modal-body
-          ol
-            li
-              | 在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
-              | 选择该应用对应的企业证书，点击文字 "信任企业开发者"。
-            li
-              | 受苹果系统生态限制，安装 AdHoc 版本前请确认已经
-              strong 卸载
-              | 应用商店安装的应用，否则无法进行安装！！
-        .modal-footer
-          button.btn.btn-default data-dismiss="modal" type="button" 明白了
+#install-issues.modal.fade role="dialog" tabindex="-1" style="display: none" aria-labelledby="install-issues-label"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h4.modal-title = t('releases.messages.install_error.title')
+      .modal-body = t('releases.messages.install_error.body_html')
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" = t('releases.messages.install_error.ok')

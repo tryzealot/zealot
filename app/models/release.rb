@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Release < ApplicationRecord
+  extend ActionView::Helpers::TranslationHelper
+  include ActionView::Helpers::TranslationHelper
   include Rails.application.routes.url_helpers
 
   mount_uploader :file, AppFileUploader
@@ -17,10 +19,10 @@ class Release < ApplicationRecord
 
   before_create :auto_release_version
   before_create :default_source
+  before_create :detect_device
   before_save   :convert_changelog
   before_save   :convert_custom_fields
   before_save   :trip_branch
-  before_save   :detect_device
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
@@ -33,55 +35,76 @@ class Release < ApplicationRecord
     channel.releases.find(release_id)
   end
 
-  # 上传pp
-  def self.upload_file(params, parser = nil)
-    logger.debug "upload file params: #{params}"
+  # 上传 app
+  def self.upload_file(params, parser = nil, default_source = 'web')
+    file = params[:file].path
+    return if file.blank?
+
     create(params) do |release|
-      if release.file.present?
-        begin
-          parser ||= AppInfo.parse(release.file.path)
-          release.source ||= 'Web'
-          release.name = parser.name
-          release.bundle_id = parser.bundle_id
-          release.release_version = parser.release_version
-          release.build_version = parser.build_version
-          release.device = parser.device_type
+      rescuing_app_parse_errors do
+        parser ||= AppInfo.parse(file)
 
-          if parser.os == AppInfo::Platform::IOS
-            release.release_type ||= parser.release_type
+        release.source ||= default_source
+        release.name = parser.name
+        release.bundle_id = parser.bundle_id
+        release.release_version = parser.release_version
+        release.build_version = parser.build_version
+        release.device_type = parser.device_type
+        release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
 
-            icon_file = parser.icons.last.try(:[], :uncrushed_file) || parser.icons.last.try(:[], :file)
-            release.icon = icon_file if icon_file
-          else
-            # 处理 Android anydpi 自适应图标
-            icon_file = parser.icons
-                              .reject { |f| File.extname(f[:file]) == '.xml' }
-                              .last
-                              .try(:[], :file)
-            release.icon = File.open(icon_file, 'rb') if icon_file
+        icon_file = fetch_icon(parser)
+        release.icon = icon_file if icon_file
+
+        # iOS 且是 AdHoc 尝试解析 UDID 列表
+        if parser.os == AppInfo::Platform::IOS &&
+            parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+            parser.devices.present?
+
+          parser.devices.each do |udid|
+            release.devices << Device.find_or_create_by(udid: udid)
           end
-
-          # iOS 且是 AdHoc 尝试解析 UDID 列表
-          if parser.os == AppInfo::Platform::IOS &&
-             parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-             parser.devices.present?
-
-            parser.devices.each do |udid|
-              release.devices << Device.find_or_create_by(udid: udid)
-            end
-          end
-        rescue AppInfo::UnkownFileTypeError
-          release.errors.add(:file, '上传的应用无法正确识别')
-        ensure
-          parser.clear!
         end
+      ensure
+        parser&.clear!
       end
     end
   end
 
-  def perform_teardown_job(user_id)
-    TeardownJob.perform_later(id, user_id)
+  def self.fetch_icon(parser)
+    file = case parser.os
+           when AppInfo::Platform::IOS
+             parser.icons.last.try(:[], :uncrushed_file)
+           when AppInfo::Platform::MACOS
+             return if parser.icons.blank?
+
+             parser.icons[:sets].last.try(:[], :file)
+           when AppInfo::Platform::ANDROID
+             # 处理 Android anydpi 自适应图标
+             parser.icons
+                   .reject { |f| File.extname(f[:file]) == '.xml' }
+                   .last
+                   .try(:[], :file)
+           end
+
+
+    File.open(file, 'rb') if file
   end
+  private_methods :fetch_icon
+
+  def self.rescuing_app_parse_errors
+    yield
+  rescue AppInfo::UnkownFileTypeError
+    raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
+  rescue NoMethodError => e
+    logger.error e.full_message
+    Sentry.capture_exception e
+    raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
+  rescue => e
+    logger.error e.full_message
+    Sentry.capture_exception e
+    raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
+  end
+  private_methods :rescuing_app_parse_errors
 
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
@@ -98,14 +121,20 @@ class Release < ApplicationRecord
     git_commit[0..8]
   end
 
-  def changelog_list(use_default_changelog = true)
+  def array_changelog(use_default_changelog = true)
     return empty_changelog(use_default_changelog) if changelog.blank?
     return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
   end
 
-  def has_file?
+  def text_changelog(use_default_changelog = true)
+    array_changelog(use_default_changelog).each_with_object([]) do |line, obj|
+      obj << "- #{line['message']}"
+    end.join("\n")
+  end
+
+  def file?
     return false if file.blank?
 
     File.exist?(file.path)
@@ -116,29 +145,26 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    return download_url if channel.device_type.casecmp('android').zero?
-
+    app_type = device_type || channel.device_type
+    if app_type.blank? || app_type.casecmp?('android') || app_type.casecmp?('macos'))
+      return download_url
+    end
     download_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{download_url}"
   end
 
   def release_url
-    channel_release_url(channel, self)
+    friendly_channel_release_url(channel, self)
   end
 
   def qrcode_url(size = :thumb)
-    channel_release_qrcode_url channel, self, size: size
+    channel_release_qrcode_url(channel, self, size: size)
   end
 
   def file_extname
-    case channel.device_type.downcase
-    when 'iphone', 'ipad', 'ios', 'universal'
-      '.ipa'
-    when 'android'
-      '.apk'
-    else
-      '.ipa_or_apk.zip'
-    end
+    return '.zip' if file.blank? || !File.file?(file&.path)
+
+    File.extname(file.path)
   end
 
   def download_filename
@@ -147,20 +173,11 @@ class Release < ApplicationRecord
     ].join('_') + file_extname
   end
 
-  def mime_type
-    case channel.device_type
-    when 'iOS'
-      :ipa
-    when 'Android'
-      :apk
-    end
-  end
-
   def empty_changelog(use_default_changelog = true)
     return [] unless use_default_changelog
 
     @empty_changelog ||= [{
-      'message' => "没有找到更新日志，可能的原因：\n\n- 开发者很懒没有留下更新日志😂\n- 有不可抗拒的因素造成日志丢失👽",
+      'message' => t('releases.messages.default_changelog')
     }]
   end
 
@@ -174,8 +191,13 @@ class Release < ApplicationRecord
     return if file.blank? || channel&.bundle_id.blank?
     return if channel.bundle_id_matched?(self.bundle_id)
 
-    message = "#{channel.app_name} 的 bundle id 或 packet name `#{self.bundle_id}` 无法和 `#{channel.bundle_id}` 匹配"
+    message = t('releases.messages.errors.bundle_id_not_matched', got: self.bundle_id,
+                                                                  expect: channel.bundle_id)
     errors.add(:file, message)
+  end
+
+  def perform_teardown_job(user_id)
+    TeardownJob.perform_later(id, user_id)
   end
 
   private
@@ -214,7 +236,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device ||= channel.device_type
+    self.device_type ||= channel.device_type
   end
 
   ORIGIN_PREFIX = 'origin/'

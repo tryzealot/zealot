@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
 
   def index
-    @title = '我的控制台'
+    @title = t('dashboard.title')
 
     system_analytics
     recently_upload
@@ -46,6 +46,7 @@ class DashboardsController < ApplicationController
 
   def disk_usage
     disk = Sys::Filesystem.stat(Rails.root)
-    ActiveSupport::NumberHelper.number_to_human_size disk.bytes_total
+    percent = (disk.bytes_used.to_f / disk.bytes_total.to_f * 100.0)
+    ActiveSupport::NumberHelper.number_to_percentage(percent, precision: 0)
   end
 end

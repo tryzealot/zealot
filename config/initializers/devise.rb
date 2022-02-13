@@ -2,7 +2,6 @@
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -15,10 +14,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  # config.mailer_sender = 'no-reply@' + Zealot.config.url_options[:host]
+  # config.mailer_sender = 'no-reply@' + Setting.url_options[:host]
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'DeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -136,7 +135,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -269,7 +268,6 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # 飞书
   feishu = Setting.feishu
@@ -281,11 +279,11 @@ Devise.setup do |config|
   gitlab = Setting.gitlab
   if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
     options = { scope: 'read_user' }
-    if (scope = gitlab[:scope]) && scope.present?
+    if scope = gitlab[:scope].presence
       options[:scope] = scope.split(',').map(&:chomp).join(' ')
     end
 
-    if (site = gitlab[:site]) && site.present?
+    if site = gitlab[:site].presence
       options[:client_options] = { site: site }
     end
 
