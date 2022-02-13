@@ -146,7 +146,7 @@ class Release < ApplicationRecord
 
   def install_url
     app_type = device_type || channel.device_type
-    if app_type.blank? || app_type.casecmp?('android') || app_type.casecmp?('macos'))
+    if app_type.blank? || app_type.casecmp?('android') || app_type.casecmp?('macos')
       return download_url
     end
     download_url = channel_release_install_url(channel.slug, id)
