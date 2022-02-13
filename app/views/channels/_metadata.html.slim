@@ -1,36 +1,32 @@
 .card.card-solid
   .card-header
-    h3.card-title 渠道信息
-  .card-body.p-0.pt-3
+    h3.card-title
+      i.icon.fas.fa-sticky-note
+      = t('channels.show.metadata')
+  .card-body.p-0
     p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
-      span.font-weight-bold = @channel.device_type.capitalize
-      span.text-muted 设备类型
+      span.font-weight-bold = device_name(@channel.device_type)
+      span.text-muted = t('channels.show.device_type')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
-      span.text-muted 唯一地址
+      span.text-muted = t('channels.show.slug')
     - if user_signed_in?
       p.d-flex.flex-column.border-bottom.pl-3.pb-3
-        span.font-weight-bold = @channel.password.blank? ? '未设置' : @channel.password
-        span.text-muted 访问密码
+        span.font-weight-bold = @channel.password.blank? ? t('channels.show.none') : @channel.password
+        span.text-muted = t('channels.show.password')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.bundle_id
-      span.text-muted
-        | 匹配模式
-        - if @channel.bundle_id == '*'
-          |  (不限制上传包的包名)
+      span.text-muted = t('channels.show.match_rule', value: @channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
-      span.font-weight-bold
-        - if @channel.git_url.blank?
-          | 未设置 (
-          = link_to '修改', edit_app_scheme_channel_path(@channel.app, @channel.scheme, @channel)
-          | )
-        - else @channel.git_url
-      span.text-muted Git 仓库地址
+      span.font-weight-bold = @channel.git_url.blank? ? t('channels.show.none') : @channel.git_url
+      span.text-muted = t('channels.show.git_url')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.releases.count
-      span.text-muted 上传版本
+      span.text-muted = t('channels.show.total_releases')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.key
-      span.text-muted 渠道 KEY
-  .card-footbar.pl-3.pr-3.pb-3
-    a.btn.btn-default.btn-block href="#{app_path(@channel.app)}" 应用管理
+      span.text-muted = t('channels.show.channel_key')
+
+  - if user_signed_in?
+    .card-footbar.pl-3.pr-3.pb-3
+      a.btn.btn-default.btn-block href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')

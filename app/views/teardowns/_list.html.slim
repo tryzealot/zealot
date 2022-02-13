@@ -1,44 +1,47 @@
 .col-md-12
-  .card
-    .card-header
-      h3.card-title
-        i.fas.fa-history
-        |  上传历史
-    .card-body.p-0
-      - if @metadata.present?
+  - if @metadata.present?
+    .card
+      .card-header
+        h3.card-title
+          i.icon.fas.fa-history
+          = t('teardowns.index.upload_history')
+      .card-body.p-0
         table.table.table-hover
           tr
-            th ID
-            th 应用名
-            th 平台
-            th 版本
-            th 提交者
-            th 上传时间
+            th = t('teardowns.index.uploaded_at')
+            th = t('teardowns.index.app_name')
+            th = t('teardowns.index.version')
+            th = t('teardowns.index.type')
+            th = t('teardowns.index.uploader')
+
             - if user_signed_in?
-              th 操作
+              th = t('teardowns.index.actions')
           - @metadata.each_with_index do |md, index|
             tr
               td
-                = md.id
+                span data-toggle="tooltip" title="#{md.created_at}"
+                  = time_ago_in_words(md.created_at)
               td
                 = link_to md.name, teardown_path(md)
               td
-                = md.platform
-              td
                 = md.mobileprovision? ? '-' : "#{md.release_version} (#{md.build_version})"
               td
-                = md.user&.username || '匿名者'
+                = device_name(md.platform)
               td
-                span data-toggle="tooltip" title="#{md.created_at}"
-                  = time_ago_in_words(md.created_at)
+                = md.user&.username || t('teardowns.index.anonymous')
+
               - if user_signed_in?
                 td
-                  a.btn.btn-tool href="#{teardown_path(md)}" data-confirm="确定删除?" data-method="delete"
+                  a.btn.btn-tool href="#{teardown_path(md)}" data-confirm="#{t('teardowns.messages.confirm.destroy')}" data-method="delete"
                     i.fas.fa-trash-alt
-      - else
-        .p-3 还没有任何应用解包记录！
 
-    - if @metadata.total_pages > 1
-      .card-footer.clearfix
-        .float-right
-          = paginate @metadata
+      - if @metadata.total_pages > 1
+        .card-footer.clearfix
+          .float-right
+            = paginate @metadata
+  - else
+    .card.card-outline.card-warning
+      .card-header.card-border
+        h3.card-title = t('teardowns.index.not_found.title')
+      .card-body = t('teardowns.index.not_found.body_html')
+

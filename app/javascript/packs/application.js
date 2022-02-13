@@ -16,6 +16,8 @@ const images = require.context("../images", true);
 const imagePath = (name) => images(name, true);
 const HOST = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/";
 
+window.HOST = HOST;
+
 // Import Rails
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";

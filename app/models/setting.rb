@@ -2,54 +2,72 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
-  cache_prefix { 'v1' }
+  include SettingHelper
+  include SettingValidate
+  include SettingSuger
+
+  before_save   :convert_third_party_enabled_value, if: :third_party_auth_scope?
+  before_save   :mark_restart_flag, if: :need_restart?
+
+  cache_prefix { 'v2' }
 
   # 系统配置
   scope :general do
-    field :site_title, default: 'Zealot', type: :string, validates: { presence: true, length: { in: 3..16 } }, display: true
-    field :site_https, default: (Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?), type: :boolean, readonly: true
-    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || (site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}")), type: :string, readonly: true
+    field :site_title, default: 'Zealot', type: :string, display: true,
+          validates: { presence: true, length: { in: 3..16 } }
+    field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || default_domain), type: :string,
+          restart_required: true, display: true
+    field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
+          validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
+    field :site_https, default: site_https, type: :boolean, readonly: true, display: true
 
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end
 
-  # 模式开关
-  scope :switch_mode do
-    field :registrations_mode, default: (ENV['ZEALOT_REGISTER_ENABLED'] || 'true'), type: :boolean, display: true
-    field :guest_mode, default: (ENV['ZEALOT_GUEST_MODE'] || 'false'), type: :boolean, readonly: true, display: true
-    field :demo_mode, default: (ENV['ZEALOT_DEMO_MODE'] || 'false'), type: :boolean, readonly: true, display: true
+  # 预值
+  scope :presets do
+    field :default_schemes, default: present_schemes, type: :array, display: true
+    field :default_role, default: 'user', type: :string, display: true,
+          validates: { presence: true, inclusion: { in: present_roles.keys.map(&:to_s) } }
   end
 
-  # 上传文件保留策略
-  scope :limits do
-    field :keep_uploads, default: (ENV['ZEALOT_KEEP_UPLOADS'] || 'false'), type: :boolean, readonly: true
+  # 模式开关
+  scope :switch_mode do
+    field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
+          type: :boolean, display: true
+    field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'),
+          type: :boolean, restart_required: true, display: true
+    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
+          type: :boolean, restart_required: true, display: true
+    field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
+          type: :boolean, readonly: true, display: true
   end
 
   # 第三方登录
   scope :third_party_auth do
-    field :feishu, type: :hash, display: true, default: {
-      enabled: ENV['FEISHU_ENABLED'] || false,
+    field :feishu, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }
 
-    field :gitlab, type: :hash, display: true, default: {
-      enabled: ENV['GITLAB_ENABLED'] || false,
+    field :gitlab, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITLAB_ENABLED'] || false),
       site: ENV['GITLAB_SITE'] || 'https://gitlab.com/api/v4',
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
       app_id: ENV['GITLAB_APP_ID'],
       secret: ENV['GITLAB_SECRET'],
     }
 
-    field :google_oauth, type: :hash, display: true, default: {
-      enabled: ENV['GOOGLE_OAUTH_ENABLED'] || false,
+    field :google_oauth, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
     }
 
-    field :ldap, type: :hash, display: true, default: {
-      enabled: ENV['LDAP_ENABLED'] || false,
+    field :ldap, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['LDAP_ENABLED'] || false),
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'] || '389',
       encryption: ENV['LDAP_METHOD'] || ENV['LDAP_ENCRYPTION'] || 'plain', # LDAP_METHOD will be abandon in the future
@@ -62,55 +80,37 @@ class Setting < RailsSettings::Base
 
   # 邮件配置
   scope :stmp do
-    field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string, display: true
-    field :mailer_default_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string, display: true
-    field :mailer_options, type: :hash, readonly: true, default: {
+    field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string,
+          restart_required: true, display: true
+    field :mailer_default_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
+          restart_required: true, display: true
+    field :mailer_options, type: :hash, restart_required: true, display: true, default: {
       address: ENV['SMTP_ADDRESS'],
       port: ENV['SMTP_PORT'].to_i,
       domain: ENV['SMTP_DOMAIN'],
       username: ENV['SMTP_USERNAME'],
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
-      enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'],
-    }, display: true
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']),
+    }
   end
 
   # 备份
-  field :backup, type: :hash, readonly: true, display: true, default: {
+  field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
     keep_time: 604800,
     pg_schema: 'public',
   }
 
-
-  # 系统信息（只读）
+  # 版本信息（只读）
   scope :information do
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF']), type: :string, readonly: true
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
-    field :build_date, default: ENV['BUILD_DATE'], type: :string, readonly: true
+    field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
+    field :build_date, default: ENV['ZEALOT_BUILD_DATE'], type: :string, readonly: true
   end
 
-  class << self
-    def site_configs
-      group_configs.each_with_object({}) do |(scope, items), obj|
-        obj[scope] = items.each_with_object({}) do |item, inner|
-          key = item[:key]
-          value = Setting.send(key.to_sym)
-          inner[key] = {
-            value: value,
-            readonly: item[:readonly]
-          }
-        end
-      end
-    end
-
-    def find_or_default(var:)
-      find_by(var: var) || new(var: var)
-    end
-
-    def group_configs
-      defined_fields.select { |v| v[:options][:display] == true }.group_by { |v| v[:scope] || :misc }
-    end
+  # 统计
+  scope :analytics do
+    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
   end
 end

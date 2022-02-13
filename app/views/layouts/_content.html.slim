@@ -2,7 +2,6 @@
 
 // Main content
 section.content
-  - if user_signed_in?
-    == render 'layouts/messages'
+  == render 'layouts/messages'
 
   == yield

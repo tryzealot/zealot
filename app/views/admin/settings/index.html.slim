@@ -4,6 +4,19 @@
 - content_for :section_title do
   = @title
 
+- content_for :header_tags do
+  == javascript_pack_tag 'admin_service', 'data-turbolinks-track': 'reload'
+
+- content_for :section_rightpanel do
+  - if Setting.need_restart?
+    button#restart-service-button.btn.btn-icon.bg-warning[
+      data-url="#{admin_settings_url}"
+      data-restart-text="#{t('.service_restarting')}"
+      data-restarted-text="#{t('.service_restarted')}"
+    ]
+      i.icon.fas.fa-redo-alt
+      = t('.apply_for_restart')
+
 form.form-horizontal
   - @settings.each do |scope, keys|
     .row
@@ -15,11 +28,33 @@ form.form-horizontal
             - keys.each do |key, params|
               ruby:
                 value = params[:value]
-                display_value = value.is_a?(Hash) ? JSON.pretty_generate(value) : ((value != false && value.blank?) ? t('admin.settings.empty_value') : value.to_s)
+                if key == 'default_schemes' && value&.empty?
+                  value = Setting.present_schemes
+                end
+
+                display_value = case value
+                                when Hash
+                                  pretty_json(value)
+                                when Array
+                                  value.join(', ')
+                                when TrueClass
+                                  t('admin.settings.enable')
+                                when FalseClass
+                                  t('admin.settings.disable')
+                                else
+                                  value.blank? ? t('admin.settings.empty_value') : t("settings.#{key}.#{value}", default: value.to_s)
+                                end
               dl.system-info
                 dt = t("admin.settings.#{key}")
                 dd
-                  - if params[:readonly]
-                    pre.disabled = display_value
+                  - if params[:readonly] || (value.is_a?(Hash) && secure_key?(value))
+                    pre.disabled
+                      == render 'switch_icon', value: value
+                      = display_value
                   - else
-                    pre = link_to display_value, edit_admin_setting_path(key)
+                    pre
+                      == render 'switch_icon', value: value
+                      = link_to display_value, edit_admin_setting_path(key)
+
+                  - if key == 'demo_mode'
+                    small = t('admin.settings.demo_mode_tips')
