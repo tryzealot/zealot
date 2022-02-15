@@ -76,13 +76,13 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     android_parser (2.5.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (2.8.1)
+    app-info (2.8.2)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (~> 2.5.0)
-      google-protobuf (~> 3.18.0)
+      google-protobuf (~> 3.19.4)
       icns (~> 0.2.0)
       image_size (>= 1.5, < 3.1)
-      ruby-macho (>= 1.4, < 3)
+      ruby-macho (>= 1.4, < 4)
       rubyzip (>= 1.2, < 3.0)
       uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.2)
@@ -174,7 +174,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    google-protobuf (3.18.1)
+    google-protobuf (3.19.4)
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
@@ -423,7 +423,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    ruby-macho (2.5.1)
+    ruby-macho (3.0.0)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.2)
       ffi (~> 1.12)
@@ -532,7 +532,7 @@ DEPENDENCIES
   active_analytics
   active_model_serializers (~> 0.10.13)
   activejob-status
-  app-info (~> 2.8.1)
+  app-info (~> 2.8.2)
   awesome_print
   better_errors
   binding_of_caller
