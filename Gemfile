@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.6.1'
+gem 'puma', '~> 5.6.2'
 gem 'rails', '~> 6.1.4'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'rake', '~> 13.0.4'
@@ -85,7 +85,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.8.1'
+gem 'app-info', '~> 2.8.2'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.2'
