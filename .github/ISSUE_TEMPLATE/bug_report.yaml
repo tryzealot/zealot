@@ -1,0 +1,61 @@
+name: 问题反馈 | Bug report
+description: 提交使用过程发现的缺陷 | Report a potential bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        为了更好的发现问题，请认真填写下面的选项，感谢您付出的时间！
+        **请务必保证提出的问题已经仔细阅读了[部署](https://zealot.ews.im/#/deployment)和[参数配置](https://zealot.ews.im/#/configuration)文档，否则不予提供技术帮助**
+
+        Thanks for taking the time to fill out this bug report!
+  - type: dropdown
+    id: deploy
+    attributes:
+      label: 部署方式 | How to Deploy
+      description: 使用的方式部署的 | What way of zealot are you deploying?
+      options:
+        - 使用一键部署脚本 | Using zealot-docker on-click install (Default)
+        - Docker (Default)
+        - 源码部署 | Source
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: 部署版本 | Version
+      description: 使用的 Docker 的什么版本？ | What version of docker image tag are you running?
+      options:
+        - nightly (Default)
+        - stable
+        - latest
+        - 其他 | other
+    validations:
+      required: true
+  - type: input
+    id: reverse_proxy
+    attributes:
+      label: 反代服务 | Reverse Proxy
+      description: 是否使用了反代服务 | Which reverse proxy service do you using?
+      placeholder: nginx/haproxy/caddy/traefik/none
+    validations:
+      required: true
+  - type: checkboxes
+    id: document
+    attributes:
+      label: 已阅读文档 | Read the document
+      description: 提交本问题标识你已经阅读部署和配置文档 | By submitting this issue, you read our [deployment and configuration](https://zealot.ews.im)
+      options:
+        - label: 已阅读 | Yes
+          required: true
+  - type: textarea
+    attributes:
+      label: 描述 | Description
+      description: 请描述你的问题 | Please describe your bug
+  - type: textarea
+    id: logs
+    attributes:
+      label: 问题日志 |Relevant log output
+      description: |
+        请直接复制粘贴终端的运行日志，代码格式会自动格式化
+        Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
