@@ -1,0 +1,7 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 问题提问 | Ask a question (GitHub Discussions)
+    url: https://github.com/tryzealot/zealot/discussions
+    about: |
+      所有问题会放在 GitHub Discussions，GitHub issues 仅提供缺陷追踪和新特性相关，但我保留不回答的权利。
+      We use GitHub Discussions for questions, GitHub issues for tracking bug reports and feature requests
