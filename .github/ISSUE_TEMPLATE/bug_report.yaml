@@ -4,9 +4,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        为了更好的发现问题，请认真填写下面的选项，感谢您付出的时间！
-        **请务必保证提出的问题已经仔细阅读了[部署](https://zealot.ews.im/#/deployment)和[参数配置](https://zealot.ews.im/#/configuration)文档，否则不予提供技术帮助**
+        **请务必保证提出的问题已经仔细阅读了[部署](https://zealot.ews.im/#/deployment)和[参数配置](https://zealot.ews.im/#/configuration)文档，否则不予提供技术帮助 !!!**
 
+        为了更好的发现问题，请认真填写下面的选项，感谢您付出的时间！
         Thanks for taking the time to fill out this bug report!
   - type: dropdown
     id: deploy
@@ -54,7 +54,7 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: 问题日志 |Relevant log output
+      label: 问题日志 | Relevant log output
       description: |
         请直接复制粘贴终端的运行日志，代码格式会自动格式化
         Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
