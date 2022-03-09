@@ -123,7 +123,7 @@ group :development do
   gem 'binding_of_caller'
 
   # 在线查看 Action Mailer 内容
-  gem 'letter_opener', '~> 1.7'
+  gem 'letter_opener', '~> 1.8'
   gem 'letter_opener_web', '~> 2.0'
 end
 
