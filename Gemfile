@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.11.2'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.0'
+gem 'graphql', '~> 2.0.2'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -43,9 +43,9 @@ gem 'webp-ffi', '~> 0.3.1'
 ## HTTP 请求
 gem 'http', '~> 5.0.4'
 ## 用户认证
-gem 'pundit', '~> 2.1.0'
+gem 'pundit', '~> 2.2.0'
 gem 'devise', '~> 4.8.1'
-gem 'devise-i18n', '~> 1.10.1'
+gem 'devise-i18n', '~> 1.10.2'
 
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8.2'
@@ -123,7 +123,7 @@ group :development do
   gem 'binding_of_caller'
 
   # 在线查看 Action Mailer 内容
-  gem 'letter_opener', '~> 1.7'
+  gem 'letter_opener', '~> 1.8'
   gem 'letter_opener_web', '~> 2.0'
 end
 
