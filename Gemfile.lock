@@ -255,7 +255,7 @@ GEM
     kaminari-core (1.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
-    letter_opener (1.8.0)
+    letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     letter_opener_web (2.0.0)
       actionmailer (>= 5.2)
