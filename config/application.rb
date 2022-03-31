@@ -24,7 +24,11 @@ Bundler.require(*Rails.groups)
 module Zealot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.0
+
+    # FIXME: set false will broken rails-settings-cached configuration in config folder
+    # master branch of rails removed this config, need to fix it: https://github.com/rails/rails/commit/ad52c0a19714a1b87a7d0c626a8b364cf95414cf
+    config.active_record.legacy_connection_handling = true
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
