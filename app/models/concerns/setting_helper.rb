@@ -8,19 +8,19 @@ module SettingHelper
   class_methods do
     include ActionView::Helpers::TranslationHelper
 
-    def present_schemes
+    def builtin_schemes
       [
-        t('settings.default_schemes.beta', default: nil),
-        t('settings.default_schemes.adhoc', default: nil),
-        t('settings.default_schemes.production', default: nil)
+        t('settings.preset_schemes.beta', default: nil),
+        t('settings.preset_schemes.adhoc', default: nil),
+        t('settings.preset_schemes.production', default: nil)
       ].compact
     end
 
-    def present_roles
+    def builtin_roles
       {
-        user: t('settings.default_role.user', default: nil),
-        developer: t('settings.default_role.developer', default: nil),
-        admin: t('settings.default_role.admin', default: nil)
+        user: t('settings.preset_role.user', default: nil),
+        developer: t('settings.preset_role.developer', default: nil),
+        admin: t('settings.preset_role.admin', default: nil)
       }
     end
 
