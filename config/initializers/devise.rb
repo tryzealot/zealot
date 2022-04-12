@@ -1,5 +1,33 @@
 # frozen_string_literal: true
 
+Dir.glob(Rails.root.join('lib/omniauth/strategies/*.rb')).each do |filename|
+  require_dependency filename
+end
+
+FEISHU_OMNIAUTH_SETUP = lambda do |env|
+  feishu = Setting.feishu
+
+  env['omniauth.strategy'].options[:client_id] = feishu[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = feishu[:app_secret]
+end
+
+GITLAB_OMNIAUTH_SETUP = lambda do |env|
+  gitlab = Setting.gitlab
+  scope = gitlab[:scope]&.split(',').map(&:chomp).join(' ') || 'read_user'
+
+  env['omniauth.strategy'].options[:client_id] = gitlab[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = gitlab[:secret]
+  env['omniauth.strategy'].options[:scope] = scope
+
+  if site = gitlab[:site].presence
+    env['omniauth.strategy'].options[:client_options] = {
+      site: site,
+      authorize_url: URI.join(site, '/oauth/authorize').to_s,
+      token_url: URI.join(site, '/oauth/token').to_s
+    }
+  end
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -269,30 +297,33 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
 
+  config.omniauth :feishu, setup: FEISHU_OMNIAUTH_SETUP
+  config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
+
   # 飞书
-  feishu = Setting.feishu
-  if defined?(OmniAuth::Strategies::Feishu) && feishu[:enabled]
-    config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
-  end
+  # feishu = Setting.feishu
+  # if feishu[:enabled]
+  #   config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
+  # end
 
   # Gitlab
-  gitlab = Setting.gitlab
-  if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
-    options = { scope: 'read_user' }
-    if scope = gitlab[:scope].presence
-      options[:scope] = scope.split(',').map(&:chomp).join(' ')
-    end
+  # gitlab = Setting.gitlab
+  # if gitlab[:enabled]
+  #   options = { scope: 'read_user' }
+  #   if scope = gitlab[:scope].presence
+  #     options[:scope] = scope.split(',').map(&:chomp).join(' ')
+  #   end
 
-    if site = gitlab[:site].presence
-      options[:client_options] = { site: site }
-    end
+  #   if site = gitlab[:site].presence
+  #     options[:client_options] = { site: site }
+  #   end
 
-    config.omniauth :gitlab, gitlab[:app_id], gitlab[:secret], options
-  end
+  #   config.omniauth :gitlab, gitlab[:app_id], gitlab[:secret], options
+  # end
 
   # Google OAuth
   google_oauth = Setting.google_oauth
-  if defined?(OmniAuth::Strategies::GoogleOauth2) && google_oauth[:enabled]
+  if google_oauth[:enabled]
     config.omniauth :google_oauth2, google_oauth[:client_id], google_oauth[:secret],
                     skip_jwt: true, prompt: 'select_account', access_type: 'offline',
                     scope: 'email,profile'
