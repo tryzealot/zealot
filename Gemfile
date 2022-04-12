@@ -14,7 +14,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.6.0'
 
 # Logger
-gem 'lograge', '~> 0.11.2'
+gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
