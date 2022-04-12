@@ -17,8 +17,8 @@ class Admin::SettingsController < ApplicationController
 
     # FIXME: RailsSettings::Base 初始化会缓存造成 i18n 第一时间拿不到
     # 以至于 index, edit 好些地方都需要兼容
-    if @setting.var == 'default_schemes' && (@setting.value.blank? || @setting.value.empty?)
-      @value = Setting.present_schemes
+    if @setting.var == 'preset_schemes' && @setting.value.blank?
+      @value = Setting.builtin_schemes
     end
 
     # 值的多语言支持显示
