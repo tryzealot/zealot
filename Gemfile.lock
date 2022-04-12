@@ -271,6 +271,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     nenv (0.3.0)
+    net-ldap (0.17.0)
     nio4r (2.5.8)
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
@@ -328,6 +329,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
+    pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -409,6 +411,7 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    rubyntlm (0.6.3)
     rubyzip (2.3.2)
     rufus-scheduler (3.8.1)
       fugit (~> 1.1, >= 1.1.6)
@@ -540,6 +543,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.8)
   lograge (~> 0.12.0)
   oauth2 (= 1.4.7)
+  net-ldap (~> 0.16)
   omniauth (~> 2.0.4)
   omniauth-gitlab (~> 3.0.0)
   omniauth-google-oauth2 (~> 1.0.1)
@@ -553,6 +557,7 @@ DEPENDENCIES
   pry-rescue
   puma (~> 5.6.4)
   pundit (~> 2.2.0)
+  pyu-ruby-sasl (>= 0.0.3.3, < 0.1)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.5)
   rails-i18n (~> 6.0.0)
@@ -562,6 +567,7 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
+  rubyntlm (~> 0.5)
   sentry-rails
   sentry-ruby
   sentry-sidekiq

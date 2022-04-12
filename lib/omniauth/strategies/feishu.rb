@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
+#
 # Modify to work under in omniauth 2
 # Original repository: https://github.com/renny-ren/omniauth-feishu
 #
 # TODO: Remove file after bump new release 0.1.7 or 0.2.0?
-
 require 'omniauth-oauth2'
 
 module OmniAuth

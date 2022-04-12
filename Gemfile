@@ -52,10 +52,14 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'omniauth-google-oauth2', '~> 1.0.1'
 gem 'omniauth-gitlab', '~> 3.0.0'
 
-# gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
+# ldap dependencies
+gem 'net-ldap', '~> 0.16'
+gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
+gem 'rubyntlm', '~> 0.5'
 
 # FIXME: copy to ./lib/omniauth/strategies
 # gem 'omniauth-feishu', '~> 0.1.6'
+# gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 
 ## UDID
 gem 'openssl', '~> 2.2.1'
