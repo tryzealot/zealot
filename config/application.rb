@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Zealot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.0
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
