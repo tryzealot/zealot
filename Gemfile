@@ -47,11 +47,19 @@ gem 'pundit', '~> 2.2.0'
 gem 'devise', '~> 4.8.1'
 gem 'devise-i18n', '~> 1.10.2'
 
-gem 'omniauth', '~> 1.9'
-gem 'omniauth-google-oauth2', '~> 0.8.2'
-gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
-gem 'omniauth-feishu', '~> 0.1.6'
-gem 'omniauth-gitlab', '~> 2.0.0'
+gem 'omniauth', '~> 2.0.4'
+gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
+gem 'omniauth-google-oauth2', '~> 1.0.1'
+gem 'omniauth-gitlab', '~> 3.0.0'
+
+# ldap dependencies
+gem 'net-ldap', '~> 0.16'
+gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
+gem 'rubyntlm', '~> 0.5'
+
+# FIXME: copy to ./lib/omniauth/strategies
+# gem 'omniauth-feishu', '~> 0.1.6'
+# gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 
 ## UDID
 gem 'openssl', '~> 2.2.1'
