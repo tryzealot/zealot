@@ -28,8 +28,8 @@ form.form-horizontal
             - keys.each do |key, params|
               ruby:
                 value = params[:value]
-                if key == 'default_schemes' && value&.empty?
-                  value = Setting.present_schemes
+                if key == 'preset_schemes' && value&.blank?
+                  value = Setting.builtin_schemes
                 end
 
                 display_value = case value
