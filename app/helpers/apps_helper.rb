@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module AppsHelper
-  def default_schemes
-    schemes = Setting.default_schemes
-    schemes = Setting.present_schemes if schemes.empty?
+  def preset_schemes
+    schemes = Setting.preset_schemes
+    schemes = Setting.builtin_schemes if schemes.empty?
     schemes
   end
 
-  def default_channels
+  def preset_channels
     Channel.device_types.values
   end
 

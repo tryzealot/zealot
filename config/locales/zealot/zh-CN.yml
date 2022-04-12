@@ -66,8 +66,8 @@ zh-CN:
       site_domain: 网站域名
 
       presets: 预设值
-      default_schemes: 应用类型模板
-      default_role: 新用户权限
+      preset_schemes: 应用类型模板
+      preset_role: 新用户权限
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
@@ -589,11 +589,11 @@ zh-CN:
 
   settings:
     title: 系统设置
-    default_schemes:
+    preset_schemes:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
-    default_role:
+    preset_role:
       user: 用户
       developer: 开发者
       admin: 管理员
