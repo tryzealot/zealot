@@ -66,8 +66,8 @@ en:
       site_domain: Site domain
 
       presets: Presets
-      default_schemes: Default schemes
-      default_role: Default user role
+      preset_schemes: Default schemes
+      preset_role: Default user role
 
       switch_mode: Switch mode
       registrations_mode: Registrations mode
@@ -593,11 +593,11 @@ en:
 
   settings:
     title: Settings
-    default_schemes:
+    preset_schemes:
       beta: Beta
       adhoc: Adhoc
       production: Production
-    default_role:
+    preset_role:
       user: User
       developer: Developer
       admin: Admin

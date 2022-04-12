@@ -27,12 +27,12 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :default_schemes, default: present_schemes, type: :array, display: true
-    field :default_role, default: 'user', type: :string, display: true,
-          validates: { presence: true, inclusion: { in: present_roles.keys.map(&:to_s) } }
+    field :preset_schemes, default: builtin_schemes, type: :array, display: true
+    field :preset_role, default: 'user', type: :string, display: true,
+          validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
   end
 
-  # 模式开关
+  # # 模式开关
   scope :switch_mode do
     field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
           type: :boolean, display: true

@@ -8,7 +8,7 @@ module DeviseHelper
     provider = t("devise.shared.links.provider.#{key}", default: fallback_title)
     title = t('devise.shared.links.sign_in_with_provider', provider: provider)
     url = [:user, name.to_sym, :omniauth, :authorize]
-    button_to(url, class: "btn btn-block btn-default text-left") do
+    button_to(url, class: 'btn btn-block btn-default text-left', method: :post) do
       raw(%Q(#{title} <i class="icon fab float-right fa-#{key}"></i>))
     end
   end
