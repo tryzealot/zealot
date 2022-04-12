@@ -25,7 +25,7 @@ gem 'health_check', '~> 3.1.0'
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.3.0'
+gem 'slim-rails', '~> 3.4.0'
 
 ## 表单生成
 gem 'simple_form', '~> 5.1'
