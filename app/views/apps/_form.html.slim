@@ -18,7 +18,7 @@ ruby:
 
         = f.input :name, required: true
         = f.simple_fields_for :scheme_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: default_schemes, checked: @schemes, required: false
+          = n.input :name, as: :check_boxes, collection: preset_schemes, checked: @schemes, required: false
         = f.simple_fields_for :channel_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: default_channels, checked: @channels, required: false
+          = n.input :name, as: :check_boxes, collection: preset_channels, checked: @channels, required: false
         = f.button :submit
