@@ -5,9 +5,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
-gem 'rails', '~> 6.1.5'
-gem 'rails-i18n', '~> 6.0.0'
+gem 'rails', '~> 7.0.2.3'
+gem 'rails-i18n', '~> 7.0.3'
 gem 'rake', '~> 13.0.4'
+gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
@@ -25,7 +26,7 @@ gem 'health_check', '~> 3.1.0'
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.3.0'
+gem 'slim-rails', '~> 3.4.0'
 
 ## 表单生成
 gem 'simple_form', '~> 5.1'
@@ -34,7 +35,7 @@ gem 'simple_form', '~> 5.1'
 ## 生成友好 id
 gem 'friendly_id', '~> 5.4.2'
 ## 数据分页
-gem 'kaminari'
+gem 'kaminari', '~> 1.2.2'
 ## 文件上传
 gem 'carrierwave', '~> 2.2.2'
 gem 'webp-ffi', '~> 0.3.1'
@@ -68,8 +69,8 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero'
-gem 'active_analytics'
+gem 'pghero', '~> 2.8.2'
+gem 'active_analytics', '~> 0.2.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -120,10 +121,6 @@ group :development do
 
   # VSCode rdbg Ruby Debugger
   gem 'debug'
-
-  # 加速开发环境
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 
   # rails 更友好错误输出
   gem 'awesome_print'
