@@ -261,6 +261,7 @@ en:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
 
   releases:
+    title: Build
     sources:
       web: Web
       api: API
