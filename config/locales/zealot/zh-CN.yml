@@ -261,6 +261,7 @@ zh-CN:
         not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
 
   releases:
+    title: 应用版本
     sources:
       web: 网页上传
       api: 接口上传
