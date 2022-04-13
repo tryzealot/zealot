@@ -39,14 +39,14 @@ class ReleasesController < ApplicationController
     @release.channel.perform_web_hook('upload_events')
     @release.perform_teardown_job(current_user.id)
 
-    message = t('activerecord.success.create', key: "#{t('apps.title')}")
+    message = t('activerecord.success.create', key: "#{t('releases.title')}")
     redirect_to channel_release_url(@channel, @release), notice: message
   end
 
   def destroy
     authorize @release
     @release.destroy
-    redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('apps.title')}")
+    redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('releases.title')}")
   end
 
   def auth
