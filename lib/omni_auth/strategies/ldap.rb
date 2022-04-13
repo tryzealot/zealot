@@ -3,11 +3,10 @@
 # Modify to work under in omniauth 2
 # Original repository: https://gitlab.com/gitlab-org/omniauth-ldap
 require 'omniauth'
-require_dependency Rails.root.join('lib/omniauth/strategies/ldap/adaptor.rb')
 
 module OmniAuth
   module Strategies
-    class LDAP
+    class Ldap
       include OmniAuth::Strategy
 
       InvalidCredentialsError = Class.new(StandardError)
@@ -27,6 +26,8 @@ module OmniAuth
         'image' => 'jpegPhoto',
         'description' => 'description'
       }
+
+      option :name, 'ldap'
       option :title, "LDAP Authentication" #default title for authentication form
       option :port, 389
       option :method, :plain
@@ -37,7 +38,7 @@ module OmniAuth
       option :name_proc, lambda {|n| n}
 
       def request_phase
-        OmniAuth::LDAP::Adaptor.validate @options
+        OmniAuth::Strategies::Ldap::Adaptor.validate @options
         f = OmniAuth::Form.new(:title => (options[:title] || "LDAP Authentication"), :url => callback_path)
         f.text_field 'Login', 'username'
         f.password_field 'Password', 'password'
@@ -46,7 +47,7 @@ module OmniAuth
       end
 
       def callback_phase
-        @adaptor = OmniAuth::LDAP::Adaptor.new @options
+        @adaptor = OmniAuth::Strategies::Ldap::Adaptor.new @options
 
         return fail!(:invalid_request_method) unless valid_request_method?
         return fail!(:missing_credentials) if missing_credentials?
@@ -117,5 +118,3 @@ module OmniAuth
     end
   end
 end
-
-OmniAuth.config.add_camelization 'ldap', 'LDAP'
