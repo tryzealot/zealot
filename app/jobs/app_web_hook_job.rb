@@ -24,11 +24,12 @@ class AppWebHookJob < ApplicationJob
   private
 
   def send_request
-    r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, body: message_body)
-    logger.debug(log_message("trigger response body: #{r.body}"))
-    logger.info(log_message('trigger successfully')) if r.code == 200
-  rescue HTTP::Error => e
+    response = Faraday.post(@web_hook.url, message_body,
+      { 'Content-Type' => 'application/json' }
+    )
+    logger.debug(log_message("trigger response body: #{response.body}"))
+    logger.info(log_message('trigger successfully')) if r.status == 200
+  rescue Faraday::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
