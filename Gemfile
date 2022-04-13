@@ -42,7 +42,8 @@ gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'http', '~> 5.0.4'
+gem 'faraday', '~> 2.2.0'
+
 ## 用户认证
 gem 'pundit', '~> 2.2.0'
 gem 'devise', '~> 4.8.1'
