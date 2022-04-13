@@ -2,14 +2,12 @@
 #
 # Modify to work under in omniauth 2
 # Original repository: https://gitlab.com/gitlab-org/omniauth-ldap
-require 'rack'
 require 'net/ldap'
 require 'net/ntlm'
 require 'sasl'
-require 'kconv'
 
-module OmniAuth
-  module LDAP
+module OmniAuth::Strategies
+  class Ldap
     class Adaptor
       class LdapError < StandardError; end
       class ConfigurationError < StandardError; end

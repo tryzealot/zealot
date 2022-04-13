@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Dir.glob(Rails.root.join('lib/omniauth/strategies/*.rb')).each do |filename|
+Dir.glob(Rails.root.join('lib/omni_auth/strategies/**/*.rb')).each do |filename|
   require_dependency filename
 end
 
@@ -309,8 +309,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
 
-  config.omniauth :feishu, setup: FEISHU_OMNIAUTH_SETUP
+  config.omniauth :feishu, setup: FEISHU_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Feishu
   config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
   config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
-  config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP
+  config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Ldap
 end
