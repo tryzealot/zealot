@@ -1,0 +1,25 @@
+.system-log {
+  background: #f8f8f8;
+
+  ol {
+    margin-left: 60px;
+    padding:10px 0;
+    margin-bottom: 0;
+    background: #fff;
+
+    li {
+      color: #888;
+
+      &:hover {
+        background-color: #eff5fb;
+      }
+
+      p {
+        margin: 0;
+        color: #333;
+        line-height:24px;
+        padding-left: 20px;
+      }
+    }
+  }
+}
