@@ -48,7 +48,7 @@ gem 'pundit', '~> 2.2.0'
 gem 'devise', '~> 4.8.1'
 gem 'devise-i18n', '~> 1.10.2'
 
-gem 'omniauth', '~> 2.0.4'
+gem 'omniauth', '~> 2.1.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'omniauth-google-oauth2', '~> 1.0.1'
 gem 'omniauth-gitlab', '~> 3.0.0'
