@@ -136,6 +136,11 @@ zh-CN:
           disable: 网络钩子已经取消启用
           test: 网络钩子请求测试已发送
 
+    logs:
+      index:
+        title: 服务日志
+        notice: 仅显示最新 %{number} 行代码，暂时不支持自动刷新
+
   dashboard:
     title: 控制台
     analytics:
