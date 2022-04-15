@@ -1,21 +1,21 @@
 - content_for :section_title do
-  = @title
+  = t('.title')
 
 - content_for :title do
-  = @title
+  = t('.title')
 
 .row
   .col-md-12
     - unless @user.confirmed?
       .card
         .card-header.card-border
-          h3.card-title = t('admin.users.active_link')
+          h3.card-title = t('.active_link')
         .card-body
           input.form-control value="#{confirmation_url(@user, confirmation_token: @user.confirmation_token)}" disabled=true
-          small.form-text.text-muted = t('admin.users.active_link_tip')
+          small.form-text.text-muted = t('.active_link_tip')
     .card
       .card-header.card-border
-        h3.card-title = t('admin.users.user_info')
+        h3.card-title = t('.title')
         .card-tools
           a href="#{admin_users_path}"
             i.icon.far.fa-list-alt

@@ -1,14 +1,14 @@
 - content_for :section_title do
-  = @title
+  = t('.title')
 
 - content_for :title do
-  = @title
+  = t('.title')
 
 .row
   .col-md-12
     .card
       .card-header
-        h3.card-title = t('admin.users.user_info')
+        h3.card-title = t('.title')
         .card-tools
           a href="#{admin_users_path}"
             i.icon.far.fa-list-alt
