@@ -152,12 +152,18 @@ en:
 
     background_jobs:
       title: Background jobs
+      index:
+        title: :'admin.background_jobs.title'
 
     page_analytics:
       title: Page analytics
+      index:
+        title: :'admin.page_analytics.title'
 
     database_analytics:
       title: Database analytics
+      index:
+        title: :'admin.database_analytics.title'
 
     logs:
       title: Service logs

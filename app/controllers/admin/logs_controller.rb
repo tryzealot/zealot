@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'open3'
 
 class Admin::LogsController < ApplicationController
-  FILENAME = 'zealot.log'
+  FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
   MAX_LINE_NUMBER = 2000
 
   def index
