@@ -1,10 +1,14 @@
+require 'digest/md5'
+require 'open3'
+
 class Admin::LogsController < ApplicationController
-  FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
+  FILENAME = 'zealot.log'
+  MAX_LINE_NUMBER = 2000
 
   def index
-    @title = '系统日志'
     @filename = FILENAME
     @logs = logs
+    @number = MAX_LINE_NUMBER
   end
 
   private
@@ -12,13 +16,10 @@ class Admin::LogsController < ApplicationController
   def logs
     return [] unless File.readable?(log_path)
 
-    require 'open3'
-
-    cmd = %W(tail -n 2000 #{log_path})
-
     cmd_stdout = ''
     cmd_stderr = ''
     cmd_status = nil
+    cmd = %W(tail -n #{MAX_LINE_NUMBER} #{log_path})
     Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
       out_reader = Thread.new { stdout.read }
       err_reader = Thread.new { stderr.read }
@@ -30,7 +31,9 @@ class Admin::LogsController < ApplicationController
       cmd_status = wait_thr.value
     end
 
-    cmd_stdout.split("\n")
+    content = cmd_stdout.strip
+    content = content.gsub(/\[\d+m/, '') if Rails.env.development?
+    content.split("\n")
   end
 
   def log_path
