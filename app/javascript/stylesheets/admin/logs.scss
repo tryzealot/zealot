@@ -1,22 +1,30 @@
 .system-log {
-  background: #f8f8f8;
+  background: #404040;
 
   ol {
     margin-left: 60px;
     padding:10px 0;
     margin-bottom: 0;
-    background: #fff;
+    border-left: 1px solid #4c4c4c;
+    // counter-reset: number;
+    // list-style-type: none;
+    // background: #404040;
 
     li {
-      color: #888;
+      color: #dedede;
+
+      // &::before {
+      //   counter-increment: number;
+      //   content: counter(number)"\a0";
+      // }
 
       &:hover {
-        background-color: #eff5fb;
+        background-color: #2d3238;
       }
 
       p {
         margin: 0;
-        color: #333;
+        color: #dedede;
         line-height:24px;
         padding-left: 20px;
       }

@@ -136,6 +136,11 @@ en:
           disable: Disabled the web hook successfully
           test: Test sent successfully
 
+    logs:
+      index:
+        title: Service logs
+        notice: To prevent performance issues admin logs output the last %{number} lines
+
   dashboard:
     title: Dashboard
     analytics:
