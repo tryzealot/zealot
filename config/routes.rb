@@ -106,6 +106,7 @@ Rails.application.routes.draw do
       resources :system_info, only: :index
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
+      resources :logs, only: :index
 
       namespace :service do
         post :restart
