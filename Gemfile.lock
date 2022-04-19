@@ -301,7 +301,7 @@ GEM
       rack-protection
     omniauth-feishu (0.1.8)
       omniauth-oauth2 (>= 1.6.0, < 2)
-    omniauth-gitlab (3.0.0)
+    omniauth-gitlab (4.0.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.7.1)
     omniauth-google-oauth2 (1.0.1)
@@ -552,7 +552,7 @@ DEPENDENCIES
   net-ldap (~> 0.16)
   omniauth (~> 2.1.0)
   omniauth-feishu (~> 0.1.8)
-  omniauth-gitlab (~> 3.0.0)
+  omniauth-gitlab (~> 4.0.0)
   omniauth-google-oauth2 (~> 1.0.1)
   omniauth-rails_csrf_protection (~> 1.0.1)
   openssl (~> 2.2.1)
