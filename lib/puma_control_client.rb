@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'http'
+require 'faraday'
 
 class PumaControlClient
   def initialize(url = nil, token: nil)
@@ -10,7 +10,7 @@ class PumaControlClient
 
   def stats
     get 'stats'
-  rescue HTTP::Error
+  rescue Faraday::Error
     false
   end
 
@@ -21,11 +21,7 @@ class PumaControlClient
   private
 
   def get(path)
-    client.get(url(path), params: auth_token)&.parse(:json)
-  end
-
-  def url(path)
-    "http://#{@uri}/#{path}"
+    client.get(path, auth_token).body
   end
 
   def auth_token
@@ -35,10 +31,9 @@ class PumaControlClient
   end
 
   def client
-    @client ||= HTTP::Client.new(HTTP::Options.new(features: {
-      logging: {
-        logger: Logger.new(STDOUT)
-      }
-    }))
+    @client ||= Faraday.new(url: "http://#{@uri}") do |f|
+      f.response :logger if Rails.env.development?
+      f.response :json
+    end
   end
 end

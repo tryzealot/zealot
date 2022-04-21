@@ -8,6 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def passthru
+    # User had been logged in, redirect to root page
     redirect_to root_path(signin: 'true')
   end
 

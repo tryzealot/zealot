@@ -17,25 +17,25 @@ class CreateSampleAppsService
     app_bundle_id = 'com.zealot.app-demo'
     channels = %i[Android iOS]
     schemes = [
-      t('settings.default_schemes.beta'),
-      t('settings.default_schemes.adhoc'),
-      t('settings.default_schemes.production'),
+      t('settings.preset_schemes.beta'),
+      t('settings.preset_schemes.adhoc'),
+      t('settings.preset_schemes.production'),
     ]
     changelog = [
       {
-        author: t('settings.default_role.developer'),
+        author: t('settings.preset_role.developer'),
         date: '2019-10-24 23:0:24 +0800',
         message: 'bump 0.1.0',
         email: 'admin@zealt.com'
       },
       {
-        author: t('settings.default_role.developer'),
+        author: t('settings.preset_role.developer'),
         date: '2019-10-23 17:41:41 +0800',
         message: 'fix: xxx',
         email: 'admin@zealt.com'
       },
       {
-        author: t('settings.default_role.developer'),
+        author: t('settings.preset_role.developer'),
         date: '2019-10-22 11:11:11 +0800',
         message: 'feat: xxx done',
         email: 'admin@zealt.com'
@@ -51,11 +51,11 @@ class CreateSampleAppsService
                                                     device_type: channel_name.downcase.to_sym
         bundle_id = generate_bundle_id app_bundle_id, channel
         release_type = case scheme.name
-                       when t('settings.default_schemes.beta')
+                       when t('settings.preset_schemes.beta')
                          'beta'
-                       when t('settings.default_schemes.adhoc')
+                       when t('settings.preset_schemes.adhoc')
                          'adhoc'
-                       when t('settings.default_schemes.production')
+                       when t('settings.preset_schemes.production')
                          'release'
                        end
 
@@ -69,7 +69,7 @@ class CreateSampleAppsService
   def android_channels_app(user)
     app_name = t('demo.app_name2')
     app_bundle_id = 'com.zealot.android.app-demo'
-    schemes = [ t('settings.default_schemes.production') ]
+    schemes = [ t('settings.preset_schemes.production') ]
     channels = t('demo.android_channels').values
     changelog = "bump 0.1.0\nfix: xxx\nfeat: xxx done"
 
