@@ -26,13 +26,13 @@ module UserOmniauth
   end
 
   def oauth_providers
-    omniauth_providers.each_with_object([]) do |name, obj|
+    @oauth_providers ||= Devise.omniauth_providers.each_with_object([]) do |name, obj|
       obj << name if enabled?(name)
     end
   end
 
   def enabled?(name)
-    send("enabled_#{name}?")
+    send("enabled_#{name}?".to_sym)
   end
 
   def enabled_google_oauth2?
@@ -40,7 +40,7 @@ module UserOmniauth
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::LDAP) && Setting.ldap[:enabled]
+    defined?(OmniAuth::Strategies::Ldap) && Setting.ldap[:enabled]
   end
 
   def enabled_feishu?

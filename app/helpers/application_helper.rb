@@ -61,10 +61,6 @@ module ApplicationHelper
     is_current ? class_name : ''
   end
 
-  def changelog_format(changelog, **options)
-    simple_format changelog, **options
-  end
-
   def device_name(device_type)
     case device_type.downcase
     when 'ios'
@@ -115,15 +111,18 @@ module ApplicationHelper
     user_agent.include?('MicroMessenger') || user_agent.include?('DingTalk')
   end
 
+  # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko)
+  #        Chrome/75.0.3770.100 Safari/537.36
+  # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)
+  #        Chrome/91.0.4472.114 Safari/537.36
   def macos?(source = nil)
-    # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
-    # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36
     source ||= user_agent
     source.downcase.include?('macintosh')
   end
 
+  # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko)
+  #         Version/13.0 Safari/605.1.15
   def ios?(source = nil)
-    # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15
     source ||= user_agent
     (source =~ /iPhone|iPad|Unversal|ios|iOS/i).present?
   end
@@ -146,15 +145,6 @@ module ApplicationHelper
             end
 
     value == target.to_sym
-  end
-
-  def omniauth_display_name(provider)
-    case provider
-    when :ldap
-      provider.to_s.upcase
-    else
-      OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
-    end
   end
 
   def github_repo_commit(ref)

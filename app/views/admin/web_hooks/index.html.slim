@@ -1,8 +1,8 @@
 - content_for :title do
-  = @title
+  = t('.title')
 
 - content_for :section_title do
-  = @title
+  = t('.title')
 
 .row
   .col-md-12
@@ -12,10 +12,10 @@
           table.table.p-0
             thead
               tr
-                th = t('admin.web_hooks.number')
-                th = t('admin.web_hooks.url')
-                th style="width: 240px" = t('admin.web_hooks.channels')
-                th style="width: 70px" = t('admin.web_hooks.action')
+                th = t('.number')
+                th = t('.url')
+                th style="width: 240px" = t('.channels')
+                th style="width: 70px" = t('.action')
             tbody
               - @web_hooks.each_with_index do |web_hook, i|
                 tr
@@ -26,9 +26,9 @@
                   td
                     = raw web_hook.channels.map {|c| c.app_name }.join("<br />")
                   td
-                    = link_to t('admin.web_hooks.destroy'), admin_web_hook_path(web_hook), method: :delete, data: { confirm: t('admin.web_hooks.destroy_confirm') }
+                    = link_to t('.destroy'), admin_web_hook_path(web_hook), method: :delete, data: { confirm: t('.destroy_confirm') }
     - else
       .card.card-outline.card-warning
         .card-header.card-border
-          h3.card-title = t('admin.web_hooks.not_found')
-        .card-body = t('admin.web_hooks.create_web_hook_from_channel_inside')
+          h3.card-title = t('.not_found')
+        .card-body = t('.create_web_hook_from_channel_inside')
