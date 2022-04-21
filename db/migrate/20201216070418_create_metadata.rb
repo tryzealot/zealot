@@ -11,6 +11,7 @@ class CreateMetadata < ActiveRecord::Migration[6.0]
       t.integer :size
       t.string :min_sdk_version
       t.string :target_sdk_version
+      t.jsonb :url_schemes, null: false, default: []
 
       # Android
       t.jsonb :activities, null: false, default: []
@@ -25,7 +26,6 @@ class CreateMetadata < ActiveRecord::Migration[6.0]
       t.jsonb :entitlements, null: false, default: {}
       t.jsonb :devices, null: false, default: []
       t.jsonb :capabilities, null: false, default: []
-      t.jsonb :url_schemes, null: false, default: []
 
       t.string :checksum, null: false, index: true
       t.timestamps
@@ -40,6 +40,7 @@ class CreateMetadata < ActiveRecord::Migration[6.0]
 
   def down
     drop_table :metadata
+
     execute <<-SQL
       DROP TYPE metadata_platform;
     SQL
