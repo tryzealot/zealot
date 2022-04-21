@@ -66,7 +66,7 @@ gem 'sentry-rails'
 gem 'sentry-sidekiq'
 
 ## Jenkins SDK
-gem 'jenkins_api_client'
+gem 'improved_jenkins_client', '~> 1.6.7'
 
 ## 生成条形码/二维码
 gem 'rqrcode'
@@ -98,6 +98,10 @@ group :development do
 
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
+  gem 'debug', '~> 1.5.0'
+
+  # 开发辅助
   gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
@@ -106,10 +110,6 @@ group :development do
   gem 'guard-webpacker'
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
-
-  # IDE tools(VSCode)
-  gem 'debase'
-  gem 'ruby-debug-ide'
 
   # 加速开发环境
   gem 'spring'
