@@ -5,4 +5,4 @@
     ul.nav.nav-pills.flex-column
       - @channel.scheme.channels.each do |channel|
         li.nav-item
-          = link_to display_app_device(channel), channel_path(channel), class: "nav-link #{params[:id] == channel.slug ? 'active' : ''}"
+          = link_to display_app_device(channel), friendly_channel_overview_path(channel), class: "nav-link #{(params[:id] || params[:channel]) == channel.slug ? 'active' : ''}"

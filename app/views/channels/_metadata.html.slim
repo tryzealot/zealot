@@ -26,5 +26,7 @@
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')
-  .card-footbar.pl-3.pr-3.pb-3
-    a.btn.btn-default.btn-block href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')
+
+  - if user_signed_in?
+    .card-footbar.pl-3.pr-3.pb-3
+      a.btn.btn-default.btn-block href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')
