@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
-  before_action :authenticate_user! unless Setting.guest_mode
+  before_action :authenticate_user!, except: %[show]
   before_action :set_metadata, only: %i[show destroy]
 
   def index
@@ -12,14 +12,16 @@ class TeardownsController < ApplicationController
   end
 
   def show
+    authorize @metadata
     @title = t('.title', name: @metadata.name,
-                                       release_version: @metadata.release_version,
-                                       build_version: @metadata.build_version)
+                release_version: @metadata.release_version,
+                build_version: @metadata.build_version)
   end
 
   def new
     @title = t('.title')
     @metadata = Metadatum.new
+    authorize @metadata
   end
 
   def create
@@ -50,6 +52,7 @@ class TeardownsController < ApplicationController
   end
 
   def destroy
+    authorize @metadata
     @metadata.destroy
 
     redirect_to teardowns_path, notice: t('activerecord.success.destroy', key: "#{t('teardowns.title')}")
@@ -59,7 +62,6 @@ class TeardownsController < ApplicationController
 
   def set_metadata
     @metadata = Metadatum.find(params[:id])
-    authorize @metadata
   end
 
   def parse_app

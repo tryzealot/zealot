@@ -6,12 +6,14 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5e5c7bbeb1214fa39b11a7414f0d7171)](https://www.codacy.com/gh/tryzealot/zealot)
 [![License](https://img.shields.io/github/license/tryzealot/zealot)](LICENSE)
 
+[English Document](https://zealot.ews.im/#/en/) | [简体中文文档](https://zealot.ews.im)
+
 开源自部署 iOS、Android 及 macOS 应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、独立部署解决企业使用的烦恼。 En Taro Adun! 🖖
 
 ![Zealot Showcase](https://zealot.ews.im/_media/showcase.png)
 ## 特性
 
-- [x] 支持 iOS、Android 和 macOS 应用的上传、在线安装和本地下载
+- [x] 支持 iOS、Android (apk/aab) 和 macOS 应用的上传、在线安装和本地下载
 - [x] 支持创建类型（Debug、AdHoc、Release）及渠道（小米商店等）
 - [x] 支持自定义网络钩子通知各种服务（钉钉、企业微信、Slack 等）
 - [x] 支持 iOS dSYM 和 Android Progruard 文件的解析和上传

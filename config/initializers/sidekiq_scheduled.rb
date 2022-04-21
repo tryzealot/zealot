@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-private def add_or_delete_schedule(remove, cron_jobs, key)
+def add_or_delete_schedule(remove, cron_jobs, key)
   if remove
     Sidekiq.remove_schedule(key.to_s)
   else

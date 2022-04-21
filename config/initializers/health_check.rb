@@ -8,5 +8,5 @@ HealthCheck.setup do |config|
 
   ip_whitelist = ENV['ZEALOT_HEALTH_CHECK_IP_WHITELIST'] || '127.0.0.1'
   ip_whitelist = ip_whitelist.split(',').select(&:present?).map(&:strip) if ip_whitelist.present?
-  config.origin_ip_whitelist = ip_whitelist if ip_whitelist.present? && ip_whitelist.size > 0
+  config.origin_ip_whitelist = ip_whitelist if ip_whitelist.present?
 end

@@ -1,4 +1,4 @@
-FROM ruby:2.7-alpine as builder
+FROM ruby:3.0-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev"
@@ -48,20 +48,20 @@ RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
     package.json postcss.config.js yarn.lock && \
-    cd /app/vendor/bundle/ruby/2.7.0 && \
+    cd /app/vendor/bundle/ruby/3.0.0 && \
       rm -rf cache/*.gem && \
       find gems/ -name "*.c" -delete && \
       find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM ruby:2.7-alpine
+FROM ruby:3.0-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 
-ARG ZEALOT_VERSION="4.2.2"
+ARG ZEALOT_VERSION="4.3.1"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"

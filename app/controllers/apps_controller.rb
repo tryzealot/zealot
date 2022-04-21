@@ -3,6 +3,7 @@
 class AppsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy]
+  before_action :set_selected_schemes_and_channels, only: %i[edit]
   before_action :process_scheme_and_channel, only: %i[create]
 
   def index
@@ -12,6 +13,7 @@ class AppsController < ApplicationController
   end
 
   def show
+    authorize @app
     @title = @app.name
   end
 
@@ -24,6 +26,8 @@ class AppsController < ApplicationController
   end
 
   def edit
+    authorize @app
+
     @title = t('.title')
   end
 
@@ -39,11 +43,20 @@ class AppsController < ApplicationController
   end
 
   def update
+    authorize @app
+
+    if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
+      flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
+      return render :edit
+    end
+
     @app.update(app_params)
     redirect_to apps_path
   end
 
   def destroy
+    authorize @app
+
     @app.destroy
     destory_app_data
 
@@ -72,7 +85,19 @@ class AppsController < ApplicationController
 
   def set_app
     @app = App.find(params[:id])
-    authorize @app
+  end
+
+  def set_selected_schemes_and_channels
+    @schemes = []
+    @channels = []
+    @app.schemes.each do |scheme|
+      @schemes << scheme.name
+
+      channels = scheme.channels.pluck(:name)
+      channels.each do |channel_name|
+        @channels << channel_name unless @channels.include?(channel_name)
+      end
+    end
   end
 
   def process_scheme_and_channel

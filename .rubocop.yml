@@ -5,12 +5,14 @@ AllCops:
   TargetRubyVersion: 2.7
   TargetRailsVersion: 6.1
   DisabledByDefault: true
+  SuggestExtensions: false
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'bin/**/*'
-    - "db/**/*"
+    - 'db/**/*'
+    - 'lib/omniauth/**/*'
   CacheRootDirectory: tmp
 
 Style/FrozenStringLiteralComment:
@@ -26,11 +28,12 @@ Style/FrozenStringLiteralComment:
 
 # Some blocks are longer.
 Metrics/BlockLength:
-  ExcludedMethods:
+  IgnoredMethods:
     - 'namespace'
     - 'create_table'
   Exclude:
     - 'config/**/*.rb'
+    - 'app/models/setting.rb'
     - 'spec/**/*.rb'
     - 'lib/tasks/**/*'
     - 'lib/backup/**/*'
@@ -47,14 +50,16 @@ Metrics/MethodLength:
   Max: 60
 
 Metrics/ClassLength:
-  Max: 150
+  Max: 180
+  Exclude:
+    - 'app/models/setting.rb'
 
 Metrics/ModuleLength:
-  Max: 150
+  Max: 180
 
 # Raise complexity metrics
 Metrics/AbcSize:
-  Max: 20
+  Max: 40
   Exclude:
     - 'lib/backup/**/*'
 
