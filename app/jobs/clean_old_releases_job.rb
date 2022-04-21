@@ -28,7 +28,8 @@ class CleanOldReleasesJob < ApplicationJob
 
     versions = releases.map(&:version)
     latest_version = versions.max { |a,b| compare_version(a, b) }
-    logger.info("Delete channel [#{channel.id} - #{channel.app_name}] has versions: #{versions} and latest verison is #{latest_version}")
+    logger.info("Delete channel [#{channel.id} - #{channel.app_name}] has versions: #{versions}
+                and latest verison is #{latest_version}")
 
     remove_releases(channel, releases, latest_version)
   end
