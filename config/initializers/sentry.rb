@@ -24,9 +24,9 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'SystemExit',
       ]
 
-      if (vcs_ref = Setting.vcs_ref) && vcs_ref.present?
+      if vcs_ref = Setting.vcs_ref.presence
         release = [Setting.version, vcs_ref]
-        if (docker_tag = ENV['DOCKER_TAG']) && docker_tag.present?
+        if docker_tag = ENV['DOCKER_TAG'].presence
           release << ENV['DOCKER_TAG']
         end
 
