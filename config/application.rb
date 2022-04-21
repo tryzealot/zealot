@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Zealot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.0
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
@@ -33,7 +33,7 @@ module Zealot
     # Set default locale
     locale = ENV['DEFAULT_LOCALE']&.to_sym
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:'zh-CN', :en]
+    config.i18n.available_locales = %i[zh-CN en]
     config.i18n.default_locale = config.i18n.available_locales.include?(locale) ? locale : :'zh-CN'
 
     # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -52,7 +52,6 @@ module Zealot
     }
 
     # Set Sidekiq as the back-end for Active Job.
-    # Sidekiq not suggest to use perfix: https://github.com/mperham/sidekiq/issues/4034#issuecomment-442988685
     config.active_job.queue_adapter = :sidekiq
 
     # Action Cable setting to de-couple it from the main Rails process.
@@ -70,9 +69,6 @@ module Zealot
     # config.assets.enabled = false
     # config.assets.compile = false
 
-    # Use a real queuing backend for Active Job (and separate queues per environment)
-    config.active_job.queue_adapter      = :sidekiq
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -83,15 +79,13 @@ module Zealot
     ################################################################
 
     # Auto load path
-    config.autoload_paths += Dir[Rails.root.join('lib')]
+    config.autoload_paths += Dir["#{config.root}/lib"]
+    config.eager_load_paths += Dir["#{config.root}/lib"]
 
     # Don't generate system test files.
     config.generators.system_tests = nil
 
     # Disable yarn check(this must disable with docker)
     # config.webpacker.check_yarn_integrity = false
-
-    # Manage exception page
-    # config.exceptions_app = self.routes
   end
 end

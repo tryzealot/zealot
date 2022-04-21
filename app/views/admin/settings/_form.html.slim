@@ -31,4 +31,9 @@
             small.form-text.text-muted
               = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
         .card-footer
-          = f.button :submit
+          - if @setting.persisted?
+            .float-right
+              = link_to t('admin.settings.reset'), admin_setting_path(@setting.var), method: :delete, data: { confirm: t('channels.messages.confirm.destroy')}, class: 'btn btn-danger'
+
+          .float-left
+            = f.button :submit

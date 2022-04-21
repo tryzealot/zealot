@@ -1,6 +1,6 @@
 ruby:
   form_url = new_or_create_route? ? app_schemes_path : app_scheme_path(@scheme.app, @scheme)
-  checked_channel = @channels ? @channels[:name] : 0
+  checked_channel = @channels ? @channels : 0
 
 .col-md-12
   .card
@@ -18,5 +18,5 @@ ruby:
         = f.input :name, required: true
         - if new_or_create_route?
           = f.simple_fields_for :channel_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_channels, checked: checked_channel
+            = n.input :name, as: :check_boxes, collection: preset_channels, checked: checked_channel
         = f.button :submit

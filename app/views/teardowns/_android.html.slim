@@ -36,6 +36,8 @@ ruby:
   = render 'card', title: 'Activities', raw: @metadata.activities
 
 .col-md-6
+  == render 'card', title: 'Deep Links', raw: @metadata.deep_links
+  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
   = render 'card', title: 'Features', raw: @metadata.features
   = render 'card', title: 'Permissions', raw: @metadata.permissions
   = render 'card', title: 'Services', raw: @metadata.services

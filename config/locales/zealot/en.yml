@@ -15,38 +15,58 @@ en:
     back_to_list: Back to list
 
   admin:
-    system_info:
+    users:
+      title: Users
+      new:
+        title: New user
       index:
-        zealot_version: Zealot version
-        vcs_ref: VCS Ref
-        build_date: Build date
-        server_info: Server info
-        found_new_version: 'Found new version: %{version}'
-        os_info: OS info
-        ruby_version: Ruby version
-        cpu_info: CPU
-        cpu_core:
-          one: 'One Core'
-          other: '%{count} Cores'
-        fail_detect_cpu: Fail to detect CPU information
-        memory_info: Memory
-        fail_detect_memory: Fail to detect memory information
-        disk_info: Disk
-        fail_detect_disk: Fail to detect disk information
-        lauched_time: Launched time
-        volume_mounted: Volume mounted
-        system_environment: System environment
-        file_permissions: File permissions
-        ruby_gems: Ruby Gems
-        logs: Logs
-        new_version: Found new version
-        dev_new_version: Found new version (dev mode)
-        messages:
-          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+        title: :'admin.users.title'
+        new_user: :'admin.users.new.title'
+        number: '#'
+        nickname: Nickname
+        email: E-mail
+        role: Role
+        status: Status
+        last_login_time: Last login time
+        action: Action
+        actived: Actived
+        unactive: Unactive
+        never_logined: Never logined
+        destroy_user: Destroy
+        destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
+      edit:
+        title: User information
+        active_link: Active link
+        active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+
+    web_hooks:
+      title: Webhooks
+      index:
+        title: :'admin.web_hooks.title'
+        number: '#'
+        url: URL
+        channels: Channels
+        action: Action
+        not_found: Not found any Webhook.
+        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destory them here.
+        destroy: Destroy
+        destroy_confirm: Destroy confirm?
+      show:
+        title: Webhook detail
+      new:
+        title: New Webhook
+      edit:
+        title: Edit Webhook
+      messages:
+        success:
+          enable: Enabled the Webhook successfully
+          disable: Disabled the Webhook successfully
+          test: Test sent successfully
 
     settings:
+      title: Settings
       index:
-        title: :'settings.title'
+        title: :'admin.settings.title'
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -66,8 +86,8 @@ en:
       site_domain: Site domain
 
       presets: Presets
-      default_schemes: Default schemes
-      default_role: Default user role
+      preset_schemes: Default schemes
+      preset_role: Default user role
 
       switch_mode: Switch mode
       registrations_mode: Registrations mode
@@ -81,57 +101,75 @@ en:
       gitlab: Gitlab
       google_oauth: Google OAuth
 
-      backup: Backup
-      misc: Misc
+      # backup: Backup
+      # misc: Misc
 
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
       mailer_options: Options
 
+      analytics: Analytics
+      google_analytics_id: Google Analytics ID
+
       archives: Archive uploaded binaries
       keep_uploads: Keep all
 
       empty_value: Empty
-
       no_editable_key: Read only
+      reset: Reset to default value
 
-    users:
-      new_user: New user
-      user_info: User information
-      number: '#'
-      nickname: Nickname
-      email: E-mail
-      role: Role
-      status: Status
-      last_login_time: Last login tiem
-      action: Action
-      actived: Actived
-      unactive: Unactive
-      never_logined: Never logined
-      destroy_user: Destroy
-      destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
-      active_link: Active link
-      active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+    system_info:
+      title: System information
+      index:
+        title: :'admin.system_info.title'
+        zealot_version: Zealot version
+        vcs_ref: VCS Ref
+        build_date: Build date
+        server_info: Server info
+        found_new_version: 'Found new version: %{version}'
+        os_info: OS info
+        ruby_version: Ruby version
+        cpu_info: CPU
+        cpu_core:
+          one: 'One Core'
+          other: '%{count} Cores'
+        fail_detect_cpu: Fail to detect CPU information
+        memory_info: Memory
+        fail_detect_memory: Fail to detect memory information
+        disk_info: Disk
+        lauched_time: Launched time
+        volume_mounted: Volume mounted
+        fail_detect_disk: Fail to detect disk information
+        system_environment: System environment
+        file_permissions: File permissions
+        ruby_gems: Ruby Gems
+        logs: Logs
+        new_version: Found new version
+        dev_new_version: Found new version (dev mode)
+        messages:
+          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
 
-    web_hooks:
-      show: Web hook detail
-      new: New web hook
-      edit: Edit web hook
+    background_jobs:
+      title: Background jobs
+      index:
+        title: :'admin.background_jobs.title'
 
-      number: '#'
-      url: URL
-      channels: Channels
-      action: Action
-      not_found: Not found any web hook.
-      create_web_hook_from_channel_inside: Create the web hook via inside the channel of app, You can edit, destory them here.
-      destroy: Destroy
-      destroy_confirm: Destroy confirm?
-      messages:
-        success:
-          enable: Enabled the web hook successfully
-          disable: Disabled the web hook successfully
-          test: Test sent successfully
+    page_analytics:
+      title: Page analytics
+      index:
+        title: :'admin.page_analytics.title'
+
+    database_analytics:
+      title: Database analytics
+      index:
+        title: :'admin.database_analytics.title'
+
+    logs:
+      title: Service logs
+      index:
+        title: :'admin.logs.title'
+        notice: To prevent performance issues admin logs output the last %{number} lines
 
   dashboard:
     title: Dashboard
@@ -140,9 +178,9 @@ en:
       debug_files: :'debug_files.title'
       teardowns: :'teardowns.title'
       uploads: Uploads
-      web_hooks: :'web_hooks.title'
+      web_hooks: :'admin.web_hooks.title'
       users: :'users.title'
-      background_jobs: :'background_jobs.title'
+      background_jobs: :'admin.background_jobs.title'
       disk_usage: Disk usage
     timeline:
       title: Timeline
@@ -186,8 +224,9 @@ en:
       title: Edit app
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app_by_version: 'Not found app version: %{version}.'
         not_found_app: Not found app by id %{id}, redirect to list of app.
+        missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
         delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
@@ -257,6 +296,7 @@ en:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
 
   releases:
+    title: Build
     sources:
       web: Web
       api: API
@@ -393,7 +433,7 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: :'teardowns.new.title'
@@ -420,7 +460,7 @@ en:
       related_body: 'This teardown was relates with '
       unknow_app_name: Unkown
 
-      metadata: Metadat
+      metadata: Metadata
       app_name: App name
       version: Version
       package_name: Bundle id (package name)
@@ -515,7 +555,7 @@ en:
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
         unknown_parse: 'Unkown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .ipa, .mobileprovision or macOS.app.zip file'
+        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
 
   udid:
     title: Fetch UDID
@@ -550,9 +590,9 @@ en:
       version: Version
       upload_release: :'dashboard.timeline.upload_release'
     install:
-      title: :'udids.title'
+      title: Zealot fetch device UDID
       description: |
-        Install this temporary profile to find and display your current device's UDID. It is automatically removed from device right after you get your UDID.
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
 
         Powered by %{url}.
 
@@ -560,8 +600,8 @@ en:
     title: Users
 
   web_hooks:
-    title: Webhooks
-    create: New webhook
+    title: :'admin.web_hooks.title'
+    create: :'admin.web_hooks.new.title'
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -569,31 +609,18 @@ en:
     test: Test
     destroy: Destroy
     disable: Disable
-    enable: Enable
     messages:
       done: Teardown done!
       confirm:
         destroy: Destroy confirm?
 
-  system_info:
-    title: System information
-
-  background_jobs:
-    title: Background jobs
-
-  page_analytics:
-    title: Page analytics
-
-  database_analytics:
-    title: Database analytics
-
   settings:
-    title: Settings
-    default_schemes:
+    title: :'admin.settings.title'
+    preset_schemes:
       beta: Beta
       adhoc: Adhoc
       production: Production
-    default_role:
+    preset_role:
       user: User
       developer: Developer
       admin: Admin
