@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
-gem 'rails', '~> 7.0.2.3'
+gem 'rails', '~> 7.0.2.4'
 gem 'rails-i18n', '~> 7.0.3'
 gem 'rake', '~> 13.0.4'
 gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
