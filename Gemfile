@@ -92,7 +92,7 @@ gem 'sidekiq-failures', '~> 1.0.1'
 
 # Assets
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.4'
+gem 'webpacker', '~> 5.4.3'
 
 # 用于解析 iOS, Android 和 macOS 应用
 gem 'app-info', '~> 2.8.2'
@@ -120,7 +120,6 @@ group :development do
   gem 'guard-migrate'
   gem 'guard-rails'
   gem 'guard-sidekiq'
-  gem 'guard-webpacker'
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
 
