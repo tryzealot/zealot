@@ -591,7 +591,7 @@ DEPENDENCIES
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
   webp-ffi (~> 0.3.1)
-  webpacker (~> 5.4)
+  webpacker (~> 5.4.3)
 
 BUNDLED WITH
    2.3.4
