@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
-gem 'rails', '~> 7.0.2.3'
+gem 'rails', '~> 7.0.2.4'
 gem 'rails-i18n', '~> 7.0.3'
 gem 'rake', '~> 13.0.4'
 gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.6'
+gem 'graphql', '~> 2.0.7'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -87,7 +87,7 @@ gem 'rqrcode'
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.4.1'
-gem 'sidekiq-scheduler', '~> 3.2.0'
+gem 'sidekiq-scheduler', '~> 3.2.1'
 gem 'sidekiq-failures', '~> 1.0.1'
 
 # Assets
