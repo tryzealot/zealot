@@ -188,9 +188,6 @@ GEM
     guard-sidekiq (0.1.0)
       guard (>= 2)
       sidekiq
-    guard-webpacker (0.2.1)
-      guard (>= 2)
-      guard-compat (~> 1.0)
     hashie (5.0.0)
     health_check (3.1.0)
       railties (>= 5.0)
@@ -538,7 +535,6 @@ DEPENDENCIES
   guard-migrate
   guard-rails
   guard-sidekiq
-  guard-webpacker
   health_check (~> 3.1.0)
   improved_jenkins_client (~> 1.6.7)
   jb (~> 0.8.0)
