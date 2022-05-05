@@ -70,7 +70,7 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 2.8.2'
+gem 'pghero', '~> 2.8.3'
 gem 'active_analytics', '~> 0.2.1'
 
 ## 异常报错上报
