@@ -143,7 +143,7 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.7)
       tzinfo
-    faraday (2.2.0)
+    faraday (2.3.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (2.0.2)
@@ -526,7 +526,7 @@ DEPENDENCIES
   devise (~> 4.8.1)
   devise-i18n (~> 1.10.2)
   dotenv-rails
-  faraday (~> 2.2.0)
+  faraday (~> 2.3.0)
   friendly_id (~> 5.4.2)
   graphiql-rails
   graphql (~> 2.0.7)
