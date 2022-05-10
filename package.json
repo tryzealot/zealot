@@ -2,7 +2,7 @@
   "name": "zealot",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^7.0.2",
+    "@rails/actioncable": "^7.0.3",
     "@rails/ujs": "^7.0.2",
     "@rails/webpacker": "5.4.3",
     "admin-lte": "^3.1.0",
