@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
-gem 'rails', '~> 7.0.2.4'
+gem 'rails', '~> 7.0.3'
 gem 'rails-i18n', '~> 7.0.3'
 gem 'rake', '~> 13.0.4'
 gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
@@ -26,7 +26,7 @@ gem 'health_check', '~> 3.1.0'
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.4.0'
+gem 'slim-rails', '~> 3.5.0'
 
 ## 表单生成
 gem 'simple_form', '~> 5.1'
