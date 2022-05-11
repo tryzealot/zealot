@@ -25,6 +25,9 @@ class ResetForDemoModeJob < ApplicationJob
     WebHook.delete_all
     Setting.delete_all
     User.delete_all
+
+    ActiveAnalytics::ViewsPerDay.where('created_at > ?', -3.months.ago)
+      .delete_all
   end
 
   def reset_jobs

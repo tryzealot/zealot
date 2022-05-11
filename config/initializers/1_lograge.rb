@@ -43,7 +43,7 @@ if Rails.env.production?
     end
 
     config.lograge.custom_options = lambda do |event|
-      options = { time: event.time }
+      options = { time: Time.zone.now }
 
       if exception = event.payload[:exception]
         options[:exception] = exception

@@ -42,6 +42,6 @@ module UserRoles
             :user
           end
 
-    Setting.present_roles[key]
+    Setting.builtin_roles[key]
   end
 end

@@ -15,37 +15,58 @@ zh-CN:
     back_to_list: 返回列表
 
   admin:
-    system_info:
+    users:
+      title: 用户
+      new:
+        title: 新建用户
       index:
-        zealot_version: Zealot 版本
-        vcs_ref: 哈希值
-        build_date: 构建日期
-        server_info: 服务器信息
-        found_new_version: '发现新版本: %{version}'
-        os_info: 操作系统
-        ruby_version: Ruby 版本
-        cpu_info: CPU
-        cpu_core: '%{count} 核'
-        fail_detect_cpu: CPU 信息监测失败
-        memory_info: 内存
-        fail_detect_memory: 内存信息监测失败
-        disk_info: 磁盘
-        fail_detect_disk: 磁盘监测失败
-        lauched_time: 运行时间
-        volume_mounted: 挂载信息
-        fail_detect_disk: 硬盘信息无法获取
-        system_environment: 系统变量
-        file_permissions: 文件权限
-        ruby_gems: Ruby Gems
-        logs: 日志
-        new_version: '发现新版本 '
-        dev_new_version: 发现新版本 (开发环境始终显示)
-        messages:
-          file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
+        title: :'admin.users.title'
+        new_user: :'admin.users.new.title'
+        number: '#'
+        nickname: 用户昵称
+        email: 邮箱
+        role: 权限
+        status: 状态
+        last_login_time: 最后登录时间
+        action: 操作
+        actived: 已激活
+        unactive: 未激活
+        never_logined: 从未登录
+        destroy_user: 删除
+        destroy_user_confirm: 你确定要删除【%{user}】用户？
+      edit:
+        title: 用户信息
+        active_link: 激活链接
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+
+    web_hooks:
+      title: 网络钩子
+      index:
+        title: :'admin.web_hooks.title'
+        number: '#'
+        url: URL
+        channels: 渠道列表
+        action: 操作
+        not_found: 没有发现网络钩子
+        create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
+        destroy: 删除
+        destroy_confirm: 你确定？
+      show:
+        title: 网络钩子详情
+      new:
+        title: 新建网络钩子
+      edit:
+        title: 编辑网络钩子
+      messages:
+        success:
+          enable: 网络钩子已经成功启用
+          disable: 网络钩子已经取消启用
+          test: 网络钩子请求测试已发送
 
     settings:
+      title: 系统设置
       index:
-        title: :'settings.title'
+        title: :'admin.settings.title'
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
@@ -57,7 +78,6 @@ zh-CN:
       enable: 开启
       disable: 关闭
       validates: '条件：%{value}'
-      edit_value: 编辑设置
 
       general: 通用配置
       site_https: 启用 HTTPS
@@ -66,8 +86,8 @@ zh-CN:
       site_domain: 网站域名
 
       presets: 预设值
-      default_schemes: 应用类型模板
-      default_role: 新用户权限
+      preset_schemes: 应用类型模板
+      preset_role: 新用户权限
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
@@ -99,42 +119,55 @@ zh-CN:
       no_editable_key: 当前设置为可读，无法修改
       reset: 恢复默认值
 
-    users:
-      new_user: 新建用户
-      user_info: 用户信息
-      number: '#'
-      nickname: 用户昵称
-      email: 邮箱
-      role: 权限
-      status: 状态
-      last_login_time: 最后登录时间
-      action: 操作
-      actived: 已激活
-      unactive: 未激活
-      never_logined: 从未登录
-      destroy_user: 删除
-      destroy_user_confirm: 你确定要删除【%{user}】用户？
-      active_link: 激活链接
-      active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+    system_info:
+      title: 环境信息
+      index:
+        title: :'admin.system_info.title'
+        zealot_version: Zealot 版本
+        vcs_ref: 哈希值
+        build_date: 构建日期
+        server_info: 服务器信息
+        found_new_version: '发现新版本: %{version}'
+        os_info: 操作系统
+        ruby_version: Ruby 版本
+        cpu_info: CPU
+        cpu_core: '%{count} 核'
+        fail_detect_cpu: CPU 信息监测失败
+        memory_info: 内存
+        fail_detect_memory: 内存信息监测失败
+        disk_info: 磁盘
+        lauched_time: 运行时间
+        volume_mounted: 挂载信息
+        fail_detect_disk: 硬盘信息无法获取
+        system_environment: 系统变量
+        file_permissions: 文件权限
+        ruby_gems: Ruby Gems
+        logs: 日志
+        new_version: '发现新版本 '
+        dev_new_version: 发现新版本 (开发环境始终显示)
+        messages:
+          file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
 
-    web_hooks:
-      show: 网络钩子详情
-      new: 新建网络钩子
-      edit: 编辑网络钩子
+    background_jobs:
+      title: 后台任务
+      index:
+        title: :'admin.background_jobs.title'
 
-      number: '#'
-      url: URL
-      channels: 渠道列表
-      action: 操作
-      not_found: 没有发现网络钩子
-      create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
-      destroy: 删除
-      destroy_confirm: 你确定？
-      messages:
-        success:
-          enable: 网络钩子已经成功启用
-          disable: 网络钩子已经取消启用
-          test: 网络钩子请求测试已发送
+    page_analytics:
+      title: 页面统计分析
+      index:
+        title: :'admin.page_analytics.title'
+
+    database_analytics:
+      title: 数据库分析
+      index:
+        title: :'admin.database_analytics.title'
+
+    logs:
+      title: 服务日志
+      index:
+        title: :'admin.logs.title'
+        notice: 仅显示最新 %{number} 行代码，暂时不支持自动刷新
 
   dashboard:
     title: 控制台
@@ -143,9 +176,9 @@ zh-CN:
       debug_files: :'debug_files.title'
       teardowns: :'teardowns.title'
       uploads: 上传次数
-      web_hooks: :'web_hooks.title'
-      users: :'users.title'
-      background_jobs: :'background_jobs.title'
+      web_hooks: :'admin.web_hooks.title'
+      users: :'admin.users.title'
+      background_jobs: :'admin.background_jobs.title'
       disk_usage: 磁盘使用率
     timeline:
       title: 上传时间线
@@ -261,6 +294,7 @@ zh-CN:
         not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
 
   releases:
+    title: 应用版本
     sources:
       web: 网页上传
       api: 接口上传
@@ -556,12 +590,9 @@ zh-CN:
 
         本服务由 %{url} 提供。
 
-  users:
-    title: 用户
-
   web_hooks:
-    title: 网络钩子
-    create: 添加网络钩子
+    title: :'admin.web_hooks.title'
+    create: :'admin.web_hooks.new.title'
     enable: 启用
     shared: 共享
     not_found: 没有发现网络钩子
@@ -569,31 +600,18 @@ zh-CN:
     test: 测试
     destroy: 删除
     disable: 禁用
-    enable: 启用
     messages:
       done: 调试文件解析完成！
       confirm:
         destroy: 确定删除?
 
-  system_info:
-    title: 环境信息
-
-  background_jobs:
-    title: 后台任务
-
-  page_analytics:
-    title: 页面统计分析
-
-  database_analytics:
-    title: 数据库分析
-
   settings:
-    title: 系统设置
-    default_schemes:
+    title: :'admin.settings.title'
+    preset_schemes:
       beta: 测试版
       adhoc: 内测版
       production: 产品版
-    default_role:
+    preset_role:
       user: 用户
       developer: 开发者
       admin: 管理员
