@@ -19,6 +19,7 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'ActiveRecord::RecordNotFound',
         'ActiveRecord::RecordInvalid',
         'ActiveRecord::NoDatabaseError',
+        'ActiveRecord::PendingMigrationError',
         'PG::ConnectionBad',
         'Interrupt',
         'SystemExit',
