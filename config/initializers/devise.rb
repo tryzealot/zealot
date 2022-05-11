@@ -1,5 +1,45 @@
 # frozen_string_literal: true
 
+Dir.glob(Rails.root.join('lib/omni_auth/strategies/**/*.rb')).each do |filename|
+  require_dependency filename
+end
+
+FEISHU_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:client_id] = Setting.feishu[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.feishu[:app_secret]
+end
+
+GITLAB_OMNIAUTH_SETUP = lambda do |env|
+  scope = Setting.gitlab[:scope]&.split(',').map(&:chomp).join(' ') || 'read_user'
+
+  env['omniauth.strategy'].options[:client_id] = Setting.gitlab[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.gitlab[:secret]
+  env['omniauth.strategy'].options[:scope] = scope
+
+  if site = Setting.gitlab[:site].presence
+    env['omniauth.strategy'].options[:client_options] = {
+      site: site,
+      authorize_url: URI.join(site, '/oauth/authorize').to_s,
+      token_url: URI.join(site, '/oauth/token').to_s
+    }
+  end
+end
+
+GOOGLE_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:client_id] = Setting.google_oauth[:client_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.google_oauth[:secret]
+end
+
+LDAP_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:host] = Setting.ldap[:host]
+  env['omniauth.strategy'].options[:port] = Setting.ldap[:port].to_i
+  env['omniauth.strategy'].options[:encryption] = Setting.ldap[:encryption].to_sym
+  env['omniauth.strategy'].options[:bind_dn] = Setting.ldap[:bind_dn]
+  env['omniauth.strategy'].options[:password] = Setting.ldap[:password]
+  env['omniauth.strategy'].options[:base] = Setting.ldap[:base]
+  env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -269,44 +309,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
 
-  # 飞书
-  feishu = Setting.feishu
-  if defined?(OmniAuth::Strategies::Feishu) && feishu[:enabled]
-    config.omniauth :feishu, feishu[:app_id], feishu[:app_secret]
-  end
-
-  # Gitlab
-  gitlab = Setting.gitlab
-  if defined?(OmniAuth::Strategies::GitLab) && gitlab[:enabled]
-    options = { scope: 'read_user' }
-    if scope = gitlab[:scope].presence
-      options[:scope] = scope.split(',').map(&:chomp).join(' ')
-    end
-
-    if site = gitlab[:site].presence
-      options[:client_options] = { site: site }
-    end
-
-    config.omniauth :gitlab, gitlab[:app_id], gitlab[:secret], options
-  end
-
-  # Google OAuth
-  google_oauth = Setting.google_oauth
-  if defined?(OmniAuth::Strategies::GoogleOauth2) && google_oauth[:enabled]
-    config.omniauth :google_oauth2, google_oauth[:client_id], google_oauth[:secret],
-                    skip_jwt: true, prompt: 'select_account', access_type: 'offline',
-                    scope: 'email,profile'
-  end
-
-  # LDAP
-  ldap = Setting.ldap
-  if defined?(OmniAuth::Strategies::LDAP) && ldap[:enabled]
-    config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
-                    host: ldap[:host], port: ldap[:port].to_i,
-                    encryption: ldap[:encryption].to_sym,
-                    bind_dn: ldap[:bind_dn],
-                    password: ldap[:password],
-                    base: ldap[:base], uid: ldap[:uid]
-                    # try_sasl: true, sasl_mechanisms: ['DIGEST-MD5']
-  end
+  config.omniauth :feishu, setup: FEISHU_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Feishu
+  config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
+  config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
+  config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Ldap
 end

@@ -48,8 +48,6 @@ class Admin::SystemInfoController < ApplicationController
 
   # GET /admin/system_info
   def index
-    @title = t('system_info.title')
-
     set_env
     set_gems
     set_server_info

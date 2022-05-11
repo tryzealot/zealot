@@ -2,13 +2,7 @@
   .social-auth-links.mb-3
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
-        ruby:
-          title = omniauth_display_name(provider)
-          key = title.downcase
-
-        a.btn.btn-default.btn-block.text-left href="#{public_send("user_#{provider}_omniauth_authorize_path")}" class="btn-auth-#{key}" data-method="post"
-          = t('devise.shared.links.sign_in_with_provider', provider: t("devise.shared.links.provider.#{key}", default: title))
-          i.icon.fab.float-right class="fa-#{key}"
+        = devise_provider_login_path(provider)
 
 - if controller_name != 'sessions'
   p.mb-1
