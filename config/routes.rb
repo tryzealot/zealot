@@ -99,13 +99,14 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks#, except: %i[edit update]
+      resources :web_hooks
       resources :settings
 
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
+      resources :logs, only: :index
 
       namespace :service do
         post :restart

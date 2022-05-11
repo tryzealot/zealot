@@ -1,0 +1,22 @@
+- content_for :title do
+  = t('.title')
+
+- content_for :section_title do
+  = t('.title')
+
+.row
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title
+          i.fas.fa-file
+          = " #{@filename}"
+        .card-tools
+          span.small = t('.notice', number: @number)
+
+      .card-body.p-0.system-log
+        ol
+          - @logs.each do |line|
+            li
+              p
+                = line
