@@ -265,7 +265,7 @@ GEM
       digest
       net-protocol
       strscan
-    net-ldap (0.17.0)
+    net-ldap (0.17.1)
     net-pop (0.1.1)
       digest
       net-protocol
@@ -538,7 +538,7 @@ DEPENDENCIES
   letter_opener_web (~> 2.0)
   listen (>= 3.0.5, < 3.8)
   lograge (~> 0.12.0)
-  net-ldap (~> 0.16)
+  net-ldap (~> 0.17)
   omniauth (~> 2.1.0)
   omniauth-feishu (~> 0.1.8)
   omniauth-gitlab (~> 3.0.0)
