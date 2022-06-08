@@ -59,7 +59,7 @@ gem 'omniauth-feishu', '~> 0.1.8'
 # gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 
 # ldap dependencies
-gem 'net-ldap', '~> 0.16'
+gem 'net-ldap', '~> 0.17'
 gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
