@@ -88,7 +88,7 @@ gem 'rqrcode'
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.5.0'
 gem 'sidekiq-scheduler', '~> 4.0.1'
-gem 'sidekiq-failures', '~> 1.0.1'
+gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
 # Assets
 gem 'turbolinks', '~> 5'
