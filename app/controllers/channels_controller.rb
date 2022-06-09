@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class ChannelsController < ApplicationController
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_channel, only: %i[show edit update destroy]
   before_action :set_scheme, except: %i[show]
 
   def show
+    authorize @channel
     @web_hook = @channel.web_hooks.new
     @releases = @channel.releases
                         .page(params.fetch(:page, 1))
@@ -31,12 +32,16 @@ class ChannelsController < ApplicationController
   end
 
   def edit
+    authorize @channel
+
     @title = t('channels.edit.title', name: @scheme.app_name)
   end
 
   def update
+    authorize @channel
+
     @channel.update(channel_params)
-    redirect_to channel_path(@channel)
+    redirect_to friendly_channel_overview_path(@channel)
   end
 
   def destroy
@@ -52,9 +57,7 @@ class ChannelsController < ApplicationController
   end
 
   def set_channel
-    @channel = Channel.friendly.find params[:id]
-    authorize @channel
-
+    @channel = Channel.friendly.find(params[:id] || params[:channel])
     @app = @channel.scheme.app
     @title = @channel.app_name
     @subtitle = t('channels.subtitle', total_scheme: @app.schemes.count, total_channel: @channel.scheme.channels.count)

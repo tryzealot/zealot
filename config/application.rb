@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Zealot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.0
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
@@ -79,8 +79,8 @@ module Zealot
     ################################################################
 
     # Auto load path
-    config.autoload_paths += %W(#{config.root}/lib)
-    config.eager_load_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib"]
+    config.eager_load_paths += Dir["#{config.root}/lib"]
 
     # Don't generate system test files.
     config.generators.system_tests = nil

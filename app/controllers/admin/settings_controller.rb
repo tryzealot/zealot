@@ -10,13 +10,15 @@ class Admin::SettingsController < ApplicationController
   end
 
   def edit
+    authorize @setting
+
     @title = t('.title')
     @value = @setting.value || @setting.default_value
 
     # FIXME: RailsSettings::Base 初始化会缓存造成 i18n 第一时间拿不到
     # 以至于 index, edit 好些地方都需要兼容
-    if @setting.var == 'default_schemes' && (@setting.value.blank? || @setting.value.empty?)
-      @value = Setting.present_schemes
+    if @setting.var == 'preset_schemes' && @setting.value.blank?
+      @value = Setting.builtin_schemes
     end
 
     # 值的多语言支持显示
@@ -26,6 +28,8 @@ class Admin::SettingsController < ApplicationController
   end
 
   def update
+    authorize @setting
+
     @title = t('.title')
     new_value = setting_param[:value]
     new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
@@ -43,6 +47,8 @@ class Admin::SettingsController < ApplicationController
   end
 
   def destroy
+    authorize @setting
+
     key = @setting.var
     @setting.destroy
 
@@ -53,7 +59,6 @@ class Admin::SettingsController < ApplicationController
 
   def set_setting
     @setting = Setting.find_or_default(var: params[:id])
-    authorize @setting
   end
 
   def setting_param

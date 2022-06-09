@@ -19,6 +19,8 @@ class DebugFileTeardownJob < ApplicationJob
     parser.clear!
 
     notification_user(debug_file, user_id)
+  rescue AppInfo::NotFoundError
+    logger.info("Can not found debug file #{debug_file.id}, may be removed.")
   end
 
   private
@@ -26,11 +28,11 @@ class DebugFileTeardownJob < ApplicationJob
   def notification_user(debug_file, user_id)
     return if user_id.blank?
 
-    ActionCable.server.broadcast("notification:#{user_id}",
+    ActionCable.server.broadcast("notification:#{user_id}", {
       type: 'teardown',
       status: 'success',
       message: t('web_hooks.messages.parse_done', id: debug_file.id)
-    )
+  })
   end
 
   def parse_dsym(debug_file, parser)

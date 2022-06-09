@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class SettingPolicy < ApplicationPolicy
-  def index?
-    admin?
-  end
-
   def show?
     admin?
   end
