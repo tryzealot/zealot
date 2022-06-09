@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mhfs/sidekiq-failures
+  revision: 22d3d0786d3d4d5a3eb828a8f393e669bd45755a
+  ref: 22d3d0786d3d4d5a3eb828a8f393e669bd45755a
+  specs:
+    sidekiq-failures (1.0.1)
+      sidekiq (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -438,8 +446,6 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
-    sidekiq-failures (1.0.1)
-      sidekiq (>= 4.0.0)
     sidekiq-scheduler (4.0.1)
       redis (>= 4.2.0)
       rufus-scheduler (~> 3.2)
@@ -568,7 +574,7 @@ DEPENDENCIES
   sentry-ruby
   sentry-sidekiq
   sidekiq (~> 6.5.0)
-  sidekiq-failures (~> 1.0.1)
+  sidekiq-failures!
   sidekiq-scheduler (~> 4.0.1)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
