@@ -1,5 +1,6 @@
 {
   "name": "zealot",
+  "version": "4.4.0",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^7.0.3",
@@ -16,6 +17,5 @@
   },
   "devDependencies": {
     "@webpack-cli/serve": "^1.6.1"
-  },
-  "version": "4.3.1"
+  }
 }
