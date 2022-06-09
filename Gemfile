@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.7'
+gem 'graphql', '~> 2.0.9'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
@@ -59,7 +59,7 @@ gem 'omniauth-feishu', '~> 0.1.8'
 # gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 
 # ldap dependencies
-gem 'net-ldap', '~> 0.16'
+gem 'net-ldap', '~> 0.17'
 gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
