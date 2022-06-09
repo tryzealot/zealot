@@ -87,7 +87,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def and_scheme(app)
     name = parse_scheme_name
-    app.schemes.find_or_create_by name: name
+    app.schemes.find_or_create_by(name: name)
   end
 
   def and_app
@@ -100,9 +100,10 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def parse_scheme_name
-    return unless app_parser.os == AppInfo::Platform::IOS
+    default_name = t('api.apps.upload.create.adhoc')
+    return default_name unless app_parser.os == AppInfo::Platform::IOS
 
-    t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: t('api.apps.upload.create.adhoc'))
+    t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: default_name)
   end
 
   def release_params
