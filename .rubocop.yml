@@ -11,7 +11,8 @@ AllCops:
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'bin/**/*'
-    - "db/**/*"
+    - 'db/**/*'
+    - 'lib/omni_auth/**/*'
   CacheRootDirectory: tmp
 
 Style/FrozenStringLiteralComment:

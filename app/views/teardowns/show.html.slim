@@ -8,6 +8,6 @@
         h5 = t('.related_app')
         p
           = t('.related_body')
-          = link_to @metadata.release.app_name, channel_release_path(@metadata.release.channel, @metadata.release)
+          = link_to @metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release)
 
   == render @metadata.platform.to_s.downcase
