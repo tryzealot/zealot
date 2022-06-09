@@ -18,5 +18,5 @@ ruby:
         = f.input :name, required: true
         - if new_or_create_route?
           = f.simple_fields_for :channel_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: default_channels, checked: checked_channel
+            = n.input :name, as: :check_boxes, collection: preset_channels, checked: checked_channel
         = f.button :submit

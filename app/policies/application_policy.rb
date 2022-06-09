@@ -13,7 +13,7 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(id: record.id).exists? || Setting.guest_mode || user?
+    scope.where(id: record.id).exists? || guest_mode_or_signed_in?
   end
 
   def create?
