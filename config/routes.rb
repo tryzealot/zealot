@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # App
   #############################################
   resources :apps do
-    resources :schemes do
+    resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
   end
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
     end
 
+    # TODO: remove whole channels module
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
       resources :branches, only: %i[index]
@@ -98,13 +99,14 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks#, except: %i[edit update]
+      resources :web_hooks
       resources :settings
 
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
       resources :page_analytics, only: :index
+      resources :logs, only: :index
 
       namespace :service do
         post :restart
@@ -165,6 +167,20 @@ Rails.application.routes.draw do
   # API v2
   #############################################
   post '/graphql', to: 'graphql#execute'
+
+  #############################################
+  # URL Friendly
+  #############################################
+  scope path: ':channel', as: :friendly_channel do
+    get '/overview', to: 'channels#show'
+    get '', to: 'releases#index', as: 'releases'
+    get 'versions', to: 'channels/versions#index', as: 'versions'
+    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
+    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
+    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
+    get ':id', to: 'releases#show', as: 'release'
+    # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
+  end
 
   #############################################
   # Development Only

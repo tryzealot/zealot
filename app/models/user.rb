@@ -21,7 +21,7 @@ class User < ApplicationRecord
   private
 
   def set_default_role
-    self.role ||= Setting.default_role || :user
+    self.role ||= Setting.preset_role || :user
   end
 
   def generate_user_token

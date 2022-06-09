@@ -36,13 +36,15 @@ if Rails.env.production?
   Rails.application.configure do
     # Better log formatting
     config.lograge.enabled = true
+    config.lograge.logger = ActiveSupport::Logger.new(STDOUT)
 
     config.lograge.custom_payload do |controller|
       custom_payload(controller)
     end
 
     config.lograge.custom_options = lambda do |event|
-      options = {}
+      options = { time: Time.zone.now }
+
       if exception = event.payload[:exception]
         options[:exception] = exception
       end
@@ -50,6 +52,7 @@ if Rails.env.production?
       if exception_object = event.payload[:exception_object]
         options[:exception_object] = exception_object
       end
+
       options
     end
 
@@ -61,7 +64,8 @@ if Rails.env.production?
     config.lograge.ignore_actions = [
       'HealthCheck::HealthCheckController#index',
       'ApplicationCable::Connection#connect',
-      'ApplicationCable::Connection#disconnect'
+      'ApplicationCable::Connection#disconnect',
+      'NotificationChannel'
     ]
   end
 end

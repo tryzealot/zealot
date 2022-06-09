@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 module AppsHelper
-  def default_schemes
-    schemes = Setting.default_schemes
-    schemes = Setting.present_schemes if schemes.empty?
+  def preset_schemes
+    schemes = Setting.preset_schemes
+    schemes = Setting.builtin_schemes if schemes.empty?
     schemes
   end
 
-  def default_channels
+  def preset_channels
     Channel.device_types.values
   end
 
   def app_icon(release, options = {})
     unless release&.icon && release.icon.file && release.icon.file.exists?
-      return image_pack_tag('media/images/touch-icon.png', options)
+      return image_pack_tag('media/images/touch-icon.png', **options)
     end
 
-    image_tag(release.icon_url, options)
+    image_tag(release.icon_url, **options)
   end
 
   def app_release_auth_key(release)
@@ -56,14 +56,22 @@ module AppsHelper
     return unless branch = release.branch
     return if branch.blank?
 
-    link_to(branch, channel_branches_path(release.channel, name: branch))
+    if params[:name] == branch
+      branch
+    else
+      link_to(branch, friendly_channel_branches_path(release.channel, name: branch))
+    end
   end
 
   def release_type_url(release)
     return unless release_type = release.release_type
     return if release_type.blank?
 
-    link_to(release_type, channel_release_types_path(release.channel, name: release_type))
+    if params[:name] == release_type
+      release_type
+    else
+      link_to(release_type, friendly_channel_release_types_path(release.channel, name: release_type))
+    end
   end
 
   def display_app_device(value)

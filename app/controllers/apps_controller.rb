@@ -13,6 +13,7 @@ class AppsController < ApplicationController
   end
 
   def show
+    authorize @app
     @title = @app.name
   end
 
@@ -25,6 +26,8 @@ class AppsController < ApplicationController
   end
 
   def edit
+    authorize @app
+
     @title = t('.title')
   end
 
@@ -40,6 +43,8 @@ class AppsController < ApplicationController
   end
 
   def update
+    authorize @app
+
     if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
       flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
       return render :edit
@@ -50,6 +55,8 @@ class AppsController < ApplicationController
   end
 
   def destroy
+    authorize @app
+
     @app.destroy
     destory_app_data
 
@@ -78,7 +85,6 @@ class AppsController < ApplicationController
 
   def set_app
     @app = App.find(params[:id])
-    authorize @app
   end
 
   def set_selected_schemes_and_channels
