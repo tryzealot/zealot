@@ -78,7 +78,9 @@ class TeardownService < ApplicationService
 
     if schemes = parser.info['CFBundleURLTypes']
       metadata.url_schemes = schemes.each_with_object([]) do |value, obj|
-        obj << value['CFBundleURLSchemes'].split(', ')
+        next unless schemes_value = value['CFBundleURLSchemes']
+
+        obj << schemes_value.split(', ')
       end
     end
   end
