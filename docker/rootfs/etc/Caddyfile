@@ -22,6 +22,8 @@ log {
 reverse_proxy @zealot {
   to localhost:3000
 
+  header_up X-Forwarded-Proto https
+
   @accel header X-Accel-Redirect *
   handle_response @accel {
     root    * /app/public
@@ -35,8 +37,4 @@ reverse_proxy @zealot {
     rewrite * /500.html
     file_server
   }
-
-  # websockets
-  # header Connection *Upgrade*
-  # header Upgrade websocket
 }

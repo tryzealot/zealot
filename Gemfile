@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
-gem 'rails', '~> 7.0.2.4'
+gem 'rails', '~> 7.0.3'
 gem 'rails-i18n', '~> 7.0.3'
 gem 'rake', '~> 13.0.4'
 gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
@@ -19,14 +19,14 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.7'
+gem 'graphql', '~> 2.0.9'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.4.0'
+gem 'slim-rails', '~> 3.5.1'
 
 ## 表单生成
 gem 'simple_form', '~> 5.1'
@@ -42,7 +42,7 @@ gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'faraday', '~> 2.2.0'
+gem 'faraday', '~> 2.3.0'
 
 ## 用户认证
 gem 'pundit', '~> 2.2.0'
@@ -59,7 +59,7 @@ gem 'omniauth-feishu', '~> 0.1.8'
 # gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
 
 # ldap dependencies
-gem 'net-ldap', '~> 0.16'
+gem 'net-ldap', '~> 0.17'
 gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
@@ -70,7 +70,7 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 2.8.2'
+gem 'pghero', '~> 2.8.3'
 gem 'active_analytics', '~> 0.2.1'
 
 ## 异常报错上报
@@ -86,9 +86,9 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.4.1'
-gem 'sidekiq-scheduler', '~> 3.2.1'
-gem 'sidekiq-failures', '~> 1.0.1'
+gem 'sidekiq', '~> 6.5.1'
+gem 'sidekiq-scheduler', '~> 4.0.1'
+gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
 # Assets
 gem 'turbolinks', '~> 5'
