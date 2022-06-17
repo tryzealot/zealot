@@ -28,7 +28,7 @@ class AppWebHookJob < ApplicationJob
       { 'Content-Type' => 'application/json' }
     )
     logger.debug(log_message("trigger response body: #{response.body}"))
-    logger.info(log_message('trigger successfully')) if r.status == 200
+    logger.info(log_message('trigger successfully')) if response.status == 200
   rescue Faraday::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
