@@ -1,15 +1,16 @@
-- flash.each do |name, msg|
-  ruby:
-    color, icon = case name
-                  when 'notice', 'success'
-                    ['success', 'check']
-                  else
-                    ['danger', 'exclamation-triangle']
-                  end
+#notifications
+  - flash.each do |name, msg|
+    ruby:
+      color, icon = case name
+                    when 'notice', 'success'
+                      ['success', 'check']
+                    else
+                      ['danger', 'exclamation-triangle']
+                    end
 
-  .alert.alert-dismissible class="alert-#{color}"
-    button.close data-dismiss="alert" aria-hidden="true"
-      | ×
-    h4
-      i.icon.fas class="fa-#{icon}"
-      = content_tag :span, msg, :id => "flash_#{name}"
+    .alert.alert-dismissible class="alert-#{color}"
+      button.close data-dismiss="alert" aria-hidden="true"
+        | ×
+      h4
+        i.icon.fas class="fa-#{icon}"
+        = content_tag(:span, msg, :id => "flash_#{name}")

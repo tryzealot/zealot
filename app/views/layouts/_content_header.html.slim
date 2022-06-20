@@ -9,9 +9,9 @@ ruby:
   section.content-header
     .container-fluid
       .row.pl-2
-        .col-sm-6
+        .col-sm-7
           h1 = yield :section_title
-        .col-sm-6
+        .col-sm-5
           - if right_panel.present?
             div.float-sm-right
               = right_panel
@@ -20,4 +20,4 @@ ruby:
             ol.breadcrumb.float-sm-right
               = breadcrumb
 - else
-  div style="padding: 7px 0;"
+  .pt-3

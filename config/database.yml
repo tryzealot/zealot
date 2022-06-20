@@ -2,9 +2,10 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: 5
+  host: <%= ENV['ZEALOT_POSTGRES_HOST'] || 'localhost' %>
+  port: <%= ENV['ZEALOT_POSTGRES_PORT'] || '5432' %>
   username: <%= ENV['ZEALOT_POSTGRES_USERNAME'] || 'zealot' %>
   password: <%= ENV['ZEALOT_POSTGRES_PASSWORD'] || '' %>
-  host: <%= ENV['ZEALOT_POSTGRES_HOST'] || 'localhost' %>
   database: <%= (host = ENV['ZEALOT_POSTGRES_DB_NAME'] || 'zealot'; case ENV['RAILS_ENV'] when 'test' then "#{host}_test"; when 'production' then host else "#{host}_development"; end) %>
 
 development:

@@ -3,7 +3,7 @@
 class DebugFileTeardownJob < ApplicationJob
   queue_as :app_parse
 
-  def perform(debug_file)
+  def perform(debug_file, user_id = nil)
     parser = AppInfo.parse(debug_file.file.path)
 
     case parser.file_type
@@ -14,13 +14,26 @@ class DebugFileTeardownJob < ApplicationJob
       update_debug_file_version(debug_file, parser)
       parse_proguard(debug_file, parser)
     end
-  rescue => e
-    logger.error "Can not teardown debug file: #{e}"
-    logger.error e.backtrace.join("\n")
-    Raven.capture_exception(e)
+
+    # 清理掉临时生成的文件
+    parser.clear!
+
+    notification_user(debug_file, user_id)
+  rescue AppInfo::NotFoundError
+    logger.info("Can not found debug file #{debug_file.id}, may be removed.")
   end
 
   private
+
+  def notification_user(debug_file, user_id)
+    return if user_id.blank?
+
+    ActionCable.server.broadcast("notification:#{user_id}", {
+      type: 'teardown',
+      status: 'success',
+      message: t('web_hooks.messages.parse_done', id: debug_file.id)
+  })
+  end
 
   def parse_dsym(debug_file, parser)
     parser.machos.each do |macho|

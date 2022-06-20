@@ -3,19 +3,22 @@
 class AppsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy]
+  before_action :set_selected_schemes_and_channels, only: %i[edit]
+  before_action :process_scheme_and_channel, only: %i[create]
 
   def index
-    @title = '应用管理'
+    @title = t('.title')
     @apps = App.all
     authorize @apps
   end
 
   def show
+    authorize @app
     @title = @app.name
   end
 
   def new
-    @title = '新建应用'
+    @title = t('.title')
     @app = App.new
     authorize @app
 
@@ -23,31 +26,37 @@ class AppsController < ApplicationController
   end
 
   def edit
-    @title = '编辑应用'
+    authorize @app
+
+    @title = t('.title')
   end
 
   def create
-    schemes = app_params.delete(:schemes_attributes)
-    channel = app_params.delete(:channel)
-
     @app = App.new(app_params)
     authorize @app
 
     return render :new unless @app.save
 
     @app.users << current_user
-
-    create_schemes_by(@app, schemes, channel)
-
-    redirect_to apps_path, notice: "#{@app.name}应用已经创建成功！"
+    app_create_schemes_and_channels
+    redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
 
   def update
+    authorize @app
+
+    if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
+      flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
+      return render :edit
+    end
+
     @app.update(app_params)
     redirect_to apps_path
   end
 
   def destroy
+    authorize @app
+
     @app.destroy
     destory_app_data
 
@@ -58,57 +67,54 @@ class AppsController < ApplicationController
 
   def destory_app_data
     require 'fileutils'
+
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
-    logger.debug "Delete app all binary and icons in #{app_binary_path}"
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 
-  def create_schemes_by(app, schemes, channel)
-    schemes.values[0][:name].each do |scheme_name|
-      next if scheme_name.blank?
+  def app_create_schemes_and_channels
+    @schemes.each do |scheme_name|
+      scheme = @app.schemes.create(name: scheme_name)
+      next if @channels.empty?
 
-      scheme = app.schemes.create name: scheme_name
-      next unless channels = channel_value(channel)
-
-      channels.each do |channel_name|
+      @channels.each do |channel_name|
         scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
       end
     end
   end
 
-  def channel_value(platform)
-    case platform
-    when 'ios' then ['iOS']
-    when 'android' then ['Android']
-    when 'both' then ['Android', 'iOS']
+  def set_app
+    @app = App.find(params[:id])
+  end
+
+  def set_selected_schemes_and_channels
+    @schemes = []
+    @channels = []
+    @app.schemes.each do |scheme|
+      @schemes << scheme.name
+
+      channels = scheme.channels.pluck(:name)
+      channels.each do |channel_name|
+        @channels << channel_name unless @channels.include?(channel_name)
+      end
     end
   end
 
-  def set_app
-    @app = App.find(params[:id])
-    authorize @app
-  end
-
-  def app_info
-    @release =
-      if params[:version]
-        @app.releases.find_by(app: @app, version: params[:version])
-      else
-        @app.releases.last
-      end
-
-    raise ActiveRecord::RecordNotFound, "没有找到应用版本 version: #{params[:version]}" unless @release
+  def process_scheme_and_channel
+    @schemes = app_params.delete(:scheme_attributes)[:name].reject(&:empty?)
+    @channels = app_params.delete(:channel_attributes)[:name].reject(&:empty?)
   end
 
   def app_params
     @app_params ||= params.require(:app)
                           .permit(
-                            :name, :channel,
-                            schemes_attributes: { name: [] }
+                            :name,
+                            scheme_attributes: { name: [] },
+                            channel_attributes: { name: [] },
                           )
   end
 
   def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: "没有找到应用 #{e.id}，跳转至应用列表"
+    redirect_to apps_path, notice: t('apps.messages.failture.not_found_app', id: e.id)
   end
 end

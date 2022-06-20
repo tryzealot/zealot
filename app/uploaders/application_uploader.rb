@@ -17,15 +17,6 @@ class ApplicationUploader < CarrierWave::Uploader::Base
     @checksum ||= Digest::MD5.hexdigest(chunk.read.to_s)
   end
 
-  def filename
-    @filename ||= case
-                  when identifier
-                    identifier
-                  when super
-                    "#{checksum}#{File.extname(super)}"
-                  end
-  end
-
   protected
 
   # Copy from https://github.com/carrierwaveuploader/carrierwave/wiki/how-to:-make-a-fast-lookup-able-storage-directory-structure

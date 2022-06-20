@@ -18,32 +18,28 @@ ruby:
                       = device_name(debug_file.device_type)
                   .debug-file-build-version
                     - if debug_file.build_version.blank?
-                      | 后台任务正在解析中，请稍候刷新。
+                      = t('debug_files.index.processing')
                     - else
-                      | 构建版本：
-                      = debug_file.build_version
+                      = t('debug_files.index.version', version: debug_file.build_version)
 
                 .debug-file-section-size
-                  - if debug_file.has_file?
+                  - if debug_file.file?
                     a.btn.btn-icon.btn-sm.btn-success.btn-flat href="#{debug_file.file_url}" target="_blank"
-                      i.fas.fa-download
-                      | 下载 (
-                      = number_to_human_size(debug_file.file.size)
-                      | )
+                      i.icon.fas.fa-download
+                      = t('debug_files.index.download', size: number_to_human_size(debug_file.file.size))
                   - else
                     button.btn.btn-secondary.btn-icon.btn-sm.btn-flat.disabled
-                      i.fas.fa-ghost
-                      | 遗失文件无法下载
+                      i.icon.fas.fa-ghost
+                      = t('debug_files.index.missing_file')
                   - if user_signed_in?
                     button.btn.btn-icon.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug_file.id}" data-url="#{debug_file_path(debug_file)}" data-toggle="modal"
-                      i.fas.fa-trash-alt
-                      | 删除
+                      i.icon.fas.fa-trash-alt
+                      = t('debug_files.index.destroy')
                   .div.text-center
                     small style="color: #999"
-                      | 上传于
-                      = time_ago_in_words(debug_file.created_at)
+                      = t('debug_files.index.uploaded_at', time: time_ago_in_words(debug_file.created_at))
 
               == render 'metadata', debug_file: debug_file
   - else
     .alert
-      | 还没有上传任何 Debug File，点击右上角上传一个吧。
+      = t('debug_files.index.empty_content')

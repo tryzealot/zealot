@@ -1,5 +1,45 @@
 # frozen_string_literal: true
 
+Dir.glob(Rails.root.join('lib/omni_auth/strategies/**/*.rb')).each do |filename|
+  require_dependency filename
+end
+
+FEISHU_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:client_id] = Setting.feishu[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.feishu[:app_secret]
+end
+
+GITLAB_OMNIAUTH_SETUP = lambda do |env|
+  scope = Setting.gitlab[:scope]&.split(',').map(&:chomp).join(' ') || 'read_user'
+
+  env['omniauth.strategy'].options[:client_id] = Setting.gitlab[:app_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.gitlab[:secret]
+  env['omniauth.strategy'].options[:scope] = scope
+
+  if site = Setting.gitlab[:site].presence
+    env['omniauth.strategy'].options[:client_options] = {
+      site: site,
+      authorize_url: URI.join(site, '/oauth/authorize').to_s,
+      token_url: URI.join(site, '/oauth/token').to_s
+    }
+  end
+end
+
+GOOGLE_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:client_id] = Setting.google_oauth[:client_id]
+  env['omniauth.strategy'].options[:client_secret] = Setting.google_oauth[:secret]
+end
+
+LDAP_OMNIAUTH_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:host] = Setting.ldap[:host]
+  env['omniauth.strategy'].options[:port] = Setting.ldap[:port].to_i
+  env['omniauth.strategy'].options[:encryption] = Setting.ldap[:encryption].to_sym
+  env['omniauth.strategy'].options[:bind_dn] = Setting.ldap[:bind_dn]
+  env['omniauth.strategy'].options[:password] = Setting.ldap[:password]
+  env['omniauth.strategy'].options[:base] = Setting.ldap[:base]
+  env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -14,10 +54,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  # config.mailer_sender = 'no-reply@' + Rails.configuration.x.url_options[:host]
+  # config.mailer_sender = 'no-reply@' + Setting.url_options[:host]
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'DeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -115,9 +155,6 @@ Devise.setup do |config|
   # Send a notification email when the user's password is changed
   config.send_password_change_notification = true
 
-  # Send a notification email when the user's password is changed
-  config.send_password_change_notification = true
-
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
   # confirming their account. For instance, if set to 2.days, the user will be
@@ -138,7 +175,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -271,43 +308,9 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  # Google OAuth
-  if defined?(OmniAuth::Strategies::GoogleOauth2) &&
-     Rails.application.secrets[:google_oauth_enabled]
-
-    google_client_id = Rails.application.secrets[:google_client_id]
-    google_secret = Rails.application.secrets[:google_secret]
-
-    config.omniauth :google_oauth2,
-                    google_client_id,
-                    google_secret,
-                    skip_jwt: true,
-                    prompt: 'select_account',
-                    access_type: 'offline',
-                    scope: 'email,profile'
-  end
-
-  # LDAP
-  if defined?(OmniAuth::Strategies::LDAP) &&
-     Rails.application.secrets[:ldap_enabled]
-
-    ldap_host = Rails.application.secrets[:ldap_host]
-    ldap_port = Rails.application.secrets[:ldap_port]
-    ldap_method = (Rails.application.secrets[:ldap_method] || 'plain').to_sym
-    ldap_base_dn = Rails.application.secrets[:ldap_base_dn]
-    ldap_password = Rails.application.secrets[:ldap_password]
-    ldap_base = Rails.application.secrets[:ldap_base]
-    ldap_uid = Rails.application.secrets[:ldap_uid]
-
-    config.omniauth :ldap, title: 'Zealot LDAP 认证登录',
-                           host: ldap_host,
-                           port: ldap_port,
-                           method: ldap_method,
-                           bind_dn: ldap_base_dn,
-                           password: ldap_password,
-                           base: ldap_base,
-                           uid: ldap_uid
-  end
+  config.omniauth :feishu, setup: FEISHU_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Feishu
+  config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
+  config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
+  config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::Ldap
 end

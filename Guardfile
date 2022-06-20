@@ -1,8 +1,23 @@
 # frozen_string_literal: true
 
 if `uname`.match?(/Darwin/)
-  ENV['TERMINAL_NOTIFIER_BIN'] ||= '/usr/local/bin/terminal-notifier'
   notification :terminal_notifier
+elsif ENV['TERM'] == 'screen' && !ENV['TMUX'].empty?
+  notification :tmux,
+    display_message: true,
+    timeout: 5, # in seconds
+    default_message_format: '%s >> %s',
+    line_separator: ' > ', # since we are single line we need a separator
+    color_location: 'status-right-bg', # to customize which tmux element will change color
+
+    # Other options:
+    default_message_color: 'black',
+    success: 'colour150',
+    failed: 'colour174',
+    pending: 'colour179',
+
+    # Notify on all tmux clients
+    display_on_all_clients: false
 end
 
 ignore_rails = ENV['IGNORE_RAILS'] || 'false'
@@ -19,11 +34,6 @@ environment = ENV.fetch('RAILS_ENV', 'development')
 guard :sidekiq, environment: environment, concurrency: 5 do
   watch(%r{^config/sidekiq.yml$})
   watch(%r{^app/jobs/(.+)\.rb$})
-end
-
-guard :webpacker do
-  watch('config/webpacker.yml')
-  watch(%r{^config/webpack/.*$})
 end
 
 # Guard-Rails supports a lot options with default values:
@@ -64,7 +74,6 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-# guard :migrate do
-#   watch(%r{^db/migrate/(\d+).+\.rb})
-#   watch('db/seeds.rb')
-# end
+guard :migrate do
+  watch(%r{^db/migrate/(\d+).+\.rb})
+end

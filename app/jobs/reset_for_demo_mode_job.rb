@@ -11,25 +11,33 @@ class ResetForDemoModeJob < ApplicationJob
       return
     end
 
-    clean_apps
-    clean_users
+    clean_app_data
     init_demo_data
+    reset_jobs
   end
 
   private
 
-  def clean_apps
-    apps = App.all
-    apps.each do |app|
-      app.destroy
-    end
+  def clean_app_data
+    App.delete_all
+    DebugFile.delete_all
+    Metadatum.delete_all
+    WebHook.delete_all
+    Setting.delete_all
+    User.delete_all
+
+    ActiveAnalytics::ViewsPerDay.where('created_at > ?', -3.months.ago)
+      .delete_all
   end
 
-  def clean_users
-    users = User.all
-    users.each do |user|
-      user.destroy
-    end
+  def reset_jobs
+    require 'sidekiq/api'
+    require 'sidekiq/failures/failure_set'
+
+    Sidekiq::Failures::FailureSet.new.clear
+    Sidekiq::RetrySet.new.clear
+    Sidekiq::DeadSet.new.clear
+    Sidekiq::Stats.new.reset
   end
 
   def init_demo_data

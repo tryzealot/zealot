@@ -1,0 +1,6 @@
+name: 新特性 | Feature request
+description: 期望开发新功能、新特性 | Request a feature
+body:
+- type: textarea
+  attributes:
+    label: 描述 | Description
