@@ -3,10 +3,23 @@
 class Admin::SystemInfoController < ApplicationController
   VERSION_CHECK_URL = 'https://api.github.com/repos/tryzealot/zealot/releases/latest'
 
+  FILE_PERMISSIONS = {
+    app: [
+      'log',
+      'public/backup',
+      'public/uploads',
+      'tmp'
+    ],
+    system: [
+      '/tmp'
+    ]
+  }.freeze
+
   EXCLUDED_MOUNT_OPTIONS = [
     'nobrowse',
     'read-only',
-    'ro'
+    'ro',
+    'noexec'
   ].freeze
 
   EXCLUDED_MOUNT_TYPES = [
@@ -33,81 +46,62 @@ class Admin::SystemInfoController < ApplicationController
     'vfat'
   ].freeze
 
-  HIDDEN_ENV_VALUES = [
-    'token',
-    'key',
-    'password',
-    'api_key',
-    'client_key',
-    'secret'
-  ].freeze
-
-  EXCLUDED_ENV_KEYS = [
-    'SHELL',
-    'TERM',
-    'USER',
-    'EDITOR',
-    'PWD',
-    'PATH',
-    'LANG',
-    'HOME',
-    'GEM_HOME',
-    '_'
-  ].freeze
-
   # GET /admin/system_info
   def index
-    @title = '系统信息'
-    @booted_at = Rails.application.config.booted_at
-
-    set_cpus
-    set_memory
-    set_disks
     set_env
-    get_version
+    set_gems
+    set_server_info
+    set_disk_volumes
+    set_file_permissions
   end
 
   private
 
-  def set_cpus
-    @cpus = Vmstat.cpu
-  rescue
-    @cpus = nil
-  end
+  def set_file_permissions
+    @file_permissions = {
+      health: true,
+      permissions: []
+    }
 
-  def set_memory
-    @memory = Vmstat.memory
-  rescue
-    @memory = nil
+    FILE_PERMISSIONS.each do |scope, paths|
+      paths.each do |path|
+        real_path = scope == :system ? path : Rails.root.join(path)
+        health = File.writable?(real_path)
+
+        @file_permissions[:health] = false if !health
+        @file_permissions[:permissions].push(path: real_path.to_s, health: health)
+      end
+    end
+
+    @file_permissions
   end
 
   def set_env
-    @env = ENV.each_with_object({}) do |(key, value), obj|
-      obj[key] = if HIDDEN_ENV_VALUES.select { |k| key.downcase.include?(k) }.blank?
-                   value
-                 else
-                   '*' * 10
-                 end
-    end.sort
+    @env = ENV.sort
   end
 
-  def set_disks
-    mounts = ::Sys::Filesystem.mounts
-    @disks = mounts.each_with_object([]) do |mount, obj|
-      mount_options = mount.options.split(',')
+  def set_gems
+    @gems ||= Hash[Gem::Specification.map { |spec| [spec.name, spec.version.to_s] }].sort
+  end
 
+  def set_disk_volumes
+    @disks = ::Sys::Filesystem.mounts.each_with_object([]) do |mount, obj|
+      mount_options = mount.options.split(',').map(&:strip)
       next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
       next if (EXCLUDED_MOUNT_TYPES & [mount.mount_type]).any?
 
       begin
         disk = Sys::Filesystem.stat(mount.mount_point)
         next if obj.any? { |i| i[:mount_path] == disk.path }
+        next if disk.bytes_total.zero?
 
+        percent = percent(disk.bytes_used, disk.bytes_total)
         obj.push(
           bytes_total: disk.bytes_total,
           bytes_used: disk.bytes_used,
-          disk_name: mount.name,
-          mount_path: disk.path
+          mount_path: disk.path,
+          percent: percent,
+          color: progress_color(percent)
         )
       rescue Sys::Filesystem::Error
         next
@@ -115,34 +109,70 @@ class Admin::SystemInfoController < ApplicationController
     end
   end
 
-  def get_version
-    begin
-      version = Rails.cache.fetch('zealot_version_check', expires_in: 1.hours) do
-        HTTP.headers(accept: 'application/vnd.github.v3+json')
-            .get(VERSION_CHECK_URL)
-            .parse
-      end
+  def set_server_info
+    require 'etc'
 
-      latest_version = version['tag_name']
-      update_available = update_available?(latest_version)
-      release_link = version['html_url']
-    rescue HTTP::ConnectionError
-      update_available = false
-      latest_version = nil
-      release_link = nil
-    end
-
-    @version = {
-      update_available: update_available,
-      current_version: Setting.version,
-      latest_version: latest_version,
-      release_link: release_link,
+    @server = {
+      os_info: Etc.uname.values.join(' '),
+      ruby_version: RUBY_DESCRIPTION,
+      zealot_version: Setting.version,
+      zealot_vcs_ref: Setting.vcs_ref,
+      build_date: Setting.build_date,
+      cpu: cpu&.length,
+      memory: memory,
+      diskspace: diskspace,
+      booted_at: Rails.application.config.booted_at
     }
   end
 
-  def update_available?(new_version)
-    return true if Rails.env.development? || Setting.version == 'development'
+  def cpu
+    @cpu ||= Vmstat.cpu
+  rescue
+    @cpu = nil
+  end
 
-    Gem::Version.new(new_version) > Gem::Version.new(Setting.version)
+  def memory
+    return @memory if @memory
+
+    memory = Vmstat.memory
+    percent = percent(memory.active_bytes, memory.total_bytes)
+    @memory = {
+      used: memory.active_bytes,
+      total: memory.total_bytes,
+      percent: percent,
+      color: progress_color(percent)
+    }
+  rescue
+    @memory = nil
+  end
+
+  def diskspace
+    return @diskspace if @diskspace
+
+    disk = Sys::Filesystem.stat(Rails.root)
+    percent = percent(disk.bytes_used, disk.bytes_total)
+    @diskspace ||= {
+      used: disk.bytes_used,
+      total: disk.bytes_total,
+      percent: percent,
+      color: progress_color(percent)
+    }
+  rescue
+    @diskspace = nil
+  end
+
+  def percent(value, n)
+    value.to_f / n.to_f * 100.0
+  end
+
+  def progress_color(percent)
+    case percent.to_i
+    when 0..60
+      'bg-success'
+    when 61..80
+      'bg-warning'
+    else
+      'bg-danger'
+    end
   end
 end

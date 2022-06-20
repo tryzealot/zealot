@@ -2,12 +2,12 @@
 .card
   .card-header
     h3.card-title
-      i.fas.fa-qrcode
-      |  二维码安装
+      i.icon.fas.fa-qrcode
+      = t('releases.show.qrcode')
     .card-tools
       button.btn.btn-tool data-card-widget="collapse"
         i.fas.fa-minus
-  .card-body.text-center
+  .card-body.text-center.p-0
     .qr_code
       = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)
-  .card-footer.text-center 任何支持二维码识别的 App 均可
+  .card-footer.text-center = t('releases.show.scan_qrcode_with_any_suppprted_app')

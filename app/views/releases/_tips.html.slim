@@ -1,11 +1,11 @@
-- if wechat?
+- if app_limited?
   div.cover
-  div.wechat-tips
-    span
-      = "点击右上角菜单"
+  div.app-limited-tips
+    span.text-right
+      = t('releases.show.app_touch_menu')
       br
       - if ios?
-        = "在 Safari 中打开并安装"
+        = t('releases.show.app_open_in_safari')
       - else
-        = "在任意浏览器中打开并安装"
-    = image_pack_tag('media/images/wechat/short-arrow.png')
+        = t('releases.show.app_open_in_webbrower')
+    = image_pack_tag('media/images/icons/short-arrow.png')

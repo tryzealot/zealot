@@ -5,8 +5,8 @@ ruby:
   .card
     .card-header
       h3.card-title
-        i.fas.fa-archive
-        |  历史主版本
+        i.icon.fas.fa-archive
+        = t('releases.show.majar_versions')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
@@ -15,5 +15,5 @@ ruby:
         - channel.release_versions.each do |version|
           tr
             td
-              = link_to version, channel_version_path(channel.slug, version)
+              = link_to version, friendly_channel_version_path(channel.slug, version)
 

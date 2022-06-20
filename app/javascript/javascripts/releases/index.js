@@ -41,12 +41,12 @@
 // }
 
 $(document).on('turbolinks:load', function () {
-  $('#download_it').click(function () {
-    var wechat_regex = /MicroMessenger/i;
+  $('#download_it').on('click', function () {
+    var app_limit_regex = /MicroMessenger|DingTalk/i;
     var that = $('#download_it');
-    if (wechat_regex.test(navigator.userAgent)) {
+    if (app_limit_regex.test(navigator.userAgent)) {
       $('.cover').removeClass('hide');
-      $('.wechat-tips').removeClass('hide');
+      $('.app-limited-tips').removeClass('hide');
       $('.navbar-fixed-top').css('z-index', 0);
     }
 
@@ -64,13 +64,13 @@ $(document).on('turbolinks:load', function () {
     window.location.href = install_url;
   });
 
-  $('.cover').click(function () {
+  $('.cover').on('click', function () {
     $(this).addClass('hide');
-    $('.wechat-tips').addClass('hide');
+    $('.app-limited-tips').addClass('hide');
     $('.navbar-fixed-top').css('z-index', 1030);
   });
 
-  $('.ios-install-issues a').click(function () {
+  $('.ios-install-issues a').on('click', function () {
     $('#install-issues').modal('toggle');
   });
 });

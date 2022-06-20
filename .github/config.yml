@@ -1,11 +1,18 @@
 newIssueWelcomeComment: >
-  感谢你提交的问题或反馈，我会在有时间的时候回复在此期间你可以看看
-  [之前被解决的反馈](https://github.com/tryzealot/zealot/issues?q=is%3Aissue+is%3Aclosed)说不定有你需要的答案。
+  感谢你提交的问题或反馈，我会在有时间的时候回复在此期间你可以看看[之前被解决的反馈](https://github.com/tryzealot/zealot/issues?q=is%3Aissue+is%3Aclosed)说不定有你需要的答案。
+  
+  Thanks for opening this issue, a maintainer will get back to you shortly!
+  
 
 newPRWelcomeComment: >
   感谢你提交的问题或反馈，我会在有时间的时候来审查代码。
+  
+  Thanks so much for opening your first PR here!
+
 
 firstPRMergeComment: >
   感谢贡献 PR 来支持 Zealot! :tada:
+  
+  Congrats on merging your first pull request here! :tada: How awesome!
 
   ![Congrats!](https://media.giphy.com/media/Tugu78Y5vg0Ss/giphy.gif)

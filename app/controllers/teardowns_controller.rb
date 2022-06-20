@@ -1,96 +1,77 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
-  before_action :authenticate_user! unless Setting.guest_mode
+  before_action :authenticate_user!, except: %[show]
   before_action :set_metadata, only: %i[show destroy]
 
   def index
-    # redirect_to new_teardown_path, alert: "链接失效，请重新解析文件"
-    @title = '文件解析'
+    @title = t('.title')
     @metadata = Metadatum.page(params.fetch(:page, 1))
-                         .per(params.fetch(:per_page, 10))
+                         .per(params.fetch(:per_page, 50))
                          .order(id: :desc)
   end
 
   def show
-    @title = "#{@metadata.name} #{@metadata.release_version} (#{@metadata.build_version}) 解析信息"
+    authorize @metadata
+    @title = t('.title', name: @metadata.name,
+                release_version: @metadata.release_version,
+                build_version: @metadata.build_version)
   end
 
   def new
-    @title = '文件解析'
+    @title = t('.title')
+    @metadata = Metadatum.new
+    authorize @metadata
   end
 
   def create
-    case params[:type]
-    when 'upload'
-      parse_app
-    when 'url'
-      parse_exists_app
-    else
-      flash[:error] = '错误请求，无法解析'
-      render :new
-    end
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:error] = "无法找到解析文件: #{e}"
+    @title = t('.title')
+    parse_app
+  rescue AppInfo::NotFoundError, ActiveRecord::RecordNotFound => e
+    flash[:error] = t('teardowns.messages.errors.not_found_file', message: e.message)
     render :new
   rescue ActionController::RoutingError => e
     flash[:error] = e.message
     render :new
   rescue AppInfo::UnkownFileTypeError
-    flash[:error] = '无法识别上传的应用类型'
+    flash[:error] = t('teardowns.messages.errors.failed_detect_file_type')
     render :new
-  rescue AppInfo::NotFoundError => e
-    flash[:error] = "无法找到解析文件: #{e}"
+  rescue AppInfo::UnkownFileTypeError
+    flash[:error] = t('teardowns.messages.errors.not_support_file_type')
+    render :new
+  rescue NoMethodError => e
+    logger.error "Teardown error: #{e}"
+    Sentry.capture_exception e
+    flash[:error] = t('teardowns.messages.errors.failed_get_metadata')
+    render :new
+  rescue => e
+    logger.error "Teardown error: #{e}"
+    Sentry.capture_exception e
+    flash[:error] = t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
     render :new
   end
 
   def destroy
+    authorize @metadata
     @metadata.destroy
 
-    redirect_to teardowns_path, notice: "[#{@metadata.id}] #{@metadata.name} 应用解析记录删除成功！"
+    redirect_to teardowns_path, notice: t('activerecord.success.destroy', key: "#{t('teardowns.title')}")
   end
 
   private
 
   def set_metadata
     @metadata = Metadatum.find(params[:id])
-    authorize @metadata
   end
 
   def parse_app
     unless file = params[:file]
-      raise ActionController::RoutingError, '请选择需要解析的 ipa、apk 安装包或 .mobileprovision 文件'
+      raise ActionController::RoutingError, t('teardowns.messages.errors.choose_supported_file_type')
     end
 
-    parse(file.tempfile)
-  end
-
-  def parse_exists_app
-    data = Rails.application.routes.recognize_path(params[:url])
-    determine_release_detail_url!(data)
-    find_release_and_parse(data[:id])
-  end
-
-  def parse(file, release_id = nil)
     metadata = TeardownService.call(file)
-    metadata.update_attribute(:release_id, release_id) if release_id.present?
     metadata.update_attribute(:user_id, current_user.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
-  end
-
-  def determine_release_detail_url!(data)
-    unless data[:controller] == 'releases' && data[:action] == 'show'
-      raise ActionController::RoutingError, '不是正确的版本详情链接，请重试'
-    end
-  end
-
-  def find_release_and_parse(release_id)
-    release = Release.find(release_id)
-    unless release&.file.file && File.exist?(release.file.file.path)
-      raise ActionController::RoutingError, '文件已经无法找到，可能已经被清理或删除，请重试'
-    end
-
-    parse(release.file.file.path, release_id)
   end
 end

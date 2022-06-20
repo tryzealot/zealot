@@ -7,15 +7,12 @@
 .row
   .col-md-12
     .card.card-outline-tabs.card-primary.card-outline
-      .card-header.p-0.border-bottom-0
-        ul.nav.nav-tabs role="tablist"
-          li.nav-item
-            a.nav-link.active data-toggle="tab" href="#tab-upload" 上传应用
-          li.nav-item
-            a.nav-link data-toggle="tab" href="#tab-exists" 已上传应用
       .card-body
-        .tab-content
-          .tab-pane.active id="tab-upload"
-            == render 'upload_form'
-          .tab-pane id="tab-exists"
-            == render 'exists_form'
+        = form_tag(teardowns_path, multipart: true) do |form|
+          .form-group
+            = label_tag :file, "#{t('.file')} #{content_tag(:abbr, '*', title: 'required')}".html_safe, for: 'file'
+            .input-group
+              = file_field_tag 'file', class: 'form-control-file', id: 'file'
+            small.form-text.text-muted = t('.file_hint')
+
+          = submit_tag t('.submit'), class: 'btn btn-primary'
