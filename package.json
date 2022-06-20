@@ -1,6 +1,6 @@
 {
   "name": "zealot",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^7.0.3",
