@@ -4,7 +4,7 @@ module Types
   class AppType < Types::BaseObject
     description 'App 信息'
 
-    field :id, Int, null: false
+    field :id, ID, null: false
     field :slug, String, null: false
     field :name, String, null: false
     field :platform, String, null: false
@@ -19,7 +19,7 @@ module Types
 
     field :key, String, null: false
 
-    field :created_at, String, null: false
-    field :updated_at, String, null: false
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end
 end

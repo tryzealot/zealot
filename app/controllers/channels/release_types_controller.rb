@@ -6,7 +6,7 @@ class Channels::ReleaseTypesController < ApplicationController
 
   def index
     @title = @channel.app_name
-    @subtitle = "#{@type} 类型版本列表"
+    @subtitle = t('.subtitle', type: @type)
 
     render 'channels/filters/index'
   end
@@ -23,6 +23,7 @@ class Channels::ReleaseTypesController < ApplicationController
   end
 
   def set_channel
-    @channel = Channel.friendly.find params[:channel_id]
+    @channel = Channel.friendly.find(params[:channel_id] || params[:channel])
+    authorize @channel, :release_types?
   end
 end

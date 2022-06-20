@@ -5,21 +5,3 @@ cd /app
 # Clear pid if unexpected exception exit
 rm -f tmp/pids/.pid
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
-
-# Updating assets
-if [ -d "new_public" ]; then
-  echo "Zealot updating public ..."
-  for x in public/*; do
-    if [ -z $(echo "$x" | grep uploads) ]; then
-      rm -rf "$x" > /dev/null
-    fi
-  done
-
-  for x in new_public/*; do
-    if [ -z $(echo "$x" | grep uploads) ]; then
-      mv "$x" "public"
-    fi
-  done
-
-  rm -rf new_public
-fi

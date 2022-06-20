@@ -3,107 +3,109 @@
   .callout.callout-warning
     h5
       i.icon.fas.fa-info
-      |  当前不是最新版本！
+      = t('releases.show.not_latest_release')
     p
-      = " #{latest_release.release_version} (#{latest_release.build_version}) "
-      = "于 #{time_ago_in_words(latest_release.created_at)}发布了，"
-      = link_to '点击查看最新版本', channel_release_path(latest_release.channel, latest_release)
-      | 。
+      = raw t('releases.show.released_new_version', \
+            release_version: latest_release.release_version, \
+            build_version: latest_release.build_version, \
+            time: time_ago_in_words(latest_release.created_at), \
+            link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release)))
 
 .app-detail.card
   .card-header
     h3.card-title
-      = app_icon(@release, size: :medium, class: 'app-icon img-circle img-bordered-sm')
+      = app_icon(@release, class: 'app-icon img-circle img-bordered-sm')
       .app-name
-        = @release.app_name
+        = @release.name || @release.app_name
         .app-identifier
           = @release.bundle_id
   .card-body
     ul.app-metadata
-      li title="上传版本"
+      - if @release.name.present?
+        li title="#{t('releases.show.name')}"
+          i.fas.fa-list-ul
+          - if guest_mode_or_signed_in?
+            = link_to @release.app_name, friendly_channel_overview_path(@release.channel)
+          - else
+            = @release.app_name
+      li title="#{t('releases.show.version')}"
         i.fab.fa-gg
         = @release.version
-      li title="平台"
+      li title="#{t('releases.show.device_type')}"
         = device_icon(@release.channel.device_type)
         = display_app_device(@release)
-      - if @release.name.present?
-        li title="应用名"
-          i.fas.fa-file
-          = @release.name
-      li title="主版本"
+      li title="#{t('releases.show.release_version')}"
         i.fas.fa-server
         = "#{@release.release_version} (#{@release.build_version})"
       - if @release.release_type.present?
-        li title="类型"
+        li title="#{t('releases.show.release_type')}"
           i.fas.fa-cubes
           = release_type_url(@release)
       - if @release.file.present?
-        li title="文件体积"
+        li title="#{t('releases.show.filesize')}"
           i.fas.fa-weight
           = " #{number_to_human_size(@release.file.size)}"
-      li title="上传时间"
+      li title="#{t('releases.show.uploaded_at')}"
         i.fas.fa-calendar
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?
-        li title="Git 分支"
+        li title="#{t('releases.show.git_branch')}"
           i.fas.fa-code-branch
           = git_branch_url(@release)
       - if @release.git_commit.present?
-        li title="Git Commit"
+        li title="#{t('releases.show.git_commit')}"
           i.fab.fa-git-alt
           = git_commit_url(@release.channel.git_url, @release.git_commit)
       - @release.custom_fields.each do |field|
         li title="#{field['name']}"
-          i.fas class="fa-#{field['icon'] || 'hashtag'}"
+          i class="#{field['icon'] || 'fas fa-hashtag'}"
           = field['value']
-      li title="上传来源"
+      li title="#{t('releases.show.source')}"
         i.fas.fa-compass
         - if @release.ci_url.blank?
-          = @release.source
+          = t("releases.sources.#{@release.source.downcase}", default: @release.source)
         - else
           = link_to @release.source, @release.ci_url
-      - if @release.metadata.present? && detect_device(@release.channel.device_type) == :ios
-        li title="更多信息"
+      - if @release.metadata.present? && guest_mode_or_signed_in?
+        li title="#{t('releases.show.metadata')}"
           i.fas.fa-layer-group
-          = link_to '解析信息', teardown_path(@release.metadata)
+          = link_to t('releases.show.teardown_meatdata'), teardown_path(@release.metadata)
 
     .app-actions
-      - unless wechat?
-        - if @release.has_file?
+      - unless app_limited?
+        - if @release.file?
           == render 'releases/body/install_cert'
 
-          - if detect_device(@release.channel.device_type) == :ios
+          - if detect_device(@release.channel.device_type, :ios) && (ios? || macos?)
             / iOS 和 Mac 显示此按钮
             button.btn.btn-icon.btn-lg.bg-success[
                 id="download_it"
                 data-install-url="#{@release.install_url}"
-                data-loading-text="<i class='fas fa-spin fa-sync'></i> 等待安装 ..."]
-              i.fas.fa-paper-plane
-              | 安装
+                data-loading-text="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
+            ]
+              i.fas.fa-mobile-alt
+              = t('releases.show.install')
 
           a.btn.btn-icon.btn-lg.bg-success href="#{@release.download_url}" target="_blank"
             i.fas.fa-download
-            - if android?(user_agent)
-              | 安装
-            - else
-              | 下载
+            = t('releases.show.download')
         - else
-          button.btn.btn-secondary.btn-icon.disabled
+          button.btn.btn-icon.btn-lg.btn-secondary.disabled
             i.fas.fa-ghost
-            | 遗失文件不可安装或下载
-          - if current_user&.manage?
-            a.btn.btn-danger.btn-icon href="#{channel_release_path(@release.channel, @release)}" data-confirm="确定删除?" data-method="delete"
-                i.fas.fa-trash-alt
-                | 删除
+            = t('releases.show.missing_file')
 
-        / span style=("margin:0 5px")
+        - if current_user&.manage?
+          a.btn.btn-icon.btn-lg.btn-danger href="#{channel_release_path(@release.channel, @release)}" data-confirm="#{t('releases.messages.confirm.destroy')}" data-method="delete"
+              i.fas.fa-trash-alt
+              = t('releases.show.destroy')
+
         / - if @release.ci_url.present?
-        /   button#build_it.btn.btn-icon.bg-success.btn-social data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()" style=("margin-left: 10px")
+        /   button#build_it.btn.btn-icon.btn-lg.btn-success data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()"
         /     i.fas.fa-wrench
-        /     | 构建新版
+        /     | 构建
 
         div.ios-install-issues.d-none
           i.fas.fa-asterisk
-          a href="javascript:void();" 无法安装或遇到 "未受信任的企业级开发者" 错误？
+          a href="javascript:void(0);" = t('releases.show.cannot_install_or_untrusted_enterprise_developer')
 
-    p#jekins_buld_alert.alert.alert-warning.d-none role="alert" style=("margin-top: 10px")
+    / p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"

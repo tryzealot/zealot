@@ -5,16 +5,20 @@ module UserOmniauth
 
   def from_omniauth(auth)
     email = auth.info.email
-    username = auth.info.name
     password = Devise.friendly_token[0, 20]
-    user = User.find_by(email: email)
+    user = User.find_or_initialize_by(email: auth.info.email) do |u|
+      u.username = auth.info.name
+      u.password = password
+    end
+    new_record = user.new_record?
 
-    return user unless user.nil?
-
-    user = User.new(email: email, username: username, password: password)
     user.skip_confirmation!
     user.remember_me!
-    user.save!
+    user.save!(validate: false)
+
+    user.providers.from_omniauth(auth)
+
+    return user unless new_record
 
     UserMailer.omniauth_welcome_email(user, password).deliver_later
 
@@ -22,24 +26,28 @@ module UserOmniauth
   end
 
   def oauth_providers
-    omniauth_providers.each_with_object([]) do |name, obj|
+    @oauth_providers ||= Devise.omniauth_providers.each_with_object([]) do |name, obj|
       obj << name if enabled?(name)
     end
   end
 
   def enabled?(name)
-    send("enabled_#{name}?")
+    send("enabled_#{name}?".to_sym)
   end
 
   def enabled_google_oauth2?
-    defined?(OmniAuth::Strategies::GoogleOauth2) && secrets[:google_oauth_enabled]
+    defined?(OmniAuth::Strategies::GoogleOauth2) && Setting.google_oauth[:enabled]
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::LDAP) && secrets[:ldap_enabled]
+    defined?(OmniAuth::Strategies::Ldap) && Setting.ldap[:enabled]
   end
 
-  def secrets
-    Rails.application.secrets
+  def enabled_feishu?
+    defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
+  end
+
+  def enabled_gitlab?
+    defined?(OmniAuth::Strategies::GitLab) && Setting.gitlab[:enabled]
   end
 end

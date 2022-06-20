@@ -1,26 +1,23 @@
 .card.card-solid
   .card-header
     h3.card-title
-      | 历史版本
-      small
-        |  (
-        = link_to '全部', channel_versions_path(@channel)
-        | )
-    .card-tools
-      span.badge.bg-yellow
-        = link_to @channel.releases.count, channel_versions_path(@channel)
+      i.icon.fas.fa-archive
+      = t('channels.show.majar_versions')
   .card-body.table-responsive.p-0
-    - if @channel.release_versions.count > 0
-      table.table.table-striped.table-borderd
+    - if @versions.count > 0
+      table.table
         tr
-          th 主版本号
-          th 版本数量
-        - @channel.release_versions.each do |version|
+          th = t('channels.show.release_version')
+          th = t('channels.show.total_version')
+        - @versions.each do |version|
           tr
             td
-              = link_to version, channel_version_path(@channel, version)
+              = link_to version, friendly_channel_version_path(@channel, version)
             td
               = @channel.release_version_count(version)
     - else
-      .p-3
-        | 暂无版本
+      .p-3 = t('channels.show.empty_version_shortly')
+  - if @versions.count > 0
+    .card-footbar
+      a.btn.btn-default.btn-block href="#{friendly_channel_versions_path(@channel)}"
+        = t('channels.show.more')
