@@ -7,12 +7,12 @@
 - content_for :section_rightpanel do
   - if user_signed_in?
     a.btn.btn-icon.bg-green href="#{new_debug_file_path}"
-      i.far.fa-plus-square
-      | 上传 Debug File 文件
+      i.icon.far.fa-plus-square
+      = t('debug_files.index.upload')
 
 .row
   .col-md-12
-    - if @apps
+    - if DebugFile.count > 0
       - @apps.each do |app|
         .card
           .card-header
@@ -28,16 +28,10 @@
               - DebugFile.device_types.each_with_index do |(value, name), i|
                 == render 'debug_file', app: app, value: value, name: name, i: i
     - else
-      .callout.callout-warning
-        h5 没有发现任何应用类型！
-        p
-          | 创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：
-          ul
-            li 开发版本、内测版本、公测版本、线上版本
-        p
-          | 如果应用仅提供 Android 版本，可以按照应用渠道划分为：
-          ul
-            li Google Play、酷安、小米、华为、vivo、oppo、应用宝等
+      .card.card-outline.card-warning
+        .card-header.card-border
+          h3.card-title = t('debug_files.index.not_found.title')
+        .card-body = t('debug_files.index.not_found.body_html')
 
   == render 'help'
 
@@ -45,14 +39,13 @@
   .modal-dialog role="document"
     .modal-content
       .modal-header
-        h4.modal-title 删除确认 Debug File?
+        h4.modal-title = t('debug_files.confirm.destroy.title')
         button.close aria-label="Close" data-dismiss="modal" type="button"
           span aria-hidden="true"  &times;
       .modal-body
-        p 一旦删除数据将永久无法找回或恢复，请慎重操作！
+        p = t('debug_files.confirm.destroy.body')
         p.empty-content
       .modal-footer
         input type="hidden" id="dsym-destory-id" value=""
-        button.btn.btn-default data-dismiss="modal" type="button" 还是算了
-        a.btn.btn-danger data-method="delete"
-          | 我心已决
+        button.btn.btn-default data-dismiss="modal" type="button" = t('debug_files.confirm.destroy.cancel')
+        a.btn.btn-danger data-method="delete" = t('debug_files.confirm.destroy.ok')

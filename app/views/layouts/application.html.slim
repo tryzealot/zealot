@@ -1,17 +1,15 @@
 ruby:
-  body_class = 'skin-black-light'
   if user_signed_in_or_guest_mode?
-    body_class += ' sidebar-mini'
-  elsif Setting.guest_mode && devise_page?
-    body_class += ' layout-top-nav'
+    body_class = 'sidebar-mini'
   else
-    body_class += ' layout-top-nav'
+    body_class = 'layout-top-nav'
   end
 
 doctype html
-html
+html lang="#{I18n.locale}"
   head
-    title = yield :title
+    title = page_title(yield :title)
+    meta[charset="utf-8"]
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     link[rel="apple-touch-icon" sizes="60x60" href="#{asset_pack_path('media/images/touch-icon.png')}"]
     link[rel="apple-touch-icon" sizes="120x120" href="#{asset_pack_path('media/images/touch-icon@2x.png')}"]
@@ -20,9 +18,11 @@ html
     == favicon_link_tag asset_pack_path('media/images/touch-icon.png')
     == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    == yield :header_tags
+    == action_cable_meta_tag
     == csrf_meta_tags
 
-  body class="#{body_class}"
+  body class="hold-transition #{body_class}"
     .wrapper
       == render 'layouts/navigation'
 
@@ -30,3 +30,6 @@ html
         == render 'layouts/content'
 
       / == render 'layouts/footer'
+
+    - if Setting.google_analytics_id.present?
+      == render 'layouts/google_analytics'

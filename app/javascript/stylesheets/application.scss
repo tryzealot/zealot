@@ -1,11 +1,10 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~admin-lte/build/scss/adminlte.scss";
+
 @import 'layout';
 @import 'dashboard';
 @import 'app';
 @import 'channel';
 @import 'debug_files';
 @import 'devise';
-@import 'system_info';
-@import 'users';
-@import 'visitor';
-@import 'web_hooks';
-@import 'settings';
+@import 'admin/index';

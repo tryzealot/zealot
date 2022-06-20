@@ -1,30 +1,55 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def google_oauth2
-    omniauth_callback('Google', 'google_data')
+  User.oauth_providers.each do |provider_name|
+    define_method(provider_name) do
+      omniauth_callback(provider_name)
+    end
   end
 
-  def ldap
-    omniauth_callback('LDAP', 'ldap_data')
+  def passthru
+    # User had been logged in, redirect to root page
+    redirect_to root_path(signin: 'true')
   end
-
-  # def failure
-  #   flash[:error] = failure_message
-  #   flash[:error] = '授权失败！请检查你的账户和密码是否正确，如果输入确认无误还是失败请联系管理员检查配置是否正确'
-  #   redirect_to root_path
-  # end
 
   private
 
-  def omniauth_callback(provider, session_key)
-    @user = User.from_omniauth(request.env['omniauth.auth'])
-    if @user.persisted?
-      flash[:notice] = "#{provider} 账户授权并登录成功"
-      sign_in_and_redirect @user
-    else
-      session["devise.#{session_key}"] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+  def omniauth_callback(name)
+    auth = request.env['omniauth.auth']
+    provider = UserProvider.find_by(name: auth.provider, uid: auth.uid)
+
+    # Existed provider?
+    if provider
+      provider.update_omniauth(auth.credentials)
+
+      flash[:notice] = t('devise.omniauth_callbacks.success', kind: name)
+      return sign_in_and_redirect provider.user
     end
+
+    if user_signed_in?
+      connect_user_to_provider(name, auth)
+    else
+      store_new_user(name, auth)
+    end
+  end
+
+  def connect_user_to_provider(name, auth)
+    current_user.providers.from_omniauth(auth)
+
+    bypass_sign_in(current_user)
+    redirect_to goback_path, notice: t('devise.omniauth_callbacks.success', kind: name)
+  end
+
+  def store_new_user(name, auth)
+    user = User.from_omniauth(auth)
+    flash[:notice] = t('devise.registrations.signed_up')
+    sign_in_and_redirect user
+  end
+
+  def goback_path
+    omni_params = request.env['omniauth.params']
+    redirect_path = omni_params['back'].presence ||
+                    request.env['HTTP_REFERER'] ||
+                    root_path
   end
 end

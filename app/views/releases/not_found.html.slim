@@ -1,0 +1,18 @@
+- content_for :title do
+  = @title
+
+.row
+  .col-md-12
+    .card.card-outline.card-danger
+      .card-header
+        h3.card-title
+          i.icon.fas.fa-cloud-rain
+          = @title
+      .card-body
+        ul
+          li = t('releases.messages.errors.deleted_manually')
+          li = t('releases.messages.errors.deleted_programly')
+          li = t('releases.messages.errors.not_found_really')
+      .card-footbar
+        a.btn.btn-outline-danger.btn-block href="#{@link_href}"
+          = @link_title

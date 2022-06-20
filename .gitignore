@@ -5,8 +5,11 @@
 build_info/
 extensions/
 bundler/
+storage/
 
 # minimal Rails specific artifacts
+/config/master.key
+/config/credentials.yml*
 db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
@@ -67,3 +70,10 @@ yarn-debug.log*
 .powenv
 .rvmrc
 .byebug_history
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

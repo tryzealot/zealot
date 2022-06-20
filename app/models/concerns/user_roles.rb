@@ -3,12 +3,6 @@
 module UserRoles
   extend ActiveSupport::Concern
 
-  ROLE_NAMES = {
-    user: '用户',
-    developer: '开发者',
-    admin: '管理员'
-  }.freeze
-
   included do
     scope :admins, -> { where(role: :admin) }
     scope :developers, -> { where(role: :developer) }
@@ -40,12 +34,14 @@ module UserRoles
   end
 
   def role_name
-    if admin?
-      '管理员'
-    elsif developer?
-      '开发者'
-    else
-      '用户'
-    end
+    key = if admin?
+            :admin
+          elsif developer?
+            :developer
+          else
+            :user
+          end
+
+    Setting.builtin_roles[key]
   end
 end

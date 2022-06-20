@@ -3,17 +3,21 @@
 
 - content_for :section_title do
   = @title
-  small
+  small.pl-2
     = @subtitle
 
 .row
   .col-md-8
+    == render 'mobile_menu'
     == render 'activity'
     - if current_user&.manage?
       == render 'web_hooks'
+
   .col-md-4
     - if user_signed_in?
-      a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" 上传应用
+      a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}"
+        i.icon.far.fa-plus-square
+        = t('channels.show.upload_release')
     == render 'schemes'
     == render 'channels'
     == render 'versions'

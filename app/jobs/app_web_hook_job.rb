@@ -3,6 +3,7 @@
 class AppWebHookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::TranslationHelper
   include ActiveSupport::NumberHelper
 
   queue_as :webhook
@@ -15,7 +16,7 @@ class AppWebHookJob < ApplicationJob
 
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
-    logger.info(log_message("trigger json body: #{json_body}"))
+    logger.info(log_message("trigger json body: #{message_body}"))
 
     send_request
   end
@@ -23,60 +24,72 @@ class AppWebHookJob < ApplicationJob
   private
 
   def send_request
-    r = HTTP.headers(content_type: 'application/json')
-            .post(@web_hook.url, body: json_body)
-    logger.info(log_message('trigger successfully')) if r.code == 200
-    logger.debug("trigger response body: #{r.body}")
-  rescue HTTP::Error => e
+    response = Faraday.post(@web_hook.url, message_body,
+      { 'Content-Type' => 'application/json' }
+    )
+    logger.debug(log_message("trigger response body: #{response.body}"))
+    logger.info(log_message('trigger successfully')) if response.status == 200
+  rescue Faraday::Error => e
     logger.error(log_message("trigger fail: #{e}"))
   end
 
-  def json_body
-    return build_body if @web_hook.body.present?
-
-    WebHooks::PushSerializer.new(@channel).to_json
+  def message_body
+    body = @web_hook.body.presence || default_body
+    build(body)
   end
 
-  def build_body
-    ApplicationController.render inline: @web_hook.body,
+  def build(body)
+    ApplicationController.render inline: body,
                                  type: :jb,
                                  assigns: {
                                    event: @event,
                                    title: title,
-                                   name: @release.app_name,
+                                   name: @release.name,
+                                   app_name: @release.app_name,
                                    device_type: @channel.device_type,
                                    release_version: @release.release_version,
                                    build_version: @release.build_version,
                                    bundle_id: @release.bundle_id,
-                                   changelog: @release.changelog,
+                                   changelog: @release.text_changelog,
                                    file_size: @release.file.size,
                                    release_url: @release.release_url,
                                    install_url: @release.install_url,
-                                   icon_url: @release.icon_url(:medium),
+                                   icon_url: @release.icon_url,
                                    qrcode_url: @release.qrcode_url,
                                    uploaded_at: @release.created_at
                                  }
   end
 
-  def title
-    case @event
-    when 'upload_event'
-      "#{@release.app_name} 上传了 #{@release.release_version} 版本"
-    when 'download_event'
-      "#{@release.app_name} #{@release.release_version} 版本被下载"
-    when 'changelog_event'
-      "#{@release.app_name} #{@release.release_version} 版本更新了变更日志"
-    end
+  def default_body
+    '{
+      event: @event,
+      title: @title,
+      name: @app_name,
+      app_name: @app_name,
+      device_type: @device_type,
+      release_version: @release_version,
+      build_version: @build_version,
+      size: @file_size,
+      changelog: @changelog,
+      release_url: @release_url,
+      install_url: @install_url,
+      icon_url: @icon_url,
+      qrcode_url: @qrcode_url,
+      uploaded_at: @uploaded_at
+    }'
   end
 
-  def description
-    [
-      "平台：#{@app.device_type}",
-      "标识：#{@app.identifier}",
-      "版本：#{@release.release_version} (#{@release.build_version})",
-      "大小：#{number_to_human_size(@release.filesize)}",
-      "渠道：#{@release.channel}"
-    ].join(' / ')
+  def title
+    case @event
+    when 'upload_events'
+      t('teardowns.messages.upload_events', name: @release.app_name, version: @release.release_version)
+    when 'download_events'
+      t('teardowns.messages.download_events', name: @release.app_name, version: @release.release_version)
+    when 'changelog_events'
+      t('teardowns.messages.changelog_events', name: @release.app_name, version: @release.release_version)
+    else
+      t('teardowns.messages.unknown_events', name: @release.app_name, event: @event)
+    end
   end
 
   def log_message(message)

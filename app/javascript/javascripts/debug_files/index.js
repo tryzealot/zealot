@@ -1,10 +1,10 @@
 $(document).on('turbolinks:load', function () {
-  $('.debug-file-toggle').click(function () {
+  $('.debug-file-toggle').on('click', function () {
     debug_file_id = $(this).data('id');
     $('#debug-file-metadata-' + debug_file_id).toggleClass('d-none');
   });
 
-  $('.destroy-debug-file').click(function () {
+  $('.destroy-debug-file').on('click', function () {
     var debug_id = $(this).data('id');
     var that = $("#debug-file-info-" + debug_id);
     var app_name = that.data('app-name');
@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function () {
     var elm = $('#destory_modal');
 
     elm.find('.empty-content').html(function () {
-      var tips = "删除确认：";
+      var tips = "";
       var conform_text = "<span class='text-danger'>" +
         app_name + " " + device_type +
         " v" + releas_version +

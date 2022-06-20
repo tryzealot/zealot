@@ -1,51 +1,91 @@
 - content_for :title do
-  = @title
+  = t('.title')
 
 - content_for :section_title do
-  = @title
+  = t('.title')
 
 .row
   .col-md-6
     .card.system_info
       .card-header
-        h3.card-title 服务器信息
+        h3.card-title = t('.server_info')
       .card-body
         dl.system-info
-          dt Zealot 版本
+          dt = t('.zealot_version')
           dd
             pre
-              - if @version[:update_available]
-                a.new-version.float-right href="#{@version[:release_link]}" target="_blank"
-                  i.fas.fa-rainbow
-                  | 发现新版本: #{@version[:latest_version]}
-              = @version[:current_version]
-          dt Ruby 版本
+              #current-version
+                = @server[:zealot_version]
+              #new-version data-title="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
+          - if @server[:zealot_vcs_ref]
+            dt = t('.vcs_ref')
+            dd
+              pre = link_to @server[:zealot_vcs_ref], github_repo_commit(@server[:zealot_vcs_ref]), target: :blank
+          - if @server[:build_date]
+            dt = t('.build_date')
+            dd
+              pre = @server[:build_date]
+          dt = t('.os_info')
           dd
-            pre = RUBY_DESCRIPTION
-          dt CPU
+            pre = @server[:os_info]
+          dt = t('.ruby_version')
+          dd
+            pre = @server[:ruby_version]
+          dt = t('.cpu_info')
           dd
             pre
-              - if @cpus
-                = "#{@cpus.length} 核"
+              - if @server[:cpu]
+                = t('.cpu_core', count: @server[:cpu])
               - else
-                | CPU 信息监测失败
-          dt 内存
+                = t('.fail_detect_cpu')
+          dt = t('.memory_info')
           dd
             pre
-              - if @memory
-                = "#{number_to_human_size(@memory.active_bytes)} / #{number_to_human_size(@memory.total_bytes)}"
+              - if memory = @server[:memory]
+                = "#{number_to_human_size(memory[:used])} / #{number_to_human_size(memory[:total])}"
+                .progress.progress-bar-striped class="#{memory[:color]}" role="progressbar" aria-valuenow="#{memory[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{memory[:percent]}%"
               - else
-                | 内存信息监测失败
-          dt 运行时间
+                = t('.fail_detect_memory')
+          dt = t('.disk_info')
           dd
             pre
-              = distance_of_time_in_words_to_now(@booted_at)
+              - if diskspace = @server[:diskspace]
+                = "#{number_to_human_size(diskspace[:used])} / #{number_to_human_size(diskspace[:total])}"
+                .progress.progress-bar-striped class="#{diskspace[:color]}" role="progressbar" aria-valuenow="#{diskspace[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{diskspace[:percent]}%"
+              - else
+                = t('.fail_detect_disk')
+          dt = t('.lauched_time')
+          dd
+            pre
+              = distance_of_time_in_words_to_now(@server[:booted_at])
               |  (
-              = @booted_at
+              = @server[:booted_at]
               | )
+
+  .col-md-6
+    .card.card-outline class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
+      .card-header
+        h3.card-title = t('.file_permissions')
+        .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fas.fa-minus
+      .card-body
+        p = t('.messages.file_permissions_tip', icon: '<i class="fas fa-exclamation-triangle text-red">')
+        table.table
+          - @file_permissions[:permissions].each do |permission|
+            tr
+              td = permission[:path]
+              td
+                - if permission[:health]
+                  i.fas.fa-check.text-green
+                - else
+                  i.fas.fa-exclamation-triangle.text-red
     .card
       .card-header
-        h3.card-title 磁盘信息
+        h3.card-title = t('.volume_mounted')
+        .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fas.fa-minus
       .card-body
         - unless @disks.blank?
           dl.system-info
@@ -54,17 +94,33 @@
               dd
                 pre
                   = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
+                  .progress.progress-bar-striped class="#{disk[:color]}" role="progressbar" aria-valuenow="#{disk[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{disk[:percent]}%"
         - else
-          | 硬盘信息无法获取
+          = t('.fail_detect_disk')
 
-  .col-md-6
-    .card
+    .card.collapsed-card
       .card-header
-        h3.card-title 系统变量
+        h3.card-title = t('.system_environment')
+        .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fas.fa-plus
       .card-body
         dl.system-info
           - @env.each do |key, value|
             dt = key
             dd
               pre
-                = value
+                = secure_value(key, value)
+
+    .card.collapsed-card
+      .card-header
+        h3.card-title = t('.ruby_gems')
+        .card-tools
+          button.btn.btn-tool data-card-widget="collapse"
+            i.fas.fa-plus
+      .card-body.p-0
+        table.table
+          - @gems.each do |name, version|
+            tr
+              td = name
+              td = version

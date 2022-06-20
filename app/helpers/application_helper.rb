@@ -1,14 +1,37 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  RANDOM_COLORS = %w[aqua blue purple navy maroon yellow red].freeze
+  def page_title(title)
+    "#{title} - #{site_title}"
+  end
+
+  def site_title
+    Setting.site_title
+  end
+
+  def new_or_create_route?
+    new_route? || create_route?
+  end
+
+  def new_route?
+    params[:action] == 'new'
+  end
+
+  def create_route?
+    params[:action] == 'create'
+  end
 
   def user_signed_in_or_guest_mode?
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
 
+  def demo_mode?
+    Setting.demo_mode
+  end
+
   def devise_page?
-    params[:controller].start_with?('devise/')
+    contoller_name = params[:controller]
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
   end
 
   def button_link_to(title, url, icon = nil, **options)
@@ -21,10 +44,6 @@ module ApplicationHelper
     end
 
     link_to content, url, **options
-  end
-
-  def random_color
-    "bg-#{RANDOM_COLORS[rand(RANDOM_COLORS.size - 1)]}"
   end
 
   # 激活 li 的 class
@@ -42,14 +61,6 @@ module ApplicationHelper
     is_current ? class_name : ''
   end
 
-  def changelog_format(changelog, **options)
-    raw = changelog.each_with_object([]) do |line, obj|
-      obj << "- #{line['message']}"
-    end.join("\n")
-
-    simple_format raw, **options
-  end
-
   def device_name(device_type)
     case device_type.downcase
     when 'ios'
@@ -62,39 +73,58 @@ module ApplicationHelper
       'Universal'
     when 'android'
       'Android'
+    when 'macos'
+      'macOS'
     else
       device_type
     end
   end
 
   def device_icon(device_type)
-    icon = case device_type.downcase
-           when 'ios', 'iphone', 'ipad', 'mac', 'ipa'
-             'fa-apple'
-           when 'android', 'apk'
-             'fa-android'
-           else
-             'fa-adn'
-           end
-
+    icon, _ = device_style(device_type)
     tag.i(class: "fab #{icon}")
   end
 
   def timeline_app_icon(device_type)
-    device_type == 'android' ? 'fa-android bg-green' : 'fa-apple bg-black'
+    device_style(device_type).join(' ')
+  end
+
+  def device_style(device_type)
+    case device_type.downcase
+    when 'ios'
+      ['fa-apple', 'bg-black']
+    when 'android'
+      ['fa-android', 'bg-green']
+    when 'windows'
+      ['fa-windows', 'bg-warning']
+    when 'macos'
+      ['fa-app-store', 'bg-blue']
+    else
+      ['fa-adn', 'bg-lightblue']
+    end
   end
 
   # 获取浏览器 user agent
   delegate :user_agent, to: :request
 
-  def wechat?
-    user_agent.include?('MicroMessenger')
+  def app_limited?
+    user_agent.include?('MicroMessenger') || user_agent.include?('DingTalk')
   end
 
-  def ios?(source = nil)
-    # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15
+  # Intel: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko)
+  #        Chrome/75.0.3770.100 Safari/537.36
+  # Arm M1: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)
+  #        Chrome/91.0.4472.114 Safari/537.36
+  def macos?(source = nil)
     source ||= user_agent
-    (source =~ /Macintosh|iPhone|iPad|Unversal|ios|iOS/i).present?
+    source.downcase.include?('macintosh')
+  end
+
+  # iPadOS: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko)
+  #         Version/13.0 Safari/605.1.15
+  def ios?(source = nil)
+    source ||= user_agent
+    (source =~ /iPhone|iPad|Unversal|ios|iOS/i).present?
   end
 
   def android?(source = nil)
@@ -102,33 +132,22 @@ module ApplicationHelper
     source.downcase.include?('android')
   end
 
-  def phone?
-    ios? || android?
+  # 检查设备
+  def detect_device(device, target)
+    value = if ios?(device)
+              :ios
+            elsif android?(device)
+              :android
+            elsif macos?(device)
+              :macos
+            else
+              :unkown
+            end
+
+    value == target.to_sym
   end
 
-  def mac?
-    # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36
-    source ||= user_agent
-    source.downcase.include?('macintosh')
-  end
-
-  # 检查移动设备
-  def detect_device(device)
-    if ios?(user_agent) && ios?(device)
-      :ios
-    elsif android?(user_agent) && android?(device)
-      :android
-    else
-      :unkown
-    end
-  end
-
-  def omniauth_display_name(provider)
-    case provider
-    when :ldap
-      provider.to_s.upcase
-    else
-      OmniAuth::Utils.camelize(provider).sub('Oauth2', '')
-    end
+  def github_repo_commit(ref)
+    "#{Setting.repo_url}/commit/#{ref}"
   end
 end

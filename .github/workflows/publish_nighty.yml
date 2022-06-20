@@ -10,14 +10,31 @@ on:
     branches:
       - develop
 jobs:
-  build:
+  push_to_registry:
+    name: Push Docker image to multiple registries
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
     - uses: actions/checkout@master
     - name: Get build date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S %z')"
-    - name: Publish to Registry
+    - name: Publish to Github Hub Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        REPLACE_CHINA_MIRROR: false
+        VCS_REF: ${{ github.sha }}
+        BUILD_DATE: ${{ steps.date.outputs.date }}
+        TAG: nightly
+      with:
+        name: ghcr.io/tryzealot/zealot:${{ env.TAG }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+        registry: ghcr.io
+    - name: Publish to Docker Hub Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         REPLACE_CHINA_MIRROR: false
@@ -29,13 +46,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
-    - name: Docker Hub Description
+    - name: Update Docker Hub Description
       uses: peter-evans/dockerhub-description@v2.1.0
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKERHUB_REPOSITORY: tryzealot/zealot
-    - name: Trigger Microbadger update
-      uses: wei/curl@master
-      with:
-        args: -X POST ${{ secrets.MICROBADGER_WEBHOOK_URL }}

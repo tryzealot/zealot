@@ -4,13 +4,12 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[edit update destroy]
 
   def index
-    @title = '用户管理'
     @users = User.all
     authorize @users
   end
 
   def new
-    @title = '新建用户'
+    @title = t('admin.users.new_user')
     @user = User.new
     authorize @user
   end
@@ -21,41 +20,45 @@ class Admin::UsersController < ApplicationController
 
     return render :new unless @user.save
 
-    redirect_to admin_users_url, notice: '用户创建成功'
+    redirect_to admin_users_path, notice: t('activerecord.success.create', key: t('admin.users.title'))
   end
 
   def edit
+    authorize @user
+
     @title = @user.email
-    @token = @user.confirmation_token
   end
 
   def update
+    authorize @user
+
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: '演示模式不能编辑默认管理员'
+      return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
     # 没有设置密码的情况下不更新该字段
     params = user_params.dup
-    params = params.delete(:password) if params[:password].blank?
+    params.delete(:password) if params[:password].blank?
     return render :edit unless @user.update(params)
 
-    redirect_to admin_users_url, notice: '用户已经更新'
+    redirect_to admin_users_path, notice: t('activerecord.success.update', key: t('admin.users.title'))
   end
 
   def destroy
     if helpers.default_admin_in_demo_mode?(@user)
-      return redirect_to admin_users_url, alert: '演示模式不能删除默认管理员!'
+      return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
+    authorize @user
+
     @user.destroy
-    redirect_to admin_users_url, notice: '用户已经删除'
+    redirect_to admin_users_path, notice: t('activerecord.success.destroy', key: t('admin.users.title'))
   end
 
   private
 
   def set_user
     @user = User.find(params[:id])
-    authorize @user
   end
 
   def user_params

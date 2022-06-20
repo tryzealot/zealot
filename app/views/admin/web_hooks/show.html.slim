@@ -1,41 +1,18 @@
 - content_for :title do
-  = @title
+  = t('.title')
 
-- content_for :section_title do
-  = @title
-
-/ - content_for :section_rightpanel do
-/   a.btn.bg-green href="#{new_admin_web_hook_path}"
-/     i.far.fa-plus-square
-/     | 新建网络钩子
+/ - content_for :section_title do
+/   = @title
 
 .row
   .col-md-12
     .card
       .card-body
-        .form-group
-          label for="url" URL
-          input.form-control value="#{@web_hook.url}" disabled=true
-        .form-group
-          label for="body" Body
-          textarea.form-control rows="3" disabled=true placeholder="默认结构"
-            = @web_hook.body
-        .form-check
-          = check_box_tag 'upload_events', 1, @web_hook.upload_events == 1, disabled: true, class: 'form-check-input'
-          label.form-check-label for="upload_events" 上传事件
-        .form-check
-          = check_box_tag 'download_events', 1, @web_hook.download_events == 1, disabled: true, class: 'form-check-input'
-          label.form-check-label for="download_events" 下载事件
-        .form-check
-          = check_box_tag 'changelog_events', 1, @web_hook.changelog_events == 1, disabled: true, class: 'form-check-input'
-          label.form-check-label for="changelog_events" 日志变更事件
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title 使用应用渠道
-      .card-body.p-0
-        table.table
-          - @web_hook.channels.all.each do |channel|
-            tr
-              td
-                = link_to channel.app_name, channel_path(channel)
+        = simple_form_for(@web_hook, url: admin_web_hook_path(@web_hook)) do |f|
+          = f.input :url
+          = f.input :body
+          = f.input :upload_events, as: :boolean
+          = f.input :download_events, as: :boolean
+          = f.input :changelog_events, as: :boolean
+          = f.association :channels, label_method: :app_name, value_method: :id, as: :check_boxes
+          = f.button :submit
