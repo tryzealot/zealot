@@ -5,15 +5,23 @@ nav.filter-nav.navbar.navbar-expand.navbar-white.d-block.d-sm-none
         = @channel.scheme.name
       ul.dropdown-menu.border-0.shadow aria-labelledby="dropdownSubMenu1" style=("left: 0px; right: inherit;")
         - @app.schemes.each do |scheme|
-          - if scheme != @channel.scheme
+          ruby:
+            scheme_link = using_friendly_channel_path(scheme, @channel)
+          - if scheme_link.present?
             li
-              = link_to scheme.name, app_scheme_path(@app, scheme), class: "dropdown-item"
+              = link_to scheme.name, scheme_link, class: "dropdown-item"
 
     li.nav-item.dropdown
       a#dropdownSubMenu1.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
         = display_app_device(@channel)
       ul.dropdown-menu.border-0.shadow aria-labelledby="dropdownSubMenu1" style=("left: 0px; right: inherit;")
-        - @channel.scheme.channels.each do |channel|
-          - if channel != @channel
+        ruby:
+          channels = @channel.scheme.channels.select {|c| c != @channel }
+
+        - if channels.present?
+          - channels.each do |channel|
             li
               = link_to display_app_device(channel), friendly_channel_overview_path(channel), class: "dropdown-item"
+        - else
+          li
+            span.text-gray class="dropdown-item" = t('channels.show.none')
