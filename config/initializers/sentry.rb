@@ -21,6 +21,7 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank?
         'ActiveRecord::NoDatabaseError',
         'ActiveRecord::PendingMigrationError',
         'PG::ConnectionBad',
+        'Redis::CannotConnectError',
         'Interrupt',
         'SystemExit',
       ]
