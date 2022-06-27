@@ -257,7 +257,7 @@ zh-CN:
       total_releases: 上传版本
       channel_key: 渠道 KEY
       edit_channel: 渠道管理
-      none: 未设置
+      none: 无
       not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
       id: ID
       build_version: 开发版本
