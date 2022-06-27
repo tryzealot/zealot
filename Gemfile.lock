@@ -446,7 +446,7 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
-    sidekiq-scheduler (4.0.1)
+    sidekiq-scheduler (4.0.2)
       redis (>= 4.2.0)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 4)
@@ -575,7 +575,7 @@ DEPENDENCIES
   sentry-sidekiq
   sidekiq (~> 6.5.1)
   sidekiq-failures!
-  sidekiq-scheduler (~> 4.0.1)
+  sidekiq-scheduler (~> 4.0.2)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
   sprockets-rails (~> 3.4.2)
