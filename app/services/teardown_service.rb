@@ -58,8 +58,8 @@ class TeardownService < ApplicationService
     metadata.bundle_id = parser.package_name
     metadata.target_sdk_version = parser.target_sdk_version
     metadata.activities = parser&.activities&.select(&:present?).map(&:name)
-    metadata.permissions = parser&.use_permissions&.select(&:present?)
-    metadata.features = parser&.use_features&.select(&:present?)
+    metadata.permissions = parser&.use_permissions&.select(&:present?) || []
+    metadata.features = parser&.use_features&.select(&:present?) || []
     metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name)
     metadata.url_schemes = parser&.schemes&.sort
     metadata.deep_links = parser&.deep_links&.sort
