@@ -12,7 +12,7 @@ gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rai
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.6.0'
+gem 'redis', '~> 4.7.0'
 
 # Logger
 gem 'lograge', '~> 0.12.0'
