@@ -112,7 +112,7 @@ group :development do
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.5.0'
+  gem 'debug', '~> 1.6.0'
 
   # 开发辅助
   gem 'guard', '~> 2.18.0'
