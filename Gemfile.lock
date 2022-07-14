@@ -130,7 +130,7 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
-    debug (1.6.0)
+    debug (1.6.1)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     debug_inspector (1.1.0)
@@ -523,7 +523,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.7)
   byebug
   carrierwave (~> 2.2.2)
-  debug (~> 1.6.0)
+  debug (~> 1.6.1)
   devise (~> 4.8.1)
   devise-i18n (~> 1.10.2)
   dotenv-rails
