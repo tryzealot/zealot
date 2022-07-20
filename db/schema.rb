@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_073346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,18 +18,32 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "metadata_platform", ["ios", "android", "mobileprovision", "macos"]
 
-  create_table "active_analytics_views_per_days", force: :cascade do |t|
-    t.string "site", null: false
-    t.string "page", null: false
-    t.date "date", null: false
-    t.bigint "total", default: 1, null: false
-    t.string "referrer_host"
-    t.string "referrer_path"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["date"], name: "index_active_analytics_views_per_days_on_date"
-    t.index ["referrer_host", "referrer_path", "date"], name: "index_active_analytics_views_per_days_on_referrer_and_date"
-    t.index ["site", "page", "date"], name: "index_active_analytics_views_per_days_on_site_and_date"
+  create_table "apple_keys", force: :cascade do |t|
+    t.string "issuer_id"
+    t.string "key_id"
+    t.string "private_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["issuer_id"], name: "index_apple_keys_on_issuer_id"
+    t.index ["key_id"], name: "index_apple_keys_on_key_id"
+  end
+
+  create_table "apple_teams", force: :cascade do |t|
+    t.bigint "apple_key_id"
+    t.string "team_id"
+    t.string "name", null: false
+    t.string "display_name", default: "", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apple_key_id"], name: "index_apple_teams_on_apple_key_id"
+  end
+
+  create_table "apple_teams_devices", id: false, force: :cascade do |t|
+    t.bigint "apple_team_id", null: false
+    t.bigint "device_id", null: false
+    t.index ["apple_team_id", "device_id"], name: "index_apple_teams_devices_on_apple_team_id_and_device_id"
+    t.index ["device_id", "apple_team_id"], name: "index_apple_teams_devices_on_device_id_and_apple_team_id"
   end
 
   create_table "apps", force: :cascade do |t|
@@ -101,6 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "model"
+    t.string "platform"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 
@@ -238,6 +253,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
     t.index ["url"], name: "index_web_hooks_on_url"
   end
 
+  add_foreign_key "apple_teams", "apple_keys", on_delete: :cascade
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
