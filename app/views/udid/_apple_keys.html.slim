@@ -1,0 +1,25 @@
+.col-md-12
+  .card.system_info
+    .card-header
+      h3.card-title
+        i.icon.fas.fa-info-circle
+        = t('udid.show.apple_key')
+    .card-body
+      dl.system-info
+        = debug device
+        == render 'item', key: 'udid', value: params[:udid]
+        - if device.present?
+          == render 'item', key: 'name', value: device.name
+          - if device.platform
+            == render 'item', key: 'platform', value: device.platform
+          - if device.model
+            == render 'item', key: 'model', value: device.model
+
+        - if params[:product].present?
+          == render 'item', key: 'product', value: params[:product]
+        - if params[:version].present?
+          == render 'item', key: 'version', value: params[:version]
+        - if params[:serial].present?
+          == render 'item', key: 'serial', value: params[:serial]
+        - if device.present?
+          == render 'item', key: 'created_at', value: device.created_at

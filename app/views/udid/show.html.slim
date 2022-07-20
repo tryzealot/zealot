@@ -6,90 +6,24 @@
 
 .row
   .col-md-12
-    .card.system_info
-      .card-header
-        h3.card-title
-          i.icon.fas.fa-info-circle
-          = @title
-      .card-body
-        .pl-2.pr-2
-          - if @device
-            .alert.alert-success
-              strong Woo-ha！
-              = t('udid.show.registered', device: @device.name.present? ? "【#{@device.name}】" : '')
-          - else
-            .alert.alert-warning
-              strong Ta-Da！
-              = t('udid.show.unregistered')
+    - if @device.present?
+      ruby:
+        channels =
+        apple_keys = @device.apple_keys
 
-        dl.system-info
-          dt = t('udid.show.udid')
-          dd
-            .input-group.mb-3
-              input#udid-text.form-control.rounded-0 value="#{params[:udid]}" readonly="true"
-              span.input-group-append
-                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#udid-text"
-                  i.far.fa-clipboard
-          dt = t('udid.show.product')
-          dd
-            .input-group.mb-3
-              input#product-text.form-control.rounded-0 value="#{params[:product]}" readonly="true"
-              span.input-group-append
-                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#product-text"
-                  i.far.fa-clipboard
-          dt = t('udid.show.serial')
-          dd
-            .input-group.mb-3
-              input#serial-text.form-control.rounded-0 value="#{params[:serial]}" readonly="true"
-              span.input-group-append
-                button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#serial-text"
-                  i.far.fa-clipboard
-          dt = t('udid.show.version')
-          dd
-            .input-group.mb-3
-              input#version-text.form-control.rounded-0 value="#{params[:version]}" readonly="true"
-              span.input-group-append
-                  button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#version-text"
-                    i.far.fa-clipboard
+      .alert.alert-success
+        strong Woo-ha！
+        = t('udid.show.registered', device: @device.name.present? ? "【#{@device.name}】" : '')
 
-  - if @device && @device.channels.present?
-    .col-md-12
-      .card
-        .card-header
-          h3.card-title
-            i.icon.fas.fa-cubes
-            = t('udid.show.registered_apps')
-        .card-body
-          .timeline
-            - @device.channels.each do |channel|
-              ruby:
-                release = channel.latest_release
-              div
-                i.far.fa-circle
-                .timeline-item
-                  span.time
-                    i.icon.fas.fa-clock
-                    = time_ago_in_words(release.created_at)
-                  h3.timeline-header
-                    = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pr-1')
-                    = t('udid.show.upload_release', release_version: release.release_version, build_version: release.build_version)
-                  - if release.changelog.present?
-                    .timeline-body.pb-0
-                      = changelog_format release.text_changelog, class: 'mb-0'
-                  - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
-                    .timeline-footer
-                      - if release.release_type.present?
-                        small.badge
-                          = release.release_type
-                      - if release.branch.present?
-                        small.badge
-                          = release.branch
-                      - if release.short_git_commit.present?
-                        small.badge
-                          - if release.channel.git_url.present?
-                            = git_commit_url(channel.git_url, release.git_commit)
-                          - else
-                            = release.short_git_commit
-            div
-              i.fas.fa-clock.bg-gray
+    - else
+      .alert.alert-warning
+        strong Ta-Da！
+        = t('udid.show.unregistered')
 
+  == render 'dashboards/widget', title: t('.apps'), count: @device&.channels&.size || 0, url: '', color_style: 'bg-navy', icon: 'fab fa-adn'
+  == render 'dashboards/widget', title: t('.releases'), count: @device&.releases&.count || 0, url: '', color_style: 'bg-pink', icon: 'fab fa-gg'
+  == render 'dashboards/widget', title: t('.apple_keys'), count: @device&.apple_keys&.count || 0, url: '', color_style: 'bg-yellow', icon: 'fas fa-key'
+
+  == render 'udid_metadata', device: @device
+  == render 'apple_keys', device: @device
+  == render 'apps', device: @device

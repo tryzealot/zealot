@@ -63,6 +63,41 @@ en:
           disable: Disabled the Webhook successfully
           test: Test sent successfully
 
+    apple_keys:
+      title: Apple Developer
+      new:
+        title: New Apple Developer
+      index:
+        title: :'admin.apple_keys.title'
+        number: '#'
+        team_name: Team name
+        team_id: Team id
+        created_at: Created at
+        action: Action
+        new_apple_key: :'admin.apple_keys.new.title'
+        destroy: Destroy
+        destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
+      show:
+        title: :'admin.apple_keys.title'
+        team_metadata: Team metadata
+        key_metadata: Key Metadata
+        devices: Devices (%{size})
+        sync_now: Sync now
+        last_synced_at: Last synced at %{time}
+        never_sync: Never sync
+        udid: :'udid.show.udid'
+        udid_name: :'udid.show.name'
+        udid_platform: :'udid.show.platform'
+        udid_model: :'udid.show.model'
+        udid_related_apps: Related Apps
+        udid_created_at: Created at
+      create:
+        successful: Created Apple Developer successfully
+
+    apple_teams:
+      edit:
+        title: Edit team metadata
+
     settings:
       title: Settings
       index:
@@ -576,6 +611,7 @@ en:
           </ol>
     show:
       title: Device
+      metadata: Metadata
       registered: '%{device} was registerd the apps'
       unregistered: New device found, copy the UDID to iOS Developer!
       registered_apps: Registerd apps
@@ -583,7 +619,16 @@ en:
       product: Product
       serial: Serial
       version: Version
+      name: Name
+      platform: platform
+      model: model
+      created_at: Registerd at
       upload_release: :'dashboard.timeline.upload_release'
+      not_found:
+        title: Not found relates app
+        body_html: |
+          This device is registered by synchronization service,
+          but your device does not have an associated application to upload yet.
     install:
       title: Zealot fetch device UDID
       description: |
@@ -772,6 +817,11 @@ en:
       setting:
         create: Save
         update: Save
+      apple_key:
+        create: Create
+      apple_team:
+        update: Update
+
   views:
     pagination:
       truncate: ...

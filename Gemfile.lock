@@ -6,6 +6,14 @@ GIT
     sidekiq-failures (1.0.1)
       sidekiq (>= 4.0.0)
 
+PATH
+  remote: /Users/icyleaf/Development/ruby/tiny_appstore_connect
+  specs:
+    tiny_appstore_connect (0.1.5)
+      faraday (>= 1.10.0, < 3.0)
+      jwt (>= 1.4, < 3)
+      openssl (>= 2.2.1, < 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -579,6 +587,7 @@ DEPENDENCIES
   sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard
+  tiny_appstore_connect!
   turbolinks (~> 5)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
