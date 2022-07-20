@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.4'
 gem 'rails', '~> 7.0.3'
-gem 'rails-i18n', '~> 7.0.3'
+gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
 gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
 
@@ -87,7 +87,7 @@ gem 'rqrcode'
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.5.1'
-gem 'sidekiq-scheduler', '~> 4.0.1'
+gem 'sidekiq-scheduler', '~> 4.0.2'
 gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
 # Assets
@@ -112,7 +112,7 @@ group :development do
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.5.0'
+  gem 'debug', '~> 1.6.1'
 
   # 开发辅助
   gem 'guard', '~> 2.18.0'
