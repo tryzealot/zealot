@@ -56,6 +56,15 @@ en:
         checksum: File checksum
       setting:
         value: Value
+      apple_key:
+        issuer_id: Issuer ID
+        key_id: Key ID
+        private_key: Private key
+        devices: Devices
+      apple_team:
+        display_name: Display name
+        name: Team name
+        team_id: Team id
 
     hints:
       defaults:

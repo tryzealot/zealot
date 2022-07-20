@@ -100,6 +100,12 @@ Rails.application.routes.draw do
 
       resources :users, except: :show
       resources :web_hooks
+      resources :apple_keys, except: %i[ edit update ] do
+        member do
+          put :sync_devices
+        end
+      end
+      resources :apple_teams, only: %i[ edit update ]
       resources :settings
 
       resources :background_jobs, only: :index

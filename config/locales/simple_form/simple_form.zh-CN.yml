@@ -56,6 +56,15 @@ zh-CN:
         checksum: '唯一校验码'
       setting:
         value: 值
+      apple_key:
+        issuer_id: Issuer ID
+        key_id: 密钥 ID
+        private_key: 密钥文件
+        devices: 测试设备
+      apple_team:
+        display_name: 显示名称
+        name: 注册主体
+        team_id: 标识符
 
     hints:
       defaults:
