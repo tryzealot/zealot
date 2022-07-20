@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_073346) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,11 +21,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_073346) do
   create_table "apple_keys", force: :cascade do |t|
     t.string "issuer_id"
     t.string "key_id"
+    t.string "filename"
     t.string "private_key"
+    t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["checksum"], name: "index_apple_keys_on_checksum"
     t.index ["issuer_id"], name: "index_apple_keys_on_issuer_id"
     t.index ["key_id"], name: "index_apple_keys_on_key_id"
+  end
+
+  create_table "apple_keys_devices", id: false, force: :cascade do |t|
+    t.bigint "apple_key_id", null: false
+    t.bigint "device_id", null: false
+    t.index ["apple_key_id", "device_id"], name: "index_apple_keys_devices_on_apple_key_id_and_device_id"
+    t.index ["device_id", "apple_key_id"], name: "index_apple_keys_devices_on_device_id_and_apple_key_id"
   end
 
   create_table "apple_teams", force: :cascade do |t|
@@ -33,17 +43,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_073346) do
     t.string "team_id"
     t.string "name", null: false
     t.string "display_name", default: "", null: false
-    t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["apple_key_id"], name: "index_apple_teams_on_apple_key_id"
-  end
-
-  create_table "apple_teams_devices", id: false, force: :cascade do |t|
-    t.bigint "apple_team_id", null: false
-    t.bigint "device_id", null: false
-    t.index ["apple_team_id", "device_id"], name: "index_apple_teams_devices_on_apple_team_id_and_device_id"
-    t.index ["device_id", "apple_team_id"], name: "index_apple_teams_devices_on_device_id_and_apple_team_id"
   end
 
   create_table "apps", force: :cascade do |t|

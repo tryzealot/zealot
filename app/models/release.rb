@@ -12,7 +12,7 @@ class Release < ApplicationRecord
 
   belongs_to :channel
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
-  has_and_belongs_to_many :devices
+  has_and_belongs_to_many :devices, dependent: :destroy
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
   validate :bundle_id_matched, on: :create
