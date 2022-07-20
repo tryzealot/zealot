@@ -155,11 +155,6 @@ en:
       index:
         title: :'admin.background_jobs.title'
 
-    page_analytics:
-      title: Page analytics
-      index:
-        title: :'admin.page_analytics.title'
-
     database_analytics:
       title: Database analytics
       index:
