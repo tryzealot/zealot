@@ -145,12 +145,12 @@ class Release < ApplicationRecord
   end
 
   def install_url
-    app_type = device_type || channel.device_type
-    if app_type.blank? || app_type.casecmp?('android') || app_type.casecmp?('macos')
+    if platform.casecmp?('unknown') || platform.casecmp?('android') || platform.casecmp?('macos')
       return download_url
     end
-    download_url = channel_release_install_url(channel.slug, id)
-    "itms-services://?action=download-manifest&url=#{download_url}"
+
+    ios_url = channel_release_install_url(channel.slug, id)
+    "itms-services://?action=download-manifest&url=#{ios_url}"
   end
 
   def release_url
@@ -200,7 +200,38 @@ class Release < ApplicationRecord
     TeardownJob.perform_later(id, user_id)
   end
 
+  def platform
+    if ios?
+      'iOS'
+    elsif android?
+      'Android'
+    elsif mac?
+      'macOS'
+    else
+      'Unknown'
+    end
+  end
+
+  def ios?
+    platform_type.casecmp?('iphone') || platform_type.casecmp?('ipad') ||
+    platform_type.casecmp?('universal')
+  end
+
+  def android?
+    platform_type.casecmp?('phone') || platform_type.casecmp?('tablet') ||
+    platform_type.casecmp?('watch') || platform_type.casecmp?('television') ||
+    platform_type.casecmp?('automotive')
+  end
+
+  def mac?
+    platform_type.casecmp?('macos')
+  end
+
   private
+
+  def platform_type
+    @platform_type ||= (device_type || channel.device_type)
+  end
 
   def auto_release_version
     latest_version = Release.where(channel: channel).limit(1).order(id: :desc).last

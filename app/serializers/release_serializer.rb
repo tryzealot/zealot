@@ -2,7 +2,7 @@
 
 class ReleaseSerializer < ApplicationSerializer
   attributes :version, :app_name, :bundle_id, :release_version, :build_version,
-             :source, :branch, :git_commit, :ci_url, :size,
+             :source, :branch, :git_commit, :ci_url, :size, :platform, :device_type,
              :icon_url, :install_url, :changelog, :text_changelog
              :created_at
 
