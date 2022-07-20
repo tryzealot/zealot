@@ -8,7 +8,7 @@ gem 'puma', '~> 5.6.4'
 gem 'rails', '~> 7.0.3'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
-gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, active_analytics, graphiql-rails 依赖，后续不需要可移除
+gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, graphiql-rails 依赖，后续不需要可移除
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
@@ -71,7 +71,6 @@ gem 'plist', '~> 3.6.0'
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 2.8.3'
-gem 'active_analytics', '~> 0.2.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
