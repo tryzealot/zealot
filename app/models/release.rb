@@ -22,7 +22,7 @@ class Release < ApplicationRecord
   before_create :detect_device
   before_save   :convert_changelog
   before_save   :convert_custom_fields
-  before_save   :trip_branch
+  before_save   :strip_branch
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
@@ -240,7 +240,7 @@ class Release < ApplicationRecord
   end
 
   ORIGIN_PREFIX = 'origin/'
-  def trip_branch
+  def strip_branch
     return if branch.blank?
     return unless branch.start_with?(ORIGIN_PREFIX)
 
