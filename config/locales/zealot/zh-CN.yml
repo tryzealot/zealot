@@ -153,11 +153,6 @@ zh-CN:
       index:
         title: :'admin.background_jobs.title'
 
-    page_analytics:
-      title: 页面统计分析
-      index:
-        title: :'admin.page_analytics.title'
-
     database_analytics:
       title: 数据库分析
       index:
