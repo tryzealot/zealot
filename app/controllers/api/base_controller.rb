@@ -18,8 +18,6 @@ class Api::BaseController < ActionController::API
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
 
-  before_action :record_page_view
-
   def validate_user_token
     @user = User.find_by(token: params[:token])
     raise ActionCable::Connection::Authorization::UnauthorizedError, t('api.unauthorized_token') unless @user
@@ -79,10 +77,6 @@ class Api::BaseController < ActionController::API
     end
 
     render json: body, status: code
-  end
-
-  def record_page_view
-    ActiveAnalytics.record_request(request)
   end
 
   def set_cache_headers
