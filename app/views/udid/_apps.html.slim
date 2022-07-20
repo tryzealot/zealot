@@ -1,0 +1,46 @@
+.col-md-12
+  - if device&.channels.present?
+    .card
+      .card-header
+        h3.card-title
+          i.icon.fas.fa-cubes
+          = t('udid.show.registered_apps')
+      .card-body
+        .timeline
+          - device.channels.each do |channel|
+            ruby:
+              release = channel.latest_release
+            div
+              i.far.fa-circle
+              .timeline-item
+                span.time
+                  i.icon.fas.fa-clock
+                  = time_ago_in_words(release.created_at)
+                h3.timeline-header
+                  = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pr-1')
+                  = t('udid.show.upload_release', release_version: release.release_version, build_version: release.build_version)
+                - if release.changelog.present?
+                  .timeline-body.pb-0
+                    = changelog_format release.text_changelog, class: 'mb-0'
+                - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
+                  .timeline-footer
+                    - if release.release_type.present?
+                      small.badge
+                        = release.release_type
+                    - if release.branch.present?
+                      small.badge
+                        = release.branch
+                    - if release.short_git_commit.present?
+                      small.badge
+                        - if release.channel.git_url.present?
+                          = git_commit_url(channel.git_url, release.git_commit)
+                        - else
+                          = release.short_git_commit
+          div
+            i.fas.fa-clock
+  - else
+    .card.card-outline.card-warning
+      .card-header.card-border
+        h3.card-title = t('udid.show.not_found.title')
+      .card-body = t('udid.show.not_found.body_html')
+

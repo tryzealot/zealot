@@ -1,0 +1,10 @@
+ruby:
+  text = t("udid.show.#{key}")
+  css_id = "#{key}-text"
+
+dt = text
+dd.input-group.mb-3
+  input.form-control.rounded-0 value="#{value}" readonly="true" id="#{css_id}"
+  span.input-group-append
+    button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#{css_id}"
+      i.far.fa-clipboard
