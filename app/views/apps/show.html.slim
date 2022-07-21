@@ -1,3 +1,10 @@
+ruby:
+  schemes_total = @app.schemes.count
+  column = case schemes_total
+           when 1 then 12
+           when 2 then 6
+           else 4
+           end
 - content_for :title do
   = @app.name
 
@@ -11,9 +18,10 @@
     = button_link_to t('apps.show.destroy_app'), app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', data: { confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}", method: "delete" }
 
 .row
-  .col-md-12
-    - if @app.schemes.count > 0
-      - @app.schemes.each do |scheme|
+  - if schemes_total > 0
+
+    - @app.schemes.each do |scheme|
+      div class="col-md-#{column}"
         .card
           .card-header
             h3.card-title
@@ -39,7 +47,8 @@
                   tr
                     td colspan="2"
                       = t('apps.show.not_found_channel_body_html')
-    - else
+  - else
+    .col-md-12
       .card.card-outline.card-warning
         .card-header.card-border
           h3.card-title = t('apps.show.not_found_scheme.title')

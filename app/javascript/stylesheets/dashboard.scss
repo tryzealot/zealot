@@ -13,6 +13,10 @@
       left: 0;
     }
 
+    h3 {
+      font-weight: 400;
+    }
+
     .timeline-item {
       margin-left: 40px;
       background-color: #f8f8f8;
@@ -42,19 +46,25 @@
   }
 }
 
-.dark-mode .timeline div {
-  .timeline-item {
-    background-color: #212326;
-    border-color: #3a3a3a;
+.dark-mode {
+  .timeline::before {
+    background-color: #474e54;
+  }
 
-    .timeline-header {
-      border-color: #444444;
-    }
+  .timeline div {
+    .timeline-item {
+      background-color: #212326;
+      border-color: #3a3a3a;
 
-    .timeline-footer .badge {
-      color: #dbe3ec;
-      background-color: #486685;
-      border-color: #3f6791;
+      .timeline-header {
+        border-color: #444444;
+      }
+
+      .timeline-footer .badge {
+        color: #dbe3ec;
+        background-color: #486685;
+        border-color: #3f6791;
+      }
     }
   }
 }
