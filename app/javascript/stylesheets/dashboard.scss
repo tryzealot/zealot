@@ -13,6 +13,10 @@
       left: 0;
     }
 
+    .fa-clock {
+      color: #ffffff;
+    }
+
     h3 {
       font-weight: 400;
     }
@@ -48,12 +52,19 @@
 
 .dark-mode {
   .timeline::before {
-    background-color: #474e54;
+    background-color: #454d55;
   }
 
   .timeline div {
+    .fas,
+    .fa,
+    .fab,
+    .far {
+      background-color: #454d55;
+    }
+
     .timeline-item {
-      background-color: #212326;
+      background-color: #454d55;
       border-color: #3a3a3a;
 
       .timeline-header {
