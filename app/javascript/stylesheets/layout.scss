@@ -54,6 +54,11 @@ i.icon {
 }
 
 .dark-mode {
+  .nav-item .active {
+    color: #fff;
+    background-color: #3f6791;
+  }
+
   a {
     color: #64adfb;
   }
