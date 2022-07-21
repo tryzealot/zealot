@@ -84,6 +84,7 @@ en:
       site_title: Site title
       site_locale: Site Locale
       site_domain: Site domain
+      site_appearance: Site Appearance
 
       presets: Presets
       preset_schemes: Default schemes
@@ -576,6 +577,7 @@ en:
           </ol>
     show:
       title: Device
+      metadata: Metadata
       registered: '%{device} was registerd the apps'
       unregistered: New device found, copy the UDID to iOS Developer!
       registered_apps: Registerd apps
@@ -583,7 +585,16 @@ en:
       product: Product
       serial: Serial
       version: Version
+      name: Name
+      platform: platform
+      model: model
+      created_at: Registerd at
       upload_release: :'dashboard.timeline.upload_release'
+      not_found:
+        title: Not found relates app
+        body_html: |
+          This device is registered by synchronization service,
+          but your device does not have an associated application to upload yet.
     install:
       title: Zealot fetch device UDID
       description: |
@@ -622,6 +633,10 @@ en:
     site_locale:
       zh-CN: Simplified Chinese
       en: English
+    site_appearance:
+      light: Light
+      dark: Dark
+      auto: Auto
 
   download:
     releases:
