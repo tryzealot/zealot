@@ -77,6 +77,9 @@ en:
         new_apple_key: :'admin.apple_keys.new.title'
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
+        not_found:
+          title: Not found Apple Developer.
+          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :'admin.apple_keys.title'
         team_metadata: Team metadata
