@@ -5,7 +5,7 @@
         i.icon.fas.fa-info-circle
         = t('udid.show.metadata')
     .card-body
-      dl.system-info
+      dl.system-info.p-0
         == render 'item', key: 'udid', value: params[:udid]
         - if device.present?
           == render 'item', key: 'name', value: device.name

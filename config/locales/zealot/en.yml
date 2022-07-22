@@ -609,26 +609,28 @@ en:
             <li>Open "Setting.app" -> "Downloeded profile" -> "Fetch device's UDID" -> Install</li>
             <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
           </ol>
+
     show:
       title: Device
       metadata: Metadata
-      registered: '%{device} was registerd the apps'
+      registered_but_no_related_app: Device was registerd to Apple Developr, but not found any related app.
+      registered_with_related_apps: Device was registerd to Apple Developr, install app below.
+      register: Device is unregister, choose Apple Developer to register.
       unregistered: New device found, copy the UDID to iOS Developer!
       registered_apps: Registerd apps
       udid: UDID
       product: Product
       serial: Serial
       version: Version
-      name: Name
-      platform: platform
-      model: model
+      name: Device Name
+      platform: Platform
+      model: Model
       created_at: Registerd at
       upload_release: :'dashboard.timeline.upload_release'
-      not_found:
-        title: Not found relates app
-        body_html: |
-          This device is registered by synchronization service,
-          but your device does not have an associated application to upload yet.
+      related_apps_not_found_with_registered_device: |
+        This device is registered by synchronization service,
+        but your device does not have an associated application to upload yet.
+      related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
       title: Zealot fetch device UDID
       description: |

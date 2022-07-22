@@ -605,22 +605,28 @@ zh-CN:
     show:
       title: 设备信息
       metadata: 元数据
-      registered: 本设备已注册%{device}，快往下看看有没有关联的应用吧！
+      registered_but_no_related_app: 本设备已注册，很遗憾还没有发现关联应用
+      registered_with_related_apps:  本设备已注册，下面选择需要安装的应用吧
+      register: 本设备还未注册，快去选择对应的苹果开发者主体注册吧！
       unregistered: 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
       registered_apps: 可安装应用
       udid: UDID
       serial: 序列化
       product: 内部型号
       version: 内部版本
-      name: 备注
+      name: 设备名称
       platform: 平台
       model: 产品型号
       created_at: 注册时间
       upload_release: :'dashboard.timeline.upload_release'
-      not_found:
-        title: 没有关联的应用
-        body_html: |
-          本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
+      related_apple_keys: '已关联的苹果开发者'
+      register_apple_key: '注册测试设备到苹果开发者'
+      channels: 应用渠道
+      releases: 应用版本
+      apple_keys: 苹果开发者
+      register_device: 注册本设备
+      related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
+      related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
 
     install:
       title: Zealot 获取设备 UDID
