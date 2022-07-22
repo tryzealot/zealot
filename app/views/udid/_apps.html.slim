@@ -1,5 +1,5 @@
 .col-md-12
-  - if device&.channels.present?
+  - if channels.present?
     .card
       .card-header
         h3.card-title
@@ -7,9 +7,10 @@
           = t('udid.show.registered_apps')
       .card-body
         .timeline
-          - device.channels.each do |channel|
+          - channels.each do |channel|
             ruby:
               release = channel.latest_release
+
             div
               i.far.fa-circle
               .timeline-item
@@ -41,6 +42,10 @@
   - else
     .card.card-outline.card-warning
       .card-header.card-border
-        h3.card-title = t('udid.show.not_found.title')
-      .card-body = t('udid.show.not_found.body_html')
+        h3.card-title = t('udid.show.registered_apps')
+      .card-body
+        - if device.present?
+          = t('udid.show.related_apps_not_found_with_registered_device')
+        - else
+          = t('udid.show.related_apps_not_found')
 
