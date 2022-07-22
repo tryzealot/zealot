@@ -3,8 +3,8 @@
 class AppleTeam < ApplicationRecord
   belongs_to :key, class_name: 'AppleKey', foreign_key: 'apple_key_id'
 
-  validates :apple_key_id, :team_id, :name, :display_name, presence: true
-  before_create :generate_display_name
+  validates :apple_key_id, :team_id, :name, presence: true
+  before_save :generate_display_name
 
   def full_name
     return display_name if display_name == name

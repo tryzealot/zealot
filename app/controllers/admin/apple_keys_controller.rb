@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::AppleKeysController < ApplicationController
   before_action :set_apple_key, only: %i[ show destroy sync_devices ]
 
@@ -8,17 +10,6 @@ class Admin::AppleKeysController < ApplicationController
 
   # GET /apple_keys/1
   def show
-  end
-
-  # PUT /apple_keys/1/sync_devices
-  def sync_devices
-    is_success = @apple_key.sync_devices
-    if is_success
-      notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
-      redirect_to admin_apple_key_path(@apple_key), notice: notice
-    else
-      render :show, status: :unprocessable_entity
-    end
   end
 
   # GET /apple_keys/new
@@ -40,12 +31,22 @@ class Admin::AppleKeysController < ApplicationController
     end
   end
 
-
   # DELETE /apple_keys/1
   def destroy
     @apple_key.destroy
     notice = t('activerecord.success.destroy', key: t('admin.apple_keys.title'))
     redirect_to admin_apple_keys_url, notice: notice
+  end
+
+  # PUT /apple_keys/1/sync_devices
+  def sync_devices
+    is_success = @apple_key.sync_devices
+    if is_success
+      notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
+      redirect_to admin_apple_key_path(@apple_key), notice: notice
+    else
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private
