@@ -14,6 +14,7 @@ class AppleKey < ApplicationRecord
 
   before_validation :generate_checksum
   after_save :create_relate_team
+  after_create :start_sync_device_job
 
   PRIVATE_KEY_HYPHENS = '-----'
 
@@ -38,22 +39,10 @@ class AppleKey < ApplicationRecord
     response_devices = client.devices.all_pages(flatten: true)
     logger.debug "Got #{response_devices.size} devices from apple key #{id}"
     response_devices.each do |response_device|
-      current_udid = response_device.udid
-      record_data = {
-        name: response_device.name,
-        model: response_device.model,
-        platform: response_device.platform,
-        created_at: Time.parse(response_device.added_date)
-      }
-
-      model = Device.find_by(udid: current_udid)
-      if model.blank?
-        model = Device.create(record_data.merge(udid: current_udid))
-      else
-        model.update!(record_data)
+      logger.debug "Device is: #{response_device.attributes}"
+      Device.create_from_api(response_device) do |device|
+        devices << device unless devices.exists?(device.id)
       end
-
-      devices << model unless devices.exists?(model.id)
     end
 
     true
@@ -64,23 +53,17 @@ class AppleKey < ApplicationRecord
 
   def register_device(udid, name = nil)
     response_device = client.create_device(udid, name).to_model
-    device = Device.create(
-      udid: response_device.udid,
-      name: response_device.name,
-      model: response_device.model,
-      platform: response_device.platform,
-      created_at: Time.parse(response_device.added_date)
-    )
-    devices << device
-
-    device
+    Device.create_from_api(response_device) do |device|
+      devices << device
+    end
   rescue TinyAppstoreConnect::InvalidEntityError => e
-    sync_devices
     logger.error "Device exists in apple key #{id}"
-    # udid had registered
+
+    # udid had registered, force sync device
+    sync_devices
     Device.find_by(udid: udid)
   rescue => e
-    logger.error "Sync device raise an exception: #{e}"
+    logger.error "Register device raise an exception: #{e}"
     false
   end
 
@@ -88,12 +71,17 @@ class AppleKey < ApplicationRecord
 
   def create_relate_team
     cert = client.distribution_certificates.to_model
-    raise 'Not found cert, create it first' if cert.nil?
+    logger.debug "Fetching distribution_certificates is #{cert.attributes}"
+    raise 'Not found cert, create it first' if cert.blank?
 
     create_team(
       team_id: cert.team_id,
       name: cert.name
     )
+  end
+
+  def start_sync_device_job
+    SyncAppleDevicesJob.perform_later(id)
   end
 
   def private_key_format
