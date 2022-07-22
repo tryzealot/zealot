@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::AppleTeamsController < ApplicationController
   before_action :set_apple_team, only: %i[ edit update ]
 

@@ -19,10 +19,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   create_enum "metadata_platform", ["ios", "android", "mobileprovision", "macos"]
 
   create_table "apple_keys", force: :cascade do |t|
-    t.string "issuer_id"
-    t.string "key_id"
-    t.string "filename"
-    t.string "private_key"
+    t.string "issuer_id", null: false
+    t.string "key_id", null: false
+    t.string "filename", null: false
+    t.string "private_key", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -118,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
     t.datetime "updated_at", null: false
     t.string "model"
     t.string "platform"
+    t.string "status"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 

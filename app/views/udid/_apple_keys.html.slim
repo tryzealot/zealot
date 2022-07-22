@@ -7,9 +7,14 @@
           = t("udid.show.#{result}")
       .card-body.p-0
         table.table
+          tr
+            th = t('udid.show.team_name')
+            th = t('udid.show.team_id')
+            - if result == 'register_apple_key'
+              th = t('udid.show.action')
           - apple_keys.each do |apple_key|
             tr
-              th = apple_key.team.full_name
+              td = apple_key.team.full_name
               td = apple_key.team.team_id
               - if result == 'register_apple_key'
                 ruby:

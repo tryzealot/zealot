@@ -479,7 +479,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.0)
-    tiny_appstore_connect (0.1.6)
+    tiny_appstore_connect (0.1.7)
       faraday (>= 1.10.0, < 3.0)
       jwt (>= 1.4, < 3)
       openssl (>= 2.2.1, < 4)
@@ -583,7 +583,7 @@ DEPENDENCIES
   sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard
-  tiny_appstore_connect (~> 0.1.6)
+  tiny_appstore_connect (~> 0.1.7)
   turbolinks (~> 5)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)

@@ -45,7 +45,7 @@ ruby:
         h3.card-title
           = t('.devices', size: device_total)
         .card-tools
-          = link_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-icon btn-success btn-sm'
+          = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-icon btn-success btn-sm'
       - if device_total
         .card-body.p-0
           table.table
