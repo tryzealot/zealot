@@ -58,12 +58,30 @@ class AppleKey < ApplicationRecord
 
     true
   rescue => e
-    raise e
+    logger.error "Sync device raise an exception: #{e}"
     false
   end
 
-  def device(udid)
-    client.device(udid)
+  def register_device(udid, name = nil)
+    response_device = client.create_device(udid, name).to_model
+    device = Device.create(
+      udid: response_device.udid,
+      name: response_device.name,
+      model: response_device.model,
+      platform: response_device.platform,
+      created_at: Time.parse(response_device.added_date)
+    )
+    devices << device
+
+    device
+  rescue TinyAppstoreConnect::InvalidEntityError => e
+    sync_devices
+    logger.error "Device exists in apple key #{id}"
+    # udid had registered
+    Device.find_by(udid: udid)
+  rescue => e
+    logger.error "Sync device raise an exception: #{e}"
+    false
   end
 
   private
