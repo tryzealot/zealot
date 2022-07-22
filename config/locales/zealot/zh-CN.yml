@@ -77,6 +77,9 @@ zh-CN:
         new_apple_key: :'admin.apple_keys.new.title'
         destroy: 删除
         destroy_confirm: 确定删除苹果开发者【%{team} (%{team_id})】
+        not_found:
+          title: 没有发现任何苹果开发者
+          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增。
       show:
         title: :'admin.apple_keys.title'
         team_metadata: 团队信息
