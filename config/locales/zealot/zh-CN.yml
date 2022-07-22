@@ -622,11 +622,13 @@ zh-CN:
       model: 产品型号
       created_at: 注册时间
       upload_release: :'dashboard.timeline.upload_release'
-      related_apple_keys: '已关联的苹果开发者'
-      register_apple_key: '注册测试设备到苹果开发者'
+      related_apple_keys: 已关联的苹果开发者
+      register_apple_key: 注册测试设备到苹果开发者
       channels: 应用渠道
       releases: 应用版本
       apple_keys: 苹果开发者
+      team_name: 团队名称
+      team_id: 团队 ID
       register_device: 注册本设备
       related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
       related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务

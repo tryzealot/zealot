@@ -45,7 +45,7 @@ class UdidController < ApplicationController
   def register
     apple_key = AppleKey.find(params[:apple_key_id])
     udid = params[:udid]
-    name = [ 'Zealot注册', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
+    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
     device = apple_key.register_device(udid, name)
     if device
       notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
