@@ -13,12 +13,28 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
-.widget-user {
-  .widget-user-image {
-    img {
-      background-color: #fff;
-    }
+.widget-app {
+  .app-icon {
+    margin: 0 auto;
+    padding: 3px;
+    width: 100px;
+
+    max-width: 120px;
+    max-height: 120px;
   }
+
+  .profile-username {
+    padding-top: 0.3rem;
+    font-size: 1.2em;
+  }
+
+  .created-time {
+    font-size: 0.4em;
+  }
+}
+
+.dark-mode .widget-app .app-icon {
+  background-color: #fff;
 }
 
 // show page
