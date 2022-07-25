@@ -128,6 +128,8 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
+    cssbundling-rails (1.1.1)
+      railties (>= 6.0.0)
     debug (1.6.1)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
@@ -217,6 +219,8 @@ GEM
     irb (1.4.1)
       reline (>= 0.3.0)
     jb (0.8.0)
+    jsbundling-rails (1.0.3)
+      railties (>= 6.0.0)
     json (2.6.1)
     jsonapi-renderer (0.2.2)
     jwt (2.3.0)
@@ -349,8 +353,6 @@ GEM
       rack (>= 2.0.0)
     rack-protection (2.2.0)
       rack
-    rack-proxy (0.7.2)
-      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.3.1)
@@ -427,7 +429,6 @@ GEM
     rubyzip (2.3.2)
     rufus-scheduler (3.8.1)
       fugit (~> 1.1, >= 1.1.6)
-    semantic_range (3.0.0)
     sentry-rails (5.3.1)
       railties (>= 5.0)
       sentry-ruby-core (~> 5.3.1)
@@ -483,9 +484,10 @@ GEM
       faraday (>= 1.10.0, < 3.0)
       jwt (>= 1.4, < 3)
       openssl (>= 2.2.1, < 4)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -501,11 +503,6 @@ GEM
     webp-ffi (0.3.1)
       ffi (>= 1.9.0)
       ffi-compiler (>= 0.1.2)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -524,6 +521,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.7)
   byebug
   carrierwave (~> 2.2.2)
+  cssbundling-rails (~> 1.1)
   debug (~> 1.6.1)
   devise (~> 4.8.1)
   devise-i18n (~> 1.10.2)
@@ -540,6 +538,7 @@ DEPENDENCIES
   health_check (~> 3.1.0)
   improved_jenkins_client (~> 1.6.7)
   jb (~> 0.8.0)
+  jsbundling-rails
   kaminari (~> 1.2.2)
   letter_opener (~> 1.8)
   letter_opener_web (~> 2.0)
@@ -584,11 +583,10 @@ DEPENDENCIES
   terminal-notifier
   terminal-notifier-guard
   tiny_appstore_connect (~> 0.1.7)
-  turbolinks (~> 5)
+  turbo-rails (~> 1.1)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
   webp-ffi (~> 0.3.1)
-  webpacker (~> 5.4.3)
 
 BUNDLED WITH
    2.3.4

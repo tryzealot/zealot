@@ -2,7 +2,7 @@
 // import 'filepond/dist/filepond.min.css';
 
 
-// $(document).on('turbolinks:load', function () {
+// $(document).on('turbo:load', function () {
 // //   // Turn input element into a pond
 // const inputElement = document.querySelector('input[type="file"]');
 // const pond = FilePond.create( inputElement );
