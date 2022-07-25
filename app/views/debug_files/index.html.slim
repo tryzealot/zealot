@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   - if user_signed_in?
-    a.btn.btn-icon.bg-green href="#{new_debug_file_path}"
+    a.btn.btn-icon.btn-success href="#{new_debug_file_path}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
 
