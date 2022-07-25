@@ -17,7 +17,7 @@ html lang="#{I18n.locale}"
     link[rel="icon" type="image/x-icon" href="touch-icon@3x.png"]
     == favicon_link_tag 'touch-icon.png'
     == stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
-    / == render 'layouts/dark_mode', appearance: Setting.site_appearance
+    == render 'layouts/dark_mode', appearance: Setting.site_appearance
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true
     == yield :header_tags
     == action_cable_meta_tag
@@ -31,7 +31,7 @@ html lang="#{I18n.locale}"
       .content-wrapper
         == render 'layouts/content'
 
-      / == render 'layouts/footer'
+      == render 'layouts/footer'
 
     - if Setting.google_analytics_id.present?
       == render 'layouts/google_analytics'
