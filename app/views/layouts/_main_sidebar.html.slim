@@ -36,6 +36,10 @@
             i.nav-icon.fas.fa-anchor
             p = t('web_hooks.title')
         li.nav-item
+          a.nav-link href="#{admin_apple_keys_path}" class="#{active_class(admin_apple_keys_path)}"
+            i.nav-icon.fas.fa-key
+            p = t('admin.apple_keys.title')
+        li.nav-item
           a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
             i.nav-icon.fas.fa-cog
             p = t('admin.settings.title')
