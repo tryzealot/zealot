@@ -28,12 +28,12 @@ Style/FrozenStringLiteralComment:
 
 # Some blocks are longer.
 Metrics/BlockLength:
+  Max: 250
   IgnoredMethods:
     - 'namespace'
     - 'create_table'
   Exclude:
     - 'config/**/*.rb'
-    - 'app/models/setting.rb'
     - 'spec/**/*.rb'
     - 'lib/tasks/**/*'
     - 'lib/backup/**/*'
@@ -50,9 +50,7 @@ Metrics/MethodLength:
   Max: 60
 
 Metrics/ClassLength:
-  Max: 180
-  Exclude:
-    - 'app/models/setting.rb'
+  Max: 250
 
 Metrics/ModuleLength:
   Max: 180

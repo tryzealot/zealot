@@ -79,12 +79,24 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # UDID (iOS)
+  # UDID (iOS/iPadOS)
   #############################################
+  # resources :uudid, as: :uudid, param: :udid, only: %i[ index show ] do
+  #   collection do
+  #     get :install
+  #     post :retrieve, action: :create
+  #   end
+
+  #   member do
+  #     post :register
+  #   end
+  # end
+
   get 'udid', to: 'udid#index'
   get 'udid/install', to: 'udid#install'
   post 'udid/retrieve', to: 'udid#create'
   get 'udid/:udid', to: 'udid#show', as: 'udid_result'
+  post 'udid/:udid/register', to: 'udid#register', as: 'udid_register'
 
   #############################################
   # Health check
@@ -100,6 +112,12 @@ Rails.application.routes.draw do
 
       resources :users, except: :show
       resources :web_hooks
+      resources :apple_keys, except: %i[ edit update ] do
+        member do
+          put :sync_devices
+        end
+      end
+      resources :apple_teams, only: %i[ edit update ]
       resources :settings
 
       resources :background_jobs, only: :index
