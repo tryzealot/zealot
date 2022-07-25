@@ -52,19 +52,35 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil)
+    return device if (device = device.find_by(udid: udid))
+
     response_device = client.create_device(udid, name).to_model
     Device.create_from_api(response_device) do |device|
       devices << device
     end
   rescue TinyAppstoreConnect::InvalidEntityError => e
-    logger.error "Device exists in apple key #{id}"
+    # Incorrect UDID format: An invalid value '00008020-001430D41A68002E1' was provided for the parameter 'udid'.
+    # UDID exists: A device with number '00008020-001430D41A680022' already exists on this team.
+    logger.error "Device may exists or the other error in apple key #{id}: #{e}"
+    message = e.errors[0]['detail']
+    is_exists = message.include?('already exists')
 
     # udid had registered, force sync device
-    sync_devices
-    Device.find_by(udid: udid)
+    if is_exists
+      sync_devices
+      return self
+    end
+
+    errors.add(:udid, message)
+
+    self
   rescue => e
     logger.error "Register device raise an exception: #{e}"
-    false
+
+    message = e.errors[0]['detail']
+    errors.add(:udid, message)
+
+    self
   end
 
   private
