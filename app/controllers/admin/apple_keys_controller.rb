@@ -6,6 +6,7 @@ class Admin::AppleKeysController < ApplicationController
   # GET /apple_keys
   def index
     @apple_keys = AppleKey.all
+    authorize @apple_keys
   end
 
   # GET /apple_keys/1
@@ -15,12 +16,15 @@ class Admin::AppleKeysController < ApplicationController
   # GET /apple_keys/new
   def new
     @apple_key = AppleKey.new
+    authorize @apple_key
   end
 
   # POST /apple_keys
   def create
     private_key = apple_key_params.delete(:private_key)
     @apple_key = AppleKey.new(apple_key_params)
+    authorize @apple_key
+
     @apple_key.private_key = private_key&.read
     @apple_key.filename = private_key&.original_filename
 
@@ -53,6 +57,7 @@ class Admin::AppleKeysController < ApplicationController
 
   def set_apple_key
     @apple_key = AppleKey.find(params[:id])
+    authorize @apple_key
   end
 
   def apple_key_params
