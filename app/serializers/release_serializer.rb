@@ -6,6 +6,7 @@ class ReleaseSerializer < ApplicationSerializer
              :icon_url, :install_url, :changelog, :text_changelog, :custom_fields,
              :created_at
 
+
   def changelog
     object.array_changelog(false)
   end
