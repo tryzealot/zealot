@@ -47,11 +47,11 @@ class UdidController < ApplicationController
     udid = params[:udid]
     name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
     device = apple_key.register_device(udid, name)
-    if device
+    if device.errors
+      redirect_to udid_result_path(params[:udid]), alert: device.errors.messages[:udid][0]
+    else
       notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
       redirect_to udid_result_path(params[:udid]), notice: notice
-    else
-      redirect_to udid_result_path(params[:udid]), alert: '注册失败！'
     end
   end
 
