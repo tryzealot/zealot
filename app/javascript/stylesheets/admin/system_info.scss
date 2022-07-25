@@ -53,3 +53,8 @@ dl.system-info {
     }
   }
 }
+
+.dark-mode dl.system-info dd pre {
+  background-color: #2f2936;
+  color: #f7f8f9;
+}
