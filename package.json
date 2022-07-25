@@ -12,7 +12,7 @@
     "filepond": "^4.30.4",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.46.0",
+    "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
