@@ -122,6 +122,7 @@ en:
       site_title: Site title
       site_locale: Site Locale
       site_domain: Site domain
+      site_appearance: Site Appearance
 
       presets: Presets
       preset_schemes: Default schemes
@@ -680,6 +681,10 @@ en:
     site_locale:
       zh-CN: Simplified Chinese
       en: English
+    site_appearance:
+      light: Light
+      dark: Dark
+      auto: Auto
 
   download:
     releases:
