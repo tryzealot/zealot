@@ -17,6 +17,7 @@ html lang="#{I18n.locale}"
     link[rel="icon" type="image/x-icon" href="#{asset_pack_path('media/images/touch-icon@3x.png')}"]
     == favicon_link_tag asset_pack_path('media/images/touch-icon.png')
     == stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    == render 'layouts/dark_mode', appearance: Setting.site_appearance
     == javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     == yield :header_tags
     == action_cable_meta_tag
