@@ -168,11 +168,11 @@ class Admin::SystemInfoController < ApplicationController
   def progress_color(percent)
     case percent.to_i
     when 0..60
-      'bg-success'
+      'btn-success'
     when 61..80
-      'bg-warning'
+      'btn-warning'
     else
-      'bg-danger'
+      'btn-danger'
     end
   end
 end

@@ -84,6 +84,7 @@ zh-CN:
       site_title: 网站标题
       site_locale: 网站语言
       site_domain: 网站域名
+      site_appearance: 网站外观
 
       presets: 预设值
       preset_schemes: 应用类型模板
@@ -613,6 +614,10 @@ zh-CN:
     site_locale:
       zh-CN: 简体中文
       en: 英文
+    site_appearance:
+      light: 浅色
+      dark: 深色
+      auto: 随系统自动
 
   download:
     releases:
