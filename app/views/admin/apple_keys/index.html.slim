@@ -1,0 +1,42 @@
+- content_for :title do
+  = t('.title')
+
+- content_for :section_title do
+  = t('.title')
+
+- content_for :section_rightpanel do
+  a.btn.btn-icon.bg-green href="#{new_admin_apple_key_path}"
+    i.icon.far.fa-plus-square
+    = t('.new_apple_key')
+
+.row
+  .col-md-12
+    - if @apple_keys.size > 0
+      .card
+        .card-body
+          table.table.p-0
+            thead
+              tr
+                th = t('.number')
+                th = t('.team_name')
+                th = t('.team_id')
+                th = t('.created_at')
+                th = t('.action')
+            tbody
+              - @apple_keys.each_with_index do |apple_key, i|
+                tr
+                  td
+                    = i + 1
+                  td
+                    = link_to apple_key.team.full_name, admin_apple_key_path(apple_key)
+                  td
+                    = apple_key.team.team_id
+                  td
+                    = time_ago_in_words(apple_key.created_at)
+                  td
+                    = link_to t('.destroy'), admin_apple_key_path(apple_key), method: :delete, data: { confirm: t('.destroy_confirm', team: apple_key.team.display_name, team_id: apple_key.team.team_id)}
+    - else
+      .card.card-outline.card-warning
+        .card-header.card-border
+          h3.card-title = t('.not_found.title')
+        .card-body = t('.not_found.body_html')
