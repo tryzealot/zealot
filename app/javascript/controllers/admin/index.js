@@ -34,6 +34,6 @@ function check_new_version() {
   });
 }
 
-$(document).on('turbolinks:load', () => {
+$(document).on('turbo:load', () => {
   check_new_version();
 });

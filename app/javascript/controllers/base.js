@@ -1,7 +1,7 @@
 const HOST = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + "/";
 window.HOST = HOST;
 
-$(document).on("turbolinks:load", function () {
+$(document).on("turbo:load", function () {
   // fix body height for AdminLTE 2.4.0 and turbolinks 5
   $(window).trigger("resize");
 
