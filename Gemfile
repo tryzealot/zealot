@@ -91,8 +91,6 @@ gem 'sidekiq-scheduler', '~> 4.0.2'
 gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
 # Assets
-# gem 'turbolinks', '~> 5'
-# gem 'webpacker', '~> 5.4.3'
 gem 'jsbundling-rails'
 gem "cssbundling-rails", "~> 1.1"
 gem "turbo-rails", "~> 1.1"
@@ -118,6 +116,7 @@ group :development do
   gem 'debug', '~> 1.6.1'
 
   # 开发辅助
+  # gem 'foreman'
   gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
@@ -125,6 +124,7 @@ group :development do
   gem 'guard-sidekiq'
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
+  # gem 'guard-yarn_build', path: '/Users/icyleaf/Development/ruby/guard-yarn_build'
 
   # rails 更友好错误输出
   gem 'awesome_print'
