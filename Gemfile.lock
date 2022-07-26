@@ -539,7 +539,7 @@ DEPENDENCIES
   health_check (~> 3.1.0)
   improved_jenkins_client (~> 1.6.7)
   jb (~> 0.8.0)
-  jsbundling-rails
+  jsbundling-rails (~> 1.0)
   kaminari (~> 1.2.2)
   letter_opener (~> 1.8)
   letter_opener_web (~> 2.0)
