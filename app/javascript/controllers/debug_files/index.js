@@ -1,4 +1,4 @@
-$(document).on('turbo:load', function () {
+$(document).on("turbo:load", function () {
   $('.debug-file-toggle').on('click', function () {
     debug_file_id = $(this).data('id');
     $('#debug-file-metadata-' + debug_file_id).toggleClass('d-none');
