@@ -13,7 +13,7 @@ export function zealotNewVersionEventer() {
 
   var current_version = $('#current-version').html();
   var title = elm.data('title');
-  if (current_version == 'development') {
+  if (current_version === 'development') {
     insert_link(elm, title, 'https://github.com/tryzealot/zealot');
     return;
   }
