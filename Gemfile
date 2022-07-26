@@ -91,9 +91,10 @@ gem 'sidekiq-scheduler', '~> 4.0.2'
 gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
 # Assets
-gem 'jsbundling-rails'
-gem "cssbundling-rails", "~> 1.1"
-gem "turbo-rails", "~> 1.1"
+## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
+gem 'jsbundling-rails', '~> 1.0'
+gem 'cssbundling-rails', '~> 1.1'
+gem 'turbo-rails', '~> 1.1'
 
 # 用于解析 iOS, Android 和 macOS 应用
 gem 'app-info', '~> 2.8.3'
