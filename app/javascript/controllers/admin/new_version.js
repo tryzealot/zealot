@@ -7,13 +7,13 @@ function insert_link(elm, title, link) {
     '<i class="fas fa-rainbow"></i>' + title + '</a>');
 }
 
-function check_new_version() {
+export function zealotNewVersionEventer() {
   var elm = $('#new-version');
   if (!elm.length) { return; }
 
   var current_version = $('#current-version').html();
   var title = elm.data('title');
-  if (current_version == 'development') {
+  if (current_version === 'development') {
     insert_link(elm, title, 'https://github.com/tryzealot/zealot');
     return;
   }
@@ -33,7 +33,3 @@ function check_new_version() {
       insert_link(elm, title + ' ' + latest_version, release_link);
   });
 }
-
-$(document).on('turbolinks:load', () => {
-  check_new_version();
-});

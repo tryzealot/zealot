@@ -25,7 +25,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function restartService(button) {
+async function restartService(button) {
   $("#notifications").fadeOut();
   var orinalText = $(button).html();
 
@@ -58,4 +58,9 @@ export async function restartService(button) {
 
   await sleep(2000);
   window.location.reload();
+}
+
+export async function addRestartSericeEventer() {
+  var button = $("#restart-service-button");
+  button.on("click", () => restartService(button));
 }
