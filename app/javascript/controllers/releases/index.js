@@ -40,7 +40,7 @@
 //   });
 // }
 
-$(document).on('turbolinks:load', function () {
+$(document).on("turbo:load", function () {
   $('#download_it').on('click', function () {
     var app_limit_regex = /MicroMessenger|DingTalk/i;
     var that = $('#download_it');

@@ -13,7 +13,7 @@ module AppsHelper
 
   def app_icon(release, options = {})
     unless release&.icon && release.icon.file && release.icon.file.exists?
-      return image_pack_tag('media/images/touch-icon.png', **options)
+      return image_tag('touch-icon.png', **options)
     end
 
     image_tag(release.icon_url, **options)
