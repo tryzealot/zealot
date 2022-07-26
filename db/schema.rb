@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "channels", force: :cascade do |t|
-    t.integer "scheme_id"
+    t.bigint "scheme_id"
     t.string "name", null: false
     t.string "slug", null: false
     t.string "bundle_id", default: "*"
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "debug_file_metadata", force: :cascade do |t|
-    t.integer "debug_file_id", null: false
+    t.bigint "debug_file_id", null: false
     t.string "uuid"
     t.string "type"
     t.string "object"
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "debug_files", force: :cascade do |t|
-    t.integer "app_id"
+    t.bigint "app_id"
     t.string "device_type"
     t.string "release_version"
     t.string "build_version"
@@ -130,8 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "metadata", force: :cascade do |t|
-    t.integer "release_id"
-    t.integer "user_id"
+    t.bigint "release_id"
+    t.bigint "user_id"
     t.string "device", null: false
     t.string "name"
     t.string "release_version"
@@ -162,7 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "releases", force: :cascade do |t|
-    t.integer "channel_id"
+    t.bigint "channel_id"
     t.string "bundle_id", null: false
     t.integer "version", null: false
     t.string "release_version", null: false
@@ -190,7 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "schemes", force: :cascade do |t|
-    t.integer "app_id"
+    t.bigint "app_id"
     t.string "name", null: false
     t.index ["app_id"], name: "index_schemes_on_app_id"
     t.index ["name"], name: "index_schemes_on_name"
@@ -205,7 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "user_providers", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "name"
     t.string "uid"
     t.string "token"
@@ -244,7 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   create_table "web_hooks", force: :cascade do |t|
-    t.integer "channel_id"
+    t.bigint "channel_id"
     t.string "url"
     t.text "body"
     t.integer "upload_events", limit: 2
