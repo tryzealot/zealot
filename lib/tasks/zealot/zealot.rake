@@ -22,11 +22,10 @@ namespace :zealot do
     end
 
     # 初始化
-    task setup: :environment do
+    task setup: ['db:create',] do
       puts "Zealot setup database ..."
-      Rake::Task['db:create'].invoke
-      Rake::Task['db:migrate'].invoke
-      Rake::Task['db:seed'].invoke
+      Rake::Task['db:setup'].invoke # need db/schema.rb
+      Rake::Task['db:migrate:status'].invoke
     end
 
     # 升级
