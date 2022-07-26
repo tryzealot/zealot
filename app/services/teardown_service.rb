@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TeardownService < ApplicationService
+class TeardownService
   include ActionView::Helpers::TranslationHelper
 
   attr_reader :file
