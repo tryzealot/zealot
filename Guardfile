@@ -62,6 +62,13 @@ guard :rails, host: '0.0.0.0', environment: environment do
   watch('app/assets/config/manifest.js')
 end if ignore_rails == 'false'
 
+# guard 'yarn_build', command: [
+#   'yarn build --watch',
+#   'yarn build:css --watch',
+# ] do
+#   watch('package.json')
+# end
+
 guard :bundler do
   require 'guard/bundler'
   require 'guard/bundler/verify'

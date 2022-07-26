@@ -1,0 +1,4 @@
+web: bin/rails server -p 3000
+job: bin/sidekiq -C config/sidekiq.yml
+js: yarn build --watch
+css: yarn build:css --watch

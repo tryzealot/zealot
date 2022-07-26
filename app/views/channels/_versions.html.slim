@@ -19,5 +19,5 @@
       .p-3 = t('channels.show.empty_version_shortly')
   - if @versions.count > 0
     .card-footbar
-      a.btn.btn-default.btn-block href="#{friendly_channel_versions_path(@channel)}"
+      a.btn.btn-default.btn-block.btn-flat href="#{friendly_channel_versions_path(@channel)}"
         = t('channels.show.more')

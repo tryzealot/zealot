@@ -22,7 +22,7 @@ function fallbackMessage(action) {
   return actionMsg;
 }
 
-$(document).on("turbolinks:load", function () {
+$(document).on("turbo:load", function () {
   var clipboardButton = ".btn-clipboard";
   $(clipboardButton).on("mouseleave", function () {
     clearTooltip(this);
