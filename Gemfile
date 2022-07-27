@@ -94,6 +94,8 @@ gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3
 gem 'propshaft', '0.6.4'
 gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'
+## Javascript
+gem 'stimulus-rails', '~> 1.1.0'
 gem 'turbo-rails', '~> 1.1'
 
 # 用于解析 iOS, Android 和 macOS 应用
