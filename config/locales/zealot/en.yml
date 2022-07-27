@@ -664,7 +664,7 @@ en:
     destroy: Destroy
     disable: Disable
     messages:
-      done: Teardown done!
+      parse_done_and_refreshing: 'Teardown done, refresh page ...'
       confirm:
         destroy: Destroy confirm?
 
