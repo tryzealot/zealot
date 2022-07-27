@@ -84,8 +84,8 @@ module Zealot
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    # Disable yarn check(this must disable with docker)
-    # config.webpacker.check_yarn_integrity = false
   end
 end
+
+# Slient redis
+Redis.silence_deprecations = true
