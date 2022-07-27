@@ -1,14 +1,22 @@
 databases:
 - name: zealot-db
-  plan: starter
+  plan: free
+  region: singapore
 services:
+- type: redis
+  name: zealot-redis
+  plan: free
+  region: singapore
+  maxmemoryPolicy: noeviction
+  ipAllowList: []
 - type: web
   name: zealot-web
   env: docker
-  plan: starter plus
+  plan: free
+  region: singapore
   dockerfilePath: Dockerfile
   dockerContext: .
-  autoDeploy: false
+  autoDeploy: true
   disk:
     name: zealot-data
     mountPath: /app/public/uploads
