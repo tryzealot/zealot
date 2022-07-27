@@ -48,4 +48,4 @@
       .modal-footer
         input type="hidden" id="dsym-destory-id" value=""
         button.btn.btn-default data-dismiss="modal" type="button" = t('debug_files.confirm.destroy.cancel')
-        a.btn.btn-danger data-method="delete" = t('debug_files.confirm.destroy.ok')
+        = button_to t('debug_files.confirm.destroy.ok'), debug_files_path, method: :delete, class: 'btn btn-danger'
