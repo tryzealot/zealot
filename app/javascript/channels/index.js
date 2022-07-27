@@ -5,5 +5,4 @@
 // import * as ActionCable from '@rails/actioncable'
 // ActionCable.logger.enabled = true
 
-const channels = require.context('.', true, /_channel\.js$/);
-channels.keys().forEach(channels);
+import "./notification_channel"

@@ -31,7 +31,8 @@ class DebugFileTeardownJob < ApplicationJob
     ActionCable.server.broadcast("notification:#{user_id}", {
       type: 'teardown',
       status: 'success',
-      message: t('web_hooks.messages.parse_done', id: debug_file.id)
+      refresh_page: true,
+      message: t('web_hooks.messages.parse_done_and_refreshing', id: debug_file.id)
   })
   end
 
