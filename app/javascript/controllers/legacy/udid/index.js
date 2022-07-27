@@ -1,3 +1,6 @@
+import clipboard from "clipboard"
+window.ClipboardJS = clipboard
+
 function clearTooltip(e) {
   $(e).tooltip("hide");
   $(e).tooltip("disable");
