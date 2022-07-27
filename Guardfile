@@ -59,7 +59,6 @@ guard :rails, host: '0.0.0.0', environment: environment do
   watch('.env')
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
-  watch('app/assets/config/manifest.js')
 end if ignore_rails == 'false'
 
 # guard 'yarn_build', command: [
