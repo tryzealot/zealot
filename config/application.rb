@@ -14,8 +14,6 @@ require 'action_mailer/railtie'
 # require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-require 'sprockets/railtie'
-# require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -64,10 +62,6 @@ module Zealot
     #   origins.map! { |url| /#{url}/ }
     #   config.action_cable.allowed_request_origins = origins
     # end
-
-    # Disable Asset Pipeline/Sprockets
-    # config.assets.enabled = false
-    # config.assets.compile = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

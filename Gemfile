@@ -8,7 +8,6 @@ gem 'puma', '~> 5.6.4'
 gem 'rails', '~> 7.0.3'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
-gem 'sprockets-rails', '~> 3.4.2' # TODO: pghero, graphiql-rails 依赖，后续不需要可移除
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
@@ -92,6 +91,7 @@ gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
+gem 'propshaft', '0.6.4'
 gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'
 gem 'turbo-rails', '~> 1.1'
