@@ -442,8 +442,8 @@ GEM
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sentry-ruby-core (5.3.1)
       concurrent-ruby
-    sentry-sidekiq (5.3.1)
-      sentry-ruby-core (~> 5.3.1)
+    sentry-sidekiq (5.4.1)
+      sentry-ruby (~> 5.4.1)
       sidekiq (>= 3.0)
     shellany (0.0.1)
     sidekiq (6.5.1)
