@@ -31,7 +31,10 @@ SCHEDULED_JOBS = {
 
 Rails.application.reloader.to_prepare do
   if Sidekiq.server?
-    cron_jobs = {}
+    cron_jobs = {
+      sync_apple_devices: SCHEDULED_JOBS[:sync_apple_devices]
+    }
+
     add_or_delete_schedule(Setting.keep_uploads, cron_jobs, :clean_old_releases)
     add_or_delete_schedule(!Setting.demo_mode, cron_jobs, :reset_for_demo_mode)
 
