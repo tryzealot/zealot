@@ -6,7 +6,7 @@ class TeardownJob < ApplicationJob
   def perform(release_id, user_id)
     return unless file = determine_file!(release_id)
 
-    metadata = TeardownService.call(file.path)
+    metadata = TeardownService.new.call(file.path)
     metadata.update_attribute(:user_id, user_id) if user_id.present?
     update_release_resouces(release_id, metadata)
   end
