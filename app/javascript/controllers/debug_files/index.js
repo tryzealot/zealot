@@ -24,7 +24,7 @@ $(document).on("turbo:load", function () {
       return tips + conform_text;
     });
 
-    elm.find('a').attr('href', $(this).data('url'));
+    elm.find('form').attr('action', $(this).data('url'));
     elm.modal('toggle');
   });
 });
