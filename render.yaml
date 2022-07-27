@@ -1,0 +1,126 @@
+databases:
+- name: zealot-db
+  plan: starter
+services:
+- type: web
+  name: zealot-web
+  env: docker
+  plan: starter plus
+  dockerfilePath: Dockerfile
+  dockerContext: .
+  autoDeploy: false
+  disk:
+    name: zealot-data
+    mountPath: /app/public/uploads
+    sizeGB: 10
+  envVars:
+  - key: ZEALOT_ADMIN_EMAIL
+    sync: false
+  - key: ZEALOT_ADMIN_PASSWORD
+    sync: false
+  - key: ZEALOT_DOMAIN
+    sync: false
+  - key: DEFAULT_LOCALE
+    sync: false
+  - key: ZEALOT_GUEST_MODE
+    value: false
+  - key: ZEALOT_REGISTER_ENABLED
+    value: false
+
+  - key: SMTP_ADDRESS
+    value: false
+  - key: SMTP_PORT
+    value: false
+  - key: SMTP_DOMAIN
+    value: false
+  - key: SMTP_USERNAME
+    value: false
+  - key: SMTP_PASSWORD
+    value: false
+  - key: SMTP_AUTH_METHOD
+    value: false
+  - key: SMTP_ENABLE_STARTTLS_AUTO
+    value: false
+  - key: ACTION_MAILER_DEFAULT_FROM
+    value: false
+  - key: ACTION_MAILER_DEFAULT_TO
+    value: false
+
+  - key: GOOGLE_OAUTH_ENABLED
+    value: false
+  - key: GOOGLE_CLIENT_ID
+    value: false
+  - key: GOOGLE_SECRET
+    value: false
+
+  - key: FEISHU_ENABLED
+    value: false
+  - key: FEISHU_APP_ID
+    value: false
+  - key: FEISHU_APP_SECRET
+    value: false
+
+  - key: GITLAB_ENABLED
+    value: false
+  - key: GITLAB_SITE
+    value: false
+  - key: GITLAB_SCOPE
+    value: false
+  - key: GITLAB_APP_ID
+    value: false
+  - key: GITLAB_SECRET
+    value: false
+
+  - key: LDAP_ENABLED
+    value: false
+  - key: LDAP_HOST
+    value: false
+  - key: LDAP_PORT
+    value: false
+  - key: LDAP_METHOD
+    value: false
+  - key: LDAP_BIND_DN
+    value: false
+  - key: LDAP_PASSWORD
+    value: false
+  - key: LDAP_BASE
+    value: false
+  - key: LDAP_UID
+    value: false
+
+  - key: GOOGLE_ANALYTICS_ID
+    value: false
+
+  - key: ZEALOT_POSTGRES_HOST
+    fromDatabase:
+      name: zealot-db
+      property: host
+  - key: ZEALOT_POSTGRES_PORT
+    fromDatabase:
+      name: zealot-db
+      property: port
+  - key: ZEALOT_POSTGRES_USERNAME
+    fromDatabase:
+      name: zealot-db
+      property: user
+  - key: ZEALOT_POSTGRES_PASSWORD
+    fromDatabase:
+      name: zealot-db
+      property: password
+  - key: ZEALOT_POSTGRES_DB_NAME
+    fromDatabase:
+      name: zealot-db
+      property: database
+  - key: REDIS_URL
+    fromService:
+      type: redis
+      name: zealot-redis
+      property: connectionString
+  - key: PORT
+    value: 80 # Do not edit! Zealot exposes this internally
+  - key: RAILS_MAX_THREADS
+    value: 1
+  - key: WEB_CONCURRENCY
+    value: 1
+  - key: SECRET_TOKEN
+    generateValue: true
