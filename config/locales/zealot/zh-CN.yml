@@ -652,7 +652,7 @@ zh-CN:
     destroy: 删除
     disable: 禁用
     messages:
-      done: 调试文件解析完成！
+      parse_done_and_refreshing: '解析完成，页面正在刷新 ...'
       confirm:
         destroy: 确定删除?
 

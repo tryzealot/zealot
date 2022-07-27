@@ -15,6 +15,12 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
       '<h4><i class="icon fas fa-' + icon + '"></i>' +
       '<span id="flash_notice">' + data.message + '</span></h4 ></div >'
     );
+
+    if (data.refresh_page) {
+      setTimeout(() => {
+        location.reload();
+      }, 3000);
+    }
   }
 });
 
