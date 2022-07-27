@@ -7,3 +7,4 @@ window.ClipboardJS = clipboard
 
 import "bootstrap"
 import "admin-lte"
+
