@@ -14,7 +14,7 @@ namespace :zealot do
   namespace :db do
     task upgrade: :environment do
       db_version = ActiveRecord::Migrator.current_version
-      if db_version.blank?
+      if db_version.blank? || db_version.zero?
         Rake::Task['zealot:db:setup'].invoke
       else
         Rake::Task['zealot:db:migrate'].invoke
