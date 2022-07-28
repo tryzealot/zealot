@@ -26,6 +26,10 @@
   }
 }
 
+.callout a {
+  text-decoration: none;
+}
+
 .login-box {
   margin: auto;
 }
@@ -74,5 +78,9 @@ i.icon {
 
   .img-bordered-sm {
     border-color: #323435;
+  }
+
+  .card-header {
+    border-color: #6c6b6b;
   }
 }
