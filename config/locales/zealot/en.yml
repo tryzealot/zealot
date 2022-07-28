@@ -359,6 +359,7 @@ en:
       install: Install
       download: Download
       installing: Installing ...
+      installed: Install requested
       destroy: Destroy
       missing_file: Missing file
       more: More releases
