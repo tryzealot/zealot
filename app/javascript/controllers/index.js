@@ -3,13 +3,12 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-// import { Zealot } from "./zealot"
 
 import GlobalController from "./global_controller"
 application.register("global", GlobalController)
 
-import DashboardController from "./dashboard_controller"
-application.register("dashboard", DashboardController)
+import ClipboardCenterController from "./clipboard_center_controller";
+application.register("clipboard-center", ClipboardCenterController)
 
 import "./admin"
 
