@@ -150,10 +150,10 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.7)
       tzinfo
-    faraday (2.3.0)
+    faraday (2.4.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (2.0.3)
+    faraday-net_http (2.1.0)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -440,8 +440,6 @@ GEM
       sentry-ruby (~> 5.4.1)
     sentry-ruby (5.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-ruby-core (5.3.1)
-      concurrent-ruby
     sentry-sidekiq (5.4.1)
       sentry-ruby (~> 5.4.1)
       sidekiq (>= 3.0)
@@ -531,7 +529,7 @@ DEPENDENCIES
   devise (~> 4.8.1)
   devise-i18n (~> 1.10.2)
   dotenv-rails
-  faraday (~> 2.3.0)
+  faraday (~> 2.4.0)
   friendly_id (~> 5.4.2)
   graphiql-rails
   graphql (~> 2.0.12)
