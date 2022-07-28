@@ -10,6 +10,9 @@ application.register("global", GlobalController)
 import ClipboardCenterController from "./clipboard_center_controller";
 application.register("clipboard-center", ClipboardCenterController)
 
+import ReleaseDownloadController from "./release_download_controller";
+application.register("release-download", ReleaseDownloadController)
+
 import "./admin"
 
 // legacy controllers
