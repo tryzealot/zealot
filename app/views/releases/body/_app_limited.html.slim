@@ -1,12 +1,5 @@
-- if app_limited?
-  = render "releases/tips"
+= render "releases/tips"
 
-  .alert.alert-danger.alert-dismissible
-    button.close data-dismiss="alert" aria-hidden="true" ×
-    h5 = t('releases.show.app_limited')
-    ol.pl-4.mb-0
-      li = t('releases.show.app_touch_menu')
-      - if ios?
-        li = t('releases.show.app_open_in_safari')
-      - else
-        li = t('releases.show.app_open_in_webbrower')
+.alert.alert-danger.alert-dismissible
+  button.close data-dismiss="alert" aria-hidden="true" ×
+  h5 = t('releases.show.app_limited')
