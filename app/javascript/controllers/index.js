@@ -3,12 +3,15 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+// import { Zealot } from "./zealot"
+
+import GlobalController from "./global_controller"
+application.register("global", GlobalController)
 
 import DashboardController from "./dashboard_controller"
 application.register("dashboard", DashboardController)
 
-import NewReleaseController from "./admin/new_release_controller"
-application.register("new-release", NewReleaseController)
+import "./admin"
 
 // legacy controllers
 import "./legacy"

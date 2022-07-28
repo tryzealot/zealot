@@ -12,10 +12,14 @@
       .card-body
         dl.system-info
           dt = t('.zealot_version')
-          dd data-controller="new-release" data-new-release-version-value="#{@server[:zealot_version]}" data-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
+          dd[
+            data-controller="admin-new-release"
+            data-admin-new-release-version-value="#{@server[:zealot_version]}"
+            data-admin-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
+          ]
             pre
               #current-version = @server[:zealot_version]
-              #new-version data-new-release-target="newVersion"
+              #new-version data-admin-new-release-target="newVersion"
           - if @server[:zealot_vcs_ref]
             dt = t('.vcs_ref')
             dd
