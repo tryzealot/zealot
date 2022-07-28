@@ -58,6 +58,10 @@ i.icon {
 }
 
 .dark-mode {
+  .cover {
+    opacity: 0.45;
+  }
+
   .nav-item .active {
     color: #fff;
     background-color: #3f6791;
