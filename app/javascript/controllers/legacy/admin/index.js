@@ -1,5 +1,5 @@
-import { addRestartSericeEventer } from "./restart_service"
+// import { addRestartSericeEventer } from "./restart_service"
 
-$(document).on("turbo:load", () => {
-  addRestartSericeEventer()
-})
+// $(document).on("turbo:load", () => {
+//   // addRestartSericeEventer()
+// })
