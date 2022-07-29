@@ -1,12 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
+import Zealot from "../zealot"
 import JQuery from "jquery"
 
-const RESTART_URI = 'admin/service/restart'
-const HEALTH_CHECK_URI = 'admin/service/status'
+const RESTART_URI = "admin/service/restart"
+const HEALTH_CHECK_URI = "admin/service/status"
 
 export default class extends Controller {
-  static targets = ['button']
+  static targets = ["button"]
   static values = {
     restarting: String,
     restarted: String
@@ -68,13 +68,13 @@ export default class extends Controller {
   }
 
   updateRestaringState() {
-    this.buttonTarget.classList.replace('bg-success', 'bg-warning')
+    this.buttonTarget.classList.replace("bg-success", "bg-warning")
     this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
       this.restartingValue
   }
 
   updateRestartedState() {
-    this.buttonTarget.classList.replace('bg-warning', 'bg-success')
+    this.buttonTarget.classList.replace("bg-warning", "bg-success")
 
     this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
       this.restartedValue
