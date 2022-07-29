@@ -180,6 +180,7 @@ zh-CN:
         fail_detect_disk: 硬盘信息无法获取
         system_environment: 系统变量
         file_permissions: 文件权限
+        services: 服务状态
         ruby_gems: Ruby Gems
         logs: 日志
         new_version: '发现新版本 '

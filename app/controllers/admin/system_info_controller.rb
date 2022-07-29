@@ -53,6 +53,7 @@ class Admin::SystemInfoController < ApplicationController
     set_server_info
     set_disk_volumes
     set_file_permissions
+    set_services
   end
 
   private
@@ -82,6 +83,14 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_gems
     @gems ||= Hash[Gem::Specification.map { |spec| [spec.name, spec.version.to_s] }].sort
+  end
+
+  def set_services
+    @services ||= {
+      redis: HealthCheck::RedisHealthCheck.check,
+      database: HealthCheck::Utils.get_database_version.present?,
+      sidekiq: HealthCheck::SidekiqHealthCheck.check,
+    }
   end
 
   def set_disk_volumes
