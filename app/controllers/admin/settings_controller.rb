@@ -36,7 +36,7 @@ class Admin::SettingsController < ApplicationController
 
     if @setting.value != new_value
       @setting.value = new_value
-      return render :edit unless @setting.save
+      return render :edit, status: :unprocessable_entity unless @setting.save
 
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, notice: message

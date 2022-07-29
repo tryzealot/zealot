@@ -116,10 +116,9 @@ group :development do
   # 调试器
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.6.1'
+  gem 'debug', '~> 1.6.1', platforms: %i[ mri mingw x64_mingw ]
 
   # 开发辅助
-  # gem 'foreman'
   gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
   gem 'guard-migrate'
@@ -127,7 +126,6 @@ group :development do
   gem 'guard-sidekiq'
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
-  # gem 'guard-yarn_build', path: '/Users/icyleaf/Development/ruby/guard-yarn_build'
 
   # rails 更友好错误输出
   gem 'awesome_print'
