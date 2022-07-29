@@ -14,18 +14,20 @@
 ## 特性
 
 - [x] 支持 iOS、Android (apk/aab) 和 macOS 应用的上传、在线安装和本地下载
-- [x] 支持创建类型（Debug、AdHoc、Release）及渠道（小米商店等）
-- [x] 支持自定义网络钩子通知各种服务（钉钉、企业微信、Slack 等）
-- [x] 支持 iOS dSYM 和 Android Progruard 文件的解析和上传
-- [x] 支持应用解包（甚至 mobileprovision 文件）存储和分享
-- [x] 支持一键登录（已接入飞书、Gitlab、Google 和 LDAP）
-- [x] 提供检查新版本和安装服务的 iOS 和 Android 组件
-- [x] 提供获取 iOS 设备标识符并显示支持安装的应用列表
-- [x] 提供丰富的 fastlane 插件 [zealot](https://github.com/tryzealot/fastlane-plugin-zealot)
-- [x] 可接入 Gitlab 服务直接挂钩源码管理
-- [ ] 可接入 Jenkins 服务实现远程构建
-- [x] 支持丰富的 REST APIs
-- [ ] 支持 GraphQL 接口（进行中）
+- [x] 自定义网络钩子通知各种服务（譬如钉钉、企业微信、Slack 等）
+- [x] 多类型（Debug、AdHoc、Release）及渠道（应用商店等）管理
+- [x] iOS dSYM 和 Android Progruard 文件的解析和存储
+- [x] 应用解包（甚至 mobileprovision 文件）存储和分享
+- [x] 检查新版本和安装服务的 iOS 和 Android SDK 组件
+- [x] 获取 iOS 设备 UDID 显示支持安装的应用列表
+- [x] 飞书、Gitlab、Google 和 LDAP 一键登录
+- [x] 托管苹果开发者智能注册 iOS 测试设备
+- [x] 持续构建的 fastlane 插件 [zealot](https://github.com/tryzealot/fastlane-plugin-zealot)
+- [x] Gitlab 服务直接挂钩源码管理
+- [ ] Jenkins 服务实现远程构建
+- [x] 丰富的 REST APIs
+- [ ] GraphQL 接口
+- [x] 黑暗模式
 
 ## 在线演示
 
