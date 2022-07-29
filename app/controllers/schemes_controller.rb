@@ -19,7 +19,7 @@ class SchemesController < ApplicationController
     authorize @scheme
 
     @scheme.app = @app
-    return render :new unless @scheme.save
+    return render :new, status: :unprocessable_entity unless @scheme.save
 
     create_channels(channels)
     redirect_to app_path(@app), notice: t('activerecord.success.create', key: t('schemes.title'))

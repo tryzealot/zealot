@@ -39,7 +39,7 @@ class Admin::AppleKeysController < ApplicationController
   def destroy
     @apple_key.destroy
     notice = t('activerecord.success.destroy', key: t('admin.apple_keys.title'))
-    redirect_to admin_apple_keys_url, notice: notice
+    redirect_to admin_apple_keys_url, status: :see_other, notice: notice
   end
 
   # PUT /apple_keys/1/sync_devices
