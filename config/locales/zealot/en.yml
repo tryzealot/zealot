@@ -182,6 +182,7 @@ en:
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
         file_permissions: File permissions
+        services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
         new_version: Found new version
