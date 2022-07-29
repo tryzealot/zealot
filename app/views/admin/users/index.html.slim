@@ -45,4 +45,5 @@
                   - else
                     = t('.never_logined')
                 td
-                  = link_to t('.destroy_user'), admin_user_path(user), method: :delete, data: { confirm: t('.destroy_user_confirm', user: user.username)}
+                  = link_to t('.destroy_user'), admin_user_path(user), \
+                    data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }

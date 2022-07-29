@@ -10,7 +10,7 @@ class WebHooksController < ApplicationController
     @channel.web_hooks << @web_hook
 
     authorize @web_hook
-    return redirect_to_channel_url unless @web_hook.save
+    return redirect_to_channel_url, status: :unprocessable_entity unless @web_hook.save
 
     redirect_to_channel_url notice: t('activerecord.success.create', key: t('web_hooks.title'))
   end
@@ -18,7 +18,7 @@ class WebHooksController < ApplicationController
   def destroy
     authorize @web_hook
     @web_hook.destroy
-    redirect_to_channel_url notice: t('activerecord.success.destroy', key: t('web_hooks.title'))
+    redirect_to_channel_url, status: :see_other, notice: t('activerecord.success.destroy', key: t('web_hooks.title'))
   end
 
   def disable

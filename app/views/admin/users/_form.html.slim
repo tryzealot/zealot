@@ -1,6 +1,6 @@
 ruby:
   demo_mode = default_admin_in_demo_mode?(@user)
-  update_url = demo_mode ? root_path : @user.new_record? ? admin_users_path : admin_user_path(@user)
+  update_url = demo_mode ? root_path : (@user.new_record? ? admin_users_path : admin_user_path(@user))
 
 = simple_form_for(@user, url: update_url) do |f|
   .card-body

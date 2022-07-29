@@ -1,10 +1,16 @@
 ruby:
-  text = t("udid.show.#{key}")
-  css_id = "#{key}-text"
+  title = t("udid.show.#{key}")
+  copy_id = "#{key}-value"
 
-dt = text
-dd.input-group.mb-3
-  input.form-control.rounded-0 value="#{value}" readonly="true" id="#{css_id}"
+dt = title
+dd.input-group.mb-3 data-controller="clipboard-center"
+  input.form-control.rounded-0 value="#{value}" readonly="true" data-clipboard-center-target="source"
   span.input-group-append
-    button.btn.btn-success.btn-flat.btn-clipboard data-clipboard-target="#{css_id}"
+    button.btn.btn-primary.btn-flat.btn-clipboard[
+      data-clipboard-center-target="button"
+      data-action="clipboard-center#copy"
+      data-clipboard-text="#{value}"
+      data-toggle="tooltip"
+      title="Copy me"
+    ]
       i.far.fa-clipboard
