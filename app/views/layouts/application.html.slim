@@ -21,7 +21,6 @@ html lang="#{I18n.locale}"
     == yield :header_tags
     == action_cable_meta_tag
     == csrf_meta_tags
-    == csp_meta_tag
 
   body[
     class="hold-transition #{body_class}"
