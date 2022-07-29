@@ -13,10 +13,6 @@ Rails.application.config.assets.excluded_paths = [
 ]
 
 # Precompile additional assets.
-# Rails.application.config.assets.precompile << proc do |path|
-#   true if path =~ /\.(eot|svg|ttf|woff|png)\z/
-# end
-
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w[custom.js custom.css]
