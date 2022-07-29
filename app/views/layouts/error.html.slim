@@ -12,7 +12,6 @@ html
     == render 'layouts/dark_mode', appearance: Setting.site_appearance
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true
     == csrf_meta_tags
-    == csp_meta_tag
 
   body[
     data-controller="global"
