@@ -111,7 +111,7 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :users, except: :show
-      resources :web_hooks
+      resources :web_hooks, except: %i[ show new create ]
       resources :apple_keys, except: %i[ edit update ] do
         member do
           put :sync_devices
