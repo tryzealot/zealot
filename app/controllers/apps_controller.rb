@@ -35,7 +35,7 @@ class AppsController < ApplicationController
     @app = App.new(app_params)
     authorize @app
 
-    return render :new unless @app.save
+    return render :new, status: :unprocessable_entity unless @app.save
 
     @app.users << current_user
     app_create_schemes_and_channels
@@ -47,7 +47,7 @@ class AppsController < ApplicationController
 
     if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
       flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
-      return render :edit
+      return render :edit, status: :unprocessable_entity
     end
 
     @app.update(app_params)
@@ -60,7 +60,7 @@ class AppsController < ApplicationController
     @app.destroy
     destory_app_data
 
-    redirect_to apps_path
+    redirect_to apps_path, status: :see_other
   end
 
   private

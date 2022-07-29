@@ -5,11 +5,16 @@ ruby:
   - if debug_files.count > 0
     table.table.table-hover
       - debug_files.each do |debug_file|
-        tr
-          td
-            .debug-file-section id="debug-file-info-#{debug_file.id}" data-app-name="#{app.name}"
+        tr[
+          data-controller="destroy"
+          data-destroy-title-value="#{t('debug_files.confirm.destroy.title')}"
+          data-destroy-content-value="#{t('debug_files.confirm.destroy.body')}"
+          data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
+        ]
+          td data-controller="display"
+            .debug-file-section
               .debug-file-section-header
-                .debug-file-toggle data-id="#{debug_file.id}"
+                .debug-file-toggle data-action="click->display#toggle"
                   h3.debug-file-section-title
                     - unless debug_file.build_version.blank?
                       span.debug-file-version
@@ -32,9 +37,14 @@ ruby:
                       i.icon.fas.fa-ghost
                       = t('debug_files.index.missing_file')
                   - if user_signed_in?
-                    button.btn.btn-icon.btn-sm.btn-danger.btn-flat.destroy-debug-file data-id="#{debug_file.id}" data-url="#{debug_file_path(debug_file)}" data-toggle="modal"
+                    button.btn.btn-icon.btn-sm.btn-danger.btn-flat[
+                      data-action="click->destroy#click"
+                    ]
                       i.icon.fas.fa-trash-alt
                       = t('debug_files.index.destroy')
+
+                    = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(debug_file), method: :delete, \
+                      class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
                   .div.text-center
                     small style="color: #999"
                       = t('debug_files.index.uploaded_at', time: time_ago_in_words(debug_file.created_at))
