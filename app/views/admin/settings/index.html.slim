@@ -4,9 +4,6 @@
 - content_for :section_title do
   = @title
 
-/ - content_for :header_tags do
-/   = render 'admin_service', 'data-turbolinks-track': 'reload'
-
 - content_for :section_rightpanel do
   - if Setting.need_restart?
     button.btn.btn-icon.bg-warning[
