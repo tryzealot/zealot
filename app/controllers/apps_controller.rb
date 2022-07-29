@@ -60,7 +60,7 @@ class AppsController < ApplicationController
     @app.destroy
     destory_app_data
 
-    redirect_to apps_path
+    redirect_to apps_path, status: :see_other
   end
 
   private

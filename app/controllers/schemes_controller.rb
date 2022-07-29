@@ -40,7 +40,7 @@ class SchemesController < ApplicationController
     authorize @scheme
     @scheme.destroy
 
-    redirect_to app_path(@app)
+    redirect_to app_path(@app), status: :see_other
   end
 
   protected

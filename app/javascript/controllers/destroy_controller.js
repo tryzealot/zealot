@@ -6,7 +6,6 @@ const DIALOG_ID = "modal-dialog"
 export default class extends Controller {
   static targets = ["destroyButton"]
   static values = {
-    url: String,
     title: String,
     content: String,
     cancel: String
