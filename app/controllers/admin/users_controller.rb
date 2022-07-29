@@ -52,7 +52,9 @@ class Admin::UsersController < ApplicationController
     authorize @user
 
     @user.destroy
-    redirect_to admin_users_path, notice: t('activerecord.success.destroy', key: t('admin.users.title'))
+
+    notice = t('activerecord.success.destroy', key: t('admin.users.title'))
+    redirect_to admin_users_path, status: :see_other, notice: notice
   end
 
   private

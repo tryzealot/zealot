@@ -52,7 +52,8 @@ class Admin::SettingsController < ApplicationController
     key = @setting.var
     @setting.destroy
 
-    redirect_to admin_settings_path, notice: t('activerecord.success.destroy', key: t("admin.settings.#{key}"))
+    notice = t('activerecord.success.destroy', key: t("admin.settings.#{key}"))
+    redirect_to admin_settings_path, status: :see_other, notice: notice
   end
 
   private
