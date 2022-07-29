@@ -8,7 +8,8 @@
       dl.system-info.p-0
         == render 'item', key: 'udid', value: params[:udid]
         - if device.present?
-          == render 'item', key: 'name', value: device.name
+          - if device.name
+            == render 'item', key: 'name', value: device.name
           - if device.platform
             == render 'item', key: 'platform', value: device.platform
           - if device.model

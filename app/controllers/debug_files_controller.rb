@@ -22,7 +22,7 @@ class DebugFilesController < ApplicationController
     @debug_file = DebugFile.new(debug_file_params)
     authorize @debug_file
 
-    return render :new unless  @debug_file.save
+    return render :new, status: :unprocessable_entity unless @debug_file.save
 
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
     redirect_to debug_files_url, notice: t('activerecord.success.create', key: t('debug_files.title'))
