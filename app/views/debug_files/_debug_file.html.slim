@@ -7,8 +7,6 @@ ruby:
       - debug_files.each do |debug_file|
         tr[
           data-controller="destroy"
-          data-destroy-url-value="#{debug_file_path(debug_file)}"
-          data-destroy-method-value="delete"
           data-destroy-title-value="#{t('debug_files.confirm.destroy.title')}"
           data-destroy-content-value="#{t('debug_files.confirm.destroy.body')}"
           data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
