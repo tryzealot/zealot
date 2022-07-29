@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import Zealot from "./zealot"
+import { Zealot } from "./zealot"
 import jquery from "jquery"
 
 export default class extends Controller {

@@ -20,6 +20,3 @@ import DestroyController from "./destroy_controller"
 application.register("destroy", DestroyController)
 
 import "./admin"
-
-// legacy controllers
-import "./legacy"
