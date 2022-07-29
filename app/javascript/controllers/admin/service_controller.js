@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import Zealot from "../zealot"
+import { Zealot } from "../zealot"
 import JQuery from "jquery"
 
 const RESTART_URI = "admin/service/restart"
@@ -28,11 +28,11 @@ export default class extends Controller {
     }
 
     do {
-      var online = await this.serviceisOnline();
+      var online = await this.serviceisOnline()
       if (online) {
-        serverRestarting = false;
+        serverRestarting = false
       } else {
-        await sleep(1000)
+        await this.sleep(1000)
       }
     } while (serverRestarting)
 
@@ -42,29 +42,35 @@ export default class extends Controller {
   }
 
   serviceRestart() {
-    try {
-      fetch(Zealot.rootUrl + RESTART_URI, {
+    fetch(Zealot.rootUrl + RESTART_URI, {
         method: "POST"
       })
-      return true
-    } catch (error) {
-      return false
-    }
+      .then(response => response.json())
+      .then(() => {
+        return true
+      })
+      .catch((error) => {
+        console.debug("service restart failed", error)
+        return false
+    })
   }
 
   serviceisOnline() {
-    try {
-      fetch(Zealot.rootUrl + HEALTH_CHECK_URI, {
+    fetch(Zealot.rootUrl + HEALTH_CHECK_URI, {
         method: "GET"
       })
-      return true
-    } catch (error) {
-      return false
-    }
+      .then(response => response.json())
+      .then(() => {
+        return true
+      })
+      .catch((error) => {
+        console.debug("service is down, stilling wait", error)
+        return false
+      })
   }
 
   clearNotifcation() {
-    JQuery("#notifications").fadeOut();
+    JQuery("#notifications").fadeOut()
   }
 
   updateRestaringState() {

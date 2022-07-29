@@ -15,7 +15,7 @@ export default class extends Controller {
     this.renderLoading()
 
     const link = this.installUrlValue
-    console.log("install url", link)
+    console.debug("install url", link)
     window.location.href = link
   }
 
