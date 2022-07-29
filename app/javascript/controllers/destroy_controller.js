@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import JQuery from "jquery"
+import jquery from "jquery"
 
 const DIALOG_ID = "modal-dialog"
 
@@ -13,7 +13,7 @@ export default class extends Controller {
 
   click() {
     this.prepare()
-    JQuery("#" + DIALOG_ID).modal()
+    jquery("#" + DIALOG_ID).modal()
   }
 
   prepare() {
