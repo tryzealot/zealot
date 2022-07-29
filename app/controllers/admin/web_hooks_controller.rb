@@ -20,7 +20,7 @@ class Admin::WebHooksController < ApplicationController
   def create
     @web_hook = WebHook.new(web_hook_params)
     authorize @web_hook
-    return render :new unless @web_hook.save
+    return render :new, status: :unprocessable_entity unless @web_hook.save
 
     redirect_to admin_users_url, notice: t('activerecord.success.create', key: t('admin.web_hooks.title'))
   end
@@ -32,7 +32,7 @@ class Admin::WebHooksController < ApplicationController
   def update
     authorize @web_hook
     channel_ids = web_hook_params.delete(:channel_ids)
-    return render :edit unless @web_hook.update(web_hook_params)
+    return render :edit, status: :unprocessable_entity unless @web_hook.update(web_hook_params)
 
     redirect_to admin_web_hooks_url, notice: t('activerecord.success.update', key: t('admin.web_hooks.title'))
   end

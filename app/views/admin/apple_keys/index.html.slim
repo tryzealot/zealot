@@ -34,7 +34,7 @@
                   td
                     = time_ago_in_words(apple_key.created_at)
                   td
-                    = link_to t('.destroy'), admin_apple_key_path(apple_key), method: :delete, data: { confirm: t('.destroy_confirm', team: apple_key.team.display_name, team_id: apple_key.team.team_id)}
+                    = button_to t('.destroy'), admin_apple_key_path(apple_key), method: :delete, data: { turbo_confirm: t('.destroy_confirm', team: apple_key.team.display_name, team_id: apple_key.team.team_id)}
     - else
       .card.card-outline.card-warning
         .card-header.card-border

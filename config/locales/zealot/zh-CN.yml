@@ -334,7 +334,7 @@ zh-CN:
       api: 接口上传
     show:
       enter_password: 访问密码
-      app_limited: 应用限制请按照提示安装
+      app_limited: 无法在当前应用安装
       app_touch_menu: 点击右上角菜单
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
@@ -357,6 +357,7 @@ zh-CN:
       install: 设备安装
       download: 本地下载
       installing: 安装到桌面 ...
+      installed: 安装请求完毕，请查看桌面
       destroy: 删除版本
       missing_file: 遗失文件不可安装或下载
       more: 更多上传
