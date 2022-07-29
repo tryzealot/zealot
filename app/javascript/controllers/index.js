@@ -19,4 +19,7 @@ application.register("display", DisplayController)
 import DestroyController from "./destroy_controller"
 application.register("destroy", DestroyController)
 
+import PlatformController from "./platform_controller"
+application.register("platform", PlatformController)
+
 import "./admin"
