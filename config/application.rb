@@ -63,23 +63,17 @@ module Zealot
     #   config.action_cable.allowed_request_origins = origins
     # end
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
-    config.generators.javascripts = false
-    config.generators.stylesheets = false
-
-    ################################################################
-
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.eager_load_paths += Dir["#{config.root}/lib"]
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    ################################################################
+    # Don't generate those files.
+    config.generators.javascripts = false
+    config.generators.stylesheets = false
+    config.generators.system_tests = false
   end
 end
 
-# Slient redis
-Redis.silence_deprecations = true
+# # Slient redis
+# Redis.silence_deprecations = true
