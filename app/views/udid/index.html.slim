@@ -6,10 +6,11 @@
 
 .row
   .col-md-12
-    .card
+    .card data-controller="platform" data-platform-env-value="#{Rails.env}"
       .card-body.text-center
         = raw @qrcode.as_svg(module_size: 8, fill: 'ffffff', offset: 8)
         .pt-4.text-center = t('udid.index.tip')
+        input.form-control.mt-3.d-none data-platform-target="display"
       .card-footer
         = link_to t('udid.index.fetch_udid'), udid_install_path, class: 'btn btn-success btn-lg btn-block'
 
