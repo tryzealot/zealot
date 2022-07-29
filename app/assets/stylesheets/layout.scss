@@ -26,6 +26,10 @@
   }
 }
 
+.callout a {
+  text-decoration: none;
+}
+
 .login-box {
   margin: auto;
 }
@@ -54,6 +58,10 @@ i.icon {
 }
 
 .dark-mode {
+  .cover {
+    opacity: 0.45;
+  }
+
   .nav-item .active {
     color: #fff;
     background-color: #3f6791;
@@ -74,5 +82,9 @@ i.icon {
 
   .img-bordered-sm {
     border-color: #323435;
+  }
+
+  .card-header {
+    border-color: #6c6b6b;
   }
 }

@@ -46,7 +46,9 @@ class ReleasesController < ApplicationController
   def destroy
     authorize @release
     @release.destroy
-    redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('releases.title')}")
+
+    notice = t('activerecord.success.destroy', key: "#{t('releases.title')}")
+    redirect_to channel_versions_url(@channel), status: :see_other, notice: notice
   end
 
   def auth

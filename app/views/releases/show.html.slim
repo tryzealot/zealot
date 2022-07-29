@@ -4,7 +4,6 @@
 .row
   - if logged_in_or_without_auth?(@release)
     .col-md-8.col-lg-9
-      == render 'releases/body/app_limited'
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/devices'
