@@ -11,10 +11,10 @@ ruby:
           data-destroy-content-value="#{t('debug_files.confirm.destroy.body')}"
           data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
         ]
-          td data-controller="display"
-            .debug-file-section
+          td
+            .debug-file-section data-controller="debug-file"
               .debug-file-section-header
-                .debug-file-toggle data-action="click->display#toggle"
+                .debug-file-toggle data-action="click->debug-file#toggle"
                   h3.debug-file-section-title
                     - unless debug_file.build_version.blank?
                       span.debug-file-version
