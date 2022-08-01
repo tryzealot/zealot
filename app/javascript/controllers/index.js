@@ -13,8 +13,8 @@ application.register("clipboard-center", ClipboardCenterController)
 import ReleaseDownloadController from "./release_download_controller"
 application.register("release-download", ReleaseDownloadController)
 
-import DisplayController from "./display_controller"
-application.register("display", DisplayController)
+import DebugFileController from "./debug_file_controller"
+application.register("debug-file", DebugFileController)
 
 import DestroyController from "./destroy_controller"
 application.register("destroy", DestroyController)
