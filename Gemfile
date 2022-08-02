@@ -114,7 +114,6 @@ group :development do
   gem 'graphiql-rails'
 
   # 调试器
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.6.1', platforms: %i[ mri mingw x64_mingw ]
 
@@ -142,7 +141,6 @@ group :development, :test do
   gem 'rubocop', '>= 0.70', require: false
   gem 'rubocop-rails', require: false
 
-  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-rescue'
 end

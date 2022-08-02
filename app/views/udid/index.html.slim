@@ -13,7 +13,7 @@
         - if params[:preview].present?
           input.form-control.mt-3 data-platform-target="display" value="#{request.user_agent}"
       .card-footer
-        = link_to t('udid.index.fetch_udid'), udid_install_path, class: 'btn btn-success btn-lg btn-block'
+        = link_to t('udid.index.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
 
   .col-md-12
     .card
