@@ -1,7 +1,4 @@
-ruby:
-  releases = @release.channel.recently_releases
-
-- if releases.size > 0
+- if recently_releases.size > 0
   .card
     .card-header
       h3.card-title
@@ -12,9 +9,9 @@ ruby:
           i.fas.fa-minus
     .card-body.pb-0
       .timeline
-        - releases.each do |release|
+        - recently_releases.each do |release|
           div
-            i.fa-circle class="#{@release == release ? 'fas' : 'far'}"
+            i.fa-circle class="#{current_release == release ? 'fas' : 'far'}"
             .timeline-item
               span.time
                 i.icon.fas.fa-clock
@@ -39,11 +36,15 @@ ruby:
                   - if release.short_git_commit.present?
                     small.badge
                       - if release.channel.git_url.present?
-                        = git_commit_url(@release.channel.git_url, @release.git_commit)
+                        = git_commit_url(current_release.channel.git_url, current_release.git_commit)
                       - else
                         = release.short_git_commit
         div
           i.fas.fa-clock
     - if guest_mode_or_signed_in?
+      ruby:
+        channel_path = friendly_channel_overview_path(current_release.channel)
+
       .card-footbar
-        a.btn.btn-default.btn-block.btn-flat href="#{friendly_channel_overview_path(@release.channel)}" = t('releases.show.more')
+        a.btn.btn-default.btn-block.btn-flat href="#{channel_path}"
+          = t('releases.show.more')
