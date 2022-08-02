@@ -18,5 +18,5 @@
               td = apple_key.team.team_id
               - if result == 'register_apple_key'
                 ruby:
-                  register_link = udid_register_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
+                  register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
                 td = button_to t('udid.show.register_device'), register_link, method: :post, class: 'btn btn-sm btn-success'
