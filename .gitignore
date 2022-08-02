@@ -8,7 +8,7 @@ bundler/
 storage/
 
 # minimal Rails specific artifacts
-/config/master.key
+/config/master*.key
 /config/credentials.yml*
 db/*.sqlite3
 /db/*.sqlite3-journal
