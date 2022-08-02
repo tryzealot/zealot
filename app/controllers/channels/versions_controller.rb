@@ -22,6 +22,8 @@ class Channels::VersionsController < ApplicationController
     @releases = @channel.releases
                         .where(release_version: @version)
                         .order(id: :desc)
+                        .page(params.fetch(:page, 1))
+                        .per(params.fetch(:per_page, 10))
 
     render 'channels/filters/index'
   end
