@@ -614,7 +614,7 @@ zh-CN:
       registered_but_no_related_app: 本设备已注册，很遗憾还没有发现关联应用
       registered_with_related_apps:  本设备已注册，下面选择需要安装的应用吧
       register: 本设备还未注册，快去选择对应的苹果开发者主体注册吧！
-      unregistered: 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
+      unregistered: 发现一台未注册的设备，复制 UDID 给苹果开发工程师哦！
       registered_apps: 可安装应用
       udid: UDID
       serial: 序列化

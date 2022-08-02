@@ -81,22 +81,22 @@ Rails.application.routes.draw do
   #############################################
   # UDID (iOS/iPadOS)
   #############################################
-  # resources :uudid, as: :uudid, param: :udid, only: %i[ index show ] do
-  #   collection do
-  #     get :install
-  #     post :retrieve, action: :create
-  #   end
+  resources :udid, as: :udid, param: :udid, only: %i[ index show ] do
+    collection do
+      get :install
+      post :retrieve, action: :create
+    end
 
-  #   member do
-  #     post :register
-  #   end
-  # end
+    member do
+      post :register
+    end
+  end
 
-  get 'udid', to: 'udid#index'
-  get 'udid/install', to: 'udid#install'
-  post 'udid/retrieve', to: 'udid#create'
-  get 'udid/:udid', to: 'udid#show', as: 'udid_result'
-  post 'udid/:udid/register', to: 'udid#register', as: 'udid_register'
+  # get 'udid', to: 'udid#index'
+  # get 'udid/install', to: 'udid#install'
+  # post 'udid/retrieve', to: 'udid#create'
+  # get 'udid/:udid', to: 'udid#show', as: 'udid_result'
+  # post 'udid/:udid/register', to: 'udid#register', as: 'udid_register'
 
   #############################################
   # Health check
