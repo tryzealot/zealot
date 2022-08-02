@@ -622,7 +622,7 @@ en:
       registered_but_no_related_app: Device was registerd to Apple Developr, but not found any related app.
       registered_with_related_apps: Device was registerd to Apple Developr, install app below.
       register: Device is unregister, choose Apple Developer to register.
-      unregistered: New device found, copy the UDID to iOS Developer!
+      unregistered: New device found, copy the UDID to Apple Developer!
       registered_apps: Registerd apps
       udid: UDID
       product: Product

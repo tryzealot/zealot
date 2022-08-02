@@ -7,7 +7,7 @@ class UdidController < ApplicationController
   # GET /udid
   def index
     @title = t('udid.title')
-    @qrcode = RQRCode::QRCode.new(udid_url)
+    @qrcode = RQRCode::QRCode.new(udid_index_url)
   end
 
   # POST /udid/retrive

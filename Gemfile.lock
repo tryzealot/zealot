@@ -110,7 +110,6 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    byebug (11.1.3)
     carrierwave (2.2.2)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -337,9 +336,6 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.9.0)
-      byebug (~> 11.0)
-      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     pry-rescue (1.5.2)
@@ -524,7 +520,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.7)
-  byebug
   carrierwave (~> 2.2.2)
   cssbundling-rails (~> 1.1)
   debug (~> 1.6.1)
@@ -560,7 +555,6 @@ DEPENDENCIES
   pghero (~> 2.8.3)
   plist (~> 3.6.0)
   propshaft (= 0.6.4)
-  pry-byebug
   pry-rails
   pry-rescue
   puma (~> 5.6.4)
