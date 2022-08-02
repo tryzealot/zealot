@@ -7,12 +7,12 @@
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/devices'
-      == render 'releases/body/activity'
+      == render 'releases/body/activity', current_release: @release, recently_releases: @release.channel.recently_releases
 
     .col-md-4.col-lg-3
       - if user_signed_in?
         a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" = t('releases.new.title')
-      == render 'releases/sidebar/version'
+      == render 'releases/sidebar/version', channel: @release.channel
       == render 'releases/sidebar/qrcode'
       - if guest_mode_or_signed_in?
         a.btn.btn-default.btn-block href="#{friendly_channel_overview_path(@channel)}" = t('releases.show.view_detail')
