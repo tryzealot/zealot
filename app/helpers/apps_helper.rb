@@ -11,6 +11,14 @@ module AppsHelper
     Channel.device_types.values
   end
 
+  def app_channel_columns(schemes_total)
+    case schemes_total
+    when 1 then 12
+    when 2 then 6
+    else 4
+    end
+  end
+
   def app_icon(release, options = {})
     unless release&.icon && release.icon.file && release.icon.file.exists?
       return image_tag('touch-icon.png', **options)
