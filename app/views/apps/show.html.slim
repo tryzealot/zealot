@@ -1,10 +1,6 @@
 ruby:
   schemes_total = @app.schemes.count
-  column = case schemes_total
-           when 1 then 12
-           when 2 then 6
-           else 4
-           end
+
 - content_for :title do
   = @app.name
 
@@ -13,23 +9,25 @@ ruby:
 
 - content_for :section_rightpanel do
   .btn-group
-    = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
-    = button_link_to t('apps.show.edit_app'), edit_app_path(@app), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-    = button_link_to t('apps.show.destroy_app'), app_path(@app), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', \
+    = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
+      'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
+    = button_link_to t('apps.show.edit_app'), edit_app_path(@app), \
+      'edit', class: 'btn btn-default btn-icon btn-sm btn-flat'
+    = button_link_to t('apps.show.destroy_app'), app_path(@app), \
+      'trash-alt', class: 'btn btn-default btn-icon btn-sm btn-flat', \
       data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 .row
   - if schemes_total > 0
-
     - @app.schemes.each do |scheme|
-      div class="col-md-#{column}"
+      .app-channel class="col-md-#{app_channel_columns(schemes_total)}"
         .card
           .card-header
             h3.card-title
               = scheme.name
             .card-tools
               .sections-actions.btn-group
-                = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn-icon btn-default btn-sm btn-flat'
+                = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon btn-default btn-sm btn-flat'
                 = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
                 = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', \
                   data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
@@ -50,6 +48,7 @@ ruby:
                   tr
                     td colspan="2"
                       = t('apps.show.not_found_channel_body_html')
+
   - else
     .col-md-12
       .card.card-outline.card-warning

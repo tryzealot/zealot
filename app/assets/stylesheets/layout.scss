@@ -34,13 +34,16 @@
   margin: auto;
 }
 
+.btn-group {
+  .btn-icon {
+    margin-right: 0;
+  }
+}
+
 .btn-icon {
   margin-right: 10px;
 
-  .fa,
-  .fab,
-  .far,
-  .fas {
+  i {
     margin-right: 5px;
   }
 }
