@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_055410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
     t.bigint "user_id", null: false
     t.index ["app_id", "user_id"], name: "index_apps_users_on_app_id_and_user_id"
     t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id"
+  end
+
+  create_table "backup_scopes", force: :cascade do |t|
+    t.bigint "backup_id"
+    t.string "key"
+    t.jsonb "value", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["backup_id"], name: "index_backup_scopes_on_backup_id"
+  end
+
+  create_table "backups", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "schedule"
+    t.integer "max_keeps"
+    t.string "notification"
+    t.boolean "enable_archive"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_backups_on_key"
   end
 
   create_table "channels", force: :cascade do |t|
@@ -257,6 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_105433) do
   end
 
   add_foreign_key "apple_teams", "apple_keys", on_delete: :cascade
+  add_foreign_key "backup_scopes", "backups", on_delete: :cascade
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade

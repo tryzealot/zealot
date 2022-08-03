@@ -194,6 +194,25 @@ en:
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
 
+    backups:
+      title: Backups
+      index:
+        title: :'admin.backups.title'
+        new_backup: New backup
+        key: Key
+        scopes: Scopes
+        schedule: Schedule
+        next_schedule_at: Next schedule at
+        enabled: Enabled
+        run_now: Run now
+        action: Action
+        database: Database
+        channel:
+          zero: '%{count} Channel'
+          one: '%{count} Channel'
+          other: '%{count} Channels'
+        destroy_confirm: 'Confirm to destroy: %{key}?'
+
     background_jobs:
       title: Background jobs
       index:
