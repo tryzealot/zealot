@@ -123,7 +123,11 @@ Rails.application.routes.draw do
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
-      resources :logs, only: :index
+      resources :logs, only: %i[ index ] do
+        collection do
+          get :retrive
+        end
+      end
 
       namespace :service do
         post :restart
