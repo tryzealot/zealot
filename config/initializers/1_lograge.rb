@@ -65,6 +65,7 @@ if Rails.env.production?
       'HealthCheck::HealthCheckController#index',
       'ApplicationCable::Connection#connect',
       'ApplicationCable::Connection#disconnect',
+      'Admin::LogsController#retrive',
       'NotificationChannel'
     ]
   end
