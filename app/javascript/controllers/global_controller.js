@@ -1,19 +1,30 @@
 import { Controller } from "@hotwired/stimulus"
 import { Zealot } from "./zealot"
+import { application } from "./application"
 import jquery from "jquery"
 
 export default class extends Controller {
   static values = {
+    env: String,
     rootUrl: String,
     apperance: String
   }
 
   connect() {
-    Zealot.rootUrl = this.rootUrlValue
-    Zealot.siteApperance = this.apperanceValue
-
+    this.initZealot()
     this.fixAdminlteWithTubros()
     this.switchDarkMode()
+  }
+
+  initZealot() {
+    Zealot.rootUrl = this.rootUrlValue
+    Zealot.siteApperance = this.apperanceValue
+    Zealot.env = this.envValue
+    application.debug = Zealot.isDevelopment
+
+    if (Zealot.isDevelopment) {
+      console.debug("Zealot starts in development mode")
+    }
   }
 
   switchDarkMode() {

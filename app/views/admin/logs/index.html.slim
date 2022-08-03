@@ -6,17 +6,19 @@
 
 .row
   .col-md-12
-    .card
+    .card[
+      data-controller="admin-logs"
+      data-admin-logs-uri-value="#{retrive_admin_logs_path}"
+      data-admin-logs-interval-value="#{@interval}"
+      data-admin-logs-error-message-value="#{t('.error_message')}"
+    ]
       .card-header
         h3.card-title
           i.fas.fa-file
           = " #{@filename}"
         .card-tools
-          span.small = t('.notice', number: @number)
+          span.small data-admin-logs-target="refresh"
 
       .card-body.p-0.system-log
-        ol
-          - @logs.each do |line|
-            li
-              p
-                = line
+        pre data-admin-logs-target="source"
+          = t('.loading')

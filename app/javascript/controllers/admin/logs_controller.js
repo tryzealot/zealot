@@ -1,0 +1,38 @@
+import { Controller } from "@hotwired/stimulus"
+import { Zealot } from "../zealot"
+import { poll } from "../utils"
+
+export default class extends Controller {
+  static targets = [ "source", "refresh" ]
+  static values = {
+    uri: String,
+    interval: Number,
+    errorMessage: String
+  }
+
+  connect() {
+    const fetchLogs = async () => {
+      const response = await fetch(Zealot.rootUrl + this.uriValue)
+      if (response.status === 200) {
+        let content = await response.text()
+        this.sourceTarget.innerHTML = content
+        this.sourceTarget.scrollTop = this.sourceTarget.scrollHeight
+
+        const date = new Date()
+        this.refreshTarget.innerHTML = date.toLocaleString()
+      }
+
+      return response
+    }
+
+    poll({
+        fn: fetchLogs,
+        validate: (response) => { response.status !== 200 },
+        interval: this.intervalValue
+      })
+      .then((response) => {
+        // fetch return error
+        this.sourceTarget.innerHTML = this.errorMessageValue + response.status
+      })
+  }
+}
