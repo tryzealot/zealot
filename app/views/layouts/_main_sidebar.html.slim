@@ -40,6 +40,10 @@
             i.nav-icon.fas.fa-key
             p = t('admin.apple_keys.title')
         li.nav-item
+          a.nav-link href="#{admin_backups_path}" class="#{active_class(admin_backups_path)}"
+            i.nav-icon.fas.fa-window-restore
+            p = t('admin.backups.title')
+        li.nav-item
           a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
             i.nav-icon.fas.fa-cog
             p = t('admin.settings.title')
