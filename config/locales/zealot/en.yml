@@ -204,7 +204,8 @@ en:
       title: Service logs
       index:
         title: :'admin.logs.title'
-        notice: To prevent performance issues admin logs output the last %{number} lines
+        loading: Loading ...
+        error_message: 'Failed fetch logs, return status code: '
 
   dashboard:
     title: Dashboard
