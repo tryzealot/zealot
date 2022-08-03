@@ -28,15 +28,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-module Backup
+module Zealot::Backup
   class Manager
-    include Backup::Helper
+    include Zealot::Backup::Helper
 
     class Error < StandardError; end
 
     ARCHIVES_TO_BACKUP = %w[uploads.tar.gz]
     FOLDERS_TO_BACKUP = %w[db]
     FILE_NAME_SUFFIX = '_zealot_backup.tar'
+    FILE_REGEX = /^(\d{10})?(_*)(\d{4}_\d{2}_\d{2}|\d{8}-\d{4})(_\d+\.\d+\.\d+((-|\.)(beta\d|pre\d|rc\d)?)?)?([_-]development)?_zealot_backup\.tar$/
+
+    attr_reader :path, :logger
+
+    def initialize(path = nil, logger = nil)
+      @path = path || backup_path
+      @logger = logger || Logger.new(STDOUT)
+    end
 
     def write_info
       # Make sure there is a connection
@@ -48,49 +56,45 @@ module Backup
     end
 
     def pack
-      Dir.chdir(backup_path) do
+      Dir.chdir(path) do
         # create archive
-        puts_time("Creating backup archive: #{tar_file} ... ", false)
+        logger.debug "Creating backup archive: #{tar_file} ... "
         # Set file permissions on open to prevent chmod races.
         tar_system_options = { out: [tar_file, 'w', 0640] }
-        if Kernel.system('tar', '-cf', '-', *backup_contents, tar_system_options)
-          report_result(true)
-        else
-          report_result(false)
-          raise Backup::Manager::Error, "Backup failed: creating archive #{tar_file} failed"
+        unless system(tar, '-cf', '-', *backup_contents, tar_system_options)
+          raise Zealot::Backup::Manager::Error, "Backup failed: creating archive #{tar_file} failed"
         end
       end
     end
 
     def cleanup
-      puts_time('Deleting tmp directories ... ', false)
+      logger.debug 'Deleting tmp directories ... '
 
       backup_contents.each do |dir|
-        next unless File.exist?(File.join(backup_path, dir))
+        next unless File.exist?(File.join(path, dir))
 
-        unless FileUtils.rm_rf(File.join(backup_path, dir))
-          raise Backup::Manager::Error, "Backup failed: deleting tmp directory '#{dir}' failed"
+        unless FileUtils.rm_rf(File.join(path, dir))
+          raise Zealot::Backup::Manager::Error, "Backup failed: deleting tmp directory '#{dir}' failed"
         end
       end
-
-      report_result(true)
     end
 
     def remove_old
-      puts_time('Deleting old backups ... ', false)
+      logger.debug 'Deleting old backups ... '
       keep_time = Setting.backup[:keep_time]
 
       if keep_time > 0
         removed = 0
 
-        Dir.chdir(backup_path) do
+        Dir.chdir(path) do
           backup_file_list.each do |file|
             # For compatibility, there are 4 names the backups can have:
             # - 1590060675_2020_05_21_zealot_backup.tar
             # - 1590060675_2020_05_21_development_zealot_backup.tar
             # - 1590060675_2020_05_21_4.0.0-beta4_zealot_backup.tar
             # - 1590060675_2020_05_21_4.0.0-beta4-development_zealot_backup.tar
-            next unless file =~ /^(\d{10})(_\d{4}_\d{2}_\d{2})(_\d+\.\d+\.\d+((-|\.)(beta\d|pre\d|rc\d)?)?)?((_|-)development)?_zealot_backup\.tar$/
+            # - 20220803-2300_4.5.0_zealot_backup.tar
+            next unless file =~ FILE_REGEX
 
             timestamp = $1.to_i
 
@@ -99,55 +103,54 @@ module Backup
                 FileUtils.rm(file)
                 removed += 1
               rescue => e
-                puts_time "Deleting #{file} failed: #{e.message}"
+                logger.debug "Deleting #{file} failed: #{e.message}"
               end
             end
           end
         end
 
-        report_result(true, "(#{removed} removed)")
+        logger.debug "#{removed} old backup removed"
       else
-        report_result(true, "(skipped, keep forever)")
+        logger.debug "keep backup forever"
       end
     end
 
     def unpack
-      FileUtils.mkdir_p(backup_path)
+      FileUtils.mkdir_p(path)
 
-      Dir.chdir(backup_path) do
+      Dir.chdir(path) do
         # check for existing backups in the backup dir
         if backup_file_list.empty?
-          puts_time "No backups found in #{backup_path}"
-          puts_time "Please make sure that file name ends with #{FILE_NAME_SUFFIX}"
+          logger.debug "No backups found in #{path}"
+          logger.debug "Please make sure that file name ends with #{FILE_NAME_SUFFIX}"
           exit 1
         elsif backup_file_list.many? && ENV["BACKUP"].nil?
-          puts_time 'Found more than one backup:'
+          logger.debug 'Found more than one backup:'
           # print list of available backups
-          puts_time " " + available_timestamps.join("\n ")
-          puts_time 'Please specify which one you want to restore:'
-          puts_time 'rake gitlab:backup:restore BACKUP=timestamp_of_backup'
+          logger.debug " " + available_timestamps.join("\n ")
+          logger.debug 'Please specify which one you want to restore:'
+          logger.debug 'rake gitlab:backup:restore BACKUP=timestamp_of_backup'
           exit 1
         end
 
         tar_file = backup_file_list.first
         unless File.exist?(tar_file)
-          puts_time "The backup file #{tar_file} does not exist!"
+          logger.debug "The backup file #{tar_file} does not exist!"
           exit 1
         end
 
-        puts_time 'Unpacking backup ... ', false
-        if Kernel.system(*%W(tar -xf #{tar_file}))
-          report_result(true)
+        logger.debug 'Unpacking backup ... ', false
+        if system(*%W(tar -xf #{tar_file}))
           return true
         else
-          report_result(false, 'unpacking backup failed')
+          logger.error 'Unpacking backup failed'
           exit 1
         end
       end
     end
 
     def verify_backup_version
-      Dir.chdir(backup_path) do
+      Dir.chdir(path) do
         # restoring mismatching backups can lead to unexpected problems
         current_version = Setting.version
         if settings[:zealot_version] != current_version
@@ -170,9 +173,9 @@ module Backup
 
     def backup_information
       @backup_information ||= {
-        db_version: ActiveRecord::Migrator.current_version.to_s,
-        backup_created_at: Time.now,
         zealot_version: Setting.version,
+        backup_created_at: Time.now,
+        db_version: ActiveRecord::Migrator.current_version.to_s,
         tar_version: tar_version,
         vcs_ref: Setting.vcs_ref || false,
         docker_tag: ENV['DOCKER_TAG'] || false
@@ -184,7 +187,13 @@ module Backup
     end
 
     def backup_contents
-      ARCHIVES_TO_BACKUP + FOLDERS_TO_BACKUP + ['backup_information.yml']
+      precheck_content(ARCHIVES_TO_BACKUP) + precheck_content(FOLDERS_TO_BACKUP) + ['backup_information.yml']
+    end
+
+    def precheck_content(source)
+      source.each_with_object([]) do |item, obj|
+        obj << item if File.exist?(File.join(path, item))
+      end
     end
 
     def settings
@@ -195,17 +204,21 @@ module Backup
       @tar_file ||= if ENV['BACKUP'].present?
                       File.basename(ENV['BACKUP']) + FILE_NAME_SUFFIX
                     else
-                      "#{backup_information[:backup_created_at].strftime('%s_%Y_%m_%d_')}#{backup_information[:zealot_version]}#{FILE_NAME_SUFFIX}"
+                      timestamp = backup_information[:backup_created_at].strftime('%Y%m%d-%H%M')
+                      zealot_version = backup_information[:zealot_version]
+                      "#{timestamp}_#{zealot_version}#{FILE_NAME_SUFFIX}"
                     end
     end
 
     def tar_version
-      tar_version = `tar --version`
-      tar_version.dup.force_encoding('locale').split("\n").first
+      @tar_version ||= `#{tar} --version`.dup
+        .force_encoding('locale')
+        .split("\n")
+        .first
     end
 
     def backup_information_file
-      @backup_information_file ||= File.join(backup_path, 'backup_information.yml')
+      @backup_information_file ||= File.join(path, 'backup_information.yml')
     end
   end
 end

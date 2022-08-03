@@ -30,9 +30,9 @@
 
 require 'open3'
 
-module Backup
+module Zealot::Backup
   class Uploads
-    include Backup::Helper
+    include Zealot::Backup::Helper
 
     class Error < StandardError; end
 
@@ -48,19 +48,17 @@ module Backup
       FileUtils.mkdir_p(backup_path)
       FileUtils.rm_f(backup_tarball)
 
-      puts_time("Dumping uploads data ... ", false)
+      _logger.debug "Dumping uploads data ... "
 
-      success = run_pipeline!([%W(#{tar} --exclude=lost+found -C #{uploads_path} -cf - .), gzip_cmd], out: [backup_tarball, 'w', 0600])
-      report_result(success)
+      run_pipeline!([%W(#{tar} --exclude=lost+found -C #{uploads_path} -cf - .), gzip_cmd], out: [backup_tarball, 'w', 0600])
     end
 
     def restore
-      puts_time("Restoring uploads data ... ", false)
+      _logger.debug "Restoring uploads data ... "
 
       backup_existing_uploads_dir
       FileUtils.mkdir_p(uploads_path)
-      success = run_pipeline!([%w(gzip -cd), %W(#{tar} #{gzip_args} -C #{uploads_path} -xf -)], in: backup_tarball)
-      report_result(success)
+      run_pipeline!([%w(gzip -cd), %W(#{tar} #{gzip_args} -C #{uploads_path} -xf -)], in: backup_tarball)
     end
 
     private

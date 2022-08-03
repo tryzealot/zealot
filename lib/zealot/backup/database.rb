@@ -28,18 +28,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-module Backup
+module Zealot::Backup
   class Database
-    include Backup::Helper
+    include Zealot::Backup::Helper
 
     class Error < StandardError; end
 
-    def self.dump
-      new.dump
+    def self.dump(path: nil, logger: nil)
+      new(path, logger).dump
     end
 
-    def self.restore
-      new.restore
+    def self.restore(path: nil, logger: nil)
+      new(path, logger).restore
+    end
+
+    attr_reader :path, :logger
+
+    def initialize(path, logger = nil)
+      @path = path
+      @logger = logger || Logger.new(STDOUT)
     end
 
     def dump
@@ -51,9 +58,9 @@ module Backup
       compress_rd.close
 
       dump_pid =
-        case config["adapter"]
-        when "postgresql" then
-          puts_time("Dumping PostgreSQL database #{config['database']} ... ", false)
+        case config['adapter']
+        when 'postgresql'
+          logger.debug "Dumping PostgreSQL database #{config['database']} ... "
           pg_env
           pgsql_args = ["--clean"] # Pass '--clean' to include 'DROP TABLE' statements in the DB dump.
           if Setting.backup[:pg_schema]
@@ -70,8 +77,9 @@ module Backup
         $?.success?
       end
 
-      report_result(success)
-      raise Backup::Database::Error, 'Backup failed' unless success
+      raise Zealot::Backup::Database::Error, 'Backup failed' unless success
+
+      success
     end
 
     def restore
@@ -80,9 +88,9 @@ module Backup
       decompress_wr.close
 
       restore_pid =
-        case config["adapter"]
-        when "postgresql" then
-          puts_time("Restoring PostgreSQL database #{config['database']} ... ", false)
+        case config['adapter']
+        when 'postgresql'
+          _logger.debug "Restoring PostgreSQL database #{config['database']} ... "
           pg_env
           spawn('psql', config['database'], in: decompress_rd)
         end
@@ -93,25 +101,24 @@ module Backup
         $?.success?
       end
 
-      report_result(success)
-      raise Backup::Database::Error, 'Restore failed' unless success
+      raise Zealot::Backup::Database::Error, 'Restore failed' unless success
     end
 
     private
 
     def pg_env
       args = {
-        'username'  => 'PGUSER',
-        'host'      => 'PGHOST',
-        'port'      => 'PGPORT',
-        'password'  => 'PGPASSWORD',
+        'username'        => 'ZEALOT_POSTGRES_USER',
+        'host'            => 'ZEALOT_POSTGRES_HOST',
+        'port'            => 'ZEALOT_POSTGRES_PORT',
+        'password'        => 'ZEALOT_POSTGRES_PASSWORD',
         # SSL
-        'sslmode'         => 'PGSSLMODE',
-        'sslkey'          => 'PGSSLKEY',
-        'sslcert'         => 'PGSSLCERT',
-        'sslrootcert'     => 'PGSSLROOTCERT',
-        'sslcrl'          => 'PGSSLCRL',
-        'sslcompression'  => 'PGSSLCOMPRESSION'
+        'sslmode'         => 'ZEALOT_POSTGRES_SSLMODE',
+        'sslkey'          => 'ZEALOT_POSTGRES_SSLKEY',
+        'sslcert'         => 'ZEALOT_POSTGRES_SSLCERT',
+        'sslrootcert'     => 'ZEALOT_POSTGRES_SSLROOTCERT',
+        'sslcrl'          => 'ZEALOT_POSTGRES_SSLCRL',
+        'sslcompression'  => 'ZEALOT_POSTGRES_SSLCOMPRESSION'
       }
       args.each { |opt, arg| ENV[arg] = config[opt].to_s if config[opt] }
     end
@@ -124,7 +131,7 @@ module Backup
     end
 
     def db_file_name
-      @db_file_name ||= File.join(backup_path, 'db', 'database.sql.gz')
+      @db_file_name ||= File.join(path || backup_path, 'db', 'database.sql.gz')
     end
   end
 end

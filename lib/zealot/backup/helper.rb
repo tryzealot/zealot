@@ -28,45 +28,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-module Backup
+module Zealot::Backup
   module Helper
 
-    def access_denied_error(path)
-      message = <<~EOS
-
-      ### NOTICE ###
-      As part of restore, the task tried to move existing content from #{path}.
-      However, it seems that directory contains files/folders that are not owned.
-      To proceed, please move the files or folders inside #{path} to a secure
-      location so that #{path} is empty and run restore task again.
-
-      EOS
-      raise message
-    end
-
-    def resource_busy_error(path)
-      message = <<~EOS
-
-      ### NOTICE ###
-      As part of restore, the task tried to rename `#{path}` before restoring.
-      This could not be completed, perhaps `#{path}` is a mountpoint?
-
-      To complete the restore, please move the contents of `#{path}` to a
-      different location and run the restore task again.
-
-      EOS
-      raise message
-    end
-
-    def logger
-      if ENV['CRON']
-        # We need an object we can say 'puts' and 'print' to; let's use a
-        # StringIO.
-        require 'stringio'
-        StringIO.new
-      else
-        $stdout
-      end
+    def backup_path
+      Rails.root.join(Setting.backup[:path])
     end
 
     def gzip_cmd
@@ -86,26 +52,31 @@ module Backup
                end
     end
 
-    def backup_path
-      Rails.root.join(Setting.backup[:path])
+    def access_denied_error(path)
+      message = <<~EOF
+
+      ### NOTICE ###
+      As part of restore, the task tried to move existing content from #{path}.
+      However, it seems that directory contains files/folders that are not owned.
+      To proceed, please move the files or folders inside #{path} to a secure
+      location so that #{path} is empty and run restore task again.
+
+      EOF
+      raise message
     end
 
-    def puts_time(msg, new_line = true)
-      if new_line
-        logger.puts "#{Time.now} -- #{msg}"
-      else
-        logger.print "#{Time.now} -- #{msg}"
-      end
-    end
+    def resource_busy_error(path)
+      message = <<~EOF
 
-    def report_result(success, message = nil)
-      message = " #{message}" unless message.to_s.empty?
+      ### NOTICE ###
+      As part of restore, the task tried to rename `#{path}` before restoring.
+      This could not be completed, perhaps `#{path}` is a mountpoint?
 
-      if success
-        logger.puts "[DONE]#{message}"
-      else
-        logger.puts "[FAILED]#{message}"
-      end
+      To complete the restore, please move the contents of `#{path}` to a
+      different location and run the restore task again.
+
+      EOF
+      raise message
     end
   end
 end

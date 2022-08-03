@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
-  include ActiveJob::Status
   include ActionView::Helpers::TranslationHelper
+  include ActiveJob::Status
 
   protected
 
