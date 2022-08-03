@@ -202,7 +202,8 @@ zh-CN:
       title: 服务日志
       index:
         title: :'admin.logs.title'
-        notice: 仅显示最新 %{number} 行代码，暂时不支持自动刷新
+        loading: 日志加载中 ...
+        error_message: 日志获取失败，返回状态码：
 
   dashboard:
     title: 控制台
