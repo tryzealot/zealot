@@ -74,6 +74,3 @@ module Zealot
     config.generators.system_tests = false
   end
 end
-
-# # Slient redis
-# Redis.silence_deprecations = true
