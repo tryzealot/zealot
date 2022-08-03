@@ -110,22 +110,29 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'settings#index'
 
+      resources :settings
       resources :users, except: :show
       resources :web_hooks, except: %i[ show new create ]
+      resources :apple_teams, only: %i[ edit update ]
+      resources :background_jobs, only: :index
+      resources :system_info, only: :index
+      resources :database_analytics, only: :index
       resources :apple_keys, except: %i[ edit update ] do
         member do
           put :sync_devices
         end
       end
-      resources :apple_teams, only: %i[ edit update ]
-      resources :settings
 
-      resources :background_jobs, only: :index
-      resources :system_info, only: :index
-      resources :database_analytics, only: :index
       resources :logs, only: %i[ index ] do
         collection do
           get :retrive
+        end
+      end
+
+      resources :backups do
+        member do
+          post :perform
+          get :download
         end
       end
 

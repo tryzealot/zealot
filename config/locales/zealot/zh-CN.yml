@@ -188,6 +188,29 @@ zh-CN:
         messages:
           file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
 
+    backups:
+      title: 数据备份
+      index:
+        title: :'admin.backups.title'
+        new_backup: 创建备份
+        key: 备份名称
+        scopes: 备份范围
+        schedule: 备份频率
+        next_schedule_at: 下次备份时间
+        enabled: 启用
+        run_now: 现在运行
+        action: 操作
+        database: 数据库
+        channel: '%{count} 应用渠道'
+        destroy_confirm: 确认删除 %{key}？
+      show:
+        title: '%{key} 备份'
+        filename: 文件名
+        created_at: 生成时间
+        size: 大小
+        download: 下载
+        destroy: 删除
+
     background_jobs:
       title: 后台任务
       index:

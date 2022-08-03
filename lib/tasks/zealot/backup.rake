@@ -28,9 +28,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require_relative '../../backup/helper'
+require_relative '../../zealot/backup/helper'
 
-extend Backup::Helper
+extend Zealot::Backup::Helper
 
 namespace :zealot do
   namespace :backup do
@@ -39,7 +39,7 @@ namespace :zealot do
       Rake::Task['zealot:backup:db:create'].invoke
       Rake::Task['zealot:backup:uploads:create'].invoke
 
-      backup = Backup::Manager.new
+      backup = Zealot::Backup::Manager.new
       backup.write_info
       backup.pack
       backup.cleanup
@@ -48,7 +48,7 @@ namespace :zealot do
 
     desc 'Zealot | Backup | Restore a previously created backup'
     task restore: :environment do
-      backup = Backup::Manager.new
+      backup = Zealot::Backup::Manager.new
       cleanup_required = backup.unpack
       backup.verify_backup_version
 
@@ -62,21 +62,21 @@ namespace :zealot do
 
     namespace :uploads do
       task create: :environment do
-        Backup::Uploads.dump
+        Zealot::Backup::Uploads.dump
       end
 
       task restore: :environment do
-        Backup::Uploads.restore
+        Zealot::Backup::Uploads.restore
       end
     end
 
     namespace :db do
       task create: :environment do
-        Backup::Database.dump
+        Zealot::Backup::Database.dump
       end
 
       task restore: :environment do
-        Backup::Database.restore
+        Zealot::Backup::Database.restore
       end
     end
   end
