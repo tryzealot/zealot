@@ -25,6 +25,7 @@ html lang="#{I18n.locale}"
   body[
     class="hold-transition #{body_class}"
     data-controller="global"
+    data-global-env-value="#{Rails.env}"
     data-global-root-url-value="#{root_url}"
     data-global-apperance-value="#{Setting.site_appearance}"
   ]
