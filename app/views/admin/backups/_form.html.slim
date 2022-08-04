@@ -1,0 +1,31 @@
+= simple_form_for([:admin, @backup]) do |f|
+  .card
+    .card-header
+      h3.card-title 备份配置
+    .card-body
+      = f.error_notification
+
+      = f.input :enabled
+      = f.input :key, required: true
+      = f.input :schedule, required: true
+      = f.input :max_keeps, required: true
+      = f.input :notification
+
+    .card-header.pt-0
+      h3.card-title 备份范围
+    .card-body
+      = f.input :enabled_channels, as: :check_boxes, collection: Channel.all_appnames, checked: @backup.enabled_channels
+      = f.label :enabled_database
+      = f.input :enabled_database, label: t('simple_form.labels.backup.database_switch')
+
+    .card-footer
+      - unless @backup.new_record?
+        .float-right
+          - if @backup.enabled
+            = link_to '禁用', disable_admin_backup_path(@backup), \
+              data: { turbo_method: :post }
+          - else
+            = link_to '启用', enable_admin_backup_path(@backup), \
+              data: { turbo_method: :post }
+
+      = f.button :submit

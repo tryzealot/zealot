@@ -1,7 +1,4 @@
-ruby:
-  update_url = @apple_key.new_record? ? admin_apple_keys_path : admin_apple_key_path(@apple_key)
-
-= simple_form_for(@apple_key, url: update_url) do |f|
+= simple_form_for([:admin, @apple_key]) do |f|
   .card-body
     = f.error_notification
 
