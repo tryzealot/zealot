@@ -140,7 +140,7 @@ zh-CN:
       gitlab: Gitlab
       google_oauth: Google OAuth
 
-      # backup: 备份
+      backup: 备份
       # misc: 杂项
 
       stmp: 邮件配置
@@ -192,7 +192,7 @@ zh-CN:
       title: 数据备份
       index:
         title: :'admin.backups.title'
-        new_backup: 创建备份
+        new_backup: :'admin.backups.new.title'
         key: 备份名称
         scopes: 备份范围
         schedule: 备份频率
@@ -203,6 +203,9 @@ zh-CN:
         database: 数据库
         channel: '%{count} 应用渠道'
         destroy_confirm: 确认删除 %{key}？
+        not_found:
+          title: 没有发现任何备份计划
+          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增备份。
       show:
         title: '%{key} 备份'
         filename: 文件名
@@ -210,6 +213,11 @@ zh-CN:
         size: 大小
         download: 下载
         destroy: 删除
+        not_found:
+          title: 没有发现任何备份
+          body_html: 你可以%{link}创建一份
+      new:
+        title: 新增备份
 
     background_jobs:
       title: 后台任务
@@ -813,6 +821,10 @@ zh-CN:
               blank: 必须选择一个 zip 文件
             checksum:
               taken: 文件已经存在，不能重复上传
+        backup:
+          attributes:
+            schedule:
+              invalid: 频率无法正常解析
 
   user_mailer:
     omniauth_welcome_email:
@@ -873,6 +885,10 @@ zh-CN:
         create: 新增苹果开发者
       apple_team:
         update: 更新
+      backup:
+        create: 创建备份
+        update: 更新备份
+
   views:
     pagination:
       truncate: ...
