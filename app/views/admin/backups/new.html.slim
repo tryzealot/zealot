@@ -1,2 +1,9 @@
-h1 Admin::Backup#new
-p Find me in app/views/admin/backup/new.html.slim
+- content_for :section_title do
+  = t('.title')
+
+- content_for :title do
+  = t('.title')
+
+.row
+  .col-md-12
+    == render 'form', title: t('.title')

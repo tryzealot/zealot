@@ -6,23 +6,28 @@
 
 .row
   .col-md-12
-    .card
-      .card-body.p-0
-        table.table
-          tr
-            th = t('.filename')
-            th = t('.created_at')
-            th = t('.size')
-            th = t('.download')
-            - @backup.files.each do |file|
-              tr
-                td = file.basename
-                td = file.ctime
-                td = number_to_human_size(file.size)
-                td
-                  = link_to 'download', download_admin_backup_path(@backup)
-
-    .card.card-outline.card-warning
-      .card-header.card-border
-        h3.card-title = t('.not_found.title')
-      .card-body = t('.not_found.body_html')
+    - unless @backup.files.empty?
+      .card
+        .card-body.p-0
+          table.table
+            tr
+              th = t('.filename')
+              th = t('.created_at')
+              th = t('.size')
+              th = t('.download')
+              - @backup.files.each do |file|
+                tr
+                  td = file.basename
+                  td = file.ctime
+                  td = number_to_human_size(file.size)
+                  td
+                    = link_to 'download', download_admin_backup_path(@backup, key: file.basename)
+    - else
+      .card.card-outline.card-warning
+        .card-header.card-border
+          h3.card-title = t('.not_found.title')
+        .card-body
+          = t('.not_found.body_html', \
+            link: button_to(raw('<i class="fas fa-play-circle>'), \
+              perform_admin_backup_path(@backup), class: 'btn btn-success btn-sm', \
+            ))

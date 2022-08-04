@@ -2,10 +2,11 @@ class CreateBackups < ActiveRecord::Migration[7.0]
   def change
     create_table :backups do |t|
       t.string :key, unique: true, null: false, index: true
-      t.string :schedule
-      t.integer :max_keeps
+      t.string :schedule, null: false
+      t.boolean :enabled_database, default: true
+      t.integer :enabled_channels, array: true, default: []
+      t.integer :max_keeps, default: -1
       t.string :notification
-      t.boolean :enable_archive
       t.boolean :enabled
       t.timestamps
     end

@@ -11,6 +11,8 @@ class Channel < ApplicationRecord
 
   enum device_type: { ios: 'iOS', android: 'Android', macos: 'macOS' }
 
+  scope :all_appnames, -> { all.map { |c| [c.app_name, c.id] } }
+
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
   delegate :app, to: :scheme
