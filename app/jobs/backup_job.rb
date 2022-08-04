@@ -44,13 +44,13 @@ class BackupJob < ApplicationJob
   end
 
   def dump_database
-    return unless @backup.backup_database?
+    return unless @backup.enabled_database
 
     Zealot::Backup::Database.dump(path: backup_path)
   end
 
   def dump_channels
-    return unless @backup.backup_channel?
+    return if @backup.enabled_channels.empty?
 
     Zealot::Backup::Upload.dump(path: backup_path)
   end

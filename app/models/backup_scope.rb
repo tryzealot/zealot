@@ -6,20 +6,13 @@ class BackupScope < ApplicationRecord
 
   belongs_to :backup
 
-  scope :database?, -> { exists?(key: DATABASE) }
-  scope :channel?, -> { exists?(key: CHANNEL) }
-
   enum key: { database: DATABASE, channel: CHANNEL }
 
-  def channels
-    return if key == DATABASE
-
-    value['data'].each_with_object([]) do |channel_id, obj|
-      begin
-        obj << Channel.find(channel_id)
-      rescue
-        next
-      end
-    end
-  end
+  scope :database?, -> { exists?(key: DATABASE) }
+  scope :channel?, -> { exists?(key: CHANNEL) }
+  scope :channel_ids, -> {
+    select("value->'data' AS channel_ids")
+      .find_by(key: CHANNEL)
+      &.channel_ids
+  }
 end

@@ -10,13 +10,11 @@ module Admin
       parse_schedule(schedule).next_time
     end
 
-    def explan_scopes(scopes)
-      scopes.each_with_object([]) do |scope, obj|
-        case scope.key
-        when BackupScope::DATABASE
-          obj << t('admin.backups.index.database')
-        when BackupScope::CHANNEL
-          obj << t('admin.backups.index.channel', count: scope.channels.size)
+    def explan_scopes(backup)
+      [].tap do |obj|
+        obj << t('admin.backups.index.database') if backup.enabled_database?
+        if count = backup.enabled_channels.count
+          obj << t('admin.backups.index.channel', count: count)
         end
       end.join(' | ')
     end

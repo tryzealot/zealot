@@ -154,16 +154,16 @@ module Zealot::Backup
         # restoring mismatching backups can lead to unexpected problems
         current_version = Setting.version
         if settings[:zealot_version] != current_version
-          logger.puts(<<~HEREDOC.color(:red))
+          logger.debug(<<~HEREDOC.color(:red))
             Zealot version mismatch:
               Your current Zealot version (#{current_version}) differs from the Zealot version in the backup!
               Please switch to the following version and try again:
               version: #{settings[:zealot_version]}
           HEREDOC
-          logger.puts
-          logger.puts "Hint:"
-          logger.puts "  1. git checkout v#{settings[:zealot_version]}"
-          logger.puts "  2. docker pull tryzealot/zealot:#{settings[:zealot_version]}"
+          logger.debug
+          logger.debug "Hint:"
+          logger.debug "  1. git checkout v#{settings[:zealot_version]}"
+          logger.debug "  2. docker pull tryzealot/zealot:#{settings[:zealot_version]}"
           exit 1
         end
       end
@@ -201,13 +201,11 @@ module Zealot::Backup
     end
 
     def tar_file
-      @tar_file ||= if ENV['BACKUP'].present?
-                      File.basename(ENV['BACKUP']) + FILE_NAME_SUFFIX
-                    else
-                      timestamp = backup_information[:backup_created_at].strftime('%Y%m%d-%H%M')
-                      zealot_version = backup_information[:zealot_version]
-                      "#{timestamp}_#{zealot_version}#{FILE_NAME_SUFFIX}"
-                    end
+      @tar_file ||= -> () {
+        timestamp = backup_information[:backup_created_at].strftime('%Y%m%d-%H%M')
+        zealot_version = backup_information[:zealot_version]
+        "#{timestamp}_#{zealot_version}#{FILE_NAME_SUFFIX}"
+      }.call
     end
 
     def tar_version
@@ -215,6 +213,7 @@ module Zealot::Backup
         .force_encoding('locale')
         .split("\n")
         .first
+        .strip
     end
 
     def backup_information_file
