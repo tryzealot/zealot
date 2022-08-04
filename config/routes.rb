@@ -125,8 +125,14 @@ Rails.application.routes.draw do
 
       resources :backups do
         member do
+          post :enable
+          post :disable
           post :perform
           get :download
+        end
+
+        collection do
+          get :parse_schedule
         end
       end
 

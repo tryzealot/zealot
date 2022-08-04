@@ -65,6 +65,14 @@ zh-CN:
         display_name: 显示名称
         name: 注册主体
         team_id: 标识符
+      backup:
+        key: 备份名称
+        schedule: 备份频率
+        enabled_database: 备份数据库
+        database_switch: 启用
+        enabled_channels: 备份应用渠道
+        max_keeps: 最大保留数
+        enabled: 启用
 
     hints:
       defaults:
@@ -95,6 +103,12 @@ zh-CN:
         file: '必须使用 zip 文件压缩后的调试文件'
       setting:
         value: '按照 JSON 标准格式编辑，否则会保存失败'
+      backup:
+        key: 名称必须是唯一，不可和其他备份重复
+        schedule: |
+          定时执行备份计划，支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
+          <a href="https://crontab.guru/">Cron</a>。暂不支持单次定点执行
+        max_keeps: 备份达到设置上限会删除最早的文件，不限制设置 -1
 
     placeholders:
       release:
@@ -122,6 +136,8 @@ zh-CN:
         release_version: '1.0.0'
         build_version: '1.0'
         checksum: '纯校验使用，随文件生成无需填写'
+      backup:
+        schedule: every day at noon / 12 0 * * *
 
     # include_blanks:
     #   defaults:

@@ -3,18 +3,26 @@
 require 'pathname'
 
 class Backup < ApplicationRecord
-  has_many :backup_scopes
+  validates :key, uniqueness: true, on: :create
+  validates :key, :schedule, presence: true
+  validate :correct_schedule
+
+  before_save :strip_enabled_channels
+
+  def channels
+    Channel.where(id: enabled_channels)
+  end
 
   def perform_job
     BackupJob.perform_later id
   end
 
-  def backup_database?
-    backup_scopes.database?
-  end
+  def find_file(dirname)
+    # has_lock_file = File.exist?(File.join(dirname, '.lock'))
+    file = Dir.glob(File.join(path, dirname, '*.tar')).first
+    raise ActiveRecord::RecordNotFound, "Not found backup in path: #{dirname}" unless file
 
-  def backup_channel?
-    backup_scopes.channel?
+    Pathname.new(file)
   end
 
   def files
@@ -25,5 +33,21 @@ class Backup < ApplicationRecord
 
   def path
     Rails.root.join(Setting.backup[:path], key)
+  end
+
+  private
+
+  def correct_schedule
+    parser = Fugit.do_parse(self.schedule)
+    klass = parser.class
+
+    raise ArgumentError, "Not cron: #{klass}" unless klass == Fugit::Cron
+  rescue => e
+    logger.error "schedule parse error: #{e}"
+    errors.add(:schedule, :invalid)
+  end
+
+  def strip_enabled_channels
+    enabled_channels.compact!
   end
 end
