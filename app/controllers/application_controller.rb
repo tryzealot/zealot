@@ -20,7 +20,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = Setting.site_locale
+    site_locale = Rails.cache.fetch('site_locale', expires_in: 1.day) { Setting.site_locale }
+    I18n.locale = site_locale
   end
 
   def set_sentry_context

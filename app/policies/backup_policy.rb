@@ -6,15 +6,19 @@ class BackupPolicy < ApplicationPolicy
     admin?
   end
 
-  def download?
-    admin?
-  end
-
   def enable?
     admin?
   end
 
   def disable?
+    admin?
+  end
+
+  def download_archive?
+    admin?
+  end
+
+  def destroy_archive?
     admin?
   end
 

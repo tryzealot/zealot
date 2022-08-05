@@ -8,6 +8,7 @@ class Backup < ApplicationRecord
   validate :correct_schedule
 
   before_save :strip_enabled_channels
+  before_destroy :remove_storage
 
   def channels
     Channel.where(id: enabled_channels)
@@ -49,5 +50,9 @@ class Backup < ApplicationRecord
 
   def strip_enabled_channels
     enabled_channels.compact!
+  end
+
+  def remove_storage
+    FileUtils.rm_rf(path)
   end
 end
