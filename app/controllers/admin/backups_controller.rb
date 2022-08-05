@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::BackupsController < ApplicationController
-  before_action :set_backup, only: %i[show enable disable perform download edit update destroy]
+  before_action :set_backup, except: %i[ index new create ]
 
   def index
     @backups = Backup.all
@@ -25,15 +25,25 @@ class Admin::BackupsController < ApplicationController
     @backup.perform_job
 
     notice = 'Backup was successfully scheduled to run in the background.'
-    redirect_to admin_backups_path, notice: notice
+    redirect_back_or_to admin_backups_path, notice: notice
   end
 
-  def download
+  def download_archive
     dirname = params[:key]
     backup_file = @backup.find_file(dirname)
 
     headers['Content-Length'] = backup_file.size
     send_file backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
+  end
+
+  def destroy_archive
+    dirname = params[:key]
+    backup_file = @backup.find_file(dirname)
+
+    raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(backup_file)
+
+    FileUtils.rm_rf(backup_file.dirname)
+    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.file_destroy_success')
   end
 
   def new
@@ -55,8 +65,8 @@ class Admin::BackupsController < ApplicationController
 
   def update
     unless @backup.update(backup_params)
-      # flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
-      return render :edit, status: :unprocessable_entity
+      alert = t('apps.messages.failture.missing_schemes_and_channels')
+      return render :edit, status: :unprocessable_entity, alert: alert
     end
 
     redirect_to admin_backups_path
