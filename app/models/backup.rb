@@ -15,7 +15,18 @@ class Backup < ApplicationRecord
   end
 
   def perform_job
-    BackupJob.perform_later id
+    job = BackupJob.perform_later(id)
+    Rails.cache.write(job_id, job.job_id)
+  end
+
+  def job_status
+    return unless job_id = Rails.cache.fetch(job_id)
+
+    ActiveJob::Status.get(job_id)
+  end
+
+  def job_id
+    @job_id ||= "zealot:backup:#{id}"
   end
 
   def find_file(dirname)
