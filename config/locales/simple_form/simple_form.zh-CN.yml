@@ -70,7 +70,7 @@ zh-CN:
         schedule: 备份频率
         enabled_database: 备份数据库
         database_switch: 启用
-        enabled_channels: 备份应用渠道
+        enabled_apps: 备份应用
         max_keeps: 最大保留数
         enabled: 启用
 

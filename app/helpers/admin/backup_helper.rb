@@ -2,6 +2,10 @@
 
 module Admin
   module BackupHelper
+    def all_apps
+      App.all_names
+    end
+
     def schedule_to_human(schedule)
       parse_schedule(schedule).to_cron_s
     end
@@ -13,8 +17,8 @@ module Admin
     def explan_scopes(backup)
       [].tap do |obj|
         obj << t('admin.backups.index.database') if backup.enabled_database?
-        if count = backup.enabled_channels.count
-          obj << t('admin.backups.index.channel', count: count)
+        if count = backup.enabled_apps.count
+          obj << t('admin.backups.index.app', count: count)
         end
       end.join(' | ')
     end
