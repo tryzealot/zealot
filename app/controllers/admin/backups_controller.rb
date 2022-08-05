@@ -2,6 +2,7 @@
 
 class Admin::BackupsController < ApplicationController
   before_action :set_backup, except: %i[ index new create ]
+  before_action :set_backup_file, only: %i[ download_archive destroy_archive ]
 
   def index
     @backups = Backup.all
@@ -29,20 +30,14 @@ class Admin::BackupsController < ApplicationController
   end
 
   def download_archive
-    dirname = params[:key]
-    backup_file = @backup.find_file(dirname)
+    raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(@backup_file)
 
-    headers['Content-Length'] = backup_file.size
-    send_file backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
+    headers['Content-Length'] = @backup_file.size
+    send_file @backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
   end
 
   def destroy_archive
-    dirname = params[:key]
-    backup_file = @backup.find_file(dirname)
-
-    raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(backup_file)
-
-    FileUtils.rm_rf(backup_file.dirname)
+    @backup.destroy_directory(@backup_dir)
     redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.file_destroy_success')
   end
 
@@ -64,10 +59,7 @@ class Admin::BackupsController < ApplicationController
   end
 
   def update
-    unless @backup.update(backup_params)
-      alert = t('apps.messages.failture.missing_schemes_and_channels')
-      return render :edit, status: :unprocessable_entity, alert: alert
-    end
+    return render :edit, status: :unprocessable_entity unless @backup.update(backup_params)
 
     redirect_to admin_backups_path
   end
@@ -111,10 +103,15 @@ class Admin::BackupsController < ApplicationController
     authorize @backup
   end
 
+  def set_backup_file
+    @backup_dir = params[:key]
+    @backup_file = @backup.find_file(@backup_dir)
+  end
+
   def backup_params
     @backup_params ||= params.require(:backup).permit(
       :key, :schedule, :max_keeps, :enabled, :notification,
-      :enabled_database, enabled_channels: []
+      :enabled_database, enabled_apps: []
     )
   end
 end
