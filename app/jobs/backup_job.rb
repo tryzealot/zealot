@@ -15,6 +15,11 @@ class BackupJob < ApplicationJob
     # dump_channels
     archive
     cleanup
+
+    100.times do |i|
+      logger.warn "sleeping #{i}"
+      sleep 10000
+    end
   rescue => e
     # Cause issues:
     # 1. write directory permissions
@@ -28,6 +33,7 @@ class BackupJob < ApplicationJob
   private
 
   def archive
+    update_status
     manager = Zealot::Backup::Manager.new(backup_path, logger)
     manager.write_info
     manager.pack
@@ -35,21 +41,27 @@ class BackupJob < ApplicationJob
   end
 
   def prepare
+    update_status
+    # Rails.cache.write("zealot:backup:#{@backup.id}:backup-path", )
+
     FileUtils.mkdir_p(backup_path)
     FileUtils.touch(local_file)
   end
 
   def cleanup
+    update_status
     FileUtils.rm_f(local_file)
   end
 
   def dump_database
+    update_status
     return unless @backup.enabled_database
 
     Zealot::Backup::Database.dump(path: backup_path)
   end
 
   def dump_channels
+    update_status
     return if @backup.enabled_channels.empty?
 
     Zealot::Backup::Upload.dump(path: backup_path)
@@ -64,5 +76,9 @@ class BackupJob < ApplicationJob
 
   def local_file
     @local_file ||= File.join(backup_path, LOCK_FILE)
+  end
+
+  def update_status(value = __callee__)
+    status[:step] = value.to_s
   end
 end
