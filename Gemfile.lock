@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/mhfs/sidekiq-failures
-  revision: 22d3d0786d3d4d5a3eb828a8f393e669bd45755a
-  ref: 22d3d0786d3d4d5a3eb828a8f393e669bd45755a
+  remote: https://github.com/icyleaf/sidekiq-failures
+  revision: 6eaba5e6ca9cd8bf0f2aedcd118954a3de4084d8
+  ref: 6eaba5e6ca9cd8bf0f2aedcd118954a3de4084d8
   specs:
     sidekiq-failures (1.0.1)
       sidekiq (>= 4.0.0)
