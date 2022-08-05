@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
     t.string "key", null: false
     t.string "schedule", null: false
     t.boolean "enabled_database", default: true
-    t.integer "enabled_channels", default: [], array: true
+    t.integer "enabled_apps", default: [], array: true
     t.integer "max_keeps", default: -1
     t.string "notification"
     t.boolean "enabled"
