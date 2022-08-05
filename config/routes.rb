@@ -128,7 +128,8 @@ Rails.application.routes.draw do
           post :enable
           post :disable
           post :perform
-          get :download
+          get :archive, action: :download_archive
+          delete :archive, action: :destroy_archive
         end
 
         collection do
