@@ -203,13 +203,13 @@ zh-CN:
         run_now: 现在运行
         action: 操作
         database: 数据库
-        channel: '%{count} 应用渠道'
+        app: '%{count} 应用'
         destroy_confirm: 确认删除 %{key}？
         not_found:
           title: 没有发现任何备份计划
           body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增备份。
       show:
-        title: '%{key} 备份'
+        title: '%{key} 备份计划'
         filename: 文件名
         created_at: 生成时间
         size: 大小
