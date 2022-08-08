@@ -26,7 +26,7 @@
                 tr
                   td = link_to backup.key, admin_backup_path(backup)
                   td = explan_scopes(backup)
-                  td = backup.schedule
+                  td = schedule_to_human(backup.schedule)
                   td = next_schedule_to_human(backup.schedule)
                   td
                     == render 'admin/settings/switch_icon', value: backup.enabled

@@ -38,6 +38,10 @@ Rails.application.reloader.to_prepare do
     add_or_delete_schedule(Setting.keep_uploads, cron_jobs, :clean_old_releases)
     add_or_delete_schedule(!Setting.demo_mode, cron_jobs, :reset_for_demo_mode)
 
+    Backup.enabled_jobs.each do |backup|
+      cron_jobs[backup.schedule_key] = backup.schedule_job
+    end
+
     Sidekiq.schedule = cron_jobs
     SidekiqScheduler::Scheduler.instance.reload_schedule!
   end
