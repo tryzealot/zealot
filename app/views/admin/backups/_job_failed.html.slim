@@ -3,7 +3,8 @@ tr
     = file.created_at
     .text-danger
       = "#{file.status.status}@#{file.status[:step]}"
-      = ": #{file.failure['error_class']}@#{file.failure.jid}"
+      - if file.failure&.jid
+        = ": #{file.failure['error_class']}@#{file.failure.jid}"
   td -
   td
     .btn-group

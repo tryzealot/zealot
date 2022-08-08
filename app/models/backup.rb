@@ -19,19 +19,16 @@ class Backup < ApplicationRecord
     Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
   end
 
-  def find_file(dirname)
-    file = Dir.glob(File.join(path, dirname, '*.tar')).first
+  def find_file(filename)
+    file = Dir.glob(File.join(path, filename)).first
     return unless file
 
     Pathname.new(file)
   end
 
-  def files
-    # TODO: 需要重写，逻辑有问题
+  def backup_files
     Dir.glob(File.join(path, '*')).each_with_object([]) do |file, obj|
-      backup_file = BackupFile.parse(file, job_status)
-      # next unless backup_file.complated?
-
+      backup_file = BackupFile.parse(key, file, cache_job_id_key)
       obj << backup_file
     end.sort_by(&:ctime).reverse!
   end
@@ -39,23 +36,14 @@ class Backup < ApplicationRecord
   def destroy_directory(name)
     FileUtils.rm_rf(File.join(path, name))
 
-    job_id, status = job_status.find {|_, status| status[:file] == name }
+    job_id, status = BackupFile.find_status(cache_key, key, name)
 
     Rails.cache.redis.srem(cache_job_id_key, job_id) if job_id
     status.delete if status
   end
 
-  def job_status
-    job_ids = Rails.cache.redis.smembers(cache_job_id_key)
-    return {} if job_ids.empty?
-
-    job_ids.each_with_object({}) do |job_id, obj|
-      obj[job_id] = ActiveJob::Status.get(job_id)
-    end
-  end
-
   def cache_job_id_key
-    @cache_job_id_key ||= "zealot:backup:#{id}"
+    @cache_job_id_key ||= "cache:backup:#{id}"
   end
 
   def path
@@ -63,9 +51,24 @@ class Backup < ApplicationRecord
   end
 
   class BackupFile
-    def self.parse(file, backup_job_status)
-      job_id, status = backup_job_status.find {|_, status| status[:file] == File.basename(file) }
+    def self.parse(key, file, cache_key)
+      status = find_status(cache_key, key, file)
       new(file, status)
+    end
+
+    def self.find_status(cache_key, key, file)
+      job_cached_status(cache_key).find do |status|
+        status[:source] = key && status[:file] == File.basename(file)
+      end
+    end
+
+    def self.job_cached_status(cache_key)
+      job_ids = Rails.cache.redis.smembers(cache_key)
+      return {} if job_ids.empty?
+
+      job_ids.each_with_object([]) do |job_id, obj|
+        obj << ActiveJob::Status.get(job_id)
+      end
     end
 
     attr_reader :status
@@ -77,17 +80,20 @@ class Backup < ApplicationRecord
       @status = status
     end
 
+    def name
+      @file.basename
+    end
+
     def created_at
       @file.ctime
     end
 
-    def job_status
+    def current_status
       @status&.status || (complated? ? 'complated' : 'unknown')
     end
 
     def complated?
-      file = File.join(@file.to_path, ".complate")
-      File.exist?(file)
+      File.exist?(@file)
     end
 
     def failure

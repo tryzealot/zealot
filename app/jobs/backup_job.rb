@@ -7,18 +7,21 @@ class BackupJob < ApplicationJob
   queue_as :schedule
 
   def perform(backup_id)
-    update_status("started")
     @backup = Backup.find(backup_id)
     @manager = Zealot::Backup::Manager.new(backup_path, logger)
 
-    status.update(file: File.basename(backup_path), job_id: job_id, jid: provider_job_id)
+    update_status('start',
+      source: @backup.key,
+      file: @manager.tar_filename,
+      job_id: job_id,
+      jid: provider_job_id
+    )
 
     prepare
     dump_database
     dump_apps
-    archive
+    pack
     cleanup
-    finish
 
   # rescue => e
   #   status.update(step: "throw_error")
@@ -29,30 +32,47 @@ class BackupJob < ApplicationJob
   #   message = "Failed to create backup job, because #{e.message}"
   #   logger.error message
   #   logger.error e.backtrace.join("\n")
+  ensure
+    update_status('ensure')
+    @manager&.cleanup
   end
 
   private
 
-  def archive
+  def prepare
+    update_status(__method__)
+    @manager.precheck(false)
+
+    # Make sure storage it by direct execute this job
+    unless redis.sismember(@backup.cache_job_id_key, job_id)
+      redis.sadd(@backup.cache_job_id_key, job_id)
+    end
+    FileUtils.mkdir_p(backup_path)
+  end
+
+  def dump_database
+    update_status(__method__)
+    return unless @backup.enabled_database
+
+    @manager.dump_database
+  end
+
+  def dump_apps
+    update_status(__method__)
+    return if @backup.enabled_apps.empty?
+
+    @manager.dump_uploads(app_ids: @backup.enabled_apps)
+  end
+
+  def pack
     update_status(__method__)
 
     @manager.write_info
     @manager.pack
   end
 
-  def prepare
-    update_status(__method__)
-    FileUtils.mkdir_p(backup_path)
-
-    # Make sure storage it by direct execute this job
-    unless redis.sismember(@backup.cache_job_id_key, job_id)
-      redis.sadd(@backup.cache_job_id_key, job_id)
-    end
-  end
-
   def cleanup
     update_status(__method__)
-    @manager.cleanup
 
     clean_redis_cache
   end
@@ -63,39 +83,13 @@ class BackupJob < ApplicationJob
     end
   end
 
-  def dump_database
-    update_status(__method__)
-    return unless @backup.enabled_database
-
-    Zealot::Backup::Database.dump(path: backup_path)
-  end
-
-  def dump_apps
-    update_status(__method__)
-    return if @backup.enabled_apps.empty?
-
-    Zealot::Backup::Upload.dump(path: backup_path)
-  end
-
-  def finish
-    update_status(__method__)
-
-    FileUtils.touch(File.join(backup_path, '.complate'))
-  end
-
   def backup_path
-    @backup_path ||= -> () {
-      today = Time.now.strftime('%s_%Y%m%d-%H%M')
-      File.join(@backup.path, today)
-    }.call
+    @backup_path ||= @backup.path
   end
 
-  def local_file
-    @local_file ||= File.join(backup_path, LOCK_FILE)
-  end
-
-  def update_status(value)
+  def update_status(value, **params)
     status[:step] = value.to_s
+    status.update(params) if params
   end
 
   def redis
