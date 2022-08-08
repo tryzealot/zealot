@@ -204,14 +204,34 @@ en:
         schedule: Schedule
         next_schedule_at: Next schedule at
         enabled: Enabled
-        run_now: Run now
         action: Action
+        run_now: Run now
+        edit: Edit
+        destroy: Destroy
         database: Database
         app:
           zero: '%{count} App'
           one: '%{count} App'
           other: '%{count} Apps'
         destroy_confirm: 'Confirm to destroy: %{key}?'
+      show:
+        title: '%{key} backup'
+        filename: Filename
+        created_at: Created at
+        size: Size
+        download: Download
+        destroy: Destroy
+        unknown_job_status: Unknown happend! Try again or report to zealot developer please.
+        current_step: Processing, current %{step}
+        not_found:
+          title: Not found any backup
+          body_html: Click %{link} to request one.
+      new:
+        title: New backup
+      edit:
+        title: Edit %{key} backup
+      perform:
+        success: Backup was successfully scheduled to run in the background.
 
     background_jobs:
       title: Background jobs

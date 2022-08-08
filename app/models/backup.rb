@@ -3,12 +3,16 @@
 require 'pathname'
 
 class Backup < ApplicationRecord
+  scope :enabled_jobs, -> { where(enabled: true) }
+
   validates :key, uniqueness: true, on: :create
   validates :key, :schedule, presence: true
   validate :correct_schedule
 
   before_save :strip_enabled_apps
   before_destroy :remove_storage
+
+  after_save :update_sidekiq_scheduler
 
   def apps
     App.where(id: enabled_apps)
@@ -106,15 +110,32 @@ class Backup < ApplicationRecord
     end
   end
 
+  def schedule_job
+    data = []
+    data << 'database' if enabled_database
+    data << "#{enabled_apps.size} apps" if enabled_apps
+
+    {
+      'description' => "Backup zealot #{data.join(' | ')} data",
+      'cron' => Fugit.parse(schedule).to_cron_s,
+      'class' => 'BackupJob',
+      'queue' => :backup,
+      'args' => id
+    }
+  end
+
+  def schedule_key
+    @scheduler_key ||= "zealot_backup_#{key}"
+  end
+
   private
 
   def correct_schedule
     parser = Fugit.do_parse(self.schedule)
     klass = parser.class
 
-    raise ArgumentError, "Not cron: #{klass}" unless klass == Fugit::Cron
-  rescue => e
-    logger.error "schedule parse error: #{e}"
+    raise ArgumentError, "Not match cron expression: #{klass}" unless klass == Fugit::Cron
+  rescue ArgumentError => e
     errors.add(:schedule, :invalid)
   end
 
@@ -124,5 +145,19 @@ class Backup < ApplicationRecord
 
   def remove_storage
     FileUtils.rm_rf(path)
+  end
+
+  def update_sidekiq_scheduler
+    Sidekiq.remove_schedule(schedule_key)
+
+    if enabled
+      data = []
+      data << 'database' if enabled_database
+      data << "#{enabled_apps.size} apps" if enabled_apps
+
+      Sidekiq.set_schedule(schedule_key, schedule_job)
+    end
+
+    SidekiqScheduler::Scheduler.instance.reload_schedule!
   end
 end
