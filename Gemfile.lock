@@ -440,10 +440,10 @@ GEM
       sentry-ruby (~> 5.4.1)
       sidekiq (>= 3.0)
     shellany (0.0.1)
-    sidekiq (6.5.1)
+    sidekiq (6.5.4)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.2.0)
+      redis (>= 4.5.0)
     sidekiq-scheduler (4.0.2)
       redis (>= 4.2.0)
       rufus-scheduler (~> 3.2)
@@ -573,7 +573,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 6.5.1)
+  sidekiq (~> 6.5.4)
   sidekiq-failures!
   sidekiq-scheduler (~> 4.0.2)
   simple_form (~> 5.1)
