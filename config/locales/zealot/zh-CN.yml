@@ -200,8 +200,10 @@ zh-CN:
         schedule: 备份频率
         next_schedule_at: 下次备份时间
         enabled: 启用
-        run_now: 现在运行
         action: 操作
+        run_now: 现在运行
+        edit: 编辑
+        destroy: 删除
         database: 数据库
         app: '%{count} 应用'
         destroy_confirm: 确认删除 %{key}？
@@ -215,11 +217,17 @@ zh-CN:
         size: 大小
         download: 下载
         destroy: 删除
+        unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
+        current_step: 任务进行中，当前状态 %{step}
         not_found:
           title: 没有发现任何备份
           body_html: 你可以%{link}创建一份
       new:
         title: 新增备份
+      edit:
+        title: 编辑 %{key} 备份计划
+      perform:
+        success: 备份任务正在后台工作中
 
     background_jobs:
       title: 后台任务
