@@ -10,6 +10,7 @@ class Admin::BackupsController < ApplicationController
   end
 
   def show
+    @backup_files = @backup.backup_files
   end
 
   def enable

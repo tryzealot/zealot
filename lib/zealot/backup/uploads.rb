@@ -2,14 +2,6 @@
 
 # Copyright (c) 2011-present GitLab B.V.
 
-# Portions of this software are licensed as follows:
-
-# * All content residing under the "doc/" directory of this repository is licensed under "Creative Commons: CC BY-SA 4.0 license".
-# * All content that resides under the "ee/" directory of this repository, if that directory exists, is licensed under the license defined in "ee/LICENSE".
-# * All client-side JavaScript (when served directly or after being compiled, arranged, augmented, or combined), is licensed under the "MIT Expat" license.
-# * All third party components incorporated into the GitLab Software are licensed under the original license provided by the owner of the applicable component.
-# * Content outside of the above mentioned directories or restrictions above is available under the "MIT Expat" license as defined below.
-
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -36,25 +28,36 @@ module Zealot::Backup
 
     class Error < StandardError; end
 
-    def self.dump
-      new.dump
+    def self.dump(manager, app_ids:)
+      new(manager.tmpdir, logger: manager.logger).dump(app_ids: app_ids)
     end
+
+    # def self.dump(path: nil, logger: nil, app_ids: nil)
+    #   new(path, logger, app_ids).dump
+    # end
 
     def self.restore
       new.restore
     end
 
-    def dump
-      FileUtils.mkdir_p(backup_path)
+    FILENAME = 'uploads.tar.gz'
+
+    attr_reader :path, :logger
+
+    def initialize(path = nil, logger: Rails.logger)
+      @path = path
+      @logger = logger
+    end
+
+    def dump(app_ids: nil)
       FileUtils.rm_f(backup_tarball)
 
-      _logger.debug "Dumping uploads data ... "
-
-      run_pipeline!([%W(#{tar} --exclude=lost+found -C #{uploads_path} -cf - .), gzip_cmd], out: [backup_tarball, 'w', 0600])
+      logger.debug "Dumping uploads data ... #{uploads_path}"
+      run_pipeline!([archive_tar_cmd(app_ids), gzip_cmd], out: [backup_tarball, 'w', 0600])
     end
 
     def restore
-      _logger.debug "Restoring uploads data ... "
+      logger.debug "Restoring uploads data ... "
 
       backup_existing_uploads_dir
       FileUtils.mkdir_p(uploads_path)
@@ -62,6 +65,19 @@ module Zealot::Backup
     end
 
     private
+
+    def archive_tar_cmd(app_ids)
+      command = %W(#{tar} --exclude=lost+found --exclude=.DS_Store -C #{uploads_path} -cf -)
+      if app_ids.is_a?(Array) && !app_ids.empty?
+        app_ids.each do |app_id|
+          command << File.join('apps', "a#{app_id}")
+        end
+      else
+        command << '.'
+      end
+
+      command
+    end
 
     def backup_existing_uploads_dir
       timestamped_files_path = File.join(backup_path, "tmp", "uploads.old.#{Time.now.to_i}")
@@ -91,7 +107,8 @@ module Zealot::Backup
 
       regex = /^g?tar: \.: Cannot mkdir: No such file or directory$/
       error = err_r.read
-      raise Backup::Uploads::Error, "Backup failed: #{error}" unless error =~ regex
+
+      raise Zealot::Backup::UploadsError, "Backup failed: #{error}" unless error =~ regex
     end
 
     def gzip_args
@@ -108,12 +125,16 @@ module Zealot::Backup
       args.join(' ')
     end
 
-    def backup_tarball
-      @backup_tarball ||= File.join(backup_path, 'uploads.tar.gz')
-    end
-
     def uploads_path
       @uploads_path ||= Rails.root.join('public', 'uploads')
+    end
+
+    def backup_tarball
+      @backup_tarball ||= File.join(backup_path, FILENAME)
+    end
+
+    def backup_path
+      @backup_path ||= path
     end
   end
 end
