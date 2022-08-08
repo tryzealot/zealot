@@ -26,8 +26,7 @@ class Admin::BackupsController < ApplicationController
   def perform
     @backup.perform_job
 
-    notice = 'Backup was successfully scheduled to run in the background.'
-    redirect_back_or_to admin_backups_path, notice: notice
+    redirect_back_or_to admin_backups_path, notice: t('.success')
   end
 
   def download_archive

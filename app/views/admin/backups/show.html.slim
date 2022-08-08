@@ -12,8 +12,8 @@
           table.table
             tr
               th = t('.filename')
-              th = t('.created_at')
               th = t('.size')
+              th = t('.created_at')
               th = t('.download')
             - @backup_files.each do |file|
               == render "job_#{file.current_status}", backup: @backup, file: file
