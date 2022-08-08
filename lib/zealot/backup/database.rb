@@ -2,14 +2,6 @@
 
 # Copyright (c) 2011-present GitLab B.V.
 
-# Portions of this software are licensed as follows:
-
-# * All content residing under the "doc/" directory of this repository is licensed under "Creative Commons: CC BY-SA 4.0 license".
-# * All content that resides under the "ee/" directory of this repository, if that directory exists, is licensed under the license defined in "ee/LICENSE".
-# * All client-side JavaScript (when served directly or after being compiled, arranged, augmented, or combined), is licensed under the "MIT Expat" license.
-# * All third party components incorporated into the GitLab Software are licensed under the original license provided by the owner of the applicable component.
-# * Content outside of the above mentioned directories or restrictions above is available under the "MIT Expat" license as defined below.
-
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -32,25 +24,24 @@ module Zealot::Backup
   class Database
     include Zealot::Backup::Helper
 
-    class Error < StandardError; end
-
-    def self.dump(path: nil, logger: nil)
-      new(path, logger).dump
+    def self.dump(manager)
+      new(manager.tmpdir, logger: manager.logger).dump
     end
 
-    def self.restore(path: nil, logger: nil)
-      new(path, logger).restore
+    def self.restore(backup_path: nil, logger: Rails.logger)
+      new(backup_path, logger).restore
     end
 
-    attr_reader :path, :logger
+    FILENAME = 'database.sql.gz'
 
-    def initialize(path, logger = nil)
-      @path = path
-      @logger = logger || Logger.new(STDOUT)
+    attr_reader :backup_path, :logger
+
+    def initialize(backup_path, logger: Rails.logger)
+      @backup_path = backup_path
+      @logger = logger
     end
 
     def dump
-      FileUtils.mkdir_p(File.dirname(db_file_name))
       FileUtils.rm_f(db_file_name)
 
       compress_rd, compress_wr = IO.pipe
@@ -77,7 +68,7 @@ module Zealot::Backup
         $?.success?
       end
 
-      raise Zealot::Backup::Database::Error, 'Backup failed' unless success
+      raise Zealot::Backup::DatabaseError, 'Backup failed' unless success
 
       success
     end
@@ -101,7 +92,7 @@ module Zealot::Backup
         $?.success?
       end
 
-      raise Zealot::Backup::Database::Error, 'Restore failed' unless success
+      raise Zealot::Backup::DatabaseError, 'Restore failed' unless success
     end
 
     private
@@ -131,7 +122,7 @@ module Zealot::Backup
     end
 
     def db_file_name
-      @db_file_name ||= File.join(path || backup_path, 'db', 'database.sql.gz')
+      @db_file_name ||= File.join(backup_path, FILENAME)
     end
   end
 end
