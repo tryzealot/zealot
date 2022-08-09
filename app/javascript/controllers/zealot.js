@@ -7,7 +7,7 @@ Zealot.isDarkMode = function () {
     .matches
 }
 
-Zealot.isDevelopment() = function () {
+Zealot.isDevelopment = function () {
   // env was given value in global_controller
   return Zealot.env === DEVELOPMENT_ENV
 }
