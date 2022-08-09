@@ -6,7 +6,19 @@ class BackupJob < ApplicationJob
   sidekiq_options retry: false
   queue_as :schedule
 
-  def perform(backup_id)
+  class Error < StandardError; end
+  class MaxKeepsLimitedError < Error; end
+
+  rescue_from(BackupJob::MaxKeepsLimitedError) do
+    notificate_failure(
+      user_id: @user_id,
+      type: 'backup',
+      message: t('active_job.backup.failures.max_keeps_limited', key: @backup.key, count: @backup.max_keeps)
+    )
+  end
+
+  def perform(backup_id, user_id = nil)
+    @user_id = user_id
     @backup = Backup.find(backup_id)
     @manager = Zealot::Backup::Manager.new(backup_path, logger)
 
@@ -22,16 +34,7 @@ class BackupJob < ApplicationJob
     dump_apps
     pack
     cleanup
-
-  # rescue => e
-  #   status.update(step: "throw_error")
-  #   # Cause issues:
-  #   # 1. write directory permissions
-  #   # 2. not enough disk space
-  #   # 3. missing backup cli commands (pg_dump, gzip etc)
-  #   message = "Failed to create backup job, because #{e.message}"
-  #   logger.error message
-  #   logger.error e.backtrace.join("\n")
+    notification
   ensure
     update_status('ensure')
     @manager&.cleanup
@@ -41,12 +44,10 @@ class BackupJob < ApplicationJob
 
   def prepare
     update_status(__method__)
-    @manager.precheck(false)
+    create_redis_cache
+    backup_max_keeps_check
 
-    # Make sure storage it by direct execute this job
-    unless redis.sismember(@backup.cache_job_id_key, job_id)
-      redis.sadd(@backup.cache_job_id_key, job_id)
-    end
+    @manager.precheck(false)
     FileUtils.mkdir_p(backup_path)
   end
 
@@ -75,6 +76,28 @@ class BackupJob < ApplicationJob
     update_status(__method__)
 
     clean_redis_cache
+  end
+
+  def notification
+    notificate_success(
+      user_id: @user_id,
+      type: 'backup',
+      redirect_page: url_for(controller: 'admin/backups', action: 'show', id: @backup.id),
+      message: t('active_job.backup.success', key: @backup.key)
+    )
+  end
+
+  def backup_max_keeps_check
+    return if @backup.max_keeps < 0
+    raise MaxKeepsLimitedError, 'Max keeps is zero, can not backup' if @backup.max_keeps.zero?
+    raise MaxKeepsLimitedError, "Max keeps limit to backup: #{@backup.max_keeps}" if @backup.backup_files.size < @backup.max_keeps
+  end
+
+  def create_redis_cache
+    # Make sure storage it by direct execute this job
+    unless redis.sismember(@backup.cache_job_id_key, job_id)
+      redis.sadd(@backup.cache_job_id_key, job_id)
+    end
   end
 
   def clean_redis_cache

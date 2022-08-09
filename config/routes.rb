@@ -43,7 +43,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # TODO: remove whole channels module
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
       resources :branches, only: %i[index]

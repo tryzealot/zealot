@@ -24,9 +24,19 @@ class Admin::BackupsController < ApplicationController
   end
 
   def perform
-    @backup.perform_job
+    logger.debug @backup.max_keeps
+    logger.debug @backup.backup_files
+    if @backup.max_keeps.zero? || @backup.backup_files.size < @backup.max_keeps
+      alert = t('active_job.backup.failures.max_keeps_limited',
+        key: @backup.key,
+        count: @backup.max_keeps
+      )
 
-    redirect_back_or_to admin_backups_path, notice: t('.success')
+      return redirect_back_or_to admin_backups_path, alert: alert
+    end
+
+    # @backup.perform_job(current_user.id)
+    # redirect_back_or_to admin_backups_path, notice: t('.success')
   end
 
   def download_archive
@@ -38,7 +48,7 @@ class Admin::BackupsController < ApplicationController
 
   def destroy_archive
     @backup.destroy_directory(@backup_dir)
-    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.file_destroy_success')
+    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
   end
 
   def new
