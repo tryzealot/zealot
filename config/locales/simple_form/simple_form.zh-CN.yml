@@ -66,13 +66,17 @@ zh-CN:
         name: 注册主体
         team_id: 标识符
       backup:
+        general: 备份配置
         key: 备份名称
         schedule: 备份频率
+        next_schedule_at: 下次执行时间
         enabled_database: 备份数据库
         database_switch: 启用
         enabled_apps: 备份应用
         max_keeps: 最大保留数
         enabled: 启用
+        schedule_settings: 备份范围
+
 
     hints:
       defaults:
@@ -106,9 +110,9 @@ zh-CN:
       backup:
         key: 名称必须是唯一，不可和其他备份重复
         schedule: |
-          定时执行备份计划，支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
-          <a href="https://crontab.guru/">Cron</a>。暂不支持单次定点执行
-        max_keeps: 备份达到设置上限会删除最早的文件，不限制设置 -1
+          表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
+          <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置；0 不可备份
 
     placeholders:
       release:

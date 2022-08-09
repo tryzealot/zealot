@@ -4,11 +4,17 @@
   }
 }
 
+.edit_backup, .new_backup {
+  .form-control:disabled, .form-control[readonly]  {
+    color: #999;
+  }
+}
+
 .dark-mode {
   .backups, .backup {
     .run-backup, .edit-backup, .download-backup {
       i {
-        color: #fff
+        color: #fff;
       }
     }
   }

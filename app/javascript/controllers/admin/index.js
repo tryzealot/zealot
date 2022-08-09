@@ -8,3 +8,6 @@ application.register("admin-service", ServiceController)
 
 import LogsController from "./logs_controller"
 application.register("admin-logs", LogsController)
+
+import CronController from "./cron_controller"
+application.register("admin-cron", CronController)
