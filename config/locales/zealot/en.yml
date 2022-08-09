@@ -822,7 +822,7 @@ en:
     backup:
       success: '%{key} backup created successfully.'
       failures:
-        max_keeps_limited: '%{key} backup exceed the set maximum limit value: %{count}.'
+        max_keeps_limited: '%{key} backup maximum limit value was zero'
 
   activerecord:
     success:

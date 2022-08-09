@@ -1,6 +1,7 @@
 = simple_form_for([:admin, @backup]) do |f|
   .card[
     data-controller="admin-cron"
+    data-admin-cron-parsing-value="#{t('simple_form.labels.backup.parsing')}"
   ]
     .card-header
       h3.card-title = t('simple_form.labels.backup.general')

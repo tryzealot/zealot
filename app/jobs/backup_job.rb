@@ -13,7 +13,7 @@ class BackupJob < ApplicationJob
     notificate_failure(
       user_id: @user_id,
       type: 'backup',
-      message: t('active_job.backup.failures.max_keeps_limited', key: @backup.key, count: @backup.max_keeps)
+      message: t('active_job.backup.failures.max_keeps_limited', key: @backup.key)
     )
   end
 
@@ -33,6 +33,7 @@ class BackupJob < ApplicationJob
     dump_database
     dump_apps
     pack
+    remove_old
     cleanup
     notification
   ensure
@@ -72,6 +73,10 @@ class BackupJob < ApplicationJob
     @manager.pack
   end
 
+  def remove_old
+    @manager.remove_old(@backup.max_keeps)
+  end
+
   def cleanup
     update_status(__method__)
 
@@ -90,7 +95,6 @@ class BackupJob < ApplicationJob
   def backup_max_keeps_check
     return if @backup.max_keeps < 0
     raise MaxKeepsLimitedError, 'Max keeps is zero, can not backup' if @backup.max_keeps.zero?
-    raise MaxKeepsLimitedError, "Max keeps limit to backup: #{@backup.max_keeps}" if @backup.backup_files.size < @backup.max_keeps
   end
 
   def create_redis_cache

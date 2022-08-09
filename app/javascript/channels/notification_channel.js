@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 import { Zealot } from "../controllers/zealot"
-import JQuery from 'jquery'
+import JQuery from "jquery"
 
 const notificationChannel = consumer.subscriptions.create("NotificationChannel", {
   received(data) {
@@ -12,7 +12,7 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
 
     var color = "success"
     var icon = "fas fa-check"
-    if (data.status != "success") {
+    if (data.status !== "success") {
       icon = "fas fa-exclamation-triangle"
       color = "danger"
     }
@@ -29,11 +29,13 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
         location.reload()
       }, 2000)
     } else if (data.redirect_page) {
-      if (window.location.href !== data.redirect_page ) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (window.location.href !== data.redirect_page ) {
           window.location.href = data.redirect_page
-        }, 2000)
-      }
+        } else {
+          location.reload()
+        }
+      }, 2000)
     }
   }
 })
