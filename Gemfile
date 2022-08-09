@@ -85,7 +85,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.5.1'
+gem 'sidekiq', '~> 6.5.4'
 gem 'sidekiq-scheduler', '~> 4.0.2'
 gem 'sidekiq-failures', github: 'mhfs/sidekiq-failures', ref: '22d3d0786d3d4d5a3eb828a8f393e669bd45755a' # 等待新版本发布后移除
 
