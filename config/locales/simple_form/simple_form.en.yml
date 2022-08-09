@@ -65,6 +65,18 @@ en:
         display_name: Display name
         name: Team name
         team_id: Team id
+      backup:
+        general: General settings
+        key: Key
+        schedule: Schedule
+        next_schedule_at: Next schedule at
+        enabled_database: Backup database
+        database_switch: Enable
+        enabled_apps: Backup Apps
+        max_keeps: Max keeps
+        enabled: Enabled
+        schedule_settings: Schedule settings
+        parsing: Parsing ...
 
     hints:
       defaults:

@@ -101,7 +101,7 @@ class Setting < RailsSettings::Base
   # 备份
   field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
-    keep_time: 604800,
+    max_keeps: 10,
     pg_schema: 'public',
   }
 
