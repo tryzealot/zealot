@@ -76,7 +76,7 @@ zh-CN:
         max_keeps: 最大保留数
         enabled: 启用
         schedule_settings: 备份范围
-
+        parsing: 解析中
 
     hints:
       defaults:

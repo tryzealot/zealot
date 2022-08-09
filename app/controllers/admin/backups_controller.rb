@@ -24,9 +24,7 @@ class Admin::BackupsController < ApplicationController
   end
 
   def perform
-    logger.debug @backup.max_keeps
-    logger.debug @backup.backup_files
-    if @backup.max_keeps.zero? || @backup.backup_files.size < @backup.max_keeps
+    if @backup.max_keeps.zero?
       alert = t('active_job.backup.failures.max_keeps_limited',
         key: @backup.key,
         count: @backup.max_keeps
@@ -35,8 +33,8 @@ class Admin::BackupsController < ApplicationController
       return redirect_back_or_to admin_backups_path, alert: alert
     end
 
-    # @backup.perform_job(current_user.id)
-    # redirect_back_or_to admin_backups_path, notice: t('.success')
+    @backup.perform_job(current_user.id)
+    redirect_back_or_to admin_backups_path, notice: t('.success')
   end
 
   def download_archive
