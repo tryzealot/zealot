@@ -29,11 +29,13 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
         location.reload()
       }, 2000)
     } else if (data.redirect_page) {
-      if (window.location.href !== data.redirect_page ) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (window.location.href !== data.redirect_page ) {
           window.location.href = data.redirect_page
-        }, 2000)
-      }
+        } else {
+          location.reload()
+        }
+      }, 2000)
     }
   }
 })
