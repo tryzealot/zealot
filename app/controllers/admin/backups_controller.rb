@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::BackupsController < ApplicationController
-  before_action :set_backup, except: %i[ index new create ]
+  before_action :set_backup, except: %i[ index new create parse_schedule ]
   before_action :set_backup_file, only: %i[ download_archive destroy_archive ]
 
   def index
@@ -82,28 +82,17 @@ class Admin::BackupsController < ApplicationController
 
   def parse_schedule
     parser = Fugit.parse(params[:q])
-
-    if parser
-      body = if parser.is_a?(Fugit::Cron)
-        {
-          schedule: true,
-          cron: parser.to_cron_s,
-          next_time: parser.next_time.to_s
-        }
-      else
-        {
-          schedule: false,
-          run_once: parser.to_s
-        }
-      end
-
-      return render json: body, status: 200
+    if parser && parser.is_a?(Fugit::Cron)
+      return render json: {
+        schedule: true,
+        cron: parser.to_cron_s,
+        next_time: parser.next_time.to_s
+      }, status: 200
     end
 
     render json: {
-      error: 'Can not parse',
-      q: params[:q]
-    }, status: 401
+      error: t('.invaild_expression')
+    }, status: 409
   end
 
   private
