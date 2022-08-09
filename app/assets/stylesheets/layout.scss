@@ -90,4 +90,10 @@ i.icon {
   .card-header {
     border-color: #6c6b6b;
   }
+
+  .form-control:disabled, .form-control[readonly]  {
+    border-color: #505356 !important;
+    background-color: #393a3c !important;
+    color: #999 !important;
+  }
 }
