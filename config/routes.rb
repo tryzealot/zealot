@@ -129,16 +129,16 @@ Rails.application.routes.draw do
       end
 
       resources :backups do
+        collection do
+          get :parse_schedule
+        end
+
         member do
           post :enable
           post :disable
           post :perform
           get :archive, action: :download_archive
           delete :archive, action: :destroy_archive
-        end
-
-        collection do
-          get :parse_schedule
         end
       end
 
