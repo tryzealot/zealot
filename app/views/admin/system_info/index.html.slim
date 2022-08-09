@@ -23,7 +23,7 @@
           - if @server[:zealot_vcs_ref]
             dt = t('.vcs_ref')
             dd
-              pre = link_to @server[:zealot_vcs_ref], github_repo_commit(@server[:zealot_vcs_ref]), target: :blank
+              pre = vcs_ref_link(@server[:zealot_vcs_ref])
           - if @server[:build_date]
             dt = t('.build_date')
             dd
