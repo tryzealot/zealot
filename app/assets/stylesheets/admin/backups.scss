@@ -1,0 +1,15 @@
+.backups {
+  .switch-icon {
+    padding-top: 6px;
+  }
+}
+
+.dark-mode {
+  .backups, .backup {
+    .run-backup, .edit-backup, .download-backup {
+      i {
+        color: #fff
+      }
+    }
+  }
+}
