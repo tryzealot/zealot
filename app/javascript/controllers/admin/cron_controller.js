@@ -1,36 +1,57 @@
 import { Controller } from "@hotwired/stimulus"
 import { Zealot } from "../zealot"
 
-PARSE_URI = 'admin/backups/parse_schedule'
+const PARSE_URI = "admin/backups/parse_schedule"
 
 export default class extends Controller {
-  static targets = [ "source" ]
+  static targets = ["source"]
+  static values = {
+    parsing: String
+  }
 
-  parse(event) {
-    this.sourceTarget.value = 'N/A'
-    event.target.classList.remove('is-valid')
-    event.target.classList.remove('is-invalid')
+  async parse(event) {
+    this.sourceTarget.value = this.parsingValue
 
-    const requestUrl = Zealot.rootUrl + PARSE_URI + '?q=' + encodeURIComponent(event.target.value)
-    fetch(requestUrl)
-      .then(response => {
-      const body = response.json()
-      if (!response.ok) {
-        throw new Error(body.error)
-      }
-      return body
-    })
-      .then((body) => {
-        event.target.classList.remove('is-invalid')
-        event.target.classList.add('is-valid')
-        const next_schedule_at = body.next_time
-        this.sourceTarget.value = next_schedule_at
-    })
-      .catch((_) => {
-        event.target.classList.remove('is-valid')
-        event.target.classList.add('is-invalid')
-        this.sourceTarget.value = 'N/A'
-        return false
-    })
+    let inputTarget = event.target
+    this.resetInput(inputTarget)
+
+    let requestUrl = Zealot.rootUrl + PARSE_URI + "?q=" + encodeURIComponent(event.target.value)
+    let response = await fetch(requestUrl)
+    let body = await response.json()
+
+    if (response.ok) {
+      this.renderSuccess(event.target, body)
+    } else {
+      this.renderFailure(event.target, body)
+    }
+  }
+
+  renderSuccess(inputTarget, body) {
+    let nextScheduleAt = body.next_time
+
+    this.switchValid(inputTarget)
+    this.sourceTarget.value = nextScheduleAt
+  }
+
+  renderFailure(inputTarget, body) {
+    let message = body.error
+
+    this.switchInvalid(inputTarget)
+    this.sourceTarget.value = message
+  }
+
+  switchInvalid(inputTarget) {
+    inputTarget.classList.remove("is-valid")
+    inputTarget.classList.add("is-invalid")
+  }
+
+  switchValid(inputTarget) {
+    inputTarget.classList.remove("is-invalid")
+    inputTarget.classList.add("is-valid")
+  }
+
+  resetInput(inputTarget) {
+    inputTarget.classList.remove("is-valid")
+    inputTarget.classList.remove("is-invalid")
   }
 }
