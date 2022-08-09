@@ -18,8 +18,8 @@ class Backup < ApplicationRecord
     App.where(id: enabled_apps)
   end
 
-  def perform_job
-    job = BackupJob.perform_later(id)
+  def perform_job(user_id)
+    job = BackupJob.perform_later(id, user_id)
     Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
   end
 

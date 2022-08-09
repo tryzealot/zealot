@@ -210,6 +210,9 @@ en:
           one: '%{count} App'
           other: '%{count} Apps'
         destroy_confirm: 'Confirm to destroy: %{key}?'
+        not_found:
+          title: Not found any backup
+          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
       show:
         title: '%{key} backup'
         filename: Filename
@@ -220,8 +223,8 @@ en:
         unknown_job_status: Unknown happend! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
         not_found:
-          title: Not found any backup
-          body_html: Click %{link} to request one.
+          title: Not found any backup file
+          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
         title: New backup
       edit:
@@ -624,7 +627,6 @@ en:
       download_events: '%{name} %{version} downloaded'
       changelog_events: '%{name} %{version} update the changelog'
       unknown_events: '%{name} triggered unkown event: %{event}'
-      parse_done: Debug file (%{id}) pare done, Refresh the web page please.
       errors:
         not_found_file: 'Not found debug file: %{message}'
         failed_detect_file_type: Failed to detect file type
@@ -804,6 +806,16 @@ en:
       goback_title: goback
       homepage_title: homepage
       unknown_file_type: Unkown file type to parse
+
+  active_job:
+    debug_file:
+      success: Debug file (%{id}) pare done, Refresh the web page please.
+      failures:
+        not_found_file: Debug file is missing with unknown issue.
+    backup:
+      success: '%{key} backup created successfully.'
+      failures:
+        max_keeps_limited: '%{key} backup exceed the set maximum limit value: %{count}.'
 
   activerecord:
     success:
