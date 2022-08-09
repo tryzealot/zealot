@@ -201,7 +201,7 @@ zh-CN:
         next_schedule_at: 下次备份时间
         enabled: 启用
         action: 操作
-        run_now: 现在运行
+        run_now: 生成备份
         edit: 编辑
         destroy: 删除
         database: 数据库
@@ -209,7 +209,7 @@ zh-CN:
         destroy_confirm: 确认删除 %{key}？
         not_found:
           title: 没有发现任何备份计划
-          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增备份。
+          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
       show:
         title: '%{key} 备份计划'
         filename: 文件名
@@ -220,14 +220,16 @@ zh-CN:
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
         current_step: 任务进行中，当前状态 %{step}
         not_found:
-          title: 没有发现任何备份
-          body_html: 你可以%{link}创建一份
+          title: 没有发现任何备份文件
+          body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
       new:
         title: 新增备份
       edit:
         title: 编辑 %{key} 备份计划
       perform:
         success: 备份任务正在后台工作中
+      destroy_archive:
+        success: 备份文件成功删除
 
     background_jobs:
       title: 后台任务
@@ -621,7 +623,6 @@ zh-CN:
       download_events: '%{name} %{version} 版本被下载'
       changelog_events: '%{name} %{version} 版本更新了变更日志'
       unknown_events: '%{name} 触发了未知事件: %{event}'
-      parse_done: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
       errors:
         not_found_file: '无法找到解包文件: %{message}'
         failed_detect_file_type: 无法识别应用类型
@@ -813,6 +814,16 @@ zh-CN:
       goback_title: 上级页面
       homepage_title: 首页
       unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
+
+  active_job:
+    debug_file:
+      success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
+      failures:
+        not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
+    backup:
+      success: '%{key} 备份创建完成'
+      failures:
+        max_keeps_limited: '%{key} 备份超出设置的最大限制值：%{count}'
 
   activerecord:
     success:
