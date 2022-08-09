@@ -20,9 +20,9 @@ export default class extends Controller {
     Zealot.rootUrl = this.rootUrlValue
     Zealot.siteApperance = this.apperanceValue
     Zealot.env = this.envValue
-    application.debug = Zealot.isDevelopment
+    application.debug = Zealot.isDevelopment()
 
-    if (Zealot.isDevelopment) {
+    if (Zealot.isDevelopment()) {
       console.debug("Zealot starts in development mode")
     }
   }
