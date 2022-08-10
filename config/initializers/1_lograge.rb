@@ -60,15 +60,16 @@ if Rails.env.production?
 
     config.lograge.base_controller_class = [
       'ActionController::API',
-      'ActionController::Base',
-      'ApplicationCable::Channel'
+      'ActionController::Base'
     ]
 
     config.lograge.ignore_actions = [
       'HealthCheck::HealthCheckController#index',
       'ApplicationCable::Connection#connect',
       'ApplicationCable::Connection#disconnect',
-      'Admin::LogsController#retrive'
+      'Admin::LogsController#retrive',
+      'NotificationChannel#subscribed',
+      'NotificationChannel#unsubscribed',
     ]
   end
 end
