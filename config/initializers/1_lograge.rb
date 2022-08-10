@@ -36,7 +36,8 @@ if Rails.env.production?
   Rails.application.configure do
     # Better log formatting
     config.lograge.enabled = true
-    config.lograge.logger = ActiveSupport::Logger.new(STDOUT)
+    io = ENV['HEROKU'].present? ? 'log/zealot.log' : STDOUT
+    config.lograge.logger = ActiveSupport::Logger.new(io)
 
     config.lograge.custom_payload do |controller|
       custom_payload(controller)
@@ -66,8 +67,8 @@ if Rails.env.production?
       'ApplicationCable::Connection#connect',
       'ApplicationCable::Connection#disconnect',
       'Admin::LogsController#retrive',
-      'NotificationChannel#subscribed',
-      'NotificationChannel#unsubscribed',
+      'NotificationChannel#subscribe',
+      'NotificationChannel#unsubscribe',
     ]
   end
 end
