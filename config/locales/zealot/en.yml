@@ -597,7 +597,8 @@ en:
   udid:
     title: Fetch UDID
     index:
-      tip: Use iPhone or iPad to scan the QR Code then click the button below
+      apple_tip: Use iPhone or iPad to scan the QR Code then click the button below.
+      nonapple_tip: Sorry, available only for iPhone and iPad device.
       fetch_udid: Click to fetch UDID
       help:
         title: Why we need device's UDID?

@@ -592,7 +592,8 @@ zh-CN:
   udid:
     title: 设备 UDID
     index:
-      tip: 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
+      apple_tip: 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
+      nonapple_tip: 当前功能仅提供给 iPhone 或 iPad 使用
       fetch_udid: 点击获取设备 UDID
       help:
         title: 为什么需要设备 UDID?

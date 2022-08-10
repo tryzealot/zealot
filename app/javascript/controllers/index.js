@@ -15,7 +15,7 @@ application.register("debug-file", DebugFileController)
 import DestroyController from "./destroy_controller"
 application.register("destroy", DestroyController)
 
-import PlatformController from "./platform_controller"
-application.register("platform", PlatformController)
+import UDIDController from "./udid_controller"
+application.register("udid", UDIDController)
 
 import "./admin"
