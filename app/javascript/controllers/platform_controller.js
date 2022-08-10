@@ -22,11 +22,22 @@ export default class extends Controller {
       return audio.volume === 1
     }
 
-    console.debug("navigator platform", navigator.platform)
-    console.debug("iOS_1to12", iOS_1to12)
-    console.debug("iOS13_iPad", iOS13_iPad)
-    console.debug("iOS13_iPad2", iOS13_iPad2)
-    console.debug("iOS1to12quirk", iOS1to12quirk())
-    console.debug("MSStream", !window.MSStream)
+    if (window.location.href.includes("?preview=1")) {
+      console.debug("navigator platform", navigator.platform)
+      console.debug("iOS_1to12", iOS_1to12)
+      console.debug("iOS13_iPad", iOS13_iPad)
+      console.debug("iOS13_iPad2", iOS13_iPad2)
+      console.debug("iOS1to12quirk", iOS1to12quirk())
+      console.debug("MSStream", !window.MSStream)
+      let message = "navigator platform: " + navigator.platform +
+        "\n iOS_1to12: " + iOS_1to12 +
+        "\n iOS13_iPad: " + iOS13_iPad +
+        "\n iOS13_iPad: " + iOS13_iPad +
+        "\n iS13_iPad2: " + iOS13_iPad2 +
+        "\n iOS1to12quirk: " + iOS1to12quirk() +
+        "\n MSStream: " + !window.MSStream
+
+      alert(message)
+    }
   }
 }
