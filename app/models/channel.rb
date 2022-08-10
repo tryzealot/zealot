@@ -80,7 +80,7 @@ class Channel < ApplicationRecord
                    .where.not(web_hook_id: web_hooks.select(:id))
                    .where.not(channel_id: id)
                    .each_with_object([]) do |item, obj|
-      obj << item.web_hook
+      obj << item.web_hook if item.web_hook.present?
     end
   end
 
