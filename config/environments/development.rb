@@ -73,7 +73,7 @@ Rails.application.configure do
   # If using a Heroku, Vagrant or generic remote development environment,
   # use letter_opener_web, accessible at  /letter_opener.
   # Otherwise, use letter_opener, which launches a browser window to view sent mail.
-  config.action_mailer.delivery_method = %w[HEROKU VAGRANT REMOTE_DEV].select { |k| ENV[k].present? }.empty? ? :letter_opener_web : :letter_opener
+  config.action_mailer.delivery_method = %w[HEROKU_APP_ID VAGRANT REMOTE_DEV].select { |k| ENV[k].present? }.empty? ? :letter_opener_web : :letter_opener
 
   # # Use an evented file watcher to asynchronously detect changes in source code,
   # # routes, locales, etc. This feature depends on the listen gem.
