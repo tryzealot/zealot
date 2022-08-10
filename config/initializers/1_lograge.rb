@@ -36,7 +36,7 @@ if Rails.env.production?
   Rails.application.configure do
     # Better log formatting
     config.lograge.enabled = true
-    io = ENV['HEROKU'].present? ? 'log/zealot.log' : STDOUT
+    io = ENV['HEROKU_APP_ID'].present? ? 'log/zealot.log' : STDOUT
     config.lograge.logger = ActiveSupport::Logger.new(io)
 
     config.lograge.custom_payload do |controller|
