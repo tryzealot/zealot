@@ -6,17 +6,27 @@
 
 .row
   .col-md-12
-    .card data-controller="platform" data-platform-env-value="#{Rails.env}"
+    .card[
+      data-controller="udid"
+      data-udid-apple-tip-value="#{t('.apple_tip')}"
+      data-udid-nonapple-tip-value="#{t('.nonapple_tip')}"
+    ]
       .card-body.text-center
-        = raw @qrcode.as_svg(module_size: 8, fill: 'ffffff', offset: 8)
-        .pt-4.text-center = t('udid.index.tip')
-        - if params[:preview].present?
-          input.form-control.mt-3 data-platform-target="display" value="#{request.user_agent}"
+        .qrcode data-udid-target="qrcode"
+          = raw @qrcode.as_svg(module_size: 8, fill: 'ffffff', offset: 8)
+          .pt-4.text-center data-udid-target="tip" = t('.apple_tip')
+
+      - if params[:preview].present?
+        .card-header
+          h3.card-title Debug zone
+        .card-body
+          textarea.form-control.text data-udid-target="debug" rows="10"
       .card-footer
-        = link_to t('udid.index.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
+        .install-profile data-udid-target="install"
+          = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
 
   .col-md-12
     .card
       .card-header.card-border
-        h3.card-title = t('udid.index.help.title')
-      .card-body = t('udid.index.help.body_html')
+        h3.card-title = t('.help.title')
+      .card-body = t('.help.body_html')
