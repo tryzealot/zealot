@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def set_sentry_context
     Sentry.configure_scope do |scope|
       context = params.to_unsafe_h || {}
-      context[:url] = request.url
+      context[:url] = request.url if request.url
       scope.set_context('params', context)
     end
 
