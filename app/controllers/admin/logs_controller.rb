@@ -45,6 +45,7 @@ class Admin::LogsController < ApplicationController
 
     content = cmd_stdout.strip
     content = content.gsub(/\[\d+m/, '') if Rails.env.development?
+    content
   end
 
   def log_path
