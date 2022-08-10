@@ -592,11 +592,11 @@ zh-CN:
   udid:
     title: 设备 UDID
     index:
-      apple_tip: 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
-      nonapple_tip: 当前功能仅提供给 iPhone 或 iPad 使用
-      fetch_udid: 点击获取设备 UDID
+      apple_tip: 请使用 iPhone 或 iPad 扫描二维码获取
+      nonapple_tip: :'udid.index.apple_tip'
+      fetch_udid: 获取设备 UDID
       help:
-        title: 为什么需要设备 UDID?
+        title: 为什么要下载安装描述文件获取设备 UDID?
         body_html: |
           <p>
             UDID 全称 Unique Device Identifier 是苹果设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
