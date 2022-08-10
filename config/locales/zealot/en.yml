@@ -599,9 +599,9 @@ en:
     index:
       apple_tip: Use iPhone or iPad to scan the QR Code then click the button below.
       nonapple_tip: Sorry, available only for iPhone and iPad device.
-      fetch_udid: Click to fetch UDID
+      fetch_udid: Get your UDID now
       help:
-        title: Why we need device's UDID?
+        title: Why need install profile to fetch your UDID?
         body_html: |
           <p>
             UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
