@@ -59,8 +59,8 @@ class CreateSampleAppsService
                          'release'
                        end
 
-        RELEASE_COUNT.times do
-          generate_release(channel, bundle_id, release_type, changelog)
+        RELEASE_COUNT.times do |i|
+          generate_release(channel, bundle_id, release_type, changelog, build_version: (i + 1).to_s)
         end
       end
     end
@@ -77,20 +77,20 @@ class CreateSampleAppsService
 
     schemes.each do |scheme_name|
       scheme = app.schemes.find_or_create_by name: scheme_name
-      channels.each do |channel_name|
+      channels.each_with_index do |channel_name, i|
         channel = scheme.channels.find_or_create_by name: channel_name,
                                                     device_type: :android
-        generate_release(channel, app_bundle_id, 'release', changelog)
+        generate_release(channel, app_bundle_id, 'release', changelog, build_version: (i + 1).to_s)
       end
     end
   end
 
-  def generate_release(channel, app_bundle_id, release_type, changelog)
+  def generate_release(channel, app_bundle_id, release_type, changelog, build_version: '1')
     Release.new(
       channel: channel,
       bundle_id: app_bundle_id,
       release_version: '1.0.0',
-      build_version: '1',
+      build_version: build_version,
       release_type: release_type,
       source: 'API',
       branch: 'develop',
