@@ -10,10 +10,14 @@ export default class extends Controller {
     errorMessage: String
   }
 
+  static loop = true
+
   connect() {
+    this.loop = true
     const fetchLogs = async () => {
+      if (!this.loop) { return }
       const response = await fetch(Zealot.rootUrl + this.uriValue)
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         let content = await response.text()
         this.sourceTarget.innerHTML = content
         this.sourceTarget.scrollTop = this.sourceTarget.scrollHeight
@@ -27,12 +31,16 @@ export default class extends Controller {
 
     poll({
         fn: fetchLogs,
-        validate: (response) => { response.status !== 200 },
+        validate: (response) => { response && response.status !== 200 },
         interval: this.intervalValue
       })
       .then((response) => {
         // fetch return error
         this.sourceTarget.innerHTML = this.errorMessageValue + response.status
       })
+  }
+
+  disconnect() {
+    this.loop = false
   }
 }
