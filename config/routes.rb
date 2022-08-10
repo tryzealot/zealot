@@ -92,12 +92,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # get 'udid', to: 'udid#index'
-  # get 'udid/install', to: 'udid#install'
-  # post 'udid/retrieve', to: 'udid#create'
-  # get 'udid/:udid', to: 'udid#show', as: 'udid_result'
-  # post 'udid/:udid/register', to: 'udid#register', as: 'udid_register'
-
   #############################################
   # Health check
   #############################################
