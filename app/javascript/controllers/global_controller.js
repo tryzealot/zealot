@@ -21,10 +21,6 @@ export default class extends Controller {
     Zealot.siteApperance = this.apperanceValue
     Zealot.env = this.envValue
     application.debug = Zealot.isDevelopment()
-
-    if (Zealot.isDevelopment()) {
-      console.debug("Zealot starts in development mode")
-    }
   }
 
   switchDarkMode() {
