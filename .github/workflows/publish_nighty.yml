@@ -7,6 +7,9 @@ on:
       - '.*'
       - 'LICENSE'
       - 'Guardfile'
+      - Aptfile
+      - 'Procfile*'
+      - '*.yaml'
     branches:
       - develop
 jobs:
