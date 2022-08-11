@@ -13,7 +13,7 @@ nav.filter-nav.navbar.navbar-expand.navbar-white.d-block.d-sm-none
 
     li.nav-item.dropdown
       a#dropdownSubMenu1.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
-        = display_app_device(@channel)
+        = channel_platform(@channel)
       ul.dropdown-menu.border-0.shadow aria-labelledby="dropdownSubMenu1" style=("left: 0px; right: inherit;")
         ruby:
           channels = @channel.scheme.channels.select {|c| c != @channel }
@@ -21,7 +21,7 @@ nav.filter-nav.navbar.navbar-expand.navbar-white.d-block.d-sm-none
         - if channels.present?
           - channels.each do |channel|
             li
-              = link_to display_app_device(channel), friendly_channel_overview_path(channel), class: "dropdown-item"
+              = link_to channel_platform(channel), friendly_channel_overview_path(channel), class: "dropdown-item"
         - else
           li
             span.text-gray class="dropdown-item" = t('channels.show.none')

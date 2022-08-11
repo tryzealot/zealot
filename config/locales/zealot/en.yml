@@ -421,7 +421,7 @@ en:
       devices:
         one: "One device's UDID"
         other: "%{count} device's UDIDs"
-      use_fastlane_plugin_sync_devices: Sync device name by using %{link} fastlane plugin
+      sync_devices_feature: Sync device name by using %{link} fastlane plugin
 
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it

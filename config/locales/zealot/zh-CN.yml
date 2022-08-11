@@ -414,12 +414,12 @@ zh-CN:
       upload_release: :'dashboard.timeline.upload_release'
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
-      use_fastlane_plugin_sync_devices: 使用 %{link} fastlane 插件同步设备名称
+      sync_devices_feature: 推荐使用%{link}同步设备名称
 
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
 
-      majar_versions: :'channels.show.majar_versions'
+      majarzersions: :'channels.show.majar_versions'
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'
