@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 class CreateSampleAppsService
   include ActionView::Helpers::TranslationHelper
 
   RELEASE_COUNT = 3
 
   def call(user)
-    stardford_app user
     android_channels_app user
+    stardford_app user
   end
 
   private
@@ -100,13 +102,48 @@ class CreateSampleAppsService
     ).save(validate: false)
   end
 
+  def generate_devices(release, count)
+    count.times do
+      release.devices << Device.create(
+        udid: SecureRandom.uuid,
+        model: DEVICE_MODEL[rand(DEVICE_MODEL.size - 1)],
+        platform: 'IOS',
+        status: 'ENABLED'
+      )
+    end
+  end
+
+  DEVICE_MODEL = [
+    'iPhone 6',
+    'iPhone 6s',
+    'iPhone 6 Plus',
+    'iPhone 7',
+    'iPhone 7 Plus',
+    'iPhone 8',
+    'iPhone 8 Plus',
+    'iPhone X',
+    'iPhone XR',
+    'iPhone XS',
+    'iPhone XS Max',
+    'iPhone 11',
+    'iPhone 11 Pro',
+    'iPhone 11 Pro Max',
+    'iPhone 12',
+    'iPhone 12 mini',
+    'iPhone 12 Pro',
+    'iPhone 12 Pro Max',
+    'iPhone 13',
+    'iPhone 13 Pro',
+    'iPhone 13 Pro Max'
+  ]
+
+  def generate_bundle_id(app_bundle_id, channel)
+    "#{app_bundle_id}.#{channel.name.downcase}"
+  end
+
   def create_app(name, user)
     App.find_or_create_by name: name do |a|
       a.users << user
     end
-  end
-
-  def generate_bundle_id(app_bundle_id, channel)
-    "#{app_bundle_id}.#{channel.name.downcase}"
   end
 end
