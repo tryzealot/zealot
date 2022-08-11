@@ -98,18 +98,19 @@ module Zealot::Backup
     private
 
     def pg_env
+      # Store database data into env
       args = {
-        'username'        => 'ZEALOT_POSTGRES_USER',
-        'host'            => 'ZEALOT_POSTGRES_HOST',
-        'port'            => 'ZEALOT_POSTGRES_PORT',
-        'password'        => 'ZEALOT_POSTGRES_PASSWORD',
+        'username'        => 'PGUSER',
+        'host'            => 'PGHOST',
+        'port'            => 'PGPORT',
+        'password'        => 'PGPASSWORD',
         # SSL
-        'sslmode'         => 'ZEALOT_POSTGRES_SSLMODE',
-        'sslkey'          => 'ZEALOT_POSTGRES_SSLKEY',
-        'sslcert'         => 'ZEALOT_POSTGRES_SSLCERT',
-        'sslrootcert'     => 'ZEALOT_POSTGRES_SSLROOTCERT',
-        'sslcrl'          => 'ZEALOT_POSTGRES_SSLCRL',
-        'sslcompression'  => 'ZEALOT_POSTGRES_SSLCOMPRESSION'
+        'sslmode'         => 'PGSSLMODE',
+        'sslkey'          => 'PGSSLKEY',
+        'sslcert'         => 'PGSSLCERT',
+        'sslrootcert'     => 'PGSSLROOTCERT',
+        'sslcrl'          => 'PGSSLCRL',
+        'sslcompression'  => 'PGSSLCOMPRESSION'
       }
       args.each { |opt, arg| ENV[arg] = config[opt].to_s if config[opt] }
     end
