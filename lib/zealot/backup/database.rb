@@ -81,7 +81,7 @@ module Zealot::Backup
       restore_pid =
         case config['adapter']
         when 'postgresql'
-          _logger.debug "Restoring PostgreSQL database #{config['database']} ... "
+          logger.debug "Restoring PostgreSQL database #{config['database']} ... "
           pg_env
           spawn('psql', config['database'], in: decompress_rd)
         end
@@ -116,10 +116,14 @@ module Zealot::Backup
     end
 
     def config
-      return @config if @config
-
-      config = ERB.new(File.read(Rails.root.join('config', 'database.yml'))).result()
-      @config = YAML.load(config)[Rails.env]
+      @config ||= -> {
+        config = ERB.new(File.read(Rails.root.join('config', 'database.yml'))).result()
+        if YAML.respond_to?(:unsafe_load)
+          YAML.unsafe_load(config)
+        else
+          YAML.load(config)
+        end[Rails.env]
+      }.call
     end
 
     def db_file_name
