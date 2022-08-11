@@ -27,22 +27,12 @@ module AppsHelper
     image_tag(release.icon_url, **options)
   end
 
-  def app_release_auth_key(release)
-    "app_release_#{release.id}_auth"
-  end
-
   def logged_in_or_without_auth?(release)
     user_signed_in? || matched_password?(release)
   end
 
   def matched_password?(release)
-    channel = release.channel
-    password = channel.password
-
-    # no password euqal matched password
-    return true if password.blank?
-
-    cookies["app_release_#{release.id}_auth"] == channel.encode_password
+    release.cookie_password_matched?(cookies)
   end
 
   def git_commit_url(git_url, commit, commit_length = 8)
