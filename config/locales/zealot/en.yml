@@ -156,7 +156,7 @@ en:
       google_analytics_id: Google Analytics ID
 
       archives: Archive uploaded binaries
-      keep_uploads: Keep all
+      keep_uploads: Keep all builds
 
       empty_value: Empty
       no_editable_key: Read only
