@@ -19,8 +19,8 @@
         i.fab.fa-gg
         = @release.version
       li title="#{t('releases.show.device_type')}"
-        = device_icon(@release.channel.device_type)
-        = display_app_device(@release)
+        = device_icon(@release.platform)
+        = @release.device_type
       li title="#{t('releases.show.release_version')}"
         i.fas.fa-server
         = "#{@release.release_version} (#{@release.build_version})"

@@ -72,21 +72,7 @@ module AppsHelper
     end
   end
 
-  def display_app_device(value)
-    if value.is_a?(Release)
-      channel = value.channel
-      channal_device_type = device_name(channel.device_type)
-      if value.device_type
-        if channal_device_type == value.device_type
-          return channal_device_type
-        else
-          return "#{channal_device_type} (#{value.device_type})"
-        end
-      end
-    else
-      channel = value
-    end
-
+  def channel_platform(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 
     platform = device_name(channel.device_type)
