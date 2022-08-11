@@ -127,12 +127,16 @@ en:
       presets: Presets
       preset_schemes: Default schemes
       preset_role: Default user role
+      preset_install_limited: In-App install limited
+      preset_install_limited_hint: |
+        Specific mobile applications can not be install (Eg. WeChat, Dingtalk etc.),
+        using keywords of User Agent to guide open the browser to install.
 
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
       demo_mode: Demo mode
-      demo_mode_tips: 'Enable demo mode will: RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only'
+      demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
 
       third_party_auth: Third pary auth
       ldap: LDAP

@@ -127,12 +127,14 @@ zh-CN:
       presets: 预设值
       preset_schemes: 应用类型模板
       preset_role: 新用户权限
+      preset_install_limited: 应用内安装限制
+      preset_install_limited_hint: 特定手机应用打开无法进行安装操作（比如：微信、钉钉等），通过设置 User Agent 关键词开启使用浏览器打开安装帮助
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 游客模式
       demo_mode: 演示模式
-      demo_mode_tips: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
+      demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
 
       third_party_auth: 第三方登录
       ldap: LDAP

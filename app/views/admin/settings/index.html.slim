@@ -46,13 +46,13 @@
               dt = t("admin.settings.#{key}")
               dd
                 - if params[:readonly] || (value.is_a?(Hash) && secure_key?(value))
-                  pre.disabled
+                  pre.disabled.mb-2
                     == render 'switch_icon', value: value
                     = display_value
                 - else
-                  pre
+                  pre.mb-2
                     == render 'switch_icon', value: value
                     = link_to display_value, edit_admin_setting_path(key)
 
-                - if key == 'demo_mode'
-                  small = t('admin.settings.demo_mode_tips')
+                - if hint = t("admin.settings.#{key}_hint", default: nil)
+                  small.form-text.text-muted = hint
