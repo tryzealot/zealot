@@ -39,7 +39,7 @@ class ReleasesController < ApplicationController
     @release.perform_teardown_job(current_user.id)
 
     message = t('activerecord.success.create', key: "#{t('releases.title')}")
-    redirect_to channel_release_url(@channel, @release), notice: message
+    redirect_to channel_release_path(@channel, @release), notice: message
   end
 
   def destroy
@@ -47,7 +47,7 @@ class ReleasesController < ApplicationController
     @release.destroy
 
     notice = t('activerecord.success.destroy', key: "#{t('releases.title')}")
-    redirect_to channel_versions_url(@channel), status: :see_other, notice: notice
+    redirect_to friendly_channel_releases_path(@channel), status: :see_other, notice: notice
   end
 
   def auth
