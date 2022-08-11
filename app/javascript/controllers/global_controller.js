@@ -38,9 +38,14 @@ export default class extends Controller {
 
   fixAdminlteWithTubros() {
     this.fixTooltipToggle()
+    this.fixSidebarResize()
   }
 
   fixTooltipToggle() {
     jquery("[data-toggle='tooltip']").tooltip()
+  }
+
+  fixSidebarResize() {
+    jquery(window).trigger("resize")
   }
 }
