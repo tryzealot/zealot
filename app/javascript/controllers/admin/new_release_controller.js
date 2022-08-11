@@ -2,8 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 import compareVersion from "compare-versions"
 
 const DEVELLOPMENT = "development"
-const PROJECT_URL = "https://api.github.com/repos/tryzealot/zealot"
-const VERSION_URL = PROJECT_URL + "/releases/latest"
+const PROJECT_URL = "https://github.com/tryzealot/zealot"
+const VERSION_URL = "https://api.github.com/repos/tryzealot/zealot/releases/latest"
 
 export default class extends Controller {
   static values = { version: String, title: String }
