@@ -6,8 +6,9 @@ class Setting < RailsSettings::Base
   include SettingValidate
   include SettingSuger
 
-  before_save   :convert_third_party_enabled_value, if: :third_party_auth_scope?
-  before_save   :mark_restart_flag, if: :need_restart?
+  before_save     :convert_third_party_enabled_value, if: :third_party_auth_scope?
+  before_save     :mark_restart_flag, if: :need_restart?
+  before_destroy  :mark_restart_flag, if: :need_restart?
 
   cache_prefix { 'v2' }
 
