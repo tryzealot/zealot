@@ -3,7 +3,8 @@
 class Release < ApplicationRecord
   extend ActionView::Helpers::TranslationHelper
   include ActionView::Helpers::TranslationHelper
-  include Rails.application.routes.url_helpers
+  include ReleaseUrl
+  include ReleaseAuth
 
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
@@ -138,27 +139,6 @@ class Release < ApplicationRecord
     return false if file.blank?
 
     File.exist?(file.path)
-  end
-
-  def download_url
-    download_release_url(id)
-  end
-
-  def install_url
-    if platform.casecmp?('unknown') || platform.casecmp?('android') || platform.casecmp?('macos')
-      return download_url
-    end
-
-    ios_url = channel_release_install_url(channel.slug, id)
-    "itms-services://?action=download-manifest&url=#{ios_url}"
-  end
-
-  def release_url
-    friendly_channel_release_url(channel, self)
-  end
-
-  def qrcode_url(size = :thumb)
-    channel_release_qrcode_url(channel, self, size: size)
   end
 
   def file_extname

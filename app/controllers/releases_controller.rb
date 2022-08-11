@@ -19,7 +19,6 @@ class ReleasesController < ApplicationController
 
   def show
     authorize @release
-    @title = @release.app_name
   end
 
   def new
@@ -52,13 +51,12 @@ class ReleasesController < ApplicationController
   end
 
   def auth
-    if @channel.password == params[:password]
-      cookies["app_release_#{@release.id}_auth"] = @channel.encode_password
-      redirect_to friendly_channel_release_path(@channel, @release)
-    else
+    unless @release.password_match?(cookies, params[:password])
       @error_message = t('releases.messages.errors.invalid_password')
-      render :show, status: :see_other
+      return render :show, status: :unprocessable_entity
     end
+
+    redirect_to friendly_channel_release_path(@channel, @release), status: :see_other
   end
 
   protected
