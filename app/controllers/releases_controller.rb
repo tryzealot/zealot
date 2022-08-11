@@ -70,7 +70,9 @@ class ReleasesController < ApplicationController
   end
 
   def app_limited?
-    request.user_agent.include?('MicroMessenger') || request.user_agent.include?('DingTalk')
+    Setting.preset_install_limited
+      .find {|q| request.user_agent.include?(q) }
+      .present?
   end
 
   def set_release
