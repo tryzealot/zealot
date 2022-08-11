@@ -356,11 +356,11 @@ zh-CN:
       source: 上传来源
       metadata: 更多信息
       teardown_meatdata: 解包信息
-      install: 设备安装
-      download: 本地下载
+      install: 安装
+      download: 下载
       installing: 安装到桌面 ...
       installed: 安装请求完毕，请查看桌面
-      destroy: 删除版本
+      destroy: 删除
       missing_file: 遗失文件不可安装或下载
       more: 更多上传
       cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？

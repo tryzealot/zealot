@@ -32,6 +32,10 @@ module SettingHelper
       }
     end
 
+    def builtin_install_limited
+      [ 'MicroMessenger', 'DingTalk' ]
+    end
+
     def site_https
       Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
     end
