@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { Zealot } from "../zealot"
-import JQuery from "jquery"
+import jquery from "jquery"
 
 const RESTART_URI = "admin/service/restart"
 const HEALTH_CHECK_URI = "admin/service/status"
@@ -70,7 +70,7 @@ export default class extends Controller {
   }
 
   clearNotifcation() {
-    JQuery("#notifications").fadeOut()
+    jquery("#notifications").fadeOut()
   }
 
   updateRestaringState() {

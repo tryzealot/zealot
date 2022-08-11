@@ -31,9 +31,10 @@ class Setting < RailsSettings::Base
     field :preset_schemes, default: builtin_schemes, type: :array, display: true
     field :preset_role, default: 'user', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
+    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true
   end
 
-  # # 模式开关
+  # 模式开关
   scope :switch_mode do
     field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
           type: :boolean, display: true

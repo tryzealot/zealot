@@ -33,10 +33,6 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
-.dark-mode .app-icon {
-  background-color: #fff;
-}
-
 // show page
 .cover {
   position: fixed;
@@ -149,5 +145,11 @@ $ios-install-issue-color: rgb(245, 39, 90);
         padding-left: 3px;
       }
     }
+  }
+}
+
+.dark-mode {
+  .app-icon {
+    background-color: #fff;
   }
 }
