@@ -227,6 +227,7 @@ module Zealot::Backup
         backup_created_at: Time.now,
         db_version: ActiveRecord::Migrator.current_version.to_s,
         tar_version: tar_version,
+        pg_version: pg_version,
         vcs_ref: Setting.vcs_ref || false,
         docker_tag: ENV['DOCKER_TAG'] || false
       }
@@ -259,6 +260,12 @@ module Zealot::Backup
         .force_encoding('locale')
         .split("\n")
         .first
+        .strip
+    end
+
+    def pg_version
+      @pg_version ||= `pg_dump -V`.dup
+        .force_encoding('locale')
         .strip
     end
   end
