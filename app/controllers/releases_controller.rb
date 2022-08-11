@@ -57,7 +57,7 @@ class ReleasesController < ApplicationController
       redirect_to friendly_channel_release_path(@channel, @release)
     else
       @error_message = t('releases.messages.errors.invalid_password')
-      render :show
+      render :show, status: :see_other
     end
   end
 
