@@ -181,7 +181,7 @@ module Zealot::Backup
     #       # print list of available backups
     #       logger.debug " " + available_timestamps.join("\n ")
     #       logger.debug 'Please specify which one you want to restore:'
-    #       logger.debug 'rake gitlab:backup:restore BACKUP=timestamp_of_backup'
+    #       logger.debug 'rake zealot:backup:restore BACKUP=timestamp_of_backup'
     #       exit 1
     #     end
 
