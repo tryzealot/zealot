@@ -21,7 +21,8 @@ export default class extends Controller {
 
     installUrl: String,
     installing: String,
-    installed: String
+    installed: String,
+    armBasedMac: Boolean
   }
 
   connect() {
@@ -30,8 +31,10 @@ export default class extends Controller {
     }
 
     if (isiOS()) {
-      this.installButtonTarget && this.installButtonTarget.classList.remove("d-none")
-      this.downloadButtonTarget && this.downloadButtonTarget.classList.add("d-none")
+      this.showIntallButton()
+      this.hideDownloadButton
+    } else if (this.armBasedMacValue) {
+      this.showIntallButton()
     }
   }
 
@@ -94,6 +97,18 @@ export default class extends Controller {
     await this.sleep(LOADING_TIMEOUT)
     target.innerHTML = this.installedValue
     this.installIssueTarget.classList.remove("d-none")
+  }
+
+  showIntallButton() {
+    if (this.hasInstallButtonTarget) {
+      this.installButtonTarget.classList.remove("d-none")
+    }
+  }
+
+  hideDownloadButton() {
+    if (this.hasDownloadButtonTarget) {
+      this.downloadButtonTarget.classList.add("d-none")
+    }
   }
 
   renderInstallLimited() {
