@@ -6,7 +6,6 @@
   data-release-download-installed-value="<i class='fas fa-mobile-alt'></i>#{t('releases.show.installed')}"
   data-release-download-open-safari-value="#{t('releases.show.app_open_in_safari')}"
   data-release-download-open-brower-value="#{t('releases.show.app_open_in_webbrower')}"
-  data-release-download-arm-based-mac-value="#{mac_arm64?}"
 ]
   == render 'releases/body/app_limited'
 
@@ -18,8 +17,6 @@
         button.btn.btn-icon.btn-lg.btn-success.d-none[
           data-action="release-download#install"
           data-release-download-target="installButton"
-          data-install-url="#{@release.install_url}"
-          data-loading-text="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
         ]
           i.fas.fa-mobile-alt
           = t('releases.show.install')
