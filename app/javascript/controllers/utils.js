@@ -40,10 +40,15 @@ const isiOS = () => {
   return isiPhoneOriPod || isiPad
 }
 
+const isMacOS = () => {
+  let os = uaParser.getOS()
+  return os.name === "Mac OS"
+}
+
 // Detect NonApple OS (Windows/Linux/Android etc)
 const isNonAppleOS = () => {
   let os = uaParser.getOS()
   return !(os.name === "Mac OS" || os.name === "iOS")
 }
 
-export { poll, uaParser, isiOS, isNonAppleOS }
+export { poll, uaParser, isMacOS, isiOS, isNonAppleOS }

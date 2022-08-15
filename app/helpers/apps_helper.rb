@@ -82,9 +82,4 @@ module AppsHelper
   def changelog_format(changelog, **options)
     simple_format changelog, **options
   end
-
-  # Arm based chip, such like M1, M2 of macOS
-  def mac_arm64?
-    RUBY_PLATFORM.include?('darwin') && RUBY_PLATFORM.include?('arm64')
-  end
 end

@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import jquery from "jquery"
-import { isiOS } from "./utils"
+import { isiOS, isMacOS } from "./utils"
 
 const LOADING_TIMEOUT = 8000
 
@@ -21,8 +21,7 @@ export default class extends Controller {
 
     installUrl: String,
     installing: String,
-    installed: String,
-    armBasedMac: Boolean
+    installed: String
   }
 
   connect() {
@@ -33,7 +32,7 @@ export default class extends Controller {
     if (isiOS()) {
       this.showIntallButton()
       this.hideDownloadButton
-    } else if (this.armBasedMacValue) {
+    } else if (isMacOS()) {
       this.showIntallButton()
     }
   }
