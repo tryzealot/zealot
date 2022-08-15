@@ -38,8 +38,13 @@ class Release < ApplicationRecord
 
   # 上传 app
   def self.upload_file(params, parser = nil, default_source = 'web')
-    file = params[:file].path
-    return if file.blank?
+    file = params[:file]&.path
+    if file.blank?
+      release = Release.new
+      release.errors.add(:file, :invalid)
+
+      return release
+    end
 
     create(params) do |release|
       rescuing_app_parse_errors do
@@ -193,14 +198,14 @@ class Release < ApplicationRecord
   end
 
   def ios?
-    platform_type.casecmp?('iphone') || platform_type.casecmp?('ipad') ||
-    platform_type.casecmp?('universal')
+    platform_type.casecmp?('ios') || platform_type.casecmp?('iphone') ||
+    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal')
   end
 
   def android?
-    platform_type.casecmp?('phone') || platform_type.casecmp?('tablet') ||
-    platform_type.casecmp?('watch') || platform_type.casecmp?('television') ||
-    platform_type.casecmp?('automotive')
+    platform_type.casecmp?('android') || platform_type.casecmp?('phone') ||
+    platform_type.casecmp?('tablet') || platform_type.casecmp?('watch') ||
+    platform_type.casecmp?('television') || platform_type.casecmp?('automotive')
   end
 
   def mac?
