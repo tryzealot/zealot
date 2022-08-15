@@ -32,7 +32,7 @@ class ReleasesController < ApplicationController
     @release = @channel.releases.upload_file(release_params)
     authorize @release
 
-    return render :new unless @release.save
+    return render :new, status: :unprocessable_entity unless @release.save
 
     # 触发异步任务
     @release.channel.perform_web_hook('upload_events')
