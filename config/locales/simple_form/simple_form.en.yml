@@ -83,7 +83,7 @@ en:
         channel: For example, the platform of app.
       app:
         schemes:
-          name: :'simple_form.hits.scheme.name'
+          name: :'simple_form.hints.scheme.name'
       scheme:
           name: App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.
       channel:

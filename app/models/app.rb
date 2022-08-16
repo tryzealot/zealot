@@ -6,9 +6,6 @@ class App < ApplicationRecord
   has_many :debug_files, dependent: :destroy
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
-
-  accepts_nested_attributes_for :schemes
-
   scope :avaiable_debug_files, -> { joins(:debug_files).distinct }
 
   validates :name, presence: true

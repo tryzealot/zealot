@@ -17,8 +17,9 @@ ruby:
         = f.error_notification
 
         = f.input :name, required: true
-        = f.simple_fields_for :scheme_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: preset_schemes, checked: @schemes, required: false
-        = f.simple_fields_for :channel_attributes do |n|
-          = n.input :name, as: :check_boxes, collection: preset_channels, checked: @channels, required: false
+        - if new_or_create_route?
+          = f.simple_fields_for :scheme_attributes do |n|
+            = n.input :name, as: :check_boxes, collection: preset_schemes, checked: @schemes, required: false
+          = f.simple_fields_for :channel_attributes do |n|
+            = n.input :name, as: :check_boxes, collection: preset_channels, checked: @channels, required: false
         = f.button :submit
