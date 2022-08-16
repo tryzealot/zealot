@@ -13,7 +13,6 @@ class AppsController < ApplicationController
   end
 
   def show
-    authorize @app
     @title = @app.name
   end
 
@@ -26,8 +25,6 @@ class AppsController < ApplicationController
   end
 
   def edit
-    authorize @app
-
     @title = t('.title')
   end
 
@@ -38,25 +35,21 @@ class AppsController < ApplicationController
     return render :new, status: :unprocessable_entity unless @app.save
 
     @app.users << current_user
-    app_create_schemes_and_channels
+    create_schemes_and_channels
     redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
 
   def update
-    authorize @app
-
-    if app_params.member?(:scheme_attributes) && app_params.member?(:channel_attributes)
-      flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
-      return render :edit, status: :unprocessable_entity
-    end
+    # if @schemes.empty? && @channels.empty?
+    #   flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
+    #   return render :edit, status: :unprocessable_entity
+    # end
 
     @app.update(app_params)
     redirect_to apps_path
   end
 
   def destroy
-    authorize @app
-
     @app.destroy
     destory_app_data
 
@@ -72,7 +65,7 @@ class AppsController < ApplicationController
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 
-  def app_create_schemes_and_channels
+  def create_schemes_and_channels
     @schemes.each do |scheme_name|
       scheme = @app.schemes.create(name: scheme_name)
       next if @channels.empty?
@@ -83,9 +76,18 @@ class AppsController < ApplicationController
     end
   end
 
-  def set_app
-    @app = App.find(params[:id])
-  end
+  # def update_schemes_and_channels
+  #   existed_schemes = @app.schemes.all
+
+  #   @schemes.each do |scheme_name|
+  #     scheme = @app.schemes.find_by(name: scheme_name)
+
+
+  #     @channels.each do |channel_name|
+  #       scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
+  #     end
+  #   end
+  # end
 
   def set_selected_schemes_and_channels
     @schemes = []
@@ -103,6 +105,11 @@ class AppsController < ApplicationController
   def process_scheme_and_channel
     @schemes = app_params.delete(:scheme_attributes)[:name].reject(&:empty?)
     @channels = app_params.delete(:channel_attributes)[:name].reject(&:empty?)
+  end
+
+  def set_app
+    @app = App.find(params[:id])
+    authorize @app
   end
 
   def app_params
