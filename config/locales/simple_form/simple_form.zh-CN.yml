@@ -83,7 +83,7 @@ zh-CN:
         channel: '应用会使用的平台'
       app:
         schemes:
-          name: :'simple_form.hits.scheme.name'
+          name: :'simple_form.hints.scheme.name'
       scheme:
           name: '应用在功能、面向受众划分的类型'
       channel:
