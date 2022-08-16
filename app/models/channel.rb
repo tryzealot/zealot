@@ -2,6 +2,7 @@
 
 class Channel < ApplicationRecord
   include FriendlyId
+  include VersionCompare
 
   friendly_id :slug
 
@@ -28,11 +29,33 @@ class Channel < ApplicationRecord
     releases.limit(limit).order(id: :desc)
   end
 
+  # Find new releases by given arguments, following rules:
+  #
+  # 1. Find given release then find all new release after given release
+  # 2. Or from newer versions to comapre and return
+  # *) Given version always convert tosemver value
   def find_since_version(bundle_id, release_version, build_version)
-    releases.where("release_version >= '#{release_version}'")
-            .where("build_version > '#{build_version}'")
-            .where(bundle_id: bundle_id)
-            .order(id: :desc)
+    current_release = releases.select(:id).find_by(
+      bundle_id: bundle_id,
+      release_version: release_version,
+      build_version: build_version
+    )
+
+    if current_release
+      releases.where('id > ?', current_release.id)
+      .order(id: :desc)
+      .select { |release|
+        ge_version(release.release_version, release_version) &&
+        gt_version(release.build_version, build_version)
+      }
+    else
+      newer_versions = release_versions.select { |version| ge_version(version, release_version) }
+      releases.where(
+          bundle_id: bundle_id,
+          release_version: newer_versions,
+        )
+        .order(id: :desc)
+    end
   end
 
   def app_name
@@ -41,17 +64,20 @@ class Channel < ApplicationRecord
 
   def release_versions(limit = 10)
     versions = releases.select(:release_version)
-                       .group(:release_version)
-                       .map(&:release_version)
-                       .sort do |a,b|
-                         begin
-                           Gem::Version.new(b) <=> Gem::Version.new(a)
-                         rescue ArgumentError => e
-                           # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
-                           # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
-                           e.message.include?(a) ? 1 : -1
-                         end
-                       end
+      .group(:release_version)
+      .map(&:release_version)
+      .sort do |a,b|
+        begin
+          version_compare(b, a)
+        rescue ArgumentError => e
+          # Note: 处理版本号是 android-1.2.3 类似非标版本号的异常，如有发现就放最后面
+          # 后续如果有人反馈问题多了再说，看到本注释的请告知遵守版本号标准
+          e.message.include?(a) ? 1 : -1
+        end
+      end
+
+    return versions if limit.blank? || limit <= 0
+
     versions.size >= limit ? versions[0..limit - 1] : versions
   end
 
