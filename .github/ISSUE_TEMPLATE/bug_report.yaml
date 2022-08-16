@@ -1,5 +1,7 @@
 name: 问题反馈 | Bug report
 description: 提交使用过程发现的缺陷 | Report a potential bug
+title: "[Bug]: "
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
