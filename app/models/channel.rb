@@ -29,25 +29,33 @@ class Channel < ApplicationRecord
     releases.limit(limit).order(id: :desc)
   end
 
-  # Find new releases by given arguments
-  # Steps:
-  # 1. Find given release, return nil if not found
-  # 2. Find all new release after given release
-  # 3. Select the real releases by version compare (pre-handle version to semver value)
+  # Find new releases by given arguments, following rules:
+  #
+  # 1. Find given release then find all new release after given release
+  # 2. Or from newer versions to comapre and return
+  # *) Given version always convert tosemver value
   def find_since_version(bundle_id, release_version, build_version)
     current_release = releases.select(:id).find_by(
       bundle_id: bundle_id,
       release_version: release_version,
       build_version: build_version
     )
-    return unless current_release
 
-    releases.where('id > ?', current_release.id)
+    if current_release
+      releases.where('id > ?', current_release.id)
       .order(id: :desc)
       .select { |release|
         ge_version(release.release_version, release_version) &&
         gt_version(release.build_version, build_version)
       }
+    else
+      newer_versions = release_versions.select { |version| ge_version(version, release_version) }
+      releases.where(
+          bundle_id: bundle_id,
+          release_version: newer_versions,
+        )
+        .order(id: :desc)
+    end
   end
 
   def app_name
@@ -67,6 +75,8 @@ class Channel < ApplicationRecord
           e.message.include?(a) ? 1 : -1
         end
       end
+
+    return versions if limit.blank? || limit <= 0
 
     versions.size >= limit ? versions[0..limit - 1] : versions
   end
