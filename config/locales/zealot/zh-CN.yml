@@ -179,7 +179,7 @@ zh-CN:
         disk_info: 磁盘
         lauched_time: 运行时间
         volume_mounted: 挂载信息
-        fail_detect_disk: 硬盘信息无法获取
+        fail_detect_disk: 无法解读硬盘信息
         system_environment: 系统变量
         file_permissions: 文件权限
         services: 服务状态
