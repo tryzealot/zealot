@@ -96,7 +96,7 @@ class Admin::SystemInfoController < ApplicationController
   def set_disk_volumes
     @disks = ::Sys::Filesystem.mounts.each_with_object([]) do |mount, obj|
       mount_options = mount.options.split(',').map(&:strip)
-      next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
+      # next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
       next if (EXCLUDED_MOUNT_TYPES & [mount.mount_type]).any?
 
       begin
@@ -109,6 +109,7 @@ class Admin::SystemInfoController < ApplicationController
           bytes_total: disk.bytes_total,
           bytes_used: disk.bytes_used,
           mount_path: disk.path,
+          mount_options: mount.options,
           percent: percent,
           color: progress_color(percent)
         )
@@ -144,7 +145,7 @@ class Admin::SystemInfoController < ApplicationController
     return @memory if @memory
 
     memory = Vmstat.memory
-    percent = percent(memory.active_bytes, memory.total_bytes)
+    percent = percent(memory.active_bytes, memory.total_bytes).round(0)
     @memory = {
       used: memory.active_bytes,
       total: memory.total_bytes,
@@ -159,7 +160,7 @@ class Admin::SystemInfoController < ApplicationController
     return @diskspace if @diskspace
 
     disk = Sys::Filesystem.stat(Rails.root)
-    percent = percent(disk.bytes_used, disk.bytes_total)
+    percent = percent(disk.bytes_used, disk.bytes_total).round(0)
     @diskspace ||= {
       used: disk.bytes_used,
       total: disk.bytes_total,
