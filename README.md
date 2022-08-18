@@ -16,6 +16,7 @@
   <a href="https://t.me/tryzealot_lobby">
     <img alt="chat on telegram" src="https://img.shields.io/badge/chat-on%20telegram-important.svg">
   </a>
+  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/zealot"><img src="https://badges.crowdin.net/zealot/localized.svg"></a>
   <a href="https://codeclimate.com/github/tryzealot/zealot/maintainability">
     <img alt="codeclimate" src="https://api.codeclimate.com/v1/badges/f79b2fed0ce166b2ea2c/maintainability" />
   </a>
