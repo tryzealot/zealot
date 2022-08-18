@@ -23,13 +23,21 @@
     <img alt="codacy" src="https://app.codacy.com/project/badge/Grade/5e5c7bbeb1214fa39b11a7414f0d7171"/>
   </a>
 
-  <br />
+  <div>
+    <a href="https://zealot.ews.im/#/en/deployment">Install</a> •
+    <a href="https://zealot.ews.im/#/en/configuration">Configuration</a> •
+    <a href="https://zealot.ews.im/#/en/api">REST API</a> •
+    <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
+    <a href="https://zealot.ews.im/#/en/screenshot">Screenshots</a>
+  </div>
 
-  <a href="https://zealot.ews.im/#/en/deployment">Install</a> •
-  <a href="https://zealot.ews.im/#/en/configuration">Configuration</a> •
-  <a href="https://zealot.ews.im/#/en/api">REST API</a> •
-  <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
-  <a href="https://zealot.ews.im/#/en/screenshot">Screenshots</a>
+  <div>
+    <a href="https://zealot.ews.im/#/en/deployment">自部署</a> •
+    <a href="https://zealot.ews.im/#/en/configuration">配置</a> •
+    <a href="https://zealot.ews.im/#/en/api">REST API</a> •
+    <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
+    <a href="https://zealot.ews.im/#/en/screenshot">功能截图</a>
+  </div>
 </div>
 
 ![Zealot Showcase](https://zealot.ews.im/_media/showcase.png)
@@ -44,52 +52,17 @@
 - 🔑 **第三方登录**: 飞书、Gitlab、Google 和 LDAP 一键授权
 - 🌑 **黑暗模式**: 黑夜白昼自由切换
 
-## 快速部署
-
-```
-$ git clone https://github.com/tryzealot/zealot-docker.git
-$ cd zealot-docker
-$ ./deploy
-```
-
-按照部署脚本可以快速部署系统服务，如需自定义其他配置请看[项目配置](https://zealot.ews.im/#/configuration)
-
-## 最佳实践
-
-如果想知道使用 Zealot 如何全流程无缝 CI/CD 接入 iOS 和 Android 请看[实践教程](https://zealot.ews.im/#/best_practices)
-
 ## 在线演示
-
-- 演示地址：https://tryzealot.herokuapp.com/
-- 电子邮箱: `admin@zealot.com`
-- 登录密码：`ze@l0t`
 
 > **注意**: 数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
 
-## 帮助和文档
+- 演示地址：https://tryzealot.herokuapp.com/
+- 登录账户: `admin@zealot.com`
+- 登录密码：`ze@l0t`
 
-你可以查看更多的功能截图:
+## 开发统计
 
-https://zealot.ews.im/#/screenshot
-
-你可以了解下支持什么插件:
-
-https://zealot.ews.im/#/modules
-
-你可以了解提供的 HTTP API 接口:
-
-https://zealot.ews.im/#/api
-
-你可以了解变更日志:
-
-https://zealot.ews.im/#/changelog
-
-对于项目细节感兴趣就来看看翻翻文档:
-
-https://zealot.ews.im
-
-对 Zealot 有疑问或者建议，欢迎[提交问题](https://github.com/tryzealot/zealot/issues/new)，我会非常欢迎的。
-
+![Alt](https://repobeats.axiom.co/api/embed/caba5e356c0e8258d395aaa9f70fec475a2eb643.svg "Repobeats analytics image")
 
 ## 发布协议
 
