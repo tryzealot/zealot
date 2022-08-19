@@ -43,7 +43,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # TODO: remove whole channels module
     scope module: :channels do
       resources :versions, only: %i[index show], id: /(.+)+/
       resources :branches, only: %i[index]
@@ -79,12 +78,18 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # UDID (iOS)
+  # UDID (iOS/iPadOS)
   #############################################
-  get 'udid', to: 'udid#index'
-  get 'udid/install', to: 'udid#install'
-  post 'udid/retrieve', to: 'udid#create'
-  get 'udid/:udid', to: 'udid#show', as: 'udid_result'
+  resources :udid, as: :udid, param: :udid, only: %i[ index show ] do
+    collection do
+      get :install
+      post :retrieve, action: :create
+    end
+
+    member do
+      post :register
+    end
+  end
 
   #############################################
   # Health check
@@ -98,15 +103,38 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'settings#index'
 
-      resources :users, except: :show
-      resources :web_hooks
       resources :settings
-
+      resources :users, except: :show
+      resources :web_hooks, except: %i[ show new create ]
+      resources :apple_teams, only: %i[ edit update ]
       resources :background_jobs, only: :index
       resources :system_info, only: :index
       resources :database_analytics, only: :index
-      resources :page_analytics, only: :index
-      resources :logs, only: :index
+      resources :apple_keys, except: %i[ edit update ] do
+        member do
+          put :sync_devices
+        end
+      end
+
+      resources :logs, only: %i[ index ] do
+        collection do
+          get :retrive
+        end
+      end
+
+      resources :backups do
+        collection do
+          get :parse_schedule
+        end
+
+        member do
+          post :enable
+          post :disable
+          post :perform
+          get :archive, action: :download_archive
+          delete :archive, action: :destroy_archive
+        end
+      end
 
       namespace :service do
         post :restart
@@ -118,7 +146,6 @@ Rails.application.routes.draw do
 
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
       mount PgHero::Engine, at: 'pghero', as: :pghero
-      mount ActiveAnalytics::Engine, at: :analytics
     end
   end
 

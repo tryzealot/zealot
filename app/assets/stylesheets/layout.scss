@@ -1,0 +1,100 @@
+
+.navbar-empty {
+  @extend .navbar-collapse !optional;
+  @extend .justify-content-md-center !optional;
+
+  .brand-link {
+    padding: 0;
+
+    [class*="navbar-white"] & {
+      color: $black;
+    }
+
+    [class*="navbar-black"] & {
+      color: $white;
+    }
+  }
+}
+
+.layout-top-nav .wrapper .main-header .navbar-empty .brand-image {
+  margin-top: -0.1rem;
+}
+
+.card-body {
+  .table {
+    margin-bottom: 0;
+  }
+}
+
+.callout a {
+  text-decoration: none;
+}
+
+.login-box {
+  margin: auto;
+}
+
+.btn-group {
+  .btn-icon {
+    margin-right: 0;
+  }
+}
+
+.btn-icon {
+  margin-right: 10px;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+i.icon {
+  margin-right: 5px;
+}
+
+.timeline-item {
+  .time {
+    i.icon {
+      margin-right: 3px;
+    }
+  }
+}
+
+.dark-mode {
+  .cover {
+    opacity: 0.45;
+  }
+
+  .nav-item .active {
+    color: #fff;
+    background-color: #3f6791;
+  }
+
+  a {
+    color: #64adfb;
+  }
+
+  .callout {
+    border-color: #3f474e;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  }
+
+  .border-bottom {
+    border-color: #6c757d !important;
+  }
+
+  .img-bordered-sm {
+    border-color: #323435;
+  }
+
+  .card-header {
+    border-color: #6c6b6b;
+  }
+
+  .form-control:disabled,
+  .form-control[readonly] {
+    border-color: #505356 !important;
+    background-color: #393a3c !important;
+    color: #999 !important;
+  }
+}

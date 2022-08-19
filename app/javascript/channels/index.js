@@ -1,9 +1,8 @@
-// Load all the channels within this directory and all subdirectories.
-// Channel files must be named *_channel.js.
+import * as ActionCable from "@rails/actioncable"
+import { Zealot } from "../controllers/zealot"
 
-// Enable action cable logger
-// import * as ActionCable from '@rails/actioncable'
-// ActionCable.logger.enabled = true
+if (Zealot.isDevelopment) {
+  ActionCable.logger.enabled = true
+}
 
-const channels = require.context('.', true, /_channel\.js$/);
-channels.keys().forEach(channels);
+import "./notification_channel"

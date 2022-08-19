@@ -1,5 +1,17 @@
 name: Test Docker Build
-on: [pull_request]
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '.*'
+      - 'LICENSE'
+      - 'Guardfile'
+      - Aptfile
+      - 'Procfile*'
+      - '**.yaml'
+      - '**.yml'
+
 jobs:
   build:
     runs-on: ubuntu-latest

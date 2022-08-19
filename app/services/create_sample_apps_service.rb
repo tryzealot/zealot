@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 class CreateSampleAppsService
   include ActionView::Helpers::TranslationHelper
 
   RELEASE_COUNT = 3
 
   def call(user)
-    stardford_app user
     android_channels_app user
+    stardford_app user
   end
 
   private
@@ -59,8 +61,8 @@ class CreateSampleAppsService
                          'release'
                        end
 
-        RELEASE_COUNT.times do
-          generate_release(channel, bundle_id, release_type, changelog)
+        RELEASE_COUNT.times do |i|
+          generate_release(channel, bundle_id, release_type, changelog, build_version: (i + 1).to_s, device_type: 'iPhone')
         end
       end
     end
@@ -77,36 +79,71 @@ class CreateSampleAppsService
 
     schemes.each do |scheme_name|
       scheme = app.schemes.find_or_create_by name: scheme_name
-      channels.each do |channel_name|
+      channels.each_with_index do |channel_name, i|
         channel = scheme.channels.find_or_create_by name: channel_name,
                                                     device_type: :android
-        generate_release(channel, app_bundle_id, 'release', changelog)
+        generate_release(channel, app_bundle_id, 'release', changelog, build_version: (i + 1).to_s, device_type: 'Phone')
       end
     end
   end
 
-  def generate_release(channel, app_bundle_id, release_type, changelog)
+  def generate_release(channel, app_bundle_id, release_type, changelog, build_version: '1', device_type: nil)
     Release.new(
       channel: channel,
       bundle_id: app_bundle_id,
       release_version: '1.0.0',
-      build_version: '1',
+      build_version: build_version,
       release_type: release_type,
       source: 'API',
       branch: 'develop',
-      device_type: channel.device_type,
+      device_type: device_type || channel.device_type,
       git_commit: SecureRandom.hex,
       changelog: changelog
     ).save(validate: false)
+  end
+
+  def generate_devices(release, count)
+    count.times do
+      release.devices << Device.create(
+        udid: SecureRandom.uuid,
+        model: DEVICE_MODEL[rand(DEVICE_MODEL.size - 1)],
+        platform: 'IOS',
+        status: 'ENABLED'
+      )
+    end
+  end
+
+  DEVICE_MODEL = [
+    'iPhone 6',
+    'iPhone 6s',
+    'iPhone 6 Plus',
+    'iPhone 7',
+    'iPhone 7 Plus',
+    'iPhone 8',
+    'iPhone 8 Plus',
+    'iPhone X',
+    'iPhone XR',
+    'iPhone XS',
+    'iPhone XS Max',
+    'iPhone 11',
+    'iPhone 11 Pro',
+    'iPhone 11 Pro Max',
+    'iPhone 12',
+    'iPhone 12 mini',
+    'iPhone 12 Pro',
+    'iPhone 12 Pro Max',
+    'iPhone 13',
+    'iPhone 13 Pro',
+    'iPhone 13 Pro Max'
+  ]
+
+  def generate_bundle_id(app_bundle_id, channel)
+    "#{app_bundle_id}.#{channel.name.downcase}"
   end
 
   def create_app(name, user)
     App.find_or_create_by name: name do |a|
       a.users << user
     end
-  end
-
-  def generate_bundle_id(app_bundle_id, channel)
-    "#{app_bundle_id}.#{channel.name.downcase}"
   end
 end

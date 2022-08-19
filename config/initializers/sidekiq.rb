@@ -7,6 +7,7 @@ Sidekiq.configure_server do |config|
   logger_level = ::Logger::DEBUG if Rails.env.development?
   config.logger.level = logger_level
 
+  ## sidekiq-failurers
   # Max limits failures
   config.failures_max_count = 5000
 end

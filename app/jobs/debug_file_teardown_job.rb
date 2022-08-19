@@ -15,25 +15,23 @@ class DebugFileTeardownJob < ApplicationJob
       parse_proguard(debug_file, parser)
     end
 
-    # 清理掉临时生成的文件
-    parser.clear!
-
-    notification_user(debug_file, user_id)
+    notificate_success(
+      user_id: user_id,
+      type: 'teardown',
+      refresh_page: true,
+      message: t('active_job.debug_file.success', id: debug_file.id)
+    )
   rescue AppInfo::NotFoundError
-    logger.info("Can not found debug file #{debug_file.id}, may be removed.")
+    notificate_failure(
+      user_id: user_id,
+      type: 'teardown',
+      message: t('active_job.debug_file.failures.not_found_file', id: debug_file.id)
+    )
+  ensure
+    parser&.clear!
   end
 
   private
-
-  def notification_user(debug_file, user_id)
-    return if user_id.blank?
-
-    ActionCable.server.broadcast("notification:#{user_id}", {
-      type: 'teardown',
-      status: 'success',
-      message: t('web_hooks.messages.parse_done', id: debug_file.id)
-  })
-  end
 
   def parse_dsym(debug_file, parser)
     parser.machos.each do |macho|
