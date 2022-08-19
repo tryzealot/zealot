@@ -1,122 +1,120 @@
-en:
+en-US:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'required'
+      text: '必填项'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
+    #You can uncomment the line below if you need to overwrite the whole required html.
+    #When using html, text and mark won't be used.
+    #html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: "请检查如下问题:"
     labels:
       defaults:
-        name: Name
-        password: Password
-        channel: Channel
+        name: '名称'
+        password: '密码'
+        channel: '渠道名称'
       user:
-        username: Username
-        email: E-mail
-        password: Password
-        password_confirmation: Password confirmation
-        role: 'Role'
-        remember_me: Remember me
+        username: '昵称'
+        email: '登录邮箱'
+        password: '登录密码'
+        password_confirmation: '密码确认'
+        role: '账户权限'
+        remember_me: '记住登录信息'
       app:
-        name: App name
+        name: '应用名称'
       scheme:
-        name: Scheme name
+        name: '类型名称'
       channel:
-        name: Channel name
-        device_type: Device type
-        bundle_id: Bundle id
-        git_url: Git URL
-        slug: Slug
-        password: Password
+        name: '渠道名称'
+        device_type: '应用平台'
+        bundle_id: '校验包名'
+        git_url: 'Git 仓库地址'
+        slug: '唯一地址'
+        password: '访问密码'
       release:
-        file: File
-        changelog: Changelog
-        release_type: Release type
-        branch: Git branch
-        git_commit: Git commit SHA
+        file: 应用文件
+        changelog: 变更日志
+        release_type: 打包类型
+        branch: Git 分支名称
+        git_commit: Git 最后提交 SHA
         ci_url: CI URL
       web_hook:
-        url: URL
-        body: Body
-        upload_events: Upload events
-        download_events: Download events
-        changelog_events: Changelog events
-        channels: Enabled channels
+        url: 'URL'
+        body: '自定义消息体'
+        upload_events: '上传事件'
+        download_events: '下载事件'
+        changelog_events: '日志变更事件'
+        channels: 启用的应用渠道
       debug_file:
-        app_id: App
-        device_type: Device type
-        release_version: Release version
-        build_version: Build version
-        file: File
-        checksum: File checksum
+        app_id: '应用'
+        device_type: '应用平台'
+        release_version: '发布版本'
+        build_version: '构建版本'
+        file: '调试文件'
+        checksum: '唯一校验码'
       setting:
-        value: Value
+        value: 值
       apple_key:
         issuer_id: Issuer ID
-        key_id: Key ID
-        private_key: Private key
-        devices: Devices
+        key_id: 密钥 ID
+        private_key: 密钥文件
+        devices: 测试设备
       apple_team:
-        display_name: Display name
-        name: Team name
-        team_id: Team id
+        display_name: 显示名称
+        name: 注册主体
+        team_id: 标识符
       backup:
-        general: General settings
-        key: Key
-        schedule: Schedule
-        next_schedule_at: Next schedule at
-        enabled_database: Backup database
-        database_switch: Enable
-        enabled_apps: Backup Apps
-        max_keeps: Max keeps
-        enabled: Enabled
-        schedule_settings: Schedule settings
-        parsing: Parsing ...
-
+        general: 备份配置
+        key: 备份名称
+        schedule: 备份频率
+        next_schedule_at: 下次执行时间
+        enabled_database: 备份数据库
+        database_switch: 启用
+        enabled_apps: 备份应用
+        max_keeps: 最大保留数
+        enabled: 启用
+        schedule_settings: 备份范围
+        parsing: 解析中
     hints:
       defaults:
-        channel: For example, the platform of app.
+        channel: '应用会使用的平台'
       app:
         schemes:
-          name: :'simple_form.hints.scheme.name'
+          name: ':''simple_form.hints.scheme.name'''
       scheme:
-          name: App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.
+        name: '应用在功能、面向受众划分的类型'
       channel:
-        name: Recommended to distinguish different channels according to the application platform, single platform applications can also be the name of the distribution market.
-        device_type: Whic device type of app. for example, iOS, Android, macOS etc.
-        bundle_id: Validate the bundle id (package name) of app, leave empty or fill * to skip validate.
-        git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host.
-        slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
-        password: Need password by fill it when user is not log in.
+        name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
+        device_type: '应用设备类型'
+        bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
+        git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
+        slug: 'URL 的唯一标识'
+        password: '设置后对非登录用户会要求输入密码'
       release:
-        file: Support iOS.ipa、Android.apk and macOS.app.zip file
-        changelog: a log or record of all notable changes made to a upload.
-        release_type: 'iOS: debug、adhoc、release; Android: debug、release'
-        branch: Git branch. In general either main or develop.
-        git_commit: 40 bit length SHA value of git commit
-        ci_url: the detail URL of Jenkins、Gitlab CI
+        file: 支持 iOS.ipa、Android.apk 以及 macOS.app.zip 文件
+        changelog: 这个应用包含了什么新特性，修复了什么问题等
+        release_type: iOS 的 debug、adhoc、release；Android 的 debug、release 等
+        branch: 通常情况是 main 或 develop
+        git_commit: 通常是 40 位长度的哈希值
+        ci_url: Jenkins、Gitlab CI 具体构建的地址
       web_hook:
-        body: Custom JSON struct body to apply the third party notification services, Use default struct by leave it empty.
+        body: '自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用默认结构'
       debug_file:
-        device_type: Whic device type of app. for example, iOS, Android, macOS etc.
-        file: Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.
+        device_type: '应用设备类型'
+        file: '必须使用 zip 文件压缩后的调试文件'
       setting:
-        value: Use JSON standard format to edit, otherwise it will fail to save.
+        value: '按照 JSON 标准格式编辑，否则会保存失败'
       backup:
-        key: Unique backup key
+        key: 名称必须是唯一，不可和其他备份重复
         schedule: |
-          Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
-          <a href="https://crontab.guru/">Cron</a>.
-        max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
-
+          表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
+          <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置；0 不可备份
     placeholders:
       release:
-        changelog: The developer is lazy without leaving anyting.
+        changelog: 开发者很懒什么都没有填写
       web_hook:
         url: 'http://example.com/web-hooks'
         body: |
@@ -139,4 +137,6 @@ en:
       debug_file:
         release_version: '1.0.0'
         build_version: '1.0'
-        checksum: Ignore me, pure validate the file use
+        checksum: '纯校验使用，随文件生成无需填写'
+      backup:
+        schedule: every day at noon / 12 0 * * *
