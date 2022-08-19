@@ -2,5 +2,7 @@ commit_message: 'Fix: New translations %original_file_name% from Crowdin'
 files:
   - source: /config/locales/zealot/zh-CN.yml
     translation: /config/locales/zealot/%two_letters_code%.yml
+    escape_special_characters: 0
   - source: /config/locales/simple_form/simple_form.zh-CN.yml
     translation: /config/locales/simple_form/simple_form.%two_letters_code%.yml
+    escape_special_characters: 0
