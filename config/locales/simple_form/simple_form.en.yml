@@ -64,7 +64,7 @@ en:
       apple_team:
         display_name: Display name
         name: Team name
-        team_id: Team id
+        team_id: Team ID
       backup:
         general: General settings
         key: Key
@@ -86,23 +86,23 @@ en:
       scheme:
         name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
       channel:
-        name: 'Recommended to distinguish different channels according to the application platform, single platform applications can also be the name of the distribution market.'
-        device_type: 'Whic device type of app. for example, iOS, Android, macOS etc.'
+        name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
+        device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
         bundle_id: 'Validate the bundle id (package name) of app, leave empty or fill * to skip validate.'
         git_url: 'Git URL, for example, the repo URL of Github, Gitlab or self-host.'
         slug: 'A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.'
         password: 'Need password by fill it when user is not log in.'
       release:
         file: Support iOS.ipa、Android.apk and macOS.app.zip file
-        changelog: a log or record of all notable changes made to a upload.
-        release_type: 'iOS: debug、adhoc、release; Android: debug、release'
+        changelog: A log or record of all notable changes made to a upload.
+        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
-        ci_url: the detail URL of Jenkins、Gitlab CI
+        ci_url: the detail URL of Jenkins, Gitlab CI
       web_hook:
         body: 'Custom JSON struct body to apply the third party notification services, Use default struct by leave it empty.'
       debug_file:
-        device_type: 'Whic device type of app. for example, iOS, Android, macOS etc.'
+        device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
         file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
       setting:
         value: 'Use JSON standard format to edit, otherwise it will fail to save.'
@@ -114,7 +114,7 @@ en:
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
     placeholders:
       release:
-        changelog: The developer is lazy without leaving anyting.
+        changelog: The developer is lazy without leaving anything.
       web_hook:
         url: 'http://example.com/web-hooks'
         body: |
