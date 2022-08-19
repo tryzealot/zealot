@@ -19,7 +19,6 @@ class ReleasesController < ApplicationController
 
   def show
     authorize @release
-    @title = @release.app_name
   end
 
   def new
@@ -33,30 +32,31 @@ class ReleasesController < ApplicationController
     @release = @channel.releases.upload_file(release_params)
     authorize @release
 
-    return render :new unless @release.save
+    return render :new, status: :unprocessable_entity unless @release.save
 
     # 触发异步任务
     @release.channel.perform_web_hook('upload_events')
     @release.perform_teardown_job(current_user.id)
 
     message = t('activerecord.success.create', key: "#{t('releases.title')}")
-    redirect_to channel_release_url(@channel, @release), notice: message
+    redirect_to channel_release_path(@channel, @release), notice: message
   end
 
   def destroy
     authorize @release
     @release.destroy
-    redirect_to channel_versions_url(@channel), notice: t('activerecord.success.destroy', key: "#{t('releases.title')}")
+
+    notice = t('activerecord.success.destroy', key: "#{t('releases.title')}")
+    redirect_to friendly_channel_releases_path(@channel), status: :see_other, notice: notice
   end
 
   def auth
-    if @channel.password == params[:password]
-      cookies["app_release_#{@release.id}_auth"] = @channel.encode_password
-      redirect_to friendly_channel_release_path(@channel, @release)
-    else
+    unless @release.password_match?(cookies, params[:password])
       @error_message = t('releases.messages.errors.invalid_password')
-      render :show
+      return render :show, status: :unprocessable_entity
     end
+
+    redirect_to friendly_channel_release_path(@channel, @release), status: :see_other
   end
 
   protected
@@ -70,7 +70,9 @@ class ReleasesController < ApplicationController
   end
 
   def app_limited?
-    request.user_agent.include?('MicroMessenger') || request.user_agent.include?('DingTalk')
+    Setting.preset_install_limited
+      .find {|q| request.user_agent.include?(q) }
+      .present?
   end
 
   def set_release

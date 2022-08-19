@@ -2,7 +2,7 @@
   .card-header
     h3.card-title
       i.icon.fas.fa-archive
-      = t('channels.show.majar_versions')
+      = t('channels.show.major_versions')
   .card-body.table-responsive.p-0
     - if @versions.count > 0
       table.table
@@ -19,5 +19,5 @@
       .p-3 = t('channels.show.empty_version_shortly')
   - if @versions.count > 0
     .card-footbar
-      a.btn.btn-default.btn-block href="#{friendly_channel_versions_path(@channel)}"
+      a.btn.btn-default.btn-block.btn-flat href="#{friendly_channel_versions_path(@channel)}"
         = t('channels.show.more')
