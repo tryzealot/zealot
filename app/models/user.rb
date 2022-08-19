@@ -9,7 +9,7 @@ class User < ApplicationRecord
   include UserRoles
   enum role: %i[user developer admin]
 
-  has_and_belongs_to_many :apps
+  has_and_belongs_to_many :apps, dependent: :destroy
   has_many :providers, dependent: :destroy, class_name: 'UserProvider'
 
   validates :username, presence: true

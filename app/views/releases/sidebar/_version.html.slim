@@ -1,12 +1,9 @@
-ruby:
-  channel = @release.channel
-
 - if channel.release_versions.count > 0
   .card
     .card-header
       h3.card-title
         i.icon.fas.fa-archive
-        = t('releases.show.majar_versions')
+        = t('releases.show.major_versions')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus

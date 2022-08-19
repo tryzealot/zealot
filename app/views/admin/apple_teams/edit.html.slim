@@ -1,0 +1,16 @@
+- content_for :section_title do
+  = t('.title')
+
+- content_for :title do
+  = t('.title')
+
+.row
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title = t('.title')
+        .card-tools
+          a href="#{admin_apple_key_path(@apple_team.key)}"
+            i.icon.far.fa-list-alt
+            = t('links.back_to_list')
+      == render 'form'

@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
-  include ActiveJob::Status
+  include Rails.application.routes.url_helpers
   include ActionView::Helpers::TranslationHelper
+  include ActiveJob::Status
+
+  sidekiq_options backtrace: Rails.env.development? ? true : 20
 
   protected
 
@@ -10,14 +13,22 @@ class ApplicationJob < ActiveJob::Base
     @logger ||= Sidekiq.logger
   end
 
-  def notification_user(type:, status:, user_id:, message:)
-    ActionCable.server.broadcast("notification:#{user_id}", {
+  def notificate_success(**options)
+    notification_user(**options.merge(status: 'success'))
+  end
+
+  def notificate_failure(**options)
+    notification_user(**options.merge(status: 'failure'))
+  end
+
+  def notification_user(type:, status:, message:, user_id:, **options)
+    return if user_id.blank?
+
+    bordcast_key = "notification:#{user_id}"
+    ActionCable.server.broadcast(bordcast_key, options.merge(
       type: type,
       status: status,
-      html: "<div class='alert alert-success alert-block text-center'>
-              <i class='fa fa-circle-o-notch fa-spin'></i>
-              #{t('web_hooks.messages.done')}
-            </div>"
-    })
+      message: message
+    ))
   end
 end
