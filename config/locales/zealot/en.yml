@@ -38,7 +38,7 @@ en:
     web_hooks:
       title: Webhooks
       index:
-        title: ':admin.web_hooks.title'
+        title: :admin.web_hooks.title
         number: '#'
         url: URL
         channels: Channels
@@ -69,7 +69,7 @@ en:
         team_id: Team id
         created_at: Created at
         action: Action
-        new_apple_key: ':admin.apple_keys.new.title'
+        new_apple_key: :admin.apple_keys.new.title
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
@@ -107,7 +107,7 @@ en:
         title: Edit setting
       enable: Enabled
       disable: Disabled
-      validates: 'Rule：%{value}'
+      validates: 'Rule: %{value}'
       general: General
       site_https: Enable HTTPS
       site_title: Site title
@@ -154,7 +154,9 @@ en:
         os_info: OS info
         ruby_version: Ruby version
         cpu_info: CPU
-        cpu_core: '%{count} 核'
+        cpu_core:
+          one: '%{count} Core'
+          other: '%{count} Cores'
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -186,7 +188,9 @@ en:
         edit: Edit
         destroy: Destroy
         database: Database
-        app: '%{count} 应用'
+        app:
+          one: '%{count} App'
+          other: '%{count} Apps'
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
@@ -210,9 +214,9 @@ en:
       perform:
         success: Backup was successfully scheduled to run in the background.
       destroy_archive:
-        success: 备份文件成功删除
+        success: Backup was deleted successfully.
       parse_schedule:
-        invaild_expression: Invaild expression
+        invalid_expression: Invalid expression
     background_jobs:
       title: Background jobs
       index:
@@ -235,7 +239,7 @@ en:
       teardowns: :teardowns.title
       uploads: Uploads
       web_hooks: :admin.web_hooks.title
-      users: ':admin.users.title'
+      users: :admin.users.title
       background_jobs: :admin.background_jobs.title
       disk_usage: Disk usage
     timeline:
@@ -265,11 +269,11 @@ en:
         title: Not found any scheme.
         body_html: |
           <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
-          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided：</p>
+          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
             <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>Use the app store channal in Android app：</p>
+          <p>Use the app store channal in Android app:</p>
           <ul>
             <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
@@ -325,7 +329,7 @@ en:
       release_version: Release version
       total_version: Versions
       empty_version_shortly: Nothing
-      empty_version: Not found any release with this version！
+      empty_version: Not found any release with this version!
       more: More
     new:
       title: 'Create new channel for %{name}'
@@ -384,7 +388,7 @@ en:
       last_ten_uploads: Activity
       upload_release: :dashboard.timeline.upload_release
       changelog: Changelog
-      devices: '%{count} 台测试设备 (UDID)'
+      devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
@@ -493,7 +497,7 @@ en:
       actions: Action
       anonymous: Anonymous
       not_found:
-        title: Not found any teardown！
+        title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
       title: 'Teardown: %{name} %{release_version} (%{build_version})'
@@ -515,7 +519,7 @@ en:
       min_macos_version: Min macOS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
-      developer_certs_list: '开发者证书 (%{count})'
+      developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
       mobileprovision: Mobileprovision
@@ -720,21 +724,6 @@ en:
       channel3: oppo
       channel4: vivo
       channel5: xiaomi
-  datetime:
-    distance_in_words:
-      about_x_hours: 大约 %{count} 小时
-      about_x_months: 大约 %{count} 个月
-      about_x_years: 大约 %{count} 年
-      almost_x_years: 接近 %{count} 年
-      half_a_minute: 半分钟前
-      less_than_x_seconds: 不到 %{count} 秒
-      less_than_x_minutes: 不到 %{count} 分钟
-      over_x_years: " %{count} 年多"
-      x_seconds: " %{count} 秒"
-      x_minutes: " %{count} 分钟"
-      x_days: " %{count} 天"
-      x_months: " %{count} 个月"
-      x_years: " %{count} 年"
   errors:
     code:
       '400':
@@ -762,11 +751,9 @@ en:
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
-      blank: 不能为空值
-      inclusion: 不包含在可选值列表中
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optinal value: %{value}'
-      invaild_in_demo_mode: Forbidden in demo mode
+      invalid_in_demo_mode: Forbidden in demo mode
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
@@ -789,8 +776,6 @@ en:
     errors:
       same_value: "%{key} not change, skip to update"
       models:
-        setting:
-          default_message: "请检查 '%{key}' 的如下问题："
         debug_file:
           attributes:
             app_id:
@@ -802,7 +787,7 @@ en:
         backup:
           attributes:
             schedule:
-              invalid: 表达式格式错误
+              invalid: Invalid expression
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
@@ -861,8 +846,8 @@ en:
       apple_team:
         update: Update
       backup:
-        create: 创建备份
-        update: 更新备份
+        create: Create
+        update: Update
   views:
     pagination:
       truncate: ...
