@@ -26,9 +26,9 @@ en:
         status: Status
         last_login_time: Last login time
         action: Action
-        actived: Actived
-        unactive: Unactive
-        never_logined: Never logined
+        active: Active
+        inactive: Inactive
+        never_logged_in: Never logged in
         destroy_user: Destroy
         destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
       edit:
@@ -44,7 +44,7 @@ en:
         channels: Channels
         action: Action
         not_found: Not found any Webhook.
-        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destory them here.
+        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
         destroy: Destroy
         destroy_confirm: Destroy confirm?
       show:
@@ -66,7 +66,7 @@ en:
         title: :admin.apple_keys.title
         number: '#'
         team_name: Team name
-        team_id: Team id
+        team_id: Team ID
         created_at: Created at
         action: Action
         new_apple_key: :admin.apple_keys.new.title
@@ -118,13 +118,13 @@ en:
       preset_schemes: Default schemes
       preset_role: Default user role
       preset_install_limited: In-App install limited
-      preset_install_limited_hint: "Specific mobile applications can not be install (Eg. WeChat, Dingtalk etc.),\nusing keywords of User Agent to guide open the browser to install."
+      preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
       demo_mode: Demo mode
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
-      third_party_auth: Third pary auth
+      third_party_auth: Third-party Auth
       ldap: LDAP
       feishu: Feihsu
       gitlab: Gitlab
@@ -202,7 +202,7 @@ en:
         size: Size
         download: Download
         destroy: Destroy
-        unknown_job_status: Unknown happend! Try again or report to zealot developer please.
+        unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
         not_found:
           title: Not found any backup file
@@ -244,7 +244,7 @@ en:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_release: uploaded a verison %{release_version} (%{build_version})
+      upload_release: uploaded a version %{release_version} (%{build_version})
       not_found: Not found any upload.
   apps:
     title: Apps
@@ -325,7 +325,7 @@ en:
       release_type: Release type
       uploaded_at: Uploaded time
       actions: Action
-      majar_versions: Majar versions
+      major_versions: Major versions
       release_version: Release version
       total_version: Versions
       empty_version_shortly: Nothing
@@ -359,9 +359,9 @@ en:
     show:
       enter_password: Enter password
       app_limited: Install limited in current app
-      app_touch_menu: Click menu right-top concor
+      app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
-      app_open_in_webbrower: Open with any brower and install
+      app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
       released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
@@ -370,7 +370,7 @@ en:
       device_type: Device
       release_version: Release version (build version)
       release_type: Release type
-      filesize: Filesize
+      filesize: File size
       uploaded_at: Uploaded time
       git_branch: Git branch
       git_commit: Git commit SHA
@@ -392,7 +392,7 @@ en:
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      majarzersions: :channels.show.majar_versions
+      majarzersions: :channels.show.major_versions
       view_detail: Manage channel
     new:
       title: :channels.show.upload_release
@@ -401,7 +401,7 @@ en:
         not_found: Can not download, missing binary file.
     messages:
       default_changelog: |
-        Not found any changelog, cause:
+        Not found changelog, cause:
 
         - The developer is lazy without leaving anyting 😂
         - Error occurred 👽
@@ -429,13 +429,13 @@ en:
         deleted_manually: Maybe clean up manually
         deleted_programly: Maybe clean up by enabled auto clean in system
         not_found_really: Not found release
-        invalid_password: Invailed password
+        invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
   debug_files:
     title: Debug files
     index:
       upload: Upload a debug file
-      processing: Processing in background, refreash the web page later.
+      processing: Processing in background, refresh the web page later.
       version: 'Version: %{version}'
       download: Download (%{size})
       destroy: Destroy
@@ -506,7 +506,7 @@ en:
       expired: Expired now!
       related_app: Release related
       related_body: This teardown was relates with
-      unknow_app_name: Unkown
+      unknow_app_name: Unknown
       metadata: Metadata
       app_name: App name
       version: Version
@@ -529,7 +529,7 @@ en:
       created_at: Created time
       expired_at: Expired time
     help:
-      title: Helpe center
+      title: Help center
       body_html: |
         <p>
           Click the button <i class="far fa-plus-square"></i> to upload app and use
@@ -591,13 +591,13 @@ en:
       upload_events: '%{name} uploaded release %{version}'
       download_events: '%{name} %{version} downloaded'
       changelog_events: '%{name} %{version} update the changelog'
-      unknown_events: '%{name} triggered unkown event: %{event}'
+      unknown_events: '%{name} triggered unknown event: %{event}'
       errors:
         not_found_file: 'Not found debug file: %{message}'
         failed_detect_file_type: Failed to detect file type
         not_support_file_type: Not support file type
-        failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
-        unknown_parse: 'Unkown parse error [%{class}]: %{message}'
+        failed_get_metadata: Failed to parse, make sure supported file type and unhardened
+        unknown_parse: 'Unknown parse error [%{class}]: %{message}'
         choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
   udid:
     title: Fetch UDID
@@ -606,7 +606,7 @@ en:
       nonapple_tip: :udid.index.apple_tip
       fetch_udid: Get your UDID now
       help:
-        title: Why need install profile to fetch your UDID?
+        title: Why need to install profile to fetch your UDID?
         body_html: |
           <p>
             UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
@@ -625,11 +625,11 @@ en:
     show:
       title: Device
       metadata: Metadata
-      registered_but_no_related_app: Device was registerd to Apple Developr, but not found any related app.
-      registered_with_related_apps: Device was registerd to Apple Developr, install app below.
+      registered_but_no_related_app: Device was registered to Apple Developer, but not found any related app.
+      registered_with_related_apps: Device was registered to Apple Developer, install app below.
       register: Device is unregister, choose Apple Developer to register.
       unregistered: New device found, copy the UDID to Apple Developer!
-      registered_apps: Registerd apps
+      registered_apps: Registered apps
       udid: UDID
       serial: Serial
       product: Product
@@ -752,13 +752,13 @@ en:
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
-      optional_value: 'Optinal value: %{value}'
+      optional_value: 'Optional value: %{value}'
       invalid_in_demo_mode: Forbidden in demo mode
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
       homepage_title: homepage
-      unknown_file_type: Unkown file type to parse
+      unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page please.
@@ -772,7 +772,7 @@ en:
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
-      destroy: "Deleteed %{key} successfully"
+      destroy: "Deleted %{key} successfully"
     errors:
       same_value: "%{key} not change, skip to update"
       models:
