@@ -8,7 +8,7 @@ en-US:
   log_in: Log in
   intro:
     title: Over The Air Server for deployment of mobile and macOS apps
-    description: Zealot makes it easy to let users to test your apps which it provides rich component libraries to make integration with Jenkins and Gitlab easily.
+    description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
   links:
     back_to_list: Back to list
   admin:
