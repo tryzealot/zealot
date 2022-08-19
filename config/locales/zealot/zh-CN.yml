@@ -9,7 +9,7 @@ zh-CN:
 
   intro:
     title: 移动应用上传竟然如此简单、移动 App 应用分发系统
-    description: 解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
+    description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
 
   links:
     back_to_list: 返回列表
