@@ -1,536 +1,535 @@
 en-US:
-  function_section: 功能区域
-  toolbox_section: 工具箱
-  admin_section: 管理面板
-  monitors_section: 监控
-  user_profile: 详情
-  log_out: 登出
-  log_in: 登录
+  function_section: Function
+  toolbox_section: Toolbox
+  admin_section: Admin
+  monitors_section: Monitor
+  user_profile: User profile
+  log_out: Log out
+  log_in: Log in
   intro:
-    title: 移动应用上传竟然如此简单、移动 App 应用分发系统
-    description: 解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
+    title: Over The Air Server for deployment of mobile and macOS apps
+    description: Zealot makes it easy to let users to test your apps which it provides rich component libraries to make integration with Jenkins and Gitlab easily.
   links:
-    back_to_list: 返回列表
+    back_to_list: Back to list
   admin:
     users:
-      title: 用户
+      title: Users
       new:
-        title: 新建用户
+        title: New user
       index:
         title: ':''admin.users.title'''
         new_user: ':''admin.users.new.title'''
         number: '#'
-        nickname: 用户昵称
-        email: 邮箱
-        role: 权限
-        status: 状态
-        last_login_time: 最后登录时间
-        action: 操作
-        actived: 已激活
-        unactive: 未激活
-        never_logined: 从未登录
-        destroy_user: 删除
-        destroy_user_confirm: 你确定要删除【%{user}】用户？
+        nickname: Nickname
+        email: E-mail
+        role: Role
+        status: Status
+        last_login_time: Last login time
+        action: Action
+        actived: Actived
+        unactive: Unactive
+        never_logined: Never logined
+        destroy_user: Destroy
+        destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
       edit:
-        title: 用户信息
-        active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+        title: User information
+        active_link: Active link
+        active_link_tip: If the inviting user does not receive the activation email, send this link to active.
     web_hooks:
-      title: 网络钩子
+      title: Webhooks
       index:
         title: ':''admin.web_hooks.title'''
         number: '#'
         url: URL
-        channels: 渠道列表
-        action: 操作
-        not_found: 没有发现网络钩子
-        create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
-        destroy: 删除
-        destroy_confirm: 你确定？
+        channels: Channels
+        action: Action
+        not_found: Not found any Webhook.
+        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destory them here.
+        destroy: Destroy
+        destroy_confirm: Destroy confirm?
       show:
-        title: 网络钩子详情
+        title: Webhook detail
       new:
-        title: 新建网络钩子
+        title: New Webhook
       edit:
-        title: 编辑网络钩子
+        title: Edit Webhook
       messages:
         success:
-          enable: 网络钩子已经成功启用
-          disable: 网络钩子已经取消启用
-          test: 网络钩子请求测试已发送
+          enable: Enabled the Webhook successfully
+          disable: Disabled the Webhook successfully
+          test: Test sent successfully
     apple_keys:
-      title: 苹果开发者
+      title: Apple Developer
       new:
-        title: 添加开发者
+        title: New Apple Developer
       index:
         title: ':''admin.apple_keys.title'''
         number: '#'
-        team_name: 团队名称
-        team_id: 团队标识符
-        created_at: 创建时间
-        action: 操作
+        team_name: Team name
+        team_id: Team id
+        created_at: Created at
+        action: Action
         new_apple_key: ':''admin.apple_keys.new.title'''
-        destroy: 删除
-        destroy_confirm: 确定删除苹果开发者【%{team} (%{team_id})】
+        destroy: Destroy
+        destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
-          title: 没有发现任何苹果开发者
-          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增。
+          title: Not found Apple Developer.
+          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: ':''admin.apple_keys.title'''
-        team_metadata: 团队信息
-        key_metadata: 密钥信息
-        devices: 测试设备 (%{size})
-        sync_now: 现在同步
-        last_synced_at: 上次同步时间为 %{time}
-        never_sync: 尚未同步
+        team_metadata: Team metadata
+        key_metadata: Key Metadata
+        devices: Devices (%{size})
+        sync_now: Sync now
+        last_synced_at: Last synced at %{time}
+        never_sync: Never sync
         udid: ':''udid.show.udid'''
         udid_name: ':''udid.show.name'''
         udid_platform: ':''udid.show.platform'''
         udid_model: ':''udid.show.model'''
-        udid_related_apps: 关联应用
-        udid_created_at: 创建时间
+        udid_related_apps: Related Apps
+        udid_created_at: Created at
       create:
-        successful: 创建成功并成功同步开发者的相关信息
+        successful: Created Apple Developer successfully
     apple_teams:
       edit:
-        title: 更新苹果开发者名称
+        title: Edit team metadata
     settings:
-      title: 系统设置
+      title: Settings
       index:
         title: ':''admin.settings.title'''
-        apply_for_restart: 需重启服务生效
-        service_restarting: 服务重启中 ...
-        service_restarted: 刷新页面 ...
+        apply_for_restart: Apply for restart
+        service_restarting: Service restarting ...
+        service_restarted: Refresh page ...
       update:
-        title: 编辑设置
+        title: Edit setting
       edit:
-        title: 编辑设置
-      enable: 开启
-      disable: 关闭
-      validates: '条件：%{value}'
-      general: 通用配置
-      site_https: 启用 HTTPS
-      site_title: 网站标题
-      site_locale: 网站语言
-      site_domain: 网站域名
-      site_appearance: 网站外观
-      presets: 预设值
-      preset_schemes: 应用类型模板
-      preset_role: 新用户权限
-      preset_install_limited: 应用内安装限制
-      preset_install_limited_hint: 特定手机应用打开无法进行安装操作（比如：微信、钉钉等），通过设置 User Agent 关键词开启使用浏览器打开安装帮助
-      switch_mode: 模式开关
-      registrations_mode: 注册模式
-      guest_mode: 游客模式
-      demo_mode: 演示模式
-      demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
-      third_party_auth: 第三方登录
+        title: Edit setting
+      enable: Enabled
+      disable: Disabled
+      validates: 'Rule：%{value}'
+      general: General
+      site_https: Enable HTTPS
+      site_title: Site title
+      site_locale: Site Locale
+      site_domain: Site domain
+      site_appearance: Site Appearance
+      presets: Presets
+      preset_schemes: Default schemes
+      preset_role: Default user role
+      preset_install_limited: In-App install limited
+      preset_install_limited_hint: "Specific mobile applications can not be install (Eg. WeChat, Dingtalk etc.),\nusing keywords of User Agent to guide open the browser to install."
+      switch_mode: Switch mode
+      registrations_mode: Registrations mode
+      guest_mode: Guest mode
+      demo_mode: Demo mode
+      demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
+      third_party_auth: Third pary auth
       ldap: LDAP
-      feishu: 飞书
+      feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
       backup: 备份
       #misc: 杂项
-      stmp: 邮件配置
-      mailer_default_from: 默认邮件发件地址
-      mailer_default_to: 默认邮件发件人
-      mailer_options: 发件服务器配置
-      analytics: 统计
-      google_analytics_id: Google 统计
-      archives: 上传文件
-      keep_uploads: 永久保存上传应用版本
-      empty_value: 空值
-      no_editable_key: 当前设置为可读，无法修改
-      reset: 恢复默认值
+      stmp: Mail STMP
+      mailer_default_from: Default email send from
+      mailer_default_to: Default sender
+      mailer_options: Options
+      analytics: Analytics
+      google_analytics_id: Google Analytics ID
+      archives: Archive uploaded binaries
+      keep_uploads: Keep all builds
+      empty_value: Empty
+      no_editable_key: Read only
+      reset: Reset to default value
     system_info:
-      title: 环境信息
+      title: System information
       index:
         title: ':''admin.system_info.title'''
-        zealot_version: Zealot 版本
-        vcs_ref: 哈希值
-        build_date: 构建日期
-        server_info: 服务器信息
-        found_new_version: '发现新版本: %{version}'
-        os_info: 操作系统
-        ruby_version: Ruby 版本
+        zealot_version: Zealot version
+        vcs_ref: VCS Ref
+        build_date: Build date
+        server_info: Server info
+        found_new_version: 'Found new version: %{version}'
+        os_info: OS info
+        ruby_version: Ruby version
         cpu_info: CPU
         cpu_core: '%{count} 核'
-        fail_detect_cpu: CPU 信息监测失败
-        memory_info: 内存
-        fail_detect_memory: 内存信息监测失败
-        disk_info: 磁盘
-        lauched_time: 运行时间
-        volume_mounted: 挂载信息
-        fail_detect_disk: 无法解读硬盘信息
-        system_environment: 系统变量
-        file_permissions: 文件权限
-        services: 服务状态
+        fail_detect_cpu: Fail to detect CPU information
+        memory_info: Memory
+        fail_detect_memory: Fail to detect memory information
+        disk_info: Disk
+        lauched_time: Launched time
+        volume_mounted: Volume mounted
+        fail_detect_disk: Fail to detect disk information
+        system_environment: System environment
+        file_permissions: File permissions
+        services: Services health
         ruby_gems: Ruby Gems
-        logs: 日志
-        new_version: '发现新版本 '
-        dev_new_version: 发现新版本 (开发环境始终显示)
+        logs: Logs
+        new_version: 'Found new version'
+        dev_new_version: Found new version (dev mode)
         messages:
-          file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
+          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
     backups:
-      title: 数据备份
+      title: Backups
       index:
         title: ':''admin.backups.title'''
-        new_backup: ':''admin.backups.new.title'''
-        key: 备份名称
-        scopes: 备份范围
-        schedule: 备份频率
-        next_schedule_at: 下次备份时间
-        enabled: 启用
-        action: 操作
-        run_now: 生成备份
-        edit: 编辑
-        destroy: 删除
-        database: 数据库
+        new_backup: New backup
+        key: Key
+        scopes: Scopes
+        schedule: Schedule
+        next_schedule_at: Next schedule at
+        enabled: Enabled
+        action: Action
+        run_now: Run now
+        edit: Edit
+        destroy: Destroy
+        database: Database
         app: '%{count} 应用'
-        destroy_confirm: 确认删除 %{key}？
+        destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
-          title: 没有发现任何备份计划
-          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
+          title: Not found any backup
+          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
       show:
-        title: '%{key} 备份计划'
-        filename: 文件名
-        created_at: 生成时间
-        size: 大小
-        download: 下载
-        destroy: 删除
-        unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
-        current_step: 任务进行中，当前状态 %{step}
+        title: '%{key} backup'
+        filename: Filename
+        created_at: Created at
+        size: Size
+        download: Download
+        destroy: Destroy
+        unknown_job_status: Unknown happend! Try again or report to zealot developer please.
+        current_step: Processing, current %{step}
         not_found:
-          title: 没有发现任何备份文件
-          body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
+          title: Not found any backup file
+          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
-        title: 新增备份
+        title: New backup
       edit:
-        title: 编辑 %{key} 备份计划
+        title: Edit %{key} backup
       perform:
-        success: 备份任务正在后台工作中
+        success: Backup was successfully scheduled to run in the background.
       destroy_archive:
         success: 备份文件成功删除
       parse_schedule:
-        invaild_expression: 表达式无法解析
+        invaild_expression: Invaild expression
     background_jobs:
-      title: 后台任务
+      title: Background jobs
       index:
         title: ':''admin.background_jobs.title'''
     database_analytics:
-      title: 数据库分析
+      title: Database analytics
       index:
         title: ':''admin.database_analytics.title'''
     logs:
-      title: 服务日志
+      title: Service logs
       index:
         title: ':''admin.logs.title'''
-        loading: 日志加载中 ...
-        error_message: 日志获取失败，返回状态码：
+        loading: Loading ...
+        error_message: 'Failed fetch logs, return status code: '
   dashboard:
-    title: 控制台
+    title: Dashboard
     analytics:
       apps: ':''apps.title'''
       debug_files: ':''debug_files.title'''
       teardowns: ':''teardowns.title'''
-      uploads: 上传次数
+      uploads: Uploads
       web_hooks: ':''admin.web_hooks.title'''
-      users: ':''admin.users.title'''
+      users: ':''users.title'''
       background_jobs: ':''admin.background_jobs.title'''
-      disk_usage: 磁盘使用率
+      disk_usage: Disk usage
     timeline:
-      title: 上传时间线
-      upload_release: 上传了新版本 %{release_version} (%{build_version})
-      not_found: 没有任何上传，快快上传吧。
+      title: Timeline
+      upload_release: uploaded a verison %{release_version} (%{build_version})
+      not_found: Not found any upload.
   apps:
-    title: 应用
+    title: Apps
     index:
-      schemes: 类型
-      channels: 渠道
-      uploads: 上传
-      created_at: 创建于%{time}
+      schemes: schemes
+      channels: channels
+      uploads: uploads
+      created_at: Created at %{time}
       not_found:
-        title: 没有发现任何应用
-        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增应用。
+        title: Not found app.
+        body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
     show:
-      new_scheme: 新增类型
-      edit_app: 编辑应用
-      destroy_app: 删除应用
-      new_channel: 新增渠道
-      edit_scheme: 编辑类型
-      destory_scheme: 删除类型
+      new_scheme: New scheme
+      edit_app: Edit app
+      destroy_app: Destroy app
+      new_channel: New Channel
+      edit_scheme: Edit Scheme
+      destory_scheme: Destroy Scheme
       not_found_channel_body_html: |
-        没有发现任何渠道，选择右上角的 <i class="far fa-plus-square"></i> 新增渠道
+        Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
       not_found_scheme:
-        title: 没有发现任何应用类型
+        title: Not found any scheme.
         body_html: |
-          <p>选择右上角的 <i class="far fa-plus-square"></i> 新增类型</p>
-          <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
+          <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
+          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided：</p>
           <ul>
-            <li>开发版本、内测版本、公测版本、线上版本</li>
+            <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>如果应用仅提供 Android 版本，可以按照应用渠道划分为：</p>
+          <p>Use the app store channal in Android app：</p>
           <ul>
-            <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
+            <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
     new:
-      title: 新建应用
+      title: New app
     edit:
-      title: 编辑应用
+      title: Edit app
     messages:
       failture:
-        not_found_app_by_version: '没有找到应用版本: %{version}'
-        not_found_app: 没有找到应用 %{id}，跳转至应用列表
-        missing_schemes_and_channels: 没有勾选任何应用类型和渠道！
+        not_found_app_by_version: 'Not found app version: %{version}.'
+        not_found_app: Not found app by id %{id}, redirect to list of app.
+        missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
-        delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
-        delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
-        delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
+        delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
+        delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
+        delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
   schemes:
-    title: 应用类型
+    title: Schemes
     show:
-      empty_channel: 没有发现已创建的渠道，请新建一个
+      empty_channel: Not found any channel.
     new:
-      title: '%{app}新建类型'
+      title: 'New scheme for %{app}'
     edit:
-      title: '%{app}编辑类型'
+      title: 'Edit scheme for %{app}'
   channels:
-    title: 应用渠道
-    subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
+    title: Channels
+    subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
     show:
       scheme: ':''schemes.title'''
       channel: ':''channels.title'''
-      activity: 最近上传动态
-      upload_release: 上传应用
-      metadata: 渠道信息
-      device_type: 设备类型
-      slug: 唯一地址
-      password: 访问密码
-      git_url: Git 仓库地址
-      match_rule: 匹配模式 %{value}
-      wildmatch: (不限制上传包的包名)
-      total_releases: 上传版本
-      channel_key: 渠道 KEY
-      edit_channel: 渠道管理
-      none: 无
-      not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
+      activity: Activity
+      upload_release: Upload a release
+      metadata: Metadata
+      device_type: Device type
+      slug: Slug
+      password: Visit password
+      git_url: Git URL
+      match_rule: Match Rule %{value}
+      wildmatch: (wild match)
+      total_releases: Total uploads
+      channel_key: Channel KEY
+      edit_channel: Edit channel
+      none: None
+      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
       id: ID
-      build_version: 开发版本
-      git_branch: 分支
-      git_commit: 开发版本
-      release_type: 打包类型
-      uploaded_at: 上传时间
-      actions: 操作
-      majar_versions: 历史主版本
-      release_version: 主版本号
-      total_version: 版本数量
-      empty_version_shortly: 暂无版本
-      empty_version: 该版本没有任何上传记录！
-      more: 查看更多
+      build_version: Build version
+      git_branch: Branch
+      git_commit: Commit SHA
+      release_type: Release type
+      uploaded_at: Uploaded time
+      actions: Action
+      majar_versions: Majar versions
+      release_version: Release version
+      total_version: Versions
+      empty_version_shortly: Nothing
+      empty_version: Not found any release with this version！
+      more: More
     new:
-      title: '%{name}新建渠道'
+      title: 'Create new channel for %{name}'
     edit:
-      title: '%{name}编辑渠道'
+      title: 'Edit channel for %{name}'
     branches:
       index:
-        subtitle: '%{branch} 分支版本列表'
+        subtitle: 'Releases of branch %{branch}'
     release_types:
       index:
-        subtitle: '%{type} 类型版本列表'
+        subtitle: 'Releases of scheme %{type}'
     versions:
       index:
-        subtitle: 版本列表
+        subtitle: Releases
       show:
-        subtitle: '%{version} 主版本列表'
+        subtitle: 'Releases of version %{version}'
     messages:
       confirm:
         destroy: ':''web_hooks.messages.confirm.destroy'''
       errors:
-        not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
+        not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
-    title: 应用版本
+    title: Build
     sources:
-      web: 网页上传
-      api: 接口上传
+      web: Web
+      api: API
     show:
-      enter_password: 访问密码
-      app_limited: 无法在当前应用安装
-      app_touch_menu: 点击右上角菜单
-      app_open_in_safari: 在 Safari 中打开并安装
-      app_open_in_webbrower: 在任意浏览器中打开并安装
-      not_latest_release: 当前不是最新版本！
-      released_new_version: '%{release_version} (%{build_version}) 于%{time}发布了，%{link}。'
-      view_latest_version: 查看最新版本
-      name: 应用
-      version: 上传版本
-      device_type: 平台
-      release_version: 构建版本
-      release_type: 打包类型
-      filesize: 文件体积
-      uploaded_at: 上传时间
-      git_branch: Git 分支
-      git_commit: Git 提交 SHA
-      source: 上传来源
-      metadata: 更多信息
-      teardown_meatdata: 解包信息
-      install: 安装
-      download: 下载
-      installing: 安装到桌面 ...
-      installed: 安装请求完毕，请查看桌面
-      destroy: 删除
-      missing_file: 遗失文件不可安装或下载
-      more: 更多上传
-      cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
-      last_ten_uploads: 最近 10 次上传
+      enter_password: Enter password
+      app_limited: Install limited in current app
+      app_touch_menu: Click menu right-top concor
+      app_open_in_safari: Choose "Open in Safari" and install
+      app_open_in_webbrower: Open with any brower and install
+      not_latest_release: New release found!
+      released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
+      view_latest_version: Check it out
+      name: App
+      version: Auto Version
+      device_type: Device
+      release_version: Release version (build version)
+      release_type: Release type
+      filesize: Filesize
+      uploaded_at: Uploaded time
+      git_branch: Git branch
+      git_commit: Git commit SHA
+      source: Source
+      metadata: Metadata
+      teardown_meatdata: More metadata
+      install: Install
+      download: Download
+      installing: Installing ...
+      installed: Install requested
+      destroy: Destroy
+      missing_file: Missing file
+      more: More releases
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
+      last_ten_uploads: Activity
       upload_release: ':''dashboard.timeline.upload_release'''
-      changelog: 更新日志
+      changelog: Changelog
       devices: '%{count} 台测试设备 (UDID)'
-      sync_devices_feature: 推荐使用%{link}同步设备名称
-      qrcode: 二维码
-      scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
+      sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      qrcode: QR Code
+      scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       majarzersions: ':''channels.show.majar_versions'''
-      view_detail: 渠道详情
+      view_detail: Manage channel
     new:
       title: ':''channels.show.upload_release'''
     install:
       show:
-        not_found: 找不到应用文件，无法提供下载服务
+        not_found: Can not download, missing binary file.
     messages:
       default_changelog: |
-        没有找到更新日志，可能的原因：
+        Not found any changelog, cause:
 
-        - 开发者很懒没有留下更新日志😂
-        - 有不可抗拒的因素造成日志丢失👽
+        - The developer is lazy without leaving anyting 😂
+        - Error occurred 👽
       install_error:
-        title: 安装中的错误及解决办法
+        title: What is the solution?
         body_html: |
           <ol class="mb-0">
             <li>
-              在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
-              选择该应用对应的企业证书，点击文字 "信任企业开发者"。
+              If you manually install an app on iOS 9+, you must also manually establish trust.
+              Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
             </li>
-            <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
+            <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
           </ol>
-        ok: 明白了
+        ok: Okay
       confirm:
         destroy: ':''web_hooks.messages.confirm.destroy'''
       errors:
-        not_found_release_and_redirect_to_channel: 应用版本不存在或已经被移除，页面跳转至应用渠道详情
-        not_found_release_and_redirect_to_latest_release: 版本不存在或已经被移除，跳转至最新版本
-        not_found: 页面找不到
-        not_found_app: 应用不存在或已经被移除
-        not_found_release: 应用版本不存在或被移除
-        redirect_to_app_list: 跳转到应用列表
-        reidrect_channel_detal: 跳转应用渠道详情
-        deleted_manually: 可能当前版本被人工删除
-        deleted_programly: 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
-        not_found_really: 您访问的应用版本真的不存在
-        invalid_password: 密码错误，请重新输入
-        bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
+        not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
+        not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
+        not_found: Not found
+        not_found_app: App not found or had been destroyed
+        not_found_release: Not found any release of channel
+        redirect_to_app_list: Redirect to app list
+        reidrect_channel_detal: Redirect to channel page
+        deleted_manually: Maybe clean up manually
+        deleted_programly: Maybe clean up by enabled auto clean in system
+        not_found_really: Not found release
+        invalid_password: Invailed password
+        bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
   debug_files:
-    title: 调试文件
+    title: Debug files
     index:
-      upload: 上传调试文件
-      processing: 后台任务正在解包中，请稍候刷新。
-      version: 构建版本：%{version}
-      download: 下载 (%{size}）
-      destroy: 删除
-      uploaded_at: 上传于%{time}
-      missing_file: 遗失文件无法下载
-      empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
+      upload: Upload a debug file
+      processing: Processing in background, refreash the web page later.
+      version: 'Version: %{version}'
+      download: Download (%{size})
+      destroy: Destroy
+      uploaded_at: Uploaded at %{time}
+      missing_file: Missing file
+      empty_content: Not found any debug file.
       not_found:
-        title: 没有发现任何调试文件！
-        body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
+        title: Not found any debug file!
+        body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
     help:
-      title: 帮助中心
+      title: Help center
       body_html: |
-        <h4>什么是调试文件，如何找到它？</h4>
+        <h4>What is debug file, how to location?</h4>
         <h5>iOS</h5>
-        <p>下面以 XCode 作为 IDE 详细说明定位 dSYM 文件：</p>
+        <p>Locate with Xcode:</p>
         <ul>
-          <li>打开 XCode 后点击顶部菜单 "Window" -> "Organizer"</li>
-          <li>左栏找到对应的项目并查看 "Products" 下面的 "Archivers"</li>
-          <li>右侧选择对应的构建版本点击右键 "Show in Finder" 即可 .xcarchive 目录</li>
-          <li>在该文件继续右键选择 "显示包内容" 并进入 dSYMs 目录</li>
-          <li>最后就可以找到 Target 的 dSYM 文件，最后进行压缩处理即可</li>
+          <li>Open XCode app and choose menu "Window" -> "Organizer"</li>
+          <li>Select the project and found Archivers" in "Products"</li>
+          <li>Select build -> "Show in Finder" to open .xcarchive folder</li>
+          <li>Right click -> "Display package" -> dSYMs</li>
+          <li>Zip the dSYM file</li>
         </ul>
         <p>
-          XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
+          Enabled generate dSYM in XCode: "Build Settings" -> "Build Options":
           <code>Debug Information Format = "DWARF with dSYM File"</code>
         </p>
-        <p>如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。</p>
+        <p>Or you can try "Download Debug Symbols" in XCode Organizer</p>
 
         <h5>Android</h5>
         <p>
-          通常指的是 Mapping Files，主要用于被
-          <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard 混淆</a>
-          后代码复原使用。如果使用了 tinker 还可以生成的 AndroidManifest.xml 和 R.txt 等文件也做一起压缩处理。
+          It means Mapping Files, use it to restore
+          <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard</a>
+          code to debug.
         </p>
     confirm:
       destroy:
-        title: 删除确认调试文件?
-        body: 一旦删除数据将永久无法找回或恢复，请慎重操作！
-        ok: 我心已决
-        cancel: 还是算了
+        title: Destroy the debug file confirm?
+        body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
+        ok: Destroy
+        cancel: Cancel
   teardowns:
-    title: 应用解包
+    title: Teardowns
     new:
-      title: 新建应用解包
-      file: 文件
-      choose_file: 选择文件
-      file_hint: 支持 .apk、 .aab、.ipa、.mobileprovision 以及 macOS.app.zip 文件
-      submit: 开始解包
+      title: New teardown
+      file: File
+      choose_file: Choose file
+      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
+      submit: Start work
     create:
       create: ':''teardowns.new.title'''
     index:
       create: ':''teardowns.new.title'''
-      upload_history: 上传历史
-      uploaded_at: 上传时间
-      app_name: 应用名称
-      version: 版本
-      type: 类型
-      uploader: 提交者
-      actions: 操作
-      anonymous: 匿名者
+      upload_history: History
+      uploaded_at: Uploaded time
+      app_name: App name
+      version: Version
+      type: Type
+      uploader: Uploader
+      actions: Action
+      anonymous: Anonymous
       not_found:
-        title: 没有发现任何应用解包！
-        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
+        title: Not found any teardown！
+        body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
-      title: '%{name} %{release_version} (%{build_version}) 解包信息'
-      expired_in: 还有%{time}左右过期
-      already_expired: 已经过期%{time}
-      expired: 此时此刻刚好过期了！
-      related_app: 关联提醒
-      related_body: 当前解包关联的应用是
-      unknow_app_name: 未知
-      metadata: 应用信息
-      app_name: 名称
-      version: 版本
-      package_name: 包名
-      supported_device: 支持设备
-      sdk_version_range: Android 最低版本 / 目标版本
-      file_size: 文件大小
-      release_type: 打包类型
-      min_ios_version: 最低 iOS 版本
-      min_macos_version: 最低 macOS 版本
-      capabilities: 启用能力
-      devise_list: '设备列表 (%{count})'
+      title: 'Teardown: %{name} %{release_version} (%{build_version})'
+      expired_in: Expire in %{time}
+      already_expired: Expired at %{time}
+      expired: Expired now!
+      related_app: Release related
+      related_body: This teardown was relates with 
+      unknow_app_name: Unkown
+      metadata: Metadata
+      app_name: App name
+      version: Version
+      package_name: Bundle id (package name)
+      supported_device: Supported device
+      sdk_version_range: Android min SDK / target SDK
+      file_size: File size
+      release_type: release type
+      min_ios_version: Min iOS version
+      min_macos_version: Min macOS version
+      capabilities: Capabilities
+      devise_list: 'UDID (%{count})'
       developer_certs_list: '开发者证书 (%{count})'
-      cert: '证书 %{index}'
-      cert_expired_at: '%{date} 到期'
-      mobileprovision: 描述文件
+      cert: 'Cert %{index}'
+      cert_expired_at: 'Expired at %{date}'
+      mobileprovision: Mobileprovision
       uuid: UUID
-      mobileprovision_name: 名称 (类型)
-      team_id: 团队名称 (Team ID)
-      created_at: 创建时间
-      expired_at: 过期时间
+      mobileprovision_name: Name (Type)
+      team_id: Team ID
+      created_at: Created time
+      expired_at: Expired time
     help:
-      title: 帮助中心
+      title: Helpe center
       body_html: |
         <p>
-          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用通过强大的
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> 强力驱动读取出来应用中的实用信息用于辅助阅读、
-          参考和定位问题：
+          Click the button <i class="far fa-plus-square"></i> to upload app and use
+          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -538,31 +537,31 @@ en-US:
             <th>Android</th>
           </tr>
           <tr>
-            <td>名称</td>
-            <td>名称</td>
+            <td>App Name</td>
+            <td>App Name</td>
           </tr>
           <tr>
-            <td>支持设备</td>
-            <td>支持设备</td>
+            <td>Supported device</td>
+            <td>Supported device</td>
           </tr>
           <tr>
-            <td>包名（bundle identifier）</td>
-            <td>包名（package name）</td>
+            <td>bundle identifier</td>
+            <td>package name</td>
           </tr>
           <tr>
-            <td>打包类型</td>
-            <td>打包类型</td>
+            <td>Release type</td>
+            <td>Release type</td>
           </tr>
           <tr>
-            <td>最低 iOS 版本</td>
-            <td>Android 最低版本 / 目标版本</td>
+            <td>Min iOS version</td>
+            <td>Android min SDK / targer SDK version</td>
           </tr>
           <tr>
             <td>Entitlements</td>
             <td>Activities</td>
           </tr>
           <tr>
-            <td>启用能力</td>
+            <td>Capabilities</td>
             <td>Services</td>
           </tr>
           <tr>
@@ -570,155 +569,157 @@ en-US:
             <td>Features</td>
           </tr>
           <tr>
-            <td>测试设备列表</td>
+            <td>UDID devices</td>
             <td>Permissions</td>
           </tr>
           <tr>
-            <td>开发者证书</td>
+            <td>Developer certs</td>
             <td></td>
           </tr>
           <tr>
-            <td>描述文件</td>
+            <td>Mobileprovision</td>
             <td></td>
           </tr>
         </table>
     messages:
       confirm:
-        destroy: 确定删除?
-      upload_events: '%{name} 上传了 %{version} 版本'
-      download_events: '%{name} %{version} 版本被下载'
-      changelog_events: '%{name} %{version} 版本更新了变更日志'
-      unknown_events: '%{name} 触发了未知事件: %{event}'
+        destroy: Destroy confirm?
+      upload_events: '%{name} uploaded release %{version}'
+      download_events: '%{name} %{version} downloaded'
+      changelog_events: '%{name} %{version} update the changelog'
+      unknown_events: '%{name} triggered unkown event: %{event}'
       errors:
-        not_found_file: '无法找到解包文件: %{message}'
-        failed_detect_file_type: 无法识别应用类型
-        not_support_file_type: 应用的文件类型不支持
-        failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
-        unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 .apk、.aab、.ipa、.mobileprovision 或 macOS.app.zip 文件
+        not_found_file: 'Not found debug file: %{message}'
+        failed_detect_file_type: Failed to detect file type
+        not_support_file_type: Not support file type
+        failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
+        unknown_parse: 'Unkown parse error [%{class}]: %{message}'
+        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
   udid:
-    title: 设备 UDID
+    title: Fetch UDID
     index:
-      apple_tip: 请使用 iPhone 或 iPad 扫描二维码获取
+      apple_tip: Use iPhone or iPad to scan the QR Code to install
       nonapple_tip: ':''udid.index.apple_tip'''
-      fetch_udid: 获取设备 UDID
+      fetch_udid: Get your UDID now
       help:
-        title: 为什么要下载安装描述文件获取设备 UDID?
+        title: Why need install profile to fetch your UDID?
         body_html: |
           <p>
-            UDID 全称 Unique Device Identifier 是苹果设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
-            之后版本不再允许从应用内随意获取，iOS 的应用打包如使用 AdHoc 的方式签名必须设置设备白名单来保证设备测试的安全性
-            （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
+            UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
+            Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
+            Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
           </p>
-          <strong>获取步骤</strong>
+          <p>
+            The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
+          </p>
+          <strong>Fetch steps:</strong>
           <ol>
-            <li>点击系统会弹窗的 “允许” 下载描述文件</li>
-            <li>打开手机 “设置” 找到顶部的 “已下载描述文件” 点击可以待安装的 “获取设备UDID” 的描述文件</li>
-            <li>一路点击 “安装” 并输入锁屏密码允许安装描述文件</li>
-            <li>安装之后描述文件会自动删除并跳转一个结果页面</li>
+            <li>Click "Accept" to download profile</li>
+            <li>Open "Setting.app" -> "Downloeded profile" -> "Fetch device's UDID" -> Install</li>
+            <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
           </ol>
     show:
-      title: 设备信息
-      metadata: 元数据
-      registered_but_no_related_app: 本设备已注册，很遗憾还没有发现关联应用
-      registered_with_related_apps: 本设备已注册，下面选择需要安装的应用吧
-      register: 本设备还未注册，快去选择对应的苹果开发者主体注册吧！
-      unregistered: 发现一台未注册的设备，复制 UDID 给苹果开发工程师哦！
-      registered_apps: 可安装应用
+      title: Device
+      metadata: Metadata
+      registered_but_no_related_app: Device was registerd to Apple Developr, but not found any related app.
+      registered_with_related_apps: Device was registerd to Apple Developr, install app below.
+      register: Device is unregister, choose Apple Developer to register.
+      unregistered: New device found, copy the UDID to Apple Developer!
+      registered_apps: Registerd apps
       udid: UDID
-      serial: 序列化
-      product: 内部型号
-      version: 内部版本
-      name: 设备名称
-      platform: 平台
-      model: 产品型号
-      created_at: 注册时间
+      serial: Serial
+      product: Product
+      version: Version
+      name: Device Name
+      platform: Platform
+      model: Model
+      created_at: Registerd at
       upload_release: ':''dashboard.timeline.upload_release'''
-      related_apple_keys: 已关联的苹果开发者
-      register_apple_key: 注册测试设备到苹果开发者
-      channels: 应用渠道
-      releases: 应用版本
-      apple_keys: 苹果开发者
-      team_name: 团队名称
-      team_id: 团队 ID
-      register_device: 注册本设备
-      related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
-      related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
+      related_apple_keys: Related Apple Developers
+      register_apple_key: Register to Apple Developer
+      channels: Channels
+      releases: Uploads
+      apple_keys: Apple Developers
+      team_name: Team Name
+      team_id: Tead ID
+      register_device: Register
+      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
+      related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Zealot 获取设备 UDID
+      title: Zealot fetch device UDID
       description: |
-        本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
 
-        本服务由 %{url} 提供。
+        Powered by %{url}.
   web_hooks:
     title: ':''admin.web_hooks.title'''
     create: ':''admin.web_hooks.new.title'''
-    enable: 启用
-    shared: 共享
-    not_found: 没有发现网络钩子
-    current_channel: 当前渠道
-    test: 测试
-    destroy: 删除
-    disable: 禁用
+    enable: Enabled
+    shared: Shared
+    not_found: Not found any webhook
+    current_channel: Current channel
+    test: Test
+    destroy: Destroy
+    disable: Disable
     messages:
-      parse_done_and_refreshing: '解析完成，页面正在刷新 ...'
+      parse_done_and_refreshing: 'Teardown done, refresh page ...'
       confirm:
-        destroy: 确定删除?
+        destroy: Destroy confirm?
   settings:
     title: ':''admin.settings.title'''
     preset_schemes:
-      beta: 测试版
-      adhoc: 内测版
-      production: 产品版
+      beta: Beta
+      adhoc: Adhoc
+      production: Production
     preset_role:
-      user: 用户
-      developer: 开发者
-      admin: 管理员
+      user: User
+      developer: Developer
+      admin: Admin
     site_locale:
-      zh-CN: 简体中文
-      en: 英文
+      zh-CN: Simplified Chinese
+      en: English
     site_appearance:
-      light: 浅色
-      dark: 深色
-      auto: 随系统自动
+      light: Light
+      dark: Dark
+      auto: Auto
   download:
     releases:
       show:
-        not_found: 找不到应用文件，无法提供下载服务
+        not_found: Not found release
     debug_files:
       show:
-        not_found: 找不到调试文件，无法提供下载服务
+        not_found: Not found debug file
   api:
-    unauthorized_channel_key: 无效的应用渠道 Key
-    unauthorized_token: 未授权用户 token
-    unprocessable_entity: 参数错误，请检查请求的参数是否正确
+    unauthorized_channel_key: Unauthorized channel key
+    unauthorized_token: Unauthorized user token
+    unprocessable_entity: Unprocessable entity
     apps:
       upload:
         create:
-          debug: 开发版
-          adhoc: 测试版
-          enterpse: 企业版
-          release: 线上版
+          debug: Debug
+          adhoc: Adhoc
+          enterpse: Enterpse
+          release: Release
       version_exist:
         show:
-          not_found: 应用版本不存在
-          missing_params: 参数缺失，请使用 bundle_id, release_version, build_version 或 bundle_id, git_commit 组合参数
+          not_found: Not found release
+          missing_params: combo with bundle_id, release_version, build_version or bundle_id, git_commit
     debug_files:
       download:
         default:
-          not_found: 调试文件版本不存在
+          not_found: Not found debug file
     jenkins:
       build:
-        failed_request: 构建请求失败，请重新尝试
+        failed_request: Build request failed, please try again
   demo:
-    app_name1: 默认应用
-    app_name2: 默认 Android 应用
+    app_name1: First App
+    app_name2: Android Only App
     android_channels:
-      channel1: 华为
-      channel2: 小米
+      channel1: google play
+      channel2: huawei
       channel3: oppo
       channel4: vivo
-      channel5: 应用宝
+      channel5: xiaomi
   datetime:
     distance_in_words:
       about_x_hours: 大约 %{count} 小时
@@ -737,135 +738,135 @@ en-US:
   errors:
     code:
       '400':
-        title: 您提交的请求无效或格式不正确
+        title: The request you submitted was invalid or malformed
       '403':
-        title: 你没有访问这个页面的权限
+        title: You don't have permission to view this page
       '404':
-        title: 找不到你想要的内容
-        content: 当前访问的页面不存在或者已经被移动
+        title: Not Found
+        content: The page you are looking for isn't here.
       '406':
-        title: 页面无法处理请求
+        title: This page is not available in the requested format.
       '410':
-        title: 你所要访问的页面此处已不存在
+        title: The page you were looking for doesn't exist here anymore.
       '422':
-        content: 无法确认登录信息。你是不是屏蔽了 Cookie？
-        title: 无法确认登录信息
+        content: Security verification failed. Are you blocking cookies?
+        title: Security verification failed
       '429':
-        title: 请求被限制
+        title: Too many requests
       '500':
-        content: 抱歉，我们的后台出错了
-        title: 这个页面有问题
+        content: We're sorry, but something went wrong on our end.
+        title: This page is not correct
       '503':
-        title: 服务暂时不可用，无法请求该页面
+        title: The page could not be served due to a temporary server failure.
     messages:
-      not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
-      not_match_url: "页面路径不存在 %{url}"
-      unexpected_parameter: "不可使用的参数: %{value}"
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
+      not_match_url: "Not match url: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
       blank: 不能为空值
       inclusion: 不包含在可选值列表中
-      length_range: 长度限制：%{minimum} ~ %{maximum} 位
-      optional_value: 可选值：%{value}
-      invaild_in_demo_mode: 演示模式不能编辑默认管理员
-      development_only: 仅开发环境显示
-      goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
-      goback_title: 上级页面
-      homepage_title: 首页
-      unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
+      length_range: 'Length range: %{minimum} ~ %{maximum}'
+      optional_value: 'Optinal value: %{value}'
+      invaild_in_demo_mode: Forbidden in demo mode
+      development_only: Development only
+      goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      goback_title: goback
+      homepage_title: homepage
+      unknown_file_type: Unkown file type to parse
   active_job:
     debug_file:
-      success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
+      success: Debug file (%{id}) pare done, Refresh the web page please.
       failures:
-        not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
+        not_found_file: Debug file is missing with unknown issue.
     backup:
-      success: '%{key} 备份创建完成'
+      success: '%{key} backup created successfully.'
       failures:
-        max_keeps_limited: '%{key} 备份设置最大限制值为零'
+        max_keeps_limited: '%{key} backup maximum limit value was zero'
   activerecord:
     success:
-      create: "%{key}创建成功"
-      update: "%{key}更新成功"
-      destroy: "%{key}删除成功"
+      create: "Created %{key} successfully"
+      update: "Updated %{key} successfully"
+      destroy: "Deleteed %{key} successfully"
     errors:
-      same_value: "%{key}没有发生变化，无法保存"
+      same_value: "%{key} not change, skip to update"
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
         debug_file:
           attributes:
             app_id:
-              blank: 请选择需要关联的应用
+              blank: Select the application to be associated
             file:
-              blank: 必须选择一个 zip 文件
+              blank: Choose a zipped file with supported type
             checksum:
-              taken: 文件已经存在，不能重复上传
+              taken: File exists, cannot be uploaded
         backup:
           attributes:
             schedule:
               invalid: 表达式格式错误
   user_mailer:
     omniauth_welcome_email:
-      subject: 欢迎使用 %{title}
-      default_password: 您已经使用第三方登录成功授权注册了 Zealot 账号，系统随机生成了默认的密码：
+      subject: Welcome to %{title}
+      default_password: 'You authorized the third-party service to register Zealot, Here is the password:'
   devise:
     confirmations:
       new:
-        title: 邮箱确认
+        title: Confirmation email
     registrations:
       new:
-        error: 错误！
-        register_closed: 服务没有开放注册功能！请联系管理员开通账户。
-        register: 注册
+        error: Error!
+        register_closed: Close to register now, contact the administrator please.
+        register: Register
       edit:
         api: API
-        token: 密钥
+        token: Token
     normal:
-      title: 标准登录
+      title: Normal
     ldap:
-      title: LDAP 登录
-      username: LDAP 账户
-      password: LDAP 密码
+      title: LDAP
+      username: LDAP Username
+      password: LDAP Password
     shared:
-      hint: '- 或者 -'
+      hint: '- Or -'
       links:
         provider:
-          feishu: 飞书
-          google: ' Google '
-          gitlab: ' Gitlab '
+          feishu: ' Feishu'
+          google: ' Google'
+          gitlab: ' Gitlab'
   helpers:
     submit:
       user:
-        create: 新增用户
-        update: 更新用户
+        create: Create
+        update: Update
       app:
-        create: 新增应用
-        update: 更新应用
+        create: Create
+        update: Update
       scheme:
-        create: 新增类型
-        update: 更新类型
+        create: Create
+        update: Update
       channel:
-        create: 新增渠道
-        update: 更新渠道
+        create: Create
+        update: Update
       release:
-        create: 上传应用
+        create: Upload
       web_hook:
-        create: 新增网络钩子
-        update: 更新网络钩子
+        create: Create
+        update: Update
       debug_file:
-        create: 上传调试文件
+        create: Upload
       setting:
-        create: 保存设置
-        update: 更新设置
+        create: Save
+        update: Save
       apple_key:
-        create: 新增苹果开发者
+        create: Create
       apple_team:
-        update: 更新
+        update: Update
       backup:
         create: 创建备份
         update: 更新备份
   views:
     pagination:
       truncate: ...
-      first: 首页
-      previous: 前页
-      next: 后页
-      last: 尾页
+      first: First
+      previous: Previous
+      next: Next
+      last: Last
