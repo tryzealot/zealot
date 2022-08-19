@@ -29,9 +29,9 @@ zh-CN:
         status: 状态
         last_login_time: 最后登录时间
         action: 操作
-        actived: 已激活
-        unactive: 未激活
-        never_logined: 从未登录
+        active: 已激活
+        inactive: 未激活
+        never_logged_in: 从未登录
         destroy_user: 删除
         destroy_user_confirm: 你确定要删除【%{user}】用户？
       edit:
@@ -347,7 +347,7 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
-      majar_versions: 历史主版本
+      major_versions: 历史主版本
       release_version: 主版本号
       total_version: 版本数量
       empty_version_shortly: 暂无版本
@@ -419,7 +419,7 @@ zh-CN:
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
 
-      majarzersions: :'channels.show.majar_versions'
+      majarzersions: :'channels.show.major_versions'
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'
