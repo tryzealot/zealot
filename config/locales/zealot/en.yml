@@ -38,7 +38,7 @@ en-US:
     web_hooks:
       title: Webhooks
       index:
-        title: ':''admin.web_hooks.title'''
+        title: ':admin.web_hooks.title'
         number: '#'
         url: URL
         channels: Channels
@@ -69,7 +69,7 @@ en-US:
         team_id: Team id
         created_at: Created at
         action: Action
-        new_apple_key: ':''admin.apple_keys.new.title'''
+        new_apple_key: ':admin.apple_keys.new.title'
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
@@ -235,7 +235,7 @@ en-US:
       teardowns: ':''teardowns.title'''
       uploads: Uploads
       web_hooks: ':''admin.web_hooks.title'''
-      users: ':''users.title'''
+      users: ':admin.users.title'
       background_jobs: ':''admin.background_jobs.title'''
       disk_usage: Disk usage
     timeline:
