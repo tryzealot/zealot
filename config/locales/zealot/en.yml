@@ -1,4 +1,4 @@
-en:
+en-US:
   function_section: Function
   toolbox_section: Toolbox
   admin_section: Admin
@@ -17,8 +17,8 @@ en:
       new:
         title: New user
       index:
-        title: :admin.users.title
-        new_user: :admin.users.new.title
+        title: ':admin.users.title'
+        new_user: ':admin.users.new.title'
         number: '#'
         nickname: Nickname
         email: E-mail
@@ -38,7 +38,7 @@ en:
     web_hooks:
       title: Webhooks
       index:
-        title: :admin.web_hooks.title
+        title: ':admin.web_hooks.title'
         number: '#'
         url: URL
         channels: Channels
@@ -63,30 +63,30 @@ en:
       new:
         title: New Apple Developer
       index:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         number: '#'
         team_name: Team name
         team_id: Team id
         created_at: Created at
         action: Action
-        new_apple_key: :admin.apple_keys.new.title
+        new_apple_key: ':admin.apple_keys.new.title'
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         team_metadata: Team metadata
         key_metadata: Key Metadata
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
         never_sync: Never sync
-        udid: :udid.show.udid
-        udid_name: :udid.show.name
-        udid_platform: :udid.show.platform
-        udid_model: :udid.show.model
+        udid: ':udid.show.udid'
+        udid_name: ':udid.show.name'
+        udid_platform: ':udid.show.platform'
+        udid_model: ':udid.show.model'
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
@@ -97,7 +97,7 @@ en:
     settings:
       title: Settings
       index:
-        title: :admin.settings.title
+        title: ':admin.settings.title'
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -145,7 +145,7 @@ en:
     system_info:
       title: System information
       index:
-        title: :admin.system_info.title
+        title: ':admin.system_info.title'
         zealot_version: Zealot version
         vcs_ref: VCS Ref
         build_date: Build date
@@ -154,9 +154,7 @@ en:
         os_info: OS info
         ruby_version: Ruby version
         cpu_info: CPU
-        cpu_core:
-          one: '%{count} Core'
-          other: '%{count} Cores'
+        cpu_core: '%{count} 核'
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -176,7 +174,7 @@ en:
     backups:
       title: Backups
       index:
-        title: :admin.backups.title
+        title: ':admin.backups.title'
         new_backup: New backup
         key: Key
         scopes: Scopes
@@ -188,9 +186,7 @@ en:
         edit: Edit
         destroy: Destroy
         database: Database
-        app:
-          one: '%{count} App'
-          other: '%{count} Apps'
+        app: '%{count} 应用'
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
@@ -216,31 +212,31 @@ en:
       destroy_archive:
         success: Backup was deleted successfully.
       parse_schedule:
-        invalid_expression: Invalid expression
+        invaild_expression: 表达式无法解析
     background_jobs:
       title: Background jobs
       index:
-        title: :admin.background_jobs.title
+        title: ':admin.background_jobs.title'
     database_analytics:
       title: Database analytics
       index:
-        title: :admin.database_analytics.title
+        title: ':admin.database_analytics.title'
     logs:
       title: Service logs
       index:
-        title: :admin.logs.title
+        title: ':admin.logs.title'
         loading: Loading ...
         error_message: 'Failed fetch logs, return status code: '
   dashboard:
     title: Dashboard
     analytics:
-      apps: :apps.title
-      debug_files: :debug_files.title
-      teardowns: :teardowns.title
+      apps: ':apps.title'
+      debug_files: ':debug_files.title'
+      teardowns: ':teardowns.title'
       uploads: Uploads
-      web_hooks: :admin.web_hooks.title
-      users: :admin.users.title
-      background_jobs: :admin.background_jobs.title
+      web_hooks: ':admin.web_hooks.title'
+      users: ':admin.users.title'
+      background_jobs: ':admin.background_jobs.title'
       disk_usage: Disk usage
     timeline:
       title: Timeline
@@ -302,8 +298,8 @@ en:
     title: Channels
     subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
     show:
-      scheme: :schemes.title
-      channel: :channels.title
+      scheme: ':schemes.title'
+      channel: ':channels.title'
       activity: Activity
       upload_release: Upload a release
       metadata: Metadata
@@ -348,7 +344,7 @@ en:
         subtitle: 'Releases of version %{version}'
     messages:
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -386,16 +382,16 @@ en:
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_release: :dashboard.timeline.upload_release
+      upload_release: ':dashboard.timeline.upload_release'
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      majarzersions: :channels.show.majar_versions
+      majarzersions: ':channels.show.majar_versions'
       view_detail: Manage channel
     new:
-      title: :channels.show.upload_release
+      title: ':channels.show.upload_release'
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -417,7 +413,7 @@ en:
           </ol>
         ok: Okay
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -485,9 +481,9 @@ en:
       file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
     index:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
       upload_history: History
       uploaded_at: Uploaded time
       app_name: App name
@@ -603,7 +599,7 @@ en:
     title: Fetch UDID
     index:
       apple_tip: Use iPhone or iPad to scan the QR Code to install
-      nonapple_tip: :udid.index.apple_tip
+      nonapple_tip: ':udid.index.apple_tip'
       fetch_udid: Get your UDID now
       help:
         title: Why need install profile to fetch your UDID?
@@ -638,7 +634,7 @@ en:
       platform: Platform
       model: Model
       created_at: Registerd at
-      upload_release: :dashboard.timeline.upload_release
+      upload_release: ':dashboard.timeline.upload_release'
       related_apple_keys: Related Apple Developers
       register_apple_key: Register to Apple Developer
       channels: Channels
@@ -656,8 +652,8 @@ en:
 
         Powered by %{url}.
   web_hooks:
-    title: :admin.web_hooks.title
-    create: :admin.web_hooks.new.title
+    title: ':admin.web_hooks.title'
+    create: ':admin.web_hooks.new.title'
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -670,7 +666,7 @@ en:
       confirm:
         destroy: Destroy confirm?
   settings:
-    title: :admin.settings.title
+    title: ':admin.settings.title'
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
@@ -724,6 +720,21 @@ en:
       channel3: oppo
       channel4: vivo
       channel5: xiaomi
+  datetime:
+    distance_in_words:
+      about_x_hours: 大约 %{count} 小时
+      about_x_months: 大约 %{count} 个月
+      about_x_years: 大约 %{count} 年
+      almost_x_years: 接近 %{count} 年
+      half_a_minute: 半分钟前
+      less_than_x_seconds: 不到 %{count} 秒
+      less_than_x_minutes: 不到 %{count} 分钟
+      over_x_years: " %{count} 年多"
+      x_seconds: " %{count} 秒"
+      x_minutes: " %{count} 分钟"
+      x_days: " %{count} 天"
+      x_months: " %{count} 个月"
+      x_years: " %{count} 年"
   errors:
     code:
       '400':
@@ -751,9 +762,11 @@ en:
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optinal value: %{value}'
-      invalid_in_demo_mode: Forbidden in demo mode
+      invaild_in_demo_mode: 演示模式不能编辑默认管理员
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
@@ -776,6 +789,8 @@ en:
     errors:
       same_value: "%{key} not change, skip to update"
       models:
+        setting:
+          default_message: "请检查 '%{key}' 的如下问题："
         debug_file:
           attributes:
             app_id:
