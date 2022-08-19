@@ -1,4 +1,4 @@
-en-US:
+en:
   function_section: Function
   toolbox_section: Toolbox
   admin_section: Admin
@@ -17,8 +17,8 @@ en-US:
       new:
         title: New user
       index:
-        title: ':''admin.users.title'''
-        new_user: ':''admin.users.new.title'''
+        title: :admin.users.title
+        new_user: :admin.users.new.title
         number: '#'
         nickname: Nickname
         email: E-mail
@@ -63,7 +63,7 @@ en-US:
       new:
         title: New Apple Developer
       index:
-        title: ':''admin.apple_keys.title'''
+        title: :admin.apple_keys.title
         number: '#'
         team_name: Team name
         team_id: Team id
@@ -76,17 +76,17 @@ en-US:
           title: Not found Apple Developer.
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
-        title: ':''admin.apple_keys.title'''
+        title: :admin.apple_keys.title
         team_metadata: Team metadata
         key_metadata: Key Metadata
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
         never_sync: Never sync
-        udid: ':''udid.show.udid'''
-        udid_name: ':''udid.show.name'''
-        udid_platform: ':''udid.show.platform'''
-        udid_model: ':''udid.show.model'''
+        udid: :udid.show.udid
+        udid_name: :udid.show.name
+        udid_platform: :udid.show.platform
+        udid_model: :udid.show.model
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
@@ -97,7 +97,7 @@ en-US:
     settings:
       title: Settings
       index:
-        title: ':''admin.settings.title'''
+        title: :admin.settings.title
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -145,7 +145,7 @@ en-US:
     system_info:
       title: System information
       index:
-        title: ':''admin.system_info.title'''
+        title: :admin.system_info.title
         zealot_version: Zealot version
         vcs_ref: VCS Ref
         build_date: Build date
@@ -174,7 +174,7 @@ en-US:
     backups:
       title: Backups
       index:
-        title: ':''admin.backups.title'''
+        title: :admin.backups.title
         new_backup: New backup
         key: Key
         scopes: Scopes
@@ -216,27 +216,27 @@ en-US:
     background_jobs:
       title: Background jobs
       index:
-        title: ':''admin.background_jobs.title'''
+        title: :admin.background_jobs.title
     database_analytics:
       title: Database analytics
       index:
-        title: ':''admin.database_analytics.title'''
+        title: :admin.database_analytics.title
     logs:
       title: Service logs
       index:
-        title: ':''admin.logs.title'''
+        title: :admin.logs.title
         loading: Loading ...
         error_message: 'Failed fetch logs, return status code: '
   dashboard:
     title: Dashboard
     analytics:
-      apps: ':''apps.title'''
-      debug_files: ':''debug_files.title'''
-      teardowns: ':''teardowns.title'''
+      apps: :apps.title
+      debug_files: :debug_files.title
+      teardowns: :teardowns.title
       uploads: Uploads
-      web_hooks: ':''admin.web_hooks.title'''
+      web_hooks: :admin.web_hooks.title
       users: ':admin.users.title'
-      background_jobs: ':''admin.background_jobs.title'''
+      background_jobs: :admin.background_jobs.title
       disk_usage: Disk usage
     timeline:
       title: Timeline
@@ -298,8 +298,8 @@ en-US:
     title: Channels
     subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
     show:
-      scheme: ':''schemes.title'''
-      channel: ':''channels.title'''
+      scheme: :schemes.title
+      channel: :channels.title
       activity: Activity
       upload_release: Upload a release
       metadata: Metadata
@@ -344,7 +344,7 @@ en-US:
         subtitle: 'Releases of version %{version}'
     messages:
       confirm:
-        destroy: ':''web_hooks.messages.confirm.destroy'''
+        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -382,16 +382,16 @@ en-US:
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_release: ':''dashboard.timeline.upload_release'''
+      upload_release: :dashboard.timeline.upload_release
       changelog: Changelog
       devices: '%{count} 台测试设备 (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      majarzersions: ':''channels.show.majar_versions'''
+      majarzersions: :channels.show.majar_versions
       view_detail: Manage channel
     new:
-      title: ':''channels.show.upload_release'''
+      title: :channels.show.upload_release
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -413,7 +413,7 @@ en-US:
           </ol>
         ok: Okay
       confirm:
-        destroy: ':''web_hooks.messages.confirm.destroy'''
+        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -481,9 +481,9 @@ en-US:
       file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
-      create: ':''teardowns.new.title'''
+      create: :teardowns.new.title
     index:
-      create: ':''teardowns.new.title'''
+      create: :teardowns.new.title
       upload_history: History
       uploaded_at: Uploaded time
       app_name: App name
@@ -501,7 +501,7 @@ en-US:
       already_expired: Expired at %{time}
       expired: Expired now!
       related_app: Release related
-      related_body: This teardown was relates with 
+      related_body: This teardown was relates with
       unknow_app_name: Unkown
       metadata: Metadata
       app_name: App name
@@ -599,7 +599,7 @@ en-US:
     title: Fetch UDID
     index:
       apple_tip: Use iPhone or iPad to scan the QR Code to install
-      nonapple_tip: ':''udid.index.apple_tip'''
+      nonapple_tip: :udid.index.apple_tip
       fetch_udid: Get your UDID now
       help:
         title: Why need install profile to fetch your UDID?
@@ -634,7 +634,7 @@ en-US:
       platform: Platform
       model: Model
       created_at: Registerd at
-      upload_release: ':''dashboard.timeline.upload_release'''
+      upload_release: :dashboard.timeline.upload_release
       related_apple_keys: Related Apple Developers
       register_apple_key: Register to Apple Developer
       channels: Channels
@@ -652,8 +652,8 @@ en-US:
 
         Powered by %{url}.
   web_hooks:
-    title: ':''admin.web_hooks.title'''
-    create: ':''admin.web_hooks.new.title'''
+    title: :admin.web_hooks.title
+    create: :admin.web_hooks.new.title
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -666,7 +666,7 @@ en-US:
       confirm:
         destroy: Destroy confirm?
   settings:
-    title: ':''admin.settings.title'''
+    title: :admin.settings.title
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
