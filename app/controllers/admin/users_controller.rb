@@ -15,10 +15,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new_with_session(user_params, session)
     authorize @user
 
-    return render :new unless @user.save
+    return render :new, status: :unprocessable_entity unless @user.save
 
     redirect_to admin_users_path, notice: t('activerecord.success.create', key: t('admin.users.title'))
   end
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
     # 没有设置密码的情况下不更新该字段
     params = user_params.dup
     params.delete(:password) if params[:password].blank?
-    return render :edit unless @user.update(params)
+    return render :edit, status: :unprocessable_entity unless @user.update(params)
 
     redirect_to admin_users_path, notice: t('activerecord.success.update', key: t('admin.users.title'))
   end
@@ -52,7 +52,9 @@ class Admin::UsersController < ApplicationController
     authorize @user
 
     @user.destroy
-    redirect_to admin_users_path, notice: t('activerecord.success.destroy', key: t('admin.users.title'))
+
+    notice = t('activerecord.success.destroy', key: t('admin.users.title'))
+    redirect_to admin_users_path, status: :see_other, notice: notice
   end
 
   private

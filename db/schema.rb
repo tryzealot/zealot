@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,18 +18,34 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "metadata_platform", ["ios", "android", "mobileprovision", "macos"]
 
-  create_table "active_analytics_views_per_days", force: :cascade do |t|
-    t.string "site", null: false
-    t.string "page", null: false
-    t.date "date", null: false
-    t.bigint "total", default: 1, null: false
-    t.string "referrer_host"
-    t.string "referrer_path"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["date"], name: "index_active_analytics_views_per_days_on_date"
-    t.index ["referrer_host", "referrer_path", "date"], name: "index_active_analytics_views_per_days_on_referrer_and_date"
-    t.index ["site", "page", "date"], name: "index_active_analytics_views_per_days_on_site_and_date"
+  create_table "apple_keys", force: :cascade do |t|
+    t.string "issuer_id", null: false
+    t.string "key_id", null: false
+    t.string "filename", null: false
+    t.string "private_key", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checksum"], name: "index_apple_keys_on_checksum"
+    t.index ["issuer_id"], name: "index_apple_keys_on_issuer_id"
+    t.index ["key_id"], name: "index_apple_keys_on_key_id"
+  end
+
+  create_table "apple_keys_devices", id: false, force: :cascade do |t|
+    t.bigint "apple_key_id", null: false
+    t.bigint "device_id", null: false
+    t.index ["apple_key_id", "device_id"], name: "index_apple_keys_devices_on_apple_key_id_and_device_id"
+    t.index ["device_id", "apple_key_id"], name: "index_apple_keys_devices_on_device_id_and_apple_key_id"
+  end
+
+  create_table "apple_teams", force: :cascade do |t|
+    t.bigint "apple_key_id"
+    t.string "team_id"
+    t.string "name", null: false
+    t.string "display_name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apple_key_id"], name: "index_apple_teams_on_apple_key_id"
   end
 
   create_table "apps", force: :cascade do |t|
@@ -47,8 +63,21 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
     t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id"
   end
 
+  create_table "backups", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "schedule", null: false
+    t.boolean "enabled_database", default: true
+    t.integer "enabled_apps", default: [], array: true
+    t.integer "max_keeps", default: -1
+    t.string "notification"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_backups_on_key"
+  end
+
   create_table "channels", force: :cascade do |t|
-    t.integer "scheme_id"
+    t.bigint "scheme_id"
     t.string "name", null: false
     t.string "slug", null: false
     t.string "bundle_id", default: "*"
@@ -72,7 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "debug_file_metadata", force: :cascade do |t|
-    t.integer "debug_file_id", null: false
+    t.bigint "debug_file_id", null: false
     t.string "uuid"
     t.string "type"
     t.string "object"
@@ -84,7 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "debug_files", force: :cascade do |t|
-    t.integer "app_id"
+    t.bigint "app_id"
     t.string "device_type"
     t.string "release_version"
     t.string "build_version"
@@ -101,6 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "model"
+    t.string "platform"
+    t.string "status"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 
@@ -112,8 +143,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "metadata", force: :cascade do |t|
-    t.integer "release_id"
-    t.integer "user_id"
+    t.bigint "release_id"
+    t.bigint "user_id"
     t.string "device", null: false
     t.string "name"
     t.string "release_version"
@@ -144,7 +175,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "releases", force: :cascade do |t|
-    t.integer "channel_id"
+    t.bigint "channel_id"
     t.string "bundle_id", null: false
     t.integer "version", null: false
     t.string "release_version", null: false
@@ -172,7 +203,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "schemes", force: :cascade do |t|
-    t.integer "app_id"
+    t.bigint "app_id"
     t.string "name", null: false
     t.index ["app_id"], name: "index_schemes_on_app_id"
     t.index ["name"], name: "index_schemes_on_name"
@@ -187,7 +218,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "user_providers", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "name"
     t.string "uid"
     t.string "token"
@@ -226,7 +257,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
   end
 
   create_table "web_hooks", force: :cascade do |t|
-    t.integer "channel_id"
+    t.bigint "channel_id"
     t.string "url"
     t.text "body"
     t.integer "upload_events", limit: 2
@@ -238,6 +269,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_16_073222) do
     t.index ["url"], name: "index_web_hooks_on_url"
   end
 
+  add_foreign_key "apple_teams", "apple_keys", on_delete: :cascade
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade

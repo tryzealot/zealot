@@ -24,6 +24,18 @@ module SettingHelper
       }
     end
 
+    def builtin_appearances
+      {
+        light: t('settings.theme_modes.light', default: 'light'),
+        dark: t('settings.theme_modes.dark', default: 'dark'),
+        auto: t('settings.theme_modes.auto', default: 'auto')
+      }
+    end
+
+    def builtin_install_limited
+      [ 'MicroMessenger', 'DingTalk' ]
+    end
+
     def site_https
       Rails.env.production? || ENV['ZEALOT_USE_HTTPS'].present?
     end

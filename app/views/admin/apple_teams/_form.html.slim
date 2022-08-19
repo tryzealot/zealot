@@ -1,0 +1,8 @@
+= simple_form_for(@apple_team, url: admin_apple_team_path(@apple_team)) do |f|
+  .card-body
+    = f.error_notification
+
+    = f.input :display_name, required: true
+
+  .card-footer
+    = f.button :submit

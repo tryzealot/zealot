@@ -1,0 +1,6 @@
+- content_for :title do
+  = t('.title', key: @backup.key)
+
+.row
+  .col-md-12
+    == render 'form', title: t('.title')

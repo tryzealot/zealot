@@ -5,7 +5,7 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.bg-green href="#{new_admin_user_path}"
+  a.btn.btn-icon.btn-success href="#{new_admin_user_path}"
     i.icon.far.fa-plus-square
     = t('.new_user')
 
@@ -36,13 +36,14 @@
                   = user.role_name
                 td
                   - if user.confirmed_at
-                    = t('.actived')
+                    = t('.active')
                   - else
-                    = link_to t('.unactive'), edit_admin_user_path(user)
+                    = link_to t('.inactive'), edit_admin_user_path(user)
                 td
                   - if user.last_sign_in_at
                     = time_ago_in_words(user.last_sign_in_at)
                   - else
-                    = t('.never_logined')
+                    = t('.never_logged_in')
                 td
-                  = link_to t('.destroy_user'), admin_user_path(user), method: :delete, data: { confirm: t('.destroy_user_confirm', user: user.username)}
+                  = link_to t('.destroy_user'), admin_user_path(user), \
+                    data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
