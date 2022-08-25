@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 5.6.4'
+gem 'puma', '~> 5.6.5'
 gem 'rails', '~> 7.0.3'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
@@ -85,7 +85,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.5.4'
+gem 'sidekiq', '~> 6.5.5'
 gem 'sidekiq-scheduler', '~> 4.0.2'
 gem 'sidekiq-failures', '~> 1.0.3'
 
