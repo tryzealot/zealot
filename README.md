@@ -57,7 +57,7 @@
 
 > **注意**: 数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
 
-- 演示地址：https://tryzealot.herokuapp.com/
+- 演示地址：https://tryzealot.ews.im/
 - 登录账户: `admin@zealot.com`
 - 登录密码：`ze@l0t`
 
