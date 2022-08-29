@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.7.1'
+gem 'redis', '~> 5.0.1'
 
 # Logger
 gem 'lograge', '~> 0.12.0'
