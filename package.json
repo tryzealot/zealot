@@ -9,8 +9,8 @@
     "@rails/actioncable": "^7.0.3",
     "admin-lte": "3.1.0",
     "clipboard": "^2.0.11",
-    "compare-versions": "^4.1.4",
-    "esbuild": "^0.15.5",
+    "compare-versions": "^5.0.1",
+    "esbuild": "^0.15.6",
     "sass": "^1.54.6",
     "ua-parser-js": "^1.0.2"
   },
