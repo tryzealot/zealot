@@ -87,7 +87,7 @@ gem 'rqrcode'
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.5.5'
 gem 'sidekiq-scheduler', '~> 4.0.2'
-gem 'sidekiq-failures', '~> 1.0.3'
+gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
