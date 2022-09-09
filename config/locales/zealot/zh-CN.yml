@@ -231,7 +231,7 @@ zh-CN:
       destroy_archive:
         success: 备份文件成功删除
       parse_schedule:
-        invaild_expression: 表达式无法解析
+        invalid_expression: 表达式无法解析
 
     background_jobs:
       title: 后台任务
