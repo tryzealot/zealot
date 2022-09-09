@@ -161,7 +161,7 @@ GEM
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
-    graphql (2.0.13)
+    graphql (2.0.14)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -432,11 +432,11 @@ GEM
       sentry-ruby (~> 5.4.2)
       sidekiq (>= 3.0)
     shellany (0.0.1)
-    sidekiq (6.5.5)
-      connection_pool (>= 2.2.2)
+    sidekiq (6.5.6)
+      connection_pool (>= 2.2.5)
       rack (~> 2.0)
-      redis (>= 4.5.0)
-    sidekiq-failures (1.0.3)
+      redis (>= 4.5.0, < 5)
+    sidekiq-failures (1.0.4)
       sidekiq (>= 4.0.0)
     sidekiq-scheduler (4.0.2)
       redis (>= 4.2.0)
@@ -523,7 +523,7 @@ DEPENDENCIES
   faraday (~> 2.5.2)
   friendly_id (~> 5.4.2)
   graphiql-rails
-  graphql (~> 2.0.13)
+  graphql (~> 2.0.14)
   guard (~> 2.18.0)
   guard-bundler
   guard-migrate
@@ -567,8 +567,8 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 6.5.5)
-  sidekiq-failures (~> 1.0.3)
+  sidekiq (~> 6.5.6)
+  sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 4.0.2)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
