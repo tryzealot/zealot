@@ -17,10 +17,10 @@ services:
   dockerfilePath: Dockerfile
   dockerContext: .
   autoDeploy: true
-  disk:
-    name: zealot-data
-    mountPath: /app/public/uploads
-    sizeGB: 10
+  # disk:
+  #   name: zealot-data
+  #   mountPath: /app/public/uploads
+  #   sizeGB: 10
   envVars:
   - key: ZEALOT_ADMIN_EMAIL
     sync: false
