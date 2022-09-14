@@ -89,7 +89,7 @@ class Admin::BackupsController < ApplicationController
     end
 
     render json: {
-      error: t('.invaild_expression')
+      error: t('.invalid_expression')
     }, status: 409
   end
 

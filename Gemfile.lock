@@ -138,7 +138,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    erubi (1.10.0)
+    erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
     faraday (2.5.2)
@@ -161,7 +161,7 @@ GEM
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
-    graphql (2.0.13)
+    graphql (2.0.14)
     guard (2.18.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -255,7 +255,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.2)
+    minitest (5.16.3)
     mixlib-shellout (3.2.7)
       chef-utils
     msgpack (1.5.4)
@@ -334,7 +334,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (4.0.7)
-    puma (5.6.4)
+    puma (5.6.5)
       nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
@@ -423,20 +423,20 @@ GEM
     rubyzip (2.3.2)
     rufus-scheduler (3.8.2)
       fugit (~> 1.1, >= 1.1.6)
-    sentry-rails (5.4.1)
+    sentry-rails (5.4.2)
       railties (>= 5.0)
-      sentry-ruby (~> 5.4.1)
+      sentry-ruby (~> 5.4.2)
     sentry-ruby (5.4.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.4.1)
-      sentry-ruby (~> 5.4.1)
+    sentry-sidekiq (5.4.2)
+      sentry-ruby (~> 5.4.2)
       sidekiq (>= 3.0)
     shellany (0.0.1)
-    sidekiq (6.5.4)
-      connection_pool (>= 2.2.2)
+    sidekiq (6.5.6)
+      connection_pool (>= 2.2.5)
       rack (~> 2.0)
-      redis (>= 4.5.0)
-    sidekiq-failures (1.0.3)
+      redis (>= 4.5.0, < 5)
+    sidekiq-failures (1.0.4)
       sidekiq (>= 4.0.0)
     sidekiq-scheduler (4.0.2)
       redis (>= 4.2.0)
@@ -523,7 +523,7 @@ DEPENDENCIES
   faraday (~> 2.5.2)
   friendly_id (~> 5.4.2)
   graphiql-rails
-  graphql (~> 2.0.13)
+  graphql (~> 2.0.14)
   guard (~> 2.18.0)
   guard-bundler
   guard-migrate
@@ -551,7 +551,7 @@ DEPENDENCIES
   propshaft (= 0.6.4)
   pry-rails
   pry-rescue
-  puma (~> 5.6.4)
+  puma (~> 5.6.5)
   pundit (~> 2.2.0)
   pyu-ruby-sasl (>= 0.0.3.3, < 0.1)
   rack-cors (~> 1.1.1)
@@ -567,8 +567,8 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 6.5.4)
-  sidekiq-failures (~> 1.0.3)
+  sidekiq (~> 6.5.6)
+  sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 4.0.2)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
