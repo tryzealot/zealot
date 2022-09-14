@@ -46,6 +46,7 @@ class TeardownsController < ApplicationController
     render :new, status: :unprocessable_entity
   rescue => e
     logger.error "Teardown error: #{e}"
+    logger.error "Throws backtraces are: #{e.backtrace.join("\n")}"
     Sentry.capture_exception e
     flash[:error] = t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
     render :new, status: :unprocessable_entity
@@ -69,7 +70,7 @@ class TeardownsController < ApplicationController
       raise ActionController::RoutingError, t('teardowns.messages.errors.choose_supported_file_type')
     end
 
-    metadata = TeardownService.new.call(file)
+    metadata = TeardownService.new(file).call
     metadata.update_attribute(:user_id, current_user.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
