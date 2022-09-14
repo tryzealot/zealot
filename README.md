@@ -4,7 +4,7 @@
   <h1>Zealot</h1>
 
   <h4>
-    开源自部署 iOS、Android 及 macOS 应用分发平台，提供 iOS、Android SDK、fastlane 等丰富组件库，打包分发流程、上传应用竟然如此简单、独立部署解决企业使用的烦恼。 En Taro Adun! 🖖
+    开源自部署持续集成一切跟应用有关事情，接入任意 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案 En Taro Adun! 🖖
   </h4>
 
   <a href="https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md">
@@ -33,15 +33,15 @@
   </div>
 
   <div>
-    <a href="https://zealot.ews.im/#/en/deployment">自部署</a> •
-    <a href="https://zealot.ews.im/#/en/configuration">配置</a> •
-    <a href="https://zealot.ews.im/#/en/api">REST API</a> •
-    <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
-    <a href="https://zealot.ews.im/#/en/screenshot">功能截图</a>
+    <a href="https://zealot.ews.im/#/deployment">自部署</a> •
+    <a href="https://zealot.ews.im/#/configuration">配置</a> •
+    <a href="https://zealot.ews.im/#/api">REST API</a> •
+    <a href="https://zealot.ews.im/#/modules">SDK</a> •
+    <a href="https://zealot.ews.im/#/screenshot">功能截图</a>
   </div>
 </div>
 
-![Zealot Showcase](https://zealot.ews.im/_media/showcase.png)
+![Zealot Showcase](https://zealot.ews.im/img/showcase.png)
 ## 特性
 
 - 🌏 **多平台应用支持**: macOS、iOS、甚至是 APK 和 AAB 格式的 Android 应用上传、安装（支持 ARM 的 macOS）和下载
@@ -57,7 +57,7 @@
 
 > **注意**: 数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
 
-- 演示地址：https://tryzealot.herokuapp.com/
+- 演示地址：https://tryzealot.ews.im/
 - 登录账户: `admin@zealot.com`
 - 登录密码：`ze@l0t`
 
