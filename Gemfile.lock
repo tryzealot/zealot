@@ -157,7 +157,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    google-protobuf (3.21.3)
+    google-protobuf (3.21.7)
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
