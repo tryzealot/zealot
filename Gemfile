@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 5.6.5'
-gem 'rails', '~> 7.0.3'
+gem 'rails', '~> 7.0.4'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
 
@@ -42,7 +42,7 @@ gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'faraday', '~> 2.5.2'
+gem 'faraday', '~> 2.6.0'
 
 ## 用户认证
 gem 'pundit', '~> 2.2.0'
@@ -70,7 +70,7 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 2.8.3'
+gem 'pghero', '~> 3.0.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -85,8 +85,8 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.5.6'
-gem 'sidekiq-scheduler', '~> 4.0.2'
+gem 'sidekiq', '~> 6.5.7'
+gem 'sidekiq-scheduler', '~> 4.0.3'
 gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
@@ -96,7 +96,7 @@ gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'
 ## Javascript
 gem 'stimulus-rails', '~> 1.1.0'
-gem 'turbo-rails', '~> 1.1'
+gem 'turbo-rails', '~> 1.3'
 
 # 用于解析 iOS, Android 和 macOS 应用
 gem 'app-info', '~> 2.8.3'
