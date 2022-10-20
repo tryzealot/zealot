@@ -108,6 +108,6 @@ RUN ln -s /app/bin/rails /usr/local/bin/
 
 EXPOSE 80
 
-VOLUME [ "/app/public/uploads", "/app/public/backup" ]
+# VOLUME [ "/app/public/uploads", "/app/public/backup" ]
 
 ENTRYPOINT ["/init"]
