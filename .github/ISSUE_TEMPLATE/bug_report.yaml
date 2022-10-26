@@ -41,6 +41,17 @@ body:
       placeholder: nginx/haproxy/caddy/traefik/none
     validations:
       required: true
+  - type: dropdown
+    id: https
+    attributes:
+      label: HTTPS 证书类型 | HTTPS(SSL)
+      description: 使用的证书类型 | Which SSL cert do you using?
+      options:
+        - 可受信任的证书 Verified SSL
+        - 自签名证书 Self-signed SSL
+        - 无 none
+    validations:
+      required: true
   - type: checkboxes
     id: document
     attributes:
