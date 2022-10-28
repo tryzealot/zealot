@@ -419,7 +419,7 @@ zh-CN:
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
 
-      majarzersions: :'channels.show.major_versions'
+      major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'

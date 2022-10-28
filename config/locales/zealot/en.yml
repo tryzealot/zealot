@@ -392,7 +392,7 @@ en:
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      majarzersions: :channels.show.major_versions
+      major_versions: :channels.show.major_versions
       view_detail: Manage channel
     new:
       title: :channels.show.upload_release
