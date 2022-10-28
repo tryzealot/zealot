@@ -652,8 +652,9 @@ en:
     install:
       title: Zealot fetch device UDID
       description: |
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
+        ↑↑↑↑ It is safe to display "Unsigned".
 
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
         Powered by %{url}.
   web_hooks:
     title: :admin.web_hooks.title
