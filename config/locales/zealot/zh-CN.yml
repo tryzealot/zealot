@@ -884,7 +884,7 @@ zh-CN:
       hint: '- 或者 -'
       links:
         provider:
-          ladp: ' LADP '
+          feishu: 飞书
           google: ' Google '
           gitlab: ' Gitlab '
 
