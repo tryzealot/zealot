@@ -91,9 +91,9 @@ class Channel < ApplicationRecord
     value.match?(bundle_id)
   end
 
-  def perform_web_hook(event_name)
+  def perform_web_hook(event_name, user_id)
     web_hooks.where(event_name => 1).find_each do |web_hook|
-      AppWebHookJob.perform_later event_name, web_hook, self
+      AppWebHookJob.perform_later event_name, web_hook, self, user_id
     end
   end
 

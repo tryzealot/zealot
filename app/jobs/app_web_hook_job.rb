@@ -8,11 +8,12 @@ class AppWebHookJob < ApplicationJob
 
   queue_as :webhook
 
-  def perform(event, web_hook, channel)
+  def perform(event, web_hook, channel, user_id)
     @event = event
     @web_hook = web_hook
     @channel = channel
     @release = @channel.releases.last
+    @user = User.find(user_id)
 
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
@@ -34,8 +35,7 @@ class AppWebHookJob < ApplicationJob
   end
 
   def message_body
-    body = @web_hook.body.presence || default_body
-    build(body)
+    build(@web_hook.body.presence || default_body)
   end
 
   def build(body)
@@ -43,6 +43,8 @@ class AppWebHookJob < ApplicationJob
                                  type: :jb,
                                  assigns: {
                                    event: @event,
+                                   username: @user.username,
+                                   email: @user.email,
                                    title: title,
                                    name: @release.name,
                                    app_name: @release.app_name,
@@ -63,6 +65,8 @@ class AppWebHookJob < ApplicationJob
   def default_body
     '{
       event: @event,
+      username: @username,
+      email: @email,
       title: @title,
       name: @app_name,
       app_name: @app_name,

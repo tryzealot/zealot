@@ -100,7 +100,7 @@ en:
         git_commit: 40 bit length SHA value of git commit
         ci_url: the detail URL of Jenkins, Gitlab CI
       web_hook:
-        body: 'Custom JSON struct body to apply the third party notification services, Use default struct by leave it empty.'
+        body: 'Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.'
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
         file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
@@ -120,6 +120,8 @@ en:
         body: |
           {
             event: @event,
+            username: @username,
+            email: @email,
             title: @title,
             name: @app_name,
             app_name: @app_name,
