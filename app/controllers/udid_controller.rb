@@ -18,7 +18,7 @@ class UdidController < ApplicationController
       product: @device_attrs['PRODUCT'],
       serial: @device_attrs['SERIAL'],
       version: @device_attrs['VERSION']
-    ), status: :found
+    ), status: :moved_permanently
   end
 
   # GET /udid/:udid
