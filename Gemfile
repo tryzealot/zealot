@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.14'
+gem 'graphql', '~> 2.0.15'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/tiny_appstore_connect'
@@ -115,7 +115,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.6.2', platforms: %i[ mri mingw x64_mingw ]
+  gem 'debug', '~> 1.6.3', platforms: %i[ mri mingw x64_mingw ]
 
   # 开发辅助
   gem 'guard', '~> 2.18.0'
