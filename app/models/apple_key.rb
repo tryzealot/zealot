@@ -52,7 +52,7 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil)
-    return device if (device = device.find_by(udid: udid))
+    return device if (device = Device.find_by(udid: udid))
 
     response_device = client.create_device(udid, name).to_model
     Device.create_from_api(response_device) do |device|
@@ -71,14 +71,20 @@ class AppleKey < ApplicationRecord
       return self
     end
 
-    errors.add(:udid, message)
+    # invaild udid
+    if message.include?('invalid value')
+      # This is never happen, never ever!
+      errors.add(:devices, :invalid_value, value: udid)
+    else
+      errors.add(:devices, :api, message: message)
+    end
 
     self
   rescue => e
     logger.error "Register device raise an exception: #{e}"
 
-    message = e.errors[0]['detail']
-    errors.add(:udid, message)
+    message = e.respond_to?(:errors) ? errors[0]['detail'] : e.message
+    errors.add(:devices, :unknown, message: message)
 
     self
   end
