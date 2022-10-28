@@ -5,6 +5,10 @@ class WebHookPolicy < ApplicationPolicy
     manage?
   end
 
+  def console?
+    manage?
+  end
+
   def enable?
     manage?
   end
