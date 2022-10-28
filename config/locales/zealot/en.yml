@@ -776,6 +776,12 @@ en:
     errors:
       same_value: "%{key} not change, skip to update"
       models:
+        apple_key:
+          attributes:
+            devices:
+              invalid_value: Register device %{value} was invalid.
+              api: 'Apple return error: %{message}'
+              unknown: 'Unknown error: %{message}'
         debug_file:
           attributes:
             app_id:
