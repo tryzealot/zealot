@@ -1,9 +1,9 @@
-en:
+en-US:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'required'
+      text: 'Required field'
       mark: '*'
     #You can uncomment the line below if you need to overwrite the whole required html.
     #When using html, text and mark won't be used.
@@ -82,7 +82,7 @@ en:
         channel: 'For example, the platform of app.'
       app:
         schemes:
-          name: :simple_form.hints.scheme.name
+          name: ':simple_form.hints.scheme.name'
       scheme:
         name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
       channel:
@@ -100,7 +100,7 @@ en:
         git_commit: 40 bit length SHA value of git commit
         ci_url: the detail URL of Jenkins, Gitlab CI
       web_hook:
-        body: 'Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.'
+        body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
         file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
