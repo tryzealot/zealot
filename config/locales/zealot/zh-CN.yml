@@ -837,6 +837,12 @@ zh-CN:
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
+        apple_key:
+          attributes:
+            devices:
+              invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
+              api: '苹果返回错误：%{message}'
+              unknown: '未知错误: %{message}'
         debug_file:
           attributes:
             app_id:
@@ -877,7 +883,7 @@ zh-CN:
       hint: '- 或者 -'
       links:
         provider:
-          feishu: 飞书
+          ladp: ' LADP '
           google: ' Google '
           gitlab: ' Gitlab '
 
