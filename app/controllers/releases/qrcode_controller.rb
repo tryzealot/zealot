@@ -3,25 +3,42 @@
 class Releases::QrcodeController < ApplicationController
   before_action :set_release
 
-  LIGHT_BACKGROUND_COLOR = 'FFFFFF'
-  LIGHT_COLOR = '465960'
+  THEMES = {
+    light: {
+      fill: '#FFFFFF',
+      color: '#465960'
+    },
+    dark: {
+      fill: '#343a40',
+      color: '#F0F4Fb'
+    },
+  }
 
   ##
   # 显示应用的二维码
   # GET /apps/:slug/(:version)/qrcode
   def show
-    options = {
-      module_px_size: qrcode_size,
-      fill: "##{params.fetch(:fill, LIGHT_BACKGROUND_COLOR)}",
-      color: "##{params.fetch(:color, LIGHT_COLOR)}"
-    }
-
     render qrcode: friendly_channel_release_url(@release.channel, @release), **options
   end
 
   private
 
-  def qrcode_size
+  def options
+    {
+      module_px_size: px_size,
+      fill: theme[:fill],
+      color: theme[:color]
+    }
+  end
+
+  def theme
+    @theme ||= -> do
+      name = params.fetch(:theme, 'light') == 'light' ? :light : :dark
+      THEMES[name]
+    end.call
+  end
+
+  def px_size
     case params[:size]
     when 'thumb'
       3
