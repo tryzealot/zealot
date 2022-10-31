@@ -8,5 +8,8 @@
         i.fas.fa-minus
   .card-body.text-center.p-0
     .qr_code
-      = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)
+      = qrcode_image_tag(@release)
+      / picture
+      /   source srcset="#{channel_release_qrcode_path(@release.channel, @release, size: :large, theme: :dark)}" media="(prefers-color-scheme: dark)"
+      /   = image_tag channel_release_qrcode_path(@release.channel, @release, size: :large)
   .card-footer.text-center = t('releases.show.scan_qrcode_with_any_suppprted_app')

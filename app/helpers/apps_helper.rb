@@ -82,4 +82,18 @@ module AppsHelper
   def changelog_format(changelog, **options)
     simple_format changelog, **options
   end
+
+  def qrcode_image_tag(release)
+    logger.debug Setting.site_appearance
+    logger.debug "Sdfsafasdfasdfsadfd"
+    if Setting.site_appearance != 'auto'
+      return image_tag channel_release_qrcode_path(@release.channel, @release, size: :large, theme: Setting.site_appearance)
+    end
+
+    content_tag(:picture) do
+      content_tag(:source, media: "(prefers-color-scheme: dark)", srcset: channel_release_qrcode_path(release.channel, release, size: :large, theme: :dark)) do
+        image_tag channel_release_qrcode_path(release.channel, release, size: :large)
+      end
+    end
+  end
 end
