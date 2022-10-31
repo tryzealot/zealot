@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UdidController < ApplicationController
+  include Qrcode
+
   before_action :get_device_xml, only: :create
   before_action :get_device_metadata, only: %i[show register]
   before_action :render_profile, only: :install
@@ -8,7 +10,6 @@ class UdidController < ApplicationController
   # GET /udid
   def index
     @title = t('udid.title')
-    @qrcode = RQRCode::QRCode.new(udid_index_url)
   end
 
   # POST /udid/retrive
@@ -43,6 +44,10 @@ class UdidController < ApplicationController
 
   # GET /udid/install
   def install
+  end
+
+  def qrcode
+    render qrcode: udid_index_url, **qrcode_options
   end
 
   private
