@@ -17,10 +17,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz#ecda5712b61ac852c760d8b3c79c96adca5554e5"
   integrity sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg==
 
-"@hotwired/stimulus@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.1.0.tgz#20215251e5afe6e0a3787285181ba1bfc9097df0"
-  integrity sha512-iDMHUhiEJ1xFeicyHcZQQgBzhtk5mPR0QZO3L6wtqzMsJEk2TKECuCQTGKjm+KJTHVY0dKq1dOOAWvODjpd2Mg==
+"@hotwired/stimulus@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.1.1.tgz#652f08a8e1d5edcb407340e58818fcff463b5848"
+  integrity sha512-e0JpzIaYLsRRXevRDVs0yevabiCvieIWWCwh7VqVXjXM5AOHdjb7AjaKIj34zYFmY1N6HIRRfk915WVMYlHnDA==
 
 "@hotwired/turbo-rails@^7.2.4":
   version "7.2.4"
