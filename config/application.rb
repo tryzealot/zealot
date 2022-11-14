@@ -56,6 +56,13 @@ module Zealot
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
     config.action_cable.mount_path = '/cable'
 
+    # Action Cable setting to allow connections from these domains.
+    # if origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS']
+    #   origins = origins.split(',')
+    #   origins.map! { |url| /#{url}/ }
+    #   config.action_cable.allowed_request_origins = origins
+    # end
+
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.eager_load_paths += Dir["#{config.root}/lib"]
