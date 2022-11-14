@@ -423,17 +423,17 @@ GEM
     rubyzip (2.3.2)
     rufus-scheduler (3.8.2)
       fugit (~> 1.1, >= 1.1.6)
-    sentry-rails (5.5.0)
+    sentry-rails (5.6.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.5.0)
-    sentry-ruby (5.5.0)
+      sentry-ruby (~> 5.6.0)
+    sentry-ruby (5.6.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.5.0)
-      sentry-ruby (~> 5.5.0)
+    sentry-sidekiq (5.6.0)
+      sentry-ruby (~> 5.6.0)
       sidekiq (>= 3.0)
     shellany (0.0.1)
-    sidekiq (6.5.7)
-      connection_pool (>= 2.2.5)
+    sidekiq (6.5.8)
+      connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
     sidekiq-failures (1.0.4)
@@ -462,7 +462,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    stimulus-rails (1.1.0)
+    stimulus-rails (1.1.1)
       railties (>= 6.0.0)
     strscan (3.0.4)
     sys-filesystem (1.4.3)
@@ -501,7 +501,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.3)
 
 PLATFORMS
   ruby
@@ -567,12 +567,12 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 6.5.7)
+  sidekiq (~> 6.5.8)
   sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 4.0.3)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
-  stimulus-rails (~> 1.1.0)
+  stimulus-rails (~> 1.1.1)
   sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard

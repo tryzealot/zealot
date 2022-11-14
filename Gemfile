@@ -85,7 +85,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 6.5.7'
+gem 'sidekiq', '~> 6.5.8'
 gem 'sidekiq-scheduler', '~> 4.0.3'
 gem 'sidekiq-failures', '~> 1.0.4'
 
@@ -95,7 +95,7 @@ gem 'propshaft', '0.6.4'
 gem 'jsbundling-rails', '~> 1.0'
 gem 'cssbundling-rails', '~> 1.1'
 ## Javascript
-gem 'stimulus-rails', '~> 1.1.0'
+gem 'stimulus-rails', '~> 1.1.1'
 gem 'turbo-rails', '~> 1.3'
 
 # 用于解析 iOS, Android 和 macOS 应用
