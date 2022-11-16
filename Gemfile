@@ -33,7 +33,7 @@ gem 'simple_form', '~> 5.1'
 
 # Model
 ## 生成友好 id
-gem 'friendly_id', '~> 5.4.2'
+gem 'friendly_id', '~> 5.5.0'
 ## 数据分页
 gem 'kaminari', '~> 1.2.2'
 ## 文件上传
