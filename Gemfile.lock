@@ -150,7 +150,7 @@ GEM
       ffi (>= 1.0.0)
       rake
     formatador (1.1.0)
-    friendly_id (5.4.2)
+    friendly_id (5.5.0)
       activerecord (>= 4.0.0)
     fugit (1.7.1)
       et-orbi (~> 1, >= 1.2.7)
@@ -521,7 +521,7 @@ DEPENDENCIES
   devise-i18n (~> 1.10.2)
   dotenv-rails
   faraday (~> 2.7.0)
-  friendly_id (~> 5.4.2)
+  friendly_id (~> 5.5.0)
   graphiql-rails
   graphql (~> 2.0.15)
   guard (~> 2.18.0)
