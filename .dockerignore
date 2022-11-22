@@ -21,6 +21,8 @@ public/uploads/*
 public/system/*
 vendor/bundle/*
 node_modules/*
+config/master*.key
+config/credentials.yml*
 Guardfile
 
 # docker

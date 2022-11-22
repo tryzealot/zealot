@@ -1,4 +1,6 @@
-.debug-file-section-body.d-none.p-1 id="debug-file-metadata-#{debug_file.id}"
+.debug-file-section-body.p-1.d-none[
+  data-debug-file-target="source"
+]
   table.table
     - debug_file.metadata.each do |metadata|
       - if metadata.type == 'proguard'

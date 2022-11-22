@@ -3,7 +3,8 @@
 class Release < ApplicationRecord
   extend ActionView::Helpers::TranslationHelper
   include ActionView::Helpers::TranslationHelper
-  include Rails.application.routes.url_helpers
+  include ReleaseUrl
+  include ReleaseAuth
 
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
@@ -12,7 +13,7 @@ class Release < ApplicationRecord
 
   belongs_to :channel
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
-  has_and_belongs_to_many :devices
+  has_and_belongs_to_many :devices, dependent: :destroy
 
   validates :bundle_id, :release_version, :build_version, :file, presence: true
   validate :bundle_id_matched, on: :create
@@ -22,7 +23,7 @@ class Release < ApplicationRecord
   before_create :detect_device
   before_save   :convert_changelog
   before_save   :convert_custom_fields
-  before_save   :trip_branch
+  before_save   :strip_branch
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
@@ -37,8 +38,13 @@ class Release < ApplicationRecord
 
   # 上传 app
   def self.upload_file(params, parser = nil, default_source = 'web')
-    file = params[:file].path
-    return if file.blank?
+    file = params[:file]&.path
+    if file.blank?
+      release = Release.new
+      release.errors.add(:file, :invalid)
+
+      return release
+    end
 
     create(params) do |release|
       rescuing_app_parse_errors do
@@ -140,27 +146,6 @@ class Release < ApplicationRecord
     File.exist?(file.path)
   end
 
-  def download_url
-    download_release_url(id)
-  end
-
-  def install_url
-    app_type = device_type || channel.device_type
-    if app_type.blank? || app_type.casecmp?('android') || app_type.casecmp?('macos')
-      return download_url
-    end
-    download_url = channel_release_install_url(channel.slug, id)
-    "itms-services://?action=download-manifest&url=#{download_url}"
-  end
-
-  def release_url
-    friendly_channel_release_url(channel, self)
-  end
-
-  def qrcode_url(size = :thumb)
-    channel_release_qrcode_url(channel, self, size: size)
-  end
-
   def file_extname
     return '.zip' if file.blank? || !File.file?(file&.path)
 
@@ -200,7 +185,38 @@ class Release < ApplicationRecord
     TeardownJob.perform_later(id, user_id)
   end
 
+  def platform
+    if ios?
+      'iOS'
+    elsif android?
+      'Android'
+    elsif mac?
+      'macOS'
+    else
+      'Unknown'
+    end
+  end
+
+  def ios?
+    platform_type.casecmp?('ios') || platform_type.casecmp?('iphone') ||
+    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal')
+  end
+
+  def android?
+    platform_type.casecmp?('android') || platform_type.casecmp?('phone') ||
+    platform_type.casecmp?('tablet') || platform_type.casecmp?('watch') ||
+    platform_type.casecmp?('television') || platform_type.casecmp?('automotive')
+  end
+
+  def mac?
+    platform_type.casecmp?('macos')
+  end
+
   private
+
+  def platform_type
+    @platform_type ||= (device_type || channel.device_type)
+  end
 
   def auto_release_version
     latest_version = Release.where(channel: channel).limit(1).order(id: :desc).last
@@ -240,7 +256,7 @@ class Release < ApplicationRecord
   end
 
   ORIGIN_PREFIX = 'origin/'
-  def trip_branch
+  def strip_branch
     return if branch.blank?
     return unless branch.start_with?(ORIGIN_PREFIX)
 

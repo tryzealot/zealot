@@ -19,15 +19,15 @@ class ResetForDemoModeJob < ApplicationJob
   private
 
   def clean_app_data
+    # Application
     App.delete_all
     DebugFile.delete_all
     Metadatum.delete_all
-    WebHook.delete_all
-    Setting.delete_all
-    User.delete_all
 
-    ActiveAnalytics::ViewsPerDay.where('created_at > ?', -3.months.ago)
-      .delete_all
+    # Admin
+    User.delete_all
+    Setting.delete_all
+    AppleKey.delete_all
   end
 
   def reset_jobs

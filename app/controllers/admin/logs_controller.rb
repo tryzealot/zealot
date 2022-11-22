@@ -1,25 +1,37 @@
+# frozen_string_literal: true
+
 require 'digest/md5'
 require 'open3'
 
 class Admin::LogsController < ApplicationController
+  before_action :get_log, only: :retrive
+
   FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
-  MAX_LINE_NUMBER = 2000
+  MAX_LINE_NUMBER = 500
 
   def index
     @filename = FILENAME
-    @logs = logs
-    @number = MAX_LINE_NUMBER
+    @interval = params[:interval] || 1000
+  end
+
+  def retrive
+    render plain: @logs
   end
 
   private
 
-  def logs
-    return [] unless File.readable?(log_path)
+  def get_log
+    @max_line = params[:number] || MAX_LINE_NUMBER
+    @logs = logs(@max_line)
+  end
+
+  def logs(line)
+    return '' unless File.readable?(log_path)
 
     cmd_stdout = ''
     cmd_stderr = ''
     cmd_status = nil
-    cmd = %W(tail -n #{MAX_LINE_NUMBER} #{log_path})
+    cmd = %W(tail -n #{line} #{log_path})
     Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
       out_reader = Thread.new { stdout.read }
       err_reader = Thread.new { stderr.read }
@@ -33,7 +45,7 @@ class Admin::LogsController < ApplicationController
 
     content = cmd_stdout.strip
     content = content.gsub(/\[\d+m/, '') if Rails.env.development?
-    content.split("\n")
+    content
   end
 
   def log_path

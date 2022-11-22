@@ -1,0 +1,17 @@
+= simple_form_for([:admin, @apple_key]) do |f|
+  .card-body
+    = f.error_notification
+
+    = f.input :issuer_id, required: true
+    = f.input :key_id, required: true
+    - if @apple_key.new_record?
+      = f.input :private_key, as: :file
+      - if @apple_key.errors.size > 0
+        = f.input :filename, disabled: true
+        = f.input :checksum, disabled: true
+    - else
+      = f.input :filename, disabled: true
+      = f.input :checksum, disabled: true
+
+  .card-footer
+    = f.button :submit

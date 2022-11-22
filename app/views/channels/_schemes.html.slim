@@ -4,6 +4,9 @@
   .card-body.p-0
     ul.nav.nav-pills.flex-column
       - @app.schemes.each do |scheme|
-        li.nav-item
-          a.nav-link href="#{using_friendly_channel_path(scheme, @channel)}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
-            = scheme.name
+        ruby:
+          scheme_link = using_friendly_channel_path(scheme, @channel)
+        - if scheme_link.present?
+          li.nav-item
+            a.nav-link.nav-link-flat href="#{scheme_link}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
+              = scheme.name

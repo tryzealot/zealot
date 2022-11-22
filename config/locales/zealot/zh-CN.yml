@@ -9,7 +9,7 @@ zh-CN:
 
   intro:
     title: 移动应用上传竟然如此简单、移动 App 应用分发系统
-    description: 解放开发打包的烦恼，轻松放权给测试、产品、运营等使用 App 的人员，提供丰富组件库，打包流程一键上传，iOS 和 Android 轻松接入，深度与 Jenkins 和 Gitlab 集成。
+    description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
 
   links:
     back_to_list: 返回列表
@@ -29,9 +29,9 @@ zh-CN:
         status: 状态
         last_login_time: 最后登录时间
         action: 操作
-        actived: 已激活
-        unactive: 未激活
-        never_logined: 从未登录
+        active: 已激活
+        inactive: 未激活
+        never_logged_in: 从未登录
         destroy_user: 删除
         destroy_user_confirm: 你确定要删除【%{user}】用户？
       edit:
@@ -63,6 +63,44 @@ zh-CN:
           disable: 网络钩子已经取消启用
           test: 网络钩子请求测试已发送
 
+    apple_keys:
+      title: 苹果开发者
+      new:
+        title: 添加开发者
+      index:
+        title: :'admin.apple_keys.title'
+        number: '#'
+        team_name: 团队名称
+        team_id: 团队标识符
+        created_at: 创建时间
+        action: 操作
+        new_apple_key: :'admin.apple_keys.new.title'
+        destroy: 删除
+        destroy_confirm: 确定删除苹果开发者【%{team} (%{team_id})】
+        not_found:
+          title: 没有发现任何苹果开发者
+          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增。
+      show:
+        title: :'admin.apple_keys.title'
+        team_metadata: 团队信息
+        key_metadata: 密钥信息
+        devices: 测试设备 (%{size})
+        sync_now: 现在同步
+        last_synced_at: 上次同步时间为 %{time}
+        never_sync: 尚未同步
+        udid: :'udid.show.udid'
+        udid_name: :'udid.show.name'
+        udid_platform: :'udid.show.platform'
+        udid_model: :'udid.show.model'
+        udid_related_apps: 关联应用
+        udid_created_at: 创建时间
+      create:
+        successful: 创建成功并成功同步开发者的相关信息
+
+    apple_teams:
+      edit:
+        title: 更新苹果开发者名称
+
     settings:
       title: 系统设置
       index:
@@ -84,16 +122,19 @@ zh-CN:
       site_title: 网站标题
       site_locale: 网站语言
       site_domain: 网站域名
+      site_appearance: 网站外观
 
       presets: 预设值
       preset_schemes: 应用类型模板
       preset_role: 新用户权限
+      preset_install_limited: 应用内安装限制
+      preset_install_limited_hint: 特定手机应用打开无法进行安装操作（比如：微信、钉钉等），通过设置 User Agent 关键词开启使用浏览器打开安装帮助
 
       switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 游客模式
       demo_mode: 演示模式
-      demo_mode_tips: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
+      demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
 
       third_party_auth: 第三方登录
       ldap: LDAP
@@ -101,7 +142,7 @@ zh-CN:
       gitlab: Gitlab
       google_oauth: Google OAuth
 
-      # backup: 备份
+      backup: 备份
       # misc: 杂项
 
       stmp: 邮件配置
@@ -110,7 +151,7 @@ zh-CN:
       mailer_options: 发件服务器配置
 
       analytics: 统计
-      google_analytics_id: Google Analytics ID
+      google_analytics_id: Google 统计
 
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
@@ -138,9 +179,10 @@ zh-CN:
         disk_info: 磁盘
         lauched_time: 运行时间
         volume_mounted: 挂载信息
-        fail_detect_disk: 硬盘信息无法获取
+        fail_detect_disk: 无法解读硬盘信息
         system_environment: 系统变量
         file_permissions: 文件权限
+        services: 服务状态
         ruby_gems: Ruby Gems
         logs: 日志
         new_version: '发现新版本 '
@@ -148,15 +190,53 @@ zh-CN:
         messages:
           file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
 
+    backups:
+      title: 数据备份
+      index:
+        title: :'admin.backups.title'
+        new_backup: :'admin.backups.new.title'
+        key: 备份名称
+        scopes: 备份范围
+        schedule: 备份频率
+        next_schedule_at: 下次备份时间
+        enabled: 启用
+        action: 操作
+        run_now: 生成备份
+        edit: 编辑
+        destroy: 删除
+        database: 数据库
+        app: '%{count} 应用'
+        destroy_confirm: 确认删除 %{key}？
+        not_found:
+          title: 没有发现任何备份计划
+          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
+      show:
+        title: '%{key} 备份计划'
+        filename: 文件名
+        created_at: 生成时间
+        size: 大小
+        download: 下载
+        destroy: 删除
+        unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
+        current_step: 任务进行中，当前状态 %{step}
+        not_found:
+          title: 没有发现任何备份文件
+          body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
+      new:
+        title: 新增备份
+      edit:
+        title: 编辑 %{key} 备份计划
+      perform:
+        success: 备份任务正在后台工作中
+      destroy_archive:
+        success: 备份文件成功删除
+      parse_schedule:
+        invalid_expression: 表达式无法解析
+
     background_jobs:
       title: 后台任务
       index:
         title: :'admin.background_jobs.title'
-
-    page_analytics:
-      title: 页面统计分析
-      index:
-        title: :'admin.page_analytics.title'
 
     database_analytics:
       title: 数据库分析
@@ -167,7 +247,8 @@ zh-CN:
       title: 服务日志
       index:
         title: :'admin.logs.title'
-        notice: 仅显示最新 %{number} 行代码，暂时不支持自动刷新
+        loading: 日志加载中 ...
+        error_message: 日志获取失败，返回状态码：
 
   dashboard:
     title: 控制台
@@ -257,7 +338,7 @@ zh-CN:
       total_releases: 上传版本
       channel_key: 渠道 KEY
       edit_channel: 渠道管理
-      none: 未设置
+      none: 无
       not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
       id: ID
       build_version: 开发版本
@@ -266,7 +347,7 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
-      majar_versions: 历史主版本
+      major_versions: 历史主版本
       release_version: 主版本号
       total_version: 版本数量
       empty_version_shortly: 暂无版本
@@ -300,7 +381,7 @@ zh-CN:
       api: 接口上传
     show:
       enter_password: 访问密码
-      app_limited: 应用限制请按照提示安装
+      app_limited: 无法在当前应用安装
       app_touch_menu: 点击右上角菜单
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
@@ -320,10 +401,11 @@ zh-CN:
       source: 上传来源
       metadata: 更多信息
       teardown_meatdata: 解包信息
-      install: 设备安装
-      download: 本地下载
+      install: 安装
+      download: 下载
       installing: 安装到桌面 ...
-      destroy: 删除版本
+      installed: 安装请求完毕，请查看桌面
+      destroy: 删除
       missing_file: 遗失文件不可安装或下载
       more: 更多上传
       cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
@@ -332,12 +414,12 @@ zh-CN:
       upload_release: :'dashboard.timeline.upload_release'
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
-      use_fastlane_plugin_sync_devices: 使用 %{link} fastlane 插件同步设备名称
+      sync_devices_feature: 推荐使用%{link}同步设备名称
 
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
 
-      majar_versions: :'channels.show.majar_versions'
+      major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'
@@ -543,7 +625,6 @@ zh-CN:
       download_events: '%{name} %{version} 版本被下载'
       changelog_events: '%{name} %{version} 版本更新了变更日志'
       unknown_events: '%{name} 触发了未知事件: %{event}'
-      parse_done: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
       errors:
         not_found_file: '无法找到解包文件: %{message}'
         failed_detect_file_type: 无法识别应用类型
@@ -555,40 +636,59 @@ zh-CN:
   udid:
     title: 设备 UDID
     index:
-      tip: 电脑打开本页面的请使用 iPhone 或 iPad 扫描上面的二维码后点击下面的按钮
-      fetch_udid: 点击获取设备 UDID
+      apple_tip: 请使用 iPhone 或 iPad 扫描二维码获取
+      nonapple_tip: :'udid.index.apple_tip'
+      fetch_udid: 获取设备 UDID
       help:
-        title: 为什么需要设备 UDID?
+        title: 为什么要下载安装描述文件获取设备 UDID?
         body_html: |
           <p>
-            UDID 全称 Unique Device Identifier 是 iOS 设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
+            UDID 全称 Unique Device Identifier 是苹果设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
             之后版本不再允许从应用内随意获取，iOS 的应用打包如使用 AdHoc 的方式签名必须设置设备白名单来保证设备测试的安全性
             （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
           </p>
           <strong>获取步骤</strong>
           <ol>
             <li>点击系统会弹窗的 “允许” 下载描述文件</li>
-            <li>打开手机 ”设置” 找到顶部的 ”已下载描述文件“ 点击可以待安装的 ”获取设备UDID“ 的描述文件</li>
-            <li>一路点击 ”安装“ 并输入锁屏密码允许安装描述文件</li>
+            <li>打开手机 “设置” 找到顶部的 “已下载描述文件” 点击可以待安装的 “获取设备UDID” 的描述文件</li>
+            <li>一路点击 “安装” 并输入锁屏密码允许安装描述文件</li>
             <li>安装之后描述文件会自动删除并跳转一个结果页面</li>
           </ol>
     show:
       title: 设备信息
-      registered: 本设备已注册%{device}，快往下看看有没有关联的应用吧！
-      unregistered: 发现一台未注册的设备，复制 UDID 给 iOS 工程师哦！
+      metadata: 元数据
+      registered_but_no_related_app: 本设备已注册，很遗憾还没有发现关联应用
+      registered_with_related_apps:  本设备已注册，下面选择需要安装的应用吧
+      register: 本设备还未注册，快去选择对应的苹果开发者主体注册吧！
+      unregistered: 发现一台未注册的设备，复制 UDID 给苹果开发工程师哦！
       registered_apps: 可安装应用
       udid: UDID
-      product: 型号
       serial: 序列化
-      version: 版本
+      product: 内部型号
+      version: 内部版本
+      name: 设备名称
+      platform: 平台
+      model: 产品型号
+      created_at: 注册时间
       upload_release: :'dashboard.timeline.upload_release'
+      related_apple_keys: 已关联的苹果开发者
+      register_apple_key: 注册测试设备到苹果开发者
+      channels: 应用渠道
+      releases: 应用版本
+      apple_keys: 苹果开发者
+      team_name: 团队名称
+      team_id: 团队 ID
+      register_device: 注册本设备
+      related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
+      related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
 
     install:
       title: Zealot 获取设备 UDID
       description: |
-        本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+        ↑↑↑↑ 这里显示"未签名"是正常情况，请放心安装。
 
-        本服务由 %{url} 提供。
+        安装描述文件后仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+        服务由 %{url} 提供。
 
   web_hooks:
     title: :'admin.web_hooks.title'
@@ -601,7 +701,7 @@ zh-CN:
     destroy: 删除
     disable: 禁用
     messages:
-      done: 调试文件解析完成！
+      parse_done_and_refreshing: '解析完成，页面正在刷新 ...'
       confirm:
         destroy: 确定删除?
 
@@ -618,6 +718,10 @@ zh-CN:
     site_locale:
       zh-CN: 简体中文
       en: 英文
+    site_appearance:
+      light: 浅色
+      dark: 深色
+      auto: 随系统自动
 
   download:
     releases:
@@ -714,6 +818,16 @@ zh-CN:
       homepage_title: 首页
       unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
 
+  active_job:
+    debug_file:
+      success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
+      failures:
+        not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
+    backup:
+      success: '%{key} 备份创建完成'
+      failures:
+        max_keeps_limited: '%{key} 备份设置最大限制值为零'
+
   activerecord:
     success:
       create: "%{key}创建成功"
@@ -724,6 +838,12 @@ zh-CN:
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
+        apple_key:
+          attributes:
+            devices:
+              invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
+              api: '苹果返回错误：%{message}'
+              unknown: '未知错误: %{message}'
         debug_file:
           attributes:
             app_id:
@@ -732,6 +852,10 @@ zh-CN:
               blank: 必须选择一个 zip 文件
             checksum:
               taken: 文件已经存在，不能重复上传
+        backup:
+          attributes:
+            schedule:
+              invalid: 表达式格式错误
 
   user_mailer:
     omniauth_welcome_email:
@@ -788,6 +912,14 @@ zh-CN:
       setting:
         create: 保存设置
         update: 更新设置
+      apple_key:
+        create: 新增苹果开发者
+      apple_team:
+        update: 更新
+      backup:
+        create: 创建备份
+        update: 更新备份
+
   views:
     pagination:
       truncate: ...
