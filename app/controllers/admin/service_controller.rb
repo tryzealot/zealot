@@ -9,8 +9,7 @@ class Admin::ServiceController < ApplicationController
 
   def status
     client.stats
-
-    render json: { health: 'ok' }
+    render json: { health: 'ok' }, status: :ok
   rescue
     render json: { health: 'fail' }, status: :internal_server_error
   end

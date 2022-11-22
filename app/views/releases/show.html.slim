@@ -1,40 +1,19 @@
 - content_for :title do
-  = @title
+  = @release.app_name
 
 .row
   - if logged_in_or_without_auth?(@release)
     .col-md-8.col-lg-9
-      == render 'releases/body/app_limited'
+      == render 'releases/body/new_release_callout', latest_release: @release.outdated?
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/devices'
-      == render 'releases/body/activity'
+      == render 'releases/body/activity', current_release: @release, recently_releases: @release.channel.recently_releases
 
     .col-md-4.col-lg-3
-      - if user_signed_in?
-        a.btn.btn-success.btn-block.mb-3 href="#{new_channel_release_path(@channel)}" = t('releases.new.title')
-      == render 'releases/sidebar/version'
+      = link_to_if user_signed_in?, t('releases.new.title'), new_channel_release_path(@channel), class: 'btn btn-success btn-block mb-3'
+      == render 'releases/sidebar/version', channel: @release.channel
       == render 'releases/sidebar/qrcode'
-      - if guest_mode_or_signed_in?
-        a.btn.btn-default.btn-block href="#{friendly_channel_overview_path(@channel)}" = t('releases.show.view_detail')
+      = link_to_if guest_mode_or_signed_in?, t('.view_detail'), friendly_channel_overview_path(@channel), class: 'btn btn-default btn-block'
   - else
-    .col-md-12
-      .card
-        .card-header
-          h3.card-title = t('releases.show.enter_password')
-        .card-body
-          - if @error_message.present?
-            .alert.alert-danger.alert-dismissible
-              h4
-                i.icon.fas.fa-exclamation-triangle
-                = @error_message
-
-          form.form action="#{auth_channel_release_path(@channel, @release)}" method="post" role="form"
-            .input-group
-              .input-group-prepend
-                span.input-group-text style="border-left: 1px solid #ced4da"
-                  i.fas.fa-key
-              input.form-control name="password" placeholder='******' type="password"
-              span.input-group-append
-                button.btn.btn-default.btn-flat
-                  i.fas.fa-arrow-right
+    == render 'releases/body/password_auth'

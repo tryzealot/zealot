@@ -8,7 +8,7 @@ bundler/
 storage/
 
 # minimal Rails specific artifacts
-/config/master.key
+/config/master*.key
 /config/credentials.yml*
 db/*.sqlite3
 /db/*.sqlite3-journal
@@ -77,3 +77,5 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/app/assets/builds/*
+!/app/assets/builds/.keep

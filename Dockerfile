@@ -61,7 +61,7 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 
-ARG ZEALOT_VERSION="4.4.0"
+ARG ZEALOT_VERSION="4.5.3"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
@@ -108,6 +108,6 @@ RUN ln -s /app/bin/rails /usr/local/bin/
 
 EXPOSE 80
 
-VOLUME [ "/app/public/uploads", "/app/public/backup" ]
+# VOLUME [ "/app/public/uploads", "/app/public/backup" ]
 
 ENTRYPOINT ["/init"]
