@@ -2,7 +2,7 @@
 
 # Bind on a specific TCP address. We won't bother using unix sockets because
 # nginx will be running in a different Docker container.
-bind "tcp://#{ENV.fetch('BIND_ON') { '0.0.0.0:3000' }}"
+bind "tcp://#{ENV.fetch('BIND_ON') { '127.0.0.1:3000' }}"
 
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch('PIDFILE') { 'tmp/pids/puma.pid' }
@@ -70,4 +70,4 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # provide an authentication token, so all requests to the control server
 # will need to include that token as a query parameter. This allows for
 # simple authentication.
-activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '0.0.0.0:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
+activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }

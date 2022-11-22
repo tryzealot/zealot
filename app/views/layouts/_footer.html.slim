@@ -1,9 +1,6 @@
 footer.main-footer
   .float-right.d-none.d-sm-block
     b Version
-    = " #{Setting.version}"
-  strong
-    | Copyright &copy; 2015-#{Time.now.year}&nbsp
-    = link_to Setting.site_title, Setting.repo_url
-    | .
-  |  All rights reserved.
+    = link_to " #{Setting.version}", Setting.repo_url
+  p
+    | Created with ❤️ with Rails, AdminLTE & font awesome.

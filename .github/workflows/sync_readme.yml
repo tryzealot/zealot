@@ -1,0 +1,32 @@
+name: Sync README to Organization
+on:
+  push:
+    paths:
+      - 'README.md'
+      - '.github/workflows/sync_readme.yml'
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: false
+        fetch-depth: 0
+
+    - name: Organize folder
+      run: |
+        mkdir -p output/profile
+        cp README.md output/profile
+
+    - name: Pushes to Organization
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      with:
+        source-directory: 'output'
+        destination-github-username: 'tryzealot'
+        destination-repository-name: '.github'
+        user-email: icyleaf.cn@gmail.com
+        target-branch: main

@@ -6,22 +6,19 @@ en:
   user_profile: User profile
   log_out: Log out
   log_in: Log in
-
   intro:
-    title: Over The Air Server for deployment of mobile and macOS apps
-    description: Zealot makes it easy to let users to test your apps which it provides rich component libraries to make integration with Jenkins and Gitlab easily.
-
+    title: Self-hosted Beta App Distribution for Android, iOS and macOS apps
+    description: Continuous everything. Automate the lifecycle of your apps. Connect your CI to build in the cloud, test on thousands of real devices, distribute to beta testers and app stores. All in one place.
   links:
     back_to_list: Back to list
-
   admin:
     users:
       title: Users
       new:
         title: New user
       index:
-        title: :'admin.users.title'
-        new_user: :'admin.users.new.title'
+        title: :admin.users.title
+        new_user: :admin.users.new.title
         number: '#'
         nickname: Nickname
         email: E-mail
@@ -29,26 +26,25 @@ en:
         status: Status
         last_login_time: Last login time
         action: Action
-        actived: Actived
-        unactive: Unactive
-        never_logined: Never logined
+        active: Active
+        inactive: Inactive
+        never_logged_in: Never logged in
         destroy_user: Destroy
         destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
       edit:
         title: User information
         active_link: Active link
         active_link_tip: If the inviting user does not receive the activation email, send this link to active.
-
     web_hooks:
       title: Webhooks
       index:
-        title: :'admin.web_hooks.title'
+        title: :admin.web_hooks.title
         number: '#'
         url: URL
         channels: Channels
         action: Action
         not_found: Not found any Webhook.
-        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destory them here.
+        create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
         destroy: Destroy
         destroy_confirm: Destroy confirm?
       show:
@@ -62,11 +58,46 @@ en:
           enable: Enabled the Webhook successfully
           disable: Disabled the Webhook successfully
           test: Test sent successfully
-
+    apple_keys:
+      title: Apple Developer
+      new:
+        title: New Apple Developer
+      index:
+        title: :admin.apple_keys.title
+        number: '#'
+        team_name: Team name
+        team_id: Team ID
+        created_at: Created at
+        action: Action
+        new_apple_key: :admin.apple_keys.new.title
+        destroy: Destroy
+        destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
+        not_found:
+          title: Not found Apple Developer.
+          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
+      show:
+        title: :admin.apple_keys.title
+        team_metadata: Team metadata
+        key_metadata: Key Metadata
+        devices: Devices (%{size})
+        sync_now: Sync now
+        last_synced_at: Last synced at %{time}
+        never_sync: Never sync
+        udid: :udid.show.udid
+        udid_name: :udid.show.name
+        udid_platform: :udid.show.platform
+        udid_model: :udid.show.model
+        udid_related_apps: Related Apps
+        udid_created_at: Created at
+      create:
+        successful: Created Apple Developer successfully
+    apple_teams:
+      edit:
+        title: Edit team metadata
     settings:
       title: Settings
       index:
-        title: :'admin.settings.title'
+        title: :admin.settings.title
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -74,55 +105,47 @@ en:
         title: Edit setting
       edit:
         title: Edit setting
-
       enable: Enabled
       disable: Disabled
-      validates: 'Rule：%{value}'
-
+      validates: 'Rule: %{value}'
       general: General
       site_https: Enable HTTPS
       site_title: Site title
       site_locale: Site Locale
       site_domain: Site domain
-
+      site_appearance: Site Appearance
       presets: Presets
       preset_schemes: Default schemes
       preset_role: Default user role
-
+      preset_install_limited: In-App install limited
+      preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
       demo_mode: Demo mode
-      demo_mode_tips: 'Enable demo mode will: RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only'
-
-      third_party_auth: Third pary auth
+      demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
+      third_party_auth: Third-party Auth
       ldap: LDAP
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-
-      # backup: Backup
-      # misc: Misc
-
+      backup: 备份
+      #misc: 杂项
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
       mailer_options: Options
-
       analytics: Analytics
       google_analytics_id: Google Analytics ID
-
       archives: Archive uploaded binaries
-      keep_uploads: Keep all
-
+      keep_uploads: Keep all builds
       empty_value: Empty
       no_editable_key: Read only
       reset: Reset to default value
-
     system_info:
       title: System information
       index:
-        title: :'admin.system_info.title'
+        title: :admin.system_info.title
         zealot_version: Zealot version
         vcs_ref: VCS Ref
         build_date: Build date
@@ -132,7 +155,7 @@ en:
         ruby_version: Ruby version
         cpu_info: CPU
         cpu_core:
-          one: 'One Core'
+          one: '%{count} Core'
           other: '%{count} Cores'
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
@@ -143,50 +166,86 @@ en:
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
         file_permissions: File permissions
+        services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: Found new version
+        new_version: 'Found new version'
         dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
-
+    backups:
+      title: Backups
+      index:
+        title: :admin.backups.title
+        new_backup: New backup
+        key: Key
+        scopes: Scopes
+        schedule: Schedule
+        next_schedule_at: Next schedule at
+        enabled: Enabled
+        action: Action
+        run_now: Run now
+        edit: Edit
+        destroy: Destroy
+        database: Database
+        app:
+          one: '%{count} App'
+          other: '%{count} Apps'
+        destroy_confirm: 'Confirm to destroy: %{key}?'
+        not_found:
+          title: Not found any backup
+          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
+      show:
+        title: '%{key} backup'
+        filename: Filename
+        created_at: Created at
+        size: Size
+        download: Download
+        destroy: Destroy
+        unknown_job_status: Unknown happened! Try again or report to zealot developer please.
+        current_step: Processing, current %{step}
+        not_found:
+          title: Not found any backup file
+          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
+      new:
+        title: New backup
+      edit:
+        title: Edit %{key} backup
+      perform:
+        success: Backup was successfully scheduled to run in the background.
+      destroy_archive:
+        success: Backup was deleted successfully.
+      parse_schedule:
+        invalid_expression: Invalid expression
     background_jobs:
       title: Background jobs
       index:
-        title: :'admin.background_jobs.title'
-
-    page_analytics:
-      title: Page analytics
-      index:
-        title: :'admin.page_analytics.title'
-
+        title: :admin.background_jobs.title
     database_analytics:
       title: Database analytics
       index:
-        title: :'admin.database_analytics.title'
-
+        title: :admin.database_analytics.title
     logs:
       title: Service logs
       index:
-        title: :'admin.logs.title'
-        notice: To prevent performance issues admin logs output the last %{number} lines
-
+        title: :admin.logs.title
+        loading: Loading ...
+        error_message: 'Failed fetch logs, return status code: '
   dashboard:
     title: Dashboard
     analytics:
-      apps: :'apps.title'
-      debug_files: :'debug_files.title'
-      teardowns: :'teardowns.title'
+      apps: :apps.title
+      debug_files: :debug_files.title
+      teardowns: :teardowns.title
       uploads: Uploads
-      web_hooks: :'admin.web_hooks.title'
-      users: :'users.title'
-      background_jobs: :'admin.background_jobs.title'
+      web_hooks: :admin.web_hooks.title
+      users: :admin.users.title
+      background_jobs: :admin.background_jobs.title
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_release: uploaded a verison %{release_version} (%{build_version})
+      upload_release: uploaded a version %{release_version} (%{build_version})
       not_found: Not found any upload.
-
   apps:
     title: Apps
     index:
@@ -210,11 +269,11 @@ en:
         title: Not found any scheme.
         body_html: |
           <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
-          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided：</p>
+          <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
             <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>Use the app store channal in Android app：</p>
+          <p>Use the app store channal in Android app:</p>
           <ul>
             <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
@@ -231,22 +290,20 @@ en:
         delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
-
   schemes:
     title: Schemes
     show:
       empty_channel: Not found any channel.
     new:
-      title: New scheme for %{app}
+      title: 'New scheme for %{app}'
     edit:
-      title: Edit scheme for %{app}
-
+      title: 'Edit scheme for %{app}'
   channels:
     title: Channels
     subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
     show:
-      scheme: :'schemes.title'
-      channel: :'channels.title'
+      scheme: :schemes.title
+      channel: :channels.title
       activity: Activity
       upload_release: Upload a release
       metadata: Metadata
@@ -268,16 +325,16 @@ en:
       release_type: Release type
       uploaded_at: Uploaded time
       actions: Action
-      majar_versions: Majar versions
+      major_versions: Major versions
       release_version: Release version
       total_version: Versions
       empty_version_shortly: Nothing
-      empty_version: Not found any release with this version！
+      empty_version: Not found any release with this version!
       more: More
     new:
-      title: Create new channel for %{name}
+      title: 'Create new channel for %{name}'
     edit:
-      title: Edit channel for %{name}
+      title: 'Edit channel for %{name}'
     branches:
       index:
         subtitle: 'Releases of branch %{branch}'
@@ -291,10 +348,9 @@ en:
         subtitle: 'Releases of version %{version}'
     messages:
       confirm:
-        destroy: :'web_hooks.messages.confirm.destroy'
+        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
-
   releases:
     title: Build
     sources:
@@ -303,19 +359,18 @@ en:
     show:
       enter_password: Enter password
       app_limited: Install limited in current app
-      app_touch_menu: Click menu right-top concor
+      app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
-      app_open_in_webbrower: Open with any brower and install
+      app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
       released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
-
       name: App
       version: Auto Version
       device_type: Device
       release_version: Release version (build version)
       release_type: Release type
-      filesize: Filesize
+      filesize: File size
       uploaded_at: Uploaded time
       git_branch: Git branch
       git_commit: Git commit SHA
@@ -325,32 +380,28 @@ en:
       install: Install
       download: Download
       installing: Installing ...
+      installed: Install requested
       destroy: Destroy
       missing_file: Missing file
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
-
       last_ten_uploads: Activity
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_release: :dashboard.timeline.upload_release
       changelog: Changelog
-      devices:
-        one: "One device's UDID"
-        other: "%{count} device's UDIDs"
-      use_fastlane_plugin_sync_devices: Sync device name by using %{link} fastlane plugin
-
+      devices: '%{count} test devices (UDID)'
+      sync_devices_feature: Sync device name by using %{link} fastlane plugin
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-
-      majar_versions: :'channels.show.majar_versions'
+      major_versions: :channels.show.major_versions
       view_detail: Manage channel
     new:
-      title: :'channels.show.upload_release'
+      title: :channels.show.upload_release
     install:
       show:
         not_found: Can not download, missing binary file.
     messages:
       default_changelog: |
-        Not found any changelog, cause:
+        Not found changelog, cause:
 
         - The developer is lazy without leaving anyting 😂
         - Error occurred 👽
@@ -366,7 +417,7 @@ en:
           </ol>
         ok: Okay
       confirm:
-        destroy: :'web_hooks.messages.confirm.destroy'
+        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -378,14 +429,13 @@ en:
         deleted_manually: Maybe clean up manually
         deleted_programly: Maybe clean up by enabled auto clean in system
         not_found_really: Not found release
-        invalid_password: Invailed password
+        invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
-
   debug_files:
     title: Debug files
     index:
       upload: Upload a debug file
-      processing: Processing in background, refreash the web page later.
+      processing: Processing in background, refresh the web page later.
       version: 'Version: %{version}'
       download: Download (%{size})
       destroy: Destroy
@@ -426,7 +476,6 @@ en:
         body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
         ok: Destroy
         cancel: Cancel
-
   teardowns:
     title: Teardowns
     new:
@@ -436,9 +485,9 @@ en:
       file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
       submit: Start work
     create:
-      create: :'teardowns.new.title'
+      create: :teardowns.new.title
     index:
-      create: :'teardowns.new.title'
+      create: :teardowns.new.title
       upload_history: History
       uploaded_at: Uploaded time
       app_name: App name
@@ -448,18 +497,16 @@ en:
       actions: Action
       anonymous: Anonymous
       not_found:
-        title: Not found any teardown！
+        title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
-
     show:
       title: 'Teardown: %{name} %{release_version} (%{build_version})'
       expired_in: Expire in %{time}
       already_expired: Expired at %{time}
       expired: Expired now!
       related_app: Release related
-      related_body: 'This teardown was relates with '
-      unknow_app_name: Unkown
-
+      related_body: This teardown was relates with
+      unknow_app_name: Unknown
       metadata: Metadata
       app_name: App name
       version: Version
@@ -471,10 +518,8 @@ en:
       min_ios_version: Min iOS version
       min_macos_version: Min macOS version
       capabilities: Capabilities
-      devise_list: UDID (%{count})
-      developer_certs_list:
-        one: 'Developer cert (%{count})'
-        other: 'Developer certs (%{count})'
+      devise_list: 'UDID (%{count})'
+      developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
       mobileprovision: Mobileprovision
@@ -483,9 +528,8 @@ en:
       team_id: Team ID
       created_at: Created time
       expired_at: Expired time
-
     help:
-      title: Helpe center
+      title: Help center
       body_html: |
         <p>
           Click the button <i class="far fa-plus-square"></i> to upload app and use
@@ -547,23 +591,22 @@ en:
       upload_events: '%{name} uploaded release %{version}'
       download_events: '%{name} %{version} downloaded'
       changelog_events: '%{name} %{version} update the changelog'
-      unknown_events: '%{name} triggered unkown event: %{event}'
-      parse_done: Debug file (%{id}) pare done, Refresh the web page please.
+      unknown_events: '%{name} triggered unknown event: %{event}'
       errors:
         not_found_file: 'Not found debug file: %{message}'
         failed_detect_file_type: Failed to detect file type
         not_support_file_type: Not support file type
-        failed_get_metadata: Failed to parse, make sure supported file type and un-hardened
-        unknown_parse: 'Unkown parse error [%{class}]: %{message}'
+        failed_get_metadata: Failed to parse, make sure supported file type and unhardened
+        unknown_parse: 'Unknown parse error [%{class}]: %{message}'
         choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
-
   udid:
     title: Fetch UDID
     index:
-      tip: Use iPhone or iPad to scan the QR Code then click the button below
-      fetch_udid: Click to fetch UDID
+      apple_tip: Use iPhone or iPad to scan the QR Code to install
+      nonapple_tip: :udid.index.apple_tip
+      fetch_udid: Get your UDID now
       help:
-        title: Why we need device's UDID?
+        title: Why need to install profile to fetch your UDID?
         body_html: |
           <p>
             UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
@@ -581,27 +624,41 @@ en:
           </ol>
     show:
       title: Device
-      registered: '%{device} was registerd the apps'
-      unregistered: New device found, copy the UDID to iOS Developer!
-      registered_apps: Registerd apps
+      metadata: Metadata
+      registered_but_no_related_app: Device was registered to Apple Developer, but not found any related app.
+      registered_with_related_apps: Device was registered to Apple Developer, install app below.
+      register: Device is unregister, choose Apple Developer to register.
+      unregistered: New device found, copy the UDID to Apple Developer!
+      registered_apps: Registered apps
       udid: UDID
-      product: Product
       serial: Serial
+      product: Product
       version: Version
-      upload_release: :'dashboard.timeline.upload_release'
+      name: Device Name
+      platform: Platform
+      model: Model
+      created_at: Registerd at
+      upload_release: :dashboard.timeline.upload_release
+      related_apple_keys: Related Apple Developers
+      register_apple_key: Register to Apple Developer
+      channels: Channels
+      releases: Uploads
+      apple_keys: Apple Developers
+      team_name: Team Name
+      team_id: Tead ID
+      register_device: Register
+      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
+      related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
       title: Zealot fetch device UDID
       description: |
+        ↑↑↑↑ It is safe to display "Unsigned".
+
         Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
-
         Powered by %{url}.
-
-  users:
-    title: Users
-
   web_hooks:
-    title: :'admin.web_hooks.title'
-    create: :'admin.web_hooks.new.title'
+    title: :admin.web_hooks.title
+    create: :admin.web_hooks.new.title
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -610,12 +667,11 @@ en:
     destroy: Destroy
     disable: Disable
     messages:
-      done: Teardown done!
+      parse_done_and_refreshing: 'Teardown done, refresh page ...'
       confirm:
         destroy: Destroy confirm?
-
   settings:
-    title: :'admin.settings.title'
+    title: :admin.settings.title
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
@@ -627,7 +683,10 @@ en:
     site_locale:
       zh-CN: Simplified Chinese
       en: English
-
+    site_appearance:
+      light: Light
+      dark: Dark
+      auto: Auto
   download:
     releases:
       show:
@@ -635,7 +694,6 @@ en:
     debug_files:
       show:
         not_found: Not found debug file
-
   api:
     unauthorized_channel_key: Unauthorized channel key
     unauthorized_token: Unauthorized user token
@@ -658,7 +716,6 @@ en:
     jenkins:
       build:
         failed_request: Build request failed, please try again
-
   demo:
     app_name1: First App
     app_name2: Android Only App
@@ -668,7 +725,6 @@ en:
       channel3: oppo
       channel4: vivo
       channel5: xiaomi
-
   errors:
     code:
       '400':
@@ -683,13 +739,13 @@ en:
       '410':
         title: The page you were looking for doesn't exist here anymore.
       '422':
-        title: Security verification failed
         content: Security verification failed. Are you blocking cookies?
+        title: Security verification failed
       '429':
         title: Too many requests
       '500':
-        title: This page is not correct
         content: We're sorry, but something went wrong on our end.
+        title: This page is not correct
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
@@ -697,22 +753,36 @@ en:
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
-      optional_value: 'Optinal value: %{value}'
-      invaild_in_demo_mode: Forbidden in demo mode
+      optional_value: 'Optional value: %{value}'
+      invalid_in_demo_mode: Forbidden in demo mode
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
       homepage_title: homepage
-      unknown_file_type: Unkown file type to parse
-
+      unknown_file_type: Unknown file type to parse
+  active_job:
+    debug_file:
+      success: Debug file (%{id}) pare done, Refresh the web page please.
+      failures:
+        not_found_file: Debug file is missing with unknown issue.
+    backup:
+      success: '%{key} backup created successfully.'
+      failures:
+        max_keeps_limited: '%{key} backup maximum limit value was zero'
   activerecord:
     success:
-      create: Created %{key} successfully
-      update: Updated %{key} successfully
-      destroy: Deleteed %{key} successfully
+      create: "Created %{key} successfully"
+      update: "Updated %{key} successfully"
+      destroy: "Deleted %{key} successfully"
     errors:
       same_value: "%{key} not change, skip to update"
       models:
+        apple_key:
+          attributes:
+            devices:
+              invalid_value: Register device %{value} was invalid.
+              api: 'Apple return error: %{message}'
+              unknown: 'Unknown error: %{message}'
         debug_file:
           attributes:
             app_id:
@@ -721,12 +791,14 @@ en:
               blank: Choose a zipped file with supported type
             checksum:
               taken: File exists, cannot be uploaded
-
+        backup:
+          attributes:
+            schedule:
+              invalid: Invalid expression
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
       default_password: 'You authorized the third-party service to register Zealot, Here is the password:'
-
   devise:
     confirmations:
       new:
@@ -752,7 +824,6 @@ en:
           feishu: ' Feishu'
           google: ' Google'
           gitlab: ' Gitlab'
-
   helpers:
     submit:
       user:
@@ -777,6 +848,13 @@ en:
       setting:
         create: Save
         update: Save
+      apple_key:
+        create: Create
+      apple_team:
+        update: Update
+      backup:
+        create: Create
+        update: Update
   views:
     pagination:
       truncate: ...

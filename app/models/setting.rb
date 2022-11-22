@@ -6,8 +6,9 @@ class Setting < RailsSettings::Base
   include SettingValidate
   include SettingSuger
 
-  before_save   :convert_third_party_enabled_value, if: :third_party_auth_scope?
-  before_save   :mark_restart_flag, if: :need_restart?
+  before_save     :convert_third_party_enabled_value, if: :third_party_auth_scope?
+  before_save     :mark_restart_flag, if: :need_restart?
+  before_destroy  :mark_restart_flag, if: :need_restart?
 
   cache_prefix { 'v2' }
 
@@ -20,7 +21,8 @@ class Setting < RailsSettings::Base
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
           validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
     field :site_https, default: site_https, type: :boolean, readonly: true, display: true
-
+    field :site_appearance, default: (ENV['ZEALOT_APPEARANCE'] || builtin_appearances.keys[0].to_s), type: :string, display: true,
+          validates: { presence: true, inclusion: { in: builtin_appearances.keys.map(&:to_s) } }
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end
@@ -30,9 +32,10 @@ class Setting < RailsSettings::Base
     field :preset_schemes, default: builtin_schemes, type: :array, display: true
     field :preset_role, default: 'user', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
+    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true
   end
 
-  # # 模式开关
+  # 模式开关
   scope :switch_mode do
     field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
           type: :boolean, display: true
@@ -98,7 +101,7 @@ class Setting < RailsSettings::Base
   # 备份
   field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
-    keep_time: 604800,
+    max_keeps: 10,
     pg_schema: 'public',
   }
 
@@ -106,7 +109,7 @@ class Setting < RailsSettings::Base
   scope :information do
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
     field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
-    field :build_date, default: ENV['ZEALOT_BUILD_DATE'], type: :string, readonly: true
+    field :build_date, default: (ENV['ZEALOT_BUILD_DATE'] || ENV['HEROKU_RELEASE_CREATED_AT']), type: :string, readonly: true
   end
 
   # 统计

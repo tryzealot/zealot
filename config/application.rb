@@ -14,8 +14,6 @@ require 'action_mailer/railtie'
 # require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
-require 'sprockets/railtie'
-# require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -32,7 +30,7 @@ module Zealot
 
     # Set default locale
     locale = ENV['DEFAULT_LOCALE']&.to_sym
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    # config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = %i[zh-CN en]
     config.i18n.default_locale = config.i18n.available_locales.include?(locale) ? locale : :'zh-CN'
 
@@ -65,27 +63,14 @@ module Zealot
     #   config.action_cable.allowed_request_origins = origins
     # end
 
-    # Disable Asset Pipeline/Sprockets
-    # config.assets.enabled = false
-    # config.assets.compile = false
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
-    config.generators.javascripts = false
-    config.generators.stylesheets = false
-
-    ################################################################
-
     # Auto load path
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.eager_load_paths += Dir["#{config.root}/lib"]
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
-
-    # Disable yarn check(this must disable with docker)
-    # config.webpacker.check_yarn_integrity = false
+    ################################################################
+    # Don't generate those files.
+    config.generators.javascripts = false
+    config.generators.stylesheets = false
+    config.generators.system_tests = false
   end
 end

@@ -1,5 +1,7 @@
 name: 新特性 | Feature request
 description: 期望开发新功能、新特性 | Request a feature
+title: "[Feature Request]: "
+labels: ["enhancement"]
 body:
 - type: textarea
   attributes:

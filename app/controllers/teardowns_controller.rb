@@ -29,26 +29,27 @@ class TeardownsController < ApplicationController
     parse_app
   rescue AppInfo::NotFoundError, ActiveRecord::RecordNotFound => e
     flash[:error] = t('teardowns.messages.errors.not_found_file', message: e.message)
-    render :new
+    render :new, status: :unprocessable_entity
   rescue ActionController::RoutingError => e
     flash[:error] = e.message
-    render :new
+    render :new, status: :unprocessable_entity
   rescue AppInfo::UnkownFileTypeError
     flash[:error] = t('teardowns.messages.errors.failed_detect_file_type')
-    render :new
+    render :new, status: :unprocessable_entity
   rescue AppInfo::UnkownFileTypeError
     flash[:error] = t('teardowns.messages.errors.not_support_file_type')
-    render :new
+    render :new, status: :unprocessable_entity
   rescue NoMethodError => e
     logger.error "Teardown error: #{e}"
     Sentry.capture_exception e
     flash[:error] = t('teardowns.messages.errors.failed_get_metadata')
-    render :new
+    render :new, status: :unprocessable_entity
   rescue => e
     logger.error "Teardown error: #{e}"
+    logger.error "Throws backtraces are: #{e.backtrace.join("\n")}"
     Sentry.capture_exception e
     flash[:error] = t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
-    render :new
+    render :new, status: :unprocessable_entity
   end
 
   def destroy
@@ -69,8 +70,8 @@ class TeardownsController < ApplicationController
       raise ActionController::RoutingError, t('teardowns.messages.errors.choose_supported_file_type')
     end
 
-    metadata = TeardownService.call(file)
-    metadata.update_attribute(:user_id, current_user.id) if current_user.present?
+    metadata = TeardownService.new(file).call
+    metadata.update_attribute(:user_id, current_user&.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
   end
