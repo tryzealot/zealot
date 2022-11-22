@@ -5,18 +5,27 @@
   = @title
 
 .row
-  .col-md-12
-    == render 'releases/body/app_limited'
-
+  .col-md-12[
+    data-controller="udid"
+    data-udid-apple-tip-value="#{t('.apple_tip')}"
+    data-udid-nonapple-tip-value="#{t('.nonapple_tip')}"
+  ]
     .card
-      .card-body.text-center
-        = raw @qrcode.as_svg(module_size: 8)
-        .pt-4.text-center = t('udid.index.tip')
-      .card-footer
-        = link_to t('udid.index.fetch_udid'), udid_install_path, class: 'btn bg-success btn-lg btn-block'
+      .card-body.text-center data-udid-target="qrcode"
+        = install_qrcode_image_tag
+        .pt-4.text-center data-udid-target="tip" = t('.apple_tip')
+      .install-profile data-udid-target="install"
+          = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
+
+    - if params[:preview].present?
+      .card
+        .card-header
+          h3.card-title Debug zone
+        .card-body
+          textarea.form-control.text data-udid-target="debug" rows="10"
 
   .col-md-12
     .card
       .card-header.card-border
-        h3.card-title = t('udid.index.help.title')
-      .card-body = t('udid.index.help.body_html')
+        h3.card-title = t('.help.title')
+      .card-body = t('.help.body_html')

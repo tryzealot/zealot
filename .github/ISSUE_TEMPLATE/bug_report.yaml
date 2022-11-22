@@ -1,5 +1,7 @@
 name: 问题反馈 | Bug report
 description: 提交使用过程发现的缺陷 | Report a potential bug
+title: "[Bug]: "
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
@@ -39,6 +41,17 @@ body:
       placeholder: nginx/haproxy/caddy/traefik/none
     validations:
       required: true
+  - type: dropdown
+    id: https
+    attributes:
+      label: HTTPS 证书类型 | HTTPS(SSL)
+      description: 使用的证书类型 | Which SSL cert do you using?
+      options:
+        - 可受信任的证书 Verified SSL
+        - 自签名证书 Self-signed SSL
+        - 无 none
+    validations:
+      required: true
   - type: checkboxes
     id: document
     attributes:
@@ -50,7 +63,7 @@ body:
   - type: textarea
     attributes:
       label: 描述 | Description
-      description: 请描述你的问题 | Please describe your bug
+      description: 请描述你的问题，尽可能提供[最小化重现](https://antfu.me/posts/why-reproductions-are-required-zh) | Please describe your bug and provide [minimal reproductions](https://antfu.me/posts/why-reproductions-are-required).
   - type: textarea
     id: logs
     attributes:

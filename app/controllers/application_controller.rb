@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :set_sentry_context
-  before_action :record_page_view
 
   def raise_not_found
     raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
@@ -21,7 +20,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = Setting.site_locale
+    site_locale = Rails.cache.fetch('site_locale', expires_in: 1.day) { Setting.site_locale }
+    I18n.locale = site_locale
   end
 
   def set_sentry_context
@@ -34,9 +34,5 @@ class ApplicationController < ActionController::Base
     if current_user = session[:current_user_id]
       Sentry.set_user(id: current_user)
     end
-  end
-
-  def record_page_view
-    ActiveAnalytics.record_request(request)
   end
 end

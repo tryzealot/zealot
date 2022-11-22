@@ -56,13 +56,34 @@ zh-CN:
         checksum: '唯一校验码'
       setting:
         value: 值
+      apple_key:
+        issuer_id: Issuer ID
+        key_id: 密钥 ID
+        private_key: 密钥文件
+        devices: 测试设备
+      apple_team:
+        display_name: 显示名称
+        name: 注册主体
+        team_id: 标识符
+      backup:
+        general: 备份配置
+        key: 备份名称
+        schedule: 备份频率
+        next_schedule_at: 下次执行时间
+        enabled_database: 备份数据库
+        database_switch: 启用
+        enabled_apps: 备份应用
+        max_keeps: 最大保留数
+        enabled: 启用
+        schedule_settings: 备份范围
+        parsing: 解析中
 
     hints:
       defaults:
         channel: '应用会使用的平台'
       app:
         schemes:
-          name: :'simple_form.hits.scheme.name'
+          name: :'simple_form.hints.scheme.name'
       scheme:
           name: '应用在功能、面向受众划分的类型'
       channel:
@@ -80,12 +101,18 @@ zh-CN:
         git_commit: 通常是 40 位长度的哈希值
         ci_url: Jenkins、Gitlab CI 具体构建的地址
       web_hook:
-        body: '自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用默认结构'
+        body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
       setting:
         value: '按照 JSON 标准格式编辑，否则会保存失败'
+      backup:
+        key: 名称必须是唯一，不可和其他备份重复
+        schedule: |
+          表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
+          <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置；0 不可备份
 
     placeholders:
       release:
@@ -95,6 +122,8 @@ zh-CN:
         body: |
           {
             event: @event,
+            username: @username,
+            email: @email,
             title: @title,
             name: @app_name,
             app_name: @app_name,
@@ -113,6 +142,8 @@ zh-CN:
         release_version: '1.0.0'
         build_version: '1.0'
         checksum: '纯校验使用，随文件生成无需填写'
+      backup:
+        schedule: every day at noon / 12 0 * * *
 
     # include_blanks:
     #   defaults:

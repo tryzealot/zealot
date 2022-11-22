@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   - if user_signed_in?
-    a.btn.btn-icon.bg-green href="#{new_debug_file_path}"
+    a.btn.btn-icon.btn-success href="#{new_debug_file_path}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
 
@@ -34,18 +34,3 @@
         .card-body = t('debug_files.index.not_found.body_html')
 
   == render 'help'
-
-#destory_modal.modal.fade role="dialog" tabindex="-1"
-  .modal-dialog role="document"
-    .modal-content
-      .modal-header
-        h4.modal-title = t('debug_files.confirm.destroy.title')
-        button.close aria-label="Close" data-dismiss="modal" type="button"
-          span aria-hidden="true"  &times;
-      .modal-body
-        p = t('debug_files.confirm.destroy.body')
-        p.empty-content
-      .modal-footer
-        input type="hidden" id="dsym-destory-id" value=""
-        button.btn.btn-default data-dismiss="modal" type="button" = t('debug_files.confirm.destroy.cancel')
-        a.btn.btn-danger data-method="delete" = t('debug_files.confirm.destroy.ok')
