@@ -462,7 +462,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.1)
-    stimulus-rails (1.1.1)
+    stimulus-rails (1.2.0)
       railties (>= 6.0.0)
     strscan (3.0.4)
     sys-filesystem (1.4.3)
@@ -501,7 +501,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.3)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
@@ -572,7 +572,7 @@ DEPENDENCIES
   sidekiq-scheduler (~> 4.0.3)
   simple_form (~> 5.1)
   slim-rails (~> 3.5.1)
-  stimulus-rails (~> 1.1.1)
+  stimulus-rails (~> 1.2.0)
   sys-filesystem (~> 1.4.3)
   terminal-notifier
   terminal-notifier-guard
