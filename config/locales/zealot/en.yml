@@ -783,6 +783,9 @@ en-US:
       failures:
         max_keeps_limited: '%{key} backup maximum limit value was zero'
   activerecord:
+    attributes:
+      channel:
+        name: 渠道名称
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
@@ -803,7 +806,7 @@ en-US:
             app_id:
               blank: Select the application to be associated
             file:
-              blank: Choose a zipped file with supported type
+              blank: 必须选择一个 zpi 文件
             checksum:
               taken: File exists, cannot be uploaded
         backup:
