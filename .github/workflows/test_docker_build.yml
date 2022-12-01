@@ -4,27 +4,49 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
-      - '.*'
+      - '.devcontainer'
+      - '.vscode'
       - 'LICENSE'
-      - 'Guardfile'
-      - Aptfile
+      - '*file'
       - 'Procfile*'
-      - '**.yaml'
-      - '**.yml'
+      - '*.yaml'
+      - '*.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Build the Docker image
-      uses: elgohr/Publish-Docker-Github-Action@master
-      env:
-        REPLACE_CHINA_MIRROR: false
-        VCS_REF: ${{ github.sha }}
-        BUILD_DATE: ${{ steps.date.outputs.date }}
-        TAG: pr-test
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Set Docker Build Date
+      id: build_date
+      run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
+
+    - name: Docker metadata
+      id: metadata
+      uses: docker/metadata-action@v4
       with:
-        name: tryzealot/zealot:${{ env.TAG }}
-        no_push: true
-        buildargs: BUILD_DATE,VCS_REF,TAG,REPLACE_CHINA_MIRROR
+        images: ghcr.io/${{ github.repository }}
+
+    - name: Test build
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: false
+        labels: ${{ steps.metadata.outputs.labels }}
+        tags: |
+          ${{ steps.metadata.outputs.tags }}
+        platforms: linux/amd64,linux/arm64
+        cache-from: type=gha,scope=docker-build-release
+        cache-to: type=gha,mode=max,scope=docker-build-release
+        build-args: |
+          REPLACE_CHINA_MIRROR=false
+          VCS_REF: ${{ github.sha }}
+          BUILD_DATE: ${{ steps.build_date.outputs.date }}
