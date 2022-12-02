@@ -115,7 +115,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.6.3', platforms: %i[ mri mingw x64_mingw ]
+  gem 'debug', '~> 1.7.0', platforms: %i[ mri mingw x64_mingw ]
 
   # 开发辅助
   gem 'guard', '~> 2.18.0'
