@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.0-alpine as builder
+FROM ruby:3.0-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev gcompat"
@@ -55,7 +55,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM --platform=$BUILDPLATFORM ruby:3.0-alpine
+FROM ruby:3.0-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -70,6 +70,7 @@ ARG PACKAGES="tzdata curl logrotate postgresql-dev libwebp-dev libpng-dev tiff-d
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
+ARG TARGETARCH
 
 LABEL org.opencontainers.image.title="Zealot" \
       org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
@@ -96,19 +97,17 @@ RUN set -ex && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \
-    gem install $RUBY_GEMS
-
-ARG TARGETARCH
-RUN echo "Setting variables for ${TARGETPLATFORM:=amd64}" && \
-    case "$TARGETPLATFORM" in \
+    gem install $RUBY_GEMS && \
+    echo "Setting variables for ${TARGETARCH}" && \
+    case "$TARGETARCH" in \
     "amd64") \
-        S6_OVERLAY_ARCH="amd64" \
+      S6_OVERLAY_ARCH="amd64" \
     ;; \
     "arm64") \
-        S6_OVERLAY_ARCH="aarch64" \
+      S6_OVERLAY_ARCH="aarch64" \
     ;; \
-    linux/arm/v7) \
-        S6_OVERLAY_ARCH="arm" \
+    "linux/arm/v7" | "arm") \
+      S6_OVERLAY_ARCH="arm" \
     ;; \
     *) \
         echo "Doesn't support $TARGETARCH architecture" \
