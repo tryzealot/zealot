@@ -8,7 +8,7 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.profiles.linux":{
       "zsh": {
-        "path": "/usr/bin/zsh",
+        "path": "/bin/zsh",
         "icon": "star"
       }
     }
@@ -23,30 +23,28 @@
     "EditorConfig.EditorConfig"
   ],
 
-  // 3000 rails server
-  // 3035 webpacker dev server
-  // 5432 postgres server
-  // 6379 redis server
-  // 8081 pgweb server
-  "forwardPorts": [3000, 3035, 5432, 6379, 8081],
+  "forwardPorts": [3000, 5432, 6379, 8081],
   "portsAttributes": {
     "3000": {
-      "label": "Rails Server"
+      "label": "Rails server (puma)"
     },
-    "3035": {
-      "label": "Webpack Dev Server"
-    },
+    // "3035": {
+    //   "label": "Webpack dev server"
+    // },
     "5432": {
-      "label": "Postgresql Server"
+      "label": "Postgres server"
     },
     "6379": {
-      "label": "Redis Server"
+      "label": "Redis server"
     },
     "8081": {
-      "label": "PGWeb"
+      "label": "pgweb server"
+    },
+    "9293": {
+      "label": "Puma control-server"
     }
-  },
+  }
 
-  // Re-initialze ruby gems, javascript packages and database migration.
-  "postCreateCommand": "bundle install && yarn install && rails zealot:upgrade"
+  // (Optinal) Database migration.
+  // "postCreateCommand": "rails zealot:upgrade"
 }
