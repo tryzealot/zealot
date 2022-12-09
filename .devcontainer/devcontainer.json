@@ -43,8 +43,8 @@
     "9293": {
       "label": "Puma control-server"
     }
-  }
+  },
 
   // (Optinal) Database migration.
-  // "postCreateCommand": "rails zealot:upgrade"
+  "postCreateCommand": "rails zealot:upgrade"
 }
