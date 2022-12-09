@@ -52,4 +52,4 @@ jobs:
           tags: |
             tryzealot/codespace:latest
             ghcr.io/tryzealot/codespace:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
