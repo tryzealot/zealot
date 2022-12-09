@@ -1,38 +1,52 @@
 {
   "name": "Zealot Development Codespace",
-  // "build": {
-  //   "dockerfile": "Dockerfile",
-  // },
-
-  // docker-compose
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
 
-  // "settings": {
-  //   "terminal.integrated.shell.linux": "/bin/zsh"
-  // },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux":{
+      "zsh": {
+        "path": "/usr/bin/zsh",
+        "icon": "star"
+      }
+    }
+  },
 
-  // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-    "rebornix.Ruby"
-    // "misogi.ruby-rubocop",
-    // "wingrunr21.vscode-ruby"
+    "Shopify.ruby-extensions-pack",
+    "misogi.ruby-rubocop",
+    "eamodio.gitlens",
+    "bung87.rails",
+    "bung87.vscode-gemfile",
+    "EditorConfig.EditorConfig"
   ],
 
+  // 3000 rails server
+  // 3035 webpacker dev server
+  // 5432 postgres server
+  // 6379 redis server
+  // 8081 pgweb server
+  "forwardPorts": [3000, 3035, 5432, 6379, 8081],
+  "portsAttributes": {
+    "3000": {
+      "label": "Rails Server"
+    },
+    "3035": {
+      "label": "Webpack Dev Server"
+    },
+    "5432": {
+      "label": "Postgresql Server"
+    },
+    "6379": {
+      "label": "Redis Server"
+    },
+    "8081": {
+      "label": "PGWeb"
+    }
+  },
 
-  // TODO: figure whether we can get all this ports work properly
-
-  // 3000 rails
-  // 3035 webpacker
-  // 5432 postgres
-  // 6379 redis
-  // 1025,8025 mailhog
-  // "forwardPorts": [5432, 6379, 1025, 8025],
-  //your application may need to listen on all interfaces (0.0.0.0) not just localhost for it to be available externally. Defaults to []
-  // "appPort": [3001],
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // #TODO: can we move logic of copy env file into dockerfile ?
-  "postCreateCommand": "yarn install"
+  // Re-initialze ruby gems, javascript packages and database migration.
+  "postCreateCommand": "bundle install && yarn install && rails zealot:upgrade"
 }

@@ -1,38 +1,46 @@
-# https://github.com/microsoft/vscode-dev-containers/blob/master/containers/python-3-postgres/.devcontainer/docker-compose.yml
-# https://github.com/microsoft/vscode-dev-containers/blob/master/containers/ruby-rails/.devcontainer/devcontainer.json
-
 version: '3'
+
+# x-defaults: &defaults
+#   image: tryzealot/zealot:dev
+#   depends_on:
+#     - redis
+#     - postgres
+#   env_file: .env
+#   volumes:
+#     - zealot-uploads:/app/public/uploads
+#     - zealot-backup:/app/public/backup
+#     - ./log:/app/log
+#   healthcheck:
+#     test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost/health || exit 1"]
+#   logging:
+#     driver: "json-file"
+#     options:
+#       max-size: "1g"
+#       max-file: "10"
+#       max-buffer-size: "4m"
+#       mode: "non-blocking"
 
 services:
   app:
     build:
-      context: ..
+      context: ../
       dockerfile: .devcontainer/Dockerfile
-      args:
-        # [Choice] Install Node.js
-        INSTALL_NODE: "true"
-        NODE_VERSION: "lts/*"
-        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
-        USER_UID: 1000
-        USER_GID: 1000
-
     volumes:
       - ..:/workspace:cached
-
-    # # Overrides default command so things don't shut down after the process ends.
-    # command: sleep infinity
-
-    # ports:
-    #   - 3001:3000
-
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    command: /bin/sh -c "while sleep 1000; do :; done"
     network_mode: service:db
-
+  pgweb:
+    image: sosedoff/pgweb
+    restart: unless-stopped
+    network_mode: service:db
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/zealot_development"
   db:
     image: postgres:11-alpine
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
