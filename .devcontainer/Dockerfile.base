@@ -1,0 +1,63 @@
+ARG DEBIAN_FRONTEND=noninteractive
+ARG BUILDARCH=amd64
+
+ARG VARIANT=bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
+
+# Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+RUN if [ "$USER_GID" != "$USER_UID" ] || [ "$USER_UID" != "1000" ]; then \
+        groupmod --gid $USER_GID vscode \
+        && usermod --uid $USER_UID --gid $USER_GID vscode \
+        && chmod -R $USER_UID:$USER_GID /home/vscode; \
+    fi
+
+RUN apt-get update \
+  && apt-get -y install --no-install-recommends \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    gnupg2 \
+    tar \
+    tzdata \
+    postgresql-client \
+    libpq-dev \
+    git \
+    imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
+    tmux \
+    zsh \
+    git-flow
+
+USER vscode
+
+# Install asdf, ruby and nodejs
+ARG ASDF_DIR="/home/vscode/.asdf"
+ARG RUBY_VERSION="3.0.4"
+ARG NODEJS_VERSION="18.12.1"
+RUN git clone https://github.com/asdf-vm/asdf.git ${ASDF_DIR}  && \
+    echo '. ${ASDF_DIR}/asdf.sh' >> ~/.bashrc
+ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
+RUN asdf plugin add ruby && \
+    asdf install ruby $RUBY_VERSION && \
+    asdf global ruby ${RUBY_VERSION}
+
+RUN asdf plugin add nodejs && \
+    asdf install nodejs $NODEJS_VERSION && \
+    asdf global nodejs ${NODEJS_VERSION}
+
+# Install overmind
+# ARG OVERMIND_VERSION="2.3.0"
+# RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_VERSION}/overmind-v${OVERMIND_VERSION}-linux-amd64.gz > overmind.gz \
+#   && gunzip overmind.gz \
+#   && sudo mv overmind /usr/local/bin \
+#   && chmod +x /usr/local/bin/overmind
+
+WORKDIR /workspace
+
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler foreman && \
+    bundle install
+
+RUN npm install --global yarn && \
+    yarn install
