@@ -1,25 +1,5 @@
 version: '3'
 
-# x-defaults: &defaults
-#   image: tryzealot/zealot:dev
-#   depends_on:
-#     - redis
-#     - postgres
-#   env_file: .env
-#   volumes:
-#     - zealot-uploads:/app/public/uploads
-#     - zealot-backup:/app/public/backup
-#     - ./log:/app/log
-#   healthcheck:
-#     test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost/health || exit 1"]
-#   logging:
-#     driver: "json-file"
-#     options:
-#       max-size: "1g"
-#       max-file: "10"
-#       max-buffer-size: "4m"
-#       mode: "non-blocking"
-
 services:
   app:
     build:
