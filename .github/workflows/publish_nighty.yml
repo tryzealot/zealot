@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - '.github/*.yml'
+      - '.github/workflows/publish_codespace.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'
@@ -45,6 +46,12 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Docker metadata
+      id: metadata
+      uses: docker/metadata-action@v4
+      with:
+        images: ghcr.io/${{ github.repository }}
 
     - name: Build and Push
       uses: docker/build-push-action@v3
