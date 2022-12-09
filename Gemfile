@@ -117,6 +117,7 @@ group :development do
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.7.0', platforms: %i[ mri mingw x64_mingw ]
   gem "ruby-lsp", "~> 0.3.6"
+
   # 开发辅助
   gem 'guard', '~> 2.18.0'
   gem 'guard-bundler'
