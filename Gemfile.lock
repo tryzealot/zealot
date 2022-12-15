@@ -119,7 +119,7 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
     crass (1.0.6)
-    cssbundling-rails (1.1.1)
+    cssbundling-rails (1.1.2)
       railties (>= 6.0.0)
     debug (1.7.0)
       irb (>= 1.5.0)
