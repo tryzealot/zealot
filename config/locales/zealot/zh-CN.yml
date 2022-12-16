@@ -224,6 +224,9 @@ zh-CN:
           body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
       new:
         title: 新增备份
+        schedule: 定时任务
+        disable: 禁用
+        enable: 启用
       edit:
         title: 编辑 %{key} 备份计划
       perform:
