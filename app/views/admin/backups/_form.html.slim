@@ -14,7 +14,7 @@
       / = f.input :notification
 
     .card-header.pt-0
-      h3.card-title 定时任务
+      h3.card-title = t('admin.backups.new.schedule')
     .card-body
       = f.input :schedule, required: true, input_html: { data: { action: 'admin-cron#parse' } }
 
@@ -39,10 +39,10 @@
       - unless @backup.new_record?
         .float-right
           - if @backup.enabled
-            = link_to '禁用', disable_admin_backup_path(@backup), \
+            = link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
               data: { turbo_method: :post }
           - else
-            = link_to '启用', enable_admin_backup_path(@backup), \
+            = link_to t('admin.backups.new.enable'), enable_admin_backup_path(@backup), \
               data: { turbo_method: :post }
 
       = f.button :submit

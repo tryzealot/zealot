@@ -209,6 +209,9 @@ en:
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
         title: New backup
+        schedule: Scheduel
+        disable: Disable
+        enable: Enable
       edit:
         title: Edit %{key} backup
       perform:
