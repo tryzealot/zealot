@@ -102,7 +102,7 @@ gem 'turbo-rails', '~> 1.3'
 gem 'app-info', '~> 2.8.3'
 
 # 带缓存的配置库
-gem 'rails-settings-cached', '~> 2.8.2'
+gem 'rails-settings-cached', '~> 2.8.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
