@@ -45,7 +45,7 @@ gem 'webp-ffi', '~> 0.3.1'
 gem 'faraday', '~> 2.7.2'
 
 ## 用户认证
-gem 'pundit', '~> 2.2.0'
+gem 'pundit', '~> 2.3.0'
 gem 'devise', '~> 4.8.1'
 gem 'devise-i18n', '~> 1.10.2'
 
