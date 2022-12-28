@@ -1,0 +1,1 @@
+CREATE USER zealot SUPERUSER;

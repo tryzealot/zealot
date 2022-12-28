@@ -18,6 +18,7 @@ body:
       options:
         - 使用一键部署脚本 | Using zealot-docker on-click install (Default)
         - Docker (Default)
+        - Kubernates
         - 源码部署 | Source
     validations:
       required: true
