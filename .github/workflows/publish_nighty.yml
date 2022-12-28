@@ -2,6 +2,7 @@ name: Publish Nightly Docker Image
 on:
   push:
     paths-ignore:
+      - '.devcontainer/*'
       - '.github/*.yml'
       - '.github/workflows/publish_codespace.yml'
       - '*.md'
