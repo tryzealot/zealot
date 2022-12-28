@@ -64,7 +64,7 @@ gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
 ## UDID
-gem 'openssl', '~> 2.2.1'
+gem 'openssl', '~> 3.1.0'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
