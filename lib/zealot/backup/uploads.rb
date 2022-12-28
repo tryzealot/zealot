@@ -53,7 +53,16 @@ module Zealot::Backup
       FileUtils.rm_f(backup_tarball)
 
       logger.debug "Dumping uploads data ... #{uploads_path}"
-      run_pipeline!([archive_tar_cmd(app_ids), gzip_cmd], out: [backup_tarball, 'w', 0600])
+      apps_path = apps_path(app_ids)
+      if !app_ids.nil? && !apps_path
+        logger.error "App(s) path was not exist, backup abort."
+        return
+      end
+
+      apps_path = ['.'] if app_ids.nil?
+      logger.debug [archive_tar_cmd(apps_path), gzip_cmd].join(" ")
+      logger.debug apps_path
+      run_pipeline!([archive_tar_cmd(apps_path), gzip_cmd], out: [backup_tarball, 'w', 0600])
     end
 
     def restore
@@ -66,16 +75,20 @@ module Zealot::Backup
 
     private
 
-    def archive_tar_cmd(app_ids)
-      command = %W(#{tar} --exclude=lost+found --exclude=.DS_Store -C #{uploads_path} -cf -)
-      if app_ids.is_a?(Array) && !app_ids.empty?
-        app_ids.each do |app_id|
-          command << File.join('apps', "a#{app_id}")
-        end
-      else
-        command << '.'
-      end
+    def apps_path(app_ids)
+      return unless app_ids.is_a?(Array) || app_ids.empty?
 
+      ids = app_ids.select { |app_id| Dir.exist?(File.join(uploads_path, 'apps', "a#{app_id}")) }
+      return if ids.empty?
+
+      ids.map do |id|
+        File.join('apps', "a#{id}")
+      end
+    end
+
+    def archive_tar_cmd(apps_path)
+      command = %W(#{tar} --exclude=lost+found --exclude=.DS_Store -C #{uploads_path} -cf -)
+      command.concat(apps_path)
       command
     end
 
@@ -85,7 +98,8 @@ module Zealot::Backup
         # Move all files in the existing repos directory except . and .. to
         # uploads.old.<timestamp> directory
         FileUtils.mkdir_p(timestamped_files_path, mode: 0700)
-        files = Dir.glob(File.join(uploads_path, "*"), File::FNM_DOTMATCH) - [File.join(uploads_path, "."), File.join(uploads_path, "..")]
+        files = Dir.glob(File.join(uploads_path, "*"),
+          File::FNM_DOTMATCH) - [File.join(uploads_path, "."), File.join(uploads_path, "..")]
 
         begin
           FileUtils.mv(files, timestamped_files_path)
