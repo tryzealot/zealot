@@ -3,7 +3,7 @@
 class Api::DebugFilesController < Api::BaseController
   before_action :validate_user_token, only: :create
   before_action :validate_channel_key, only: %i[index create]
-  before_action :set_debug_file, only: %i[show destroy]
+  before_action :set_debug_file, only: %i[show update destroy]
 
   # GET /api/debug_files
   def index
@@ -37,7 +37,10 @@ class Api::DebugFilesController < Api::BaseController
 
   # PUT /api/debug_files/:id
   def update
-    @debug_file.update(debug_file_params)
+    @debug_file.update!(debug_file_params)
+    render json: @debug_file, serializer: Api::DebugFileSerializer, status: :ok
+  rescue
+    render json: @debug_file.errors
   end
 
   # DELETE /api/debug_files/:id
