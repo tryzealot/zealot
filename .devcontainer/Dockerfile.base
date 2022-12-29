@@ -45,7 +45,6 @@ RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
     asdf global nodejs ${NODEJS_VERSION}
 
-LABEL zealot.containers.asdf="$(${ASDF_DIR}/bin/asdf version)"
 LABEL zealot.containers.ruby="$RUBY_VERSION"
 LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
@@ -57,5 +56,6 @@ RUN gem install bundler foreman && \
     bundle config set force_ruby_platform true && \
     bundle install
 
+COPY package.json yarn.lock ./
 RUN npm install --global yarn && \
     yarn install
