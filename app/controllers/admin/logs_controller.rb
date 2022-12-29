@@ -4,7 +4,7 @@ require 'digest/md5'
 require 'open3'
 
 class Admin::LogsController < ApplicationController
-  before_action :get_log, only: :retrive
+  before_action :set_log, only: :retrive
 
   FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
   MAX_LINE_NUMBER = 500
@@ -20,7 +20,7 @@ class Admin::LogsController < ApplicationController
 
   private
 
-  def get_log
+  def set_log
     @max_line = params[:number] || MAX_LINE_NUMBER
     @logs = logs(@max_line)
   end
