@@ -19,13 +19,14 @@
     "Shopify.ruby-lsp",
     "sorbet.sorbet-vscode-extension",
     "KoichiSasada.vscode-rdbg",
-    "itarato.byesig",
+    // "itarato.byesig",
     "sianglim.slim",
     "misogi.ruby-rubocop",
     "eamodio.gitlens",
     "bung87.rails",
     "bung87.vscode-gemfile",
-    "EditorConfig.EditorConfig"
+    "EditorConfig.EditorConfig",
+    "formulahendry.auto-complete-tag"
   ],
 
   "forwardPorts": [3000, 5432, 6379, 8081],
