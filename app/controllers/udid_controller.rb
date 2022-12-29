@@ -3,8 +3,8 @@
 class UdidController < ApplicationController
   include Qrcode
 
-  before_action :get_device_xml, only: :create
-  before_action :get_device_metadata, only: %i[show register]
+  before_action :set_device_xml, only: :create
+  before_action :set_device_metadata, only: %i[show register]
   before_action :render_profile, only: :install
 
   # GET /udid
@@ -52,7 +52,7 @@ class UdidController < ApplicationController
 
   private
 
-  def get_device_xml
+  def set_device_xml
     body = request.body.read
 
     p7sign = OpenSSL::PKCS7.new(body)
@@ -110,7 +110,7 @@ class UdidController < ApplicationController
   #   @key ||= OpenSSL::PKey::RSA.new(2048)
   # end
 
-  def get_device_metadata
+  def set_device_metadata
     @title = t('udid.show.title')
     @device = Device.find_by(udid: params[:udid])
     @channels = @device&.channels
