@@ -64,7 +64,7 @@ gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
 ## UDID
-gem 'openssl', '~> 2.2.1'
+gem 'openssl', '~> 3.1.0'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
@@ -115,7 +115,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.7.1', platforms: %i[ mri mingw x64_mingw ]
+  gem 'debug', '~> 1.7.1'
   gem "ruby-lsp", "~> 0.3.7"
 
   # 开发辅助
