@@ -7,7 +7,8 @@ module UdidsHelper
     end
 
     content_tag(:picture) do
-      content_tag(:source, media: "(prefers-color-scheme: dark)", srcset: qrcode_udid_index_path(size: :extra, theme: :dark)) do
+      qrcode_uri = qrcode_udid_index_path(size: :extra, theme: :dark)
+      content_tag(:source, media: "(prefers-color-scheme: dark)", srcset: qrcode_uri) do
         image_tag qrcode_udid_index_path(size: :extra)
       end
     end

@@ -21,7 +21,8 @@ class Setting < RailsSettings::Base
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
           validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
     field :site_https, default: site_https, type: :boolean, readonly: true, display: true
-    field :site_appearance, default: (ENV['ZEALOT_APPEARANCE'] || builtin_appearances.keys[0].to_s), type: :string, display: true,
+    field :site_appearance, default: (ENV['ZEALOT_APPEARANCE'] || builtin_appearances.keys[0].to_s),
+          type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_appearances.keys.map(&:to_s) } }
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
@@ -109,7 +110,8 @@ class Setting < RailsSettings::Base
   scope :information do
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
     field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
-    field :build_date, default: (ENV['ZEALOT_BUILD_DATE'] || ENV['HEROKU_RELEASE_CREATED_AT']), type: :string, readonly: true
+    field :build_date, default: (ENV['ZEALOT_BUILD_DATE'] || ENV['HEROKU_RELEASE_CREATED_AT']),
+          type: :string, readonly: true
   end
 
   # 统计

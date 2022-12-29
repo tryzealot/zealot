@@ -1,4 +1,4 @@
-FROM ruby:3.0-alpine as builder
+FROM ruby:3.2-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev gcompat"
@@ -13,7 +13,8 @@ ARG RUBY_GEMS="bundler"
 ARG APP_ROOT="/app"
 
 ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
@@ -39,7 +40,9 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1 && \
     bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
-    bundle config set --local path 'vendor/bundle' && \
+    bundle config set path 'vendor/bundle' && \
+    bundle lock --add-platform ruby && \
+    bundle config set force_ruby_platform true && \
     bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
@@ -48,14 +51,14 @@ RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
     package.json postcss.config.js yarn.lock && \
-    cd /app/vendor/bundle/ruby/3.0.0 && \
+    cd /app/vendor/bundle/ruby/3.2.0 && \
       rm -rf cache/*.gem && \
       find gems/ -name "*.c" -delete && \
       find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM ruby:3.0-alpine
+FROM ruby:3.2-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -88,7 +91,8 @@ ENV TZ="Asia/Shanghai" \
     ZEALOT_VCS_REF="$VCS_REF" \
     ZEALOT_VERSION="$ZEALOT_VERSION" \
     ZEALOT_BUILD_DATE="$BUILD_DATE" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
