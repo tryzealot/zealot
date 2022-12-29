@@ -1,4 +1,4 @@
-FROM ruby:3.0-alpine as builder
+FROM ruby:3.2-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev gcompat"
@@ -13,7 +13,8 @@ ARG RUBY_GEMS="bundler"
 ARG APP_ROOT="/app"
 
 ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
@@ -55,7 +56,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM ruby:3.0-alpine
+FROM ruby:3.2-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -88,7 +89,8 @@ ENV TZ="Asia/Shanghai" \
     ZEALOT_VCS_REF="$VCS_REF" \
     ZEALOT_VERSION="$ZEALOT_VERSION" \
     ZEALOT_BUILD_DATE="$BUILD_DATE" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
