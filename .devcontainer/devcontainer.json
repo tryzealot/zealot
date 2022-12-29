@@ -15,11 +15,8 @@
   },
 
   "extensions": [
-    "Shopify.ruby-extensions-pack",
     "Shopify.ruby-lsp",
-    "sorbet.sorbet-vscode-extension",
     "KoichiSasada.vscode-rdbg",
-    // "itarato.byesig",
     "sianglim.slim",
     "misogi.ruby-rubocop",
     "eamodio.gitlens",
