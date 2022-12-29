@@ -54,6 +54,9 @@ RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
     asdf global nodejs ${NODEJS_VERSION}
 
+LABEL zealot.containers.ruby="$RUBY_VERSION"
+LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+
 WORKDIR /workspace
 
 COPY Gemfile Gemfile.lock ./
