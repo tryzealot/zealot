@@ -2,8 +2,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.7
-  TargetRailsVersion: 6.1
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 7.0
   DisabledByDefault: true
   SuggestExtensions: false
   Exclude:
@@ -21,30 +21,23 @@ Style/FrozenStringLiteralComment:
     - 'config.ru'
     - 'Gemfile'
     - 'Rakefile'
-    - 'Guardfile'
     - 'config/**/*'
-    - 'db/**/*'
-    - 'lib/tasks/**/*'
 
 # Some blocks are longer.
 Metrics/BlockLength:
   Max: 250
-  IgnoredMethods:
+  AllowedMethods:
     - 'namespace'
     - 'create_table'
   Exclude:
     - 'config/**/*.rb'
     - 'spec/**/*.rb'
-    - 'lib/tasks/**/*'
-    - 'lib/backup/**/*'
 
 Layout/LineLength:
   Max: 120
   Exclude:
-    - 'Rakefile'
     - 'config/**/*.rb'
-    - 'lib/tasks/**/*'
-    - 'lib/backup/**/*'
+    - lib/zealot/backup/manager.rb
 
 Metrics/MethodLength:
   Max: 60
@@ -92,8 +85,6 @@ Style/WordArray:
 
 Naming/AccessorMethodName:
   Enabled: true
-  Exclude:
-    - 'app/controllers/**/*'
 
 Style/RescueStandardError:
   Enabled: false

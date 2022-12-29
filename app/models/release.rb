@@ -39,27 +39,12 @@ class Release < ApplicationRecord
   # 上传 app
   def self.upload_file(params, parser = nil, default_source = 'web')
     file = params[:file]&.path
-    if file.blank?
-      release = Release.new
-      release.errors.add(:file, :invalid)
-
-      return release
-    end
+    return add_not_found_file_error if file.blank?
 
     create(params) do |release|
       rescuing_app_parse_errors do
         parser ||= AppInfo.parse(file)
-
-        release.source ||= default_source
-        release.name = parser.name
-        release.bundle_id = parser.bundle_id
-        release.release_version = parser.release_version
-        release.build_version = parser.build_version
-        release.device_type = parser.device_type
-        release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
-
-        icon_file = fetch_icon(parser)
-        release.icon = icon_file if icon_file
+        build_metadata(release, parser, default_source)
 
         # iOS 且是 AdHoc 尝试解析 UDID 列表
         if parser.os == AppInfo::Platform::IOS &&
@@ -75,6 +60,27 @@ class Release < ApplicationRecord
       end
     end
   end
+
+  def self.add_not_found_file_error
+    release = Release.new
+    release.errors.add(:file, :invalid)
+    release
+  end
+  private_methods :add_not_found_file_error
+
+  def self.build_metadata(release, parser, default_source)
+    release.source ||= default_source
+    release.name = parser.name
+    release.bundle_id = parser.bundle_id
+    release.release_version = parser.release_version
+    release.build_version = parser.build_version
+    release.device_type = parser.device_type
+    release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
+
+    icon_file = fetch_icon(parser)
+    release.icon = icon_file if icon_file
+  end
+  private_methods :build_metadata
 
   def self.fetch_icon(parser)
     file = case parser.os
