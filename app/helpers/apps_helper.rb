@@ -85,11 +85,13 @@ module AppsHelper
 
   def app_qrcode_tag(release)
     if Setting.site_appearance != 'auto'
-      return image_tag channel_release_qrcode_path(@release.channel, @release, size: :large, theme: Setting.site_appearance)
+      return image_tag channel_release_qrcode_path(@release.channel, @release,
+        size: :large, theme: Setting.site_appearance)
     end
 
     content_tag(:picture) do
-      content_tag(:source, media: "(prefers-color-scheme: dark)", srcset: channel_release_qrcode_path(release.channel, release, size: :large, theme: :dark)) do
+      qrcode_uri = channel_release_qrcode_path(release.channel, release, size: :large, theme: :dark)
+      content_tag(:source, media: "(prefers-color-scheme: dark)",  srcset: qrcode_uri) do
         image_tag channel_release_qrcode_path(release.channel, release, size: :large)
       end
     end

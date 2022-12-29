@@ -30,23 +30,24 @@ RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_V
 
 USER vscode
 
-# Install asdf, ruby and nodejs
-ARG ASDF_DIR="/home/vscode/.asdf"
+# Install asdf, ruby (with YJIT enabled) and nodejs
 ARG RUBY_VERSION="3.2.0"
 ARG NODEJS_VERSION="18.12.1"
+LABEL zealot.containers.ruby="$RUBY_VERSION"
+LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+
+ARG ASDF_DIR="/home/vscode/.asdf"
+ENV RUBY_YJIT_ENABLE=true
+ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
 RUN git clone https://github.com/asdf-vm/asdf.git ${ASDF_DIR}  && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
     sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails dotenv)/g" ~/.zshrc
-ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
 RUN asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
     asdf global ruby ${RUBY_VERSION}
 RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
     asdf global nodejs ${NODEJS_VERSION}
-
-LABEL zealot.containers.ruby="$RUBY_VERSION"
-LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
 WORKDIR /workspace
 
