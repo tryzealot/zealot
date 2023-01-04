@@ -6,6 +6,7 @@ build_info/
 extensions/
 bundler/
 storage/
+bin/importmap
 
 # minimal Rails specific artifacts
 /config/master*.key
