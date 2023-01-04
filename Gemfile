@@ -118,15 +118,6 @@ group :development do
   gem 'debug', '~> 1.7.1'
   gem "ruby-lsp", "~> 0.3.7"
 
-  # 开发辅助
-  gem 'guard', '~> 2.18.0'
-  gem 'guard-bundler'
-  gem 'guard-migrate'
-  gem 'guard-rails'
-  gem 'guard-sidekiq'
-  gem 'terminal-notifier'
-  gem 'terminal-notifier-guard'
-
   # rails 更友好错误输出
   gem 'awesome_print'
   gem 'better_errors'
