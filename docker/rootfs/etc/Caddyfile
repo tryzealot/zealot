@@ -1,8 +1,8 @@
 {
 	admin off
-	auto_https off
 }
 
+:80
 root * /{$ZEALOT_PATH:app}/public
 encode zstd gzip
 file_server
@@ -16,7 +16,7 @@ log {
 
 # handle reverse proxy crash errors
 handle_errors {
-	rewrite * /500.html
+	rewrite * /errors/{err.status_code}.html
 	file_server
 }
 
@@ -27,7 +27,6 @@ handle_errors {
 	not file
 }
 
-# Docoument: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
 reverse_proxy @zealot {
 	to localhost:3000
 
