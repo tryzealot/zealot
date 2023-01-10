@@ -70,7 +70,7 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.0.1'
+gem 'pghero', '~> 3.1.0'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -109,7 +109,7 @@ gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.8'
+  gem 'listen', '>= 3.0.5', '< 3.9'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
