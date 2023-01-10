@@ -21,6 +21,15 @@ RUN apt-get update && \
     vim \
     git-flow
 
+# Install caddy
+ENV ZEALOT_PATH=/workspace
+RUN apt-get install -y --no-install-recommends \
+      debian-keyring debian-archive-keyring apt-transport-https && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
+    apt-get update && \
+    apt-get install caddy
+
 # Install overmind
 ARG OVERMIND_VERSION="2.3.0"
 RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_VERSION}/overmind-v${OVERMIND_VERSION}-linux-amd64.gz > overmind.gz \
