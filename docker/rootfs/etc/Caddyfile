@@ -1,40 +1,38 @@
 :80
 
-root * /app/public
+root * /{$ZEALOT_PATH:app}/public
 encode zstd gzip
 file_server
 log {
-  output file /app/log/caddy.log {
-    roll_size 50mb
-    roll_keep 5
-    roll_keep_for 720h
-  }
+	output file /{$ZEALOT_PATH:app}/log/caddy.log {
+		roll_size 50mb
+		roll_keep 5
+		roll_keep_for 720h
+	}
+}
+
+# handle reverse proxy crash errors
+handle_errors {
+	rewrite * /500.html
+	file_server
 }
 
 @zealot {
-  path *
+	path *
 
-  # static files
-  not file
+	# static files
+	not file
 }
 
 # Docoument: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
 reverse_proxy @zealot {
-  to localhost:3000
+	to localhost:3000
 
-  header_up X-Forwarded-Proto https
+	header_up X-Forwarded-Proto https
 
-  @accel header X-Accel-Redirect *
-  handle_response @accel {
-    root    * /app/public
-    rewrite   {http.reverse_proxy.header.X-Accel-Redirect}
-    file_server
-  }
-
-  @error status 500 502 503
-  handle_response @error {
-    root    * /app/public
-    rewrite * /500.html
-    file_server
-  }
+	@accel header X-Accel-Redirect *
+	handle_response @accel {
+		rewrite * {http.reverse_proxy.header.X-Accel-Redirect}
+		file_server
+	}
 }
