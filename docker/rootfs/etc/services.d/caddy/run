@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv sh
 
 echo "Starting Caddy"
-/usr/sbin/caddy run --config /etc/Caddyfile | tee /app/log/caddy.log
+/usr/sbin/caddy run --config /etc/Caddyfile
