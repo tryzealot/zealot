@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+cd /etc/ && caddy fmt --overwrite
+exit 0
