@@ -383,10 +383,10 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    ruby-lsp (0.3.7)
+    ruby-lsp (0.3.8)
       language_server-protocol (~> 3.17.0)
       sorbet-runtime
-      syntax_tree (>= 4.0.2, < 5.0.0)
+      syntax_tree (>= 5.0.0, < 6)
     ruby-macho (3.0.0)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
@@ -426,7 +426,7 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
     socksify (1.7.1)
-    sorbet-runtime (0.5.10598)
+    sorbet-runtime (0.5.10626)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -437,8 +437,8 @@ GEM
     ssrf_filter (1.1.1)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    syntax_tree (4.3.0)
-      prettier_print (>= 1.0.2)
+    syntax_tree (5.2.0)
+      prettier_print (>= 1.2.0)
     sys-filesystem (1.4.3)
       ffi (~> 1.1)
     temple (0.8.2)
@@ -530,7 +530,7 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  ruby-lsp (~> 0.3.7)
+  ruby-lsp (~> 0.3.8)
   rubyntlm (~> 0.5)
   sentry-rails
   sentry-ruby
