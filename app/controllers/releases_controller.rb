@@ -35,7 +35,7 @@ class ReleasesController < ApplicationController
     return render :new, status: :unprocessable_entity unless @release.save
 
     # 触发异步任务
-    @release.channel.perform_web_hook('upload_events')
+    @release.channel.perform_web_hook('upload_events', current_user.id)
     @release.perform_teardown_job(current_user.id)
 
     message = t('activerecord.success.create', key: "#{t('releases.title')}")

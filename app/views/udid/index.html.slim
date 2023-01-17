@@ -12,7 +12,7 @@
   ]
     .card
       .card-body.text-center data-udid-target="qrcode"
-        = raw @qrcode.as_svg(module_size: 8, fill: 'ffffff', offset: 8)
+        = install_qrcode_image_tag
         .pt-4.text-center data-udid-target="tip" = t('.apple_tip')
       .install-profile data-udid-target="install"
           = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
