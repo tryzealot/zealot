@@ -101,7 +101,7 @@ zh-CN:
         git_commit: 通常是 40 位长度的哈希值
         ci_url: Jenkins、Gitlab CI 具体构建的地址
       web_hook:
-        body: '自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用默认结构'
+        body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
@@ -122,6 +122,8 @@ zh-CN:
         body: |
           {
             event: @event,
+            username: @username,
+            email: @email,
             title: @title,
             name: @app_name,
             app_name: @app_name,

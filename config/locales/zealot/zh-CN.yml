@@ -419,7 +419,7 @@ zh-CN:
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
 
-      majarzersions: :'channels.show.major_versions'
+      major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
     new:
       title: :'channels.show.upload_release'
@@ -685,9 +685,10 @@ zh-CN:
     install:
       title: Zealot 获取设备 UDID
       description: |
-        本描述文件仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+        ↑↑↑↑ 这里显示"未签名"是正常情况，请放心安装。
 
-        本服务由 %{url} 提供。
+        安装描述文件后仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
+        服务由 %{url} 提供。
 
   web_hooks:
     title: :'admin.web_hooks.title'
@@ -837,6 +838,12 @@ zh-CN:
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
+        apple_key:
+          attributes:
+            devices:
+              invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
+              api: '苹果返回错误：%{message}'
+              unknown: '未知错误: %{message}'
         debug_file:
           attributes:
             app_id:

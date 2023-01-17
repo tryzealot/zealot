@@ -35,7 +35,7 @@ class WebHooksController < ApplicationController
   def test
     authorize @web_hook
     event = params[:event] || 'upload_events'
-    AppWebHookJob.perform_later event, @web_hook, @channel
+    AppWebHookJob.perform_later event, @web_hook, @channel, current_user.id
     redirect_to_channel_url notice: t('admin.web_hooks.messages.success.test')
   end
 
