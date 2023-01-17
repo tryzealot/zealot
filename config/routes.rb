@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   #############################################
   resources :udid, as: :udid, param: :udid, only: %i[ index show ] do
     collection do
+      get :qrcode
       get :install
       post :retrieve, action: :create
     end
