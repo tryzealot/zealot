@@ -71,7 +71,7 @@ class TeardownsController < ApplicationController
     end
 
     metadata = TeardownService.new(file).call
-    metadata.update_attribute(:user_id, current_user.id) if current_user.present?
+    metadata.update_attribute(:user_id, current_user&.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
   end

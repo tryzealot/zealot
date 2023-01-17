@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class UdidController < ApplicationController
+  include Qrcode
+
   before_action :get_device_xml, only: :create
+  before_action :get_device_metadata, only: %i[show register]
   before_action :render_profile, only: :install
 
   # GET /udid
   def index
     @title = t('udid.title')
-    @qrcode = RQRCode::QRCode.new(udid_index_url)
   end
 
   # POST /udid/retrive
@@ -17,28 +19,11 @@ class UdidController < ApplicationController
       product: @device_attrs['PRODUCT'],
       serial: @device_attrs['SERIAL'],
       version: @device_attrs['VERSION']
-    ), status: 301
+    ), status: :moved_permanently
   end
 
   # GET /udid/:udid
   def show
-    @title = t('udid.show.title')
-    @device = Device.find_by(udid: params[:udid])
-    @channels = @device&.channels
-    @apple_keys = @device&.apple_keys
-    @all_apple_keys = AppleKey.all
-
-    @channel_total = @channels&.count || 0
-    @release_total = @device&.releases&.count || 0
-    @apple_key_total = @all_apple_keys.size
-
-    @result = if @apple_keys
-                'related_apple_keys'
-              elsif @all_apple_keys.size > 0
-                'register_apple_key'
-              else
-                'unregister_device'
-              end
   end
 
   # POST /udid/:udid/register
@@ -46,17 +31,23 @@ class UdidController < ApplicationController
     apple_key = AppleKey.find(params[:apple_key_id])
     udid = params[:udid]
     name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
-    device = apple_key.register_device(udid, name)
-    if device.errors
-      redirect_to udid_result_path(params[:udid]), alert: device.errors.messages[:udid][0]
-    else
-      notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
-      redirect_to udid_result_path(params[:udid]), notice: notice
+
+    new_device = apple_key.register_device(udid, name)
+    if new_device.errors
+      flash[:alter] = new_device.errors.messages[:devices][0]
+      return render :show, status: :unprocessable_entity
     end
+
+    notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
+    redirect_to udid_path(params[:udid]), notice: notice, status: :see_other
   end
 
   # GET /udid/install
   def install
+  end
+
+  def qrcode
+    render qrcode: udid_index_url, **qrcode_options
   end
 
   private
@@ -118,4 +109,27 @@ class UdidController < ApplicationController
   # def key
   #   @key ||= OpenSSL::PKey::RSA.new(2048)
   # end
+
+  def get_device_metadata
+    @title = t('udid.show.title')
+    @device = Device.find_by(udid: params[:udid])
+    @channels = @device&.channels
+    @apple_keys = @device&.apple_keys
+    @all_apple_keys = AppleKey.all
+
+    @channel_total = @channels&.count || 0
+    @release_total = @device&.releases&.count || 0
+    @apple_key_total = @all_apple_keys.size
+    @result = device_status
+  end
+
+  def device_status
+    if @apple_keys
+      'related_apple_keys'
+    elsif @all_apple_keys.size > 0
+      'register_apple_key'
+    else
+      'unregister_device'
+    end
+  end
 end

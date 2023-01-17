@@ -58,7 +58,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def perform_app_web_hook_job
-    @channel.perform_web_hook('upload_events')
+    @channel.perform_web_hook('upload_events', @user.id)
   end
 
   def perform_teardown_job
