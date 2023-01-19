@@ -309,7 +309,7 @@ GEM
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
     racc (1.6.2)
-    rack (2.2.5)
+    rack (2.2.6.2)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-protection (3.0.5)
