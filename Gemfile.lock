@@ -154,7 +154,7 @@ GEM
     fugit (1.8.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     google-protobuf (3.21.12)
     graphiql-rails (1.8.0)
