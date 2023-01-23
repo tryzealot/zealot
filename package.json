@@ -12,7 +12,7 @@
     "compare-versions": "^5.0.3",
     "esbuild": "^0.15.18",
     "sass": "^1.57.1",
-    "ua-parser-js": "^1.0.32"
+    "ua-parser-js": "^1.0.33"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
