@@ -29,7 +29,7 @@ gem 'jb', '~> 0.8.0'
 gem 'slim-rails', '~> 3.5.1'
 
 ## 表单生成
-gem 'simple_form', '~> 5.1'
+gem 'simple_form', '~> 5.2'
 
 # Model
 ## 生成友好 id
