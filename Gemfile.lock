@@ -132,7 +132,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.10.2)
+    devise-i18n (1.10.3)
       devise (>= 4.8.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
@@ -249,7 +249,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.1)
+    nokogiri (1.14.2)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     oauth2 (1.4.11)
@@ -359,9 +359,9 @@ GEM
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     rqrcode (2.1.2)
       chunky_png (~> 1.0)
@@ -472,7 +472,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
@@ -489,7 +489,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.1)
   debug (~> 1.7.1)
   devise (~> 4.8.1)
-  devise-i18n (~> 1.10.2)
+  devise-i18n (~> 1.10.3)
   dotenv-rails
   faraday (~> 2.7.4)
   friendly_id (~> 5.5.0)
