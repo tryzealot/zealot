@@ -26,12 +26,9 @@ ruby:
             h3.card-title
               = scheme.name
             .card-tools
-              .sections-actions.btn-group
-                = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon btn-default btn-sm btn-flat'
-                = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-icon btn-default btn-sm btn-flat'
-                = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-icon btn-default btn-sm btn-flat', \
-                  data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
-
+              - if !scheme.new_build_callout
+                span.badge.rounded-pill.text-bg-secondary
+                  i.fa.fa-bell-slash.text-success title="新上传版本提示窗" alt="sdfsfdsfsfd"
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"
               table.table
@@ -48,6 +45,12 @@ ruby:
                   tr
                     td colspan="2"
                       = t('apps.show.not_found_channel_body_html')
+          .card-footer.p-1
+            = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
+            .btn-group.float-right
+              = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary'
+              = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
+                data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
 
   - else
     .col-md-12
