@@ -26,6 +26,7 @@ zh-CN:
         name: '应用名称'
       scheme:
         name: '类型名称'
+        new_build_callout: 新上传版本提示窗
       channel:
         name: '渠道名称'
         device_type: '应用平台'
@@ -86,6 +87,7 @@ zh-CN:
           name: :'simple_form.hints.scheme.name'
       scheme:
           name: '应用在功能、面向受众划分的类型'
+          new_build_callout: '用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗'
       channel:
         name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
         device_type: '应用设备类型'
