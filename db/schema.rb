@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -153,7 +153,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
     t.integer "size"
     t.string "min_sdk_version"
     t.string "target_sdk_version"
-    t.jsonb "url_schemes", default: [], null: false
     t.jsonb "activities", default: [], null: false
     t.jsonb "services", default: [], null: false
     t.jsonb "permissions", default: [], null: false
@@ -164,6 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
     t.jsonb "entitlements", default: {}, null: false
     t.jsonb "devices", default: [], null: false
     t.jsonb "capabilities", default: [], null: false
+    t.jsonb "url_schemes", default: [], null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -205,6 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_055400) do
   create_table "schemes", force: :cascade do |t|
     t.bigint "app_id"
     t.string "name", null: false
+    t.boolean "new_build_callout", default: true
     t.index ["app_id"], name: "index_schemes_on_app_id"
     t.index ["name"], name: "index_schemes_on_name"
   end
