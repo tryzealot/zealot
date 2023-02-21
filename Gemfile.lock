@@ -310,7 +310,7 @@ GEM
     raabro (1.4.0)
     racc (1.6.2)
     rack (2.2.6.2)
-    rack-cors (1.1.1)
+    rack-cors (2.0.0)
       rack (>= 2.0.0)
     rack-protection (3.0.5)
       rack
@@ -521,7 +521,7 @@ DEPENDENCIES
   puma (~> 6.1.0)
   pundit (~> 2.3.0)
   pyu-ruby-sasl (>= 0.0.3.3, < 0.1)
-  rack-cors (~> 1.1.1)
+  rack-cors (~> 2.0.0)
   rails (~> 7.0.4)
   rails-i18n (~> 7.0.5)
   rails-settings-cached (~> 2.8.3)
