@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.7.1'
+gem 'redis', '~> 4.8.1'
 
 # Logger
 gem 'lograge', '~> 0.12.0'
@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.12.0'
 # API
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql', '~> 2.0.16'
-gem 'rack-cors', '~> 1.1.1'
+gem 'rack-cors', '~> 2.0.0'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/tiny_appstore_connect'
 
@@ -86,7 +86,7 @@ gem 'rqrcode'
 # 异步队列
 gem 'activejob-status'
 gem 'sidekiq', '~> 6.5.8'
-gem 'sidekiq-scheduler', '~> 4.0.3'
+gem 'sidekiq-scheduler', '~> 5.0.1'
 gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
