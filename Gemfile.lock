@@ -201,7 +201,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    language_server-protocol (3.17.0.2)
+    language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
     letter_opener (1.8.1)
@@ -383,10 +383,10 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    ruby-lsp (0.3.8)
+    ruby-lsp (0.4.0)
       language_server-protocol (~> 3.17.0)
       sorbet-runtime
-      syntax_tree (>= 5.0.0, < 6)
+      syntax_tree (>= 6, < 7)
     ruby-macho (3.0.0)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
@@ -425,7 +425,7 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
     socksify (1.7.1)
-    sorbet-runtime (0.5.10626)
+    sorbet-runtime (0.5.10676)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -436,7 +436,7 @@ GEM
     ssrf_filter (1.1.1)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    syntax_tree (5.2.0)
+    syntax_tree (6.0.0)
       prettier_print (>= 1.2.0)
     sys-filesystem (1.4.3)
       ffi (~> 1.1)
@@ -529,7 +529,7 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  ruby-lsp (~> 0.3.8)
+  ruby-lsp (~> 0.4.0)
   rubyntlm (~> 0.5)
   sentry-rails
   sentry-ruby
