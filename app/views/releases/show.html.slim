@@ -4,7 +4,7 @@
 .row
   - if logged_in_or_without_auth?(@release)
     .col-md-8.col-lg-9
-      == render 'releases/body/new_release_callout', latest_release: @release.outdated?
+      == render 'releases/body/new_release_callout', enable_callout: @release.scheme.new_build_callout, latest_release: @release.outdated?
       == render 'releases/body/metadata'
       == render 'releases/body/changelog'
       == render 'releases/body/devices'
