@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv sh
 
 echo "Starting Caddy"
-/usr/sbin/caddy run -config /etc/Caddyfile
+/usr/sbin/caddy run --config /etc/Caddyfile > /dev/null 2>&1
