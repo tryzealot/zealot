@@ -25,10 +25,11 @@ class ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     authorize @channel
 
-    return render :new, status: :unprocessable_entity unless @channel.save
+    app_url = app_path(@channel.scheme.app)
+    return redirect_to app_url, alert: @channel.errors.full_messages.to_sentence unless @channel.save
 
     message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    redirect_to app_path(@channel.scheme.app), notice: message
+    redirect_to app_url, notice: message
   end
 
   def edit

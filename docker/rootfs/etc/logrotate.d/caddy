@@ -1,0 +1,5 @@
+/app/log/caddy.log {
+  missingok
+  notifempty
+  monthly
+}
