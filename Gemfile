@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.16'
+gem 'graphql', '~> 2.0.17'
 gem 'rack-cors', '~> 2.0.0'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/tiny_appstore_connect'
@@ -47,7 +47,7 @@ gem 'faraday', '~> 2.7.4'
 ## 用户认证
 gem 'pundit', '~> 2.3.0'
 gem 'devise', '~> 4.8.1'
-gem 'devise-i18n', '~> 1.10.2'
+gem 'devise-i18n', '~> 1.10.3'
 
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
@@ -116,7 +116,7 @@ group :development do
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.7.1'
-  gem "ruby-lsp", "~> 0.3.8"
+  gem "ruby-lsp", "~> 0.4.0"
 
   # rails 更友好错误输出
   gem 'awesome_print'
