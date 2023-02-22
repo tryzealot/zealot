@@ -6,7 +6,7 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
     Sentry.init do |config|
       config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.sentry.io/1878137'
 
-      config.capture_exception_frame_locals = true
+      config.include_local_variables = true
       config.rails.report_rescued_exceptions = true
       config.breadcrumbs_logger = %i[active_support_logger sentry_logger http_logger]
 
