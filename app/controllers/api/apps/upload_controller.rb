@@ -2,7 +2,7 @@
 
 class Api::Apps::UploadController < Api::BaseController
   before_action :validate_user_token
-  before_action :get_channel
+  before_action :set_channel
 
   # Upload an App
   #
@@ -121,7 +121,7 @@ class Api::Apps::UploadController < Api::BaseController
     @app_parser ||= AppInfo.parse(params[:file].path)
   end
 
-  def get_channel
+  def set_channel
     @channel = Channel.find_by(key: params[:channel_key])
   end
 end

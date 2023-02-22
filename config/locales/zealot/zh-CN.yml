@@ -224,6 +224,9 @@ zh-CN:
           body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
       new:
         title: 新增备份
+        schedule: 定时任务
+        disable: 禁用
+        enable: 启用
       edit:
         title: 编辑 %{key} 备份计划
       perform:
@@ -829,6 +832,9 @@ zh-CN:
         max_keeps_limited: '%{key} 备份设置最大限制值为零'
 
   activerecord:
+    attributes:
+      channel:
+        name: 渠道名称
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
@@ -849,7 +855,7 @@ zh-CN:
             app_id:
               blank: 请选择需要关联的应用
             file:
-              blank: 必须选择一个 zip 文件
+              blank: 必须选择一个 zpi 文件
             checksum:
               taken: 文件已经存在，不能重复上传
         backup:
