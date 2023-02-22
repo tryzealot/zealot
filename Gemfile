@@ -116,7 +116,7 @@ group :development do
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.7.1'
-  gem "ruby-lsp", "~> 0.4.0"
+  gem "ruby-lsp", "~> 0.4.1"
 
   # rails 更友好错误输出
   gem 'awesome_print'
