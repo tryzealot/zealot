@@ -46,7 +46,7 @@ gem 'faraday', '~> 2.7.4'
 
 ## 用户认证
 gem 'pundit', '~> 2.3.0'
-gem 'devise', '~> 4.8.1'
+gem 'devise', '~> 4.9.0'
 gem 'devise-i18n', '~> 1.10.3'
 
 gem 'omniauth', '~> 2.1.1'
@@ -56,12 +56,12 @@ gem 'omniauth-gitlab', '~> 3.0.0'
 gem 'omniauth-feishu', '~> 0.1.8'
 
 # FIXME: copy to ./lib/omniauth/strategies
-# gem 'gitlab_omniauth-ldap', '~> 2.1.1', require: 'omniauth-ldap'
+gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
 
 # ldap dependencies
-gem 'net-ldap', '~> 0.17'
-gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
-gem 'rubyntlm', '~> 0.5'
+# gem 'net-ldap', '~> 0.17'
+# gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
+# gem 'rubyntlm', '~> 0.5'
 
 ## UDID
 gem 'openssl', '~> 3.1.0'
