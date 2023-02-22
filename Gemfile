@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 6.0.0'
+gem 'puma', '~> 6.0.2'
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.15'
+gem 'graphql', '~> 2.0.16'
 gem 'rack-cors', '~> 1.1.1'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/tiny_appstore_connect'
@@ -42,10 +42,10 @@ gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'faraday', '~> 2.7.1'
+gem 'faraday', '~> 2.7.2'
 
 ## 用户认证
-gem 'pundit', '~> 2.2.0'
+gem 'pundit', '~> 2.3.0'
 gem 'devise', '~> 4.8.1'
 gem 'devise-i18n', '~> 1.10.2'
 
@@ -64,13 +64,13 @@ gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
 gem 'rubyntlm', '~> 0.5'
 
 ## UDID
-gem 'openssl', '~> 2.2.1'
+gem 'openssl', '~> 3.1.0'
 gem 'plist', '~> 3.6.0'
 
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.0.1'
+gem 'pghero', '~> 3.1.0'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -92,39 +92,31 @@ gem 'sidekiq-failures', '~> 1.0.4'
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
 gem 'propshaft', '0.6.4'
-gem 'jsbundling-rails', '~> 1.0'
+gem 'jsbundling-rails', '~> 1.1'
 gem 'cssbundling-rails', '~> 1.1'
 ## Javascript
-gem 'stimulus-rails', '~> 1.1.1'
+gem 'stimulus-rails', '~> 1.2.1'
 gem 'turbo-rails', '~> 1.3'
 
 # 用于解析 iOS, Android 和 macOS 应用
 gem 'app-info', '~> 2.8.3'
 
 # 带缓存的配置库
-gem 'rails-settings-cached', '~> 2.8.2'
+gem 'rails-settings-cached', '~> 2.8.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.8'
+  gem 'listen', '>= 3.0.5', '< 3.9'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.6.3', platforms: %i[ mri mingw x64_mingw ]
-
-  # 开发辅助
-  gem 'guard', '~> 2.18.0'
-  gem 'guard-bundler'
-  gem 'guard-migrate'
-  gem 'guard-rails'
-  gem 'guard-sidekiq'
-  gem 'terminal-notifier'
-  gem 'terminal-notifier-guard'
+  gem 'debug', '~> 1.7.1'
+  gem "ruby-lsp", "~> 0.3.7"
 
   # rails 更友好错误输出
   gem 'awesome_print'
