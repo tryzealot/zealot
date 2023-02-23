@@ -146,8 +146,8 @@ en-US:
       title: System information
       index:
         title: ':admin.system_info.title'
-        zealot_version: Zealot version
-        vcs_ref: VCS Ref
+        zealot_version: 版本号
+        vcs_ref: Git 哈希值
         build_date: Build date
         server_info: Server info
         found_new_version: 'Found new version: %{version}'
