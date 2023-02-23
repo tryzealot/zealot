@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 4.8.1'
+gem 'redis', '~> 5.0.6'
 
 # Logger
 gem 'lograge', '~> 0.12.0'
@@ -21,7 +21,7 @@ gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql', '~> 2.0.17'
 gem 'rack-cors', '~> 2.0.0'
 gem 'health_check', '~> 3.1.0'
-gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/tiny_appstore_connect'
+gem 'tiny_appstore_connect', '~> 0.1.7'
 
 # View
 ## 模板引擎
@@ -54,14 +54,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'omniauth-google-oauth2', '~> 1.0.1'
 gem 'omniauth-gitlab', '~> 3.0.0'
 gem 'omniauth-feishu', '~> 0.1.8'
-
-# FIXME: copy to ./lib/omniauth/strategies
 gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
-
-# ldap dependencies
-# gem 'net-ldap', '~> 0.17'
-# gem 'pyu-ruby-sasl', '>= 0.0.3.3', '< 0.1'
-# gem 'rubyntlm', '~> 0.5'
 
 ## UDID
 gem 'openssl', '~> 3.1.0'
