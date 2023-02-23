@@ -58,7 +58,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM ruby:3.1-alpine
+FROM ruby:3.0-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
