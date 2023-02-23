@@ -5,6 +5,7 @@ on:
       - '.devcontainer/*'
       - '.github/*.yml'
       - '.github/workflows/publish_codespace.yml'
+      - '.github/workflows/publish_release.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'
@@ -38,7 +39,6 @@ jobs:
     - name: Get build date
       id: build_date
       run: |
-        echo "BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S %z')" >> $GITHUB_OUTPUT
         echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Login to Docker Hub
@@ -58,7 +58,12 @@ jobs:
       id: metadata
       uses: docker/metadata-action@v4
       with:
-        images: ghcr.io/${{ github.repository }}
+        images: |
+          ${{ github.repository }}
+          ghcr.io/${{ github.repository }}
+        tags: |
+          type=raw,value=${{ env.DOCKER_TAG }}
+          type=raw,value=${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
 
     - name: Build and Push
       uses: docker/build-push-action@v4
@@ -66,14 +71,10 @@ jobs:
         context: .
         push: true
         labels: ${{ steps.metadata.outputs.labels }}
-        tags: |
-          ${{ github.repository }}:${{ env.DOCKER_TAG }}
-          ${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
-          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}
-          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+        tags: ${{ steps.metadata.outputs.tags }}
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         build-args: |
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
-          BUILD_DATE=${{ steps.build_date.outputs.BUILD_DATE }}
           TAG=${{ env.DOCKER_TAG }}
+          BUILD_DATE=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
