@@ -58,7 +58,7 @@ gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
 
 ## UDID
 gem 'openssl', '~> 3.1.0'
-gem 'plist', '~> 3.6.0'
+gem 'plist', '~> 3.7.0'
 
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
