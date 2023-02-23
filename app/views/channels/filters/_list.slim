@@ -33,7 +33,8 @@
               = time_ago_in_words(release.created_at)
           - if user_signed_in?
             td
-              a.btn.btn-tool href="#{channel_release_path(@channel, release)}" data-confirm="#{t('channels.messages.confirm.destroy')}" data-method="delete"
+              = button_to channel_release_path(@channel, release), method: :delete, class: 'btn btn-tool', \
+                data: { confirm: t('channels.messages.confirm.destroy'), turbo_confirm: t('channels.messages.confirm.destroy') } do
                 i.fas.fa-trash-alt
 - else
   p.p-3 = t('channels.show.empty_version')
