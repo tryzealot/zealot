@@ -77,4 +77,4 @@ jobs:
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
           TAG=${{ env.DOCKER_TAG }}
-          BUILD_DATE=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+          BUILD_DATE=${{ fromJSON(steps.metadata.outputs.json).labels['org.opencontainers.image.created'] }}
