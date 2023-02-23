@@ -390,7 +390,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    ruby-lsp (0.4.0)
+    ruby-lsp (0.4.1)
       language_server-protocol (~> 3.17.0)
       sorbet-runtime
       syntax_tree (>= 6, < 7)
@@ -433,7 +433,7 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
     socksify (1.7.1)
-    sorbet-runtime (0.5.10676)
+    sorbet-runtime (0.5.10679)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -536,7 +536,7 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  ruby-lsp (~> 0.4.0)
+  ruby-lsp (~> 0.4.1)
   sentry-rails
   sentry-ruby
   sentry-sidekiq
