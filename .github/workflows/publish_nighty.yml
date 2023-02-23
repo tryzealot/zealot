@@ -58,7 +58,12 @@ jobs:
       id: metadata
       uses: docker/metadata-action@v4
       with:
-        images: ghcr.io/${{ github.repository }}
+        images: |
+          ${{ github.repository }}
+          ghcr.io/${{ github.repository }}
+        tags: |
+          type=raw,value=${{ env.DOCKER_TAG }}
+          type=raw,value=${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
 
     - name: Build and Push
       uses: docker/build-push-action@v4
@@ -66,11 +71,7 @@ jobs:
         context: .
         push: true
         labels: ${{ steps.metadata.outputs.labels }}
-        tags: |
-          ${{ github.repository }}:${{ env.DOCKER_TAG }}
-          ${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
-          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}
-          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+        tags: ${{ steps.metadata.outputs.tags }}
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         build-args: |
           REPLACE_CHINA_MIRROR=false
