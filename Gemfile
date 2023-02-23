@@ -26,7 +26,7 @@ gem 'tiny_appstore_connect', '~> 0.1.7' #path: '/Users/icyleaf/Development/ruby/
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.5.1'
+gem 'slim-rails', '~> 3.6.1'
 
 ## 表单生成
 gem 'simple_form', '~> 5.2'
@@ -116,7 +116,7 @@ group :development do
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.7.1'
-  gem "ruby-lsp", "~> 0.4.0"
+  gem "ruby-lsp", "~> 0.4.1"
 
   # rails 更友好错误输出
   gem 'awesome_print'
