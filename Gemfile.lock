@@ -132,8 +132,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.10.3)
-      devise (>= 4.8.0)
+    devise-i18n (1.11.0)
+      devise (>= 4.9.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -497,7 +497,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.1)
   debug (~> 1.7.1)
   devise (~> 4.9.0)
-  devise-i18n (~> 1.10.3)
+  devise-i18n (~> 1.11.0)
   dotenv-rails
   faraday (~> 2.7.4)
   friendly_id (~> 5.5.0)
