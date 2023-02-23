@@ -97,7 +97,7 @@
         table.table
           - @services.each do |name, health|
             tr
-              td = name
+              td = "#{name} #{health}"
               td style="width: 20px"
                 - if health
                   i.fas.fa-check.text-green

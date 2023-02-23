@@ -146,8 +146,8 @@ en:
       title: System information
       index:
         title: :admin.system_info.title
-        zealot_version: Zealot version
-        vcs_ref: VCS Ref
+        zealot_version: Version
+        vcs_ref: Git Ref
         build_date: Build date
         server_info: Server info
         found_new_version: 'Found new version: %{version}'
