@@ -3,7 +3,7 @@
 module Admin
   module SettingHelper
     def vcs_ref_link(ref)
-      base = Setting.version == 'development' ? 'main' : Setting.version
+      base = Rails.env.development? ? 'main' : Setting.version
       link_to ref, github_repo_compare_commit(ref, base), target: :blank
     end
 
