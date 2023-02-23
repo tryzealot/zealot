@@ -14,7 +14,7 @@
           dt = t('.zealot_version')
           dd[
             data-controller="admin-new-release"
-            data-admin-new-release-version-value="#{Setting.version}"
+            data-admin-new-release-version-value="#{zealot_version}"
             data-admin-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
           ]
             pre
