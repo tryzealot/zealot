@@ -47,7 +47,7 @@ gem 'faraday', '~> 2.7.4'
 ## 用户认证
 gem 'pundit', '~> 2.3.0'
 gem 'devise', '~> 4.9.0'
-gem 'devise-i18n', '~> 1.10.3'
+gem 'devise-i18n', '~> 1.11.0'
 
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
@@ -70,7 +70,7 @@ gem 'plist', '~> 3.6.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.1.0'
+gem 'pghero', '~> 3.2.0'
 
 ## 异常报错上报
 gem 'sentry-ruby'
