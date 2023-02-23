@@ -14,6 +14,10 @@ on:
       - '*.yaml'
     branches:
       - develop
+
+env:
+  DOCKER_TAG: nightly
+
 jobs:
   push_to_registry:
     name: Push Docker image to multiple registries
@@ -36,10 +40,6 @@ jobs:
       run: |
         echo "BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S %z')" >> $GITHUB_OUTPUT
         echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-    - name: Get the version
-      id: version
-      run: echo "GIT_TAG=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -67,14 +67,13 @@ jobs:
         push: true
         labels: ${{ steps.metadata.outputs.labels }}
         tags: |
-          ${{ steps.metadata.outputs.tags }}
-          ${{ github.repository }}:nightly
-          ${{ github.repository }}:nightly-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
-          ghcr.io/${{ github.repository }}:nightly
-          ghcr.io/${{ github.repository }}:nightly-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+          ${{ github.repository }}:${{ env.DOCKER_TAG }}
+          ${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}
+          ghcr.io/${{ github.repository }}:${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
         platforms: linux/amd64,linux/arm64,linux/arm/v7
         build-args: |
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
           BUILD_DATE=${{ steps.build_date.outputs.BUILD_DATE }}
-          TAG=${{ steps.version.outputs.GIT_TAG }}
+          TAG=${{ env.DOCKER_TAG }}
