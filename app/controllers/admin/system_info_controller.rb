@@ -87,9 +87,9 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_services
     @services ||= {
-      redis: HealthCheck::RedisHealthCheck.check,
-      database: HealthCheck::Utils.get_database_version.present?,
-      sidekiq: HealthCheck::SidekiqHealthCheck.check,
+      redis: redis_version,
+      database: db_version,
+      sidekiq: sidekiq_version,
     }
   end
 
@@ -168,6 +168,26 @@ class Admin::SystemInfoController < ApplicationController
     }
   rescue
     @diskspace = nil
+  end
+
+  def db_version
+    return false unless HealthCheck::Utils.get_database_version.present?
+
+    version = ActiveRecord::Base.connection.select_value("SELECT version()")
+    version.match(/^PostgreSQL\s((\d+[.]?)+)\s/)[1]
+  end
+
+  def redis_version
+    @redis_client ||= Redis.new(url: Rails.application.config.cache_store.last[:url])
+    return false if @redis_client.ping != 'PONG'
+
+    @redis_client.info['redis_version']
+  end
+
+  def sidekiq_version
+    return false unless HealthCheck::SidekiqHealthCheck.check
+
+    Gem::Specification.find_by_name('sidekiq').version
   end
 
   def percent(value, n)
