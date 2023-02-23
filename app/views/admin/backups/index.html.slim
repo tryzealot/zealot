@@ -15,13 +15,15 @@
       .card
         .card-body.p-0
           table.table.backups
-            tr
-              th = t('.key')
-              th = t('.scopes')
-              th = t('.schedule')
-              th = t('.next_schedule_at')
-              th = t('.enabled')
-              th = t('.action')
+            thead
+              tr
+                th = t('.key')
+                th = t('.scopes')
+                th = t('.schedule')
+                th = t('.next_schedule_at')
+                th = t('.enabled')
+                th = t('.action')
+            tbody
               - @backups.each do |backup|
                 tr
                   td = link_to backup.key, admin_backup_path(backup)
