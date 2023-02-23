@@ -125,7 +125,6 @@ class Admin::SystemInfoController < ApplicationController
     @server = {
       os_info: Etc.uname.values.join(' '),
       ruby_version: RUBY_DESCRIPTION,
-      zealot_version: Setting.version,
       zealot_vcs_ref: Setting.vcs_ref,
       build_date: Setting.build_date,
       cpu: cpu&.length,
