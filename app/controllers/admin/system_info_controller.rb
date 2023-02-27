@@ -174,7 +174,7 @@ class Admin::SystemInfoController < ApplicationController
     return false unless HealthCheck::Utils.get_database_version.present?
 
     version = ActiveRecord::Base.connection.select_value("SELECT version()")
-    version.match(/^PostgreSQL\s((\d+[.]?)+)\s/)[1]
+    version.match(/^PostgreSQL\s((\d+[.]?)+)\s*/).try(:[], 1)
   end
 
   def redis_version
