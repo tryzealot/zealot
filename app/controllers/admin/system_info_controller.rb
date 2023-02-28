@@ -86,7 +86,7 @@ class Admin::SystemInfoController < ApplicationController
   def set_services
     @services ||= {
       redis: redis_version,
-      database: db_version,
+      postgres: pg_version,
       sidekiq: sidekiq_version,
     }
   end
@@ -168,7 +168,7 @@ class Admin::SystemInfoController < ApplicationController
     @diskspace = nil
   end
 
-  def db_version
+  def pg_version
     return false unless HealthCheck::Utils.get_database_version.present?
 
     version = ActiveRecord::Base.connection.select_value("SELECT version()")
