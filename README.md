@@ -27,7 +27,7 @@
   <div>
     <a href="https://zealot.ews.im/#/en/deployment">Install</a> •
     <a href="https://zealot.ews.im/#/en/configuration">Configuration</a> •
-    <a href="https://zealot.ews.im/#/en/api">REST API</a> •
+    <a href="https://zealot.ews.im/docs/developer-guide/api">REST API</a> •
     <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
     <a href="https://zealot.ews.im/#/en/screenshot">Screenshots</a>
   </div>
@@ -35,7 +35,7 @@
   <div>
     <a href="https://zealot.ews.im/#/deployment">自部署</a> •
     <a href="https://zealot.ews.im/#/configuration">配置</a> •
-    <a href="https://zealot.ews.im/#/api">REST API</a> •
+    <a href="https://zealot.ews.im/zh-Hans/docs/developer-guide/api">REST API</a> •
     <a href="https://zealot.ews.im/#/modules">SDK</a> •
     <a href="https://zealot.ews.im/#/screenshot">功能截图</a>
   </div>
