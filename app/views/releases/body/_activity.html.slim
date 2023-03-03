@@ -45,6 +45,6 @@
       ruby:
         channel_path = friendly_channel_overview_path(current_release.channel)
 
-      .card-footbar
-        a.btn.btn-default.btn-block.btn-flat href="#{channel_path}"
+      .card-footer.p-1
+        a.btn.btn-block.btn-flat.text-primary href="#{channel_path}"
           = t('releases.show.more')

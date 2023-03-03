@@ -25,19 +25,17 @@
   </a>
 
   <div>
-    <a href="https://zealot.ews.im/#/en/deployment">Install</a> •
-    <a href="https://zealot.ews.im/#/en/configuration">Configuration</a> •
-    <a href="https://zealot.ews.im/#/en/api">REST API</a> •
-    <a href="https://zealot.ews.im/#/en/modules">SDK</a> •
-    <a href="https://zealot.ews.im/#/en/screenshot">Screenshots</a>
+    <a href="https://zealot.ews.im/docs/self-hosted">Install</a> •
+    <a href="https://zealot.ews.im/docs/developer-guide/api">REST API</a> •
+    <a href="https://zealot.ews.im/docs/developer-guide">Developer guide</a> •
+    <a href="https://zealot.ews.im/docs/user-guide">User guide</a>
   </div>
 
   <div>
-    <a href="https://zealot.ews.im/#/deployment">自部署</a> •
-    <a href="https://zealot.ews.im/#/configuration">配置</a> •
-    <a href="https://zealot.ews.im/#/api">REST API</a> •
-    <a href="https://zealot.ews.im/#/modules">SDK</a> •
-    <a href="https://zealot.ews.im/#/screenshot">功能截图</a>
+    <a href="https://zealot.ews.im/zh-Hans/docs/self-hosted">自部署</a> •
+    <a href="https://zealot.ews.im/zh-Hans/docs/developer-guide/api">API 接口</a> •
+    <a href="https://zealot.ews.im/zh-Hans/docs/developer-guide">开发者资源</a> •
+    <a href="https://zealot.ews.im/zh-Hans/docs/user-guide">用户使用手册</a>
   </div>
 </div>
 
@@ -58,7 +56,7 @@
 
 ## 在线演示
 
-> **注意**: 数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
+> **注意**: 演示服务使用免费资源部署，资源额度耗尽会不可访问次月初重置；数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
 
 - 演示地址：https://tryzealot.ews.im/
 - 登录账户: `admin@zealot.com`
