@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { compare } from "compare-versions"
 
-const DEVELLOPMENT = "development"
 const PROJECT_URL = "https://github.com/tryzealot/zealot"
 const VERSION_URL = "https://api.github.com/repos/tryzealot/zealot/releases/latest"
 
@@ -10,7 +9,7 @@ export default class extends Controller {
   static targets = ["newVersion"]
 
   connect() {
-    if (this.versionValue === DEVELLOPMENT) {
+    if (Zealot.isDevelopment()) {
       this.render(this.titleValue, PROJECT_URL)
     } else {
       this.check()

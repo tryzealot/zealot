@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::SystemInfoController < ApplicationController
-  VERSION_CHECK_URL = 'https://api.github.com/repos/tryzealot/zealot/releases/latest'
-
   FILE_PERMISSIONS = {
     app: [
       'log',
@@ -87,9 +85,9 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_services
     @services ||= {
-      redis: HealthCheck::RedisHealthCheck.check,
-      database: HealthCheck::Utils.get_database_version.present?,
-      sidekiq: HealthCheck::SidekiqHealthCheck.check,
+      redis: redis_version,
+      postgres: pg_version,
+      sidekiq: sidekiq_version,
     }
   end
 
@@ -125,7 +123,6 @@ class Admin::SystemInfoController < ApplicationController
     @server = {
       os_info: Etc.uname.values.join(' '),
       ruby_version: RUBY_DESCRIPTION,
-      zealot_version: Setting.version,
       zealot_vcs_ref: Setting.vcs_ref,
       build_date: Setting.build_date,
       cpu: cpu&.length,
@@ -169,6 +166,26 @@ class Admin::SystemInfoController < ApplicationController
     }
   rescue
     @diskspace = nil
+  end
+
+  def pg_version
+    return false unless HealthCheck::Utils.get_database_version.present?
+
+    version = ActiveRecord::Base.connection.select_value("SELECT version()")
+    version.match(/^PostgreSQL\s((\d+[.]?)+)\s*/).try(:[], 1)
+  end
+
+  def redis_version
+    @redis_client ||= Redis.new(url: Rails.application.config.cache_store.last[:url])
+    return false if @redis_client.ping != 'PONG'
+
+    @redis_client.info['redis_version']
+  end
+
+  def sidekiq_version
+    return false unless HealthCheck::SidekiqHealthCheck.check
+
+    Gem::Specification.find_by_name('sidekiq').version
   end
 
   def percent(value, n)
