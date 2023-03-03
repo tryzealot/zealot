@@ -10,7 +10,8 @@ Sidekiq.configure_server do |config|
 
   ## sidekiq-failurers
   # Max limits failures
-  config.failures_max_count = 5000
+  # FIXME: comment below because sidekiq 7.0 breaking changes https://github.com/mhfs/sidekiq-failures/issues/146
+  # config.failures_max_count = 5000
 end
 
 Sidekiq.configure_client do |config|

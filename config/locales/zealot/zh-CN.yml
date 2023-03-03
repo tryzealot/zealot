@@ -164,8 +164,8 @@ zh-CN:
       title: 环境信息
       index:
         title: :'admin.system_info.title'
-        zealot_version: Zealot 版本
-        vcs_ref: 哈希值
+        zealot_version: 版本号
+        vcs_ref: Git 哈希值
         build_date: 构建日期
         server_info: 服务器信息
         found_new_version: '发现新版本: %{version}'
