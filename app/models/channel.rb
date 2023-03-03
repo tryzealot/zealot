@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Channel < ApplicationRecord
+  default_scope { order(id: :asc) }
+
   include FriendlyId
   include VersionCompare
 

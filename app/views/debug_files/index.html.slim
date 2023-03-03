@@ -16,10 +16,9 @@
       - @apps.each do |app|
         .card
           .card-header
-            h3.card-title
-            = app.name
+            h3.card-title = app.name
             .card-tools
-              ul.nav.nav-pills.ml-auto
+              ul.nav.nav-pills
                 - DebugFile.device_types.each_with_index do |(value, name), i|
                   li.nav-item
                     a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{app.id}-#{value.downcase}" = name

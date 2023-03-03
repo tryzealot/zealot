@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Scheme < ApplicationRecord
+  default_scope { order(id: :asc) }
+
   belongs_to :app
   has_many :channels, dependent: :destroy
   accepts_nested_attributes_for :channels

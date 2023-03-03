@@ -40,7 +40,7 @@ module UserOmniauth
   end
 
   def enabled_ldap?
-    defined?(OmniAuth::Strategies::Ldap) && Setting.ldap[:enabled]
+    defined?(OmniAuth::Strategies::LDAP) && Setting.ldap[:enabled]
   end
 
   def enabled_feishu?

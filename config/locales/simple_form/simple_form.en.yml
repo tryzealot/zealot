@@ -26,6 +26,7 @@ en:
         name: 'App name'
       scheme:
         name: 'Scheme name'
+        new_build_callout: New build callout
       channel:
         name: 'Channel name'
         device_type: 'Device type'
@@ -83,6 +84,7 @@ en:
       app:
         schemes:
           name: :simple_form.hints.scheme.name
+          new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       scheme:
         name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
       channel:
