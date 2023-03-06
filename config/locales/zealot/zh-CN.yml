@@ -266,7 +266,8 @@ zh-CN:
       disk_usage: 磁盘使用率
     timeline:
       title: 上传时间线
-      upload_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_auto_version_release: 上传了新版本 %{version}
       not_found: 没有任何上传，快快上传吧。
 
   apps:
@@ -414,7 +415,8 @@ zh-CN:
       cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
 
       last_ten_uploads: 最近 10 次上传
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
       sync_devices_feature: 推荐使用%{link}同步设备名称
@@ -673,7 +675,8 @@ zh-CN:
       platform: 平台
       model: 产品型号
       created_at: 注册时间
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: 已关联的苹果开发者
       register_apple_key: 注册测试设备到苹果开发者
       channels: 应用渠道
