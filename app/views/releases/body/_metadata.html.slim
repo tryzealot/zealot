@@ -5,7 +5,7 @@
       .app-name
         = @release.name || @release.app_name
         .app-identifier
-          = @release.bundle_id
+          = @release.bundle_id || @release.file.identifier
   .card-body
     ul.app-metadata
       - if @release.name.present?
