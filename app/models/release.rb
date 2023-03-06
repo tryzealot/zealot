@@ -199,6 +199,10 @@ class Release < ApplicationRecord
       'Android'
     elsif mac?
       'macOS'
+    elsif windows?
+      'Windows'
+    elsif linux?
+      'Linux'
     else
       'Unknown'
     end
@@ -219,10 +223,19 @@ class Release < ApplicationRecord
     platform_type.casecmp?('macos')
   end
 
+  def windows?
+    platform_type.casecmp?('windows')
+  end
+
+  def linux?
+    platform_type.casecmp?('linux') || platform_type.casecmp?('rpm') ||
+    platform_type.casecmp?('deb')
+  end
+
   private
 
   def platform_type
-    @platform_type ||= (device_type || channel.device_type)
+    @platform_type ||= (device_type || Channel.device_types[channel.device_type])
   end
 
   def auto_release_version
