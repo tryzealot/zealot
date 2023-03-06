@@ -597,7 +597,6 @@ en:
       unknown_events: '%{name} triggered unknown event: %{event}'
       errors:
         not_found_file: 'Not found debug file: %{message}'
-        failed_detect_file_type: Failed to detect file type
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
         unknown_parse: 'Unknown parse error [%{class}]: %{message}'
