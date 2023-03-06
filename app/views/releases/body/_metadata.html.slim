@@ -21,9 +21,10 @@
       li title="#{t('releases.show.device_type')}"
         = device_icon(@release.platform)
         = @release.device_type
-      li title="#{t('releases.show.release_version')}"
-        i.fas.fa-server
-        = "#{@release.release_version} (#{@release.build_version})"
+      - if @release.release_version.present?
+        li title="#{t('releases.show.release_version')}"
+          i.fas.fa-server
+          = "#{@release.release_version} (#{@release.build_version})"
       - if @release.release_type.present?
         li title="#{t('releases.show.release_type')}"
           i.fas.fa-cubes

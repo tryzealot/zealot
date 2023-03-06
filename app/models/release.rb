@@ -15,7 +15,7 @@ class Release < ApplicationRecord
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
   has_and_belongs_to_many :devices, dependent: :destroy
 
-  validates :bundle_id, :release_version, :build_version, :file, presence: true
+  validates :file, presence: true
   validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
@@ -105,16 +105,17 @@ class Release < ApplicationRecord
 
   def self.rescuing_app_parse_errors
     yield
-  rescue AppInfo::UnkownFileTypeError
-    raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
-  rescue NoMethodError => e
-    logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
-  rescue => e
-    logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
+  rescue AppInfo::UnkownFileTypeError, NoMethodError => e
+  #   raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
+  logger.error e.full_message
+  # rescue NoMethodError => e
+  #   logger.error e.full_message
+  #   Sentry.capture_exception e
+  #   raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
+  # rescue => e
+  #   logger.error e.full_message
+  #   Sentry.capture_exception e
+  #   raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
   end
   private_methods :rescuing_app_parse_errors
 

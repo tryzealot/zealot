@@ -65,6 +65,8 @@ class Channel < ApplicationRecord
   end
 
   def release_versions(limit = 10)
+    return []
+
     versions = releases.select(:release_version)
       .group(:release_version)
       .map(&:release_version)
