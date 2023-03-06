@@ -632,7 +632,6 @@ zh-CN:
       unknown_events: '%{name} 触发了未知事件: %{event}'
       errors:
         not_found_file: '无法找到解包文件: %{message}'
-        failed_detect_file_type: 无法识别应用类型
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
         unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
