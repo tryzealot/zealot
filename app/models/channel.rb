@@ -14,8 +14,7 @@ class Channel < ApplicationRecord
 
   enum device_type: {
     ios: 'iOS', android: 'Android',
-    macos: 'macOS', windows: 'Windows',
-    linux_rpm: 'Linux (CentOS)', linux_deb: 'Linux (Debian)'
+    macos: 'macOS', windows: 'Windows', linux: 'Linux'
   }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
