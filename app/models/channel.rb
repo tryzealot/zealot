@@ -12,7 +12,11 @@ class Channel < ApplicationRecord
   has_many :releases, dependent: :destroy
   has_and_belongs_to_many :web_hooks, dependent: :destroy
 
-  enum device_type: { ios: 'iOS', android: 'Android', macos: 'macOS' }
+  enum device_type: {
+    ios: 'iOS', android: 'Android',
+    macos: 'macOS', windows: 'Windows',
+    linux_rpm: 'Linux (CentOS)', linux_deb: 'Linux (Debian)'
+  }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
@@ -65,9 +69,8 @@ class Channel < ApplicationRecord
   end
 
   def release_versions(limit = 10)
-    return []
-
     versions = releases.select(:release_version)
+      .where.not(release_version: nil)
       .group(:release_version)
       .map(&:release_version)
       .sort do |a,b|
