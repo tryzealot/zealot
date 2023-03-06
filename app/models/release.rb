@@ -42,22 +42,28 @@ class Release < ApplicationRecord
     return add_not_found_file_error if file.blank?
 
     create(params) do |release|
-      rescuing_app_parse_errors do
-        parser ||= AppInfo.parse(file)
-        build_metadata(release, parser, default_source)
+      release.source ||= default_source
+      parse_app(release, file, default_source) if AppInfo.file_type(file) != :unkown
+    end
+  end
 
-        # iOS 且是 AdHoc 尝试解析 UDID 列表
-        if parser.os == AppInfo::Platform::IOS &&
-            parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-            parser.devices.present?
+  def self.parse_app(release, file, default_source)
+    rescuing_app_parse_errors do
+      parser ||= AppInfo.parse(file)
 
-          parser.devices.each do |udid|
-            release.devices << Device.find_or_create_by(udid: udid)
-          end
+      build_metadata(release, parser, default_source)
+
+      # iOS 且是 AdHoc 尝试解析 UDID 列表
+      if parser.os == AppInfo::Platform::IOS &&
+          parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+          parser.devices.present?
+
+        parser.devices.each do |udid|
+          release.devices << Device.find_or_create_by(udid: udid)
         end
-      ensure
-        parser&.clear!
       end
+    ensure
+      parser&.clear!
     end
   end
 
@@ -272,7 +278,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device_type ||= channel.device_type
+    self.device_type ||= Channel.device_types[channel.device_type]
   end
 
   ORIGIN_PREFIX = 'origin/'
