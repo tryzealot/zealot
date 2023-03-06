@@ -237,7 +237,7 @@ GEM
     mini_magick (4.12.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
-    minitest (5.17.0)
+    minitest (5.18.0)
     mixlib-shellout (3.2.7)
       chef-utils
     msgpack (1.6.0)
@@ -293,7 +293,7 @@ GEM
       activerecord (>= 6)
     plist (3.7.0)
     prettier_print (1.2.0)
-    propshaft (0.6.4)
+    propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -314,7 +314,7 @@ GEM
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
     racc (1.6.2)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-cors (2.0.0)
       rack (>= 2.0.0)
     rack-protection (3.0.5)
@@ -523,7 +523,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pghero (~> 3.2.0)
   plist (~> 3.7.0)
-  propshaft (= 0.6.4)
+  propshaft (= 0.7.0)
   pry-rails
   pry-rescue
   puma (~> 6.1.1)
