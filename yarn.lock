@@ -1558,10 +1558,10 @@ tslib@^2.4.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
-ua-parser-js@^1.0.33:
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.33.tgz#f21f01233e90e7ed0f059ceab46eb190ff17f8f4"
-  integrity sha512-RqshF7TPTE0XLYAqmjlu5cLLuGdKrNu9O1KLA/qp39QtbZwuzwv1dT46DZSopoUMsYgXpB3Cv8a03FI8b74oFQ==
+ua-parser-js@^1.0.34:
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.34.tgz#b33f41c415325839f354005d25a2f588be296976"
+  integrity sha512-K9mwJm/DaB6mRLZfw6q8IMXipcrmuT6yfhYmwhAkuh+81sChuYstYA+znlgaflUPaYUa3odxKPKGw6Vw/lANew==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
