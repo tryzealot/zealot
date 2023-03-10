@@ -42,7 +42,7 @@ class ChannelsController < ApplicationController
     authorize @channel
 
     @channel.update(channel_params)
-    redirect_to friendly_channel_overview_path(@channel)
+    redirect_to (referer_url || friendly_channel_overview_path(@channel))
   end
 
   def destroy
@@ -62,6 +62,10 @@ class ChannelsController < ApplicationController
     @app = @channel.scheme.app
     @title = @channel.app_name
     @subtitle = t('channels.subtitle', total_scheme: @app.schemes.count, total_channel: @channel.scheme.channels.count)
+  end
+
+  def referer_url
+    @referer_url ||= params[:referer_url]
   end
 
   def channel_params
