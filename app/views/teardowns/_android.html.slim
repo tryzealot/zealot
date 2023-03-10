@@ -23,9 +23,12 @@ ruby:
         dt = t('teardowns.show.package_name')
         dd
           pre = @metadata.packet_name
-        dt = t('teardowns.show.supported_device')
+        dt
+          = t('teardowns.show.supported_device')
         dd
-          pre = @metadata.device
+          pre
+            = @metadata.device
+            |  (Android)
         dt = t('teardowns.show.sdk_version_range')
         dd
           pre = "#{@metadata.min_sdk_version} / #{@metadata.target_sdk_version}"
