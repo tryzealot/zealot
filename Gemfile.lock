@@ -294,7 +294,7 @@ GEM
       activerecord (>= 6)
     plist (3.7.0)
     prettier_print (1.2.0)
-    propshaft (0.6.4)
+    propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -524,7 +524,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pghero (~> 3.2.0)
   plist (~> 3.7.0)
-  propshaft (= 0.6.4)
+  propshaft (= 0.7.0)
   pry-rails
   pry-rescue
   puma (~> 6.1.1)
