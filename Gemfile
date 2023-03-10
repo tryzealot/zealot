@@ -84,7 +84,7 @@ gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
-gem 'propshaft', '0.6.4'
+gem 'propshaft', '0.7.0'
 gem 'jsbundling-rails', '~> 1.1'
 gem 'cssbundling-rails', '~> 1.1'
 ## Javascript
