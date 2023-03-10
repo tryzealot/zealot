@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.17'
+gem 'graphql', '~> 2.0.18'
 gem 'rack-cors', '~> 2.0.0'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7'
@@ -26,7 +26,7 @@ gem 'tiny_appstore_connect', '~> 0.1.7'
 # View
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
-gem 'slim-rails', '~> 3.6.1'
+gem 'slim-rails', '~> 3.6.2'
 
 ## 表单生成
 gem 'simple_form', '~> 5.2'
@@ -84,7 +84,7 @@ gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
-gem 'propshaft', '0.6.4'
+gem 'propshaft', '0.7.0'
 gem 'jsbundling-rails', '~> 1.1'
 gem 'cssbundling-rails', '~> 1.1'
 ## Javascript
@@ -92,7 +92,7 @@ gem 'stimulus-rails', '~> 1.2.1'
 gem 'turbo-rails', '~> 1.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.8.3'
+gem 'app-info', '~> 2.8.4'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.3'
