@@ -78,7 +78,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 7.0.5'
+gem 'sidekiq', '~> 7.0.7'
 gem 'sidekiq-scheduler', '~> 5.0.2'
 gem 'sidekiq-failures', '~> 1.0.4'
 
