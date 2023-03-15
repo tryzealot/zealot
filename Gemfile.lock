@@ -166,7 +166,7 @@ GEM
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
-    graphql (2.0.18)
+    graphql (2.0.19)
     hashie (5.0.0)
     health_check (3.1.0)
       railties (>= 5.0)
@@ -505,7 +505,7 @@ DEPENDENCIES
   friendly_id (~> 5.5.0)
   gitlab_omniauth-ldap (~> 2.2.0)
   graphiql-rails
-  graphql (~> 2.0.18)
+  graphql (~> 2.0.19)
   health_check (~> 3.1.0)
   improved_jenkins_client (~> 1.6.7)
   jb (~> 0.8.0)
