@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.18'
+gem 'graphql', '~> 2.0.19'
 gem 'rack-cors', '~> 2.0.0'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7'
@@ -78,7 +78,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 7.0.5'
+gem 'sidekiq', '~> 7.0.7'
 gem 'sidekiq-scheduler', '~> 5.0.2'
 gem 'sidekiq-failures', '~> 1.0.4'
 
