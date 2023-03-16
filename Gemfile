@@ -92,7 +92,7 @@ gem 'stimulus-rails', '~> 1.2.1'
 gem 'turbo-rails', '~> 1.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.8.4'
+gem 'app-info', '~> 2.8.5'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.3'
