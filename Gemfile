@@ -63,7 +63,7 @@ gem 'plist', '~> 3.7.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.2.0'
+gem 'pghero', '~> 3.3.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -92,7 +92,7 @@ gem 'stimulus-rails', '~> 1.2.1'
 gem 'turbo-rails', '~> 1.4'
 
 # 用于解析 iOS, Android 和 macOS 应用
-gem 'app-info', '~> 2.8.4'
+gem 'app-info', '~> 2.8.5'
 
 # 带缓存的配置库
 gem 'rails-settings-cached', '~> 2.8.3'
