@@ -81,7 +81,7 @@ GEM
     android_parser (2.5.1)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (2.8.4)
+    app-info (2.8.5)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (~> 2.5.1)
       google-protobuf (>= 3.19.4, < 3.23.0)
@@ -162,7 +162,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    google-protobuf (3.22.1)
+    google-protobuf (3.22.2)
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
@@ -490,7 +490,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.13)
   activejob-status
-  app-info (~> 2.8.4)
+  app-info (~> 2.8.5)
   awesome_print
   better_errors
   binding_of_caller
