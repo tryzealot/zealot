@@ -10,7 +10,7 @@
   <a href="https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md">
     <img alt="changelog" src="https://img.shields.io/github/v/release/tryzealot/zealot?include_prereleases">
   </a>
-  <a href="https://hub.docker.com/r/tryzealot/zealot/">
+  <a href="https://ghcr.io/tryzealot/zealot">
     <img alt="docker image" src="https://img.shields.io/docker/pulls/tryzealot/zealot.svg">
   </a>
   <a href="https://t.me/tryzealot_lobby">
