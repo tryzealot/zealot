@@ -239,6 +239,7 @@ class Release < ApplicationRecord
       changelog.split("\n").each do |message|
         next if message.blank?
 
+        message = message[1..-1].strip if message.start_with?('-')
         hash << { message: message }
       end
       self.changelog = hash
