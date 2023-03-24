@@ -27,6 +27,7 @@ gem 'tiny_appstore_connect', '~> 0.1.7'
 ## 模板引擎
 gem 'jb', '~> 0.8.0'
 gem 'slim-rails', '~> 3.6.2'
+gem 'kramdown', '~> 2.4'
 
 ## 表单生成
 gem 'simple_form', '~> 5.2'
