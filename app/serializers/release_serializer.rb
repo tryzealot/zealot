@@ -8,10 +8,10 @@ class ReleaseSerializer < ApplicationSerializer
 
 
   def changelog
-    object.array_changelog(false)
+    object.array_changelog(default_template: false)
   end
 
   def text_changelog
-    object.text_changelog(false)
+    object.text_changelog(default_template: false)
   end
 end
