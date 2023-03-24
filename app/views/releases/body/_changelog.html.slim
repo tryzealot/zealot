@@ -20,4 +20,4 @@
                 span.badge.badge-info data-toggle="tooltip" title="#{changelog['email']}"
                   = changelog['author']
 
-            = simple_format changelog['message'], class: 'mb-1'
+            = changelog_render changelog['message'], class: 'changelog changelog-item mb-1'
