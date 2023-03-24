@@ -133,16 +133,17 @@ class Release < ApplicationRecord
     git_commit[0..8]
   end
 
-  def array_changelog(use_default_changelog = true)
-    return empty_changelog(use_default_changelog) if changelog.blank?
+  def array_changelog(default_template: true)
+    return empty_changelog(default_template) if changelog.blank?
     return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
   end
 
-  def text_changelog(use_default_changelog = true)
-    array_changelog(use_default_changelog).each_with_object([]) do |line, obj|
-      obj << "- #{line['message']}"
+  def text_changelog(default_template: true, head_line: false, field: 'message')
+    array_changelog(default_template: default_template).each_with_object([]) do |line, obj|
+      message = head_line ? line[field].split("\n")[0] : line[field]
+      obj << "- #{message}"
     end.join("\n")
   end
 
