@@ -12,6 +12,6 @@ class Api::UploadAppSerializer < ApplicationSerializer
   belongs_to :channel
 
   def changelog
-    object.array_changelog(false)
+    object.array_changelog(default_template: false)
   end
 end
