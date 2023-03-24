@@ -79,8 +79,16 @@ module AppsHelper
     channel.name == platform ? channel.name : "#{channel.name} (#{device_name(channel.device_type)})"
   end
 
-  def changelog_format(changelog, **options)
-    simple_format changelog, **options
+  def changelog_render(changelog, **options)
+    source = options.delete(:source) || :markdown
+    case source
+    when :markdown
+      content_tag(:div, **options) do
+        raw Kramdown::Document.new(changelog).to_html
+      end
+    else
+      simple_format changelog, **options
+    end
   end
 
   def app_qrcode_tag(release)
