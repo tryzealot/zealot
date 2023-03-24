@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.12.0'
 # API
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql', '~> 2.0.19'
-gem 'rack-cors', '~> 2.0.0'
+gem 'rack-cors', '~> 2.0.1'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7'
 
@@ -109,7 +109,7 @@ group :development do
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.7.1'
-  gem "ruby-lsp", "~> 0.4.1"
+  gem "ruby-lsp", "~> 0.4.2"
 
   # rails 更友好错误输出
   gem 'awesome_print'
