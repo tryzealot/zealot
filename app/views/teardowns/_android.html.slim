@@ -12,8 +12,8 @@ ruby:
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body
-      dl.system-info
+    .card-body.p-0
+      dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
         dd
           pre = app_name
@@ -39,8 +39,9 @@ ruby:
   = render 'card', title: 'Activities', raw: @metadata.activities
 
 .col-md-6
+  == render 'signature_certs_part', certificates: @metadata.developer_certs
   == render 'card', title: 'Deep Links', raw: @metadata.deep_links
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
-  = render 'card', title: 'Features', raw: @metadata.features
-  = render 'card', title: 'Permissions', raw: @metadata.permissions
-  = render 'card', title: 'Services', raw: @metadata.services
+  == render 'card', title: 'Features', raw: @metadata.features
+  == render 'card', title: 'Permissions', raw: @metadata.permissions
+  == render 'card', title: 'Services', raw: @metadata.services
