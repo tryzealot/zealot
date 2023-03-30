@@ -556,6 +556,9 @@ zh-CN:
       developer_certs_list: '开发者证书 (%{count})'
       cert: '证书 %{index}'
       cert_expired_at: '%{date} 到期'
+      cert_issuer: 发布人
+      cert_algorithem: 签名算法
+      cert_subject: 主题
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)
