@@ -521,6 +521,9 @@ en-US:
       developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
+      cert_issuer: 发布人
+      cert_algorithem: 签名算法
+      cert_subject: 主题
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
