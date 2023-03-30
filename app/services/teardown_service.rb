@@ -52,6 +52,20 @@ class TeardownService
     metadata
   end
 
+  def process_app_common(parser, metadata)
+    metadata.name = parser.name
+    metadata.platform = parser.os.downcase
+    metadata.device = parser.device_type
+    metadata.release_version = parser.release_version
+    metadata.build_version = parser.build_version
+    metadata.size = parser.size
+    metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
+  end
+
+  ###########
+  # Android #
+  ###########
+
   def process_android(parser, metadata)
     process_app_common(parser, metadata)
 
@@ -63,7 +77,30 @@ class TeardownService
     metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name)
     metadata.url_schemes = parser&.schemes&.sort
     metadata.deep_links = parser&.deep_links&.sort
+
+    process_signature_certs(parser, metadata)
   end
+
+  def process_signature_certs(parser, metadata)
+    return unless certificates = parser.certificates
+
+    metadata.developer_certs = certificates.each_with_object([]) do |cert, obj|
+      cert = cert.certificate
+      obj << {
+        version: "v#{cert.version + 1}",
+        subject: cert.subject.to_a.map {|k,v,_| [k, v] }.to_h,
+        issuer: cert.issuer.to_a.map {|k,v,_| [k, v] }.to_h,
+        created_at: cert.not_before,
+        expired_at: cert.not_after,
+        algorithem: cert.signature_algorithm,
+        public_key_type: cert.public_key.class.name.split('::').last
+      }
+    end
+  end
+
+  ###########
+  # iOS     #
+  ###########
 
   def process_ios(parser, metadata)
     process_app_common(parser, metadata)
@@ -85,21 +122,19 @@ class TeardownService
     end
   end
 
+  ###########
+  # macOS   #
+  ###########
+
   def process_macos(parser, metadata)
     process_app_common(parser, metadata)
     metadata.bundle_id = parser.bundle_id
     # metadata.target_sdk_version = parser.target_sdk_version
   end
 
-  def process_app_common(parser, metadata)
-    metadata.name = parser.name
-    metadata.platform = parser.os.downcase
-    metadata.device = parser.device_type
-    metadata.release_version = parser.release_version
-    metadata.build_version = parser.build_version
-    metadata.size = parser.size
-    metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
-  end
+  #########################
+  # Provision (iOS/macOS) #
+  #########################
 
   def process_mobileprovision(mobileprovision, metadata)
     return unless mobileprovision
@@ -107,7 +142,7 @@ class TeardownService
     process_mobileprovision_metadata(mobileprovision, metadata)
     process_developer_certs(mobileprovision, metadata)
     process_entitlements(mobileprovision, metadata)
-    process_entitlements(mobileprovision, metadata)
+    process_enabled_capabilities(mobileprovision, metadata)
   end
 
   def process_mobileprovision_metadata(mobileprovision, metadata)
@@ -143,7 +178,7 @@ class TeardownService
     end
   end
 
-  def process_entitlements(mobileprovision, metadata)
+  def process_enabled_capabilities(mobileprovision, metadata)
     if capabilities = mobileprovision.enabled_capabilities
       metadata.capabilities = capabilities.sort
     end
