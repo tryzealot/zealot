@@ -109,7 +109,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.7.1'
+  gem 'debug', '~> 1.7.2'
   gem "ruby-lsp", "~> 0.4.2"
 
   # rails 更友好错误输出
