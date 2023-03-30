@@ -34,6 +34,8 @@ export default class extends Controller {
 
       // document.getElementsByClassName('main-header').classList.replace("navbar-white", "navbar-dark")
       // document.getElementsByClassName('main-sidebar').classList.replace("sidebar-light-primary", "sidebar-dark-primary")
+    } else if (apperance === "light" && Zealot.isDarkMode()) {
+      jquery(".dark-brand-image").remove()
     }
   }
 
