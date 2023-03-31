@@ -47,7 +47,7 @@ gem 'faraday', '~> 2.7.4'
 
 ## 用户认证
 gem 'pundit', '~> 2.3.0'
-gem 'devise', '~> 4.9.0'
+gem 'devise', '~> 4.9.1'
 gem 'devise-i18n', '~> 1.11.0'
 
 gem 'omniauth', '~> 2.1.1'
