@@ -6,7 +6,7 @@
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body.card-comments
+    .card-body.card-comments.pb-2
       - @metadata.developer_certs.each_with_index do |cert, i|
         .card-comment
           .comment-text.ml-0
@@ -14,4 +14,5 @@
               = t('teardowns.show.cert', index: i + 1)
               span.text-muted.float-right
                 = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
-            = cert['name']
+            p.content
+              = cert['name']
