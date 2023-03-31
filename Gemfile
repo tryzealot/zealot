@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 6.1.1'
+gem 'puma', '~> 6.2.0'
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.12.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.19'
+gem 'graphql', '~> 2.0.20'
 gem 'rack-cors', '~> 2.0.1'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.7'
@@ -109,8 +109,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.7.1'
-  gem "ruby-lsp", "~> 0.4.2"
+  gem 'debug', '~> 1.7.2'
 
   # rails 更友好错误输出
   gem 'awesome_print'
