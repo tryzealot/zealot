@@ -27,7 +27,7 @@ jobs:
 
     - name: Set Docker Build Date
       id: build_date
-      run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
+      run: echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Docker metadata
       id: metadata
@@ -47,4 +47,4 @@ jobs:
         build-args: |
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
-          BUILD_DATE=${{ steps.build_date.outputs.date }}
+          BUILD_DATE=${{ steps.build_date.outputs.BUILD_DATE_TAG }}
