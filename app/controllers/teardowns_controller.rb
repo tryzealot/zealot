@@ -34,7 +34,7 @@ class TeardownsController < ApplicationController
         t('teardowns.messages.errors.not_found_file', message: e.message)
       when ActionController::RoutingError
         e.message
-      when AppInfo::UnkownFileTypeError
+      when AppInfo::UnknownFileTypeError
         t('teardowns.messages.errors.not_support_file_type')
       when NoMethodError
         t('teardowns.messages.errors.failed_get_metadata')
