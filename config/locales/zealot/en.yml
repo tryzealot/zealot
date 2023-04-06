@@ -247,7 +247,8 @@ en:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_release: uploaded a version %{release_version} (%{build_version})
+      upload_full_version_release: uploaded a version %{release_version} (%{build_version})
+      upload_auto_version_release: uploaded a version %{version}
       not_found: Not found any upload.
   apps:
     title: Apps
@@ -366,7 +367,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
+      released_new_version: 'Build %{version} uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -389,7 +390,8 @@ en:
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_release: :dashboard.timeline.upload_release
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
@@ -485,7 +487,7 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: :teardowns.new.title
@@ -603,7 +605,7 @@ en:
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
         unknown_parse: 'Unknown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
+        choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
   udid:
     title: Fetch UDID
     index:
@@ -643,7 +645,8 @@ en:
       platform: Platform
       model: Model
       created_at: Registerd at
-      upload_release: :dashboard.timeline.upload_release
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: Related Apple Developers
       register_apple_key: Register to Apple Developer
       channels: Channels
