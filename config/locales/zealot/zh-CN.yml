@@ -266,7 +266,8 @@ zh-CN:
       disk_usage: 磁盘使用率
     timeline:
       title: 上传时间线
-      upload_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_auto_version_release: 上传了新版本 %{version}
       not_found: 没有任何上传，快快上传吧。
 
   apps:
@@ -389,7 +390,7 @@ zh-CN:
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
       not_latest_release: 当前不是最新版本！
-      released_new_version: '%{release_version} (%{build_version}) 于%{time}发布了，%{link}。'
+      released_new_version: '版本 %{version} 于%{time}发布了，%{link}。'
       view_latest_version: 查看最新版本
 
       name: 应用
@@ -414,7 +415,8 @@ zh-CN:
       cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
 
       last_ten_uploads: 最近 10 次上传
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
       sync_devices_feature: 推荐使用%{link}同步设备名称
@@ -514,7 +516,7 @@ zh-CN:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk、 .aab、.ipa、.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'
@@ -636,7 +638,7 @@ zh-CN:
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
         unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 .apk、.aab、.ipa、.mobileprovision 或 macOS.app.zip 文件
+        choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
 
   udid:
     title: 设备 UDID
@@ -675,7 +677,8 @@ zh-CN:
       platform: 平台
       model: 产品型号
       created_at: 注册时间
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: 已关联的苹果开发者
       register_apple_key: 注册测试设备到苹果开发者
       channels: 应用渠道

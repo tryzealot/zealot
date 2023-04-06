@@ -15,7 +15,7 @@ class Release < ApplicationRecord
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
   has_and_belongs_to_many :devices, dependent: :destroy
 
-  validates :bundle_id, :release_version, :build_version, :file, presence: true
+  validates :file, presence: true
   validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
@@ -42,22 +42,28 @@ class Release < ApplicationRecord
     return add_not_found_file_error if file.blank?
 
     create(params) do |release|
-      rescuing_app_parse_errors do
-        parser ||= AppInfo.parse(file)
-        build_metadata(release, parser, default_source)
+      release.source ||= default_source
+      parse_app(release, file, default_source) if AppInfo.file_type(file) != :unkown
+    end
+  end
 
-        # iOS 且是 AdHoc 尝试解析 UDID 列表
-        if parser.os == AppInfo::Platform::IOS &&
-            parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-            parser.devices.present?
+  def self.parse_app(release, file, default_source)
+    rescuing_app_parse_errors do
+      parser ||= AppInfo.parse(file)
 
-          parser.devices.each do |udid|
-            release.devices << Device.find_or_create_by(udid: udid)
-          end
+      build_metadata(release, parser, default_source)
+
+      # iOS 且是 AdHoc 尝试解析 UDID 列表
+      if parser.os == AppInfo::Platform::IOS &&
+          parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+          parser.devices.present?
+
+        parser.devices.each do |udid|
+          release.devices << Device.find_or_create_by(udid: udid)
         end
-      ensure
-        parser&.clear!
       end
+    ensure
+      parser&.clear!
     end
   end
 
@@ -105,16 +111,17 @@ class Release < ApplicationRecord
 
   def self.rescuing_app_parse_errors
     yield
-  rescue AppInfo::UnkownFileTypeError
-    raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
-  rescue NoMethodError => e
-    logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
-  rescue => e
-    logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
+  rescue AppInfo::UnkownFileTypeError, NoMethodError => e
+  #   raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
+  logger.error e.full_message
+  # rescue NoMethodError => e
+  #   logger.error e.full_message
+  #   Sentry.capture_exception e
+  #   raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
+  # rescue => e
+  #   logger.error e.full_message
+  #   Sentry.capture_exception e
+  #   raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
   end
   private_methods :rescuing_app_parse_errors
 
@@ -199,6 +206,10 @@ class Release < ApplicationRecord
       'Android'
     elsif mac?
       'macOS'
+    elsif windows?
+      'Windows'
+    elsif linux?
+      'Linux'
     else
       'Unknown'
     end
@@ -219,10 +230,19 @@ class Release < ApplicationRecord
     platform_type.casecmp?('macos')
   end
 
+  def windows?
+    platform_type.casecmp?('windows')
+  end
+
+  def linux?
+    platform_type.casecmp?('linux') || platform_type.casecmp?('rpm') ||
+    platform_type.casecmp?('deb')
+  end
+
   private
 
   def platform_type
-    @platform_type ||= (device_type || channel.device_type)
+    @platform_type ||= (device_type || Channel.device_types[channel.device_type])
   end
 
   def auto_release_version
@@ -260,7 +280,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device_type ||= channel.device_type
+    self.device_type ||= Channel.device_types[channel.device_type]
   end
 
   ORIGIN_PREFIX = 'origin/'
