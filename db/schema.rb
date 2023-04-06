@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_061106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,10 +176,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
 
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
-    t.string "bundle_id", null: false
+    t.string "bundle_id"
     t.integer "version", null: false
-    t.string "release_version", null: false
-    t.string "build_version", null: false
+    t.string "release_version"
+    t.string "build_version"
     t.string "release_type"
     t.string "source"
     t.string "branch"
