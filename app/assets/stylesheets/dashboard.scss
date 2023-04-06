@@ -21,6 +21,11 @@
       font-weight: 400;
     }
 
+    .time-title {
+      @extend .bg-olive !optional;
+      @extend .text-white;
+    }
+
     .timeline-item {
       margin-left: 40px;
       background-color: #f8f8f8;
@@ -61,6 +66,10 @@
     .fab,
     .far {
       background-color: #454d55;
+    }
+
+    .time-title {
+      color: #373737 !important;
     }
 
     .timeline-item {

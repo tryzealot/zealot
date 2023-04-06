@@ -69,6 +69,8 @@ module ApplicationHelper
       'Android'
     when 'macos'
       'macOS'
+    when 'linux'
+      'Linux'
     else
       device_type
     end
@@ -86,13 +88,15 @@ module ApplicationHelper
   def device_style(device_type)
     case device_type.downcase
     when 'ios'
-      ['fa-apple', 'bg-black']
+      ['fa-apple', 'bg-secondary']
     when 'android'
       ['fa-android', 'bg-green']
     when 'windows'
-      ['fa-windows', 'bg-warning']
+      ['fa-windows', 'bg-primary']
     when 'macos'
       ['fa-app-store', 'bg-blue']
+    when 'linux'
+      ['fa-linux', 'bg-info']
     else
       ['fa-adn', 'bg-lightblue']
     end

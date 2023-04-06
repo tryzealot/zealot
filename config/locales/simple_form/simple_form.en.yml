@@ -95,9 +95,9 @@ en:
         slug: 'A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.'
         password: 'Need password by fill it when user is not log in.'
       release:
-        file: Support iOS.ipa、Android.apk and macOS.app.zip file
+        file: Support iOS, Android, macOS, Windows and Linux binary file.
         changelog: A log or record of all notable changes made to a upload.
-        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
+        release_type: 'iOS: debug、adhoc, release; Android: debug, release.'
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
         ci_url: the detail URL of Jenkins, Gitlab CI
