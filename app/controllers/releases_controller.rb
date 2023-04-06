@@ -36,7 +36,7 @@ class ReleasesController < ApplicationController
 
     # 触发异步任务
     @release.channel.perform_web_hook('upload_events', current_user.id)
-    @release.perform_teardown_job(current_user.id)
+    @release.perform_teardown_job(current_user.id) if @release.bundle_id.present?
 
     message = t('activerecord.success.create', key: "#{t('releases.title')}")
     redirect_to channel_release_path(@channel, @release), notice: message
