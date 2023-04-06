@@ -243,7 +243,8 @@ en-US:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_release: uploaded a version %{release_version} (%{build_version})
+      upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_auto_version_release: 上传了新版本 %{version}
       not_found: Not found any upload.
   apps:
     title: Apps
@@ -362,7 +363,7 @@ en-US:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
+      released_new_version: '版本 %{version} 于%{time}发布了，%{link}。'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -385,7 +386,8 @@ en-US:
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_release: ':dashboard.timeline.upload_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
@@ -481,7 +483,7 @@ en-US:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
       submit: Start work
     create:
       create: ':teardowns.new.title'
@@ -599,7 +601,7 @@ en-US:
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
         unknown_parse: 'Unknown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
+        choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
   udid:
     title: Fetch UDID
     index:
@@ -639,7 +641,8 @@ en-US:
       platform: Platform
       model: Model
       created_at: Registerd at
-      upload_release: ':dashboard.timeline.upload_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       related_apple_keys: Related Apple Developers
       register_apple_key: Register to Apple Developer
       channels: Channels
