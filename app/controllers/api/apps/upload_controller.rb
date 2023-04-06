@@ -101,7 +101,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def parse_scheme_name
     default_name = t('api.apps.upload.create.adhoc')
-    return default_name unless app_parser.os == AppInfo::Platform::IOS
+    return default_name unless app_parser.platform == AppInfo::Platform::IOS
 
     t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: default_name)
   end

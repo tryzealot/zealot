@@ -111,17 +111,8 @@ class Release < ApplicationRecord
 
   def self.rescuing_app_parse_errors
     yield
-  rescue AppInfo::UnkownFileTypeError, NoMethodError => e
-  #   raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
-  logger.error e.full_message
-  # rescue NoMethodError => e
-  #   logger.error e.full_message
-  #   Sentry.capture_exception e
-  #   raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
-  # rescue => e
-  #   logger.error e.full_message
-  #   Sentry.capture_exception e
-  #   raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
+  rescue e
+    logger.error e.full_message
   end
   private_methods :rescuing_app_parse_errors
 
