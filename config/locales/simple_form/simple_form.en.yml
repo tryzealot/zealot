@@ -90,14 +90,14 @@ en-US:
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        bundle_id: 'Validate the bundle id (package name) of app, leave empty or fill * to skip validate.'
+        bundle_id: '校验应用 bundle id (package name)，为空或 * 为不校验'
         git_url: 'Git URL, for example, the repo URL of Github, Gitlab or self-host.'
         slug: 'A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.'
         password: 'Need password by fill it when user is not log in.'
       release:
-        file: Support iOS.ipa、Android.apk and macOS.app.zip file
+        file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
         changelog: A log or record of all notable changes made to a upload.
-        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
+        release_type: iOS 的 debug、adhoc、release / Android 的 debug、release 等
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
         ci_url: the detail URL of Jenkins, Gitlab CI
@@ -113,7 +113,7 @@ en-US:
         schedule: |
           Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>.
-        max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置; 0 不可备份
     placeholders:
       release:
         changelog: The developer is lazy without leaving anything.
