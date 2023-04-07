@@ -20,7 +20,7 @@ ruby:
                       span.debug-file-version
                         = debug_file.release_version
                     span.debug-file-device-type
-                      = device_name(debug_file.device_type)
+                      = platform_name(debug_file.device_type)
                   .debug-file-build-version
                     - if debug_file.build_version.blank?
                       = t('debug_files.index.processing')

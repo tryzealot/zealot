@@ -8,11 +8,13 @@ ruby:
 .col-md-6
   .card
     .card-header
-      h3.card-title = t('teardowns.show.metadata')
+      h3.card-title
+        i.icon.fab.fa-android.text-green
+        = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body.p-0
+    .card-body.p-0.pl-3
       dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
         dd
@@ -27,7 +29,7 @@ ruby:
           = t('teardowns.show.supported_device')
         dd
           pre
-            = @metadata.device
+            = device_name(@metadata.device)
             |  (Android)
         dt = t('teardowns.show.sdk_version_range')
         dd

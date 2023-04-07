@@ -27,6 +27,10 @@ module AppsHelper
     image_tag(release.icon_url, **options)
   end
 
+  def app_device(device)
+
+  end
+
   def logged_in_or_without_auth?(release)
     user_signed_in? || matched_password?(release)
   end
@@ -75,8 +79,8 @@ module AppsHelper
   def channel_platform(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 
-    platform = device_name(channel.device_type)
-    channel.name == platform ? channel.name : "#{channel.name} (#{device_name(channel.device_type)})"
+    platform = platform_name(channel.device_type)
+    channel.name == platform ? channel.name : "#{channel.name} (#{platform_name(channel.device_type)})"
   end
 
   def changelog_render(changelog, **options)

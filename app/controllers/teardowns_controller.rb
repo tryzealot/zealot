@@ -13,9 +13,13 @@ class TeardownsController < ApplicationController
 
   def show
     authorize @metadata
-    @title = t('.title', name: @metadata.name,
-                release_version: @metadata.release_version,
-                build_version: @metadata.build_version)
+
+    # Windows 应用会存在名称，版本号全无的情况
+    name = @metadata.name || @metadata.id
+    version = @metadata.release_version
+    version += " (#{@metadata.build_version})" if @metadata.build_version.present?
+
+    @title = t('.title', name: "#{name} #{version}")
   end
 
   def new

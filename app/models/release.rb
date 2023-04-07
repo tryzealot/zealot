@@ -43,7 +43,7 @@ class Release < ApplicationRecord
 
     create(params) do |release|
       release.source ||= default_source
-      parse_app(release, file, default_source) if AppInfo.file_type(file) != :unkown
+      parse_app(release, file, default_source) if AppInfo.file_type(file) != AppInfo::Format::UNKNOWN
     end
   end
 
@@ -54,7 +54,7 @@ class Release < ApplicationRecord
       build_metadata(release, parser, default_source)
 
       # iOS 且是 AdHoc 尝试解析 UDID 列表
-      if parser.os == AppInfo::Platform::IOS &&
+      if parser.platform == AppInfo::Platform::IOS &&
           parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
           parser.devices.present?
 
@@ -77,10 +77,13 @@ class Release < ApplicationRecord
   def self.build_metadata(release, parser, default_source)
     release.source ||= default_source
     release.name = parser.name
-    release.bundle_id = parser.bundle_id
+    release.device_type = parser.device
+    if parser.respond_to?(:bundle_id)
+      # iOS, Android only
+      release.bundle_id = parser.bundle_id
+    end
     release.release_version = parser.release_version
     release.build_version = parser.build_version
-    release.device_type = parser.device_type
     release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
 
     icon_file = fetch_icon(parser)
@@ -89,29 +92,40 @@ class Release < ApplicationRecord
   private_methods :build_metadata
 
   def self.fetch_icon(parser)
-    file = case parser.os
+    file = case parser.platform
            when AppInfo::Platform::IOS
-             parser.icons.last.try(:[], :uncrushed_file)
+            return if parser.icons.blank?
+
+            biggest_icon(parser.icons, file_key: :uncrushed_file)
            when AppInfo::Platform::MACOS
              return if parser.icons.blank?
 
-             parser.icons[:sets].last.try(:[], :file)
+             biggest_icon(parser.icons[:sets])
            when AppInfo::Platform::ANDROID
-             # 处理 Android anydpi 自适应图标
-             parser.icons
-                   .reject { |f| File.extname(f[:file]) == '.xml' }
-                   .last
-                   .try(:[], :file)
-           end
+            return if parser.icons.blank?
 
+            biggest_icon(parser.icons(exclude: :xml))
+           when AppInfo::Platform::WINDOWS
+             return if parser.icons.blank?
+
+             biggest_icon(parser.icons)
+           end
 
     File.open(file, 'rb') if file
   end
   private_methods :fetch_icon
 
+  def self.biggest_icon(icons, file_key: :file)
+    return if icons.blank?
+
+    icons.max_by { |icon| icon[:dimensions][0] }
+         .try(:[], file_key)
+  end
+  private_methods :biggest_icon
+
   def self.rescuing_app_parse_errors
     yield
-  rescue e
+  rescue => e
     logger.error e.full_message
   end
   private_methods :rescuing_app_parse_errors

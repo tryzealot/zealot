@@ -321,7 +321,7 @@ zh-CN:
       id: ID
       build_version: 开发版本
       git_branch: 分支
-      git_commit: 开发版本
+      git_commit: 提交哈希值
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
@@ -493,7 +493,7 @@ zh-CN:
       uploaded_at: 上传时间
       app_name: 应用名称
       version: 版本
-      type: 类型
+      platform: 平台
       uploader: 提交者
       actions: 操作
       anonymous: 匿名者
@@ -501,7 +501,7 @@ zh-CN:
         title: 没有发现任何应用解包！
         body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
     show:
-      title: '%{name} %{release_version} (%{build_version}) 解包信息'
+      title: '%{name} 解包信息'
       expired_in: 还有%{time}左右过期
       already_expired: 已经过期%{time}
       expired: 此时此刻刚好过期了！
@@ -544,6 +544,17 @@ zh-CN:
       team_id: 团队名称 (Team ID)
       created_at: 创建时间
       expired_at: 过期时间
+      archs: 应用架构
+      product_name: 产品名称
+      product_version: 产品版本
+      assembly_version: 程序集版本
+      file_version: 文件版本
+      file_description: 文件描述
+      copyright: 版权
+      original_filename: 原始文件名
+      company_name: 公司名称
+      binary_size: 二进制文件大小
+      imports: 引用库
     help:
       title: 帮助中心
       body_html: |
