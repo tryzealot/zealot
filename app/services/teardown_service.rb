@@ -183,9 +183,24 @@ class TeardownService
 
     metadata.developer_certs = certificates.each_with_object([]) do |cert, obj|
       obj << {
-        name: cert.name,
-        created_at: cert.created_date,
-        expired_at: cert.expired_date
+        name: cert.subject(format: :to_a).find { |name, _,| name == 'CN' }[1].force_encoding('UTF-8'),
+        version: cert.version,
+        serial: {
+          number: cert.serial,
+          hex: cert.serial(16, prefix: '0x'),
+        },
+        format: cert.format,
+        digest: cert.digest,
+        algorithem: cert.algorithm,
+        subject: cert.subject(format: :to_a),
+        issuer: cert.issuer(format: :to_a),
+        created_at: cert.created_at,
+        expired_at: cert.expired_at,
+        fingerprint: {
+          md5: cert.fingerprint(:md5, delimiter: ':'),
+          sha1: cert.fingerprint(:sha1, delimiter: ':'),
+          sha256: cert.fingerprint(:sha256, delimiter: ':'),
+        }
       }
     end
   end
