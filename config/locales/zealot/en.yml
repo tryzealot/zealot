@@ -785,6 +785,7 @@ en:
       success: Debug file (%{id}) pare done, Refresh the web page please.
       failures:
         not_found_file: Debug file is missing with unknown issue.
+        not_matched_bundl_id: 'Not found bundle id with selected app: %{bundle_id}'
     backup:
       success: '%{key} backup created successfully.'
       failures:
