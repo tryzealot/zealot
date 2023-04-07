@@ -10,13 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_061106) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_07_043735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "metadata_platform", ["ios", "android", "mobileprovision", "macos"]
 
   create_table "apple_keys", force: :cascade do |t|
     t.string "issuer_id", null: false
@@ -167,7 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_061106) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "platform", enum_type: "metadata_platform"
+    t.string "platform"
     t.jsonb "deep_links", default: [], null: false
     t.index ["checksum"], name: "index_metadata_on_checksum"
     t.index ["release_id"], name: "index_metadata_on_release_id"

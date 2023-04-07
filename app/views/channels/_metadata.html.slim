@@ -5,7 +5,7 @@
       = t('channels.show.metadata')
   .card-body.p-0
     p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
-      span.font-weight-bold = device_name(@channel.device_type)
+      span.font-weight-bold = platform_name(@channel.device_type)
       span.text-muted = t('channels.show.device_type')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
