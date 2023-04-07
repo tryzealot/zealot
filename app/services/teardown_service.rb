@@ -23,7 +23,7 @@ class TeardownService
   def process
     checksum = checksum(file)
     metadata = Metadatum.find_or_initialize_by(checksum: checksum)
-    return metadata unless metadata.new_record?
+    # return metadata unless metadata.new_record?
 
     parser = AppInfo.parse(file)
     if parser.format == AppInfo::Format::MOBILEPROVISION
@@ -35,13 +35,15 @@ class TeardownService
 
       process_mobileprovision(parser, metadata)
     else
-      case parser.opera_system
-      when AppInfo::OperaSystem::IOS
+      case parser.platform
+      when AppInfo::Platform::IOS
         process_ios(parser, metadata)
-      when AppInfo::OperaSystem::ANDROID
+      when AppInfo::Platform::ANDROID
         process_android(parser, metadata)
-      when AppInfo::OperaSystem::MACOS
+      when AppInfo::Platform::MACOS
         process_macos(parser, metadata)
+      when AppInfo::Platform::WINDOWS
+        process_windows(parser, metadata)
       end
       parser.clear!
     end
@@ -52,12 +54,14 @@ class TeardownService
 
   def process_app_common(parser, metadata)
     metadata.name = parser.name
-    metadata.platform = parser.opera_system
+    metadata.platform = parser.platform
     metadata.device = parser.device
     metadata.release_version = parser.release_version
     metadata.build_version = parser.build_version
     metadata.size = parser.size
-    metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
+    if parser.platform != AppInfo::Platform::WINDOWS
+      metadata.min_sdk_version = parser.respond_to?(:min_os_version) ? parser.min_os_version : parser.min_sdk_version
+    end
   end
 
   ###########
@@ -199,6 +203,36 @@ class TeardownService
     return unless capabilities = mobileprovision.enabled_capabilities
 
     metadata.capabilities = capabilities.sort
+  end
+
+  #########################
+  # Windws                #
+  #########################
+
+  def process_windows(parser, metadata)
+    process_app_common(parser, metadata)
+    process_imports(parser, metadata)
+
+    metadata.mobileprovision = {
+      archs: parser.archs,
+      company_name: parser.company_name,
+      file_version: parser.file_version,
+      product_name: parser.product_name,
+      file_description: parser.file_description,
+      copyright: parser.copyright,
+      assembly_version: parser.assembly_version,
+      original_filename: parser.original_filename,
+      binary_size: parser.binary_size
+    }
+  end
+
+  def process_imports(parser, metadata)
+    return unless imports = parser.imports
+
+    metadata.entitlements = imports.sort.each_with_object({}) do |ent, obj|
+      key, value = ent
+      obj[key] = value
+    end
   end
 
   def checksum(file)
