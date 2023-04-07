@@ -34,7 +34,7 @@
                       = device_name(release.device_type)
                   - if release.release_type.present?
                     small.badge
-                      = release.release_type
+                      = release_type_name(release.release_type)
                   - if release.branch.present?
                     small.badge
                       = release.branch
