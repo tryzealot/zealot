@@ -32,7 +32,8 @@
 
               - if user_signed_in?
                 td
-                  a.btn.btn-tool href="#{teardown_path(md)}" data-confirm="#{t('teardowns.messages.confirm.destroy')}" data-method="delete"
+                  = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
+                    data: { confirm: t('teardowns.messages.confirm.destroy'), turbo_confirm: t('teardowns.messages.confirm.destroy') } do
                     i.fas.fa-trash-alt
 
       - if @metadata.total_pages > 1
