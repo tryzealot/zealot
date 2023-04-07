@@ -65,14 +65,15 @@ module AppsHelper
     end
   end
 
-  def release_type_url(release)
+  def release_type_url_builder(release)
     return unless release_type = release.release_type
     return if release_type.blank?
 
+    title = release_type_name(release_type)
     if params[:name] == release_type
-      release_type
+      title
     else
-      link_to(release_type, friendly_channel_release_types_path(release.channel, name: release_type))
+      link_to(title, friendly_channel_release_types_path(release.channel, name: release_type))
     end
   end
 

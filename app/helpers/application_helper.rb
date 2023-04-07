@@ -104,6 +104,16 @@ module ApplicationHelper
     end
   end
 
+  # iOS build type
+  def release_type_name(release_type)
+    case release_type.downcase.to_sym
+    when :adhoc
+      'AdHoc'
+    else
+      release_type.capitalize
+    end
+  end
+
   def device_icon(device_type)
     icon, _ = device_style(device_type)
     tag.i(class: "fab #{icon}")
