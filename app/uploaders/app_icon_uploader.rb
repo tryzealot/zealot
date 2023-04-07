@@ -27,6 +27,8 @@ class AppIconUploader < ApplicationUploader
 
   # @param [ActionDispatch::Http::UploadedFile] file
   def not_png?(file)
+    return false if file.nil?
+
     File.extname(file.path) != '.png'
   end
 end
