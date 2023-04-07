@@ -44,7 +44,7 @@ section
                             = device_name(release.device_type)
                         - if release.release_type
                           small.badge
-                            = release.release_type
+                            = release_type_name(release.release_type)
                         - if release.branch
                           small.badge
                             = release.branch

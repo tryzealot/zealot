@@ -25,7 +25,7 @@
             = release.build_version || '-'
           - if @channel.device_type.downcase == 'ios'
             td
-              = release_type_url(release)
+              = release_type_url_builder(release)
           td
             = git_branch_url(release) || '-'
           td

@@ -30,7 +30,7 @@
       - if @release.release_type.present?
         li title="#{t('releases.show.release_type')}"
           i.fas.fa-cubes
-          = release_type_url(@release)
+          = release_type_url_builder(@release)
       - if @release.file.present?
         li title="#{t('releases.show.filesize')}"
           i.fas.fa-weight
