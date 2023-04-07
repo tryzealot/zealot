@@ -793,11 +793,11 @@ zh-CN:
       '503':
         title: 服务暂时不可用，无法请求该页面
     messages:
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
       not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
-      blank: 不能为空值
-      inclusion: 不包含在可选值列表中
       length_range: 长度限制：%{minimum} ~ %{maximum} 位
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
@@ -811,6 +811,7 @@ zh-CN:
       success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
       failures:
         not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
+        not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
     backup:
       success: '%{key} 备份创建完成'
       failures:
