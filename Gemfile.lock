@@ -1,17 +1,3 @@
-PATH
-  remote: /Users/icyleaf/Development/ruby/app_info
-  specs:
-    app-info (3.0.0.beta3)
-      CFPropertyList (>= 2.3.4, < 3.1.0)
-      android_parser (~> 2.6.0)
-      google-protobuf (>= 3.19.4, < 3.23.0)
-      icns (~> 0.2.0)
-      image_size (>= 1.5, < 3.3)
-      pedump (~> 0.6.2)
-      ruby-macho (>= 1.4, < 4)
-      rubyzip (>= 1.2, < 3.0)
-      uuidtools (>= 2.1.5, < 2.3.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,6 +81,16 @@ GEM
     android_parser (2.6.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
+    app-info (3.0.0.beta3)
+      CFPropertyList (>= 2.3.4, < 3.1.0)
+      android_parser (~> 2.6.0)
+      google-protobuf (>= 3.19.4, < 3.23.0)
+      icns (~> 0.2.0)
+      image_size (>= 1.5, < 3.3)
+      pedump (~> 0.6.2)
+      ruby-macho (>= 1.4, < 4)
+      rubyzip (>= 1.2, < 3.0)
+      uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.2)
     awesome_print (1.9.2)
     bcrypt (3.1.18)
@@ -497,7 +493,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.13)
   activejob-status
-  app-info!
+  app-info (~> 3.0.0.beta3)
   awesome_print
   better_errors
   binding_of_caller
