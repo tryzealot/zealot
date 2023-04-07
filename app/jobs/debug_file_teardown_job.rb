@@ -6,11 +6,11 @@ class DebugFileTeardownJob < ApplicationJob
   def perform(debug_file, user_id = nil)
     parser = AppInfo.parse(debug_file.file.path)
 
-    case parser.file_type
-    when AppInfo::Platform::DSYM
+    case parser.format
+    when AppInfo::Format::DSYM
       update_debug_file_version(debug_file, parser)
       parse_dsym(debug_file, parser)
-    when AppInfo::Platform::PROGUARD
+    when AppInfo::Format::PROGUARD
       update_debug_file_version(debug_file, parser)
       parse_proguard(debug_file, parser)
     end
@@ -45,7 +45,7 @@ class DebugFileTeardownJob < ApplicationJob
 
   def parse_proguard(debug_file, parser)
     debug_file.metadata.find_or_create_by(uuid: parser.uuid) do |metadata|
-      metadata.type = 'proguard'
+      metadata.type = parser.format
       metadata.data = { files: files(parser) }
     end
   end
