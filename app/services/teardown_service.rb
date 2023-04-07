@@ -11,9 +11,7 @@ class TeardownService
 
   def call
     file_type = AppInfo.file_type(file)
-    if file_type == AppInfo::Format::UNKNOWN
-      raise ActionController::UnknownFormat, t('teardowns.messages.errors.not_support_file_type')
-    end
+    return if file_type == AppInfo::Format::UNKNOWN
 
     process
   end
@@ -23,7 +21,6 @@ class TeardownService
   def process
     checksum = checksum(file)
     metadata = Metadatum.find_or_initialize_by(checksum: checksum)
-    # return metadata unless metadata.new_record?
 
     parser = AppInfo.parse(file)
     if parser.format == AppInfo::Format::MOBILEPROVISION

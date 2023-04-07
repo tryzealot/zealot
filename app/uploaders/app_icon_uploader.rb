@@ -9,17 +9,24 @@ class AppIconUploader < ApplicationUploader
     "#{base_store_dir}/apps/a#{model.app.id}/r#{model.id}/icons"
   end
 
+  # @param [ActionDispatch::Http::UploadedFile] file
   def filename
-    return super unless file
+    return super unless not_png?(file)
 
-    "#{file.basename}.png"
+    filename = File.basename(file.path)
+    "#{filename}.png"
   end
 
   def content_type_allowlist
     /image\//
   end
 
-  def not_png?
+  def extension_allowlist
+    %i(png webp jpeg jpg bmp)
+  end
+
+  # @param [ActionDispatch::Http::UploadedFile] file
+  def not_png?(file)
     File.extname(file.path) != '.png'
   end
 end
