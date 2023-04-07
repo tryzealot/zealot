@@ -50,9 +50,11 @@ class Api::Apps::UploadController < Api::BaseController
 
   # 使用现有 App 创建新版本
   def create_build_from_exist_app
-    message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
-      expect: @channel.bundle_id)
-    raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
+    if @channel.device_type == 'ios' || @channel.device_type == 'android'
+      message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
+        expect: @channel.bundle_id)
+      raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
+    end
 
     create_release with_updated_channel
   end
