@@ -39,7 +39,9 @@ ruby:
   = render 'card', title: 'Activities', raw: @metadata.activities
 
 .col-md-6
-  == render 'signature_certs_part', certificates: @metadata.developer_certs
+  - if @metadata.developer_certs.present?
+    == render 'signatures_part', signatures: @metadata.developer_certs
+
   == render 'card', title: 'Deep Links', raw: @metadata.deep_links
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
   == render 'card', title: 'Features', raw: @metadata.features

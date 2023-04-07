@@ -5,15 +5,13 @@ class TeardownService
 
   attr_reader :file
 
-  SUPPORTED_TYPES = %i[apk aab ipa mobileprovision macos]
-
   def initialize(file)
     @file = file
   end
 
   def call
     file_type = AppInfo.file_type(file)
-    unless SUPPORTED_TYPES.include?(file_type)
+    if file_type == AppInfo::Format::UNKNOWN
       raise ActionController::UnknownFormat, t('teardowns.messages.errors.not_support_file_type')
     end
 
@@ -28,24 +26,24 @@ class TeardownService
     return metadata unless metadata.new_record?
 
     parser = AppInfo.parse(file)
-    if parser.respond_to?(:os)
-      case parser.os
-      when AppInfo::Platform::IOS
-        process_ios(parser, metadata)
-      when AppInfo::Platform::ANDROID
-        process_android(parser, metadata)
-      when AppInfo::Platform::MACOS
-        process_macos(parser, metadata)
-      end
-      parser.clear!
-    elsif parser.is_a?(AppInfo::MobileProvision)
+    if parser.format == AppInfo::Format::MOBILEPROVISION
       metadata.name = parser.app_name
       metadata.platform = :mobileprovision
-      metadata.device = parser.platform
+      metadata.device = parser.device
       metadata.release_type = parser.type
       metadata.size = File.size(file)
 
       process_mobileprovision(parser, metadata)
+    else
+      case parser.opera_system
+      when AppInfo::OperaSystem::IOS
+        process_ios(parser, metadata)
+      when AppInfo::OperaSystem::ANDROID
+        process_android(parser, metadata)
+      when AppInfo::OperaSystem::MACOS
+        process_macos(parser, metadata)
+      end
+      parser.clear!
     end
 
     metadata.save!(validate: false)
@@ -54,8 +52,8 @@ class TeardownService
 
   def process_app_common(parser, metadata)
     metadata.name = parser.name
-    metadata.platform = parser.os.downcase
-    metadata.device = parser.device_type
+    metadata.platform = parser.opera_system
+    metadata.device = parser.device
     metadata.release_version = parser.release_version
     metadata.build_version = parser.build_version
     metadata.size = parser.size
@@ -82,19 +80,39 @@ class TeardownService
   end
 
   def process_signature_certs(parser, metadata)
-    return unless certificates = parser.certificates
+    metadata.developer_certs = parser.signatures.each_with_object([]) do |sign, certs|
+      signature = { scheme: sign[:version] }
+      signature[:verified] = sign[:verified]
+      signature[:certificates] = sign[:certificates]&.each_with_object([]) do |cert, obj|
+        data = {
+          version: cert.version,
+          serial: {
+            number: cert.serial,
+            hex: cert.serial(16, prefix: '0x'),
+          },
+          format: cert.format,
+          digest: cert.digest,
+          algorithem: cert.algorithm,
+          subject: cert.subject(format: :to_a),
+          issuer: cert.issuer(format: :to_a),
+          created_at: cert.created_at,
+          expired_at: cert.expired_at,
+          fingerprint: {
+            md5: cert.fingerprint(:md5, delimiter: ':'),
+            sha1: cert.fingerprint(:sha1, delimiter: ':'),
+            sha256: cert.fingerprint(:sha256, delimiter: ':'),
+          }
+        }
+        data[:length] = begin
+                          cert.size
+                        rescue NotImplementedError
+                          nil
+                        end
 
-    metadata.developer_certs = certificates.each_with_object([]) do |cert, obj|
-      cert = cert.certificate
-      obj << {
-        version: "v#{cert.version + 1}",
-        subject: cert.subject.to_a.map {|k,v,_| [k, v] }.to_h,
-        issuer: cert.issuer.to_a.map {|k,v,_| [k, v] }.to_h,
-        created_at: cert.not_before,
-        expired_at: cert.not_after,
-        algorithem: cert.signature_algorithm,
-        public_key_type: cert.public_key.class.name.split('::').last
-      }
+        obj << data
+      end
+
+      certs << signature
     end
   end
 
@@ -157,39 +175,39 @@ class TeardownService
   end
 
   def process_developer_certs(mobileprovision, metadata)
-    if developer_certs = mobileprovision.developer_certs
-      metadata.developer_certs = developer_certs.each_with_object([]) do |cert, obj|
-        obj << {
-          name: cert.name,
-          created_at: cert.created_date,
-          expired_at: cert.expired_date
-        }
-      end
+    return unless certificates = mobileprovision.certificates
+
+    metadata.developer_certs = certificates.each_with_object([]) do |cert, obj|
+      obj << {
+        name: cert.name,
+        created_at: cert.created_date,
+        expired_at: cert.expired_date
+      }
     end
   end
 
   def process_entitlements(mobileprovision, metadata)
-    if entitlements = mobileprovision.Entitlements
-      metadata.entitlements = entitlements.sort.each_with_object({}) do |e, obj|
-        key, value = e
+    return unless entitlements = mobileprovision.Entitlements
 
-        obj[key] = value
-      end
+    metadata.entitlements = entitlements.sort.each_with_object({}) do |ent, obj|
+      key, value = ent
+      obj[key] = value
     end
   end
 
   def process_enabled_capabilities(mobileprovision, metadata)
-    if capabilities = mobileprovision.enabled_capabilities
-      metadata.capabilities = capabilities.sort
-    end
+    return unless capabilities = mobileprovision.enabled_capabilities
+
+    metadata.capabilities = capabilities.sort
   end
 
   def checksum(file)
-    @checksum ||= begin
+    @checksum ||= lambda {
       require 'digest'
+
       checksum = Digest::SHA1.hexdigest(File.read(file))
       checksum = checksum.encode('UTF-8') if checksum.respond_to?(:encode)
       checksum
-    end
+    }.call
   end
 end

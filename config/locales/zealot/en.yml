@@ -529,7 +529,19 @@ en:
       cert_expired_at: 'Expired at %{date}'
       cert_issuer: Issuer
       cert_algorithem: Signature Algorithem
-      cert_subject: 主题
+      cert_version: Version
+      cert_serial: Serial
+      cert_issuer: Issuer
+      cert_algorithem: Algorithem
+      cert_subject: Subject
+      cert_digest: Digest
+      cert_length: Length
+      signature_title: 'Signatures (%{count})'
+      signature: 'Scheme %{scheme}'
+      cert_fignger: 'Fingerprint %{digest}'
+      signature_not_found: Not found
+      signature_verified: 'Verified'
+      signature_unverified: 'WIP'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -604,7 +616,7 @@ en:
         not_found_file: 'Not found debug file: %{message}'
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: 'Unknown parse error [%{class}]: %{message}'
+        unknown_parse: 'Unknown parse error: %{message} (%{class})'
         choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
   udid:
     title: Fetch UDID
