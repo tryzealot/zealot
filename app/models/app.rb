@@ -35,4 +35,30 @@ class App < ApplicationRecord
       end
     end
   end
+
+  # Fetch all bundle id of iOS app
+  def bundle_ids
+    all_idenfiters(device_type: 'iOS')[:ios]
+  end
+
+  # Fetch all bundle id of iOS app
+  def package_names
+    all_idenfiters(device_type: 'Android')[:android]
+  end
+
+  def all_idenfiters(device_type: nil)
+    schemes.all.each_with_object({}) do |scheme, obj|
+      channels = scheme.channels
+      channels = device_type ? channels.where(device_type: device_type) : channels.all
+      channels.each do |channel|
+        device_type = channel.device_type.to_sym
+        obj[device_type] ||= []
+        channel.releases.select(:bundle_id).distinct.each do |release|
+          next if obj[device_type].include?(release.bundle_id)
+
+          obj[device_type] << release.bundle_id
+        end
+      end
+    end
+  end
 end
