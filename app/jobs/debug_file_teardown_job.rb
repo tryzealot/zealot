@@ -62,11 +62,14 @@ class DebugFileTeardownJob < ApplicationJob
       )
     end
 
-    matched_debug_info.machos.each do |macho|
-      debug_file.metadata.find_or_create_by(uuid: macho.uuid) do |metadata|
-        metadata.size = macho.size
-        metadata.type = macho.cpu_name
-        metadata.object = matched_debug_info.object
+    # Relates all dSYM symbols to metadata of debug file.
+    parser.each_file do |debug_info|
+      debug_info.machos.each do |macho|
+        debug_file.metadata.find_or_create_by(uuid: macho.uuid) do |metadata|
+          metadata.size = macho.size
+          metadata.type = macho.cpu_name
+          metadata.object = debug_info.object
+        end
       end
     end
   end
