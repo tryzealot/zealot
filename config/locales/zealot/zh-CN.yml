@@ -391,6 +391,7 @@ zh-CN:
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
       sync_devices_feature: 推荐使用%{link}同步设备名称
+      debug_file: '%{type} 调试文件'
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
