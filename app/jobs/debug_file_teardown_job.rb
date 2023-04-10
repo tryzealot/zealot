@@ -10,7 +10,6 @@ class DebugFileTeardownJob < ApplicationJob
     when AppInfo::Format::DSYM
       parse_dsym(debug_file, parser)
     when AppInfo::Format::PROGUARD
-      update_debug_file_version(debug_file, parser)
       parse_proguard(debug_file, parser)
     end
 
