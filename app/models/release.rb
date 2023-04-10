@@ -244,6 +244,10 @@ class Release < ApplicationRecord
     platform_type.casecmp?('deb')
   end
 
+  def debug_file
+    DebugFile.find_by(app: app, release_version: release_version, build_version: build_version)
+  end
+
   private
 
   def platform_type

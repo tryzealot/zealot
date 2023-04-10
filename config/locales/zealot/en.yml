@@ -395,6 +395,7 @@ en:
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
