@@ -90,7 +90,7 @@ en-US:
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
-        successful: Created Apple Developer successfully
+        successful: 创建成功并成功同步开发者的相关信息\
     apple_teams:
       edit:
         title: Edit team metadata
@@ -321,7 +321,7 @@ en-US:
       id: ID
       build_version: Build version
       git_branch: Branch
-      git_commit: Commit SHA
+      git_commit: 提交哈希值
       release_type: Release type
       uploaded_at: Uploaded time
       actions: Action
@@ -391,6 +391,7 @@ en-US:
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      debug_file: '%{type} 调试文件'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: ':''channels.show.major_versions'''
@@ -493,7 +494,7 @@ en-US:
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      type: Type
+      platform: 平台
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
@@ -501,7 +502,7 @@ en-US:
         title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
-      title: 'Teardown: %{name} %{release_version} (%{build_version})'
+      title: '%{name} 解包信息'
       expired_in: Expire in %{time}
       already_expired: Expired at %{time}
       expired: Expired now!
@@ -523,15 +524,38 @@ en-US:
       developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
+      cert_created: 创建日期
+      cert_expired: 失效日期
+      cert_version: 版本
+      cert_serial: 序列
       cert_issuer: 发布人
       cert_algorithem: 签名算法
       cert_subject: 主题
+      cert_digest: 数字摘要
+      cert_length: 长度
+      signature_title: '应用签名 (%{count})'
+      signature: '签名版本 %{scheme}'
+      cert_fignger: '签名指纹 %{digest}'
+      signature_not_found: 签名不存在
+      signature_verified: '签名校验通过'
+      signature_unverified: '签名校验待开发'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
       team_id: Team ID
       created_at: Created time
       expired_at: Expired time
+      archs: 应用架构
+      product_name: 产品名称
+      product_version: 产品版本
+      assembly_version: 程序集版本
+      file_version: 文件版本
+      file_description: 文件描述
+      copyright: 版权
+      original_filename: 原始文件名
+      company_name: 公司名称
+      binary_size: 二进制文件大小
+      imports: 引用库
     help:
       title: Help center
       body_html: |
@@ -600,7 +624,7 @@ en-US:
         not_found_file: 'Not found debug file: %{message}'
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: 'Unknown parse error [%{class}]: %{message}'
+        unknown_parse: '上传应用解析发现未知异常: %{message} (%{class})'
         choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
   udid:
     title: Fetch UDID
@@ -768,11 +792,11 @@ en-US:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
-      blank: 不能为空值
-      inclusion: 不包含在可选值列表中
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
@@ -786,6 +810,7 @@ en-US:
       success: Debug file (%{id}) pare done, Refresh the web page please.
       failures:
         not_found_file: Debug file is missing with unknown issue.
+        not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
     backup:
       success: '%{key} backup created successfully.'
       failures:
