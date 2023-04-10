@@ -69,6 +69,11 @@ class DebugFileTeardownJob < ApplicationJob
           metadata.size = macho.size
           metadata.type = macho.cpu_name
           metadata.object = debug_info.object
+          if debug_info == matched_debug_info
+            metadata.data = {
+              main_app: true
+            }
+          end
         end
       end
     end

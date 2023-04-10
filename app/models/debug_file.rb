@@ -16,6 +16,10 @@ class DebugFile < ApplicationRecord
 
   before_validation :generate_checksum
 
+  def multi_dsym?
+    metadata.select(:object).distinct.size > 1
+  end
+
   def download_filename
     "#{app.name}_#{device_type}_#{release_version}_#{build_version}_#{file.file.filename}"
   end
