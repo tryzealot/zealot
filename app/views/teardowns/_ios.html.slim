@@ -1,7 +1,9 @@
 .col-md-6
   .card
     .card-header
-      h3.card-title = t('teardowns.show.metadata')
+      h3.card-title
+        i.icon.fab.fa-apple.text-secondary
+        = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
@@ -12,7 +14,7 @@
           pre = @metadata.name
         dt = t('teardowns.show.supported_device')
         dd
-          pre #{@metadata.device} (#{device_name(@metadata.platform)})
+          pre #{device_name(@metadata.device)} (#{platform_name(@metadata.platform)})
         dt = t('teardowns.show.version')
         dd
           pre = "#{@metadata.release_version} (#{@metadata.build_version})"
@@ -21,7 +23,7 @@
           pre = @metadata.bundle_id
         dt = t('teardowns.show.release_type')
         dd
-          pre = @metadata.release_type
+          pre = release_type_name(@metadata.release_type)
         dt = t('teardowns.show.min_ios_version')
         dd
           pre = @metadata.min_sdk_version
