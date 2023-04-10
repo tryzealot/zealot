@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module TeardownHelper
+  def android_v1_signature?(certificates)
+    !certificates.any? { |cert| cert.key?('scheme') }
+  end
+
+  def certificate_name(dn)
+    dn.map { |k, v| "#{k}=#{v}" }.join(', ')
+  end
+
   def expired_date_tips(expired_date)
     time = Time.parse(expired_date)
     duration = ActiveSupport::Duration.build(time - Time.now)

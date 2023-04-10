@@ -1,7 +1,7 @@
 FROM ruby:3.0-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
-ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev gcompat"
+ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
@@ -69,7 +69,7 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl logrotate postgresql-dev libwebp-dev libpng-dev tiff-dev postgresql-client openssl openssl-dev caddy gcompat"
+ARG PACKAGES="tzdata curl logrotate postgresql-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev postgresql-client openssl openssl-dev caddy gcompat"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
