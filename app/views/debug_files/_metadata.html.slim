@@ -1,3 +1,6 @@
+ruby:
+  multi_dsym = debug_file.multi_dsym?
+
 .debug-file-section-body.p-1.d-none[
   data-debug-file-target="source"
 ]
@@ -18,5 +21,7 @@
             = metadata.type
           td
             = metadata.object
+            - if multi_dsym && metadata.data['main_app'] == true
+              i.fa.fa-star.text-warning.pl-1
           td
             = number_to_human_size(metadata.size)

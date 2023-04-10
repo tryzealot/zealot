@@ -21,7 +21,9 @@
                   = time_ago_in_words(release.created_at)
               span.product-description
                 - if release.release_version.present?
-                  = "#{release.release_version} (#{release.build_version})"
+                  = release.release_version
+                  - if release.build_version.present?
+                    | (#{release.build_version})
                 - else
                   = release.version
       - else

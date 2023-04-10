@@ -27,6 +27,10 @@ module AppsHelper
     image_tag(release.icon_url, **options)
   end
 
+  def app_device(device)
+
+  end
+
   def logged_in_or_without_auth?(release)
     user_signed_in? || matched_password?(release)
   end
@@ -61,22 +65,23 @@ module AppsHelper
     end
   end
 
-  def release_type_url(release)
+  def release_type_url_builder(release)
     return unless release_type = release.release_type
     return if release_type.blank?
 
+    title = release_type_name(release_type)
     if params[:name] == release_type
-      release_type
+      title
     else
-      link_to(release_type, friendly_channel_release_types_path(release.channel, name: release_type))
+      link_to(title, friendly_channel_release_types_path(release.channel, name: release_type))
     end
   end
 
   def channel_platform(channel)
     return channel.name if channel.name.downcase == channel.device_type.downcase
 
-    platform = device_name(channel.device_type)
-    channel.name == platform ? channel.name : "#{channel.name} (#{device_name(channel.device_type)})"
+    platform = platform_name(channel.device_type)
+    channel.name == platform ? channel.name : "#{channel.name} (#{platform_name(channel.device_type)})"
   end
 
   def changelog_render(changelog, **options)
