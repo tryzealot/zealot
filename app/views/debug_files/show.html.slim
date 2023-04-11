@@ -63,14 +63,15 @@ ruby:
               i.icon.fas.fa-ghost
               = t('.missing_file')
 
-          button.btn.btn-icon.btn-lg.btn-danger[
-            data-action="click->destroy#click"
-          ]
-            i.icon.fas.fa-trash-alt
-            = t('.destroy')
+          - if current_user&.manage?
+            button.btn.btn-icon.btn-lg.btn-danger[
+              data-action="click->destroy#click"
+            ]
+              i.icon.fas.fa-trash-alt
+              = t('.destroy')
 
-          = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \
-            class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
+            = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \
+              class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
 
     - unless @debug_file.processing?
       .row
