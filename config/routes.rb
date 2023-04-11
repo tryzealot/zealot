@@ -59,7 +59,11 @@ Rails.application.routes.draw do
   #############################################
   # Debug File
   #############################################
-  resources :debug_files
+  resources :debug_files do
+    member do
+      post :reprocess
+    end
+  end
 
   #############################################
   # Teardown

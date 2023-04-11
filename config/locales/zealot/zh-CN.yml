@@ -456,6 +456,7 @@ zh-CN:
       uploaded_at: 上传时间
       missing_file: 遗失文件无法下载
       download: 下载
+      reprocess: 重新解析
       destroy: 删除
       main_target: '主项目: %{value}'
       uuid: UUID
@@ -471,6 +472,8 @@ zh-CN:
       libraries: 库
       filesize: 文件大小
       file_count: 文件数量
+    reprocess:
+      success: 调试文件已提交重新解析处理中
     help:
       title: 帮助中心
       body_html: |
