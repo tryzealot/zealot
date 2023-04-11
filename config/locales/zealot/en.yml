@@ -203,6 +203,7 @@ en:
         created_at: Created at
         size: Size
         download: Download
+        reprocess: Reprocess
         destroy: Destroy
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
@@ -477,6 +478,8 @@ en:
       libraries: Libraries
       filesize: File size
       file_count: File count
+    reprocess:
+      success: Reprocess request successful
     help:
       title: Help center
       body_html: |

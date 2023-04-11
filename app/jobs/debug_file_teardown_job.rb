@@ -42,19 +42,19 @@ class DebugFileTeardownJob < ApplicationJob
     bundle_ids = debug_file.app.bundle_ids
 
     upload_bundle_ids = []
-    matched_debug_info = nil
-    parser.each_file do |debug_info|
-      upload_bundle_ids << debug_info.bundle_id
-      if bundle_ids.include?(debug_info.bundle_id)
-        matched_debug_info = debug_info
+    matched_object = nil
+    parser.objects.each do |object|
+      upload_bundle_ids << object.bundle_id
+      if bundle_ids.include?(object.bundle_id)
+        matched_object = object
         break
       end
     end
 
-    raise upload_bundle_ids.join(', ') if matched_debug_info.blank?
+    raise upload_bundle_ids.join(', ') if matched_object.blank?
 
-    if (release_version = matched_debug_info.release_version) &&
-      (build_version = matched_debug_info.build_version)
+    if (release_version = matched_object.release_version) &&
+      (build_version = matched_object.build_version)
       debug_file.update!(
         release_version: release_version,
         build_version: build_version
@@ -62,17 +62,17 @@ class DebugFileTeardownJob < ApplicationJob
     end
 
     # Relates all dSYM symbols to metadata of debug file.
-    parser.each_file do |debug_info|
-      debug_info.machos.each do |macho|
-        debug_file.metadata.find_or_create_by(uuid: macho.uuid) do |metadata|
-          metadata.size = macho.size
-          metadata.type = macho.cpu_name
-          metadata.object = debug_info.object
-          metadata.data = {
-            main: debug_info.identifier == matched_debug_info.identifier,
-            identifier: debug_info.identifier,
-          }
-        end
+    parser.objects.each do |object|
+      object.machos.each do |macho|
+        metadata = debug_file.metadata.find_or_initialize_by(uuid: macho.uuid)
+        metadata.size = macho.size
+        metadata.type = macho.cpu_name
+        metadata.object = object.object
+        metadata.data = {
+          main: object.identifier == matched_object.identifier,
+          identifier: object.identifier,
+        }
+        metadata.save
       end
     end
   end
@@ -86,11 +86,11 @@ class DebugFileTeardownJob < ApplicationJob
       )
     end
 
-    debug_file.metadata.find_or_create_by(uuid: parser.uuid) do |metadata|
-      metadata.object = parser&.package_name
-      metadata.type = parser.format
-      metadata.data = { files: files(parser) }
-    end
+    metadata = debug_file.metadata.find_or_initialize_by(uuid: parser.uuid)
+    metadata.object = parser&.package_name
+    metadata.type = parser.format
+    metadata.data = { files: files(parser) }
+    metadata.save
   end
 
   def files(parser)
