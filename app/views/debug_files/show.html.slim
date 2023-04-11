@@ -64,6 +64,11 @@ ruby:
               = t('.missing_file')
 
           - if current_user&.manage?
+            - if !@debug_file.processing? && @debug_file.file?
+              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-info', data: { turbo_method: :post } do
+                i.icon.fa.fa-repeat
+                = t('.reprocess')
+
             button.btn.btn-icon.btn-lg.btn-danger[
               data-action="click->destroy#click"
             ]
@@ -88,7 +93,7 @@ ruby:
                     - @debug_file.main_objects.each do |metadata|
                       tr
                         td
-                          = metadata.data['identifier']
+                          = metadata.data['identifier'] || metadata.object
                           span.badge.badge-secondary.ml-1 = metadata.type
                         td = metadata.uuid
 
