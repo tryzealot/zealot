@@ -36,6 +36,9 @@ class DebugFilesController < ApplicationController
     @title = t('debug_files.index.upload')
     @apps = App.all
     @debug_file = DebugFile.new
+    @debug_file.app_id = params[:app_id] if params[:app_id] && App.find(params[:app_id])
+    @debug_file.device_type = params[:device]
+
     authorize @debug_file
   end
 
@@ -49,7 +52,8 @@ class DebugFilesController < ApplicationController
     device_type = DebugFile.device_types[@debug_file.device_type]
 
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
-    redirect_to device_app_debug_files_url(@debug_file.app, device_type), notice: t('activerecord.success.create', key: t('debug_files.title'))
+    redirect_to device_app_debug_files_url(@debug_file.app, device_type),
+notice: t('activerecord.success.create', key: t('debug_files.title'))
   end
 
   def destroy
