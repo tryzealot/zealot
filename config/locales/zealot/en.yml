@@ -119,6 +119,8 @@ en:
       preset_role: Default user role
       preset_install_limited: In-App install limited
       preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
+      per_page: Per page
+      max_per_page: Max per page
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
@@ -129,8 +131,8 @@ en:
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      backup: 备份
-      #misc: 杂项
+      backup: Backup
+      #misc: Misc
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -201,6 +203,7 @@ en:
         created_at: Created at
         size: Size
         download: Download
+        reprocess: Reprocess
         destroy: Destroy
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
@@ -441,16 +444,42 @@ en:
     title: Debug files
     index:
       upload: Upload a debug file
-      processing: Processing in background, refresh the web page later.
-      version: 'Version: %{version}'
-      download: Download (%{size})
-      destroy: Destroy
       uploaded_at: Uploaded at %{time}
-      missing_file: Missing file
       empty_content: Not found any debug file.
+      android_count: Proguard
+      ios_count: dSYM
       not_found:
         title: Not found any debug file!
         body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+    show:
+      title: '%{app} %{device} %{version} Debug file'
+      name: App name
+      version: Build number
+      device_type: Platform
+      release_version: Version
+      filesize: File size
+      uploaded_at: Upload date
+      missing_file: Missing file
+      download: Download
+      destroy: Destroy
+      main_target: 'Main target: %{value}'
+      uuid: UUID
+      libraries: Libraries
+      filename: Filename
+    device:
+      title: '%{app} %{device} Debug file'
+      number: '#%{value}'
+      processing: Processing in background, take a coffe break ...
+      refresh_page: |
+        If there is no change for a long time, please try to refresh this page.
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the "background tasks".
+      main_target: Main target
+      arch: Architecture(s)
+      libraries: Libraries
+      filesize: File size
+      file_count: File count
+    reprocess:
+      success: Reprocess request successful
     help:
       title: Help center
       body_html: |
@@ -783,7 +812,7 @@ en:
       unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
-      success: Debug file (%{id}) pare done, Refresh the web page please.
+      success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundl_id: 'Not found bundle id with selected app: %{bundle_id}'
