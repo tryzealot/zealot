@@ -13,13 +13,6 @@ class DebugFilesController < ApplicationController
   def show
     @debug_file = DebugFile.find(params[:id])
     @app = @debug_file.app
-
-    version = "#{@debug_file.release_version} (#{@debug_file.build_version})"
-    @title = t('.title',
-      app: @app.name,
-      device: @debug_file.device_type,
-      version: version
-    )
   end
 
   def device
