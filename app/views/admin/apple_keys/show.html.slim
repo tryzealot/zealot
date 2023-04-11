@@ -67,7 +67,7 @@ ruby:
       .card-footer
         p
           - if @apple_key.last_synced_at.present?
-            span title="#{@apple_key.last_synced_at}"
+            span title="#{@apple_key.last_synced_at}" data-toggle="tooltip"
               = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
           - else
             = t('.never_sync')
