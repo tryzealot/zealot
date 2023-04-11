@@ -73,17 +73,15 @@
                 table.table
                   thead
                     tr
-                      td = t('.main_dsym')
-                      td = t('.uuid')
+                      td = t('.main_target', value: @debug_file.main_object.object)
+                      td.col-md-5 = t('.uuid')
                   tbody
                     - @debug_file.main_objects.each do |metadata|
                       tr
                         td
-                          div
-                            = metadata.object
-                            span.badge.badge-secondary.ml-1 = metadata.type
-                          span.small = metadata.data['identifier']
-                        td.col-md-6 = metadata.uuid
+                          = metadata.data['identifier']
+                          span.badge.badge-secondary.ml-1 = metadata.type
+                        td = metadata.uuid
 
           - if @debug_file.libraries.present?
             .col-md-12
@@ -93,16 +91,14 @@
                     thead
                       tr
                         td = t('.libraries')
-                        td = t('.uuid')
+                        td.col-md-5 = t('.uuid')
                     tbody
                       - @debug_file.libraries.each do |metadata|
                         tr
                           td
-                            div
-                              = metadata.object
-                              span.badge.badge-secondary.ml-1 = metadata.type
-                            span.small = metadata.data['identifier']
-                          td.col-md-6 = metadata.uuid
+                            = metadata.data['identifier']
+                            span.badge.badge-secondary.ml-1 = metadata.type
+                          td = metadata.uuid
         - else
           .col-md-12
             .card
