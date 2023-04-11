@@ -7,7 +7,7 @@ class TeardownsController < ApplicationController
   def index
     @title = t('.title')
     @metadata = Metadatum.page(params.fetch(:page, 1))
-                         .per(params.fetch(:per_page, 50))
+                         .per(params.fetch(:per_page, Setting.per_page))
                          .order(id: :desc)
   end
 

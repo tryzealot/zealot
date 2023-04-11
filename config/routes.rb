@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
+
+    resources :debug_files, only: [] do
+      collection do
+        get ':device', action: :device, as: :device
+      end
+    end
   end
 
   resources :channels, only: %i[index show] do
@@ -53,7 +59,11 @@ Rails.application.routes.draw do
   #############################################
   # Debug File
   #############################################
-  resources :debug_files, except: %i[show]
+  resources :debug_files do
+    member do
+      post :reprocess
+    end
+  end
 
   #############################################
   # Teardown
