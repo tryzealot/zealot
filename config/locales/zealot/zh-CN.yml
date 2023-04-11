@@ -437,16 +437,36 @@ zh-CN:
     title: 调试文件
     index:
       upload: 上传调试文件
-      processing: 后台任务正在解包中，请稍候刷新。
-      version: 构建版本：%{version}
-      download: 下载 (%{size}）
-      destroy: 删除
       uploaded_at: 上传于%{time}
-      missing_file: 遗失文件无法下载
       empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
       not_found:
         title: 没有发现任何调试文件！
         body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
+    show:
+      title: '%{app} %{device} %{version} 调试文件'
+      name: 应用名称
+      version: 编号
+      device_type: 平台
+      release_version: 版本信息
+      filesize: 文件大小
+      uploaded_at: 上传时间
+      missing_file: 遗失文件无法下载
+      download: 下载
+      destroy: 删除
+      main_dsym: 主项目
+      uuid: UUID
+      libraries: 库
+      filename: 文件
+    device:
+      title: '%{app} %{device} 调试文件'
+      number: '#%{value}'
+      processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
+      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
+      main_dsym: 主项目
+      arch: 架构
+      libraries: 库
+      filesize: 文件大小
+      file_count: 文件数量
     help:
       title: 帮助中心
       body_html: |

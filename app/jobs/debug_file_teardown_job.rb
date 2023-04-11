@@ -68,11 +68,10 @@ class DebugFileTeardownJob < ApplicationJob
           metadata.size = macho.size
           metadata.type = macho.cpu_name
           metadata.object = debug_info.object
-          if debug_info == matched_debug_info
-            metadata.data = {
-              main_app: true
-            }
-          end
+          metadata.data = {
+            main: debug_info.identifier == matched_debug_info.identifier,
+            identifier: debug_info.identifier,
+          }
         end
       end
     end
@@ -88,6 +87,7 @@ class DebugFileTeardownJob < ApplicationJob
     end
 
     debug_file.metadata.find_or_create_by(uuid: parser.uuid) do |metadata|
+      metadata.object = parser&.package_name
       metadata.type = parser.format
       metadata.data = { files: files(parser) }
     end

@@ -6,8 +6,30 @@ class DebugFilesController < ApplicationController
 
   def index
     @title = t('debug_files.title')
-    @apps = App.avaiable_debug_files
+    @apps = App.has_debug_files
     authorize @apps
+  end
+
+  def show
+    @debug_file = DebugFile.find(params[:id])
+    @app = @debug_file.app
+
+    version = "#{@debug_file.release_version} (#{@debug_file.build_version})"
+    @title = t('.title',
+      app: @app.name,
+      device: @debug_file.device_type,
+      version: version
+    )
+  end
+
+  def device
+    @app = App.find(params[:app_id])
+    @debug_files = DebugFile.where(
+      app_id: params[:app_id],
+      device_type: params[:device]
+    ).page(params.fetch(:page, 1)).per(params.fetch(:per_page, Setting.per_page))
+
+    @title = t('.title', app: @app.name, device: params[:device])
   end
 
   def new
@@ -24,8 +46,10 @@ class DebugFilesController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @debug_file.save
 
+    device_type = DebugFile.device_types[@debug_file.device_type]
+
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
-    redirect_to debug_files_url, notice: t('activerecord.success.create', key: t('debug_files.title'))
+    redirect_to device_app_debug_files_url(@debug_file.app, device_type), notice: t('activerecord.success.create', key: t('debug_files.title'))
   end
 
   def destroy
