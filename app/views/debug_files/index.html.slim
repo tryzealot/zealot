@@ -25,7 +25,7 @@
                 b = t('.android_count')
                 span.float-right = link_to app.android_debug_files.count, device_app_debug_files_path(app, 'Android')
               li.list-group-item.pl-3.pr-4
-                b = t('ios_count')
+                b = t('.ios_count')
                 span.float-right = link_to app.ios_debug_files.count, device_app_debug_files_path(app, 'iOS')
   - else
     .col-md-12
