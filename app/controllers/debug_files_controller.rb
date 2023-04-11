@@ -2,17 +2,12 @@
 
 class DebugFilesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_debug_file, only: %i[destroy]
+  before_action :set_debug_file, only: %i[show reprocess destroy]
 
   def index
     @title = t('debug_files.title')
     @apps = App.has_debug_files
     authorize @apps
-  end
-
-  def show
-    @debug_file = DebugFile.find(params[:id])
-    @app = @debug_file.app
   end
 
   def device
@@ -23,6 +18,15 @@ class DebugFilesController < ApplicationController
     ).page(params.fetch(:page, 1)).per(params.fetch(:per_page, Setting.per_page))
 
     @title = t('.title', app: @app.name, device: params[:device])
+  end
+
+  def show
+    @app = @debug_file.app
+  end
+
+  def reprocess
+    DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
+    redirect_to debug_file_url(@debug_file), notice: t('.success')
   end
 
   def new
