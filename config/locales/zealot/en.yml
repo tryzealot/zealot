@@ -119,6 +119,8 @@ en-US:
       preset_role: Default user role
       preset_install_limited: In-App install limited
       preset_install_limited_hint: Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install.
+      per_page: 每页返回条目数
+      max_per_page: 每页最大返回条目数
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
@@ -437,16 +439,41 @@ en-US:
     title: Debug files
     index:
       upload: Upload a debug file
-      processing: Processing in background, refresh the web page later.
-      version: 'Version: %{version}'
-      download: Download (%{size})
-      destroy: Destroy
       uploaded_at: Uploaded at %{time}
-      missing_file: Missing file
       empty_content: Not found any debug file.
+      android_count: Proguard
+      ios_count: dSYM
       not_found:
         title: Not found any debug file!
         body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+    show:
+      title: '%{app} %{device} %{version} 调试文件'
+      name: 应用名称
+      version: 编号
+      device_type: 平台
+      release_version: 版本信息
+      filesize: 文件大小
+      uploaded_at: 上传时间
+      missing_file: 遗失文件无法下载
+      download: 下载
+      reprocess: 重新解析
+      destroy: 删除
+      main_target: '主项目: %{value}'
+      uuid: UUID
+      libraries: 库
+      filename: 文件
+    device:
+      title: '%{app} %{device} 调试文件'
+      number: '#%{value}'
+      processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
+      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
+      main_target: 主项目
+      arch: 架构
+      libraries: 库
+      filesize: 文件大小
+      file_count: 文件数量
+    reprocess:
+      success: 调试文件已提交重新解析处理中
     help:
       title: Help center
       body_html: |
@@ -807,7 +834,7 @@ en-US:
       unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
-      success: Debug file (%{id}) pare done, Refresh the web page please.
+      success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
