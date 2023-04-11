@@ -119,6 +119,8 @@ zh-CN:
       preset_role: 新用户权限
       preset_install_limited: 应用内安装限制
       preset_install_limited_hint: 特定手机应用打开无法进行安装操作（比如：微信、钉钉等），通过设置 User Agent 关键词开启使用浏览器打开安装帮助
+      per_page: 每页返回条目数
+      max_per_page: 每页最大返回条目数
       switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 游客模式
@@ -439,6 +441,8 @@ zh-CN:
       upload: 上传调试文件
       uploaded_at: 上传于%{time}
       empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
+      android_count: Proguard
+      ios_count: dSYM
       not_found:
         title: 没有发现任何调试文件！
         body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
@@ -453,7 +457,7 @@ zh-CN:
       missing_file: 遗失文件无法下载
       download: 下载
       destroy: 删除
-      main_dsym: 主项目
+      main_target: '主项目: %{value}'
       uuid: UUID
       libraries: 库
       filename: 文件
@@ -462,7 +466,7 @@ zh-CN:
       number: '#%{value}'
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
       refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
-      main_dsym: 主项目
+      main_target: 主项目
       arch: 架构
       libraries: 库
       filesize: 文件大小
@@ -829,7 +833,7 @@ zh-CN:
       unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
   active_job:
     debug_file:
-      success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
+      success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
         not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
         not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
