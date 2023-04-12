@@ -8,7 +8,7 @@ class App < ApplicationRecord
   has_many :debug_files, dependent: :destroy
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
-  scope :avaiable_debug_files, -> { joins(:debug_files).distinct }
+  scope :has_debug_files, -> { joins(:debug_files).distinct }
 
   validates :name, presence: true
 
@@ -36,6 +36,14 @@ class App < ApplicationRecord
         channel.releases.size
       end
     end
+  end
+
+  def android_debug_files
+    debug_files.where(device_type: 'Android')
+  end
+
+  def ios_debug_files
+    debug_files.where(device_type: 'iOS')
   end
 
   # Fetch all bundle id of iOS app

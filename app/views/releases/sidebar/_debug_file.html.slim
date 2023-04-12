@@ -1,7 +1,7 @@
 - if debug_file.present?
   ruby:
     metadat_size = debug_file.metadata.count
-    multi_dsym = debug_file.multi_dsym?
+    multi_dsym = debug_file.multi_object?
   .card
     .card-header
       h3.card-title
