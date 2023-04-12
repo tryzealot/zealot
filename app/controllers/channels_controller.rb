@@ -10,7 +10,7 @@ class ChannelsController < ApplicationController
     @web_hook = @channel.web_hooks.new
     @releases = @channel.releases
                         .page(params.fetch(:page, 1))
-                        .per(params.fetch(:per_page, 10))
+                        .per(params.fetch(:per_page, Setting.per_page))
                         .order(id: :desc)
     @versions = @channel.release_versions(5)
   end
