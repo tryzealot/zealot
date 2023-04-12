@@ -118,7 +118,7 @@ en-US:
       preset_schemes: Default schemes
       preset_role: Default user role
       preset_install_limited: In-App install limited
-      preset_install_limited_hint: Specific mobile applications can not be installed (E. g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install
+      preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
       per_page: Per page
       max_per_page: Max per page
       switch_mode: Switch mode
@@ -132,7 +132,7 @@ en-US:
       gitlab: Gitlab
       google_oauth: Google OAuth
       backup: Backup
-      #misc: 杂项
+      #misc: Misc
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -147,7 +147,7 @@ en-US:
     system_info:
       title: System information
       index:
-        title: ':admin.system_info.title'
+        title: :admin.system_info.title
         zealot_version: Version
         vcs_ref: Git Ref
         build_date: Build date
@@ -199,6 +199,7 @@ en-US:
         created_at: Created at
         size: Size
         download: Download
+        reprocess: Reprocess
         destroy: Destroy
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
@@ -388,8 +389,8 @@ en-US:
       more: More releases
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
-      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
@@ -466,7 +467,9 @@ en-US:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
       processing: Processing in background, take a coffe break ...
-      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      refresh_page: |
+        If there is no change for a long time, please try to refresh this page.
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the "background tasks".
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
@@ -553,6 +556,8 @@ en-US:
       cert_expired_at: 'Expired at %{date}'
       cert_created: Created date
       cert_expired: Expired Date
+      cert_issuer: Issuer
+      cert_algorithem: Signature Algorithem
       cert_version: Version
       cert_serial: Serial
       cert_issuer: Issuer
@@ -692,8 +697,8 @@ en-US:
       platform: Platform
       model: Model
       created_at: Registerd at
-      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
-      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: Related Apple Developers
       register_apple_key: Register to Apple Developer
       channels: Channels

@@ -5,7 +5,7 @@
       = t('channels.show.metadata')
   .card-body.p-0
     p.d-flex.flex-column.border-bottom.pl-3.pb-3.pt-3
-      span.font-weight-bold = device_name(@channel.device_type)
+      span.font-weight-bold = platform_name(@channel.device_type)
       span.text-muted = t('channels.show.device_type')
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
@@ -23,10 +23,10 @@
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.releases.count
       span.text-muted = t('channels.show.total_releases')
-    p.d-flex.flex-column.border-bottom.pl-3.pb-3
+    p.d-flex.flex-column.pl-3.pb-3.mb-0
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')
 
   - if user_signed_in?
-    .card-footbar.pl-3.pr-3.pb-3
-      a.btn.btn-default.btn-block href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')
+    .card-footer.p-1
+      a.btn.btn-block.text-primary href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')

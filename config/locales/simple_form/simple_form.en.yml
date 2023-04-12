@@ -83,7 +83,8 @@ en-US:
         channel: 'For example, the platform of app.'
       app:
         schemes:
-          name: ':simple_form.hints.scheme.name'
+          name: :simple_form.hints.scheme.name
+          new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       scheme:
         name: 'Apply the type of feature to target audience'
         new_build_callout: '用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗'

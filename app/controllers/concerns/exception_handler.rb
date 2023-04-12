@@ -8,7 +8,7 @@ module ExceptionHandler
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
     rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
     rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
-                JSON::ParserError, AppInfo::UnkownFileTypeError, with: :bad_request
+                JSON::ParserError, AppInfo::UnknownFormatError, with: :bad_request
     rescue_from Faraday::Error, OpenSSL::SSL::SSLError,
                 TinyAppstoreConnect::ConnectAPIError, with: :internal_server_error
     rescue_from Pundit::NotAuthorizedError, with: :forbidden

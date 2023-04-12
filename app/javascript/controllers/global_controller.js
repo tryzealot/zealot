@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import * as ActionCable from '@rails/actioncable'
 import { Zealot } from "./zealot"
 import { application } from "./application"
 import jquery from "jquery"
@@ -12,6 +13,7 @@ export default class extends Controller {
 
   connect() {
     this.initZealot()
+    this.setupRailsDebugMode()
     this.fixAdminlteWithTubros()
     this.switchDarkMode()
   }
@@ -20,7 +22,6 @@ export default class extends Controller {
     Zealot.rootUrl = this.rootUrlValue
     Zealot.siteApperance = this.apperanceValue
     Zealot.env = this.envValue
-    application.debug = Zealot.isDevelopment()
   }
 
   switchDarkMode() {
@@ -33,6 +34,8 @@ export default class extends Controller {
 
       // document.getElementsByClassName('main-header').classList.replace("navbar-white", "navbar-dark")
       // document.getElementsByClassName('main-sidebar').classList.replace("sidebar-light-primary", "sidebar-dark-primary")
+    } else if (apperance === "light" && Zealot.isDarkMode()) {
+      jquery(".dark-brand-image").remove()
     }
   }
 
@@ -47,5 +50,10 @@ export default class extends Controller {
 
   fixSidebarResize() {
     jquery(window).trigger("resize")
+  }
+
+  setupRailsDebugMode() {
+    application.debug = Zealot.isDevelopment()
+    ActionCable.logger.enabled = Zealot.isDevelopment()
   }
 }

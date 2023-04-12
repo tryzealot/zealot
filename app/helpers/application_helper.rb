@@ -55,8 +55,8 @@ module ApplicationHelper
     is_current ? class_name : ''
   end
 
-  def device_name(device_type)
-    case device_type.downcase
+  def platform_name(platform)
+    case platform.downcase
     when 'ios'
       'iOS'
     when 'iphone'
@@ -69,8 +69,48 @@ module ApplicationHelper
       'Android'
     when 'macos'
       'macOS'
+    when 'linux'
+      'Linux'
+    when 'windows'
+      'Windows'
     else
-      device_type
+      platform
+    end
+  end
+
+  def device_name(device)
+    case device.downcase.to_sym
+    when AppInfo::Device::IPHONE
+      'iPhone'
+    when AppInfo::Device::IPAD
+      'iPad'
+    when AppInfo::Device::UNIVERSAL
+      'Universal'
+    when AppInfo::Device::PHONE
+      'Phone'
+    when AppInfo::Device::WATCH
+      'Watch'
+    when AppInfo::Device::TELEVISION
+      'TV'
+    when AppInfo::Device::TABLET
+      'Tablet'
+    when AppInfo::Device::AUTOMOTIVE
+      'Automotive'
+    when AppInfo::Device::WINDOWS
+      'Windows'
+    when AppInfo::Device::MACOS
+      'macOS'
+    else device
+    end
+  end
+
+  # iOS build type
+  def release_type_name(release_type)
+    case release_type.downcase.to_sym
+    when :adhoc
+      'AdHoc'
+    else
+      release_type.capitalize
     end
   end
 
@@ -86,13 +126,15 @@ module ApplicationHelper
   def device_style(device_type)
     case device_type.downcase
     when 'ios'
-      ['fa-apple', 'bg-black']
+      ['fa-apple', 'bg-secondary']
     when 'android'
       ['fa-android', 'bg-green']
     when 'windows'
-      ['fa-windows', 'bg-warning']
+      ['fa-windows', 'bg-primary']
     when 'macos'
       ['fa-app-store', 'bg-blue']
+    when 'linux'
+      ['fa-linux', 'bg-info']
     else
       ['fa-adn', 'bg-lightblue']
     end

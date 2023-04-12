@@ -104,17 +104,17 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 
   .app-name {
-    padding-top: 6px;
+    padding-top: 3px;
     padding-left: 60px;
   }
 
   .app-identifier {
-    padding-top:4px;
+    padding-top: 4px;
     color: #9f9f9f;
     font-size: 0.9em;
   }
 
-  .box-tools>.label {
+  .box-tools > .label {
     margin-right: 3px;
   }
 
@@ -148,8 +148,41 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
+.changelog {
+  ul {
+    padding-inline-start: 24px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: #212529;
+    text-decoration: underline;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .dark-mode & {
+    a {
+      color: #fff;
+
+      &:hover {
+        color: #64adfb;
+      }
+    }
+  }
+}
+
 .dark-mode {
   .app-icon {
     background-color: #fff;
+  }
+
+  .text-primary {
+    color: #64adfb !important;
   }
 }

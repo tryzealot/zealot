@@ -6,14 +6,11 @@ zh-CN:
   user_profile: 详情
   log_out: 登出
   log_in: 登录
-
   intro:
     title: 移动应用上传竟然如此简单、移动 App 应用分发系统
     description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
-
   links:
     back_to_list: 返回列表
-
   admin:
     users:
       title: 用户
@@ -38,7 +35,6 @@ zh-CN:
         title: 用户信息
         active_link: 激活链接
         active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
-
     web_hooks:
       title: 网络钩子
       index:
@@ -62,7 +58,6 @@ zh-CN:
           enable: 网络钩子已经成功启用
           disable: 网络钩子已经取消启用
           test: 网络钩子请求测试已发送
-
     apple_keys:
       title: 苹果开发者
       new:
@@ -95,12 +90,10 @@ zh-CN:
         udid_related_apps: 关联应用
         udid_created_at: 创建时间
       create:
-        successful: 创建成功并成功同步开发者的相关信息
-
+        successful: 创建成功并成功同步开发者的相关信息\
     apple_teams:
       edit:
         title: 更新苹果开发者名称
-
     settings:
       title: 系统设置
       index:
@@ -112,60 +105,51 @@ zh-CN:
         title: 编辑设置
       edit:
         title: 编辑设置
-
       enable: 开启
       disable: 关闭
       validates: '条件：%{value}'
-
       general: 通用配置
       site_https: 启用 HTTPS
       site_title: 网站标题
       site_locale: 网站语言
       site_domain: 网站域名
       site_appearance: 网站外观
-
       presets: 预设值
       preset_schemes: 应用类型模板
       preset_role: 新用户权限
       preset_install_limited: 应用内安装限制
       preset_install_limited_hint: 特定手机应用打开无法进行安装操作（比如：微信、钉钉等），通过设置 User Agent 关键词开启使用浏览器打开安装帮助
-
+      per_page: 每页返回条目数
+      max_per_page: 每页最大返回条目数
       switch_mode: 模式开关
       registrations_mode: 注册模式
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
-
       third_party_auth: 第三方登录
       ldap: LDAP
       feishu: 飞书
       gitlab: Gitlab
       google_oauth: Google OAuth
-
       backup: 备份
       # misc: 杂项
-
       stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_to: 默认邮件发件人
       mailer_options: 发件服务器配置
-
       analytics: 统计
       google_analytics_id: Google 统计
-
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
-
       empty_value: 空值
       no_editable_key: 当前设置为可读，无法修改
       reset: 恢复默认值
-
     system_info:
       title: 环境信息
       index:
         title: :'admin.system_info.title'
-        zealot_version: Zealot 版本
-        vcs_ref: 哈希值
+        zealot_version: 版本号
+        vcs_ref: Git 哈希值
         build_date: 构建日期
         server_info: 服务器信息
         found_new_version: '发现新版本: %{version}'
@@ -189,7 +173,6 @@ zh-CN:
         dev_new_version: 发现新版本 (开发环境始终显示)
         messages:
           file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
-
     backups:
       title: 数据备份
       index:
@@ -235,24 +218,20 @@ zh-CN:
         success: 备份文件成功删除
       parse_schedule:
         invalid_expression: 表达式无法解析
-
     background_jobs:
       title: 后台任务
       index:
         title: :'admin.background_jobs.title'
-
     database_analytics:
       title: 数据库分析
       index:
         title: :'admin.database_analytics.title'
-
     logs:
       title: 服务日志
       index:
         title: :'admin.logs.title'
         loading: 日志加载中 ...
         error_message: 日志获取失败，返回状态码：
-
   dashboard:
     title: 控制台
     analytics:
@@ -266,9 +245,9 @@ zh-CN:
       disk_usage: 磁盘使用率
     timeline:
       title: 上传时间线
-      upload_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
+      upload_auto_version_release: 上传了新版本 %{version}
       not_found: 没有任何上传，快快上传吧。
-
   apps:
     title: 应用
     index:
@@ -313,7 +292,6 @@ zh-CN:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
-
   schemes:
     title: 应用类型
     show:
@@ -322,7 +300,6 @@ zh-CN:
       title: '%{app}新建类型'
     edit:
       title: '%{app}编辑类型'
-
   channels:
     title: 应用渠道
     subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
@@ -346,7 +323,7 @@ zh-CN:
       id: ID
       build_version: 开发版本
       git_branch: 分支
-      git_commit: 开发版本
+      git_commit: 提交哈希值
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
@@ -376,7 +353,6 @@ zh-CN:
         destroy: :'web_hooks.messages.confirm.destroy'
       errors:
         not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
-
   releases:
     title: 应用版本
     sources:
@@ -389,9 +365,8 @@ zh-CN:
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
       not_latest_release: 当前不是最新版本！
-      released_new_version: '%{release_version} (%{build_version}) 于%{time}发布了，%{link}。'
+      released_new_version: '版本 %{version} 于%{time}发布了，%{link}。'
       view_latest_version: 查看最新版本
-
       name: 应用
       version: 上传版本
       device_type: 平台
@@ -412,16 +387,15 @@ zh-CN:
       missing_file: 遗失文件不可安装或下载
       more: 更多上传
       cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
-
       last_ten_uploads: 最近 10 次上传
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
       devices: '%{count} 台测试设备 (UDID)'
       sync_devices_feature: 推荐使用%{link}同步设备名称
-
+      debug_file: '%{type} 调试文件'
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
-
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
     new:
@@ -461,21 +435,45 @@ zh-CN:
         not_found_really: 您访问的应用版本真的不存在
         invalid_password: 密码错误，请重新输入
         bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
-
   debug_files:
     title: 调试文件
     index:
       upload: 上传调试文件
-      processing: 后台任务正在解包中，请稍候刷新。
-      version: 构建版本：%{version}
-      download: 下载 (%{size}）
-      destroy: 删除
       uploaded_at: 上传于%{time}
-      missing_file: 遗失文件无法下载
       empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
+      android_count: Proguard
+      ios_count: dSYM
       not_found:
         title: 没有发现任何调试文件！
         body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
+    show:
+      title: '%{app} %{device} %{version} 调试文件'
+      name: 应用名称
+      version: 编号
+      device_type: 平台
+      release_version: 版本信息
+      filesize: 文件大小
+      uploaded_at: 上传时间
+      missing_file: 遗失文件无法下载
+      download: 下载
+      reprocess: 重新解析
+      destroy: 删除
+      main_target: '主项目: %{value}'
+      uuid: UUID
+      libraries: 库
+      filename: 文件
+    device:
+      title: '%{app} %{device} 调试文件'
+      number: '#%{value}'
+      processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
+      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
+      main_target: 主项目
+      arch: 架构
+      libraries: 库
+      filesize: 文件大小
+      file_count: 文件数量
+    reprocess:
+      success: 调试文件已提交重新解析处理中
     help:
       title: 帮助中心
       body_html: |
@@ -507,14 +505,13 @@ zh-CN:
         body: 一旦删除数据将永久无法找回或恢复，请慎重操作！
         ok: 我心已决
         cancel: 还是算了
-
   teardowns:
     title: 应用解包
     new:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk、 .aab、.ipa、.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'
@@ -524,23 +521,21 @@ zh-CN:
       uploaded_at: 上传时间
       app_name: 应用名称
       version: 版本
-      type: 类型
+      platform: 平台
       uploader: 提交者
       actions: 操作
       anonymous: 匿名者
       not_found:
         title: 没有发现任何应用解包！
         body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
-
     show:
-      title: '%{name} %{release_version} (%{build_version}) 解包信息'
+      title: '%{name} 解包信息'
       expired_in: 还有%{time}左右过期
       already_expired: 已经过期%{time}
       expired: 此时此刻刚好过期了！
       related_app: 关联提醒
       related_body: 当前解包关联的应用是
       unknow_app_name: 未知
-
       metadata: 应用信息
       app_name: 名称
       version: 版本
@@ -556,13 +551,38 @@ zh-CN:
       developer_certs_list: '开发者证书 (%{count})'
       cert: '证书 %{index}'
       cert_expired_at: '%{date} 到期'
+      cert_created: 创建日期
+      cert_expired: 失效日期
+      cert_version: 版本
+      cert_serial: 序列
+      cert_issuer: 发布人
+      cert_algorithem: 签名算法
+      cert_subject: 主题
+      cert_digest: 数字摘要
+      cert_length: 长度
+      signature_title: '应用签名 (%{count})'
+      signature: '签名版本 %{scheme}'
+      cert_fignger: '签名指纹 %{digest}'
+      signature_not_found: 签名不存在
+      signature_verified: '签名校验通过'
+      signature_unverified: '签名校验待开发'
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)
       team_id: 团队名称 (Team ID)
       created_at: 创建时间
       expired_at: 过期时间
-
+      archs: 应用架构
+      product_name: 产品名称
+      product_version: 产品版本
+      assembly_version: 程序集版本
+      file_version: 文件版本
+      file_description: 文件描述
+      copyright: 版权
+      original_filename: 原始文件名
+      company_name: 公司名称
+      binary_size: 二进制文件大小
+      imports: 引用库
     help:
       title: 帮助中心
       body_html: |
@@ -630,12 +650,10 @@ zh-CN:
       unknown_events: '%{name} 触发了未知事件: %{event}'
       errors:
         not_found_file: '无法找到解包文件: %{message}'
-        failed_detect_file_type: 无法识别应用类型
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
-        unknown_parse: '上传应用解析发现未知异常，原始错误 [%{class}]: %{message}'
-        choose_supported_file_type: 请选择需要解包的 .apk、.aab、.ipa、.mobileprovision 或 macOS.app.zip 文件
-
+        unknown_parse: '上传应用解析发现未知异常: %{message} (%{class})'
+        choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
   udid:
     title: 设备 UDID
     index:
@@ -673,7 +691,8 @@ zh-CN:
       platform: 平台
       model: 产品型号
       created_at: 注册时间
-      upload_release: :'dashboard.timeline.upload_release'
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: 已关联的苹果开发者
       register_apple_key: 注册测试设备到苹果开发者
       channels: 应用渠道
@@ -684,7 +703,6 @@ zh-CN:
       register_device: 注册本设备
       related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
       related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
-
     install:
       title: Zealot 获取设备 UDID
       description: |
@@ -707,7 +725,6 @@ zh-CN:
       parse_done_and_refreshing: '解析完成，页面正在刷新 ...'
       confirm:
         destroy: 确定删除?
-
   settings:
     title: :'admin.settings.title'
     preset_schemes:
@@ -725,7 +742,6 @@ zh-CN:
       light: 浅色
       dark: 深色
       auto: 随系统自动
-
   download:
     releases:
       show:
@@ -733,7 +749,6 @@ zh-CN:
     debug_files:
       show:
         not_found: 找不到调试文件，无法提供下载服务
-
   api:
     unauthorized_channel_key: 无效的应用渠道 Key
     unauthorized_token: 未授权用户 token
@@ -756,7 +771,6 @@ zh-CN:
     jenkins:
       build:
         failed_request: 构建请求失败，请重新尝试
-
   demo:
     app_name1: 默认应用
     app_name2: 默认 Android 应用
@@ -807,11 +821,11 @@ zh-CN:
       '503':
         title: 服务暂时不可用，无法请求该页面
     messages:
+      blank: 不能为空值
+      inclusion: 不包含在可选值列表中
       not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
-      blank: 不能为空值
-      inclusion: 不包含在可选值列表中
       length_range: 长度限制：%{minimum} ~ %{maximum} 位
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
@@ -820,17 +834,16 @@ zh-CN:
       goback_title: 上级页面
       homepage_title: 首页
       unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
-
   active_job:
     debug_file:
-      success: 调试文件 %{id} 解析完成，需要手动刷新页面才能看到哟
+      success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
         not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
+        not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
     backup:
       success: '%{key} 备份创建完成'
       failures:
         max_keeps_limited: '%{key} 备份设置最大限制值为零'
-
   activerecord:
     attributes:
       channel:
@@ -862,12 +875,10 @@ zh-CN:
           attributes:
             schedule:
               invalid: 表达式格式错误
-
   user_mailer:
     omniauth_welcome_email:
       subject: 欢迎使用 %{title}
       default_password: 您已经使用第三方登录成功授权注册了 Zealot 账号，系统随机生成了默认的密码：
-
   devise:
     confirmations:
       new:
@@ -893,7 +904,6 @@ zh-CN:
           feishu: 飞书
           google: ' Google '
           gitlab: ' Gitlab '
-
   helpers:
     submit:
       user:
@@ -925,7 +935,6 @@ zh-CN:
       backup:
         create: 创建备份
         update: 更新备份
-
   views:
     pagination:
       truncate: ...

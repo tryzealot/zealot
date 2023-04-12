@@ -21,6 +21,11 @@
       font-weight: 400;
     }
 
+    .time-title {
+      @extend .bg-olive !optional;
+      @extend .text-white;
+    }
+
     .timeline-item {
       margin-left: 40px;
       background-color: #f8f8f8;
@@ -63,12 +68,16 @@
       background-color: #454d55;
     }
 
+    .time-title {
+      color: #373737 !important;
+    }
+
     .timeline-item {
       background-color: #454d55;
       border-color: #3a3a3a;
 
       .timeline-header {
-        border-color: #444444;
+        border-color: #444;
       }
 
       .timeline-footer .badge {

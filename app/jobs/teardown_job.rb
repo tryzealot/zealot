@@ -9,6 +9,8 @@ class TeardownJob < ApplicationJob
     metadata = TeardownService.new(file.path).call
     metadata.update_attribute(:user_id, user_id) if user_id.present?
     update_release_resouces(release_id, metadata)
+  rescue AppInfo::UnknownFormatError
+    # ignore
   end
 
   private

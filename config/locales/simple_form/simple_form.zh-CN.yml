@@ -26,6 +26,7 @@ zh-CN:
         name: '应用名称'
       scheme:
         name: '类型名称'
+        new_build_callout: 新上传版本提示窗
       channel:
         name: '渠道名称'
         device_type: '应用平台'
@@ -86,17 +87,18 @@ zh-CN:
           name: :'simple_form.hints.scheme.name'
       scheme:
           name: '应用在功能、面向受众划分的类型'
+          new_build_callout: '用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗'
       channel:
         name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
         device_type: '应用设备类型'
-        bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
+        bundle_id: '校验应用 bundle id (package name)，为空或 * 为不校验'
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
       release:
-        file: 支持 iOS.ipa、Android.apk 以及 macOS.app.zip 文件
+        file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
         changelog: 这个应用包含了什么新特性，修复了什么问题等
-        release_type: iOS 的 debug、adhoc、release；Android 的 debug、release 等
+        release_type: iOS 的 debug、adhoc、release / Android 的 debug、release 等
         branch: 通常情况是 main 或 develop
         git_commit: 通常是 40 位长度的哈希值
         ci_url: Jenkins、Gitlab CI 具体构建的地址
@@ -112,7 +114,7 @@ zh-CN:
         schedule: |
           表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
           <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
-        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置；0 不可备份
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置; 0 不可备份
 
     placeholders:
       release:

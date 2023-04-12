@@ -15,7 +15,7 @@ class Release < ApplicationRecord
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
   has_and_belongs_to_many :devices, dependent: :destroy
 
-  validates :bundle_id, :release_version, :build_version, :file, presence: true
+  validates :file, presence: true
   validate :bundle_id_matched, on: :create
 
   before_create :auto_release_version
@@ -28,8 +28,8 @@ class Release < ApplicationRecord
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
 
-  paginates_per     20
-  max_paginates_per 50
+  paginates_per     50
+  max_paginates_per 100
 
   def self.version_by_channel(channel_slug, release_id)
     channel = Channel.friendly.find(channel_slug)
@@ -39,76 +39,94 @@ class Release < ApplicationRecord
   # 上传 app
   def self.upload_file(params, parser = nil, default_source = 'web')
     file = params[:file]&.path
-    if file.blank?
-      release = Release.new
-      release.errors.add(:file, :invalid)
-
-      return release
-    end
+    return add_not_found_file_error if file.blank?
 
     create(params) do |release|
-      rescuing_app_parse_errors do
-        parser ||= AppInfo.parse(file)
-
-        release.source ||= default_source
-        release.name = parser.name
-        release.bundle_id = parser.bundle_id
-        release.release_version = parser.release_version
-        release.build_version = parser.build_version
-        release.device_type = parser.device_type
-        release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
-
-        icon_file = fetch_icon(parser)
-        release.icon = icon_file if icon_file
-
-        # iOS 且是 AdHoc 尝试解析 UDID 列表
-        if parser.os == AppInfo::Platform::IOS &&
-            parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-            parser.devices.present?
-
-          parser.devices.each do |udid|
-            release.devices << Device.find_or_create_by(udid: udid)
-          end
-        end
-      ensure
-        parser&.clear!
-      end
+      release.source ||= default_source
+      parse_app(release, file, default_source) if AppInfo.file_type(file) != AppInfo::Format::UNKNOWN
     end
   end
 
+  def self.parse_app(release, file, default_source)
+    rescuing_app_parse_errors do
+      parser ||= AppInfo.parse(file)
+
+      build_metadata(release, parser, default_source)
+
+      # iOS 且是 AdHoc 尝试解析 UDID 列表
+      if parser.platform == AppInfo::Platform::IOS &&
+          parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
+          parser.devices.present?
+
+        parser.devices.each do |udid|
+          release.devices << Device.find_or_create_by(udid: udid)
+        end
+      end
+    ensure
+      parser&.clear!
+    end
+  end
+
+  def self.add_not_found_file_error
+    release = Release.new
+    release.errors.add(:file, :invalid)
+    release
+  end
+  private_methods :add_not_found_file_error
+
+  def self.build_metadata(release, parser, default_source)
+    release.source ||= default_source
+    release.name = parser.name
+    release.device_type = parser.device
+    if parser.respond_to?(:bundle_id)
+      # iOS, Android only
+      release.bundle_id = parser.bundle_id
+    end
+    release.release_version = parser.release_version
+    release.build_version = parser.build_version
+    release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
+
+    icon_file = fetch_icon(parser)
+    release.icon = icon_file if icon_file
+  end
+  private_methods :build_metadata
+
   def self.fetch_icon(parser)
-    file = case parser.os
+    file = case parser.platform
            when AppInfo::Platform::IOS
-             parser.icons.last.try(:[], :uncrushed_file)
+            return if parser.icons.blank?
+
+            biggest_icon(parser.icons, file_key: :uncrushed_file)
            when AppInfo::Platform::MACOS
              return if parser.icons.blank?
 
-             parser.icons[:sets].last.try(:[], :file)
+             biggest_icon(parser.icons[:sets])
            when AppInfo::Platform::ANDROID
-             # 处理 Android anydpi 自适应图标
-             parser.icons
-                   .reject { |f| File.extname(f[:file]) == '.xml' }
-                   .last
-                   .try(:[], :file)
-           end
+            return if parser.icons.blank?
 
+            biggest_icon(parser.icons(exclude: :xml))
+           when AppInfo::Platform::WINDOWS
+             return if parser.icons.blank?
+
+             biggest_icon(parser.icons)
+           end
 
     File.open(file, 'rb') if file
   end
   private_methods :fetch_icon
 
+  def self.biggest_icon(icons, file_key: :file)
+    return if icons.blank?
+
+    icons.max_by { |icon| icon[:dimensions][0] }
+         .try(:[], file_key)
+  end
+  private_methods :biggest_icon
+
   def self.rescuing_app_parse_errors
     yield
-  rescue AppInfo::UnkownFileTypeError
-    raise AppInfo::UnkownFileTypeError, t('teardowns.messages.errors.not_support_file_type')
-  rescue NoMethodError => e
-    logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.failed_get_metadata')
   rescue => e
     logger.error e.full_message
-    Sentry.capture_exception e
-    raise AppInfo::Error, t('teardowns.messages.errors.unknown_parse', class: e.class, message: e.message)
   end
   private_methods :rescuing_app_parse_errors
 
@@ -127,16 +145,17 @@ class Release < ApplicationRecord
     git_commit[0..8]
   end
 
-  def array_changelog(use_default_changelog = true)
-    return empty_changelog(use_default_changelog) if changelog.blank?
+  def array_changelog(default_template: true)
+    return empty_changelog(default_template) if changelog.blank?
     return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
     changelog
   end
 
-  def text_changelog(use_default_changelog = true)
-    array_changelog(use_default_changelog).each_with_object([]) do |line, obj|
-      obj << "- #{line['message']}"
+  def text_changelog(default_template: true, head_line: false, field: 'message')
+    array_changelog(default_template: default_template).each_with_object([]) do |line, obj|
+      message = head_line ? line[field].split("\n")[0] : line[field]
+      obj << "- #{message}"
     end.join("\n")
   end
 
@@ -192,6 +211,10 @@ class Release < ApplicationRecord
       'Android'
     elsif mac?
       'macOS'
+    elsif windows?
+      'Windows'
+    elsif linux?
+      'Linux'
     else
       'Unknown'
     end
@@ -212,10 +235,23 @@ class Release < ApplicationRecord
     platform_type.casecmp?('macos')
   end
 
+  def windows?
+    platform_type.casecmp?('windows')
+  end
+
+  def linux?
+    platform_type.casecmp?('linux') || platform_type.casecmp?('rpm') ||
+    platform_type.casecmp?('deb')
+  end
+
+  def debug_file
+    DebugFile.find_by(app: app, release_version: release_version, build_version: build_version)
+  end
+
   private
 
   def platform_type
-    @platform_type ||= (device_type || channel.device_type)
+    @platform_type ||= (device_type || Channel.device_types[channel.device_type])
   end
 
   def auto_release_version
@@ -233,6 +269,7 @@ class Release < ApplicationRecord
       changelog.split("\n").each do |message|
         next if message.blank?
 
+        message = message[1..-1].strip if message.start_with?('-')
         hash << { message: message }
       end
       self.changelog = hash
@@ -252,7 +289,7 @@ class Release < ApplicationRecord
   end
 
   def detect_device
-    self.device_type ||= channel.device_type
+    self.device_type ||= Channel.device_types[channel.device_type]
   end
 
   ORIGIN_PREFIX = 'origin/'

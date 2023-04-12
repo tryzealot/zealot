@@ -1,0 +1,22 @@
+.card-comment {
+  .comment-text {
+    ul.content {
+      list-style: none;
+    }
+
+    .content {
+      @extend .p-0;
+      @extend .m-0;
+      @extend .mt-2;
+
+      .key {
+        font-weight: bold;
+        width: 80px;
+      }
+
+      .value {
+        @extend .pl-1;
+      }
+    }
+  }
+}

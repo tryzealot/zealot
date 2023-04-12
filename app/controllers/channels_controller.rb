@@ -10,7 +10,7 @@ class ChannelsController < ApplicationController
     @web_hook = @channel.web_hooks.new
     @releases = @channel.releases
                         .page(params.fetch(:page, 1))
-                        .per(params.fetch(:per_page, 10))
+                        .per(params.fetch(:per_page, Setting.per_page))
                         .order(id: :desc)
     @versions = @channel.release_versions(5)
   end
@@ -42,7 +42,7 @@ class ChannelsController < ApplicationController
     authorize @channel
 
     @channel.update(channel_params)
-    redirect_to friendly_channel_overview_path(@channel)
+    redirect_to (referer_url || friendly_channel_overview_path(@channel))
   end
 
   def destroy
@@ -62,6 +62,10 @@ class ChannelsController < ApplicationController
     @app = @channel.scheme.app
     @title = @channel.app_name
     @subtitle = t('channels.subtitle', total_scheme: @app.schemes.count, total_channel: @channel.scheme.channels.count)
+  end
+
+  def referer_url
+    @referer_url ||= params[:referer_url]
   end
 
   def channel_params

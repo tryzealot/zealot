@@ -7,9 +7,9 @@
       button.btn.btn-tool data-card-widget="collapse"
         i.fas.fa-minus
   .card-body.p-0
-    ul.products-list.product-list-in-card
+    ul.products-list.product-list-in-card.p-0
       - @release.array_changelog.each do |changelog|
-        li.item.pl-3.pr-3
+        li.item.pl-3.pr-3.pb-2
           .product-title
             - if date = changelog['date']
               small.float-right
@@ -20,4 +20,4 @@
                 span.badge.badge-info data-toggle="tooltip" title="#{changelog['email']}"
                   = changelog['author']
 
-            = simple_format changelog['message'], class: 'mb-1'
+            = changelog_render changelog['message'], class: 'changelog changelog-item mb-1'

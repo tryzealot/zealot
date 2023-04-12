@@ -19,15 +19,20 @@
                   = time_ago_in_words(release.created_at)
                 h3.timeline-header
                   = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pr-1')
-                  = t('udid.show.upload_release', release_version: release.release_version, build_version: release.build_version)
+                  - if release.release_version && release.build_version
+                    = t('udid.show.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
+                  - elsif release.release_version
+                    = t('udid.show.upload_auto_version_release', version: release.release_version)
+                  - else
+                    = t('udid.show.upload_auto_version_release', version: release.version)
                 - if release.changelog.present?
                   .timeline-body.pb-0
-                    = changelog_format release.text_changelog, class: 'mb-0'
+                    = changelog_render release.text_changelog(head_line: true), class: 'changelog changelog-full mb-0'
                 - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                   .timeline-footer
                     - if release.release_type.present?
                       small.badge
-                        = release.release_type
+                        = release_type_name(release.release_type)
                     - if release.branch.present?
                       small.badge
                         = release.branch

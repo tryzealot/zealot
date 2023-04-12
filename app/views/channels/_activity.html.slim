@@ -13,19 +13,23 @@
         - @releases.each do |release|
           li.item
             .product-img
-              = app_icon(release, class: 'img-circle')
+              = app_icon(release, class: 'app-icon img-circle img-bordered-sm')
             .product-info
-              a.product-title href="javascript:void(0)"
-                = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
+              = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
               small
                 span.badge.badge-light.float-right data-toggle="tooltip" title="#{release.created_at}"
                   = time_ago_in_words(release.created_at)
               span.product-description
-                = "#{release.release_version} (#{release.build_version})"
+                - if release.release_version.present?
+                  = release.release_version
+                  - if release.build_version.present?
+                    | (#{release.build_version})
+                - else
+                  = release.version
       - else
         li.item.p-3
           = raw t('channels.show.not_found')
   - if @releases.total_pages > 1
-    .card-footer.clearfix
+    .card-footer
       .float-right
         = paginate @releases

@@ -13,13 +13,22 @@ RUN if [ "$USER_GID" != "$USER_UID" ] || [ "$USER_UID" != "1000" ]; then \
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-    build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev \
+    build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev libyaml-dev  \
     postgresql-client libpq-dev \
     imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
     tzdata \
     tmux \
     vim \
     git-flow
+
+# Install caddy
+ENV ZEALOT_PATH=/workspace
+RUN apt-get install -y --no-install-recommends \
+      debian-keyring debian-archive-keyring apt-transport-https && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
+    apt-get update && \
+    apt-get install caddy
 
 # Install overmind
 ARG OVERMIND_VERSION="2.3.0"
@@ -30,26 +39,41 @@ RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_V
 
 USER vscode
 
-# Install asdf, ruby and nodejs
-ARG ASDF_DIR="/home/vscode/.asdf"
-ARG RUBY_VERSION="3.0.4"
+# Install asdf, ruby (with YJIT enabled) and nodejs
+ARG RUBY_VERSION="3.2.0"
 ARG NODEJS_VERSION="18.12.1"
+LABEL zealot.containers.ruby="$RUBY_VERSION"
+LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+
+ARG ASDF_DIR="/home/vscode/.asdf"
+ENV RUBY_YJIT_ENABLE=true
+ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
 RUN git clone https://github.com/asdf-vm/asdf.git ${ASDF_DIR}  && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
-    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails dotenv)/g" ~/.zshrc
-ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
-RUN asdf plugin add ruby && \
+    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
+# Enable YJIT *NEED* Rsust 1.58.0+
+RUN asdf plugin add rust && \
+    asdf install rust latest && \
+    asdf global rust latest
+RUN export RUBY_CONFIGURE_OPTS=--enable-yjit && \
+    asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
     asdf global ruby ${RUBY_VERSION}
 RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
     asdf global nodejs ${NODEJS_VERSION}
 
+LABEL zealot.containers.ruby="$RUBY_VERSION"
+LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+
 WORKDIR /workspace
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler foreman && \
+    bundle lock --add-platform ruby && \
+    bundle config set force_ruby_platform true && \
     bundle install
 
+COPY package.json yarn.lock ./
 RUN npm install --global yarn && \
     yarn install

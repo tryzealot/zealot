@@ -1,7 +1,7 @@
 FROM ruby:3.0-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
-ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn libwebp-dev libpng-dev tiff-dev gcompat"
+ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
@@ -13,7 +13,8 @@ ARG RUBY_GEMS="bundler"
 ARG APP_ROOT="/app"
 
 ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
@@ -39,7 +40,9 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1 && \
     bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
-    bundle config set --local path 'vendor/bundle' && \
+    bundle config set path 'vendor/bundle' && \
+    bundle lock --add-platform ruby && \
+    bundle config set force_ruby_platform true && \
     bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
@@ -61,12 +64,12 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 
-ARG ZEALOT_VERSION="4.5.3"
+ARG ZEALOT_VERSION="5.0.0"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl logrotate postgresql-dev libwebp-dev libpng-dev tiff-dev postgresql-client openssl openssl-dev caddy gcompat"
+ARG PACKAGES="tzdata curl logrotate postgresql-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev postgresql-client openssl openssl-dev caddy gcompat"
 ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
