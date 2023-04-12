@@ -85,7 +85,7 @@ en-US:
         schemes:
           name: ':simple_form.hints.scheme.name'
       scheme:
-        name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
+        name: 'Apply the type of feature to target audience'
         new_build_callout: '用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗'
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
@@ -96,16 +96,16 @@ en-US:
         password: 'Need password by fill it when user is not log in.'
       release:
         file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
-        changelog: A log or record of all notable changes made to a upload.
+        changelog: What new features this app contains, fix what issues, and so on.
         release_type: iOS 的 debug、adhoc、release / Android 的 debug、release 等
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
-        ci_url: the detail URL of Jenkins, Gitlab CI
+        ci_url: The CI URL specific like Jenkins, Gitlab CI etc
       web_hook:
         body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
+        file: 'Zip compressed file required'
       setting:
         value: 'Use JSON standard format to edit, otherwise it will fail to save.'
       backup:
