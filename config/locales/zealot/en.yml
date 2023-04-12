@@ -118,7 +118,7 @@ en-US:
       preset_schemes: Default schemes
       preset_role: Default user role
       preset_install_limited: In-App install limited
-      preset_install_limited_hint: Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install.
+      preset_install_limited_hint: Specific mobile applications can not be installed (E. g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install
       per_page: 每页返回条目数
       max_per_page: 每页最大返回条目数
       switch_mode: Switch mode
@@ -169,7 +169,7 @@ en-US:
         services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: 'Found new version'
+        new_version: 'A new update is available '
         dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
@@ -231,7 +231,7 @@ en-US:
       index:
         title: ':admin.logs.title'
         loading: Loading ...
-        error_message: 'Failed fetch logs, return status code: '
+        error_message: 'Log fetch failed, return status code:'
   dashboard:
     title: Dashboard
     analytics:
@@ -285,13 +285,13 @@ en-US:
       title: Edit app
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}.'
-        not_found_app: Not found app by id %{id}, redirect to list of app.
+        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app: Not found app by id %{id}, redirect to list of app
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
-        delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
-        delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
-        delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
+        delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
+        delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
+        delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
   schemes:
     title: Schemes
     show:
@@ -302,7 +302,7 @@ en-US:
       title: 'Edit scheme for %{app}'
   channels:
     title: Channels
-    subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
+    subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
     show:
       scheme: ':schemes.title'
       channel: ':channels.title'
@@ -392,7 +392,7 @@ en-US:
       upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
-      sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      sync_devices_feature: Synchronize device name with %{link} recommended
       debug_file: '%{type} 调试文件'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
@@ -407,7 +407,7 @@ en-US:
       default_changelog: |
         Not found changelog, cause:
 
-        - The developer is lazy without leaving anyting 😂
+        - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       install_error:
         title: What is the solution?
@@ -453,17 +453,17 @@ en-US:
       device_type: 平台
       release_version: 版本信息
       filesize: 文件大小
-      uploaded_at: 上传时间
-      missing_file: 遗失文件无法下载
-      download: 下载
-      reprocess: 重新解析
-      destroy: 删除
-      main_target: '主项目: %{value}'
+      uploaded_at: Uploaded time
+      missing_file: Missing file could not be downloaded
+      download: Download
+      reprocess: Reprocess
+      destroy: Destroy
+      main_target: 'Main target: %{value}'
       uuid: UUID
-      libraries: 库
-      filename: 文件
+      libraries: Frameworks
+      filename: File
     device:
-      title: '%{app} %{device} 调试文件'
+      title: '%{app} %{device} debug file'
       number: '#%{value}'
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
       refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
@@ -551,16 +551,16 @@ en-US:
       developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
-      cert_created: 创建日期
-      cert_expired: 失效日期
-      cert_version: 版本
-      cert_serial: 序列
-      cert_issuer: 发布人
-      cert_algorithem: 签名算法
-      cert_subject: 主题
-      cert_digest: 数字摘要
-      cert_length: 长度
-      signature_title: '应用签名 (%{count})'
+      cert_created: Created date
+      cert_expired: Expired Date
+      cert_version: Version
+      cert_serial: Serial
+      cert_issuer: Publisher
+      cert_algorithem: Algorithm
+      cert_subject: Subject
+      cert_digest: Digest
+      cert_length: Length
+      signature_title: 'Signature (%{count})'
       signature: '签名版本 %{scheme}'
       cert_fignger: '签名指纹 %{digest}'
       signature_not_found: 签名不存在
@@ -901,7 +901,7 @@ en-US:
         provider:
           feishu: ' Feishu'
           google: ' Google'
-          gitlab: ' Gitlab'
+          gitlab: ' GitLab '
   helpers:
     submit:
       user:
