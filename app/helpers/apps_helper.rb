@@ -24,6 +24,9 @@ module AppsHelper
       return image_tag('zealot-icon.png', **options)
     end
 
+    options[:data] ||= {}
+    options[:data][:release_id] ||= release.id
+    options[:data][:channel_id] ||= release.channel.slug
     image_tag(release.icon_url, **options)
   end
 
