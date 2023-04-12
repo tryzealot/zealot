@@ -171,8 +171,8 @@ en:
         services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: 'Found new version'
-        dev_new_version: Found new version (dev mode)
+        new_version: A new update is available
+        dev_new_version: A new update is available (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
     backups:
@@ -212,7 +212,7 @@ en:
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
         title: New backup
-        schedule: Scheduel
+        schedule: Schedule
         disable: Disable
         enable: Enable
       edit:
@@ -236,7 +236,7 @@ en:
       index:
         title: :admin.logs.title
         loading: Loading ...
-        error_message: 'Failed fetch logs, return status code: '
+        error_message: 'Log fetch failed, return status code: '
   dashboard:
     title: Dashboard
     analytics:
@@ -280,7 +280,7 @@ en:
           <ul>
             <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>Use the app store channal in Android app:</p>
+          <p>Use the app store channel in Android app:</p>
           <ul>
             <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
@@ -290,13 +290,13 @@ en:
       title: Edit app
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}.'
-        not_found_app: Not found app by id %{id}, redirect to list of app.
+        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app: Not found app by id %{id}, redirect to list of app
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
-        delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
-        delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
-        delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
+        delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
+        delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
+        delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
   schemes:
     title: Schemes
     show:
@@ -307,7 +307,7 @@ en:
       title: 'Edit scheme for %{app}'
   channels:
     title: Channels
-    subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
+    subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
     show:
       scheme: :schemes.title
       channel: :channels.title
@@ -370,7 +370,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'Build %{version} uploaded at %{time} ago, %{link}.'
+      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -397,7 +397,7 @@ en:
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
-      sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      sync_devices_feature: Synchronize device name with %{link} recommended
       debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
@@ -412,7 +412,7 @@ en:
       default_changelog: |
         Not found changelog, cause:
 
-        - The developer is lazy without leaving anyting 😂
+        - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       install_error:
         title: What is the solution?
@@ -461,6 +461,7 @@ en:
       uploaded_at: Upload date
       missing_file: Missing file
       download: Download
+      reprocess: Reprocess
       destroy: Destroy
       main_target: 'Main target: %{value}'
       uuid: UUID
@@ -469,10 +470,8 @@ en:
     device:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
-      processing: Processing in background, take a coffe break ...
-      refresh_page: |
-        If there is no change for a long time, please try to refresh this page.
-        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the "background tasks".
+      processing: Processing in background, take a coffee break ...
+      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
@@ -485,10 +484,10 @@ en:
       body_html: |
         <h4>What is debug file, how to location?</h4>
         <h5>iOS</h5>
-        <p>Locate with Xcode:</p>
+        <p>Locate with XCode:</p>
         <ul>
           <li>Open XCode app and choose menu "Window" -> "Organizer"</li>
-          <li>Select the project and found Archivers" in "Products"</li>
+          <li>Select the project and found Archives" in "Products"</li>
           <li>Select build -> "Show in Finder" to open .xcarchive folder</li>
           <li>Right click -> "Display package" -> dSYMs</li>
           <li>Zip the dSYM file</li>
@@ -527,7 +526,7 @@ en:
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      type: Type
+      type: Platform
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
@@ -535,7 +534,7 @@ en:
         title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
-      title: 'Teardown: %{name} %{release_version} (%{build_version})'
+      title: '%{name} Teardown result'
       expired_in: Expire in %{time}
       already_expired: Expired at %{time}
       expired: Expired now!
@@ -557,8 +556,8 @@ en:
       developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
-      cert_issuer: Issuer
-      cert_algorithem: Signature Algorithem
+      cert_created: Created date
+      cert_expired: Expired Date
       cert_version: Version
       cert_serial: Serial
       cert_issuer: Issuer
@@ -578,6 +577,17 @@ en:
       team_id: Team ID
       created_at: Created time
       expired_at: Expired time
+      archs: Architecture
+      product_name: Product name
+      product_version: Product version
+      assembly_version: Assembly version
+      file_version: File version
+      file_description: File description
+      copyright: Copyright
+      original_filename: Origial filename
+      company_name: Company name
+      binary_size: Binary size
+      imports: Imports
     help:
       title: Help center
       body_html: |
@@ -608,7 +618,7 @@ en:
           </tr>
           <tr>
             <td>Min iOS version</td>
-            <td>Android min SDK / targer SDK version</td>
+            <td>Android min SDK / target SDK version</td>
           </tr>
           <tr>
             <td>Entitlements</td>
@@ -665,10 +675,10 @@ en:
           <p>
             The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
           </p>
-          <strong>Fetch steps:</strong>
+          <strong>Following the steps:</strong>
           <ol>
             <li>Click "Accept" to download profile</li>
-            <li>Open "Setting.app" -> "Downloeded profile" -> "Fetch device's UDID" -> Install</li>
+            <li>Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install</li>
             <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
           </ol>
     show:
@@ -676,7 +686,7 @@ en:
       metadata: Metadata
       registered_but_no_related_app: Device was registered to Apple Developer, but not found any related app.
       registered_with_related_apps: Device was registered to Apple Developer, install app below.
-      register: Device is unregister, choose Apple Developer to register.
+      register: Device is unregistered, choose Apple Developer to register.
       unregistered: New device found, copy the UDID to Apple Developer!
       registered_apps: Registered apps
       udid: UDID
@@ -686,7 +696,7 @@ en:
       name: Device Name
       platform: Platform
       model: Model
-      created_at: Registerd at
+      created_at: Registered at
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       related_apple_keys: Related Apple Developers
@@ -695,7 +705,7 @@ en:
       releases: Uploads
       apple_keys: Apple Developers
       team_name: Team Name
-      team_id: Tead ID
+      team_id: Team ID
       register_device: Register
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
@@ -705,7 +715,7 @@ en:
         ↑↑↑↑ It is safe to display "Unsigned".
 
         Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
-        Powered by %{url}.
+        Powered by %{url}
   web_hooks:
     title: :admin.web_hooks.title
     create: :admin.web_hooks.new.title
@@ -753,7 +763,7 @@ en:
         create:
           debug: Debug
           adhoc: Adhoc
-          enterpse: Enterpse
+          enterpse: Enterprise
           release: Release
       version_exist:
         show:
@@ -804,7 +814,7 @@ en:
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
-      invalid_in_demo_mode: Forbidden in demo mode
+      invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
