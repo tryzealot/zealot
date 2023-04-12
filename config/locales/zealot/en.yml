@@ -7,8 +7,8 @@ en-US:
   log_out: Log out
   log_in: Log in
   intro:
-    title: Over The Air Server for deployment of mobile and macOS apps
-    description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
+    title: Self-hosted Beta App Distribution for Android, iOS and macOS apps
+    description: Continuous everything. Automate the lifecycle of your apps. Connect your CI to build in the cloud, test on thousands of real devices, distribute to beta testers and app stores. All in one place.
   links:
     back_to_list: Back to list
   admin:
@@ -90,7 +90,7 @@ en-US:
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
-        successful: 创建成功并成功同步开发者的相关信息\
+        successful: Created Apple Developer successfully
     apple_teams:
       edit:
         title: Edit team metadata
@@ -119,8 +119,8 @@ en-US:
       preset_role: Default user role
       preset_install_limited: In-App install limited
       preset_install_limited_hint: Specific mobile applications can not be installed (E. g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install
-      per_page: 每页返回条目数
-      max_per_page: 每页最大返回条目数
+      per_page: Per page
+      max_per_page: Max per page
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
@@ -131,7 +131,7 @@ en-US:
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      backup: 备份
+      backup: Backup
       #misc: 杂项
       stmp: Mail STMP
       mailer_default_from: Default email send from
@@ -148,8 +148,8 @@ en-US:
       title: System information
       index:
         title: ':admin.system_info.title'
-        zealot_version: 版本号
-        vcs_ref: Git 哈希值
+        zealot_version: Version
+        vcs_ref: Git Ref
         build_date: Build date
         server_info: Server info
         found_new_version: 'Found new version: %{version}'
@@ -207,9 +207,9 @@ en-US:
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
         title: New backup
-        schedule: 定时任务
-        disable: 禁用
-        enable: 启用
+        schedule: Scheduel
+        disable: Disable
+        enable: Enable
       edit:
         title: Edit %{key} backup
       perform:
@@ -217,7 +217,7 @@ en-US:
       destroy_archive:
         success: Backup was deleted successfully.
       parse_schedule:
-        invalid_expression: 表达式无法解析
+        invalid_expression: Invalid expression
     background_jobs:
       title: Background jobs
       index:
@@ -245,8 +245,8 @@ en-US:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
-      upload_auto_version_release: 上传了新版本 %{version}
+      upload_full_version_release: uploaded a version %{release_version} (%{build_version})
+      upload_auto_version_release: uploaded a version %{version}
       not_found: Not found any upload.
   apps:
     title: Apps
@@ -323,7 +323,7 @@ en-US:
       id: ID
       build_version: Build version
       git_branch: Branch
-      git_commit: 提交哈希值
+      git_commit: Commit SHA
       release_type: Release type
       uploaded_at: Uploaded time
       actions: Action
@@ -365,7 +365,7 @@ en-US:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: '版本 %{version} 于%{time}发布了，%{link}。'
+      released_new_version: 'Build %{version} uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -393,10 +393,10 @@ en-US:
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
-      debug_file: '%{type} 调试文件'
+      debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      major_versions: ':''channels.show.major_versions'''
+      major_versions: ':channels.show.major_versions'
       view_detail: Manage channel
     new:
       title: ':channels.show.upload_release'
@@ -447,33 +447,33 @@ en-US:
         title: Not found any debug file!
         body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
     show:
-      title: '%{app} %{device} %{version} 调试文件'
-      name: 应用名称
-      version: 编号
-      device_type: 平台
-      release_version: 版本信息
-      filesize: 文件大小
-      uploaded_at: Uploaded time
-      missing_file: Missing file could not be downloaded
+      title: '%{app} %{device} %{version} Debug file'
+      name: App name
+      version: Build number
+      device_type: Platform
+      release_version: Version
+      filesize: File size
+      uploaded_at: Upload date
+      missing_file: Missing file
       download: Download
       reprocess: Reprocess
       destroy: Destroy
       main_target: 'Main target: %{value}'
       uuid: UUID
-      libraries: Frameworks
-      filename: File
+      libraries: Libraries
+      filename: Filename
     device:
-      title: '%{app} %{device} debug file'
+      title: '%{app} %{device} Debug file'
       number: '#%{value}'
-      processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
-      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
-      main_target: 主项目
-      arch: 架构
-      libraries: 库
-      filesize: 文件大小
-      file_count: 文件数量
+      processing: Processing in background, take a coffe break ...
+      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      main_target: Main target
+      arch: Architecture(s)
+      libraries: Libraries
+      filesize: File size
+      file_count: File count
     reprocess:
-      success: 调试文件已提交重新解析处理中
+      success: Reprocess request successful
     help:
       title: Help center
       body_html: |
@@ -511,7 +511,7 @@ en-US:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: ':teardowns.new.title'
@@ -529,7 +529,7 @@ en-US:
         title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
-      title: '%{name} 解包信息'
+      title: 'Teardown: %{name} %{release_version} (%{build_version})'
       expired_in: Expire in %{time}
       already_expired: Expired at %{time}
       expired: Expired now!
@@ -555,17 +555,17 @@ en-US:
       cert_expired: Expired Date
       cert_version: Version
       cert_serial: Serial
-      cert_issuer: Publisher
-      cert_algorithem: Algorithm
+      cert_issuer: Issuer
+      cert_algorithem: Algorithem
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: 'Signature (%{count})'
-      signature: '签名版本 %{scheme}'
-      cert_fignger: '签名指纹 %{digest}'
-      signature_not_found: 签名不存在
-      signature_verified: '签名校验通过'
-      signature_unverified: '签名校验待开发'
+      signature_title: 'Signatures (%{count})'
+      signature: 'Scheme %{scheme}'
+      cert_fignger: 'Fingerprint %{digest}'
+      signature_not_found: Not found
+      signature_verified: 'Verified'
+      signature_unverified: 'WIP'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -651,8 +651,8 @@ en-US:
         not_found_file: 'Not found debug file: %{message}'
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: '上传应用解析发现未知异常: %{message} (%{class})'
-        choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
+        unknown_parse: 'Unknown parse error: %{message} (%{class})'
+        choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
   udid:
     title: Fetch UDID
     index:
@@ -707,10 +707,10 @@ en-US:
     install:
       title: Zealot fetch device UDID
       description: |
-        ↑↑↑↑ 这里显示"未签名"是正常情况，请放心安装。
+        ↑↑↑↑ It is safe to display "Unsigned".
 
-        安装描述文件后仅用来获取本机设备 UDID，获取信息后会自动删除掉本描述文件。
-        服务由 %{url} 提供。
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
+        Powered by %{url}.
   web_hooks:
     title: ':admin.web_hooks.title'
     create: ':admin.web_hooks.new.title'
@@ -834,10 +834,10 @@ en-US:
       unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
-      success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
+      success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
         not_found_file: Debug file is missing with unknown issue.
-        not_matched_bundl_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
+        not_matched_bundl_id: 'Not found bundle id with selected app: %{bundle_id}'
     backup:
       success: '%{key} backup created successfully.'
       failures:
@@ -845,7 +845,7 @@ en-US:
   activerecord:
     attributes:
       channel:
-        name: 渠道名称
+        name: Channel name
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
@@ -858,15 +858,15 @@ en-US:
         apple_key:
           attributes:
             devices:
-              invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
-              api: '苹果返回错误：%{message}'
-              unknown: '未知错误: %{message}'
+              invalid_value: Register device %{value} was invalid.
+              api: 'Apple return error: %{message}'
+              unknown: 'Unknown error: %{message}'
         debug_file:
           attributes:
             app_id:
               blank: Select the application to be associated
             file:
-              blank: 必须选择一个 zpi 文件
+              blank: Choose a zipped file with supported type
             checksum:
               taken: File exists, cannot be uploaded
         backup:
