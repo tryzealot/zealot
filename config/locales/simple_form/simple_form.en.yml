@@ -3,7 +3,7 @@ en:
     "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'required'
+      text: 'Required field'
       mark: '*'
     #You can uncomment the line below if you need to overwrite the whole required html.
     #When using html, text and mark won't be used.
@@ -84,9 +84,9 @@ en:
       app:
         schemes:
           name: :simple_form.hints.scheme.name
-          new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       scheme:
-        name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
+        name: 'Apply the type of feature to target audience. for example, adhoc, test, production etc.'
+        new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
@@ -96,16 +96,16 @@ en:
         password: 'Need password by fill it when user is not log in.'
       release:
         file: Support iOS, Android, macOS, Windows and Linux binary file.
-        changelog: A log or record of all notable changes made to a upload.
+        changelog: What new features this app contains, fix what issues, and so on.
         release_type: 'iOS: debug、adhoc, release; Android: debug, release.'
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
-        ci_url: the detail URL of Jenkins, Gitlab CI
+        ci_url: The CI URL specific like Jenkins, Gitlab CI etc
       web_hook:
         body: 'Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.'
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
+        file: 'Zip compressed file required. for example, dSYM in iOS, proguard in Android.'
       setting:
         value: 'Use JSON standard format to edit, otherwise it will fail to save.'
       backup:
