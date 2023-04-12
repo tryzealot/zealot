@@ -13,7 +13,9 @@ class DashboardsController < ApplicationController
   private
 
   def recently_upload
-    @releases = Release.page(params.fetch(:page, 1)).per(params.fetch(:per_page, 10)).order(id: :desc)
+    @releases = Release.page(params.fetch(:page, 1))
+      .per(params.fetch(:per_page, Setting.per_page))
+      .order(id: :desc)
   end
 
   def system_analytics

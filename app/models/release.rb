@@ -28,8 +28,8 @@ class Release < ApplicationRecord
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
 
-  paginates_per     20
-  max_paginates_per 50
+  paginates_per     50
+  max_paginates_per 100
 
   def self.version_by_channel(channel_slug, release_id)
     channel = Channel.friendly.find(channel_slug)
