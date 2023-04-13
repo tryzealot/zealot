@@ -134,8 +134,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 
   .app-actions {
-    .ios-install-issues {
-      padding-top: 10px;
+    .ios-issues {
       font-size: 0.8em;
       color: $ios-install-issue-color;
 
@@ -144,6 +143,12 @@ $ios-install-issue-color: rgb(245, 39, 90);
         text-decoration: underline;
         padding-left: 3px;
       }
+    }
+  }
+
+  .install-buttons {
+    .btn {
+      margin-bottom: 10px;
     }
   }
 }

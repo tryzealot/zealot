@@ -244,6 +244,14 @@ class Release < ApplicationRecord
     platform_type.casecmp?('deb')
   end
 
+  # @return [Boolean, nil] expired true or false in get expoired_at, nil is unknown.
+  def cert_expired?
+    return unless ios?
+    return unless expired_date = metadata&.mobileprovision['expired_at']
+
+    (Time.parse(expired_date) - Time.now) <= 0
+  end
+
   def debug_file
     DebugFile.find_by(app: app, release_version: release_version, build_version: build_version)
   end

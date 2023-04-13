@@ -8,18 +8,22 @@
   data-release-download-open-brower-value="#{t('releases.show.app_open_in_webbrower')}"
 ]
   == render 'releases/body/app_limited'
+  == render 'releases/body/install_issues'
 
   .install-buttons data-release-download-target="buttons"
     - if @release.file?
-      == render 'releases/body/install_cert'
-
       - if @release.platform == 'iOS'
-        button.btn.btn-icon.btn-lg.btn-success.d-none[
-          data-action="release-download#install"
-          data-release-download-target="installButton"
-        ]
-          i.fas.fa-mobile-alt
-          = t('releases.show.install')
+        - if @release.cert_expired?
+          button.btn.btn-icon.btn-lg.btn-secondary.disabled
+            i.fas.fa-certificate
+            = t('releases.show.cert_expired')
+        - else
+          button.btn.btn-icon.btn-lg.btn-success.d-none[
+            data-action="release-download#install"
+            data-release-download-target="installButton"
+          ]
+            i.fas.fa-mobile-alt
+            = t('releases.show.install')
 
       a.btn.btn-icon.btn-lg.btn-success[
         data-release-download-target="downloadButton"
@@ -44,9 +48,15 @@
     /     i.fas.fa-wrench
     /     | 构建
 
-    .ios-install-issues.d-none data-release-download-target="installIssue"
-      i.fas.fa-asterisk
-      a href="javascript:void(0);" data-action="release-download#showQA"
-        = t('releases.show.cannot_install_or_untrusted_enterprise_developer')
+    .ios-issues
+      / p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"
+      - if @release.file? && @release.cert_expired?
+        .ios-cert-expired
+          i.fas.fa-asterisk
+          a href="javascript:void(0);" data-action="release-download#showCertExpired"
+            = t('releases.show.cannot_install_cause_of_certificate_expired')
 
-  / p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"
+      .ios-install-issues.d-none data-release-download-target="installIssue"
+        i.fas.fa-asterisk
+        a href="javascript:void(0);" data-action="release-download#showQA"
+          = t('releases.show.cannot_install_or_untrusted_enterprise_developer')

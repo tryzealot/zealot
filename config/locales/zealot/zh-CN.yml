@@ -378,15 +378,18 @@ zh-CN:
       git_commit: Git 提交 SHA
       source: 上传来源
       metadata: 更多信息
+      certificate_expired_date: 证书过期时间 %{date}
       teardown_meatdata: 解包信息
       install: 安装
       download: 下载
       installing: 安装到桌面 ...
-      installed: 安装请求完毕，请查看桌面
+      installed: 安装请求完毕，重新安装
+      cert_expired: 证书过期无法安装
       destroy: 删除
-      missing_file: 遗失文件不可安装或下载
+      missing_file: 应用文件遗失
       more: 更多上传
-      cannot_install_or_untrusted_enterprise_developer: 桌面没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
+      cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
+      cannot_install_or_untrusted_enterprise_developer: 请查看桌面，若没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
@@ -419,7 +422,19 @@ zh-CN:
             </li>
             <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
           </ol>
-        ok: 明白了
+        ok: 明白
+      cert_expired_error:
+        title: iOS 签名证书的错误及解决办法
+        body_html: |
+          <ol class="mb-0">
+            <li>
+              在 iOS 系统中，苹果为了防止应用尽在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
+              签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。
+            </li>
+            <li>告知应用的开发人员，去苹果开发者网站重新生成签名证书并重新签名打包上传就能解决。</li>
+            <li>重新生成签名证书不会对之前的应用有任何效果，也就是一旦过期永远都是过期，除非重新签名。</li>
+          </ol>
+        ok: 明白
       confirm:
         destroy: :'web_hooks.messages.confirm.destroy'
       errors:
@@ -454,7 +469,7 @@ zh-CN:
       release_version: 版本信息
       filesize: 文件大小
       uploaded_at: 上传时间
-      missing_file: 遗失文件无法下载
+      missing_file: 调试文件遗失
       download: 下载
       reprocess: 重新解析
       destroy: 删除
@@ -530,9 +545,9 @@ zh-CN:
         body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
     show:
       title: '%{name} 解包信息'
-      expired_in: 还有%{time}左右过期
-      already_expired: 已经过期%{time}
-      expired: 此时此刻刚好过期了！
+      expired_in: '%{time}过期'
+      already_expired: 过期%{time}
+      expired: 刚好过期
       related_app: 关联提醒
       related_body: 当前解包关联的应用是
       unknow_app_name: 未知
@@ -783,9 +798,9 @@ zh-CN:
 
   datetime:
     distance_in_words:
-      about_x_hours: 大约 %{count} 小时
-      about_x_months: 大约 %{count} 个月
-      about_x_years: 大约 %{count} 年
+      about_x_hours: '约 %{count} 小时'
+      about_x_months: '约 %{count} 个月'
+      about_x_years: '约 %{count} 年'
       almost_x_years: 接近 %{count} 年
       half_a_minute: 半分钟前
       less_than_x_seconds: 不到 %{count} 秒
