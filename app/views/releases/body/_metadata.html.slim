@@ -57,6 +57,10 @@
         - else
           = link_to @release.source, @release.ci_url
       - if @release.metadata.present? && guest_mode_or_signed_in?
+        - if expired_date = @release.metadata.mobileprovision['expired_at']
+          li title="#{t('releases.show.certificate_expired_date', date: expired_date)}" data-toggle="tooltip"
+            i.fas.fa-certificate
+            = expired_date_tips(expired_date, colorful: false)
         li title="#{t('releases.show.metadata')}" data-toggle="tooltip"
           i.fas.fa-layer-group
           = link_to t('releases.show.teardown_meatdata'), teardown_path(@release.metadata)
