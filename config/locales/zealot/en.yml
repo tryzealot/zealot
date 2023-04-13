@@ -548,7 +548,7 @@ en-US:
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
-      expired_in: 'Expire in %{time}'
+      expired_in: '约%{time}后过期'
       already_expired: Expired %{time}
       expired: Expired now!
       related_app: Release related
