@@ -546,7 +546,7 @@ zh-CN:
         body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
     show:
       title: '%{name} 解包信息'
-      expired_in: '%{time}过期'
+      expired_in: '约%{time}后过期'
       already_expired: 过期%{time}
       expired: 刚好过期
       related_app: 关联提醒

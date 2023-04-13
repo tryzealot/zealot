@@ -247,7 +247,7 @@ class Release < ApplicationRecord
   # @return [Boolean, nil] expired true or false in get expoired_at, nil is unknown.
   def cert_expired?
     return unless ios?
-    return unless expired_date = metadata&.mobileprovision['expired_at']
+    return unless expired_date = metadata&.mobileprovision&.fetch('expired_at')
 
     (Time.parse(expired_date) - Time.now) <= 0
   end
