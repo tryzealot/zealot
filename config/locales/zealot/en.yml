@@ -401,6 +401,7 @@ en:
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
+      apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
       debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
