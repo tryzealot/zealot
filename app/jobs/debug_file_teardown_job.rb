@@ -41,17 +41,21 @@ class DebugFileTeardownJob < ApplicationJob
   def parse_dsym(debug_file, parser)
     bundle_ids = debug_file.app.bundle_ids
 
-    upload_bundle_ids = []
-    matched_object = nil
-    parser.objects.each do |object|
-      upload_bundle_ids << object.bundle_id
-      if bundle_ids.include?(object.bundle_id)
-        matched_object = object
-        break
+    if bundle_ids.present?
+      upload_bundle_ids = []
+      matched_object = nil
+      parser.objects.each do |object|
+        upload_bundle_ids << object.bundle_id
+        if bundle_ids.include?(object.bundle_id)
+          matched_object = object
+          break
+        end
       end
-    end
 
-    raise upload_bundle_ids.join(', ') if matched_object.blank?
+      raise upload_bundle_ids.join(', ') if matched_object.blank?
+    else
+      matched_object = parser.objects.first
+    end
 
     if (release_version = matched_object.release_version) &&
       (build_version = matched_object.build_version)
@@ -69,7 +73,7 @@ class DebugFileTeardownJob < ApplicationJob
         metadata.type = macho.cpu_name
         metadata.object = object.object
         metadata.data = {
-          main: object.identifier == matched_object.identifier,
+          main: object.identifier == matched_object&.identifier,
           identifier: object.identifier,
         }
         metadata.save

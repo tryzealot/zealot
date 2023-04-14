@@ -55,21 +55,21 @@ ruby:
           data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
         ]
           - if @debug_file.file?
-            a.btn.btn-icon.btn-lg.btn-success href="#{@debug_file.file_url}" target="_blank"
+            a.btn.btn-icon.btn-lg.btn-success.mb-1 href="#{@debug_file.file_url}" target="_blank"
               i.icon.fas.fa-download
               = t('.download')
           - else
-            button.btn.btn-secondary.btn-lg.btn-icon.disabled
+            button.btn.btn-secondary.btn-lg.btn-icon.disabled.mb-1
               i.icon.fas.fa-ghost
               = t('.missing_file')
 
           - if current_user&.manage?
             - if !@debug_file.processing? && @debug_file.file?
-              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-info', data: { turbo_method: :post } do
+              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-info mb-1', data: { turbo_method: :post } do
                 i.icon.fa.fa-repeat
                 = t('.reprocess')
 
-            button.btn.btn-icon.btn-lg.btn-danger[
+            button.btn.btn-icon.btn-lg.btn-danger.mb-1[
               data-action="click->destroy#click"
             ]
               i.icon.fas.fa-trash-alt
