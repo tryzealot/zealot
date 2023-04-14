@@ -15,7 +15,7 @@
     - if @debug_files.present?
       - @debug_files.each do |debug_file|
         .debug-file.row.rounded-lg.ml-1.mr-1.mb-3.bg-white.border
-          .col-md-3.debug-file-version.pt-3
+          .col-md-3.debug-file-version.pt-3.mb-2
             h6.debug-file-title.mb-1
               - if debug_file.processing?
                 = link_to t('.number', value: debug_file.id), debug_file_path(debug_file)
@@ -32,10 +32,10 @@
               table.table.table-borderless.mb-0
                 thead
                   tr.bg-light
-                    td.col-md-4 = t('.main_target')
-                    td.col-md-4 = t('.arch')
-                    td.col-md-2 = t('.libraries')
-                    td.col-md-2 = t('.filesize')
+                    td.col-4 = t('.main_target')
+                    td.col-3 = t('.arch')
+                    td.col-2 = t('.libraries')
+                    td.col-3.col-md-1 = t('.filesize')
                 tbody
                   tr
                     td = debug_file.main_object.object
@@ -48,8 +48,8 @@
               table.table.table-borderless.mb-0
                 thead
                   tr.bg-light
-                    td.col-md-4 = t('.filesize')
-                    td.col-md-2 = t('.filesize')
+                    td.col-4 = t('.filesize')
+                    td.col-2 = t('.filesize')
                 tbody
                   tr
                     td = debug_file.proguard_files&.size
