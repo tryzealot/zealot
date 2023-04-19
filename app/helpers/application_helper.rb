@@ -10,7 +10,8 @@ module ApplicationHelper
   end
 
   def new_or_create_route?
-    current_page?(action: 'new') ||  current_page?(action: 'create')
+    current_page?(action: 'new') || current_page?(action: 'create') ||
+    params[:action] == 'new' || params[:action] == 'create'
   end
 
   def user_signed_in_or_guest_mode?
