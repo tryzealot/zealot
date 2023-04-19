@@ -873,6 +873,9 @@ zh-CN:
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
+          attributes:
+            value:
+              invaild_json: '无效的 JSON 格式'
         apple_key:
           attributes:
             devices:
