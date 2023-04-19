@@ -365,7 +365,7 @@ en-US:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: '版本 %{version} 于%{time}发布，%{link}。'
+      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -548,7 +548,7 @@ en-US:
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
-      expired_in: '约%{time}后过期'
+      expired_in: 'Expire in %{time}'
       already_expired: Expired %{time}
       expired: Expired now!
       related_app: Release related
@@ -837,8 +837,9 @@ en-US:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
-      blank: 不能为空值
+      blank: Can't be blank
       inclusion: 不包含在可选值列表中
+      only_integer: Must be number
       not_authorized_policy: "Not authorized operate %{model} on %{query} action"
       not_match_url: "Not match page: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
@@ -849,7 +850,6 @@ en-US:
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: Go back
       homepage_title: homepage
-      unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
@@ -873,6 +873,9 @@ en-US:
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
+          attributes:
+            value:
+              invaild_json: 'Invaild JSON format'
         apple_key:
           attributes:
             devices:
