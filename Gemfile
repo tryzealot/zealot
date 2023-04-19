@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 6.2.1'
+gem 'puma', '~> 6.2.2'
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
@@ -64,7 +64,7 @@ gem 'plist', '~> 3.7.0'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.3.2'
+gem 'pghero', '~> 3.3.3'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -79,7 +79,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'activejob-status'
-gem 'sidekiq', '~> 7.0.8'
+gem 'sidekiq', '~> 7.0.9'
 gem 'sidekiq-scheduler', '~> 5.0.2'
 gem 'sidekiq-failures', '~> 1.0.4'
 

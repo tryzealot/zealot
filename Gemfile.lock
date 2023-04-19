@@ -258,7 +258,7 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
@@ -300,7 +300,7 @@ GEM
       rainbow
       zhexdump (>= 0.0.2)
     pg (1.4.6)
-    pghero (3.3.2)
+    pghero (3.3.3)
       activerecord (>= 6)
     plist (3.7.0)
     propshaft (0.7.0)
@@ -317,7 +317,7 @@ GEM
       interception (>= 0.5)
       pry (>= 0.12.0)
     public_suffix (5.0.1)
-    puma (6.2.1)
+    puma (6.2.2)
       nio4r (~> 2.0)
     pundit (2.3.0)
       activesupport (>= 3.0.0)
@@ -418,7 +418,7 @@ GEM
     sentry-sidekiq (5.8.0)
       sentry-ruby (~> 5.8.0)
       sidekiq (>= 3.0)
-    sidekiq (7.0.8)
+    sidekiq (7.0.9)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -526,12 +526,12 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (~> 1.0.1)
   openssl (~> 3.1.0)
   pg (>= 0.18, < 2.0)
-  pghero (~> 3.3.2)
+  pghero (~> 3.3.3)
   plist (~> 3.7.0)
   propshaft (= 0.7.0)
   pry-rails
   pry-rescue
-  puma (~> 6.2.1)
+  puma (~> 6.2.2)
   pundit (~> 2.3.0)
   rack-cors (~> 2.0.1)
   rails (~> 7.0.4)
@@ -545,7 +545,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 7.0.8)
+  sidekiq (~> 7.0.9)
   sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 5.0.2)
   simple_form (~> 5.2)
