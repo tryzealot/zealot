@@ -22,8 +22,8 @@ class Admin::SettingsController < ApplicationController
     authorize @setting
 
     @title = t('.title')
-    new_value = setting_param[:value]
-    new_value = JSON.parse(new_value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
+    @value = setting_param[:value]
+    new_value = JSON.parse(@value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
 
     if @setting.value != new_value
       @setting.value = new_value
@@ -35,6 +35,10 @@ class Admin::SettingsController < ApplicationController
       message = t('activerecord.errors.same_value', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, alert: message
     end
+  rescue JSON::ParserError
+    @setting.errors.add(:value, :invaild_json)
+    @value = @setting.value || @setting.default_value
+    return render :edit, status: :unprocessable_entity
   end
 
   def destroy
