@@ -859,6 +859,10 @@ en:
     errors:
       same_value: "%{key} not change, skip to update"
       models:
+        setting:
+          attributes:
+            value:
+              invaild_json: Invaild JSON format
         apple_key:
           attributes:
             devices:
