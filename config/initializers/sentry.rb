@@ -22,6 +22,8 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
         'ActiveRecord::PendingMigrationError',
         'PG::ConnectionBad',
         'Redis::CannotConnectError',
+        'RedisClient::CannotConnectError',
+        'AppInfo::UnkownFileTypeError',
         'Interrupt',
         'SystemExit',
       ]
