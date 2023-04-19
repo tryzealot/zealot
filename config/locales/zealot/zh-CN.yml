@@ -839,6 +839,7 @@ zh-CN:
     messages:
       blank: 不能为空值
       inclusion: 不包含在可选值列表中
+      only_integer: 必须是数字
       not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
@@ -849,7 +850,6 @@ zh-CN:
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
       goback_title: 上级页面
       homepage_title: 首页
-      unknown_file_type: 无法正常解析应用的类型，目前仅支持 iOS、Android 和使用 Zip 压缩的 macOS App
   active_job:
     debug_file:
       success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
