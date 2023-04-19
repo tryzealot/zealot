@@ -4,7 +4,8 @@ module ExceptionHandler
   extend ActiveSupport::Concern
 
   included do
-    rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :not_found
+    rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, ActionController::MissingFile,
+                with: :not_found
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
     rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
     rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
