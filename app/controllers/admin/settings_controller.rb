@@ -23,10 +23,10 @@ class Admin::SettingsController < ApplicationController
 
     @title = t('.title')
     @value = setting_param[:value]
-    new_value = JSON.parse(@value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
+    @value = JSON.parse(@value) if setting_param[:type] == 'hash' || setting_param[:type] == 'array'
 
-    if @setting.value != new_value
-      @setting.value = new_value
+    if @setting.value != @value
+      @setting.value = @value
       return render :edit, status: :unprocessable_entity unless @setting.save
 
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
