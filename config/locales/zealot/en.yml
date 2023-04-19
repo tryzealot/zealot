@@ -827,17 +827,18 @@ en:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      blank: Can't be blank
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
+      only_integer: Must be number
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
       homepage_title: homepage
-      unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.

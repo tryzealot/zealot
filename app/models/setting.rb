@@ -35,8 +35,10 @@ class Setting < RailsSettings::Base
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
     field :preset_install_limited, default: builtin_install_limited, type: :array, display: true
 
-    field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true
-    field :max_per_page, default: ENV.fetch('ZEALOT_MAX_PER_PAGE', '100').to_i, type: :integer, display: true
+    field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
+          validates: { presence: true, numericality: { only_integer: true } }
+    field :max_per_page, default: ENV.fetch('ZEALOT_MAX_PER_PAGE', '100').to_i, type: :integer, display: true,
+          validates: { presence: true, numericality: { only_integer: true } }
   end
 
   # 模式开关
