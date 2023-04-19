@@ -418,7 +418,7 @@ GEM
     sentry-sidekiq (5.8.0)
       sentry-ruby (~> 5.8.0)
       sidekiq (>= 3.0)
-    sidekiq (7.0.8)
+    sidekiq (7.0.9)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -545,7 +545,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 7.0.8)
+  sidekiq (~> 7.0.9)
   sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 5.0.2)
   simple_form (~> 5.2)
