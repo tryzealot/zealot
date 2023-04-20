@@ -107,8 +107,6 @@ zh-CN:
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
-      setting:
-        value: '按照 JSON 标准格式编辑，否则会保存失败'
       backup:
         key: 名称必须是唯一，不可和其他备份重复
         schedule: |
