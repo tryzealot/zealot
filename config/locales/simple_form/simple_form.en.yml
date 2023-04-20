@@ -36,6 +36,8 @@ en-US:
         password: 'Password'
       release:
         file: File
+        release_version: Release version
+        build_version: Build version
         changelog: Changelog
         release_type: Release type
         branch: Git branch
@@ -96,6 +98,8 @@ en-US:
         password: 'Need password by fill it when user is not log in.'
       release:
         file: Support iOS, Android, macOS, Windows and Linux binary file.
+        release_version: The main version number, recommended to use the <a href="https://semver.org/">X.Y.Z Semantic Versioning</a> name it.
+        build_version: Internal version number
         changelog: What new features this app contains, fix what issues, and so on.
         release_type: 'iOS: debug、adhoc, release; Android: debug, release.'
         branch: Git branch. In general either main or develop.
