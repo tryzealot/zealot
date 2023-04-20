@@ -833,6 +833,7 @@ en:
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       only_integer: Must be number
+      json_format: Must be JSON standard format
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
