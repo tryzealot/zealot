@@ -32,7 +32,7 @@ class Admin::SettingsController < ApplicationController
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, notice: message
     else
-      message = t('activerecord.errors.same_value', key: t("admin.settings.#{@setting.var}"))
+      message = t('activerecord.errors.messages.same_value', key: t("admin.settings.#{@setting.var}"))
       redirect_to admin_settings_path, alert: message
     end
   rescue JSON::ParserError

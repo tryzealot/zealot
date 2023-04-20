@@ -858,12 +858,10 @@ en:
       update: "Updated %{key} successfully"
       destroy: "Deleted %{key} successfully"
     errors:
-      same_value: "%{key} not change, skip to update"
+      messages:
+        same_value: "%{key} not change, skip to update"
+        invaild_json: Invaild JSON format
       models:
-        setting:
-          attributes:
-            value:
-              invaild_json: Invaild JSON format
         apple_key:
           attributes:
             devices:
