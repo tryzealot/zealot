@@ -106,8 +106,6 @@ en-US:
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
         file: 'Zip compressed file required'
-      setting:
-        value: 'Use JSON standard format to edit, otherwise it will fail to save.'
       backup:
         key: Unique backup key
         schedule: |
