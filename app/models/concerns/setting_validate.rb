@@ -43,6 +43,8 @@ module SettingValidate
       t('errors.messages.optional_value', value: inclusion_values.values.join(', '))
     when ActiveRecord::Validations::NumericalityValidator
       t('errors.messages.only_integer') if validate.options[:only_integer]
+    when JsonValidator
+      t('errors.messages.json_format')
     end
   end
 end

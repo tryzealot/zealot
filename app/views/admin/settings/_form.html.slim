@@ -21,7 +21,7 @@
           - if @setting.type == :boolean
             = f.input :value, label: t('admin.settings.enable'), as: :boolean, hint: false
           - elsif @setting.type == :hash || @setting.type == :array
-            = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }
+            = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }, hint: false
           - elsif @setting.inclusion?
             = f.input :value, as: :radio_buttons, collection: @setting.inclusion_values, checked: @value, hint: false
           - else
