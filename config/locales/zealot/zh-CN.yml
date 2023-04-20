@@ -864,18 +864,20 @@ zh-CN:
     attributes:
       channel:
         name: 渠道名称
+      web_hook:
+        url: 网络钩子 URL
+        body: 自定义消息体
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
       destroy: "%{key}删除成功"
     errors:
-      same_value: "%{key}没有发生变化，无法保存"
+      messages:
+        same_value: "%{key}没有发生变化，无法保存"
+        invaild_json: '无效的 JSON 格式'
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
-          attributes:
-            value:
-              invaild_json: '无效的 JSON 格式'
         apple_key:
           attributes:
             devices:
