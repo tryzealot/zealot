@@ -30,10 +30,12 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :preset_schemes, default: builtin_schemes, type: :array, display: true
+    field :preset_schemes, default: builtin_schemes, type: :array, display: true,
+          validates: { json: true }
     field :preset_role, default: 'user', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
-    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true
+    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true,
+          validates: { json: true }
 
     field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
           validates: { presence: true, numericality: { only_integer: true } }
@@ -59,7 +61,7 @@ class Setting < RailsSettings::Base
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
-    }
+    }, validates: { json: true }
 
     field :gitlab, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITLAB_ENABLED'] || false),
@@ -67,13 +69,13 @@ class Setting < RailsSettings::Base
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
       app_id: ENV['GITLAB_APP_ID'],
       secret: ENV['GITLAB_SECRET'],
-    }
+    }, validates: { json: true }
 
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
-    }
+    }, validates: { json: true }
 
     field :ldap, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['LDAP_ENABLED'] || false),
@@ -101,7 +103,7 @@ class Setting < RailsSettings::Base
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
       enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']),
-    }
+    }, validates: { json: true }
   end
 
   # 备份
@@ -109,7 +111,7 @@ class Setting < RailsSettings::Base
     path: 'public/backup',
     max_keeps: 10,
     pg_schema: 'public',
-  }
+  }, validates: { json: true }
 
   # 版本信息（只读）
   scope :information do
