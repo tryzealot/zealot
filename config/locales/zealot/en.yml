@@ -840,6 +840,7 @@ en-US:
       blank: Can't be blank
       inclusion: 不包含在可选值列表中
       only_integer: Must be number
+      json_format: Must be JSON standard format
       not_authorized_policy: "Not authorized operate %{model} on %{query} action"
       not_match_url: "Not match page: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
@@ -864,18 +865,20 @@ en-US:
     attributes:
       channel:
         name: Channel name
+      web_hook:
+        url: 网络钩子 URL
+        body: 自定义消息体
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
       destroy: "Deleted %{key} successfully"
     errors:
-      same_value: "%{key} not change, skip to update"
+      messages:
+        same_value: "%{key} not change, skip to update"
+        invaild_json: 'Invaild JSON format'
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
-          attributes:
-            value:
-              invaild_json: 'Invaild JSON format'
         apple_key:
           attributes:
             devices:
