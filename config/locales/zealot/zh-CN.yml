@@ -475,6 +475,7 @@ zh-CN:
       reprocess: 重新解析
       destroy: 删除
       main_target: '主项目: %{value}'
+      arch: 架构
       uuid: UUID
       libraries: 库
       filename: 文件

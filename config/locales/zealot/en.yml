@@ -482,6 +482,7 @@ en:
       reprocess: Reprocess
       destroy: Destroy
       main_target: 'Main target: %{value}'
+      arch: Architecture
       uuid: UUID
       libraries: Libraries
       filename: Filename

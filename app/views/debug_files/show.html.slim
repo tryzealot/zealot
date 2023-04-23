@@ -83,17 +83,18 @@ ruby:
         - if ios_debug_file?(@debug_file)
           .col-md-12
             .card
+              .card-header
+                h3.card-title = t('.main_target', value: "#{@debug_file.main_object.object} (#{@debug_file.main_objects.first.data['identifier']})")
               .card-body.p-0
                 table.table
                   thead
                     tr
-                      td = t('.main_target', value: @debug_file.main_object.object)
-                      td.col-md-5 = t('.uuid')
+                      td = t('.arch')
+                      td = t('.uuid')
                   tbody
                     - @debug_file.main_objects.each do |metadata|
                       tr
                         td
-                          = metadata.data['identifier'] || metadata.object
                           span.badge.badge-secondary.ml-1 = metadata.type
                         td = metadata.uuid
 
