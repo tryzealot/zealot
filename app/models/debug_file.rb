@@ -52,11 +52,12 @@ class DebugFile < ApplicationRecord
 
   # iOS only
   def main_objects
-    if multi_object?
-      metadata.where("data->>'main' = ?", 'true')
-    else
-      [metadata.first]
-    end
+    metadata.where("data->>'main' = ?", 'true')
+    # if multi_object?
+    #   metadata.where("data->>'main' = ?", 'true')
+    # else
+    #   [metadata.first]
+    # end
   end
 
   # iOS only
