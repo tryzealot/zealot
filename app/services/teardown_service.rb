@@ -26,7 +26,7 @@ class TeardownService
     if parser.format == AppInfo::Format::MOBILEPROVISION
       metadata.name = parser.app_name
       metadata.platform = :mobileprovision
-      metadata.device = parser.device
+      metadata.device = parser.platform
       metadata.release_type = parser.type
       metadata.size = File.size(file)
 
