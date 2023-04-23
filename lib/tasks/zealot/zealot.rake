@@ -3,6 +3,7 @@
 namespace :zealot do
   desc 'Zealot | Upgrade zealot or setting up database'
   task upgrade: :environment do
+    Rake::Task['zealot:version'].invoke
     Rake::Task['zealot:db:upgrade'].invoke
   end
 
@@ -53,6 +54,20 @@ namespace :zealot do
 
   desc 'Zealot | Print version'
   task version: :environment do
-    puts Setting.version
+    version = Setting.version
+    version = "#{version}-dev" if Rails.env.development?
+
+    message = ''
+    if build_date = Setting.build_date
+      message += "#{build_date} "
+    end
+
+    if vcs = Setting.vcs_ref
+      message += "revision #{vcs[0..7]}"
+    end
+    message = message ? " (#{message})" : nil
+    docker = (docker_tag = ENV['DOCKER_TAG']) ? " [docker:#{docker_tag}]" : nil
+
+    puts "Zealot #{version}#{message}#{docker}"
   end
 end
