@@ -40,6 +40,17 @@ LDAP_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
 end
 
+
+OIDC_SETUP = lambda do |env|
+  env['omniauth.strategy'].options[:host] = Setting.ldap[:host]
+  env['omniauth.strategy'].options[:port] = Setting.ldap[:port].to_i
+  env['omniauth.strategy'].options[:encryption] = Setting.ldap[:encryption].to_sym
+  env['omniauth.strategy'].options[:bind_dn] = Setting.ldap[:bind_dn]
+  env['omniauth.strategy'].options[:password] = Setting.ldap[:password]
+  env['omniauth.strategy'].options[:base] = Setting.ldap[:base]
+  env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
