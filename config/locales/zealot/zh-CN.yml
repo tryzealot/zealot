@@ -484,6 +484,7 @@ zh-CN:
       number: '#%{value}'
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
       refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
+      reparse_required: 包名需要重新解析才能正确展示
       main_target: 主项目
       arch: 架构
       libraries: 库

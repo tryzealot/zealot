@@ -491,6 +491,7 @@ en:
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      reparse_required: Display identifier or package name needs re-parse required
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
