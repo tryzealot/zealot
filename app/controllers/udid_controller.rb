@@ -63,52 +63,72 @@ class UdidController < ApplicationController
   end
 
   def render_profile
-    enable_tls = false # params[:tls].present?
-    @udid = Rails.cache.fetch('ios-udid', expires_in: 1.week) { SecureRandom.uuid.upcase }
-    content_type = params[:preview].present? ? 'application/xml' : 'application/x-apple-aspen-config'
-    return render(content_type: content_type, layout: false) unless enable_tls
+    enable_tls = params[:tls] == 'true'
+    preview = params[:preview] == 'true'
 
-    # plist = render_to_string(layout: false)
-    # server = File.read('public/certs/server.pem')
-    # server_key = File.read('public/certs/key.pem')
-    # server_pem = OpenSSL::X509::Certificate.new(server)
-    # server_key_pem = OpenSSL::PKey::RSA.new(server_key)
-    # sigend_plist = OpenSSL::PKCS7.sign(
-    #   certificate, key,
-    #   plist, [], OpenSSL::PKCS7::BINARY
-    # )
+    @udid = payload_uuid
+    content_type = preview ? 'application/xml' : 'application/x-apple-aspen-config'
+    profile_data = render_to_string(content_type: content_type, layout: false)
+    unless enable_tls
+      return render(plain: profile_data, content_type: content_type, layout: false)
+    end
 
-    # render plain: sigend_plist, content_type: content_type, layout: false
+    signing_flags = OpenSSL::PKCS7::BINARY
+    sigend = OpenSSL::PKCS7.sign(certificate, root_key, profile_data, [], signing_flags)
+    render plain: sigend.to_der, content_type: content_type, layout: false
   end
 
-  # CERT_SUBJECT = "/C=CN/O=zealot/OU=tryzealot/OU=github/CN=Zealot"
+  def certificate
+    @certificate ||= lambda do
+      cert = OpenSSL::X509::Certificate.new
+      cert.version = 2
+      cert.serial = Random.rand(2**16 - 2) + 1
+      cert.subject = subject
+      cert.issuer = issuer
+      cert.not_before = create_date
+      cert.not_after = expire_date
+      cert.public_key = root_key.public_key
 
-  # def certificate
-  #   @certificate ||= -> () do
-  #     cert = OpenSSL::X509::Certificate.new
-  #     cert.subject = cert.issuer = OpenSSL::X509::Name.parse(CERT_SUBJECT)
-  #     cert.not_before = Time.now
-  #     cert.not_after = Time.now + 365 * 24 * 60 * 60
-  #     cert.public_key = key.public_key
-  #     cert.serial = 0x0
-  #     cert.version = 2
+      cert_ext = OpenSSL::X509::ExtensionFactory.new
+      cert_ext.subject_certificate = cert
+      cert_ext.issuer_certificate = cert
+      cert.add_extension(cert_ext.create_extension("basicConstraints","CA:TRUE",true))
+      cert.add_extension(cert_ext.create_extension("keyUsage","keyCertSign, cRLSign", true))
+      cert.add_extension(cert_ext.create_extension("subjectKeyIdentifier","hash",false))
+      cert.add_extension(cert_ext.create_extension("authorityKeyIdentifier","keyid:always",false))
+      cert.sign(root_key, digest)
+      cert
+    end.call
+  end
 
-  #     ef = OpenSSL::X509::ExtensionFactory.new
-  #     ef.subject_certificate = cert
-  #     ef.issuer_certificate = cert
+  def subject
+    @subject ||= OpenSSL::X509::Name.parse("/C=CN/O=tryzealot/OU=zealot/CN=#{Setting.site_title} Self-signed Authority")
+  end
 
-  #     cert.extensions = [
-  #       ef.create_extension("basicConstraints","CA:TRUE", true),
-  #       ef.create_extension("subjectKeyIdentifier", "hash"),
-  #     ]
-  #     cert.add_extension ef.create_extension("authorityKeyIdentifier", "keyid:always,issuer:always")
-  #     cert.sign key, OpenSSL::Digest::SHA1.new
-  #   end.call
-  # end
+  def issuer
+    @issuer ||= OpenSSL::X509::Name.parse("/C=CN/O=tryzealot/OU=zealot/CN=#{Setting.site_title}")
+  end
 
-  # def key
-  #   @key ||= OpenSSL::PKey::RSA.new(2048)
-  # end
+  def root_key
+    @key ||= OpenSSL::PKey::RSA.generate(2048)
+  end
+
+  def digest
+    @digest ||= OpenSSL::Digest.new('SHA256')
+  end
+
+  def payload_uuid
+    @payload_uuid ||= Rails.cache.fetch('ios-udid', expires_in: 1.week) { SecureRandom.uuid.upcase }
+  end
+
+  def create_date
+    Time.now.utc
+  end
+
+  def expire_date
+    expire_time = 1 * 365 * 24 * 60 * 60  # 1 year
+    create_date + expire_time
+  end
 
   def set_device_metadata
     @title = t('udid.show.title')

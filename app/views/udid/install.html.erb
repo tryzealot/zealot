@@ -16,13 +16,13 @@
             </array>
         </dict>
         <key>PayloadOrganization</key>
-        <string>Zealot</string>
-        <key>PayloadIdentifier</key>
-        <string>im.ews.zealot.profile-service</string>
+        <string><%= t('udid.install.organization') %></string>
         <key>PayloadDisplayName</key>
         <string><%= t('udid.install.title') %></string>
         <key>PayloadDescription</key>
-        <string><%= t('udid.install.description', url: root_url) %></string>
+        <string><%= t('udid.install.description', name: Setting.site_title, url: root_url) %></string>
+        <key>PayloadIdentifier</key>
+        <string>im.ews.zealot.profile-service</string>
         <key>PayloadType</key>
         <string>Profile Service</string>
         <key>PayloadVersion</key>
