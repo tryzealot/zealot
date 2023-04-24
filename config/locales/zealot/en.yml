@@ -730,12 +730,13 @@ en:
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Zealot fetch device UDID
+      title: Fetch Device UDID Profile
+      organization: Apple UDID Authorization Service
       description: |
-        ↑↑↑↑ It is safe to display "Unsigned".
+        ↑↑↑↑ "Unsigned" or "Not Verfied" is normal display.
 
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
-        Powered by %{url}
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
+        Authorized request by %{name}: %{url}
   web_hooks:
     title: :admin.web_hooks.title
     create: :admin.web_hooks.new.title
