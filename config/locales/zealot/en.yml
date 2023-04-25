@@ -128,6 +128,7 @@ en:
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
       third_party_auth: Third-party Auth
       ldap: LDAP
+      oidc: OpenID Connect
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
@@ -907,9 +908,10 @@ en:
       hint: '- Or -'
       links:
         provider:
-          feishu: ' Feishu'
-          google: ' Google'
-          gitlab: ' Gitlab'
+          feishu: Feishu
+          google: Google
+          gitlab: Gitlab
+          openidconnect: OpenID
   helpers:
     submit:
       user:
