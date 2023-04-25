@@ -23,6 +23,7 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
         'PG::ConnectionBad',
         'Redis::CannotConnectError',
         'RedisClient::CannotConnectError',
+        'RedisClient::CommandError',
         'AppInfo::UnkownFileTypeError',
         'Interrupt',
         'SystemExit',

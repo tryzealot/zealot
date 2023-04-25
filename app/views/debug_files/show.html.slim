@@ -23,8 +23,10 @@ ruby:
           .app-identifier
             - if @debug_file.processing?
               = t('debug_files.device.processing')
-            - else
+            - elsif @debug_file.bundle_id.present?
               = @debug_file.bundle_id
+            - else
+              = t('debug_files.device.reparse_required')
       .card-body
         ul.app-metadata
           li title="#{t('.name')}" data-toggle="tooltip"
@@ -81,19 +83,22 @@ ruby:
     - unless @debug_file.processing?
       .row
         - if ios_debug_file?(@debug_file)
+          ruby:
+            bundle_id = @debug_file.main_object.data['identifier']
           .col-md-12
             .card
+              .card-header
+                h3.card-title = t('.main_target', value: @debug_file.main_object.object)
               .card-body.p-0
                 table.table
                   thead
                     tr
-                      td = t('.main_target', value: @debug_file.main_object.object)
-                      td.col-md-5 = t('.uuid')
+                      td = t('.arch')
+                      td = t('.uuid')
                   tbody
                     - @debug_file.main_objects.each do |metadata|
                       tr
                         td
-                          = metadata.data['identifier'] || metadata.object
                           span.badge.badge-secondary.ml-1 = metadata.type
                         td = metadata.uuid
 
