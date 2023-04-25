@@ -35,13 +35,12 @@ class DebugFile < ApplicationRecord
   end
 
   def bundle_id
-    bundle_id = case device_type.downcase.to_sym
-                when :ios
-                  main_object.data['identifier']
-                when :android
-                  proguard.object
-                end
-    bundle_id || app.recently_release.bundle_id
+    case device_type.downcase.to_sym
+    when :ios
+      main_object.data['identifier']
+    when :android
+      proguard.object
+    end
   end
   alias package_name bundle_id
 
@@ -52,11 +51,9 @@ class DebugFile < ApplicationRecord
 
   # iOS only
   def main_objects
-    if multi_object?
-      metadata.where("data->>'main' = ?", 'true')
-    else
-      [metadata.first]
-    end
+    return metadata unless multi_object?
+
+    metadata.where("data->>'main' = ?", 'true')
   end
 
   # iOS only
