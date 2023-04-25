@@ -43,6 +43,10 @@ module UserOmniauth
     defined?(OmniAuth::Strategies::LDAP) && Setting.ldap[:enabled]
   end
 
+  def enabled_openid_connect?
+    defined?(OmniAuth::Strategies::OpenIDConnect) && Setting.oidc[:enabled]
+  end
+
   def enabled_feishu?
     defined?(OmniAuth::Strategies::Feishu) && Setting.feishu[:enabled]
   end
