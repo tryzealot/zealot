@@ -128,6 +128,7 @@ zh-CN:
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
       third_party_auth: 第三方登录
       ldap: LDAP
+      oidc: OpenID Connect
       feishu: 飞书
       gitlab: Gitlab
       google_oauth: Google OAuth
@@ -929,8 +930,9 @@ zh-CN:
       links:
         provider:
           feishu: 飞书
-          google: ' Google '
-          gitlab: ' Gitlab '
+          google: 'Google '
+          gitlab: 'Gitlab '
+          openidconnect: 'OpenID '
   helpers:
     submit:
       user:
