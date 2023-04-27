@@ -40,15 +40,29 @@ LDAP_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
 end
 
+OIDC_OMNIAUTH_SETUP = lambda do |env|
+  issuer = URI.parse(Setting.oidc[:issuer_url])
+  scopes = Setting.oidc[:scope]&.split(',').map { |v| v.chomp.to_sym }
+  url_options = Setting.url_options
+  site_host = "#{url_options[:protocol]}://#{url_options[:host]}"
 
-OIDC_SETUP = lambda do |env|
-  env['omniauth.strategy'].options[:host] = Setting.ldap[:host]
-  env['omniauth.strategy'].options[:port] = Setting.ldap[:port].to_i
-  env['omniauth.strategy'].options[:encryption] = Setting.ldap[:encryption].to_sym
-  env['omniauth.strategy'].options[:bind_dn] = Setting.ldap[:bind_dn]
-  env['omniauth.strategy'].options[:password] = Setting.ldap[:password]
-  env['omniauth.strategy'].options[:base] = Setting.ldap[:base]
-  env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
+  env['omniauth.strategy'].options[:name] = Setting.oidc[:name]
+  env['omniauth.strategy'].options[:issuer] = Setting.oidc[:issuer_url]
+  env['omniauth.strategy'].options[:discovery] = Setting.oidc[:discovery]
+  env['omniauth.strategy'].options[:scope] = scopes
+  env['omniauth.strategy'].options[:response_type] = Setting.oidc[:response_type].to_sym
+  env['omniauth.strategy'].options[:uid_field] = Setting.oidc[:uid_field]
+  env['omniauth.strategy'].options[:client_options] = {
+    scheme: issuer.scheme,
+    port: issuer.port,
+    host: issuer.host,
+    identifier: Setting.oidc[:client_id],
+    secret: Setting.oidc[:client_secret],
+    authorization_endpoint: Setting.oidc[:auth_uri],
+    token_endpoint: Setting.oidc[:token_uri],
+    userinfo_endpoint: Setting.oidc[:userinfo_uri],
+    redirect_uri: "#{site_host}/users/auth/openid_connect/callback"
+  }
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -332,4 +346,5 @@ Devise.setup do |config|
   config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
   config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
   config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::LDAP
+  config.omniauth :openid_connect, setup: OIDC_OMNIAUTH_SETUP
 end

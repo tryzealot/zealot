@@ -78,6 +78,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    aes_key_wrap (1.1.0)
     android_parser (2.6.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
@@ -92,12 +93,14 @@ GEM
       rubyzip (>= 1.2, < 3.0)
       uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.2)
+    attr_required (1.0.1)
     awesome_print (1.9.2)
     bcrypt (3.1.18)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    bindata (2.4.15)
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
@@ -146,6 +149,8 @@ GEM
     faraday (2.7.4)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
+    faraday-follow_redirects (0.3.0)
+      faraday (>= 1, < 3)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
@@ -171,6 +176,7 @@ GEM
     hashie (5.0.0)
     health_check (3.1.0)
       railties (>= 5.0)
+    httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     icns (0.2.0)
@@ -195,6 +201,12 @@ GEM
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
     json (2.6.3)
+    json-jwt (1.16.3)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     jsonapi-renderer (0.2.2)
     jwt (2.6.0)
     kaminari (1.2.2)
@@ -288,6 +300,20 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    omniauth_openid_connect (0.6.1)
+      omniauth (>= 1.9, < 3)
+      openid_connect (~> 1.1)
+    openid_connect (1.4.2)
+      activemodel
+      attr_required (>= 1.0.0)
+      json-jwt (>= 1.15.0)
+      net-smtp
+      rack-oauth2 (~> 1.21)
+      swd (~> 1.3)
+      tzinfo
+      validate_email
+      validate_url
+      webfinger (~> 1.2)
     openssl (3.1.0)
     orm_adapter (0.5.0)
     parallel (1.22.1)
@@ -327,6 +353,12 @@ GEM
     rack (2.2.6.4)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
+    rack-oauth2 (1.21.3)
+      activesupport
+      attr_required
+      httpclient
+      json-jwt (>= 1.11.0)
+      rack (>= 2.1.0)
     rack-protection (3.0.5)
       rack
     rack-test (2.1.0)
@@ -450,6 +482,10 @@ GEM
     ssrf_filter (1.1.1)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    swd (1.3.0)
+      activesupport (>= 3)
+      attr_required (>= 0.0.5)
+      httpclient (>= 2.4)
     sys-filesystem (1.4.3)
       ffi (~> 1.1)
     temple (0.10.0)
@@ -470,6 +506,12 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
     uuidtools (2.2.0)
+    validate_email (0.1.6)
+      activemodel (>= 3.0)
+      mail (>= 2.2.5)
+    validate_url (1.0.15)
+      activemodel (>= 3.0.0)
+      public_suffix
     vmstat (2.3.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -478,6 +520,9 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webfinger (1.2.0)
+      activesupport
+      httpclient (>= 2.4)
     webp-ffi (0.3.1)
       ffi (>= 1.9.0)
       ffi-compiler (>= 0.1.2)
@@ -524,6 +569,7 @@ DEPENDENCIES
   omniauth-gitlab (~> 3.0.0)
   omniauth-google-oauth2 (~> 1.0.1)
   omniauth-rails_csrf_protection (~> 1.0.1)
+  omniauth_openid_connect (= 0.6.1)
   openssl (~> 3.1.0)
   pg (>= 0.18, < 2.0)
   pghero (~> 3.3.3)
