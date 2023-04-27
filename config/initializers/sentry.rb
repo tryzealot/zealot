@@ -29,6 +29,17 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
         'SystemExit',
       ]
 
+      config.traces_sampler = lambda do |sampling_context|
+        transaction_context = sampling_context[:transaction_context]
+        op = transaction_context[:op]
+        case op
+        when /sidekiq/
+          0.01
+        else
+          0.8
+        end
+      end
+
       if vcs_ref = Setting.vcs_ref.presence
         release = [Setting.version, vcs_ref]
         if docker_tag = ENV['DOCKER_TAG'].presence
