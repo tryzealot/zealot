@@ -128,6 +128,7 @@ en-US:
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
       third_party_auth: Third-party Auth
       ldap: LDAP
+      oidc: OpenID Connect
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
@@ -725,13 +726,13 @@ en-US:
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Fetch Device UDID Profile
+      title: Zealot fetch device UDID
       organization: Apple UDID Authorization Service
       description: |
-        ↑↑↑↑ "Unsigned" or "Not Verfied" is normal display.
+        ↑↑↑↑ It is safe to display "Unsigned".
 
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
-        Authorized request by %{name}: %{url}
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
+        Powered by %{url}
   web_hooks:
     title: ':admin.web_hooks.title'
     create: ':admin.web_hooks.new.title'
@@ -929,8 +930,9 @@ en-US:
       links:
         provider:
           feishu: Feishu
-          google: ' Google'
-          gitlab: ' GitLab '
+          google: 'Google'
+          gitlab: 'Gitlab'
+          openidconnect: 'OpenID'
   helpers:
     submit:
       user:
