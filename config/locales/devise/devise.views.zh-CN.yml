@@ -124,7 +124,7 @@ zh-CN:
         didn_t_receive_unlock_instructions: 没有收到解锁账号确认邮件?
         forgot_your_password: 忘记密码？
         sign_in: 登录账户
-        sign_in_with_provider: 通过%{provider}登录
+        sign_in_with_provider: '%{provider}登录'
         sign_up: 注册账户
       minimum_password_length: "（最少%{count}个字符）"
     unlocks:

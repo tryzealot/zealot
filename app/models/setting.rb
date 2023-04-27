@@ -91,18 +91,17 @@ class Setting < RailsSettings::Base
     field :oidc, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_ENABLED'] || false),
       name: ENV['OIDC_NAME'] || 'OIDC Provider',
+      client_id: ENV['OIDC_CLIENT_ID'],
+      client_secret: ENV['OIDC_CLIENT_SECRET'],
+      issuer_url: ENV['OIDC_ISSUER_URL'],
+      discovery: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_DISCOVERY'] || false),
+      auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
+      token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
+      userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
       scope: ENV.fetch('OIDC_SCOP', 'openid,email,profile,address'),
       response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
-      uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username'),
-      client_options: {
-        port: 443,
-        scheme: "https",
-        host: "myprovider.com",
-        identifier: ENV["OIDC__CLIENT_ID"],
-        secret: ENV["OIDC__SECRET_KEY"],
-        redirect_uri: "http://myapp.com/users/auth/openid_connect/callback",
-      },
-    } , validates: { json: true }
+      uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
+    }, validates: { json: true }
   end
 
   # 邮件配置
