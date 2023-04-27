@@ -1,7 +1,7 @@
 - if ldap_auth_enable?
   #login-tabs-ldap.tab-pane.fade aria-labelledby="login-tabs-ldap-tab" role="tabpanel"
     .row
-      .auth-form.col-md-7
+      .auth-form.col-md-6
         = form_tag(user_ldap_omniauth_callback_path) do
           .form-group
             = label_tag :username, t('devise.ldap.username')
@@ -21,6 +21,6 @@
             .col-12
               = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary btn-block", data: { qa_selector: 'sign_in_button' }
 
-      .auth-providers.col-md-5
+      .auth-providers.col-md-6
         == render 'devise/shared/links'
 
