@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-sidekiq_config = { url: ENV['REDIS_URL'] || 'redis://localhost:6379/0' }
+
+sidekiq_config = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'), network_timeout: 5 }
 
 Sidekiq.configure_server do |config|
   config.concurrency = (ENV['SIDEKIQ_CONCURRENCY'] || '5').to_i
