@@ -110,7 +110,7 @@ group :development do
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.7.2'
+  gem 'debug', '~> 1.8.0'
 
   # rails 更友好错误输出
   gem 'awesome_print'
