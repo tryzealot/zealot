@@ -43,7 +43,7 @@ gem 'webp-ffi', '~> 0.3.1'
 
 # Helper
 ## HTTP 请求
-gem 'faraday', '~> 2.7.4'
+gem 'faraday', '~> 2.7.6'
 
 ## 用户认证
 gem 'pundit', '~> 2.3.0'
