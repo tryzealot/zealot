@@ -197,7 +197,7 @@ GEM
     irb (1.7.0)
       reline (>= 0.3.0)
     jb (0.8.0)
-    jsbundling-rails (1.1.1)
+    jsbundling-rails (1.1.2)
       railties (>= 6.0.0)
     json (2.6.3)
     json-jwt (1.16.3)
