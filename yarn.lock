@@ -402,10 +402,10 @@ color-name@^1.0.0:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-compare-versions@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-5.0.3.tgz#a9b34fea217472650ef4a2651d905f42c28ebfd7"
-  integrity sha512-4UZlZP8Z99MGEY+Ovg/uJxJuvoXuN4M6B3hKaiackiHrgzQFEe3diJi1mf1PNHbFujM7FvLrK2bpgIaImbtZ1A==
+compare-versions@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-6.0.0.tgz#a3edb527e4487bfab9a8b62ffe70cebc9b87675b"
+  integrity sha512-s2MzYxfRsE9f/ow8hjn7ysa7pod1xhHdQMsgiJtKx6XSNf4x2N1KG4fjrkUmXcP/e9Y2ZX4zB6sHIso0Lm6evQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
