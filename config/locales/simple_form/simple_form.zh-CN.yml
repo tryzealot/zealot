@@ -80,6 +80,9 @@ zh-CN:
         enabled: 启用
         schedule_settings: 备份范围
         parsing: 解析中
+      device:
+        name: 设备名称
+        sync_to_apple_key: 同步更新到苹果开发者
 
     hints:
       defaults:

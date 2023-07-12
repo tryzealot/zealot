@@ -90,7 +90,7 @@ Rails.application.routes.draw do
   #############################################
   # UDID (iOS/iPadOS)
   #############################################
-  resources :udid, as: :udid, param: :udid, only: %i[ index show ] do
+  resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
     collection do
       get :qrcode
       get :install
