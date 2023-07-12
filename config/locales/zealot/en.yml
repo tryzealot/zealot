@@ -875,6 +875,8 @@ en-US:
       web_hook:
         url: 网络钩子 URL
         body: 自定义消息体
+      device:
+        name: Device name
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
@@ -964,6 +966,8 @@ en-US:
         update: Update
       backup:
         create: Create
+        update: Update
+      device:
         update: Update
   views:
     pagination:
