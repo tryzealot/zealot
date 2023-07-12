@@ -1,0 +1,16 @@
+
+.col-md-12
+  .card
+    = simple_form_for(@device, url: udid_path(udid: @device.udid, apple_key: @apple_key.id)) do |f|
+      .card-header
+        h3.card-title
+          = @title
+        .card-tools
+      .card-body
+        = f.error_notification
+        = f.input :name, required: true
+
+        = f.input :sync_to_apple_key, as: :boolean, input_html: { value: '1' }
+
+      .card-footer
+          = f.button :submit

@@ -720,8 +720,9 @@ zh-CN:
       team_name: 团队名称
       team_id: 团队 ID
       register_device: 注册本设备
-      related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
-      related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
+      related_apple_keys_not_found: 没有发现苹果开发者账户
+      related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传
+      related_apps_not_found: 当前设备可能还没有注册到苹果开发者或注册的应用没有上传到 Zealot
     install:
       title: 获取设备 UDID 描述文件
       organization: 苹果 UDID 授权服务
@@ -874,6 +875,8 @@ zh-CN:
       web_hook:
         url: 网络钩子 URL
         body: 自定义消息体
+      device:
+        name: 设备名称
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
@@ -964,6 +967,8 @@ zh-CN:
       backup:
         create: 创建备份
         update: 更新备份
+      device:
+        update: 更新名称
   views:
     pagination:
       truncate: ...
