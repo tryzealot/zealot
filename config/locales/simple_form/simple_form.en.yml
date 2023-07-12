@@ -80,6 +80,10 @@ en:
         enabled: Enabled
         schedule_settings: Schedule settings
         parsing: Parsing ...
+      device:
+        name: Device name
+        sync_to_apple_key: Synchronize to Apple developer
+
     hints:
       defaults:
         channel: 'For example, the platform of app.'
@@ -116,6 +120,7 @@ en:
           Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>.
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
+
     placeholders:
       release:
         changelog: The developer is lazy without leaving anything.

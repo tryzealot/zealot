@@ -874,6 +874,8 @@ zh-CN:
       web_hook:
         url: 网络钩子 URL
         body: 自定义消息体
+      device:
+        name: 设备名称
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
@@ -964,6 +966,8 @@ zh-CN:
       backup:
         create: 创建备份
         update: 更新备份
+      device:
+        update: 更新名称
   views:
     pagination:
       truncate: ...

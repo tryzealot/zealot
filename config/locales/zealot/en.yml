@@ -858,6 +858,8 @@ en:
     attributes:
       channel:
         name: Channel name
+      device:
+        name: Device name
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
@@ -945,6 +947,8 @@ en:
         update: Update
       backup:
         create: Create
+        update: Update
+      device:
         update: Update
   views:
     pagination:
