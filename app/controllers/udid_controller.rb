@@ -4,8 +4,9 @@ class UdidController < ApplicationController
   include Qrcode
 
   before_action :set_device_xml, only: :create
-  before_action :set_device_metadata, only: %i[show register]
+  before_action :set_device_metadata, only: %i[show edit update register]
   before_action :render_profile, only: :install
+  before_action :set_apple_key, only: %i[edit update]
 
   # GET /udid
   def index
@@ -24,6 +25,23 @@ class UdidController < ApplicationController
 
   # GET /udid/:udid
   def show
+  end
+
+  # GET /udid/:udid/edit
+  def edit
+  end
+
+  # PATCH /udid/:udid
+  def update
+    unless @device.update(device_params)
+      return render :edit, status: :unprocessable_entity
+    end
+
+    if device_params[:sync_to_apple_key].to_i == 1
+      @device.start_sync_device_job(@apple_key.id)
+    end
+
+    redirect_to admin_apple_key_path(@apple_key.id)
   end
 
   # POST /udid/:udid/register
@@ -151,5 +169,14 @@ class UdidController < ApplicationController
     else
       'unregister_device'
     end
+  end
+
+  def set_apple_key
+    @apple_key = AppleKey.find(params[:apple_key])
+    authorize @apple_key
+  end
+
+  def device_params
+    params.require(:device).permit(:name, :sync_to_apple_key)
   end
 end

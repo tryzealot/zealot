@@ -58,7 +58,7 @@ ruby:
               th = t('.udid_created_at')
             - @apple_key.devices.order(created_at: :desc).each do |device|
               tr
-                td = link_to device.udid, udid_path(udid: device.udid)
+                td = link_to device.udid, edit_udid_path(udid: device.udid, apple_key: @apple_key.id)
                 td = device.name
                 td = device.platform
                 td = device.model

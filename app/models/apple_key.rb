@@ -89,6 +89,12 @@ class AppleKey < ApplicationRecord
     self
   end
 
+  def update_device_name(device)
+    response_device = client.rename_device(device.udid, device.name)
+  rescue TinyAppstoreConnect::InvalidEntityError => e
+    logger.error "Device may not exists or the other error in apple key #{id}: #{e}"
+  end
+
   private
 
   def create_relate_team
