@@ -80,6 +80,9 @@ en-US:
         enabled: Enabled
         schedule_settings: Schedule settings
         parsing: Parsing ...
+      device:
+        name: Device name
+        sync_to_apple_key: Synchronize to Apple developer
     hints:
       defaults:
         channel: 'For example, the platform of app.'
