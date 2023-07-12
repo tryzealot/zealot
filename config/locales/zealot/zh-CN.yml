@@ -721,7 +721,7 @@ zh-CN:
       team_id: 团队 ID
       register_device: 注册本设备
       related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传。
-      related_apps_not_found: 当前设备可能并未未注册或是关联到测试的应用还未上传到本服务
+      related_apps_not_found: 当前设备可能还没有注册到苹果开发者或注册的应用没有上传到 Zealot
     install:
       title: 获取设备 UDID 描述文件
       organization: 苹果 UDID 授权服务
