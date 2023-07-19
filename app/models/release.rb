@@ -96,7 +96,9 @@ class Release < ApplicationRecord
            when AppInfo::Platform::IOS
             return if parser.icons.blank?
 
-            biggest_icon(parser.icons, file_key: :uncrushed_file)
+            # NOTE: uncrushed_file may be return nil (#1196)
+            biggest_icon(parser.icons, file_key: :uncrushed_file) ||
+              biggest_icon(parser.icons, file_key: :file)
            when AppInfo::Platform::MACOS
              return if parser.icons.blank?
 
