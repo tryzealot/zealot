@@ -418,7 +418,7 @@ GEM
       railties (>= 5.2)
     rexml (3.2.5)
     rouge (4.1.2)
-    rqrcode (2.1.2)
+    rqrcode (2.2.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 1.0)
     rqrcode_core (1.2.0)
