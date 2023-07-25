@@ -38,7 +38,7 @@ class Channel < ApplicationRecord
   #
   # 1. Find given release then find all new release after given release
   # 2. Or from newer versions to comapre and return
-  # *) Given version always convert tosemver value
+  # *) Given version always convert semver styled value
   def find_since_version(bundle_id, release_version, build_version)
     current_release = releases.select(:id).find_by(
       bundle_id: bundle_id,
@@ -46,13 +46,8 @@ class Channel < ApplicationRecord
       build_version: build_version
     )
 
-    if current_release
-      releases.where('id > ?', current_release.id)
-      .order(id: :desc)
-      .select { |release|
-        ge_version(release.release_version, release_version) &&
-        gt_version(release.build_version, build_version)
-      }
+    prepared_releases = if current_release
+      releases.where('id > ?', current_release.id).order(id: :desc)
     else
       newer_versions = release_versions.select { |version| ge_version(version, release_version) }
       releases.where(
@@ -61,6 +56,11 @@ class Channel < ApplicationRecord
         )
         .order(id: :desc)
     end
+
+    prepared_releases.select { |release|
+      ge_version(release.release_version, release_version) &&
+        gt_version(release.build_version, build_version)
+    }
   end
 
   def app_name
