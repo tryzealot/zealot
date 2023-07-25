@@ -10,6 +10,7 @@ services:
     command: /bin/sh -c "while sleep 1000; do :; done"
     network_mode: service:db
   pgweb:
+    # no editing function yet, https://github.com/sosedoff/pgweb/issues/656
     image: sosedoff/pgweb
     restart: unless-stopped
     network_mode: service:db
