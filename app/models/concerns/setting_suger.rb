@@ -46,7 +46,7 @@ module SettingSuger
   def value_of(key, source:)
     scope = Setting.defined_fields
                    .select { |s| s[:key] == key }
-                   .map { |s| s[source] || s[:options][source] }
+                   .map { |s| s.respond_to?(source) ? s[source] : s[:options][source] }
 
     scope.any? ? scope.first : false
   end
