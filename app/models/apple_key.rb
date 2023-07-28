@@ -99,7 +99,7 @@ class AppleKey < ApplicationRecord
 
   def create_relate_team
     cert = client.distribution_certificates.to_model
-    logger.debug "Fetching distribution_certificates is #{cert.attributes}"
+    logger.debug "Fetching distribution_certificates is #{cert.name}"
     raise 'Not found cert, create it first' if cert.blank?
 
     create_team(
