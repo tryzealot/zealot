@@ -207,8 +207,16 @@ Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
 
   #############################################
-  # URL Friendly
+  # Development Only
   #############################################
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/inbox'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  ############################################
+  # URL Friendly
+  ############################################
   scope path: ':channel', format: false, as: :friendly_channel do
     get '/overview', to: 'channels#show'
     get '', to: 'releases#index', as: 'releases'
@@ -218,14 +226,6 @@ Rails.application.routes.draw do
     get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
     get ':id', to: 'releases#show', as: 'release'
     # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
-  end
-
-  #############################################
-  # Development Only
-  #############################################
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/inbox'
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
   match '/', via: %i[post put patch delete], to: 'application#raise_not_found', format: false
