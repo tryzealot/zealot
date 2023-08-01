@@ -209,7 +209,7 @@ Rails.application.routes.draw do
   #############################################
   # URL Friendly
   #############################################
-  scope path: ':channel', as: :friendly_channel do
+  scope path: ':channel', format: false, as: :friendly_channel do
     get '/overview', to: 'channels#show'
     get '', to: 'releases#index', as: 'releases'
     get 'versions', to: 'channels/versions#index', as: 'versions'
