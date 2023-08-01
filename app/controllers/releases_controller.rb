@@ -113,6 +113,6 @@ class ReleasesController < ApplicationController
       end
     end
 
-    render :not_found, status: :not_found
+    render 'releases/not_found', status: :not_found
   end
 end
