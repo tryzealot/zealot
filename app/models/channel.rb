@@ -72,6 +72,7 @@ class Channel < ApplicationRecord
       .where.not(release_version: nil)
       .group(:release_version)
       .map(&:release_version)
+      .reject(&:blank?)
       .sort do |a,b|
         begin
           version_compare(b, a)
