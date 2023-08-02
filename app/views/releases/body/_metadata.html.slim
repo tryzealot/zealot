@@ -46,10 +46,11 @@
         li title="#{t('releases.show.git_commit')}" data-toggle="tooltip"
           i.fab.fa-git-alt
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-      - @release.custom_fields.each do |field|
-        li title="#{field['name']}" data-toggle="tooltip"
-          i class="#{field['icon'] || 'fas fa-hashtag'}"
-          = field['value']
+      - if @release.custom_fields.is_a?(Array)
+        - @release.custom_fields.each do |field|
+          li title="#{field['name']}" data-toggle="tooltip"
+            i class="#{field['icon'] || 'fas fa-hashtag'}"
+            = field['value']
       li title="#{t('releases.show.source')}" data-toggle="tooltip"
         i.fas.fa-compass
         - if @release.ci_url.blank?

@@ -4,6 +4,8 @@
       color, icon = case name
                     when 'notice', 'success'
                       ['success', 'check']
+                    when 'warn', 'warning'
+                      ['warning', 'bell']
                     else
                       ['danger', 'exclamation-triangle']
                     end
