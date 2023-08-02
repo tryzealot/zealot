@@ -46,9 +46,10 @@ class UdidController < ApplicationController
 
   # POST /udid/:udid/register
   def register
-    apple_key = AppleKey.find(params[:apple_key_id])
+    apple_key = AppleKey.find(device_params[:apple_keys])
+    name = device_params[:name]
+    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') if name.blank? # Max 50 chars
     udid = params[:udid]
-    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
 
     new_device = apple_key.register_device(udid, name)
     if new_device.errors
@@ -163,10 +164,13 @@ class UdidController < ApplicationController
 
   def device_status
     if @apple_keys
+      # :registered_device
       'related_apple_keys'
     elsif @all_apple_keys.size > 0
+      # :new_register_device
       'register_apple_key'
     else
+      # :new_device
       'unregister_device'
     end
   end
@@ -177,6 +181,6 @@ class UdidController < ApplicationController
   end
 
   def device_params
-    params.require(:device).permit(:name, :sync_to_apple_key)
+    params.require(:device).permit(:name, :apple_keys, :sync_to_apple_key)
   end
 end
