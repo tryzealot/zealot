@@ -348,3 +348,30 @@ Devise.setup do |config|
   config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::LDAP
   config.omniauth :openid_connect, setup: OIDC_OMNIAUTH_SETUP
 end
+
+module SafeStoreLocation
+  MAX_LOCATION_SIZE = ActionDispatch::Cookies::MAX_COOKIE_SIZE - 1024
+
+  # This overrides Devise's method for extracting the path from the URL. We
+  # want to ensure the path to be stored in the cookie is not too long in
+  # order to avoid ActionDispatch::Cookies::CookieOverflow exception. If the
+  # session cookie (containing all the session data) is over 4 KB in length,
+  # it would lead to an exception if the cookie store is being used. This is
+  # a hard constraint set by ActionDispatch because some browsers do not allow
+  # cookies over 4 KB.
+  #
+  # Original code in Devise: https://github.com/heartcombo/devise/blob/main/lib/devise/controllers/store_location.rb#L56
+  def extract_path_from_location(location)
+    path = super
+    return path unless Rails.application.config.session_store == ActionDispatch::Session::CookieStore
+
+    # Allow 3 KB size for the path because there can be also some other
+    # session variables out there.
+    return path if path.bytesize <= MAX_LOCATION_SIZE
+
+    # For too long paths, remove the URL parameters
+    path.split('?').first
+  end
+end
+
+Devise::FailureApp.include SafeStoreLocation
