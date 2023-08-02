@@ -403,6 +403,7 @@ zh-CN:
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
+      custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型。
     new:
       title: :'channels.show.upload_release'
     install:
