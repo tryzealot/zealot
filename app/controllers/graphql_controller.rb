@@ -54,8 +54,6 @@ class GraphqlController < ApplicationController
     return unless auth_value.downcase.start_with?('bearer')
 
     token = auth_value.split(' ').last
-
-  logger.debug "token token token #{token}"
     return if token.blank?
 
     User.find_by(token: token)
