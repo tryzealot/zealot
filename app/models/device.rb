@@ -11,6 +11,7 @@ class Device < ApplicationRecord
   def self.create_from_api(response)
     current_udid = response.udid
     record_data = {
+      device_id: response.id,
       name: response.name,
       model: response.device,
       platform: response.platform,
