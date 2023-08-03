@@ -9,8 +9,8 @@
   == render 'dashboards/widget', title: t('udid.show.releases'), count: @release_total, url: '', color_style: 'bg-pink', icon: 'fab fa-gg'
   == render 'dashboards/widget', title: t('udid.show.apple_keys'), count: @apple_key_total, url: '', color_style: 'bg-yellow', icon: 'fas fa-key'
 
-  == render 'form'
+  == render 'edit_form'
 
   == render 'udid_metadata', device: @device
-  == render 'apple_keys', device: @device, apple_keys: @apple_keys || @all_apple_keys, result: @result
+  == render 'apple_keys', device: @device, apple_keys: @apple_keys || @all_apple_keys, result: @device_status
   == render 'apps', device: @device, channels: @channels

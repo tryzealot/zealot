@@ -83,7 +83,7 @@ zh-CN:
       device:
         name: 设备名称
         apple_keys: 苹果开发者
-        sync_to_apple_key: 同步更新到苹果开发者
+        sync_to_apple_key: 同步至苹果开发者
 
     hints:
       defaults:
