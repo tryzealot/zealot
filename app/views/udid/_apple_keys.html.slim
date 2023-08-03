@@ -1,4 +1,4 @@
-- if (result != 'unregister_device' || apple_keys.present?)
+- if (result != 'new_device' || apple_keys.present?)
   .col-md-12
     - unless apple_keys.empty?
       .card.system_info
@@ -11,13 +11,13 @@
             tr
               th = t('udid.show.team_name')
               th = t('udid.show.team_id')
-              - if result == 'register_apple_key'
+              - if result == 'new_register_device'
                 th = t('udid.show.action')
             - apple_keys.each do |apple_key|
               tr
                 td = apple_key.team.full_name
                 td = apple_key.team.team_id
-                - if result == 'register_apple_key'
+                - if result == 'new_register_device'
                   ruby:
                     register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
                   td = button_to t('udid.show.register_device'), register_link, class: 'btn btn-sm btn-success'

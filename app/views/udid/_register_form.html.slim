@@ -1,10 +1,9 @@
-
 .col-md-12
   .card
     = simple_form_for(Device.new, url: register_udid_path(udid: udid, product: product)) do |f|
       .card-header
         h3.card-title
-          = t("udid.show.#{result}")
+          = t("udid.show.register_device")
         .card-tools
       .card-body
         = f.error_notification
