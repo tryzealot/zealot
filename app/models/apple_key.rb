@@ -39,7 +39,6 @@ class AppleKey < ApplicationRecord
     response_devices = client.devices.all_pages(flatten: true)
     logger.debug "Got #{response_devices.size} devices from apple key #{id}"
     response_devices.each do |response_device|
-      logger.debug "Device is: #{response_device.attributes}"
       Device.create_from_api(response_device) do |device|
         devices << device unless devices.exists?(device.id)
       end
@@ -52,7 +51,9 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil)
-    return device if (device = Device.find_by(udid: udid))
+    if (existed_device = Device.find_by(udid: udid))
+      return existed_device
+    end
 
     response_device = client.create_device(udid, name).to_model
     Device.create_from_api(response_device) do |device|
@@ -82,6 +83,7 @@ class AppleKey < ApplicationRecord
     self
   rescue => e
     logger.error "Register device raise an exception: #{e}"
+    logger.error e.backtrace.join("\n")
 
     message = e.respond_to?(:errors) ? errors[0]['detail'] : e.message
     errors.add(:devices, :unknown, message: message)
@@ -90,7 +92,7 @@ class AppleKey < ApplicationRecord
   end
 
   def update_device_name(device)
-    response_device = client.rename_device(device.udid, device.name)
+    response_device = client.rename_device(device.name, id: device.device_id, udid: device.udid)
   rescue TinyAppstoreConnect::InvalidEntityError => e
     logger.error "Device may not exists or the other error in apple key #{id}: #{e}"
   end
