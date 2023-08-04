@@ -82,7 +82,8 @@ zh-CN:
         parsing: 解析中
       device:
         name: 设备名称
-        sync_to_apple_key: 同步更新到苹果开发者
+        apple_keys: 苹果开发者
+        sync_to_apple_key: 同步至苹果开发者
 
     hints:
       defaults:
@@ -151,6 +152,8 @@ zh-CN:
         checksum: '纯校验使用，随文件生成无需填写'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: 留空自动生成
 
     # include_blanks:
     #   defaults:
