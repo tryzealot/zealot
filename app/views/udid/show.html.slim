@@ -6,26 +6,4 @@
 
 .row
   .col-md-12
-    - if @result == 'related_apple_keys'
-      .alert.alert-success
-        strong Woo-ha！
-        - if @release_total > 0
-          = t('udid.show.registered_with_related_apps')
-        - else
-          = t('udid.show.registered_but_no_related_app')
-    - elsif @result == 'register_apple_key'
-      .alert.alert-primary
-        strong Yah-ha！
-        = t('udid.show.register')
-    - else
-      .alert.alert-warning
-        strong Ta-Da！
-        = t('udid.show.unregistered')
-
-  == render 'dashboards/widget', title: t('.channels'), count: @channel_total, url: '', color_style: 'bg-navy', icon: 'fab fa-adn'
-  == render 'dashboards/widget', title: t('.releases'), count: @release_total, url: '', color_style: 'bg-pink', icon: 'fab fa-gg'
-  == render 'dashboards/widget', title: t('.apple_keys'), count: @apple_key_total, url: '', color_style: 'bg-yellow', icon: 'fas fa-key'
-
-  == render 'udid_metadata', device: @device
-  == render 'apple_keys', device: @device, apple_keys: @apple_keys || @all_apple_keys, result: @result
-  == render 'apps', device: @device, channels: @channels
+    == render @device_status.to_s, device_status: @device_status
