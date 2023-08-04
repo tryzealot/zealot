@@ -21,7 +21,7 @@ gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql', '~> 2.0.24'
 gem 'rack-cors', '~> 2.0.1'
 gem 'health_check', '~> 3.1.0'
-gem 'tiny_appstore_connect', '~> 0.1.8'
+gem 'tiny_appstore_connect', '~> 0.1.12'
 
 # View
 ## 模板引擎
