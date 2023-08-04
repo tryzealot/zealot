@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_10_093112) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_03_065502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_10_093112) do
     t.string "model"
     t.string "platform"
     t.string "status"
+    t.string "device_id"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 
