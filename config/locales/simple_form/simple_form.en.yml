@@ -82,7 +82,8 @@ en-US:
         parsing: Parsing ...
       device:
         name: Device name
-        sync_to_apple_key: Synchronize to Apple developer
+        apple_keys: 苹果开发者
+        sync_to_apple_key: 同步至苹果开发者
     hints:
       defaults:
         channel: 'For example, the platform of app.'
@@ -149,3 +150,5 @@ en-US:
         checksum: 'Ignore me, pure validate the file use'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: 留空自动生成
