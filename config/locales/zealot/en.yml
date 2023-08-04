@@ -713,11 +713,14 @@ en-US:
       name: Device Name
       platform: Platform
       model: Model
+      status: Status
+      enabled: Enabled
+      disabled: Disabled
       created_at: Registered at
       upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
       upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
-      related_apple_keys: Related Apple Developers
-      register_apple_key: Register to Apple Developer
+      registered_device: Related Apple Developers
+      new_register_device: Register to Apple Developer
       channels: Channels
       releases: Uploads
       apple_keys: Apple Developers
