@@ -404,9 +404,9 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (5.0.6)
+    redis (5.0.7)
       redis-client (>= 0.9.0)
-    redis-client (0.14.1)
+    redis-client (0.15.0)
       connection_pool
     regexp_parser (2.6.1)
     reline (0.3.5)
@@ -592,7 +592,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.5)
   rails-settings-cached (~> 2.9.2)
   rake (~> 13.0.4)
-  redis (~> 5.0.6)
+  redis (~> 5.0.7)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
