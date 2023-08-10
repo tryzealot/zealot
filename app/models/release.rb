@@ -5,6 +5,7 @@ class Release < ApplicationRecord
   include ActionView::Helpers::TranslationHelper
   include ReleaseUrl
   include ReleaseAuth
+  include ReleaseParser
 
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
@@ -17,6 +18,8 @@ class Release < ApplicationRecord
 
   validates :file, presence: true
   validate :bundle_id_matched, on: :create
+  validate :determine_file_exist
+  validate :determine_disk_space
 
   before_create :auto_release_version
   before_create :default_source
@@ -38,99 +41,10 @@ class Release < ApplicationRecord
 
   # 上传 app
   def self.upload_file(params, parser = nil, default_source = 'web')
-    file = params[:file]&.path
-    return add_not_found_file_error if file.blank?
-
-    create(params) do |release|
-      release.source ||= default_source
-      parse_app(release, file, default_source) if AppInfo.file_type(file) != AppInfo::Format::UNKNOWN
+    Release.new(params) do |release|
+      release.parse!(parser, default_source)
     end
   end
-
-  def self.parse_app(release, file, default_source)
-    rescuing_app_parse_errors do
-      parser ||= AppInfo.parse(file)
-
-      build_metadata(release, parser, default_source)
-
-      # iOS 且是 AdHoc 尝试解析 UDID 列表
-      if parser.platform == AppInfo::Platform::IOS &&
-          parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-          parser.devices.present?
-
-        parser.devices.each do |udid|
-          release.devices << Device.find_or_create_by(udid: udid)
-        end
-      end
-    ensure
-      parser&.clear!
-    end
-  end
-
-  def self.add_not_found_file_error
-    release = Release.new
-    release.errors.add(:file, :invalid)
-    release
-  end
-  private_methods :add_not_found_file_error
-
-  def self.build_metadata(release, parser, default_source)
-    release.source ||= default_source
-    release.name = parser.name
-    release.device_type = parser.device
-    if parser.respond_to?(:bundle_id)
-      # iOS, Android only
-      release.bundle_id = parser.bundle_id
-    end
-    release.release_version = parser.release_version
-    release.build_version = parser.build_version
-    release.release_type ||= parser.release_type if parser.respond_to?(:release_type)
-
-    icon_file = fetch_icon(parser)
-    release.icon = icon_file if icon_file
-  end
-  private_methods :build_metadata
-
-  def self.fetch_icon(parser)
-    file = case parser.platform
-           when AppInfo::Platform::IOS
-            return if parser.icons.blank?
-
-            # NOTE: uncrushed_file may be return nil (#1196)
-            biggest_icon(parser.icons, file_key: :uncrushed_file) ||
-              biggest_icon(parser.icons, file_key: :file)
-           when AppInfo::Platform::MACOS
-             return if parser.icons.blank?
-
-             biggest_icon(parser.icons[:sets])
-           when AppInfo::Platform::ANDROID
-            return if parser.icons.blank?
-
-            biggest_icon(parser.icons(exclude: :xml))
-           when AppInfo::Platform::WINDOWS
-             return if parser.icons.blank?
-
-             biggest_icon(parser.icons)
-           end
-
-    File.open(file, 'rb') if file
-  end
-  private_methods :fetch_icon
-
-  def self.biggest_icon(icons, file_key: :file)
-    return if icons.blank?
-
-    icons.max_by { |icon| icon[:dimensions][0] }
-         .try(:[], file_key)
-  end
-  private_methods :biggest_icon
-
-  def self.rescuing_app_parse_errors
-    yield
-  rescue => e
-    logger.error e.full_message
-  end
-  private_methods :rescuing_app_parse_errors
 
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
@@ -300,6 +214,21 @@ class Release < ApplicationRecord
 
   def detect_device
     self.device_type ||= Channel.device_types[channel.device_type]
+  end
+
+  def determine_file_exist
+    if self.file&.path.blank?
+      errors.add(:file, :invalid)
+    end
+  end
+
+  def determine_disk_space
+    upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
+
+    # Combo Orginal file and unarchived files
+    if upload_path.bytes_free < self.file.size * 3
+      errors.add(:file, :not_enough_space)
+    end
   end
 
   ORIGIN_PREFIX = 'origin/'
