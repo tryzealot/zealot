@@ -35,6 +35,8 @@ class Api::Apps::UploadController < Api::BaseController
   private
 
   def create_or_update_release
+    raise AppInfo::UnknownFormatError, t('releases.messages.errors.require_parsable') unless @app_parser
+
     ActiveRecord::Base.transaction do
       new_record? ? create_new_app_build : create_build_from_exist_app
     end
@@ -42,9 +44,6 @@ class Api::Apps::UploadController < Api::BaseController
 
   # 创建 App 并创建新版本
   def create_new_app_build
-    # TODO: i18n 需要本地化
-    raise AppInfo::UnknownFormatError, t('releases.messages.errors.app_should_be_parsed_requires') unless @app_parser
-
     create_release with_channel and_scheme and_app
   end
 
