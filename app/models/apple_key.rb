@@ -58,6 +58,9 @@ class AppleKey < ApplicationRecord
     response_device = client.create_device(udid, name).to_model
     Device.create_from_api(response_device) do |device|
       devices << device
+
+      # pass the return to block
+      device
     end
   rescue TinyAppstoreConnect::InvalidEntityError => e
     # Incorrect UDID format: An invalid value '00008020-001430D41A68002E1' was provided for the parameter 'udid'.
