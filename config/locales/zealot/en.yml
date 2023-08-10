@@ -460,6 +460,7 @@ en:
         not_found_really: Not found release
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
+        require_parsable: Upload file can not parsable, make sure use avaliables file format
   debug_files:
     title: Debug files
     index:
@@ -892,6 +893,10 @@ en:
           attributes:
             schedule:
               invalid: Invalid expression
+        release:
+          attributes:
+            file:
+              not_enough_space: Not enough disk space
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
