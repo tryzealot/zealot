@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 6.3.0'
-gem 'rails', '~> 7.0.6'
+gem 'rails', '~> 7.0.7'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rake', '~> 13.0.4'
 
