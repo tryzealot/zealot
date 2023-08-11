@@ -531,7 +531,7 @@ GEM
       activesupport
       faraday (~> 2.0)
       faraday-follow_redirects
-    webp-ffi (0.3.1)
+    webp-ffi (0.4.0)
       ffi (>= 1.9.0)
       ffi-compiler (>= 0.1.2)
     websocket-driver (0.7.6)
@@ -610,7 +610,7 @@ DEPENDENCIES
   turbo-rails (~> 1.4)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
-  webp-ffi (~> 0.3.1)
+  webp-ffi (~> 0.4.0)
 
 BUNDLED WITH
    2.4.1
