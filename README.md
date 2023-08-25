@@ -13,7 +13,7 @@
   <a href="https://ghcr.io/tryzealot/zealot">
     <img alt="docker image" src="https://img.shields.io/docker/pulls/tryzealot/zealot.svg">
   </a>
-  <a href="https://t.me/tryzealot_lobby">
+  <a href="https://t.me/+csa3Y2KOx44wMGRl">
     <img alt="chat on telegram" src="https://img.shields.io/badge/chat-on%20telegram-important.svg">
   </a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/zealot"><img src="https://badges.crowdin.net/zealot/localized.svg"></a>
