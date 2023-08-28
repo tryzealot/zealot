@@ -39,7 +39,7 @@ gem 'friendly_id', '~> 5.5.0'
 gem 'kaminari', '~> 1.2.2'
 ## 文件上传
 gem 'carrierwave', '~> 2.2.3'
-gem 'webp-ffi', '~> 0.3.1'
+gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
 ## HTTP 请求
