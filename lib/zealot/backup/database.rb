@@ -73,8 +73,6 @@ module Zealot::Backup
         exitstatus.success?
       end
 
-      raise Zealot::Backup::DumpDatabaseError, exit_message.join(', ')
-
       unless success
         raise Zealot::Backup::DumpDatabaseError, exit_message.join(', ')
       end
