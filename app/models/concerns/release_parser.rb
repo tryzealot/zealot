@@ -15,6 +15,10 @@ module ReleaseParser
     parser ||= AppInfo.parse(self.file.path)
     build_metadata(parser, default_source)
     relates_to_devices(parser)
+  rescue AppInfo::UnknownFormatError
+    # ignore
+  rescue => e
+    logger.error e.full_message
   ensure
     parser&.clear!
   end
