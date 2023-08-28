@@ -860,6 +860,8 @@ en:
       success: '%{key} backup created successfully.'
       failures:
         max_keeps_limited: '%{key} backup maximum limit value was zero'
+        dump_command: 'Executing dump backup commands failed: %{message}'
+        restore_command: 'Executing restore backup commands failed: %{message}'
   activerecord:
     attributes:
       channel:
