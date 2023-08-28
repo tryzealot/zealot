@@ -19,18 +19,29 @@ class DebugFileTeardownJob < ApplicationJob
       refresh_page: true,
       message: t('active_job.debug_file.success', id: debug_file.id)
     )
+
   rescue AppInfo::NotFoundError
+    sleep 3
     notificate_failure(
       user_id: user_id,
       type: 'teardown',
       message: t('active_job.debug_file.failures.not_found_file', id: debug_file.id)
     )
-  rescue RuntimeError => e
+  rescue AppInfo::UnknownFormatError
+    sleep 3
     debug_file.destroy
     notificate_failure(
       user_id: user_id,
       type: 'teardown',
-      message: t('active_job.debug_file.failures.not_matched_bundl_id', bundle_id: e.message)
+      message: t('active_job.debug_file.failures.unknown_format')
+    )
+  rescue RuntimeError => e
+    sleep 3
+    debug_file.destroy
+    notificate_failure(
+      user_id: user_id,
+      type: 'teardown',
+      message: t('active_job.debug_file.failures.not_matched_bundle_id', bundle_id: e.message)
     )
   ensure
     parser&.clear!
