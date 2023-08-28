@@ -873,6 +873,8 @@ zh-CN:
       success: '%{key} 备份创建完成'
       failures:
         max_keeps_limited: '%{key} 备份设置最大限制值为零'
+        dump_command: '执行备份命令执行失败: %{message}'
+        restore_command: '恢复备份命令执行失败: %{message}'
   activerecord:
     attributes:
       channel:
