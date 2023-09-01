@@ -1,5 +1,5 @@
 - content_for :section_title do
-  = @apple_key.team.name
+  = @apple_key.team&.name || t('.title')
 
 - content_for :title do
   = t('.title')
