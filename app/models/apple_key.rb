@@ -18,17 +18,8 @@ class AppleKey < ApplicationRecord
 
   PRIVATE_KEY_HYPHENS = '-----'
 
-  def encrypted_private_key
-    @encrypted_private_key ||= ->() do
-      content = private_key.split("\n")
-                           .delete_if do |s|
-                              s.include?('PRIVATE KEY') &&
-                              s.start_with?(PRIVATE_KEY_HYPHENS) &&
-                              s.end_with?(PRIVATE_KEY_HYPHENS)
-                           end
-                           .join('')
-      "#{content[0..8]}********#{content[-8..-1]}"
-    end.call
+  def private_key_filename
+    @private_key_filename ||= "#{key_id}.key"
   end
 
   def last_synced_at
