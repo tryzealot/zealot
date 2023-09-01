@@ -1,4 +1,4 @@
-en:
+en-US:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -82,16 +82,16 @@ en:
         parsing: Parsing ...
       device:
         name: Device name
-        sync_to_apple_key: Synchronize to Apple developer
-
+        apple_keys: 苹果开发者
+        sync_to_apple_key: 同步至苹果开发者
     hints:
       defaults:
         channel: 'For example, the platform of app.'
       app:
         schemes:
-          name: :simple_form.hints.scheme.name
+          name: ':simple_form.hints.scheme.name'
       scheme:
-        name: 'Apply the type of feature to target audience. for example, adhoc, test, production etc.'
+        name: 'Apply the type of feature to target audience'
         new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
@@ -110,17 +110,16 @@ en:
         git_commit: 40 bit length SHA value of git commit
         ci_url: The CI URL specific like Jenkins, Gitlab CI etc
       web_hook:
-        body: 'Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.'
+        body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        file: 'Zip compressed file required. for example, dSYM in iOS, proguard in Android.'
+        file: 'Zip compressed file required'
       backup:
         key: Unique backup key
         schedule: |
           Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>.
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
-
     placeholders:
       release:
         changelog: The developer is lazy without leaving anything.
@@ -151,3 +150,5 @@ en:
         checksum: 'Ignore me, pure validate the file use'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: 留空自动生成
