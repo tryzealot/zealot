@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       resources :apple_keys, except: %i[ edit update ] do
         member do
           put :sync_devices
+          get :private_key
         end
       end
 
