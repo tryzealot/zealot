@@ -1,4 +1,4 @@
-en:
+en-US:
   function_section: Function
   toolbox_section: Toolbox
   admin_section: Admin
@@ -17,8 +17,8 @@ en:
       new:
         title: New user
       index:
-        title: :admin.users.title
-        new_user: :admin.users.new.title
+        title: ':admin.users.title'
+        new_user: ':admin.users.new.title'
         number: '#'
         nickname: Nickname
         email: E-mail
@@ -30,7 +30,7 @@ en:
         inactive: Inactive
         never_logged_in: Never logged in
         destroy_user: Destroy
-        destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
+        destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
         title: User information
         active_link: Active link
@@ -38,7 +38,7 @@ en:
     web_hooks:
       title: Webhooks
       index:
-        title: :admin.web_hooks.title
+        title: ':''admin.web_hooks.title'''
         number: '#'
         url: URL
         channels: Channels
@@ -63,31 +63,31 @@ en:
       new:
         title: New Apple Developer
       index:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         number: '#'
         team_name: Team name
         team_id: Team ID
         created_at: Created at
         action: Action
-        new_apple_key: :admin.apple_keys.new.title
+        new_apple_key: ':admin.apple_keys.new.title'
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         team_metadata: Team metadata
         key_metadata: Key Metadata
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
-        download_private_key: Download private key
         never_sync: Never sync
-        udid: :udid.show.udid
-        udid_name: :udid.show.name
-        udid_platform: :udid.show.platform
-        udid_model: :udid.show.model
+        download_private_key: Download private key
+        udid: ':udid.show.udid'
+        udid_name: ':udid.show.name'
+        udid_platform: ':udid.show.platform'
+        udid_model: ':udid.show.model'
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
@@ -98,7 +98,7 @@ en:
     settings:
       title: Settings
       index:
-        title: :admin.settings.title
+        title: ':admin.settings.title'
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -119,7 +119,7 @@ en:
       preset_schemes: Default schemes
       preset_role: Default user role
       preset_install_limited: In-App install limited
-      preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
+      preset_install_limited_hint: Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install
       per_page: Per page
       max_per_page: Max per page
       switch_mode: Switch mode
@@ -134,7 +134,7 @@ en:
       gitlab: Gitlab
       google_oauth: Google OAuth
       backup: Backup
-      #misc: Misc
+      #misc: 杂项
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -149,7 +149,7 @@ en:
     system_info:
       title: System information
       index:
-        title: :admin.system_info.title
+        title: ':admin.system_info.title'
         zealot_version: Version
         vcs_ref: Git Ref
         build_date: Build date
@@ -158,9 +158,7 @@ en:
         os_info: OS info
         ruby_version: Ruby version
         cpu_info: CPU
-        cpu_core:
-          one: '%{count} Core'
-          other: '%{count} Cores'
+        cpu_core: '%{count} 核'
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -173,14 +171,14 @@ en:
         services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: A new update is available
-        dev_new_version: A new update is available (dev mode)
+        new_version: 'A new update is available '
+        dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
     backups:
       title: Backups
       index:
-        title: :admin.backups.title
+        title: ':admin.backups.title'
         new_backup: New backup
         key: Key
         scopes: Scopes
@@ -192,9 +190,7 @@ en:
         edit: Edit
         destroy: Destroy
         database: Database
-        app:
-          one: '%{count} App'
-          other: '%{count} Apps'
+        app: '%{count} 应用'
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
@@ -205,7 +201,6 @@ en:
         created_at: Created at
         size: Size
         download: Download
-        reprocess: Reprocess
         destroy: Destroy
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
@@ -228,27 +223,27 @@ en:
     background_jobs:
       title: Background jobs
       index:
-        title: :admin.background_jobs.title
+        title: ':admin.background_jobs.title'
     database_analytics:
       title: Database analytics
       index:
-        title: :admin.database_analytics.title
+        title: ':admin.database_analytics.title'
     logs:
       title: Service logs
       index:
-        title: :admin.logs.title
+        title: ':admin.logs.title'
         loading: Loading ...
-        error_message: 'Log fetch failed, return status code: '
+        error_message: 'Log fetch failed, return status code:'
   dashboard:
     title: Dashboard
     analytics:
-      apps: :apps.title
-      debug_files: :debug_files.title
-      teardowns: :teardowns.title
+      apps: ':apps.title'
+      debug_files: ':debug_files.title'
+      teardowns: ':teardowns.title'
       uploads: Uploads
-      web_hooks: :admin.web_hooks.title
-      users: :admin.users.title
-      background_jobs: :admin.background_jobs.title
+      web_hooks: ':admin.web_hooks.title'
+      users: ':admin.users.title'
+      background_jobs: ':admin.background_jobs.title'
       disk_usage: Disk usage
     timeline:
       title: Timeline
@@ -311,8 +306,8 @@ en:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
     show:
-      scheme: :schemes.title
-      channel: :channels.title
+      scheme: ':schemes.title'
+      channel: ':channels.title'
       activity: Activity
       upload_release: Upload a release
       metadata: Metadata
@@ -357,7 +352,7 @@ en:
         subtitle: 'Releases of version %{version}'
     messages:
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -384,22 +379,22 @@ en:
       git_branch: Git branch
       git_commit: Git commit SHA
       source: Source
-      metadata: Teardown report
+      metadata: Metadata
       certificate_expired_date: Certificate expired at %{date}
-      teardown_meatdata: More Metadata
+      teardown_meatdata: More metadata
       install: Install
       download: Download
       installing: Installing ...
       installed: Installed, reinstall
+      cert_expired: Expired certificate
       destroy: Destroy
       missing_file: Missing file
-      cert_expired: Expired certificate
       more: More releases
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certifiate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or failed to install?
       last_ten_uploads: Activity
-      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
-      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
@@ -407,11 +402,11 @@ en:
       debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      major_versions: :channels.show.major_versions
+      major_versions: ':channels.show.major_versions'
       view_detail: Manage channel
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
     new:
-      title: :channels.show.upload_release
+      title: ':channels.show.upload_release'
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -422,7 +417,7 @@ en:
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       install_error:
-        title: Install issues and the solution
+        title: What is the solution?
         body_html: |
           <ol class="mb-0">
             <li>
@@ -447,7 +442,7 @@ en:
           </ol>
         ok: Okay
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -460,7 +455,7 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean in system
         not_found_really: Not found release
         invalid_password: Invalid password
-        bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
+        bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
         require_parsable: Upload file can not parsable, make sure use avaliables file format
   debug_files:
     title: Debug files
@@ -497,7 +492,7 @@ en:
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
       reparse_required: Display identifier or package name needs re-parse required
       main_target: Main target
-      arch: Architecture(s)
+      arch: Architecture
       libraries: Libraries
       filesize: File size
       file_count: File count
@@ -543,14 +538,14 @@ en:
       file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
       submit: Start work
     create:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
     index:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
       upload_history: History
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      type: Platform
+      platform: 平台
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
@@ -559,7 +554,7 @@ en:
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
-      expired_in: Expire in %{time}
+      expired_in: 'Expire in %{time}'
       already_expired: Expired %{time}
       expired: Expired now!
       related_app: Release related
@@ -686,7 +681,7 @@ en:
     title: Fetch UDID
     index:
       apple_tip: Use iPhone or iPad to scan the QR Code to install
-      nonapple_tip: :udid.index.apple_tip
+      nonapple_tip: ':udid.index.apple_tip'
       fetch_udid: Get your UDID now
       help:
         title: Why need to install profile to fetch your UDID?
@@ -724,8 +719,8 @@ en:
       enabled: Enabled
       disabled: Disabled
       created_at: Registered at
-      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
-      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       registered_device: Related Apple Developers
       new_register_device: Register to Apple Developer
       channels: Channels
@@ -738,16 +733,16 @@ en:
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Fetch Device UDID Profile
+      title: Zealot fetch device UDID
       organization: Apple UDID Authorization Service
       description: |
-        ↑↑↑↑ "Unsigned" or "Not Verfied" is normal display.
+        ↑↑↑↑ It is safe to display "Unsigned".
 
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
-        Authorized request by %{name}: %{url}
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
+        Powered by %{url}
   web_hooks:
-    title: :admin.web_hooks.title
-    create: :admin.web_hooks.new.title
+    title: ':admin.web_hooks.title'
+    create: ':admin.web_hooks.new.title'
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -760,7 +755,7 @@ en:
       confirm:
         destroy: Destroy confirm?
   settings:
-    title: :admin.settings.title
+    title: ':admin.settings.title'
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
@@ -786,7 +781,7 @@ en:
   api:
     unauthorized_channel_key: Unauthorized channel key
     unauthorized_token: Unauthorized user token
-    unprocessable_entity: Unprocessable entity
+    unprocessable_entity: Processable entity
     apps:
       upload:
         create:
@@ -810,10 +805,25 @@ en:
     app_name2: Android Only App
     android_channels:
       channel1: google play
-      channel2: huawei
+      channel2: xiaomi
       channel3: oppo
       channel4: vivo
-      channel5: xiaomi
+      channel5: Tencent
+  datetime:
+    distance_in_words:
+      about_x_hours: '约 %{count} 小时'
+      about_x_months: '约 %{count} 个月'
+      about_x_years: '约 %{count} 年'
+      almost_x_years: 接近 %{count} 年
+      half_a_minute: 半分钟前
+      less_than_x_seconds: 不到 %{count} 秒
+      less_than_x_minutes: 不到 %{count} 分钟
+      over_x_years: " %{count} 年多"
+      x_seconds: " %{count} 秒"
+      x_minutes: " %{count} 分钟"
+      x_days: " %{count} 天"
+      x_months: " %{count} 个月"
+      x_years: " %{count} 年"
   errors:
     code:
       '400':
@@ -839,17 +849,20 @@ en:
         title: The page could not be served due to a temporary server failure.
     messages:
       blank: Can't be blank
-      not_authorized_policy: "No authorized operate %{model} on %{query} action"
-      not_match_url: "Not match url: %{url}"
-      unexpected_parameter: "Unexpected parameter: %{value}"
-      length_range: 'Length range: %{minimum} ~ %{maximum}'
+      inclusion: 不包含在可选值列表中
       only_integer: Must be number
       json_format: Must be JSON standard format
+      not_authorized_policy: "Not authorized operate %{model} on %{query} action"
+      not_match_url: "Not match page: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
+      length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
+      redis_connection_error: Redis 服务器连接或鉴权失败，请检查配置是否正确
+      database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
-      goback_title: goback
+      goback_title: Go back
       homepage_title: homepage
   active_job:
     debug_file:
@@ -857,6 +870,7 @@ en:
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
+        unknown_format: 上传的调试文件类型识别错误
     backup:
       success: '%{key} backup created successfully.'
       failures:
@@ -867,6 +881,9 @@ en:
     attributes:
       channel:
         name: Channel name
+      web_hook:
+        url: 网络钩子 URL
+        body: 自定义消息体
       device:
         name: Device name
     success:
@@ -876,8 +893,10 @@ en:
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
-        invaild_json: Invaild JSON format
+        invaild_json: 'Invaild JSON format'
       models:
+        setting:
+          default_message: "请检查 '%{key}' 的如下问题："
         apple_key:
           attributes:
             issuer_id:
@@ -933,9 +952,9 @@ en:
       links:
         provider:
           feishu: Feishu
-          google: Google
-          gitlab: Gitlab
-          openidconnect: OpenID
+          google: 'Google'
+          gitlab: 'Gitlab'
+          openidconnect: 'OpenID'
   helpers:
     submit:
       user:
