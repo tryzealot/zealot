@@ -1,5 +1,5 @@
 - content_for :section_title do
-  = t('.title')
+  = @apple_key.team.name
 
 - content_for :title do
   = t('.title')
@@ -18,9 +18,6 @@ ruby:
             th = t('simple_form.labels.apple_team.display_name')
             td = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team)
           tr
-            th = t('simple_form.labels.apple_team.name')
-            td = @apple_key.team.name
-          tr
             th = t('simple_form.labels.apple_team.team_id')
             td = @apple_key.team.team_id
   .col-md-6
@@ -34,10 +31,13 @@ ruby:
             td = @apple_key.issuer_id
           tr
             th = t('simple_form.labels.apple_key.key_id')
-            td = @apple_key.key_id
-          tr
-            th = t('simple_form.labels.apple_key.private_key')
-            td = @apple_key.encrypted_private_key
+            td
+              = @apple_key.key_id
+              - if current_user&.manage?
+                |  (
+                span title="#{@apple_key.private_key_filename}"
+                  = link_to t('.download_private_key'), private_key_admin_apple_key_path(@apple_key)
+                | )
 
   .col-md-12
     .card

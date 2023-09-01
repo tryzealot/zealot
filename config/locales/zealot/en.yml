@@ -82,6 +82,7 @@ en:
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
+        download_private_key: Download private key
         never_sync: Never sync
         udid: :udid.show.udid
         udid_name: :udid.show.name

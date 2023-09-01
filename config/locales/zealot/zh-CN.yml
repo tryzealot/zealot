@@ -83,6 +83,7 @@ zh-CN:
         sync_now: 现在同步
         last_synced_at: 上次同步时间为 %{time}
         never_sync: 尚未同步
+        download_private_key: 下载私钥证书
         udid: :'udid.show.udid'
         udid_name: :'udid.show.name'
         udid_platform: :'udid.show.platform'
