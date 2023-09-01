@@ -91,7 +91,7 @@ zh-CN:
         udid_related_apps: 关联应用
         udid_created_at: 创建时间
       create:
-        successful: 创建成功并成功同步开发者的相关信息\
+        successful: 创建成功并成功同步开发者的相关信息
     apple_teams:
       edit:
         title: 更新苹果开发者名称
@@ -899,6 +899,12 @@ zh-CN:
           default_message: "请检查 '%{key}' 的如下问题："
         apple_key:
           attributes:
+            issuer_id:
+              missing_distribution_certificate: 请先添加 Distribution 证书后再重新执行当前操作
+            key_id:
+              unauthorized: 用户身份认证失败，请重新检查各项参数是否正确
+              forbidden: 密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥
+              unknown: '未知错误: %{message}'
             devices:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
               api: '苹果返回错误：%{message}'

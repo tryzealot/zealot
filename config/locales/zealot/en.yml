@@ -880,6 +880,12 @@ en:
       models:
         apple_key:
           attributes:
+            issuer_id:
+              missing_distribution_certificate: Create distribution certificate then try again.
+            key_id:
+              unauthorized: Without authority, please check issuer id and private key.
+              forbidden: Without permission, Apple key needs developer or high permissions.
+              unknown: 'Unknown error: %{message}'
             devices:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
