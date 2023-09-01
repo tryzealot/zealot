@@ -4,19 +4,15 @@ class AppleKey < ApplicationRecord
   has_one :team, class_name: 'AppleTeam', foreign_key: 'apple_key_id', dependent: :destroy
   has_and_belongs_to_many :devices
 
-  # NOTE: to be or not to be?
-  # encrypts :private_key
-
   validates :issuer_id, :key_id, :private_key, :filename, :checksum, presence: true
   validates :checksum, uniqueness: true, on: :create
   validate :private_key_format, on: :create
   validate :appstoreconnect_api_role_permissions, on: :create
+  validate :distribution_certificate, on: :create
 
   before_validation :generate_checksum
   after_save :create_relate_team
   after_create :start_sync_device_job
-
-  PRIVATE_KEY_HYPHENS = '-----'
 
   def private_key_filename
     @private_key_filename ||= "#{key_id}.key"
@@ -94,10 +90,8 @@ class AppleKey < ApplicationRecord
   private
 
   def create_relate_team
-    cert = client.distribution_certificates.to_model
+    cert = apple_distribtion_certiticate
     logger.debug "Fetching distribution_certificates is #{cert.name}"
-    raise 'Not found cert, create it first' if cert.blank?
-
     create_team(
       team_id: cert.team_id,
       name: cert.name
@@ -118,18 +112,22 @@ class AppleKey < ApplicationRecord
   def appstoreconnect_api_role_permissions
     client.devices
   rescue TinyAppstoreConnect::InvalidUserCredentialsError
-    errors.add(:key_id, '用户身份认证失败，请重新检查各项参数是否正确')
+    errors.add(:key_id, :unauthorized)
   rescue TinyAppstoreConnect::ForbiddenError
-    errors.add(:key_id, '密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥')
+    errors.add(:key_id, :forbidden)
   rescue => e
     logger.error "Throws an error: #{e.message}, with trace: #{e.backtrace.join("\n")}"
-    errors.add(:key_id, "未知错误 [#{e.class}]: #{e.message}")
+    errors.add(:key_id, :unknown, message: "[#{e.class}]: #{e.message}")
   end
 
-  def generate_checksum
-    return if private_key.blank?
+  def distribution_certificate
+    if apple_distribtion_certiticate.blank?
+      errors.add(:issuer_id, :missing_distribution_certificate)
+    end
+  end
 
-    self.checksum = Digest::SHA1.hexdigest(private_key)
+  def apple_distribtion_certiticate
+    @apple_distribtion_certiticate ||= client.distribution_certificates.to_model
   end
 
   def client
@@ -138,5 +136,11 @@ class AppleKey < ApplicationRecord
       key_id: key_id,
       private_key: private_key
     )
+  end
+
+  def generate_checksum
+    return if private_key.blank?
+
+    self.checksum = Digest::SHA1.hexdigest(private_key)
   end
 end
