@@ -1,0 +1,34 @@
+.debug-file {
+  @extend .bg-white !optional;
+  @extend .border !optional;
+  @extend .rounded-lg !optional;
+  @extend .ml-1;
+  @extend .mr-1;
+  @extend .mb-3;
+
+  .debug-file-info {
+    @extend .border-left !optional;
+
+    .debug-file-header {
+      @extend .bg-light !optional;
+    }
+  }
+}
+
+.dark-mode {
+  .debug-file {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    border-color: #343a40 !important;
+
+    .debug-file-info {
+      border-color: #6c757d !important;
+      color: #ffffff !important;
+
+      .debug-file-header {
+        background-color: rgba(0, 0, 0, 0.1) !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
