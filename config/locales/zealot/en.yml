@@ -30,7 +30,7 @@ en:
         inactive: Inactive
         never_logged_in: Never logged in
         destroy_user: Destroy
-        destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
+        destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
         title: User information
         active_link: Active link
@@ -134,7 +134,7 @@ en:
       gitlab: Gitlab
       google_oauth: Google OAuth
       backup: Backup
-      #misc: Misc
+      misc: Misc
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -384,9 +384,9 @@ en:
       git_branch: Git branch
       git_commit: Git commit SHA
       source: Source
-      metadata: Teardown report
+      metadata: Metadata
       certificate_expired_date: Certificate expired at %{date}
-      teardown_meatdata: More Metadata
+      teardown_metadata: More metadata
       install: Install
       download: Download
       installing: Installing ...
@@ -460,7 +460,7 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean in system
         not_found_really: Not found release
         invalid_password: Invalid password
-        bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
+        bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
         require_parsable: Upload file can not parsable, make sure use avaliables file format
   debug_files:
     title: Debug files

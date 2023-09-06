@@ -82,6 +82,7 @@ en:
         parsing: Parsing ...
       device:
         name: Device name
+        apple_keys: Apple Keys
         sync_to_apple_key: Synchronize to Apple developer
 
     hints:
@@ -151,3 +152,5 @@ en:
         checksum: 'Ignore me, pure validate the file use'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: Leave it blank to generate automatically
