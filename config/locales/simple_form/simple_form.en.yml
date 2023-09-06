@@ -82,8 +82,8 @@ en-US:
         parsing: Parsing ...
       device:
         name: Device name
-        apple_keys: 苹果开发者
-        sync_to_apple_key: 同步至苹果开发者
+        apple_keys: Apple Keys
+        sync_to_apple_key: Synchronize to Apple developer
     hints:
       defaults:
         channel: 'For example, the platform of app.'
@@ -151,4 +151,4 @@ en-US:
       backup:
         schedule: every day at noon / 12 0 * * *
       device:
-        name: 留空自动生成
+        name: Leave it blank to generate automatically
