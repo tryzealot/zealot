@@ -2,9 +2,7 @@
 
 module AppsHelper
   def preset_schemes
-    schemes = Setting.preset_schemes
-    schemes = Setting.builtin_schemes if schemes.empty?
-    schemes
+    Setting.preset_schemes || Setting.builtin_schemes.values
   end
 
   def preset_channels

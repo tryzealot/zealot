@@ -3,7 +3,6 @@
 class Admin::SettingsController < ApplicationController
   before_action :set_setting, only: %i[ edit update destroy ]
   before_action :verify_editable_setting, only: %i[ edit destroy ]
-  after_action :patch_edited_value, only: %i[ edit ]
   after_action :clear_cache_value, only: %i[ update destroy ]
 
   def index
@@ -61,21 +60,9 @@ class Admin::SettingsController < ApplicationController
     params[:setting].permit!
   end
 
-  def patch_edited_value
-    # FIXME: RailsSettings::Base 初始化会缓存造成 i18n 第一时间拿不到
-    # 以至于 index, edit 好些地方都需要兼容
-    if @setting.var == 'preset_schemes' && @setting.value.blank?
-      @value = Setting.builtin_schemes
-    end
-
-    # 值的多语言支持显示
-    if @value.is_a?(String) && @value.present?
-      @value = t("settings.#{@value}", default: @value)
-    end
-  end
-
   def clear_cache_value
     Rails.cache.delete(@setting.var)
+    Rails.cache.delete('preset_schemes')
   end
 
   def verify_editable_setting
