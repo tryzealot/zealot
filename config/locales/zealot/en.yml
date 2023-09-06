@@ -381,7 +381,7 @@ en-US:
       source: Source
       metadata: Metadata
       certificate_expired_date: Certificate expired at %{date}
-      teardown_meatdata: More metadata
+      teardown_metadata: More metadata
       install: Install
       download: Download
       installing: Installing ...
