@@ -64,6 +64,6 @@
             = expired_date_tips(expired_date, colorful: false)
         li title="#{t('releases.show.metadata')}" data-toggle="tooltip"
           i.fas.fa-layer-group
-          = link_to t('releases.show.teardown_meatdata'), teardown_path(@release.metadata)
+          = link_to t('releases.show.teardown_metadata'), teardown_path(@release.metadata)
 
     == render 'releases/body/install_app'
