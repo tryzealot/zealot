@@ -223,6 +223,8 @@ class Release < ApplicationRecord
   end
 
   def determine_disk_space
+    return if self.file.blank?
+
     upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
 
     # Combo Orginal file and unarchived files
