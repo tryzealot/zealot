@@ -63,7 +63,7 @@ gem 'openssl', '~> 3.1.0'
 gem 'plist', '~> 3.7.0'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.3'
+gem 'sys-filesystem', '~> 1.4.4'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.3.4'
 
