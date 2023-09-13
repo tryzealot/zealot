@@ -95,6 +95,7 @@ GEM
     ast (2.4.2)
     attr_required (1.0.1)
     awesome_print (1.9.2)
+    base64 (0.1.1)
     bcrypt (3.1.18)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
@@ -146,7 +147,8 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
-    faraday (2.7.10)
+    faraday (2.7.11)
+      base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-follow_redirects (0.3.0)
@@ -557,7 +559,7 @@ DEPENDENCIES
   devise (~> 4.9.2)
   devise-i18n (~> 1.11.0)
   dotenv-rails
-  faraday (~> 2.7.9)
+  faraday (~> 2.7.11)
   friendly_id (~> 5.5.0)
   gitlab_omniauth-ldap (~> 2.2.0)
   graphiql-rails
