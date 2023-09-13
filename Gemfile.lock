@@ -492,7 +492,7 @@ GEM
       attr_required (>= 0.0.5)
       faraday (~> 2.0)
       faraday-follow_redirects
-    sys-filesystem (1.4.3)
+    sys-filesystem (1.4.4)
       ffi (~> 1.1)
     temple (0.10.0)
     terminal-table (3.0.2)
@@ -605,7 +605,7 @@ DEPENDENCIES
   simple_form (~> 5.2)
   slim-rails (~> 3.6.2)
   stimulus-rails (~> 1.2.2)
-  sys-filesystem (~> 1.4.3)
+  sys-filesystem (~> 1.4.4)
   tiny_appstore_connect (~> 0.1.12)
   turbo-rails (~> 1.4)
   vmstat (~> 2.3.0)
