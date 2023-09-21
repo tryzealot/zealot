@@ -51,7 +51,7 @@ class GraphqlController < ApplicationController
 
   def validated_user
     auth_value = request.authorization
-    return unless auth_value.downcase.start_with?('bearer')
+    return unless auth_value&.downcase&.start_with?('bearer')
 
     token = auth_value.split(' ').last
     return if token.blank?
