@@ -404,7 +404,7 @@ en:
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: '%{type} matched'
+      debug_file: '%{type} file'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
@@ -495,7 +495,7 @@ en:
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
-      reparse_required: Display identifier or package name needs re-parse required
+      reparse_required: Missing identifier (or package name), may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
