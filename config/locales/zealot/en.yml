@@ -563,7 +563,7 @@ en:
       already_expired: Expired %{time}
       expired: Expired now!
       related_app: Release related
-      related_body: This teardown was relates with
+      related_body: This teardown was relates with %{link}
       unknow_app_name: Unknown
       metadata: Metadata
       app_name: App name
