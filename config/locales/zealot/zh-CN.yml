@@ -556,7 +556,7 @@ zh-CN:
       already_expired: 过期%{time}
       expired: 刚好过期
       related_app: 关联提醒
-      related_body: 当前解包关联的应用是
+      related_body: 当前解包关联的应用是%{link}
       unknow_app_name: 未知
       metadata: 应用信息
       app_name: 名称
