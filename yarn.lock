@@ -140,10 +140,10 @@
   resolved "https://registry.yarnpkg.com/@lgaitan/pace-progress/-/pace-progress-1.0.7.tgz#c96fbbd9fd4cf528feed34ea0c8f9d8b3e98f0dd"
   integrity sha512-GMoTcF6WBpno7a7Iyx7M79os26d5bCDbh7YTZmXZM8YuLR3DDtwo0/CBYddStGD6QIBTieFDz4IAQiO0dAdRGw==
 
-"@rails/actioncable@^7.0", "@rails/actioncable@^7.0.8":
-  version "7.0.8"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.8.tgz#f44e7517f2d1570f1eabeea457dbeb17ed3a2d12"
-  integrity sha512-GjYQv89ZOOfbFw8VMNUOG33GXzyAA/TCVoD+742Ob4svm1XXUkd+w+ewqUXd+7VHQtV35y1/O78AGIPeJDTy/g==
+"@rails/actioncable@^7.0", "@rails/actioncable@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.1.0.tgz#9b1543b0abf5a0a7ef7088882ee3d6092b2745b3"
+  integrity sha512-MBGzAQHOk+sXblpCQsM0MPxQDzvTLFwaFu8jqYbfWDejpZPszo9xaAOF/3+iv7ab1o6PFiTpdbh+PR4osofIWw==
 
 "@swc/helpers@^0.3.13":
   version "0.3.17"
