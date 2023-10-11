@@ -31,7 +31,7 @@
         dd
           pre = number_to_human_size(@metadata.size)
 
-  == render 'devices_part'
+  == render 'devices_part', devices: @metadata.devices
   == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
 
 .col-md-6
