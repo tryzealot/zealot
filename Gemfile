@@ -30,7 +30,7 @@ gem 'slim-rails', '~> 3.6.2'
 gem 'kramdown', '~> 2.4'
 
 ## 表单生成
-gem 'simple_form', '~> 5.2'
+gem 'simple_form', '~> 5.3'
 
 # Model
 ## 生成友好 id
