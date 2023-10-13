@@ -232,14 +232,14 @@ class Release < ApplicationRecord
   end
 
   def determine_disk_space
-    return if self.file.blank?
-
     upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
 
     # Combo Orginal file and unarchived files
-    if upload_path.bytes_free < self.file.size * 3
+    if upload_path.bytes_free < (self&.file&.size || 0) * 3
       errors.add(:file, :not_enough_space)
     end
+  rescue
+    # do nothing
   end
 
   ORIGIN_PREFIX = 'origin/'
