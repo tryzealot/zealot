@@ -1,4 +1,5 @@
 web: bin/rails server -p 3000 -b 0.0.0.0
-job: bin/sidekiq -C config/sidekiq.yml
+worker: bin/good_job start
 js: yarn build --watch
 css: yarn build:css --watch
+legacy_job: bin/sidekiq -C config/sidekiq.yml
