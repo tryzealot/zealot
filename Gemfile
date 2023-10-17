@@ -80,6 +80,8 @@ gem 'improved_jenkins_client', '~> 1.6.7'
 gem 'rqrcode'
 
 # 异步队列
+gem "good_job", "~> 3.19"
+
 gem 'activejob-status'
 gem 'sidekiq', '~> 7.2.0'
 gem 'sidekiq-scheduler', '~> 5.0.3'
