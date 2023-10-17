@@ -4,7 +4,8 @@ require 'fileutils'
 require_relative '../../lib/zealot/backup/manager'
 
 class BackupJob < ApplicationJob
-  sidekiq_options retry: false
+  retry_on StandardError, attempts: 0
+
   queue_as :schedule
 
   class Error < StandardError; end
