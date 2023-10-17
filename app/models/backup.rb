@@ -12,7 +12,7 @@ class Backup < ApplicationRecord
   before_save :strip_enabled_apps
   before_destroy :remove_storage
 
-  after_save :update_sidekiq_scheduler
+  after_save :update_worker_scheduler
 
   def apps
     App.where(id: enabled_apps)
@@ -20,7 +20,7 @@ class Backup < ApplicationRecord
 
   def perform_job(user_id)
     job = BackupJob.perform_later(id, user_id)
-    Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
+    # Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
   end
 
   def find_file(filename)
@@ -42,7 +42,7 @@ class Backup < ApplicationRecord
 
     job_id, status = BackupFile.find_status(cache_key, key, name)
 
-    Rails.cache.redis.srem(cache_job_id_key, job_id) if job_id
+    # Rails.cache.redis.srem(cache_job_id_key, job_id) if job_id
     status.delete if status
   end
 
@@ -116,16 +116,15 @@ class Backup < ApplicationRecord
     data << "#{enabled_apps.size} apps" if enabled_apps
 
     {
-      'description' => "Backup zealot #{data.join(' | ')} data",
-      'cron' => Fugit.parse(schedule).to_cron_s,
-      'class' => 'BackupJob',
-      'queue' => :backup,
-      'args' => id
+      description: "Backup zealot #{data.join(' | ')} data",
+      cron: Fugit.parse(schedule).to_cron_s,
+      class:'BackupJob',
+      args: [ id ]
     }
   end
 
   def schedule_key
-    @scheduler_key ||= "zealot_backup_#{key}"
+    @scheduler_key ||= "zealot_backup_#{key}".to_sym
   end
 
   private
@@ -147,17 +146,34 @@ class Backup < ApplicationRecord
     FileUtils.rm_rf(path)
   end
 
-  def update_sidekiq_scheduler
-    Sidekiq.remove_schedule(schedule_key)
+  def update_worker_scheduler
+    # FIXME: This class exists, must rename new one, may be SchedulerExt?
+    # code: lib/good_lib/good_job_ext.rb
+    #
+    # scheduler = GoodJob::Scheduler.new
+    # has_cron = scheduler.key?(schedule_key)
+    # return if has_cron && enabled
 
-    if enabled
-      data = []
-      data << 'database' if enabled_database
-      data << "#{enabled_apps.size} apps" if enabled_apps
+    # if enabled
+    #   scheduler.add(schedule_key, schedule_job) unless has_cron
+    # else
+    #   scheduler.remove(schedule_key) if has_cron
+    # end
 
-      Sidekiq.set_schedule(schedule_key, schedule_job)
+    configuration = GoodJob.configuration
+    cron = configuration.cron
+    has_cron = cron.key?(schedule_key)
+    return if has_cron && enabled
+
+    if enabled && !has_cron
+      cron[schedule_key] = schedule_job
+    elsif !enabled && has_cron
+      cron.delete(schedule_key)
     end
 
-    SidekiqScheduler::Scheduler.instance.reload_schedule!
+    # NOTE: no needs
+    # capsule = GoodJob::Capsule.new(configuration: configuration)
+    # GoodJob.capsule = capsule
+    # capsule.restart
   end
 end
