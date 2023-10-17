@@ -3,14 +3,18 @@
 class ApplicationJob < ActiveJob::Base
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::TranslationHelper
-  include ActiveJob::Status
 
-  sidekiq_options backtrace: Rails.env.development? ? true : 20
+  retry_on StandardError, wait: :exponentially_longer, attempts: Float::INFINITY
+
+  # TODO: remove sidekiq legacy code.
+  # include ActiveJob::Status
+
+  # sidekiq_options backtrace: Rails.env.development? ? true : 20
 
   protected
 
   def logger
-    @logger ||= Sidekiq.logger
+    @logger ||= GoodJob.logger
   end
 
   def notificate_success(**options)
