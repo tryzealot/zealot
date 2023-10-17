@@ -49,8 +49,8 @@ module Zealot
       namespace: ENV['REDIS_NAMESPACE'] || 'cache'
     }
 
-    # Set Sidekiq as the back-end for Active Job.
-    config.active_job.queue_adapter = :sidekiq
+    # Set the back-end for Active Job.
+    config.active_job.queue_adapter = :good_job
 
     # Action Cable setting to de-couple it from the main Rails process.
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'
