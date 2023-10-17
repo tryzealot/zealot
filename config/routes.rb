@@ -156,6 +156,7 @@ Rails.application.routes.draw do
       require 'sidekiq/web'
       require 'sidekiq-scheduler/web'
 
+      mount GoodJob::Engine => 'good_job'
       mount Sidekiq::Web => 'sidekiq', as: :sidekiq
       mount PgHero::Engine, at: 'pghero', as: :pghero
     end
