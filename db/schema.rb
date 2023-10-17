@@ -230,6 +230,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_17_040724) do
     t.string "min_sdk_version"
     t.string "target_sdk_version"
     t.jsonb "url_schemes", default: [], null: false
+    t.jsonb "url_schemes", default: [], null: false
     t.jsonb "activities", default: [], null: false
     t.jsonb "services", default: [], null: false
     t.jsonb "permissions", default: [], null: false
