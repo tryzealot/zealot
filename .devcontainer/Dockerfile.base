@@ -13,25 +13,30 @@ RUN if [ "$USER_GID" != "$USER_UID" ] || [ "$USER_UID" != "1000" ]; then \
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
+    debian-keyring debian-archive-keyring apt-transport-https \
     build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev libyaml-dev  \
-    postgresql-client libpq-dev \
     imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
     tzdata \
     tmux \
     vim \
     git-flow
 
+# Install postgresql-client-16
+RUN curl -1sLf 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg && \
+    echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt-get update && \
+    apt-get install -y postgresql-client libpq-dev
+
 # Install caddy
-ENV ZEALOT_PATH=/workspace
-RUN apt-get install -y --no-install-recommends \
-      debian-keyring debian-archive-keyring apt-transport-https && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
     apt-get update && \
-    apt-get install caddy
+    apt-get install -y caddy
+
+ENV ZEALOT_PATH=/workspace
 
 # Install overmind
-ARG OVERMIND_VERSION="2.3.0"
+ARG OVERMIND_VERSION="2.4.0"
 RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_VERSION}/overmind-v${OVERMIND_VERSION}-linux-amd64.gz > overmind.gz \
   && gunzip overmind.gz \
   && sudo mv overmind /usr/local/bin \
@@ -40,8 +45,8 @@ RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_V
 USER vscode
 
 # Install asdf, ruby (with YJIT enabled) and nodejs
-ARG RUBY_VERSION="3.2.0"
-ARG NODEJS_VERSION="18.12.1"
+ARG RUBY_VERSION="3.2.2"
+ARG NODEJS_VERSION="18.18.2"
 LABEL zealot.containers.ruby="$RUBY_VERSION"
 LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
