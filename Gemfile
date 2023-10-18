@@ -91,7 +91,7 @@ gem 'jsbundling-rails', '~> 1.2'
 gem 'cssbundling-rails', '~> 1.3'
 ## Javascript
 gem 'stimulus-rails', '~> 1.3.0'
-gem 'turbo-rails', '~> 1.4'
+gem 'turbo-rails', '~> 1.5'
 
 # 用于解析 iOS, Android, macOS 和 Windows 应用
 gem 'app-info', '~> 3.0.0'
