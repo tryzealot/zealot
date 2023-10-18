@@ -12,6 +12,7 @@ class BackupJob < ApplicationJob
   class MaxKeepsLimitedError < Error; end
 
   def perform(backup_id, user_id = nil)
+    sleep 100000000000
     @user_id = user_id
     @backup = Backup.find(backup_id)
     @manager = Zealot::Backup::Manager.new(backup_path, logger)
@@ -112,15 +113,15 @@ class BackupJob < ApplicationJob
 
   def create_redis_cache
     # Make sure storage it by direct execute this job
-    unless redis.sismember(@backup.cache_job_id_key, job_id)
-      redis.sadd(@backup.cache_job_id_key, job_id)
-    end
+    # unless redis.sismember(@backup.cache_job_id_key, job_id)
+    #   redis.sadd(@backup.cache_job_id_key, job_id)
+    # end
   end
 
   def clean_redis_cache
-    if redis.sismember(@backup.cache_job_id_key, job_id)
-      redis.srem(@backup.cache_job_id_key, job_id)
-    end
+    # if redis.sismember(@backup.cache_job_id_key, job_id)
+    #   redis.srem(@backup.cache_job_id_key, job_id)
+    # end
   end
 
   def backup_path
@@ -133,6 +134,6 @@ class BackupJob < ApplicationJob
   end
 
   def redis
-    @redis ||= Rails.cache.redis
+    # @redis ||= Rails.cache.redis
   end
 end
