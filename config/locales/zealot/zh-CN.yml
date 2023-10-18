@@ -869,7 +869,6 @@ zh-CN:
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
       development_only: 仅开发环境显示
-      redis_connection_error: Redis 服务器连接或鉴权失败，请检查配置是否正确
       database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
       goback_title: 上级页面

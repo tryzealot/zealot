@@ -85,9 +85,7 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_services
     @services ||= {
-      redis: redis_version,
-      postgres: pg_version,
-      sidekiq: sidekiq_version,
+      postgres: pg_version
     }
   end
 
@@ -173,10 +171,6 @@ class Admin::SystemInfoController < ApplicationController
 
     version = ActiveRecord::Base.connection.select_value("SELECT version()")
     version.match(/^PostgreSQL\s((\d+[.]?)+)\s*/).try(:[], 1)
-  end
-
-  def redis_version
-    @redis_client ||= Rails.cache.stats['redis_version']
   end
 
   def sidekiq_version
