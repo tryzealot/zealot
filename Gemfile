@@ -11,6 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
+gem "solid_cache", "~> 0.1.0"
 gem 'redis', '~> 5.0.8'
 
 # Logger
@@ -83,9 +84,9 @@ gem 'rqrcode'
 gem "good_job", "~> 3.19"
 
 gem 'activejob-status'
-gem 'sidekiq', '~> 7.2.0'
-gem 'sidekiq-scheduler', '~> 5.0.3'
-gem 'sidekiq-failures', '~> 1.0.4'
+# gem 'sidekiq', '~> 7.1.6'
+# gem 'sidekiq-scheduler', '~> 5.0.3'
+# gem 'sidekiq-failures', '~> 1.0.4'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
