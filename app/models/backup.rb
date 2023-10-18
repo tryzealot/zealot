@@ -20,7 +20,7 @@ class Backup < ApplicationRecord
 
   def perform_job(user_id)
     job = BackupJob.perform_later(id, user_id)
-    # Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
+    Rails.cache.write(cache_job_id_key, job.job_id)
   end
 
   def find_file(filename)
@@ -42,12 +42,12 @@ class Backup < ApplicationRecord
 
     job_id, status = BackupFile.find_status(cache_key, key, name)
 
-    # Rails.cache.redis.srem(cache_job_id_key, job_id) if job_id
+    Rails.cache.delete(cache_job_id_key) if job_id
     status.delete if status
   end
 
   def cache_job_id_key
-    @cache_job_id_key ||= "cache:backup:#{id}"
+    @cache_job_id_key ||= "zealot:cache:backup:#{id}"
   end
 
   def path
@@ -67,8 +67,8 @@ class Backup < ApplicationRecord
     end
 
     def self.job_cached_status(cache_key)
-      job_ids = Rails.cache.redis.smembers(cache_key)
-      return {} if job_ids.empty?
+      job_ids = Rails.cache.read(cache_key)
+      return {} if job_ids.blank?
 
       job_ids.each_with_object([]) do |job_id, obj|
         obj << ActiveJob::Status.get(job_id)
