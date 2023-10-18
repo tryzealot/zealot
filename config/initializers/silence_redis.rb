@@ -1,1 +1,1 @@
-Redis.silence_deprecations = true
+# Redis.silence_deprecations = true

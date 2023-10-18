@@ -31,18 +31,16 @@ Rails.application.reloader.to_prepare do
     config.good_job.poll_interval = (ENV['ZEALOT_WORKER_POLL_INTERVAL'] || '30').to_i
     config.good_job.shutdown_timeout = (ENV['ZEALOT_WORKER_SHUTDOWN_TIMEOUT'] || '30').to_i
 
-    cron_jobs = {
-      sync_apple_devices: SCHEDULED_JOBS[:sync_apple_devices]
-    }
-    cron_jobs[:clean_old_releases] = SCHEDULED_JOBS[:clean_old_releases] unless Setting.keep_uploads
-    cron_jobs[:reset_for_demo_mode] = SCHEDULED_JOBS[:reset_for_demo_mode] if Setting.demo_mode
+    # cron_jobs = SCHEDULED_JOBS.dup
+    # cron_jobs.delete(:clean_old_releases) if Setting.keep_uploads
+    # cron_jobs.delete(:reset_for_demo_mode) unless Setting.demo_mode
 
-    Backup.enabled_jobs.each do |backup|
-      cron_jobs[backup.schedule_key] = backup.schedule_job
-    end
+    # Backup.enabled_jobs.each do |backup|
+    #   cron_jobs[backup.schedule_key] = backup.schedule_job
+    # end
 
-    config.good_job.enable_cron = true
-    config.good_job.cron = cron_jobs
+    # config.good_job.enable_cron = true
+    # config.good_job.cron = cron_jobs
 
     # logger_level = ::Logger.const_get(ENV.fetch('RAILS_LOG_LEVEL', 'info').upcase.to_s)
     # logger_level = ::Logger::DEBUG if Rails.env.development?
