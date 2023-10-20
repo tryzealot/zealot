@@ -9,8 +9,6 @@ class ApplicationJob < ActiveJob::Base
   # TODO: remove sidekiq legacy code.
   # include ActiveJob::Status
 
-  # sidekiq_options backtrace: Rails.env.development? ? true : 20
-
   protected
 
   def logger

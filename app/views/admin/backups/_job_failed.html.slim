@@ -1,13 +1,13 @@
 tr
   td
+    i.fas.fa-exclamation-circle.text-danger.mr-2
     = file.created_at
-    .text-danger
-      = "#{file.status.status}@#{file.status[:step]}"
-      - if file.failure&.jid
-        = ": #{file.failure['error_class']}@#{file.failure.jid}"
-  td -
+  td colspan=2
+    = file.job.display_error
+    br
+    = "Caused at step #{file.status[:step]} in status #{file.status.status}"
   td
     .btn-group
-      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm', title: t('admin.backups.show.destroy'), \
+      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
         data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: backup.key) } do
         i.fas.fa-trash-alt.text-danger
