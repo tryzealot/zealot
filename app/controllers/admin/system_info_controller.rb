@@ -176,10 +176,7 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def redis_version
-    @redis_client ||= Redis.new(url: Rails.application.config.cache_store.last[:url])
-    return false if @redis_client.ping != 'PONG'
-
-    @redis_client.info['redis_version']
+    @redis_client ||= Rails.cache.stats['redis_version']
   end
 
   def sidekiq_version
