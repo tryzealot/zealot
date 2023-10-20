@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # 默认开启 Sentry，如果不想使用设置 ZEALOT_SENTRY_DISABLE=1
-if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
+if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENTRY_DISABLE'] || false)
   Rails.configuration.to_prepare do
     Sentry.init do |config|
       config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.sentry.io/1878137'
@@ -21,9 +21,6 @@ if ENV['ZEALOT_SENTRY_DISABLE'].blank? || !Rails.env.development?
         'ActiveRecord::NoDatabaseError',
         'ActiveRecord::PendingMigrationError',
         'PG::ConnectionBad',
-        'Redis::CannotConnectError',
-        'RedisClient::CannotConnectError',
-        'RedisClient::CommandError',
         'AppInfo::UnkownFileTypeError',
         'Interrupt',
         'SystemExit',
