@@ -6,7 +6,6 @@ class DashboardsController < ApplicationController
   def index
     @title = t('dashboard.title')
 
-    debugger
     system_analytics
     recently_upload
   end
