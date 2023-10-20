@@ -26,7 +26,12 @@ namespace :zealot do
 
   namespace :db do
     task upgrade: :environment do
-      db_version = ActiveRecord::Migrator.current_version
+      db_version = begin
+                     ActiveRecord::Migrator.current_version
+                   rescue ActiveRecord::NoDatabaseError
+                     nil
+                   end
+
       if db_version.blank? || db_version.zero?
         Rake::Task['zealot:db:setup'].invoke
       else
@@ -37,8 +42,10 @@ namespace :zealot do
     # 初始化
     task setup: ['db:create',] do
       puts "Zealot initialize database ..."
-      Rake::Task['db:setup'].invoke # need db/schema.rb
-      Rake::Task['db:migrate:status'].invoke
+      Rake::Task['db:migrate'].invoke
+
+      puts "Zealot initialize admin user and sample data ..."
+      Rake::Task['db:seed'].invoke
     end
 
     # 升级

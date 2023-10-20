@@ -10,5 +10,8 @@
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 
-CreateSampleAppsService.new.call(user)
-puts 'CREATED EXAMPLE APPS DATA'
+skip_sample_data = ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SKIP_SAMPLE_DATE'] || false)
+unless skip_sample_data
+  CreateSampleAppsService.new.call(user)
+  puts 'CREATED EXAMPLE APPS DATA'
+end
