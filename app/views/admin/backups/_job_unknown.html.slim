@@ -1,9 +1,11 @@
 tr
-  td = file.created_at
-  td -
+  td
+    i.fas.fa-question-circle.text-secondary.mr-2
+    = file.created_at
+  td colspan=2
+    = t('admin.backups.show.unknown_job_status')
   td
     .btn-group
-      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm btn-danger', title: t('admin.backups.show.destroy'), \
+      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
         data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: backup.key) } do
-        i.fas.fa-trash-alt
-        = t('admin.backups.show.unknown_job_status')
+        i.fas.fa-trash-alt.text-danger
