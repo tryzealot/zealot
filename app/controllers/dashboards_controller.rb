@@ -6,6 +6,7 @@ class DashboardsController < ApplicationController
   def index
     @title = t('dashboard.title')
 
+    debugger
     system_analytics
     recently_upload
   end
@@ -42,8 +43,9 @@ class DashboardsController < ApplicationController
   end
 
   def sidekiq_stats
-    stat = Sidekiq::Stats.new
-    "#{stat.workers_size} / #{stat.processed}"
+    # stat = Sidekiq::Stats.new
+    # "#{stat.workers_size} / #{stat.processed}"
+    ""
   end
 
   def disk_usage
