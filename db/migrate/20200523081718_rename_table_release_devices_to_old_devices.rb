@@ -1,11 +1,11 @@
 class RenameTableReleaseDevicesToOldDevices < ActiveRecord::Migration[6.0]
   def up
     rename_column :releases, :devices, :legacy_devices
-    migrate_devices
+    # migrate_devices
   end
 
   def down
-    rollback_device
+    # rollback_device
     rename_column :releases, :legacy_devices, :devices
   end
 
