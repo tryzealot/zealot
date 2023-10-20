@@ -602,7 +602,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
-  activejob-status
+  activejob-status (~> 1.0.0)
   app-info (~> 3.0.0)
   awesome_print
   better_errors
@@ -650,7 +650,6 @@ DEPENDENCIES
   rails-i18n (~> 7.0.5)
   rails-settings-cached (~> 2.9.4)
   rake (~> 13.0.4)
-  redis (~> 5.0.8)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails

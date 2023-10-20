@@ -4,35 +4,34 @@ require 'fileutils'
 require_relative '../../lib/zealot/backup/manager'
 
 class BackupJob < ApplicationJob
-  retry_on StandardError, attempts: 0
-
   queue_as :schedule
+
+  retry_on StandardError, attempts: 0
 
   class Error < StandardError; end
   class MaxKeepsLimitedError < Error; end
 
   def perform(backup_id, user_id = nil)
-    sleep 100000000000
     @user_id = user_id
     @backup = Backup.find(backup_id)
     @manager = Zealot::Backup::Manager.new(backup_path, logger)
 
     update_status('start',
-      source: @backup.key,
-      file: @manager.tar_filename,
-      job_id: job_id,
-      jid: provider_job_id
+      total: 100,
+      backup_key: @backup.key,
+      file: @manager.tar_filename
     )
 
     prepare
     dump_database
+    sleep 10000000
     dump_apps
     pack
     remove_old
     cleanup
     notification
   ensure
-    update_status('ensure')
+    update_status('ensure', progress: 100)
     @manager&.cleanup
   end
 
@@ -58,8 +57,8 @@ class BackupJob < ApplicationJob
   private
 
   def prepare
-    update_status(__method__)
-    create_redis_cache
+    update_status(__method__, progress: 10)
+    append_to_cache_pool
     backup_max_keeps_check
 
     @manager.precheck(false)
@@ -67,34 +66,33 @@ class BackupJob < ApplicationJob
   end
 
   def dump_database
-    update_status(__method__)
+    update_status(__method__, progress: 20)
     return unless @backup.enabled_database
 
     @manager.dump_database
   end
 
   def dump_apps
-    update_status(__method__)
+    update_status(__method__, progress: 50)
     return if @backup.enabled_apps.empty?
 
     @manager.dump_uploads(app_ids: @backup.enabled_apps)
   end
 
   def pack
-    update_status(__method__)
+    update_status(__method__, progress: 70)
 
     @manager.write_info
     @manager.pack
   end
 
   def remove_old
-    @manager.remove_old(@backup.max_keeps)
+    @manager.remove_old(@backup.max_keeps, progress: 80)
   end
 
   def cleanup
-    update_status(__method__)
-
-    clean_redis_cache
+    update_status(__method__, progress: 90)
+    remove_from_cache_pool
   end
 
   def notification
@@ -111,17 +109,21 @@ class BackupJob < ApplicationJob
     raise MaxKeepsLimitedError, 'Max keeps is zero, can not backup' if @backup.max_keeps.zero?
   end
 
-  def create_redis_cache
-    # Make sure storage it by direct execute this job
-    # unless redis.sismember(@backup.cache_job_id_key, job_id)
-    #   redis.sadd(@backup.cache_job_id_key, job_id)
-    # end
+  # Make sure storage it by direct execute this job
+  def append_to_cache_pool
+    jobs = cached_jobs
+    unless jobs.include?(job_id)
+      jobs << job_id
+      Rails.cache.write(@backup.cache_job_key, jobs)
+    end
   end
 
-  def clean_redis_cache
-    # if redis.sismember(@backup.cache_job_id_key, job_id)
-    #   redis.srem(@backup.cache_job_id_key, job_id)
-    # end
+  def remove_from_cache_pool
+    jobs = cached_jobs
+    if jobs.include?(job_id)
+      jobs.delete(job_id)
+      Rails.cache.write(@backup.cache_job_key, jobs)
+    end
   end
 
   def backup_path
@@ -129,11 +131,11 @@ class BackupJob < ApplicationJob
   end
 
   def update_status(value, **params)
-    status[:step] = value.to_s
-    status.update(params) if params
+    # status[:step] = value.to_s
+    # status.update(params) if params
   end
 
-  def redis
-    # @redis ||= Rails.cache.redis
+  def cached_jobs
+    Rails.cache.read(@backup.cache_job_key) || []
   end
 end
