@@ -859,8 +859,8 @@ en-US:
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
-      redis_connection_error: Redis 服务器连接或鉴权失败，请检查配置是否正确
-      database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
+      redis_connection_error: Redis server connect failed.
+      database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: Go back
       homepage_title: homepage
