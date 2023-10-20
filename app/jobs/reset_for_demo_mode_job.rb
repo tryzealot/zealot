@@ -31,13 +31,13 @@ class ResetForDemoModeJob < ApplicationJob
   end
 
   def reset_jobs
-    require 'sidekiq/api'
-    require 'sidekiq/failures/failure_set'
+    # require 'sidekiq/api'
+    # require 'sidekiq/failures/failure_set'
 
-    Sidekiq::Failures::FailureSet.new.clear
-    Sidekiq::RetrySet.new.clear
-    Sidekiq::DeadSet.new.clear
-    Sidekiq::Stats.new.reset
+    # Sidekiq::Failures::FailureSet.new.clear
+    # Sidekiq::RetrySet.new.clear
+    # Sidekiq::DeadSet.new.clear
+    # Sidekiq::Stats.new.reset
   end
 
   def init_demo_data
