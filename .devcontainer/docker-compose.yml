@@ -17,7 +17,7 @@ services:
     environment:
       DATABASE_URL: "postgres://postgres:postgres@localhost:5432/zealot_development"
   db:
-    image: postgres:11-alpine
+    image: postgres:13-alpine
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
