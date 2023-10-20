@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 
 namespace :zealot do
+  MIN_REDIS_VERSION = '6.2'
+
   desc 'Zealot | Upgrade zealot or setting up database'
   task upgrade: :environment do
     Rake::Task['zealot:version'].invoke
     Rake::Task['zealot:db:upgrade'].invoke
+  end
+
+  desc 'Zealot | Precheck service healthly'
+  task precheck: :environment do
+    redis_version = Rails.cache.stats['redis_version']
+    if Gem::Version.new(redis_version) < Gem::Version.new(MIN_REDIS_VERSION)
+      raise "[ERROR] Redis server version requires 6.2+, current version is #{redis_version}."
+    end
+  rescue Redis::CannotConnectError
+    raise "[ERROR] Redis server can not connected."
   end
 
   desc 'Zealot | Remove all data and init demo data and user'
@@ -43,7 +55,7 @@ namespace :zealot do
       end
 
       if file_version < db_version
-        puts "!!!Found zealot ran the previous version, database must rollback!!!"
+        puts "[WARNNING] Found zealot ran the previous version, database must rollback !!!"
         puts "File version (#{file_version_str}) < Database version (#{args.version})"
       else
         puts "Zealot upgrade database ..."
