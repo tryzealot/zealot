@@ -1,5 +1,7 @@
 tr
-  td = file.name
+  td
+    i.fas.fa-check-circle.text-success.mr-2
+    = file.name
   td = number_to_human_size(file.size)
   td = file.created_at
   td

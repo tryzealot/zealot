@@ -71,3 +71,21 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # will need to include that token as a query parameter. This allows for
 # simple authentication.
 activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
+
+# # Handle good_job
+# before_fork do
+#   GoodJob.shutdown
+# end
+
+# on_worker_boot do
+#   GoodJob.restart
+# end
+
+# on_worker_shutdown do
+#   GoodJob.shutdown
+# end
+
+# MAIN_PID = Process.pid
+# at_exit do
+#   GoodJob.shutdown if Process.pid == MAIN_PID
+# end

@@ -181,15 +181,15 @@ en:
     backups:
       title: Backups
       index:
-        title: :admin.backups.title
-        new_backup: New backup
+        title: :'admin.backups.title'
+        new_schedule: New Schedule
         key: Key
         scopes: Scopes
         schedule: Schedule
         next_schedule_at: Next schedule at
         enabled: Enabled
         action: Action
-        run_now: Run now
+        run_backup: Run a backup
         edit: Edit
         destroy: Destroy
         database: Database
@@ -202,14 +202,24 @@ en:
           body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
       show:
         title: '%{key} backup'
+        run_backup: Run a backup
         filename: Filename
         created_at: Created at
         size: Size
+        action: Action
         download: Download
-        reprocess: Reprocess
         destroy: Destroy
+        steps:
+          start: Starting
+          prepare: Preparing
+          dump_database: Dumping database
+          dump_apps: Dumping apps
+          pack: Packing
+          remove_old: Remove old backups
+          cleanup: Clean up
+          ensure: Finishing
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
-        current_step: Processing, current %{step}
+        current_step: 'Processing: %{step}'
         not_found:
           title: Not found any backup file
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.

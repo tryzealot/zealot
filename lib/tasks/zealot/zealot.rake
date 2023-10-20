@@ -40,7 +40,7 @@ namespace :zealot do
     end
 
     # 初始化
-    task setup: ['db:create',] do
+    task setup: ['db:create'] do
       puts "Zealot initialize database ..."
       Rake::Task['db:migrate'].invoke
 
