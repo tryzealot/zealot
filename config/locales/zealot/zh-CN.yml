@@ -180,14 +180,14 @@ zh-CN:
       title: 数据备份
       index:
         title: :'admin.backups.title'
-        new_backup: :'admin.backups.new.title'
+        new_schedule: 新备份计划
         key: 备份名称
         scopes: 备份范围
         schedule: 备份频率
         next_schedule_at: 下次备份时间
         enabled: 启用
         action: 操作
-        run_now: 生成备份
+        run_backup: 执行新备份
         edit: 编辑
         destroy: 删除
         database: 数据库
@@ -198,13 +198,24 @@ zh-CN:
           body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
       show:
         title: '%{key} 备份计划'
+        run_backup: 执行新备份
         filename: 文件名
         created_at: 生成时间
         size: 大小
+        action: 操作
         download: 下载
         destroy: 删除
+        steps:
+          start: 任务认领
+          prepare: 数据准备中
+          dump_database: 备份数据库
+          dump_apps: 备份应用
+          pack: 生成压缩包
+          remove_old: 清理旧备份
+          cleanup: 收尾工作
+          ensure: 任务结束
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
-        current_step: 任务进行中，当前状态 %{step}
+        current_step: '任务进行中，当前状态: %{step}'
         not_found:
           title: 没有发现任何备份文件
           body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。

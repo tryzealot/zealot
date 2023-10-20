@@ -2,4 +2,4 @@
 
 echo "Starting Zealot Worker"
 cd /app
-./bin/sidekiq -C config/sidekiq.yml 2>&1 | tee -a /app/log/sidekiq.log
+./bin/good_job 2>&1 | tee -a /app/log/worker.log
