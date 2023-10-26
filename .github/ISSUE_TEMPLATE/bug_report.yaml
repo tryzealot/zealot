@@ -22,16 +22,20 @@ body:
         - 源码部署 | Source
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
       label: 部署版本 | Version
-      description: 使用的 Docker 的什么版本？ | What version of docker image tag are you running?
-      options:
-        - nightly (Default)
-        - stable
-        - latest
-        - 其他 | other
+      description: 填写服务 "管理面板" -> "环境信息"中版本号的值 | Filling the version from "Monitor" -> "System information"
+      placeholder: X.Y.Z/X.Y.Z-nightly
+    validations:
+      required: true
+  - type: input
+    id: git_ref
+    attributes:
+      label: Git 哈希值 (长度 40)| Git Ref (40 length)
+      description: 填写服务 "管理面板" -> "环境信息"中 Git 哈希值的值 | Filling the Git Ref from "Monitor" -> "System information"
+      placeholder: 7b5f9d1899f8e812899f5ed25adc8024b01fddd0
     validations:
       required: true
   - type: input
@@ -70,6 +74,6 @@ body:
     attributes:
       label: 问题日志 | Relevant log output
       description: |
-        请直接复制粘贴终端的运行日志，代码格式会自动格式化
+        请直接复制粘贴终端的运行日志中可能包含错误(error)信息，代码格式会自动格式化
         Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
