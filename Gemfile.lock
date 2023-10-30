@@ -114,7 +114,7 @@ GEM
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     carrierwave (2.2.3)
@@ -270,7 +270,7 @@ GEM
     minitest (5.20.0)
     mixlib-shellout (3.2.7)
       chef-utils
-    msgpack (1.6.0)
+    msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
