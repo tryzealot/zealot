@@ -4,7 +4,7 @@
       = app_icon(@release, class: 'app-icon img-circle img-bordered-sm')
       .app-name
         = @release.name || @release.app_name
-        .app-identifier
+        .app-identifier.text-break
           = @release.bundle_id || @release.file.identifier
   .card-body
     ul.app-metadata
