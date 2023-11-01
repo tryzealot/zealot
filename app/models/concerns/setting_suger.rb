@@ -7,6 +7,10 @@ module SettingSuger
     self.class.get_field(var.to_sym).try(:[], :readonly) === true
   end
 
+  def default?
+    value == default_value
+  end
+
   def default_value
     present[:default]
   end
