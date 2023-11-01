@@ -29,8 +29,11 @@
     }
   },
 
-  "forwardPorts": [3000, 5432, 6379, 8081],
+  "forwardPorts": [80, 3000, 5432, 6379, 8081],
   "portsAttributes": {
+    "80": {
+      "label": "phpRedisAdmin"
+    },
     "3000": {
       "label": "Rails server (puma)"
     },
