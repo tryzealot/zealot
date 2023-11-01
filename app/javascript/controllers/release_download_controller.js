@@ -33,7 +33,7 @@ export default class extends Controller {
 
     if (isiOS()) {
       this.showIntallButton()
-      this.hideDownloadButton
+      this.hideDownloadButton()
     } else if (isMacOS()) {
       this.showIntallButton()
     }
