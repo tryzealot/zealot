@@ -432,7 +432,7 @@ GEM
       psych (>= 4.0.0)
     redis (5.0.8)
       redis-client (>= 0.17.0)
-    redis-client (0.17.1)
+    redis-client (0.18.0)
       connection_pool
     regexp_parser (2.6.1)
     reline (0.3.9)
@@ -481,7 +481,7 @@ GEM
     sentry-sidekiq (5.12.0)
       sentry-ruby (~> 5.12.0)
       sidekiq (>= 3.0)
-    sidekiq (7.1.6)
+    sidekiq (7.2.0)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -627,7 +627,7 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   sentry-sidekiq
-  sidekiq (~> 7.1.6)
+  sidekiq (~> 7.2.0)
   sidekiq-failures (~> 1.0.4)
   sidekiq-scheduler (~> 5.0.3)
   simple_form (~> 5.3)
