@@ -17,26 +17,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Set Docker Build Date
       id: build_date
-      run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
+      run: echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Docker metadata
       id: metadata
-      uses: docker/metadata-action@v4
+      uses: docker/metadata-action@v5
       with:
         images: ghcr.io/${{ github.repository }}
 
     - name: Test build
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         context: .
         push: false
@@ -47,4 +47,4 @@ jobs:
         build-args: |
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
-          BUILD_DATE=${{ steps.build_date.outputs.date }}
+          BUILD_DATE=${{ steps.build_date.outputs.BUILD_DATE_TAG }}

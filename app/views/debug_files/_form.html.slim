@@ -1,8 +1,8 @@
 = simple_form_for(@debug_file) do |f|
   = f.error_notification
 
-  = f.input :app_id, collection: @apps, label_method: :name, selected: 0
-  = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, selected: DebugFile.device_types.first
+  = f.association :app, include_blank: false
+  = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, include_blank: false
   = f.input :release_version
   = f.input :build_version
   = f.input :file, required: true

@@ -1,5 +1,5 @@
 - content_for :section_title do
-  = t('.title')
+  = @apple_key.team&.name || t('.title')
 
 - content_for :title do
   = t('.title')
@@ -18,9 +18,6 @@ ruby:
             th = t('simple_form.labels.apple_team.display_name')
             td = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team)
           tr
-            th = t('simple_form.labels.apple_team.name')
-            td = @apple_key.team.name
-          tr
             th = t('simple_form.labels.apple_team.team_id')
             td = @apple_key.team.team_id
   .col-md-6
@@ -34,10 +31,13 @@ ruby:
             td = @apple_key.issuer_id
           tr
             th = t('simple_form.labels.apple_key.key_id')
-            td = @apple_key.key_id
-          tr
-            th = t('simple_form.labels.apple_key.private_key')
-            td = @apple_key.encrypted_private_key
+            td
+              = @apple_key.key_id
+              - if current_user&.manage?
+                |  (
+                span title="#{@apple_key.private_key_filename}"
+                  = link_to t('.download_private_key'), private_key_admin_apple_key_path(@apple_key)
+                | )
 
   .col-md-12
     .card
@@ -58,16 +58,15 @@ ruby:
               th = t('.udid_created_at')
             - @apple_key.devices.order(created_at: :desc).each do |device|
               tr
-                td = link_to device.udid, udid_path(udid: device.udid)
+                td = link_to device.udid, edit_udid_path(udid: device.udid, apple_key: @apple_key.id)
                 td = device.name
                 td = device.platform
                 td = device.model
                 td = device.channels.count
                 td = device.created_at
       .card-footer
-        p
-          - if @apple_key.last_synced_at.present?
-            span title="#{@apple_key.last_synced_at}"
-              = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
-          - else
-            = t('.never_sync')
+        - if @apple_key.last_synced_at.present?
+          span title="#{@apple_key.last_synced_at}" data-toggle="tooltip"
+            = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
+        - else
+          = t('.never_sync')

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class UdidController < ApplicationController
+  include DeviceAttributes
   include Qrcode
 
   before_action :set_device_xml, only: :create
-  before_action :set_device_metadata, only: %i[show register]
+  before_action :set_device_metadata, only: %i[show edit update register]
   before_action :render_profile, only: :install
+  before_action :set_apple_key, only: %i[edit update]
 
   # GET /udid
   def index
@@ -26,15 +28,35 @@ class UdidController < ApplicationController
   def show
   end
 
+  # GET /udid/:udid/edit
+  def edit
+  end
+
+  # PATCH /udid/:udid
+  def update
+    unless @device.update(device_params)
+      return render :edit, status: :unprocessable_entity
+    end
+
+    if device_params[:sync_to_apple_key].to_i == 1
+      @device.start_sync_device_job(@apple_key.id)
+    end
+
+    redirect_to admin_apple_key_path(@apple_key.id)
+  end
+
   # POST /udid/:udid/register
   def register
-    apple_key = AppleKey.find(params[:apple_key_id])
+    apple_key = AppleKey.find(device_params[:apple_keys])
+    name = device_params[:name]
+    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') if name.blank? # Max 50 chars
     udid = params[:udid]
-    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') # Max 50 chars
 
     new_device = apple_key.register_device(udid, name)
-    if new_device.errors
-      flash[:alter] = new_device.errors.messages[:devices][0]
+    unless new_device.valid?
+      logger.debug "Register failed with errors: #{new_device.errors}"
+      error_message = new_device.errors.messages[:devices][0]
+      flash[:alter] = error_message if error_message.present?
       return render :show, status: :unprocessable_entity
     end
 
@@ -46,11 +68,28 @@ class UdidController < ApplicationController
   def install
   end
 
+  # GET /udid/qrcode
   def qrcode
     render qrcode: udid_index_url, **qrcode_options
   end
 
   private
+
+  def render_profile
+    enable_tls = params[:tls] == 'true'
+    preview = params[:preview] == 'true'
+
+    @udid = payload_uuid
+    content_type = preview ? 'application/xml' : 'application/x-apple-aspen-config'
+    profile_data = render_to_string(content_type: content_type, layout: false)
+    unless enable_tls
+      return render(plain: profile_data, content_type: content_type, layout: false)
+    end
+
+    signing_flags = OpenSSL::PKCS7::BINARY
+    sigend = OpenSSL::PKCS7.sign(certificate, root_key, profile_data, [], signing_flags)
+    render plain: sigend.to_der, content_type: content_type, layout: false
+  end
 
   def set_device_xml
     body = request.body.read
@@ -61,54 +100,6 @@ class UdidController < ApplicationController
 
     @device_attrs = Plist.parse_xml(p7sign.data)
   end
-
-  def render_profile
-    enable_tls = false # params[:tls].present?
-    @udid = Rails.cache.fetch('ios-udid', expires_in: 1.week) { SecureRandom.uuid.upcase }
-    content_type = params[:preview].present? ? 'application/xml' : 'application/x-apple-aspen-config'
-    return render(content_type: content_type, layout: false) unless enable_tls
-
-    # plist = render_to_string(layout: false)
-    # server = File.read('public/certs/server.pem')
-    # server_key = File.read('public/certs/key.pem')
-    # server_pem = OpenSSL::X509::Certificate.new(server)
-    # server_key_pem = OpenSSL::PKey::RSA.new(server_key)
-    # sigend_plist = OpenSSL::PKCS7.sign(
-    #   certificate, key,
-    #   plist, [], OpenSSL::PKCS7::BINARY
-    # )
-
-    # render plain: sigend_plist, content_type: content_type, layout: false
-  end
-
-  # CERT_SUBJECT = "/C=CN/O=zealot/OU=tryzealot/OU=github/CN=Zealot"
-
-  # def certificate
-  #   @certificate ||= -> () do
-  #     cert = OpenSSL::X509::Certificate.new
-  #     cert.subject = cert.issuer = OpenSSL::X509::Name.parse(CERT_SUBJECT)
-  #     cert.not_before = Time.now
-  #     cert.not_after = Time.now + 365 * 24 * 60 * 60
-  #     cert.public_key = key.public_key
-  #     cert.serial = 0x0
-  #     cert.version = 2
-
-  #     ef = OpenSSL::X509::ExtensionFactory.new
-  #     ef.subject_certificate = cert
-  #     ef.issuer_certificate = cert
-
-  #     cert.extensions = [
-  #       ef.create_extension("basicConstraints","CA:TRUE", true),
-  #       ef.create_extension("subjectKeyIdentifier", "hash"),
-  #     ]
-  #     cert.add_extension ef.create_extension("authorityKeyIdentifier", "keyid:always,issuer:always")
-  #     cert.sign key, OpenSSL::Digest::SHA1.new
-  #   end.call
-  # end
-
-  # def key
-  #   @key ||= OpenSSL::PKey::RSA.new(2048)
-  # end
 
   def set_device_metadata
     @title = t('udid.show.title')
@@ -124,12 +115,21 @@ class UdidController < ApplicationController
   end
 
   def device_status
-    if @apple_keys
-      'related_apple_keys'
-    elsif @all_apple_keys.size > 0
-      'register_apple_key'
-    else
-      'unregister_device'
-    end
+    @device_status = if @apple_keys
+                       :registered_device
+                     elsif @all_apple_keys.size > 0
+                       :new_register_device
+                     else
+                       :new_device
+                     end
+  end
+
+  def set_apple_key
+    @apple_key = AppleKey.find(params[:apple_key])
+    authorize @apple_key
+  end
+
+  def device_params
+    params.require(:device).permit(:name, :apple_keys, :sync_to_apple_key)
   end
 end

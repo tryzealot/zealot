@@ -4,7 +4,13 @@ class Metadatum < ApplicationRecord
   belongs_to :release
   belongs_to :user
 
-  enum platform: { ios: 'ios', android: 'android', mobileprovision: 'mobileprovision', macos: 'macos' }
+  enum platform: {
+    ios: 'ios',
+    android: 'android',
+    mobileprovision: 'mobileprovision',
+    macos: 'macos',
+    windows: 'windows'
+  }
 
   alias_attribute :packet_name, :bundle_id
 

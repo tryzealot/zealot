@@ -36,6 +36,8 @@ zh-CN:
         password: '访问密码'
       release:
         file: 应用文件
+        release_version: 产品版本
+        build_version: 构建版本
         changelog: 变更日志
         release_type: 打包类型
         branch: Git 分支名称
@@ -78,6 +80,10 @@ zh-CN:
         enabled: 启用
         schedule_settings: 备份范围
         parsing: 解析中
+      device:
+        name: 设备名称
+        apple_keys: 苹果开发者
+        sync_to_apple_key: 同步至苹果开发者
 
     hints:
       defaults:
@@ -91,14 +97,16 @@ zh-CN:
       channel:
         name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
         device_type: '应用设备类型'
-        bundle_id: '校验应用 bundle id（package name)，为空或 * 为不校验'
+        bundle_id: '校验应用 bundle id (package name)，为空或 * 为不校验'
         git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
         slug: 'URL 的唯一标识'
         password: '设置后对非登录用户会要求输入密码'
       release:
-        file: 支持 iOS.ipa、Android.apk 以及 macOS.app.zip 文件
+        file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
+        release_version: 应用对外公布的主版本号，推荐使用 <a href="https://semver.org/lang/zh-CN/">X.Y.Z 语义化版本</a>命名
+        build_version: 应用内部版本号
         changelog: 这个应用包含了什么新特性，修复了什么问题等
-        release_type: iOS 的 debug、adhoc、release；Android 的 debug、release 等
+        release_type: iOS 的 debug、adhoc、release / Android 的 debug、release 等
         branch: 通常情况是 main 或 develop
         git_commit: 通常是 40 位长度的哈希值
         ci_url: Jenkins、Gitlab CI 具体构建的地址
@@ -107,14 +115,12 @@ zh-CN:
       debug_file:
         device_type: '应用设备类型'
         file: '必须使用 zip 文件压缩后的调试文件'
-      setting:
-        value: '按照 JSON 标准格式编辑，否则会保存失败'
       backup:
         key: 名称必须是唯一，不可和其他备份重复
         schedule: |
           表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
           <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
-        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置；0 不可备份
+        max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置; 0 不可备份
 
     placeholders:
       release:
@@ -146,6 +152,8 @@ zh-CN:
         checksum: '纯校验使用，随文件生成无需填写'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: 留空自动生成
 
     # include_blanks:
     #   defaults:

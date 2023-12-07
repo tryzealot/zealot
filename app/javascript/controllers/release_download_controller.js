@@ -10,8 +10,10 @@ export default class extends Controller {
     "buttons",
 
     "installButton",
+    "downloadButton",
+
     "installIssue",
-    "downloadButton"
+    "certExpired"
   ]
 
   static values = {
@@ -31,7 +33,7 @@ export default class extends Controller {
 
     if (isiOS()) {
       this.showIntallButton()
-      this.hideDownloadButton
+      this.hideDownloadButton()
     } else if (isMacOS()) {
       this.showIntallButton()
     }
@@ -43,6 +45,10 @@ export default class extends Controller {
     const link = this.installUrlValue
     console.debug("install url", link)
     window.location.href = link
+  }
+
+  showCertExpired() {
+    jquery("#cert-expired-issues").modal("toggle")
   }
 
   showQA() {

@@ -4,58 +4,66 @@
       = app_icon(@release, class: 'app-icon img-circle img-bordered-sm')
       .app-name
         = @release.name || @release.app_name
-        .app-identifier
-          = @release.bundle_id
+        .app-identifier.text-break
+          = @release.bundle_id || @release.file.identifier
   .card-body
     ul.app-metadata
       - if @release.name.present?
-        li title="#{t('releases.show.name')}"
+        li title="#{t('releases.show.name')}" data-toggle="tooltip"
           i.fas.fa-list-ul
           - if guest_mode_or_signed_in?
             = link_to @release.app_name, friendly_channel_overview_path(@release.channel)
           - else
             = @release.app_name
-      li title="#{t('releases.show.version')}"
+      li title="#{t('releases.show.version')}" data-toggle="tooltip"
         i.fab.fa-gg
         = @release.version
-      li title="#{t('releases.show.device_type')}"
+      li title="#{t('releases.show.device_type')}" data-toggle="tooltip"
         = device_icon(@release.platform)
-        = @release.device_type
-      li title="#{t('releases.show.release_version')}"
-        i.fas.fa-server
-        = "#{@release.release_version} (#{@release.build_version})"
+        = device_name(@release.device_type)
+      - if @release.release_version.present?
+        li title="#{t('releases.show.release_version')}" data-toggle="tooltip"
+          i.fas.fa-server
+          = @release.release_version
+          - if @release.build_version.present?
+            | (#{@release.build_version})
       - if @release.release_type.present?
-        li title="#{t('releases.show.release_type')}"
+        li title="#{t('releases.show.release_type')}" data-toggle="tooltip"
           i.fas.fa-cubes
-          = release_type_url(@release)
+          = release_type_url_builder(@release)
       - if @release.file.present?
-        li title="#{t('releases.show.filesize')}"
+        li title="#{t('releases.show.filesize')}" data-toggle="tooltip"
           i.fas.fa-weight
           = " #{number_to_human_size(@release.file.size)}"
-      li title="#{t('releases.show.uploaded_at')}"
+      li title="#{t('releases.show.uploaded_at')}" data-toggle="tooltip"
         i.fas.fa-calendar
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?
-        li title="#{t('releases.show.git_branch')}"
+        li title="#{t('releases.show.git_branch')}" data-toggle="tooltip"
           i.fas.fa-code-branch
           = git_branch_url(@release)
       - if @release.git_commit.present?
-        li title="#{t('releases.show.git_commit')}"
+        li title="#{t('releases.show.git_commit')}" data-toggle="tooltip"
           i.fab.fa-git-alt
           = git_commit_url(@release.channel.git_url, @release.git_commit)
-      - @release.custom_fields.each do |field|
-        li title="#{field['name']}"
-          i class="#{field['icon'] || 'fas fa-hashtag'}"
-          = field['value']
-      li title="#{t('releases.show.source')}"
+      - if @release.custom_fields.is_a?(Array)
+        - @release.custom_fields.each do |field|
+          li title="#{field['name']}" data-toggle="tooltip"
+            i class="#{field['icon'] || 'fas fa-hashtag'}"
+            = field['value']
+      li title="#{t('releases.show.source')}" data-toggle="tooltip"
         i.fas.fa-compass
         - if @release.ci_url.blank?
           = t("releases.sources.#{@release.source.downcase}", default: @release.source)
         - else
           = link_to @release.source, @release.ci_url
       - if @release.metadata.present? && guest_mode_or_signed_in?
-        li title="#{t('releases.show.metadata')}"
+        - if expired_date = @release.metadata.mobileprovision['expired_at']
+          li title="#{t('releases.show.certificate_expired_date', date: expired_date)}" data-toggle="tooltip"
+            i.fas.fa-certificate
+            = expired_date_tips(expired_date, colorful: false)
+        li title="#{t('releases.show.metadata')}" data-toggle="tooltip"
           i.fas.fa-layer-group
-          = link_to t('releases.show.teardown_meatdata'), teardown_path(@release.metadata)
+          = link_to t('releases.show.teardown_metadata'), teardown_path(@release.metadata)
 
     == render 'releases/body/install_app'

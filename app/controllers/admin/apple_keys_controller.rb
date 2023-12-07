@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::AppleKeysController < ApplicationController
-  before_action :set_apple_key, only: %i[ show destroy sync_devices ]
+  before_action :set_apple_key, only: %i[ show destroy sync_devices private_key ]
 
   # GET /apple_keys
   def index
@@ -51,6 +51,13 @@ class Admin::AppleKeysController < ApplicationController
     else
       render :show, status: :unprocessable_entity
     end
+  end
+
+  # GET /apple_keys/1/private_key
+  def private_key
+    body = @apple_key.private_key
+    headers['Content-Length'] = body.size
+    send_data body, filename: @apple_key.private_key_filename, disposition: 'attachment'
   end
 
   private
