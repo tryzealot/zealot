@@ -893,7 +893,9 @@ zh-CN:
     errors:
       messages:
         same_value: "%{key}没有发生变化，无法保存"
-        invaild_json: '无效的 JSON 格式'
+        invaild_json: 无效的 JSON 格式
+        incorrect_json_format: 未知 JSON 格式
+        empty_json_value: JSON 值为空
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
