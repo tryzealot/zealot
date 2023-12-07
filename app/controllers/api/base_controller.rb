@@ -14,7 +14,7 @@ class Api::BaseController < ActionController::API
   rescue_from ActiveRecord::RecordNotSaved, ArgumentError, NoMethodError,
               PG::Error, with: :render_internal_server_error
   rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
-              AppInfo::UnkownFileTypeError, with: :render_missing_params_error
+              AppInfo::UnknownFormatError, with: :render_missing_params_error
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
 

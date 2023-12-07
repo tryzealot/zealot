@@ -2,6 +2,7 @@
 
 class Api::Apps::UploadController < Api::BaseController
   before_action :validate_user_token
+  before_action :set_parser
   before_action :set_channel
 
   # Upload an App
@@ -34,6 +35,8 @@ class Api::Apps::UploadController < Api::BaseController
   private
 
   def create_or_update_release
+    raise AppInfo::UnknownFormatError, t('releases.messages.errors.require_parsable') unless @app_parser
+
     ActiveRecord::Base.transaction do
       new_record? ? create_new_app_build : create_build_from_exist_app
     end
@@ -46,9 +49,11 @@ class Api::Apps::UploadController < Api::BaseController
 
   # 使用现有 App 创建新版本
   def create_build_from_exist_app
-    message = t('releases.messages.errors.bundle_id_not_matched', got: app_parser.bundle_id,
-      expect: @channel.bundle_id)
-    raise TypeError, message unless @channel.bundle_id_matched? app_parser.bundle_id
+    if @channel.device_type == 'ios' || @channel.device_type == 'android'
+      message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
+        expect: @channel.bundle_id)
+      raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
+    end
 
     create_release with_updated_channel
   end
@@ -74,14 +79,14 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file(release_params, app_parser, 'api')
+    @release = channel.releases.upload_file(release_params, @app_parser, 'api')
     @release.save!
   end
 
   def with_channel(scheme)
-    @channel = scheme.channels.find_or_create_by channel_params do |channel|
-      channel.name = app_parser.os
-      channel.device_type = app_parser.os
+    @channel = scheme.channels.find_or_create_by(channel_params) do |channel|
+      channel.name = @app_parser.platform
+      channel.device_type = @app_parser.platform
     end
   end
 
@@ -92,7 +97,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def and_app
     permitted = params.permit :name
-    permitted[:name] ||= app_parser.name
+    permitted[:name] ||= @app_parser.name
 
     App.find_or_create_by permitted do |app|
       app.users << @user
@@ -101,9 +106,9 @@ class Api::Apps::UploadController < Api::BaseController
 
   def parse_scheme_name
     default_name = t('api.apps.upload.create.adhoc')
-    return default_name unless app_parser.os == AppInfo::Platform::IOS
+    return default_name unless @app_parser.platform == AppInfo::Platform::IOS
 
-    t("api.apps.upload.create.#{app_parser.release_type.downcase}", default: default_name)
+    t("api.apps.upload.create.#{@app_parser.release_type.downcase}", default: default_name)
   end
 
   def release_params
@@ -117,8 +122,10 @@ class Api::Apps::UploadController < Api::BaseController
     params.permit(:slug, :password, :git_url)
   end
 
-  def app_parser
-    @app_parser ||= AppInfo.parse(params[:file].path)
+  def set_parser
+    @app_parser = AppInfo.parse(params[:file].path)
+  rescue AppInfo::UnknownFormatError
+    @app_parser = nil
   end
 
   def set_channel

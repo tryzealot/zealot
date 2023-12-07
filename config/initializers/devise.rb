@@ -40,6 +40,31 @@ LDAP_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:uid] = Setting.ldap[:uid]
 end
 
+OIDC_OMNIAUTH_SETUP = lambda do |env|
+  issuer = URI.parse(Setting.oidc[:issuer_url])
+  scopes = Setting.oidc[:scope]&.split(',').map { |v| v.chomp.to_sym }
+  url_options = Setting.url_options
+  site_host = "#{url_options[:protocol]}://#{url_options[:host]}"
+
+  env['omniauth.strategy'].options[:name] = Setting.oidc[:name]
+  env['omniauth.strategy'].options[:issuer] = Setting.oidc[:issuer_url]
+  env['omniauth.strategy'].options[:discovery] = Setting.oidc[:discovery]
+  env['omniauth.strategy'].options[:scope] = scopes
+  env['omniauth.strategy'].options[:response_type] = Setting.oidc[:response_type].to_sym
+  env['omniauth.strategy'].options[:uid_field] = Setting.oidc[:uid_field]
+  env['omniauth.strategy'].options[:client_options] = {
+    scheme: issuer.scheme,
+    port: issuer.port,
+    host: issuer.host,
+    identifier: Setting.oidc[:client_id],
+    secret: Setting.oidc[:client_secret],
+    authorization_endpoint: Setting.oidc[:auth_uri],
+    token_endpoint: Setting.oidc[:token_uri],
+    userinfo_endpoint: Setting.oidc[:userinfo_uri],
+    redirect_uri: "#{site_host}/users/auth/openid_connect/callback"
+  }
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -321,4 +346,32 @@ Devise.setup do |config|
   config.omniauth :gitlab, setup: GITLAB_OMNIAUTH_SETUP
   config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
   config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::LDAP
+  config.omniauth :openid_connect, setup: OIDC_OMNIAUTH_SETUP
 end
+
+module SafeStoreLocation
+  MAX_LOCATION_SIZE = ActionDispatch::Cookies::MAX_COOKIE_SIZE - 1024
+
+  # This overrides Devise's method for extracting the path from the URL. We
+  # want to ensure the path to be stored in the cookie is not too long in
+  # order to avoid ActionDispatch::Cookies::CookieOverflow exception. If the
+  # session cookie (containing all the session data) is over 4 KB in length,
+  # it would lead to an exception if the cookie store is being used. This is
+  # a hard constraint set by ActionDispatch because some browsers do not allow
+  # cookies over 4 KB.
+  #
+  # Original code in Devise: https://github.com/heartcombo/devise/blob/main/lib/devise/controllers/store_location.rb#L56
+  def extract_path_from_location(location)
+    path = super
+    return path unless Rails.application.config.session_store == ActionDispatch::Session::CookieStore
+
+    # Allow 3 KB size for the path because there can be also some other
+    # session variables out there.
+    return path if path.bytesize <= MAX_LOCATION_SIZE
+
+    # For too long paths, remove the URL parameters
+    path.split('?').first
+  end
+end
+
+Devise::FailureApp.include SafeStoreLocation

@@ -3,7 +3,7 @@ en:
     "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'required'
+      text: 'Required field'
       mark: '*'
     #You can uncomment the line below if you need to overwrite the whole required html.
     #When using html, text and mark won't be used.
@@ -36,6 +36,8 @@ en:
         password: 'Password'
       release:
         file: File
+        release_version: Release version
+        build_version: Build version
         changelog: Changelog
         release_type: Release type
         branch: Git branch
@@ -78,15 +80,20 @@ en:
         enabled: Enabled
         schedule_settings: Schedule settings
         parsing: Parsing ...
+      device:
+        name: Device name
+        apple_keys: Apple Keys
+        sync_to_apple_key: Synchronize to Apple developer
+
     hints:
       defaults:
         channel: 'For example, the platform of app.'
       app:
         schemes:
           name: :simple_form.hints.scheme.name
-          new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       scheme:
-        name: 'App in the function, the type of audience-oriented division. for example, adhoc, test, production etc.'
+        name: 'Apply the type of feature to target audience. for example, adhoc, test, production etc.'
+        new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
@@ -95,25 +102,26 @@ en:
         slug: 'A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.'
         password: 'Need password by fill it when user is not log in.'
       release:
-        file: Support iOS.ipa、Android.apk and macOS.app.zip file
-        changelog: A log or record of all notable changes made to a upload.
-        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
+        file: Support iOS, Android, macOS, Windows and Linux binary file.
+        release_version: The main version number, recommended to use the <a href="https://semver.org/">X.Y.Z Semantic Versioning</a> name it.
+        build_version: Internal version number
+        changelog: What new features this app contains, fix what issues, and so on.
+        release_type: 'iOS: debug、adhoc, release; Android: debug, release.'
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
-        ci_url: the detail URL of Jenkins, Gitlab CI
+        ci_url: The CI URL specific like Jenkins, Gitlab CI etc
       web_hook:
         body: 'Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.'
       debug_file:
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        file: 'Require a zipped file of debug file. for example, dSYM in iOS, proguard in Android.'
-      setting:
-        value: 'Use JSON standard format to edit, otherwise it will fail to save.'
+        file: 'Zip compressed file required. for example, dSYM in iOS, proguard in Android.'
       backup:
         key: Unique backup key
         schedule: |
           Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>.
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
+
     placeholders:
       release:
         changelog: The developer is lazy without leaving anything.
@@ -144,3 +152,5 @@ en:
         checksum: 'Ignore me, pure validate the file use'
       backup:
         schedule: every day at noon / 12 0 * * *
+      device:
+        name: Leave it blank to generate automatically

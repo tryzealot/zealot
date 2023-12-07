@@ -1,14 +1,14 @@
-- if @metadata.release_type == AppInfo::IPA::ExportType::ADHOC
+- if devices.present?
   .card
     .card-header
       h3.card-title
-        = t('teardowns.show.devise_list', count: @metadata.devices.size)
+        = t('teardowns.show.devise_list', count: devices.size)
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
     .card-body.p-0
       table.table
-        - @metadata.devices.each do |udid|
+        - devices.sort.each do |udid|
           tr
             td
               span = udid

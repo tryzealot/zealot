@@ -1,6 +1,6 @@
 #login-tabs-standard.tab-pane.fade.show.active aria-labelledby="login-tabs-standard-tab" role="tabpanel"
   .row
-    .auth-form.col-md-7
+    .auth-form.col-md-6
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         = f.input :email, required: true, autofocus: true, hint: '', input_html: { autocomplete: "email", class: 'form-control' }
         = f.input :password, required: true, input_html: { autocomplete: "current-password" }
@@ -12,5 +12,5 @@
         .row
           .col-12
             = f.button :submit, t('devise.sessions.new.sign_in'), class: 'btn-block'
-    .auth-providers.col-md-5
+    .auth-providers.col-md-6
       == render 'devise/shared/links'

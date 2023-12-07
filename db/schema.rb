@@ -10,13 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
+ActiveRecord::Schema[7.1].define(version: 2023_08_03_065502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "metadata_platform", ["ios", "android", "mobileprovision", "macos"]
 
   create_table "apple_keys", force: :cascade do |t|
     t.string "issuer_id", null: false
@@ -121,7 +117,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
     t.string "checksum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["app_id", "device_type"], name: "index_debug_files_on_app_id_and_device_type"
     t.index ["app_id"], name: "index_debug_files_on_app_id"
+    t.index ["id", "device_type"], name: "index_debug_files_on_id_and_device_type"
   end
 
   create_table "devices", force: :cascade do |t|
@@ -132,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
     t.string "model"
     t.string "platform"
     t.string "status"
+    t.string "device_id"
     t.index ["udid"], name: "index_devices_on_udid"
   end
 
@@ -153,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
     t.integer "size"
     t.string "min_sdk_version"
     t.string "target_sdk_version"
+    t.jsonb "url_schemes", default: [], null: false
     t.jsonb "activities", default: [], null: false
     t.jsonb "services", default: [], null: false
     t.jsonb "permissions", default: [], null: false
@@ -163,11 +163,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
     t.jsonb "entitlements", default: {}, null: false
     t.jsonb "devices", default: [], null: false
     t.jsonb "capabilities", default: [], null: false
-    t.jsonb "url_schemes", default: [], null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "platform", enum_type: "metadata_platform"
+    t.string "platform"
     t.jsonb "deep_links", default: [], null: false
     t.index ["checksum"], name: "index_metadata_on_checksum"
     t.index ["release_id"], name: "index_metadata_on_release_id"
@@ -176,10 +175,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_084553) do
 
   create_table "releases", force: :cascade do |t|
     t.bigint "channel_id"
-    t.string "bundle_id", null: false
+    t.string "bundle_id"
     t.integer "version", null: false
-    t.string "release_version", null: false
-    t.string "build_version", null: false
+    t.string "release_version"
+    t.string "build_version"
     t.string "release_type"
     t.string "source"
     t.string "branch"

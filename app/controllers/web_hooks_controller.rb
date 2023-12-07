@@ -8,7 +8,9 @@ class WebHooksController < ApplicationController
   def create
     @web_hook = WebHook.new(web_hook_params)
     authorize @web_hook
-    return redirect_to_channel_url status: :unprocessable_entity unless @web_hook.save
+    unless @web_hook.save
+      return redirect_to_channel_url status: :see_other, alert: @web_hook.errors.full_messages.join(', ')
+    end
 
     @channel.web_hooks << @web_hook
     redirect_to_channel_url notice: t('activerecord.success.create', key: t('web_hooks.title'))

@@ -1,19 +1,28 @@
 # frozen_string_literal: true
-sidekiq_config = { url: ENV['REDIS_URL'] || 'redis://localhost:6379/0' }
+
+SIDEKIQ_URL_SETUP = lambda do
+  uri = URI.parse(ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'))
+  ssl_params = uri.scheme == 'rediss' ? { verify_mode: OpenSSL::SSL::VERIFY_NONE } : nil
+  port = uri.port.nil? ? '' : ":#{uri.port}"
+
+  {
+    url: "redis://#{uri.host}#{port}#{uri.path}",
+    username: uri.user,
+    password: uri.password,
+    ssl_params: ssl_params
+  }
+end
+
+sidekiq_redis_config = SIDEKIQ_URL_SETUP.call
 
 Sidekiq.configure_server do |config|
-  config.concurrency = (ENV['SIDEKIQ_CONCURRENCY'] || '5').to_i
-  config.redis = sidekiq_config
   logger_level = ::Logger.const_get(ENV.fetch('RAILS_LOG_LEVEL', 'info').upcase.to_s)
   logger_level = ::Logger::DEBUG if Rails.env.development?
   config.logger.level = logger_level
-
-  ## sidekiq-failurers
-  # Max limits failures
-  # FIXME: comment below because sidekiq 7.0 breaking changes https://github.com/mhfs/sidekiq-failures/issues/146
-  # config.failures_max_count = 5000
+  config.concurrency = (ENV['SIDEKIQ_CONCURRENCY'] || '5').to_i
+  config.redis = sidekiq_redis_config
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = sidekiq_config
+  config.redis = sidekiq_redis_config
 end

@@ -7,15 +7,19 @@ class TeardownsController < ApplicationController
   def index
     @title = t('.title')
     @metadata = Metadatum.page(params.fetch(:page, 1))
-                         .per(params.fetch(:per_page, 50))
+                         .per(params.fetch(:per_page, Setting.per_page))
                          .order(id: :desc)
   end
 
   def show
     authorize @metadata
-    @title = t('.title', name: @metadata.name,
-                release_version: @metadata.release_version,
-                build_version: @metadata.build_version)
+
+    # Windows 应用会存在名称，版本号全无的情况
+    name = @metadata.name || @metadata.id
+    version = @metadata.release_version
+    version += " (#{@metadata.build_version})" if @metadata.build_version.present?
+
+    @title = t('.title', name: "#{name} #{version}")
   end
 
   def new
@@ -34,7 +38,7 @@ class TeardownsController < ApplicationController
         t('teardowns.messages.errors.not_found_file', message: e.message)
       when ActionController::RoutingError
         e.message
-      when AppInfo::UnkownFileTypeError
+      when AppInfo::UnknownFormatError
         t('teardowns.messages.errors.not_support_file_type')
       when NoMethodError
         t('teardowns.messages.errors.failed_get_metadata')

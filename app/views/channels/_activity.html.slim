@@ -20,7 +20,12 @@
                 span.badge.badge-light.float-right data-toggle="tooltip" title="#{release.created_at}"
                   = time_ago_in_words(release.created_at)
               span.product-description
-                = "#{release.release_version} (#{release.build_version})"
+                - if release.release_version.present?
+                  = release.release_version
+                  - if release.build_version.present?
+                    | (#{release.build_version})
+                - else
+                  = release.file.identifier
       - else
         li.item.p-3
           = raw t('channels.show.not_found')

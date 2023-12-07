@@ -2,7 +2,10 @@
 
 module ReleaseUrl
   extend ActiveSupport::Concern
-  include Rails.application.routes.url_helpers
+
+  included do
+    include Rails.application.routes.url_helpers
+  end
 
   def download_url
     download_release_url(id)

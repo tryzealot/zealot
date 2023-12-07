@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  before_action :set_locale
+  around_action :set_locale
   before_action :set_sentry_context
 
   def raise_not_found
@@ -19,9 +19,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_locale
-    site_locale = Rails.cache.fetch('site_locale', expires_in: 1.day) { Setting.site_locale }
-    I18n.locale = site_locale
+  def set_locale(&action)
+    I18n.with_locale(Setting.site_locale, &action)
   end
 
   def set_sentry_context

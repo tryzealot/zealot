@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user,
+      current_user: validated_user,
     }
     result = ZealotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -47,5 +47,15 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  def validated_user
+    auth_value = request.authorization
+    return unless auth_value&.downcase&.start_with?('bearer')
+
+    token = auth_value.split(' ').last
+    return if token.blank?
+
+    User.find_by(token: token)
   end
 end

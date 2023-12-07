@@ -19,7 +19,7 @@ class Channels::ReleaseTypesController < ApplicationController
                         .where(release_type: @type)
                         .order(id: :desc)
                         .page(params.fetch(:page, 1))
-                        .per(params.fetch(:per_page, 10))
+                        .per(params.fetch(:per_page, Setting.per_page))
   end
 
   def set_channel

@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import * as ActionCable from '@rails/actioncable'
+import * as bootstrap from 'bootstrap'
 import { Zealot } from "./zealot"
 import { application } from "./application"
 import jquery from "jquery"
@@ -29,11 +30,20 @@ export default class extends Controller {
     if (apperance === "dark" || (apperance === "auto" && Zealot.isDarkMode())) {
       document.body.classList.add("dark-mode")
 
-      jquery(".main-header").addClass("navbar-dark").removeClass("navbar-white")
-      jquery(".main-sidebar").addClass("sidebar-dark-primary").removeClass("sidebar-light-primary")
+      var mainHeader = document.getElementsByClassName("main-header")
+      Array.prototype.forEach.call(mainHeader, function(element) {
+        element.classList.replace("navbar-white", "navbar-dark")
+      })
 
-      // document.getElementsByClassName('main-header').classList.replace("navbar-white", "navbar-dark")
-      // document.getElementsByClassName('main-sidebar').classList.replace("sidebar-light-primary", "sidebar-dark-primary")
+      var mainSidebar = document.getElementsByClassName("main-sidebar")
+      Array.prototype.forEach.call(mainSidebar, function(element) {
+        element.classList.replace("sidebar-light-primary", "sidebar-dark-primary")
+      });
+    } else if (apperance === "light" && Zealot.isDarkMode()) {
+      var darkBrandImage = document.getElementsByClassName("dark-brand-image")
+      Array.prototype.forEach.call(darkBrandImage, function(element) {
+        element.remove()
+      });
     }
   }
 
@@ -43,7 +53,10 @@ export default class extends Controller {
   }
 
   fixTooltipToggle() {
-    jquery("[data-toggle='tooltip']").tooltip()
+    var tooltipTriggerList = Array.prototype.slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
   }
 
   fixSidebarResize() {

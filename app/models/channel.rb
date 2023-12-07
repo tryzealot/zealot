@@ -12,7 +12,10 @@ class Channel < ApplicationRecord
   has_many :releases, dependent: :destroy
   has_and_belongs_to_many :web_hooks, dependent: :destroy
 
-  enum device_type: { ios: 'iOS', android: 'Android', macos: 'macOS' }
+  enum device_type: {
+    ios: 'iOS', android: 'Android',
+    macos: 'macOS', windows: 'Windows', linux: 'Linux'
+  }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
@@ -35,7 +38,7 @@ class Channel < ApplicationRecord
   #
   # 1. Find given release then find all new release after given release
   # 2. Or from newer versions to comapre and return
-  # *) Given version always convert tosemver value
+  # *) Given version always convert semver styled value
   def find_since_version(bundle_id, release_version, build_version)
     current_release = releases.select(:id).find_by(
       bundle_id: bundle_id,
@@ -43,13 +46,8 @@ class Channel < ApplicationRecord
       build_version: build_version
     )
 
-    if current_release
-      releases.where('id > ?', current_release.id)
-      .order(id: :desc)
-      .select { |release|
-        ge_version(release.release_version, release_version) &&
-        gt_version(release.build_version, build_version)
-      }
+    prepared_releases = if current_release
+      releases.where('id > ?', current_release.id).order(id: :desc)
     else
       newer_versions = release_versions.select { |version| ge_version(version, release_version) }
       releases.where(
@@ -58,6 +56,11 @@ class Channel < ApplicationRecord
         )
         .order(id: :desc)
     end
+
+    prepared_releases.select { |release|
+      ge_version(release.release_version, release_version) &&
+        gt_version(release.build_version, build_version)
+    }
   end
 
   def app_name
@@ -66,8 +69,10 @@ class Channel < ApplicationRecord
 
   def release_versions(limit = 10)
     versions = releases.select(:release_version)
+      .where.not(release_version: nil)
       .group(:release_version)
       .map(&:release_version)
+      .reject(&:blank?)
       .sort do |a,b|
         begin
           version_compare(b, a)

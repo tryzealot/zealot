@@ -7,6 +7,10 @@ module SettingSuger
     self.class.get_field(var.to_sym).try(:[], :readonly) === true
   end
 
+  def default?
+    value == default_value
+  end
+
   def default_value
     present[:default]
   end
@@ -46,7 +50,7 @@ module SettingSuger
   def value_of(key, source:)
     scope = Setting.defined_fields
                    .select { |s| s[:key] == key }
-                   .map { |s| s[source] || s[:options][source] }
+                   .map { |s| s.respond_to?(source) ? s[source] : s[:options][source] }
 
     scope.any? ? scope.first : false
   end

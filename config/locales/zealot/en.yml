@@ -30,7 +30,7 @@ en:
         inactive: Inactive
         never_logged_in: Never logged in
         destroy_user: Destroy
-        destroy_user_confirm: Are you sure you want to delete the [%{user}] user?
+        destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
         title: User information
         active_link: Active link
@@ -82,6 +82,7 @@ en:
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
+        download_private_key: Download private key
         never_sync: Never sync
         udid: :udid.show.udid
         udid_name: :udid.show.name
@@ -119,6 +120,8 @@ en:
       preset_role: Default user role
       preset_install_limited: In-App install limited
       preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
+      per_page: Per page
+      max_per_page: Max per page
       switch_mode: Switch mode
       registrations_mode: Registrations mode
       guest_mode: Guest mode
@@ -126,11 +129,12 @@ en:
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
       third_party_auth: Third-party Auth
       ldap: LDAP
+      oidc: OpenID Connect
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      backup: 备份
-      #misc: 杂项
+      backup: Backup
+      misc: Misc
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -169,8 +173,8 @@ en:
         services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: 'Found new version'
-        dev_new_version: Found new version (dev mode)
+        new_version: A new update is available
+        dev_new_version: A new update is available (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
     backups:
@@ -201,6 +205,7 @@ en:
         created_at: Created at
         size: Size
         download: Download
+        reprocess: Reprocess
         destroy: Destroy
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         current_step: Processing, current %{step}
@@ -209,7 +214,7 @@ en:
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
       new:
         title: New backup
-        schedule: Scheduel
+        schedule: Schedule
         disable: Disable
         enable: Enable
       edit:
@@ -233,7 +238,7 @@ en:
       index:
         title: :admin.logs.title
         loading: Loading ...
-        error_message: 'Failed fetch logs, return status code: '
+        error_message: 'Log fetch failed, return status code: '
   dashboard:
     title: Dashboard
     analytics:
@@ -247,7 +252,8 @@ en:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_release: uploaded a version %{release_version} (%{build_version})
+      upload_full_version_release: uploaded a version %{release_version} (%{build_version})
+      upload_auto_version_release: uploaded a version %{version}
       not_found: Not found any upload.
   apps:
     title: Apps
@@ -276,7 +282,7 @@ en:
           <ul>
             <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>Use the app store channal in Android app:</p>
+          <p>Use the app store channel in Android app:</p>
           <ul>
             <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
@@ -286,13 +292,13 @@ en:
       title: Edit app
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}.'
-        not_found_app: Not found app by id %{id}, redirect to list of app.
+        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app: Not found app by id %{id}, redirect to list of app
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
-        delete_app: Confirm to destroy【%{name}】app and all related data of schemes, channels and uploaded releases?
-        delete_app_scheme: Confirm to destroy【%{name}】scheme and all related data of channels and uploaded releases?
-        delete_app_channel: Confirm to destroy【%{name}】channel and all related data of uploaded releases?
+        delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
+        delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
+        delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
   schemes:
     title: Schemes
     show:
@@ -303,7 +309,7 @@ en:
       title: 'Edit scheme for %{app}'
   channels:
     title: Channels
-    subtitle: 'scheme %{total_scheme}, channel %{total_channel}'
+    subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
     show:
       scheme: :schemes.title
       channel: :channels.title
@@ -366,7 +372,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'New release %{release_version} (%{build_version}) uploaded at %{time} ago, %{link}.'
+      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -379,24 +385,31 @@ en:
       git_commit: Git commit SHA
       source: Source
       metadata: Metadata
-      teardown_meatdata: More metadata
+      certificate_expired_date: Certificate expired at %{date}
+      teardown_metadata: More metadata
       install: Install
       download: Download
       installing: Installing ...
-      installed: Install requested
+      installed: Installed, reinstall
       destroy: Destroy
       missing_file: Missing file
+      cert_expired: Expired certificate
       more: More releases
-      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
+      cannot_install_cause_of_certificate_expired: Why can not install app with expired certifiate?
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or failed to install?
       last_ten_uploads: Activity
-      upload_release: :dashboard.timeline.upload_release
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
-      sync_devices_feature: Sync device name by using %{link} fastlane plugin
+      sync_devices_feature: Synchronize device name with %{link} recommended
+      apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
+      debug_file: '%{type} file'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
       view_detail: Manage channel
+      custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
     new:
       title: :channels.show.upload_release
     install:
@@ -406,10 +419,10 @@ en:
       default_changelog: |
         Not found changelog, cause:
 
-        - The developer is lazy without leaving anyting 😂
+        - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       install_error:
-        title: What is the solution?
+        title: Install issues and the solution
         body_html: |
           <ol class="mb-0">
             <li>
@@ -417,6 +430,20 @@ en:
               Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
             </li>
             <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
+          </ol>
+        ok: Okay
+      cert_expired_error:
+        title: iOS signature cerificate issues
+        body_html: |
+          <ol class="mb-0">
+            <li>
+              In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
+              and shelved in order to prevent apps from being distributed in the AppStore app store.
+              The signature certificate is valid for one year from the date of issuance. After the expiration,
+              you need to re-generate and re-sign the app before you can continue to install it.
+            </li>
+            <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
+            <li>Regenerating a signed certificate will not have any effect on the previous application, i.e. once expired it will always be expired, unless re-sign the app.</li>
           </ol>
         ok: Okay
       confirm:
@@ -433,30 +460,58 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean in system
         not_found_really: Not found release
         invalid_password: Invalid password
-        bundle_id_not_matched: 'Bundle id (package name) not matched between release %{got} and rule %{expect}'
+        bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
+        require_parsable: Upload file can not parsable, make sure use avaliables file format
   debug_files:
     title: Debug files
     index:
       upload: Upload a debug file
-      processing: Processing in background, refresh the web page later.
-      version: 'Version: %{version}'
-      download: Download (%{size})
-      destroy: Destroy
       uploaded_at: Uploaded at %{time}
-      missing_file: Missing file
       empty_content: Not found any debug file.
+      android_count: Proguard
+      ios_count: dSYM
       not_found:
         title: Not found any debug file!
         body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+    show:
+      title: '%{app} %{device} %{version} Debug file'
+      name: App name
+      version: Build number
+      device_type: Platform
+      release_version: Version
+      filesize: File size
+      uploaded_at: Upload date
+      missing_file: Missing file
+      download: Download
+      reprocess: Reprocess
+      destroy: Destroy
+      main_target: 'Main target: %{value}'
+      arch: Architecture
+      uuid: UUID
+      libraries: Libraries
+      filename: Filename
+    device:
+      title: '%{app} %{device} Debug file'
+      number: '#%{value}'
+      processing: Processing in background, take a coffee break ...
+      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      reparse_required: Missing identifier (or package name), may be needs reprocess.
+      main_target: Main target
+      arch: Architecture(s)
+      libraries: Libraries
+      filesize: File size
+      file_count: File count
+    reprocess:
+      success: Reprocess request successful
     help:
       title: Help center
       body_html: |
         <h4>What is debug file, how to location?</h4>
         <h5>iOS</h5>
-        <p>Locate with Xcode:</p>
+        <p>Locate with XCode:</p>
         <ul>
           <li>Open XCode app and choose menu "Window" -> "Organizer"</li>
-          <li>Select the project and found Archivers" in "Products"</li>
+          <li>Select the project and found Archives" in "Products"</li>
           <li>Select build -> "Show in Finder" to open .xcarchive folder</li>
           <li>Right click -> "Display package" -> dSYMs</li>
           <li>Zip the dSYM file</li>
@@ -485,7 +540,7 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk, .aab, .ipa, .mobileprovision and macOS.app.zip file
+      file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
       submit: Start work
     create:
       create: :teardowns.new.title
@@ -495,7 +550,7 @@ en:
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      type: Type
+      type: Platform
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
@@ -503,12 +558,12 @@ en:
         title: Not found any teardown!
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
-      title: 'Teardown: %{name} %{release_version} (%{build_version})'
+      title: '%{name} Teardown result'
       expired_in: Expire in %{time}
-      already_expired: Expired at %{time}
+      already_expired: Expired %{time}
       expired: Expired now!
       related_app: Release related
-      related_body: This teardown was relates with
+      related_body: This teardown was relates with %{link}
       unknow_app_name: Unknown
       metadata: Metadata
       app_name: App name
@@ -525,12 +580,38 @@ en:
       developer_certs_list: 'Developer Certificates (%{count})'
       cert: 'Cert %{index}'
       cert_expired_at: 'Expired at %{date}'
+      cert_created: Created date
+      cert_expired: Expired Date
+      cert_version: Version
+      cert_serial: Serial
+      cert_issuer: Issuer
+      cert_algorithem: Algorithem
+      cert_subject: Subject
+      cert_digest: Digest
+      cert_length: Length
+      signature_title: 'Signatures (%{count})'
+      signature: 'Scheme %{scheme}'
+      cert_fignger: 'Fingerprint %{digest}'
+      signature_not_found: Not found
+      signature_verified: 'Verified'
+      signature_unverified: 'WIP'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
       team_id: Team ID
       created_at: Created time
       expired_at: Expired time
+      archs: Architecture
+      product_name: Product name
+      product_version: Product version
+      assembly_version: Assembly version
+      file_version: File version
+      file_description: File description
+      copyright: Copyright
+      original_filename: Origial filename
+      company_name: Company name
+      binary_size: Binary size
+      imports: Imports
     help:
       title: Help center
       body_html: |
@@ -561,7 +642,7 @@ en:
           </tr>
           <tr>
             <td>Min iOS version</td>
-            <td>Android min SDK / targer SDK version</td>
+            <td>Android min SDK / target SDK version</td>
           </tr>
           <tr>
             <td>Entitlements</td>
@@ -599,8 +680,8 @@ en:
         not_found_file: 'Not found debug file: %{message}'
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: 'Unknown parse error [%{class}]: %{message}'
-        choose_supported_file_type: 'Choose support file type: .apk, .abb, .ipa, .mobileprovision or macOS.app.zip file'
+        unknown_parse: 'Unknown parse error: %{message} (%{class})'
+        choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
   udid:
     title: Fetch UDID
     index:
@@ -618,10 +699,10 @@ en:
           <p>
             The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
           </p>
-          <strong>Fetch steps:</strong>
+          <strong>Following the steps:</strong>
           <ol>
             <li>Click "Accept" to download profile</li>
-            <li>Open "Setting.app" -> "Downloeded profile" -> "Fetch device's UDID" -> Install</li>
+            <li>Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install</li>
             <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
           </ol>
     show:
@@ -629,7 +710,7 @@ en:
       metadata: Metadata
       registered_but_no_related_app: Device was registered to Apple Developer, but not found any related app.
       registered_with_related_apps: Device was registered to Apple Developer, install app below.
-      register: Device is unregister, choose Apple Developer to register.
+      register: Device is unregistered, choose Apple Developer to register.
       unregistered: New device found, copy the UDID to Apple Developer!
       registered_apps: Registered apps
       udid: UDID
@@ -639,25 +720,31 @@ en:
       name: Device Name
       platform: Platform
       model: Model
-      created_at: Registerd at
-      upload_release: :dashboard.timeline.upload_release
-      related_apple_keys: Related Apple Developers
-      register_apple_key: Register to Apple Developer
+      status: Status
+      enabled: Enabled
+      disabled: Disabled
+      created_at: Registered at
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      registered_device: Related Apple Developers
+      new_register_device: Register to Apple Developer
       channels: Channels
       releases: Uploads
       apple_keys: Apple Developers
       team_name: Team Name
-      team_id: Tead ID
+      team_id: Team ID
       register_device: Register
+      related_apple_keys_not_found: Not found any Apple Team.
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Zealot fetch device UDID
+      title: Fetch Device UDID Profile
+      organization: Apple UDID Authorization Service
       description: |
-        ↑↑↑↑ It is safe to display "Unsigned".
+        ↑↑↑↑ "Unsigned" or "Not Verfied" is normal display.
 
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
-        Powered by %{url}.
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
+        Authorized request by %{name}: %{url}
   web_hooks:
     title: :admin.web_hooks.title
     create: :admin.web_hooks.new.title
@@ -705,7 +792,7 @@ en:
         create:
           debug: Debug
           adhoc: Adhoc
-          enterpse: Enterpse
+          enterpse: Enterprise
           release: Release
       version_exist:
         show:
@@ -751,39 +838,58 @@ en:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      blank: Can't be blank
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match url: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
+      only_integer: Must be number
+      json_format: Must be JSON standard format
       optional_value: 'Optional value: %{value}'
-      invalid_in_demo_mode: Forbidden in demo mode
+      invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
+      redis_connection_error: Redis server connect failed.
+      database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback
       homepage_title: homepage
-      unknown_file_type: Unknown file type to parse
   active_job:
     debug_file:
-      success: Debug file (%{id}) pare done, Refresh the web page please.
+      success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
         not_found_file: Debug file is missing with unknown issue.
+        not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
     backup:
       success: '%{key} backup created successfully.'
       failures:
         max_keeps_limited: '%{key} backup maximum limit value was zero'
+        dump_command: 'Executing dump backup commands failed: %{message}'
+        restore_command: 'Executing restore backup commands failed: %{message}'
   activerecord:
     attributes:
       channel:
         name: Channel name
+      device:
+        name: Device name
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
       destroy: "Deleted %{key} successfully"
     errors:
-      same_value: "%{key} not change, skip to update"
+      messages:
+        same_value: "%{key} not change, skip to update"
+        invaild_json: Invaild JSON format
+        incorrect_json_format: Unknown JSON format
+        empty_json_value: JSON value is empty
       models:
         apple_key:
           attributes:
+            issuer_id:
+              missing_distribution_certificate: Create distribution certificate then try again.
+            key_id:
+              unauthorized: Without authority, please check issuer id and private key.
+              forbidden: Without permission, Apple key needs developer or high permissions.
+              unknown: 'Unknown error: %{message}'
             devices:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
@@ -800,6 +906,10 @@ en:
           attributes:
             schedule:
               invalid: Invalid expression
+        release:
+          attributes:
+            file:
+              not_enough_space: Not enough disk space
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
@@ -826,9 +936,10 @@ en:
       hint: '- Or -'
       links:
         provider:
-          feishu: ' Feishu'
-          google: ' Google'
-          gitlab: ' Gitlab'
+          feishu: Feishu
+          google: Google
+          gitlab: Gitlab
+          openidconnect: OpenID
   helpers:
     submit:
       user:
@@ -859,6 +970,8 @@ en:
         update: Update
       backup:
         create: Create
+        update: Update
+      device:
         update: Update
   views:
     pagination:

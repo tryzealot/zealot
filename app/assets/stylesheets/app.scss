@@ -29,7 +29,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 
   .created-time {
-    font-size: 0.4em;
+    font-size: 0.7rem;
   }
 }
 
@@ -104,7 +104,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 
   .app-name {
-    padding-top: 6px;
+    padding-top: 3px;
     padding-left: 60px;
   }
 
@@ -134,8 +134,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 
   .app-actions {
-    .ios-install-issues {
-      padding-top: 10px;
+    .ios-issues {
       font-size: 0.8em;
       color: $ios-install-issue-color;
 
@@ -143,6 +142,41 @@ $ios-install-issue-color: rgb(245, 39, 90);
         color: $ios-install-issue-color;
         text-decoration: underline;
         padding-left: 3px;
+      }
+    }
+  }
+
+  .install-buttons {
+    .btn {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.callout, .changelog {
+  ul {
+    padding-inline-start: 24px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: #212529;
+    text-decoration: underline;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .dark-mode & {
+    a {
+      color: #fff;
+
+      &:hover {
+        color: #64adfb;
       }
     }
   }
