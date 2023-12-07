@@ -330,7 +330,7 @@ GEM
       validate_email
       validate_url
       webfinger (~> 2.0)
-    openssl (3.1.0)
+    openssl (3.2.0)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     parser (3.1.3.0)
@@ -605,7 +605,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 1.0.1)
   omniauth-rails_csrf_protection (~> 1.0.1)
   omniauth_openid_connect (= 0.7.1)
-  openssl (~> 3.1.0)
+  openssl (~> 3.2.0)
   pg (>= 0.18, < 2.0)
   pghero (~> 3.3.4)
   plist (~> 3.7.0)
