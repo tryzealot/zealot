@@ -28,9 +28,9 @@
               value = params[:value]
               display_value = case value
                               when Hash
-                                pretty_json(value)
+                                value.blank? ? t('admin.settings.empty_value') : pretty_json(value)
                               when Array
-                                value.join(', ')
+                                value.blank? ? t('admin.settings.empty_value') : value.join(', ')
                               when TrueClass
                                 t('admin.settings.enable')
                               when FalseClass
