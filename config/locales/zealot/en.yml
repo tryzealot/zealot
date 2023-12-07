@@ -893,7 +893,9 @@ en-US:
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
-        invaild_json: 'Invaild JSON format'
+        invaild_json: Invaild JSON format
+        incorrect_json_format: Unknown JSON format
+        empty_json_value: JSON value is empty
       models:
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
