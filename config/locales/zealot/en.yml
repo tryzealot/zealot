@@ -879,6 +879,8 @@ en:
       messages:
         same_value: "%{key} not change, skip to update"
         invaild_json: Invaild JSON format
+        incorrect_json_format: Unknown JSON format
+        empty_json_value: JSON value is empty
       models:
         apple_key:
           attributes:
