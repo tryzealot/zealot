@@ -5,12 +5,13 @@ ruby:
 dt = title
 dd.input-group.mb-3 data-controller="clipboard-center"
   input.form-control.rounded-0 value="#{value}" readonly="true" data-clipboard-center-target="source"
-  span.input-group-append
-    button.btn.btn-primary.btn-flat.btn-clipboard[
-      data-clipboard-center-target="button"
-      data-action="clipboard-center#copy"
-      data-clipboard-text="#{value}"
-      data-toggle="tooltip"
-      title="Copy me"
-    ]
-      i.far.fa-clipboard
+  - if copy.present?
+    span.input-group-append
+      button.btn.btn-primary.btn-flat.btn-clipboard[
+        data-clipboard-center-target="button"
+        data-action="clipboard-center#copy"
+        data-clipboard-text="#{value}"
+        data-toggle="tooltip"
+        title="Copy me"
+      ]
+        i.far.fa-clipboard

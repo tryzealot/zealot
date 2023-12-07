@@ -3,11 +3,12 @@
 
 .row
   - if @metadata.release.present?
+    ruby:
+      link = link_to(@metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release))
     .col-md-12
       .callout.callout-info
         h5 = t('.related_app')
         p
-          = t('.related_body')
-          = link_to @metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release)
+          = raw t('.related_body', link: link)
 
   == render @metadata.platform.to_s.downcase

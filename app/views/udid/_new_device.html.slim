@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+    .alert.alert-warning
+      strong Ta-Da！
+      = t('udid.show.unregistered')
+
+  == render 'dashboards/widget', title: t('udid.show.channels'), count: @channel_total, url: '', color_style: 'bg-navy', icon: 'fab fa-adn'
+  == render 'dashboards/widget', title: t('udid.show.releases'), count: @release_total, url: '', color_style: 'bg-pink', icon: 'fab fa-gg'
+  == render 'dashboards/widget', title: t('udid.show.apple_keys'), count: @apple_key_total, url: '', color_style: 'bg-yellow', icon: 'fas fa-key'
+
+  == render 'udid/udid_metadata', device: @device
+  == render 'udid/apps', device: @device, channels: @channels

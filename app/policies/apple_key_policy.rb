@@ -6,6 +6,10 @@ class AppleKeyPolicy < ApplicationPolicy
     manage?
   end
 
+  def private_key?
+    manage?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

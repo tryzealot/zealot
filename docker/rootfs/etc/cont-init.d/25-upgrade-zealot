@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv sh
 
-cd /app && ./bin/rails zealot:upgrade
+cd /app
+./bin/rails zealot:precheck && ./bin/rails zealot:upgrade
 exit 0

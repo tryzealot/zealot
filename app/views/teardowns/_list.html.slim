@@ -11,7 +11,7 @@
             th = t('teardowns.index.uploaded_at')
             th = t('teardowns.index.app_name')
             th = t('teardowns.index.version')
-            th = t('teardowns.index.type')
+            th = t('teardowns.index.platform')
             th = t('teardowns.index.uploader')
 
             - if user_signed_in?
@@ -22,17 +22,23 @@
                 span data-toggle="tooltip" title="#{md.created_at}"
                   = time_ago_in_words(md.created_at)
               td
-                = link_to md.name, teardown_path(md)
+                = link_to (md.name || '-'), teardown_path(md)
               td
-                = md.mobileprovision? ? '-' : "#{md.release_version} (#{md.build_version})"
+                - if md.release_version.present?
+                  = md.release_version
+                  - if md.build_version.present?
+                    | (#{md.build_version})
+                - else
+                  | -
               td
-                = device_name(md.platform)
+                = platform_name(md.platform)
               td
                 = md.user&.username || t('teardowns.index.anonymous')
 
               - if user_signed_in?
                 td
-                  a.btn.btn-tool href="#{teardown_path(md)}" data-confirm="#{t('teardowns.messages.confirm.destroy')}" data-method="delete"
+                  = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
+                    data: { confirm: t('teardowns.messages.confirm.destroy'), turbo_confirm: t('teardowns.messages.confirm.destroy') } do
                     i.fas.fa-trash-alt
 
       - if @metadata.total_pages > 1

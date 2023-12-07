@@ -92,7 +92,7 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def set_disk_volumes
-    @disks = ::Sys::Filesystem.mounts.each_with_object([]) do |mount, obj|
+    @disks = Sys::Filesystem.mounts.each_with_object([]) do |mount, obj|
       mount_options = mount.options.split(',').map(&:strip)
       # next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
       next if (EXCLUDED_MOUNT_TYPES & [mount.mount_type]).any?
@@ -176,10 +176,7 @@ class Admin::SystemInfoController < ApplicationController
   end
 
   def redis_version
-    @redis_client ||= Redis.new(url: Rails.application.config.cache_store.last[:url])
-    return false if @redis_client.ping != 'PONG'
-
-    @redis_client.info['redis_version']
+    @redis_client ||= Rails.cache.stats['redis_version']
   end
 
   def sidekiq_version

@@ -10,10 +10,10 @@
   <a href="https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md">
     <img alt="changelog" src="https://img.shields.io/github/v/release/tryzealot/zealot?include_prereleases">
   </a>
-  <a href="https://hub.docker.com/r/tryzealot/zealot/">
+  <a href="https://ghcr.io/tryzealot/zealot">
     <img alt="docker image" src="https://img.shields.io/docker/pulls/tryzealot/zealot.svg">
   </a>
-  <a href="https://t.me/tryzealot_lobby">
+  <a href="https://t.me/+csa3Y2KOx44wMGRl">
     <img alt="chat on telegram" src="https://img.shields.io/badge/chat-on%20telegram-important.svg">
   </a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/zealot"><img src="https://badges.crowdin.net/zealot/localized.svg"></a>
@@ -44,14 +44,14 @@
 
 ## 特性
 
-- 🌏 **多平台应用支持**: macOS、iOS、甚至是 APK 和 AAB 格式的 Android 应用上传、安装（支持 ARM 的 macOS）和下载
-- 🗄 **多渠道分类管理**: Debug、AdHoc、Enterprise 还是 Android 应用渠道管理统统没问题
+- 🌏 **多平台应用托管**: macOS、iOS、Android（apk/aab）、Windows、Linux 泛平台
 - 📱 **测试设备一网打进**: 自动同步 iOS 测试设备信息，允许一键注册新设备到苹果开发者
 - 🧑‍💻 **丰富开发者套件**: 提供 REST API、[iOS][zealot-ios-sdk]、[Android][android-android-sdk] SDK 以及 [fastlane][fastlane-plugin-zealot] 自动化构建插件
 - 💥 **剖析应用内部的秘密**: 解读 iOS、Android 应用或 iOS 描述文件的元信息
-- 🎳 **多架构部署**: amd86、arm64 和 armv7 任君选择（支持 ARM 的 macOS）
 - 🚨 **内置多种事件通知**: 数据可自定义 Income WebHook 到任意通知服务
-- 🔑 **第三方登录**: 飞书、Gitlab、Google 和 LDAP 一键授权
+- 🗄 **多渠道分类管理**: 自由划分不同场景不同产品形态的应用渠道管理
+- 🎳 **多架构部署**: amd86/arm64/armv7 及各种部署方案应有尽有
+- 🔑 **第三方登录**: 飞书、Gitlab、Google、LDAP 和 OIDC 一键授权
 - 🌑 **黑暗模式**: 黑夜白昼自由切换
 
 ## 在线演示
@@ -74,4 +74,4 @@
 [zealot-ios-sdk]: https://github.com/tryzealot/zealot-ios
 [android-android-sdk]: https://github.com/tryzealot/zealot-android
 [fastlane-plugin-zealot]: https://github.com/tryzealot/fastlane-plugin-zealot
-[mit-link]: https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md
+[mit-link]: https://github.com/tryzealot/zealot/blob/develop/LICENSE

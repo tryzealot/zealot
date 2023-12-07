@@ -1,6 +1,6 @@
 // Brand Logo
 a.brand-link href="#{ root_path }"
   picture
-    source srcset="#{image_url("zealot-icon-dark.png")}" media="(prefers-color-scheme: dark)" class="brand-image"
+    source srcset="#{image_url("zealot-icon-dark.png")}" media="(prefers-color-scheme: dark)" class="dark-brand-image brand-image"
     = image_tag 'zealot-icon.png', class: 'brand-image'
   span.brand-text.font-weight-light = Setting.site_title

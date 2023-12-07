@@ -1,12 +1,19 @@
 project_id_env: CROWDIN_PROJECT_ID
 api_token_env: CROWDIN_PERSONAL_TOKEN
+preserve_hierarchy: true
 commit_message: 'Fix: New translations %original_file_name% from Crowdin'
 files:
   - source: /config/locales/zealot/zh-CN.yml
     translation: /config/locales/zealot/%two_letters_code%.yml
+    escape_quotes: 0
     escape_special_characters: 0
-    type: yaml
+    languages_mapping: &anchor
+      locale:
+        'en-US': 'en'
   - source: /config/locales/simple_form/simple_form.zh-CN.yml
     translation: /config/locales/simple_form/simple_form.%two_letters_code%.yml
+    escape_quotes: 0
     escape_special_characters: 0
-    type: yaml
+    languages_mapping: &anchor
+      locale:
+        'en-US': 'en'

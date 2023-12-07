@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
+
+    resources :debug_files, only: [] do
+      collection do
+        get ':device', action: :device, as: :device
+      end
+    end
   end
 
   resources :channels, only: %i[index show] do
@@ -53,7 +59,11 @@ Rails.application.routes.draw do
   #############################################
   # Debug File
   #############################################
-  resources :debug_files, except: %i[show]
+  resources :debug_files do
+    member do
+      post :reprocess
+    end
+  end
 
   #############################################
   # Teardown
@@ -80,7 +90,7 @@ Rails.application.routes.draw do
   #############################################
   # UDID (iOS/iPadOS)
   #############################################
-  resources :udid, as: :udid, param: :udid, only: %i[ index show ] do
+  resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
     collection do
       get :qrcode
       get :install
@@ -114,6 +124,7 @@ Rails.application.routes.draw do
       resources :apple_keys, except: %i[ edit update ] do
         member do
           put :sync_devices
+          get :private_key
         end
       end
 
@@ -197,9 +208,17 @@ Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
 
   #############################################
-  # URL Friendly
+  # Development Only
   #############################################
-  scope path: ':channel', as: :friendly_channel do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/inbox'
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  ############################################
+  # URL Friendly
+  ############################################
+  scope path: ':channel', format: false, as: :friendly_channel do
     get '/overview', to: 'channels#show'
     get '', to: 'releases#index', as: 'releases'
     get 'versions', to: 'channels/versions#index', as: 'versions'
@@ -208,14 +227,6 @@ Rails.application.routes.draw do
     get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
     get ':id', to: 'releases#show', as: 'release'
     # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
-  end
-
-  #############################################
-  # Development Only
-  #############################################
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/inbox'
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
   match '/', via: %i[post put patch delete], to: 'application#raise_not_found', format: false

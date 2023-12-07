@@ -8,12 +8,14 @@ ruby:
 .col-md-6
   .card
     .card-header
-      h3.card-title = t('teardowns.show.metadata')
+      h3.card-title
+        i.icon.fab.fa-android.text-green
+        = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body
-      dl.system-info
+    .card-body.pl-2.pr-2.p-0
+      dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
         dd
           pre = app_name
@@ -27,7 +29,7 @@ ruby:
           = t('teardowns.show.supported_device')
         dd
           pre
-            = @metadata.device
+            = device_name(@metadata.device)
             |  (Android)
         dt = t('teardowns.show.sdk_version_range')
         dd
@@ -39,8 +41,11 @@ ruby:
   = render 'card', title: 'Activities', raw: @metadata.activities
 
 .col-md-6
+  - if @metadata.developer_certs.present?
+    == render 'signatures_part', signatures: @metadata.developer_certs
+
   == render 'card', title: 'Deep Links', raw: @metadata.deep_links
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
-  = render 'card', title: 'Features', raw: @metadata.features
-  = render 'card', title: 'Permissions', raw: @metadata.permissions
-  = render 'card', title: 'Services', raw: @metadata.services
+  == render 'card', title: 'Features', raw: @metadata.features
+  == render 'card', title: 'Permissions', raw: @metadata.permissions
+  == render 'card', title: 'Services', raw: @metadata.services

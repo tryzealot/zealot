@@ -8,7 +8,7 @@ class Api::Apps::VersionExistController < Api::BaseController
     determine_params!
 
     where_params = channel_params.merge(channel_id: @channel.id)
-    raise ActiveRecord::RecordNotFound, t('.not_found') unless Release.exists?(where_params)
+    raise ActiveRecord::RecordNotFound, t('api.apps.version_exist.show.not_found') unless Release.exists?(where_params)
 
     render json: Release.find_by(where_params)
   end

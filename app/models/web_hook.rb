@@ -6,4 +6,5 @@ class WebHook < ApplicationRecord
   delegate :count, to: :channels, prefix: true
 
   validates :channel_id, :url, presence: true
+  validates :body, json: { allow_blank: true }
 end

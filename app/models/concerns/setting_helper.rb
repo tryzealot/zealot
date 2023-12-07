@@ -6,21 +6,21 @@ module SettingHelper
   REPO_URL = 'https://github.com/tryzealot/zealot'
 
   class_methods do
-    include ActionView::Helpers::TranslationHelper
+    include AbstractController::Translation
 
     def builtin_schemes
       [
-        t('settings.preset_schemes.beta', default: nil),
-        t('settings.preset_schemes.adhoc', default: nil),
-        t('settings.preset_schemes.production', default: nil)
-      ].compact
+        I18n.t('settings.preset_schemes.beta', default: 'Beta'),
+        I18n.t('settings.preset_schemes.adhoc', default: 'AdHoc'),
+        I18n.t('settings.preset_schemes.production', default: 'Production')
+      ]
     end
 
     def builtin_roles
       {
-        user: t('settings.preset_role.user', default: nil),
-        developer: t('settings.preset_role.developer', default: nil),
-        admin: t('settings.preset_role.admin', default: nil)
+        user: t('settings.preset_role.user', default: 'User'),
+        developer: t('settings.preset_role.developer', default: 'Developer'),
+        admin: t('settings.preset_role.admin', default: 'Admin')
       }
     end
 

@@ -8,8 +8,8 @@ class Api::DebugFilesController < Api::BaseController
   # GET /api/debug_files
   def index
     @debug_files = DebugFile.where(app: @channel.app)
-                            .page(params.fetch(:page, 1).to_i)
-                            .per(params.fetch(:per_page, 10).to_i)
+                            .page(params.fetch(:page, 1))
+                            .per(params.fetch(:per_page, Setting.per_page))
                             .order(id: :desc)
 
     @debug_files = @debug_files.where(device_type: @channel.device_type)

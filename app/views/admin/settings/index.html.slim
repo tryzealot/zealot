@@ -26,15 +26,11 @@
           - keys.each do |key, params|
             ruby:
               value = params[:value]
-              if key == 'preset_schemes' && value&.blank?
-                value = Setting.builtin_schemes
-              end
-
               display_value = case value
                               when Hash
-                                pretty_json(value)
+                                value.blank? ? t('admin.settings.empty_value') : pretty_json(value)
                               when Array
-                                value.join(', ')
+                                value.blank? ? t('admin.settings.empty_value') : value.join(', ')
                               when TrueClass
                                 t('admin.settings.enable')
                               when FalseClass

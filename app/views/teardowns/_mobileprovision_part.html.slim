@@ -5,11 +5,11 @@
       .card-tools
         button.btn.btn-tool data-card-widget="collapse"
           i.fas.fa-minus
-    .card-body
-      dl.system-info
+    .card-body.p-0.pl-3
+      dl.system-info.pb-0
         dt = t('teardowns.show.mobileprovision_name')
         dd
-          pre = "#{@metadata.mobileprovision['profile_name']} (#{@metadata.release_type})"
+          pre = "#{@metadata.mobileprovision['profile_name']} (#{release_type_name(@metadata.release_type)})"
         dt = t('teardowns.show.uuid')
         dd
           pre = @metadata.mobileprovision['uuid']

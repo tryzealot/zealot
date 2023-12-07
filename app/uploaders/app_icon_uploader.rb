@@ -1,31 +1,34 @@
 # frozen_string_literal: true
 
 class AppIconUploader < ApplicationUploader
-  process convert_webp_to_png: [{ quality: 80, method: 5 }], if: :webp?
+  include CarrierWave::MiniMagick
+
+  process convert: :png, if: :not_png?
 
   def store_dir
     "#{base_store_dir}/apps/a#{model.app.id}/r#{model.id}/icons"
   end
 
+  # @param [ActionDispatch::Http::UploadedFile] file
+  def filename
+    return super unless not_png?(file)
+
+    filename = File.basename(file.path)
+    "#{filename}.png"
+  end
+
+  def content_type_allowlist
+    /image\//
+  end
+
   def extension_allowlist
-    %i(png webp jpeg jpg)
+    %i(png webp jpeg jpg bmp)
   end
 
-  private
+  # @param [ActionDispatch::Http::UploadedFile] file
+  def not_png?(file)
+    return false if file.nil?
 
-  def convert_webp_to_png(options = {})
-    png_path = "#{path}.png"
-    WebP.decode(path, png_path)
-
-    @filename = png_path.split('/').pop
-    @file = CarrierWave::SanitizedFile.new(
-      tempfile: png_path,
-      filename: png_path,
-      content_type: 'image/png'
-    )
-  end
-
-  def webp?(file)
-    File.extname(file.path) == '.webp'
+    File.extname(file.path) != '.png'
   end
 end
