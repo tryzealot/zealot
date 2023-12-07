@@ -38,7 +38,7 @@ gem 'friendly_id', '~> 5.5.1'
 ## 数据分页
 gem 'kaminari', '~> 1.2.2'
 ## 文件上传
-gem 'carrierwave', '~> 2.2.3'
+gem 'carrierwave', '~> 3.0.4'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
