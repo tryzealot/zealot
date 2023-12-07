@@ -63,12 +63,19 @@ module Zealot::Backup
         end
       compress_wr.close
 
+      exit_message = []
       success = [compress_pid, dump_pid].all? do |pid|
-        Process.waitpid(pid)
-        $?.success?
+        _, exitstatus = Process.waitpid2(pid)
+        prefix_message = compress_pid == pid ? 'compress' : 'dump'
+        message = "#{prefix_message} #{exitstatus.to_s}"
+        exit_message << message
+        logger.debug message
+        exitstatus.success?
       end
 
-      raise Zealot::Backup::DatabaseError, 'Backup failed' unless success
+      unless success
+        raise Zealot::Backup::DumpDatabaseError, exit_message.join(', ')
+      end
 
       success
     end
@@ -87,12 +94,21 @@ module Zealot::Backup
         end
       decompress_rd.close
 
+      exit_message = []
       success = [decompress_pid, restore_pid].all? do |pid|
-        Process.waitpid(pid)
-        $?.success?
+        _, exitstatus = Process.waitpid2(pid)
+        prefix_message = decompress_pid == pid ? 'decompress' : 'restore'
+        message = "#{prefix_message} #{exitstatus.to_s}"
+        exit_message << message
+        logger.debug message
+        exitstatus.success?
       end
 
-      raise Zealot::Backup::DatabaseError, 'Restore failed' unless success
+      unless success
+        raise Zealot::Backup::RestoreDatabaseError, exit_message.join(', ')
+      end
+
+      success
     end
 
     private

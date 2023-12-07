@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 module TeardownHelper
-  def expired_date_tips(expired_date)
+  def android_v1_signature?(certificates)
+    !certificates.any? { |cert| cert.key?('scheme') }
+  end
+
+  def certificate_name(dn)
+    dn.map { |k, v| "#{k}=#{v}" }.join(', ')
+  end
+
+  def expired_date_tips(expired_date, colorful: true, prefix: nil)
     time = Time.parse(expired_date)
     duration = ActiveSupport::Duration.build(time - Time.now)
     time_in_words = distance_of_time_in_words(time, Time.now)
@@ -19,6 +27,6 @@ module TeardownHelper
       style_name = (duration.value <= 3.months.to_i) ? 'text-yellow' : 'text-green'
     end
 
-    content_tag(:span, message, class: [style_name, 'text-bold'])
+    content_tag(:span, "#{prefix}#{message}", class: colorful ? [style_name, 'text-bold'] : [])
   end
 end

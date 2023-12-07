@@ -30,10 +30,17 @@ class Setting < RailsSettings::Base
 
   # 预值
   scope :presets do
-    field :preset_schemes, default: builtin_schemes, type: :array, display: true
+    field :preset_schemes, default: builtin_schemes, type: :array, display: true,
+          validates: { json: { format: :array } }
     field :preset_role, default: 'user', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
-    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true
+    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true,
+          validates: { json: { format: :array, value_allow_empty: true } }
+
+    field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
+          validates: { presence: true, numericality: { only_integer: true } }
+    field :max_per_page, default: ENV.fetch('ZEALOT_MAX_PER_PAGE', '100').to_i, type: :integer, display: true,
+          validates: { presence: true, numericality: { only_integer: true } }
   end
 
   # 模式开关
@@ -54,7 +61,7 @@ class Setting < RailsSettings::Base
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
-    }
+    }, validates: { json: { format: :hash } }
 
     field :gitlab, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITLAB_ENABLED'] || false),
@@ -62,13 +69,13 @@ class Setting < RailsSettings::Base
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
       app_id: ENV['GITLAB_APP_ID'],
       secret: ENV['GITLAB_SECRET'],
-    }
+    }, validates: { json: { format: :hash } }
 
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
-    }
+    }, validates: { json: { format: :hash } }
 
     field :ldap, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['LDAP_ENABLED'] || false),
@@ -79,7 +86,22 @@ class Setting < RailsSettings::Base
       password: ENV['LDAP_PASSWORD'],
       base: ENV['LDAP_BASE'],
       uid: ENV['LDAP_UID'] || 'sAMAccountName'
-    }
+    }, validates: { json: { format: :hash } }
+
+    field :oidc, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_ENABLED'] || false),
+      name: ENV['OIDC_NAME'] || 'OIDC Provider',
+      client_id: ENV['OIDC_CLIENT_ID'],
+      client_secret: ENV['OIDC_CLIENT_SECRET'],
+      issuer_url: ENV['OIDC_ISSUER_URL'],
+      discovery: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_DISCOVERY'] || false),
+      auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
+      token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
+      userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
+      scope: ENV.fetch('OIDC_SCOP', 'openid,email,profile,address'),
+      response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
+      uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
+    }, validates: { json: { format: :hash } }
   end
 
   # 邮件配置
@@ -96,7 +118,7 @@ class Setting < RailsSettings::Base
       password: ENV['SMTP_PASSWORD'],
       auth_method: ENV['SMTP_AUTH_METHOD'],
       enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']),
-    }
+    }, validates: { json: { format: :hash } }
   end
 
   # 备份
@@ -104,7 +126,7 @@ class Setting < RailsSettings::Base
     path: 'public/backup',
     max_keeps: 10,
     pg_schema: 'public',
-  }
+  }, validates: { json: { format: :hash } }
 
   # 版本信息（只读）
   scope :information do

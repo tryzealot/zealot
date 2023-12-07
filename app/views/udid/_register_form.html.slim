@@ -1,0 +1,14 @@
+.col-md-12
+  .card
+    = simple_form_for(Device.new, url: register_udid_path(udid: udid, product: product)) do |f|
+      .card-header
+        h3.card-title
+          = t("udid.show.register_device")
+        .card-tools
+      .card-body
+        = f.error_notification
+        = f.input :name
+        = f.input :apple_keys, collection: AppleTeam.all_names, label_method: :first, value_method: :last, include_blank: false
+
+      .card-footer
+          = f.button :submit, t('udid.show.register_device')

@@ -19,6 +19,10 @@ class ReleasesController < ApplicationController
 
   def show
     authorize @release
+
+    unless @release.custom_fields.is_a?(Array)
+      flash[:warn] = t('.custom_fields_invalid_json_format')
+    end
   end
 
   def new
@@ -85,7 +89,7 @@ class ReleasesController < ApplicationController
 
   def release_params
     params.require(:release).permit(
-      :file, :changelog, :release_type, :branch, :git_commit, :ci_url
+      :file, :changelog, :release_version, :build_version, :release_type, :branch, :git_commit, :ci_url
     )
   end
 
@@ -113,6 +117,6 @@ class ReleasesController < ApplicationController
       end
     end
 
-    render :not_found, status: :not_found
+    render 'releases/not_found', status: :not_found
   end
 end

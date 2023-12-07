@@ -11,25 +11,25 @@
       = t('debug_files.index.upload')
 
 .row
-  .col-md-12
-    - if DebugFile.count > 0
-      - @apps.each do |app|
-        .card
-          .card-header
-            h3.card-title = app.name
-            .card-tools
-              ul.nav.nav-pills
-                - DebugFile.device_types.each_with_index do |(value, name), i|
-                  li.nav-item
-                    a.nav-link class="#{i == 0 ? 'active' : ''}" data-toggle="tab" href="#tab-#{app.id}-#{value.downcase}" = name
-          .card-body.p-0
-            .tab-content
-              - DebugFile.device_types.each_with_index do |(value, name), i|
-                == render 'debug_file', app: app, value: value, name: name, i: i
-    - else
+  - if @apps.present?
+    - @apps.each_with_index do |app, i|
+      .col-md-3
+        .card.widget-app
+          .card-body.p-0.pt-3
+            .text-center
+              = app_icon(app.recently_release, class: 'app-icon elevation-1 img-circle')
+            h3.profile-username.text-center
+              = app.name
+            ul.list-group.list-group-unbordered.pt-2
+              li.list-group-item.pl-3.pr-4
+                b = t('.android_count')
+                span.float-right = link_to app.android_debug_files.count, device_app_debug_files_path(app, 'Android')
+              li.list-group-item.pl-3.pr-4.border-bottom-0
+                b = t('.ios_count')
+                span.float-right = link_to app.ios_debug_files.count, device_app_debug_files_path(app, 'iOS')
+  - else
+    .col-md-12
       .card.card-outline.card-warning
         .card-header.card-border
           h3.card-title = t('debug_files.index.not_found.title')
         .card-body = t('debug_files.index.not_found.body_html')
-
-  == render 'help'

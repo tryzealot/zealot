@@ -4,30 +4,36 @@
   "service": "app",
   "workspaceFolder": "/workspace",
 
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.profiles.linux":{
-      "zsh": {
-        "path": "/bin/zsh",
-        "icon": "star"
-      }
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux":{
+          "zsh": {
+            "path": "/bin/zsh",
+            "icon": "star"
+          }
+        }
+      },
+      "extensions": [
+        "Shopify.ruby-lsp",
+        "KoichiSasada.vscode-rdbg",
+        "sianglim.slim",
+        "eamodio.gitlens",
+        "bung87.rails",
+        "bung87.vscode-gemfile",
+        "EditorConfig.EditorConfig",
+        "formulahendry.auto-complete-tag",
+        "rangav.vscode-thunder-client"
+      ]
     }
   },
 
-  "extensions": [
-    "Shopify.ruby-lsp",
-    "KoichiSasada.vscode-rdbg",
-    "sianglim.slim",
-    "misogi.ruby-rubocop",
-    "eamodio.gitlens",
-    "bung87.rails",
-    "bung87.vscode-gemfile",
-    "EditorConfig.EditorConfig",
-    "formulahendry.auto-complete-tag"
-  ],
-
-  "forwardPorts": [3000, 5432, 6379, 8081],
+  "forwardPorts": [80, 3000, 5432, 6379, 8081],
   "portsAttributes": {
+    "80": {
+      "label": "phpRedisAdmin"
+    },
     "3000": {
       "label": "Rails server (puma)"
     },

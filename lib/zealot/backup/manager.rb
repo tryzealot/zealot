@@ -24,6 +24,8 @@ module Zealot::Backup
   class Error < StandardError; end
   class DatabaseError < Error; end
   class UploadsError < Error; end
+  class DumpDatabaseError < DatabaseError; end
+  class RestoreDatabaseError < DatabaseError; end
 
   class Manager
     include Zealot::Backup::Helper
