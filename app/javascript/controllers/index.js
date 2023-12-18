@@ -3,6 +3,9 @@ import { application } from "./application"
 import GlobalController from "./global_controller"
 application.register("global", GlobalController)
 
+import BetterErrorsController from "./better_errors_controller"
+application.register("better-errors", BetterErrorsController)
+
 import ClipboardCenterController from "./clipboard_center_controller"
 application.register("clipboard-center", ClipboardCenterController)
 

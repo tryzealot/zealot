@@ -4,17 +4,16 @@ module ExceptionHandler
   extend ActiveSupport::Concern
 
   included do
+    rescue_from Pundit::NotAuthorizedError, with: :forbidden
+    rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
+                JSON::ParserError, AppInfo::UnknownFormatError, with: :bad_request
     rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, ActionController::MissingFile,
                 with: :not_found
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
     rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
-    rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
-                JSON::ParserError, AppInfo::UnknownFormatError, with: :bad_request
-    rescue_from Faraday::Error, OpenSSL::SSL::SSLError,
-                TinyAppstoreConnect::ConnectAPIError, with: :internal_server_error
-    rescue_from Pundit::NotAuthorizedError, with: :forbidden
-    rescue_from RedisClient::CommandError, RedisClient::CannotConnectError,
-                ActiveRecord::ConnectionNotEstablished, with: :internal_server_error
+    rescue_from Faraday::Error, OpenSSL::SSL::SSLError, TinyAppstoreConnect::ConnectAPIError,
+                RedisClient::CommandError, RedisClient::CannotConnectError,
+                ActiveRecord::ConnectionNotEstablished, StandardError, with: :internal_server_error
   end
 
   private

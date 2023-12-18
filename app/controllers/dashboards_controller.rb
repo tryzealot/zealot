@@ -6,6 +6,7 @@ class DashboardsController < ApplicationController
   def index
     @title = t('dashboard.title')
 
+    1 / 0
     system_analytics
     recently_upload
   end
