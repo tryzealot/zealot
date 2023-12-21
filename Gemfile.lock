@@ -158,7 +158,7 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
-    faraday (2.7.12)
+    faraday (2.8.1)
       base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -585,7 +585,7 @@ DEPENDENCIES
   devise (~> 4.9.3)
   devise-i18n (~> 1.12.0)
   dotenv-rails
-  faraday (~> 2.7.12)
+  faraday (~> 2.8.1)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
   graphiql-rails
