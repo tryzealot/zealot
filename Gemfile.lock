@@ -345,7 +345,7 @@ GEM
     pg (1.5.4)
     pghero (3.4.0)
       activerecord (>= 6)
-    plist (3.7.0)
+    plist (3.7.1)
     propshaft (0.8.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -609,7 +609,7 @@ DEPENDENCIES
   openssl (~> 3.2.0)
   pg (>= 0.18, < 2.0)
   pghero (~> 3.4.0)
-  plist (~> 3.7.0)
+  plist (~> 3.7.1)
   propshaft (= 0.8.0)
   pry-rails
   pry-rescue
