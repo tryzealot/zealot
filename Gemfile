@@ -71,7 +71,6 @@ gem 'pghero', '~> 3.4.1'
 ## 异常报错上报
 gem 'sentry-ruby'
 gem 'sentry-rails'
-gem 'sentry-sidekiq'
 
 ## Jenkins SDK
 gem 'improved_jenkins_client', '~> 1.6.7'
