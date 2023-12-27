@@ -31,6 +31,9 @@
           dt = t('.os_info')
           dd
             pre = @server[:os_info]
+          dt = t('.postgres_version')
+          dd
+            pre = @server[:pg_version]
           dt = t('.ruby_version')
           dd
             pre = @server[:ruby_version]
@@ -84,22 +87,6 @@
               td = permission[:path]
               td style="width: 20px"
                 - if permission[:health]
-                  i.fas.fa-check.text-green
-                - else
-                  i.fas.fa-exclamation-triangle.text-red
-    .card
-      .card-header
-        h3.card-title = t('.services')
-        .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-minus
-      .card-body.p-0
-        table.table
-          - @services.each do |name, health|
-            tr
-              td = "#{name} #{health}"
-              td style="width: 20px"
-                - if health
                   i.fas.fa-check.text-green
                 - else
                   i.fas.fa-exclamation-triangle.text-red
