@@ -60,7 +60,7 @@ gem 'omniauth_openid_connect', '0.7.1'
 
 ## UDID
 gem 'openssl', '~> 3.2.0'
-gem 'plist', '~> 3.7.0'
+gem 'plist', '~> 3.7.1'
 
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.4'
