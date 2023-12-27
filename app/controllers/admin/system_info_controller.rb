@@ -51,7 +51,6 @@ class Admin::SystemInfoController < ApplicationController
     set_server_info
     set_disk_volumes
     set_file_permissions
-    set_services
   end
 
   private
@@ -81,12 +80,6 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_gems
     @gems ||= Hash[Gem::Specification.map { |spec| [spec.name, spec.version.to_s] }].sort
-  end
-
-  def set_services
-    @services ||= {
-      postgres: pg_version
-    }
   end
 
   def set_disk_volumes
@@ -120,6 +113,7 @@ class Admin::SystemInfoController < ApplicationController
 
     @server = {
       os_info: Etc.uname.values.join(' '),
+      pg_version: pg_version,
       ruby_version: RUBY_DESCRIPTION,
       zealot_vcs_ref: Setting.vcs_ref,
       build_date: Setting.build_date,
@@ -171,12 +165,6 @@ class Admin::SystemInfoController < ApplicationController
 
     version = ActiveRecord::Base.connection.select_value("SELECT version()")
     version.match(/^PostgreSQL\s((\d+[.]?)+)\s*/).try(:[], 1)
-  end
-
-  def sidekiq_version
-    return false unless HealthCheck::SidekiqHealthCheck.check
-
-    Gem::Specification.find_by_name('sidekiq').version
   end
 
   def percent(value, n)
