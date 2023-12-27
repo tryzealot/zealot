@@ -157,6 +157,7 @@ zh-CN:
         server_info: 服务器信息
         found_new_version: '发现新版本: %{version}'
         os_info: 操作系统
+        postgres_version: PostgreSQL 版本
         ruby_version: Ruby 版本
         cpu_info: CPU
         cpu_core: '%{count} 核'
@@ -169,7 +170,6 @@ zh-CN:
         fail_detect_disk: 无法解读硬盘信息
         system_environment: 系统变量
         file_permissions: 文件权限
-        services: 服务状态
         ruby_gems: Ruby Gems
         logs: 日志
         new_version: '发现新版本 '

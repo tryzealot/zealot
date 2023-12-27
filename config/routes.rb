@@ -153,7 +153,7 @@ Rails.application.routes.draw do
         get :status
       end
 
-      mount GoodJob::Engine, at: 'good_job', as: :goodjob
+      mount GoodJob::Engine, at: 'jobs', as: :jobs
       mount PgHero::Engine, at: 'pghero', as: :pghero
     end
   end
