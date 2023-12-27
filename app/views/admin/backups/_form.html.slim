@@ -8,7 +8,7 @@
     .card-body
       = f.error_notification
 
-      = f.input :enabled
+      = f.input :enabled, input_html: { checked: true }
       = f.input :key, required: true
       = f.input :max_keeps, required: true
       / = f.input :notification
