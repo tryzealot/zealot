@@ -157,6 +157,7 @@ en:
         server_info: Server info
         found_new_version: 'Found new version: %{version}'
         os_info: OS info
+        postgres_version: PostgreSQL version
         ruby_version: Ruby version
         cpu_info: CPU
         cpu_core:
@@ -171,7 +172,6 @@ en:
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
         file_permissions: File permissions
-        services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
         new_version: A new update is available
