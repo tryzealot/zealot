@@ -42,7 +42,7 @@ class DebugFile < ApplicationRecord
       proguard.object
     end
   end
-  alias_method package_name bundle_id
+  alias_method :package_name, :bundle_id
 
   # iOS only
   def main_object
