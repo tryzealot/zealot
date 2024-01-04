@@ -10,9 +10,9 @@ class Backup < ApplicationRecord
   validate :correct_schedule
 
   before_save :strip_enabled_apps
-  before_destroy :remove_storage
-
   after_save :update_worker_scheduler
+
+  before_destroy :remove_storage
 
   def apps
     App.where(id: enabled_apps)
@@ -40,10 +40,15 @@ class Backup < ApplicationRecord
   def destroy_directory(name)
     FileUtils.rm_rf(File.join(backup_path, name))
 
-    job_id, status = BackupFile.find_job(cache_key, key, name)
+    # FIXME: 改用 good job 的方法
+    # job_id, status = BackupFile.find_job(cache_key, key, name)
 
-    Rails.cache.delete(cache_job_key) if job_id
-    status.delete if status
+    # Rails.cache.delete(cache_job_key) if job_id
+    # status.delete if status
+  end
+
+  def remove_background_jobs(job_id = nil)
+
   end
 
   def cache_job_key
@@ -151,7 +156,7 @@ class Backup < ApplicationRecord
   end
 
   def remove_storage
-    FileUtils.rm_rf(path)
+    FileUtils.rm_rf(backup_path)
   end
 
   def update_worker_scheduler
