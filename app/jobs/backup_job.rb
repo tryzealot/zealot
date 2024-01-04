@@ -4,6 +4,8 @@ require 'fileutils'
 require_relative '../../lib/zealot/backup/manager'
 
 class BackupJob < ApplicationJob
+  include ActiveJob::Status
+
   queue_as :schedule
 
   retry_on StandardError, attempts: 0
@@ -24,7 +26,6 @@ class BackupJob < ApplicationJob
 
     prepare
     dump_database
-    sleep 10000000
     dump_apps
     pack
     remove_old
@@ -87,7 +88,9 @@ class BackupJob < ApplicationJob
   end
 
   def remove_old
-    @manager.remove_old(@backup.max_keeps, progress: 80)
+    update_status(__method__, progress: 80)
+
+    @manager.remove_old(@backup.max_keeps)
   end
 
   def cleanup
@@ -127,12 +130,12 @@ class BackupJob < ApplicationJob
   end
 
   def backup_path
-    @backup_path ||= @backup.path
+    @backup_path ||= @backup.backup_path
   end
 
   def update_status(value, **params)
-    # status[:step] = value.to_s
-    # status.update(params) if params
+    status[:step] = value.to_s
+    status.update(params) if params
   end
 
   def cached_jobs
