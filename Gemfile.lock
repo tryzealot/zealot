@@ -212,7 +212,7 @@ GEM
       rdoc
       reline (>= 0.3.8)
     jb (0.8.2)
-    jsbundling-rails (1.2.1)
+    jsbundling-rails (1.2.2)
       railties (>= 6.0.0)
     json (2.6.3)
     json-jwt (1.16.3)
@@ -286,7 +286,7 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.15.5)
+    nokogiri (1.16.0)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (1.4.11)
@@ -435,7 +435,7 @@ GEM
     redis-client (0.19.0)
       connection_pool
     regexp_parser (2.6.1)
-    reline (0.4.1)
+    reline (0.4.2)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
