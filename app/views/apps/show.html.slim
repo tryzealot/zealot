@@ -26,9 +26,15 @@ ruby:
             h3.card-title
               = scheme.name
             .card-tools
+              - if scheme.retained_builds > 0
+                span.badge.badge-success data-toggle="tooltip" title="#{t('.retained_build')}" style="margin-right: 4px"
+                  = scheme.retained_builds
               - if !scheme.new_build_callout
-                span.badge.rounded-pill.text-bg-secondary
-                  i.fa.fa-bell-slash.text-success title="新上传版本提示窗" data-toggle="tooltip"
+                span.badge.badge-warning title="#{t('.disabled_new_build_callout')}" data-toggle="tooltip"
+                  i.fa.fa-bell-slash
+              - else
+                span.badge.badge-success title="#{t('.enabled_new_build_callout')}" data-toggle="tooltip"
+                  i.fa.fa-bell
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"
               table.table

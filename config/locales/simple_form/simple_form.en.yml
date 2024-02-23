@@ -27,6 +27,7 @@ en:
       scheme:
         name: 'Scheme name'
         new_build_callout: New build callout
+        retained_builds: Retained builds
       channel:
         name: 'Channel name'
         device_type: 'Device type'
@@ -93,7 +94,8 @@ en:
           name: :simple_form.hints.scheme.name
       scheme:
         name: 'Apply the type of feature to target audience. for example, adhoc, test, production etc.'
-        new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
+        new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app.'
+        retained_builds: 'Set the maximum retained versions, the earlier versions will be deleted automatically if exceeded, the default is 0 which means to retain all versions.'
       channel:
         name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
         device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
