@@ -15,6 +15,7 @@ ruby:
       = simple_form_for(@scheme, url: form_url) do |f|
         = f.error_notification
         = f.input :name, required: true
+        = f.input :retained_builds
         = f.input :new_build_callout, value: true
 
         - if new_or_create_route?
