@@ -9,31 +9,32 @@ zh-CN:
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "请检查如下问题:"
+      default_message: '请检查如下问题:'
     labels:
       defaults:
-        name: '名称'
-        password: '密码'
-        channel: '渠道名称'
+        name: 名称
+        password: 密码
+        channel: 渠道名称
       user:
-        username: '昵称'
-        email: '登录邮箱'
-        password: '登录密码'
-        password_confirmation: '密码确认'
-        role: '账户权限'
-        remember_me: '记住登录信息'
+        username: 昵称
+        email: 登录邮箱
+        password: 登录密码
+        password_confirmation: 密码确认
+        role: 账户权限
+        remember_me: 记住登录信息
       app:
-        name: '应用名称'
+        name: 应用名称
       scheme:
-        name: '类型名称'
+        name: 类型名称
         new_build_callout: 新上传版本提示窗
+        retained_builds: 保留版本数
       channel:
-        name: '渠道名称'
-        device_type: '应用平台'
-        bundle_id: '校验包名'
-        git_url: 'Git 仓库地址'
-        slug: '唯一地址'
-        password: '访问密码'
+        name: 渠道名称
+        device_type: 应用平台
+        bundle_id: 校验包名
+        git_url: Git 仓库地址
+        slug: 唯一地址
+        password: 访问密码
       release:
         file: 应用文件
         release_version: 产品版本
@@ -44,19 +45,19 @@ zh-CN:
         git_commit: Git 最后提交 SHA
         ci_url: CI URL
       web_hook:
-        url: 'URL'
-        body: '自定义消息体'
-        upload_events: '上传事件'
-        download_events: '下载事件'
-        changelog_events: '日志变更事件'
+        url: URL
+        body: 自定义消息体
+        upload_events: 上传事件
+        download_events: 下载事件
+        changelog_events: 日志变更事件
         channels: 启用的应用渠道
       debug_file:
-        app_id: '应用'
-        device_type: '应用平台'
-        release_version: '发布版本'
-        build_version: '构建版本'
-        file: '调试文件'
-        checksum: '唯一校验码'
+        app_id: 应用
+        device_type: 应用平台
+        release_version: 发布版本
+        build_version: 构建版本
+        file: 调试文件
+        checksum: 唯一校验码
       setting:
         value: 值
       apple_key:
@@ -87,20 +88,21 @@ zh-CN:
 
     hints:
       defaults:
-        channel: '应用会使用的平台'
+        channel: 应用会使用的平台
       app:
         schemes:
           name: :'simple_form.hints.scheme.name'
       scheme:
-          name: '应用在功能、面向受众划分的类型'
-          new_build_callout: '用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗'
+          name: 应用在功能、面向受众划分的类型
+          new_build_callout: 用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗
+          retained_builds: 设置最大保留版本，超过的会自动删除早期的版本，默认为 0 表示保留所有版本
       channel:
-        name: '推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称'
-        device_type: '应用设备类型'
-        bundle_id: '校验应用 bundle id (package name)，为空或 * 为不校验'
-        git_url: 'Git 项目地址，填写 Github 或 Gitlab 或其他自建地址'
-        slug: 'URL 的唯一标识'
-        password: '设置后对非登录用户会要求输入密码'
+        name: 推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称
+        device_type: 应用设备类型
+        bundle_id: 校验应用 bundle id (package name)，为空或 * 为不校验
+        git_url: Git 项目地址，填写 Github 或 Gitlab 或其他自建地址
+        slug: URL 的唯一标识
+        password: 设置后对非登录用户会要求输入密码
       release:
         file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
         release_version: 应用对外公布的主版本号，推荐使用 <a href="https://semver.org/lang/zh-CN/">X.Y.Z 语义化版本</a>命名
@@ -113,8 +115,8 @@ zh-CN:
       web_hook:
         body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:
-        device_type: '应用设备类型'
-        file: '必须使用 zip 文件压缩后的调试文件'
+        device_type: 应用设备类型
+        file: 必须使用 zip 文件压缩后的调试文件
       backup:
         key: 名称必须是唯一，不可和其他备份重复
         schedule: |
