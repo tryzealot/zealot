@@ -28,6 +28,8 @@ class Release < ApplicationRecord
   before_save   :convert_custom_fields
   before_save   :strip_branch
 
+  after_create  :retained_build_job
+
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
 
@@ -264,5 +266,9 @@ class Release < ApplicationRecord
   def enabled_validate_bundle_id?
     bundle_id = channel.bundle_id
     !(bundle_id.blank? || bundle_id == '*')
+  end
+
+  def retained_build_job
+    RetainedBuildsJob.perform_later(channel)
   end
 end
