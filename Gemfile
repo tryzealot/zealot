@@ -90,7 +90,7 @@ gem 'propshaft', '0.8.0'
 gem 'jsbundling-rails', '~> 1.2'
 gem 'cssbundling-rails', '~> 1.3'
 ## Javascript
-gem 'stimulus-rails', '~> 1.3.0'
+gem 'stimulus-rails', '~> 1.3.3'
 gem 'turbo-rails', '~> 1.5'
 
 # 用于解析 iOS, Android, macOS 和 Windows 应用
