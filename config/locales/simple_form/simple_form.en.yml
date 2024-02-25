@@ -9,31 +9,32 @@ en-US:
     #When using html, text and mark won't be used.
     #html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: 'Please review the problems below:'
     labels:
       defaults:
-        name: 'Name'
-        password: 'Password'
-        channel: 'Channel'
+        name: Name
+        password: Password
+        channel: Channel
       user:
-        username: 'Username'
-        email: 'E-mail'
-        password: 'Password'
-        password_confirmation: 'Password confirmation'
-        role: 'Role'
-        remember_me: 'Remember me'
+        username: Username
+        email: E-mail
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role
+        remember_me: Remember me
       app:
-        name: 'App name'
+        name: App name
       scheme:
-        name: 'Scheme name'
+        name: Scheme name
         new_build_callout: New build callout
+        retained_builds: Retained builds
       channel:
-        name: 'Channel name'
-        device_type: 'Device type'
-        bundle_id: 'Bundle id'
-        git_url: 'Git URL'
-        slug: 'Slug'
-        password: 'Password'
+        name: Channel name
+        device_type: Device type
+        bundle_id: Bundle id
+        git_url: Git URL
+        slug: Slug
+        password: Password
       release:
         file: File
         release_version: Release version
@@ -44,19 +45,19 @@ en-US:
         git_commit: Git commit SHA
         ci_url: CI URL
       web_hook:
-        url: 'URL'
-        body: 'Body'
-        upload_events: 'Upload events'
-        download_events: 'Download events'
-        changelog_events: 'Changelog events'
+        url: URL
+        body: Body
+        upload_events: Upload events
+        download_events: Download events
+        changelog_events: Changelog events
         channels: Enabled channels
       debug_file:
-        app_id: 'App'
-        device_type: 'Device type'
-        release_version: 'Release version'
-        build_version: 'Build version'
-        file: 'File'
-        checksum: 'File checksum'
+        app_id: App
+        device_type: Device type
+        release_version: Release version
+        build_version: Build version
+        file: File
+        checksum: File checksum
       setting:
         value: Value
       apple_key:
@@ -86,20 +87,21 @@ en-US:
         sync_to_apple_key: Synchronize to Apple developer
     hints:
       defaults:
-        channel: 'For example, the platform of app.'
+        channel: For example, the platform of app.
       app:
         schemes:
           name: ':simple_form.hints.scheme.name'
       scheme:
-        name: 'Apply the type of feature to target audience'
-        new_build_callout: 'Display a new callout at the top of the page when visiting a previous build of app'
+        name: Apply the type of feature to target audience
+        new_build_callout: Display a new callout at the top of the page when visiting a previous build of app.
+        retained_builds: Set the maximum retained versions, the earlier versions will be deleted automatically if exceeded, the default is 0 which means to retain all versions.
       channel:
-        name: 'Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.'
-        device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        bundle_id: 'Validate the bundle id (package name) of app, leave empty or fill * to skip validate.'
-        git_url: 'Git URL, for example, the repo URL of Github, Gitlab or self-host.'
-        slug: 'A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.'
-        password: 'Need password by fill it when user is not log in.'
+        name: Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.
+        device_type: Which device type of app. for example, iOS, Android, macOS etc.
+        bundle_id: Validate the bundle id (package name) of app, leave empty or fill * to skip validate.
+        git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host.
+        slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
+        password: Need password by fill it when user is not log in.
       release:
         file: Support iOS, Android, macOS, Windows and Linux binary file.
         release_version: The main version number, recommended to use the <a href="https://semver.org/">X.Y.Z Semantic Versioning</a> name it.
@@ -112,8 +114,8 @@ en-US:
       web_hook:
         body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.
       debug_file:
-        device_type: 'Which device type of app. for example, iOS, Android, macOS etc.'
-        file: 'Zip compressed file required'
+        device_type: Which device type of app. for example, iOS, Android, macOS etc.
+        file: Zip compressed file required
       backup:
         key: Unique backup key
         schedule: |
