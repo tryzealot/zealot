@@ -65,7 +65,7 @@ gem 'plist', '~> 3.7.1'
 ## 系统信息
 gem 'sys-filesystem', '~> 1.4.4'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.4.0'
+gem 'pghero', '~> 3.4.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
