@@ -5,7 +5,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
   before_action :set_app
 
   # GET /api/debug_files/download
-  def index
+  def show
     release_version = params[:release_version]
     build_version = params[:build_version]
     order = convert_order(params[:order])
@@ -59,7 +59,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
   end
 
   def set_app
-    @channel.app
+    @app = @channel.app
   end
 
   def convert_order(value)
