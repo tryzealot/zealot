@@ -13,10 +13,10 @@ export default class extends Controller {
     if (isiOS()) {
       this.qrcodeTarget.classList.add("d-none")
     } else if (isMacOS()) {
-      this.tipTarget.innerHTML = this.macosTipValue
+      this.tipTarget.innerText = this.macosTipValue
     } else {
       this.installTarget.classList.add("d-none")
-      this.tipTarget.innerHTML = this.nonappleTipValue
+      this.tipTarget.innerText = this.nonappleTipValue
     }
 
     this.renderDebugZone
