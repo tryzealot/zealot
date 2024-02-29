@@ -683,6 +683,7 @@ zh-CN:
     title: 设备 UDID
     index:
       apple_tip: 请使用 iPhone 或 iPad 扫描二维码获取
+      macos_tip: 系统限制无法检测 macOS 芯片类型，请自行选择使用 iPhone、iPad 扫码或点击下面按钮获取设备 UDID
       nonapple_tip: :'udid.index.apple_tip'
       fetch_udid: 获取设备 UDID
       help:
@@ -696,7 +697,12 @@ zh-CN:
           <strong>获取步骤</strong>
           <ol>
             <li>点击系统会弹窗的 “允许” 下载描述文件</li>
-            <li>打开手机 “设置” 找到顶部的 “已下载描述文件” 点击可以待安装的 “获取设备UDID” 的描述文件</li>
+            <li>打开描述文件
+              <ol>
+                <li>iOS: 打开手机 “设置” 找到顶部的 “已下载描述文件” 点击可以待安装的 “获取设备UDID” 的描述文件</li>
+                <li>macOS: 在下载路径双击打开 <code>install.mobileconfig</code>，打开系统设置点击左侧菜单的 "描述文件"</li>
+              </ol>
+            </li>
             <li>一路点击 “安装” 并输入锁屏密码允许安装描述文件</li>
             <li>安装之后描述文件会自动删除并跳转一个结果页面</li>
           </ol>
