@@ -649,8 +649,8 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails
-  sentry-ruby
+  sentry-rails (~> 5.16.1)
+  sentry-ruby (~> 5.16.1)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
   solid_cache (~> 0.1.0)
