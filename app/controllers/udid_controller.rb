@@ -49,10 +49,11 @@ class UdidController < ApplicationController
   def register
     apple_key = AppleKey.find(device_params[:apple_keys])
     name = device_params[:name]
-    name = [ 'Zealot', params[:product], SecureRandom.hex(4) ].compact.join('-') if name.blank? # Max 50 chars
-    udid = params[:udid]
+    udid = device_params[:udid]
+    platform = device_params[:platform].downcase.include?('iphone') ? 'IOS' : 'MAC_OS'
+    name = [ 'Zealot', platform, SecureRandom.hex(4) ].compact.join('-') if name.blank? # Max 50 chars
 
-    new_device = apple_key.register_device(udid, name)
+    new_device = apple_key.register_device(udid, name, platform)
     unless new_device.valid?
       logger.debug "Register failed with errors: #{new_device.errors}"
       error_message = new_device.errors.messages[:devices][0]
@@ -130,6 +131,6 @@ class UdidController < ApplicationController
   end
 
   def device_params
-    params.require(:device).permit(:name, :apple_keys, :sync_to_apple_key)
+    @device_params ||= params.require(:device).permit(:name, :udid, :platform, :apple_keys, :sync_to_apple_key)
   end
 end
