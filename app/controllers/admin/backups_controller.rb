@@ -46,18 +46,12 @@ class Admin::BackupsController < ApplicationController
   end
 
   def destroy_archive
-    # job_id = params[:job_id]
-    # status = ActiveJob::Status.new(job_id)
-
-    # backup_dir = params[:key]
-    # backup_file = backup.find_file(backup_dir)
-
-    # good_job = GoodJob::Job.find(job_id)
-
-    # status.destroy
-    # good_job.destroy
-
     @backup.destroy_directory(params[:key])
+    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
+  end
+
+  def cancel_job
+    @backup.remove_background_jobs(params[:job_id])
     redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
   end
 

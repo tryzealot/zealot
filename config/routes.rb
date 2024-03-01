@@ -143,6 +143,7 @@ Rails.application.routes.draw do
           post :enable
           post :disable
           post :perform
+          delete :job, action: :cancel_job
           get :archive, action: :download_archive
           delete :archive, action: :destroy_archive
         end
