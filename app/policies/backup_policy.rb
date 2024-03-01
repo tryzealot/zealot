@@ -22,6 +22,10 @@ class BackupPolicy < ApplicationPolicy
     admin?
   end
 
+  def cancel_job?
+    admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

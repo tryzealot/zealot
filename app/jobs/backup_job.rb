@@ -9,6 +9,25 @@ class BackupJob < ApplicationJob
   class Error < StandardError; end
   class MaxKeepsLimitedError < Error; end
 
+  rescue_from(BackupJob::MaxKeepsLimitedError) do
+    notificate_failure(
+      user_id: @user_id,
+      type: 'backup',
+      message: t('active_job.backup.failures.max_keeps_limited', key: @backup.key)
+    )
+  end
+
+  rescue_from(Zealot::Backup::DatabaseError) do |e|
+    key = e.is_a?(Zealot::Backup::DumpDatabaseError) ?
+      'active_job.backup.failures.dump_command' : 'active_job.backup.failures.restore_command'
+
+    notificate_failure(
+      user_id: @user_id,
+      type: 'backup',
+      message: t(key, message: e.message)
+    )
+  end
+
   def perform(backup_id, user_id = nil)
     @user_id = user_id
     @backup = Backup.find(backup_id)
@@ -30,25 +49,6 @@ class BackupJob < ApplicationJob
     notification
   ensure
     @manager&.cleanup
-  end
-
-  rescue_from(BackupJob::MaxKeepsLimitedError) do
-    notificate_failure(
-      user_id: @user_id,
-      type: 'backup',
-      message: t('active_job.backup.failures.max_keeps_limited', key: @backup.key)
-    )
-  end
-
-  rescue_from(Zealot::Backup::DatabaseError) do |e|
-    key = e.is_a?(Zealot::Backup::DumpDatabaseError) ?
-      'active_job.backup.failures.dump_command' : 'active_job.backup.failures.restore_command'
-
-    notificate_failure(
-      user_id: @user_id,
-      type: 'backup',
-      message: t(key, message: e.message)
-    )
   end
 
   private
