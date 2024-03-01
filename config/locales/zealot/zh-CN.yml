@@ -199,12 +199,16 @@ zh-CN:
       show:
         title: '%{key} 备份计划'
         run_backup: 执行新备份
+        backup_files: 备份文件
         filename: 文件名
         created_at: 生成时间
         size: 大小
         action: 操作
         download: 下载
         destroy: 删除
+        performing_jobs: 进行中的备份任务
+        backup_id: 备份 ID
+        backup_status: 备份状态
         steps:
           start: 任务认领
           prepare: 数据准备中
@@ -213,9 +217,7 @@ zh-CN:
           pack: 生成压缩包
           remove_old: 清理旧备份
           cleanup: 收尾工作
-          ensure: 任务结束
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
-        current_step: '任务进行中，当前状态: %{step}'
         not_found:
           title: 没有发现任何备份文件
           body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。

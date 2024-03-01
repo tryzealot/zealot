@@ -1,2 +1,2 @@
-break /workspace/app/jobs/backup_job.rb:35
-break /workspace/lib/zealot/backup/database.rb:150
+break /workspace/app/views/admin/settings/index.html.slim:18
+break /workspace/app/jobs/application_job.rb:8

@@ -4,11 +4,7 @@ require 'fileutils'
 require_relative '../../lib/zealot/backup/manager'
 
 class BackupJob < ApplicationJob
-  include ActiveJob::Status
-
   queue_as :schedule
-
-  retry_on StandardError, attempts: 0
 
   class Error < StandardError; end
   class MaxKeepsLimitedError < Error; end
@@ -28,11 +24,11 @@ class BackupJob < ApplicationJob
     dump_database
     dump_apps
     pack
+    checksum
     remove_old
     cleanup
     notification
   ensure
-    update_status('ensure', progress: 100)
     @manager&.cleanup
   end
 
@@ -59,7 +55,6 @@ class BackupJob < ApplicationJob
 
   def prepare
     update_status(__method__, progress: 10)
-    append_to_cache_pool
     backup_max_keeps_check
 
     @manager.precheck(false)
@@ -81,21 +76,25 @@ class BackupJob < ApplicationJob
   end
 
   def pack
-    update_status(__method__, progress: 70)
+    update_status(__method__, progress: 80)
 
     @manager.write_info
     @manager.pack
   end
 
+  def checksum
+    update_status(__method__, progress: 90)
+    @manager.checksum
+  end
+
   def remove_old
-    update_status(__method__, progress: 80)
+    update_status(__method__, progress: 95)
 
     @manager.remove_old(@backup.max_keeps)
   end
 
   def cleanup
-    update_status(__method__, progress: 90)
-    remove_from_cache_pool
+    update_status(__method__, progress: 99)
   end
 
   def notification
@@ -112,33 +111,12 @@ class BackupJob < ApplicationJob
     raise MaxKeepsLimitedError, 'Max keeps is zero, can not backup' if @backup.max_keeps.zero?
   end
 
-  # Make sure storage it by direct execute this job
-  def append_to_cache_pool
-    jobs = cached_jobs
-    unless jobs.include?(job_id)
-      jobs << job_id
-      Rails.cache.write(@backup.cache_job_key, jobs)
-    end
-  end
-
-  def remove_from_cache_pool
-    jobs = cached_jobs
-    if jobs.include?(job_id)
-      jobs.delete(job_id)
-      Rails.cache.write(@backup.cache_job_key, jobs)
-    end
+  def update_status(value, **params)
+    status[:stage] = value.to_s
+    status.update(params) if params
   end
 
   def backup_path
     @backup_path ||= @backup.backup_path
-  end
-
-  def update_status(value, **params)
-    status[:step] = value.to_s
-    status.update(params) if params
-  end
-
-  def cached_jobs
-    Rails.cache.read(@backup.cache_job_key) || []
   end
 end
