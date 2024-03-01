@@ -232,6 +232,8 @@ zh-CN:
         success: 备份任务正在后台工作中
       destroy_archive:
         success: 备份文件成功删除
+      cancel_job:
+        success: 备份任务成功取消
       parse_schedule:
         invalid_expression: 表达式无法解析
     background_jobs:
