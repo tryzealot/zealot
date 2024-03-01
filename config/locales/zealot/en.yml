@@ -238,6 +238,8 @@ en:
         success: Backup was successfully scheduled to run in the background.
       destroy_archive:
         success: Backup was deleted successfully.
+      cancel_job:
+        success: Backup Job was canceled successfully.
       parse_schedule:
         invalid_expression: Invalid expression
     background_jobs:
