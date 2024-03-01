@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem "solid_cache", "~> 0.1.0"
+gem "solid_cache", "~> 0.5.2"
 
 # Logger
 gem 'lograge', '~> 0.14.0'
