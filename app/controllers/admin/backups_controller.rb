@@ -2,7 +2,6 @@
 
 class Admin::BackupsController < ApplicationController
   before_action :set_backup, except: %i[ index new create parse_schedule ]
-  before_action :set_backup_file, only: %i[ download_archive destroy_archive ]
 
   def index
     @backups = Backup.all
@@ -11,6 +10,7 @@ class Admin::BackupsController < ApplicationController
 
   def show
     @backup_files = @backup.backup_files
+    @performing_jobs = @backup.performing_jobs
   end
 
   def enable
@@ -38,14 +38,26 @@ class Admin::BackupsController < ApplicationController
   end
 
   def download_archive
-    raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(@backup_file)
+    backup_file = @backup.find_file(params[:key])
+    raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(backup_file)
 
-    headers['Content-Length'] = @backup_file.size
-    send_file @backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
+    headers['Content-Length'] = backup_file.size
+    send_file backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
   end
 
   def destroy_archive
-    @backup.destroy_directory(@backup_dir)
+    # job_id = params[:job_id]
+    # status = ActiveJob::Status.new(job_id)
+
+    # backup_dir = params[:key]
+    # backup_file = backup.find_file(backup_dir)
+
+    # good_job = GoodJob::Job.find(job_id)
+
+    # status.destroy
+    # good_job.destroy
+
+    @backup.destroy_directory(params[:key])
     redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
   end
 
@@ -98,11 +110,6 @@ class Admin::BackupsController < ApplicationController
   def set_backup
     @backup = Backup.find(params[:id])
     authorize @backup
-  end
-
-  def set_backup_file
-    @backup_dir = params[:key]
-    @backup_file = @backup.find_file(@backup_dir)
   end
 
   def backup_params

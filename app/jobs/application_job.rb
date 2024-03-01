@@ -3,11 +3,7 @@
 class ApplicationJob < ActiveJob::Base
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::TranslationHelper
-
-  retry_on StandardError, wait: :exponentially_longer, attempts: Float::INFINITY
-
-  # TODO: remove sidekiq legacy code.
-  # include ActiveJob::Status
+  include ActiveJob::Status
 
   protected
 
