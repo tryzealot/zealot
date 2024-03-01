@@ -31,39 +31,6 @@
                     = job.job.display_error
             td
               .btn-group
-                = link_to archive_admin_backup_path(@backup, job_id: job.job.id), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
+                = link_to job_admin_backup_path(@backup, job_id: job.job.id), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
                   data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: job.job.id) } do
                   i.fas.fa-trash-alt.text-danger
-
-        / sample data
-        tr
-          td colspan=3 以下是演示数据
-        tr
-          td
-            .spinner-grow.spinner-grow-sm.text-warning.mr-2
-              span.sr-only Loading
-            span working_zealot_backup.tar
-          td
-            = t('admin.backups.show.current_step', step: t("admin.backups.show.steps.pack"))
-          td
-            a href="#" class='btn btn-sm destroy-backup'
-              i.fas.fa-trash-alt.text-danger
-        tr
-          td
-            i.fas.fa-exclamation-circle.text-danger.mr-2
-            | failed_zealot_backup.tar
-          td
-            | working@pack:
-            <br />
-            | Error@17a369ad-cbbe-4430-b547-55bb7af3c366
-          td
-            a href="#" class='btn btn-sm destroy-backup'
-              i.fas.fa-trash-alt.text-danger
-        tr
-          td
-            i.fas.fa-question-circle.text-secondary.mr-2
-            | unknown_zealot_backup.tar
-          td = t('admin.backups.show.unknown_job_status')
-          td
-            a href="#" class='btn btn-sm destroy-backup'
-              i.fas.fa-trash-alt.text-danger
