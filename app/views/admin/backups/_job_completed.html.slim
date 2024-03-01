@@ -1,13 +1,32 @@
-tr
-  td
-    i.fas.fa-check-circle.text-success.mr-2
-    = file.name
-  td = number_to_human_size(file.size)
-  td = file.created_at
-  td
-    .btn-group
-      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm download-backup', title: t('admin.backups.show.download') do
-        i.fas.fa-download
-      = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
-        data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: backup.key) } do
-        i.fas.fa-trash-alt.text-danger
+.col-md-12
+  - if backup_files.present?
+    .card.backup
+      .card-header
+        h3.card-title = t('admin.backups.show.backup_files')
+      .card-body.p-0
+        table.table
+          tr
+            th = t('admin.backups.show.filename')
+            th = t('admin.backups.show.sha256')
+            th = t('admin.backups.show.size')
+            th = t('admin.backups.show.created_at')
+            th = t('admin.backups.show.action')
+          - backup_files.each do |file|
+            tr
+              td
+                i.fas.fa-check-circle.text-success.mr-2
+                = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename)
+              td
+                small = file.sha256
+              td = number_to_human_size(file.size)
+              td = time_ago_in_words(file.created_at)
+              td
+                = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
+                  data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: backup.key) } do
+                  i.fas.fa-trash-alt.text-danger
+  - else
+    .card.card-outline.card-warning
+      .card-header.card-border
+        h3.card-title = t('admin.backups.show.not_found.title')
+      .card-body
+        = t('admin.backups.show.not_found.body_html')

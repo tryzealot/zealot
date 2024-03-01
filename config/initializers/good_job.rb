@@ -33,7 +33,7 @@ Rails.application.reloader.to_prepare do
   Rails.application.configure do
     # config.good_job.dashboard_default_locale = I18n.default_locale # no zh-cn locale
     config.good_job.preserve_job_records = true
-    config.good_job.retry_on_unhandled_error = true
+    config.good_job.retry_on_unhandled_error = false
     config.good_job.on_thread_error = -> (exception) { Rails.error.report(exception) }
     config.good_job.execution_mode = :async
     config.good_job.queues = '*'
