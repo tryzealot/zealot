@@ -55,11 +55,20 @@ class Backup < ApplicationRecord
   end
 
   def destroy_directory(name)
-    FileUtils.rm_rf(File.join(backup_path, name))
+    Dir.glob(File.join(backup_path, "#{name}*")).each do |file|
+      FileUtils.rm_rf(file)
+    end
   end
 
   def remove_background_jobs(job_id = nil)
+    status = ActiveJob::Status.get(job_id)
+    if status.present?
+      backup_file = status[:file]
+      destroy_directory(backup_file)
+      status.delete
+    end
 
+    GoodJob::Job.destroy(job_id)
   end
 
   def backup_path
