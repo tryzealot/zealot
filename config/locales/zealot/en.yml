@@ -203,12 +203,16 @@ en:
       show:
         title: '%{key} backup'
         run_backup: Run a backup
+        backup_files: Backup files
         filename: Filename
         created_at: Created at
         size: Size
         action: Action
         download: Download
         destroy: Destroy
+        performing_jobs: Performing jobs
+        backup_id: Backup ID
+        backup_status: Status
         steps:
           start: Starting
           prepare: Preparing
