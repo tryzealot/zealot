@@ -94,20 +94,6 @@ class Backup < ApplicationRecord
 
   private
 
-  # def append_job_to_cache_pool(job)
-  #   job_id = job.job_id
-  #   jobs = Rails.cache.fetch(cache_job_key) do
-  #     [ job_id ]
-  #   end
-
-  #   unless jobs.include?(job_id)
-  #     jobs << job_id
-  #     Rails.cache.write(cache_job_key, jobs)
-  #   end
-
-  #   jobs
-  # end
-
   def correct_schedule
     parser = Fugit.do_parse(self.schedule)
     klass = parser.class
