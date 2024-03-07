@@ -45,8 +45,8 @@ RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_V
 USER vscode
 
 # Install asdf, ruby (with YJIT enabled) and nodejs
-ARG RUBY_VERSION="3.2.2"
-ARG NODEJS_VERSION="18.18.2"
+ARG RUBY_VERSION="3.3.0"
+ARG NODEJS_VERSION="20.11.1"
 LABEL zealot.containers.ruby="$RUBY_VERSION"
 LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
