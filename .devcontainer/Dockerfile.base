@@ -80,5 +80,5 @@ RUN gem install bundler foreman && \
     bundle install
 
 COPY package.json yarn.lock ./
-RUN npm install --global yarn && \
+RUN npm install --global yarn sass esbuild && \
     yarn install
