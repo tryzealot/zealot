@@ -7,7 +7,6 @@ on:
       - '.devcontainer'
       - '.vscode'
       - 'LICENSE'
-      - '*file'
       - 'Procfile*'
       - '*.yaml'
       - '*.yml'
