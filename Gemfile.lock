@@ -181,6 +181,9 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.22.3)
+    google-protobuf (3.22.3-arm64-darwin)
+    google-protobuf (3.22.3-x86_64-darwin)
+    google-protobuf (3.22.3-x86_64-linux)
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
@@ -288,6 +291,12 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.16.2-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.2-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.11)
       faraday (>= 0.17.3, < 3.0)
@@ -569,7 +578,15 @@ GEM
     zhexdump (0.0.2)
 
 PLATFORMS
+  arm64-darwin-20
+  arm64-darwin-21
+  arm64-darwin-22
   ruby
+  x86_64-darwin-18
+  x86_64-darwin-20
+  x86_64-darwin-21
+  x86_64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
