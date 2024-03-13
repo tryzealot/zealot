@@ -63,7 +63,8 @@ gem 'openssl', '~> 3.2.0'
 gem 'plist', '~> 3.7.1'
 
 ## 系统信息
-gem 'sys-filesystem', '~> 1.4.4'
+# NOTE: rollback rubygem i the issue is resolved: https://github.com/djberg96/sys-filesystem/issues/66
+gem 'sys-filesystem', github: 'icyleaf/sys-filesystem', branch: 'fix/musl-remove-alias-statvfs64'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.4.1'
 
