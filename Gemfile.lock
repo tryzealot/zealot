@@ -353,7 +353,7 @@ GEM
       rainbow
       zhexdump (>= 0.0.2)
     pg (1.5.4)
-    pghero (3.4.0)
+    pghero (3.4.1)
       activerecord (>= 6)
     plist (3.7.1)
     propshaft (0.8.0)
@@ -626,7 +626,7 @@ DEPENDENCIES
   omniauth_openid_connect (= 0.7.1)
   openssl (~> 3.2.0)
   pg (>= 0.18, < 2.0)
-  pghero (~> 3.4.0)
+  pghero (~> 3.4.1)
   plist (~> 3.7.1)
   propshaft (= 0.8.0)
   pry-rails
