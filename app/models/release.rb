@@ -48,6 +48,25 @@ class Release < ApplicationRecord
     end
   end
 
+  def self.find_since_version(release_version, build_version)
+    current_release = select(:id).find_by(
+      release_version: release_version,
+      build_version: build_version
+    )
+
+    prepared_releases = if current_release
+      where('id > ?', current_release.id).order(id: :desc)
+    else
+      newer_versions = release_versions.select { |version| ge_version(version, release_version) }
+      where(elease_version: newer_versions,).order(id: :desc)
+    end
+
+    prepared_releases.select { |release|
+      ge_version(release.release_version, release_version) &&
+        gt_version(release.build_version, build_version)
+    }
+  end
+
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
   end
