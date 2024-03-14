@@ -9,9 +9,11 @@ class JsonValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
+    return true if value.blank? && @allow_value_empty
+
     parsed_value = _json(record, attribute, value)
-    validate_format(record, attribute, parsed_value)
     validate_value(record, attribute, parsed_value)
+    validate_format(record, attribute, parsed_value)
 
     true
   end
@@ -19,9 +21,7 @@ class JsonValidator < ActiveModel::EachValidator
   private
 
   def validate_value(record, attribute, value)
-    return if @allow_value_empty
-
-    record.errors.add(attribute, :empty_json_value) if value.empty?
+    record.errors.add(attribute, :empty_json_value) if value.blank?
   end
 
   def validate_format(record, attribute, value)

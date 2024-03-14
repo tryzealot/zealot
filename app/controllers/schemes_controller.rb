@@ -63,7 +63,7 @@ class SchemesController < ApplicationController
 
   def scheme_params
     @scheme_params ||= params.require(:scheme)
-                             .permit(:name, :new_build_callout, channel_attributes: { name: [] })
+                             .permit(:name, :new_build_callout, :retained_builds, channel_attributes: { name: [] })
   end
 
   def process_scheme_params

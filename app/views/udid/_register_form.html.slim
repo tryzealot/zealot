@@ -1,6 +1,6 @@
 .col-md-12
   .card
-    = simple_form_for(Device.new, url: register_udid_path(udid: udid, product: product)) do |f|
+    = simple_form_for(Device.new, url: register_udid_path) do |f|
       .card-header
         h3.card-title
           = t("udid.show.register_device")
@@ -8,6 +8,8 @@
       .card-body
         = f.error_notification
         = f.input :name
+        = f.input :udid, as: :hidden, input_html: { value: udid }
+        = f.input :platform, as: :hidden, input_html: { value: product }
         = f.input :apple_keys, collection: AppleTeam.all_names, label_method: :first, value_method: :last, include_blank: false
 
       .card-footer

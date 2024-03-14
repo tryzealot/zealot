@@ -73,7 +73,7 @@ class TeardownService
     metadata.activities = parser&.activities&.select(&:present?).map(&:name)
     metadata.permissions = parser&.use_permissions&.select(&:present?) || []
     metadata.features = parser&.use_features&.select(&:present?) || []
-    metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name)
+    metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name) || []
     metadata.url_schemes = parser&.schemes&.sort
     metadata.deep_links = parser&.deep_links&.sort
 

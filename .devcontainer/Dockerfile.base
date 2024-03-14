@@ -1,4 +1,4 @@
-ARG VARIANT=bullseye
+ARG VARIANT=bookworm
 FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 
 # Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
@@ -53,32 +53,30 @@ LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 ARG ASDF_DIR="/home/vscode/.asdf"
 ENV RUBY_YJIT_ENABLE=true
 ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
-RUN git clone https://github.com/asdf-vm/asdf.git ${ASDF_DIR}  && \
+RUN git clone --quiet https://github.com/asdf-vm/asdf.git ${ASDF_DIR} && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
     sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
-# Enable YJIT *NEED* Rsust 1.58.0+
+
+RUN asdf plugin add nodejs && \
+    asdf install nodejs $NODEJS_VERSION && \
+    asdf global nodejs $NODEJS_VERSION
+
+# Enable YJIT *NEED* RUST 1.58.0+
 RUN asdf plugin add rust && \
     asdf install rust latest && \
     asdf global rust latest
-RUN export RUBY_CONFIGURE_OPTS=--enable-yjit && \
+
+RUN export RUBY_CONFIGURE_OPTS="--enable-yjit" && \
     asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
-    asdf global ruby ${RUBY_VERSION}
-RUN asdf plugin add nodejs && \
-    asdf install nodejs $NODEJS_VERSION && \
-    asdf global nodejs ${NODEJS_VERSION}
-
-LABEL zealot.containers.ruby="$RUBY_VERSION"
-LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+    asdf global ruby $RUBY_VERSION
 
 WORKDIR /workspace
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler foreman && \
-    bundle lock --add-platform ruby && \
-    bundle config set force_ruby_platform true && \
     bundle install
 
 COPY package.json yarn.lock ./
-RUN npm install --global yarn && \
+RUN npm install --global yarn sass esbuild && \
     yarn install
