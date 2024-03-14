@@ -12,9 +12,7 @@ module ReleaseUrl
   end
 
   def install_url
-    if platform.casecmp?('unknown') || platform.casecmp?('android') || platform.casecmp?('macos')
-      return download_url
-    end
+    return download_url unless platform == 'iOS'
 
     ios_url = channel_release_install_url(channel.slug, id)
     "itms-services://?action=download-manifest&url=#{ios_url}"
