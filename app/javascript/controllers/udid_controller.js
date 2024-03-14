@@ -1,21 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
-import { uaParser, isiOS, isNonAppleOS } from "./utils"
+import { uaParser, isiOS, isMacOS } from "./utils"
 
 export default class extends Controller {
   static targets = ["qrcode", "install", "tip", "debug"]
   static values = {
     appleTip: String,
+    macosTip: String,
     nonappleTip: String
   }
 
   connect() {
-    if (isNonAppleOS()) {
-      this.installTarget.classList.add("d-none")
-      this.tipTarget.innerHTML = this.nonappleTipValue
-    } else if (isiOS()) {
+    if (isiOS()) {
       this.qrcodeTarget.classList.add("d-none")
+    } else if (isMacOS()) {
+      this.tipTarget.innerText = this.macosTipValue
     } else {
       this.installTarget.classList.add("d-none")
+      this.tipTarget.innerText = this.nonappleTipValue
     }
 
     this.renderDebugZone
