@@ -143,6 +143,7 @@ Rails.application.routes.draw do
           post :enable
           post :disable
           post :perform
+          delete :job, action: :cancel_job
           get :archive, action: :download_archive
           delete :archive, action: :destroy_archive
         end
@@ -153,10 +154,7 @@ Rails.application.routes.draw do
         get :status
       end
 
-      require 'sidekiq/web'
-      require 'sidekiq-scheduler/web'
-
-      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
+      mount GoodJob::Engine, at: 'jobs', as: :jobs
       mount PgHero::Engine, at: 'pghero', as: :pghero
     end
   end

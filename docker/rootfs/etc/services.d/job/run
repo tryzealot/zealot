@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+echo "Starting Zealot Job worker"
+cd /app
+./bin/good_job 2>&1 | tee -a /app/log/job.log

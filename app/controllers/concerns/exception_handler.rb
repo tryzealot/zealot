@@ -13,8 +13,7 @@ module ExceptionHandler
     rescue_from Faraday::Error, OpenSSL::SSL::SSLError,
                 TinyAppstoreConnect::ConnectAPIError, with: :internal_server_error
     rescue_from Pundit::NotAuthorizedError, with: :forbidden
-    rescue_from RedisClient::CommandError, RedisClient::CannotConnectError,
-                ActiveRecord::ConnectionNotEstablished, with: :internal_server_error
+    rescue_from ActiveRecord::ConnectionNotEstablished, with: :internal_server_error
   end
 
   private
@@ -68,8 +67,6 @@ module ExceptionHandler
       @message = exception.message if code < 500
 
       case exception
-      when RedisClient::CommandError, RedisClient::CannotConnectError
-        @message = t('errors.messages.redis_connection_error')
       when ActiveRecord::ConnectionNotEstablished
         @message = t('errors.messages.database_connection_error')
       end

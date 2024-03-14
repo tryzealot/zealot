@@ -19,13 +19,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
-  redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-    network_mode: service:db
-    volumes:
-      - redis-data:/data
-
   # Tools
   pgweb:
     # no editing function yet, https://github.com/sosedoff/pgweb/issues/656
@@ -34,15 +27,7 @@ services:
     network_mode: service:db
     environment:
       DATABASE_URL: "postgres://postgres:postgres@localhost:5432/zealot_development"
-  redisweb:
-    image: erikdubbelboer/phpredisadmin
-    restart: unless-stopped
-    network_mode: service:db
-    environment:
-      REDIS_1_NAME: zealot
-      REDIS_1_HOST: 127.0.0.1
-      REDIS_1_PORT: 6379
 
 volumes:
   postgres-data:
-  redis-data:
+

@@ -36,14 +36,15 @@ class DashboardsController < ApplicationController
     @analytics.merge!({
       users: User.count,
       webhooks: WebHook.count,
-      jobs: sidekiq_stats,
+      jobs: job_stats,
       disk: disk_usage,
     })
   end
 
-  def sidekiq_stats
-    stat = Sidekiq::Stats.new
-    "#{stat.workers_size} / #{stat.processed}"
+  def job_stats
+    filters = GoodJob::JobsFilter.new(params)
+    states = filters.states
+    "#{states["running"]} / #{states.values.sum}"
   end
 
   def disk_usage

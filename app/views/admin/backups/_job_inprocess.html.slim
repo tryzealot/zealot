@@ -1,0 +1,36 @@
+.col-md-12
+  .card.backup
+    .card-header
+      h3.card-title = t('admin.backups.show.performing_jobs')
+    .card-body.p-0
+      table.table
+        tr
+          th = t('admin.backups.show.backup_id')
+          th = t('admin.backups.show.backup_status')
+          th = t('admin.backups.show.action')
+        - performing_jobs.each do |job|
+          tr
+            td
+              = job_icon(job.job.status)
+              = job.job.id
+            td
+              - if job.job.running? || job.job.status == :queued
+                .badge.badge-warning style="margin-right: 5px"
+                  = job_progress(job.status)
+                - if job.status.present?
+                  .badge.badge-info
+                    = t("admin.backups.show.steps.#{job.status[:stage]}")
+              - else
+                .badge.badge-danger style="margin-right: 5px"
+                  = job.job.status
+                - if job.status.present?
+                  .badge.badge-info
+                    = t("admin.backups.show.steps.#{job.status[:stage]}")
+                div
+                  small
+                    = job.job.display_error
+            td
+              .btn-group
+                = link_to job_admin_backup_path(@backup, job_id: job.job.id), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
+                  data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: job.job.id) } do
+                  i.fas.fa-trash-alt.text-danger

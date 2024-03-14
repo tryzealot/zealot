@@ -33,31 +33,22 @@
     }
   },
 
-  "forwardPorts": [80, 3000, 5432, 6379, 8081],
+  "forwardPorts": [3000, 5432, 6379, 8081],
   "portsAttributes": {
-    "80": {
-      "label": "phpRedisAdmin"
-    },
     "3000": {
       "label": "Rails server (puma)"
     },
-    // "3035": {
-    //   "label": "Webpack dev server"
-    // },
+    "3035": {
+      "label": "Webpack dev server"
+    },
     "5432": {
       "label": "Postgres server"
     },
-    "6379": {
-      "label": "Redis server"
-    },
     "8081": {
       "label": "pgweb server"
-    },
-    "9293": {
-      "label": "Puma control-server"
     }
   },
 
   // (Optinal) Database migration.
-  "postCreateCommand": "rails zealot:upgrade"
+  "postCreateCommand": "rails zealot:upgrade && yarn install"
 }
