@@ -6,6 +6,7 @@ AllCops:
   TargetRailsVersion: 7.0
   DisabledByDefault: true
   SuggestExtensions: false
+  DisplayStyleGuide: true
   Exclude:
     - 'vendor/**/*'
     - 'node_modules/**/*'

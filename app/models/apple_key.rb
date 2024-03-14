@@ -37,12 +37,12 @@ class AppleKey < ApplicationRecord
     false
   end
 
-  def register_device(udid, name = nil)
+  def register_device(udid, name = nil, platform = 'IOS')
     if (existed_device = Device.find_by(udid: udid))
       return existed_device
     end
 
-    response_device = client.create_device(udid, name).to_model
+    response_device = client.create_device(udid, name, platform: platform).to_model
     Device.create_from_api(response_device) do |device|
       devices << device
 
