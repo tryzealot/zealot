@@ -106,7 +106,7 @@ class Admin::SystemInfoController < ApplicationController
         obj.push(
           bytes_total: disk.bytes_total,
           bytes_used: disk.bytes_used,
-          mount_path: disk.path,
+          mount_path: disk.path&.force_encoding('UTF-8'),
           mount_options: mount.options,
           percent: percent,
           color: progress_color(percent)
