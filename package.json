@@ -15,7 +15,7 @@
     "ua-parser-js": "^1.0.37"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --target=es2022",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2021",
     "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
 }
