@@ -9,6 +9,8 @@ class Scheme < ApplicationRecord
 
   validates :name, presence: true
 
+  after_destroy :delete_app_recently_releases_cache
+
   def app_name
     "#{app.name} #{name}"
   end
@@ -19,5 +21,15 @@ class Scheme < ApplicationRecord
 
   def total_releases
     channels.size
+  end
+
+  private
+
+  def recently_release_cache_key
+    @recently_release_cache_key ||= "app_#{app.id}_recently_release"
+  end
+
+  def delete_app_recently_releases_cache
+    Rails.cache.delete(recently_release_cache_key)
   end
 end
