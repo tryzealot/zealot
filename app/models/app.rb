@@ -12,8 +12,10 @@ class App < ApplicationRecord
 
   validates :name, presence: true
 
+  after_destroy :delete_app_recently_releases_cache
+
   def recently_release
-    Rails.cache.fetch("app_#{id}_recently_release") do
+    Rails.cache.fetch(recently_release_cache_key) do
       return unless schcmes_ids = schemes.select(:id).map(&:id)
       return unless channel_ids = Channel.select(:id).where(schemes: schcmes_ids).map(&:id)
       return unless release = Release.where(channels: channel_ids).last
@@ -70,5 +72,15 @@ class App < ApplicationRecord
         end
       end
     end
+  end
+
+  private
+
+  def recently_release_cache_key
+    @recently_release_cache_key ||= "app_#{id}_recently_release"
+  end
+
+  def delete_app_recently_releases_cache
+    Rails.cache.delete(recently_release_cache_key)
   end
 end
