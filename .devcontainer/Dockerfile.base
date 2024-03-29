@@ -57,11 +57,8 @@ RUN git clone https://github.com/asdf-vm/asdf.git ${ASDF_DIR}  && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
     sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
 # Enable YJIT *NEED* Rsust 1.58.0+
-RUN asdf plugin add rust && \
-    asdf install rust latest && \
-    asdf global rust latest
-RUN export RUBY_CONFIGURE_OPTS=--enable-yjit && \
-    asdf plugin add ruby && \
+RUN export RUBY_CONFIGURE_OPTS=--enable-yjit 
+RUN asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
     asdf global ruby ${RUBY_VERSION}
 RUN asdf plugin add nodejs && \
@@ -71,6 +68,10 @@ RUN asdf plugin add nodejs && \
 WORKDIR /workspace
 
 COPY Gemfile Gemfile.lock ./
+USER root
+RUN chmod a+w Gemfile.lock
+USER vscode
+
 RUN gem install bundler foreman && \
     bundle lock --add-platform ruby && \
     bundle config set force_ruby_platform true && \
