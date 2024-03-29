@@ -439,9 +439,9 @@ GEM
       ffi (~> 1.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redis (5.0.8)
+    redis (5.1.0)
       redis-client (>= 0.17.0)
-    redis-client (0.21.0)
+    redis-client (0.21.1)
       connection_pool
     regexp_parser (2.6.1)
     reline (0.5.0)
@@ -631,7 +631,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.5)
   rails-settings-cached (~> 2.9.4)
   rake (~> 13.0.4)
-  redis (~> 5.0.8)
+  redis (~> 5.1.0)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
