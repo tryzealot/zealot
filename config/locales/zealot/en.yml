@@ -141,6 +141,7 @@ en-US:
       mailer_options: Options
       analytics: Analytics
       google_analytics_id: Google Analytics ID
+      umami_website_id: Umami Website ID
       archives: Archive uploaded binaries
       keep_uploads: Keep all builds
       empty_value: Empty
