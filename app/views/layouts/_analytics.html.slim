@@ -1,0 +1,11 @@
+- if Setting.google_analytics_id.present?
+  script async=true src="//www.googletagmanager.com/gtag/js?id=#{Setting.google_analytics_id}"
+  javascript:
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '#{Setting.google_analytics_id}');
+
+- if Setting.umami_website_id.present?
+  script defer=true src="https://analytics.us.umami.is/script.js" data-website-id="#{Setting.umami_website_id}"
