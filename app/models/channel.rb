@@ -22,6 +22,7 @@ class Channel < ApplicationRecord
   delegate :app, to: :scheme
 
   before_create :generate_default_values
+  after_destroy :delete_app_recently_releases_cache
 
   validates :name, presence: true
   validates :slug, uniqueness: true
@@ -130,5 +131,13 @@ class Channel < ApplicationRecord
   def generate_default_values
     self.key = Digest::MD5.hexdigest(File.join(SecureRandom.uuid, name))
     self.slug = Digest::SHA1.base64digest(key).gsub(%r{[+\/=]}, '')[0..4] if slug.blank?
+  end
+
+  def recently_release_cache_key
+    @recently_release_cache_key ||= "app_#{app.id}_recently_release"
+  end
+
+  def delete_app_recently_releases_cache
+    Rails.cache.delete(recently_release_cache_key)
   end
 end

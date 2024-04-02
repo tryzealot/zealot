@@ -4,7 +4,7 @@
 if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENTRY_DISABLE'] || false)
   Rails.configuration.to_prepare do
     Sentry.init do |config|
-      config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.sentry.io/1878137'
+      config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.us.sentry.io/1878137'
 
       config.include_local_variables = true
       config.rails.report_rescued_exceptions = true
