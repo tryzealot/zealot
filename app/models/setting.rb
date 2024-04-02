@@ -138,6 +138,7 @@ class Setting < RailsSettings::Base
 
   # 统计
   scope :analytics do
+    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: true
     field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
   end
 end
