@@ -101,6 +101,7 @@ class Setting < RailsSettings::Base
       scope: ENV.fetch('OIDC_SCOP', 'openid,email,profile,address'),
       response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
       uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
+      email_field: ENV.fetch('OIDC_EMAIL_FIELD', 'email')
     }, validates: { json: { format: :hash } }
   end
 
