@@ -25,6 +25,6 @@ class User < ApplicationRecord
   end
 
   def generate_user_token
-    self.token = Digest::MD5.hexdigest(email + '!@#')
+    self.token = Digest::MD5.hexdigest(SecureRandom.uuid)
   end
 end
