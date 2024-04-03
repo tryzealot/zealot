@@ -93,6 +93,7 @@ zh-CN:
     registrations:
       destroyed: 再见！您的帐户已成功注销。我们希望很快可以再见到您。
       edit:
+        danger_zone: 危险区域
         are_you_sure: 最后确认要注销自己的账户，您确定吗？
         cancel_my_account: 注销我的帐户
         currently_waiting_confirmation_for_email: 等待确认 %{email}
