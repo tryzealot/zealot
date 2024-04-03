@@ -98,7 +98,7 @@ class Setting < RailsSettings::Base
       auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
       token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
       userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
-      scope: ENV.fetch('OIDC_SCOP', 'openid,email,profile,address'),
+      scope: ENV.fetch('OIDC_SCOPE', 'openid,email,profile,address'),
       response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
       uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
     }, validates: { json: { format: :hash } }
