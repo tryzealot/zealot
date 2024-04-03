@@ -4,9 +4,9 @@ module UserOmniauth
   extend ActiveSupport::Concern
 
   def from_omniauth(auth)
-    email = auth.info.email
+    email = auth.extra.raw_info.unique_name || auth.info.email
     password = Devise.friendly_token[0, 20]
-    user = User.find_or_initialize_by(email: auth.info.email) do |u|
+    user = User.find_or_initialize_by(email: email) do |u|
       u.username = auth.info.name
       u.password = password
     end
