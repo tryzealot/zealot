@@ -141,6 +141,7 @@ zh-CN:
       mailer_options: 发件服务器配置
       analytics: 统计
       google_analytics_id: Google 统计
+      umami_website_id: Umami 统计
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
       empty_value: 空值
