@@ -23,9 +23,14 @@ CRON_JOBS_SETUP = lambda do
   cron_jobs.delete(:clean_old_releases) if Setting.keep_uploads
   cron_jobs.delete(:reset_for_demo_mode) unless Setting.demo_mode
 
-  Backup.enabled_jobs.each do |backup|
-    cron_jobs[backup.schedule_key] = backup.schedule_job
+  begin
+    Backup.enabled_jobs.each do |backup|
+      cron_jobs[backup.schedule_key] = backup.schedule_job
+    end
+  rescue ActiveRecord::ConnectionNotEstablished
+    # ignore, maybe executing `rails assets:precompile`
   end
+
   cron_jobs
 end
 
