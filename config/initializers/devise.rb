@@ -44,7 +44,7 @@ OIDC_OMNIAUTH_SETUP = lambda do |env|
   issuer = URI.parse(Setting.oidc[:issuer_url])
   scopes = Setting.oidc[:scope]&.split(',').map { |v| v.chomp.to_sym }
   url_options = Setting.url_options
-  site_host = "#{url_options[:protocol]}://#{url_options[:host]}"
+  site_host = "#{url_options[:protocol]}#{url_options[:host]}"
 
   env['omniauth.strategy'].options[:name] = Setting.oidc[:name]
   env['omniauth.strategy'].options[:issuer] = Setting.oidc[:issuer_url]

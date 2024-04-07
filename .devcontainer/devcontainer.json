@@ -5,7 +5,8 @@
   "workspaceFolder": "/workspace",
   "remoteUser": "vscode",
   "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/Downloads,target=/home/vscode/downloads,type=bind,consistency=cached"
   ],
 
   "customizations": {
