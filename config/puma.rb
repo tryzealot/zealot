@@ -41,7 +41,8 @@ environment rails_env
 #
 # If using threads and workers together, the concurrency of your application
 # will be THREADS * WORKERS.
-workers ENV.fetch('WEB_CONCURRENCY') { 2 }
+workers_size = ENV.fetch('WEB_CONCURRENCY') { 2 }
+workers workers_size
 silence_single_worker_warning if rails_env == 'development'
 
 # An internal health check to verify that workers have checked in to the master
@@ -72,20 +73,22 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # simple authentication.
 activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
 
-# # Handle good_job
-# before_fork do
-#   GoodJob.shutdown
-# end
+# Handle good_job
+if workers_size > 0
+  before_fork do
+    GoodJob.shutdown
+  end
 
-# on_worker_boot do
-#   GoodJob.restart
-# end
+  on_worker_boot do
+    GoodJob.restart
+  end
 
-# on_worker_shutdown do
-#   GoodJob.shutdown
-# end
+  on_worker_shutdown do
+    GoodJob.shutdown
+  end
 
-# MAIN_PID = Process.pid
-# at_exit do
-#   GoodJob.shutdown if Process.pid == MAIN_PID
-# end
+  MAIN_PID = Process.pid
+  at_exit do
+    GoodJob.shutdown if Process.pid == MAIN_PID
+  end
+end
