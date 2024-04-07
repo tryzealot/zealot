@@ -45,8 +45,8 @@ RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_V
 USER vscode
 
 # Install asdf, ruby (with YJIT enabled) and nodejs
-ARG RUBY_VERSION="3.2.2"
-ARG NODEJS_VERSION="18.18.2"
+ARG RUBY_VERSION="3.3.0"
+ARG NODEJS_VERSION="20.11.1"
 LABEL zealot.containers.ruby="$RUBY_VERSION"
 LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
@@ -59,9 +59,9 @@ RUN git clone --quiet https://github.com/asdf-vm/asdf.git ${ASDF_DIR} && \
 
 RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
-    asdf global nodejs $NODEJS_VERSION
+    asdf global nodejs ${NODEJS_VERSION}
 
-# Enable YJIT *NEED* RUST 1.58.0+
+# Enable YJIT *NEED* Rust 1.58.0+
 RUN asdf plugin add rust && \
     asdf install rust latest && \
     asdf global rust latest
@@ -69,7 +69,7 @@ RUN asdf plugin add rust && \
 RUN export RUBY_CONFIGURE_OPTS="--enable-yjit" && \
     asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
-    asdf global ruby $RUBY_VERSION
+    asdf global ruby ${RUBY_VERSION}
 
 WORKDIR /workspace
 
