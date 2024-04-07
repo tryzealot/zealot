@@ -209,8 +209,8 @@ Rails.application.routes.draw do
   # Development Only
   #############################################
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/inbox'
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount LetterOpenerWeb::Engine, at: '/tools/inbox'
+    mount GraphiQL::Rails::Engine, at: "/tools/graphiql", graphql_path: "/graphql"
   end
 
   ############################################
