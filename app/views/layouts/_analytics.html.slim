@@ -1,0 +1,19 @@
+- if Setting.google_analytics_id.present?
+  script async=true src="//www.googletagmanager.com/gtag/js?id=#{Setting.google_analytics_id}"
+  javascript:
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '#{Setting.google_analytics_id}');
+
+- if Setting.umami_website_id.present?
+  script defer=true src="https://analytics.us.umami.is/script.js" data-website-id="#{Setting.umami_website_id}"
+
+- if Setting.clarity_analytics_id.present?
+  javascript:
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "#{Setting.clarity_analytics_id}");

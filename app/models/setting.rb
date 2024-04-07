@@ -98,7 +98,7 @@ class Setting < RailsSettings::Base
       auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
       token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
       userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
-      scope: ENV.fetch('OIDC_SCOP', 'openid,email,profile,address'),
+      scope: ENV.fetch('OIDC_SCOPE', 'openid,email,profile,address'),
       response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
       uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
     }, validates: { json: { format: :hash } }
@@ -138,6 +138,8 @@ class Setting < RailsSettings::Base
 
   # 统计
   scope :analytics do
+    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: true
+    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: true
     field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
   end
 end
