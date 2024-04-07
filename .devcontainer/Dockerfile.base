@@ -57,13 +57,19 @@ RUN git clone --quiet https://github.com/asdf-vm/asdf.git ${ASDF_DIR} && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
     sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
 
+RUN asdf plugin add nodejs && \
+    asdf install nodejs $NODEJS_VERSION && \
+    asdf global nodejs ${NODEJS_VERSION}
+
+# Enable YJIT *NEED* Rust 1.58.0+
+RUN asdf plugin add rust && \
+    asdf install rust latest && \
+    asdf global rust latest
+
 RUN export RUBY_CONFIGURE_OPTS="--enable-yjit" && \
     asdf plugin add ruby && \
     asdf install ruby $RUBY_VERSION && \
     asdf global ruby ${RUBY_VERSION}
-RUN asdf plugin add nodejs && \
-    asdf install nodejs $NODEJS_VERSION && \
-    asdf global nodejs ${NODEJS_VERSION}
 
 WORKDIR /workspace
 
