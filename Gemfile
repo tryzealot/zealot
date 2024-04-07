@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.14.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.14'
-gem 'graphql', '~> 2.2.10'
+gem 'graphql', '~> 2.3.0'
 gem 'rack-cors', '~> 2.0.2'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
@@ -38,12 +38,12 @@ gem 'friendly_id', '~> 5.5.1'
 ## 数据分页
 gem 'kaminari', '~> 1.2.2'
 ## 文件上传
-gem 'carrierwave', '~> 3.0.4'
+gem 'carrierwave', '~> 3.0.7'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
 ## HTTP 请求
-gem 'faraday', '~> 2.8.1'
+gem 'faraday', '~> 2.9.0'
 
 ## 用户认证
 gem 'pundit', '~> 2.3.1'
@@ -66,7 +66,7 @@ gem 'plist', '~> 3.7.1'
 # NOTE: rollback rubygem i the issue is resolved: https://github.com/djberg96/sys-filesystem/issues/66
 gem 'sys-filesystem', github: 'icyleaf/sys-filesystem', branch: 'fix/musl-remove-alias-statvfs64'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.4.0'
+gem 'pghero', '~> 3.4.1'
 
 ## 异常报错上报
 gem 'sentry-ruby'
@@ -89,7 +89,7 @@ gem 'sidekiq-failures', '~> 1.0.4'
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
 gem 'propshaft', '0.8.0'
 gem 'jsbundling-rails', '~> 1.3'
-gem 'cssbundling-rails', '~> 1.3'
+gem 'cssbundling-rails', '~> 1.4'
 ## Javascript
 gem 'stimulus-rails', '~> 1.3.3'
 gem 'turbo-rails', '~> 1.5'
@@ -105,13 +105,13 @@ gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
   # 调试控制台
-  gem 'listen', '>= 3.0.5', '< 3.9'
+  gem 'listen', '>= 3.0.5', '< 3.10'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
   # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.9.1'
+  gem 'debug', '~> 1.9.2'
 
   # rails 更友好错误输出
   gem 'awesome_print'
@@ -119,7 +119,7 @@ group :development do
   gem 'binding_of_caller'
 
   # 在线查看 Action Mailer 内容
-  gem 'letter_opener', '~> 1.8'
+  gem 'letter_opener', '~> 1.10'
   gem 'letter_opener_web', '~> 2.0'
 end
 
