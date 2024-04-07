@@ -5,3 +5,8 @@ cd /app
 # Clear pid if unexpected exception exit
 rm -f tmp/pids/.pid
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
+
+echo "!!!!!!!!!!!! BREAKING CHANGES !!!!!!!!!!!!"
+echo "Zealot removes -> redis <- dependency, refactors backup feature completely."
+echo "If you have any problems with running, please refer to: https://github.com/tryzealot/zealot/pull/1318"
+echo "!!!!!!!!!!!! BREAKING CHANGES !!!!!!!!!!!!"
