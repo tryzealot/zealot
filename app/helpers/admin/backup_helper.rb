@@ -41,7 +41,6 @@ module Admin
     private
 
     def parse_schedule(value)
-      # dependency from sidekiq-schedule
       Fugit.parse(value)
     end
   end
