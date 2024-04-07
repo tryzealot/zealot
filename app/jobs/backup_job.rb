@@ -9,6 +9,8 @@ class BackupJob < ApplicationJob
   class Error < StandardError; end
   class MaxKeepsLimitedError < Error; end
 
+  discard_on GoodJob::InterruptError
+
   rescue_from(BackupJob::MaxKeepsLimitedError) do
     notificate_failure(
       user_id: @user_id,
