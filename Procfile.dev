@@ -1,4 +1,4 @@
-web: GOOD_JOB_ENABLE_CRON=0 GOOD_JOB_EXECUTION_MODE=external bin/rails server -p 3000 -b 0.0.0.0
+web: bin/rails server -p 3000 -b 0.0.0.0
 worker: bin/good_job start 2>&1 | tee -a /app/log/worker_development.log
 js: yarn build --watch
 css: yarn build:css --watch
