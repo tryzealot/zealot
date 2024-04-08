@@ -43,14 +43,11 @@ module Zealot
       from: ENV['ACTION_MAILER_DEFAULT_FROM'] || 'Zealot'
     }
 
-    # Set Redis as the back-end for the cache.
-    config.cache_store = :redis_cache_store, {
-      url: (ENV['REDIS_URL'] || 'redis://localhost:6379/0'),
-      namespace: ENV['REDIS_NAMESPACE'] || 'cache'
-    }
+    # Set the back-end for the cache.
+    config.cache_store = :solid_cache_store
 
-    # Set Sidekiq as the back-end for Active Job.
-    config.active_job.queue_adapter = :sidekiq
+    # Set the back-end for Active Job.
+    config.active_job.queue_adapter = :good_job
 
     # Action Cable setting to de-couple it from the main Rails process.
     # config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL'] || 'ws://localhost:28080'

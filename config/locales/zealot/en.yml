@@ -157,6 +157,7 @@ en:
         server_info: Server info
         found_new_version: 'Found new version: %{version}'
         os_info: OS info
+        postgres_version: PostgreSQL version
         ruby_version: Ruby version
         cpu_info: CPU
         cpu_core:
@@ -171,7 +172,6 @@ en:
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
         file_permissions: File permissions
-        services: Services health
         ruby_gems: Ruby Gems
         logs: Logs
         new_version: A new update is available
@@ -181,15 +181,15 @@ en:
     backups:
       title: Backups
       index:
-        title: :admin.backups.title
-        new_backup: New backup
+        title: :'admin.backups.title'
+        new_schedule: New Schedule
         key: Key
         scopes: Scopes
         schedule: Schedule
         next_schedule_at: Next schedule at
         enabled: Enabled
         action: Action
-        run_now: Run now
+        run_backup: Run a backup
         edit: Edit
         destroy: Destroy
         database: Database
@@ -202,14 +202,28 @@ en:
           body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
       show:
         title: '%{key} backup'
+        run_backup: Run a backup
+        backup_files: Backup files
         filename: Filename
         created_at: Created at
         size: Size
+        action: Action
         download: Download
-        reprocess: Reprocess
         destroy: Destroy
+        performing_jobs: Performing jobs
+        backup_id: Backup ID
+        backup_status: Status
+        steps:
+          start: Starting
+          prepare: Preparing
+          dump_database: Dumping database
+          dump_apps: Dumping apps
+          pack: Packing
+          remove_old: Remove old backups
+          cleanup: Clean up
+          ensure: Finishing
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
-        current_step: Processing, current %{step}
+        current_step: 'Processing: %{step}'
         not_found:
           title: Not found any backup file
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
@@ -224,6 +238,8 @@ en:
         success: Backup was successfully scheduled to run in the background.
       destroy_archive:
         success: Backup was deleted successfully.
+      cancel_job:
+        success: Backup Job was canceled successfully.
       parse_schedule:
         invalid_expression: Invalid expression
     background_jobs:
@@ -858,7 +874,6 @@ en:
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
       development_only: Development only
-      redis_connection_error: Redis server connect failed.
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       goback_title: goback

@@ -3,12 +3,6 @@ databases:
   plan: free
   region: singapore
 services:
-- type: redis
-  name: zealot-redis
-  plan: free
-  region: singapore
-  maxmemoryPolicy: noeviction
-  ipAllowList: []
 - type: web
   name: zealot-web
   env: docker
@@ -119,11 +113,6 @@ services:
     fromDatabase:
       name: zealot-db
       property: database
-  - key: REDIS_URL
-    fromService:
-      type: redis
-      name: zealot-redis
-      property: connectionString
   - key: PORT
     value: 80 # Do not edit! Zealot exposes this internally
   - key: RAILS_MAX_THREADS
