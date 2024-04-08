@@ -157,6 +157,7 @@ zh-CN:
         server_info: 服务器信息
         found_new_version: '发现新版本: %{version}'
         os_info: 操作系统
+        postgres_version: PostgreSQL 版本
         ruby_version: Ruby 版本
         cpu_info: CPU
         cpu_core: '%{count} 核'
@@ -169,7 +170,6 @@ zh-CN:
         fail_detect_disk: 无法解读硬盘信息
         system_environment: 系统变量
         file_permissions: 文件权限
-        services: 服务状态
         ruby_gems: Ruby Gems
         logs: 日志
         new_version: '发现新版本 '
@@ -180,14 +180,14 @@ zh-CN:
       title: 数据备份
       index:
         title: :'admin.backups.title'
-        new_backup: :'admin.backups.new.title'
+        new_schedule: 新备份计划
         key: 备份名称
         scopes: 备份范围
         schedule: 备份频率
         next_schedule_at: 下次备份时间
         enabled: 启用
         action: 操作
-        run_now: 生成备份
+        run_backup: 执行新备份
         edit: 编辑
         destroy: 删除
         database: 数据库
@@ -198,13 +198,26 @@ zh-CN:
           body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
       show:
         title: '%{key} 备份计划'
+        run_backup: 执行新备份
+        backup_files: 备份文件
         filename: 文件名
         created_at: 生成时间
         size: 大小
+        action: 操作
         download: 下载
         destroy: 删除
+        performing_jobs: 进行中的备份任务
+        backup_id: 备份 ID
+        backup_status: 备份状态
+        steps:
+          start: 任务认领
+          prepare: 数据准备中
+          dump_database: 备份数据库
+          dump_apps: 备份应用
+          pack: 生成压缩包
+          remove_old: 清理旧备份
+          cleanup: 收尾工作
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
-        current_step: 任务进行中，当前状态 %{step}
         not_found:
           title: 没有发现任何备份文件
           body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
@@ -219,6 +232,8 @@ zh-CN:
         success: 备份任务正在后台工作中
       destroy_archive:
         success: 备份文件成功删除
+      cancel_job:
+        success: 备份任务成功取消
       parse_schedule:
         invalid_expression: 表达式无法解析
     background_jobs:
@@ -869,7 +884,6 @@ zh-CN:
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
       development_only: 仅开发环境显示
-      redis_connection_error: Redis 服务器连接或鉴权失败，请检查配置是否正确
       database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
       goback_title: 上级页面
