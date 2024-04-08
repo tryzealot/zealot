@@ -11,7 +11,7 @@ gem 'rake', '~> 13.0.4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'redis', '~> 5.0.8'
+gem "solid_cache", "~> 0.6.0"
 
 # Logger
 gem 'lograge', '~> 0.14.0'
@@ -63,15 +63,14 @@ gem 'openssl', '~> 3.2.0'
 gem 'plist', '~> 3.7.1'
 
 ## 系统信息
-# NOTE: rollback rubygem i the issue is resolved: https://github.com/djberg96/sys-filesystem/issues/66
+# NOTE: rollback rubygem if the issue is resolved: https://github.com/djberg96/sys-filesystem/issues/66
 gem 'sys-filesystem', github: 'icyleaf/sys-filesystem', branch: 'fix/musl-remove-alias-statvfs64'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.4.1'
 
 ## 异常报错上报
-gem 'sentry-ruby'
-gem 'sentry-rails'
-gem 'sentry-sidekiq'
+gem 'sentry-ruby', '~> 5.17.2'
+gem 'sentry-rails', '~> 5.17.2'
 
 ## Jenkins SDK
 gem 'improved_jenkins_client', '~> 1.6.7'
@@ -80,10 +79,8 @@ gem 'improved_jenkins_client', '~> 1.6.7'
 gem 'rqrcode'
 
 # 异步队列
-gem 'activejob-status'
-gem 'sidekiq', '~> 7.2.0'
-gem 'sidekiq-scheduler', '~> 5.0.3'
-gem 'sidekiq-failures', '~> 1.0.4'
+gem 'good_job', '~> 3.27.4'
+gem 'activejob-status', '~> 1.0.0'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。

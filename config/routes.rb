@@ -143,6 +143,7 @@ Rails.application.routes.draw do
           post :enable
           post :disable
           post :perform
+          delete :job, action: :cancel_job
           get :archive, action: :download_archive
           delete :archive, action: :destroy_archive
         end
@@ -153,10 +154,7 @@ Rails.application.routes.draw do
         get :status
       end
 
-      require 'sidekiq/web'
-      require 'sidekiq-scheduler/web'
-
-      mount Sidekiq::Web => 'sidekiq', as: :sidekiq
+      mount GoodJob::Engine, at: 'jobs', as: :jobs
       mount PgHero::Engine, at: 'pghero', as: :pghero
     end
   end
@@ -211,8 +209,8 @@ Rails.application.routes.draw do
   # Development Only
   #############################################
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/inbox'
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount LetterOpenerWeb::Engine, at: '/tools/inbox'
+    mount GraphiQL::Rails::Engine, at: "/tools/graphiql", graphql_path: "/graphql"
   end
 
   ############################################

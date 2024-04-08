@@ -164,7 +164,7 @@ GEM
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.12.0)
-    et-orbi (1.2.7)
+    et-orbi (1.2.11)
       tzinfo
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
@@ -178,7 +178,7 @@ GEM
       rake
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
-    fugit (1.8.1)
+    fugit (1.10.1)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     gitlab_omniauth-ldap (2.2.0)
@@ -188,7 +188,14 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.22.5)
+    good_job (3.27.4)
+      activejob (>= 6.0.0)
+      activerecord (>= 6.0.0)
+      concurrent-ruby (>= 1.0.2)
+      fugit (>= 1.1)
+      railties (>= 6.0.0)
+      thor (>= 0.14.1)
+    google-protobuf (3.22.3)
     graphiql-rails (1.10.0)
       railties
     graphql (2.3.0)
@@ -446,10 +453,6 @@ GEM
       ffi (~> 1.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redis (5.0.8)
-      redis-client (>= 0.17.0)
-    redis-client (0.21.0)
-      connection_pool
     regexp_parser (2.6.1)
     reline (0.5.0)
       io-console (~> 0.5)
@@ -486,28 +489,12 @@ GEM
       ffi (~> 1.12)
     rubyntlm (0.6.3)
     rubyzip (2.3.2)
-    rufus-scheduler (3.9.1)
-      fugit (~> 1.1, >= 1.1.6)
-    sentry-rails (5.17.1)
+    sentry-rails (5.17.2)
       railties (>= 5.0)
-      sentry-ruby (~> 5.17.1)
+      sentry-ruby (~> 5.17.2)
     sentry-ruby (5.17.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.17.1)
-      sentry-ruby (~> 5.17.1)
-      sidekiq (>= 3.0)
-    sidekiq (7.2.0)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.14.0)
-    sidekiq-failures (1.0.4)
-      sidekiq (>= 4.0.0)
-    sidekiq-scheduler (5.0.3)
-      rufus-scheduler (~> 3.2)
-      sidekiq (>= 6, < 8)
-      tilt (>= 1.4.0)
     simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -519,6 +506,10 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
     socksify (1.7.1)
+    solid_cache (0.6.0)
+      activejob (>= 7)
+      activerecord (>= 7)
+      railties (>= 7)
     ssrf_filter (1.1.2)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
@@ -589,7 +580,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
-  activejob-status
+  activejob-status (~> 1.0.0)
   app-info (~> 3.0.0)
   awesome_print
   better_errors
@@ -604,6 +595,7 @@ DEPENDENCIES
   faraday (~> 2.9.0)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
+  good_job (~> 3.27.4)
   graphiql-rails
   graphql (~> 2.3.0)
   health_check (~> 3.1.0)
@@ -636,18 +628,14 @@ DEPENDENCIES
   rails-i18n (~> 7.0.5)
   rails-settings-cached (~> 2.9.4)
   rake (~> 13.0.4)
-  redis (~> 5.0.8)
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails
-  sentry-ruby
-  sentry-sidekiq
-  sidekiq (~> 7.2.0)
-  sidekiq-failures (~> 1.0.4)
-  sidekiq-scheduler (~> 5.0.3)
+  sentry-rails (~> 5.17.2)
+  sentry-ruby (~> 5.17.2)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
+  solid_cache (~> 0.6.0)
   stimulus-rails (~> 1.3.3)
   sys-filesystem!
   tiny_appstore_connect (~> 0.1.12)

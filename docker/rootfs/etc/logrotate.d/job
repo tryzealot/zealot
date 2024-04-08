@@ -1,4 +1,4 @@
-/app/log/sidekiq.log {
+/app/log/job.log {
   missingok
   notifempty
   monthly

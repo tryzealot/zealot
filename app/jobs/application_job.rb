@@ -5,12 +5,10 @@ class ApplicationJob < ActiveJob::Base
   include ActionView::Helpers::TranslationHelper
   include ActiveJob::Status
 
-  sidekiq_options backtrace: Rails.env.development? ? true : 20
-
   protected
 
   def logger
-    @logger ||= Sidekiq.logger
+    @logger ||= GoodJob.logger
   end
 
   def notificate_success(**options)
