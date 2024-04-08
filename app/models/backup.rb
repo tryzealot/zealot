@@ -3,6 +3,8 @@
 require 'pathname'
 
 class Backup < ApplicationRecord
+  include BackupFile
+
   scope :enabled_jobs, -> { where(enabled: true) }
 
   validates :key, uniqueness: true, on: :create
@@ -10,104 +12,67 @@ class Backup < ApplicationRecord
   validate :correct_schedule
 
   before_save :strip_enabled_apps
-  before_destroy :remove_storage
+  after_save :update_worker_scheduler
 
-  after_save :update_sidekiq_scheduler
+  before_destroy :remove_storage
 
   def apps
     App.where(id: enabled_apps)
   end
 
   def perform_job(user_id)
-    job = BackupJob.perform_later(id, user_id)
-    Rails.cache.redis.sadd(cache_job_id_key, job.job_id)
+    BackupJob.perform_later(id, user_id)
   end
 
   def find_file(filename)
-    file = Dir.glob(File.join(path, filename)).first
+    file = Dir.glob(File.join(backup_path, filename)).first
     return unless file
 
     Pathname.new(file)
   end
 
   def backup_files
-    Dir.glob(File.join(path, '*')).each_with_object([]) do |file, obj|
-      backup_file = BackupFile.parse(key, file, cache_job_id_key)
+    Dir.glob(File.join(backup_path, '*.tar')).each_with_object([]) do |file, obj|
+      backup_file = BackupFile.new(file)
+      next unless backup_file.completed?
+
       obj << backup_file
     end.sort_by(&:ctime).reverse!
   end
 
+  def performing_jobs
+    jobs = GoodJob::Job.where(job_class: 'BackupJob')
+      .where("serialized_params#>>'{arguments,0}' = ?", id.to_s)
+      .order(created_at: :desc)
+
+    jobs.each_with_object([]) do |good_job, obj|
+      next if good_job.succeeded?
+
+      activejob_status = ActiveJob::Status.get(good_job.id)
+      job = PerformingJob.new(good_job, activejob_status)
+      obj << job
+    end
+  end
+
   def destroy_directory(name)
-    FileUtils.rm_rf(File.join(path, name))
-
-    job_id, status = BackupFile.find_status(cache_key, key, name)
-
-    Rails.cache.redis.srem(cache_job_id_key, job_id) if job_id
-    status.delete if status
+    Dir.glob(File.join(backup_path, "#{name}*")).each do |file|
+      FileUtils.rm_rf(file)
+    end
   end
 
-  def cache_job_id_key
-    @cache_job_id_key ||= "cache:backup:#{id}"
+  def remove_background_jobs(job_id = nil)
+    status = ActiveJob::Status.get(job_id)
+    if status.present?
+      backup_file = status[:file]
+      destroy_directory(backup_file)
+      status.delete
+    end
+
+    GoodJob::Job.destroy(job_id)
   end
 
-  def path
-    Rails.root.join(Setting.backup[:path], key)
-  end
-
-  class BackupFile
-    def self.parse(key, file, cache_key)
-      status = find_status(cache_key, key, file)
-      new(file, status)
-    end
-
-    def self.find_status(cache_key, key, file)
-      job_cached_status(cache_key).find do |status|
-        status[:source] = key && status[:file] == File.basename(file)
-      end
-    end
-
-    def self.job_cached_status(cache_key)
-      job_ids = Rails.cache.redis.smembers(cache_key)
-      return {} if job_ids.empty?
-
-      job_ids.each_with_object([]) do |job_id, obj|
-        obj << ActiveJob::Status.get(job_id)
-      end
-    end
-
-    attr_reader :status
-
-    delegate :size, :ctime, :to_path, :basename, to: :@file
-
-    def initialize(file, status)
-      @file = Pathname.new(file)
-      @status = status
-    end
-
-    def name
-      @file.basename
-    end
-
-    def created_at
-      @file.ctime
-    end
-
-    def current_status
-      @status&.status || (complated? ? 'complated' : 'unknown')
-    end
-
-    def complated?
-      File.exist?(@file)
-    end
-
-    def failure
-      return unless @status
-
-      failures = Sidekiq::Failures::FailureSet.new
-      failures.find do |failure|
-        failure.jid == @status[:jid]
-      end
-    end
+  def backup_path
+    @backup_path ||= Rails.root.join(Setting.backup[:path], key)
   end
 
   def schedule_job
@@ -116,16 +81,15 @@ class Backup < ApplicationRecord
     data << "#{enabled_apps.size} apps" if enabled_apps
 
     {
-      'description' => "Backup zealot #{data.join(' | ')} data",
-      'cron' => Fugit.parse(schedule).to_cron_s,
-      'class' => 'BackupJob',
-      'queue' => :backup,
-      'args' => id
+      description: "Backup zealot #{data.join(' | ')} data",
+      cron: Fugit.parse(schedule).to_cron_s,
+      class:'BackupJob',
+      args: [ id ]
     }
   end
 
   def schedule_key
-    @scheduler_key ||= "zealot_backup_#{key}"
+    @scheduler_key ||= "zealot_backup_#{key}".to_sym
   end
 
   private
@@ -144,20 +108,37 @@ class Backup < ApplicationRecord
   end
 
   def remove_storage
-    FileUtils.rm_rf(path)
+    FileUtils.rm_rf(backup_path)
   end
 
-  def update_sidekiq_scheduler
-    Sidekiq.remove_schedule(schedule_key)
+  def update_worker_scheduler
+    # FIXME: This class exists, must rename new one, may be SchedulerExt?
+    # code: lib/good_lib/good_job_ext.rb
+    #
+    # scheduler = GoodJob::Scheduler.new
+    # has_cron = scheduler.key?(schedule_key)
+    # return if has_cron && enabled
 
-    if enabled
-      data = []
-      data << 'database' if enabled_database
-      data << "#{enabled_apps.size} apps" if enabled_apps
+    # if enabled
+    #   scheduler.add(schedule_key, schedule_job) unless has_cron
+    # else
+    #   scheduler.remove(schedule_key) if has_cron
+    # end
 
-      Sidekiq.set_schedule(schedule_key, schedule_job)
+    configuration = GoodJob.configuration
+    cron = configuration.cron
+    has_cron = cron.key?(schedule_key)
+    return if has_cron && enabled
+
+    if enabled && !has_cron
+      cron[schedule_key] = schedule_job
+    elsif !enabled && has_cron
+      cron.delete(schedule_key)
     end
 
-    SidekiqScheduler::Scheduler.instance.reload_schedule!
+    # NOTE: no needs
+    # capsule = GoodJob::Capsule.new(configuration: configuration)
+    # GoodJob.capsule = capsule
+    # capsule.restart
   end
 end

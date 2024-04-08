@@ -58,6 +58,7 @@ module Zealot::Backup
       dump_uploads(app_ids: app_ids)
       write_info
       pack
+      checksum
     ensure
       cleanup
     end
@@ -103,6 +104,12 @@ module Zealot::Backup
           raise Zealot::Backup::Error, "Backup failed: creating archive #{tar_file} failed"
         end
       end
+    end
+
+    def checksum
+      sha256 = Digest::SHA256.file(tar_file)
+      File.write(sha256_file, sha256.hexdigest)
+      logger.debug "Generating backup sha256: #{File.basename(sha256_file)} ... #{sha256.hexdigest}"
     end
 
     def remove_old(max_keeps = nil)
@@ -155,8 +162,12 @@ module Zealot::Backup
 
     private
 
+    def sha256_file
+      @sha256_file ||= File.join(@backup_path, "#{tar_filename}.sha256")
+    end
+
     def tar_file
-      File.join(@backup_path, tar_filename)
+      @tar_file ||= File.join(@backup_path, tar_filename)
     end
 
     def backup_root_path

@@ -30,10 +30,10 @@ if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENT
         transaction_context = sampling_context[:transaction_context]
         op = transaction_context[:op]
         case op
-        when /sidekiq/
-          0.01
+        when /good_job/
+          0.1
         else
-          0.8
+          0.5
         end
       end
 
