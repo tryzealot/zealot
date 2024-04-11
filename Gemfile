@@ -69,7 +69,7 @@ gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.4.1'
 
 ## 异常报错上报
-gem 'sentry-ruby', '~> 5.17.2'
+gem 'sentry-ruby', '~> 5.17.3'
 gem 'sentry-rails', '~> 5.17.2'
 
 ## Jenkins SDK
