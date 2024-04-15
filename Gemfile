@@ -70,7 +70,7 @@ gem 'pghero', '~> 3.4.1'
 
 ## 异常报错上报
 gem 'sentry-ruby', '~> 5.17.3'
-gem 'sentry-rails', '~> 5.17.2'
+gem 'sentry-rails', '~> 5.17.3'
 
 ## Jenkins SDK
 gem 'improved_jenkins_client', '~> 1.6.7'
