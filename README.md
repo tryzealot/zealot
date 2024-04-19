@@ -5,6 +5,8 @@
 
   <h4>
     开源自部署持续集成一切跟应用有关事情，接入任意 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案 En Taro Adun! 🖖
+    <br />
+    Continuous everything. Automate the lifecycle of your apps. Connect your CI to build in the cloud, test on thousands of real devices, distribute to beta testers and app stores. All in one place.
   </h4>
 
   <a href="https://github.com/tryzealot/zealot/blob/develop/CHANGELOG.md">
