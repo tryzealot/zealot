@@ -79,7 +79,7 @@ gem 'improved_jenkins_client', '~> 1.6.7'
 gem 'rqrcode'
 
 # 异步队列
-gem 'good_job', '~> 3.27.4'
+gem 'good_job', '~> 3.28.0'
 gem 'activejob-status', '~> 1.0.0'
 
 # Assets
