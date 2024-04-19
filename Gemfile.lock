@@ -284,7 +284,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.5)
+    mini_portile2 (2.8.6)
     minitest (5.22.3)
     mixlib-shellout (3.2.7)
       chef-utils
@@ -492,9 +492,9 @@ GEM
       ffi (~> 1.12)
     rubyntlm (0.6.3)
     rubyzip (2.3.2)
-    sentry-rails (5.17.2)
+    sentry-rails (5.17.3)
       railties (>= 5.0)
-      sentry-ruby (~> 5.17.2)
+      sentry-ruby (~> 5.17.3)
     sentry-ruby (5.17.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -634,7 +634,7 @@ DEPENDENCIES
   rqrcode
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.17.2)
+  sentry-rails (~> 5.17.3)
   sentry-ruby (~> 5.17.3)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
