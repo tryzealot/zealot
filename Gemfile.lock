@@ -201,7 +201,7 @@ GEM
     google-protobuf (3.22.3-x86_64-linux)
     graphiql-rails (1.10.0)
       railties
-    graphql (2.3.0)
+    graphql (2.3.1)
       base64
     hashie (5.0.0)
     health_check (3.1.0)
@@ -600,7 +600,7 @@ DEPENDENCIES
   gitlab_omniauth-ldap (~> 2.2.0)
   good_job (~> 3.28.0)
   graphiql-rails
-  graphql (~> 2.3.0)
+  graphql (~> 2.3.1)
   health_check (~> 3.1.0)
   improved_jenkins_client (~> 1.6.7)
   jb (~> 0.8.2)
