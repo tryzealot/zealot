@@ -74,7 +74,7 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
 
 # Handle good_job
-if workers_size > 0
+if workers_size > 0 && defined?(GoodJob)
   before_fork do
     GoodJob.shutdown
   end
