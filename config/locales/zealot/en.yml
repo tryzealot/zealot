@@ -404,13 +404,13 @@ en-US:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Installed, reinstall
+      installed: Install requested
       cert_expired: Expired certificate
       destroy: Destroy
       missing_file: Missing file
       more: More releases
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certifiate?
-      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or failed to install?
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
       upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
       upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
@@ -574,7 +574,7 @@ en-US:
     show:
       title: '%{name} Teardown result'
       expired_in: 'Expire in %{time}'
-      already_expired: Expired %{time}
+      already_expired: Expired at %{time}
       expired: Expired now!
       related_app: Release related
       related_body: This teardown was relates with %{link}
@@ -708,22 +708,17 @@ en-US:
         body_html: |
           <p>
             UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
-            Apple uses the UDID to communicate between Apple servers and individual iOS devices or macOS on arm chip. This allows Apple to associate the
+            Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
             Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
           </p>
           <p>
-            The UDID of your iOS devices or macOS on arm chip is needed if you want to install alpha and beta apps onto your device before they are released to the official apple store.
+            The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
           </p>
           <strong>Following the steps:</strong>
           <ol>
-            <li>Click "Accept" to fetching the profile file.</li>
-            <li>Open installed Profile.
-              <ol>
-                <li>iOS: Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install.</li>
-                <li>macOS: Open the profile named <code>install.mobileconfig</code> then open "System Settings" and click "Profile" in left sidebar menu.</li>
-              </ol>
-            </li>
-            <li>After install it will open Safari and redirect a result page then delete the profile automatically.</li>
+            <li>Click "Accept" to download profile</li>
+            <li>Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install</li>
+            <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
           </ol>
     show:
       title: Device
@@ -978,8 +973,8 @@ en-US:
       links:
         provider:
           feishu: Feishu
-          google: 'Google'
-          gitlab: 'Gitlab'
+          google: ' Google'
+          gitlab: ' Gitlab'
           openidconnect: 'OpenID'
   helpers:
     submit:
