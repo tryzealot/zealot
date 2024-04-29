@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   around_action :set_locale
   before_action :set_sentry_context
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def raise_not_found
     raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
@@ -33,5 +34,12 @@ class ApplicationController < ActionController::Base
     if current_user = session[:current_user_id]
       Sentry.set_user(id: current_user)
     end
+  end
+
+  DEVISE_PERMITTED_PARAMTERS = %i[ username email password password_confirmation remember_me ]
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit :sign_up, keys: DEVISE_PERMITTED_PARAMTERS
+    devise_parameter_sanitizer.permit :account_update, keys: DEVISE_PERMITTED_PARAMTERS
+    devise_parameter_sanitizer.permit :sign_in, keys: %i[ username email password ]
   end
 end
