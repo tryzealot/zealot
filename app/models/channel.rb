@@ -26,6 +26,7 @@ class Channel < ApplicationRecord
 
   validates :name, presence: true
   validates :slug, uniqueness: true
+  validates :device_type, presence: true, inclusion: { in: self.device_types.keys }
 
   def latest_release
     releases.last
