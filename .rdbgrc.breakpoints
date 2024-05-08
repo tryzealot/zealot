@@ -1,2 +1,0 @@
-break /workspace/app/views/admin/settings/index.html.slim:18
-break /workspace/app/jobs/application_job.rb:8
