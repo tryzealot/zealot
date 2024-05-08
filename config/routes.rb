@@ -172,6 +172,10 @@ Rails.application.routes.draw do
         get :versions, to: 'apps/versions#index'
         get 'versions/(:release_version)', to: 'apps/versions#show'
       end
+
+      resources :schemes, except: %i[new edit], shallow: true do
+        resources :channels, except: %i[new edit]
+      end
     end
 
     resources :debug_files, except: %i[new edit create] do
