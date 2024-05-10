@@ -303,6 +303,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
+    nkf (0.2.0)
     nokogiri (1.16.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -579,6 +580,7 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
+  ruby
   x86_64-darwin-18
   x86_64-darwin-19
   x86_64-darwin-20
@@ -615,6 +617,7 @@ DEPENDENCIES
   letter_opener_web (~> 2.0)
   listen (>= 3.0.5, < 3.10)
   lograge (~> 0.14.0)
+  nkf (~> 0.2.0)
   omniauth (~> 2.1.2)
   omniauth-feishu (~> 0.1.8)
   omniauth-gitlab (~> 3.0.0)
