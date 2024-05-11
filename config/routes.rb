@@ -163,18 +163,19 @@ Rails.application.routes.draw do
   # API v1
   #############################################
   namespace :api do
-    namespace :apps do
-      post 'upload', to: 'upload#create'
+    resources :apps, except: %i[new edit] do
+      collection do
+        post :upload, to: 'apps/upload#create'
 
-      get 'latest', to: 'latest#show'
-      get 'version_exist', to: 'version_exist#show'
-      get 'versions', to: 'versions#index'
-      get 'versions/(:release_version)', to: 'versions#show'
+        get :latest, to: 'apps/latest#show'
+        get :version_exist, to: 'apps/version_exist#show'
+        get :versions, to: 'apps/versions#index'
+        get 'versions/(:release_version)', to: 'apps/versions#show'
+      end
 
-      get ':id', action: :show
-      patch ':id', action: :update
-      delete ':id', action: :destroy
-      get '', action: :index
+      resources :schemes, except: %i[new edit], shallow: true do
+        resources :channels, except: %i[new edit]
+      end
     end
 
     resources :debug_files, except: %i[new edit create] do
