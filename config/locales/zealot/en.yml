@@ -295,16 +295,16 @@ en:
       not_found_channel_body_html: |
         Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
       not_found_scheme:
-        title: Not found any scheme.
+        title: Not found any scheme
         body_html: |
           <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
-            <li>Debug、Adhoc、Public test、Production</li>
+            <li>Debug, Adhoc, Public test and Production</li>
           </ul>
-          <p>Use the app store channel in Android app:</p>
+          <p>Use the stores in Android app:</p>
           <ul>
-            <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
+            <li>Google Play, Samsung Galaxy Store, TapTap, F-Droid and more</li>
           </ul>
     new:
       title: New app
@@ -346,7 +346,7 @@ en:
       channel_key: Channel KEY
       edit_channel: Edit channel
       none: None
-      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
+      not_found: Not found any release, click the button <i class="far fa-plus-square"></i> upload a release.
       id: ID
       build_version: Build version
       git_branch: Branch
