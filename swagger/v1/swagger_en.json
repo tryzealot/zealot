@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Zealot API V1",
+    "version": "v1.2"
+  },
+  "paths": {
+    "/apps": {
+      "get": {
+        "summary": "Translation missing: en.api.apps.list_apps",
+        "tags": [
+          "Apps"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "blog created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "content"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://tryzealot.ews.im/api",
+      "description": "Demo server"
+    }
+  ]
+}
