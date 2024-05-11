@@ -1,0 +1,6 @@
+zh-CN:
+  api:
+    apps:
+      list_apps:
+        title: 应用列表
+        description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
