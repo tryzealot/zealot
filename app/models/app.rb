@@ -17,8 +17,8 @@ class App < ApplicationRecord
   def recently_release
     Rails.cache.fetch(recently_release_cache_key) do
       return unless schcmes_ids = schemes.select(:id).map(&:id)
-      return unless channel_ids = Channel.select(:id).where(schemes: schcmes_ids).map(&:id)
-      return unless release = Release.where(channels: channel_ids).last
+      return unless channel_ids = Channel.select(:id).where(scheme: schcmes_ids).map(&:id)
+      return unless release = Release.where(channel: channel_ids).last
 
       release
     end
