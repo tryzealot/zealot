@@ -33,16 +33,19 @@
     }
   },
 
-  "forwardPorts": [3000, 5432, 6379, 8081],
+  "forwardPorts": [3000, 5432, 8081],
   "portsAttributes": {
     "3000": {
-      "label": "rails server (puma)"
+      "label": "rails server"
     },
     "5432": {
       "label": "postgres server"
     },
     "8081": {
       "label": "pgweb server"
+    },
+    "9293": {
+      "label": "puma"
     }
   },
 
