@@ -1,0 +1,6 @@
+zh-CN:
+  api:
+    apps:
+      list_apps:
+        title: List apps
+        description: Lists all apps, paginated and sorted by created date (newest first)
