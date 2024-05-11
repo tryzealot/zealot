@@ -33,13 +33,6 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --de
 
 ENV ZEALOT_PATH=/workspace
 
-# Install overmind
-ARG OVERMIND_VERSION="2.4.0"
-RUN curl -L https://github.com/DarthSim/overmind/releases/download/v${OVERMIND_VERSION}/overmind-v${OVERMIND_VERSION}-linux-amd64.gz > overmind.gz \
-  && gunzip overmind.gz \
-  && sudo mv overmind /usr/local/bin \
-  && chmod +x /usr/local/bin/overmind
-
 USER vscode
 
 # Install asdf, ruby (with YJIT enabled) and nodejs
