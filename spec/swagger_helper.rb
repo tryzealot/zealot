@@ -3,28 +3,22 @@
 require 'rails_helper'
 
 RSpec.configure do |config|
-  # Specify a root folder where Swagger JSON files are generated
-  # NOTE: If you're using the rswag-api to serve API descriptions, you'll need
-  # to ensure that it's configured to serve Swagger from the same folder
   config.openapi_root = Rails.root.join('swagger').to_s
-
-  # Define one or more Swagger documents and provide global metadata for each one
-  # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
-  # be generated at the provided relative path under openapi_root
-  # By default, the operations defined in spec files are added to the first
-  # document below. You can override this behavior by adding a openapi_spec tag to the
-  # the root example_group in your specs, e.g. describe '...', openapi_spec: 'v2/swagger.json'
   config.openapi_specs = {
     "v1/swagger_#{I18n.default_locale}.json" => {
       openapi: '3.1.0',
       info: {
         title: 'Zealot API V1',
         version: 'v1.2',
+        contact: {
+          url: 'https://github.com/tryzealot/zealot'
+        },
+        description: I18n.t('api.info.description')
       },
       servers: [
         {
           url: 'https://tryzealot.ews.im/api',
-          description: 'Demo server'
+          description: I18n.t('api.servers.description')
         }
       ],
       paths: {},
