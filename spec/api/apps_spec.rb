@@ -13,14 +13,14 @@ describe "Apps API" do
       parameter "$ref": "#/components/parameters/perPageParam"
 
       produces 'application/json'
-      response '200', 'list of apps' do
+      response '200', I18n.t('api.apps.list_apps.response.200') do
         let(:token) { nil }
         schema type: :array,
                items: { "$ref": "#/components/schemas/AppIndex" }
         run_test!
       end
 
-      response '401', 'invalid authentication' do
+      response '401', I18n.t('api.apps.list_apps.response.401') do
         schema "$ref": "#/components/schemas/UnauthorizedResponse"
         run_test!
       end
