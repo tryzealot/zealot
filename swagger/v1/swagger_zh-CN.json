@@ -2,12 +2,16 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zealot API V1",
-    "version": "v1.2"
+    "version": "v1.2",
+    "contact": {
+      "url": "https://github.com/tryzealot/zealot"
+    },
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [ReqBIN](https://reqbin.com/) (recommended, online)\n- [Postman](https://www.postman.com/downloads/)\n- [Insomnia](https://insomnia.rest/)\n- Your web browser, if you don't need to send headers or a request body\n"
   },
   "servers": [
     {
       "url": "https://tryzealot.ews.im/api",
-      "description": "Demo server"
+      "description": "Demo Server"
     }
   ],
   "paths": {
@@ -29,7 +33,7 @@
         ],
         "responses": {
           "200": {
-            "description": "list of apps",
+            "description": "应用列表",
             "content": {
               "application/json": {
                 "schema": {
@@ -42,7 +46,7 @@
             }
           },
           "401": {
-            "description": "invalid authentication",
+            "description": "认证失败",
             "content": {
               "application/json": {
                 "schema": {
@@ -56,11 +60,11 @@
     },
     "/apps/{id}": {
       "get": {
-        "summary": "Translation missing: zh-CN.api.apps.get_app.title",
+        "summary": "获取应用",
         "tags": [
           "Apps"
         ],
-        "description": "Translation missing: zh-CN.api.apps.get_app.description",
+        "description": "获取应用详情",
         "operationId": "getApp",
         "parameters": [
           {
@@ -108,11 +112,11 @@
     },
     "/apps/upload": {
       "post": {
-        "summary": "Translation missing: zh-CN.api.apps.upload_app.title",
+        "summary": "上传应用",
         "tags": [
           "Apps"
         ],
-        "description": "Translation missing: zh-CN.api.apps.upload_app.description",
+        "description": "上传 iOS、Android、macOS、Linux 或 Windows 应用",
         "operationId": "uploadApp",
         "parameters": [
 
@@ -274,78 +278,6 @@
           }
         }
       },
-      "plainChangelogApp": {
-        "description": "App object with plaintext changelog",
-        "type": "object",
-        "properties": {
-          "channel_key": {
-            "type": "string"
-          },
-          "file": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "release_type": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "changelog": {
-            "type": "string"
-          },
-          "branch": {
-            "type": "string"
-          },
-          "git_commit": {
-            "type": "string"
-          },
-          "ci_url": {
-            "type": "string"
-          },
-          "custom_fields": {
-            "type": "array"
-          }
-        }
-      },
-      "jsonChangelogApp": {
-        "description": "App object with plaintext changelog",
-        "type": "object",
-        "properties": {
-          "channel_key": {
-            "type": "string"
-          },
-          "file": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "release_type": {
-            "type": "string"
-          },
-          "source": {
-            "type": "string"
-          },
-          "changelog": {
-            "type": "string"
-          },
-          "branch": {
-            "type": "string"
-          },
-          "git_commit": {
-            "type": "string"
-          },
-          "ci_url": {
-            "type": "string"
-          },
-          "custom_fields": {
-            "type": "array"
-          }
-        }
-      },
       "UnauthorizedResponse": {
         "description": "401 Unauthorized Response",
         "type": "object",
@@ -362,14 +294,15 @@
       "description": "Upload app form data options",
       "type": "object",
       "required": [
-        "channel_key"
+        "channel_key",
+        "file"
       ],
       "properties": {
         "channel_key": {
           "type": "string"
         },
         "file": {
-          "type": "string"
+          "type": "file"
         },
         "name": {
           "type": "string"
