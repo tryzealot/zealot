@@ -1,6 +1,29 @@
 zh-CN:
   api:
+    info:
+      description: |
+        This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:
+
+        - [cURL](https://curl.se/) (recommended, command-line)
+        - [ReqBIN](https://reqbin.com/) (recommended, online)
+        - [Postman](https://www.postman.com/downloads/)
+        - [Insomnia](https://insomnia.rest/)
+        - Your web browser, if you don't need to send headers or a request body
+    servers:
+      description: Demo Server
     apps:
       list_apps:
         title: 应用列表
         description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
+        response:
+          200: 应用列表
+          401: 认证失败
+      get_app:
+        title: 获取应用
+        description: 获取应用详情
+      upload_app:
+        title: 上传应用
+        description: 上传 iOS、Android、macOS、Linux 或 Windows 应用
+        response:
+          201: 成功创建应用
+          401: 认证失败
