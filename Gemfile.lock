@@ -188,7 +188,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (3.28.1)
+    good_job (3.28.2)
       activejob (>= 6.0.0)
       activerecord (>= 6.0.0)
       concurrent-ruby (>= 1.0.2)
@@ -281,8 +281,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.6)
-    minitest (5.22.3)
+    minitest (5.23.0)
     mixlib-shellout (3.2.7)
       chef-utils
     msgpack (1.7.2)
@@ -303,9 +302,6 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.5)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.16.5-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.5-arm-linux)
@@ -458,7 +454,7 @@ GEM
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.6.1)
-    reline (0.5.6)
+    reline (0.5.7)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -568,7 +564,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.13)
+    zeitwerk (2.6.14)
     zhexdump (0.0.2)
 
 PLATFORMS
@@ -601,7 +597,7 @@ DEPENDENCIES
   faraday (~> 2.9.0)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
-  good_job (~> 3.28.1)
+  good_job (~> 3.28.2)
   graphiql-rails
   graphql (~> 2.3.3)
   health_check (~> 3.1.0)
