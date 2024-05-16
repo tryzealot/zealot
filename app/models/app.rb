@@ -4,6 +4,7 @@ class App < ApplicationRecord
   default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
+  has_many :collaborators, dependent: :destroy
   has_many :schemes, dependent: :destroy
   has_many :debug_files, dependent: :destroy
 
@@ -72,6 +73,10 @@ class App < ApplicationRecord
         end
       end
     end
+  end
+
+  def collaborator_user_ids
+    collaborators.select(:user_id).map(&:user_id)
   end
 
   private
