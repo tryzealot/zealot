@@ -5,8 +5,12 @@ module UsersHelper
     Setting.guest_mode? || user_signed_in?
   end
 
-  def preset_roles
+  def user_roles
     User.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
+  end
+
+  def collaborator_roles
+    Collaborator.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
   end
 
   def omniauth_display_name(provider)

@@ -306,6 +306,11 @@ en:
           <ul>
             <li>Google Play, Samsung Galaxy Store, TapTap, F-Droid and more</li>
           </ul>
+
+      collaborators: Collaborators
+      new_collaborator: New collaborator
+      username: User
+      role: Role
     new:
       title: New app
     edit:
@@ -319,6 +324,9 @@ en:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
+  collaborators:
+    new:
+      title: New collaborator
   schemes:
     title: Schemes
     show:
