@@ -1,0 +1,17 @@
+.col-md-12
+  .card
+    .card-header
+      h3.card-title
+        = t('collaborators.new.title')
+      .card-tools
+        a href="#{app_path(@app)}"
+          i.icon.far.fa-list-alt
+          = t('links.back_to_list')
+    .card-body
+      = simple_form_for collaborator, url: app_collaborators_path(@app)  do |f|
+        = f.error_notification
+
+        - if new_or_create_route?
+          = f.association :user, collection: User.avaiables(@app.collaborator_user_ids), label_method: :username, value_method: :id, include_blank: false
+        = f.input :role, collection: collaborator_roles, include_blank: false
+        = f.button :submit

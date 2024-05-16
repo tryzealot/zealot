@@ -300,6 +300,11 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
+
+      collaborators: 成员
+      new_collaborator: 添加新成员
+      username: 用户
+      role: 权限
     new:
       title: 新建应用
     edit:
@@ -313,6 +318,9 @@ zh-CN:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
+  collaborators:
+    new:
+      title: 添加新成员
   schemes:
     title: 应用类型
     show:
@@ -989,6 +997,9 @@ zh-CN:
       app:
         create: 新增应用
         update: 更新应用
+      collaborator:
+        create: 新增成员
+        update: 更新成员
       scheme:
         create: 新增类型
         update: 更新类型
