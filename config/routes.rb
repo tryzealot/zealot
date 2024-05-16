@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :collaborators
   root to: 'dashboards#index'
 
   #############################################
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   # App
   #############################################
   resources :apps do
+    resources :collaborators, except: %i[index show]
+
     resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
