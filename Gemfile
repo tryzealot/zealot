@@ -81,7 +81,7 @@ gem 'rqrcode'
 
 # 异步队列
 gem 'good_job', '~> 3.28.2'
-gem 'activejob-status', '~> 1.0.0'
+gem 'activejob-status', '~> 1.0.2'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
