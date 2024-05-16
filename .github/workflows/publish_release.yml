@@ -54,7 +54,7 @@ jobs:
         labels: ${{ steps.metadata.outputs.labels }}
         tags: |
           ${{ steps.metadata.outputs.tags }}
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64,linux/arm64
         build-args: |
           REPLACE_CHINA_MIRROR=false
           VCS_REF=${{ github.sha }}
