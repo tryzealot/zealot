@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_080415) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_16_050530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_080415) do
   create_table "apps_users", id: false, force: :cascade do |t|
     t.bigint "app_id", null: false
     t.bigint "user_id", null: false
+    t.integer "role", default: 0, null: false
     t.index ["app_id", "user_id"], name: "index_apps_users_on_app_id_and_user_id"
     t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id"
   end

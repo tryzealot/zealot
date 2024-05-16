@@ -1,0 +1,13 @@
+- content_for :title do
+  = @app.name
+
+- content_for :section_title do
+  = @app.name
+
+.row
+  == render "form", collaborator: @collaborator
+
+br
+
+div
+  = link_to "Back to collaborators", collaborators_path
