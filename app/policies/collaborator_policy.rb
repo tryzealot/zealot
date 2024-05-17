@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class MetadatumPolicy < ApplicationPolicy
-
+class CollaboratorPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all

@@ -46,7 +46,7 @@
                         = release.short_git_commit
         div
           i.fas.fa-clock
-    - if guest_mode_or_signed_in?
+    - if user_signed_in_or_guest_mode?
       ruby:
         channel_path = friendly_channel_overview_path(current_release.channel)
 

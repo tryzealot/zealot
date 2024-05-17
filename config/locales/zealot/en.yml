@@ -327,6 +327,10 @@ en:
   collaborators:
     new:
       title: New collaborator
+      errors:
+        all_users_were_added: All collaborators were added.
+    edit:
+      title: Edit collaborator
   schemes:
     title: Schemes
     show:
