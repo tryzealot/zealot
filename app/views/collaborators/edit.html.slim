@@ -1,3 +1,8 @@
-h1 Editing collaborator
+- content_for :title do
+  = @title
 
-== render "form", collaborator: @collaborator
+- content_for :section_title do
+  = @app.name
+
+.row
+  == render "form", collaborator: @collaborator

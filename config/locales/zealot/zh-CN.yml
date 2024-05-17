@@ -321,6 +321,10 @@ zh-CN:
   collaborators:
     new:
       title: 添加新成员
+      errors:
+        all_users_were_added: 所有用户已添加至当前应用成员列表
+    edit:
+      title: 编辑成员
   schemes:
     title: 应用类型
     show:

@@ -18,6 +18,16 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
   end
 
+  protected
+
+  def user_signed_in_or_guest_mode?
+    Setting.guest_mode || user_signed_in?
+  end
+
+  def admin_user_or_guest_mode?
+    Setting.guest_mode || current_user&.admin?
+  end
+
   private
 
   def set_locale(&action)
