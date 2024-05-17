@@ -324,6 +324,7 @@ en:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
+        delete_collaborator: Confirm to destroy `%{name}` collaborator?
   collaborators:
     new:
       title: New collaborator
@@ -511,7 +512,8 @@ en:
       version: Build number
       device_type: Platform
       release_version: Version
-      filesize: File size
+      file_nums: Numbers of file
+      file_size: File size
       uploaded_at: Upload date
       missing_file: Missing file
       download: Download
@@ -531,8 +533,8 @@ en:
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
-      filesize: File size
-      file_count: File count
+      file_nums: Numbers of file
+      file_size: File size
     reprocess:
       success: Reprocess request successful
     help:
