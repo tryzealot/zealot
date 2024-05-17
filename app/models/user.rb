@@ -10,6 +10,7 @@ class User < ApplicationRecord
   enum role: %i[user developer admin]
 
   has_and_belongs_to_many :apps, dependent: :destroy
+  has_many :collaborators, dependent: :destroy
   has_many :metadatum, dependent: :destroy
   has_many :providers, dependent: :destroy, class_name: 'UserProvider'
 

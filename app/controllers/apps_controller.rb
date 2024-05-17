@@ -8,7 +8,7 @@ class AppsController < ApplicationController
 
   def index
     @title = t('.title')
-    @apps = admin_user_or_guest_mode? ? App.all : current_user.apps
+    @apps = manage_user_or_guest_mode? ? App.all : current_user.apps.all
     authorize @apps
   end
 
