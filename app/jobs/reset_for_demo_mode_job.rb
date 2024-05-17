@@ -20,18 +20,22 @@ class ResetForDemoModeJob < ApplicationJob
 
   def clean_app_data
     # Application
-    App.delete_all
-    DebugFile.delete_all
-    Metadatum.delete_all
+    Metadatum.destroy_all
+    DebugFile.destroy_all
+    App.destroy_all
 
     # Admin
-    User.delete_all
-    Setting.delete_all
-    AppleKey.delete_all
+    Setting.destroy_all
+    AppleKey.destroy_all
+    User.destroy_all
+
+    # Cache in DB
+    SolidCache::Entry.clear_delete
   end
 
   def reset_jobs
     GoodJob::Job.all.each do |job|
+      next if job.job_class == self.class.name
       job.destroy_job
     end
   end
