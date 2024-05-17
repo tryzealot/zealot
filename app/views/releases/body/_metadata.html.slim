@@ -11,7 +11,7 @@
       - if @release.name.present?
         li title="#{t('releases.show.name')}" data-toggle="tooltip"
           i.fas.fa-list-ul
-          - if guest_mode_or_signed_in?
+          - if user_signed_in_or_guest_mode?
             = link_to @release.app_name, friendly_channel_overview_path(@release.channel)
           - else
             = @release.app_name
@@ -57,7 +57,7 @@
           = t("releases.sources.#{@release.source.downcase}", default: @release.source)
         - else
           = link_to @release.source, @release.ci_url
-      - if @release.metadata.present? && guest_mode_or_signed_in?
+      - if @release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = @release.metadata.mobileprovision['expired_at']
           li title="#{t('releases.show.certificate_expired_date', date: expired_date)}" data-toggle="tooltip"
             i.fas.fa-certificate
