@@ -889,7 +889,7 @@ zh-CN:
       inclusion: 不包含在可选值列表中
       only_integer: 必须是数字
       json_format: 符合 JSON 标准格式
-      not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
+      not_authorized_policy: "当前用户没有权限执行 %{model}#%{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
       length_range: 长度限制：%{minimum} ~ %{maximum} 位

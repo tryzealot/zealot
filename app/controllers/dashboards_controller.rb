@@ -16,7 +16,7 @@ class DashboardsController < ApplicationController
     @releases = Release.page(params.fetch(:page, 1))
                        .per(params.fetch(:per_page, Setting.per_page))
                        .order(id: :desc)
-    return if admin_user_or_guest_mode?
+    return if manage_user_or_guest_mode?
 
     channel_ids = current_user.apps.map { |app| app.channel_ids }
     @releases = @releases.where(channel_id: channel_ids)

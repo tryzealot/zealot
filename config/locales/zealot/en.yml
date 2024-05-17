@@ -440,7 +440,7 @@ en:
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
-      view_detail: Manage channel
+      view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
     new:
       title: :channels.show.upload_release
