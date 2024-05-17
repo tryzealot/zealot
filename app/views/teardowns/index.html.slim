@@ -5,9 +5,10 @@
   = @title
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.btn-success href="#{new_teardown_path}"
-    i.icon.far.fa-plus-square
-    = t('.create')
+  - if user_signed_in?
+    a.btn.btn-icon.btn-success href="#{new_teardown_path}"
+      i.icon.far.fa-plus-square
+      = t('.create')
 
 .row
   == render 'list'
