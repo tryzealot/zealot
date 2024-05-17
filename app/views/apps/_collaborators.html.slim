@@ -22,5 +22,5 @@
                 - if not_same_user?(collaborator) && edit_role_user?(collaborator)
                   = button_link_to '', edit_app_collaborator_path(@app, collaborator.user_id), 'edit', class: 'btn-box-tool'
                   = button_link_to '', app_collaborator_path(@app, collaborator.user_id), 'trash-alt', class: 'btn-box-tool', \
-                    data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: collaborator.user.username)}" }
+                    data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_collaborator', name: collaborator.user.username)}" }
 

@@ -9,7 +9,7 @@ class App < ApplicationRecord
   has_many :debug_files, dependent: :destroy
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
-  scope :has_debug_files, -> { joins(:debug_files).distinct }
+  scope :debug_files, -> { joins(:debug_files).distinct }
 
   validates :name, presence: true
 
