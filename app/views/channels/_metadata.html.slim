@@ -10,7 +10,7 @@
     p.d-flex.flex-column.border-bottom.pl-3.pb-3
       span.font-weight-bold = @channel.slug
       span.text-muted = t('channels.show.slug')
-    - if user_signed_in?
+    - if current_user&.manage?(app: @app)
       p.d-flex.flex-column.border-bottom.pl-3.pb-3
         span.font-weight-bold = @channel.password.blank? ? t('channels.show.none') : @channel.password
         span.text-muted = t('channels.show.password')
@@ -27,6 +27,6 @@
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')
 
-  - if user_signed_in?
+  - if current_user&.manage?(app: @app)
     .card-footer.p-1
       a.btn.btn-block.text-primary href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')
