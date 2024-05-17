@@ -1,0 +1,26 @@
+
+- if current_user.manage?(app: app)
+  .col-md-12
+    .card
+      .card-header
+        h3.card-title = t('apps.show.collaborators')
+        .card-tools
+          a href="#{new_app_collaborator_path(app)}"
+            i.icon.fas.fa-user-plus
+            = t('apps.show.new_collaborator')
+      .card-body.p-0
+        table.table
+          tr
+            th = t('apps.show.username')
+            th = t('apps.show.role')
+            th
+          - app.collaborators.each do |collaborator|
+            tr
+              td = collaborator.user.username
+              td = collaborator.role
+              td style="width: 120px"
+                - if not_same_user?(collaborator) && edit_role_user?(collaborator)
+                  = button_link_to '', edit_app_collaborator_path(@app, collaborator.user_id), 'edit', class: 'btn-box-tool'
+                  = button_link_to '', app_collaborator_path(@app, collaborator.user_id), 'trash-alt', class: 'btn-box-tool', \
+                    data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: collaborator.user.username)}" }
+

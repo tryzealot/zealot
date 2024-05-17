@@ -5,7 +5,7 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if user_signed_in?
+  - if current_user&.manage?(app: @app)
     a.btn.btn-icon.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
