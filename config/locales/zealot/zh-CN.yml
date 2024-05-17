@@ -318,6 +318,7 @@ zh-CN:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
+        delete_collaborator: 确定删除【%{name}】成员?
   collaborators:
     new:
       title: 添加新成员
@@ -503,7 +504,8 @@ zh-CN:
       version: 编号
       device_type: 平台
       release_version: 版本信息
-      filesize: 文件大小
+      file_nums: 文件数量
+      file_size: 文件大小
       uploaded_at: 上传时间
       missing_file: 调试文件遗失
       download: 下载
@@ -523,8 +525,8 @@ zh-CN:
       main_target: 主项目
       arch: 架构
       libraries: 库
-      filesize: 文件大小
-      file_count: 文件数量
+      file_nums: 文件数量
+      file_size: 文件大小
     reprocess:
       success: 调试文件已提交重新解析处理中
     help:
