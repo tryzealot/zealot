@@ -1,7 +1,10 @@
 = simple_form_for(@debug_file) do |f|
   = f.error_notification
 
-  = f.association :app, include_blank: false
+  - if current_user.manage?
+    = f.association :app, include_blank: false
+  - else
+    = f.association :app, collection: current_user.apps, include_blank: false
   = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, include_blank: false
   = f.input :release_version
   = f.input :build_version
