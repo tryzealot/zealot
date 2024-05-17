@@ -109,9 +109,6 @@ RUN set -ex && \
     "arm64") \
       S6_OVERLAY_ARCH="aarch64" \
     ;; \
-    "linux/arm/v7" | "arm") \
-      S6_OVERLAY_ARCH="arm" \
-    ;; \
     *) \
         echo "Doesn't support $TARGETARCH architecture" \
         exit 1 \
