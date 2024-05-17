@@ -15,10 +15,16 @@ class App < ApplicationRecord
 
   after_destroy :delete_app_recently_releases_cache
 
+  def channel_ids
+    return unless schcmes_ids = schemes.select(:id).map(&:id)
+    return unless channel_ids = Channel.select(:id).where(scheme: schcmes_ids).map(&:id)
+
+    channel_ids
+  end
+
   def recently_release
     Rails.cache.fetch(recently_release_cache_key) do
-      return unless schcmes_ids = schemes.select(:id).map(&:id)
-      return unless channel_ids = Channel.select(:id).where(scheme: schcmes_ids).map(&:id)
+      return unless channel_ids
       return unless release = Release.where(channel: channel_ids).last
 
       release
@@ -39,6 +45,10 @@ class App < ApplicationRecord
         channel.releases.size
       end
     end
+  end
+
+  def total_debug_files
+    debug_files.count
   end
 
   def android_debug_files
