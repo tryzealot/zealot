@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class AppPolicy < ApplicationPolicy
-
   def index?
     app_user?
   end
