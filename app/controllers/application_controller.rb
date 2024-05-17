@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  around_action :set_locale
+  before_action :set_locale
   before_action :set_sentry_context
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
     Setting.guest_mode || user_signed_in?
   end
 
-  def admin_user_or_guest_mode?
-    Setting.guest_mode || current_user&.admin?
+  def manage_user_or_guest_mode?
+    Setting.guest_mode || current_user&.manage?
   end
 
   private
 
-  def set_locale(&action)
-    I18n.with_locale(Setting.site_locale, &action)
+  def set_locale
+    I18n.locale = Setting.site_locale
   end
 
   def set_sentry_context

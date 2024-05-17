@@ -23,7 +23,7 @@ class App < ApplicationRecord
   end
 
   def recently_release
-    Rails.cache.fetch(recently_release_cache_key) do
+    Rails.cache.fetch(recently_release_cache_key, expires_in: 5.minutes) do
       return unless channel_ids
       return unless release = Release.where(channel: channel_ids).last
 
