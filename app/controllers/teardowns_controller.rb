@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
-  before_action :authenticate_user!, except: %[show]
+  before_action :authenticate_user!, except: %[show] unless Setting.guest_mode
   before_action :set_metadata, only: %i[show destroy]
 
   def index
@@ -9,6 +9,8 @@ class TeardownsController < ApplicationController
     @metadata = Metadatum.page(params.fetch(:page, 1))
                          .per(params.fetch(:per_page, Setting.per_page))
                          .order(id: :desc)
+
+    authorize @metadata
   end
 
   def show
