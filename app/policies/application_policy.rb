@@ -57,15 +57,19 @@ class ApplicationPolicy
 
   protected
 
-  def demo_mode?
-    Setting.demo_mode == true
+  def user_signed_in_or_guest_mode?
+    guest_mode? || user_signed_in?
   end
 
-  def user_signed_in_or_guest_mode?
-    Setting.guest_mode || user_signed_in?
+  def guest_mode?
+    Setting.guest_mode
   end
 
   def user_signed_in?
     user.present?
+  end
+
+  def demo_mode?
+    Setting.demo_mode == true
   end
 end

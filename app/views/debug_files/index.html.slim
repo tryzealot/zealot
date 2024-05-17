@@ -5,7 +5,7 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if user_signed_in?
+  - if current_user&.manage?
     a.btn.btn-icon.btn-success href="#{new_debug_file_path}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
