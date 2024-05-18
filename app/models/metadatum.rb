@@ -16,4 +16,10 @@ class Metadatum < ApplicationRecord
 
   paginates_per     50
   max_paginates_per 100
+
+  def app
+    return unless release
+
+    release.app
+  end
 end
