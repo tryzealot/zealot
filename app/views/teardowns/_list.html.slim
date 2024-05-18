@@ -14,7 +14,7 @@
             th = t('teardowns.index.platform')
             th = t('teardowns.index.uploader')
 
-            - if user_signed_in?
+            - if user_signed_in? && @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
               th = t('teardowns.index.actions')
           - @metadata.each_with_index do |md, index|
             tr
@@ -35,7 +35,7 @@
               td
                 = md.user&.username || t('teardowns.index.anonymous')
 
-              - if user_signed_in?
+              - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
                 td
                   = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
                     data: { confirm: t('teardowns.messages.confirm.destroy'), turbo_confirm: t('teardowns.messages.confirm.destroy') } do
