@@ -30,7 +30,7 @@ class Api::ChannelsController < Api::BaseController
   # DELETE /api/channels/:id
   def destroy
     @channel.destroy!
-    render json: {}
+    render json: { mesage: 'OK' }
   end
 
   protected

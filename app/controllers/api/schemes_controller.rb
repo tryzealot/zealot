@@ -32,7 +32,7 @@ class Api::SchemesController < Api::BaseController
   # DELETE /api/schemes/:id
   def destroy
     @scheme.destroy!
-    render json: {}
+    render json: { mesage: 'OK' }
   end
 
   protected
