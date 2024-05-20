@@ -2,6 +2,10 @@
 
 class Api::BaseController < ActionController::API
   include ActionView::Helpers::TranslationHelper
+  include Pundit::Authorization
+  include ExceptionHandler
+  include UserRole
+
   respond_to :json
 
   before_action :set_cache_headers
@@ -69,6 +73,11 @@ class Api::BaseController < ActionController::API
     respond_with_error(:conflict, e)
   end
 
+  # workaround for pundit
+  def current_user
+    @user
+  end
+
   private
 
   def respond_with_error(code, e, **body)
@@ -76,7 +85,7 @@ class Api::BaseController < ActionController::API
     body[:error] ||= e.message
     if Rails.env.development?
       body[:debug] = {
-        class: e.class.name,
+        class: e.class,
         backtrace: e.backtrace
       }
     end

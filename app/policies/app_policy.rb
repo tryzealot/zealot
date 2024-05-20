@@ -34,7 +34,7 @@ class AppPolicy < ApplicationPolicy
   private
 
   def app_user?
-    guest_mode? || any_manage? || Collaborator.where(user: user, app: record).exists?
+    guest_mode? || any_manage? || app_collaborator?(user, record)
   end
 
   def any_manage?
