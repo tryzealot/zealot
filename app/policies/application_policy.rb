@@ -57,6 +57,10 @@ class ApplicationPolicy
 
   protected
 
+  def app_collaborator?(user, app)
+    Collaborator.where(user: user, app: app).exists?
+  end
+
   def user_signed_in_or_guest_mode?
     guest_mode? || user_signed_in?
   end

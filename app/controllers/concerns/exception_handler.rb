@@ -19,11 +19,7 @@ module ExceptionHandler
   private
 
   def forbidden(e)
-    message = t('errors.messages.not_authorized_policy', query: e.query.to_s.sub('?', ''), model: e.record.class)
-    new_exception = StandardError.new(message)
-    new_exception.set_backtrace(e.backtrace)
-
-    respond_with_error(403, new_exception)
+    respond_with_error(403, e)
   end
 
   def not_found(e)
