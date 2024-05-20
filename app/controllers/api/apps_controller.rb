@@ -12,7 +12,7 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps/:id
   def show
-    render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels'
+    render json: @app, serializer: Api::AppSerializer, include: 'collaborators,schemes.channels'
   end
 
   # POST /api/apps
@@ -30,7 +30,7 @@ class Api::AppsController < Api::BaseController
   # DELETE /api/apps/:id
   def destroy
     @app.destroy!
-    render json: {}
+    render json: { mesage: 'OK' }
   end
 
   protected
