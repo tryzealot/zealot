@@ -179,6 +179,8 @@ Rails.application.routes.draw do
       resources :schemes, except: %i[new edit], shallow: true do
         resources :channels, except: %i[new edit]
       end
+
+      resources :collaborators, param: :user_id, except: %i[index new edit]
     end
 
     resources :debug_files, except: %i[new edit create] do
