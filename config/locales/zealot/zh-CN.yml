@@ -897,6 +897,7 @@ zh-CN:
       length_range: 长度限制：%{minimum} ~ %{maximum} 位
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
+      record_existed: "%{model} 已存在无法操作"
       development_only: 仅开发环境显示
       database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
