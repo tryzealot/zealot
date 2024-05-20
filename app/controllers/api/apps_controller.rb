@@ -6,7 +6,9 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps
   def index
-    @apps = App.all
+    @apps = manage_user_or_guest_mode? ? App.all : @user.apps.all
+    authorize @apps.frist if @apps.present?
+
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
@@ -18,6 +20,8 @@ class Api::AppsController < Api::BaseController
   # POST /api/apps
   def create
     @app = App.create!(app_params)
+    authorize @app
+
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels', status: :created
   end
 
@@ -37,6 +41,7 @@ class Api::AppsController < Api::BaseController
 
   def set_app
     @app = App.find(params[:id])
+    authorize @app
   end
 
   def app_params

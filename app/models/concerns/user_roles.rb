@@ -10,7 +10,7 @@ module UserRoles
   end
 
   def manage?(app: nil)
-    admin? || developer? || (app && app_roles?(app, :manager))
+    admin? || developer? || (app && app_roles?(app, :manage))
   end
 
   def grant_admin!
@@ -34,7 +34,7 @@ module UserRoles
   end
 
   def app_roles?(app, value)
-    value = %w[admin developer] if value.to_sym == :manager
+    value = %w[admin developer] if value.to_sym == :manage
     collaborators.where(app: app, role: value).exists?
   end
 
