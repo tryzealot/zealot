@@ -2,6 +2,10 @@
 
 class SchemePolicy < ApplicationPolicy
 
+  def index?
+    app_user?
+  end
+
   def new?
     any_manage?
   end
@@ -29,6 +33,10 @@ class SchemePolicy < ApplicationPolicy
   end
 
   private
+
+  def app_user?
+    any_manage? || app_collaborator?(user, record.app)
+  end
 
   def any_manage?
     manage? || manage?(app: record.app)

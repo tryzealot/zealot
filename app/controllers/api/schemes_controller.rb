@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class Api::SchemesController < Api::BaseController
+  before_action :validate_user_token
   before_action :set_app, only: %i[index create]
   before_action :set_scheme, only: %i[show update destroy]
 
   # GET /api/apps/:app_id/schemes
   def index
     @schemes = @app.schemes
+    authorize @schemes.first if @schemes
 
     render json: @schemes
   end
@@ -14,6 +16,7 @@ class Api::SchemesController < Api::BaseController
   # POST /api/apps/:app_id/schemes
   def create
     @scheme = @app.schemes.create!(scheme_params)
+    authorize @scheme
 
     render json: @scheme
   end
@@ -39,10 +42,12 @@ class Api::SchemesController < Api::BaseController
 
   def set_app
     @app = App.find(params[:app_id])
+    authorize @app
   end
 
   def set_scheme
     @scheme = Scheme.find(params[:id])
+    authorize @scheme
   end
 
   def scheme_params
