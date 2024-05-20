@@ -21,3 +21,15 @@
             i.icon.far.fa-list-alt
             = t('links.back_to_list')
       == render 'form'
+
+  - if @user.collaborators.present?
+    .col-md-12
+      .card
+        .card-header.card-border
+          h3.card-title Collabortor in Apps
+        .card-body.p-0
+          table.table
+            - @user.collaborators.each do |collaborator|
+              tr
+                td = link_to collaborator.app.name, app_path(collaborator.app)
+                td = link_to collaborator.role, edit_app_collaborator_path(collaborator.app, collaborator.user_id)
