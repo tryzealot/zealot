@@ -17,6 +17,7 @@ class Api::BaseController < ActionController::API
               AppInfo::UnknownFormatError, with: :render_missing_params_error
   rescue_from ActionController::UnknownFormat, with: :not_acceptable
   rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
+  rescue_from Zealot::Error::RecordExisted, with: :render_record_existed_error
 
   def validate_user_token
     @user = User.find_by(token: params[:token])
@@ -62,6 +63,10 @@ class Api::BaseController < ActionController::API
 
   def render_internal_server_error(e)
     respond_with_error(:internal_server_error, e)
+  end
+
+  def render_record_existed_error(e)
+    respond_with_error(:conflict, e)
   end
 
   private

@@ -887,6 +887,7 @@ en:
       json_format: Must be JSON standard format
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
+      record_existed: "%{model} record existsd"
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
