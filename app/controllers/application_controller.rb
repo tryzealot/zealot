@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include ExceptionHandler
   include Pundit::Authorization
+  include ExceptionHandler
+  include UserRole
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -16,16 +17,6 @@ class ApplicationController < ActionController::Base
 
   def raise_not_found
     raise ActionController::RoutingError, t('errors.messages.not_match_url', url: params[:unmatched_route])
-  end
-
-  protected
-
-  def user_signed_in_or_guest_mode?
-    Setting.guest_mode || user_signed_in?
-  end
-
-  def manage_user_or_guest_mode?
-    Setting.guest_mode || current_user&.manage?
   end
 
   private
