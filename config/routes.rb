@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :collaborators
   root to: 'dashboards#index'
 
   #############################################
@@ -24,7 +23,7 @@ Rails.application.routes.draw do
 
     resources :debug_files, only: [] do
       collection do
-        get ':device', action: :device, as: :device
+        get :device, action: :device, as: :device
       end
     end
   end
@@ -204,6 +203,8 @@ Rails.application.routes.draw do
     end
 
     resources :version, only: :index
+
+    match '*unmatched_route', via: :all, to: 'base#raise_not_found', format: :json
   end
 
   #############################################
