@@ -35,6 +35,9 @@ en:
         title: User information
         active_link: Active link
         active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+        collaborators: Collaborators
+        api: API
+        token: 密钥
     web_hooks:
       title: Webhooks
       index:
