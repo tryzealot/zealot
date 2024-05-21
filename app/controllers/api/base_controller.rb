@@ -88,16 +88,20 @@ class Api::BaseController < ActionController::API
     @user
   end
 
+  def raise_not_found
+    exception = Zealot::Error::API::NotFound.new
+    respond_with_error(:not_found, exception)
+  end
+
   private
 
+  # overwrite
   def respond_with_error(code, e, **body)
     logger_error e
     body[:error] ||= e.message
     if Rails.env.development?
-      body[:debug] = {
-        class: e.class,
-        backtrace: e.backtrace
-      }
+      body[:debug] = { class: e.class }
+      body[:debug][:backtrace] = e.backtrace if e.backtrace.present?
     end
 
     render json: body, status: code

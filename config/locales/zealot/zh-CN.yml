@@ -904,6 +904,7 @@ zh-CN:
       development_only: 仅开发环境显示
       database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
+      api_not_found: 没有这个接口
       goback_title: 上级页面
       homepage_title: 首页
   active_job:
