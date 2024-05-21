@@ -49,6 +49,10 @@ class Api::Apps::UploadController < Api::BaseController
 
   # 使用现有 App 创建新版本
   def create_build_from_exist_app
+    # Authorize early for efficiency
+    release = @channel.releases.build
+    authorize release
+
     if @channel.device_type == 'ios' || @channel.device_type == 'android'
       message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
         expect: @channel.bundle_id)
@@ -80,6 +84,8 @@ class Api::Apps::UploadController < Api::BaseController
 
   def create_release(channel)
     @release = channel.releases.upload_file(release_params, @app_parser, 'api')
+    authorize @release
+
     @release.save!
   end
 
@@ -88,20 +94,24 @@ class Api::Apps::UploadController < Api::BaseController
       channel.name = @app_parser.platform
       channel.device_type = @app_parser.platform
     end
+    authorize @channel
   end
 
   def and_scheme(app)
     name = parse_scheme_name
-    app.schemes.find_or_create_by(name: name)
+    scheme = app.schemes.find_or_create_by(name: name)
+    authorize scheme
   end
 
   def and_app
     permitted = params.permit :name
     permitted[:name] ||= @app_parser.name
 
-    App.find_or_create_by permitted do |app|
+    app = App.find_or_create_by permitted do |app|
       app.users << @user
     end
+
+    authorize app
   end
 
   def parse_scheme_name
