@@ -4,7 +4,8 @@ module ExceptionHandler
   extend ActiveSupport::Concern
 
   included do
-    rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, ActionController::MissingFile,
+    rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError,
+                ActionController::MissingFile, Zealot::Error::RecordNotFound,
                 with: :not_found
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
     rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
@@ -65,6 +66,9 @@ module ExceptionHandler
       case exception
       when ActiveRecord::ConnectionNotEstablished
         @message = t('errors.messages.database_connection_error')
+      when Pundit::NotAuthorizedError
+        policy_name = exception.policy.class.to_s.underscore
+        @message = t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
       end
 
       format.any  { render 'errors/index', status: code, formats: [:html] }
