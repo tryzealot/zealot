@@ -3,7 +3,7 @@
 class CollaboratorPolicy < ApplicationPolicy
 
   def show?
-    app_user?
+    any_manage?
   end
 
   def create?

@@ -39,6 +39,7 @@ class Api::CollaboratorsController < Api::BaseController
 
   def set_collaborator
     @collaborator = @app.collaborators.find_by!(user_id: params[:user_id])
+    authorize @collaborator
   end
 
   def collaborator_params
