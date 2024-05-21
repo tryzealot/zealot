@@ -85,7 +85,7 @@ gem 'activejob-status', '~> 1.0.2'
 
 # Assets
 ## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
-gem 'propshaft', '0.8.0'
+gem 'propshaft', '0.9.0'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'cssbundling-rails', '~> 1.4'
 ## Javascript
