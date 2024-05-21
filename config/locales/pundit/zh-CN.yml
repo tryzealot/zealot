@@ -1,0 +1,5 @@
+zh-CN:
+  pundit:
+    default: 当前用户没有权限进行此操作
+    debug_file_policy:
+      create?: 没有权限上传调试文件

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include ExceptionHandler
   include UserRole
+  include Locale
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -20,10 +21,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def set_locale
-    I18n.locale = Setting.site_locale
-  end
 
   def set_sentry_context
     Sentry.configure_scope do |scope|

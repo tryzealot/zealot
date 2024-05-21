@@ -2,6 +2,10 @@
 
 class DebugFilePolicy < ApplicationPolicy
 
+  def index?
+    app_user?
+  end
+
   def new?
     any_manage?
   end
