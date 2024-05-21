@@ -40,11 +40,6 @@ class AppsController < ApplicationController
   end
 
   def update
-    # if @schemes.empty? && @channels.empty?
-    #   flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
-    #   return render :edit, status: :unprocessable_entity
-    # end
-
     @app.update(app_params)
     redirect_to apps_path
   end
