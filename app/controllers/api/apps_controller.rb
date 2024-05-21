@@ -6,15 +6,18 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps
   def index
-    @apps = manage_user_or_guest_mode? ? App.all : @user.apps.all
-    authorize @apps.frist if @apps.present?
+    @apps = manage_user? ? App.all : @user.apps.all
+    authorize @apps.first if @apps.present?
 
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
   # GET /api/apps/:id
   def show
-    render json: @app, serializer: Api::AppSerializer, include: 'collaborators,schemes.channels'
+    relationship = ['schemes.channels']
+    relationship << 'collaborators' if manage_user?(app: @app)
+
+    render json: @app, serializer: Api::AppSerializer, include: relationship
   end
 
   # POST /api/apps
