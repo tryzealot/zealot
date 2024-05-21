@@ -165,6 +165,13 @@ Rails.application.routes.draw do
   # API v1
   #############################################
   namespace :api do
+    resources :users, except: %i[new edit] do
+      collection do
+        get :me
+        get :search
+      end
+    end
+
     resources :apps, except: %i[new edit] do
       collection do
         post :upload, to: 'apps/upload#create'
