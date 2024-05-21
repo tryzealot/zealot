@@ -5,9 +5,11 @@ class Api::BaseController < ActionController::API
   include Pundit::Authorization
   include ExceptionHandler
   include UserRole
+  include Locale
 
   respond_to :json
 
+  before_action :set_locale
   before_action :set_cache_headers
 
   rescue_from TypeError, with: :render_unmatched_bundle_id_serror
@@ -38,6 +40,14 @@ class Api::BaseController < ActionController::API
       :unprocessable_entity, e,
       error: t('api.unprocessable_entity'),
       entry: e.record.errors
+    )
+  end
+
+  def forbidden(e)
+    policy_name = e.policy.class.to_s.underscore
+    respond_with_error(
+      :forbidden, e,
+      error: t("#{policy_name}.#{e.query}", scope: "pundit", default: :default)
     )
   end
 
