@@ -6,7 +6,7 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps
   def index
-    @apps = manage_user? ? App.all : @user.apps.all
+    @apps = manage_user? ? App.all : current_user.apps.all
     authorize @apps.first if @apps.present?
 
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'

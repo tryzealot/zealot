@@ -67,11 +67,11 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def perform_app_web_hook_job
-    @channel.perform_web_hook('upload_events', @user.id)
+    @channel.perform_web_hook('upload_events', current_user.id)
   end
 
   def perform_teardown_job
-    @release.perform_teardown_job(@user.id)
+    @release.perform_teardown_job(current_user.id)
   end
 
   ###########################
@@ -108,7 +108,7 @@ class Api::Apps::UploadController < Api::BaseController
     permitted[:name] ||= @app_parser.name
 
     app = App.find_or_create_by permitted do |app|
-      app.users << @user
+      app.users << current_user
     end
 
     authorize app
