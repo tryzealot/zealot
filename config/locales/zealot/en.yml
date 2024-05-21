@@ -894,6 +894,7 @@ en:
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      api_not_found: API not found
       goback_title: goback
       homepage_title: homepage
   active_job:
