@@ -1,0 +1,5 @@
+en:
+  pundit:
+    default: The current user does not have the permission to perform this action.
+    debug_file_policy:
+      create?: No permission to upload debug file.
