@@ -26,8 +26,8 @@ class Api::BaseController < ActionController::API
   rescue_from Zealot::Error::RecordExisted, with: :render_record_existed_error
 
   def validate_user_token
-    @user = User.find_by(token: params[:token])
-    raise ActionCable::Connection::Authorization::UnauthorizedError, t('api.unauthorized_token') unless @user
+    @current_user = User.find_by(token: params[:token])
+    raise ActionCable::Connection::Authorization::UnauthorizedError, t('api.unauthorized_token') unless @current_user
   end
 
   def validate_channel_key
@@ -85,7 +85,7 @@ class Api::BaseController < ActionController::API
 
   # workaround for pundit
   def current_user
-    @user
+    @current_user
   end
 
   def raise_not_found
