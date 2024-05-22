@@ -13,7 +13,7 @@
         .card-body
           .row
             .auth-form.col-md-6
-              = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+              = simple_form_for(resource, as: resource_name, url: user_unlock_path(resource_name), html: { method: :post }) do |f|
                 == render "devise/shared/error_messages", resource: resource
 
                 = f.input :email, hint: '',
