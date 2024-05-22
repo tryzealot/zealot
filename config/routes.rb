@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     resources :debug_files, only: [] do
       collection do
-        get :device, action: :device, as: :device
+        get ':device', action: :device, as: :device
       end
     end
   end
