@@ -9,16 +9,15 @@ class SchemesController < ApplicationController
 
   def new
     @title = t('schemes.new.title', app: @app.name)
-    @scheme = Scheme.new
+    @scheme = @app.schemes.build
     authorize @scheme
   end
 
   def create
     channels = scheme_params.delete(:channel_attributes)[:name].reject(&:blank?)
-    @scheme = Scheme.new(scheme_params)
+    @scheme = @app.schemes.new(scheme_params)
     authorize @scheme
 
-    @scheme.app = @app
     return render :new, status: :unprocessable_entity unless @scheme.save
 
     create_channels(channels)

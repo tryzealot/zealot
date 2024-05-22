@@ -320,6 +320,9 @@ en:
       title: New app
     edit:
       title: Edit app
+    new_owner:
+      title: Switch to new owner
+      user_hint: You will be remove from this app after select the other user !
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
@@ -930,6 +933,10 @@ en:
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
+        collaborator:
+          attributes:
+            owner:
+              unique: Owner only one user
         apple_key:
           attributes:
             issuer_id:

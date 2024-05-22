@@ -17,7 +17,8 @@ class Collaborator < ApplicationRecord
   private
 
   def one_owner_on_each_app
-    return true unless Collaborator.where(app: app, owner: true).exists?
+    collaborator = Collaborator.find_by(app: app, owner: true)
+    return true if collaborator.blank? || collaborator.user != user
 
     errors.add(:owner, :unique)
   end
