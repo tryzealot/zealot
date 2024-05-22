@@ -17,12 +17,12 @@ class ChannelsController < ApplicationController
 
   def new
     @title = t('channels.new.title', name: @scheme.app_name)
-    @channel = Channel.new
+    @channel = @scheme.channels.build
     authorize @channel
   end
 
   def create
-    @channel = Channel.new(channel_params)
+    @channel = @scheme.channels.new(channel_params)
     authorize @channel
 
     app_url = app_path(@channel.scheme.app)

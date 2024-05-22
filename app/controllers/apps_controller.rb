@@ -2,9 +2,10 @@
 
 class AppsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
-  before_action :set_app, only: %i[show edit update destroy]
+  before_action :set_app, only: %i[show edit update destroy new_owner update_owner]
   before_action :set_selected_schemes_and_channels, only: %i[edit]
   before_action :process_scheme_and_channel, only: %i[create]
+  before_action :set_owner, only: %i[ new_owner update_owner ]
 
   def index
     @title = t('.title')
@@ -50,6 +51,25 @@ class AppsController < ApplicationController
     redirect_to apps_path, status: :see_other
   end
 
+  def new_owner
+    @title = t('.title')
+  end
+
+  def update_owner
+    @title = t('apps.new_owner.title')
+    user_id = owner_params[:user_id]
+    if @collaborator.user.id == user_id.to_i
+      notice = t('activerecord.errors.messages.same_value', key: t('apps.new_owner.title'))
+      return redirect_to @collaborator.app, notice: notice, status: :see_other
+    end
+
+    new_owner = User.find(user_id)
+    return render :new_owner, status: :unprocessable_entity unless @collaborator.update(user: new_owner)
+
+    notice = t('activerecord.success.update', key: t('apps.new_owner.title'))
+    redirect_to @app, notice: notice, status: :see_other
+  end
+
   private
 
   def destory_app_data
@@ -57,6 +77,10 @@ class AppsController < ApplicationController
 
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
+  end
+
+  def set_owner
+    @collaborator = @app.collaborators.find_by(owner: true)
   end
 
   def create_owner
@@ -121,5 +145,9 @@ class AppsController < ApplicationController
 
   def render_not_found_entity_response(e)
     redirect_to apps_path, notice: t('apps.messages.failture.not_found_app', id: e.id)
+  end
+
+  def owner_params
+    params.require(:collaborator).permit(:user_id)
   end
 end
