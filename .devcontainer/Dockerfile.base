@@ -5,9 +5,9 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 RUN if [ "$USER_GID" != "$USER_UID" ] || [ "$USER_UID" != "1000" ]; then \
-      groupmod --gid $USER_GID vscode \
-      && usermod --uid $USER_UID --gid $USER_GID vscode \
-      && chmod -R $USER_UID:$USER_GID /home/vscode; \
+      groupmod --gid $USER_GID vscode && \
+      usermod --uid $USER_UID --gid $USER_GID vscode && \
+      chmod -R $USER_UID:$USER_GID /home/vscode; \
     fi
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -64,10 +64,5 @@ RUN export RUBY_CONFIGURE_OPTS="--enable-yjit" && \
 
 WORKDIR /workspace
 
-COPY Gemfile Gemfile.lock ./
 RUN gem install bundler foreman && \
-    bundle install
-
-COPY package.json yarn.lock ./
-RUN npm install --global yarn sass esbuild && \
-    yarn install
+    npm install --global yarn sass esbuild
