@@ -15,13 +15,15 @@ Rails.application.routes.draw do
   # App
   #############################################
   resources :apps do
+    resources :collaborators, except: %i[index show]
+
     resources :schemes, except: %i[show] do
       resources :channels, except: %i[index show]
     end
 
     resources :debug_files, only: [] do
       collection do
-        get ':device', action: :device, as: :device
+        get :device, action: :device, as: :device
       end
     end
   end
@@ -163,6 +165,13 @@ Rails.application.routes.draw do
   # API v1
   #############################################
   namespace :api do
+    resources :users, except: %i[new edit] do
+      collection do
+        get :me
+        get :search
+      end
+    end
+
     resources :apps, except: %i[new edit] do
       collection do
         post :upload, to: 'apps/upload#create'
@@ -176,6 +185,8 @@ Rails.application.routes.draw do
       resources :schemes, except: %i[new edit], shallow: true do
         resources :channels, except: %i[new edit]
       end
+
+      resources :collaborators, param: :user_id, except: %i[index new edit]
     end
 
     resources :debug_files, except: %i[new edit create] do
@@ -199,6 +210,8 @@ Rails.application.routes.draw do
     end
 
     resources :version, only: :index
+
+    match '*unmatched_route', via: :all, to: 'base#raise_not_found', format: :json
   end
 
   #############################################

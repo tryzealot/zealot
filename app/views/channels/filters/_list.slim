@@ -9,7 +9,7 @@
       th = t('channels.show.git_branch')
       th = t('channels.show.git_commit')
       th = t('channels.show.uploaded_at')
-      - if user_signed_in?
+      - if current_user&.manage?(app: @app)
         th = t('channels.show.actions')
 
       - @releases.each_with_index do |release, index|
@@ -33,7 +33,7 @@
           td
             span data-toggle="tooltip" title="#{release.created_at}"
               = time_ago_in_words(release.created_at)
-          - if user_signed_in?
+          - if current_user&.manage?(app: @app)
             td
               = button_to channel_release_path(@channel, release), method: :delete, class: 'btn btn-tool', \
                 data: { confirm: t('channels.messages.confirm.destroy'), turbo_confirm: t('channels.messages.confirm.destroy') } do

@@ -9,8 +9,8 @@ module UserRoles
     scope :users, -> { where(role: :user) }
   end
 
-  def manage?
-    admin? || developer?
+  def manage?(app: nil)
+    admin? || developer? || (app && app_roles?(app, :manage))
   end
 
   def grant_admin!
@@ -31,6 +31,11 @@ module UserRoles
 
   def roles?(value)
     roles.where(role: value.to_sym).exists?
+  end
+
+  def app_roles?(app, value)
+    value = %w[admin developer] if value.to_sym == :manage
+    collaborators.where(app: app, role: value).exists?
   end
 
   def role_name
