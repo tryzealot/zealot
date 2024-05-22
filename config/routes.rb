@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   # App
   #############################################
   resources :apps do
+    member do
+      get :new_owner
+      put :update_owner
+    end
+
     resources :collaborators, except: %i[index show]
 
     resources :schemes, except: %i[show] do
