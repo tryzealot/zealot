@@ -424,7 +424,7 @@ zh-CN:
       release_version: 构建版本
       release_type: 打包类型
       filesize: 文件体积
-      uploaded_at: 上传时间
+      uploaded_at: 上传时间 %{date}
       git_branch: Git 分支
       git_commit: Git 提交 SHA
       source: 上传来源
@@ -1004,6 +1004,8 @@ zh-CN:
         register_closed: 服务没有开放注册功能！请联系管理员开通账户。
         register: 注册
       edit:
+        change_password: 修改密码
+        update_password: 更新密码
         api: API
         token: 密钥
     normal:
