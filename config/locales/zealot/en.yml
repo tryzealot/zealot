@@ -314,6 +314,8 @@ en:
       new_collaborator: New collaborator
       username: User
       role: Role
+      it_is_you: You
+      collaborator_owner: Owner
     new:
       title: New app
     edit:

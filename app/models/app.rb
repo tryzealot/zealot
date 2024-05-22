@@ -85,6 +85,14 @@ class App < ApplicationRecord
     end
   end
 
+  def create_owner(user)
+    collaborators.create(
+      user: user,
+      role: Collaborator.roles[:admin],
+      owner: true
+    )
+  end
+
   def collaborator_user_ids
     collaborators.select(:user_id).map(&:user_id)
   end
