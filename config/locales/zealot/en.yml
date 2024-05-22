@@ -35,6 +35,9 @@ en-US:
         title: User information
         active_link: Active link
         active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+        collaborators: Collaborators
+        api: API
+        token: 密钥
     web_hooks:
       title: Webhooks
       index:
@@ -300,6 +303,10 @@ en-US:
           <ul>
             <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
+      collaborators: Collaborators
+      new_collaborator: New collaborator
+      username: User
+      role: Role
     new:
       title: New app
     edit:
@@ -313,6 +320,14 @@ en-US:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
+        delete_collaborator: Confirm to destroy `%{name}` collaborator?
+  collaborators:
+    new:
+      title: New collaborator
+      errors:
+        all_users_were_added: All collaborators were added.
+    edit:
+      title: Edit collaborator
   schemes:
     title: Schemes
     show:
@@ -493,7 +508,8 @@ en-US:
       version: Build number
       device_type: Platform
       release_version: Version
-      filesize: File size
+      file_nums: Numbers of file
+      file_size: File size
       uploaded_at: Upload date
       missing_file: Missing file
       download: Download
@@ -513,8 +529,8 @@ en-US:
       main_target: Main target
       arch: Architecture
       libraries: Libraries
-      filesize: File size
-      file_count: File count
+      file_nums: Numbers of file
+      file_size: File size
     reprocess:
       success: Reprocess request successful
     help:
@@ -872,15 +888,19 @@ en-US:
       inclusion: 不包含在可选值列表中
       only_integer: Must be number
       json_format: Must be JSON standard format
-      not_authorized_policy: "Not authorized operate %{model} on %{query} action"
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
       not_match_url: "Not match page: %{url}"
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
+      record_existed: "%{model} record existsd"
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      record_not_found: Record not found
+      user_not_found: User not found
+      api_not_found: API not found
       goback_title: Go back
       homepage_title: homepage
   active_job:
@@ -984,6 +1004,9 @@ en-US:
       app:
         create: Create
         update: Update
+      collaborator:
+        create: 新增成员
+        update: 更新成员
       scheme:
         create: Create
         update: Update
