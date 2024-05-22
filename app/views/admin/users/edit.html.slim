@@ -43,3 +43,14 @@
           label = t('.token')
           input type="text" class="form-control" disabled="true" value="#{@user.token}"
 
+  .col-md-12
+    .card
+      .card-body
+        .float-right
+          = link_to t('.destroy_user'), admin_user_path(@user), class: 'btn btn-danger', \
+                    data: { turbo_method: :delete, turbo_confirm: t('admin.users.index.destroy_user_confirm', user: @user.username) }
+        div
+          - if @user.access_locked?
+            = link_to t('.unlock_user'), unlock_admin_user_path(@user), class: 'btn btn-primary', data: { turbo_method: :delete }
+          - else
+            = link_to t('.lock_user'), lock_admin_user_path(@user), class: 'btn btn-warning'
