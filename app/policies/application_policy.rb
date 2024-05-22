@@ -9,11 +9,11 @@ class ApplicationPolicy
   end
 
   def index?
-    guest_mode_or_signed_in?
+    user_signed_in_or_guest_mode?
   end
 
   def show?
-    scope.where(id: record.id).exists? || guest_mode_or_signed_in?
+    scope.where(id: record.id).exists? || user_signed_in_or_guest_mode?
   end
 
   def create?
@@ -57,15 +57,23 @@ class ApplicationPolicy
 
   protected
 
-  def demo_mode?
-    Setting.demo_mode == true
+  def app_collaborator?(user, app)
+    Collaborator.where(user: user, app: app).exists?
   end
 
-  def guest_mode_or_signed_in?
-    Setting.guest_mode || user_signed_in?
+  def user_signed_in_or_guest_mode?
+    guest_mode? || user_signed_in?
+  end
+
+  def guest_mode?
+    Setting.guest_mode
   end
 
   def user_signed_in?
     user.present?
+  end
+
+  def demo_mode?
+    Setting.demo_mode == true
   end
 end

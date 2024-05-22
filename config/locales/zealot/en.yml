@@ -35,6 +35,9 @@ en:
         title: User information
         active_link: Active link
         active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+        collaborators: Collaborators
+        api: API
+        token: 密钥
     web_hooks:
       title: Webhooks
       index:
@@ -306,6 +309,11 @@ en:
           <ul>
             <li>Google Play, Samsung Galaxy Store, TapTap, F-Droid and more</li>
           </ul>
+
+      collaborators: Collaborators
+      new_collaborator: New collaborator
+      username: User
+      role: Role
     new:
       title: New app
     edit:
@@ -319,6 +327,14 @@ en:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
+        delete_collaborator: Confirm to destroy `%{name}` collaborator?
+  collaborators:
+    new:
+      title: New collaborator
+      errors:
+        all_users_were_added: All collaborators were added.
+    edit:
+      title: Edit collaborator
   schemes:
     title: Schemes
     show:
@@ -428,7 +444,7 @@ en:
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
-      view_detail: Manage channel
+      view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
     new:
       title: :channels.show.upload_release
@@ -499,7 +515,8 @@ en:
       version: Build number
       device_type: Platform
       release_version: Version
-      filesize: File size
+      file_nums: Numbers of file
+      file_size: File size
       uploaded_at: Upload date
       missing_file: Missing file
       download: Download
@@ -519,8 +536,8 @@ en:
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
-      filesize: File size
-      file_count: File count
+      file_nums: Numbers of file
+      file_size: File size
     reprocess:
       success: Reprocess request successful
     help:
@@ -873,9 +890,13 @@ en:
       json_format: Must be JSON standard format
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
+      record_existed: "%{model} record existsd"
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
+      record_not_found: Record not found
+      user_not_found: User not found
+      api_not_found: API not found
       goback_title: goback
       homepage_title: homepage
   active_job:

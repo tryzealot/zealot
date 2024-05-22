@@ -6,18 +6,25 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps
   def index
-    @apps = App.all
+    @apps = manage_user? ? App.all : current_user.apps.all
+    authorize @apps.first if @apps.present?
+
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
   # GET /api/apps/:id
   def show
-    render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels'
+    relationship = ['schemes.channels']
+    relationship << 'collaborators' if manage_user?(app: @app)
+
+    render json: @app, serializer: Api::AppSerializer, include: relationship
   end
 
   # POST /api/apps
   def create
     @app = App.create!(app_params)
+    authorize @app
+
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels', status: :created
   end
 
@@ -30,13 +37,14 @@ class Api::AppsController < Api::BaseController
   # DELETE /api/apps/:id
   def destroy
     @app.destroy!
-    render json: {}
+    render json: { mesage: 'OK' }
   end
 
   protected
 
   def set_app
     @app = App.find(params[:id])
+    authorize @app
   end
 
   def app_params
