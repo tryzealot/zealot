@@ -61,6 +61,6 @@ class Api::UsersController < Api::BaseController
   end
 
   def user_params
-    @user_params ||= params.permit(:username, :email, :password, :role)
+    @user_params ||= params.permit(:username, :email, :password, :role, :locale, :appearance, :timezone)
   end
 end
