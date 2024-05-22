@@ -26,7 +26,8 @@ en:
         status: Status
         last_login_time: Last login time
         action: Action
-        active: Active
+        actived: Actived
+        locked: Locked
         inactive: Inactive
         never_logged_in: Never logged in
         destroy_user: Destroy

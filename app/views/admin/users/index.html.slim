@@ -16,34 +16,36 @@
         table.table
           thead
             tr
-              th = t('.number')
               th = t('.nickname')
-              th = t('.email')
+              th.d-none.d-sm-table-cell = t('.email')
               th = t('.role')
               th = t('.status')
-              th = t('.last_login_time')
-              th = t('.action')
+              th.d-none.d-sm-table-cell = t('.last_login_time')
+              th.d-none.d-sm-table-cell style="width: 20px" = t('.action')
           tbody
             - @users.each_with_index do |user, i|
               tr
                 td
-                  = i + 1
-                td
                   = link_to user.username, edit_admin_user_path(user)
-                td
+                td.d-none.d-sm-table-cell
                   = user.email
                 td
                   = user.role_name
                 td
-                  - if user.confirmed_at
-                    = t('.active')
+                  - if user.access_locked?
+                    span.badge.badge-danger = t('.locked')
+                  - elsif user.confirmed_at
+                    span.badge.badge-secondary = t('.actived')
                   - else
-                    = link_to t('.inactive'), edit_admin_user_path(user)
-                td
+                    = link_to t('.inactive'), edit_admin_user_path(user), class: 'badge badge-primary'
+
+                td.d-none.d-sm-table-cell
                   - if user.last_sign_in_at
                     = time_ago_in_words(user.last_sign_in_at)
                   - else
                     = t('.never_logged_in')
-                td
-                  = link_to t('.destroy_user'), admin_user_path(user), \
+                td.d-none.d-sm-table-cell
+                  = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger', \
                     data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
+
+
