@@ -6,6 +6,10 @@ class CollaboratorPolicy < ApplicationPolicy
     any_manage?
   end
 
+  def new?
+    any_manage?
+  end
+
   def create?
     any_manage?
   end
