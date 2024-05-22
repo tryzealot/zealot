@@ -72,8 +72,4 @@ class ApplicationPolicy
   def user_signed_in?
     user.present?
   end
-
-  def demo_mode?
-    Setting.demo_mode == true
-  end
 end

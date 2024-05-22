@@ -7,20 +7,32 @@ ruby:
 
 .row
   .col-md-12
-    .card
-      .card-header.card-border
-        h3.card-title = t('.title', resource: resource.model_name.human)
-      .card-body
-        = simple_form_for(resource, as: resource_name, url: update_url, html: { method: :put }) do |f|
-          = f.error_notification
+    = simple_form_for(resource, as: resource_name, url: update_url, html: { method: :put }) do |f|
+      = f.error_notification
 
-          = f.input :username, required: true, :autofocus => true
-          = f.input :email, required: true, autofocus: true, hint: ''
-
+      .card
+        .card-header.card-border
+          h3.card-title = t('.title', resource: resource.model_name.human)
+        .card-body
+          = f.input :username, required: true, autofocus: true
+          = f.input :email, required: true, autofocus: true
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
             p
               = t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email)
 
+          = f.input :locale, as: :select, collection: User.options_roles, label_method: :last, value_method: :first, include_blank: false
+          = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
+          = f.input :timezone, as: :select, collection: User.options_timezones, label_method: :last, value_method: :first, include_blank: false
+
+          - if demo_mode
+            = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
+          - else
+            = f.button :submit, class: 'btn-lg'
+
+      .card
+        .card-header.card-border
+          h3.card-title = t('.change_password')
+        .card-body
           = f.input :current_password, input_html: { autocomplete: "password" }
           = f.input :password, input_html: { autocomplete: "new-password" }
           = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
@@ -28,7 +40,7 @@ ruby:
           - if demo_mode
             = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
           - else
-            = f.button :submit, class: 'btn-lg'
+            = f.button :submit, t('.update_password'), class: 'btn-lg'
 
     .card.card-info
       .card-header.card-border
