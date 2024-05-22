@@ -822,8 +822,8 @@ zh-CN:
       zh-CN: 简体中文
       en: 英文
     site_appearance:
-      light: 浅色
-      dark: 深色
+      light: 明亮
+      dark: 黑暗
       auto: 随系统自动
   download:
     releases:
