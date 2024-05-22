@@ -22,11 +22,11 @@
               = app.name
             ul.list-group.list-group-unbordered.pt-2
               li.list-group-item.pl-3.pr-4
-                b = t('.android_count')
-                span.float-right = link_to app.android_debug_files.count, device_app_debug_files_path(app, 'Android')
+                b = link_to t('.android_count'), device_app_debug_files_path(app, 'Android')
+                span.float-right = app.android_debug_files.count
               li.list-group-item.pl-3.pr-4.border-bottom-0
-                b = t('.ios_count')
-                span.float-right = link_to app.ios_debug_files.count, device_app_debug_files_path(app, 'iOS')
+                b = link_to t('.ios_count'), device_app_debug_files_path(app, 'iOS')
+                span.float-right = app.ios_debug_files.count
   - else
     .col-md-12
       .card.card-outline.card-warning
