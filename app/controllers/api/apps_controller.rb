@@ -23,6 +23,7 @@ class Api::AppsController < Api::BaseController
   # POST /api/apps
   def create
     @app = App.create!(app_params)
+    @app.create_owner(current_user)
     authorize @app
 
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels', status: :created
