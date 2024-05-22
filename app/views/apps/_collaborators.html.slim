@@ -21,7 +21,7 @@
                 = collaborator.user.username
                 - if collaborator.owner?
                   span.badge.badge-primary.ml-1 = t('apps.show.collaborator_owner')
-                - elsif same_user?(collaborator)
+                - if same_user?(collaborator)
                   span.badge.badge-secondary.ml-1 = t('apps.show.it_is_you')
               td = collaborator.role
               td style="width: 120px"
