@@ -156,8 +156,7 @@ class CreateSampleAppsService
   end
 
   def create_app(name, user)
-    App.find_or_create_by name: name do |a|
-      a.users << user
-    end
+    app = App.find_or_create_by name: name
+    app.create_owner(user) if app.persisted?
   end
 end
