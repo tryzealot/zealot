@@ -430,7 +430,7 @@ en:
       release_version: Release version (build version)
       release_type: Release type
       filesize: File size
-      uploaded_at: Uploaded time
+      uploaded_at: Uploaded time %{date}
       git_branch: Git branch
       git_commit: Git commit SHA
       source: Source
@@ -989,6 +989,8 @@ en:
         register_closed: Close to register now, contact the administrator please.
         register: Register
       edit:
+        change_password: Change password
+        update_password: Update password
         api: API
         token: Token
     normal:

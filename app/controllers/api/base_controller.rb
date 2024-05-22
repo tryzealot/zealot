@@ -5,11 +5,11 @@ class Api::BaseController < ActionController::API
   include Pundit::Authorization
   include ExceptionHandler
   include UserRole
-  include Locale
+  include Customize
 
   respond_to :json
 
-  before_action :set_locale
+  around_action :switch_locale
   before_action :set_cache_headers
 
   rescue_from TypeError, with: :render_unmatched_bundle_id_serror

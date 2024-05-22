@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include ExceptionHandler
   include UserRole
-  include Locale
+  include Customize
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  before_action :set_locale
+  around_action :switch_locale
+  around_action :switch_timezone, if: :current_user
+
   before_action :set_sentry_context
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -34,7 +36,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  DEVISE_PERMITTED_PARAMTERS = %i[ username email password password_confirmation remember_me ]
+  DEVISE_PERMITTED_PARAMTERS = %i[username email password password_confirmation remember_me locale appearance timezone]
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit :sign_up, keys: DEVISE_PERMITTED_PARAMTERS
     devise_parameter_sanitizer.permit :account_update, keys: DEVISE_PERMITTED_PARAMTERS
