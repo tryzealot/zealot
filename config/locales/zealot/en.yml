@@ -291,7 +291,7 @@ en:
       destroy_app: Destroy app
       new_channel: New Channel
       edit_scheme: Edit Scheme
-      destory_scheme: Destroy Scheme
+      destroy_scheme: Destroy Scheme
       retained_build: Retained builds
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
