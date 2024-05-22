@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include UserSettings
+  include UserRoles
+
   extend UserOmniauth
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable, :lockable,
          :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect]
 
-  include UserRoles
   enum role: %i[user developer admin]
+  enum locale: enum_roles
+  enum appearance: enum_appearances
+  enum timezone: enum_timezones
 
   has_and_belongs_to_many :apps, dependent: :destroy
   has_many :collaborators, dependent: :destroy
