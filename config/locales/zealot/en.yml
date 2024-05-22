@@ -38,6 +38,13 @@ en-US:
         collaborators: Collaborators
         api: API
         token: 密钥
+        lock_user: Lock
+        unlock_user: Unlock
+        destroy_user: Destroy
+      lock:
+        message: 'User %{user} has been locked.'
+      unlock:
+        message: 'User %{user} has been unlocked.'
     web_hooks:
       title: Webhooks
       index:
