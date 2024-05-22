@@ -158,5 +158,6 @@ class CreateSampleAppsService
   def create_app(name, user)
     app = App.find_or_create_by name: name
     app.create_owner(user.is_a?(Array) ? user.first : user) if app.persisted?
+    app
   end
 end
