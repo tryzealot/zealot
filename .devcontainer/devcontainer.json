@@ -50,5 +50,5 @@
   },
 
   // (Optinal) Database migration.
-  "postCreateCommand": "rails zealot:upgrade && yarn install"
+  "postCreateCommand": "rails zealot:upgrade"
 }
