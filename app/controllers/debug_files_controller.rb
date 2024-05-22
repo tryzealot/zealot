@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DebugFilesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show device]
   before_action :set_debug_file, only: %i[show reprocess destroy]
 
   def index
@@ -49,10 +49,13 @@ class DebugFilesController < ApplicationController
     @app = App.find(params[:app_id])
     @title = t('.title', app: @app.name, device: params[:device])
 
-    @debug_files = DebugFile.where(
-      app_id: params[:app_id],
-      device_type: params[:device]
-    ).page(params.fetch(:page, 1)).per(params.fetch(:per_page, Setting.per_page))
+    @debug_files = DebugFile
+      .where(
+        app_id: params[:app_id],
+        device_type: params[:device]
+      )
+      .page(params.fetch(:page, 1))
+      .per(params.fetch(:per_page, Setting.per_page))
 
     authorize @debug_files.first if @debug_files.present?
   end
