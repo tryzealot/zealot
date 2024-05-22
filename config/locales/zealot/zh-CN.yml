@@ -308,6 +308,8 @@ zh-CN:
       new_collaborator: 添加新成员
       username: 用户
       role: 权限
+      it_is_you: 你的账户
+      collaborator_owner: 拥有者
     new:
       title: 新建应用
     edit:
@@ -323,6 +325,8 @@ zh-CN:
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
         delete_collaborator: 确定删除【%{name}】成员?
   collaborators:
+    default:
+      title: 应用成员
     new:
       title: 添加新成员
       errors:

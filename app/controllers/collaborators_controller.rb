@@ -17,7 +17,8 @@ class CollaboratorsController < ApplicationController
     authorize @collaborator
 
     if @collaborator.save
-      redirect_to @app, notice: "Collaborator was successfully created."
+      message = t('activerecord.success.create', key: "#{@collaborator.user.username} #{t('collaborators.default.title')}")
+      redirect_to @app, notice: message
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +32,7 @@ class CollaboratorsController < ApplicationController
   # PATCH/PUT /collaborators/1
   def update
     if @collaborator.update(collaborator_params)
-      redirect_to @collaborator.app, notice: "Collaborator was successfully updated.", status: :see_other
+      redirect_to @collaborator.app, notice: t('activerecord.success.update', key: t('collaborators.default.title')), status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,7 +42,9 @@ class CollaboratorsController < ApplicationController
   def destroy
     app = @collaborator.app
     @collaborator.destroy!
-    redirect_to app, notice: "Collaborator was successfully destroyed.", status: :see_other
+
+    notice = t('activerecord.success.destroy', key: t('collaborators.default.title'))
+    redirect_to app, notice: notice, status: :see_other
   end
 
   private
