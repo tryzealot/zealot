@@ -24,6 +24,8 @@ en-US:
         remember_me: Remember me
       app:
         name: App name
+      collaborator:
+        user: User
       scheme:
         name: Scheme name
         new_build_callout: New build callout
