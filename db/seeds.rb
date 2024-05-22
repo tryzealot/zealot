@@ -8,7 +8,11 @@
 
 # Create default admin account
 user = CreateAdminService.new.call
-puts 'CREATED ADMIN USER: ' << user.email
+if user.is_a?(Array)
+  puts 'CREATED ADMIN USERS: ' << user.map {|u| u.email }.join(', ')
+else
+  puts 'CREATED ADMIN USER: ' << user.email
+end
 
 skip_sample_data = ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SKIP_SAMPLE_DATE'] || false)
 unless skip_sample_data
