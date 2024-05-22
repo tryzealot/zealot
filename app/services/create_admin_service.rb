@@ -12,7 +12,7 @@ class CreateAdminService
 
   DEMO_LOCALES = {
     en: 'en',
-    zh: 'zh-CN'
+    cn: 'zh-CN'
   }
 
   def create_demo_mode_users
@@ -30,6 +30,7 @@ class CreateAdminService
       user.password_confirmation = password
       user.role = :admin
       user.locale = locale || ENV['DEFAULT_LOCALE']
+      user.appearance = 'auto'
       user.timezone = ENV['TIME_ZONE'] || 'Asia/Shanghai'
       user.confirmed_at = Time.current
     end
