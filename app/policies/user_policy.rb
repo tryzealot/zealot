@@ -30,6 +30,14 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
+  def lock?
+    admin?
+  end
+
+  def unlock?
+    admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

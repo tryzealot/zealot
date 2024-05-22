@@ -10,11 +10,11 @@ module AdminHelper
   end
 
   def secure_key?(data)
-    demo_mode? && data.keys.select {|k| secure?(k) }.any?
+    Setting.demo_mode && data.keys.select {|k| secure?(k) }.any?
   end
 
   def secure_value(key, value)
-    (secure?(key) && demo_mode?) ? filtered_token(value) : value
+    (secure?(key) && Setting.demo_mode) ? filtered_token(value) : value
   end
 
   private
