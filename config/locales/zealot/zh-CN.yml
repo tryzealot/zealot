@@ -285,7 +285,7 @@ zh-CN:
       destroy_app: 删除应用
       new_channel: 新增渠道
       edit_scheme: 编辑类型
-      destory_scheme: 删除类型
+      destroy_scheme: 删除类型
       retained_build: 最大版本保留数
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
