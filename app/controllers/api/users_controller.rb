@@ -2,7 +2,7 @@
 
 class Api::UsersController < Api::BaseController
   before_action :validate_user_token
-  before_action :set_user, only: %i[show update destroy]
+  before_action :set_user, only: %i[show update destroy lock unlock]
 
   # GET /api/users
   def index
@@ -39,6 +39,18 @@ class Api::UsersController < Api::BaseController
     authorize @user
 
     render json: @user
+  end
+
+  # POST /api/users/:id/lock
+  def lock
+    @user.lock_access!(send_instructions: false)
+    render json: { mesage: 'OK' }, status: :accepted
+  end
+
+  # DELETE /api/users/:id/unlock
+  def unlock
+    @user.unlock_access!
+    render json: { mesage: 'OK' }, status: :accepted
   end
 
   # PUT /api/users/:id
