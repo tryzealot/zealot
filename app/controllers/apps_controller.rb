@@ -31,10 +31,9 @@ class AppsController < ApplicationController
   def create
     @app = App.new(app_params)
     authorize @app
-
     return render :new, status: :unprocessable_entity unless @app.save
 
-    @app.collaborators.create(user: current_user, role: Collaborator.roles[:admin])
+    create_owner
     create_schemes_and_channels
     redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
@@ -58,6 +57,10 @@ class AppsController < ApplicationController
 
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
+  end
+
+  def create_owner
+    @app.create_owner(current_user)
   end
 
   def create_schemes_and_channels
