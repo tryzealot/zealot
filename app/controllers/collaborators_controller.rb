@@ -17,8 +17,8 @@ class CollaboratorsController < ApplicationController
     authorize @collaborator
 
     if @collaborator.save
-      message = t('activerecord.success.create', key: "#{@collaborator.user.username} #{t('collaborators.default.title')}")
-      redirect_to @app, notice: message
+      key = "#{@collaborator.user.username} #{t('collaborators.default.title')}"
+      redirect_to @app, notice: t('activerecord.success.create', key: key)
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,7 +32,8 @@ class CollaboratorsController < ApplicationController
   # PATCH/PUT /collaborators/1
   def update
     if @collaborator.update(collaborator_params)
-      redirect_to @collaborator.app, notice: t('activerecord.success.update', key: t('collaborators.default.title')), status: :see_other
+      notice = t('activerecord.success.update', key: t('collaborators.default.title'))
+      redirect_to @collaborator.app, notice: notice, status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
