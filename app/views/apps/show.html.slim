@@ -8,7 +8,7 @@ ruby:
   = @app.name
 
 - content_for :section_rightpanel do
-  - if current_user.manage?(app: @app)
+  - if current_user&.manage?(app: @app)
     .btn-group
       = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
         'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
@@ -44,7 +44,7 @@ ruby:
                     tr
                       td
                         = link_to channel.name, friendly_channel_overview_path(channel)
-                      - if current_user.manage?(app: @app)
+                      - if current_user&.manage?(app: @app)
                         td style="width: 120px"
                           = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
                           = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
@@ -53,7 +53,7 @@ ruby:
                   tr
                     td colspan="2"
                       = t('apps.show.not_found_channel_body_html')
-          - if current_user.app_roles?(@app, :manager)
+          - if current_user&.app_roles?(@app, :manager)
             .card-footer.p-1
               = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
               .btn-group.float-right
