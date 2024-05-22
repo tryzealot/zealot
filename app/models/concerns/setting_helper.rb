@@ -6,8 +6,6 @@ module SettingHelper
   REPO_URL = 'https://github.com/tryzealot/zealot'
 
   class_methods do
-    include AbstractController::Translation
-
     def builtin_schemes
       [
         I18n.t('settings.preset_schemes.beta', default: 'Beta'),
@@ -18,17 +16,17 @@ module SettingHelper
 
     def builtin_roles
       {
-        user: t('settings.preset_role.user', default: 'User'),
-        developer: t('settings.preset_role.developer', default: 'Developer'),
-        admin: t('settings.preset_role.admin', default: 'Admin')
+        user: I18n.t('settings.preset_role.user', default: 'User'),
+        developer: I18n.t('settings.preset_role.developer', default: 'Developer'),
+        admin: I18n.t('settings.preset_role.admin', default: 'Admin')
       }
     end
 
     def builtin_appearances
       {
-        light: t('settings.theme_modes.light', default: 'light'),
-        dark: t('settings.theme_modes.dark', default: 'dark'),
-        auto: t('settings.theme_modes.auto', default: 'auto')
+        light: I18n.t('settings.site_appearance.light', default: 'light'),
+        dark: I18n.t('settings.site_appearance.dark', default: 'dark'),
+        auto: I18n.t('settings.site_appearance.auto', default: 'auto')
       }
     end
 
