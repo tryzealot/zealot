@@ -7,7 +7,7 @@ module CollaboratorsHelper
 
   def edit_role_user?(collaborator)
     target_role = collaborator.role
-    return true if current_user.manage?
+    return true if current_user.admin?
     return true if current_user.app_roles?(collaborator.app, :admin)
 
     false
