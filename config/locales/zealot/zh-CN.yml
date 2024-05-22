@@ -956,6 +956,10 @@ zh-CN:
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
       models:
+        collaborator:
+          attributes:
+            owner:
+              unique: 应用只能设置一个拥有者
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
         apple_key:
