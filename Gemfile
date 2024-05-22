@@ -67,7 +67,7 @@ gem 'plist', '~> 3.7.1'
 # NOTE: rollback rubygem if the issue is resolved: https://github.com/djberg96/sys-filesystem/issues/66
 gem 'sys-filesystem', github: 'icyleaf/sys-filesystem', branch: 'fix/musl-remove-alias-statvfs64'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.4.1'
+gem 'pghero', '~> 3.5.0'
 
 ## 异常报错上报
 gem 'sentry-ruby', '~> 5.17.3'
