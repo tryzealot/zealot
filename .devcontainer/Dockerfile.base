@@ -66,3 +66,10 @@ WORKDIR /workspace
 
 RUN gem install bundler foreman && \
     npm install --global yarn sass esbuild
+
+COPY Gemfile Gemfile.lock package.json ./
+USER root
+RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
+USER vscode
+
+RUN bundle install && yarn install
