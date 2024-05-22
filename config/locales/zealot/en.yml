@@ -307,6 +307,8 @@ en-US:
       new_collaborator: New collaborator
       username: User
       role: Role
+      it_is_you: You
+      collaborator_owner: Owner
     new:
       title: New app
     edit:
@@ -322,6 +324,8 @@ en-US:
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
         delete_collaborator: Confirm to destroy `%{name}` collaborator?
   collaborators:
+    default:
+      title: 应用成员
     new:
       title: New collaborator
       errors:
@@ -893,7 +897,7 @@ en-US:
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
-      invaild_in_demo_mode: 演示模式不能编辑
+      invaild_in_demo_mode: Forbidden in demo mode
       record_existed: "%{model} record existsd"
       development_only: Development only
       database_connection_error: Database server connect failed
