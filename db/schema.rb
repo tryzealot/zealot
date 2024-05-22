@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_16_050530) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_22_065442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,8 +56,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_050530) do
     t.bigint "app_id", null: false
     t.bigint "user_id", null: false
     t.integer "role", default: 0, null: false
-    t.index ["app_id", "user_id"], name: "index_apps_users_on_app_id_and_user_id"
-    t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id"
+    t.boolean "owner", default: false, null: false
+    t.index ["app_id", "user_id"], name: "index_apps_users_on_app_id_and_user_id", unique: true
+    t.index ["user_id", "app_id"], name: "index_apps_users_on_user_id_and_app_id", unique: true
   end
 
   create_table "backups", force: :cascade do |t|
@@ -347,6 +348,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_050530) do
     t.datetime "locked_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "locale", default: "zh-CN", null: false
+    t.string "appearance", default: "light", null: false
+    t.string "timezone", default: "Asia/Shanghai", null: false
   end
 
   create_table "web_hooks", force: :cascade do |t|
