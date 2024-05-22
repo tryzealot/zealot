@@ -70,4 +70,6 @@ ruby:
           h3.card-title = t('apps.show.not_found_scheme.title')
         .card-body = t('apps.show.not_found_scheme.body_html')
 
-  == render "collaborators", app: @app
+  - if current_user&.manage?(app: @app)
+    .col-md-12
+      == render "collaborators", app: @app

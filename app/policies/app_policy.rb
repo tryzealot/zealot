@@ -25,6 +25,14 @@ class AppPolicy < ApplicationPolicy
     any_manage?
   end
 
+  def new_owner?
+    admin? || app_owner?
+  end
+
+  def update_owner?
+    admin?|| app_owner?
+  end
+
   class Scope < Scope
     def resolve
       scope.all
@@ -39,5 +47,9 @@ class AppPolicy < ApplicationPolicy
 
   def any_manage?
     manage? || manage?(app: record)
+  end
+
+  def app_owner?
+    Collaborator.where(user: user, app: record, role: 'admin', owner: true).exists?
   end
 end

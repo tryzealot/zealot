@@ -85,6 +85,10 @@ class App < ApplicationRecord
     end
   end
 
+  def owner
+    collaborators.find_by(owner: true)
+  end
+
   def create_owner(user)
     collaborators.create(
       user: user,

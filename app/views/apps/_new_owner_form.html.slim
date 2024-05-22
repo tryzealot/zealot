@@ -1,0 +1,14 @@
+.col-md-12
+  .card
+    .card-header
+      h3.card-title
+        = @title
+      .card-tools
+        a href="#{app_path(app)}"
+          i.icon.far.fa-list-alt
+          = t('links.back_to_list')
+    .card-body
+      = simple_form_for collaborator, url: update_owner_app_path(app), html: { method: :put } do |f|
+        = f.error_notification
+        = f.association :user, label_method: :username, value_method: :id, include_blank: false, hint: t('apps.new_owner.user_hint')
+        = f.button :submit
