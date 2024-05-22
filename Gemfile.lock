@@ -180,7 +180,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (3.28.3)
+    good_job (3.29.0)
       activejob (>= 6.0.0)
       activerecord (>= 6.0.0)
       concurrent-ruby (>= 1.0.2)
@@ -274,7 +274,7 @@ GEM
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.6)
-    minitest (5.23.0)
+    minitest (5.23.1)
     mixlib-shellout (3.2.7)
       chef-utils
     msgpack (1.7.2)
@@ -601,7 +601,7 @@ DEPENDENCIES
   faraday (~> 2.9.0)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
-  good_job (~> 3.28.3)
+  good_job (~> 3.29.0)
   graphiql-rails
   graphql (~> 2.3.4)
   health_check (~> 3.1.0)
