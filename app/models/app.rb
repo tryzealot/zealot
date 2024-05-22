@@ -4,20 +4,27 @@ class App < ApplicationRecord
   default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
+  has_many :collaborators, dependent: :destroy
   has_many :schemes, dependent: :destroy
   has_many :debug_files, dependent: :destroy
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
-  scope :has_debug_files, -> { joins(:debug_files).distinct }
+  scope :debug_files, -> { joins(:debug_files).distinct }
 
   validates :name, presence: true
 
   after_destroy :delete_app_recently_releases_cache
 
+  def channel_ids
+    return unless schcmes_ids = schemes.select(:id).map(&:id)
+    return unless channel_ids = Channel.select(:id).where(scheme: schcmes_ids).map(&:id)
+
+    channel_ids
+  end
+
   def recently_release
-    Rails.cache.fetch(recently_release_cache_key) do
-      return unless schcmes_ids = schemes.select(:id).map(&:id)
-      return unless channel_ids = Channel.select(:id).where(scheme: schcmes_ids).map(&:id)
+    Rails.cache.fetch(recently_release_cache_key, expires_in: 5.minutes) do
+      return unless channel_ids
       return unless release = Release.where(channel: channel_ids).last
 
       release
@@ -38,6 +45,10 @@ class App < ApplicationRecord
         channel.releases.size
       end
     end
+  end
+
+  def total_debug_files
+    debug_files.count
   end
 
   def android_debug_files
@@ -72,6 +83,10 @@ class App < ApplicationRecord
         end
       end
     end
+  end
+
+  def collaborator_user_ids
+    collaborators.select(:user_id).map(&:user_id)
   end
 
   private

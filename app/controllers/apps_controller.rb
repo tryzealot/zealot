@@ -8,8 +8,8 @@ class AppsController < ApplicationController
 
   def index
     @title = t('.title')
-    @apps = App.all
-    authorize @apps
+    @apps = manage_user_or_guest_mode? ? App.all : current_user.apps.all
+    authorize @apps if @app.present?
   end
 
   def show
@@ -34,17 +34,12 @@ class AppsController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @app.save
 
-    @app.users << current_user
+    @app.collaborators.create(user: current_user, role: Collaborator.roles[:admin])
     create_schemes_and_channels
     redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
   end
 
   def update
-    # if @schemes.empty? && @channels.empty?
-    #   flash[:alert] = t('apps.messages.failture.missing_schemes_and_channels')
-    #   return render :edit, status: :unprocessable_entity
-    # end
-
     @app.update(app_params)
     redirect_to apps_path
   end

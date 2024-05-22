@@ -35,6 +35,9 @@ zh-CN:
         title: 用户信息
         active_link: 激活链接
         active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+        collaborators: 应用成员
+        api: API
+        token: Token
     web_hooks:
       title: 网络钩子
       index:
@@ -300,6 +303,11 @@ zh-CN:
           <ul>
             <li>Google Play、酷安、小米、华为、vivo、oppo、应用宝等</li>
           </ul>
+
+      collaborators: 成员
+      new_collaborator: 添加新成员
+      username: 用户
+      role: 权限
     new:
       title: 新建应用
     edit:
@@ -313,6 +321,14 @@ zh-CN:
         delete_app: 确定删除【%{name}】应用和已关联的类型、渠道以及已上传的应用数据?
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
+        delete_collaborator: 确定删除【%{name}】成员?
+  collaborators:
+    new:
+      title: 添加新成员
+      errors:
+        all_users_were_added: 所有用户已添加至当前应用成员列表
+    edit:
+      title: 编辑成员
   schemes:
     title: 应用类型
     show:
@@ -491,7 +507,8 @@ zh-CN:
       version: 编号
       device_type: 平台
       release_version: 版本信息
-      filesize: 文件大小
+      file_nums: 文件数量
+      file_size: 文件大小
       uploaded_at: 上传时间
       missing_file: 调试文件遗失
       download: 下载
@@ -511,8 +528,8 @@ zh-CN:
       main_target: 主项目
       arch: 架构
       libraries: 库
-      filesize: 文件大小
-      file_count: 文件数量
+      file_nums: 文件数量
+      file_size: 文件大小
     reprocess:
       success: 调试文件已提交重新解析处理中
     help:
@@ -877,15 +894,19 @@ zh-CN:
       inclusion: 不包含在可选值列表中
       only_integer: 必须是数字
       json_format: 符合 JSON 标准格式
-      not_authorized_policy: "没有用户权限无法对 %{model} 进行 %{query} 操作"
+      not_authorized_policy: "当前用户没有权限执行 %{model}#%{query} 操作"
       not_match_url: "页面路径不存在 %{url}"
       unexpected_parameter: "不可使用的参数: %{value}"
       length_range: 长度限制：%{minimum} ~ %{maximum} 位
       optional_value: 可选值：%{value}
       invaild_in_demo_mode: 演示模式不能编辑默认管理员
+      record_existed: "%{model} 已存在无法操作"
       development_only: 仅开发环境显示
       database_connection_error: 数据库连接或鉴权失败，请检查配置是否正确
       goback_or_redirect_to_homepage: 请返回%{goback_link}或%{homepage_link}看看
+      record_not_found: 此查询数据找不到
+      user_not_found: 没有找到此用户
+      api_not_found: 没有这个接口
       goback_title: 上级页面
       homepage_title: 首页
   active_job:
@@ -989,6 +1010,9 @@ zh-CN:
       app:
         create: 新增应用
         update: 更新应用
+      collaborator:
+        create: 新增成员
+        update: 更新成员
       scheme:
         create: 新增类型
         update: 更新类型
