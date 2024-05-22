@@ -15,6 +15,8 @@ ruby:
         - if avaiable_users.present?
           = simple_form_for [@app, collaborator] do |f|
             = f.error_notification
+            - if collaborator.errors.present?
+              = debug collaborator.errors
 
             = f.association :user, collection: avaiable_users, label_method: :username, value_method: :id, include_blank: false
             = f.input :role, collection: collaborator_roles, include_blank: false
@@ -22,7 +24,7 @@ ruby:
         - else
           p = t('collaborators.new.errors.all_users_were_added')
       - else
-        = simple_form_for [@app, collaborator] do |f|
+        = simple_form_for collaborator, url: app_collaborator_path(@app, id: collaborator.user.id) do |f|
             = f.error_notification
             = f.association :user, label_method: :username, value_method: :id, disabled: true
             = f.input :role, collection: collaborator_roles, include_blank: false
