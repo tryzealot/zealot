@@ -1,0 +1,8 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = @app.name
+
+.row
+  == render "new_owner_form", collaborator: @collaborator, app: @app

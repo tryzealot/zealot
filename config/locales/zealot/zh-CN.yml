@@ -314,6 +314,9 @@ zh-CN:
       title: 新建应用
     edit:
       title: 编辑应用
+    new_owner:
+      title: 转移拥有者
+      user_hint: 转移至其他成员，你会失去该应用的所有权限！
     messages:
       failture:
         not_found_app_by_version: '没有找到应用版本: %{version}'
@@ -941,7 +944,7 @@ zh-CN:
       destroy: "%{key}删除成功"
     errors:
       messages:
-        same_value: "%{key}没有发生变化，无法保存"
+        same_value: "%{key}没有发生变化，忽略此操作"
         invaild_json: 无效的 JSON 格式
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
