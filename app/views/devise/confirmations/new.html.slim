@@ -14,13 +14,7 @@
             = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
               == render "devise/shared/error_messages", resource: resource
 
-              = f.input :email,
-                        required: true,
-                        autofocus: true,
-                        hint: '',
-                        value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-                        input_html: { autocomplete: 'email', class: 'form-control' }
-
+              = f.input :email, required: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
               = f.button :submit, t('.resend_confirmation_instructions'), class: 'btn-block'
 
           .auth-providers.col-md-6
