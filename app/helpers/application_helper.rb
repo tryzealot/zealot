@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def button_link_to(title, url, icon = nil, **options)
-    options[:class] = 'btn ' + options[:class]
+    options[:class] = "btn #{options[:class]}"
     base_fontawesome = options.delete(:base_fa) || 'fas'
 
     content = title
