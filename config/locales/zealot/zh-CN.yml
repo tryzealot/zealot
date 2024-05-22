@@ -38,6 +38,13 @@ zh-CN:
         collaborators: 应用成员
         api: API
         token: Token
+        lock_user: 停用用户
+        unlock_user: 启用用户
+        destroy_user: 删除用户
+      lock:
+        message: '%{user}用户已变更为停用状态'
+      unlock:
+        message: '%{user}用户已变更为启用状态'
     web_hooks:
       title: 网络钩子
       index:
