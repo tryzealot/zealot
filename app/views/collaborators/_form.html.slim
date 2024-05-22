@@ -15,8 +15,6 @@ ruby:
         - if avaiable_users.present?
           = simple_form_for [@app, collaborator] do |f|
             = f.error_notification
-            - if collaborator.errors.present?
-              = debug collaborator.errors
 
             = f.association :user, collection: avaiable_users, label_method: :username, value_method: :id, include_blank: false
             = f.input :role, collection: collaborator_roles, include_blank: false
