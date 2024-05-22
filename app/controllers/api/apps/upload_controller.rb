@@ -107,10 +107,8 @@ class Api::Apps::UploadController < Api::BaseController
     permitted = params.permit :name
     permitted[:name] ||= @app_parser.name
 
-    app = App.find_or_create_by permitted do |app|
-      app.users << current_user
-    end
-
+    app = App.find_or_create_by permitted
+    app.create_owner(current_user)
     authorize app
   end
 
