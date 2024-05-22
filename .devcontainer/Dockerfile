@@ -2,5 +2,4 @@
 FROM ghcr.io/tryzealot/codespace:latest
 
 COPY . /workspace
-RUN gem install bundler && \
-    bundle install
+RUN bundle install && yarn install
