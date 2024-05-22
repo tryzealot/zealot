@@ -12,11 +12,11 @@ ruby:
     .btn-group
       = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
         'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
-      = button_link_to t('apps.show.edit_app'), edit_app_path(@app), \
-        'edit', class: 'btn btn-default btn-icon btn-sm btn-flat'
-      = button_link_to t('apps.show.destroy_app'), app_path(@app), \
-        'trash-alt', class: 'btn btn-default btn-icon btn-sm btn-flat', \
-        data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
+      = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-default btn-icon btn-sm btn-flat', \
+        title: t('apps.show.edit_app'), data: { toggle: :tooltip }
+      = button_link_to '', app_path(@app), 'trash-alt', \
+        class: 'btn btn-default btn-icon btn-sm btn-flat', title: t('apps.show.destroy_app'), \
+        data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 .row
   - if schemes_total > 0
@@ -57,9 +57,11 @@ ruby:
             .card-footer.p-1
               = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
               .btn-group.float-right
-                = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary'
-                = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
-                  data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
+                = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary', \
+                  title: t('apps.show.edit_scheme'), data: { toggle: 'tooltip' }
+                = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
+                  title: t('apps.show.destroy_scheme'), \
+                  data: { toggle: 'tooltip', turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
 
   - else
     .col-md-12
