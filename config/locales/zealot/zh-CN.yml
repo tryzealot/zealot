@@ -26,7 +26,8 @@ zh-CN:
         status: 状态
         last_login_time: 最后登录时间
         action: 操作
-        active: 已激活
+        actived: 已激活
+        locked: 已停用
         inactive: 未激活
         never_logged_in: 从未登录
         destroy_user: 删除
