@@ -335,7 +335,7 @@ en-US:
         delete_collaborator: Confirm to destroy `%{name}` collaborator?
   collaborators:
     default:
-      title: 应用成员
+      title: Collaborator
     new:
       title: New collaborator
       errors:
@@ -434,7 +434,7 @@ en-US:
       download: Download
       installing: Installing ...
       installed: Install requested
-      cert_expired: Expired certificate
+      cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
       more: More releases
@@ -899,7 +899,7 @@ en-US:
         title: The page could not be served due to a temporary server failure.
     messages:
       blank: Can't be blank
-      inclusion: 不包含在可选值列表中
+      inclusion: Not included in the list of optional values.
       only_integer: Must be number
       json_format: Must be JSON standard format
       not_authorized_policy: "No authorized operate %{model} on %{query} action"
@@ -950,6 +950,10 @@ en-US:
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
+        collaborator:
+          attributes:
+            owner:
+              unique: Owner only one user
         setting:
           default_message: "请检查 '%{key}' 的如下问题："
         apple_key:
@@ -1019,8 +1023,8 @@ en-US:
         create: Create
         update: Update
       collaborator:
-        create: 新增成员
-        update: 更新成员
+        create: Create
+        update: Update
       scheme:
         create: Create
         update: Update
