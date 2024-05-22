@@ -285,7 +285,7 @@ en-US:
       destroy_app: Destroy app
       new_channel: New Channel
       edit_scheme: Edit Scheme
-      destory_scheme: Destroy Scheme
+      destroy_scheme: Destroy Scheme
       retained_build: Retained builds
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
@@ -313,6 +313,9 @@ en-US:
       title: New app
     edit:
       title: Edit app
+    new_owner:
+      title: Switch to new owner
+      user_hint: You will be remove from this app after select the other user !
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
