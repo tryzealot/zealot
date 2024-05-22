@@ -35,7 +35,7 @@
         li title="#{t('releases.show.filesize')}" data-toggle="tooltip"
           i.fas.fa-weight
           = " #{number_to_human_size(@release.file.size)}"
-      li title="#{t('releases.show.uploaded_at')}" data-toggle="tooltip"
+      li title="#{t('releases.show.uploaded_at', date: @release.created_at)}" data-toggle="tooltip"
         i.fas.fa-calendar
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?

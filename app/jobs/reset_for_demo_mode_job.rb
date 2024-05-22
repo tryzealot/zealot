@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class ResetForDemoModeJob < ApplicationJob
-  include DemomodeHelper
-
   queue_as :schedule
 
   def perform
-    unless demo_mode?
+    unless Setting.demo_mode
       logger.warn("Zealot is not in demo mode, can not execute ResetForDemoModeJob.")
       return
     end
