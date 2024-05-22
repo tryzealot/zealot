@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: %i[edit update destroy]
+  before_action :set_user, only: %i[edit update destroy lock unlock]
 
   def index
     @users = User.all.order(id: :asc)
@@ -55,6 +55,16 @@ class Admin::UsersController < ApplicationController
 
     notice = t('activerecord.success.destroy', key: t('admin.users.title'))
     redirect_to admin_users_path, status: :see_other, notice: notice
+  end
+
+  def lock
+    @user.lock_access!(send_instructions: false)
+    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
+  end
+
+  def unlock
+    @user.unlock_access!
+    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
   end
 
   private
