@@ -893,7 +893,7 @@ en-US:
       unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
-      invaild_in_demo_mode: Forbidden in demo mode
+      invaild_in_demo_mode: 演示模式不能编辑
       record_existed: "%{model} record existsd"
       development_only: Development only
       database_connection_error: Database server connect failed
