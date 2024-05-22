@@ -181,6 +181,11 @@ Rails.application.routes.draw do
         get :me
         get :search
       end
+
+      member do
+        post :lock
+        delete :unlock
+      end
     end
 
     resources :apps, except: %i[new edit] do

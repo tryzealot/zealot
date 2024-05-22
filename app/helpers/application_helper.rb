@@ -18,10 +18,6 @@ module ApplicationHelper
     user_signed_in? || (Setting.guest_mode && !devise_page?)
   end
 
-  def demo_mode?
-    Setting.demo_mode
-  end
-
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
