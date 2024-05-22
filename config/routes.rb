@@ -123,7 +123,12 @@ Rails.application.routes.draw do
       root to: 'settings#index'
 
       resources :settings
-      resources :users, except: :show
+      resources :users, except: :show do
+        member do
+          get :lock
+          delete :unlock
+        end
+      end
       resources :web_hooks, except: %i[ show new create ]
       resources :apple_teams, only: %i[ edit update ]
       resources :background_jobs, only: :index
