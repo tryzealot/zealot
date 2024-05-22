@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "149c6539-c92c-4461-a9ec-66ad3197b977",
+        "_postman_id": "7d26244c-29c8-4e3d-8ec4-3beeeb2263f9",
         "name": "zealot",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         "description": ""
@@ -947,6 +947,18 @@
                                 {
                                     "key": "name",
                                     "value": "1hello"
+                                },
+                                {
+                                    "key": "locale",
+                                    "value": "en"
+                                },
+                                {
+                                    "key": "appearance",
+                                    "value": "auto"
+                                },
+                                {
+                                    "key": "timezone",
+                                    "value": "Asia/Shanghai"
                                 }
                             ]
                         }
@@ -1025,6 +1037,60 @@
                                 "api",
                                 "users",
                                 "search"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "lock user",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/12/lock?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "12",
+                                "lock"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "unlock user",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/12/unlock?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "12",
+                                "unlock"
                             ],
                             "protocol": "http",
                             "host": [

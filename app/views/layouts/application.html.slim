@@ -28,7 +28,7 @@ html lang="#{I18n.locale}"
     data-controller="global"
     data-global-env-value="#{Rails.env}"
     data-global-root-url-value="#{root_url}"
-    data-global-apperance-value="#{Setting.site_appearance}"
+    data-global-apperance-value="#{current_user&.appearance || Setting.site_appearance}"
   ]
     .wrapper
       == render 'layouts/navigation'
