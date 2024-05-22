@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "59f67272-3d47-44ba-9803-69e8e7af25e0",
+        "_postman_id": "149c6539-c92c-4461-a9ec-66ad3197b977",
         "name": "zealot",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         "description": ""
@@ -164,7 +164,7 @@
                                     "request": {
                                         "method": "GET",
                                         "url": {
-                                            "raw": "http://localhost:3000/api/schemes/19/channels?token={{token}}",
+                                            "raw": "http://localhost:3000/api/schemes/10/channels?token={{token}}",
                                             "query": [
                                                 {
                                                     "key": "token",
@@ -175,7 +175,7 @@
                                             "path": [
                                                 "api",
                                                 "schemes",
-                                                "19",
+                                                "10",
                                                 "channels"
                                             ],
                                             "protocol": "http",
@@ -215,7 +215,7 @@
                             ]
                         },
                         {
-                            "name": "update scheme",
+                            "name": "destroy scheme",
                             "request": {
                                 "method": "DELETE",
                                 "url": {
@@ -241,11 +241,11 @@
                             }
                         },
                         {
-                            "name": "destroy scheme",
+                            "name": "update scheme",
                             "request": {
                                 "method": "PUT",
                                 "url": {
-                                    "raw": "http://localhost:3000/api/schemes/20?token={{token}}",
+                                    "raw": "http://localhost:3000/api/schemes/11?token={{token}}",
                                     "query": [
                                         {
                                             "key": "token",
@@ -256,7 +256,7 @@
                                     "path": [
                                         "api",
                                         "schemes",
-                                        "20"
+                                        "11"
                                     ],
                                     "protocol": "http",
                                     "host": [
@@ -269,7 +269,7 @@
                                     "urlencoded": [
                                         {
                                             "key": "name",
-                                            "value": "test"
+                                            "value": "test22222"
                                         },
                                         {
                                             "key": "new_build_callout",
@@ -284,7 +284,7 @@
                             "request": {
                                 "method": "POST",
                                 "url": {
-                                    "raw": "http://localhost:3000/api/apps/16/schemes?token={{token}}",
+                                    "raw": "http://localhost:3000/api/apps/6/schemes?token={{token}}",
                                     "query": [
                                         {
                                             "key": "token",
@@ -295,7 +295,7 @@
                                     "path": [
                                         "api",
                                         "apps",
-                                        "16",
+                                        "6",
                                         "schemes"
                                     ],
                                     "protocol": "http",
@@ -309,7 +309,7 @@
                                     "urlencoded": [
                                         {
                                             "key": "name",
-                                            "value": "test"
+                                            "value": "test2"
                                         },
                                         {
                                             "key": "new_build_callout",
@@ -324,7 +324,7 @@
                             "request": {
                                 "method": "GET",
                                 "url": {
-                                    "raw": "http://localhost:3000/api/schemes/2?token={{token}}",
+                                    "raw": "http://localhost:3000/api/schemes/11?token={{token}}",
                                     "query": [
                                         {
                                             "key": "token",
@@ -335,7 +335,7 @@
                                     "path": [
                                         "api",
                                         "schemes",
-                                        "2"
+                                        "11"
                                     ],
                                     "protocol": "http",
                                     "host": [
@@ -350,7 +350,7 @@
                             "request": {
                                 "method": "GET",
                                 "url": {
-                                    "raw": "http://localhost:3000/api/apps/2/schemes?token={{token}}",
+                                    "raw": "http://localhost:3000/api/apps/6/schemes?token={{token}}",
                                     "query": [
                                         {
                                             "key": "token",
@@ -361,7 +361,7 @@
                                     "path": [
                                         "api",
                                         "apps",
-                                        "2",
+                                        "6",
                                         "schemes"
                                     ],
                                     "protocol": "http",
@@ -375,7 +375,120 @@
                     ]
                 },
                 {
-                    "name": "/apps/upload",
+                    "name": "collaborators",
+                    "item": [
+                        {
+                            "name": "get app collaborator detail",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "http://localhost:3000/api/apps/6/collaborators/6?token={{token}}",
+                                    "query": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{token}}"
+                                        }
+                                    ],
+                                    "variable": [],
+                                    "path": [
+                                        "api",
+                                        "apps",
+                                        "6",
+                                        "collaborators",
+                                        "6"
+                                    ],
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000"
+                                }
+                            }
+                        },
+                        {
+                            "name": "update app collaborator",
+                            "request": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "http://localhost:3000/api/apps/6/collaborators/6?token=fc0264a898be8e4b0222db89d20292aa",
+                                    "query": [
+                                        {
+                                            "key": "token",
+                                            "value": "fc0264a898be8e4b0222db89d20292aa"
+                                        }
+                                    ],
+                                    "variable": [],
+                                    "path": [
+                                        "api",
+                                        "apps",
+                                        "6",
+                                        "collaborators",
+                                        "6"
+                                    ],
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000"
+                                },
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "role",
+                                            "value": "user",
+                                            "type": "default"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "add app collaborator",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "http://localhost:3000/api/apps/6/collaborators?token=fc0264a898be8e4b0222db89d20292aa",
+                                    "query": [
+                                        {
+                                            "key": "token",
+                                            "value": "fc0264a898be8e4b0222db89d20292aa"
+                                        }
+                                    ],
+                                    "variable": [],
+                                    "path": [
+                                        "api",
+                                        "apps",
+                                        "6",
+                                        "collaborators"
+                                    ],
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000"
+                                },
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "user_id",
+                                            "value": "7",
+                                            "type": "default"
+                                        },
+                                        {
+                                            "key": "role",
+                                            "value": "user",
+                                            "type": "default"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "upload app",
                     "request": {
                         "method": "POST",
                         "url": {
@@ -406,17 +519,28 @@
                                     "key": "token",
                                     "value": "{{token}}",
                                     "type": "default"
+                                },
+                                {
+                                    "key": "channel_key",
+                                    "value": "{{channel_key}}",
+                                    "disabled": true,
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "file",
+                                    "src": "/Users/icyleaf/Downloads/archived/misaka-v8.0.5.ipa",
+                                    "type": "file"
                                 }
                             ]
                         }
                     }
                 },
                 {
-                    "name": "/apps/latest",
+                    "name": "get latest app",
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://localhost:3000/api/apps/",
+                            "raw": "http://localhost:3000/api/apps/latest",
                             "query": [
                                 {
                                     "key": "token",
@@ -427,7 +551,8 @@
                             "variable": [],
                             "path": [
                                 "api",
-                                "apps"
+                                "apps",
+                                "latest"
                             ],
                             "protocol": "http",
                             "host": [
@@ -445,7 +570,7 @@
                                 },
                                 {
                                     "key": "channel_key",
-                                    "value": "1ca726cdaee035bb9100d6a56e54617a",
+                                    "value": "{{channel_key}}",
                                     "type": "default"
                                 },
                                 {
@@ -561,6 +686,57 @@
                             "port": "3000"
                         }
                     }
+                },
+                {
+                    "name": "get apps",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/apps/?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "apps"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get app by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/apps/6?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "apps",
+                                "6"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
                 }
             ]
         },
@@ -568,7 +744,7 @@
             "name": "debug_files",
             "item": [
                 {
-                    "name": "/debug_files/upload",
+                    "name": "upload debug file",
                     "request": {
                         "method": "POST",
                         "url": {
@@ -596,13 +772,18 @@
                                     "key": "channel_key",
                                     "value": "{{channel_key}}",
                                     "type": "default"
+                                },
+                                {
+                                    "key": "file",
+                                    "src": "/Users/icyleaf/Development/ruby/app_info/spec/fixtures/dsyms/iOS-single-dSYM-with-multi-macho.zip",
+                                    "type": "file"
                                 }
                             ]
                         }
                     }
                 },
                 {
-                    "name": "/debug_files/list",
+                    "name": "get debug file",
                     "request": {
                         "method": "GET",
                         "url": {
@@ -637,7 +818,226 @@
             ]
         },
         {
-            "name": "/version",
+            "name": "users",
+            "item": [
+                {
+                    "name": "list users",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get user by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/6?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "6"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "create user",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "hello"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "hello2@zealot.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "helloworld"
+                                },
+                                {
+                                    "key": "role",
+                                    "value": "developer"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update app",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/6?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "6"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "1hello"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "destroy app",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/6?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "6"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get current user",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/me?token={{token}}",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "me"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "search user by email",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/users/search?token={{token}}&email=foo@zealot.com",
+                            "query": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "foo@zealot.com"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "users",
+                                "search"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "zealot version",
             "request": {
                 "method": "GET",
                 "url": {
@@ -645,6 +1045,23 @@
                     "path": [
                         "api",
                         "version"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                }
+            }
+        },
+        {
+            "name": "health",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3000/health",
+                    "path": [
+                        "health"
                     ],
                     "protocol": "http",
                     "host": [
