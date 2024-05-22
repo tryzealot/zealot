@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module UsersHelper
-  def guest_mode_or_signed_in?
-    Setting.guest_mode? || user_signed_in?
+  def user_roles
+    User.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
   end
 
-  def preset_roles
-    User.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
+  def collaborator_roles
+    Collaborator.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
   end
 
   def omniauth_display_name(provider)

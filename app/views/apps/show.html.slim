@@ -8,14 +8,15 @@ ruby:
   = @app.name
 
 - content_for :section_rightpanel do
-  .btn-group
-    = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
-      'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
-    = button_link_to t('apps.show.edit_app'), edit_app_path(@app), \
-      'edit', class: 'btn btn-default btn-icon btn-sm btn-flat'
-    = button_link_to t('apps.show.destroy_app'), app_path(@app), \
-      'trash-alt', class: 'btn btn-default btn-icon btn-sm btn-flat', \
-      data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
+  - if current_user.manage?(app: @app)
+    .btn-group
+      = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
+        'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
+      = button_link_to t('apps.show.edit_app'), edit_app_path(@app), \
+        'edit', class: 'btn btn-default btn-icon btn-sm btn-flat'
+      = button_link_to t('apps.show.destroy_app'), app_path(@app), \
+        'trash-alt', class: 'btn btn-default btn-icon btn-sm btn-flat', \
+        data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 .row
   - if schemes_total > 0
@@ -43,20 +44,22 @@ ruby:
                     tr
                       td
                         = link_to channel.name, friendly_channel_overview_path(channel)
-                      td style="width: 120px"
-                        = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
-                        = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
-                          data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
+                      - if current_user.manage?(app: @app)
+                        td style="width: 120px"
+                          = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
+                          = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
+                            data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
                 - else
                   tr
                     td colspan="2"
                       = t('apps.show.not_found_channel_body_html')
-          .card-footer.p-1
-            = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
-            .btn-group.float-right
-              = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary'
-              = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
-                data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
+          - if current_user.app_roles?(@app, :manager)
+            .card-footer.p-1
+              = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
+              .btn-group.float-right
+                = button_link_to t('apps.show.edit_scheme'), edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary'
+                = button_link_to t('apps.show.destory_scheme'), app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
+                  data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
 
   - else
     .col-md-12
@@ -64,3 +67,5 @@ ruby:
         .card-header.card-border
           h3.card-title = t('apps.show.not_found_scheme.title')
         .card-body = t('apps.show.not_found_scheme.body_html')
+
+  == render "collaborators", app: @app

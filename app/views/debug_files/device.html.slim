@@ -5,7 +5,7 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if user_signed_in?
+  - if current_user&.manage?(app: @app)
     a.btn.btn-icon.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
@@ -48,8 +48,8 @@
               table.table.table-borderless.mb-0
                 thead
                   tr.debug-file-header
-                    td.col-4 = t('.filesize')
-                    td.col-2 = t('.filesize')
+                    td.col-4 = t('.file_nums')
+                    td.col-2 = t('.file_size')
                 tbody
                   tr
                     td = debug_file.proguard_files&.size
