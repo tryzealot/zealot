@@ -20,6 +20,9 @@ zh-CN:
         email: 登录邮箱
         password: 登录密码
         password_confirmation: 密码确认
+        locale: 语言
+        appearance: 外观
+        timezone: 时区
         role: 账户权限
         remember_me: 记住登录信息
       app:

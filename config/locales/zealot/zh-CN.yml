@@ -26,7 +26,8 @@ zh-CN:
         status: 状态
         last_login_time: 最后登录时间
         action: 操作
-        active: 已激活
+        actived: 已激活
+        locked: 已停用
         inactive: 未激活
         never_logged_in: 从未登录
         destroy_user: 删除
@@ -424,7 +425,7 @@ zh-CN:
       release_version: 构建版本
       release_type: 打包类型
       filesize: 文件体积
-      uploaded_at: 上传时间
+      uploaded_at: 上传时间 %{date}
       git_branch: Git 分支
       git_commit: Git 提交 SHA
       source: 上传来源
@@ -822,8 +823,8 @@ zh-CN:
       zh-CN: 简体中文
       en: 英文
     site_appearance:
-      light: 浅色
-      dark: 深色
+      light: 明亮
+      dark: 黑暗
       auto: 随系统自动
   download:
     releases:
@@ -1004,6 +1005,8 @@ zh-CN:
         register_closed: 服务没有开放注册功能！请联系管理员开通账户。
         register: 注册
       edit:
+        change_password: 修改密码
+        update_password: 更新密码
         api: API
         token: 密钥
     normal:
