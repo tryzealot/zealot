@@ -3,17 +3,16 @@
 
 ruby:
   demo_mode = default_admin_in_demo_mode?(resource)
-  update_url = demo_mode ? root_path : registration_path(resource_name)
 
 .row
   .col-md-12
-    = simple_form_for(resource, as: resource_name, url: update_url, html: { method: :put }) do |f|
-      = f.error_notification
+    .card
+      .card-header.card-border
+        h3.card-title = t('.title', resource: resource.model_name.human)
+      .card-body
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+          = f.error_notification
 
-      .card
-        .card-header.card-border
-          h3.card-title = t('.title', resource: resource.model_name.human)
-        .card-body
           = f.input :username, required: true, autofocus: true
           = f.input :email, required: true, autofocus: true
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -24,15 +23,15 @@ ruby:
           = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
           = f.input :timezone, as: :select, collection: User.options_timezones, label_method: :last, value_method: :first, include_blank: false
 
-          - if demo_mode
-            = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
-          - else
-            = f.button :submit, class: 'btn-lg'
+          = f.button :submit, class: 'btn-lg'
 
-      .card
-        .card-header.card-border
-          h3.card-title = t('.change_password')
-        .card-body
+    .card
+      .card-header.card-border
+        h3.card-title = t('.change_password')
+      .card-body
+        = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put }) do |f|
+          = f.error_notification
+
           = f.input :current_password, input_html: { autocomplete: "password" }
           = f.input :password, input_html: { autocomplete: "new-password" }
           = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
