@@ -1,6 +1,52 @@
-zh-CN:
+en:
   api:
+    info:
+      description: |
+        This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:
+
+        - [cURL](https://curl.se/) (recommended, command-line)
+        - [Bruno](https://www.usebruno.com/)
+        - [Postman](https://www.postman.com/downloads/)
+        - Your web browser, if you don't need to send headers or a request body
+    servers:
+      description: Demo server
+    security:
+      token:
+        description: User token
+    parameters:
+      page: Pagination page
+      per_page: Page size
+    schemas:
+      app_index:
+        description: App returned in a list
+      app:
+        description: App
+      collaborator:
+        description: App collaborator
+      scheme:
+        description: App scheme object
+      channel:
+        description: App channel object
+      unauthorized_response:
+        description: 401 Unauthorized Response
+    definitions:
+      upload_app_options:
+        description: Upload app form data options
     apps:
+      default:
+        tags: Apps
       list_apps:
         title: List apps
         description: Lists all apps, paginated and sorted by created date (newest first)
+        response:
+          200: List of apps
+          401: Unauthorized
+      get_app:
+        title: Get app
+        description: Get app detail
+      upload_app:
+        title: Upload build
+        description: upload iOS, Android, macOS, Windows or Linux App
+        response:
+          201: Created app
+          401: Unauthorized

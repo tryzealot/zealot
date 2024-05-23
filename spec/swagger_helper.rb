@@ -8,7 +8,7 @@ RSpec.configure do |config|
     "v1/swagger_#{I18n.default_locale}.json" => {
       openapi: '3.1.0',
       info: {
-        title: 'Zealot API V1',
+        title: 'Zealot API',
         version: 'v1.2',
         contact: {
           url: 'https://github.com/tryzealot/zealot'
@@ -33,7 +33,7 @@ RSpec.configure do |config|
             type: :apiKey,
             name: "token",
             in: :query,
-            description: "User token authentication."
+            description: I18n.t('api.security.token.description')
           }
         },
 
@@ -42,7 +42,7 @@ RSpec.configure do |config|
             in: :query,
             name: :page,
             required: false,
-            description: "Pagination page",
+            description: I18n.t('api.parameters.page'),
             schema: {
               type: :integer,
               format: :int32,
@@ -54,7 +54,7 @@ RSpec.configure do |config|
             in: :query,
             name: :per_page,
             required: false,
-            description: "Page size",
+            description: I18n.t('api.parameters.per_page'),
             schema: {
               type: :integer,
               format: :int32,
@@ -67,7 +67,7 @@ RSpec.configure do |config|
 
         schemas: {
           AppIndex: {
-            description: "App returned in a list",
+            description: I18n.t('api.schemas.app_index.description'),
             type: :object,
             properties: {
               id: { type: :integer, format: :int32 },
@@ -75,8 +75,28 @@ RSpec.configure do |config|
               schemes: { type: :array, "$ref": "#/components/schemas/Scheme" }
             }
           },
+          App: {
+            description: I18n.t('api.schemas.app.description'),
+            type: :object,
+            properties: {
+              id: { type: :integer, format: :int32 },
+              name: { type: :string },
+              schemes: { type: :array, "$ref": "#/components/schemas/Scheme" },
+              collaborators: { type: :array, "$ref": "#/components/schemas/Collaborator" },
+            }
+          },
+          Collaborator: {
+            description: I18n.t('api.schemas.collaborator.description'),
+            type: :object,
+            properties: {
+              id: { type: :integer, format: :int32 },
+              username: { type: :string },
+              email: { type: :string },
+              role: { type: :string },
+            }
+          },
           Scheme: {
-            description: "Scheme object",
+            description: I18n.t('api.schemas.scheme.description'),
             type: :object,
             properties: {
               id: { type: :integer, format: :int32 },
@@ -87,7 +107,7 @@ RSpec.configure do |config|
             }
           },
           Channel: {
-            description: "Channel object",
+            description: I18n.t('api.schemas.channel.description'),
             type: :object,
             properties: {
               id: { type: :integer, format: :int32 },
@@ -100,7 +120,7 @@ RSpec.configure do |config|
             }
           },
           UnauthorizedResponse: {
-            description: "401 Unauthorized Response",
+            description: I18n.t('api.schemas.unauthorized_response.description'),
             type: :object,
             properties: {
               error: { type: :string },
@@ -110,7 +130,7 @@ RSpec.configure do |config|
       },
       definitions: {
         UploadAppOptions: {
-          description: "Upload app form data options",
+          description: I18n.t('api.definitions.upload_app_options.description'),
           type: :object,
           required: [
             :channel_key,
