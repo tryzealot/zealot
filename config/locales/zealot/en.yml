@@ -93,8 +93,8 @@ en:
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
-        download_private_key: Download private key
         never_sync: Never sync
+        download_private_key: Download private key
         udid: :udid.show.udid
         udid_name: :udid.show.name
         udid_platform: :udid.show.platform
@@ -330,7 +330,7 @@ en:
       title: Edit app
     new_owner:
       title: Switch to new owner
-      user_hint: You will be remove from this app after select the other user !
+      user_hint: You will be remove from this app after select the other user!
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
@@ -441,13 +441,13 @@ en:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Installed, reinstall
+      installed: Install requested
       cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
       more: More releases
-      cannot_install_cause_of_certificate_expired: Why can not install app with expired certifiate?
-      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or failed to install?
+      cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
@@ -455,7 +455,7 @@ en:
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: '%{type} file'
+      debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
@@ -484,17 +484,17 @@ en:
           </ol>
         ok: Okay
       cert_expired_error:
-        title: iOS signature cerificate issues
+        title: iOS signature certificate issues
         body_html: |
           <ol class="mb-0">
             <li>
               In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
-              and shelved in order to prevent apps from being distributed in the AppStore app store.
+              and shelved in order to prevent apps from being distributed in the App Store app store.
               The signature certificate is valid for one year from the date of issuance. After the expiration,
               you need to re-generate and re-sign the app before you can continue to install it.
             </li>
             <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
-            <li>Regenerating a signed certificate will not have any effect on the previous application, i.e. once expired it will always be expired, unless re-sign the app.</li>
+            <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
           </ol>
         ok: Okay
       confirm:
@@ -512,7 +512,7 @@ en:
         not_found_really: Not found release
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
-        require_parsable: Upload file can not parsable, make sure use avaliables file format
+        require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
   debug_files:
     title: Debug files
     index:
@@ -547,7 +547,7 @@ en:
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
-      reparse_required: Missing identifier (or package name), may be needs reprocess.
+      reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
       libraries: Libraries
@@ -660,7 +660,7 @@ en:
       file_version: File version
       file_description: File description
       copyright: Copyright
-      original_filename: Origial filename
+      original_filename: Original filename
       company_name: Company name
       binary_size: Binary size
       imports: Imports
@@ -745,12 +745,12 @@ en:
         title: Why need to install profile to fetch your UDID?
         body_html: |
           <p>
-            UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
-            Apple uses the UDID to communicate between Apple servers and individual iOS devices or macOS on arm chip. This allows Apple to associate the
+            UDID is an abbreviation for Unique Device Identifier. The UDID is a feature provided by Apple to identify iOS devices.
+            Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
             Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
           </p>
           <p>
-            The UDID of your iOS devices or macOS on arm chip is needed if you want to install alpha and beta apps onto your device before they are released to the official apple store.
+            The UDID of your iOS devices is needed if you want to install alpha and beta iOS apps onto your device before they are released to the official apple store.
           </p>
           <strong>Following the steps:</strong>
           <ol>
@@ -900,20 +900,20 @@ en:
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
       json_format: Must be JSON standard format
-      not_authorized_policy: "No authorized operate %{model} on %{query} action"
-      not_match_url: "Not match url: %{url}"
-      unexpected_parameter: "Unexpected parameter: %{value}"
+      not_authorized_policy: 'No authorized operate %{model} on %{query} action'
+      not_match_url: 'Not match page: %{url}'
+      unexpected_parameter: 'Unexpected parameter: %{value}'
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
-      record_existed: "%{model} record existsd"
+      record_existed: "%{model} record existed."
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
       record_not_found: Record not found
       user_not_found: User not found
       api_not_found: API not found
-      goback_title: goback
+      goback_title: Go back
       homepage_title: homepage
   active_job:
     debug_file:
@@ -921,6 +921,7 @@ en:
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
+        unknown_format: Unknown debug file format.
     backup:
       success: '%{key} backup created successfully.'
       failures:
@@ -940,7 +941,7 @@ en:
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
-        invaild_json: Invaild JSON format
+        invaild_json: Invalid JSON format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
