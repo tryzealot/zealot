@@ -45,7 +45,11 @@
                   - else
                     = t('.never_logged_in')
                 td.d-none.d-sm-table-cell
-                  = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger', \
-                    data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
+                  - if default_admin_in_demo_mode?(current_user)
+                    button.btn.text-danger
+                      i.fas.fa-trash-alt
+                  - else
+                    = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger', \
+                      data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
 
 
