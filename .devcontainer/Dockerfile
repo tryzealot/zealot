@@ -2,3 +2,4 @@
 FROM ghcr.io/tryzealot/codespace:latest
 
 COPY . /workspace
+RUN bundle install && yarn install

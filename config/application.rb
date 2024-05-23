@@ -25,7 +25,7 @@ module Zealot
     config.load_defaults 7.0
 
     # Set default timezone
-    config.time_zone = ENV['TIME_ZONE'] || 'Beijing'
+    config.time_zone = ENV['TIME_ZONE'] || 'Asia/Shanghai'
     config.active_record.default_timezone = :local
 
     # Set default locale
