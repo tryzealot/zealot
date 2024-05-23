@@ -505,7 +505,7 @@ en-US:
         not_found_really: Not found release
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
-        require_parsable: Upload file can not parsable, make sure use avaliables file format
+        require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
   debug_files:
     title: Debug files
     index:
@@ -540,7 +540,7 @@ en-US:
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
-      reparse_required: Missing identifier (or package name), may be needs reprocess.
+      reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture
       libraries: Libraries
@@ -653,7 +653,7 @@ en-US:
       file_version: File version
       file_description: File description
       copyright: Copyright
-      original_filename: Origial filename
+      original_filename: Original filename
       company_name: Company name
       binary_size: Binary size
       imports: Imports
@@ -738,7 +738,7 @@ en-US:
         title: Why need to install profile to fetch your UDID?
         body_html: |
           <p>
-            UDID is an abbreviation for Unique Device Identifier (UDID). The UDID is a feature provided by Apple to identify iOS devices.
+            UDID is an abbreviation for Unique Device Identifier. The UDID is a feature provided by Apple to identify iOS devices.
             Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
             Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
           </p>
@@ -747,9 +747,14 @@ en-US:
           </p>
           <strong>Following the steps:</strong>
           <ol>
-            <li>Click "Accept" to download profile</li>
-            <li>Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install</li>
-            <li>After install it will open Safari and redirect a result page then delete the profile automatically</li>
+            <li>Click "Accept" to fetching the profile file.</li>
+            <li>Open installed Profile.
+              <ol>
+                <li>iOS: Open "Setting.app" -> "Downloaded profile" -> "Fetch device's UDID" -> Install.</li>
+                <li>macOS: Open the profile named <code>install.mobileconfig</code> then open "System Settings" and click "Profile" in left sidebar menu.</li>
+              </ol>
+            </li>
+            <li>After install it will open Safari and redirect a result page then delete the profile automatically.</li>
           </ol>
     show:
       title: Device
@@ -790,7 +795,7 @@ en-US:
         ↑↑↑↑ It is safe to display "Unsigned".
 
         Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
-        Powered by %{url}
+        Powered by %{name}: %{url}
   web_hooks:
     title: ':admin.web_hooks.title'
     create: ':admin.web_hooks.new.title'
@@ -909,7 +914,7 @@ en-US:
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
-      record_existed: "%{model} record existsd"
+      record_existed: "%{model} record existed."
       development_only: Development only
       database_connection_error: Database server connect failed
       goback_or_redirect_to_homepage: you may %{goback_link} or return to %{homepage_link}
@@ -924,7 +929,7 @@ en-US:
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
-        unknown_format: 上传的调试文件类型识别错误
+        unknown_format: Unknown debug file format.
     backup:
       success: '%{key} backup created successfully.'
       failures:
@@ -947,7 +952,7 @@ en-US:
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
-        invaild_json: Invaild JSON format
+        invaild_json: Invalid JSON format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
