@@ -71,6 +71,8 @@ class CreateSampleAppsService
         end
       end
     end
+
+    app
   end
 
   def android_channels_app(user)
@@ -97,6 +99,8 @@ class CreateSampleAppsService
         )
       end
     end
+
+    app
   end
 
   def generate_release(channel, app_bundle_id, release_type, changelog, build_version: '1', device_type: nil)
