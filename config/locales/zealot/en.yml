@@ -323,7 +323,7 @@ en-US:
       title: Edit app
     new_owner:
       title: Switch to new owner
-      user_hint: You will be remove from this app after select the other user !
+      user_hint: You will be remove from this app after select the other user!
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
@@ -416,7 +416,7 @@ en-US:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
+      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -439,7 +439,7 @@ en-US:
       destroy: Destroy
       missing_file: Missing file
       more: More releases
-      cannot_install_cause_of_certificate_expired: Why can not install app with expired certifiate?
+      cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
       upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
@@ -477,17 +477,17 @@ en-US:
           </ol>
         ok: Okay
       cert_expired_error:
-        title: iOS signature cerificate issues
+        title: iOS signature certificate issues
         body_html: |
           <ol class="mb-0">
             <li>
               In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
-              and shelved in order to prevent apps from being distributed in the AppStore app store.
+              and shelved in order to prevent apps from being distributed in the App Store app store.
               The signature certificate is valid for one year from the date of issuance. After the expiration,
               you need to re-generate and re-sign the app before you can continue to install it.
             </li>
             <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
-            <li>Regenerating a signed certificate will not have any effect on the previous application, i.e. once expired it will always be expired, unless re-sign the app.</li>
+            <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
           </ol>
         ok: Okay
       confirm:
