@@ -1,17 +1,17 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Zealot API V1",
+    "title": "Zealot API",
     "version": "v1.2",
     "contact": {
       "url": "https://github.com/tryzealot/zealot"
     },
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [ReqBIN](https://reqbin.com/) (recommended, online)\n- [Postman](https://www.postman.com/downloads/)\n- [Insomnia](https://insomnia.rest/)\n- Your web browser, if you don't need to send headers or a request body\n"
+    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n"
   },
   "servers": [
     {
       "url": "https://tryzealot.ews.im/api",
-      "description": "Demo Server"
+      "description": "演示服务器"
     }
   ],
   "paths": {
@@ -19,7 +19,7 @@
       "get": {
         "summary": "应用列表",
         "tags": [
-          "Apps"
+          "应用"
         ],
         "description": "获取所有应用列表详情，支持分页，按照最新创建时间倒序",
         "operationId": "listApps",
@@ -62,7 +62,7 @@
       "get": {
         "summary": "获取应用",
         "tags": [
-          "Apps"
+          "应用"
         ],
         "description": "获取应用详情",
         "operationId": "getApp",
@@ -114,7 +114,7 @@
       "post": {
         "summary": "上传应用",
         "tags": [
-          "Apps"
+          "应用"
         ],
         "description": "上传 iOS、Android、macOS、Linux 或 Windows 应用",
         "operationId": "uploadApp",
@@ -178,7 +178,7 @@
         "type": "apiKey",
         "name": "token",
         "in": "query",
-        "description": "User token authentication."
+        "description": "用户密钥"
       }
     },
     "parameters": {
@@ -186,7 +186,7 @@
         "in": "query",
         "name": "page",
         "required": false,
-        "description": "Pagination page",
+        "description": "页码",
         "schema": {
           "type": "integer",
           "format": "int32",
@@ -198,7 +198,7 @@
         "in": "query",
         "name": "per_page",
         "required": false,
-        "description": "Page size",
+        "description": "数量",
         "schema": {
           "type": "integer",
           "format": "int32",
@@ -210,7 +210,7 @@
     },
     "schemas": {
       "AppIndex": {
-        "description": "App returned in a list",
+        "description": "应用列表",
         "type": "object",
         "properties": {
           "id": {
@@ -226,8 +226,48 @@
           }
         }
       },
+      "App": {
+        "description": "应用",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "schemes": {
+            "type": "array",
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "collaborators": {
+            "type": "array",
+            "$ref": "#/components/schemas/Collaborator"
+          }
+        }
+      },
+      "Collaborator": {
+        "description": "应用成员",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
       "Scheme": {
-        "description": "Scheme object",
+        "description": "应用类型",
         "type": "object",
         "properties": {
           "id": {
@@ -251,7 +291,7 @@
         }
       },
       "Channel": {
-        "description": "Channel object",
+        "description": "应用渠道",
         "type": "object",
         "properties": {
           "id": {
@@ -279,7 +319,7 @@
         }
       },
       "UnauthorizedResponse": {
-        "description": "401 Unauthorized Response",
+        "description": "401 用户认证失败主体",
         "type": "object",
         "properties": {
           "error": {
@@ -291,7 +331,7 @@
   },
   "definitions": {
     "UploadAppOptions": {
-      "description": "Upload app form data options",
+      "description": "上传应用版本表单字段结构",
       "type": "object",
       "required": [
         "channel_key",
