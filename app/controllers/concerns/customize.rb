@@ -4,10 +4,11 @@ module Customize
   extend ActiveSupport::Concern
 
   def switch_locale(&action)
-    locale = current_user&.locale || Setting.site_locale
+    locale = current_user&.locale
     if Setting.demo_mode && !current_user
       locale = extrace_locale_from_headers
     end
+    locale ||= Setting.site_locale
 
     I18n.with_locale(locale, &action)
   end
@@ -19,6 +20,8 @@ module Customize
   private
 
   def extrace_locale_from_headers
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    return unless accept_language = request.env['HTTP_ACCEPT_LANGUAGE']
+
+    accept_language.scan(/^[a-z]{2}/)&.first
   end
 end
