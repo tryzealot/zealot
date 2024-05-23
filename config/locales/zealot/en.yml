@@ -867,11 +867,11 @@ en:
     app_name1: First App
     app_name2: Android Only App
     android_channels:
-      channel1: google play
-      channel2: huawei
-      channel3: oppo
-      channel4: vivo
-      channel5: xiaomi
+      channel1: Google Play
+      channel2: Samsung Galaxy Store
+      channel3: F-Droid
+      channel4: TapTap
+      channel5: Amazon
   errors:
     code:
       '400':
