@@ -3,10 +3,8 @@
 class CreateAdminService
   def call
     I18n.locale = Setting.site_locale
-    return create_demo_mode_users if Setting.demo_mode
-
-    create_demo_mode_users
     create_user(Setting.admin_email, Setting.admin_password)
+    create_demo_mode_users if Setting.demo_mode
   end
 
   private
@@ -25,7 +23,7 @@ class CreateAdminService
   ]
 
   def create_demo_mode_users
-    users = DEMO_LOCALES.each_with_object([]) do |option, obj|
+    DEMO_LOCALES.each_with_object([]) do |option, obj|
       email = "#{option[:prefix]}_#{Setting.admin_email}"
       user = create_user(email, Setting.admin_password, option[:locale], option[:timezone])
       obj << user
