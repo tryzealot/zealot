@@ -156,8 +156,12 @@ class CreateSampleAppsService
   end
 
   def create_app(name, user)
-    app = App.find_or_create_by name: name
-    app.create_owner(user.is_a?(Array) ? user.first : user) if app.persisted?
+    owner = user.is_a?(Array) ? user.first : user
+    app = App.first_or_initialize name: name
+    return app unless app.new_record?
+
+    app.save!
+    app.create_owner(owner)
     app
   end
 end
