@@ -16,8 +16,11 @@ log {
 
 # handle reverse proxy crash errors
 handle_errors {
-	rewrite * /errors/{err.status_code}.html
-	file_server
+	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
+	handle @5xx {
+		rewrite * /errors/{err.status_code}.html
+		file_server
+	}
 }
 
 @zealot {
