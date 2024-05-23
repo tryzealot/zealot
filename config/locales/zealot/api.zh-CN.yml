@@ -2,16 +2,39 @@ zh-CN:
   api:
     info:
       description: |
-        This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:
+        文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：
 
-        - [cURL](https://curl.se/) (recommended, command-line)
-        - [ReqBIN](https://reqbin.com/) (recommended, online)
+        - [cURL](https://curl.se/) (推荐，命令行工具)
+        - [Bruno](https://www.usebruno.com/)
         - [Postman](https://www.postman.com/downloads/)
-        - [Insomnia](https://insomnia.rest/)
-        - Your web browser, if you don't need to send headers or a request body
+        - 任意浏览器，如果你不需要设置 headers 或请求主体
     servers:
-      description: Demo Server
+      description: 演示服务器
+    security:
+      token:
+        description: 用户密钥
+    parameters:
+      page: 页码
+      per_page: 数量
+    schemas:
+      app_index:
+        description: 应用列表
+      app:
+        description: 应用
+      collaborator:
+        description: 应用成员
+      scheme:
+        description: 应用类型
+      channel:
+        description: 应用渠道
+      unauthorized_response:
+        description: 401 用户认证失败主体
+    definitions:
+      upload_app_options:
+        description: 上传应用版本表单字段结构
     apps:
+      default:
+        tags: 应用
       list_apps:
         title: 应用列表
         description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
