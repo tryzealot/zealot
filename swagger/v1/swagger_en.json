@@ -1,44 +1,163 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
-    "title": "Zealot API V1",
-    "version": "v1.2"
+    "title": "Zealot API",
+    "version": "v1.2",
+    "contact": {
+      "url": "https://github.com/tryzealot/zealot"
+    },
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n"
   },
+  "servers": [
+    {
+      "url": "https://tryzealot.ews.im/api",
+      "description": "Demo server"
+    }
+  ],
   "paths": {
     "/apps": {
       "get": {
-        "summary": "Translation missing: en.api.apps.list_apps",
+        "summary": "List apps",
         "tags": [
           "Apps"
         ],
+        "description": "Lists all apps, paginated and sorted by created date (newest first)",
+        "operationId": "listApps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppIndex"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{id}": {
+      "get": {
+        "summary": "Get app",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Get app detail",
+        "operationId": "getApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppIndex"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/upload": {
+      "post": {
+        "summary": "Upload build",
+        "tags": [
+          "Apps"
+        ],
+        "description": "upload iOS, Android, macOS, Windows or Linux App",
+        "operationId": "uploadApp",
         "parameters": [
 
         ],
         "responses": {
           "201": {
-            "description": "blog created"
+            "description": "an release of app uploaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppIndex"
+                }
+              }
+            }
           },
-          "422": {
-            "description": "invalid request"
+          "401": {
+            "description": "invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
           }
         },
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "title",
-                  "content"
-                ]
+                "$ref": "#/definitions/UploadAppOptions"
               }
             }
           }
@@ -46,10 +165,210 @@
       }
     }
   },
-  "servers": [
+  "security": [
     {
-      "url": "https://tryzealot.ews.im/api",
-      "description": "Demo server"
+      "token": [
+
+      ]
     }
-  ]
+  ],
+  "components": {
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "query",
+        "description": "User token"
+      }
+    },
+    "parameters": {
+      "pageParam": {
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "description": "Pagination page",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "perPageParam": {
+        "in": "query",
+        "name": "per_page",
+        "required": false,
+        "description": "Page size",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 25
+        }
+      }
+    },
+    "schemas": {
+      "AppIndex": {
+        "description": "App returned in a list",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "schemes": {
+            "type": "array",
+            "$ref": "#/components/schemas/Scheme"
+          }
+        }
+      },
+      "App": {
+        "description": "App",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "schemes": {
+            "type": "array",
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "collaborators": {
+            "type": "array",
+            "$ref": "#/components/schemas/Collaborator"
+          }
+        }
+      },
+      "Collaborator": {
+        "description": "App collaborator",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "Scheme": {
+        "description": "App scheme object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "new_build_callout": {
+            "type": "boolean"
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "channels": {
+            "type": "array",
+            "$ref": "#/components/schemas/Channel"
+          }
+        }
+      },
+      "Channel": {
+        "description": "App channel object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "device_type": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "type": "string"
+          },
+          "git_url": {
+            "type": "string"
+          },
+          "has_password": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "401 Unauthorized Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UploadAppOptions": {
+      "description": "Upload app form data options",
+      "type": "object",
+      "required": [
+        "channel_key",
+        "file"
+      ],
+      "properties": {
+        "channel_key": {
+          "type": "string"
+        },
+        "file": {
+          "type": "file"
+        },
+        "name": {
+          "type": "string"
+        },
+        "release_type": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "changelog": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "git_commit": {
+          "type": "string"
+        },
+        "ci_url": {
+          "type": "string"
+        },
+        "custom_fields": {
+          "type": "array"
+        }
+      }
+    }
+  }
 }
