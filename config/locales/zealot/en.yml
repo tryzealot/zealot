@@ -857,8 +857,8 @@ en-US:
     android_channels:
       channel1: google play
       channel2: xiaomi
-      channel3: oppo
-      channel4: vivo
+      channel3: F-Droid
+      channel4: TapTap
       channel5: Tencent
   datetime:
     distance_in_words:
