@@ -91,7 +91,8 @@ ENV TZ="Asia/Shanghai" \
     ZEALOT_VCS_REF="$VCS_REF" \
     ZEALOT_VERSION="$ZEALOT_VERSION" \
     ZEALOT_BUILD_DATE="$BUILD_DATE" \
-    RAILS_ENV="production"
+    RAILS_ENV="production" \
+    RUBY_YJIT_ENABLE="true"
 
 # System dependencies
 RUN set -ex && \
