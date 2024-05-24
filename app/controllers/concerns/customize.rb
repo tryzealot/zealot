@@ -14,6 +14,8 @@ module Customize
   end
 
   def switch_timezone(&action)
+    return yield unless user_signed_in?
+
     Time.use_zone(current_user.timezone, &action)
   end
 
