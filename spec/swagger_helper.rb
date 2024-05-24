@@ -65,16 +65,6 @@ RSpec.configure do |config|
               type: :string
             }
           },
-          collaboratorRoleParam: {
-            in: :query,
-            name: :role,
-            required: true,
-            description: I18n.t('api.parameters.collaborator_role'),
-            schema: {
-              type: :string,
-              enum: Collaborator.roles.keys
-            }
-          },
           pageParam: {
             in: :query,
             name: :page,
@@ -280,7 +270,15 @@ RSpec.configure do |config|
             properties: {
               error: { type: :string },
             }
-          }
+          },
+          Destroyed: {
+            description: I18n.t('api.responses.destroyed.default'),
+            type: :object,
+            required: %w[message],
+            properties: {
+              message: { type: :string, example: 'OK' },
+            }
+          },
         },
 
         examples: {
@@ -309,10 +307,7 @@ RSpec.configure do |config|
         UploadAppOptions: {
           description: I18n.t('api.definitions.upload_app_options.description'),
           type: :object,
-          required: [
-            :channel_key,
-            :file
-          ],
+          required: %i[ channel_key file ],
           properties: {
             channel_key: { type: :string },
             file: { type: :file },
@@ -325,7 +320,46 @@ RSpec.configure do |config|
             ci_url: { type: :string },
             custom_fields: { type: :array, '$ref': '#/components/schemas/ReleaseCustomField' },
           }
-        }
+        },
+        AppOptions: {
+          description: I18n.t('api.definitions.app_options.description'),
+          type: :object,
+          required: %i[ name ],
+          properties: {
+            name: { type: :string }
+          }
+        },
+        SchemeOptions: {
+          description: I18n.t('api.definitions.scheme_options.description'),
+          type: :object,
+          required: %i[ name ],
+          properties: {
+            name: { type: :string },
+            new_build_callout: { type: :boolean, default: true },
+            retained_builds: { type: :integer, format: :int32, default: 0 }
+          }
+        },
+        ChannelOptions: {
+          description: I18n.t('api.definitions.channel_options.description'),
+          type: :object,
+          required: %i[ name device_type ],
+          properties: {
+            name: { type: :string },
+            device_type: { type: :string, enum: Channel.device_types.keys },
+            slug: { type: :string },
+            bundle_id: { type: :string },
+            git_url: { type: :string },
+            password: { type: :string }
+          }
+        },
+        CollaboratorOptions: {
+          description: I18n.t('api.definitions.collaborator_options.description'),
+          type: :object,
+          required: %i[ role ],
+          properties: {
+            role: { type: :string, enum: Collaborator.roles.keys }
+          }
+        },
       }
     }
   }
