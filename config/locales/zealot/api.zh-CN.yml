@@ -15,8 +15,10 @@ zh-CN:
         description: 用户密钥
     parameters:
       page: 页码
-      per_page: 数量
+      per_page: 单页数量
       channel_key: 应用渠道 Key
+      release_version: 主版本号
+      build_version: 内部版本号
     schemas:
       app_index:
         description: 应用列表
@@ -41,6 +43,15 @@ zh-CN:
     definitions:
       upload_app_options:
         description: 上传应用版本表单字段结构
+      scheme_options:
+        description: 应用类型表单字段结构
+      app_options:
+        description: 应用表单字段结构
+      channel_options:
+        description: 应用渠道表单字段结构
+      collaborator_options:
+        description: 应用成员表单字段结构
+
     apps:
       default:
         tags: 应用
@@ -75,6 +86,48 @@ zh-CN:
       destroy_app:
         title: 删除应用
         description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
+
+    schemes:
+      default:
+        tags: 应用类型
+        responses:
+          index: 应用类型列表
+          show: 应用类型详情
+          update: 更新应用类型信息
+          destroy: 应用类型文件
+      create:
+        title: 创建应用类型
+        description: 创建应用类型
+      show:
+        title: 获取应用类型详情
+        description: 获取应用类型详情
+      update:
+        title: 更新应用类型
+        description: 更新应用类型的
+      destroy:
+        title: 删除应用类型
+        description: 从应用中删除指定应用类型
+
+    channels:
+      default:
+        tags: 应用渠道
+        responses:
+          index: 应用渠道列表
+          show: 应用渠道详情
+          update: 更新应用渠道信息
+          destroy: 应用渠道文件
+      create:
+        title: 创建应用渠道
+        description: 创建应用渠道
+      show:
+        title: 获取应用渠道详情
+        description: 获取应用渠道详情
+      update:
+        title: 更新应用渠道
+        description: 更新应用渠道的
+      destroy:
+        title: 删除应用渠道
+        description: 从应用中删除指定应用渠道
 
     collaborators:
       default:
