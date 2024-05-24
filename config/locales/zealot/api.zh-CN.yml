@@ -16,6 +16,7 @@ zh-CN:
     parameters:
       page: 页码
       per_page: 数量
+      channel_key: 应用渠道 Key
     schemas:
       app_index:
         description: 应用列表
@@ -27,26 +28,70 @@ zh-CN:
         description: 应用类型
       channel:
         description: 应用渠道
-      unauthorized_response:
-        description: 401 用户认证失败主体
+      release_changelog:
+        description: 应用版本的更新日志
+      release_custom_field:
+        description: 应用版本的自定义字段
+    responses:
+      unauthorized:
+        description: 用户密钥认证失败
+      not_found:
+        default: 资源未找到
+        description: '%{model}未找到'
     definitions:
       upload_app_options:
         description: 上传应用版本表单字段结构
     apps:
       default:
         tags: 应用
+        responses:
+          app_index: 应用列表
+          app: 应用详情
+          app_versions: 应用详情及版本列表
+          app_latest: 最新上传应用版本列表
+          build_uploaded: 已上传的应用版本详情
+          destroy: 已删除应用
       list_apps:
-        title: 应用列表
+        title: 获取应用列表
         description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
-        response:
-          200: 应用列表
-          401: 认证失败
       get_app:
-        title: 获取应用
+        title: 获取应用详情
         description: 获取应用详情
       upload_app:
         title: 上传应用
         description: 上传 iOS、Android、macOS、Linux 或 Windows 应用
-        response:
-          201: 成功创建应用
-          401: 认证失败
+      versions:
+        title: 应用渠道的上传版本列表
+        description: 查询应用单一渠道的上传版本列表，版本列表按上传时间倒序
+      latest:
+        title: 搜索指定版本后面的应用版本列表
+        description: 查询应用单一渠道的最新版本列表，版本列表按上传时间倒序
+      create_app:
+        title: 创建应用
+        description: 根据应用名创建应用
+      update_app:
+        title: 创建应用
+        description: 根据应用名创建应用
+      destroy_app:
+        title: 删除应用
+        description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
+
+    debug_files:
+      default:
+        tags: 调试文件
+        responses:
+          app_index: 调试文件列表
+          app: 调试文件详情
+          destroy: 已删除调试文件
+      list_debug_files:
+        title: 获取调试文件列表
+        description: 获取所有调试文件列表详情，支持分页，按照最新创建时间倒序
+      get_debug_file:
+        title: 获取调试文件详情
+        description: 获取调试文件详情
+      upload_debug_file:
+        title: 上传调试文件
+        description: 上传 dSYM 或 Proguard 打包成 zip 压缩调试文件
+      destroy_debug_file:
+        title: 删除调试文件
+        description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
