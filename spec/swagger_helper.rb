@@ -65,6 +65,16 @@ RSpec.configure do |config|
               type: :string
             }
           },
+          collaboratorRoleParam: {
+            in: :query,
+            name: :role,
+            required: true,
+            description: I18n.t('api.parameters.collaborator_role'),
+            schema: {
+              type: :string,
+              enum: Collaborator.roles.keys
+            }
+          },
           pageParam: {
             in: :query,
             name: :page,
