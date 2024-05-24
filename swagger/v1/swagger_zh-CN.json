@@ -1256,6 +1256,433 @@
           }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "summary": "获取用户列表",
+        "tags": [
+          "用户"
+        ],
+        "description": "获取用户信息的合集，不会返回敏感信息，比如密码",
+        "operationId": "listUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "用户列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "创建用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "创建用户",
+        "operationId": "createUser",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: zh-CN.api.users.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "获取用户详情",
+        "tags": [
+          "用户"
+        ],
+        "description": "获取用户详情",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "用户详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "更新用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "更新用户的个性化设置、密码等",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新用户信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "删除用户",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "用户文件",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "summary": "搜索用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "根据电子邮箱搜索用户",
+        "operationId": "searchUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translation missing: zh-CN.api.users.default.responses.search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/lock": {
+      "get": {
+        "summary": "停用用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "停用用户后不会影响之前已创建的数据、仅仅是无法再登录",
+        "operationId": "lockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "更新用户信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/unlock": {
+      "delete": {
+        "summary": "启用用户",
+        "tags": [
+          "用户"
+        ],
+        "description": "启用用户后可以重新登录系统",
+        "operationId": "unlockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "更新用户信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
@@ -1703,6 +2130,186 @@
             "type": "date"
           }
         }
+      },
+      "User": {
+        "description": "用户",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ]
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Godthab",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Africa/Casablanca",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kiev",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Rangoon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "developer",
+              "admin"
+            ]
+          }
+        }
       }
     },
     "responses": {
@@ -1885,6 +2492,190 @@
         "role"
       ],
       "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ]
+        }
+      }
+    },
+    "UserOptions": {
+      "description": "用户表单字段结构",
+      "type": "object",
+      "required": [
+        "username",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string",
+          "enum": [
+            "zh-CN",
+            "en"
+          ]
+        },
+        "appearance": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark",
+            "auto"
+          ]
+        },
+        "timezone": {
+          "type": "string",
+          "enum": [
+            "Etc/GMT+12",
+            "Pacific/Pago_Pago",
+            "Pacific/Midway",
+            "Pacific/Honolulu",
+            "America/Juneau",
+            "America/Los_Angeles",
+            "America/Tijuana",
+            "America/Phoenix",
+            "America/Mazatlan",
+            "America/Denver",
+            "America/Guatemala",
+            "America/Chicago",
+            "America/Chihuahua",
+            "America/Mexico_City",
+            "America/Monterrey",
+            "America/Regina",
+            "America/Bogota",
+            "America/New_York",
+            "America/Indiana/Indianapolis",
+            "America/Lima",
+            "America/Halifax",
+            "America/Caracas",
+            "America/Guyana",
+            "America/La_Paz",
+            "America/Puerto_Rico",
+            "America/Santiago",
+            "America/St_Johns",
+            "America/Sao_Paulo",
+            "America/Argentina/Buenos_Aires",
+            "America/Montevideo",
+            "America/Godthab",
+            "Atlantic/South_Georgia",
+            "Atlantic/Azores",
+            "Atlantic/Cape_Verde",
+            "Europe/London",
+            "Europe/Lisbon",
+            "Africa/Monrovia",
+            "Etc/UTC",
+            "Europe/Amsterdam",
+            "Europe/Belgrade",
+            "Europe/Berlin",
+            "Europe/Zurich",
+            "Europe/Bratislava",
+            "Europe/Brussels",
+            "Europe/Budapest",
+            "Africa/Casablanca",
+            "Europe/Copenhagen",
+            "Europe/Dublin",
+            "Europe/Ljubljana",
+            "Europe/Madrid",
+            "Europe/Paris",
+            "Europe/Prague",
+            "Europe/Rome",
+            "Europe/Sarajevo",
+            "Europe/Skopje",
+            "Europe/Stockholm",
+            "Europe/Vienna",
+            "Europe/Warsaw",
+            "Africa/Algiers",
+            "Europe/Zagreb",
+            "Europe/Athens",
+            "Europe/Bucharest",
+            "Africa/Cairo",
+            "Africa/Harare",
+            "Europe/Helsinki",
+            "Asia/Jerusalem",
+            "Europe/Kaliningrad",
+            "Europe/Kiev",
+            "Africa/Johannesburg",
+            "Europe/Riga",
+            "Europe/Sofia",
+            "Europe/Tallinn",
+            "Europe/Vilnius",
+            "Asia/Baghdad",
+            "Europe/Istanbul",
+            "Asia/Kuwait",
+            "Europe/Minsk",
+            "Europe/Moscow",
+            "Africa/Nairobi",
+            "Asia/Riyadh",
+            "Europe/Volgograd",
+            "Asia/Tehran",
+            "Asia/Muscat",
+            "Asia/Baku",
+            "Europe/Samara",
+            "Asia/Tbilisi",
+            "Asia/Yerevan",
+            "Asia/Kabul",
+            "Asia/Almaty",
+            "Asia/Yekaterinburg",
+            "Asia/Karachi",
+            "Asia/Tashkent",
+            "Asia/Kolkata",
+            "Asia/Colombo",
+            "Asia/Kathmandu",
+            "Asia/Dhaka",
+            "Asia/Urumqi",
+            "Asia/Rangoon",
+            "Asia/Bangkok",
+            "Asia/Jakarta",
+            "Asia/Krasnoyarsk",
+            "Asia/Novosibirsk",
+            "Asia/Shanghai",
+            "Asia/Chongqing",
+            "Asia/Hong_Kong",
+            "Asia/Irkutsk",
+            "Asia/Kuala_Lumpur",
+            "Australia/Perth",
+            "Asia/Singapore",
+            "Asia/Taipei",
+            "Asia/Ulaanbaatar",
+            "Asia/Tokyo",
+            "Asia/Seoul",
+            "Asia/Yakutsk",
+            "Australia/Adelaide",
+            "Australia/Darwin",
+            "Australia/Brisbane",
+            "Australia/Canberra",
+            "Pacific/Guam",
+            "Australia/Hobart",
+            "Australia/Melbourne",
+            "Pacific/Port_Moresby",
+            "Australia/Sydney",
+            "Asia/Vladivostok",
+            "Asia/Magadan",
+            "Pacific/Noumea",
+            "Pacific/Guadalcanal",
+            "Asia/Srednekolymsk",
+            "Pacific/Auckland",
+            "Pacific/Fiji",
+            "Asia/Kamchatka",
+            "Pacific/Majuro",
+            "Pacific/Chatham",
+            "Pacific/Tongatapu",
+            "Pacific/Apia",
+            "Pacific/Fakaofo"
+          ]
+        },
         "role": {
           "type": "string",
           "enum": [
