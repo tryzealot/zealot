@@ -17,7 +17,7 @@
   "paths": {
     "/apps": {
       "get": {
-        "summary": "应用列表",
+        "summary": "获取应用列表",
         "tags": [
           "应用"
         ],
@@ -32,6 +32,16 @@
           }
         ],
         "responses": {
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
           "200": {
             "description": "应用列表",
             "content": {
@@ -44,13 +54,36 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "认证失败",
+          }
+        }
+      },
+      "post": {
+        "summary": "创建应用",
+        "tags": [
+          "应用"
+        ],
+        "description": "根据应用名创建应用",
+        "operationId": "createApp",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "应用详情",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -60,7 +93,7 @@
     },
     "/apps/{id}": {
       "get": {
-        "summary": "获取应用",
+        "summary": "获取应用详情",
         "tags": [
           "应用"
         ],
@@ -78,7 +111,7 @@
         ],
         "responses": {
           "200": {
-            "description": "An App",
+            "description": "应用详情",
             "content": {
               "application/json": {
                 "schema": {
@@ -88,21 +121,213 @@
             }
           },
           "401": {
-            "description": "invalid authentication",
+            "description": "用户密钥认证失败",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
           },
           "404": {
-            "description": "not found",
+            "description": "应用未找到",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "创建应用",
+        "tags": [
+          "应用"
+        ],
+        "description": "根据应用名创建应用",
+        "operationId": "createApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除应用",
+        "tags": [
+          "应用"
+        ],
+        "description": "删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本",
+        "operationId": "createApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "已删除应用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/versions": {
+      "get": {
+        "summary": "应用渠道的上传版本列表",
+        "security": [
+
+        ],
+        "tags": [
+          "应用"
+        ],
+        "description": "查询应用单一渠道的上传版本列表，版本列表按上传时间倒序",
+        "operationId": "listAppVersions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用详情及版本列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/latest": {
+      "get": {
+        "summary": "搜索指定版本后面的应用版本列表",
+        "security": [
+
+        ],
+        "tags": [
+          "应用"
+        ],
+        "description": "查询应用单一渠道的最新版本列表，版本列表按上传时间倒序",
+        "operationId": "getLatestApp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/releaseVersionParam"
+          },
+          {
+            "$ref": "#/components/parameters/buildVersionParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "最新上传应用版本列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
                 }
               }
             }
@@ -123,7 +348,7 @@
         ],
         "responses": {
           "201": {
-            "description": "an release of app uploaded",
+            "description": "已上传的应用版本详情",
             "content": {
               "application/json": {
                 "schema": {
@@ -133,21 +358,21 @@
             }
           },
           "401": {
-            "description": "invalid authentication",
+            "description": "用户密钥认证失败",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
           },
           "404": {
-            "description": "not found",
+            "description": "应用未找到",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/NotFound"
                 }
               }
             }
@@ -158,6 +383,154 @@
             "multipart/form-data": {
               "schema": {
                 "$ref": "#/definitions/UploadAppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files": {
+      "get": {
+        "summary": "获取调试文件列表",
+        "tags": [
+          "调试文件"
+        ],
+        "description": "获取所有调试文件列表详情，支持分页，按照最新创建时间倒序",
+        "operationId": "listDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Translation missing: zh-CN.api.debug_files.default.responses.debug_file_index",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DebugFile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/{id}": {
+      "get": {
+        "summary": "获取调试文件详情",
+        "tags": [
+          "调试文件"
+        ],
+        "description": "获取调试文件详情",
+        "operationId": "getDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translation missing: zh-CN.api.debug_files.default.responses.debug_file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "调试文件未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除调试文件",
+        "tags": [
+          "调试文件"
+        ],
+        "description": "删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件",
+        "operationId": "createApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "已删除调试文件",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "调试文件未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
               }
             }
           }
@@ -182,6 +555,33 @@
       }
     },
     "parameters": {
+      "channelKeyParam": {
+        "in": "query",
+        "name": "channel_key",
+        "required": true,
+        "description": "应用渠道 Key",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "buildVersionParam": {
+        "in": "query",
+        "name": "build_version",
+        "required": true,
+        "description": "Translation missing: zh-CN.api.parameters.build_version",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "releaseVersionParam": {
+        "in": "query",
+        "name": "release_version",
+        "required": true,
+        "description": "Translation missing: zh-CN.api.parameters.release_version",
+        "schema": {
+          "type": "string"
+        }
+      },
       "pageParam": {
         "in": "query",
         "name": "page",
@@ -226,16 +626,51 @@
           }
         }
       },
+      "AppVersionsIndex": {
+        "description": "Translation missing: zh-CN.api.schemas.app_versions_index.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "app_name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "app": {
+            "$ref": "#/components/schemas/App"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "releases": {
+            "type": "array",
+            "$ref": "#/components/schemas/Release"
+          }
+        }
+      },
       "App": {
         "description": "应用",
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "First App"
           },
           "schemes": {
             "type": "array",
@@ -253,36 +688,47 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 2
           },
           "username": {
-            "type": "string"
+            "type": "string",
+            "example": "foo"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "example": "foo@example.com"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "example": "developer"
           }
         }
       },
       "Scheme": {
         "description": "应用类型",
         "type": "object",
+        "examples": {
+          "$ref": "#/components/examples/Scheme"
+        },
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Production"
           },
           "new_build_callout": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": true
           },
           "retained_builds": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 0
           },
           "channels": {
             "type": "array",
@@ -296,35 +742,295 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 4
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "App Store"
           },
           "slug": {
+            "type": "string",
+            "example": "Sk3y"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "Android"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "has_password": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "Release": {
+        "description": "Translation missing: zh-CN.api.schemas.release.description",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100
+          },
+          "app_name": {
+            "type": "string",
+            "example": "Zealot"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "im.ews.zealot"
+          },
+          "source": {
+            "type": "string",
+            "example": "API"
+          },
+          "branch": {
+            "type": "string",
+            "example": "develop"
+          },
+          "git_commit": {
+            "type": "string",
+            "example": "bc58e308dd1caf2226a402291839afbbdabcabf0"
+          },
+          "ci_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot/actions/runs/9211335126"
+          },
+          "size": {
+            "type": "integer",
+            "example": 392173
+          },
+          "platform": {
+            "type": "string",
+            "example": "iOS"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "iPhone"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/assets/zealot-icon-123e8c86.png"
+          },
+          "install_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/M9DJa/681/download"
+          },
+          "changelog": {
+            "type": "array",
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "text_changelog": {
+            "type": "string",
+            "example": "- bump 1.1\\n-n fixes bugs"
+          },
+          "custom_fields": {
+            "type": "array",
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:00 +0800"
+          }
+        }
+      },
+      "ReleaseChangelog": {
+        "description": "应用版本的更新日志",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-03-01 12:00:00 +0800"
+          },
+          "author": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "message": {
+            "type": "string",
+            "example": "fixes bugs"
+          }
+        }
+      },
+      "ReleaseCustomField": {
+        "description": "应用版本的自定义字段",
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "example": "fas fa-flag"
+          },
+          "name": {
+            "type": "string",
+            "example": "Country"
+          },
+          "value": {
+            "type": "string",
+            "example": "China"
+          }
+        }
+      },
+      "DebugFile": {
+        "description": "Translation missing: zh-CN.api.schemas.debug_file.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "app_name": {
             "type": "string"
           },
           "device_type": {
             "type": "string"
           },
-          "bundle_id": {
+          "release_version": {
             "type": "string"
           },
-          "git_url": {
+          "build_version": {
             "type": "string"
           },
-          "has_password": {
-            "type": "boolean"
+          "file_url": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataDSYM"
+                },
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataProguard"
+                }
+              ]
+            }
           }
         }
       },
-      "UnauthorizedResponse": {
-        "description": "401 用户认证失败主体",
+      "DebugFileMetadataDSYM": {
+        "description": "Translation missing: zh-CN.api.schemas.debug_file_metadata.description",
         "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "package_name": {
+            "type": "string"
+          },
+          "files": {
+            "type": "object",
+            "proterties": {
+              "name": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          },
+          "created_at": {
+            "type": "date"
+          }
+        }
+      },
+      "DebugFileMetadataProguard": {
+        "description": "Translation missing: zh-CN.api.schemas.debug_file_metadata.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "date"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "用户密钥认证失败",
+        "type": "object",
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "string"
           }
+        }
+      },
+      "NotFound": {
+        "description": "资源未找到",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "examples": {
+      "Scheme": {
+        "summary": "Translation missing: zh-CN.api.examples.scheme.summary",
+        "value": {
+          "id": 1,
+          "name": "Production",
+          "new_build_callout": true,
+          "retained_builds": 0,
+          "channels": {
+            "$ref": "#/components/examples/Channel"
+          }
+        }
+      },
+      "Channel": {
+        "summary": "Translation missing: zh-CN.api.examples.channel.summary",
+        "value": {
+          "id": 1,
+          "name": "Production",
+          "new_build_callout": true,
+          "retained_builds": 0
         }
       }
     }
@@ -354,7 +1060,7 @@
           "type": "string"
         },
         "changelog": {
-          "type": "string"
+          "$ref": "#/components/schemas/ReleaseChangelog"
         },
         "branch": {
           "type": "string"
@@ -366,7 +1072,8 @@
           "type": "string"
         },
         "custom_fields": {
-          "type": "array"
+          "type": "array",
+          "$ref": "#/components/schemas/ReleaseCustomField"
         }
       }
     }

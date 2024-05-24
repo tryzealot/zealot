@@ -115,6 +115,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
 
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rswag-specs'
 end
