@@ -178,7 +178,7 @@ en:
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
         disk_info: Disk
-        lauched_time: Launched time
+        lauched_time: Launched
         volume_mounted: Volume mounted
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
