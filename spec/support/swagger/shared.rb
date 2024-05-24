@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 # Paramters
+shared_examples :primary_key_parameter do |key, **options|
+  parameter name: (key || :id), in: options.fetch(:in, :path), type: options.fetch(:type, :path),
+            required: options.fetch(:required, true), **options
+end
+
 shared_examples :pagiation_parameters do
   parameter '$ref': '#/components/parameters/pageParam'
   parameter '$ref': '#/components/parameters/perPageParam'
@@ -15,9 +20,14 @@ shared_examples :version_parameters do
   parameter '$ref': '#/components/parameters/buildVersionParam'
 end
 
-shared_examples :primary_key_parameter do |key, **options|
-  parameter name: (key || :id), in: options.fetch(:in, :path), type: options.fetch(:type, :path),
-            required: options.fetch(:required, true), **options
+shared_examples :request_form_body do |ref, **options|
+  consumes 'multipart/form-data'
+  parameter name: :body, in: :body, schema: { '$ref': ref }, **options
+end
+
+shared_examples :request_json_body do |ref, **options|
+  consumes 'application/json'
+  parameter name: :body, in: :body, schema: { '$ref': ref }, **options
 end
 
 # Responses
