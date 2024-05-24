@@ -8,6 +8,28 @@ zh-CN:
         - [Bruno](https://www.usebruno.com/)
         - [Postman](https://www.postman.com/downloads/)
         - 任意浏览器，如果你不需要设置 headers 或请求主体
+
+        准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：
+
+        ```json
+        {
+          "version": "5.2.3",
+          "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
+          "build_date": "2024-05-23T06:04:48.989Z"
+        }
+        ```
+
+        ## 接口认证
+
+        接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。
+
+        ```
+        https://tryzealot.ews.im/api/users?token={token}
+        ```
+
+        ### 用户密钥
+
+        用户密钥在[用户详情](/docs/user-guide/user_settings)最底部找到。
     servers:
       description: 演示服务器
     security:
@@ -161,16 +183,16 @@ zh-CN:
           app_index: 调试文件列表
           app: 调试文件详情
           destroy: 已删除调试文件
-      list_debug_files:
+      index:
         title: 获取调试文件列表
         description: 获取所有调试文件列表详情，支持分页，按照最新创建时间倒序
-      get_debug_file:
+      show:
         title: 获取调试文件详情
         description: 获取调试文件详情
-      upload_debug_file:
+      upload:
         title: 上传调试文件
         description: 上传 dSYM 或 Proguard 打包成 zip 压缩调试文件
-      destroy_debug_file:
+      destroy:
         title: 删除调试文件
         description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
 

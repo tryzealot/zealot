@@ -90,8 +90,7 @@ RSpec.describe 'Apps API' do
       description I18n.t('api.apps.upload_app.description')
       operationId 'uploadApp'
 
-      consumes 'multipart/form-data'
-      parameter name: :body, in: :body, schema: { '$ref':  '#/definitions/UploadAppOptions' }
+      include_examples :request_form_body, '#/definitions/UploadAppOptions'
 
       produces 'application/json'
       response '201', I18n.t('api.apps.default.responses.build_uploaded') do
