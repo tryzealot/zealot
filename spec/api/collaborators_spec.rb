@@ -27,14 +27,14 @@ RSpec.describe 'Collaborators API' do
     post I18n.t('api.collaborators.create.title') do
       tags I18n.t('api.collaborators.default.tags')
       description I18n.t('api.collaborators.create.description')
-      operationId 'getCollaborator'
+      operationId 'createCollaborator'
 
       include_examples :primary_key_parameter, :app_id
       include_examples :primary_key_parameter, :user_id
-      parameter '$ref': '#/components/parameters/collaboratorRoleParam'
+      include_examples :request_form_body, '#/definitions/CollaboratorOptions'
 
       produces 'application/json'
-      response 200, I18n.t('api.collaborators.default.responses.create') do
+      response 201, I18n.t('api.collaborators.default.responses.create') do
         schema '$ref': '#/components/schemas/Collaborator'
         run_test!
       end
@@ -52,11 +52,11 @@ RSpec.describe 'Collaborators API' do
 
       include_examples :primary_key_parameter, :app_id
       include_examples :primary_key_parameter, :user_id
-      parameter '$ref': '#/components/parameters/collaboratorRoleParam'
+      include_examples :request_form_body, '#/definitions/CollaboratorOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.collaborators.default.responses.update') do
-        schema '$ref': '#/components/schemas/App'
+        schema '$ref': '#/components/schemas/Collaborator'
         run_test!
       end
 
@@ -76,7 +76,7 @@ RSpec.describe 'Collaborators API' do
 
       produces 'application/json'
       response 200, I18n.t('api.collaborators.default.responses.destroy') do
-        schema '$ref': '#/components/schemas/App'
+        schema '$ref': '#/components/responses/Destroyed'
         run_test!
       end
 
