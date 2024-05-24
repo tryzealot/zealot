@@ -252,6 +252,21 @@ RSpec.configure do |config|
               created_at: { type: :date }
             }
           },
+
+          # User
+          User: {
+            description: I18n.t('api.schemas.user.description'),
+            type: :object,
+            properties: {
+              id: { type: :integer, format: :int32 },
+              username: { type: :string },
+              email: { type: :string },
+              locale: { type: :string, enum: User.locales.keys },
+              appearance: { type: :string, enum: User.appearances.keys },
+              timezone: { type: :string, enum: User.timezones.keys },
+              role: { type: :string, enum: User.roles.keys },
+            }
+          },
         },
 
         responses: {
@@ -360,6 +375,20 @@ RSpec.configure do |config|
             role: { type: :string, enum: Collaborator.roles.keys }
           }
         },
+        UserOptions: {
+          description: I18n.t('api.definitions.user_options.description'),
+          type: :object,
+          required: %i[ username email password ],
+          properties: {
+            username: { type: :string },
+            email: { type: :string },
+            password: { type: :string },
+            locale: { type: :string, enum: User.locales.keys },
+            appearance: { type: :string, enum: User.appearances.keys },
+            timezone: { type: :string, enum: User.timezones.keys },
+            role: { type: :string, enum: User.roles.keys },
+          }
+        }
       }
     }
   }

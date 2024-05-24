@@ -24,8 +24,6 @@ zh-CN:
         description: 应用列表
       app:
         description: 应用
-      collaborator:
-        description: 应用成员
       scheme:
         description: 应用类型
       channel:
@@ -34,6 +32,10 @@ zh-CN:
         description: 应用版本的更新日志
       release_custom_field:
         description: 应用版本的自定义字段
+      collaborator:
+        description: 应用成员
+      user:
+        description: 用户
     responses:
       unauthorized:
         description: 用户密钥认证失败
@@ -51,6 +53,8 @@ zh-CN:
         description: 应用渠道表单字段结构
       collaborator_options:
         description: 应用成员表单字段结构
+      user_options:
+        description: 用户表单字段结构
 
     apps:
       default:
@@ -169,3 +173,36 @@ zh-CN:
       destroy_debug_file:
         title: 删除调试文件
         description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
+
+    users:
+      default:
+        tags: 用户
+        responses:
+          index: 用户列表
+          show: 用户详情
+          update: 更新用户信息
+          destroy: 用户文件
+      index:
+        title: 获取用户列表
+        description: 获取用户信息的合集，不会返回敏感信息，比如密码
+      search:
+        title: 搜索用户
+        description: 根据电子邮箱搜索用户
+      create:
+        title: 创建用户
+        description: 创建用户
+      show:
+        title: 获取用户详情
+        description: 获取用户详情
+      update:
+        title: 更新用户
+        description: 更新用户的个性化设置、密码等
+      destroy:
+        title: 删除用户
+        description: 删除用户
+      lock:
+        title: 停用用户
+        description: 停用用户后不会影响之前已创建的数据、仅仅是无法再登录
+      unlock:
+        title: 启用用户
+        description: 启用用户后可以重新登录系统
