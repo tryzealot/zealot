@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # UDID (iOS/iPadOS)
+  # UDID (iOS/iPadOS/arm chip macOS)
   #############################################
   resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
     collection do
