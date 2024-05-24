@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Release < ApplicationRecord
-  extend ActionView::Helpers::TranslationHelper
-  include ActionView::Helpers::TranslationHelper
+  extend VersionCompare
+
   include ReleaseUrl
   include ReleaseAuth
   include ReleaseParser
@@ -118,7 +118,7 @@ class Release < ApplicationRecord
     return [] unless use_default_changelog
 
     @empty_changelog ||= [{
-      'message' => t('releases.messages.default_changelog')
+      'message' => I18n.t('releases.messages.default_changelog')
     }]
   end
 
@@ -132,7 +132,7 @@ class Release < ApplicationRecord
     return if file.blank? || channel&.bundle_id.blank?
     return if channel.bundle_id_matched?(self.bundle_id)
 
-    message = t('releases.messages.errors.bundle_id_not_matched', got: self.bundle_id,
+    message = I18n.t('releases.messages.errors.bundle_id_not_matched', got: self.bundle_id,
                                                                   expect: channel.bundle_id)
     errors.add(:file, message)
   end
