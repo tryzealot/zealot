@@ -105,7 +105,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "path"
             }
           }
         ],
@@ -155,7 +155,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "path"
             }
           }
         ],
@@ -205,7 +205,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "path"
             }
           }
         ],
@@ -389,6 +389,246 @@
         }
       }
     },
+    "/apps/{app_id}/collaborators/{user_id}": {
+      "get": {
+        "summary": "获取应用成员详情",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "获取应用成员详情",
+        "operationId": "getCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用成员详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用成员未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加用户到应用成员",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "添加指定用户到指定应用成员列表",
+        "operationId": "getCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/collaboratorRoleParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translation missing: zh-CN.api.collaborators.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用成员未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "更新应用成员权限",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "更新应用成员的权限",
+        "operationId": "updateCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/collaboratorRoleParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新应用成员信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用成员未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除应用成员",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "从应用中删除指定应用成员",
+        "operationId": "deleteCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用成员文件",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用成员未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/debug_files": {
       "get": {
         "summary": "获取调试文件列表",
@@ -449,7 +689,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "path"
             }
           }
         ],
@@ -499,7 +739,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "path"
             }
           }
         ],
@@ -580,6 +820,20 @@
         "description": "Translation missing: zh-CN.api.parameters.release_version",
         "schema": {
           "type": "string"
+        }
+      },
+      "collaboratorRoleParam": {
+        "in": "query",
+        "name": "role",
+        "required": true,
+        "description": "Translation missing: zh-CN.api.parameters.collaborator_role",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ]
         }
       },
       "pageParam": {

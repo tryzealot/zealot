@@ -76,6 +76,27 @@ zh-CN:
         title: 删除应用
         description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
 
+    collaborators:
+      default:
+        tags: 应用成员
+        responses:
+          index: 应用成员列表
+          show: 应用成员详情
+          update: 更新应用成员信息
+          destroy: 应用成员文件
+      create:
+        title: 添加用户到应用成员
+        description: 添加指定用户到指定应用成员列表
+      show:
+        title: 获取应用成员详情
+        description: 获取应用成员详情
+      update:
+        title: 更新应用成员权限
+        description: 更新应用成员的权限
+      destroy:
+        title: 删除应用成员
+        description: 从应用中删除指定应用成员
+
     debug_files:
       default:
         tags: 调试文件
