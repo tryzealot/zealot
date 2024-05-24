@@ -110,7 +110,7 @@ RSpec.describe 'Apps API' do
       description I18n.t('api.apps.create_app.description')
       operationId 'createApp'
 
-      parameter name: :name, in: :body, type: String
+      include_examples :request_form_body, '#/definitions/AppOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.apps.default.responses.app') do
@@ -126,9 +126,10 @@ RSpec.describe 'Apps API' do
     put I18n.t('api.apps.update_app.title') do
       tags I18n.t('api.apps.default.tags')
       description I18n.t('api.apps.update_app.description')
-      operationId 'createApp'
+      operationId 'updateApp'
 
       include_examples :primary_key_parameter
+      include_examples :request_form_body, '#/definitions/AppOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.apps.default.responses.app') do
@@ -145,7 +146,7 @@ RSpec.describe 'Apps API' do
     delete I18n.t('api.apps.destroy_app.title') do
       tags I18n.t('api.apps.default.tags')
       description I18n.t('api.apps.destroy_app.description')
-      operationId 'createApp'
+      operationId 'destroyApp'
 
       include_examples :primary_key_parameter
 

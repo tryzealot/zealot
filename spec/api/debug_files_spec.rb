@@ -44,13 +44,13 @@ RSpec.describe 'DebugFiles API' do
     delete I18n.t('api.debug_files.destroy_debug_file.title') do
       tags I18n.t('api.debug_files.default.tags')
       description I18n.t('api.debug_files.destroy_debug_file.description')
-      operationId 'createApp'
+      operationId 'destroyDebugFile'
 
       include_examples :primary_key_parameter
 
       produces 'application/json'
       response 200, I18n.t('api.debug_files.default.responses.destroy') do
-        schema '$ref': '#/components/schemas/App'
+        schema '$ref': '#/components/responses/Destroyed'
         run_test!
       end
 
