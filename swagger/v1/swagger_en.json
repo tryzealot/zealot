@@ -2,11 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zealot API",
-    "version": "v1.2",
-    "contact": {
-      "url": "https://github.com/tryzealot/zealot"
-    },
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n"
+    "version": "v1.3",
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.2.3\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).\n"
   },
   "servers": [
     {
@@ -17,7 +14,7 @@
   "paths": {
     "/apps": {
       "get": {
-        "summary": "List apps",
+        "summary": "List Apps",
         "tags": [
           "Apps"
         ],
@@ -32,8 +29,18 @@
           }
         ],
         "responses": {
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "List of apps",
+            "description": "Return a list of Apps",
             "content": {
               "application/json": {
                 "schema": {
@@ -44,146 +51,32 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
           }
         }
-      }
-    },
-    "/apps/{id}": {
-      "get": {
-        "summary": "Get app",
-        "tags": [
-          "Apps"
-        ],
-        "description": "Get app detail",
-        "operationId": "getApp",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "An App",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppIndex"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "invalid authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/apps/versions": {
-      "get": {
-        "summary": "Translation missing: en.api.apps.versions.title",
-        "tags": [
-          "Apps"
-        ],
-        "description": "Translation missing: en.api.apps.versions.description",
-        "operationId": "appVersions",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/pageParam"
-          },
-          {
-            "$ref": "#/components/parameters/perPageParam"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "An App\\s channel include releases",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppVersionsIndex"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/apps/upload": {
+      },
       "post": {
-        "summary": "Upload build",
+        "summary": "Create an App",
         "tags": [
           "Apps"
         ],
-        "description": "upload iOS, Android, macOS, Windows or Linux App",
-        "operationId": "uploadApp",
+        "description": "Create an App",
+        "operationId": "createApp",
         "parameters": [
 
         ],
         "responses": {
           "201": {
-            "description": "an release of app uploaded",
+            "description": "Return an App",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppIndex"
+                  "$ref": "#/components/schemas/App"
                 }
               }
             }
           },
           "401": {
-            "description": "invalid authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not found",
+            "description": "401 Unauthorized Response",
             "content": {
               "application/json": {
                 "schema": {
@@ -197,7 +90,1643 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{id}": {
+      "get": {
+        "summary": "Get an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Get an App detail",
+        "operationId": "getApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppIndex"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Rename the App's name",
+        "operationId": "updateApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.",
+        "operationId": "destroyApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/versions": {
+      "get": {
+        "summary": "Get version builds",
+        "security": [
+
+        ],
+        "tags": [
+          "Apps"
+        ],
+        "description": "List version builds by an App's channel. sort by uploaded date with order desc.",
+        "operationId": "listAppVersions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a build based list of Apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/latest": {
+      "get": {
+        "summary": "Get the latest builds",
+        "security": [
+
+        ],
+        "tags": [
+          "Apps"
+        ],
+        "description": "List the latest version builds with release version and build version. sort by uploaded date with order desc.",
+        "operationId": "getLatestApp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/releaseVersionParam"
+          },
+          {
+            "$ref": "#/components/parameters/buildVersionParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the latest build by App ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/upload": {
+      "post": {
+        "summary": "Upload build of App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Upload a iOS, Android, macOS, Windows or Linux App",
+        "operationId": "uploadApp",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Upload an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppIndex"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Apps not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
                 "$ref": "#/definitions/UploadAppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{scheme_id}/channels": {
+      "get": {
+        "summary": "Get a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Get a channel",
+        "operationId": "getChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Channel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Channel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Create a scheme's channel",
+        "operationId": "createChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: en.api.channels.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Channel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channels/{id}": {
+      "put": {
+        "summary": "Update a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Update a channel",
+        "operationId": "updateChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Channel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Destroy a scheme's channel",
+        "operationId": "deleteChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Channel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators/{user_id}": {
+      "get": {
+        "summary": "Get a collaborator",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Get a collaborator metadata",
+        "operationId": "getCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Collaborators not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a collaborator to an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Add a collaborator to an App",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: en.api.collaborators.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Collaborators not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a collaborator's role",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Update a Collaborator's role",
+        "operationId": "updateCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Collaborators not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a collaborator from an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Remove a collaborator from an App",
+        "operationId": "deleteCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Collaborators not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files": {
+      "get": {
+        "summary": "List debug files",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "List debug files by an App's channel key.",
+        "operationId": "listDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "DebugFiles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DebugFile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Upload a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Upload a dSYM or Proguard file which it was archived with zip formatted",
+        "operationId": "uploadDebugFile",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "DebugFile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Debug files not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/DebugFileOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/{id}": {
+      "get": {
+        "summary": "Get a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Get a debug file",
+        "operationId": "getDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DebugFile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Debug files not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Destroy a debug file ID and all data, include dSYM or Proguard files.",
+        "operationId": "destroyDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Debug files not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/schemes": {
+      "get": {
+        "summary": "Get an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Get an App's scheme",
+        "operationId": "getScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scheme"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schemes not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an App's scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Create an App's scheme",
+        "operationId": "createScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: en.api.schemes.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schemes not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{id}": {
+      "put": {
+        "summary": "Update an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Update an App's scheme",
+        "operationId": "updateScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schemes not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Destroy an scheme from the App",
+        "operationId": "deleteScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Schemes not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "List users",
+        "tags": [
+          "Users"
+        ],
+        "description": "List users without secreted value (password)",
+        "operationId": "listUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Create an user",
+        "operationId": "createUser",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: en.api.users.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get an user metadata, personal data and customize settings",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Update an user settings",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Destroy an user",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "summary": "Search user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Search user by given an email address",
+        "operationId": "searchUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translation missing: en.api.users.default.responses.search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/lock": {
+      "get": {
+        "summary": "Lock an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Lock an user to stop log in",
+        "operationId": "lockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/unlock": {
+      "delete": {
+        "summary": "Unlock an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Unlock an user to enable log in",
+        "operationId": "unlockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Users not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
               }
             }
           }
@@ -222,6 +1751,33 @@
       }
     },
     "parameters": {
+      "channelKeyParam": {
+        "in": "query",
+        "name": "channel_key",
+        "required": true,
+        "description": "Channel key",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "buildVersionParam": {
+        "in": "query",
+        "name": "build_version",
+        "required": true,
+        "description": "Build version",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "releaseVersionParam": {
+        "in": "query",
+        "name": "release_version",
+        "required": true,
+        "description": "Release version",
+        "schema": {
+          "type": "string"
+        }
+      },
       "pageParam": {
         "in": "query",
         "name": "page",
@@ -272,16 +1828,20 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 1
           },
           "app_name": {
-            "type": "string"
+            "type": "string",
+            "example": "First App"
           },
           "bundle_id": {
-            "type": "string"
+            "type": "string",
+            "example": "*"
           },
           "git_url": {
-            "type": "string"
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
           },
           "app": {
             "$ref": "#/components/schemas/App"
@@ -296,15 +1856,17 @@
         }
       },
       "App": {
-        "description": "App",
+        "description": "App object",
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "First App"
           },
           "schemes": {
             "type": "array",
@@ -317,41 +1879,52 @@
         }
       },
       "Collaborator": {
-        "description": "App collaborator",
+        "description": "Collaborator object",
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 2
           },
           "username": {
-            "type": "string"
+            "type": "string",
+            "example": "foo"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "example": "foo@example.com"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "example": "developer"
           }
         }
       },
       "Scheme": {
         "description": "App scheme object",
         "type": "object",
+        "examples": {
+          "$ref": "#/components/examples/Scheme"
+        },
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Production"
           },
           "new_build_callout": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": true
           },
           "retained_builds": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 0
           },
           "channels": {
             "type": "array",
@@ -365,25 +1938,32 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 4
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "App Store"
           },
           "slug": {
-            "type": "string"
+            "type": "string",
+            "example": "Sk3y"
           },
           "device_type": {
-            "type": "string"
+            "type": "string",
+            "example": "Android"
           },
           "bundle_id": {
-            "type": "string"
+            "type": "string",
+            "example": "*"
           },
           "git_url": {
-            "type": "string"
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
           },
           "has_password": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": false
           }
         }
       },
@@ -393,87 +1973,390 @@
         "properties": {
           "version": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "example": 100
           },
           "app_name": {
-            "type": "string"
+            "type": "string",
+            "example": "Zealot"
           },
           "bundle_id": {
-            "type": "string"
+            "type": "string",
+            "example": "im.ews.zealot"
           },
           "source": {
-            "type": "string"
+            "type": "string",
+            "example": "API"
           },
           "branch": {
-            "type": "string"
+            "type": "string",
+            "example": "develop"
           },
           "git_commit": {
-            "type": "string"
+            "type": "string",
+            "example": "bc58e308dd1caf2226a402291839afbbdabcabf0"
           },
           "ci_url": {
-            "type": "string"
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot/actions/runs/9211335126"
           },
           "size": {
-            "type": "string"
+            "type": "integer",
+            "example": 392173
           },
           "platform": {
-            "type": "string"
+            "type": "string",
+            "example": "iOS"
           },
           "device_type": {
-            "type": "string"
+            "type": "string",
+            "example": "iPhone"
           },
           "icon_url": {
-            "type": "string"
+            "type": "string",
+            "example": "https://tryzealot.ews.im/assets/zealot-icon-123e8c86.png"
           },
           "install_url": {
-            "type": "string"
+            "type": "string",
+            "example": "https://tryzealot.ews.im/M9DJa/681/download"
           },
           "changelog": {
             "type": "array",
             "$ref": "#/components/schemas/ReleaseChangelog"
           },
           "text_changelog": {
-            "type": "string"
+            "type": "string",
+            "example": "- bump 1.1\\n-n fixes bugs"
           },
           "custom_fields": {
             "type": "array",
-            "$ref": "#/components/schemas/ReleaseChangelog"
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:00 +0800"
+          }
+        }
+      },
+      "ReleaseChangelog": {
+        "description": "Changelogs of build",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-03-01 12:00:00 +0800"
+          },
+          "author": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "message": {
+            "type": "string",
+            "example": "fixes bugs"
+          }
+        }
+      },
+      "ReleaseCustomField": {
+        "description": "Custom fields of build",
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "example": "fas fa-flag"
+          },
+          "name": {
+            "type": "string",
+            "example": "Country"
+          },
+          "value": {
+            "type": "string",
+            "example": "China"
+          }
+        }
+      },
+      "DebugFile": {
+        "description": "Translation missing: en.api.schemas.debug_file.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "app_name": {
+            "type": "string"
+          },
+          "device_type": {
+            "type": "string"
+          },
+          "release_version": {
+            "type": "string"
+          },
+          "build_version": {
+            "type": "string"
+          },
+          "file_url": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataDSYM"
+                },
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataProguard"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "DebugFileMetadataDSYM": {
+        "description": "Translation missing: en.api.schemas.debug_file_metadata.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "package_name": {
+            "type": "string"
+          },
+          "files": {
+            "type": "object",
+            "proterties": {
+              "name": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
           },
           "created_at": {
             "type": "date"
           }
         }
       },
-      "ReleaseChangelog": {
-        "description": "Translation missing: en.api.schemas.release_changelog.description",
+      "DebugFileMetadataProguard": {
+        "description": "Translation missing: en.api.schemas.debug_file_metadata.description",
         "type": "object",
         "properties": {
-          "date": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
             "type": "string"
           },
-          "author": {
+          "uuid": {
             "type": "string"
           },
-          "email": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "ReleaseCustomField": {
-        "description": "Translation missing: en.api.schemas.release_custom_field.description",
-        "type": "object",
-        "properties": {
-          "icon": {
+          "bundle_id": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "value": {
+          "extension": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "date"
+          }
+        }
+      },
+      "User": {
+        "description": "User object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
             "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ]
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Godthab",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Africa/Casablanca",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kiev",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Rangoon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "developer",
+              "admin"
+            ]
           }
         }
       }
@@ -482,10 +2365,61 @@
       "Unauthorized": {
         "description": "401 Unauthorized Response",
         "type": "object",
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "string"
           }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "Destroyed": {
+        "description": "Translation missing: en.api.responses.destroyed.default",
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "OK"
+          }
+        }
+      }
+    },
+    "examples": {
+      "Scheme": {
+        "summary": "Translation missing: en.api.examples.scheme.summary",
+        "value": {
+          "id": 1,
+          "name": "Production",
+          "new_build_callout": true,
+          "retained_builds": 0,
+          "channels": {
+            "$ref": "#/components/examples/Channel"
+          }
+        }
+      },
+      "Channel": {
+        "summary": "Translation missing: en.api.examples.channel.summary",
+        "value": {
+          "id": 1,
+          "name": "Production",
+          "new_build_callout": true,
+          "retained_builds": 0
         }
       }
     }
@@ -515,7 +2449,7 @@
           "type": "string"
         },
         "changelog": {
-          "type": "string"
+          "$ref": "#/components/schemas/ReleaseChangelog"
         },
         "branch": {
           "type": "string"
@@ -527,7 +2461,301 @@
           "type": "string"
         },
         "custom_fields": {
-          "type": "array"
+          "type": "array",
+          "$ref": "#/components/schemas/ReleaseCustomField"
+        }
+      }
+    },
+    "AppOptions": {
+      "description": "App form data",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "SchemeOptions": {
+      "description": "App's scheme form data",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "new_build_callout": {
+          "type": "boolean",
+          "default": true
+        },
+        "retained_builds": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        }
+      }
+    },
+    "ChannelOptions": {
+      "description": "App's channel form data",
+      "type": "object",
+      "required": [
+        "name",
+        "device_type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "device_type": {
+          "type": "string",
+          "enum": [
+            "ios",
+            "android",
+            "macos",
+            "windows",
+            "linux"
+          ]
+        },
+        "slug": {
+          "type": "string"
+        },
+        "bundle_id": {
+          "type": "string"
+        },
+        "git_url": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "CollaboratorOptions": {
+      "description": "App's collaborator form data",
+      "type": "object",
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ]
+        }
+      }
+    },
+    "UserOptions": {
+      "description": "User form data",
+      "type": "object",
+      "required": [
+        "username",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string",
+          "enum": [
+            "zh-CN",
+            "en"
+          ]
+        },
+        "appearance": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark",
+            "auto"
+          ]
+        },
+        "timezone": {
+          "type": "string",
+          "enum": [
+            "Etc/GMT+12",
+            "Pacific/Pago_Pago",
+            "Pacific/Midway",
+            "Pacific/Honolulu",
+            "America/Juneau",
+            "America/Los_Angeles",
+            "America/Tijuana",
+            "America/Phoenix",
+            "America/Mazatlan",
+            "America/Denver",
+            "America/Guatemala",
+            "America/Chicago",
+            "America/Chihuahua",
+            "America/Mexico_City",
+            "America/Monterrey",
+            "America/Regina",
+            "America/Bogota",
+            "America/New_York",
+            "America/Indiana/Indianapolis",
+            "America/Lima",
+            "America/Halifax",
+            "America/Caracas",
+            "America/Guyana",
+            "America/La_Paz",
+            "America/Puerto_Rico",
+            "America/Santiago",
+            "America/St_Johns",
+            "America/Sao_Paulo",
+            "America/Argentina/Buenos_Aires",
+            "America/Montevideo",
+            "America/Godthab",
+            "Atlantic/South_Georgia",
+            "Atlantic/Azores",
+            "Atlantic/Cape_Verde",
+            "Europe/London",
+            "Europe/Lisbon",
+            "Africa/Monrovia",
+            "Etc/UTC",
+            "Europe/Amsterdam",
+            "Europe/Belgrade",
+            "Europe/Berlin",
+            "Europe/Zurich",
+            "Europe/Bratislava",
+            "Europe/Brussels",
+            "Europe/Budapest",
+            "Africa/Casablanca",
+            "Europe/Copenhagen",
+            "Europe/Dublin",
+            "Europe/Ljubljana",
+            "Europe/Madrid",
+            "Europe/Paris",
+            "Europe/Prague",
+            "Europe/Rome",
+            "Europe/Sarajevo",
+            "Europe/Skopje",
+            "Europe/Stockholm",
+            "Europe/Vienna",
+            "Europe/Warsaw",
+            "Africa/Algiers",
+            "Europe/Zagreb",
+            "Europe/Athens",
+            "Europe/Bucharest",
+            "Africa/Cairo",
+            "Africa/Harare",
+            "Europe/Helsinki",
+            "Asia/Jerusalem",
+            "Europe/Kaliningrad",
+            "Europe/Kiev",
+            "Africa/Johannesburg",
+            "Europe/Riga",
+            "Europe/Sofia",
+            "Europe/Tallinn",
+            "Europe/Vilnius",
+            "Asia/Baghdad",
+            "Europe/Istanbul",
+            "Asia/Kuwait",
+            "Europe/Minsk",
+            "Europe/Moscow",
+            "Africa/Nairobi",
+            "Asia/Riyadh",
+            "Europe/Volgograd",
+            "Asia/Tehran",
+            "Asia/Muscat",
+            "Asia/Baku",
+            "Europe/Samara",
+            "Asia/Tbilisi",
+            "Asia/Yerevan",
+            "Asia/Kabul",
+            "Asia/Almaty",
+            "Asia/Yekaterinburg",
+            "Asia/Karachi",
+            "Asia/Tashkent",
+            "Asia/Kolkata",
+            "Asia/Colombo",
+            "Asia/Kathmandu",
+            "Asia/Dhaka",
+            "Asia/Urumqi",
+            "Asia/Rangoon",
+            "Asia/Bangkok",
+            "Asia/Jakarta",
+            "Asia/Krasnoyarsk",
+            "Asia/Novosibirsk",
+            "Asia/Shanghai",
+            "Asia/Chongqing",
+            "Asia/Hong_Kong",
+            "Asia/Irkutsk",
+            "Asia/Kuala_Lumpur",
+            "Australia/Perth",
+            "Asia/Singapore",
+            "Asia/Taipei",
+            "Asia/Ulaanbaatar",
+            "Asia/Tokyo",
+            "Asia/Seoul",
+            "Asia/Yakutsk",
+            "Australia/Adelaide",
+            "Australia/Darwin",
+            "Australia/Brisbane",
+            "Australia/Canberra",
+            "Pacific/Guam",
+            "Australia/Hobart",
+            "Australia/Melbourne",
+            "Pacific/Port_Moresby",
+            "Australia/Sydney",
+            "Asia/Vladivostok",
+            "Asia/Magadan",
+            "Pacific/Noumea",
+            "Pacific/Guadalcanal",
+            "Asia/Srednekolymsk",
+            "Pacific/Auckland",
+            "Pacific/Fiji",
+            "Asia/Kamchatka",
+            "Pacific/Majuro",
+            "Pacific/Chatham",
+            "Pacific/Tongatapu",
+            "Pacific/Apia",
+            "Pacific/Fakaofo"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ]
+        }
+      }
+    },
+    "DebugFileOptions": {
+      "description": "Debug file form data",
+      "type": "object",
+      "required": [
+        "channel_key",
+        "file"
+      ],
+      "properties": {
+        "channel_key": {
+          "type": "string"
+        },
+        "file": {
+          "type": "file"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "Release version (requires if Android's Proguard file)"
+        },
+        "build_version": {
+          "type": "string",
+          "description": "Build version (requires if Android's Proguard file)"
         }
       }
     }

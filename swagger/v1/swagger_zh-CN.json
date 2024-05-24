@@ -2,11 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zealot API",
-    "version": "v1.2",
-    "contact": {
-      "url": "https://github.com/tryzealot/zealot"
-    },
-    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n"
+    "version": "v1.3",
+    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n\n准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：\n\n```json\n{\n  \"version\": \"5.2.3\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 接口认证\n\n接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### 用户密钥\n\n用户密钥在[用户详情](/docs/user-guide/user_settings)最底部找到。\n"
   },
   "servers": [
     {
@@ -915,7 +912,7 @@
             }
           },
           "200": {
-            "description": "Translation missing: zh-CN.api.debug_files.default.responses.debug_file_index",
+            "description": "DebugFiles",
             "content": {
               "application/json": {
                 "schema": {
@@ -924,6 +921,58 @@
                     "$ref": "#/components/schemas/DebugFile"
                   }
                 }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "上传调试文件",
+        "tags": [
+          "调试文件"
+        ],
+        "description": "上传 dSYM 或 Proguard 打包成 zip 压缩调试文件",
+        "operationId": "uploadDebugFile",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "DebugFile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "调试文件未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/DebugFileOptions"
               }
             }
           }
@@ -950,7 +999,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Translation missing: zh-CN.api.debug_files.default.responses.debug_file",
+            "description": "DebugFile",
             "content": {
               "application/json": {
                 "schema": {
@@ -2683,6 +2732,30 @@
             "developer",
             "admin"
           ]
+        }
+      }
+    },
+    "DebugFileOptions": {
+      "description": "Debug file form data",
+      "type": "object",
+      "required": [
+        "channel_key",
+        "file"
+      ],
+      "properties": {
+        "channel_key": {
+          "type": "string"
+        },
+        "file": {
+          "type": "file"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "Release version (requires if Android's Proguard file)"
+        },
+        "build_version": {
+          "type": "string",
+          "description": "Build version (requires if Android's Proguard file)"
         }
       }
     }
