@@ -4,6 +4,7 @@ Rails.configuration.to_prepare do
   Rswag::Api.configure do |c|
     c.openapi_root = Rails.root.to_s + '/swagger'
     c.swagger_filter = lambda do |swagger, env|
+      swagger['info']['description'].gsub!('{host}', Setting.host)
       swagger['servers'].prepend({
         url: "#{Setting.host}/api",
         description: 'CURRENT'

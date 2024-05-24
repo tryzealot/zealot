@@ -8,6 +8,31 @@ en:
         - [Bruno](https://www.usebruno.com/)
         - [Postman](https://www.postman.com/downloads/)
         - Your web browser, if you don't need to send headers or a request body
+
+        Once you have a working client, you can test that it works by making a GET request to {host}/version:
+
+        ```json
+        {
+          "version": "5.2.3",
+          "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
+          "build_date": "2024-05-23T06:04:48.989Z"
+        }
+        ```
+
+        ## Authentication
+
+        This API only accepts one options for authentication: Personal access tokens.
+        All tokens are tied to a Zealot user and use the `token` query of the request.
+
+        Example:
+
+        ```
+        https://tryzealot.ews.im/api/users?token={token}
+        ```
+
+        ### Personal access tokens
+
+        Personal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).
     servers:
       description: Demo server
     security:
@@ -16,24 +41,26 @@ en:
     parameters:
       page: Pagination page
       per_page: Page size
-      channel_key: 应用渠道 Key
-      release_version: 主版本号
-      build_version: 内部版本号
+      channel_key: Channel key
+      release_version: Release version
+      build_version: Build version
     schemas:
       app_index:
         description: App returned in a list
       app:
-        description: App
-      collaborator:
-        description: App collaborator
+        description: App object
       scheme:
         description: App scheme object
       channel:
         description: App channel object
       release_changelog:
-        description: 应用版本的更新日志
+        description: Changelogs of build
       release_custom_field:
-        description: 应用版本的自定义字段
+        description: Custom fields of build
+      collaborator:
+        description: Collaborator object
+      user:
+        description: User object
     responses:
       unauthorized:
         description: 401 Unauthorized Response
@@ -43,129 +70,169 @@ en:
     definitions:
       upload_app_options:
         description: Upload app form data options
-      scheme_options:
-        description: 应用类型表单字段结构
       app_options:
-        description: 应用表单字段结构
+        description: App form data
+      scheme_options:
+        description: App's scheme form data
       channel_options:
-        description: 应用渠道表单字段结构
+        description: App's channel form data
       collaborator_options:
-        description: 应用成员表单字段结构
+        description: App's collaborator form data
+      user_options:
+        description: User form data
+      debug_file_options:
+        description: Debug file form data
+        properties:
+          release_version: Release version (requires if Android's Proguard file)
+          build_version: Build version (requires if Android's Proguard file)
+
     apps:
       default:
         tags: Apps
         responses:
-          app_index: 应用列表
-          app: 应用详情
-          app_versions: 应用详情及版本列表
-          app_latest: 最新上传应用版本列表
-          build_uploaded: 已上传的应用版本详情
-          destroy: 已删除应用
+          app_index: Return a list of Apps
+          app: Return an App
+          app_versions: Return a build based list of Apps
+          app_latest: Get the latest build by App ID
+          build_uploaded: Upload an App
+          destroy: Destroy an App
       list_apps:
-        title: List apps
+        title: List Apps
         description: Lists all apps, paginated and sorted by created date (newest first)
       get_app:
-        title: Get app
-        description: Get app detail
+        title: Get an App
+        description: Get an App detail
       upload_app:
-        title: Upload build
-        description: upload iOS, Android, macOS, Windows or Linux App
+        title: Upload build of App
+        description: Upload a iOS, Android, macOS, Windows or Linux App
       versions:
-        title: 应用渠道的上传版本列表
-        description: 查询应用单一渠道的上传版本列表，版本列表按上传时间倒序
+        title: Get version builds
+        description: List version builds by an App's channel. sort by uploaded date with order desc.
       latest:
-        title: 搜索指定版本后面的应用版本列表
-        description: 查询应用单一渠道的最新版本列表，版本列表按上传时间倒序
+        title: Get the latest builds
+        description: List the latest version builds with release version and build version. sort by uploaded date with order desc.
       create_app:
-        title: 创建应用
-        description: 根据应用名创建应用
+        title: Create an App
+        description: Create an App
       update_app:
-        title: 创建应用
-        description: 根据应用名创建应用
+        title: Update an App
+        description: Rename the App's name
       destroy_app:
-        title: 删除应用
-        description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
-
+        title: Destroy an App
+        description: Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.
     schemes:
       default:
-        tags: 应用类型
+        tags: Schemes
         responses:
-          index: 应用类型列表
-          show: 应用类型详情
-          update: 更新应用类型信息
-          destroy: 应用类型文件
+          index: Schemes
+          show: Scheme
+          update: Scheme
+          destroy: ''
       create:
-        title: 创建应用类型
-        description: 创建应用类型
+        title: Create an App's scheme
+        description: Create an App's scheme
       show:
-        title: 获取应用类型详情
-        description: 获取应用类型详情
+        title: Get an scheme
+        description: Get an App's scheme
       update:
-        title: 更新应用类型
-        description: 更新应用类型的
+        title: Update an scheme
+        description: Update an App's scheme
       destroy:
-        title: 删除应用类型
-        description: 从应用中删除指定应用类型
+        title: Destroy an scheme
+        description: Destroy an scheme from the App
 
     channels:
       default:
-        tags: 应用渠道
+        tags: Channel
         responses:
-          index: 应用渠道列表
-          show: 应用渠道详情
-          update: 更新应用渠道信息
-          destroy: 应用渠道文件
+          index: Channels
+          show: Channel
+          update: Channel
+          destroy: ''
       create:
-        title: 创建应用渠道
-        description: 创建应用渠道
+        title: Create a channel
+        description: Create a scheme's channel
       show:
-        title: 获取应用渠道详情
-        description: 获取应用渠道详情
+        title: Get a channel
+        description: Get a channel
       update:
-        title: 更新应用渠道
-        description: 更新应用渠道的
+        title: Update a channel
+        description: Update a channel
       destroy:
-        title: 删除应用渠道
-        description: 从应用中删除指定应用渠道
+        title: Destroy a channel
+        description: Destroy a scheme's channel
 
     collaborators:
       default:
-        tags: 应用成员
+        tags: Collaborators
         responses:
-          index: 应用成员列表
-          show: 应用成员详情
-          update: 更新应用成员信息
-          destroy: 应用成员文件
+          index: Collaborators
+          show: Collaborator
+          update: Collaborator
+          destroy: ''
       create:
-        title: 添加用户到应用成员
-        description: 添加指定用户到指定应用成员列表
+        title: Add a collaborator to an App
+        description: Add a collaborator to an App
       show:
-        title: 获取应用成员详情
-        description: 获取应用成员详情
+        title: Get a collaborator
+        description: Get a collaborator metadata
       update:
-        title: 更新应用成员权限
-        description: 更新应用成员的权限
+        title: Update a collaborator's role
+        description: Update a Collaborator's role
       destroy:
-        title: 删除应用成员
-        description: 从应用中删除指定应用成员
+        title: Remove a collaborator from an App
+        description: Remove a collaborator from an App
 
     debug_files:
       default:
-        tags: 调试文件
+        tags: Debug files
         responses:
-          app_index: 调试文件列表
-          app: 调试文件详情
-          destroy: 已删除调试文件
-      list_debug_files:
-        title: 获取调试文件列表
-        description: 获取所有调试文件列表详情，支持分页，按照最新创建时间倒序
-      get_debug_file:
-        title: 获取调试文件详情
-        description: 获取调试文件详情
-      upload_debug_file:
-        title: 上传调试文件
-        description: 上传 dSYM 或 Proguard 打包成 zip 压缩调试文件
-      destroy_debug_file:
-        title: 删除调试文件
-        description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
+          index: DebugFiles
+          show: DebugFile
+          upload: DebugFile
+          destroy: ''
+      index:
+        title: List debug files
+        description: List debug files by an App's channel key.
+      show:
+        title: Get a debug file
+        description: Get a debug file
+      upload:
+        title: Upload a debug file
+        description: Upload a dSYM or Proguard file which it was archived with zip formatted
+      destroy:
+        title: Destroy a debug file
+        description: Destroy a debug file ID and all data, include dSYM or Proguard files.
 
+    users:
+      default:
+        tags: Users
+        responses:
+          index: Users
+          show: User
+          update: User
+          destroy: ''
+      index:
+        title: List users
+        description: List users without secreted value (password)
+      search:
+        title: Search user
+        description: Search user by given an email address
+      create:
+        title: Create an user
+        description: Create an user
+      show:
+        title: Get an user
+        description: Get an user metadata, personal data and customize settings
+      update:
+        title: Update an user
+        description: Update an user settings
+      destroy:
+        title: Destroy an user
+        description: Destroy an user
+      lock:
+        title: Lock an user
+        description: Lock an user to stop log in
+      unlock:
+        title: Unlock an user
+        description: Unlock an user to enable log in

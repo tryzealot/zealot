@@ -4,9 +4,9 @@ require 'swagger_helper'
 
 RSpec.describe 'DebugFiles API' do
   path '/debug_files' do
-    get I18n.t('api.debug_files.list_debug_files.title') do
+    get I18n.t('api.debug_files.index.title') do
       tags I18n.t('api.debug_files.default.tags')
-      description I18n.t('api.debug_files.list_debug_files.description')
+      description I18n.t('api.debug_files.index.description')
       operationId 'listDebugFiles'
 
       include_examples :channel_key_parameter
@@ -14,7 +14,7 @@ RSpec.describe 'DebugFiles API' do
       include_examples :unauthorized_response
 
       produces 'application/json'
-      response 200, I18n.t('api.debug_files.default.responses.debug_file_index') do
+      response 200, I18n.t('api.debug_files.default.responses.index') do
         schema type: :array, items: { '$ref': '#/components/schemas/DebugFile' }
         run_test!
       end
@@ -22,15 +22,34 @@ RSpec.describe 'DebugFiles API' do
   end
 
   path '/debug_files/{id}' do
-    get I18n.t('api.debug_files.get_debug_file.title') do
+    get I18n.t('api.debug_files.show.title') do
       tags I18n.t('api.debug_files.default.tags')
-      description I18n.t('api.debug_files.get_debug_file.description')
+      description I18n.t('api.debug_files.show.description')
       operationId 'getDebugFile'
 
       include_examples :primary_key_parameter
 
       produces 'application/json'
-      response 200, I18n.t('api.debug_files.default.responses.debug_file') do
+      response 200, I18n.t('api.debug_files.default.responses.show') do
+        schema '$ref': '#/components/schemas/DebugFile'
+        run_test!
+      end
+
+      include_examples :unauthorized_response
+      include_examples :not_found_response, I18n.t('api.debug_files.default.tags')
+    end
+  end
+
+  path '/debug_files' do
+    post I18n.t('api.debug_files.upload.title') do
+      tags I18n.t('api.debug_files.default.tags')
+      description I18n.t('api.debug_files.upload.description')
+      operationId 'uploadDebugFile'
+
+      include_examples :request_form_body, '#/definitions/DebugFileOptions'
+
+      produces 'application/json'
+      response 200, I18n.t('api.debug_files.default.responses.upload') do
         schema '$ref': '#/components/schemas/DebugFile'
         run_test!
       end
@@ -41,9 +60,9 @@ RSpec.describe 'DebugFiles API' do
   end
 
   path '/debug_files/{id}' do
-    delete I18n.t('api.debug_files.destroy_debug_file.title') do
+    delete I18n.t('api.debug_files.destroy.title') do
       tags I18n.t('api.debug_files.default.tags')
-      description I18n.t('api.debug_files.destroy_debug_file.description')
+      description I18n.t('api.debug_files.destroy.description')
       operationId 'destroyDebugFile'
 
       include_examples :primary_key_parameter
