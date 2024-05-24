@@ -88,6 +88,15 @@
               }
             }
           }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
         }
       }
     },
@@ -148,7 +157,7 @@
           "应用"
         ],
         "description": "根据应用名创建应用",
-        "operationId": "createApp",
+        "operationId": "updateApp",
         "parameters": [
           {
             "name": "id",
@@ -190,6 +199,15 @@
               }
             }
           }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -198,7 +216,7 @@
           "应用"
         ],
         "description": "删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本",
-        "operationId": "createApp",
+        "operationId": "destroyApp",
         "parameters": [
           {
             "name": "id",
@@ -389,6 +407,231 @@
         }
       }
     },
+    "/schemes/{scheme_id}/channels": {
+      "get": {
+        "summary": "获取应用渠道详情",
+        "tags": [
+          "应用渠道"
+        ],
+        "description": "获取应用渠道详情",
+        "operationId": "getChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用渠道详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Channel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用渠道未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "创建应用渠道",
+        "tags": [
+          "应用渠道"
+        ],
+        "description": "创建应用渠道",
+        "operationId": "createChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: zh-CN.api.channels.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用渠道未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channels/{id}": {
+      "put": {
+        "summary": "更新应用渠道",
+        "tags": [
+          "应用渠道"
+        ],
+        "description": "更新应用渠道的",
+        "operationId": "updateChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新应用渠道信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用渠道未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除应用渠道",
+        "tags": [
+          "应用渠道"
+        ],
+        "description": "从应用中删除指定应用渠道",
+        "operationId": "deleteChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用渠道文件",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用渠道未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/apps/{app_id}/collaborators/{user_id}": {
       "get": {
         "summary": "获取应用成员详情",
@@ -454,7 +697,7 @@
           "应用成员"
         ],
         "description": "添加指定用户到指定应用成员列表",
-        "operationId": "getCollaborator",
+        "operationId": "createCollaborator",
         "parameters": [
           {
             "name": "app_id",
@@ -471,13 +714,10 @@
             "schema": {
               "type": "path"
             }
-          },
-          {
-            "$ref": "#/components/parameters/collaboratorRoleParam"
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Translation missing: zh-CN.api.collaborators.default.responses.create",
             "content": {
               "application/json": {
@@ -507,6 +747,15 @@
               }
             }
           }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
         }
       },
       "put": {
@@ -532,9 +781,6 @@
             "schema": {
               "type": "path"
             }
-          },
-          {
-            "$ref": "#/components/parameters/collaboratorRoleParam"
           }
         ],
         "responses": {
@@ -543,7 +789,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/schemas/Collaborator"
                 }
               }
             }
@@ -565,6 +811,15 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
               }
             }
           }
@@ -601,7 +856,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/responses/Destroyed"
                 }
               }
             }
@@ -732,7 +987,7 @@
           "调试文件"
         ],
         "description": "删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件",
-        "operationId": "createApp",
+        "operationId": "destroyDebugFile",
         "parameters": [
           {
             "name": "id",
@@ -749,7 +1004,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/App"
+                  "$ref": "#/components/responses/Destroyed"
                 }
               }
             }
@@ -766,6 +1021,231 @@
           },
           "404": {
             "description": "调试文件未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/schemes": {
+      "get": {
+        "summary": "获取应用类型详情",
+        "tags": [
+          "应用类型"
+        ],
+        "description": "获取应用类型详情",
+        "operationId": "getScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用类型详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scheme"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用类型未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "创建应用类型",
+        "tags": [
+          "应用类型"
+        ],
+        "description": "创建应用类型",
+        "operationId": "createScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Translation missing: zh-CN.api.schemes.default.responses.create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用类型未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{id}": {
+      "put": {
+        "summary": "更新应用类型",
+        "tags": [
+          "应用类型"
+        ],
+        "description": "更新应用类型的",
+        "operationId": "updateScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新应用类型信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用类型未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除应用类型",
+        "tags": [
+          "应用类型"
+        ],
+        "description": "从应用中删除指定应用类型",
+        "operationId": "deleteScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "应用类型文件",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "应用类型未找到",
             "content": {
               "application/json": {
                 "schema": {
@@ -808,7 +1288,7 @@
         "in": "query",
         "name": "build_version",
         "required": true,
-        "description": "Translation missing: zh-CN.api.parameters.build_version",
+        "description": "内部版本号",
         "schema": {
           "type": "string"
         }
@@ -817,23 +1297,9 @@
         "in": "query",
         "name": "release_version",
         "required": true,
-        "description": "Translation missing: zh-CN.api.parameters.release_version",
+        "description": "主版本号",
         "schema": {
           "type": "string"
-        }
-      },
-      "collaboratorRoleParam": {
-        "in": "query",
-        "name": "role",
-        "required": true,
-        "description": "Translation missing: zh-CN.api.parameters.collaborator_role",
-        "schema": {
-          "type": "string",
-          "enum": [
-            "user",
-            "developer",
-            "admin"
-          ]
         }
       },
       "pageParam": {
@@ -852,7 +1318,7 @@
         "in": "query",
         "name": "per_page",
         "required": false,
-        "description": "数量",
+        "description": "单页数量",
         "schema": {
           "type": "integer",
           "format": "int32",
@@ -1263,6 +1729,19 @@
             "type": "string"
           }
         }
+      },
+      "Destroyed": {
+        "description": "Translation missing: zh-CN.api.responses.destroyed.default",
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "OK"
+          }
+        }
       }
     },
     "examples": {
@@ -1328,6 +1807,91 @@
         "custom_fields": {
           "type": "array",
           "$ref": "#/components/schemas/ReleaseCustomField"
+        }
+      }
+    },
+    "AppOptions": {
+      "description": "应用表单字段结构",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "SchemeOptions": {
+      "description": "应用类型表单字段结构",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "new_build_callout": {
+          "type": "boolean",
+          "default": true
+        },
+        "retained_builds": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        }
+      }
+    },
+    "ChannelOptions": {
+      "description": "应用渠道表单字段结构",
+      "type": "object",
+      "required": [
+        "name",
+        "device_type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "device_type": {
+          "type": "string",
+          "enum": [
+            "ios",
+            "android",
+            "macos",
+            "windows",
+            "linux"
+          ]
+        },
+        "slug": {
+          "type": "string"
+        },
+        "bundle_id": {
+          "type": "string"
+        },
+        "git_url": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "CollaboratorOptions": {
+      "description": "应用成员表单字段结构",
+      "type": "object",
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ]
         }
       }
     }
