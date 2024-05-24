@@ -9,10 +9,7 @@ RSpec.configure do |config|
       openapi: '3.1.0',
       info: {
         title: 'Zealot API',
-        version: 'v1.2',
-        contact: {
-          url: 'https://github.com/tryzealot/zealot'
-        },
+        version: 'v1.3',
         description: I18n.t('api.info.description')
       },
       servers: [
@@ -387,6 +384,17 @@ RSpec.configure do |config|
             appearance: { type: :string, enum: User.appearances.keys },
             timezone: { type: :string, enum: User.timezones.keys },
             role: { type: :string, enum: User.roles.keys },
+          }
+        },
+        DebugFileOptions: {
+          description: I18n.t('api.definitions.debug_file_options.description'),
+          type: :object,
+          required: %i[ channel_key file ],
+          properties: {
+            channel_key: { type: :string },
+            file: { type: :file },
+            release_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.release_version') },
+            build_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.build_version') },
           }
         }
       }
