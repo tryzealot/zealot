@@ -50,7 +50,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -92,7 +92,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -102,7 +102,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/versions": {
+      "get": {
+        "summary": "Translation missing: en.api.apps.versions.title",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Translation missing: en.api.apps.versions.description",
+        "operationId": "appVersions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An App\\s channel include releases",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -137,7 +177,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -147,7 +187,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                  "$ref": "#/components/responses/Unauthorized"
                 }
               }
             }
@@ -223,6 +263,35 @@
           "schemes": {
             "type": "array",
             "$ref": "#/components/schemas/Scheme"
+          }
+        }
+      },
+      "AppVersionsIndex": {
+        "description": "Translation missing: en.api.schemas.app_versions_index.description",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "app_name": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "type": "string"
+          },
+          "git_url": {
+            "type": "string"
+          },
+          "app": {
+            "$ref": "#/components/schemas/App"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "releases": {
+            "type": "array",
+            "$ref": "#/components/schemas/Release"
           }
         }
       },
@@ -318,7 +387,99 @@
           }
         }
       },
-      "UnauthorizedResponse": {
+      "Release": {
+        "description": "Translation missing: en.api.schemas.release.description",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "app_name": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "git_commit": {
+            "type": "string"
+          },
+          "ci_url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "device_type": {
+            "type": "string"
+          },
+          "icon_url": {
+            "type": "string"
+          },
+          "install_url": {
+            "type": "string"
+          },
+          "changelog": {
+            "type": "array",
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "text_changelog": {
+            "type": "string"
+          },
+          "custom_fields": {
+            "type": "array",
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "created_at": {
+            "type": "date"
+          }
+        }
+      },
+      "ReleaseChangelog": {
+        "description": "Translation missing: en.api.schemas.release_changelog.description",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ReleaseCustomField": {
+        "description": "Translation missing: en.api.schemas.release_custom_field.description",
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
         "description": "401 Unauthorized Response",
         "type": "object",
         "properties": {
