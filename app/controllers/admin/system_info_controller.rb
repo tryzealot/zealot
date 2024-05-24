@@ -120,7 +120,7 @@ class Admin::SystemInfoController < ApplicationController
       cpu: cpu&.length,
       memory: memory,
       diskspace: diskspace,
-      booted_at: Rails.application.config.booted_at
+      booted_at: Rails.application.config.booted_at.in_time_zone(current_user.timezone)
     }
   end
 
