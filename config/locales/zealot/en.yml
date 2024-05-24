@@ -503,13 +503,13 @@ en:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
         not_found: Not found
-        not_found_app: App not found or had been destroyed
-        not_found_release: Not found any release of channel
+        not_found_app: Could not be found the App's channel
+        not_found_release: Could not be found the build
         redirect_to_app_list: Redirect to app list
         reidrect_channel_detal: Redirect to channel page
-        deleted_manually: Maybe clean up manually
-        deleted_programly: Maybe clean up by enabled auto clean in system
-        not_found_really: Not found release
+        deleted_manually: Maybe destroy by developer.
+        deleted_programly: Maybe clean up by enabled auto clean job.
+        not_found_really: Not found this build.
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
         require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
