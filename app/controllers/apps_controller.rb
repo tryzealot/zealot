@@ -46,7 +46,7 @@ class AppsController < ApplicationController
 
   def destroy
     @app.destroy
-    destory_app_data
+    destroy_app_data
 
     redirect_to apps_path, status: :see_other
   end
@@ -72,7 +72,7 @@ class AppsController < ApplicationController
 
   private
 
-  def destory_app_data
+  def destroy_app_data
     require 'fileutils'
 
     app_binary_path = Rails.root.join('public', 'uploads', 'apps', "a#{@app.id}")

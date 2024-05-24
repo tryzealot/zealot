@@ -9,10 +9,11 @@
           i.icon.fas.fa-cloud-rain
           = @title
       .card-body
-        ul
+        ul.mb-0
           li = t('releases.messages.errors.deleted_manually')
           li = t('releases.messages.errors.deleted_programly')
           li = t('releases.messages.errors.not_found_really')
-      .card-footer.p-0
-        a.btn.btn-outline-danger.btn-block href="#{@link_href}"
-          = @link_title
+      - if @link_href && @link_title
+        .card-footer.p-0
+          a.btn.btn-outline-danger.btn-block href="#{@link_href}"
+            = @link_title
