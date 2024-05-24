@@ -16,6 +16,9 @@ en:
     parameters:
       page: Pagination page
       per_page: Page size
+      channel_key: 应用渠道 Key
+      release_version: 主版本号
+      build_version: 内部版本号
     schemas:
       app_index:
         description: App returned in a list
@@ -27,26 +30,142 @@ en:
         description: App scheme object
       channel:
         description: App channel object
-      unauthorized_response:
+      release_changelog:
+        description: 应用版本的更新日志
+      release_custom_field:
+        description: 应用版本的自定义字段
+    responses:
+      unauthorized:
         description: 401 Unauthorized Response
+      not_found:
+        default: Resource not found
+        description: '%{model} not found'
     definitions:
       upload_app_options:
         description: Upload app form data options
+      scheme_options:
+        description: 应用类型表单字段结构
+      app_options:
+        description: 应用表单字段结构
+      channel_options:
+        description: 应用渠道表单字段结构
+      collaborator_options:
+        description: 应用成员表单字段结构
     apps:
       default:
         tags: Apps
+        responses:
+          app_index: 应用列表
+          app: 应用详情
+          app_versions: 应用详情及版本列表
+          app_latest: 最新上传应用版本列表
+          build_uploaded: 已上传的应用版本详情
+          destroy: 已删除应用
       list_apps:
         title: List apps
         description: Lists all apps, paginated and sorted by created date (newest first)
-        response:
-          200: List of apps
-          401: Unauthorized
       get_app:
         title: Get app
         description: Get app detail
       upload_app:
         title: Upload build
         description: upload iOS, Android, macOS, Windows or Linux App
-        response:
-          201: Created app
-          401: Unauthorized
+      versions:
+        title: 应用渠道的上传版本列表
+        description: 查询应用单一渠道的上传版本列表，版本列表按上传时间倒序
+      latest:
+        title: 搜索指定版本后面的应用版本列表
+        description: 查询应用单一渠道的最新版本列表，版本列表按上传时间倒序
+      create_app:
+        title: 创建应用
+        description: 根据应用名创建应用
+      update_app:
+        title: 创建应用
+        description: 根据应用名创建应用
+      destroy_app:
+        title: 删除应用
+        description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
+
+    schemes:
+      default:
+        tags: 应用类型
+        responses:
+          index: 应用类型列表
+          show: 应用类型详情
+          update: 更新应用类型信息
+          destroy: 应用类型文件
+      create:
+        title: 创建应用类型
+        description: 创建应用类型
+      show:
+        title: 获取应用类型详情
+        description: 获取应用类型详情
+      update:
+        title: 更新应用类型
+        description: 更新应用类型的
+      destroy:
+        title: 删除应用类型
+        description: 从应用中删除指定应用类型
+
+    channels:
+      default:
+        tags: 应用渠道
+        responses:
+          index: 应用渠道列表
+          show: 应用渠道详情
+          update: 更新应用渠道信息
+          destroy: 应用渠道文件
+      create:
+        title: 创建应用渠道
+        description: 创建应用渠道
+      show:
+        title: 获取应用渠道详情
+        description: 获取应用渠道详情
+      update:
+        title: 更新应用渠道
+        description: 更新应用渠道的
+      destroy:
+        title: 删除应用渠道
+        description: 从应用中删除指定应用渠道
+
+    collaborators:
+      default:
+        tags: 应用成员
+        responses:
+          index: 应用成员列表
+          show: 应用成员详情
+          update: 更新应用成员信息
+          destroy: 应用成员文件
+      create:
+        title: 添加用户到应用成员
+        description: 添加指定用户到指定应用成员列表
+      show:
+        title: 获取应用成员详情
+        description: 获取应用成员详情
+      update:
+        title: 更新应用成员权限
+        description: 更新应用成员的权限
+      destroy:
+        title: 删除应用成员
+        description: 从应用中删除指定应用成员
+
+    debug_files:
+      default:
+        tags: 调试文件
+        responses:
+          app_index: 调试文件列表
+          app: 调试文件详情
+          destroy: 已删除调试文件
+      list_debug_files:
+        title: 获取调试文件列表
+        description: 获取所有调试文件列表详情，支持分页，按照最新创建时间倒序
+      get_debug_file:
+        title: 获取调试文件详情
+        description: 获取调试文件详情
+      upload_debug_file:
+        title: 上传调试文件
+        description: 上传 dSYM 或 Proguard 打包成 zip 压缩调试文件
+      destroy_debug_file:
+        title: 删除调试文件
+        description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
+
