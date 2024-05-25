@@ -82,4 +82,15 @@ namespace :zealot do
 
     puts "Zealot #{version}#{message}#{docker}"
   end
+
+  desc "Zealot | generate swagger files"
+  task swaggerize: :environment do
+    current_locale = ENV['DEFAULT_LOCALE']
+    I18n.available_locales.each do |locale|
+      ENV['DEFAULT_LOCALE'] = current_locale.to_s
+      puts "Generating #{locale} swagger ..."
+      Rake::Task['rswag'].invoke
+    end
+    ENV['DEFAULT_LOCALE'] = current_locale
+  end
 end

@@ -1,0 +1,333 @@
+zh-CN:
+  api:
+    info:
+      description: |
+        文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：
+
+        - [cURL](https://curl.se/) (推荐，命令行工具)
+        - [Bruno](https://www.usebruno.com/)
+        - [Postman](https://www.postman.com/downloads/)
+        - 任意浏览器，如果你不需要设置 headers 或请求主体
+
+        准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：
+
+        ```json
+        {
+          "version": "5.2.3",
+          "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
+          "build_date": "2024-05-23T06:04:48.989Z"
+        }
+        ```
+
+        ## 接口认证
+
+        接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。
+
+        ```
+        https://tryzealot.ews.im/api/users?token={token}
+        ```
+
+        ### 用户密钥
+
+        用户密钥在[用户详情](/docs/user-guide/user_settings)最底部找到。
+    servers:
+      description: 演示服务器
+    security:
+      token:
+        description: 用户密钥
+    parameters:
+      page: 页码
+      per_page: 单页数量
+      channel_key: 应用渠道 Key
+      bundle_id: 应用的包名，iOS 取 bundle_id，Android 取 package_name
+      git_commit: Git 提交哈希值
+      order: 排序方式
+      release_version: 主版本号
+      build_version: 内部版本号
+      supported_values: 可选值有 %{values}
+    schemas:
+      app_index:
+        description: 应用列表
+      app_versions:
+        description: Apps returned in a list
+      app:
+        description: 应用
+      scheme:
+        description: 应用类型
+      channel:
+        description: 应用渠道
+      release:
+        description: App's release build object
+      release_changelog:
+        description: 应用版本的更新日志
+      release_custom_field:
+        description: 应用版本的自定义字段
+      collaborator:
+        description: 应用成员
+      debug_file:
+        description: 调试文件
+      debug_file_metadata:
+        description: 调试文件数据文件
+      metadata_dsym:
+        description: dSYM 类调试文件
+      metadata_proguard:
+        description: Proguard 类调试文件
+      metadata_proguard_file:
+        description: Proguard 文件
+      user:
+        description: 用户
+      version:
+        description: 版本信息
+    responses:
+      unauthorized:
+        description: 用户密钥认证失败
+      not_found:
+        default: 资源未找到
+        description: '%{model}未找到'
+      destroyed:
+        default: 资源已被删除
+    definitions:
+      upload_options:
+        description: 上传应用版本表单字段结构
+        properties:
+          channel_key: 应用具体渠道的 Key，没有传此参数会字段创建对于的应用、类型和渠道
+          file: 本地支持上传类型的应用文件
+          name: 应用名称，为空时取 App 的信息
+          release_type: 应用类型，比如 debug, beta, adhoc, release, enterprise 等
+          source: 上传渠道名称，默认是 `api`
+          changelog: 变更日志，接受纯文本或 JSON 格式化的数据
+          branch: 代码控制软件的分支名
+          git_commit: 代码控制软件提交哈希值
+          ci_url: 持续构建系统构建 URL
+          custom_fields: 这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome
+      app_options:
+        description: 应用表单字段结构
+        properties:
+          name: 应用名
+      scheme_options:
+        description: 应用类型表单字段结构
+        properties:
+          name: 应用类型名
+          new_build_callout: 是否开启新版本提示，默认开启
+          retained_builds: 最大保留版本数，设置 `0` 关闭版本保留功能
+      channel_options:
+        description: 应用渠道表单字段结构
+        properties:
+          name: 应用渠道名
+          device_type: 设备类型
+          slug: URL 唯一标示，没有填随机生成
+          bundle_id: 包名校验， 默认是 `*` 不做校验 (iOS 指的是 bundle_id，Android 指的是 package name)
+          git_url: Git 仓库地址
+          password: 密码访问
+      collaborator_options:
+        description: 应用成员表单字段结构
+        properties:
+          role: 应用内成员权限
+      user_options:
+        description: 用户表单字段结构
+        properties:
+          username: 用户名
+          email: 电子邮箱
+          password: 密码
+          locale: 语言设置
+          appearance: 外观设置
+          timezone: 时区设置
+          role: 用户权限
+      debug_file_options:
+        description: 调试文件表单字段结构
+        properties:
+          channel_key: 调试文件归属的应用渠道，主要省去再传设备类型
+          file: 本地的调试文件
+          release_version: 主版本号 （Android 类型需要填写）
+          build_version: 内部版本号 （Android 类型需要填写）
+
+    apps:
+      default:
+        tags: 应用
+        responses:
+          index: 应用列表
+          show: 应用详情
+          versions: 应用详情及版本列表
+          latest: 最新上传应用版本列表
+          upload: 已上传的应用版本详情
+          destroy: 已删除应用
+      index:
+        title: 获取应用列表
+        description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
+      show:
+        title: 获取应用详情
+        description: 获取应用详情
+      upload:
+        title: 上传应用
+        description: 上传 iOS、Android、macOS、Linux 或 Windows 应用
+      versions:
+        title: 应用渠道的上传版本列表
+        description: 查询应用单一渠道的上传版本列表，版本列表按上传时间倒序
+      version_exist:
+        title: 检查应用版本是否存在
+        description: |
+          根据以下两种查询条件组合查询应用单一渠道的版本是否存在：
+
+          - 包名 `bundle_id` + 主版本号 `release_version` + 内部版本号 `build_verion`
+          - 包名 `bundle_id` + Git 最后提交值 `git_commit`
+      latest:
+        title: 搜索指定版本后面的应用版本列表
+        description: 查询应用单一渠道的最新版本列表，版本列表按上传时间倒序
+      create:
+        title: 创建应用
+        description: 根据应用名创建应用
+      update:
+        title: 创建应用
+        description: 根据应用名创建应用
+      destroy:
+        title: 删除应用
+        description: 删除指定应用 ID 的所有数据，包括所有应用类型、渠道及已上传的应用版本
+
+    schemes:
+      default:
+        tags: 应用类型
+        responses:
+          index: 应用类型列表
+          show: 应用类型详情
+          create: 应用类型详情
+          update: 更新应用类型信息
+          destroy: 应用类型文件
+      create:
+        title: 创建应用类型
+        description: 创建应用类型
+      show:
+        title: 获取应用类型详情
+        description: 获取应用类型详情
+      update:
+        title: 更新应用类型
+        description: 更新应用类型的
+      destroy:
+        title: 删除应用类型
+        description: 从应用中删除指定应用类型
+
+    channels:
+      default:
+        tags: 应用渠道
+        responses:
+          index: 应用渠道列表
+          show: 应用渠道详情
+          create: 应用渠道详情
+          update: 更新应用渠道信息
+          destroy: 应用渠道文件
+      create:
+        title: 创建应用渠道
+        description: 创建应用渠道
+      show:
+        title: 获取应用渠道详情
+        description: 获取应用渠道详情
+      update:
+        title: 更新应用渠道
+        description: 更新应用渠道的
+      destroy:
+        title: 删除应用渠道
+        description: 从应用中删除指定应用渠道
+
+    collaborators:
+      default:
+        tags: 应用成员
+        responses:
+          index: 应用成员列表
+          show: 应用成员详情
+          create: 应用成员详情
+          update: 更新应用成员信息
+          destroy: 应用成员文件
+      create:
+        title: 添加用户到应用成员
+        description: 添加指定用户到指定应用成员列表
+      show:
+        title: 获取应用成员详情
+        description: 获取应用成员详情
+      update:
+        title: 更新应用成员权限
+        description: 更新应用成员的权限
+      destroy:
+        title: 删除应用成员
+        description: 从应用中删除指定应用成员
+
+    debug_files:
+      default:
+        tags: 调试文件
+        responses:
+          index: 调试文件列表
+          download: 跳转到二进制调试文件文件地址
+          show: 调试文件详情
+          upload: 调试文件详情
+          update: 更新调试文件详情
+          destroy: 已删除调试文件
+      index:
+        title: 获取调试文件列表
+        description: 获取所有调试文件列表详情，支持分页，按照最新创建时间倒序
+      show:
+        title: 获取调试文件详情
+        description: 获取调试文件详情
+      download:
+        title: 下载调试文件
+        description: |
+          下载 iOS 和 Android 的调试文件
+
+          `channel_key` 和 `release_version` 作为必要条件，不传递 `build_version`
+          参数可以使用 `order` 获取符合排序规则的第一个调试文件地址，排序方式有：
+
+          - `version`: 最新版本
+          - `upload_date`: 上传调试文件日期
+      upload:
+        title: 上传调试文件
+        description: |
+          上传 dSYM 或 Proguard 打包成 zip 压缩调试文件
+
+          - `iOS`: 使用 Zip 压缩后的 dSYM 文件
+          - `Android`: 使用 Zip 压缩后包含 mapping.txt、R.txt 和 AndroidManifest.xml 的文件
+      destroy:
+        title: 删除调试文件
+        description: 删除指定调试文件 ID 的所有数据，包括上传的 dSYM 或 Proguard 文件
+
+    users:
+      default:
+        tags: 用户
+        responses:
+          index: 用户列表
+          search: 搜索用户列表
+          show: 用户详情
+          create: 用户详情
+          update: 更新用户信息
+          destroy: 用户文件
+          lock: 请求结果
+          unlock: 请求结果
+      index:
+        title: 获取用户列表
+        description: 获取用户信息的合集，不会返回敏感信息，比如密码
+      search:
+        title: 搜索用户
+        description: 根据电子邮箱搜索用户
+      create:
+        title: 创建用户
+        description: 创建用户
+      show:
+        title: 获取用户详情
+        description: 获取用户详情
+      update:
+        title: 更新用户
+        description: 更新用户的个性化设置、密码等
+      destroy:
+        title: 删除用户
+        description: 删除用户
+      lock:
+        title: 停用用户
+        description: 停用用户后不会影响之前已创建的数据、仅仅是无法再登录
+      unlock:
+        title: 启用用户
+        description: 启用用户后可以重新登录系统
+
+    version:
+      default:
+        tags: 版本
+        responses:
+          show: 版本信息
+      show:
+        title: 获取版本信息
+        description: ''
