@@ -94,5 +94,13 @@ module SettingHelper
     def default_domain
       site_https ? 'localhost' : "localhost:#{ENV['ZEALOT_PORT'] || 3000}"
     end
+
+    def version_info(suffix: false)
+      version = Setting.version
+      return "#{version}-dev" if Rails.env.development?
+      return version if !docker_tag? || !suffix
+
+      "#{version}-#{ENV['DOCKER_TAG']}"
+    end
   end
 end
