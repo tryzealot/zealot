@@ -15,4 +15,7 @@ application.register("destroy", DestroyController)
 import UDIDController from "./udid_controller"
 application.register("udid", UDIDController)
 
+import BulkOperationController from "./bulk_operation_controller"
+application.register("bulk-operation", BulkOperationController)
+
 import "./admin"
