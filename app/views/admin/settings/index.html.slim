@@ -26,18 +26,7 @@
           - keys.each do |key, params|
             ruby:
               value = params[:value]
-              display_value = case value
-                              when Hash
-                                value.blank? ? t('admin.settings.empty_value') : pretty_json(value)
-                              when Array
-                                value.blank? ? t('admin.settings.empty_value') : value.join(', ')
-                              when TrueClass
-                                t('admin.settings.enable')
-                              when FalseClass
-                                t('admin.settings.disable')
-                              else
-                                value.blank? ? t('admin.settings.empty_value') : t("settings.#{key}.#{value}", default: value.to_s)
-                              end
+              display_value = display_value(key, value)
             dl.system-info
               dt = t("admin.settings.#{key}")
               dd

@@ -140,4 +140,28 @@ module ApplicationHelper
   def github_repo_commit(ref)
     "#{Setting.repo_url}/commit/#{ref}"
   end
+
+  def powered_by
+    content_tag :span, class: 'powered_by' do
+      link_to 'Powered by Zealot', 'https://zealot.ews.im'
+    end
+  end
+
+  def zealot_version
+    content_tag :span, class: 'version ml-1' do
+      prefix = 'Version'
+      version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
+
+      raw "#{prefix} #{version_link}"
+    end
+  end
+
+  def show_api
+    return unless openapi_ui_enabled?
+    link_to 'API', api_openapi_ui_path
+  end
+
+  def openapi_ui_enabled?
+    Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.openapi_ui
+  end
 end
