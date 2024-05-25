@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# RailsSettings Model
 class Setting < RailsSettings::Base
   include SettingHelper
   include SettingValidate
@@ -12,15 +11,14 @@ class Setting < RailsSettings::Base
 
   cache_prefix { 'v2' }
 
-  # 系统配置
   scope :general do
     field :site_title, default: 'Zealot', type: :string, display: true,
           validates: { presence: true, length: { in: 3..16 } }
+    field :site_https, default: site_https, type: :boolean, readonly: true, display: true
     field :site_domain, default: (ENV['ZEALOT_DOMAIN'] || default_domain), type: :string,
           restart_required: true, display: true
     field :site_locale, default: Rails.configuration.i18n.default_locale.to_s, type: :string, display: true,
           validates: { presence: true, inclusion: { in: Rails.configuration.i18n.available_locales.map(&:to_s) } }
-    field :site_https, default: site_https, type: :boolean, readonly: true, display: true
     field :site_appearance, default: (ENV['ZEALOT_APPEARANCE'] || builtin_appearances.keys[0].to_s),
           type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_appearances.keys.map(&:to_s) } }
@@ -28,22 +26,19 @@ class Setting < RailsSettings::Base
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end
 
-  # 预值
   scope :presets do
     field :preset_schemes, default: builtin_schemes, type: :array, display: true,
           validates: { json: { format: :array } }
     field :preset_role, default: 'user', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
-    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true,
-          validates: { json: { format: :array, value_allow_empty: true } }
-
     field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
           validates: { presence: true, numericality: { only_integer: true } }
     field :max_per_page, default: ENV.fetch('ZEALOT_MAX_PER_PAGE', '100').to_i, type: :integer, display: true,
           validates: { presence: true, numericality: { only_integer: true } }
+    field :preset_install_limited, default: builtin_install_limited, type: :array, display: true,
+          validates: { json: { format: :array, value_allow_empty: true } }
   end
 
-  # 模式开关
   scope :switch_mode do
     field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
           type: :boolean, display: true
@@ -51,11 +46,12 @@ class Setting < RailsSettings::Base
           type: :boolean, restart_required: true, display: true
     field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
           type: :boolean, restart_required: true, display: true
+    field :openapi_ui, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_OPENAPI_UI_ENABLED'] || 'false'),
+          type: :boolean, restart_required: true, display: true
     field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
           type: :boolean, readonly: true, display: true
   end
 
-  # 第三方登录
   scope :third_party_auth do
     field :feishu, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
@@ -104,7 +100,6 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
   end
 
-  # 邮件配置
   scope :stmp do
     field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string,
           restart_required: true, display: true
@@ -121,14 +116,6 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
   end
 
-  # 备份
-  field :backup, type: :hash, readonly: true, default: {
-    path: 'public/backup',
-    max_keeps: 10,
-    pg_schema: 'public',
-  }, validates: { json: { format: :hash } }
-
-  # 版本信息（只读）
   scope :information do
     field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
     field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
@@ -136,7 +123,6 @@ class Setting < RailsSettings::Base
           type: :string, readonly: true
   end
 
-  # 统计
   scope :analytics do
     field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: true
     field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: true
