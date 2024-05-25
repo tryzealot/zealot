@@ -19,7 +19,7 @@
 
           input.hidden type="hidden" value="#{@setting.type}" name="setting[type]"
           - if @setting.type == :boolean
-            = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: @value }
+            = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: ActiveModel::Type::Boolean.new.cast(@value) }
           - elsif @setting.type == :hash || @setting.type == :array
             = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }
           - elsif @setting.inclusion?

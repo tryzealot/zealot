@@ -138,13 +138,14 @@ zh-CN:
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
+      openapi_ui: OpenAPI UI
+      openapi_ui_hint: 开启后可在各页面底部找到 API 链接
       third_party_auth: 第三方登录
       ldap: LDAP
       oidc: OpenID Connect
       feishu: 飞书
       gitlab: Gitlab
       google_oauth: Google OAuth
-      backup: 备份
       # misc: 杂项
       stmp: 邮件配置
       mailer_default_from: 默认邮件发件地址
