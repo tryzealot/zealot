@@ -44,24 +44,6 @@ RSpec.configure do |config|
               type: :string
             }
           },
-          buildVersionParam: {
-            in: :query,
-            name: :build_version,
-            required: true,
-            description: I18n.t('api.parameters.build_version'),
-            schema: {
-              type: :string
-            }
-          },
-          releaseVersionParam: {
-            in: :query,
-            name: :release_version,
-            required: true,
-            description: I18n.t('api.parameters.release_version'),
-            schema: {
-              type: :string
-            }
-          },
           pageParam: {
             in: :query,
             name: :page,
@@ -95,13 +77,13 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.app_index.description'),
             type: :object,
             properties: {
-              id: { type: :integer, format: :int32 },
-              name: { type: :string },
-              schemes: { type: :array, '$ref': '#/components/schemas/Scheme' }
+              id: { type: :integer, format: :int32, example: 1 },
+              name: { type: :string, example: 'First App' },
+              schemes: { type: :array, items: { '$ref': '#/components/schemas/Scheme' }}
             }
           },
           AppVersionsIndex: {
-            description: I18n.t('api.schemas.app_versions_index.description'),
+            description: I18n.t('api.schemas.app_versions.description'),
             type: :object,
             properties: {
               id: { type: :integer, format: :int32, example: 1 },
@@ -110,7 +92,7 @@ RSpec.configure do |config|
               git_url: { type: :string, example: 'https://github.com/tryzealot/zealot' },
               app: { '$ref': '#/components/schemas/App' },
               scheme: { '$ref': '#/components/schemas/Scheme' },
-              releases: { type: :array, '$ref': '#/components/schemas/Release' }
+              releases: { type: :array, items: { '$ref': '#/components/schemas/Release' }}
             }
           },
           App: {
@@ -119,8 +101,8 @@ RSpec.configure do |config|
             properties: {
               id: { type: :integer, format: :int32, example: 1 },
               name: { type: :string, example: 'First App' },
-              schemes: { type: :array, '$ref': '#/components/schemas/Scheme' },
-              collaborators: { type: :array, '$ref': '#/components/schemas/Collaborator' },
+              schemes: { type: :array, items: { '$ref': '#/components/schemas/Scheme' }},
+              collaborators: { type: :array, items: { '$ref': '#/components/schemas/Collaborator' }},
             }
           },
           Collaborator: {
@@ -136,13 +118,12 @@ RSpec.configure do |config|
           Scheme: {
             description: I18n.t('api.schemas.scheme.description'),
             type: :object,
-            examples: { '$ref': '#/components/examples/Scheme' },
             properties: {
               id: { type: :integer, format: :int32, example: 1 },
               name: { type: :string, example: 'Production' },
               new_build_callout: { type: :boolean, example: true },
               retained_builds: { type: :integer, format: :int32, example: 0 },
-              channels: { type: :array, '$ref': '#/components/schemas/Channel' }
+              channels: { type: :array, items: { '$ref': '#/components/schemas/Channel' }}
             }
           },
           Channel: {
@@ -174,9 +155,9 @@ RSpec.configure do |config|
               device_type: { type: :string, example: 'iPhone' },
               icon_url: { type: :string, example: 'https://tryzealot.ews.im/assets/zealot-icon-123e8c86.png' },
               install_url: { type: :string, example: 'https://tryzealot.ews.im/M9DJa/681/download' },
-              changelog: { type: :array, '$ref': '#/components/schemas/ReleaseChangelog' },
+              changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }},
               text_changelog: { type: :string, example: '- bump 1.1\n-n fixes bugs' },
-              custom_fields: { type: :array, '$ref': '#/components/schemas/ReleaseCustomField' },
+              custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }},
               created_at: { type: :date, example: '2024-03-01 12:00:00 +0800' },
             }
           },
@@ -205,12 +186,12 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.debug_file.description'),
             type: :object,
             properties: {
-              id: { type: :integer, format: :int32 },
-              app_name: { type: :string },
-              device_type: { type: :string },
-              release_version: { type: :string },
-              build_version: { type: :string },
-              file_url: { type: :string },
+              id: { type: :integer, format: :int32, example: 31 },
+              app_name: { type: :string, example: 'First App' },
+              device_type: { type: :string, enum: %i[ios android], example: 'iOS' },
+              release_version: { type: :string, example: '3.2.1' },
+              build_version: { type: :string, example: '8621' },
+              file_url: { type: :string, example: 'http://tryzealt.ews.im/debug_files/31/download' },
               metadata: { type: :array, items: {
                 oneOf: [
                   { '$ref': '#/components/schemas/DebugFileMetadataDSYM' },
@@ -220,33 +201,38 @@ RSpec.configure do |config|
             }
           },
 
-          DebugFileMetadataDSYM: {
-            description: I18n.t('api.schemas.debug_file_metadata.description'),
+          DebugFileMetadataProguard: {
+            description: I18n.t('api.schemas.metadata_proguard.description'),
             type: :object,
             properties: {
-              id: { type: :integer, format: :int32 },
-              category: { type: :string },
-              uuid: { type: :string },
-              package_name: { type: :string },
-              files: { type: :object, proterties: {
-                name: { type: :string },
-                size: { type: :integer },
-              }},
-              created_at: { type: :date }
+              id: { type: :integer, format: :int32, example: 100 },
+              category: { type: :string, example: 'Proguard' },
+              uuid: { type: :string, example: '2364df02-a44e-4859-9ea1-de25c93d54d5' },
+              package_name: { type: :string, example: 'im.ews.zealot.android.example' },
+              files: { type: :array, items: { '$ref': '#/components/schemas/MetadataProguardFile' }},
+              created_at: { type: :date, example: '2024-03-01 12:00:21 +0800' }
             }
           },
-          DebugFileMetadataProguard: {
-            description: I18n.t('api.schemas.debug_file_metadata.description'),
+          MetadataProguardFile: {
+            description: I18n.t('api.schemas.metadata_proguard_file.description'),
             type: :object,
             properties: {
-              id: { type: :integer, format: :int32 },
-              category: { type: :string },
-              uuid: { type: :string },
-              bundle_id: { type: :string },
-              name: { type: :string },
-              extension: { type: :boolean },
-              size: { type: :integer },
-              created_at: { type: :date }
+              name: { type: :string, example: 'AndroidManitest.xml' },
+              size: { type: :integer, example: 49241 },
+            }
+          },
+          DebugFileMetadataDSYM: {
+            description: I18n.t('api.schemas.metadata_dsym.description'),
+            type: :object,
+            properties: {
+              id: { type: :integer, format: :int32, example: 200 },
+              category: { type: :string, example: 'dSYM' },
+              uuid: { type: :string, example: '2364df02-a44e-4859-9ea1-de25c93d54d5' },
+              bundle_id: { type: :string, example: 'im.ews.zealot.iphone.example' },
+              name: { type: :string, example: 'ExampleApp' },
+              extension: { type: :boolean, example: false },
+              size: { type: :integer, example: 32048613 },
+              created_at: { type: :date, example: '2024-03-01 12:00:21 +0800' }
             }
           },
 
@@ -255,15 +241,25 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.user.description'),
             type: :object,
             properties: {
-              id: { type: :integer, format: :int32 },
-              username: { type: :string },
-              email: { type: :string },
-              locale: { type: :string, enum: User.locales.keys },
-              appearance: { type: :string, enum: User.appearances.keys },
-              timezone: { type: :string, enum: User.timezones.keys },
-              role: { type: :string, enum: User.roles.keys },
+              id: { type: :integer, format: :int32, example: 101 },
+              username: { type: :string, example: 'foo' },
+              email: { type: :string, example: 'foo@example.com' },
+              locale: { type: :string, enum: User.locales.keys, example: User.locales.keys[0] },
+              appearance: { type: :string, enum: User.appearances.keys, example: User.appearances.keys[0] },
+              timezone: { type: :string, enum: User.timezones.keys, example: User.timezones.keys[0] },
+              role: { type: :string, enum: User.roles.keys, example: User.roles.keys[0] },
             }
           },
+
+          Version: {
+            description: I18n.t('api.schemas.version.description'),
+            type: :object,
+            properties: {
+              version: { type: :integer, format: :int32, example: '5.3.0' },
+              vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
+              build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
+            }
+          }
         },
 
         responses: {
@@ -272,7 +268,7 @@ RSpec.configure do |config|
             type: :object,
             required: %w[error],
             properties: {
-              error: { type: :string },
+              error: { type: :string, example: 'Unauthorized user token' },
             }
           },
           NotFound: {
@@ -280,7 +276,7 @@ RSpec.configure do |config|
             type: :object,
             required: %w[error],
             properties: {
-              error: { type: :string },
+              error: { type: :string, example: 'Record not found' },
             }
           },
           Destroyed: {
@@ -292,45 +288,23 @@ RSpec.configure do |config|
             }
           },
         },
-
-        examples: {
-          Scheme: {
-            summary: I18n.t('api.examples.scheme.summary'),
-            value: {
-              id: 1,
-              name: 'Production',
-              new_build_callout: true,
-              retained_builds: 0,
-              channels: { '$ref': '#/components/examples/Channel' }
-            }
-          },
-          Channel: {
-            summary: I18n.t('api.examples.channel.summary'),
-            value: {
-              id: 1,
-              name: 'Production',
-              new_build_callout: true,
-              retained_builds: 0
-            }
-          }
-        }
       },
       definitions: {
         UploadAppOptions: {
-          description: I18n.t('api.definitions.upload_app_options.description'),
+          description: I18n.t('api.definitions.upload_options.description'),
           type: :object,
           required: %i[ channel_key file ],
           properties: {
-            channel_key: { type: :string },
-            file: { type: :file },
-            name: { type: :string },
-            release_type: { type: :string },
-            source: { type: :string },
-            changelog: { '$ref': '#/components/schemas/ReleaseChangelog' },
-            branch: { type: :string },
-            git_commit: { type: :string },
-            ci_url: { type: :string },
-            custom_fields: { type: :array, '$ref': '#/components/schemas/ReleaseCustomField' },
+            channel_key: { type: :string, description: I18n.t('api.definitions.upload_options.properties.channel_key') },
+            file: { type: :file, description: I18n.t('api.definitions.upload_options.properties.file') },
+            name: { type: :string, description: I18n.t('api.definitions.upload_options.properties.name') },
+            release_type: { type: :string, description: I18n.t('api.definitions.upload_options.properties.release_type') },
+            source: { type: :string, description: I18n.t('api.definitions.upload_options.properties.source') },
+            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.upload_options.properties.changelog')},
+            branch: { type: :string, description: I18n.t('api.definitions.upload_options.properties.branch') },
+            git_commit: { type: :string, description: I18n.t('api.definitions.upload_options.properties.git_commit') },
+            ci_url: { type: :string, description: I18n.t('api.definitions.upload_options.properties.ci_url') },
+            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.upload_options.properties.custom_fields')},
           }
         },
         AppOptions: {
@@ -338,7 +312,7 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ name ],
           properties: {
-            name: { type: :string }
+            name: { type: :string, description: I18n.t('api.definitions.app_options.properties.name') }
           }
         },
         SchemeOptions: {
@@ -346,9 +320,9 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ name ],
           properties: {
-            name: { type: :string },
-            new_build_callout: { type: :boolean, default: true },
-            retained_builds: { type: :integer, format: :int32, default: 0 }
+            name: { type: :string, description: I18n.t('api.definitions.scheme_options.properties.name') },
+            new_build_callout: { type: :boolean, default: true, description: I18n.t('api.definitions.scheme_options.properties.new_build_callout') },
+            retained_builds: { type: :integer, format: :int32, default: 0, description: I18n.t('api.definitions.scheme_options.properties.retained_builds') }
           }
         },
         ChannelOptions: {
@@ -356,12 +330,12 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ name device_type ],
           properties: {
-            name: { type: :string },
-            device_type: { type: :string, enum: Channel.device_types.keys },
-            slug: { type: :string },
-            bundle_id: { type: :string },
-            git_url: { type: :string },
-            password: { type: :string }
+            name: { type: :string, description: I18n.t('api.definitions.channel_options.properties.name') },
+            device_type: { type: :string, enum: Channel.device_types.keys, description: I18n.t('api.definitions.channel_options.properties.device_type') },
+            slug: { type: :string, description: I18n.t('api.definitions.channel_options.properties.slug') },
+            bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
+            git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
+            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') }
           }
         },
         CollaboratorOptions: {
@@ -369,7 +343,7 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ role ],
           properties: {
-            role: { type: :string, enum: Collaborator.roles.keys }
+            role: { type: :string, enum: Collaborator.roles.keys, description: I18n.t('api.definitions.collaborator_options.properties.role') }
           }
         },
         UserOptions: {
@@ -377,13 +351,13 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ username email password ],
           properties: {
-            username: { type: :string },
-            email: { type: :string },
-            password: { type: :string },
-            locale: { type: :string, enum: User.locales.keys },
-            appearance: { type: :string, enum: User.appearances.keys },
-            timezone: { type: :string, enum: User.timezones.keys },
-            role: { type: :string, enum: User.roles.keys },
+            username: { type: :string, description: I18n.t('api.definitions.user_options.properties.username') },
+            email: { type: :string, description: I18n.t('api.definitions.user_options.properties.email') },
+            password: { type: :string, description: I18n.t('api.definitions.user_options.properties.password') },
+            locale: { type: :string, enum: User.locales.keys, description: I18n.t('api.definitions.user_options.properties.locale') },
+            appearance: { type: :string, enum: User.appearances.keys, description: I18n.t('api.definitions.user_options.properties.appearance') },
+            timezone: { type: :string, enum: User.timezones.keys, description: I18n.t('api.definitions.user_options.properties.timezone') },
+            role: { type: :string, default: :user, enum: User.roles.keys, description: I18n.t('api.definitions.user_options.properties.role') },
           }
         },
         DebugFileOptions: {
@@ -391,8 +365,8 @@ RSpec.configure do |config|
           type: :object,
           required: %i[ channel_key file ],
           properties: {
-            channel_key: { type: :string },
-            file: { type: :file },
+            channel_key: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.channel_key') },
+            file: { type: :file, description: I18n.t('api.definitions.debug_file_options.properties.file') },
             release_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.release_version') },
             build_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.build_version') },
           }
