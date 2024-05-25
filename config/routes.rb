@@ -227,8 +227,10 @@ Rails.application.routes.draw do
 
     resources :version, only: :index
 
-    mount Rswag::Api::Engine => '/swagger'
-    mount Rswag::Ui::Engine => '/swagger'
+    if Setting.openapi_ui
+      mount Rswag::Api::Engine => '/swagger', as: :openapi
+      mount Rswag::Ui::Engine => '/swagger', as: :openapi_ui
+    end
 
     match '*unmatched_route', via: :all, to: 'base#raise_not_found', format: :json
   end
