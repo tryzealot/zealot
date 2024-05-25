@@ -1,0 +1,56 @@
+- if releases.present?
+  = form_with model: channel, url: destroy_releases_channel_path(channel), method: :delete, \
+    data: { controller: 'bulk-operation' } do |f|
+    .card-body.p-0
+      table.table.table-hover
+        tr
+          th style="width: 10px"
+            input type="checkbox" data-bulk-operation-target="checkboxAll"
+          th = t('channels.show.release_version')
+          th = t('channels.show.build_version')
+          - if channel.device_type.downcase == 'ios'
+            th = t('channels.show.release_type')
+          th = t('channels.show.git_branch')
+          th = t('channels.show.git_commit')
+          th = t('channels.show.uploaded_at')
+          - if current_user&.manage?(app: app)
+            th = t('channels.show.actions')
+
+          - releases.each_with_index do |release, index|
+            tr
+              td
+                input [type="checkbox" name="channel[release_ids][]" value="#{release.id}"
+                      data-bulk-operation-target="checkbox" data-action="bulk-operation#switchDeleteButton"]
+              td
+                - if release.release_version == (params[:id] || params[:name])
+                  = release.release_version || '-'
+                - else
+                  = link_to (release.release_version || '-'), friendly_channel_version_path(release.channel, release.release_version)
+              td
+                = release.build_version || '-'
+              - if channel.device_type.downcase == 'ios'
+                td
+                  = release_type_url_builder(release)
+              td
+                = git_branch_url(release) || '-'
+              td
+                = git_commit_url(release.channel.git_url, release.git_commit) || '-'
+              td
+                span data-toggle="tooltip" title="#{release.created_at}"
+                  = time_ago_in_words(release.created_at)
+              - if current_user&.manage?(app: app)
+                td
+                  = button_to channel_release_path(channel, release), method: :delete, class: 'btn btn-tool', \
+                    data: { confirm: t('channels.messages.confirm.destroy'), turbo_confirm: t('channels.messages.confirm.destroy') } do
+                    i.fas.fa-trash-alt
+    .card-footer
+      - if @releases.total_pages > 1
+        .float-right
+          = paginate @releases
+
+      .actions
+        button.btn.btn-danger data-bulk-operation-target="destroyButton" Delete
+- else
+  .card-body.p-0
+    p.p-3 = t('channels.show.empty_version')
+
