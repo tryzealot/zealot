@@ -1,6 +1,7 @@
 footer.main-footer.pt-2.pb-2
-  .float-right.d-none.d-sm-block
-    b Version
-    = link_to " #{zealot_version(suffix: true)}", Setting.repo_url
+  .float-right
+    = show_api
+
   p.m-0
-    | Created with ❤️ with Rails, AdminLTE & font awesome.
+    = powered_by
+    = zealot_version
