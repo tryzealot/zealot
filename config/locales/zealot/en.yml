@@ -138,13 +138,14 @@ en-US:
       guest_mode: Guest mode
       demo_mode: Demo mode
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
+      openapi_ui: OpenAPI UI
+      openapi_ui_hint: Display the API link in footer section if enabled
       third_party_auth: Third-party Auth
       ldap: LDAP
       oidc: OpenID Connect
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      backup: Backup
       #misc: 杂项
       stmp: Mail STMP
       mailer_default_from: Default email send from
