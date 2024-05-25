@@ -19,7 +19,7 @@ RSpec.describe 'Collaborators API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.collaborators.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe 'Collaborators API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.collaborators.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Collaborators API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.collaborators.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe 'Collaborators API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.collaborators.default.tags')
+      include_examples :not_found_response
     end
   end
 end
