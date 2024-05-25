@@ -5,19 +5,42 @@ require 'swagger_helper'
 RSpec.describe 'DebugFiles API' do
   path '/debug_files' do
     get I18n.t('api.debug_files.index.title') do
+      security []
       tags I18n.t('api.debug_files.default.tags')
       description I18n.t('api.debug_files.index.description')
       operationId 'listDebugFiles'
 
       include_examples :channel_key_parameter
       include_examples :pagiation_parameters
-      include_examples :unauthorized_response
 
       produces 'application/json'
       response 200, I18n.t('api.debug_files.default.responses.index') do
         schema type: :array, items: { '$ref': '#/components/schemas/DebugFile' }
         run_test!
       end
+
+      include_examples :unauthorized_response
+    end
+  end
+
+  path '/debug_files/download' do
+    get I18n.t('api.debug_files.download.title') do
+      security []
+      tags I18n.t('api.debug_files.default.tags')
+      description I18n.t('api.debug_files.download.description')
+      operationId 'downloadDebugFiles'
+
+      include_examples :channel_key_parameter
+      include_examples :paramter, :release_version, required: true
+      include_examples :paramter, :build_version
+      include_examples :paramter, :order, enum: %i[version upload_date], default: :version
+
+      response 302, I18n.t('api.debug_files.default.responses.download') do
+        header 'Location', schema: { type: :string }, description: I18n.t('api.debug_files.default.responses.download')
+        run_test!
+      end
+
+      include_examples :not_found_response
     end
   end
 
@@ -36,7 +59,7 @@ RSpec.describe 'DebugFiles API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.debug_files.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -55,7 +78,7 @@ RSpec.describe 'DebugFiles API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.debug_files.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -74,7 +97,7 @@ RSpec.describe 'DebugFiles API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.debug_files.default.tags')
+      include_examples :not_found_response
     end
   end
 end
