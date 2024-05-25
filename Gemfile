@@ -24,28 +24,26 @@ gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
 # View
-## 模板引擎
 gem 'jb', '~> 0.8.2'
 gem 'slim-rails', '~> 3.6.3'
 gem 'kramdown', '~> 2.4'
-
-## 表单生成
 gem 'simple_form', '~> 5.3'
+gem 'rswag-api', '~> 2.13.0'
+gem 'rswag-ui', '~> 2.13.0'
 
 # Model
-## 生成友好 id
 gem 'friendly_id', '~> 5.5.1'
-## 数据分页
 gem 'kaminari', '~> 1.2.2'
-## 文件上传
 gem 'carrierwave', '~> 3.0.7'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
-## HTTP 请求
+gem 'rails-settings-cached', '~> 2.9.4'
+gem 'app-info', '~> 3.0.0'
 gem 'faraday', '~> 2.9.0'
+gem 'rqrcode'
 
-## 用户认证
+## Auth
 gem 'pundit', '~> 2.3.2'
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.12.0'
@@ -63,27 +61,24 @@ gem 'omniauth_openid_connect', '0.7.1'
 gem 'openssl', '~> 3.2.0'
 gem 'plist', '~> 3.7.1'
 
-## 系统信息
+## OS
 gem 'sys-filesystem', '~> 1.4.5'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.5.0'
 
-## 异常报错上报
+## Exception handler
 gem 'sentry-ruby', '~> 5.17.3'
 gem 'sentry-rails', '~> 5.17.3'
 
 ## Jenkins SDK
 gem 'improved_jenkins_client', '~> 1.6.7'
 
-## 生成条形码/二维码
-gem 'rqrcode'
-
-# 异步队列
+# Background job
 gem 'good_job', '~> 3.29.2'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
-## jsbundling-rails, cssbundling-rails 仅生成配置文件到项目组，核心还是 package.json 中 build/build:css 部分。
+## Use jsbundling-rails, cssbundling-rails to run rake tasks, core is build/build:css in package.json
 gem 'propshaft', '0.9.0'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'cssbundling-rails', '~> 1.4'
@@ -91,31 +86,23 @@ gem 'cssbundling-rails', '~> 1.4'
 gem 'stimulus-rails', '~> 1.3.3'
 gem 'turbo-rails', '~> 2.0'
 
-# 用于解析 iOS, Android, macOS 和 Windows 应用
-gem 'app-info', '~> 3.0.0'
-
-# 带缓存的配置库
-gem 'rails-settings-cached', '~> 2.9.4'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
 
 group :development do
-  # 调试控制台
   gem 'listen', '>= 3.0.5', '< 3.10'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
-  # 调试器
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.9.2'
 
-  # rails 更友好错误输出
+  # better rails
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'
 
-  # 在线查看 Action Mailer 内容
+  # helpers
   gem 'letter_opener', '~> 1.10'
   gem 'letter_opener_web', '~> 3.0'
 end
@@ -127,4 +114,8 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'pry-rescue'
+
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end

@@ -3,8 +3,8 @@
 class CreateAdminService
   def call
     I18n.locale = Setting.site_locale
-    create_user(Setting.admin_email, Setting.admin_password)
-    create_demo_mode_users if Setting.demo_mode
+    admin_user = create_user(Setting.admin_email, Setting.admin_password)
+    Setting.demo_mode ? create_demo_mode_users : admin_user
   end
 
   private

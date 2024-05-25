@@ -1,0 +1,3018 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Zealot API",
+    "version": "v1.3",
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.2.3\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).\n"
+  },
+  "servers": [
+    {
+      "url": "https://tryzealot.ews.im/api",
+      "description": "Demo server"
+    }
+  ],
+  "paths": {
+    "/apps": {
+      "get": {
+        "summary": "List Apps",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Lists all apps, paginated and sorted by created date (newest first)",
+        "operationId": "listApps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a list of Apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppIndex"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Create an App",
+        "operationId": "createApp",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Get an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/version_exist": {
+      "get": {
+        "summary": "Check version build exists",
+        "security": [
+
+        ],
+        "tags": [
+          "Apps"
+        ],
+        "description": "Allows you to check the Release exists by given query, query accepts two combo group:\n\n- `bundle_id`, `release_version` and `build_verion`\n- `bundle_id` and `git_commit`\n",
+        "operationId": "versionExistApps",
+        "parameters": [
+          {
+            "required": true,
+            "name": "channel_key",
+            "in": "query",
+            "description": "Channel key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "name": "bundle_id",
+            "in": "query",
+            "description": "`bundle_id` for iOS, `package_name` for Android",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "git_commit",
+            "in": "query",
+            "required": false,
+            "description": "Git Commit SHA",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "release_version",
+            "in": "query",
+            "required": false,
+            "description": "Release version",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": false,
+            "description": "Build version",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/versions": {
+      "get": {
+        "summary": "Get version builds",
+        "security": [
+
+        ],
+        "tags": [
+          "Apps"
+        ],
+        "description": "List version builds by an App's channel. sort by uploaded date with order desc.",
+        "operationId": "listAppVersions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a build based list of Apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/latest": {
+      "get": {
+        "summary": "Get the latest builds",
+        "security": [
+
+        ],
+        "tags": [
+          "Apps"
+        ],
+        "description": "List the latest version builds with release version and build version. sort by uploaded date with order desc.",
+        "operationId": "getLatestApp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "name": "bundle_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "release_version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the latest builds by App ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/upload": {
+      "post": {
+        "summary": "Upload build of App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Upload a iOS, Android, macOS, Windows or Linux App",
+        "operationId": "uploadApp",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Upload an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UploadAppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{id}": {
+      "get": {
+        "summary": "Get an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Get an App detail",
+        "operationId": "getApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Rename the App's name",
+        "operationId": "updateApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an App",
+        "tags": [
+          "Apps"
+        ],
+        "description": "Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.",
+        "operationId": "destroyApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy an App",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{scheme_id}/channels": {
+      "get": {
+        "summary": "Get a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Get a channel",
+        "operationId": "getChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Channel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Create a scheme's channel",
+        "operationId": "createChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channels/{id}": {
+      "put": {
+        "summary": "Update a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Update a channel",
+        "operationId": "updateChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy a channel",
+        "tags": [
+          "Channel"
+        ],
+        "description": "Destroy a scheme's channel",
+        "operationId": "deleteChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy channel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators/{user_id}": {
+      "get": {
+        "summary": "Get a collaborator",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Get a collaborator metadata",
+        "operationId": "getCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a collaborator to an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Add a collaborator to an App",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a coolaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a collaborator's role",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Update a Collaborator's role",
+        "operationId": "updateCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a collaborator from an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Remove a collaborator from an App",
+        "operationId": "deleteCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy a collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files": {
+      "get": {
+        "summary": "List debug files",
+        "security": [
+
+        ],
+        "tags": [
+          "Debug files"
+        ],
+        "description": "List debug files by an App's channel key.",
+        "operationId": "listDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a list of debug files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DebugFile"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Upload a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:\n\n- `iOS`: a Zipped dSYM file\n- `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.\n",
+        "operationId": "uploadDebugFile",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Upload a debug file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/DebugFileOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/download": {
+      "get": {
+        "summary": "Download debug file",
+        "security": [
+
+        ],
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Download a single iOS or Android debug file.\n\nTo query based on channel_key and release_version as necessary conditions,\nwithout passing the build_version parameter, you can use order to get the first debug\nfile address that meets the sorting criteria. The sorting methods are:\n\n- `version`: latest version\n- `upload_date`: last uploaded date\n",
+        "operationId": "downloadDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "required": true,
+            "name": "release_version",
+            "in": "query",
+            "description": "Release version",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": false,
+            "description": "Build version",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "default": "version",
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Sort by order / Supported values in version, upload_date",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to binary file url",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Redirect to binary file url"
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
+    },
+    "/debug_files/{id}": {
+      "get": {
+        "summary": "Get a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Get a debug file",
+        "operationId": "getDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a debug file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Destroy a debug file ID and all data, include dSYM or Proguard files.",
+        "operationId": "destroyDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy a debug file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/schemes": {
+      "get": {
+        "summary": "Get an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Get an App's scheme",
+        "operationId": "getScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scheme"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an App's scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Create an App's scheme",
+        "operationId": "createScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{id}": {
+      "put": {
+        "summary": "Update an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Update an App's scheme",
+        "operationId": "updateScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an scheme",
+        "tags": [
+          "Schemes"
+        ],
+        "description": "Destroy an scheme from the App",
+        "operationId": "deleteScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy a scheme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "List users",
+        "tags": [
+          "Users"
+        ],
+        "description": "List users without secreted value (password)",
+        "operationId": "listUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Create an user",
+        "operationId": "createUser",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Create an user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get an user metadata, personal data and customize settings",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return an user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Update an user settings",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update an ser",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Destroy an user",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy an user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "summary": "Search user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Search user by given an email address",
+        "operationId": "searchUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/lock": {
+      "get": {
+        "summary": "Lock an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Lock an user to stop log in",
+        "operationId": "lockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Update an ser",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/unlock": {
+      "delete": {
+        "summary": "Unlock an user",
+        "tags": [
+          "Users"
+        ],
+        "description": "Unlock an user to enable log in",
+        "operationId": "unlockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Update an ser",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "Get version information",
+        "tags": [
+          "Version"
+        ],
+        "description": "",
+        "operationId": "getVersion",
+        "responses": {
+          "200": {
+            "description": "Get version information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Version"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "token": [
+
+      ]
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "query",
+        "description": "User token"
+      }
+    },
+    "parameters": {
+      "channelKeyParam": {
+        "in": "query",
+        "name": "channel_key",
+        "required": true,
+        "description": "Channel key",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pageParam": {
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "description": "Pagination page",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "perPageParam": {
+        "in": "query",
+        "name": "per_page",
+        "required": false,
+        "description": "Page size",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 25
+        }
+      }
+    },
+    "schemas": {
+      "AppIndex": {
+        "description": "Apps returned in a list",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "schemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scheme"
+            }
+          }
+        }
+      },
+      "AppVersionsIndex": {
+        "description": "Apps returned in a list",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "app_name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "app": {
+            "$ref": "#/components/schemas/App"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "releases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Release"
+            }
+          }
+        }
+      },
+      "App": {
+        "description": "App object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "schemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scheme"
+            }
+          },
+          "collaborators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collaborator"
+            }
+          }
+        }
+      },
+      "Collaborator": {
+        "description": "Collaborator object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2
+          },
+          "username": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "role": {
+            "type": "string",
+            "example": "developer"
+          }
+        }
+      },
+      "Scheme": {
+        "description": "App scheme object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Production"
+          },
+          "new_build_callout": {
+            "type": "boolean",
+            "example": true
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0
+          },
+          "channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Channel"
+            }
+          }
+        }
+      },
+      "Channel": {
+        "description": "App channel object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4
+          },
+          "name": {
+            "type": "string",
+            "example": "App Store"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Sk3y"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "Android"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "has_password": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "Release": {
+        "description": "App's release build object",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100
+          },
+          "app_name": {
+            "type": "string",
+            "example": "Zealot"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "im.ews.zealot"
+          },
+          "source": {
+            "type": "string",
+            "example": "API"
+          },
+          "branch": {
+            "type": "string",
+            "example": "develop"
+          },
+          "git_commit": {
+            "type": "string",
+            "example": "bc58e308dd1caf2226a402291839afbbdabcabf0"
+          },
+          "ci_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot/actions/runs/9211335126"
+          },
+          "size": {
+            "type": "integer",
+            "example": 392173
+          },
+          "platform": {
+            "type": "string",
+            "example": "iOS"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "iPhone"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/assets/zealot-icon-123e8c86.png"
+          },
+          "install_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/M9DJa/681/download"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            }
+          },
+          "text_changelog": {
+            "type": "string",
+            "example": "- bump 1.1\\n-n fixes bugs"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            }
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:00 +0800"
+          }
+        }
+      },
+      "ReleaseChangelog": {
+        "description": "Changelogs of release build",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-03-01 12:00:00 +0800"
+          },
+          "author": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "message": {
+            "type": "string",
+            "example": "fixes bugs"
+          }
+        }
+      },
+      "ReleaseCustomField": {
+        "description": "Custom fields of release build",
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "example": "fas fa-flag"
+          },
+          "name": {
+            "type": "string",
+            "example": "Country"
+          },
+          "value": {
+            "type": "string",
+            "example": "China"
+          }
+        }
+      },
+      "DebugFile": {
+        "description": "Debug file object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 31
+          },
+          "app_name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "device_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android"
+            ],
+            "example": "iOS"
+          },
+          "release_version": {
+            "type": "string",
+            "example": "3.2.1"
+          },
+          "build_version": {
+            "type": "string",
+            "example": "8621"
+          },
+          "file_url": {
+            "type": "string",
+            "example": "http://tryzealt.ews.im/debug_files/31/download"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataDSYM"
+                },
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataProguard"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "DebugFileMetadataProguard": {
+        "description": "Metadata Proguard object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100
+          },
+          "category": {
+            "type": "string",
+            "example": "Proguard"
+          },
+          "uuid": {
+            "type": "string",
+            "example": "2364df02-a44e-4859-9ea1-de25c93d54d5"
+          },
+          "package_name": {
+            "type": "string",
+            "example": "im.ews.zealot.android.example"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataProguardFile"
+            }
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:21 +0800"
+          }
+        }
+      },
+      "MetadataProguardFile": {
+        "description": "Proguard File object",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "AndroidManitest.xml"
+          },
+          "size": {
+            "type": "integer",
+            "example": 49241
+          }
+        }
+      },
+      "DebugFileMetadataDSYM": {
+        "description": "Metadata dSYM object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "category": {
+            "type": "string",
+            "example": "dSYM"
+          },
+          "uuid": {
+            "type": "string",
+            "example": "2364df02-a44e-4859-9ea1-de25c93d54d5"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "im.ews.zealot.iphone.example"
+          },
+          "name": {
+            "type": "string",
+            "example": "ExampleApp"
+          },
+          "extension": {
+            "type": "boolean",
+            "example": false
+          },
+          "size": {
+            "type": "integer",
+            "example": 32048613
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:21 +0800"
+          }
+        }
+      },
+      "User": {
+        "description": "User object",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 101
+          },
+          "username": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ],
+            "example": "zh-CN"
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ],
+            "example": "light"
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Godthab",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Africa/Casablanca",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kiev",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Rangoon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ],
+            "example": "Etc/GMT+12"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "developer",
+              "admin"
+            ],
+            "example": "user"
+          }
+        }
+      },
+      "Version": {
+        "description": "Version object",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "example": "5.3.0"
+          },
+          "vcs_ref": {
+            "type": "string",
+            "example": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d"
+          },
+          "build_date": {
+            "type": "string",
+            "example": "2024-05-23T06:04:48.989Z"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Unauthorized Response",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Unauthorized user token"
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Record not found"
+          }
+        }
+      },
+      "Destroyed": {
+        "description": "Resource was destroyed",
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UploadAppOptions": {
+      "description": "Upload app form data options",
+      "type": "object",
+      "required": [
+        "channel_key",
+        "file"
+      ],
+      "properties": {
+        "channel_key": {
+          "type": "string",
+          "description": "Channel key, keep it empty to create a new App"
+        },
+        "file": {
+          "type": "file",
+          "description": "The location of upload App binary file"
+        },
+        "name": {
+          "type": "string",
+          "description": "the name of App. Use app name from parsed metadata in given file if leave it empty"
+        },
+        "release_type": {
+          "type": "string",
+          "description": "Release type, for example, debug, beta, adhoc, release, enterprise etc"
+        },
+        "source": {
+          "type": "string",
+          "description": "the source of upload (default is `api`)"
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "description": "Avaiables in plain text or JSON formatted struct"
+        },
+        "branch": {
+          "type": "string",
+          "description": "a branch name from source control tool"
+        },
+        "git_commit": {
+          "type": "string",
+          "description": "Git Commit SHA value"
+        },
+        "ci_url": {
+          "type": "string",
+          "description": "the build url of a CI service"
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "description": "JSON formatted custom fileds, icon only accepts fontawesome."
+        }
+      }
+    },
+    "AppOptions": {
+      "description": "App form data",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "App name"
+        }
+      }
+    },
+    "SchemeOptions": {
+      "description": "App's scheme form data",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Scheme name"
+        },
+        "new_build_callout": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to send a notification when a new build is available"
+        },
+        "retained_builds": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0,
+          "description": "The number of builds to retain for this scheme, set `0` to disable it"
+        }
+      }
+    },
+    "ChannelOptions": {
+      "description": "App's channel form data",
+      "type": "object",
+      "required": [
+        "name",
+        "device_type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Channel name"
+        },
+        "device_type": {
+          "type": "string",
+          "enum": [
+            "ios",
+            "android",
+            "macos",
+            "windows",
+            "linux"
+          ],
+          "description": "Device type"
+        },
+        "slug": {
+          "type": "string",
+          "description": "The slug of Channel, random it if not given"
+        },
+        "bundle_id": {
+          "type": "string",
+          "description": "idefenitier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)"
+        },
+        "git_url": {
+          "type": "string",
+          "description": "Git repository URL"
+        },
+        "password": {
+          "type": "string",
+          "description": "Enable password visit"
+        }
+      }
+    },
+    "CollaboratorOptions": {
+      "description": "App's collaborator form data",
+      "type": "object",
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ],
+          "description": "Role name"
+        }
+      }
+    },
+    "UserOptions": {
+      "description": "User form data",
+      "type": "object",
+      "required": [
+        "username",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password"
+        },
+        "locale": {
+          "type": "string",
+          "enum": [
+            "zh-CN",
+            "en"
+          ],
+          "description": "Language"
+        },
+        "appearance": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark",
+            "auto"
+          ],
+          "description": "Appearance"
+        },
+        "timezone": {
+          "type": "string",
+          "enum": [
+            "Etc/GMT+12",
+            "Pacific/Pago_Pago",
+            "Pacific/Midway",
+            "Pacific/Honolulu",
+            "America/Juneau",
+            "America/Los_Angeles",
+            "America/Tijuana",
+            "America/Phoenix",
+            "America/Mazatlan",
+            "America/Denver",
+            "America/Guatemala",
+            "America/Chicago",
+            "America/Chihuahua",
+            "America/Mexico_City",
+            "America/Monterrey",
+            "America/Regina",
+            "America/Bogota",
+            "America/New_York",
+            "America/Indiana/Indianapolis",
+            "America/Lima",
+            "America/Halifax",
+            "America/Caracas",
+            "America/Guyana",
+            "America/La_Paz",
+            "America/Puerto_Rico",
+            "America/Santiago",
+            "America/St_Johns",
+            "America/Sao_Paulo",
+            "America/Argentina/Buenos_Aires",
+            "America/Montevideo",
+            "America/Godthab",
+            "Atlantic/South_Georgia",
+            "Atlantic/Azores",
+            "Atlantic/Cape_Verde",
+            "Europe/London",
+            "Europe/Lisbon",
+            "Africa/Monrovia",
+            "Etc/UTC",
+            "Europe/Amsterdam",
+            "Europe/Belgrade",
+            "Europe/Berlin",
+            "Europe/Zurich",
+            "Europe/Bratislava",
+            "Europe/Brussels",
+            "Europe/Budapest",
+            "Africa/Casablanca",
+            "Europe/Copenhagen",
+            "Europe/Dublin",
+            "Europe/Ljubljana",
+            "Europe/Madrid",
+            "Europe/Paris",
+            "Europe/Prague",
+            "Europe/Rome",
+            "Europe/Sarajevo",
+            "Europe/Skopje",
+            "Europe/Stockholm",
+            "Europe/Vienna",
+            "Europe/Warsaw",
+            "Africa/Algiers",
+            "Europe/Zagreb",
+            "Europe/Athens",
+            "Europe/Bucharest",
+            "Africa/Cairo",
+            "Africa/Harare",
+            "Europe/Helsinki",
+            "Asia/Jerusalem",
+            "Europe/Kaliningrad",
+            "Europe/Kiev",
+            "Africa/Johannesburg",
+            "Europe/Riga",
+            "Europe/Sofia",
+            "Europe/Tallinn",
+            "Europe/Vilnius",
+            "Asia/Baghdad",
+            "Europe/Istanbul",
+            "Asia/Kuwait",
+            "Europe/Minsk",
+            "Europe/Moscow",
+            "Africa/Nairobi",
+            "Asia/Riyadh",
+            "Europe/Volgograd",
+            "Asia/Tehran",
+            "Asia/Muscat",
+            "Asia/Baku",
+            "Europe/Samara",
+            "Asia/Tbilisi",
+            "Asia/Yerevan",
+            "Asia/Kabul",
+            "Asia/Almaty",
+            "Asia/Yekaterinburg",
+            "Asia/Karachi",
+            "Asia/Tashkent",
+            "Asia/Kolkata",
+            "Asia/Colombo",
+            "Asia/Kathmandu",
+            "Asia/Dhaka",
+            "Asia/Urumqi",
+            "Asia/Rangoon",
+            "Asia/Bangkok",
+            "Asia/Jakarta",
+            "Asia/Krasnoyarsk",
+            "Asia/Novosibirsk",
+            "Asia/Shanghai",
+            "Asia/Chongqing",
+            "Asia/Hong_Kong",
+            "Asia/Irkutsk",
+            "Asia/Kuala_Lumpur",
+            "Australia/Perth",
+            "Asia/Singapore",
+            "Asia/Taipei",
+            "Asia/Ulaanbaatar",
+            "Asia/Tokyo",
+            "Asia/Seoul",
+            "Asia/Yakutsk",
+            "Australia/Adelaide",
+            "Australia/Darwin",
+            "Australia/Brisbane",
+            "Australia/Canberra",
+            "Pacific/Guam",
+            "Australia/Hobart",
+            "Australia/Melbourne",
+            "Pacific/Port_Moresby",
+            "Australia/Sydney",
+            "Asia/Vladivostok",
+            "Asia/Magadan",
+            "Pacific/Noumea",
+            "Pacific/Guadalcanal",
+            "Asia/Srednekolymsk",
+            "Pacific/Auckland",
+            "Pacific/Fiji",
+            "Asia/Kamchatka",
+            "Pacific/Majuro",
+            "Pacific/Chatham",
+            "Pacific/Tongatapu",
+            "Pacific/Apia",
+            "Pacific/Fakaofo"
+          ],
+          "description": "Time zone"
+        },
+        "role": {
+          "type": "string",
+          "default": "user",
+          "enum": [
+            "user",
+            "developer",
+            "admin"
+          ],
+          "description": "User role"
+        }
+      }
+    },
+    "DebugFileOptions": {
+      "description": "Debug file form data",
+      "type": "object",
+      "required": [
+        "channel_key",
+        "file"
+      ],
+      "properties": {
+        "channel_key": {
+          "type": "string",
+          "description": "Channel key"
+        },
+        "file": {
+          "type": "file",
+          "description": "Zip arichved file (dSYM or Proguard)"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "Release version (requires if Android's Proguard file)"
+        },
+        "build_version": {
+          "type": "string",
+          "description": "Build version (requires if Android's Proguard file)"
+        }
+      }
+    }
+  }
+}
