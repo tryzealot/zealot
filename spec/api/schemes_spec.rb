@@ -18,7 +18,7 @@ RSpec.describe 'Schemes API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.schemes.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Schemes API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.schemes.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Schemes API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.schemes.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe 'Schemes API' do
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.schemes.default.tags')
+      include_examples :not_found_response
     end
   end
 end
