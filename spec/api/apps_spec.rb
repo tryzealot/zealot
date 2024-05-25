@@ -6,41 +6,44 @@ RSpec.describe 'Apps API' do
   let(:user) { create(:user) }
   let(:app) { create(:app) }
 
-  describe "GET /apps" do
-    path '/apps' do
-      get I18n.t('api.apps.list_apps.title') do
-        tags I18n.t('api.apps.default.tags')
-        description I18n.t('api.apps.list_apps.description')
-        operationId 'listApps'
-
-        include_examples :pagiation_parameters
-        include_examples :unauthorized_response
-
-        produces 'application/json'
-        response 200, I18n.t('api.apps.default.responses.app_index') do
-          schema type: :array, items: { '$ref': '#/components/schemas/AppIndex' }
-          run_test!
-        end
-      end
-    end
-  end
-
-  path '/apps/{id}' do
-    get I18n.t('api.apps.get_app.title') do
+  path '/apps' do
+    get I18n.t('api.apps.index.title') do
       tags I18n.t('api.apps.default.tags')
-      description I18n.t('api.apps.get_app.description')
-      operationId 'getApp'
+      description I18n.t('api.apps.index.description')
+      operationId 'listApps'
 
-      include_examples :primary_key_parameter
+      include_examples :pagiation_parameters
 
       produces 'application/json'
-      response 200, I18n.t('api.apps.default.responses.app') do
-        schema '$ref': '#/components/schemas/AppIndex'
+      response 200, I18n.t('api.apps.default.responses.index') do
+        schema type: :array, items: { '$ref': '#/components/schemas/AppIndex' }
         run_test!
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+    end
+  end
+
+  path '/apps/version_exist' do
+    get I18n.t('api.apps.version_exist.title') do
+      security []
+      tags I18n.t('api.apps.default.tags')
+      description I18n.t('api.apps.version_exist.description')
+      operationId 'versionExistApps'
+
+      include_examples :paramter, :channel_key, required: true
+      include_examples :paramter, :bundle_id, required: true
+      include_examples :paramter, :git_commit
+      include_examples :paramter, :release_version
+      include_examples :paramter, :build_version
+
+      produces 'application/json'
+      response 200, I18n.t('api.apps.default.responses.show') do
+        schema '$ref': '#/components/schemas/App'
+        run_test!
+      end
+
+      include_examples :not_found_response
     end
   end
 
@@ -55,12 +58,12 @@ RSpec.describe 'Apps API' do
       include_examples :pagiation_parameters
 
       produces 'application/json'
-      response '200', I18n.t('api.apps.default.responses.app_versions') do
+      response '200', I18n.t('api.apps.default.responses.versions') do
         schema '$ref': '#/components/schemas/AppVersionsIndex'
         run_test!
       end
 
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+      include_examples :not_found_response
     end
   end
 
@@ -72,47 +75,67 @@ RSpec.describe 'Apps API' do
       operationId 'getLatestApp'
 
       include_examples :channel_key_parameter
+      parameter name: :bundle_id, in: :query, type: :string, required: false
       include_examples :version_parameters
 
       produces 'application/json'
-      response '200', I18n.t('api.apps.default.responses.app_latest') do
+      response '200', I18n.t('api.apps.default.responses.latest') do
         schema '$ref': '#/components/schemas/AppVersionsIndex'
         run_test!
       end
 
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+      include_examples :not_found_response
     end
   end
 
   path '/apps/upload' do
-    post I18n.t('api.apps.upload_app.title') do
+    post I18n.t('api.apps.upload.title') do
       tags I18n.t('api.apps.default.tags')
-      description I18n.t('api.apps.upload_app.description')
+      description I18n.t('api.apps.upload.description')
       operationId 'uploadApp'
 
       include_examples :request_form_body, '#/definitions/UploadAppOptions'
 
       produces 'application/json'
-      response '201', I18n.t('api.apps.default.responses.build_uploaded') do
-        schema '$ref': '#/components/schemas/AppIndex'
+      response '201', I18n.t('api.apps.default.responses.upload') do
+        schema '$ref': '#/components/schemas/App'
         run_test!
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+      include_examples :not_found_response
+    end
+  end
+
+  path '/apps/{id}' do
+    get I18n.t('api.apps.show.title') do
+      tags I18n.t('api.apps.default.tags')
+      description I18n.t('api.apps.show.description')
+      operationId 'getApp'
+
+      include_examples :primary_key_parameter
+
+      produces 'application/json'
+      response 200, I18n.t('api.apps.default.responses.show') do
+        schema '$ref': '#/components/schemas/App'
+        run_test!
+      end
+
+      include_examples :unauthorized_response
+      include_examples :not_found_response
     end
   end
 
   path '/apps' do
-    post I18n.t('api.apps.create_app.title') do
+    post I18n.t('api.apps.create.title') do
       tags I18n.t('api.apps.default.tags')
-      description I18n.t('api.apps.create_app.description')
+      description I18n.t('api.apps.create.description')
       operationId 'createApp'
 
       include_examples :request_form_body, '#/definitions/AppOptions'
 
       produces 'application/json'
-      response 201, I18n.t('api.apps.default.responses.app') do
+      response 201, I18n.t('api.apps.default.responses.show') do
         schema '$ref': '#/components/schemas/App'
         run_test!
       end
@@ -122,41 +145,41 @@ RSpec.describe 'Apps API' do
   end
 
   path '/apps/{id}' do
-    put I18n.t('api.apps.update_app.title') do
+    put I18n.t('api.apps.update.title') do
       tags I18n.t('api.apps.default.tags')
-      description I18n.t('api.apps.update_app.description')
+      description I18n.t('api.apps.update.description')
       operationId 'updateApp'
 
       include_examples :primary_key_parameter
       include_examples :request_form_body, '#/definitions/AppOptions'
 
       produces 'application/json'
-      response 200, I18n.t('api.apps.default.responses.app') do
+      response 200, I18n.t('api.apps.default.responses.show') do
         schema '$ref': '#/components/schemas/App'
         run_test!
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+      include_examples :not_found_response
     end
   end
 
   path '/apps/{id}' do
-    delete I18n.t('api.apps.destroy_app.title') do
+    delete I18n.t('api.apps.destroy.title') do
       tags I18n.t('api.apps.default.tags')
-      description I18n.t('api.apps.destroy_app.description')
+      description I18n.t('api.apps.destroy.description')
       operationId 'destroyApp'
 
       include_examples :primary_key_parameter
 
       produces 'application/json'
       response 200, I18n.t('api.apps.default.responses.destroy') do
-        schema '$ref': '#/components/schemas/App'
+        schema '$ref': '#/components/responses/Destroyed'
         run_test!
       end
 
       include_examples :unauthorized_response
-      include_examples :not_found_response, I18n.t('api.apps.default.tags')
+      include_examples :not_found_response
     end
   end
 end

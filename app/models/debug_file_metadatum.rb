@@ -6,7 +6,7 @@ class DebugFileMetadatum < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   def category
-    return type if type == 'proguard'
+    return 'Proguard' if type == 'proguard'
 
     'dSYM'
   end
