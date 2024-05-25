@@ -14,11 +14,11 @@
           dt = t('.zealot_version')
           dd[
             data-controller="admin-new-release"
-            data-admin-new-release-version-value="#{zealot_version}"
+            data-admin-new-release-version-value="#{Setting.version_info}"
             data-admin-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
           ]
             pre
-              #current-version = zealot_version(suffix: true)
+              #current-version = Setting.version_info(suffix: true)
               #new-version data-admin-new-release-target="newVersion"
           - if @server[:zealot_vcs_ref]
             dt = t('.vcs_ref')
