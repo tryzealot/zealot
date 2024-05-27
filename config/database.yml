@@ -6,7 +6,7 @@ default: &default
   port: <%= ENV['ZEALOT_POSTGRES_PORT'] || '5432' %>
   username: <%= ENV['ZEALOT_POSTGRES_USERNAME'] || 'zealot' %>
   password: <%= ENV['ZEALOT_POSTGRES_PASSWORD'] || '' %>
-  database: <%= (host = ENV['ZEALOT_POSTGRES_DB_NAME'] || 'zealot'; case ENV['RAILS_ENV'] when 'production' then host else "#{host}_#{ENV['RAILS_ENV']}"; end) %>
+  database: <%= (host = ENV['ZEALOT_POSTGRES_DB_NAME'] || 'zealot'; case ENV['RAILS_ENV'] when 'test' then "#{host}_test"; when 'production' then host else "#{host}_development"; end) %>
 
 development:
   <<: *default
