@@ -30,6 +30,10 @@ class ChannelPolicy < ApplicationPolicy
     any_manage?
   end
 
+  def destroy_releases?
+    any_manage?
+  end
+
   def versions?
     app_user?
   end

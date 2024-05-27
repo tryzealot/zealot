@@ -13,10 +13,5 @@
           a href="#{friendly_channel_overview_path(@channel)}"
             i.icon.far.fa-list-alt
             = t('links.back_to_list')
-      .card-body.p-0
-        == render 'channels/filters/list'
 
-      - if @releases.total_pages > 1
-          .card-footer
-            .float-right
-              = paginate @releases
+      == render 'channels/filters/list', releases: @releases, channel: @channel, app: @app
