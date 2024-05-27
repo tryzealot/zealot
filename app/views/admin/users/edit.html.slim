@@ -32,7 +32,11 @@
             - @user.collaborators.each do |collaborator|
               tr
                 td = link_to collaborator.app.name, app_path(collaborator.app)
-                td = link_to collaborator.role, edit_app_collaborator_path(collaborator.app, collaborator.user_id)
+                td
+                  - if collaborator.owner
+                    = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app)
+                  - else
+                    = link_to Setting.builtin_roles[collaborator.role.to_sym], edit_app_collaborator_path(collaborator.app, collaborator.user_id)
 
   .col-md-12
     .card
