@@ -46,7 +46,7 @@ gem 'rqrcode'
 ## Auth
 gem 'pundit', '~> 2.3.2'
 gem 'devise', '~> 4.9.4'
-gem 'devise-i18n', '~> 1.12.0'
+gem 'devise-i18n', '~> 1.12.1'
 
 gem 'omniauth', '~> 2.1.2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
