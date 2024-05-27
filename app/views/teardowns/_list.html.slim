@@ -38,7 +38,7 @@
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
                 td
                   = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
-                    data: { confirm: t('teardowns.messages.confirm.destroy'), turbo_confirm: t('teardowns.messages.confirm.destroy') } do
+                    data: { turbo_confirm: t('teardowns.messages.confirm.destroy') } do
                     i.fas.fa-trash-alt
 
       - if @metadata.total_pages > 1

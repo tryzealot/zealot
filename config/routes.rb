@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   resources :channels, only: %i[index show] do
     member do
-      delete :destroy_releases
+      delete 'destroy_releases/(:all)', action: :destroy_releases, as: :destroy_releases
     end
 
     resources :web_hooks, only: %i[new create destroy] do

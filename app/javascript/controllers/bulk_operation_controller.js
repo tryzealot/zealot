@@ -1,4 +1,4 @@
-import CheckboxSelectAll from '@stimulus-components/checkbox-select-all'
+import CheckboxSelectAll from "@stimulus-components/checkbox-select-all"
 
 export default class extends CheckboxSelectAll {
   static targets = ["checkboxAll", "checkbox", "destroyButton"]
@@ -15,11 +15,10 @@ export default class extends CheckboxSelectAll {
 
   refresh() {
     super.refresh()
-    console.debug(this.checkboxAllTarget)
     this.switchDeleteButton()
   }
 
-  switchDeleteButton(e) {
+  switchDeleteButton() {
     if (this.checked.length > 0) {
       this.enabledDeleteButton()
     } else {
@@ -29,11 +28,11 @@ export default class extends CheckboxSelectAll {
 
   disableDeleteButton() {
     this.destroyButtonTarget.disabled = true
-    this.destroyButtonTarget.classList.add('.disabled')
+    this.destroyButtonTarget.classList.add(".disabled")
   }
 
   enabledDeleteButton() {
     this.destroyButtonTarget.disabled = false
-    this.destroyButtonTarget.classList.remove('.disabled')
+    this.destroyButtonTarget.classList.remove(".disabled")
   }
 }
