@@ -40,8 +40,8 @@
                   = time_ago_in_words(release.created_at)
               - if current_user&.manage?(app: app)
                 td
-                  = button_to channel_release_path(channel, release), method: :delete, class: 'btn btn-tool', \
-                    data: { confirm: t('channels.messages.confirm.destroy'), turbo_confirm: t('channels.messages.confirm.destroy') } do
+                  = button_to channel_release_path(channel, release), class: 'btn btn-tool', \
+                    method: :delete, data: { turbo_confirm: t('channels.messages.confirm.destroy') } do
                     i.fas.fa-trash-alt
     .card-footer
       - if @releases.total_pages > 1
@@ -49,7 +49,11 @@
           = paginate @releases
 
       .actions
-        button.btn.btn-danger data-bulk-operation-target="destroyButton" Delete
+        .float-right
+          = button_to t('.delete_all'), destroy_releases_channel_path(channel, all: 'all'), class: 'btn btn-danger', \
+            method: :delete, data: { turbo_confirm: t('channels.messages.confirm.destroy') }
+        .buttons
+          = f.submit t('.delete'), class: 'btn btn-danger', data: { bulk_operation_target: 'destroyButton' }
 - else
   .card-body.p-0
     p.p-3 = t('channels.show.empty_version')

@@ -50,8 +50,12 @@ class ChannelsController < ApplicationController
     channel = Channel.friendly.find(params[:id])
     authorize channel
 
-    delete_params = params.require(:channel).permit(release_ids: [])
-    channel.releases.where(id: delete_params[:release_ids]).destroy_all
+    if params[:all] == 'all'
+      channel.releases.destroy_all
+    else
+      delete_params = params.require(:channel).permit(release_ids: [])
+      channel.releases.where(id: delete_params[:release_ids]).destroy_all
+    end
 
     redirect_to friendly_channel_versions_path(channel), status: :see_other
   end
