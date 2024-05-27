@@ -939,6 +939,8 @@ en:
         name: Channel name
       device:
         name: Device name
+      collaborator:
+        owner: Owner
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
@@ -965,7 +967,7 @@ en:
             devices:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{message}'
+              unknown: 'Unknown error: %{messawwwge}'
         debug_file:
           attributes:
             app_id:
