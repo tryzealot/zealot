@@ -148,7 +148,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.12.0)
+    devise-i18n (1.12.1)
       devise (>= 4.9.0)
     diff-lcs (1.5.1)
     dotenv (3.1.2)
@@ -602,7 +602,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.14)
+    zeitwerk (2.6.15)
     zhexdump (0.0.2)
 
 PLATFORMS
@@ -632,7 +632,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.4)
   debug (~> 1.9.2)
   devise (~> 4.9.4)
-  devise-i18n (~> 1.12.0)
+  devise-i18n (~> 1.12.1)
   dotenv-rails
   factory_bot_rails
   faraday (~> 2.9.0)
