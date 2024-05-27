@@ -1,0 +1,330 @@
+en-US:
+  api:
+    info:
+      description: |
+        This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:
+
+        - [cURL](https://curl.se/) (recommended, command-line)
+        - [Bruno](https://www.usebruno.com/)
+        - [Postman](https://www.postman.com/downloads/)
+        - Your web browser, if you don't need to send headers or a request body
+
+        Once you have a working client, you can test that it works by making a GET request to {host}/version:
+
+        ```json
+        {
+          "version": "5.2.3",
+          "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
+          "build_date": "2024-05-23T06:04:48.989Z"
+        }
+        ```
+
+        ## Authentication
+
+        This API only accepts one options for authentication: Personal access tokens.
+        All tokens are tied to a Zealot user and use the `token` query of the request.
+
+        Example:
+
+        ```
+        https://tryzealot.ews.im/api/users?token={token}
+        ```
+
+        ### Personal access tokens
+
+        Personal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).
+    servers:
+      description: Demo server
+    security:
+      token:
+        description: User token
+    parameters:
+      page: Pagination page
+      per_page: Page size
+      channel_key: Channel key
+      bundle_id: '`bundle_id` for iOS, `package_name` for Android'
+      git_commit: Git Commit SHA
+      order: Sort by order
+      release_version: Release version
+      build_version: Build version
+      supported_values: Supported values in %{values}
+    schemas:
+      app_index:
+        description: Apps returned in a list
+      app_versions:
+        description: Apps returned in a list
+      app:
+        description: App object
+      scheme:
+        description: App scheme object
+      channel:
+        description: App channel object
+      release:
+        description: App's release build object
+      release_changelog:
+        description: Changelogs of release build
+      release_custom_field:
+        description: Custom fields of release build
+      collaborator:
+        description: Collaborator object
+      debug_file:
+        description: Debug file object
+      debug_file_metadata:
+        description: Debug file metadata object
+      metadata_dsym:
+        description: Metadata dSYM object
+      metadata_proguard:
+        description: Metadata Proguard object
+      metadata_proguard_file:
+        description: Proguard File object
+      user:
+        description: User object
+      version:
+        description: Version object
+    responses:
+      unauthorized:
+        description: Unauthorized Response
+      not_found:
+        default: Resource not found
+        description: '%{model} not found'
+      destroyed:
+        default: Resource was destroyed
+    definitions:
+      upload_options:
+        description: Upload app form data options
+        properties:
+          channel_key: Channel key, keep it empty to create a new App
+          file: The location of upload App binary file
+          name: the name of App. Use app name from parsed metadata in given file if leave it empty
+          release_type: Release type, for example, debug, beta, adhoc, release, enterprise etc
+          source: the source of upload (default is `api`)
+          changelog: Avaiables in plain text or JSON formatted struct
+          branch: a branch name from source control tool
+          git_commit: Git Commit SHA value
+          ci_url: the build url of a CI service
+          custom_fields: JSON formatted custom fileds, icon only accepts fontawesome.
+      app_options:
+        description: App form data
+        properties:
+          name: App name
+      scheme_options:
+        description: App's scheme form data
+        properties:
+          name: Scheme name
+          new_build_callout: Whether to send a notification when a new build is available
+          retained_builds: The number of builds to retain for this scheme, set `0` to disable it
+      channel_options:
+        description: App's channel form data
+        properties:
+          name: Channel name
+          device_type: Device type
+          slug: The slug of Channel, random it if not given
+          bundle_id: idefenitier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
+          git_url: Git repository URL
+          password: Enable password visit
+      collaborator_options:
+        description: App's collaborator form data
+        properties:
+          role: Role name
+      user_options:
+        description: User form data
+        properties:
+          username: Username
+          email: Email
+          password: Password
+          locale: Language
+          appearance: Appearance
+          timezone: Time zone
+          role: User role
+      debug_file_options:
+        description: Debug file form data
+        properties:
+          channel_key: Channel key
+          file: Zip arichved file (dSYM or Proguard)
+          release_version: Release version (requires if Android's Proguard file)
+          build_version: Build version (requires if Android's Proguard file)
+    apps:
+      default:
+        tags: Apps
+        responses:
+          index: Return a list of Apps
+          show: Get an App
+          versions: Return a build based list of Apps
+          latest: Return the latest builds by App ID
+          upload: Upload an App
+          destroy: Destroy an App
+      index:
+        title: List Apps
+        description: Lists all apps, paginated and sorted by created date (newest first)
+      show:
+        title: Get an App
+        description: Get an App detail
+      upload:
+        title: Upload build of App
+        description: Upload a iOS, Android, macOS, Windows or Linux App
+      versions:
+        title: Get version builds
+        description: List version builds by an App's channel. sort by uploaded date with order desc.
+      version_exist:
+        title: Check version build exists
+        description: |
+          Allows you to check the Release exists by given query, query accepts two combo group:
+
+          - `bundle_id`, `release_version` and `build_verion`
+          - `bundle_id` and `git_commit`
+      latest:
+        title: Get the latest builds
+        description: List the latest version builds with release version and build version. sort by uploaded date with order desc.
+      create:
+        title: Create an App
+        description: Create an App
+      update:
+        title: Update an App
+        description: Rename the App's name
+      destroy:
+        title: Destroy an App
+        description: Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.
+    schemes:
+      default:
+        tags: Schemes
+        responses:
+          index: Return a list of schemes
+          show: Get a scheme
+          create: Create a scheme
+          update: Update a scheme
+          destroy: Destroy a scheme
+      create:
+        title: Create an App's scheme
+        description: Create an App's scheme
+      show:
+        title: Get an scheme
+        description: Get an App's scheme
+      update:
+        title: Update an scheme
+        description: Update an App's scheme
+      destroy:
+        title: Destroy an scheme
+        description: Destroy an scheme from the App
+    channels:
+      default:
+        tags: Channel
+        responses:
+          index: Return a list of channels
+          show: Get a channel
+          create: Create a channel
+          update: Update a channel
+          destroy: Destroy channel
+      create:
+        title: Create a channel
+        description: Create a scheme's channel
+      show:
+        title: Get a channel
+        description: Get a channel
+      update:
+        title: Update a channel
+        description: Update a channel
+      destroy:
+        title: Destroy a channel
+        description: Destroy a scheme's channel
+    collaborators:
+      default:
+        tags: Collaborators
+        responses:
+          index: Return a list of collaborators
+          show: Return a collaborator
+          create: Create a coolaborator
+          update: Update a collaborator
+          destroy: Destroy a collaborator
+      create:
+        title: Add a collaborator to an App
+        description: Add a collaborator to an App
+      show:
+        title: Get a collaborator
+        description: Get a collaborator metadata
+      update:
+        title: Update a collaborator's role
+        description: Update a Collaborator's role
+      destroy:
+        title: Remove a collaborator from an App
+        description: Remove a collaborator from an App
+    debug_files:
+      default:
+        tags: Debug files
+        responses:
+          index: Return a list of debug files
+          download: Redirect to binary file url
+          show: Get a debug file
+          upload: Upload a debug file
+          update: Update a debug file
+          destroy: Destroy a debug file
+      index:
+        title: List debug files
+        description: List debug files by an App's channel key.
+      show:
+        title: Get a debug file
+        description: Get a debug file
+      download:
+        title: Download debug file
+        description: |
+          Download a single iOS or Android debug file.
+
+          To query based on channel_key and release_version as necessary conditions,
+          without passing the build_version parameter, you can use order to get the first debug
+          file address that meets the sorting criteria. The sorting methods are:
+
+          - `version`: latest version
+          - `upload_date`: last uploaded date
+      upload:
+        title: Upload a debug file
+        description: |
+          Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:
+
+          - `iOS`: a Zipped dSYM file
+          - `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.
+      destroy:
+        title: Destroy a debug file
+        description: Destroy a debug file ID and all data, include dSYM or Proguard files.
+    users:
+      default:
+        tags: Users
+        responses:
+          index: Return a list of users
+          search: Return a list of users
+          show: Return an user
+          create: Create an user
+          update: Update an ser
+          destroy: Destroy an user
+          lock: Return process result
+          unlock: Return process result
+      index:
+        title: List users
+        description: List users without secreted value (password)
+      search:
+        title: Search user
+        description: Search user by given an email address
+      create:
+        title: Create an user
+        description: Create an user
+      show:
+        title: Get an user
+        description: Get an user metadata, personal data and customize settings
+      update:
+        title: Update an user
+        description: Update an user settings
+      destroy:
+        title: Destroy an user
+        description: Destroy an user
+      lock:
+        title: Lock an user
+        description: Lock an user to stop log in
+      unlock:
+        title: Unlock an user
+        description: Unlock an user to enable log in
+    version:
+      default:
+        tags: Version
+        responses:
+          show: Get version information
+      show:
+        title: Get version information
+        description: ''
