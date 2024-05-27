@@ -32,7 +32,7 @@ class CreateAdminService
 
   def create_user(email, password, locale = nil, timezone = nil)
     User.find_or_create_by!(email: email) do |user|
-      user.username = I18n.t('settings.preset_role.admin')
+      user.username = email.split('@').first
       user.password = password
       user.password_confirmation = password
       user.role = :admin
