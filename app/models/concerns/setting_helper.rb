@@ -97,10 +97,11 @@ module SettingHelper
 
     def version_info(suffix: false)
       version = Setting.version
+      docker_tag = ENV['DOCKER_TAG']
       return "#{version}-dev" if Rails.env.development?
-      return version if !docker_tag? || !suffix
+      return version if !docker_tag.present? || !suffix
 
-      "#{version}-#{ENV['DOCKER_TAG']}"
+      "#{version}-#{docker_tag}"
     end
   end
 end
