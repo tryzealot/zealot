@@ -17,6 +17,10 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2017",
-    "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "crowdin": "crowdin"
+  },
+  "devDependencies": {
+    "@crowdin/cli": "^3.19.4"
   }
 }
