@@ -14,5 +14,4 @@
             i.icon.far.fa-list-alt
             = t('links.back_to_list')
 
-      .releases data-turbo="false"
-        == render 'channels/filters/list', releases: @releases, channel: @channel, app: @app
+      == render 'channels/filters/list', releases: @releases, channel: @channel, app: @app
