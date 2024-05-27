@@ -951,6 +951,8 @@ zh-CN:
         body: 自定义消息体
       device:
         name: 设备名称
+      collaborator:
+        owner: 拥有者
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
