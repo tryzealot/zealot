@@ -10,6 +10,13 @@ files:
     languages_mapping: &anchor
       locale:
         'en-US': 'en'
+  - source: /config/locales/zealot/api.zh-CN.yml
+    translation: /config/locales/zealot/api.%two_letters_code%.yml
+    escape_quotes: 0
+    escape_special_characters: 0
+    languages_mapping: &anchor
+      locale:
+        'en-US': 'en'
   - source: /config/locales/simple_form/simple_form.zh-CN.yml
     translation: /config/locales/simple_form/simple_form.%two_letters_code%.yml
     escape_quotes: 0
