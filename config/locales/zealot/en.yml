@@ -950,6 +950,8 @@ en-US:
         body: 自定义消息体
       device:
         name: Device name
+      collaborator:
+        owner: Owner
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
