@@ -6,9 +6,8 @@ module Customize
   def switch_locale(&action)
     locale = current_user&.locale
     if Setting.demo_mode && !current_user
-      locale = extrace_locale_from_headers
+      locale = vaild_locale(extrace_locale_from_headers)
     end
-    locale ||= Setting.site_locale
 
     I18n.with_locale(locale, &action)
   end
@@ -20,6 +19,12 @@ module Customize
   end
 
   private
+
+  def vaild_locale(locale)
+    return locale if I18n.available_locales.include?(locale)
+
+    locale == :zh ? :'zh-CN' : :en
+  end
 
   def extrace_locale_from_headers
     return unless accept_language = request.env['HTTP_ACCEPT_LANGUAGE']
