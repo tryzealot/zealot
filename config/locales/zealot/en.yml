@@ -407,6 +407,10 @@ en:
         subtitle: Releases
       show:
         subtitle: 'Releases of version %{version}'
+    filters:
+      list:
+        delete: Delete
+        delete_all: Delete all
     messages:
       confirm:
         destroy: :web_hooks.messages.confirm.destroy

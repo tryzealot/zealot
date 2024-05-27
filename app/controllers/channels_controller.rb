@@ -2,11 +2,10 @@
 
 class ChannelsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
+  before_action :set_scheme, except: %i[show destroy_releases]
   before_action :set_channel, only: %i[show edit update destroy]
-  before_action :set_scheme, except: %i[show]
 
   def show
-    authorize @channel
     @web_hook = @channel.web_hooks.new
     @releases = @channel.releases
                         .page(params.fetch(:page, 1))
@@ -33,14 +32,10 @@ class ChannelsController < ApplicationController
   end
 
   def edit
-    authorize @channel
-
     @title = t('channels.edit.title', name: @scheme.app_name)
   end
 
   def update
-    authorize @channel
-
     @channel.update(channel_params)
     redirect_to (referer_url || friendly_channel_overview_path(@channel))
   end
@@ -51,6 +46,20 @@ class ChannelsController < ApplicationController
     redirect_to app_path(@app), status: :see_other
   end
 
+  def destroy_releases
+    channel = Channel.friendly.find(params[:id])
+    authorize channel
+
+    if params[:all] == 'all'
+      channel.releases.destroy_all
+    else
+      delete_params = params.require(:channel).permit(release_ids: [])
+      channel.releases.where(id: delete_params[:release_ids]).destroy_all
+    end
+
+    redirect_to friendly_channel_versions_path(channel), status: :see_other
+  end
+
   protected
 
   def set_scheme
@@ -59,6 +68,8 @@ class ChannelsController < ApplicationController
 
   def set_channel
     @channel = Channel.friendly.find(params[:id] || params[:channel])
+    authorize @channel
+
     @app = @channel.scheme.app
     @title = @channel.app_name
     @subtitle = t('channels.subtitle', total_scheme: @app.schemes.count, total_channel: @channel.scheme.channels.count)
