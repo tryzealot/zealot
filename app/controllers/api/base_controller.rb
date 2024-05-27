@@ -101,6 +101,7 @@ class Api::BaseController < ActionController::API
     body[:error] ||= e.message
     if Rails.env.development?
       body[:debug] = { class: e.class }
+      body[:debug][:params] = params
       body[:debug][:backtrace] = e.backtrace if e.backtrace.present?
     end
 
