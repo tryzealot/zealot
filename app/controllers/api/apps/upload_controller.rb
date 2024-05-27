@@ -78,7 +78,7 @@ class Api::Apps::UploadController < Api::BaseController
   # new build methods
   ###########################
   def with_updated_channel
-    @channel.update! channel_params
+    @channel.update_columns(channel_params.to_h) # skip validate
     @channel
   end
 

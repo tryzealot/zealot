@@ -22,6 +22,7 @@ class Channel < ApplicationRecord
   delegate :app, to: :scheme
 
   before_create :generate_default_values
+  before_save :generate_default_values, if: -> { slug.blank? }
   after_destroy :delete_app_recently_releases_cache
 
   validates :name, presence: true
