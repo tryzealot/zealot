@@ -401,6 +401,10 @@ zh-CN:
         subtitle: 版本列表
       show:
         subtitle: '%{version} 主版本列表'
+    filters:
+      list:
+        delete: 删除
+        delete_all: 全部删除
     messages:
       confirm:
         destroy: :'web_hooks.messages.confirm.destroy'
