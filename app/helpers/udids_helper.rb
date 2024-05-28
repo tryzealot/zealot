@@ -3,7 +3,8 @@
 module UdidsHelper
   def install_qrcode_image_tag
     if Setting.site_appearance != 'auto'
-      return image_tag qrcode_udid_index_path(size: :extra, theme: Setting.site_appearance)
+      theme = current_user&.appearance || Setting.site_appearance
+      return image_tag qrcode_udid_index_path(size: :extra, theme: theme)
     end
 
     content_tag(:picture) do
