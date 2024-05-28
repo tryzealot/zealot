@@ -46,9 +46,6 @@
 
       - if current_user&.manage?(app: channel.app)
         .actions
-          .float-right
-            = button_to t('.delete_all'), bulk_delete_url(channel), class: 'btn btn-danger', \
-              method: :delete, data: { turbo_confirm: t('channels.messages.confirm.destroy') }
           .buttons
             = f.submit t('.delete'), class: 'btn btn-danger', \
               data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('channels.messages.confirm.destroy') }
