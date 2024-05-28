@@ -12,7 +12,7 @@
           - if channel.device_type.downcase == 'ios'
             th = t('channels.show.release_type')
           th = t('channels.show.git_branch')
-          th = t('channels.show.git_commit')
+          th.d-none.d-sm-table-cell = t('channels.show.git_commit')
           th = t('channels.show.uploaded_at')
 
           - releases.each_with_index do |release, index|
@@ -33,7 +33,7 @@
                   = release_type_url_builder(release)
               td
                 = git_branch_url(release) || '-'
-              td
+              td.d-none.d-sm-table-cell
                 = git_commit_url(release.channel.git_url, release.git_commit) || '-'
               td
                 span data-toggle="tooltip" title="#{release.created_at}"
