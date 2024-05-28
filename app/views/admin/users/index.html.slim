@@ -35,7 +35,7 @@
                   - if user.access_locked?
                     span.badge.badge-danger = t('.locked')
                   - elsif user.confirmed_at
-                    span.badge.badge-secondary = t('.actived')
+                    span.badge.badge-secondary = t('.activated')
                   - else
                     = link_to t('.inactive'), edit_admin_user_path(user), class: 'badge badge-primary'
 
