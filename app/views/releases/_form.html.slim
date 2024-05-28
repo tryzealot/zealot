@@ -4,10 +4,10 @@
   = f.input :file
   = f.input :release_version
   = f.input :build_version
-  = f.input :changelog
   = f.input :release_type
   = f.input :branch
   = f.input :git_commit
   = f.input :ci_url
+  = f.input :changelog, input_html: { rows: 10, cols: 10 }
 
   = f.button :submit
