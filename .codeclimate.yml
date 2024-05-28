@@ -1,9 +1,14 @@
-version: "2"
+version: '2'
 plugins:
+  bundler-audit:
+    enabled: true
+  rubocop:
+    enabled: true
   eslint:
     enabled: true
   csslint:
     enabled: true
-  rubocop:
+  markdownlint:
     enabled: true
-    channel: "rubocop-1-31-0"
+  fixme:
+    enabled: true
