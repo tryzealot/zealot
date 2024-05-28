@@ -9,11 +9,12 @@
 
 文件名 | 说明
 ---|---
-`devcontainer.json` | VSCode devcontainer 配置文件
-`Dockerfile.base` | 镜像核心，变更会自动推送到不同 registry 仓库
-`Dockerfile` | 间接镜像，主要是节省编译时间
+`devcontainer.json` | vscode devcontainer 配置文件
+`Dockerfile.base` | 基础镜像
+`Dockerfile` | 运行时镜像，主要是节省编译时间
 `docker-compose.yml` | 项目服务依赖
 `create-db-user.sql` | 用于初始化 Postgres 默认用户及权限
+`extensions` | vscode 扩展相关服务
 
 ## 镜像
 
