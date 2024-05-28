@@ -158,7 +158,7 @@ module ApplicationHelper
 
   def show_api
     return unless openapi_ui_enabled?
-    link_to 'API', api_openapi_ui_path
+    link_to 'API', api_openapi_ui_path, target: '_blank'
   end
 
   def openapi_ui_enabled?
