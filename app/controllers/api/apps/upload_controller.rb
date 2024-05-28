@@ -78,7 +78,7 @@ class Api::Apps::UploadController < Api::BaseController
   # new build methods
   ###########################
   def with_updated_channel
-    @channel.update_columns(channel_params.to_h) # skip validate
+    @channel.update!(channel_params) if channel_params.present?
     @channel
   end
 
@@ -127,7 +127,11 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def channel_params
-    params.permit(:slug, :password, :git_url)
+    channel_params = params.permit(:slug, :password, :git_url)
+    remove_blank_params(channel_params, :slug)
+    remove_blank_params(channel_params, :password)
+    remove_blank_params(channel_params, :git_url)
+    channel_params
   end
 
   def set_parser
@@ -138,5 +142,9 @@ class Api::Apps::UploadController < Api::BaseController
 
   def set_channel
     @channel = Channel.find_by(key: params[:channel_key])
+  end
+
+  def remove_blank_params(data, key)
+    data.delete(:git_url) if data[:git_url].blank?
   end
 end
