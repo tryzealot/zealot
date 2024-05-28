@@ -47,10 +47,10 @@ class ChannelsController < ApplicationController
   end
 
   def destroy_releases
-    channel = Channel.friendly.find(params[:id])
+    channel = Channel.friendly.find(params[:name] || params[:id])
     authorize channel
 
-    if params[:all] == 'all'
+    if params[:channel].blank?
       channel.releases.destroy_all
     else
       delete_params = params.require(:channel).permit(release_ids: [])

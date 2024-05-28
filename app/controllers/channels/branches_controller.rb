@@ -5,9 +5,17 @@ class Channels::BranchesController < ApplicationController
   before_action :set_releases
 
   def index
+    authorize @channel, :branches?
     @title = @channel.app_name
     @subtitle = t('.subtitle', branch: @branch)
     render 'channels/filters/index'
+  end
+
+  def destroy
+    authorize @channel, :destroy_releases?
+    @channel.releases.where(branch: @branch).destroy_all
+
+    redirect_to friendly_channel_versions_path(@channel), status: :see_other
   end
 
   private
@@ -23,6 +31,5 @@ class Channels::BranchesController < ApplicationController
 
   def set_channel
     @channel = Channel.friendly.find(params[:channel_id] || params[:channel])
-    authorize @channel, :branches?
   end
 end
