@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   resources :channels, only: %i[index show] do
     member do
-      delete 'destroy_releases/(:all)', action: :destroy_releases, as: :destroy_releases
+      delete :destroy_releases
     end
 
     resources :web_hooks, only: %i[new create destroy] do
@@ -62,9 +62,9 @@ Rails.application.routes.draw do
     end
 
     scope module: :channels do
-      resources :versions, only: %i[index show], id: /(.+)+/
-      resources :branches, only: %i[index]
-      resources :release_types, only: %i[index]
+      resources :versions, only: %i[index show destroy], constraints: { id: /(.+)+/ }
+      resources :branches, only: %i[index destroy], constraints: { id: /(.+)+/ }
+      resources :release_types, only: %i[index destroy], constraints: { id: /(.+)+/ }
     end
   end
 
@@ -260,8 +260,11 @@ Rails.application.routes.draw do
     get '', to: 'releases#index', as: 'releases'
     get 'versions', to: 'channels/versions#index', as: 'versions'
     get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
+    delete 'versions/:name', to: 'channels/versions#destroy', name: /(.+)+/
     get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
+    delete 'release_types/:name', to: 'channels/release_types#destroy', name: /(.+)+/
     get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
+    delete 'branches/:name', to: 'channels/branches#destroy', name: /(.+)+/
     get ':id', to: 'releases#show', as: 'release'
     # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
   end
