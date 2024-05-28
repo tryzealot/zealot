@@ -15,3 +15,9 @@
             = t('links.back_to_list')
 
       == render 'channels/filters/list', releases: @releases, channel: @channel
+
+    - if @releases.present? && current_user&.manage?(app: @channel.app)
+      .card
+        .card-body
+          = button_to t('channels.filters.list.delete_all'), bulk_delete_url(@channel), class: 'btn btn-danger', \
+            method: :delete, data: { turbo_confirm: t('channels.messages.confirm.destroy') }
