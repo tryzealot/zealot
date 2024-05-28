@@ -96,6 +96,7 @@ module SettingHelper
     end
 
     def version_info(suffix: false)
+      return '5.3.0'
       version = Setting.version
       docker_tag = ENV['DOCKER_TAG']
       return "#{version}-dev" if Rails.env.development?
