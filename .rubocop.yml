@@ -38,6 +38,7 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'config/**/*.rb'
+    - 'spec/**/*.rb'
     - 'lib/zealot/backup/manager.rb'
 
 Metrics/MethodLength:
