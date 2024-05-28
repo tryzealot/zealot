@@ -1,4 +1,4 @@
-en:
+en-US:
   api:
     info:
       description: |
@@ -62,7 +62,7 @@ en:
       release:
         description: App's release build object
       release_changelog:
-        description: Changelogs of release build
+        description: Changelog of release build
       release_custom_field:
         description: Custom fields of release build
       collaborator:
@@ -98,11 +98,11 @@ en:
           name: the name of App. Use app name from parsed metadata in given file if leave it empty
           release_type: Release type, for example, debug, beta, adhoc, release, enterprise etc
           source: the source of upload (default is `api`)
-          changelog: Avaiables in plain text or JSON formatted struct
+          changelog: Change log, accept plain text or JSON formatted data
           branch: a branch name from source control tool
           git_commit: Git Commit SHA value
           ci_url: the build url of a CI service
-          custom_fields: JSON formatted custom fileds, icon only accepts fontawesome.
+          custom_fields: JSON formatted custom fields, icon only accepts fontawesome.
       app_options:
         description: App form data
         properties:
@@ -119,7 +119,7 @@ en:
           name: Channel name
           device_type: Device type
           slug: The slug of Channel, random it if not given
-          bundle_id: idefenitier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
+          bundle_id: identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
           git_url: Git repository URL
           password: Enable password visit
       collaborator_options:
@@ -143,7 +143,6 @@ en:
           file: Zip arichved file (dSYM or Proguard)
           release_version: Release version (requires if Android's Proguard file)
           build_version: Build version (requires if Android's Proguard file)
-
     apps:
       default:
         tags: Apps
@@ -165,7 +164,7 @@ en:
         description: Upload a iOS, Android, macOS, Windows or Linux App
       versions:
         title: Get version builds
-        description: List version builds by an App's channel. sort by uploaded date with order desc.
+        description: Query the list of uploaded versions of the single channel and the version list downwards
       version_exist:
         title: Check version build exists
         description: |
@@ -175,7 +174,7 @@ en:
           - `bundle_id` and `git_commit`
       latest:
         title: Get the latest builds
-        description: List the latest version builds with release version and build version. sort by uploaded date with order desc.
+        description: Query a list of latest versions of the single channel of the application and reverse the upload date
       create:
         title: Create an App
         description: Create an App
@@ -185,7 +184,6 @@ en:
       destroy:
         title: Destroy an App
         description: Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.
-
     schemes:
       default:
         tags: Schemes
@@ -199,15 +197,14 @@ en:
         title: Create an App's scheme
         description: Create an App's scheme
       show:
-        title: Get an scheme
+        title: Get a scheme
         description: Get an App's scheme
       update:
-        title: Update an scheme
+        title: Update a scheme
         description: Update an App's scheme
       destroy:
-        title: Destroy an scheme
-        description: Destroy an scheme from the App
-
+        title: Destroy a scheme
+        description: Destroy a scheme from the App
     channels:
       default:
         tags: Channel
@@ -229,14 +226,13 @@ en:
       destroy:
         title: Destroy a channel
         description: Destroy a scheme's channel
-
     collaborators:
       default:
         tags: Collaborators
         responses:
           index: Return a list of collaborators
           show: Return a collaborator
-          create: Create a coolaborator
+          create: Create a collaborator
           update: Update a collaborator
           destroy: Destroy a collaborator
       create:
@@ -251,13 +247,12 @@ en:
       destroy:
         title: Remove a collaborator from an App
         description: Remove a collaborator from an App
-
     debug_files:
       default:
         tags: Debug files
         responses:
           index: Return a list of debug files
-          download: Redirect to binary file url
+          download: Redirect to binary file URL
           show: Get a debug file
           upload: Upload a debug file
           update: Update a debug file
@@ -289,16 +284,15 @@ en:
       destroy:
         title: Destroy a debug file
         description: Destroy a debug file ID and all data, include dSYM or Proguard files.
-
     users:
       default:
         tags: Users
         responses:
           index: Return a list of users
           search: Return a list of users
-          show: Return an user
+          show: Return a user
           create: Create an user
-          update: Update an ser
+          update: Update a user
           destroy: Destroy an user
           lock: Return process result
           unlock: Return process result
@@ -309,23 +303,23 @@ en:
         title: Search user
         description: Search user by given an email address
       create:
-        title: Create an user
+        title: Create a user
         description: Create an user
       show:
-        title: Get an user
-        description: Get an user metadata, personal data and customize settings
+        title: Get a user
+        description: Get a user metadata, personal data and customize settings
       update:
-        title: Update an user
-        description: Update an user settings
+        title: Update a user
+        description: Update user personalized settings, password, etc.
       destroy:
-        title: Destroy an user
-        description: Destroy an user
+        title: Destroy a user
+        description: Destroy a user
       lock:
-        title: Lock an user
-        description: Lock an user to stop log in
+        title: Lock a user
+        description: Lock a user to stop log in
       unlock:
-        title: Unlock an user
-        description: Unlock an user to enable log in
+        title: Unlock a user
+        description: Unlock a user to enable log in
     version:
       default:
         tags: Version
