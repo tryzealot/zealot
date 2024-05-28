@@ -26,7 +26,7 @@ en-US:
         status: Status
         last_login_time: Last login time
         action: Action
-        actived: Activated
+        activated: Activated
         locked: Locked
         inactive: Inactive
         never_logged_in: Never logged in
@@ -600,7 +600,7 @@ en-US:
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      platform: 平台
+      platform: Platform
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
