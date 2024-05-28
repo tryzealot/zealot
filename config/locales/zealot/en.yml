@@ -26,7 +26,7 @@ en:
         status: Status
         last_login_time: Last login time
         action: Action
-        actived: Actived
+        activated: Activated
         locked: Locked
         inactive: Inactive
         never_logged_in: Never logged in
@@ -130,7 +130,7 @@ en:
       preset_schemes: Default schemes
       preset_role: Default user role
       preset_install_limited: In-App install limited
-      preset_install_limited_hint: "Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install."
+      preset_install_limited_hint: Specific mobile applications can not be installed (E.g. WeChat, Dingtalk etc.), using keywords of User Agent to guide open the browser to install
       per_page: Per page
       max_per_page: Max per page
       switch_mode: Switch mode
@@ -146,7 +146,7 @@ en:
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      misc: Misc
+      #misc: 杂项
       stmp: Mail STMP
       mailer_default_from: Default email send from
       mailer_default_to: Default sender
@@ -179,15 +179,15 @@ en:
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
         disk_info: Disk
-        lauched_time: Launched
+        lauched_time: Launched time
         volume_mounted: Volume mounted
         fail_detect_disk: Fail to detect disk information
         system_environment: System environment
         file_permissions: File permissions
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: A new update is available
-        dev_new_version: A new update is available (dev mode)
+        new_version: 'A new update is available '
+        dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
     backups:
@@ -233,9 +233,7 @@ en:
           pack: Packing
           remove_old: Remove old backups
           cleanup: Clean up
-          ensure: Finishing
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
-        current_step: 'Processing: %{step}'
         not_found:
           title: Not found any backup file
           body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
@@ -307,7 +305,7 @@ en:
       not_found_channel_body_html: |
         Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
       not_found_scheme:
-        title: Not found any scheme
+        title: Not found any scheme.
         body_html: |
           <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
@@ -378,7 +376,7 @@ en:
       channel_key: Channel KEY
       edit_channel: Edit channel
       none: None
-      not_found: Not found any release, click the button <i class="far fa-plus-square"></i> upload a release.
+      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
       id: ID
       build_version: Build version
       git_branch: Branch
@@ -508,8 +506,8 @@ en:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
         not_found: Not found
-        not_found_app: Could not be found the App's channel
-        not_found_release: Could not be found the build
+        not_found_app: App not found or had been destroyed
+        not_found_release: Not found any release of channel
         redirect_to_app_list: Redirect to app list
         reidrect_channel_detal: Redirect to channel page
         deleted_manually: Maybe destroy by developer.
@@ -607,7 +605,7 @@ en:
       uploaded_at: Uploaded time
       app_name: App name
       version: Version
-      type: Platform
+      platform: Platform
       uploader: Uploader
       actions: Action
       anonymous: Anonymous
@@ -967,7 +965,7 @@ en:
             devices:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{messawwwge}'
+              unknown: 'Unknown error: %{message}'
         debug_file:
           attributes:
             app_id:
