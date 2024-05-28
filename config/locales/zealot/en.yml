@@ -651,7 +651,7 @@ en:
       cert_fignger: 'Fingerprint %{digest}'
       signature_not_found: Not found
       signature_verified: 'Verified'
-      signature_unverified: 'WIP'
+      signature_unverified: 'Unverified (WIP)'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
