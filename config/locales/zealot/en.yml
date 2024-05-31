@@ -971,7 +971,7 @@ en:
             app_id:
               blank: Select the application to be associated
             file:
-              blank: Choose a zipped file with supported type
+              blank: Choose a zip file with supported type
             checksum:
               taken: File exists, cannot be uploaded
         backup:

@@ -987,7 +987,7 @@ zh-CN:
             app_id:
               blank: 请选择需要关联的应用
             file:
-              blank: 必须选择一个 zpi 文件
+              blank: 必须选择一个 zip 文件
             checksum:
               taken: 文件已经存在，不能重复上传
         backup:
