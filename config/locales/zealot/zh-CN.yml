@@ -377,6 +377,7 @@ zh-CN:
       build_version: 开发版本
       git_branch: 分支
       git_commit: 提交哈希值
+      version: 上传版本
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作

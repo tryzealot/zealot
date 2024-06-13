@@ -381,6 +381,7 @@ en:
       build_version: Build version
       git_branch: Branch
       git_commit: Commit SHA
+      version: Build
       release_type: Release type
       uploaded_at: Uploaded time
       actions: Action

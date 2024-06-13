@@ -7,6 +7,7 @@
           - if current_user&.manage?(app: channel.app)
             th style="width: 10px"
               input type="checkbox" data-bulk-operation-target="checkboxAll"
+          th = t('channels.show.version')
           th = t('channels.show.release_version')
           th = t('channels.show.build_version')
           - if channel.device_type.downcase == 'ios'
@@ -21,6 +22,8 @@
                 td
                   input [type="checkbox" name="channel[release_ids][]" value="#{release.id}"
                         data-bulk-operation-target="checkbox" data-action="bulk-operation#switchDeleteButton"]
+              td
+                = link_to release.version, friendly_channel_release_path(release.channel, release.id)
               td
                 - if release.release_version == (params[:id] || params[:name])
                   = release.release_version || '-'
