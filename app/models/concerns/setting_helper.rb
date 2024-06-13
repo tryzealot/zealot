@@ -51,6 +51,10 @@ module SettingHelper
       end
     end
 
+    def site_timezone
+      ENV['TIME_ZONE'] || Rails.configuration.time_zone
+    end
+
     def need_restart?
       Rails.configuration.x.restart_required == true
     end
