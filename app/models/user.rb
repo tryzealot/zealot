@@ -25,12 +25,19 @@ class User < ApplicationRecord
   validates :email, presence: true
 
   after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_user_default_settings, if: :new_record?
   after_initialize :generate_user_token, if: :new_record?
 
   private
 
   def set_default_role
     self.role ||= Setting.preset_role || :user
+  end
+
+  def set_user_default_settings
+    self.locale ||= Setting.site_locale
+    self.appearance ||= Setting.site_appearance
+    self.timezone ||= Setting.site_timezone
   end
 
   def generate_user_token
