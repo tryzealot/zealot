@@ -1,4 +1,4 @@
-FROM ruby:3.3-alpine as builder
+FROM ruby:3.3.3-alpine as builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -58,7 +58,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM ruby:3.3-alpine
+FROM ruby:3.3.3-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
