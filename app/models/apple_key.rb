@@ -2,7 +2,8 @@
 
 class AppleKey < ApplicationRecord
   has_one :team, class_name: 'AppleTeam', foreign_key: 'apple_key_id', dependent: :destroy
-  has_and_belongs_to_many :devices
+  has_many :apple_keys_devices, class_name: 'AppleKeyDevice'
+  has_many :devices, through: :apple_keys_devices
 
   validates :issuer_id, :key_id, :private_key, :filename, :checksum, presence: true
   validates :checksum, uniqueness: true, on: :create
@@ -24,10 +25,10 @@ class AppleKey < ApplicationRecord
 
   def sync_devices
     response_devices = client.devices.all_pages(flatten: true)
-    logger.debug "Got #{response_devices.size} devices from apple key #{id}"
+    AppleKeyDevice.where(apple_key: self).delete_all
     response_devices.each do |response_device|
       Device.create_from_api(response_device) do |device|
-        devices << device unless devices.exists?(device.id)
+        devices << device
       end
     end
 
@@ -38,15 +39,20 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil, platform = 'IOS')
-    if (existed_device = Device.find_by(udid: udid))
-      return existed_device
+    remote_device = client.device(uuid: uuid)
+    db_device = Device.find_by(udid: udid)
+    return db_device if remote_device && db_device
+
+    if remtoe_device && !db_device
+      devices << remote_device
+      return remote_device
     end
 
     response_device = client.create_device(udid, name, platform: platform).to_model
     Device.create_from_api(response_device) do |device|
       devices << device
 
-      # pass the return to block
+      # return value
       device
     end
   rescue TinyAppstoreConnect::InvalidEntityError => e
