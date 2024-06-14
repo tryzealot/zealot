@@ -34,8 +34,18 @@ module Admin
       end
     end
 
+    def job_stage(stage)
+      I18n.t(stage, scope: 'admin.backups.show.steps', default: "")
+    end
+
     def job_progress(status)
-      number_to_percentage((status[:progress] / status[:total].to_f * 100), precision: 0)
+      value = if status[:progress] && status[:total]
+                status[:progress] / status[:total].to_f * 100
+              else
+                0
+              end
+
+      number_to_percentage(value, precision: 0)
     end
 
     private
