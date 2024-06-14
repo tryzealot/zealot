@@ -128,4 +128,10 @@ class Setting < RailsSettings::Base
     field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: true
     field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
   end
+
+  # Backup settings
+  field :backup, type: :hash, readonly: true, default: {
+    path: 'public/backup',
+    pg_schema: 'public',
+  }, validates: { json: { format: :hash } }
 end
