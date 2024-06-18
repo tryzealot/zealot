@@ -110,6 +110,8 @@ zh-CN:
       title: 系统设置
       index:
         title: :'admin.settings.title'
+        smtp_verify: 验证
+        smtp_verify_inprocess: 验证中
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
@@ -147,9 +149,9 @@ zh-CN:
       gitlab: Gitlab
       google_oauth: Google OAuth
       # misc: 杂项
-      stmp: 邮件配置
+      smtp: 邮件配置
       mailer_default_from: 默认邮件发件地址
-      mailer_default_to: 默认邮件发件人
+      mailer_default_reply_to: 默认邮件回复地址
       mailer_options: 发件服务器配置
       analytics: 统计
       google_analytics_id: Google 统计
