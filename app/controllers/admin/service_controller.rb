@@ -14,6 +14,24 @@ class Admin::ServiceController < ApplicationController
     render json: { health: 'fail' }, status: :internal_server_error
   end
 
+  def smtp_verify
+    address = Setting.mailer_options[:address]
+    port = Setting.mailer_options[:port]
+    starttls = Setting.mailer_options[:enable_starttls]
+    Net::SMTP.start(address, port) do|smtp|
+      smtp.enable_starttls if starttls
+
+      auth_method = Setting.mailer_options[:auth_method].presence || 'plain'
+      smtp.authenticate(
+        Setting.mailer_options[:user_name],
+        Setting.mailer_options[:password],
+        auth_method == 'none' ? nil : auth_method.to_sym
+      ).success?
+    end
+
+    render json: { mesage: 'Ok' }
+  end
+
   private
 
   def client

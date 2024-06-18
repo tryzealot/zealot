@@ -115,6 +115,8 @@ zh-CN:
         title: :'admin.settings.title'
         smtp_verify: 验证
         smtp_verify_inprocess: 验证中
+        smtp_verify_success: 验证成功
+        smtp_verify_failed: 验证失败
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
