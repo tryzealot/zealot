@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import jquery from "jquery"
+// import jquery from "jquery"
 import ClipboardJS from "clipboard"
 
 export default class extends Controller {
@@ -41,6 +41,6 @@ export default class extends Controller {
   }
 
   get button() {
-    return jquery(this.buttonTarget)
+    // return jquery(this.buttonTarget)
   }
 }

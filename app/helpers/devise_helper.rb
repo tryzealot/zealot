@@ -11,7 +11,7 @@ module DeviseHelper
     icon = key == 'openidconnect' ? 'openid' : key
 
     button_to(url, class: 'btn btn-block btn-default text-left', method: :post, data: { turbo: false }) do
-      raw(%Q(#{title} <i class="icon fab float-right fa-#{icon}"></i>))
+      raw(%Q(#{title} <i class="icon fab float-end fa-#{icon}"></i>))
     end
   end
 

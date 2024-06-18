@@ -1,14 +1,2 @@
 @import "bootstrap/scss/bootstrap";
-@import "bootstrap/scss/functions";
-@import "admin-lte/build/scss/_bootstrap-variables";
-
-@import "admin-lte/build/scss/variables";
-@import "admin-lte/build/scss/variables-alt";
-@import "admin-lte/build/scss/mixins";
-
-@import "admin-lte/build/scss/parts/core";
-@import "admin-lte/build/scss/parts/components";
-@import "admin-lte/build/scss/parts/extra-components";
-@import "admin-lte/build/scss/parts/pages";
-@import "admin-lte/build/scss/parts/plugins";
-@import "admin-lte/build/scss/parts/miscellaneous";
+@import "admin-lte/src/scss/adminlte";

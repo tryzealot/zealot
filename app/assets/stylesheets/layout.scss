@@ -1,11 +1,22 @@
+.navbar-brand {
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
 
 .navbar-empty {
   @extend .navbar-collapse !optional;
   @extend .justify-content-md-center !optional;
 
-  .brand-link {
+  .navbar-brand {
     padding: 0;
 
+    // FIXME: variable not works!
     [class*="navbar-white"] & {
       color: $black;
     }

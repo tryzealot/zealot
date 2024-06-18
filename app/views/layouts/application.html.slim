@@ -1,6 +1,6 @@
 ruby:
   if user_signed_in_or_guest_mode?
-    body_class = 'sidebar-mini'
+    body_class = 'sidebar-expand-lg sidebar-mini bg-body-tertiary'
   else
     body_class = 'layout-top-nav'
   end
@@ -18,22 +18,22 @@ html lang="#{I18n.locale}"
     == favicon_link_tag 'zealot-icon.png'
     == favicon_link_tag 'zealot-icon-dark.png', media: "(prefers-color-scheme: dark)"
     == stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
-    == javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true
+    == javascript_include_tag 'application', defer: true, 'data-turbolinks-track': 'reload'
     == yield :header_tags
     == action_cable_meta_tag
     == csrf_meta_tags
 
   body[
-    class="hold-transition #{body_class}"
+    class="layout-fixed #{body_class}"
     data-controller="global"
     data-global-env-value="#{Rails.env}"
     data-global-root-url-value="#{root_url}"
     data-global-apperance-value="#{current_user&.appearance || Setting.site_appearance}"
   ]
-    .wrapper
+    .app-wrapper
       == render 'layouts/navigation'
 
-      .content-wrapper
+      .app-main
         == render 'layouts/content'
 
       == render 'layouts/footer'

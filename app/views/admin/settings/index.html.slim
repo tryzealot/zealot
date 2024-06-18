@@ -19,7 +19,7 @@
 - @settings.each do |scope, keys|
   .row
     .col-md-12
-      .card.system_info
+      .card.system_info.mb-4
         .card-header
           h3.card-title = t("admin.settings.#{scope}")
         .card-body
@@ -47,6 +47,9 @@
                   pre.mb-2
                     == render 'switch_icon', value: value
                     = link_to display_value, edit_admin_setting_path(key)
+                    - if key == 'mailer_options'
+                      span.float-end
+                        = button_to 'Verify', admin_service_smtp_test_path, class: 'btn btn-sm btn-outline-primary'
 
                 - if hint = t("admin.settings.#{key}_hint", default: nil)
                   small.form-text.text-muted = hint

@@ -17,7 +17,7 @@
             .product-info
               = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
               small
-                span.badge.badge-light.float-right data-toggle="tooltip" title="#{release.created_at}"
+                span.badge.text-bg-light.float-end data-toggle="tooltip" title="#{release.created_at}"
                   = time_ago_in_words(release.created_at)
               span.product-description
                 - if release.release_version.present?
@@ -31,5 +31,5 @@
           = raw t('channels.show.not_found')
   - if @releases.total_pages > 1
     .card-footer
-      .float-right
+      .float-end
         = paginate @releases

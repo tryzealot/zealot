@@ -32,7 +32,7 @@
               = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
         .card-footer
           - if @setting.persisted?
-            .float-right
+            .float-end
               = link_to t('admin.settings.reset'), admin_setting_path(@setting.var), class: 'btn btn-danger', \
                 data: { turbo_method: :delete, turbo_confirm: t('channels.messages.confirm.destroy') }
 

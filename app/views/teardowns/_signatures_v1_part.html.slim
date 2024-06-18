@@ -7,10 +7,10 @@
 .card-body.card-comments.pb-2
   - signatures.each_with_index do |cert, i|
     .card-comment
-      .comment-text.ml-0
+      .comment-text.ms-0
         span.username
           = t('teardowns.show.cert', index: "#{i + 1} (#{cert['public_key_type']})")
-          span.text-muted.float-right
+          span.text-muted.float-end
             = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
         ul.content
           li
