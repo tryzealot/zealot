@@ -1,7 +1,7 @@
 == render 'layouts/content_header'
 
 // Main content
-section.content
-  == render 'layouts/messages'
-
-  == yield
+.app-content
+  .container-fluid
+    == render 'layouts/messages'
+    == yield

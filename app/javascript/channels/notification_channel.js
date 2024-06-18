@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 import { Zealot } from "../controllers/zealot"
-import JQuery from "jquery"
+// import JQuery from "jquery"
 
 const notificationChannel = consumer.subscriptions.create("NotificationChannel", {
   received(data) {
@@ -17,12 +17,12 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
       color = "danger"
     }
 
-    JQuery("#notifications").prepend(
-      "<div class='alert alert-dismissible alert-" + color + "'>" +
-      "<button aria-hidden='true' class='close' data-dismiss='alert'>×</button>" +
-      "<h4><i class='icon fas fa-" + icon + "'></i>" +
-      "<span id='flash_notice'>" + data.message + "</span></h4 ></div >"
-    )
+    // JQuery("#notifications").prepend(
+    //   "<div class='alert alert-dismissible alert-" + color + "'>" +
+    //   "<button aria-hidden='true' class='close' data-dismiss='alert'>×</button>" +
+    //   "<h4><i class='icon fas fa-" + icon + "'></i>" +
+    //   "<span id='flash_notice'>" + data.message + "</span></h4 ></div >"
+    // )
 
     if (data.refresh_page) {
       setTimeout(() => {

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import jquery from "jquery"
+// import jquery from "jquery"
 import { isiOS, isMacOS } from "./utils"
 
 const LOADING_TIMEOUT = 8000
@@ -48,11 +48,11 @@ export default class extends Controller {
   }
 
   showCertExpired() {
-    jquery("#cert-expired-issues").modal("toggle")
+    // jquery("#cert-expired-issues").modal("toggle")
   }
 
   showQA() {
-    jquery("#install-issues").modal("toggle")
+    // jquery("#install-issues").modal("toggle")
   }
 
   build() {

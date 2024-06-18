@@ -14,7 +14,7 @@ ruby:
 
 .row
   .col-md-12
-    .app-detail.card
+    .app-detail.card.mb-4
       .card-header
         h3.card-title
           = app_icon(@debug_file.app.recently_release, class: 'app-icon img-circle img-bordered-sm')
@@ -80,55 +80,58 @@ ruby:
             = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \
               class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
 
-    - unless @debug_file.processing?
-      .row
-        - if ios_debug_file?(@debug_file)
-          ruby:
-            bundle_id = @debug_file.main_object.data['identifier']
-          .col-md-12
-            .card
-              .card-header
-                h3.card-title = t('.main_target', value: @debug_file.main_object.object)
-              .card-body.p-0
-                table.table
-                  thead
-                    tr
-                      td = t('.arch')
-                      td = t('.uuid')
-                  tbody
-                    - @debug_file.main_objects.each do |metadata|
-                      tr
-                        td
-                          span.badge.badge-secondary.ml-1 = metadata.type
-                        td = metadata.uuid
+  - unless @debug_file.processing?
+    - if ios_debug_file?(@debug_file)
+      ruby:
+        bundle_id = @debug_file.main_object.data['identifier']
+      .col-md-12
+        .card.mb-4
+          .card-header
+            h3.card-title = t('.main_target', value: @debug_file.main_object.object)
+          .card-body.p-0
+            table.table
+              thead
+                tr
+                  td = t('.arch')
+                  td = t('.uuid')
+              tbody
+                - @debug_file.main_objects.each do |metadata|
+                  tr
+                    td
+                      span.badge.text-bg-secondary = metadata.type
+                    td = metadata.uuid
 
-          - if @debug_file.libraries.present?
-            .col-md-12
-              .card
-                .card-body.p-0
-                  table.table
-                    thead
-                      tr
-                        td = t('.libraries')
-                        td.col-md-5 = t('.uuid')
-                    tbody
-                      - @debug_file.libraries.each do |metadata|
-                        tr
-                          td
-                            = metadata.data['identifier']
-                            span.badge.badge-secondary.ml-1 = metadata.type
-                          td = metadata.uuid
-        - else
-          .col-md-12
-            .card
-              .card-body.p-0
-                table.table
-                  thead
+      - if @debug_file.libraries.present?
+        .col-md-12
+          .card.mb-4
+            .card-header
+              h3.card-title = t('.libraries', count: @debug_file.libraries.count)
+            .card-body.p-0
+              table.table
+                thead
+                  tr
+                    td = t('.libraries')
+                    td.col-md-5 = t('.uuid')
+                tbody
+                  - @debug_file.libraries.each do |metadata|
                     tr
-                      td = t('.filename')
-                      td = t('.file_size')
-                  tbody
-                  - @debug_file.proguard_files.each do |file|
-                    tr
-                      td = file['name']
-                      td = number_to_human_size(file['size'])
+                      td
+                        = metadata.data['identifier']
+                        span.badge.text-bg-secondary.ms-1 = metadata.type
+                      td = metadata.uuid
+    - else
+      .col-md-12
+        .card.mb-4
+          .card-header
+            h3.card-title = t('.filename', count: @debug_file.proguard_files.count)
+          .card-body.p-0
+            table.table
+              thead
+                tr
+                  td = t('.filename')
+                  td = t('.file_size')
+              tbody
+                - @debug_file.proguard_files.each do |file|
+                  tr
+                    td = file['name']
+                    td = number_to_human_size(file['size'])

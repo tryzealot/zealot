@@ -33,11 +33,11 @@
                   = user.role_name
                 td
                   - if user.access_locked?
-                    span.badge.badge-danger = t('.locked')
+                    span.badge.text-bg-danger = t('.locked')
                   - elsif user.confirmed_at
-                    span.badge.badge-secondary = t('.activated')
+                    span.badge.text-bg-secondary = t('.activated')
                   - else
-                    = link_to t('.inactive'), edit_admin_user_path(user), class: 'badge badge-primary'
+                    = link_to t('.inactive'), edit_admin_user_path(user), class: 'badge text-bg-primary'
 
                 td.d-none.d-sm-table-cell
                   - if user.last_sign_in_at

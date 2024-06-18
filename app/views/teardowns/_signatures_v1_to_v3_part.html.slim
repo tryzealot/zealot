@@ -7,10 +7,10 @@
 .card-body.card-comments.pb-2
   - signatures.each_with_index do |signature, i|
     .card-comment
-      .comment-text.ml-0
+      .comment-text.ms-0
         span.username
           = t('teardowns.show.signature', scheme: "v#{signature['scheme']}")
-          span.text-muted.float-right
+          span.text-muted.float-end
             - if signature['certificates'].present?
               = t('teardowns.show.signature_unverified')
             - else

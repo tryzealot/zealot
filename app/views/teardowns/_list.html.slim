@@ -1,6 +1,6 @@
 .col-md-12
   - if @metadata.present?
-    .card
+    .card.mb-4
       .card-header
         h3.card-title
           i.icon.fas.fa-history
@@ -43,10 +43,10 @@
 
       - if @metadata.total_pages > 1
         .card-footer.clearfix
-          .float-right
+          .float-end
             = paginate @metadata
   - else
-    .card.card-outline.card-warning
+    .card.card-outline.card-warning.mb-4
       .card-header.card-border
         h3.card-title = t('teardowns.index.not_found.title')
       .card-body = t('teardowns.index.not_found.body_html')

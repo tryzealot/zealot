@@ -1,5 +1,5 @@
 - if @metadata.developer_certs.present?
-  .card
+  .card.mb-4
     .card-header
       h3.card-title
         = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
@@ -9,11 +9,11 @@
     .card-body.card-comments.pb-2
       - @metadata.developer_certs.each_with_index do |certificate, i|
         .card-comment
-          .comment-text.ml-0
+          .comment-text.ms-0
             - if certificate['version'].present?
               span.username
                 = "#{t('teardowns.show.cert', index: i + 1)} #{certificate['name']}"
-                span.text-muted.float-right
+                span.text-muted.float-end
                   = t('teardowns.show.cert_expired_at', date: certificate['expired_at'])
               ul.content
                 li
@@ -56,6 +56,6 @@
             - else
               span.username
               = t('teardowns.show.cert', index: i + 1)
-              span.text-muted.float-right
+              span.text-muted.float-end
                 = t('teardowns.show.cert_expired_at', date: certificate['expired_at'])
               p.content = certificate['name']

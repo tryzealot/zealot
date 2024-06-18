@@ -8,13 +8,13 @@
           = link_to app.name, app_path(app)
         p.created-time.text-muted.text-center
           = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
-        ul.list-group.list-group-unbordered.pt-2
-          li.list-group-item.pl-3.pr-4
+        .d-flex.flex-column.pt-2
+          .border-top.py-2.px-3
             b = t('apps.index.schemes')
-            span.float-right = app.total_schemes
-          li.list-group-item.pl-3.pr-4
+            span.float-end = app.total_schemes
+          .border-top.py-2.px-3
             b = t('apps.index.channels')
-            span.float-right = app.total_channels
-          li.list-group-item.pl-3.pr-4.border-bottom-0
+            span.float-end = app.total_channels
+          .border-top.py-2.px-3
             b = t('apps.index.uploads')
-            span.float-right = app.total_releases
+            span.float-end = app.total_releases
