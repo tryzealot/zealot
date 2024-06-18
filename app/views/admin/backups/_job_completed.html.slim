@@ -14,7 +14,7 @@
           - backup_files.each do |file|
             tr
               td
-                i.fas.fa-check-circle.text-success.mr-2
+                i.fas.fa-check-circle.text-success.me-2
                 = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename)
               td
                 small = file.sha256

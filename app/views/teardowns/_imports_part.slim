@@ -1,10 +1,10 @@
-.card
+.card.mb-4
   .card-header
     h3.card-title = t('teardowns.show.imports')
     .card-tools
       button.btn.btn-tool data-card-widget="collapse"
         i.fas.fa-minus
-  .card-body.p-0.pl-3
+  .card-body.p-0.ps-3
     dl.system-info.pb-0
       - imports.each do |name, functions|
         dt = name

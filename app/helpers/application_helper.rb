@@ -129,7 +129,7 @@ module ApplicationHelper
     when 'ios', 'appletv'
       ['fa-apple', 'bg-secondary']
     when 'android'
-      ['fa-android', 'bg-green']
+      ['fa-android', 'bg-green-400']
     when 'windows'
       ['fa-windows', 'bg-primary']
     when 'macos'
@@ -137,7 +137,7 @@ module ApplicationHelper
     when 'linux'
       ['fa-linux', 'bg-info']
     else
-      ['fa-adn', 'bg-lightblue']
+      ['fa-adn', 'bg-blue-400']
     end
   end
 

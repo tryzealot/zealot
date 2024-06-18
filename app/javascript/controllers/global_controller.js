@@ -3,7 +3,8 @@ import * as ActionCable from '@rails/actioncable'
 import * as bootstrap from 'bootstrap'
 import { Zealot } from "./zealot"
 import { application } from "./application"
-import jquery from "jquery"
+// import jquery from "jquery"
+import { PushMenu, Defaults } from "admin-lte";
 
 export default class extends Controller {
   static values = {
@@ -16,7 +17,7 @@ export default class extends Controller {
     this.initZealot()
     this.setupRailsDebugMode()
     this.fixAdminlteWithTubros()
-    this.switchDarkMode()
+    // this.switchDarkMode()
   }
 
   initZealot() {
@@ -30,12 +31,12 @@ export default class extends Controller {
     if (apperance === "dark" || (apperance === "auto" && Zealot.isDarkMode())) {
       document.body.classList.add("dark-mode")
 
-      var mainHeader = document.getElementsByClassName("main-header")
+      var mainHeader = document.getElementsByClassName("app-header")
       Array.prototype.forEach.call(mainHeader, function(element) {
         element.classList.replace("navbar-white", "navbar-dark")
       })
 
-      var mainSidebar = document.getElementsByClassName("main-sidebar")
+      var mainSidebar = document.getElementsByClassName("app-sidebar")
       Array.prototype.forEach.call(mainSidebar, function(element) {
         element.classList.replace("sidebar-light-primary", "sidebar-dark-primary")
       });
@@ -60,7 +61,13 @@ export default class extends Controller {
   }
 
   fixSidebarResize() {
-    jquery(window).trigger("resize")
+    const sidebar = document.querySelector(".app-sidebar")
+    if (sidebar) {
+      window.addEventListener('turbo:load', () => {
+        const data = new PushMenu(sidebar, Defaults)
+        data.init()
+      })
+    }
   }
 
   setupRailsDebugMode() {

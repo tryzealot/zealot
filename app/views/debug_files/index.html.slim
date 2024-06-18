@@ -20,13 +20,13 @@
               = app_icon(app.recently_release, class: 'app-icon elevation-1 img-circle')
             h3.profile-username.text-center
               = app.name
-            ul.list-group.list-group-unbordered.pt-2
-              li.list-group-item.pl-3.pr-4
+            .d-flex.flex-column.pt-2
+              .border-top.py-2.px-3
                 b = link_to t('.android_count'), device_app_debug_files_path(app, 'Android')
-                span.float-right = app.android_debug_files.count
-              li.list-group-item.pl-3.pr-4.border-bottom-0
+                span.float-end = app.android_debug_files.count
+              .border-top.py-2.px-3
                 b = link_to t('.ios_count'), device_app_debug_files_path(app, 'iOS')
-                span.float-right = app.ios_debug_files.count
+                span.float-end = app.ios_debug_files.count
   - else
     .col-md-12
       .card.card-outline.card-warning

@@ -44,7 +44,7 @@
 
     .card-footer
       - if @releases.total_pages > 1
-        .float-right
+        .float-end
           = paginate @releases
 
       - if current_user&.manage?(app: channel.app)

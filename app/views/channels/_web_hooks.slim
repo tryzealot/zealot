@@ -16,12 +16,12 @@
         li.nav-item
           a.nav-link.active data-toggle="tab" role="tab" id="enabled-tab" href="#enabled" aria-controls="enabled" aria-selected="true"
             = t('web_hooks.enable')
-            span.badge.badge-secondary.badge-pill.ml-1
+            span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.enabled_web_hooks_count
         li.nav-item
           a.nav-link data-toggle="tab" role="tab" id="shared-tab" href="#shared" aria-controls="shared" aria-selected="false"
             = t('web_hooks.shared')
-            span.badge.badge-secondary.badge-pill.ml-1
+            span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.available_web_hooks_count
 
       .tab-content id="web_hooks_listContent"
