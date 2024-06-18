@@ -13,6 +13,8 @@ class ReleasesController < ApplicationController
     end
 
     @release = @channel.releases.last
+    authorize @release, :show?
+
     @title = @release.app_name
     render :show
   end
@@ -104,7 +106,7 @@ class ReleasesController < ApplicationController
       case e.model
       when 'Channel'
         @title = t('releases.messages.errors.not_found_app')
-        unless user_signed_in? && Setting.guest_mode
+        unless user_signed_in_or_guest_mode?
           @link_title = @link_href = nil
         end
       when 'Release'
