@@ -63,7 +63,7 @@ RSpec.describe 'DebugFiles API' do
     end
   end
 
-  path '/debug_files' do
+  path '/debug_files/upload' do
     post I18n.t('api.debug_files.upload.title') do
       tags I18n.t('api.debug_files.default.tags')
       description I18n.t('api.debug_files.upload.description')

@@ -1028,58 +1028,6 @@
             }
           }
         }
-      },
-      "post": {
-        "summary": "上传调试文件",
-        "tags": [
-          "调试文件"
-        ],
-        "description": "上传 dSYM 或 Proguard 打包成 zip 压缩调试文件\n\n- `iOS`: 使用 Zip 压缩后的 dSYM 文件\n- `Android`: 使用 Zip 压缩后包含 mapping.txt、R.txt 和 AndroidManifest.xml 的文件\n",
-        "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
-        "responses": {
-          "200": {
-            "description": "调试文件详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DebugFile"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "用户密钥认证失败",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "资源未找到",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/DebugFileOptions"
-              }
-            }
-          }
-        }
       }
     },
     "/debug_files/download": {
@@ -1240,6 +1188,60 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/upload": {
+      "post": {
+        "summary": "上传调试文件",
+        "tags": [
+          "调试文件"
+        ],
+        "description": "上传 dSYM 或 Proguard 打包成 zip 压缩调试文件\n\n- `iOS`: 使用 Zip 压缩后的 dSYM 文件\n- `Android`: 使用 Zip 压缩后包含 mapping.txt、R.txt 和 AndroidManifest.xml 的文件\n",
+        "operationId": "uploadDebugFile",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "调试文件详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/DebugFileOptions"
               }
             }
           }
