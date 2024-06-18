@@ -1,10 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
-import * as ActionCable from '@rails/actioncable'
-import * as bootstrap from 'bootstrap'
+import * as ActionCable from "@rails/actioncable"
+import * as bootstrap from "bootstrap"
 import { Zealot } from "./zealot"
 import { application } from "./application"
-// import jquery from "jquery"
-import { PushMenu, Defaults } from "admin-lte";
+import { PushMenu, Defaults } from "admin-lte"
 
 export default class extends Controller {
   static values = {
@@ -50,21 +49,21 @@ export default class extends Controller {
   }
 
   fixAdminlteWithTubros() {
-    this.fixTooltipToggle()
+    this.enableTooltips()
     this.fixSidebarResize()
   }
 
-  fixTooltipToggle() {
-    var tooltipTriggerList = Array.prototype.slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+  enableTooltips() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, {
+      placement: "top"
+    }))
   }
 
   fixSidebarResize() {
     const sidebar = document.querySelector(".app-sidebar")
     if (sidebar) {
-      window.addEventListener('turbo:load', () => {
+      window.addEventListener("turbo:load", () => {
         const data = new PushMenu(sidebar, Defaults)
         data.init()
       })

@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-// import jquery from "jquery"
 import ClipboardJS from "clipboard"
+import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
   static targets = [ "source", "button" ]
@@ -8,7 +8,7 @@ export default class extends Controller {
   copy() {
     this.hideTooltip()
     if (!ClipboardJS.isSupported()) {
-      this.button.attr("disabled", true)
+      this.buttonTarget.setAttribute("disabled", true)
       return this.renderUnsupport()
     }
 
@@ -18,29 +18,32 @@ export default class extends Controller {
   }
 
   renderUnsupport() {
-    this.button.addClass("btn-warning")
-      .removeClass("btn-primary")
+    this.buttonTarget.classList.add("btn-warning")
+    this.buttonTarget.classList.remove("btn-primary")
+    const icon = this.buttonTarget.querySelector("i");
 
-    this.button.find("i")
-      .addClass("fa-tired")
-      .removeClass("fa-clipboard")
+    if (icon) {
+      icon.classList.add("fa-tired");
+      icon.classList.remove("fa-clipboard");
+    }
   }
 
   renderSuccess() {
-    this.button.addClass("btn-success")
-      .removeClass("btn-primary")
+    this.buttonTarget.classList.add("btn-success")
+    this.buttonTarget.classList.remove("btn-primary")
+    const icon = this.buttonTarget.querySelector("i");
 
-    this.button.find("i")
-      .addClass("fa-thumbs-up")
-      .removeClass("fa-clipboard")
+    if (icon) {
+      icon.classList.add("fa-thumbs-up");
+      icon.classList.remove("fa-clipboard");
+    }
   }
 
   hideTooltip() {
-    this.button.tooltip("hide")
-    this.button.tooltip("disable")
-  }
-
-  get button() {
-    // return jquery(this.buttonTarget)
+    const tooltip = new bootstrap.Tooltip(this.buttonTarget)
+    if (tooltip) {
+      tooltip.hide()
+      tooltip.disable()
+    }
   }
 }
