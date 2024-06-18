@@ -35,7 +35,8 @@ en-US:
       edit:
         title: User information
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}">%{label}</a>.
+        resend: resend confirmation email
         collaborators: Collaborators
         api: API
         token: 密钥
@@ -46,6 +47,8 @@ en-US:
         message: 'User %{user} has been locked.'
       unlock:
         message: 'User %{user} has been unlocked.'
+      resend_confirmation:
+        message: '已重新发送确认邮件至%{user}用户'
     web_hooks:
       title: Webhooks
       index:
@@ -110,6 +113,8 @@ en-US:
       title: Settings
       index:
         title: ':admin.settings.title'
+        smtp_verify: Verify
+        smtp_verify_inprocess: Inprocessing
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
@@ -147,9 +152,9 @@ en-US:
       gitlab: Gitlab
       google_oauth: Google OAuth
       #misc: 杂项
-      stmp: Mail STMP
+      smtp: Email SMTP
       mailer_default_from: Default email send from
-      mailer_default_to: Default sender
+      mailer_default_reply_to: Default email reply to
       mailer_options: Options
       analytics: Analytics
       google_analytics_id: Google Analytics ID
