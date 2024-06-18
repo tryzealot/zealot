@@ -11,13 +11,13 @@
       .timeline
         - recently_releases.each do |release|
           div
-            i.fa-circle class="#{current_release == release ? 'fas' : 'far'}"
+            i.timeline-icon.fa-circle class="#{current_release == release ? 'fas' : 'far'}"
             .timeline-item
               span.time
                 i.icon.fas.fa-clock
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
-                = link_to release.app_name, friendly_channel_release_path(release.channel, release), class: 'pr-1'
+                = link_to release.app_name, friendly_channel_release_path(release.channel, release), class: 'pe-1'
                 - if release.release_version && release.build_version
                   = t('releases.show.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
                 - elsif release.release_version
@@ -45,11 +45,12 @@
                       - else
                         = release.short_git_commit
         div
-          i.fas.fa-clock
+          i.timeline-icon.fas.fa-clock
+
     - if user_signed_in_or_guest_mode?
       ruby:
         channel_path = friendly_channel_overview_path(current_release.channel)
 
-      .card-footer.p-1
-        a.btn.btn-block.btn-flat.text-primary href="#{channel_path}"
+      .card-footer.d-grid.p-1
+        a.btn.w-100.btn-flat.text-primary href="#{channel_path}"
           = t('releases.show.more')

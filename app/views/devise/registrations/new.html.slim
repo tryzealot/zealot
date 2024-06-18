@@ -33,7 +33,7 @@
                           required: true,
                           input_html: { autocomplete: "new-password" }
 
-                = f.button :submit, t('.register'), class: 'btn-block'
+                = f.button :submit, t('.register'), class: 'w-100'
             .auth-providers.col-md-6
               == render 'devise/shared/links'
     - else

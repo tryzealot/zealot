@@ -23,9 +23,9 @@ tr
     - if type == :enabled
       .btn-group-vertical
         .btn-group
-          button.btn.btn-sm.btn-default data-toggle="tooltip" data-placement="top" title="#{t('web_hooks.test')}" disabled="true"
+          button.btn.btn-sm.btn-outline-secondary data-toggle="tooltip" data-placement="top" title="#{t('web_hooks.test')}" disabled="true"
             i.fas.fa-bullhorn
-          button.btn.btn-sm.btn-default.dropdown-toggle.dropdown-icon.dropdown-hover data-toggle="dropdown"
+          button.btn.btn-sm.btn-outline-secondary.dropdown-toggle.dropdown-icon.dropdown-hover data-toggle="dropdown"
           ul.dropdown-menu role="menu" x-placement="bottom-start"
             li
               a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}"
@@ -44,5 +44,5 @@ tr
           a.btn.btn-sm.btn-warning data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.disable')}" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
             i.fas.fa-stop
     - elsif type == :shared
-      a.btn.btn-sm.btn-default del="nofollow" data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
+      a.btn.btn-sm.btn-outline-secondary del="nofollow" data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
         i.fas.fa-play

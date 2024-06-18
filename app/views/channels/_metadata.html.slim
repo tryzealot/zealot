@@ -1,4 +1,4 @@
-.card.card-solid
+.card
   .card-header
     h3.card-title
       i.icon.fas.fa-sticky-note
@@ -29,4 +29,4 @@
 
   - if current_user&.manage?(app: @app)
     .card-footer.p-1
-      a.btn.btn-block.text-primary href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')
+      a.btn.w-100.text-primary href="#{edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel)}" = t('channels.show.edit_channel')

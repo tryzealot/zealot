@@ -1,4 +1,4 @@
-.card
+.card.mb-4
   .card-header
     h3.card-title
       i.icon.fas.fa-history
@@ -8,17 +8,17 @@
         = @channel.releases.count
 
   .card-body.p-0
-    ul.products-list.product-list-in-card
+    ul.products-list
       - if @releases.count > 0
         - @releases.each do |release|
-          li.item
+          li.item.d-flex
             .product-img
-              = app_icon(release, class: 'app-icon img-circle img-bordered-sm')
-            .product-info
+              = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
+            .product-info.w-100.me-2
+              span.fs-6.badge.text-bg-light.float-end data-toggle="tooltip" title="#{release.created_at}"
+                = time_ago_in_words(release.created_at)
               = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
-              small
-                span.badge.text-bg-light.float-end data-toggle="tooltip" title="#{release.created_at}"
-                  = time_ago_in_words(release.created_at)
+
               span.product-description
                 - if release.release_version.present?
                   = release.release_version

@@ -172,8 +172,10 @@ $ios-install-issue-color: rgb(245, 39, 90);
       color: #007bff;
     }
   }
+}
 
-  .dark-mode & {
+@include color-mode(dark) {
+  .callout, .changelog {
     a {
       color: #fff;
 
@@ -182,9 +184,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
       }
     }
   }
-}
 
-.dark-mode {
   .app-icon {
     background-color: #fff;
   }

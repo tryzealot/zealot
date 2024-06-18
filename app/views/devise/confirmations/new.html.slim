@@ -15,7 +15,7 @@
               == render "devise/shared/error_messages", resource: resource
 
               = f.input :email, required: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-              = f.button :submit, t('.resend_confirmation_instructions'), class: 'btn-block'
+              = f.button :submit, t('.resend_confirmation_instructions'), class: 'w-100'
 
           .auth-providers.col-md-6
             == render 'devise/shared/links'

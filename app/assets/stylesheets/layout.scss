@@ -9,26 +9,16 @@ a {
   text-decoration: none;
 }
 
-.navbar-empty {
-  @extend .navbar-collapse !optional;
-  @extend .justify-content-md-center !optional;
-
-  .navbar-brand {
-    padding: 0;
-
-    // FIXME: variable not works!
-    [class*="navbar-white"] & {
-      color: $black;
-    }
-
-    [class*="navbar-black"] & {
-      color: $white;
-    }
+.navbar-brand {
+  .brand-text {
+    vertical-align: middle;
   }
 }
 
-.layout-top-nav .wrapper .main-header .navbar-empty .brand-image {
-  margin-top: -0.1rem;
+.navbar-empty {
+  @extend .navbar-collapse !optional;
+  @extend .justify-content-center !optional;
+  @extend .align-items-center !optional;
 }
 
 ul.pagination {
@@ -75,7 +65,7 @@ i.icon {
   }
 }
 
-.dark-mode {
+@include color-mode(dark) {
   .cover {
     opacity: 0.45;
   }
@@ -83,10 +73,6 @@ i.icon {
   .nav-item .active {
     color: #fff;
     background-color: #3f6791;
-  }
-
-  a {
-    color: #64adfb;
   }
 
   .callout {
@@ -111,5 +97,9 @@ i.icon {
     border-color: #505356 !important;
     background-color: #393a3c !important;
     color: #999 !important;
+  }
+
+  .btn-secondary {
+    background-color: var(--bs-card-bg);
   }
 }
