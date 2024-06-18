@@ -117,6 +117,8 @@ class Setting < RailsSettings::Base
   end
 
   scope :analytics do
+    field :umami_script_url, default: (ENV['UMAMI_SCRIPT_URL'] || 'https://analytics.us.umami.is/script.js'),
+      type: :string, display: Setting.demo_mode
     field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: Setting.demo_mode
     field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
     field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: Setting.demo_mode

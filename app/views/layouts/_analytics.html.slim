@@ -8,7 +8,7 @@
     gtag('config', '#{Setting.google_analytics_id}');
 
 - if Setting.umami_website_id.present?
-  script defer=true src="https://analytics.us.umami.is/script.js" data-website-id="#{Setting.umami_website_id}"
+  script defer=true src="#{Settring.umami_script_url}" data-website-id="#{Setting.umami_website_id}"
 
 - if Setting.clarity_analytics_id.present?
   javascript:
