@@ -48,7 +48,7 @@ en:
       unlock:
         message: 'User %{user} has been unlocked.'
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user {user}.'
+        message: 'Re-sent the confirmation email to user %{user}.'
     web_hooks:
       title: Webhooks
       index:

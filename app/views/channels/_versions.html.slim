@@ -1,4 +1,4 @@
-.card.card-solid
+.card.mb-3
   .card-header
     h3.card-title
       i.icon.fas.fa-archive
@@ -20,5 +20,5 @@
 
   - if @versions.count > 0
     .card-footer.p-1
-      a.btn.btn-block.text-primary href="#{friendly_channel_versions_path(@channel)}"
+      a.btn.w-100.text-primary href="#{friendly_channel_versions_path(@channel)}"
         = t('channels.show.more')
