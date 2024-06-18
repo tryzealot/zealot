@@ -8,16 +8,21 @@ module ExceptionHandler
                 ActionController::MissingFile, Zealot::Error::RecordNotFound,
                 with: :not_found
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
-    rescue_from ActionController::UnknownFormat, AppInfo::Error, with: :not_acceptable
+    rescue_from ActionController::UnknownFormat, AppInfo::Error, Errno::ECONNREFUSED, with: :not_acceptable
     rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
                 JSON::ParserError, AppInfo::UnknownFormatError, with: :bad_request
     rescue_from Faraday::Error, OpenSSL::SSL::SSLError,
                 TinyAppstoreConnect::ConnectAPIError, with: :internal_server_error
     rescue_from Pundit::NotAuthorizedError, with: :forbidden
     rescue_from ActiveRecord::ConnectionNotEstablished, with: :internal_server_error
+    rescue_from Net::SMTPAuthenticationError, with: :unauthorized
   end
 
   private
+
+  def unauthorized(e)
+    respond_with_error(401, e)
+  end
 
   def forbidden(e)
     respond_with_error(403, e)
@@ -51,28 +56,40 @@ module ExceptionHandler
     respond_with_error(503, e)
   end
 
-  def respond_with_error(code, exception)
+  def respond_with_error(code, exception, **body)
     if code >= 500
       logger.error exception.full_message
       Sentry.capture_exception exception
     end
 
     respond_to do |format|
-      @code = code
-      @exception = exception
-      @title = t("errors.code.#{@code}.title")
-      @message = exception.message if code < 500
+      format.any  {
+        @code = code
+        @exception = exception
+        @title = t("errors.code.#{@code}.title")
+        @message = exception.message if code < 500
 
-      case exception
-      when ActiveRecord::ConnectionNotEstablished
-        @message = t('errors.messages.database_connection_error')
-      when Pundit::NotAuthorizedError
-        policy_name = exception.policy.class.to_s.underscore
-        @message = t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
-      end
+        case exception
+        when ActiveRecord::ConnectionNotEstablished
+          @message = t('errors.messages.database_connection_error')
+        when Pundit::NotAuthorizedError
+          policy_name = exception.policy.class.to_s.underscore
+          @message = t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
+        end
 
-      format.any  { render 'errors/index', status: code, formats: [:html] }
-      format.json { render json: { code: code, error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
+        render 'errors/index', status: code, formats: [:html]
+      }
+
+      format.json {
+        body[:error] ||= exception.message
+        if Rails.env.development?
+          body[:debug] = { class: exception.class }
+          body[:debug][:params] = params
+          body[:debug][:backtrace] = exception.backtrace if exception.backtrace.present?
+        end
+
+        render json: body, status: code
+      }
     end
   end
 end
