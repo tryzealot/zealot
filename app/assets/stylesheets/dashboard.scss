@@ -56,7 +56,7 @@
   }
 }
 
-.dark-mode {
+@include color-mode(dark) {
   .timeline::before {
     background-color: #454d55;
   }
@@ -70,15 +70,15 @@
     }
 
     .time-title {
-      color: #373737 !important;
+      background-color: #64adfb;
     }
 
     .timeline-item {
-      background-color: #454d55;
-      border-color: #3a3a3a;
+      background-color: #293138;
+      border-color: var(--bs-border-color);
 
       .timeline-header {
-        border-color: #444;
+        border-color: var(--bs-border-color);
       }
 
       .timeline-footer .badge {

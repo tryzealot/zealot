@@ -54,7 +54,9 @@ dl.system-info {
   }
 }
 
-.dark-mode dl.system-info dd pre {
-  background-color: #2f2936;
-  color: #f7f8f9;
+@include color-mode(dark) {
+  dl.system-info dd pre {
+    background-color: #181818;
+    color: #f7f8f9;
+  }
 }

@@ -15,7 +15,7 @@
 
   .col-md-4
     - if current_user&.manage?(app: @app)
-      = link_to new_channel_release_path(@channel), class: 'btn btn-success btn-block mb-3' do
+      = link_to new_channel_release_path(@channel), class: 'btn btn-success w-100 mb-3' do
         i.icon.far.fa-plus-square
         = t('channels.show.upload_release')
 

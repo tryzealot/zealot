@@ -3,7 +3,7 @@
     .card.widget-app
       .card-body.p-0.pt-3
         .text-center
-          = link_to app_icon(app.recently_release, class: 'app-icon elevation-1 img-circle'), app_path(app)
+          = link_to app_icon(app.recently_release, class: 'app-icon shadow-sm rounded-circle'), app_path(app)
         h3.profile-username.text-center
           = link_to app.name, app_path(app)
         p.created-time.text-muted.text-center

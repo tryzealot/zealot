@@ -49,7 +49,7 @@ export default class extends Controller {
           "<p>" + this.contentValue + "</p>" +
         "</div>" +
         "<div class='modal-footer'>" +
-          "<button class='btn btn-default' data-dismiss='modal'>" + this.cancelValue + "</button>" +
+          "<button class='btn btn-outline-secondary' data-dismiss='modal'>" + this.cancelValue + "</button>" +
           destroyForm.outerHTML +
         "</div>" +
       "</div >" +

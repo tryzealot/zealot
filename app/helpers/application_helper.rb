@@ -21,7 +21,8 @@ module ApplicationHelper
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
-    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
+      contoller_name == 'users/confirmations'
   end
 
   def button_link_to(title, url, icon = nil, **options)

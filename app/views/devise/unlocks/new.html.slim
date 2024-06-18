@@ -20,6 +20,6 @@
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "email" }
-                = f.button :submit, t('.resend_unlock_instructions'), class: 'btn-block'
+                = f.button :submit, t('.resend_unlock_instructions'), class: 'w-100'
             .auth-providers.col-md-6
               == render 'devise/shared/links'

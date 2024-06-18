@@ -17,7 +17,7 @@ export default class extends Controller {
     this.initZealot()
     this.setupRailsDebugMode()
     this.fixAdminlteWithTubros()
-    // this.switchDarkMode()
+    this.switchDarkMode()
   }
 
   initZealot() {
@@ -29,18 +29,19 @@ export default class extends Controller {
   switchDarkMode() {
     const apperance = Zealot.siteApperance
     if (apperance === "dark" || (apperance === "auto" && Zealot.isDarkMode())) {
-      document.body.classList.add("dark-mode")
+      document.documentElement.setAttribute("data-bs-theme", "dark");
 
-      var mainHeader = document.getElementsByClassName("app-header")
-      Array.prototype.forEach.call(mainHeader, function(element) {
-        element.classList.replace("navbar-white", "navbar-dark")
-      })
+      // var mainHeader = document.getElementsByClassName("app-header")
+      // Array.prototype.forEach.call(mainHeader, function(element) {
+      //   element.classList.replace("navbar-white", "navbar-dark")
+      // })
 
-      var mainSidebar = document.getElementsByClassName("app-sidebar")
-      Array.prototype.forEach.call(mainSidebar, function(element) {
-        element.classList.replace("sidebar-light-primary", "sidebar-dark-primary")
-      });
+      // var mainSidebar = document.getElementsByClassName("app-sidebar")
+      // Array.prototype.forEach.call(mainSidebar, function(element) {
+      //   element.classList.replace("sidebar-light-primary", "sidebar-dark-primary")
+      // });
     } else if (apperance === "light" && Zealot.isDarkMode()) {
+
       var darkBrandImage = document.getElementsByClassName("dark-brand-image")
       Array.prototype.forEach.call(darkBrandImage, function(element) {
         element.remove()
