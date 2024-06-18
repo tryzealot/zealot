@@ -35,7 +35,8 @@ zh-CN:
       edit:
         title: 用户信息
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}">%{label}</a>。
+        resend: 重新发送激活邮件
         collaborators: 应用成员
         api: API
         token: Token
@@ -46,6 +47,8 @@ zh-CN:
         message: '%{user}用户已变更为停用状态'
       unlock:
         message: '%{user}用户已变更为启用状态'
+      resend_confirmation:
+        message: '已重新发送确认邮件至%{user}用户'
     web_hooks:
       title: 网络钩子
       index:
