@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: %i[edit update destroy lock unlock]
+  before_action :set_user, only: %i[edit update destroy lock unlock resend_confirmation]
 
   def index
     @users = User.all.order(id: :asc)
@@ -64,6 +64,11 @@ class Admin::UsersController < ApplicationController
 
   def unlock
     @user.unlock_access!
+    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
+  end
+
+  def resend_confirmation
+    @user.send_confirmation_instructions
     redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
   end
 

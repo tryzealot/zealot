@@ -35,7 +35,8 @@ en:
       edit:
         title: User information
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, send this link to active.
+        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}">%{label}</a>.
+        resend: resend confirmation email
         collaborators: Collaborators
         api: API
         token: 密钥
@@ -46,6 +47,8 @@ en:
         message: 'User %{user} has been locked.'
       unlock:
         message: 'User %{user} has been unlocked.'
+      resend_confirmation:
+        message: 'Re-sent the confirmation email to user {user}.'
     web_hooks:
       title: Webhooks
       index:
