@@ -100,20 +100,13 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
   end
 
-  scope :stmp do
+  scope :smtp do
     field :mailer_default_from, default: ENV['ACTION_MAILER_DEFAULT_FROM'], type: :string,
-          restart_required: true, display: true
-    field :mailer_default_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
-          restart_required: true, display: true
-    field :mailer_options, type: :hash, restart_required: true, display: true, default: {
-      address: ENV['SMTP_ADDRESS'],
-      port: ENV['SMTP_PORT'].to_i,
-      domain: ENV['SMTP_DOMAIN'],
-      username: ENV['SMTP_USERNAME'],
-      password: ENV['SMTP_PASSWORD'],
-      auth_method: ENV['SMTP_AUTH_METHOD'],
-      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']),
-    }, validates: { json: { format: :hash } }
+      readonly: true, display: true
+    field :mailer_default_reply_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
+      readonly: true, display: true
+    field :mailer_options, type: :hash, display: true, readonly: true,
+      default: Rails.configuration.action_mailer.smtp_settings, validates: { json: { format: :hash } }
   end
 
   scope :information do
@@ -124,9 +117,9 @@ class Setting < RailsSettings::Base
   end
 
   scope :analytics do
-    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: true
-    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: true
-    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: true
+    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: Setting.demo_mode
+    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
+    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
   end
 
   # Backup settings
