@@ -3,6 +3,8 @@
 class ReleasePolicy < ApplicationPolicy
 
   def show?
+    return true if enabled_auth?
+
     app_user?
   end
 
@@ -37,6 +39,10 @@ class ReleasePolicy < ApplicationPolicy
   end
 
   private
+
+  def enabled_auth?
+    record.channel.password.present?
+  end
 
   def app_user?
     guest_mode? || any_manage? || Collaborator.where(user: user, app: app).exists?
