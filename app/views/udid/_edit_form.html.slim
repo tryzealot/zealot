@@ -1,6 +1,6 @@
 
 .col-md-12
-  .card
+  .card.mb-4
     = simple_form_for(@device, url: udid_path(udid: @device.udid, apple_key: @apple_key.id)) do |f|
       .card-header
         h3.card-title

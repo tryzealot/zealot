@@ -4,14 +4,15 @@ ruby:
 
 dt = title
 dd.input-group.mb-3 data-controller="clipboard-center"
-  input.form-control.rounded-0 value="#{value}" readonly="true" data-clipboard-center-target="source"
+  input.form-control.rounded-start value="#{value}" readonly="true" data-clipboard-center-target="source"
   - if copy.present?
     span.input-group-append
-      button.btn.btn-primary.btn-flat.btn-clipboard[
+      button.btn.btn-primary.btn-flat.rounded-0.rounded-end[
         data-clipboard-center-target="button"
         data-action="clipboard-center#copy"
         data-clipboard-text="#{value}"
-        data-toggle="tooltip"
-        title="Copy me"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title="Copy me"
       ]
         i.far.fa-clipboard
