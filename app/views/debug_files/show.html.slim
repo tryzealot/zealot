@@ -29,25 +29,25 @@ ruby:
               = t('debug_files.device.reparse_required')
       .card-body
         ul.app-metadata
-          li title="#{t('.name')}" data-toggle="tooltip"
+          li title="#{t('.name')}" data-bs-toggle="tooltip"
             i.fas.fa-list-ul
             = link_to @app.name, app_path(@app)
-          li title="#{t('.version')}" data-toggle="tooltip"
+          li title="#{t('.version')}" data-bs-toggle="tooltip"
             i.fab.fa-gg
             = @debug_file.id
-          li title="#{t('.device_type')}" data-toggle="tooltip"
+          li title="#{t('.device_type')}" data-bs-toggle="tooltip"
             = device_icon(@debug_file.device_type)
             = platform_name(@debug_file.device_type)
-          li title="#{t('.release_version')}" data-toggle="tooltip"
+          li title="#{t('.release_version')}" data-bs-toggle="tooltip"
             i.fas.fa-server
             = @debug_file.release_version
             - if @debug_file.build_version.present?
               | (#{@debug_file.build_version})
           - if @debug_file.filesize.present?
-            li title="#{t('.file_size')}" data-toggle="tooltip"
+            li title="#{t('.file_size')}" data-bs-toggle="tooltip"
               i.fas.fa-weight
               = " #{number_to_human_size(@debug_file.filesize)}"
-          li title="#{t('.uploaded_at')}" data-toggle="tooltip"
+          li title="#{t('.uploaded_at')}" data-bs-toggle="tooltip"
             i.fas.fa-calendar
             = time_ago_in_words(@debug_file.created_at)
         .app-actions[

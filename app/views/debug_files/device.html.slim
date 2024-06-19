@@ -22,7 +22,7 @@
                   = link_to t('.number', value: debug_file.id), debug_file_path(debug_file)
                 - else
                   = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file_path(debug_file)
-              abbr.debug-file-date.small data-toggle="tooltip" data-placement="bottom" title="#{debug_file.created_at}"
+              abbr.debug-file-date.small data-bs-toggle="tooltip" data-placement="bottom" title="#{debug_file.created_at}"
                 = time_ago_in_words(debug_file.created_at)
             .debug-file-info.col.p-0
               - if debug_file.processing?

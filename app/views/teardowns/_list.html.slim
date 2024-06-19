@@ -19,7 +19,7 @@
           - @metadata.each_with_index do |md, index|
             tr
               td
-                span data-toggle="tooltip" title="#{md.created_at}"
+                span data-bs-toggle="tooltip" title="#{md.created_at}"
                   = time_ago_in_words(md.created_at)
               td
                 = link_to (md.name || '-'), teardown_path(md)
