@@ -1,6 +1,6 @@
 import "@hotwired/turbo-rails"
 import * as bootstrap from "bootstrap"
-import { PushMenu, CardWidget } from "admin-lte"
+import { PushMenu, CardWidget, Treeview } from "admin-lte"
 
 window.addEventListener("turbo:load", () => {
   // Trigger bootstrap tooltip
@@ -21,7 +21,7 @@ window.addEventListener("turbo:load", () => {
   })
 
   // Trigger adminlte sidebar toggle
-  const sidebar_toggle = '[data-lte-toggle="sidebar"]'
+  const sidebar_toggle = "[data-lte-toggle=\"sidebar\"]"
   const sidebarTriggerList = document.querySelectorAll(sidebar_toggle)
   sidebarTriggerList.forEach(btn => {
     btn.addEventListener('click', event => {
@@ -37,6 +37,24 @@ window.addEventListener("turbo:load", () => {
         const data = new PushMenu(button, {
           sidebarBreakpoint: 992
         })
+        data.toggle()
+      }
+    })
+  })
+
+  const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
+  treeviewToggleList.forEach(btn => {
+    btn.addEventListener('click', event => {
+      const target = event.target
+      const targetItem = target.closest(".nav-item")
+      const targetLink = target.closest(".nav-link")
+
+      if (target?.getAttribute('href') === '#' || targetLink?.getAttribute('href') === '#') {
+        event.preventDefault()
+      }
+
+      if (targetItem) {
+        const data = new Treeview(targetItem, {})
         data.toggle()
       }
     })
