@@ -1,2 +1,48 @@
 @import "bootstrap/scss/bootstrap";
 @import "admin-lte/src/scss/adminlte";
+
+@include color-mode(dark) {
+  --bs-border-color: rgba(255, 255, 255, 0.15);
+
+  input {
+    background-color: #393a3c !important;
+    border-color: #505356 !important;
+    color: #999 !important;
+  }
+
+  .app-header {
+    border-color: var(--bs-border-color) !important;
+  }
+
+  .text-bg-info {
+    background-color: var(--bs-info-bg) !important;
+  }
+
+  .card-info {
+    .card-header {
+      background-color: var(--bs-info-bg) !important;
+      color: #fff !important;
+    }
+  }
+
+  .card-danger {
+    .card-header {
+      background-color: var(--bs-danger-bg) !important;
+    }
+  }
+
+  .card-warning {
+    border-top: 3px solid var(--bs-wanring-border-color);
+  }
+
+  .card-header {
+    border-color: var(--bs-border-color) !important;
+  }
+
+  .pagination {
+    .active > a {
+      background-color: var(--bs-primary-bg);
+      border-color: var(--bs-primary-bg);
+    }
+  }
+}
