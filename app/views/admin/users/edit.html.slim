@@ -4,10 +4,15 @@
 - content_for :title do
   = t('.title')
 
+- content_for :section_rightpanel do
+  a.btn.btn-icon.btn-secondary href="#{admin_users_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     - unless @user.confirmed?
-      .card
+      .card.mb-3
         .card-header.card-border
           h3.card-title = t('.active_link')
         .card-body
@@ -24,18 +29,14 @@
               i.far.fa-clipboard
           small.form-text.text-muted
             = raw t('.active_link_tip', label: t('.resend'), link: resend_confirmation_admin_user_path(@user))
-    .card
+    .card.mb-3
       .card-header.card-border
         h3.card-title = t('.title')
-        .card-tools
-          a href="#{admin_users_path}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
       == render 'form'
 
   - if @user.collaborators.present?
     .col-md-12
-      .card
+      .card.mb-3
         .card-header.card-border
           h3.card-title =t('.collaborators')
         .card-body.p-0
@@ -50,7 +51,7 @@
                     = link_to Setting.builtin_roles[collaborator.role.to_sym], edit_app_collaborator_path(collaborator.app, collaborator.user_id)
 
   .col-md-12
-    .card
+    .card.mb-3
       .card-header.card-border
         h3.card-title = t('.api')
       .card-body
@@ -68,7 +69,7 @@
 
 
   .col-md-12
-    .card
+    .card.mb-3
       .card-body
         .float-end
           - if default_admin_in_demo_mode?(current_user)

@@ -15,8 +15,9 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    @title = t('channels.new.title', name: @scheme.app_name)
     @channel = @scheme.channels.build
+    @page_title = t('.title.with_name', app: @channel.app.name)
+    @title = t('.title.without_name')
     authorize @channel
   end
 
@@ -32,7 +33,8 @@ class ChannelsController < ApplicationController
   end
 
   def edit
-    @title = t('channels.edit.title', name: @scheme.app_name)
+    @page_title = t('.title.with_name', app: @channel.app.name)
+    @title = t('.title.without_name')
   end
 
   def update

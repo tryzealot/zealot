@@ -6,10 +6,6 @@ ruby:
     .card-header
       h3.card-title
         = @title
-      .card-tools
-        a href="#{app_path(@app)}"
-          i.icon.far.fa-list-alt
-          = t('links.back_to_list')
     .card-body
       - if new_or_create_route?
         - if avaiable_users.present?

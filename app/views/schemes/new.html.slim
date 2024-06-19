@@ -1,5 +1,13 @@
 - content_for :title do
-  = @title
+  = @page_title
+
+- content_for :section_title do
+  = @app.name
+
+- content_for :section_rightpanel do
+  a.btn.btn-icon.btn-secondary href="#{app_path(@app)}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
 
 .row
   == render 'form'

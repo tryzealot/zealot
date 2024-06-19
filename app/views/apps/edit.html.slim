@@ -1,5 +1,15 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  ruby:
+    link_url = new_or_create_route? ? apps_path : app_path(@app)
+  a.btn.btn-icon.btn-secondary href="#{link_url}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   == render 'form'

@@ -9,12 +9,6 @@
     .card.mb-4
       .card-header
         h3.card-title = @subtitle
-        - if user_signed_in_or_guest_mode?
-          .card-tools
-            a href="#{friendly_channel_overview_path(@channel)}"
-              i.icon.far.fa-list-alt
-              = t('links.back_to_list')
-
       == render 'channels/filters/list', releases: @releases, channel: @channel
 
     - if @releases.present? && current_user&.manage?(app: @channel.app)

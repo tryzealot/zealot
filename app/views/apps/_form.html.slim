@@ -1,17 +1,9 @@
 ruby:
   @schemes ||= 0
   @channels ||= 0
-  link_url = new_or_create_route? ? apps_path : app_path(@app)
 
 .col-md-12
   .card
-    .card-header
-      h3.card-title
-        = @title
-      .card-tools
-        a href="#{link_url}"
-          i.icon.far.fa-list-alt
-          = t('links.back_to_list')
     .card-body
       = simple_form_for @app do |f|
         = f.error_notification

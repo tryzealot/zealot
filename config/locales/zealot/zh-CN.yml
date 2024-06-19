@@ -358,9 +358,13 @@ zh-CN:
     show:
       empty_channel: 没有发现已创建的渠道，请新建一个
     new:
-      title: '%{app}新建类型'
+      title:
+        with_name: '%{app}新建类型'
+        without_name: 新建类型
     edit:
-      title: '%{app}编辑类型'
+      title:
+        with_name: '%{app}编辑类型'
+        without_name: 编辑类型
   channels:
     title: 应用渠道
     subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
@@ -396,9 +400,13 @@ zh-CN:
       empty_version: 该版本没有任何上传记录！
       more: 查看更多
     new:
-      title: '%{name}新建渠道'
+      title:
+        with_name: '%{app}新建渠道'
+        without_name: 新建渠道
     edit:
-      title: '%{name}编辑渠道'
+      title:
+        with_name: '%{app}编辑渠道'
+        without_name: 编辑渠道
     branches:
       index:
         subtitle: '%{branch} 分支版本列表'
