@@ -1,0 +1,53 @@
+:root {
+  --bs-btn-success-bg: #28a745;
+  --bs-btn-success-color: #fff;
+  --bs-btn-danger-bg: #dc3545;
+  --bs-btn-danger-color: #fff;
+}
+
+@include color-mode(dark) {
+  --bs-primary-bg: #3f6791;
+  --bs-primary-color: #fff;
+  --bs-primary-border-color: #35597f;
+
+  --bs-primary-hover-bg: #335476;
+  --bs-primary-hover-color: #fff;
+  --bs-primary-hover-border-color: #304e6d;
+
+  --bs-success-bg: #1c6543;
+  --bs-success-color: #fff;
+  --bs-success-border-color: #186340;
+
+  --bs-wanring-border-color: #997404;
+
+  --bs-info-bg: #3498db;
+  --bs-danger-bg: #e74c3c;
+
+  --bs-outline-secondary-color: #cecece;
+
+  .btn-primary {
+    background-color: var(--bs-primary-bg);
+    color: var(--bs-primary-color);
+    border-color: var(--bs-primary-border-color);
+
+    &:hover {
+      background-color: var(--bs-primary-hover-bg);
+      color: var(--bs-primary-hover-color);
+      border-color: var(--bs-primary-hover-border-color);
+    }
+  }
+
+  .btn-success {
+    background-color: var(--bs-success-bg);
+    color: var(--bs-success-color);
+    border-color: var(--bs-success-border-color);
+  }
+
+  .btn-danger {
+    background-color: var(--bs-danger-bg);
+  }
+
+  .btn-outline-secondary {
+    color: var(--bs-outline-secondary-color);
+  }
+}

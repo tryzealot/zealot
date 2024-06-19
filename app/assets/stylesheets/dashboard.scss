@@ -71,7 +71,7 @@
     }
 
     .time-title {
-      background-color: #64adfb;
+      background-color: var(--bs-primary-bg) !important;
     }
 
     .timeline-item {
@@ -85,7 +85,7 @@
       .timeline-footer .badge {
         color: #dbe3ec;
         background-color: #486685;
-        border-color: #3f6791;
+        border-color: var(--bs-primary-bg);
       }
     }
   }
