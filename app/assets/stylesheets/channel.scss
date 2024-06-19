@@ -21,6 +21,8 @@
     }
 
     .product-info {
+      @extend .w-100;
+      @extend .me-2;
       @extend .pt-1;
       @extend .px-3;
 

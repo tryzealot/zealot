@@ -12,20 +12,19 @@
           table.table
             thead
               tr
-                th = t('.number')
                 th = t('.url')
-                th style="width: 240px" = t('.channels')
-                th style="width: 100px" = t('.action')
+                th.w-25 = t('.channels')
+                th.d-none.d-sm-table-cell style="width: 100px" = t('.action')
             tbody
               - @web_hooks.each_with_index do |web_hook, i|
                 tr
                   td
-                    = i + 1
-                  td
                     = link_to web_hook.url, edit_admin_web_hook_path(web_hook)
-                  td
-                    = raw web_hook.channels.map {|c| c.app_name }.join("<br />")
-                  td
+                  td.w-25
+                    - web_hook.channels.each do |channel|
+                      span.me-1.badge.text-bg-secondary = channel.app_name
+                    / = raw web_hook.channels.map {|c| c.app_name }.join("<br />")
+                  td.d-none.d-sm-table-cell
                     = link_to t('.destroy'), admin_web_hook_path(web_hook), \
                       data: { turbo_method: :delete, turbo_confirm: t('.destroy_confirm') }
     - else
