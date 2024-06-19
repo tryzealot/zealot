@@ -18,7 +18,7 @@ html lang="#{I18n.locale}"
     == favicon_link_tag 'zealot-icon.png'
     == favicon_link_tag 'zealot-icon-dark.png', media: "(prefers-color-scheme: dark)"
     == stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
-    == javascript_include_tag 'application', defer: true, 'data-turbolinks-track': 'reload'
+    == javascript_include_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
     == yield :header_tags
     == action_cable_meta_tag
     == csrf_meta_tags
