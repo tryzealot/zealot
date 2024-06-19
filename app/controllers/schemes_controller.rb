@@ -8,7 +8,8 @@ class SchemesController < ApplicationController
   before_action :set_app
 
   def new
-    @title = t('schemes.new.title', app: @app.name)
+    @page_title =t('.title.with_name', app: @app.name)
+    @title = t('.title.without_name')
     @scheme = @app.schemes.build
     authorize @scheme
   end
@@ -26,7 +27,8 @@ class SchemesController < ApplicationController
 
   def edit
     authorize @scheme
-    @title = t('schemes.edit.title', app: @app.name)
+    @page_title =t('.title.with_name', app: @app.name)
+    @title = t('.title.without_name')
   end
 
   def update

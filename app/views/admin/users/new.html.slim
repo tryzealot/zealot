@@ -4,13 +4,14 @@
 - content_for :title do
   = t('.title')
 
+- content_for :section_rightpanel do
+  a.btn.btn-icon.btn-secondary href="#{admin_users_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     .card
       .card-header
         h3.card-title = t('.title')
-        .card-tools
-          a href="#{admin_users_path}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
       == render 'form'

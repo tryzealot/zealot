@@ -362,9 +362,13 @@ en:
     show:
       empty_channel: Not found any channel.
     new:
-      title: 'New scheme for %{app}'
+      title:
+        with_name: 'New scheme for %{app}'
+        without_name: New scheme
     edit:
-      title: 'Edit scheme for %{app}'
+      title:
+        with_name: 'Edit scheme for %{app}'
+        without_name: Edit scheme
   channels:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
@@ -400,9 +404,13 @@ en:
       empty_version: Not found any release with this version!
       more: More
     new:
-      title: 'Create new channel for %{name}'
+      title:
+        with_name: 'New channel for %{app}'
+        without_name: New channel
     edit:
-      title: 'Edit channel for %{name}'
+      title:
+        with_name: 'Edit channel for %{app}'
+        without_name: Edit channel
     branches:
       index:
         subtitle: 'Releases of branch %{branch}'
