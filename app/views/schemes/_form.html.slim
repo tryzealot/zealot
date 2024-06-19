@@ -7,10 +7,6 @@ ruby:
     .card-header
       h3.card-title
         = @title
-      .card-tools
-        a href="#{app_path(@app)}"
-          i.icon.far.fa-list-alt
-          = t('links.back_to_list')
     .card-body
       = simple_form_for(@scheme, url: form_url) do |f|
         = f.error_notification

@@ -26,4 +26,8 @@ module ChannelsHelper
       destroy_releases_channel_path(channel)
     end
   end
+
+  def goback_main_path(fallback:)
+    request.env['HTTP_REFERER'] || fallback
+  end
 end
