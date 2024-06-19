@@ -6,7 +6,7 @@
 
 .row
   .col-md-6
-    .card.system_info
+    .card.system_info.mb-3
       .card-header
         h3.card-title = t('.server_info')
       .card-body
@@ -73,7 +73,7 @@
               | )
 
   .col-md-6
-    .card.card-outline class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
+    .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
       .card-header
         h3.card-title = t('.file_permissions')
         .card-tools
@@ -91,7 +91,7 @@
                 - else
                   i.fas.fa-exclamation-triangle.text-red
 
-    .card
+    .card.mb-3
       .card-header
         h3.card-title = t('.volume_mounted')
         .card-tools
@@ -111,7 +111,7 @@
         - else
           = t('.fail_detect_disk')
 
-    .card.collapsed-card
+    .card.collapsed-card.mb-3
       .card-header
         h3.card-title = t('.system_environment')
         .card-tools
@@ -125,7 +125,7 @@
               pre
                 = secure_value(key, value)
 
-    .card.collapsed-card
+    .card.collapsed-card.mb-3
       .card-header
         h3.card-title = t('.ruby_gems')
         .card-tools
