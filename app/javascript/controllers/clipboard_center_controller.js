@@ -43,7 +43,6 @@ export default class extends Controller {
   hideTooltip(button) {
     const tooltip = new bootstrap.Tooltip(button)
     if (tooltip) {
-      console.debug(tooltip)
       tooltip.hide()
       tooltip.disable()
     }
