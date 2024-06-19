@@ -11,7 +11,17 @@
         .card-header.card-border
           h3.card-title = t('.active_link')
         .card-body
-          input.form-control value="#{confirmation_url(@user, confirmation_token: @user.confirmation_token)}" disabled=true
+          .d-flex data-controller="clipboard-center"
+            ruby:
+              confirmation_url = confirmation_url(@user, confirmation_token: @user.confirmation_token)
+            input.flex-fill.rounded-start.border-0.w-100.p-2.ps-3 value="#{confirmation_url}" readonly="true" data-clipboard-center-target="source"
+            button.btn.btn-primary.rounded-0.rounded-end[
+              data-action="clipboard-center#copy"
+              data-clipboard-text="#{confirmation_url}"
+              data-bs-toggle="tooltip"
+              data-bs-title="Copy me"
+            ]
+              i.far.fa-clipboard
           small.form-text.text-muted
             = raw t('.active_link_tip', label: t('.resend'), link: resend_confirmation_admin_user_path(@user))
     .card
@@ -44,9 +54,18 @@
       .card-header.card-border
         h3.card-title = t('.api')
       .card-body
-        .form-group
-          label = t('.token')
-          input type="text" class="form-control" disabled="true" value="#{@user.token}"
+        .d-flex.flex-column
+          label.pb-2 = t('.token')
+          .d-flex data-controller="clipboard-center"
+            input.flex-fill.rounded-start.border-0.p-2.ps-3 type="text" readonly=true value="#{@user.token}" data-clipboard-center-target="source"
+            button.btn.btn-primary.rounded-0.rounded-end[
+              data-action="clipboard-center#copy"
+              data-clipboard-text="#{@user.token}"
+              data-bs-toggle="tooltip"
+              data-bs-title="Copy me"
+            ]
+              i.far.fa-clipboard
+
 
   .col-md-12
     .card

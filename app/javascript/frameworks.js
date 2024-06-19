@@ -4,8 +4,8 @@ import { PushMenu } from "admin-lte"
 
 window.addEventListener("turbo:load", () => {
   // Trigger bootstrap tooltip
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  Array.prototype.forEach.call(tooltipTriggerList, function(element) {
+  const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]")
+  tooltipTriggerList.forEach((element) => {
     new bootstrap.Tooltip(element)
   })
 

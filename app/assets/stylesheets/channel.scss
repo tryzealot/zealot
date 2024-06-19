@@ -21,8 +21,10 @@
     }
 
     .product-info {
+      @extend .pt-1;
+      @extend .px-3;
+
       font-weight: 500;
-      padding-left: 1rem;
 
       .product-description {
         display: block;
