@@ -23,7 +23,7 @@ section
                 div
                   i.timeline-icon.mt-1.text-white.fab class="#{timeline_app_icon(release.channel.device_type)}"
                   .timeline-item
-                    span.time data-bs-toggle="tooltip" data-bs-placement="left" title="#{release.created_at}"
+                    span.time data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="#{release.created_at}"
                       i.icon.fas.fa-clock.text-secondary
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header

@@ -3,15 +3,15 @@ nav.app-header.navbar.navbar-expand.bg-body
     - if user_signed_in_or_guest_mode?
       ul.navbar-nav
         li.nav-item
-          a.nav-link[data-lte-toggle="sidebar" href="#" role="button"]
+          button.nav-link data-lte-toggle="sidebar" role="button"
             i.fas.fa-bars
 
       ul.navbar-nav.ms-auto
         - if user_signed_in?
-          li.nav-item
-            a.nav-link.dropdown-toggle data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"
+          li.nav-item.dropdown
+            button.nav-link.dropdown-toggle data-bs-toggle="dropdown"
               = current_user.username
-            .dropdown-menu
+            .dropdown-menu.dropdown-menu-end
               = link_to t('user_profile'), edit_user_registration_path, class: 'dropdown-item'
               = button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
         - else
