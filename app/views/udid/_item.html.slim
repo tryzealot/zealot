@@ -7,11 +7,9 @@ dd.d-flex.mb-4 data-controller="clipboard-center"
   input.flex-fill.rounded-start.border-0.p-2.ps-3 value="#{value}" readonly="true" data-clipboard-center-target="source"
   - if copy.present?
     button.btn.btn-primary.rounded-0.rounded-end[
-      data-clipboard-center-target="button"
       data-action="clipboard-center#copy"
       data-clipboard-text="#{value}"
       data-bs-toggle="tooltip"
-      data-bs-placement="top"
       data-bs-title="Copy me"
     ]
       i.far.fa-clipboard

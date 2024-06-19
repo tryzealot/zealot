@@ -3,45 +3,47 @@ import ClipboardJS from "clipboard"
 import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
-  static targets = [ "source", "button" ]
+  static targets = [ "source" ]
 
-  copy() {
-    this.hideTooltip()
+  copy(event) {
+    const button = event.target
     if (!ClipboardJS.isSupported()) {
-      this.buttonTarget.setAttribute("disabled", true)
-      return this.renderUnsupport()
+      button.setAttribute("disabled", true)
+      return this.renderUnsupport(button)
     }
 
     ClipboardJS.copy(this.sourceTarget)
 
-    this.renderSuccess()
+    this.renderSuccess(button)
+    this.hideTooltip(button)
   }
 
-  renderUnsupport() {
-    this.buttonTarget.classList.add("btn-warning")
-    this.buttonTarget.classList.remove("btn-primary")
-    const icon = this.buttonTarget.querySelector("i");
+  renderUnsupport(button) {
+    button.classList.add("btn-warning")
+    button.classList.remove("btn-primary")
 
+    const icon = button.querySelector("i")
     if (icon) {
-      icon.classList.add("fa-tired");
-      icon.classList.remove("fa-clipboard");
+      icon.classList.add("fa-tired")
+      icon.classList.remove("fa-clipboard")
     }
   }
 
-  renderSuccess() {
-    this.buttonTarget.classList.add("btn-success")
-    this.buttonTarget.classList.remove("btn-primary")
-    const icon = this.buttonTarget.querySelector("i");
+  renderSuccess(button) {
+    button.classList.add("btn-success")
+    button.classList.remove("btn-primary")
 
+    const icon = button.querySelector("i")
     if (icon) {
-      icon.classList.add("fa-thumbs-up");
-      icon.classList.remove("fa-clipboard");
+      icon.classList.add("fa-thumbs-up")
+      icon.classList.remove("fa-clipboard")
     }
   }
 
-  hideTooltip() {
-    const tooltip = new bootstrap.Tooltip(this.buttonTarget)
+  hideTooltip(button) {
+    const tooltip = new bootstrap.Tooltip(button)
     if (tooltip) {
+      console.debug(tooltip)
       tooltip.hide()
       tooltip.disable()
     }
