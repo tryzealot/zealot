@@ -2,7 +2,7 @@
   h3.card-title
     = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
   .card-tools
-    button.btn.btn-tool data-card-widget="collapse"
+    button.btn.btn-tool data-lte-toggle="card-collapse"
       i.fas.fa-minus
 .card-body.card-comments.pb-2
   - signatures.each_with_index do |cert, i|
