@@ -28,7 +28,7 @@ export default class extends Controller {
       document.documentElement.setAttribute("data-bs-theme", "dark");
     } else if (apperance === "light" && Zealot.isDarkMode()) {
       var darkBrandImage = document.getElementsByClassName("dark-brand-image")
-      darkBrandImage.forEach((element) => {
+      Array.prototype.forEach.call(darkBrandImage, (element) => {
         element.remove()
       })
     }
