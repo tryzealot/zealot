@@ -9,7 +9,7 @@
         = t('releases.show.debug_file', type: debug_file_type(debug_file))
         span.badge.text-bg-warning.ms-1 beta
       .card-tools
-        button.btn.btn-tool data-card-widget="collapse"
+        button.btn.btn-tool data-lte-toggle="card-collapse"
           i.fas.fa-minus
     .card-body.p-0
       - debug_file.metadata.each_with_index do |metadata, index|
