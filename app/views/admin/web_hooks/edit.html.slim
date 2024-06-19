@@ -1,18 +1,24 @@
 - content_for :title do
   = t('.title')
 
-/ - content_for :section_title do
-/   = @title
+- content_for :section_title do
+  = t('.title')
+
+- content_for :section_rightpanel do
+  a.btn.btn-icon.btn-secondary href="#{admin_web_hooks_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
 
 .row
   .col-md-12
     .card
-      .card-body
-        = simple_form_for(@web_hook, url: admin_web_hook_path(@web_hook)) do |f|
+      = simple_form_for(@web_hook, url: admin_web_hook_path(@web_hook)) do |f|
+        .card-body
           = f.input :url
           = f.input :body
           = f.input :upload_events, as: :boolean
           = f.input :download_events, as: :boolean
           = f.input :changelog_events, as: :boolean
           = f.association :channels, label_method: :app_name, value_method: :id, as: :check_boxes
+        .card-footer
           = f.button :submit

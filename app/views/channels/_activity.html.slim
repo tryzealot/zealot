@@ -14,8 +14,8 @@
           li.item.d-flex
             .product-img
               = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
-            .product-info.w-100.me-2
-              span.fs-6.badge.text-bg-light.float-end data-bs-toggle="tooltip" title="#{release.created_at}"
+            .product-info
+              span.badge.text-bg-light.float-end data-bs-toggle="tooltip" title="#{release.created_at}"
                 = time_ago_in_words(release.created_at)
               = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
 
