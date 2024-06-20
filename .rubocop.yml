@@ -39,7 +39,8 @@ Layout/LineLength:
   Exclude:
     - 'config/**/*.rb'
     - 'spec/**/*.rb'
-    - 'lib/zealot/backup/manager.rb'
+    - lib/zealot/backup/manager.rb
+    - app/services/create_sample_apps_service.rb
 
 Metrics/MethodLength:
   Max: 60
@@ -47,7 +48,7 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Max: 250
   Exclude:
-    - 'app/models/release.rb'
+    - app/models/release.rb
 
 Metrics/ModuleLength:
   Max: 180
@@ -57,6 +58,7 @@ Metrics/AbcSize:
   Max: 40
   Exclude:
     - 'lib/backup/**/*'
+    - app/models/apple_key.rb
 
 Style/Alias:
   EnforcedStyle: prefer_alias_method
@@ -102,7 +104,7 @@ Style/TrailingCommaInHashLiteral:
 Naming/PredicateName:
   Enabled: true
   Exclude:
-    - 'app/serializers/channel_serializer.rb'
+    - app/serializers/channel_serializer.rb
 
 Layout/HashAlignment:
   Enabled: false

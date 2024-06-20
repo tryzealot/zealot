@@ -35,7 +35,8 @@ zh-CN:
       edit:
         title: 用户信息
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活。
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}">%{label}</a>。
+        resend: 重新发送激活邮件
         collaborators: 应用成员
         api: API
         token: Token
@@ -46,6 +47,8 @@ zh-CN:
         message: '%{user}用户已变更为停用状态'
       unlock:
         message: '%{user}用户已变更为启用状态'
+      resend_confirmation:
+        message: '已重新发送确认邮件至%{user}用户'
     web_hooks:
       title: 网络钩子
       index:
@@ -110,6 +113,10 @@ zh-CN:
       title: 系统设置
       index:
         title: :'admin.settings.title'
+        smtp_verify: 验证
+        smtp_verify_inprocess: 验证中
+        smtp_verify_success: 验证成功
+        smtp_verify_failed: 验证失败
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
@@ -147,9 +154,9 @@ zh-CN:
       gitlab: Gitlab
       google_oauth: Google OAuth
       # misc: 杂项
-      stmp: 邮件配置
+      smtp: 邮件配置
       mailer_default_from: 默认邮件发件地址
-      mailer_default_to: 默认邮件发件人
+      mailer_default_reply_to: 默认邮件回复地址
       mailer_options: 发件服务器配置
       analytics: 统计
       google_analytics_id: Google 统计
@@ -377,6 +384,7 @@ zh-CN:
       build_version: 开发版本
       git_branch: 分支
       git_commit: 提交哈希值
+      version: 上传版本
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
@@ -987,7 +995,7 @@ zh-CN:
             app_id:
               blank: 请选择需要关联的应用
             file:
-              blank: 必须选择一个 zpi 文件
+              blank: 必须选择一个 zip 文件
             checksum:
               taken: 文件已经存在，不能重复上传
         backup:
