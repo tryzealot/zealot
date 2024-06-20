@@ -456,14 +456,14 @@ zh-CN:
       teardown_metadata: 解包信息
       install: 安装
       download: 下载
-      installing: 安装到桌面 ...
-      installed: 安装请求完毕，重新安装
+      installing: 安装中 ...
+      installed: 重新安装
       cert_expired: 证书过期无法安装
       destroy: 删除
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
-      cannot_install_or_untrusted_enterprise_developer: 请查看桌面，若没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
+      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面。点击这里解决应用安装失败或遇到 "未受信任的企业级开发者" 错误。
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
@@ -874,9 +874,6 @@ zh-CN:
       download:
         default:
           not_found: 调试文件版本不存在
-    jenkins:
-      build:
-        failed_request: 构建请求失败，请重新尝试
   demo:
     app_name1: 默认应用
     app_name2: 默认 Android 应用

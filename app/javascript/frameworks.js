@@ -43,8 +43,8 @@ window.addEventListener("turbo:load", () => {
   })
 
   const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
-  treeviewToggleList.forEach(btn => {
-    btn.addEventListener("click", event => {
+  treeviewToggleList.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
       const target = event.target
       const targetItem = target.closest(".nav-item")
       const targetLink = target.closest(".nav-link")
