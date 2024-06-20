@@ -683,9 +683,8 @@ zh-CN:
       title: 帮助中心
       body_html: |
         <p>
-          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用通过强大的
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> 强力驱动读取出来应用中的实用信息用于辅助阅读、
-          参考和定位问题：
+          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
+          诊断、参考和定位问题：
         </p>
         <table class="table table-bordered">
           <tr>
@@ -730,7 +729,7 @@ zh-CN:
           </tr>
           <tr>
             <td>开发者证书</td>
-            <td></td>
+            <td>签名信息</td>
           </tr>
           <tr>
             <td>描述文件</td>
