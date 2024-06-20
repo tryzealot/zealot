@@ -61,15 +61,15 @@ Rails.application.configure do
 
   # Action Mailer
   config.action_mailer.delivery_method = :smtp
-
   config.action_mailer.smtp_settings = {
     address:              ENV['SMTP_ADDRESS'],
-    port:                 ENV['SMTP_PORT'],
+    port:                 ENV['SMTP_PORT'].to_i,
     domain:               ENV['SMTP_DOMAIN'] || ENV['ZEALOT_DOMAIN'],
     user_name:            ENV['SMTP_USERNAME'].presence,
     password:             ENV['SMTP_PASSWORD'].presence,
-    authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'] || :plain,
-    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] || true,
+    authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'].presence || 'plain',
+    enable_starttls:      ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']) ?
+                            :auto : ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS']),
     openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
   }
 

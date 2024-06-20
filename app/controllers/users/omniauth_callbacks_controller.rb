@@ -48,8 +48,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def goback_path
     omni_params = request.env['omniauth.params']
-    redirect_path = omni_params['back'].presence ||
-                    request.env['HTTP_REFERER'] ||
-                    root_path
+    omni_params&['back'].presence || request.env['HTTP_REFERER'] || root_path
   end
 end

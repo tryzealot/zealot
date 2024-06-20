@@ -3,7 +3,7 @@
   "info": {
     "title": "Zealot API",
     "version": "v1.3",
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.3.0\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).\n"
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.3.1\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).\n"
   },
   "servers": [
     {
@@ -188,7 +188,7 @@
         "tags": [
           "Apps"
         ],
-        "description": "List version builds by an App's channel. sort by uploaded date with order desc.",
+        "description": "Query the list of uploaded versions of the single channel and the version list downwards",
         "operationId": "listAppVersions",
         "parameters": [
           {
@@ -234,7 +234,7 @@
         "tags": [
           "Apps"
         ],
-        "description": "List the latest version builds with release version and build version. sort by uploaded date with order desc.",
+        "description": "Query a list of latest versions of the single channel of the application and reverse the upload date",
         "operationId": "getLatestApp",
         "parameters": [
           {
@@ -815,7 +815,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Create a coolaborator",
+            "description": "Create a collaborator",
             "content": {
               "application/json": {
                 "schema": {
@@ -1028,58 +1028,6 @@
             }
           }
         }
-      },
-      "post": {
-        "summary": "Upload a debug file",
-        "tags": [
-          "Debug files"
-        ],
-        "description": "Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:\n\n- `iOS`: a Zipped dSYM file\n- `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.\n",
-        "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
-        "responses": {
-          "200": {
-            "description": "Upload a debug file",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DebugFile"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/DebugFileOptions"
-              }
-            }
-          }
-        }
       }
     },
     "/debug_files/download": {
@@ -1128,13 +1076,13 @@
         ],
         "responses": {
           "302": {
-            "description": "Redirect to binary file url",
+            "description": "Redirect to binary file URL",
             "headers": {
               "Location": {
                 "schema": {
                   "type": "string"
                 },
-                "description": "Redirect to binary file url"
+                "description": "Redirect to binary file URL"
               }
             }
           },
@@ -1246,9 +1194,63 @@
         }
       }
     },
+    "/debug_files/upload": {
+      "post": {
+        "summary": "Upload a debug file",
+        "tags": [
+          "Debug files"
+        ],
+        "description": "Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:\n\n- `iOS`: a Zipped dSYM file\n- `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.\n",
+        "operationId": "uploadDebugFile",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Upload a debug file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/DebugFileOptions"
+              }
+            }
+          }
+        }
+      }
+    },
     "/apps/{app_id}/schemes": {
       "get": {
-        "summary": "Get an scheme",
+        "summary": "Get a scheme",
         "tags": [
           "Schemes"
         ],
@@ -1362,7 +1364,7 @@
     },
     "/schemes/{id}": {
       "put": {
-        "summary": "Update an scheme",
+        "summary": "Update a scheme",
         "tags": [
           "Schemes"
         ],
@@ -1421,11 +1423,11 @@
         }
       },
       "delete": {
-        "summary": "Destroy an scheme",
+        "summary": "Destroy a scheme",
         "tags": [
           "Schemes"
         ],
-        "description": "Destroy an scheme from the App",
+        "description": "Destroy a scheme from the App",
         "operationId": "deleteScheme",
         "parameters": [
           {
@@ -1526,7 +1528,7 @@
         }
       },
       "post": {
-        "summary": "Create an user",
+        "summary": "Create a user",
         "tags": [
           "Users"
         ],
@@ -1580,11 +1582,11 @@
     },
     "/users/{id}": {
       "get": {
-        "summary": "Get an user",
+        "summary": "Get a user",
         "tags": [
           "Users"
         ],
-        "description": "Get an user metadata, personal data and customize settings",
+        "description": "Get a user metadata, personal data and customize settings",
         "operationId": "getUser",
         "parameters": [
           {
@@ -1598,7 +1600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Return an user",
+            "description": "Return a user",
             "content": {
               "application/json": {
                 "schema": {
@@ -1630,11 +1632,11 @@
         }
       },
       "put": {
-        "summary": "Update an user",
+        "summary": "Update a user",
         "tags": [
           "Users"
         ],
-        "description": "Update an user settings",
+        "description": "Update user personalized settings, password, etc.",
         "operationId": "updateUser",
         "parameters": [
           {
@@ -1648,7 +1650,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Update an ser",
+            "description": "Update a user",
             "content": {
               "application/json": {
                 "schema": {
@@ -1689,11 +1691,11 @@
         }
       },
       "delete": {
-        "summary": "Destroy an user",
+        "summary": "Destroy a user",
         "tags": [
           "Users"
         ],
-        "description": "Destroy an user",
+        "description": "Destroy a user",
         "operationId": "deleteUser",
         "parameters": [
           {
@@ -1796,11 +1798,11 @@
     },
     "/users/{id}/lock": {
       "get": {
-        "summary": "Lock an user",
+        "summary": "Lock a user",
         "tags": [
           "Users"
         ],
-        "description": "Lock an user to stop log in",
+        "description": "Lock a user to stop log in",
         "operationId": "lockUser",
         "parameters": [
           {
@@ -1814,7 +1816,7 @@
         ],
         "responses": {
           "202": {
-            "description": "Update an ser",
+            "description": "Update a user",
             "content": {
               "application/json": {
                 "schema": {
@@ -1848,11 +1850,11 @@
     },
     "/users/{id}/unlock": {
       "delete": {
-        "summary": "Unlock an user",
+        "summary": "Unlock a user",
         "tags": [
           "Users"
         ],
-        "description": "Unlock an user to enable log in",
+        "description": "Unlock a user to enable log in",
         "operationId": "unlockUser",
         "parameters": [
           {
@@ -1866,7 +1868,7 @@
         ],
         "responses": {
           "202": {
-            "description": "Update an ser",
+            "description": "Update a user",
             "content": {
               "application/json": {
                 "schema": {
@@ -1901,6 +1903,9 @@
     "/version": {
       "get": {
         "summary": "Get version information",
+        "security": [
+
+        ],
         "tags": [
           "Version"
         ],
@@ -2221,7 +2226,7 @@
         }
       },
       "ReleaseChangelog": {
-        "description": "Changelogs of release build",
+        "description": "Changelog of release build",
         "type": "object",
         "properties": {
           "date": {
@@ -2588,7 +2593,7 @@
           "version": {
             "type": "integer",
             "format": "int32",
-            "example": "5.3.0"
+            "example": "5.3.1"
           },
           "vcs_ref": {
             "type": "string",
@@ -2677,7 +2682,7 @@
           "items": {
             "$ref": "#/components/schemas/ReleaseChangelog"
           },
-          "description": "Avaiables in plain text or JSON formatted struct"
+          "description": "Change log, accept plain text or JSON formatted data"
         },
         "branch": {
           "type": "string",
@@ -2696,7 +2701,7 @@
           "items": {
             "$ref": "#/components/schemas/ReleaseCustomField"
           },
-          "description": "JSON formatted custom fileds, icon only accepts fontawesome."
+          "description": "JSON formatted custom fields, icon only accepts fontawesome."
         }
       }
     },
@@ -2766,7 +2771,7 @@
         },
         "bundle_id": {
           "type": "string",
-          "description": "idefenitier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)"
+          "description": "identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)"
         },
         "git_url": {
           "type": "string",

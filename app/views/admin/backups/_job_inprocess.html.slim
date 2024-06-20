@@ -19,13 +19,13 @@
                   = job_progress(job.status)
                 - if job.status.present?
                   .badge.badge-info
-                    = t("admin.backups.show.steps.#{job.status[:stage]}")
+                    = job_stage(job.status[:stage])
               - else
                 .badge.badge-danger style="margin-right: 5px"
                   = job.job.status
                 - if job.status.present?
                   .badge.badge-info
-                    = t("admin.backups.show.steps.#{job.status[:stage]}")
+                    = job_stage(job.status[:stage])
                 div
                   small
                     = job.job.display_error

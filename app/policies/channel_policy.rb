@@ -35,14 +35,20 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def versions?
+    return true if enabled_auth?
+
     app_user?
   end
 
   def branches?
+    return true if enabled_auth?
+
     app_user?
   end
 
   def release_types?
+    return true if enabled_auth?
+
     app_user?
   end
 
@@ -53,6 +59,10 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   private
+
+  def enabled_auth?
+    record.password.present?
+  end
 
   def app_user?
     guest_mode? || any_manage? || app_collaborator?(user, app)

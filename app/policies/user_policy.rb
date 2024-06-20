@@ -38,6 +38,9 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
+  def resend_confirmation?
+    admin?
+  end
   class Scope < Scope
     def resolve
       scope.all
