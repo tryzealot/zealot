@@ -3,17 +3,17 @@
 
 .row
   .col-md-12
-    .card.card-outline.card-danger
+    .card.card-danger
       .card-header
         h3.card-title
           i.icon.fas.fa-cloud-rain
           = @title
       .card-body
-        ul.mb-0
+        ul.mb-0.px-3
           li = t('releases.messages.errors.deleted_manually')
           li = t('releases.messages.errors.deleted_programly')
           li = t('releases.messages.errors.not_found_really')
       - if @link_href && @link_title
         .card-footer.p-0
-          a.btn.btn-outline-danger.w-100 href="#{@link_href}"
+          a.btn.btn-outline-danger.rounded-0.rounded-bottom.w-100 href="#{@link_href}"
             = @link_title

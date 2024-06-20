@@ -11,7 +11,7 @@ window.addEventListener("turbo:load", () => {
 
   const cardCollapseButtonsList = document.querySelectorAll("[data-lte-toggle=\"card-collapse\"]")
   cardCollapseButtonsList.forEach((btn) => {
-    btn.addEventListener('click', event => {
+    btn.addEventListener("click", (event) => {
       event.preventDefault()
 
       const target = event.target
@@ -21,15 +21,15 @@ window.addEventListener("turbo:load", () => {
   })
 
   // Trigger adminlte sidebar toggle
-  const sidebar_toggle = "[data-lte-toggle=\"sidebar\"]"
-  const sidebarTriggerList = document.querySelectorAll(sidebar_toggle)
-  sidebarTriggerList.forEach(btn => {
-    btn.addEventListener('click', event => {
+  const sidebarToggle = "[data-lte-toggle=\"sidebar\"]"
+  const sidebarTriggerList = document.querySelectorAll(sidebarToggle)
+  sidebarTriggerList.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
       event.preventDefault()
       let button = event.currentTarget
 
-      if (button?.dataset.lteToggle !== 'sidebar') {
-        button = button?.closest(sidebar_toggle)
+      if (button?.dataset.lteToggle !== "sidebar") {
+        button = button?.closest(sidebarToggle)
       }
 
       if (button) {
@@ -44,12 +44,12 @@ window.addEventListener("turbo:load", () => {
 
   const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
   treeviewToggleList.forEach(btn => {
-    btn.addEventListener('click', event => {
+    btn.addEventListener("click", event => {
       const target = event.target
       const targetItem = target.closest(".nav-item")
       const targetLink = target.closest(".nav-link")
 
-      if (target?.getAttribute('href') === '#' || targetLink?.getAttribute('href') === '#') {
+      if (target?.getAttribute("href") === "#" || targetLink?.getAttribute("href") === "#") {
         event.preventDefault()
       }
 
