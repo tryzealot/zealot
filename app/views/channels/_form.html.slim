@@ -14,7 +14,6 @@ ruby:
       = simple_form_for(@channel, url: form_url) do |f|
         = f.error_notification
 
-        input name="referer_url" value="#{request.referer}" type="hidden"
         = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
         = f.input :name, required: true
         = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: @channel.device_type ? @channel.device_type : Channel.device_types.first

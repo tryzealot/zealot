@@ -18,7 +18,7 @@ gem 'lograge', '~> 0.14.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.14'
-gem 'graphql', '~> 2.3.4'
+gem 'graphql', '~> 2.3.5'
 gem 'rack-cors', '~> 2.0.2'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
@@ -40,7 +40,7 @@ gem 'webp-ffi', '~> 0.4.0'
 # Helper
 gem 'rails-settings-cached', '~> 2.9.4'
 gem 'app-info', '~> 3.0.0'
-gem 'faraday', '~> 2.9.0'
+gem 'faraday', '~> 2.9.2'
 gem 'rqrcode'
 
 ## Auth
@@ -62,7 +62,7 @@ gem 'openssl', '~> 3.2.0'
 gem 'plist', '~> 3.7.1'
 
 ## OS
-gem 'sys-filesystem', '~> 1.4.5'
+gem 'sys-filesystem', '~> 1.5.0'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.5.0'
 
@@ -74,7 +74,7 @@ gem 'sentry-rails', '~> 5.17.3'
 gem 'improved_jenkins_client', '~> 1.6.7'
 
 # Background job
-gem 'good_job', '~> 3.29.2'
+gem 'good_job', '~> 3.29.4'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets

@@ -130,6 +130,7 @@ Rails.application.routes.draw do
       resources :users, except: :show do
         member do
           get :lock
+          get :resend_confirmation
           delete :unlock
         end
       end
@@ -167,8 +168,12 @@ Rails.application.routes.draw do
       end
 
       namespace :service do
+        # zealot service
         post :restart
         get :status
+
+        # smtp
+        post :smtp_verify
       end
 
       mount GoodJob::Engine, at: 'jobs', as: :jobs
