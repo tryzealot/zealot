@@ -4,11 +4,11 @@
 @include color-mode(dark) {
   --bs-border-color: rgba(255, 255, 255, 0.15);
 
-  input {
-    background-color: #393a3c !important;
-    border-color: #505356 !important;
-    color: #999 !important;
-  }
+  // input {
+  //   background-color: #393a3c !important;
+  //   border-color: #505356 !important;
+  //   color: #999 !important;
+  // }
 
   .app-header {
     border-color: var(--bs-border-color) !important;
@@ -32,7 +32,12 @@
   }
 
   .card-warning {
-    border-top: 3px solid var(--bs-wanring-border-color);
+    border-top: 3px solid var(--bs-warning-border-subtle);
+
+    .card-header {
+      background-color: var(--bs-warning-bg-subtle) !important;
+      color: var(--bd-callout-color) !important;
+    }
   }
 
   .card-header {

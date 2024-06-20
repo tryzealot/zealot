@@ -6,6 +6,7 @@ export default class extends Controller {
   static targets = [ "source" ]
 
   copy(event) {
+    event.preventDefault()
     const button = event.target
     if (!ClipboardJS.isSupported()) {
       button.setAttribute("disabled", true)
@@ -15,7 +16,18 @@ export default class extends Controller {
     ClipboardJS.copy(this.sourceTarget)
 
     this.renderSuccess(button)
-    this.hideTooltip(button)
+    this.showTooltip(button)
+  }
+
+  renderNormal(button) {
+    button.classList.add("btn-primary")
+    button.classList.remove("btn-success", "btn-warning")
+
+    const icon = button.querySelector("i")
+    if (icon) {
+      icon.classList.add("fa-clipboard")
+      icon.classList.remove("fa-tired", "fa-thumbs-up")
+    }
   }
 
   renderUnsupport(button) {
@@ -40,11 +52,15 @@ export default class extends Controller {
     }
   }
 
-  hideTooltip(button) {
+  async showTooltip(button) {
     const tooltip = new bootstrap.Tooltip(button)
     if (tooltip) {
-      tooltip.hide()
-      tooltip.disable()
+      await this.sleep(3000)
+      this.renderNormal(button)
     }
+  }
+
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   }
 }
