@@ -16,21 +16,16 @@ export default class extends Controller {
 
     this.prepare()
     const modalNode = document.getElementById(DIALOG_ID)
-    if (modalNode !== undefined) {
-      const modal = new bootstrap.Modal(modalNode)
-      modal.show()
-    }
+    const modal = new bootstrap.Modal(modalNode)
+    modal.show()
   }
 
   prepare() {
     const dialog = document.getElementById(DIALOG_ID)
     if (dialog === null) {
       const contentNode = document.getElementsByClassName("app-wrapper")[0]
-      if (contentNode !== undefined) {
-        console.debug(contentNode)
-        const firstNode = contentNode.firstChild
-        contentNode.insertBefore(this.dialogElement, firstNode)
-      }
+      const firstNode = contentNode.firstChild
+      contentNode.insertBefore(this.dialogElement, firstNode)
     }
   }
 
