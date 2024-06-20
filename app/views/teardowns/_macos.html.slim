@@ -31,7 +31,7 @@
 
   == render 'mobileprovision_part'
   == render 'developer_certs_part'
-  == render 'devices_part'
+  == render 'devices_part', devices: @metadata.devices
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
 
 .col-md-4
