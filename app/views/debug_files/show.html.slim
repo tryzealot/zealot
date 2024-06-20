@@ -12,6 +12,11 @@ ruby:
 - content_for :section_title do
   = title
 
+- content_for :section_rightpanel do
+  a.btn.btn-icon.btn-secondary href="#{device_app_debug_files_path(@app, platform_name(@debug_file.device_type))}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     .app-detail.card.mb-4
@@ -67,7 +72,7 @@ ruby:
 
           - if current_user&.manage?(app: @debug_file.app)
             - if !@debug_file.processing? && @debug_file.file?
-              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-info mb-1', data: { turbo_method: :post } do
+              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-primary mb-1', data: { turbo_method: :post } do
                 i.icon.fa.fa-repeat
                 = t('.reprocess')
 
