@@ -13,7 +13,7 @@ ruby:
   = title
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.btn-secondary href="#{device_app_debug_files_path(@app, platform_name(@debug_file.device_type))}"
+  a.btn.btn-secondary href="#{device_app_debug_files_path(@app, platform_name(@debug_file.device_type))}"
     i.icon.far.fa-list-alt
     = t('links.back_to_list')
 

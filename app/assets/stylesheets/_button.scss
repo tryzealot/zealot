@@ -5,6 +5,17 @@
   --bs-btn-danger-color: #fff;
 }
 
+// TODO: improve color in light mode
+// .btn-primary {
+//   --bs-btn-font-weight: 600;
+//   --bs-btn-color: var(--bs-white);
+//   --bs-btn-bg: var(--bd-violet-bg);
+//   --bs-btn-border-color: var(--bd-violet-bg);
+//   --bs-btn-hover-color: var(--bs-white);
+//   --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+//   --bs-btn-active-color: var(--bs-btn-hover-color);
+// }
+
 @include color-mode(dark) {
   --bs-primary-bg: #3f6791;
   --bs-primary-color: #fff;
