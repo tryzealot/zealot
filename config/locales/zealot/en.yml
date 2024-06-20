@@ -689,8 +689,7 @@ en:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and use
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
+          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -734,8 +733,8 @@ en:
             <td>Permissions</td>
           </tr>
           <tr>
-            <td>Developer certs</td>
-            <td></td>
+            <td>Developer Certifications</td>
+            <td>Signatures</td>
           </tr>
           <tr>
             <td>Mobileprovision</td>
