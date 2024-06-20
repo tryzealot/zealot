@@ -3,7 +3,7 @@
 module ReleaseAuth
   extend ActiveSupport::Concern
 
-  COOKIE_KEY_PREFIX = 'zealot_release_auth_'
+  COOKIE_KEY_PREFIX = 'zealot_app_channel_auth_'
 
   def cookie_password_matched?(cookies)
     channel.password.blank? || cookies[cache_key] == channel.encode_password
@@ -25,6 +25,6 @@ module ReleaseAuth
   end
 
   def cache_key
-    @cache_key ||= "#{COOKIE_KEY_PREFIX}#{id}"
+    @cache_key ||= "#{COOKIE_KEY_PREFIX}#{channel.id}"
   end
 end

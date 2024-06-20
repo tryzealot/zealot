@@ -12,7 +12,8 @@
           h3.card-title = t('.active_link')
         .card-body
           input.form-control value="#{confirmation_url(@user, confirmation_token: @user.confirmation_token)}" disabled=true
-          small.form-text.text-muted = t('.active_link_tip')
+          small.form-text.text-muted
+            = raw t('.active_link_tip', label: t('.resend'), link: resend_confirmation_admin_user_path(@user))
     .card
       .card-header.card-border
         h3.card-title = t('.title')
