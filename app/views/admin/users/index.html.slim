@@ -21,7 +21,7 @@
               th = t('.role')
               th = t('.status')
               th.d-none.d-sm-table-cell = t('.last_login_time')
-              th.d-none.d-sm-table-cell style="width: 20px" = t('.action')
+              th.d-none.d-sm-table-cell style="width: 80px" = t('.action')
           tbody
             - @users.each_with_index do |user, i|
               tr
@@ -46,10 +46,10 @@
                     = t('.never_logged_in')
                 td.d-none.d-sm-table-cell
                   - if default_admin_in_demo_mode?(current_user)
-                    button.btn.text-danger
+                    button.btn.text-danger.p-0
                       i.fas.fa-trash-alt
                   - else
-                    = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger', \
+                    = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger p-0', \
                       data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
 
 
