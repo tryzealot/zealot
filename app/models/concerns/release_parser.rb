@@ -25,9 +25,9 @@ module ReleaseParser
 
   def build_metadata(parser, default_source)
     # iOS, Android only
+    self.name ||= parser.name
     self.bundle_id = parser.bundle_id if parser.respond_to?(:bundle_id)
     self.source ||= default_source
-    self.name = parser.name
     self.device_type = parser.device
     self.release_version = parser.release_version
     self.build_version = parser.build_version
