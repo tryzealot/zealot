@@ -29,6 +29,7 @@ zh-CN:
         name: 应用名称
       collaborator:
         user: 用户
+        role: 权限
       scheme:
         name: 类型名称
         new_build_callout: 新上传版本提示窗

@@ -835,7 +835,7 @@ en:
       adhoc: Adhoc
       production: Production
     preset_role:
-      user: User
+      member: Member
       developer: Developer
       admin: Admin
     site_locale:
