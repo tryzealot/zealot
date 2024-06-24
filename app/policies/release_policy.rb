@@ -3,9 +3,7 @@
 class ReleasePolicy < ApplicationPolicy
 
   def show?
-    return true if enabled_auth?
-
-    app_user?
+    true
   end
 
   def new?

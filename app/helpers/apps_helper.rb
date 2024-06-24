@@ -71,10 +71,10 @@ module AppsHelper
     return if release_type.blank?
 
     title = release_type_name(release_type)
-    if params[:name] == release_type
-      title
-    else
+    if params[:name] != release_type && user_signed_in_or_guest_mode?
       link_to(title, friendly_channel_release_types_path(release.channel, name: release_type))
+    else
+      title
     end
   end
 

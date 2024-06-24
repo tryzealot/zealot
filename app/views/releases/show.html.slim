@@ -13,8 +13,10 @@
     .col-md-4.col-lg-3
       - if current_user&.manage?
         = link_to t('releases.new.title'), new_channel_release_path(@channel), class: 'btn btn-success btn-block mb-3'
-      == render 'releases/sidebar/debug_file', debug_file: @release.debug_file
-      == render 'releases/sidebar/version', channel: @release.channel
+
+      - if user_signed_in_or_guest_mode?
+        == render 'releases/sidebar/debug_file', debug_file: @release.debug_file
+        == render 'releases/sidebar/version', channel: @release.channel
       == render 'releases/sidebar/qrcode'
       - if user_signed_in_or_guest_mode?
         = link_to t('.view_detail'), friendly_channel_overview_path(@channel), class: 'btn btn-default btn-block'
