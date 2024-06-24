@@ -160,6 +160,7 @@ en:
       mailer_options: Options
       analytics: Analytics
       google_analytics_id: Google Analytics ID
+      umami_script_url: Umami script URL
       umami_website_id: Umami Website ID
       archives: Archive uploaded binaries
       keep_uploads: Keep all builds
@@ -835,7 +836,7 @@ en:
       adhoc: Adhoc
       production: Production
     preset_role:
-      user: User
+      member: Member
       developer: Developer
       admin: Admin
     site_locale:

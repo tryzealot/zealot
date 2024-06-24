@@ -20,7 +20,6 @@ class Api::Apps::UploadController < Api::BaseController
   # @param branch        [String]   optional  git branch
   # @param git_commit    [String]   optional  git commit
   # @param ci_url        [String]   optional  ci url
-  # @param allow_duplice [Boolean]  optional  allow duplice upload, default is false (true, false)
   # @return              [String]   json formatted app info
   def create
     create_or_update_release

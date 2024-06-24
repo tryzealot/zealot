@@ -29,7 +29,7 @@ class Setting < RailsSettings::Base
   scope :presets do
     field :preset_schemes, default: builtin_schemes, type: :array, display: true,
           validates: { json: { format: :array } }
-    field :preset_role, default: 'user', type: :string, display: true,
+    field :preset_role, default: 'member', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
     field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
           validates: { presence: true, numericality: { only_integer: true } }
@@ -116,12 +116,16 @@ class Setting < RailsSettings::Base
           type: :string, readonly: true
   end
 
+  UMAMI_SCRIPT_URL = 'https://analytics.us.umami.is/script.js'
   scope :analytics do
-    field :umami_script_url, default: (ENV['UMAMI_SCRIPT_URL'] || 'https://analytics.us.umami.is/script.js'),
-      type: :string, display: Setting.demo_mode
-    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: Setting.demo_mode
-    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
-    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
+    field :umami_script_url, default: (ENV['UMAMI_SCRIPT_URL'] || UMAMI_SCRIPT_URL), type: :string, readonly: true,
+      display: (value = ENV['UMAMI_SCRIPT_URL']) && value.present? && value != UMAMI_SCRIPT_URL
+    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, readonly: true,
+      display: (value = ENV['UMAMI_WEBSITE_ID']) && value.present?
+    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, readonly: true,
+      display: (value = ENV['CLARITY_ANALYTICS_ID']) && value.present?
+    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, readonly: true,
+      display: (value = ENV['GOOGLE_ANALYTICS_ID']) && value.present?
   end
 
   # Backup settings
