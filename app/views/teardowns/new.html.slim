@@ -9,7 +9,7 @@
     .card.card-outline-tabs.card-primary.card-outline
       .card-body
         = form_tag(teardowns_path, multipart: true) do |form|
-          .form-group
+          .mb-3
             = label_tag :file, "#{t('.file')} #{content_tag(:abbr, '*', title: 'required')}".html_safe, for: 'file'
             .input-group
               = file_field_tag 'file', class: 'form-control-file', id: 'file'
