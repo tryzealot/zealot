@@ -829,7 +829,7 @@ zh-CN:
       adhoc: 内测版
       production: 产品版
     preset_role:
-      user: 用户
+      member: 用户
       developer: 开发者
       admin: 管理员
     site_locale:

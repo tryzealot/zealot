@@ -20,7 +20,7 @@
               span.badge.badge-primary.ml-1 = t('apps.show.collaborator_owner')
             - if same_user?(collaborator)
               span.badge.badge-secondary.ml-1 = t('apps.show.it_is_you')
-          td = collaborator.role
+          td = t(collaborator.role, scope: 'settings.preset_role')
           td style="width: 120px"
             - if collaborator.owner?
               - if same_user?(collaborator) || current_user.admin?

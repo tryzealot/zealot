@@ -16,7 +16,7 @@ module SettingHelper
 
     def builtin_roles
       {
-        user: I18n.t('settings.preset_role.user', default: 'User'),
+        member: I18n.t('settings.preset_role.member', default: 'Member'),
         developer: I18n.t('settings.preset_role.developer', default: 'Developer'),
         admin: I18n.t('settings.preset_role.admin', default: 'Admin')
       }

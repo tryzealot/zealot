@@ -40,7 +40,7 @@ class ApplicationPolicy
     Pundit.policy_scope!(user, record.class)
   end
 
-  delegate :admin?, :developer?, :manage?, :user?, to: :user, allow_nil: true
+  delegate :admin?, :developer?, :manage?, :member?, to: :user, allow_nil: true
 
   class Scope
     attr_reader :user, :scope

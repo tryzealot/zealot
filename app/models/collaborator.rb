@@ -7,7 +7,7 @@ class Collaborator < ApplicationRecord
   belongs_to :user
   belongs_to :app
 
-  enum role: %i[user developer admin]
+  enum role: %i[member developer admin]
 
   validates :owner, inclusion: [ true, false ]
   validates :role, presence: true, exclusion: { in: Collaborator.roles.values }
