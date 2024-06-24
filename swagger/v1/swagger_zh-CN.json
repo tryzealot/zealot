@@ -2578,11 +2578,11 @@
           "role": {
             "type": "string",
             "enum": [
-              "user",
+              "member",
               "developer",
               "admin"
             ],
-            "example": "user"
+            "example": "member"
           }
         }
       },
@@ -2797,7 +2797,7 @@
         "role": {
           "type": "string",
           "enum": [
-            "user",
+            "member",
             "developer",
             "admin"
           ],
@@ -2989,7 +2989,7 @@
           "type": "string",
           "default": "user",
           "enum": [
-            "user",
+            "member",
             "developer",
             "admin"
           ],

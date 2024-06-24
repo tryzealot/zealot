@@ -29,6 +29,7 @@ en:
         name: App name
       collaborator:
         user: User
+        role: Role
       scheme:
         name: Scheme name
         new_build_callout: New build callout

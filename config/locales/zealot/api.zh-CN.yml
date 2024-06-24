@@ -29,7 +29,7 @@ zh-CN:
 
         ### 用户密钥
 
-        用户密钥在[用户详情](/docs/user-guide/user_settings)最底部找到。
+        用户密钥在[用户详情](https://zealot.ews.im/zh-Hans/docs/user-guide/user_settings)最底部找到。
     servers:
       description: 演示服务器
     security:

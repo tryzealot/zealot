@@ -3,9 +3,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'Apps API' do
-  let(:user) { create(:user) }
-  let(:app) { create(:app) }
-
   path '/apps' do
     get I18n.t('api.apps.index.title') do
       tags I18n.t('api.apps.default.tags')
