@@ -1,0 +1,16 @@
+#!/bin/env bash
+
+export SMTP_DOMAIN=tryzealot.ews.im
+export SMTP_ADDRESS=smtp.gmail.com
+export SMTP_PORT=587
+export SMTP_USERNAME="notification@ews.im"
+export SMTP_PASSWORD="awsy kahk vpcp mpzu"
+export SMTP_AUTH_METHOD="login"
+export SMTP_ENABLE_STARTTLS="true"
+
+export ACTION_MAILER_DEFAULT_FROM="notification@ews.im"
+export ACTION_MAILER_DEFAULT_TO="no-reply@ews.im"
+
+export RAILS_SERVE_STATIC_FILES=1
+export RAILS_ENV=production
+rails s

@@ -298,6 +298,7 @@ RSpec.configure do |config|
             channel_key: { type: :string, description: I18n.t('api.definitions.upload_options.properties.channel_key') },
             file: { type: :file, description: I18n.t('api.definitions.upload_options.properties.file') },
             name: { type: :string, description: I18n.t('api.definitions.upload_options.properties.name') },
+            password: { type: :string, description: I18n.t('api.definitions.upload_options.properties.password') },
             release_type: { type: :string, description: I18n.t('api.definitions.upload_options.properties.release_type') },
             source: { type: :string, description: I18n.t('api.definitions.upload_options.properties.source') },
             changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.upload_options.properties.changelog')},
