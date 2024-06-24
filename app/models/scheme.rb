@@ -4,6 +4,7 @@ class Scheme < ApplicationRecord
   default_scope { order(id: :asc) }
 
   belongs_to :app
+  has_one :visibility, as: :relationable
   has_many :channels, dependent: :destroy
   accepts_nested_attributes_for :channels
 

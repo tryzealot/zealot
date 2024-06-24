@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_22_065442) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_24_095215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -351,6 +351,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_065442) do
     t.string "locale", default: "zh-CN", null: false
     t.string "appearance", default: "light", null: false
     t.string "timezone", default: "Asia/Shanghai", null: false
+  end
+
+  create_table "visibilities", force: :cascade do |t|
+    t.string "relationable_type"
+    t.bigint "relationable_id"
+    t.integer "level", default: 0, null: false
+    t.string "vault"
+    t.datetime "expired_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["relationable_type", "relationable_id"], name: "index_visibilities_on_relationable"
   end
 
   create_table "web_hooks", force: :cascade do |t|

@@ -9,6 +9,7 @@ class Channel < ApplicationRecord
   friendly_id :slug
 
   belongs_to :scheme
+  has_one :visibility, as: :relationable
   has_many :releases, dependent: :destroy
   has_and_belongs_to_many :web_hooks, dependent: :destroy
 

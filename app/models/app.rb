@@ -4,6 +4,7 @@ class App < ApplicationRecord
   default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
+  has_one :visibility, as: :relationable
   has_many :collaborators, dependent: :destroy
   has_many :schemes, dependent: :destroy
   has_many :debug_files, dependent: :destroy
