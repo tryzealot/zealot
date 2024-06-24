@@ -9,7 +9,7 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :recoverable, :lockable,
          :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect]
 
-  enum role: %i[user developer admin]
+  enum role: %i[member developer admin]
   enum locale: enum_roles
   enum appearance: enum_appearances
   enum timezone: enum_timezones
@@ -31,7 +31,7 @@ class User < ApplicationRecord
   private
 
   def set_default_role
-    self.role ||= Setting.preset_role || :user
+    self.role ||= Setting.preset_role || :member
   end
 
   def set_user_default_settings

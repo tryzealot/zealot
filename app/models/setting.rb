@@ -29,7 +29,7 @@ class Setting < RailsSettings::Base
   scope :presets do
     field :preset_schemes, default: builtin_schemes, type: :array, display: true,
           validates: { json: { format: :array } }
-    field :preset_role, default: 'user', type: :string, display: true,
+    field :preset_role, default: 'member', type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_roles.keys.map(&:to_s) } }
     field :per_page, default: ENV.fetch('ZEALOT_PER_PAGE', '25').to_i, type: :integer, display: true,
           validates: { presence: true, numericality: { only_integer: true } }

@@ -32,7 +32,7 @@ en:
 
         ### Personal access tokens
 
-        Personal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).
+        Personal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).
     servers:
       description: Demo server
     security:

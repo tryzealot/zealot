@@ -6,7 +6,7 @@ module UserRoles
   included do
     scope :admins, -> { where(role: :admin) }
     scope :developers, -> { where(role: :developer) }
-    scope :users, -> { where(role: :user) }
+    scope :members, -> { where(role: :member) }
   end
 
   def manage?(app: nil)
@@ -18,7 +18,7 @@ module UserRoles
   end
 
   def revoke_admin!
-    update!(role: :user)
+    update!(role: :member)
   end
 
   def grant_developer!
@@ -26,7 +26,7 @@ module UserRoles
   end
 
   def revoke_developer!
-    update!(role: :user)
+    update!(role: :member)
   end
 
   def roles?(value)
@@ -44,7 +44,7 @@ module UserRoles
           elsif developer?
             :developer
           else
-            :user
+            :member
           end
 
     Setting.builtin_roles[key]
