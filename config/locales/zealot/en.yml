@@ -1,4 +1,4 @@
-en:
+en-US:
   function_section: Function
   toolbox_section: Toolbox
   admin_section: Admin
@@ -17,8 +17,8 @@ en:
       new:
         title: New user
       index:
-        title: :admin.users.title
-        new_user: :admin.users.new.title
+        title: ':admin.users.title'
+        new_user: ':admin.users.new.title'
         number: '#'
         nickname: Nickname
         email: E-mail
@@ -48,11 +48,11 @@ en:
       unlock:
         message: 'User %{user} has been unlocked.'
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user {user}.'
+        message: '已重新发送确认邮件至%{user}用户'
     web_hooks:
       title: Webhooks
       index:
-        title: :admin.web_hooks.title
+        title: ':''admin.web_hooks.title'''
         number: '#'
         url: URL
         channels: Channels
@@ -77,20 +77,20 @@ en:
       new:
         title: New Apple Developer
       index:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         number: '#'
         team_name: Team name
         team_id: Team ID
         created_at: Created at
         action: Action
-        new_apple_key: :admin.apple_keys.new.title
+        new_apple_key: ':admin.apple_keys.new.title'
         destroy: Destroy
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
-        title: :admin.apple_keys.title
+        title: ':admin.apple_keys.title'
         team_metadata: Team metadata
         key_metadata: Key Metadata
         devices: Devices (%{size})
@@ -98,10 +98,10 @@ en:
         last_synced_at: Last synced at %{time}
         never_sync: Never sync
         download_private_key: Download private key
-        udid: :udid.show.udid
-        udid_name: :udid.show.name
-        udid_platform: :udid.show.platform
-        udid_model: :udid.show.model
+        udid: ':udid.show.udid'
+        udid_name: ':udid.show.name'
+        udid_platform: ':udid.show.platform'
+        udid_model: ':udid.show.model'
         udid_related_apps: Related Apps
         udid_created_at: Created at
       create:
@@ -112,7 +112,7 @@ en:
     settings:
       title: Settings
       index:
-        title: :admin.settings.title
+        title: ':admin.settings.title'
         smtp_verify: Verify
         smtp_verify_inprocess: Verification Inprocessing
         smtp_verify_success: Verification successful
@@ -170,7 +170,7 @@ en:
     system_info:
       title: System information
       index:
-        title: :admin.system_info.title
+        title: ':admin.system_info.title'
         zealot_version: Version
         vcs_ref: Git Ref
         build_date: Build date
@@ -180,9 +180,7 @@ en:
         postgres_version: PostgreSQL version
         ruby_version: Ruby version
         cpu_info: CPU
-        cpu_core:
-          one: '%{count} Core'
-          other: '%{count} Cores'
+        cpu_core: '%{count} 核'
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -201,7 +199,7 @@ en:
     backups:
       title: Backups
       index:
-        title: :'admin.backups.title'
+        title: ':admin.backups.title'
         new_schedule: New Schedule
         key: Key
         scopes: Scopes
@@ -213,9 +211,7 @@ en:
         edit: Edit
         destroy: Destroy
         database: Database
-        app:
-          one: '%{count} App'
-          other: '%{count} Apps'
+        app: '%{count} 应用'
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
@@ -263,27 +259,27 @@ en:
     background_jobs:
       title: Background jobs
       index:
-        title: :admin.background_jobs.title
+        title: ':admin.background_jobs.title'
     database_analytics:
       title: Database analytics
       index:
-        title: :admin.database_analytics.title
+        title: ':admin.database_analytics.title'
     logs:
       title: Service logs
       index:
-        title: :admin.logs.title
+        title: ':admin.logs.title'
         loading: Loading ...
-        error_message: 'Log fetch failed, return status code: '
+        error_message: 'Log fetch failed, return status code:'
   dashboard:
     title: Dashboard
     analytics:
-      apps: :apps.title
-      debug_files: :debug_files.title
-      teardowns: :teardowns.title
+      apps: ':apps.title'
+      debug_files: ':debug_files.title'
+      teardowns: ':teardowns.title'
       uploads: Uploads
-      web_hooks: :admin.web_hooks.title
-      users: :admin.users.title
-      background_jobs: :admin.background_jobs.title
+      web_hooks: ':admin.web_hooks.title'
+      users: ':admin.users.title'
+      background_jobs: ':admin.background_jobs.title'
       disk_usage: Disk usage
     timeline:
       title: Timeline
@@ -318,13 +314,12 @@ en:
           <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
-            <li>Debug, Adhoc, Public test and Production</li>
+            <li>Debug、Adhoc、Public test、Production</li>
           </ul>
-          <p>Use the stores in Android app:</p>
+          <p>Use the app store channel in Android app:</p>
           <ul>
-            <li>Google Play, Samsung Galaxy Store, TapTap, F-Droid and more</li>
+            <li>Google Play、Huawei、Xiaomi、Vivo、Oppo etc</li>
           </ul>
-
       collaborators: Collaborators
       new_collaborator: New collaborator
       username: User
@@ -369,8 +364,8 @@ en:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
     show:
-      scheme: :schemes.title
-      channel: :channels.title
+      scheme: ':schemes.title'
+      channel: ':channels.title'
       activity: Activity
       upload_release: Upload a release
       metadata: Metadata
@@ -420,7 +415,7 @@ en:
         delete_all: Delete all
     messages:
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -435,7 +430,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
+      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}'
       view_latest_version: Check it out
       name: App
       version: Auto Version
@@ -461,8 +456,8 @@ en:
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
-      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
-      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       changelog: Changelog
       devices: '%{count} test devices (UDID)'
       sync_devices_feature: Synchronize device name with %{link} recommended
@@ -470,11 +465,11 @@ en:
       debug_file: '%{type} matched'
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
-      major_versions: :channels.show.major_versions
-      view_detail: Channel page
+      major_versions: ':channels.show.major_versions'
+      view_detail: Manage channel
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
     new:
-      title: :channels.show.upload_release
+      title: ':channels.show.upload_release'
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -485,7 +480,7 @@ en:
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       install_error:
-        title: Install issues and the solution
+        title: What is the solution?
         body_html: |
           <ol class="mb-0">
             <li>
@@ -510,7 +505,7 @@ en:
           </ol>
         ok: Okay
       confirm:
-        destroy: :web_hooks.messages.confirm.destroy
+        destroy: ':web_hooks.messages.confirm.destroy'
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -519,9 +514,9 @@ en:
         not_found_release: Not found any release of channel
         redirect_to_app_list: Redirect to app list
         reidrect_channel_detal: Redirect to channel page
-        deleted_manually: Maybe destroy by developer.
-        deleted_programly: Maybe clean up by enabled auto clean job.
-        not_found_really: Not found this build.
+        deleted_manually: Maybe clean up manually
+        deleted_programly: Maybe clean up by enabled auto clean in system
+        not_found_really: Not found release
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
         require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
@@ -561,7 +556,7 @@ en:
       refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
       reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
-      arch: Architecture(s)
+      arch: Architecture
       libraries: Libraries
       file_nums: Numbers of file
       file_size: File size
@@ -607,9 +602,9 @@ en:
       file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
       submit: Start work
     create:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
     index:
-      create: :teardowns.new.title
+      create: ':teardowns.new.title'
       upload_history: History
       uploaded_at: Uploaded time
       app_name: App name
@@ -623,8 +618,8 @@ en:
         body_html: Click the button <i class="far fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
-      expired_in: Expire in %{time}
-      already_expired: Expired %{time}
+      expired_in: 'Expire in %{time}'
+      already_expired: Expired at %{time}
       expired: Expired now!
       related_app: Release related
       related_body: This teardown was relates with %{link}
@@ -658,7 +653,7 @@ en:
       cert_fignger: 'Fingerprint %{digest}'
       signature_not_found: Not found
       signature_verified: 'Verified'
-      signature_unverified: 'Unverified (WIP)'
+      signature_unverified: 'WIP'
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -751,7 +746,7 @@ en:
     index:
       apple_tip: Use iPhone or iPad to scan the QR Code to install
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
-      nonapple_tip: :udid.index.apple_tip
+      nonapple_tip: ':udid.index.apple_tip'
       fetch_udid: Get your UDID now
       help:
         title: Why need to install profile to fetch your UDID?
@@ -794,8 +789,8 @@ en:
       enabled: Enabled
       disabled: Disabled
       created_at: Registered at
-      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
-      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
+      upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
       registered_device: Related Apple Developers
       new_register_device: Register to Apple Developer
       channels: Channels
@@ -808,16 +803,16 @@ en:
       related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
-      title: Fetch Device UDID Profile
+      title: Zealot fetch device UDID
       organization: Apple UDID Authorization Service
       description: |
-        ↑↑↑↑ "Unsigned" or "Not Verfied" is normal display.
+        ↑↑↑↑ It is safe to display "Unsigned".
 
-        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
-        Authorized request by %{name}: %{url}
+        Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after you get your UDID.
+        Powered by %{name}: %{url}
   web_hooks:
-    title: :admin.web_hooks.title
-    create: :admin.web_hooks.new.title
+    title: ':admin.web_hooks.title'
+    create: ':admin.web_hooks.new.title'
     enable: Enabled
     shared: Shared
     not_found: Not found any webhook
@@ -830,7 +825,7 @@ en:
       confirm:
         destroy: Destroy confirm?
   settings:
-    title: :admin.settings.title
+    title: ':admin.settings.title'
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
@@ -856,7 +851,7 @@ en:
   api:
     unauthorized_channel_key: Unauthorized channel key
     unauthorized_token: Unauthorized user token
-    unprocessable_entity: Unprocessable entity
+    unprocessable_entity: Processable entity
     apps:
       upload:
         create:
@@ -879,11 +874,26 @@ en:
     app_name1: First App
     app_name2: Android Only App
     android_channels:
-      channel1: Google Play
-      channel2: Samsung Galaxy Store
+      channel1: google play
+      channel2: xiaomi
       channel3: F-Droid
       channel4: TapTap
-      channel5: Amazon
+      channel5: Tencent
+  datetime:
+    distance_in_words:
+      about_x_hours: '约 %{count} 小时'
+      about_x_months: '约 %{count} 个月'
+      about_x_years: '约 %{count} 年'
+      almost_x_years: 接近 %{count} 年
+      half_a_minute: 半分钟前
+      less_than_x_seconds: 不到 %{count} 秒
+      less_than_x_minutes: 不到 %{count} 分钟
+      over_x_years: " %{count} 年多"
+      x_seconds: " %{count} 秒"
+      x_minutes: " %{count} 分钟"
+      x_days: " %{count} 天"
+      x_months: " %{count} 个月"
+      x_years: " %{count} 年"
   errors:
     code:
       '400':
@@ -912,9 +922,9 @@ en:
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
       json_format: Must be JSON standard format
-      not_authorized_policy: 'No authorized operate %{model} on %{query} action'
-      not_match_url: 'Not match page: %{url}'
-      unexpected_parameter: 'Unexpected parameter: %{value}'
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
+      not_match_url: "Not match page: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
       length_range: 'Length range: %{minimum} ~ %{maximum}'
       optional_value: 'Optional value: %{value}'
       invaild_in_demo_mode: Forbidden in demo mode
@@ -944,6 +954,9 @@ en:
     attributes:
       channel:
         name: Channel name
+      web_hook:
+        url: 网络钩子 URL
+        body: 自定义消息体
       device:
         name: Device name
       collaborator:
@@ -963,6 +976,8 @@ en:
           attributes:
             owner:
               unique: Owner only one user
+        setting:
+          default_message: "请检查 '%{key}' 的如下问题："
         apple_key:
           attributes:
             issuer_id:
@@ -980,7 +995,7 @@ en:
             app_id:
               blank: Select the application to be associated
             file:
-              blank: Choose a zip file with supported type
+              blank: Choose a zipped file with supported type
             checksum:
               taken: File exists, cannot be uploaded
         backup:
@@ -1020,9 +1035,9 @@ en:
       links:
         provider:
           feishu: Feishu
-          google: Google
-          gitlab: Gitlab
-          openidconnect: OpenID
+          google: ' Google'
+          gitlab: ' Gitlab'
+          openidconnect: 'OpenID'
   helpers:
     submit:
       user:
