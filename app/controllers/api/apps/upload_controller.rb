@@ -78,8 +78,11 @@ class Api::Apps::UploadController < Api::BaseController
   # new build methods
   ###########################
   def with_updated_channel
-    @channel.update!(channel_params) if channel_params.present?
-    @channel
+    @channel unless channel_params.present?
+
+    channel = Channel.find_by(key: params[:channel_key])
+    channel.update!(channel_params)
+    @channel = channel
   end
 
   def create_release(channel)
@@ -127,11 +130,13 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def channel_params
-    channel_params = params.permit(:slug, :password, :git_url)
-    remove_blank_params(channel_params, :slug)
-    remove_blank_params(channel_params, :password)
-    remove_blank_params(channel_params, :git_url)
-    channel_params
+    @channel_params ||= -> {
+      obj = {}
+      append_present_value_from_params(obj, :slug)
+      append_present_value_from_params(obj, :password)
+      append_present_value_from_params(obj, :git_url)
+      obj
+    }.call
   end
 
   def set_parser
@@ -144,7 +149,14 @@ class Api::Apps::UploadController < Api::BaseController
     @channel = Channel.find_by(key: params[:channel_key])
   end
 
-  def remove_blank_params(data, key)
-    data.delete(:git_url) if data[:git_url].blank?
+  def append_present_value_from_params(data, key)
+    return unless value = params[key]
+
+    if key == :password && value.blank?
+      data[key] = nil
+      return
+    end
+
+    data[key] = value if value.present?
   end
 end
