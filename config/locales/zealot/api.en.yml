@@ -50,11 +50,11 @@ en-US:
       supported_values: Supported values in %{values}
     schemas:
       app_index:
-        description: Apps returned in a list
+        description: App returned in a list
       app_versions:
         description: Apps returned in a list
       app:
-        description: App object
+        description: App
       scheme:
         description: App scheme object
       channel:
@@ -62,11 +62,11 @@ en-US:
       release:
         description: App's release build object
       release_changelog:
-        description: Changelog of release build
+        description: Changelogs of build
       release_custom_field:
-        description: Custom fields of release build
+        description: Custom fields of build
       collaborator:
-        description: Collaborator object
+        description: App collaborator
       debug_file:
         description: Debug file object
       debug_file_metadata:
@@ -83,7 +83,7 @@ en-US:
         description: Version object
     responses:
       unauthorized:
-        description: Unauthorized Response
+        description: 401 Unauthorized Response
       not_found:
         default: Resource not found
         description: '%{model} not found'
@@ -188,10 +188,10 @@ en-US:
       default:
         tags: Schemes
         responses:
-          index: Return a list of schemes
-          show: Get a scheme
+          index: Schemes
+          show: Scheme
           create: Create a scheme
-          update: Update a scheme
+          update: Scheme
           destroy: Destroy a scheme
       create:
         title: Create an App's scheme
@@ -209,10 +209,10 @@ en-US:
       default:
         tags: Channel
         responses:
-          index: Return a list of channels
-          show: Get a channel
+          index: Channels
+          show: Channel
           create: Create a channel
-          update: Update a channel
+          update: Channel
           destroy: Destroy channel
       create:
         title: Create a channel
@@ -230,10 +230,10 @@ en-US:
       default:
         tags: Collaborators
         responses:
-          index: Return a list of collaborators
-          show: Return a collaborator
+          index: Collaborators
+          show: Collaborator
           create: Create a collaborator
-          update: Update a collaborator
+          update: Collaborator
           destroy: Destroy a collaborator
       create:
         title: Add a collaborator to an App
@@ -251,10 +251,10 @@ en-US:
       default:
         tags: Debug files
         responses:
-          index: Return a list of debug files
+          index: DebugFiles
           download: Redirect to binary file URL
-          show: Get a debug file
-          upload: Upload a debug file
+          show: DebugFile
+          upload: DebugFile
           update: Update a debug file
           destroy: Destroy a debug file
       index:
@@ -277,10 +277,7 @@ en-US:
       upload:
         title: Upload a debug file
         description: |
-          Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:
-
-          - `iOS`: a Zipped dSYM file
-          - `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.
+          Upload a dSYM or Proguard file which it was archived with zip formatted
       destroy:
         title: Destroy a debug file
         description: Destroy a debug file ID and all data, include dSYM or Proguard files.
@@ -288,11 +285,11 @@ en-US:
       default:
         tags: Users
         responses:
-          index: Return a list of users
+          index: Users
           search: Return a list of users
-          show: Return a user
+          show: User
           create: Create an user
-          update: Update a user
+          update: User
           destroy: Destroy an user
           lock: Return process result
           unlock: Return process result
