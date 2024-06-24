@@ -116,12 +116,16 @@ class Setting < RailsSettings::Base
           type: :string, readonly: true
   end
 
+  UMAMI_SCRIPT_URL = 'https://analytics.us.umami.is/script.js'
   scope :analytics do
-    field :umami_script_url, default: (ENV['UMAMI_SCRIPT_URL'] || 'https://analytics.us.umami.is/script.js'),
-      type: :string, display: Setting.demo_mode
-    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, display: Setting.demo_mode
-    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
-    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, display: Setting.demo_mode
+    field :umami_script_url, default: (ENV['UMAMI_SCRIPT_URL'] || UMAMI_SCRIPT_URL), type: :string, readonly: true,
+      display: (value = ENV['UMAMI_SCRIPT_URL']) && value.present? && value != UMAMI_SCRIPT_URL
+    field :umami_website_id, default: ENV['UMAMI_WEBSITE_ID'], type: :string, readonly: true,
+      display: (value = ENV['UMAMI_WEBSITE_ID']) && value.present?
+    field :clarity_analytics_id, default: ENV['CLARITY_ANALYTICS_ID'], type: :string, readonly: true,
+      display: (value = ENV['CLARITY_ANALYTICS_ID']) && value.present?
+    field :google_analytics_id, default: ENV['GOOGLE_ANALYTICS_ID'], type: :string, readonly: true,
+      display: (value = ENV['GOOGLE_ANALYTICS_ID']) && value.present?
   end
 
   # Backup settings
