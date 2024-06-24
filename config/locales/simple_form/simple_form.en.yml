@@ -1,4 +1,4 @@
-en:
+en-US:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -9,7 +9,7 @@ en:
     #When using html, text and mark won't be used.
     #html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: 'Please review the problems below:'
     labels:
       defaults:
         name: Name
@@ -96,7 +96,7 @@ en:
         channel: For example, the platform of app.
       app:
         schemes:
-          name: :simple_form.hints.scheme.name
+          name: ':simple_form.hints.scheme.name'
       scheme:
         name: Apply the type of feature to target audience
         new_build_callout: Display a new callout at the top of the page when visiting a previous build of app.
