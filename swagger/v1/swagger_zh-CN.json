@@ -2669,6 +2669,10 @@
           "type": "string",
           "description": "应用名称，为空时取 App 的信息"
         },
+        "password": {
+          "type": "string",
+          "description": "设置访问密码，为空时清除密码"
+        },
         "release_type": {
           "type": "string",
           "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"

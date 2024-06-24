@@ -93,6 +93,7 @@ zh-CN:
           channel_key: 应用具体渠道的 Key，没有传此参数会字段创建对于的应用、类型和渠道
           file: 本地支持上传类型的应用文件
           name: 应用名称，为空时取 App 的信息
+          password: 设置访问密码，为空时清除密码
           release_type: 应用类型，比如 debug, beta, adhoc, release, enterprise 等
           source: 上传渠道名称，默认是 `api`
           changelog: 变更日志，接受纯文本或 JSON 格式化的数据
