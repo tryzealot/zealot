@@ -1,6 +1,6 @@
 {
   "name": "zealot",
-  "version": "5.3.2",
+  "version": "5.3.3",
   "private": true,
   "license": "MIT",
   "dependencies": {

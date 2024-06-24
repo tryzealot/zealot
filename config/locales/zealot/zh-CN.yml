@@ -160,6 +160,7 @@ zh-CN:
       mailer_options: 发件服务器配置
       analytics: 统计
       google_analytics_id: Google 统计
+      umami_script_url: Umami 脚本 URL
       umami_website_id: Umami 统计
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
@@ -829,7 +830,7 @@ zh-CN:
       adhoc: 内测版
       production: 产品版
     preset_role:
-      user: 用户
+      member: 用户
       developer: 开发者
       admin: 管理员
     site_locale:

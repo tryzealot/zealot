@@ -13,7 +13,7 @@ en:
 
         ```json
         {
-          "version": "5.3.2",
+          "version": "5.3.3",
           "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
           "build_date": "2024-05-23T06:04:48.989Z"
         }
@@ -32,7 +32,7 @@ en:
 
         ### Personal access tokens
 
-        Personal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).
+        Personal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).
     servers:
       description: Demo server
     security:
@@ -96,6 +96,7 @@ en:
           channel_key: Channel key, keep it empty to create a new App
           file: The location of upload App binary file
           name: the name of App. Use app name from parsed metadata in given file if leave it empty
+          password: visit password, clear it if leave it empty
           release_type: Release type, for example, debug, beta, adhoc, release, enterprise etc
           source: the source of upload (default is `api`)
           changelog: Change log, accept plain text or JSON formatted data
