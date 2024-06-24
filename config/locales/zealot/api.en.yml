@@ -96,6 +96,7 @@ en:
           channel_key: Channel key, keep it empty to create a new App
           file: The location of upload App binary file
           name: the name of App. Use app name from parsed metadata in given file if leave it empty
+          password: visit password, clear it if leave it empty
           release_type: Release type, for example, debug, beta, adhoc, release, enterprise etc
           source: the source of upload (default is `api`)
           changelog: Change log, accept plain text or JSON formatted data

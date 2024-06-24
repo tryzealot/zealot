@@ -2669,6 +2669,10 @@
           "type": "string",
           "description": "the name of App. Use app name from parsed metadata in given file if leave it empty"
         },
+        "password": {
+          "type": "string",
+          "description": "visit password, clear it if leave it empty"
+        },
         "release_type": {
           "type": "string",
           "description": "Release type, for example, debug, beta, adhoc, release, enterprise etc"
