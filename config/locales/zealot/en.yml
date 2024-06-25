@@ -633,6 +633,7 @@ en-US:
       file_size: File size
       release_type: release type
       min_ios_version: Min iOS version
+      min_tvos_version: Minimum tvOS version
       min_macos_version: Min macOS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
