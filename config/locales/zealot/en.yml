@@ -637,8 +637,9 @@ en:
       sdk_version_range: Android min SDK / target SDK
       file_size: File size
       release_type: release type
-      min_ios_version: Min iOS version
-      min_macos_version: Min macOS version
+      min_ios_version: Minimum iOS version
+      min_tvos_version: Minimum tvOS version
+      min_macos_version: Minimum macOS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
       developer_certs_list: 'Developer Certificates (%{count})'
