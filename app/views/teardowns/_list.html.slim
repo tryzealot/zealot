@@ -1,6 +1,6 @@
 .col-md-12
   - if @metadata.present?
-    .card.mb-4
+    .card.mb-3
       .card-header
         h3.card-title
           i.icon.fas.fa-history
@@ -46,7 +46,7 @@
           .float-end
             = paginate @metadata
   - else
-    .card.card-outline.card-warning.mb-4
+    .card.card-outline.card-warning.mb-3
       .card-header.card-border
         h3.card-title = t('teardowns.index.not_found.title')
       .card-body = t('teardowns.index.not_found.body_html')

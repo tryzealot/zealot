@@ -1,22 +1,44 @@
-.card-comment {
-  .comment-text {
-    ul.content {
-      list-style: none;
+.certificates {
+  @extend .p-0;
+  @extend .text-body-tertiary;
+
+  .certificate {
+    @extend .p-3;
+    @extend .border-bottom;
+    @extend .mb-2;
+
+    .certificate-title {
+      @extend .d-flex;
     }
 
-    .content {
+    ul {
       @extend .p-0;
       @extend .m-0;
       @extend .mt-2;
 
-      .key {
-        font-weight: bold;
-        width: 80px;
-      }
+      list-style: none;
+      padding: 0 !important;
 
-      .value {
-        @extend .ps-1;
+      li {
+        .key {
+          @extend .fw-bold;
+          width: 80px;
+        }
+
+        .value {
+          @extend .ps-1;
+        }
       }
     }
+
+    &:last-child {
+      border-bottom-width: 0 !important;
+    }
+  }
+}
+
+@include color-mode(dark) {
+  .certificate {
+    border-color: var(--bs-danger-bg);
   }
 }
