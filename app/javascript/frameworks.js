@@ -9,6 +9,7 @@ window.addEventListener("turbo:load", () => {
     new bootstrap.Tooltip(element)
   })
 
+  // Trigger adminlte card collapse
   const cardCollapseButtonsList = document.querySelectorAll("[data-lte-toggle=\"card-collapse\"]")
   cardCollapseButtonsList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -42,6 +43,7 @@ window.addEventListener("turbo:load", () => {
     })
   })
 
+  // Trigger adminlte treeview toggle
   const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
   treeviewToggleList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -59,17 +61,5 @@ window.addEventListener("turbo:load", () => {
       }
     })
   })
-
-  // const sidebar = document.querySelector(".app-sidebar")
-  // if (sidebar) {
-  //   const data = new PushMenu(sidebar, {
-  //     sidebarBreakpoint: 992
-  //   })
-  //   data.init()
-
-  //   window.addEventListener('resize', () => {
-  //     data.init()
-  //   })
-  // }
 })
 

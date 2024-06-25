@@ -3,7 +3,8 @@
     .card-header.card-border
       h3.card-title = t('debug_files.help.title')
       .card-tools
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-minus
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
     .card-body.table-responsive
       = t('debug_files.help.body_html')

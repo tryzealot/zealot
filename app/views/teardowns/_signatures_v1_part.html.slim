@@ -3,7 +3,8 @@
     = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
   .card-tools
     button.btn.btn-tool data-lte-toggle="card-collapse"
-      i.fas.fa-minus
+      i.fas.fa-plus data-lte-icon="expand"
+      i.fas.fa-minus data-lte-icon="collapse"
 .card-body.certificates
   - signatures.each_with_index do |cert, i|
     .certificate

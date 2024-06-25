@@ -78,7 +78,8 @@
         h3.card-title = t('.file_permissions')
         .card-tools
           button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-minus
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body.p-0
         p.ps-4.pt-3 = t('.messages.file_permissions_tip', icon: '<i class="fas fa-exclamation-triangle text-red">')
         table.table
@@ -96,7 +97,8 @@
         h3.card-title = t('.volume_mounted')
         .card-tools
           button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-minus
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body
         - unless @disks.blank?
           dl.system-info
@@ -116,7 +118,8 @@
         h3.card-title = t('.system_environment')
         .card-tools
           button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-plus
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body
         dl.system-info
           - @env.each do |key, value|
@@ -130,7 +133,8 @@
         h3.card-title = t('.ruby_gems')
         .card-tools
           button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-plus
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body.p-0
         table.table
           - @gems.each do |name, version|
