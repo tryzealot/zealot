@@ -1,4 +1,4 @@
-en:
+en-US:
   pundit:
     default: The current user does not have the permission to perform this action.
     debug_file_policy:
