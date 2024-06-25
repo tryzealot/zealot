@@ -56,6 +56,8 @@ module ApplicationHelper
     case platform.downcase
     when 'ios'
       'iOS'
+    when 'appletv'
+      'Apple TV'
     when 'iphone'
       'iPhone'
     when 'ipad'
@@ -83,6 +85,8 @@ module ApplicationHelper
       'iPad'
     when AppInfo::Device::UNIVERSAL
       'Universal'
+    when AppInfo::Device::APPLETV
+      'TVOS'
     when AppInfo::Device::PHONE
       'Phone'
     when AppInfo::Device::WATCH
