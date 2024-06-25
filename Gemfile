@@ -39,7 +39,7 @@ gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
 gem 'rails-settings-cached', '~> 2.9.4'
-gem 'app-info', '~> 3.0.0'
+gem 'app-info', '~> 3.1.2'
 gem 'faraday', '~> 2.9.2'
 gem 'rqrcode'
 
@@ -54,7 +54,6 @@ gem 'omniauth-google-oauth2', '~> 1.0.1'
 gem 'omniauth-gitlab', '~> 3.0.0'
 gem 'omniauth-feishu', '~> 0.1.8'
 gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
-gem 'nkf', '~> 0.2.0' # requires for gitlab_omniauth-ldap in Ruby 3.3
 gem 'omniauth_openid_connect', '0.7.1'
 
 ## UDID
