@@ -3,7 +3,8 @@
     .card-header.card-border
       h3.card-title = t('teardowns.help.title')
       .card-tools
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fas.fa-plus
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
     .card-body.table-responsive
       = t('teardowns.help.body_html')
