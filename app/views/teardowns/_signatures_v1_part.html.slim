@@ -4,18 +4,18 @@
   .card-tools
     button.btn.btn-tool data-lte-toggle="card-collapse"
       i.fas.fa-minus
-.card-body.card-comments.pb-2
+.card-body.certificates
   - signatures.each_with_index do |cert, i|
-    .card-comment
-      .comment-text.ms-0
-        span.username
+    .certificate
+      .certificate-title
+        .fs-6.fw-bolder.flex-fill
           = t('teardowns.show.cert', index: "#{i + 1} (#{cert['public_key_type']})")
-          span.text-muted.float-end
-            = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
-        ul.content
-          li
-            span.key = t('teardowns.show.cert_issuer')
-            span.value = cert['issuer'].map { |k, v| "#{k}=#{v}" }.join(', ')
-          li
-            span.key = t('teardowns.show.cert_algorithem')
-            span.value = cert['algorithem']
+        small.text-body-secondary.float-end
+          = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
+      ul
+        li
+          span.key = t('teardowns.show.cert_issuer')
+          span.value = cert['issuer'].map { |k, v| "#{k}=#{v}" }.join(', ')
+        li
+          span.key = t('teardowns.show.cert_algorithem')
+          span.value = cert['algorithem']
