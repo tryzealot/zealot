@@ -5,7 +5,8 @@
       = t('releases.show.changelog')
     .card-tools
       button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fas.fa-minus
+        i.fas.fa-plus data-lte-icon="expand"
+        i.fas.fa-minus data-lte-icon="collapse"
   .card-body.p-0
     ul.products-list.mb-0
       - @release.array_changelog.each do |changelog|
