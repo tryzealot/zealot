@@ -86,7 +86,7 @@ module ApplicationHelper
     when AppInfo::Device::UNIVERSAL
       'Universal'
     when AppInfo::Device::APPLETV
-      'TVOS'
+      'tvOS'
     when AppInfo::Device::PHONE
       'Phone'
     when AppInfo::Device::WATCH
@@ -126,7 +126,7 @@ module ApplicationHelper
 
   def device_style(device_type)
     case device_type.downcase
-    when 'ios'
+    when 'ios', 'appletv'
       ['fa-apple', 'bg-secondary']
     when 'android'
       ['fa-android', 'bg-green']

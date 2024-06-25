@@ -632,6 +632,7 @@ zh-CN:
       file_size: 文件大小
       release_type: 打包类型
       min_ios_version: 最低 iOS 版本
+      min_tvos_version: 最低 tvOS 版本
       min_macos_version: 最低 macOS 版本
       capabilities: 启用能力
       devise_list: '设备列表 (%{count})'
