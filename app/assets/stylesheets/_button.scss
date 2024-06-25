@@ -16,6 +16,13 @@
 //   --bs-btn-active-color: var(--bs-btn-hover-color);
 // }
 
+.btn-secondary {
+  --bs-btn-bg: #f8f9fa !important;
+  --bs-btn-color: #444 !important;
+  --bs-btn-border-color: var(--bs-border-color-translucent) !important;
+  --bs-btn-hover-bg: #e9ecef !important;
+}
+
 @include color-mode(dark) {
   --bs-primary-bg: #3f6791;
   --bs-primary-color: #fff;
@@ -43,6 +50,12 @@
       color: var(--bs-primary-hover-color);
       border-color: var(--bs-primary-hover-border-color);
     }
+  }
+
+  .btn-secondary {
+    --bs-btn-bg: #6c757d !important;
+    --bs-btn-color: var(--bs-body-color) !important;
+    --bs-btn-border-color: var(--bs-border-color-translucent) !important;
   }
 
   .btn-success {
