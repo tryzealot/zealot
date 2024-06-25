@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?
-    a.btn.btn-icon.btn-success href="#{new_app_path}"
+    a.btn.btn-success href="#{new_app_path}"
       i.icon.far.fa-plus-square
       = t('apps.new.title')
 

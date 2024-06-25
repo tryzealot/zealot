@@ -43,13 +43,7 @@
           i.fas.fa-trash-alt
           = t('releases.show.destroy')
 
-    / - if @release.ci_url.present?
-    /   button#build_it.btn.btn-icon.btn-lg.btn-success data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()"
-    /     i.fas.fa-wrench
-    /     | 构建
-
     .ios-issues
-      / p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"
       - if @release.file? && @release.cert_expired?
         .ios-cert-expired
           i.fas.fa-asterisk
