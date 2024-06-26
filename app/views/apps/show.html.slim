@@ -28,13 +28,13 @@ ruby:
               = scheme.name
             .card-tools
               - if scheme.retained_builds > 0
-                span.badge.text-bg-success data-bs-toggle="tooltip" title="#{t('.retained_build')}" style="margin-right: 4px"
+                span.badge.text-bg-success data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{t('.retained_build')}" style="margin-right: 4px"
                   = scheme.retained_builds
               - if !scheme.new_build_callout
-                span.badge.text-bg-warning title="#{t('.disabled_new_build_callout')}" data-bs-toggle="tooltip"
+                span.badge.text-bg-warning title="#{t('.disabled_new_build_callout')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
                   i.fa.fa-bell-slash
               - else
-                span.badge.text-bg-success title="#{t('.enabled_new_build_callout')}" data-bs-toggle="tooltip"
+                span.badge.text-bg-success title="#{t('.enabled_new_build_callout')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
                   i.fa.fa-bell
           .card-body.p-0
             section.app-section id="scheme-#{scheme.id}"

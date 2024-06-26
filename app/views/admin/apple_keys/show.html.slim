@@ -63,10 +63,10 @@ ruby:
                 td = device.platform
                 td = device.model
                 td = device.channels.count
-                td = device.created_at
+                td = device.created_at.to_fs(:nice)
       .card-footer
         - if @apple_key.last_synced_at.present?
-          span title="#{@apple_key.last_synced_at}" data-bs-toggle="tooltip" data-bs-placement="right"
+          span title="#{@apple_key.last_synced_at}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
             = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
         - else
           = t('.never_sync')

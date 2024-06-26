@@ -15,7 +15,7 @@
             th style="width: 160px" = t('teardowns.index.uploaded_at')
 
             - if user_signed_in? && @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
-              th.d-none.d-sm-table-cell style="width: 60px" = t('teardowns.index.actions')
+              th.d-none.d-sm-table-cell style="width: 90px" = t('teardowns.index.actions')
           - @metadata.each_with_index do |md, index|
             tr
               td
@@ -32,7 +32,7 @@
               td.d-none.d-sm-table-cell
                 = md.user&.username || t('teardowns.index.anonymous')
               td
-                span data-bs-toggle="tooltip" title="#{md.created_at}"
+                span data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{md.created_at.to_fs(:nice)}"
                   = time_ago_in_words(md.created_at)
 
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
