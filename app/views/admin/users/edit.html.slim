@@ -29,7 +29,7 @@
             = raw t('.active_link_tip', label: t('.resend'), link: resend_confirmation_admin_user_path(@user))
     .card.mb-3
       .card-header.card-border
-        h3.card-title = t('.title')
+        h3.card-title = t('.profile')
       == render 'form'
 
   - if @user.collaborators.present?
