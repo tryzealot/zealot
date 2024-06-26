@@ -7,7 +7,7 @@
       .card-tools
         small.badge = t('errors.messages.development_only')
     .card-body.p-0
-      table.table.table-hover
+      table.table.table-hover.table-bottom-borderless
         - @exception.backtrace.each do |link|
           tr
             td = link

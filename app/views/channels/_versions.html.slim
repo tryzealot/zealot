@@ -5,7 +5,7 @@
       = t('channels.show.major_versions')
   .card-body.table-responsive.p-0
     - if @versions.count > 0
-      table.table
+      table.table.table-bottom-borderless
         tr
           th = t('channels.show.release_version')
           th = t('channels.show.total_version')
