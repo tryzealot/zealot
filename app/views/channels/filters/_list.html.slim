@@ -2,7 +2,7 @@
   = form_with model: channel, url: destroy_releases_channel_path(channel), method: :delete, \
     data: { controller: 'bulk-operation' } do |f|
     .card-body.p-0
-      table.table.table-hover
+      table.table.table-hover.table-bottom-borderless
         tr
           - if current_user&.manage?(app: channel.app)
             th style="width: 10px"
