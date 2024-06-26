@@ -7,7 +7,7 @@
       button.btn.btn-tool data-lte-toggle="card-collapse"
         i.fas.fa-plus data-lte-icon="expand"
         i.fas.fa-minus data-lte-icon="collapse"
-  .card-body
+  .card-body.pb-1
     section#add-webhooks
       h5 = t('web_hooks.create')
       == render 'web_hooks/form'
@@ -25,7 +25,7 @@
             span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.available_web_hooks_count
 
-      .tab-content id="web_hooks_listContent"
+      #web_hooks_listContent.tab-content.mt-2
         #enabled.tab-pane.fade.show.active
           == render 'web_hooks/enabled'
         #shared.tab-pane.fade

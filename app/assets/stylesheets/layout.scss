@@ -65,6 +65,16 @@ i.icon {
   }
 }
 
+.table-bottom-borderless {
+  tr:last-child {
+    td {
+      @extend .rounded-bottom;
+
+      border-bottom: none;
+    }
+  }
+}
+
 @include color-mode(dark) {
   .cover {
     opacity: 0.45;

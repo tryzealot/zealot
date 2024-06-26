@@ -11,7 +11,7 @@
     ul.products-list
       - if @releases.count > 0
         - @releases.each do |release|
-          li.item.d-flex
+          li.product-item
             .product-img
               = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
             .product-info
