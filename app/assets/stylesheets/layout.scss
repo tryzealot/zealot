@@ -75,6 +75,14 @@ i.icon {
   }
 }
 
+.default-tooltip {
+  --bs-tooltip-max-width: 300px;
+  --bs-tooltip-padding-x: 0.6rem;
+  --bs-tooltip-padding-y: 0.3rem;
+  --bs-tooltip-bg: var(--bs-tooltip-bg);
+  --bs-tooltip-color: var(--bs-tooltip-color);
+}
+
 @include color-mode(dark) {
   .cover {
     opacity: 0.45;
@@ -111,5 +119,10 @@ i.icon {
 
   .btn-secondary {
     background-color: var(--bs-card-bg);
+  }
+
+  .default-tooltip {
+    --bs-tooltip-bg: #000;
+    --bs-tooltip-color: var(--bs-white);
   }
 }

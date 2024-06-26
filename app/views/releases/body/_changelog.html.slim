@@ -14,11 +14,11 @@
           .product-info
             - if date = changelog['date']
               small.float-end
-                span.badge.text-bg-light data-bs-toggle="tooltip" title="#{date}"
+                span.badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{date}"
                   = time_ago_in_words(date)
             - if changelog['author']
               small.float-end.me-1
-                span.badge.text-bg-info data-bs-toggle="tooltip" title="#{changelog['email']}"
+                span.badge.text-bg-info data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{changelog['email']}"
                   = changelog['author']
 
             = changelog_render changelog['message'], class: 'changelog changelog-item mb-1'
