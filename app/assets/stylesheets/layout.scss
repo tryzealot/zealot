@@ -126,3 +126,9 @@ i.icon {
     --bs-tooltip-color: var(--bs-white);
   }
 }
+
+.app-footer {
+  @extend .py-2;
+
+  min-height: 1rem;
+}
