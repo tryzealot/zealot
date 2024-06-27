@@ -153,7 +153,7 @@ module ApplicationHelper
   end
 
   def zealot_version
-    content_tag :span, class: 'version ml-1' do
+    content_tag :span, class: 'version ms-1' do
       prefix = 'Version'
       version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
 

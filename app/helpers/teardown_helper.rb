@@ -51,6 +51,7 @@ module TeardownHelper
     "#{os} (#{codename})"
   end
 
+  # Source: https://apilevels.com/#footnotes
   ANDROID_APIS = {
     "35": {
       "version": "Android 15",
