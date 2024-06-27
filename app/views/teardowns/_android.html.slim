@@ -32,21 +32,31 @@ ruby:
           pre
             = device_name(@metadata.device)
             |  (Android)
-        dt = t('teardowns.show.sdk_version_range')
+        dt = t('teardowns.show.android_min_sdk')
         dd
-          pre = "#{@metadata.min_sdk_version} / #{@metadata.target_sdk_version}"
+          pre = android_version_info(@metadata.min_sdk_version)
+        dt = t('teardowns.show.android_target_sdk')
+        dd
+          pre = android_version_info(@metadata.target_sdk_version)
         dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = @metadata.created_at.to_fs(:nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
 
-  = render 'card', title: 'Activities', raw: @metadata.activities
+  = render 'card', title: t('teardowns.show.activities', count: @metadata.activities.size), raw: @metadata.activities
 
 .col-md-6
   - if @metadata.developer_certs.present?
     == render 'signatures_part', signatures: @metadata.developer_certs
 
-  == render 'card', title: 'Deep Links', raw: @metadata.deep_links
-  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
-  == render 'card', title: 'Features', raw: @metadata.features
-  == render 'card', title: 'Permissions', raw: @metadata.permissions
-  == render 'card', title: 'Services', raw: @metadata.services
+  == render 'card', title: t('teardowns.show.deep_links', count: @metadata.deep_links.size), raw: @metadata.deep_links
+  == render 'card', title: t('teardowns.show.url_schemes', count: @metadata.url_schemes.size), raw: @metadata.url_schemes
+  == render 'card', title: t('teardowns.show.features', count: @metadata.features.size), raw: @metadata.features
+  == render 'card', title: t('teardowns.show.permissions', count: @metadata.permissions.size), raw: @metadata.permissions
+  == render 'card', title: t('teardowns.show.services', count: @metadata.services.size), raw: @metadata.services
+  == render 'destroy', md: @metadata

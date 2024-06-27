@@ -643,12 +643,31 @@ en:
       version: Version
       package_name: Bundle id (package name)
       supported_device: Supported device
-      sdk_version_range: Android min SDK / target SDK
+      android_min_sdk: Minimum SDK
+      android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
+      activities:
+        one: Activity (%{count})
+        other: Activities (%{count})
+      deep_links:
+        one: Deep Link (%{count})
+        other: Deep Links (%{count})
+      features:
+        one: Feature (%{count})
+        other: Features (%{count})
+      url_schemes:
+        one: URL Scheme (%{count})
+        other: URL Schemes (%{count})
+      permissions:
+        one: Permission (%{count})
+        other: Permissions (%{count})
+      services:
+        one: Service (%{count})
+        other: Services (%{count})
       min_ios_version: Minimum iOS version
       min_tvos_version: Minimum tvOS version
-      min_macos_version: Minimum macOS version
+      min_macos_version: Minimum OS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
       developer_certs_list: 'Developer Certificates (%{count})'
@@ -686,6 +705,8 @@ en:
       company_name: Company name
       binary_size: Binary size
       imports: Imports
+      uploaded_date: Uploaded date
+      uploader: Uploader
     help:
       title: Help center
       body_html: |
