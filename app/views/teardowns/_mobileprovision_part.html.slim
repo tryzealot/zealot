@@ -1,7 +1,10 @@
 - if @metadata.mobileprovision.present?
   .card.mb-3
     .card-header
-      h3.card-title = t('teardowns.show.mobileprovision')
+      h3.card-title
+        - if enable_icon
+          i.icon.fas.fa-certificate
+        = t('teardowns.show.mobileprovision')
       .card-tools
         button.btn.btn-tool data-lte-toggle="card-collapse"
           i.fas.fa-plus data-lte-icon="expand"
@@ -19,7 +22,7 @@
           pre = "#{@metadata.mobileprovision['team_name']} (#{@metadata.mobileprovision['team_identifier'].first})"
         dt = t('teardowns.show.created_at')
         dd
-          pre = @metadata.mobileprovision['created_at'].to_fs(:nice)
+          pre = @metadata.mobileprovision['created_at'].to_datetime.to_fs(:nice)
         dt = t('teardowns.show.expired_at')
         dd
           pre
