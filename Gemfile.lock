@@ -131,8 +131,6 @@ GEM
       ssrf_filter (~> 1.0)
     case_transform (0.2)
       activesupport
-    chef-utils (18.4.12)
-      concurrent-ruby
     childprocess (5.0.0)
     chunky_png (1.4.0)
     coderay (1.1.3)
