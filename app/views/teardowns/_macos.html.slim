@@ -16,7 +16,7 @@
           pre = @metadata.name
         dt = t('teardowns.show.supported_device')
         dd
-          pre #{@metadata.device}
+          pre = device_name(@metadata.device)
         dt = t('teardowns.show.version')
         dd
           pre = "#{@metadata.release_version} (#{@metadata.build_version})"
@@ -25,12 +25,18 @@
           pre = @metadata.bundle_id
         dt = t('teardowns.show.min_macos_version')
         dd
-          pre = @metadata.min_sdk_version
+          pre = macos_version_info(@metadata.min_sdk_version)
         dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = @metadata.created_at.to_fs(:nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
 
-  == render 'mobileprovision_part'
+  == render 'mobileprovision_part', enable_icon: false
   == render 'developer_certs_part'
   == render 'devices_part', devices: @metadata.devices
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements

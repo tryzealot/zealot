@@ -31,13 +31,20 @@
         dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = @metadata.created_at.to_fs(:nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
 
   == render 'devices_part', devices: @metadata.devices
   == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
 
 .col-md-6
   == render 'developer_certs_part'
-  == render 'mobileprovision_part'
+  == render 'mobileprovision_part', enable_icon: false
 
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+  == render 'destroy', md: @metadata

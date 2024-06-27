@@ -4,6 +4,11 @@
 - content_for :section_title do
   = @title
 
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{teardowns_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     .card.card-outline-tabs.card-primary.card-outline

@@ -637,16 +637,24 @@ zh-CN:
       version: 版本
       package_name: 包名
       supported_device: 支持设备
-      sdk_version_range: Android 最低版本 / 目标版本
+      android_min_sdk: 最低支持版本
+      android_target_sdk: 编译构建版本
       file_size: 文件大小
       release_type: 打包类型
+      activities: Activities (%{count})
+      deep_links: Deep Links (%{count})
+      features: Features (%{count})
+      url_schemes: URL Schemes (%{count})
+      permissions: Permissions (%{count})
+      services: Services (%{count})
+      entitlements: Entitlements (%{count})
       min_ios_version: 最低 iOS 版本
       min_tvos_version: 最低 tvOS 版本
-      min_macos_version: 最低 macOS 版本
+      min_macos_version: 最低系统版本
       capabilities: 启用能力
-      devise_list: '设备列表 (%{count})'
-      developer_certs_list: '开发者证书 (%{count})'
-      cert: '证书 %{index}'
+      devise_list: 设备列表 (%{count})
+      developer_certs_list: 开发者证书 (%{count})
+      cert: 证书 %{index}
       cert_expired_at: '%{date} 到期'
       cert_created: 创建日期
       cert_expired: 失效日期
@@ -657,12 +665,12 @@ zh-CN:
       cert_subject: 主题
       cert_digest: 数字摘要
       cert_length: 长度
-      signature_title: '应用签名 (%{count})'
-      signature: '签名版本 %{scheme}'
-      cert_fignger: '签名指纹 %{digest}'
+      signature_title: 应用签名 (%{count})
+      signature: 签名版本 %{scheme}
+      cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
-      signature_verified: '签名校验通过'
-      signature_unverified: '签名校验待开发'
+      signature_verified: 签名校验通过
+      signature_unverified: 签名校验待开发
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)
@@ -680,6 +688,8 @@ zh-CN:
       company_name: 公司名称
       binary_size: 二进制文件大小
       imports: 引用库
+      uploaded_date: 上传日期
+      uploader: 上传者
     help:
       title: 帮助中心
       body_html: |
