@@ -70,7 +70,7 @@ i.icon {
     td {
       @extend .rounded-bottom;
 
-      border-bottom: none;
+      border-bottom: none !important;
     }
   }
 }
