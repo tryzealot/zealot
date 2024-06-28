@@ -93,9 +93,9 @@ GEM
     android_parser (2.7.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (3.1.3)
+    app-info (3.1.4)
       CFPropertyList (>= 2.3.4, < 3.1.0)
-      android_parser (>= 2.6.0, < 3.0)
+      android_parser (>= 2.7, < 3.0)
       base64 (~> 0.2.0)
       google-protobuf (>= 4.27.1, < 5.0.0)
       icns (~> 0.2.0)
@@ -646,7 +646,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.1.3)
+  app-info (~> 3.1.4)
   awesome_print
   better_errors
   binding_of_caller

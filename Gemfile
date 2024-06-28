@@ -39,7 +39,7 @@ gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
 gem 'rails-settings-cached', '~> 2.9.4'
-gem 'app-info', '~> 3.1.3'
+gem 'app-info', '~> 3.1.4'
 gem 'faraday', '~> 2.9.2'
 gem 'rqrcode'
 
