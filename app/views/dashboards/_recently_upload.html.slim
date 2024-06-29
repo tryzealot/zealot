@@ -27,7 +27,7 @@ section
                       i.icon.fas.fa-clock.text-secondary
                       = time_ago_in_words(release.created_at)
                     h3.timeline-header
-                      = link_to(release.app_name, friendly_channel_release_path(release.channel, release), class: 'pe-1')
+                      = link_to(release.app_name, friendly_channel_release_path(release.channel, release), class: 'pe-1', data: { turbo: false })
                       - if release.release_version && release.build_version
                         = t('dashboard.timeline.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
                       - elsif release.release_version
