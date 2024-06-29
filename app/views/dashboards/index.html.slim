@@ -2,4 +2,6 @@
   = @title
 
 == render 'analytics'
-== render 'recently_upload'
+
+= turbo_frame_tag "recently_upload" do
+  == render 'recently_upload'
