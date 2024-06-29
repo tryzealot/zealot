@@ -50,26 +50,21 @@ aside.app-sidebar.bg-body-secondary.shadow
             a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
               i.nav-icon.fas.fa-cog
               p = t('admin.settings.title')
-          li.nav-item class="#{active_class([admin_system_info_index_path, admin_logs_path, admin_background_jobs_path, admin_database_analytics_path], 'menu-open')}"
-            a.nav-link href="#" class="#{active_class([admin_system_info_index_path, admin_logs_path, admin_background_jobs_path, admin_database_analytics_path])}"
-              i.nav-icon.fas.fa-laptop-code
-              p
-                = t('monitors_section')
-                i.nav-arrow.fas.fa-angle-left
-            ul.nav.nav-treeview data-lte-toggle="treeview"
-              li.nav-item
-                a.nav-link href="#{admin_system_info_index_path}" class="#{active_class(admin_system_info_index_path)}"
-                  i.nav-icon.fas.fa-info-circle
-                  = t('admin.system_info.title')
-              li.nav-item
-                a.nav-link href="#{admin_logs_path}" class="#{active_class(admin_logs_path)}"
-                  i.nav-icon.fas.fa-file
-                  = t('admin.logs.title')
-              li.nav-item
-                a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
-                  i.nav-icon.fas.fa-chart-bar
-                  = t('admin.background_jobs.title')
-              li.nav-item
-                a.nav-link href="#{admin_database_analytics_path}" class="#{active_class(admin_database_analytics_path)}"
-                  i.nav-icon.fas.fa-database
-                  = t('admin.database_analytics.title')
+
+          li.nav-header = t('monitors_section')
+          li.nav-item
+            a.nav-link href="#{admin_system_info_index_path}" class="#{active_class(admin_system_info_index_path)}"
+              i.nav-icon.fas.fa-info-circle
+              p = t('admin.system_info.title')
+          li.nav-item
+            a.nav-link href="#{admin_logs_path}" class="#{active_class(admin_logs_path)}"
+              i.nav-icon.fas.fa-file
+              p = t('admin.logs.title')
+          li.nav-item
+            a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
+              i.nav-icon.fas.fa-chart-bar
+              p = t('admin.background_jobs.title')
+          li.nav-item
+            a.nav-link href="#{admin_database_analytics_path}" class="#{active_class(admin_database_analytics_path)}"
+              i.nav-icon.fas.fa-database
+              p = t('admin.database_analytics.title')
