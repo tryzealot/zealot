@@ -10,7 +10,7 @@
   .card-body.p-0
     ul.products-list.mb-0
       - @release.array_changelog.each do |changelog|
-        li.item
+        li.product-item
           .product-info
             - if date = changelog['date']
               small.float-end
@@ -21,4 +21,4 @@
                 span.badge.text-bg-info data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{changelog['email']}"
                   = changelog['author']
 
-            = changelog_render changelog['message'], class: 'changelog changelog-item mb-1'
+            = changelog_render changelog['message'], class: 'product-description'

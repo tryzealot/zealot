@@ -153,7 +153,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
-.callout, .changelog {
+.callout {
   ul {
     padding-inline-start: 24px;
   }
@@ -173,7 +173,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
 }
 
 @include color-mode(dark) {
-  .callout, .changelog {
+  .callout {
     a {
       color: #fff;
 
