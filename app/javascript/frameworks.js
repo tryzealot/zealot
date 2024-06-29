@@ -1,15 +1,15 @@
 import "@hotwired/turbo-rails"
-import * as bootstrap from "bootstrap"
+import { Tooltip } from "bootstrap"
 import { PushMenu, CardWidget, Treeview } from "admin-lte"
 
-window.addEventListener("turbo:load", () => {
-  // Trigger bootstrap tooltip
+const trigger_bootstrap_tooltip = () => {
   const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]")
   tooltipTriggerList.forEach((element) => {
-    new bootstrap.Tooltip(element)
+    new Tooltip(element)
   })
+}
 
-  // Trigger adminlte card collapse
+const trigger_adminlte_card_collapse = () => {
   const cardCollapseButtonsList = document.querySelectorAll("[data-lte-toggle=\"card-collapse\"]")
   cardCollapseButtonsList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -20,8 +20,9 @@ window.addEventListener("turbo:load", () => {
       data.toggle()
     })
   })
+}
 
-  // Trigger adminlte sidebar toggle
+const trigger_adminlte_sidebar_toggle = () => {
   const sidebarToggle = "[data-lte-toggle=\"sidebar\"]"
   const sidebarTriggerList = document.querySelectorAll(sidebarToggle)
   sidebarTriggerList.forEach((btn) => {
@@ -42,8 +43,9 @@ window.addEventListener("turbo:load", () => {
       }
     })
   })
+}
 
-  // Trigger adminlte treeview toggle
+const trigger_adminlte_treeview_toggle = () => {
   const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
   treeviewToggleList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -56,10 +58,23 @@ window.addEventListener("turbo:load", () => {
       }
 
       if (targetItem) {
-        const data = new Treeview(targetItem, {})
+        const data = new Treeview(targetItem, {
+          animationSpeed: 300,
+          accordion: true
+        })
+
         data.toggle()
       }
     })
   })
-})
+}
 
+const triggerEvents = ["load", "turbo:load", "turbo:frame-load"]
+triggerEvents.forEach((name) => {
+  window.addEventListener(name, () => {
+    trigger_bootstrap_tooltip()
+    trigger_adminlte_card_collapse()
+    trigger_adminlte_sidebar_toggle()
+    trigger_adminlte_treeview_toggle()
+  })
+})
