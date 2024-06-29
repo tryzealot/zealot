@@ -32,7 +32,18 @@
       margin-left: 40px;
       background-color: #f8f8f8;
 
+      .timeline-body {
+        @extend .py-2;
+
+        ul {
+          @extend .ps-4;
+        }
+      }
+
       .timeline-footer {
+        @extend .pt-1;
+        @extend .pb-2;
+
         .badge {
           margin-left: 5px;
           color: #31708f;
