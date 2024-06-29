@@ -5,7 +5,7 @@
 
   .product-item {
     @extend .d-flex;
-    @extend .py-3;
+    @extend .py-2;
 
     border-bottom: 1px solid var(--bs-border-color) !important;
 
@@ -29,6 +29,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        p {
+          margin-bottom: 0 !important;
+        }
       }
     }
 
