@@ -35,8 +35,8 @@ zh-CN:
       edit:
         title: 修改用户
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}" data-turbo-prefetch="false">%{label}</a>。
-        resend: 重新发送激活邮件
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件
+        resend: 重发激活邮件
         profile: 个人信息
         collaborators: 应用成员
         api: API
