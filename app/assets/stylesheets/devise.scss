@@ -12,13 +12,13 @@
 
 @media (min-width: 768px) {
   .auth-providers {
-    border-left: 1px solid #e2dee6;
+    border-left: 1px solid var(--bs-border-color);
   }
 }
 
 @media (max-width: 767px) {
   .auth-providers {
-    border-top: 1px solid #e2dee6;
+    border-top: 1px solid var(--bs-border-color);
     margin-top: 20px;
     padding-top: 10px;
   }
