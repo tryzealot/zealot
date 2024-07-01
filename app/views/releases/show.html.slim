@@ -1,24 +1,7 @@
 - content_for :title do
   = @release.app_name
 
-.row
-  - if logged_in_or_without_auth?(@release)
-    .col-md-8.col-lg-9
-      == render 'releases/body/new_release_callout', enable_callout: @release.scheme.new_build_callout, latest_release: @release.outdated?
-      == render 'releases/body/metadata'
-      == render 'releases/body/changelog'
-      == render 'releases/body/devices'
-      == render 'releases/body/activity', current_release: @release, recently_releases: @release.channel.recently_releases
-
-    .col-md-4.col-lg-3
-      - if current_user&.manage?
-        = link_to t('releases.new.title'), new_channel_release_path(@channel), class: 'btn btn-success w-100 mb-3'
-
-      - if user_signed_in_or_guest_mode?
-        == render 'releases/sidebar/debug_file', debug_file: @release.debug_file
-        == render 'releases/sidebar/version', channel: @release.channel
-      == render 'releases/sidebar/qrcode'
-      - if user_signed_in_or_guest_mode?
-        = link_to t('.view_detail'), friendly_channel_overview_path(@channel), class: 'btn btn-secondary w-100'
-  - else
-    == render 'releases/body/password_auth'
+- if logged_in_or_without_auth?(@release)
+  == render @release
+- else
+  == render 'releases/body/password_auth'
