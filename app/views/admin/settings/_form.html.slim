@@ -7,9 +7,9 @@
       = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
         .card-body
           - if @setting.errors.size > 0
-            .callout.callout-danger
+            .callout.callout-danger.mb-3
               h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
-              ul.mb-0
+              ul.ps-4
                 - @setting.errors.each do |error|
                   li = error.message
 

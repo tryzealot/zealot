@@ -153,36 +153,7 @@ $ios-install-issue-color: rgb(245, 39, 90);
   }
 }
 
-.callout {
-  ul {
-    padding-inline-start: 24px;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-
-  a {
-    color: #212529;
-    text-decoration: underline;
-
-    &:hover {
-      color: #007bff;
-    }
-  }
-}
-
 @include color-mode(dark) {
-  .callout {
-    a {
-      color: #fff;
-
-      &:hover {
-        color: #64adfb;
-      }
-    }
-  }
-
   .app-icon {
     background-color: #fff;
   }
