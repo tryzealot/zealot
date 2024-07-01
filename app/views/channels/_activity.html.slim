@@ -17,7 +17,7 @@
             .product-info
               span.badge.text-bg-light.float-end data-bs-toggle="tooltip" title="#{release.created_at.to_fs(:nice)}"
                 = time_ago_in_words(release.created_at)
-              = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release)
+              = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
 
               span.product-description
                 - if release.release_version.present?

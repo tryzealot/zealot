@@ -372,7 +372,7 @@ zh-CN:
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
-      activity: 最近上传动态
+      activity: 上传时间线
       upload_release: 上传应用
       metadata: 渠道信息
       device_type: 设备类型
