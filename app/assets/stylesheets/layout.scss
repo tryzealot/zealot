@@ -31,10 +31,6 @@ ul.pagination {
   }
 }
 
-.callout a {
-  text-decoration: none;
-}
-
 .login-box {
   margin: auto;
 }
@@ -94,8 +90,9 @@ i.icon {
   }
 
   .callout {
-    border-color: #3f474e;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+    a {
+      text-decoration: underline;
+    }
   }
 
   .border-bottom {
