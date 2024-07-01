@@ -4,26 +4,26 @@
       i.icon.fas.fa-sticky-note
       = t('channels.show.metadata')
   .card-body.p-0
-    p.d-flex.flex-column.border-bottom.ps-3.pb-3.pt-3
+    .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = platform_name(@channel.device_type)
       span.text-muted = t('channels.show.device_type')
-    p.d-flex.flex-column.border-bottom.ps-3.pb-3
+    .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = @channel.slug
       span.text-muted = t('channels.show.slug')
     - if current_user&.manage?(app: @app)
-      p.d-flex.flex-column.border-bottom.ps-3.pb-3
+      .d-flex.flex-column.border-bottom.py-2.px-3
         span.font-weight-bold = @channel.password.blank? ? t('channels.show.none') : @channel.password
         span.text-muted = t('channels.show.password')
-    p.d-flex.flex-column.border-bottom.ps-3.pb-3
+    .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = @channel.bundle_id
       span.text-muted = t('channels.show.match_rule', value: @channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
-    p.d-flex.flex-column.border-bottom.ps-3.pb-3
+    .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = @channel.git_url.blank? ? t('channels.show.none') : @channel.git_url
       span.text-muted = t('channels.show.git_url')
-    p.d-flex.flex-column.border-bottom.ps-3.pb-3
+    .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = @channel.releases.count
       span.text-muted = t('channels.show.total_releases')
-    p.d-flex.flex-column.ps-3.pb-3.mb-0
+    .d-flex.flex-column.py-2.px-3.mb-0
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')
 

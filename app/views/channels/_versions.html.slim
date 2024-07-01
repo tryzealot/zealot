@@ -20,5 +20,4 @@
 
   - if @versions.count > 0
     .card-footer.p-1
-      a.btn.w-100.text-primary href="#{friendly_channel_versions_path(@channel)}"
-        = t('channels.show.more')
+      = link_to t('channels.show.more'), friendly_channel_versions_path(@channel), class: 'btn text-primary w-100', data: { turbo: false }
