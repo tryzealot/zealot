@@ -11,7 +11,7 @@
       - if @release.name.present?
         li title="#{t('releases.show.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
           i.fas.fa-list-ul
-          = link_to_if user_signed_in_or_guest_mode?, @release.app_name, friendly_channel_overview_path(@release.channel)
+          = link_to_if user_signed_in_or_guest_mode?, @release.app_name, friendly_channel_overview_path(@release.channel), data: { turbo: false }
       li title="#{t('releases.show.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
         i.fab.fa-gg
         = @release.version
@@ -53,7 +53,7 @@
         - if @release.ci_url.blank?
           = t("releases.sources.#{@release.source.downcase}", default: @release.source)
         - else
-          = link_to_if user_signed_in_or_guest_mode?, @release.source, @release.ci_url
+          = link_to_if user_signed_in_or_guest_mode?, @release.source, @release.ci_url, data: { turbo: false }
       - if @release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = @release.metadata.mobileprovision['expired_at']
           li title="#{t('releases.show.certificate_expired_date', date: expired_date)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
@@ -61,6 +61,6 @@
             = expired_date_tips(expired_date, colorful: false)
         li title="#{t('releases.show.metadata')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
           i.fas.fa-layer-group
-          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), teardown_path(@release.metadata)
+          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), teardown_path(@release.metadata), data: { turbo: false }
 
     == render 'releases/body/install_app'
