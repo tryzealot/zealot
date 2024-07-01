@@ -129,8 +129,8 @@ Rails.application.routes.draw do
       resources :settings
       resources :users, except: :show do
         member do
-          get :lock
-          get :resend_confirmation
+          put :lock
+          put :resend_confirmation
           delete :unlock
         end
       end

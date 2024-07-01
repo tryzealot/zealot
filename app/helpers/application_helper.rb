@@ -53,6 +53,11 @@ module ApplicationHelper
     is_current ? class_name : ''
   end
 
+  def show_modal(title, **options, &)
+    options[:title] = title
+    render 'shared/modal', **options, &
+  end
+
   def platform_name(platform)
     case platform.downcase
     when 'ios'
