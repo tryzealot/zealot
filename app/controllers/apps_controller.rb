@@ -36,7 +36,13 @@ class AppsController < ApplicationController
 
     create_owner
     create_schemes_and_channels
-    redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+    # redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+
+    flash.now.notice = t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+    respond_to do |format|
+      format.html { redirect_to apps_path }
+      format.turbo_stream
+    end
   end
 
   def update
