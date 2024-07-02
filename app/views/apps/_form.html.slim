@@ -1,17 +1,18 @@
 ruby:
-  @schemes ||= 0
-  @channels ||= 0
+  schemes ||= 0
+  channels ||= 0
 
 .col-md-12
   .card
-    .card-body
-      = simple_form_for @app do |f|
+    = simple_form_for app, data: { action: 'turbo:submit-end->modal#close' } do |f|
+      .card-body
         = f.error_notification
 
         = f.input :name, required: true
         - if new_or_create_route?
           = f.simple_fields_for :scheme_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: preset_schemes, checked: @schemes, required: false
+            = n.input :name, as: :check_boxes, collection: preset_schemes, checked: schemes, required: false
           = f.simple_fields_for :channel_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: preset_channels, checked: @channels, required: false
+            = n.input :name, as: :check_boxes, collection: preset_channels, checked: channels, required: false
+      .card-footer
         = f.button :submit
