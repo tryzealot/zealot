@@ -78,3 +78,11 @@ triggerEvents.forEach((name) => {
     trigger_adminlte_treeview_toggle()
   })
 })
+
+window.addEventListener('turbo:before-stream-render', ((event) => {
+  const fallbackToDefaultActions = event.detail.render
+  event.detail.render = function (streamElement) {
+    trigger_bootstrap_tooltip()
+    fallbackToDefaultActions(streamElement)
+  }
+}))
