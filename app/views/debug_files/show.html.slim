@@ -12,12 +12,17 @@ ruby:
 - content_for :section_title do
   = title
 
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{device_app_debug_files_path(@app, platform_name(@debug_file.device_type))}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
-    .app-detail.card
+    .app-detail.card.mb-4
       .card-header
         h3.card-title
-          = app_icon(@debug_file.app.recently_release, class: 'app-icon img-circle img-bordered-sm')
+          = app_icon(@debug_file.app.recently_release, class: 'app-icon rounded-circle img-bordered-sm')
         .app-name
           = @debug_file.name
           .app-identifier
@@ -29,25 +34,25 @@ ruby:
               = t('debug_files.device.reparse_required')
       .card-body
         ul.app-metadata
-          li title="#{t('.name')}" data-toggle="tooltip"
+          li title="#{t('.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fas.fa-list-ul
             = link_to @app.name, app_path(@app)
-          li title="#{t('.version')}" data-toggle="tooltip"
+          li title="#{t('.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fab.fa-gg
             = @debug_file.id
-          li title="#{t('.device_type')}" data-toggle="tooltip"
+          li title="#{t('.device_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             = device_icon(@debug_file.device_type)
             = platform_name(@debug_file.device_type)
-          li title="#{t('.release_version')}" data-toggle="tooltip"
+          li title="#{t('.release_version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fas.fa-server
             = @debug_file.release_version
             - if @debug_file.build_version.present?
               | (#{@debug_file.build_version})
           - if @debug_file.filesize.present?
-            li title="#{t('.file_size')}" data-toggle="tooltip"
+            li title="#{t('.file_size')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
               i.fas.fa-weight
               = " #{number_to_human_size(@debug_file.filesize)}"
-          li title="#{t('.uploaded_at')}" data-toggle="tooltip"
+          li title="#{t('.uploaded_at')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fas.fa-calendar
             = time_ago_in_words(@debug_file.created_at)
         .app-actions[
@@ -67,7 +72,7 @@ ruby:
 
           - if current_user&.manage?(app: @debug_file.app)
             - if !@debug_file.processing? && @debug_file.file?
-              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-info mb-1', data: { turbo_method: :post } do
+              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-primary mb-1', data: { turbo_method: :post } do
                 i.icon.fa.fa-repeat
                 = t('.reprocess')
 
@@ -80,55 +85,58 @@ ruby:
             = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \
               class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
 
-    - unless @debug_file.processing?
-      .row
-        - if ios_debug_file?(@debug_file)
-          ruby:
-            bundle_id = @debug_file.main_object.data['identifier']
-          .col-md-12
-            .card
-              .card-header
-                h3.card-title = t('.main_target', value: @debug_file.main_object.object)
-              .card-body.p-0
-                table.table
-                  thead
-                    tr
-                      td = t('.arch')
-                      td = t('.uuid')
-                  tbody
-                    - @debug_file.main_objects.each do |metadata|
-                      tr
-                        td
-                          span.badge.badge-secondary.ml-1 = metadata.type
-                        td = metadata.uuid
+  - unless @debug_file.processing?
+    - if ios_debug_file?(@debug_file)
+      ruby:
+        bundle_id = @debug_file.main_object.data['identifier']
+      .col-md-12
+        .card.mb-4
+          .card-header
+            h3.card-title = t('.main_target', value: @debug_file.main_object.object)
+          .card-body.p-0
+            table.table.table-bottom-borderless
+              thead
+                tr
+                  td = t('.arch')
+                  td = t('.uuid')
+              tbody
+                - @debug_file.main_objects.each do |metadata|
+                  tr
+                    td
+                      span.badge.text-bg-secondary = metadata.type
+                    td = metadata.uuid
 
-          - if @debug_file.libraries.present?
-            .col-md-12
-              .card
-                .card-body.p-0
-                  table.table
-                    thead
-                      tr
-                        td = t('.libraries')
-                        td.col-md-5 = t('.uuid')
-                    tbody
-                      - @debug_file.libraries.each do |metadata|
-                        tr
-                          td
-                            = metadata.data['identifier']
-                            span.badge.badge-secondary.ml-1 = metadata.type
-                          td = metadata.uuid
-        - else
-          .col-md-12
-            .card
-              .card-body.p-0
-                table.table
-                  thead
+      - if @debug_file.libraries.present?
+        .col-md-12
+          .card.mb-4
+            .card-header
+              h3.card-title = t('.libraries', count: @debug_file.libraries.count)
+            .card-body.p-0
+              table.table.table-bottom-borderless
+                thead
+                  tr
+                    td = t('.libraries')
+                    td.col-md-5 = t('.uuid')
+                tbody
+                  - @debug_file.libraries.each do |metadata|
                     tr
-                      td = t('.filename')
-                      td = t('.file_size')
-                  tbody
-                  - @debug_file.proguard_files.each do |file|
-                    tr
-                      td = file['name']
-                      td = number_to_human_size(file['size'])
+                      td
+                        = metadata.data['identifier']
+                        span.badge.text-bg-secondary.ms-1 = metadata.type
+                      td = metadata.uuid
+    - else
+      .col-md-12
+        .card.mb-4
+          .card-header
+            h3.card-title = t('.filename', count: @debug_file.proguard_files.count)
+          .card-body.p-0
+            table.table.table-bottom-borderless
+              thead
+                tr
+                  td = t('.filename')
+                  td = t('.file_size')
+              tbody
+                - @debug_file.proguard_files.each do |file|
+                  tr
+                    td = file['name']
+                    td = number_to_human_size(file['size'])

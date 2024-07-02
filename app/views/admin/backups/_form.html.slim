@@ -37,7 +37,7 @@
 
     .card-footer
       - unless @backup.new_record?
-        .float-right
+        .float-end
           - if @backup.enabled
             = link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
               data: { turbo_method: :post }

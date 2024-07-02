@@ -1,25 +1,25 @@
 - if ldap_auth_enable?
-  #login-tabs-ldap.tab-pane.fade aria-labelledby="login-tabs-ldap-tab" role="tabpanel"
+  #login-tabs-ldap.tab-pane aria-labelledby="login-tabs-ldap-tab" role="tabpanel" tabindex="1"
     .row
       .auth-form.col-md-6
         = form_tag(user_ldap_omniauth_callback_path) do
-          .form-group
-            = label_tag :username, t('devise.ldap.username')
+          .mb-3
+            = label_tag :username, t('devise.ldap.username'), class: 'mb-2'
             = text_field_tag :username, nil, class: "form-control top", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
-          .form-group
-            = label_tag :password, t('devise.ldap.password')
+          .mb-3
+            = label_tag :password, t('devise.ldap.password'), class: 'mb-2'
             = password_field_tag :password, nil, class: "form-control bottom", data: { qa_selector: 'password_field' }, required: true
 
           - if devise_mapping.rememberable?
             .row
-              .col-12
-                fieldset.form-group.boolean.optional.user_remember_me.icheck-primary style=("margin-top: 6px!important")
+              .d-grid
+                fieldset.mb-3.boolean.optional.user_remember_me.icheck-primary style=("margin-top: 6px!important")
                   .form-check
                     = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'form-check-input boolean optional'
                     = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'form-check-label boolean optional', style: 'font-weight: 700'
           .row
-            .col-12
-              = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary btn-block", data: { qa_selector: 'sign_in_button' }
+            .d-grid
+              = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary w-100", data: { qa_selector: 'sign_in_button' }
 
       .auth-providers.col-md-6
         == render 'devise/shared/links'

@@ -21,7 +21,8 @@ module ApplicationHelper
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
-    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
+      contoller_name == 'users/confirmations'
   end
 
   def button_link_to(title, url, icon = nil, **options)
@@ -50,6 +51,11 @@ module ApplicationHelper
     end
 
     is_current ? class_name : ''
+  end
+
+  def show_modal(title, **options, &)
+    options[:title] = title
+    render 'shared/modal', **options, &
   end
 
   def platform_name(platform)
@@ -129,7 +135,7 @@ module ApplicationHelper
     when 'ios', 'appletv'
       ['fa-apple', 'bg-secondary']
     when 'android'
-      ['fa-android', 'bg-green']
+      ['fa-android', 'bg-green-400']
     when 'windows'
       ['fa-windows', 'bg-primary']
     when 'macos'
@@ -137,7 +143,7 @@ module ApplicationHelper
     when 'linux'
       ['fa-linux', 'bg-info']
     else
-      ['fa-adn', 'bg-lightblue']
+      ['fa-adn', 'bg-blue-400']
     end
   end
 
@@ -152,7 +158,7 @@ module ApplicationHelper
   end
 
   def zealot_version
-    content_tag :span, class: 'version ml-1' do
+    content_tag :span, class: 'version ms-1' do
       prefix = 'Version'
       version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
 

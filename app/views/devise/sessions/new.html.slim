@@ -1,13 +1,13 @@
 - content_for :title do
   = t('.sign_in')
 
-.row.m-3
+.row.my-3
   .col-md-6.order-12.order-sm-1
     == render 'devise/shared/intro'
-  .col-md-6.order-1.order-sm-12.mb-4
-    .card.card-primary.card-outline.card-outline-tabs
-      .card-header.p-0.border-bottom-0
-        ul.nav.nav-tabs role="tablist"
+  .col-md-6.order-1.order-sm-12
+    .card
+      .card-header
+        ul.nav.nav-pills role="tablist"
           == render 'devise/shared/tab_normal'
           == render 'devise/shared/tab_ldap'
 

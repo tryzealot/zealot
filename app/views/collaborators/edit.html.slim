@@ -1,8 +1,2 @@
-- content_for :title do
-  = @title
-
-- content_for :section_title do
-  = @app.name
-
-.row
-  == render "form", collaborator: @collaborator
+= show_modal(@title) do
+  == render "form", collaborator: @collaborator, app: @app

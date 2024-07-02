@@ -1,16 +1,19 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{debug_files_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
-    .card
+    .card.mb-3
       .card-header.card-border
-        h3.card-title
-          = @title
-        .card-tools
-          a href="#{debug_files_path}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
+        h3.card-title = @title
       .card-body
         == render 'form'
 

@@ -1,4 +1,4 @@
 - if ldap_auth_enable?
-  li.nav-item
-    a#login-tabs-ldap-tab.nav-link aria-controls="login-tabs-ldap" aria-selected="true" data-toggle="pill" href="#login-tabs-ldap" role="tab"
+  li.nav-item role="presentation"
+    button#login-tabs-ldap-tab.nav-link data-bs-toggle="pill" data-bs-target="#login-tabs-ldap" type="button" role="tab" aria-controls="login-tabs-ldap" aria-selected="false"
       = t('devise.ldap.title')

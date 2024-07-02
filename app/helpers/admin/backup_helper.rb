@@ -26,11 +26,11 @@ module Admin
     def job_icon(status)
       case status
       when :scheduled, :running
-        tag.div(tag.span('Processing', class: 'sr-only'), class: 'spinner-grow spinner-grow-sm text-warning mr-2')
+        tag.div(tag.span('Processing', class: 'sr-only'), class: 'spinner-grow spinner-grow-sm text-warning me-2')
       when :discarded, :retried
-        tag.i(class: 'fas fa-exclamation-circle text-danger mr-2')
+        tag.i(class: 'fas fa-exclamation-circle text-danger me-2')
       when :succeeded
-        tag.i(class: 'fas fa-check-circle text-success mr-2')
+        tag.i(class: 'fas fa-check-circle text-success me-2')
       end
     end
 

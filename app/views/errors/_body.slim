@@ -5,7 +5,7 @@ ruby:
   goback_link_html = link_to(t('errors.messages.goback_title'), goback_href)
   homepage_link_html = link_to(t('errors.messages.homepage_title'), root_path)
 
-.card class="#{card_header_color}"
+.card.mb-3 class="#{card_header_color}"
   .card-header
     - if content.present?
       h3.card-title

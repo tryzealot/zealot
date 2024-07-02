@@ -24,7 +24,7 @@ export default class extends Controller {
     }).then((response) => response.json())
       .then((json) => {
         const releaseVersion = json.tag_name
-        if (compare(releaseVersion, this.versionValue, '<=')) { return }
+        if (compare(releaseVersion, this.versionValue, "<=")) { return }
         const releaseLink = json.html_url
         const title = this.titleValue + " " + releaseVersion
         this.render(title, releaseLink)

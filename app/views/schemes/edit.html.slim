@@ -1,5 +1,2 @@
-- content_for :title do
-  = @title
-
-.row
-  == render 'form'
+= show_modal(@page_title) do
+  == render 'form', app: @app, scheme: @scheme, channels: @channels

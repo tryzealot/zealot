@@ -135,8 +135,7 @@ class TeardownService
     if url_schemes = parser.url_schemes
       metadata.url_schemes = url_schemes.each_with_object([]) do |option, obj|
         next unless schemes = option[:schemes]
-
-        obj << schemes.split(', ')
+        obj.concat(schemes)
       end
     end
   end

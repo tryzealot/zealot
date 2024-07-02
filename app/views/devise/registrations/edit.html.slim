@@ -6,7 +6,7 @@ ruby:
 
 .row
   .col-md-12
-    .card
+    .card.mb-3
       .card-header.card-border
         h3.card-title = t('.title', resource: resource.model_name.human)
       .card-body
@@ -25,7 +25,7 @@ ruby:
 
           = f.button :submit, class: 'btn-lg'
 
-    .card
+    .card.mb-3
       .card-header.card-border
         h3.card-title = t('.change_password')
       .card-body
@@ -41,15 +41,21 @@ ruby:
           - else
             = f.button :submit, t('.update_password'), class: 'btn-lg'
 
-    .card.card-info
+    .card.mb-3
       .card-header.card-border
         h3.card-title = t('.api')
       .card-body
         .form-group
-          label = t('.token')
-          input type="text" class="form-control" disabled="true" value="#{@user.token}"
+          label.mb-2 = t('.token')
+          .d-flex data-controller="clipboard-center"
+            input.flex-fill.rounded-start.border-0.w-100.p-2.ps-3 type="text" readonly=true value="#{@user.token}" data-clipboard-center-target="source"
+            button.btn.btn-primary.rounded-0.rounded-end[
+              data-action="clipboard-center#copy"
+              data-clipboard-text="#{@user.token}"
+            ]
+              i.far.fa-clipboard
 
-    .card.card-danger
+    .card.card-danger.mb-3
       .card-header.card-border
         h3.card-title = t('.danger_zone')
       .card-body
