@@ -1,13 +1,2 @@
-- content_for :title do
-  = @page_title
-
-- content_for :section_title do
-  = @scheme.app_name
-
-- content_for :section_rightpanel do
-  a.btn.btn-secondary href="#{app_path(@scheme.app)}"
-    i.icon.far.fa-list-alt
-    = t('links.back_to_list')
-
-.row
-  == render 'form'
+= show_modal(@page_title) do
+  == render 'form', channel: @channel, scheme: @scheme, app: @app
