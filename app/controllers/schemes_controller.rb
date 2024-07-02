@@ -22,7 +22,12 @@ class SchemesController < ApplicationController
     return render :new, status: :unprocessable_entity unless @scheme.save
 
     create_channels(channels)
-    redirect_to app_path(@app), notice: t('activerecord.success.create', key: t('schemes.title'))
+
+    flash.now.notice = t('activerecord.success.create', key: t('schemes.title'))
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def edit
@@ -34,14 +39,20 @@ class SchemesController < ApplicationController
   def update
     authorize @scheme
     @scheme.update(scheme_params)
-    redirect_to app_path(@app)
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     authorize @scheme
     @scheme.destroy
 
-    redirect_to app_path(@app), status: :see_other
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   protected
