@@ -66,7 +66,7 @@ gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.5.0'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 5.18.0'
+gem 'sentry-ruby', '~> 5.18.1'
 gem 'sentry-rails', '~> 5.18.0'
 
 ## Jenkins SDK
