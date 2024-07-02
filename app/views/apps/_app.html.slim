@@ -1,0 +1,19 @@
+= turbo_frame_tag app, class: 'col-md-3' do
+  .card.widget-app
+    .card-body.p-0
+      .text-center.mt-3
+        = link_to app_icon(app.recently_release, class: 'app-icon shadow-sm rounded-circle'), app_path(app), data: { turbo: false }
+      h3.profile-username.text-center
+        = link_to app.name, app_path(app), data: { turbo: false }
+      p.created-time.text-muted.text-center
+        = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+      .d-flex.flex-column.pt-2
+        .border-top.py-2.px-3
+          b = t('apps.index.schemes')
+          span.float-end = app.total_schemes
+        .border-top.py-2.px-3
+          b = t('apps.index.channels')
+          span.float-end = app.total_channels
+        .border-top.py-2.px-3
+          b = t('apps.index.uploads')
+          span.float-end = app.total_releases
