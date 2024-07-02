@@ -1,13 +1,2 @@
-- content_for :title do
-  = @title
-
-- content_for :section_title do
-  = @app.name
-
-- content_for :section_rightpanel do
-  a.btn.btn-secondary href="#{app_path(@app)}"
-    i.icon.far.fa-list-alt
-    = t('links.back_to_list')
-
-.row
-  == render "form", collaborator: @collaborator
+= show_modal(@title) do
+  == render "form", collaborator: @collaborator, app: @app
