@@ -28,8 +28,12 @@ class ChannelsController < ApplicationController
     app_url = app_path(@channel.scheme.app)
     return redirect_to app_url, alert: @channel.errors.full_messages.to_sentence unless @channel.save
 
-    message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    redirect_to app_url, notice: message
+    notice = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
+    flash.now.notice = notice
+    respond_to do |format|
+      format.html { redirect_to app_url }
+      format.turbo_stream
+    end
   end
 
   def edit
@@ -39,13 +43,18 @@ class ChannelsController < ApplicationController
 
   def update
     @channel.update(channel_params)
-    redirect_back fallback_location: friendly_channel_overview_path(@channel)
+    respond_to do |format|
+      format.html { redirect_back fallback_location: friendly_channel_overview_path(@channel) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @channel.destroy
-
-    redirect_to app_path(@app), status: :see_other
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def destroy_releases

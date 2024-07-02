@@ -3,8 +3,8 @@ ruby:
 
 .col-md-12
   .card
-    .card-body
-      = simple_form_for(channel, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
+    = simple_form_for(channel, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
+      .card-body
         = f.error_notification
 
         = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
@@ -16,4 +16,5 @@ ruby:
         = f.input :password, input_html: { type: 'input', value: @channel.password }
         - if params[:action] != 'new'
           = f.input :key, input_html: { disabled: true }
+      .card-footer
         = f.button :submit

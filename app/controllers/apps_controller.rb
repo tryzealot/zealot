@@ -58,8 +58,7 @@ class AppsController < ApplicationController
     destroy_app_data
 
     respond_to do |format|
-      format.html { redirect_to apps_path }
-      format.turbo_stream
+      format.any { redirect_to apps_path }
     end
   end
 

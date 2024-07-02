@@ -14,21 +14,12 @@
           span.badge.text-bg-success title="#{t('apps.show.enabled_new_build_callout')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fa.fa-bell
     .card-body.p-0
-      section.app-section
-        .d-flex.flex-column
-          - if scheme.channels.count > 0
-            - scheme.channels.each do |channel|
-              .d-flex.border-top
-                .p-2.m-2.flex-grow-1
-                  = link_to channel.name, friendly_channel_overview_path(channel)
-                - if current_user&.manage?(app: @app)
-                  .p-2.flex-shrink-1
-                    = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
-                    = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
-                      data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
-          - else
-            .p-3
-              = t('apps.show.not_found_channel_body_html')
+      .d-flex.flex-column id="#{dom_id(scheme)}_channels"
+        - if scheme.channels.count > 0
+          - scheme.channels.each do |channel|
+            == render 'apps/channel', channel: channel, scheme: scheme, app: @app
+        - else
+            == render 'apps/empty_channel'
     - if current_user&.manage?(app: @app)
       .card-footer.p-1
         = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), \
