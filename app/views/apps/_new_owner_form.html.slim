@@ -1,10 +1,8 @@
-.col-md-12
-  .card
-    .card-header
-      h3.card-title
-        = @title
-    .card-body
-      = simple_form_for collaborator, url: update_owner_app_path(app), html: { method: :put } do |f|
-        = f.error_notification
-        = f.association :user, label_method: :username, value_method: :id, include_blank: false, hint: t('apps.new_owner.user_hint')
-        = f.button :submit
+= show_modal(@title) do
+  .col-md-12
+    .card
+      .card-body
+        = simple_form_for collaborator, url: update_owner_app_path(app), data: { action: 'turbo:submit-end->modal#close' }, html: { method: :put } do |f|
+          = f.error_notification
+          = f.association :user, label_method: :username, value_method: :id, include_blank: false, hint: t('apps.new_owner.user_hint')
+          = f.button :submit
