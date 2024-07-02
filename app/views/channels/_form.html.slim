@@ -1,18 +1,15 @@
 ruby:
-  form_url = new_or_create_route? ? app_scheme_channels_path(@scheme.app, @scheme) : app_scheme_channel_path(@app, @scheme, @channel)
+  form_url = new_or_create_route? ? app_scheme_channels_path(scheme.app, scheme) : app_scheme_channel_path(app, scheme, channel)
 
 .col-md-12
   .card
-    .card-header
-      h3.card-title
-        = @title
     .card-body
-      = simple_form_for(@channel, url: form_url) do |f|
+      = simple_form_for(channel, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
         = f.error_notification
 
         = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
         = f.input :name, required: true
-        = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: @channel.device_type ? @channel.device_type : Channel.device_types.first
+        = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: channel.device_type ? channel.device_type : Channel.device_types.first
         = f.input :bundle_id
         = f.input :git_url
         = f.input :slug

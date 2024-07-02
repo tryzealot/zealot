@@ -1,0 +1,41 @@
+= turbo_frame_tag scheme, class: "app-scheme col-md-#{card_column_width}" do
+  .card.mb-4
+    .card-header
+      h3.card-title
+        = scheme.name
+      .card-tools
+        - if scheme.retained_builds > 0
+          span.badge.text-bg-success data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{t('apps.show.retained_build')}" style="margin-right: 4px"
+            = scheme.retained_builds
+        - if !scheme.new_build_callout
+          span.badge.text-bg-warning title="#{t('apps.show.disabled_new_build_callout')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+            i.fa.fa-bell-slash
+        - else
+          span.badge.text-bg-success title="#{t('apps.show.enabled_new_build_callout')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+            i.fa.fa-bell
+    .card-body.p-0
+      section.app-section
+        .d-flex.flex-column
+          - if scheme.channels.count > 0
+            - scheme.channels.each do |channel|
+              .d-flex.border-top
+                .p-2.m-2.flex-grow-1
+                  = link_to channel.name, friendly_channel_overview_path(channel)
+                - if current_user&.manage?(app: @app)
+                  .p-2.flex-shrink-1
+                    = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
+                    = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
+                      data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
+          - else
+            .p-3
+              = t('apps.show.not_found_channel_body_html')
+    - if current_user&.manage?(app: @app)
+      .card-footer.p-1
+        = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), \
+          'plus-square', class: 'btn btn-icon text-primary', data: { turbo_frame: :modal }
+        .btn-group.float-end
+          = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary', \
+            title: t('apps.show.edit_scheme'), data: { toggle: 'tooltip', turbo_frame: :modal }
+          = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
+            title: t('apps.show.destroy_scheme'), \
+            data: { toggle: 'tooltip', turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }

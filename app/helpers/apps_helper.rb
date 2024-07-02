@@ -9,7 +9,7 @@ module AppsHelper
     Channel.device_types.values
   end
 
-  def app_channel_columns(schemes_total)
+  def app_scheme_columns(schemes_total)
     case schemes_total
     when 1 then 12
     when 2 then 6

@@ -47,14 +47,20 @@ class AppsController < ApplicationController
 
   def update
     @app.update(app_params)
-    redirect_to apps_path
+    respond_to do |format|
+      format.html { redirect_to apps_path }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @app.destroy
     destroy_app_data
 
-    redirect_to apps_path, status: :see_other
+    respond_to do |format|
+      format.html { redirect_to apps_path }
+      format.turbo_stream
+    end
   end
 
   def new_owner
