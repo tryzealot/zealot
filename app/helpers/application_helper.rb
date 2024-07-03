@@ -25,6 +25,32 @@ module ApplicationHelper
       contoller_name == 'users/confirmations'
   end
 
+  def sidebar_link_to(icon, path, text:, active_path:nil, **options)
+    active_path ||= path
+    link_class = "nav-link #{active_class(active_path)}"
+    tag.li(class: 'nav-item') do
+      icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
+        tag.p(text)
+      end
+    end
+  end
+
+  def icon_link_to(icon, path, **options)
+    link_options = options[:link]
+    link_to(path, **link_options) do
+      icon_options = options[:icon] || {}
+      icon_options[:class] = "#{icon} #{icon_options[:class]}"
+      concat(tag.i(**icon_options))
+
+      text = options[:text]
+      if block_given?
+        text = yield
+      end
+
+      concat(text) if text.present?
+    end
+  end
+
   def button_link_to(title, url, icon = nil, **options)
     options[:class] = "btn #{options[:class]}"
     base_fontawesome = options.delete(:base_fa) || 'fas'

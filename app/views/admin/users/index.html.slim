@@ -5,9 +5,9 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-success href="#{new_admin_user_path}" data-turbo-frame='modal'
-    i.icon.far.fa-plus-square
-    = t('.new_user')
+  = icon_link_to('far fa-plus-square', new_admin_user_path, text: t('.new_user'), \
+    link: { class: 'btn btn-success', data: { turbo_frame: :modal } }, \
+    icon: { class: 'me-1' })
 
 .row
   .col-md-12
