@@ -302,8 +302,6 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
     minitest (5.24.1)
-    mixlib-shellout (3.2.8)
-      chef-utils
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.7.1)

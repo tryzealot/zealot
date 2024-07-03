@@ -2,14 +2,14 @@ import "@hotwired/turbo-rails"
 import { Tooltip } from "bootstrap"
 import { PushMenu, CardWidget, Treeview } from "admin-lte"
 
-const trigger_bootstrap_tooltip = () => {
+const triggerBootstrapTooltip = () => {
   const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]")
   tooltipTriggerList.forEach((element) => {
     new Tooltip(element)
   })
 }
 
-const trigger_adminlte_card_collapse = () => {
+const triggerAdminlteCardCollapse = () => {
   const cardCollapseButtonsList = document.querySelectorAll("[data-lte-toggle=\"card-collapse\"]")
   cardCollapseButtonsList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -22,7 +22,7 @@ const trigger_adminlte_card_collapse = () => {
   })
 }
 
-const trigger_adminlte_sidebar_toggle = () => {
+const triggerAdminlteSidebarToggle = () => {
   const sidebarToggle = "[data-lte-toggle=\"sidebar\"]"
   const sidebarTriggerList = document.querySelectorAll(sidebarToggle)
   sidebarTriggerList.forEach((btn) => {
@@ -45,7 +45,7 @@ const trigger_adminlte_sidebar_toggle = () => {
   })
 }
 
-const trigger_adminlte_treeview_toggle = () => {
+const triggerAdminlteTreeviewToggle = () => {
   const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
   treeviewToggleList.forEach((btn) => {
     btn.addEventListener("click", (event) => {
@@ -72,17 +72,17 @@ const trigger_adminlte_treeview_toggle = () => {
 const triggerEvents = ["load", "turbo:load", "turbo:frame-load"]
 triggerEvents.forEach((name) => {
   window.addEventListener(name, () => {
-    trigger_bootstrap_tooltip()
-    trigger_adminlte_card_collapse()
-    trigger_adminlte_sidebar_toggle()
-    trigger_adminlte_treeview_toggle()
+    triggerBootstrapTooltip()
+    triggerAdminlteCardCollapse()
+    triggerAdminlteSidebarToggle()
+    triggerAdminlteTreeviewToggle()
   })
 })
 
-window.addEventListener('turbo:before-stream-render', ((event) => {
+window.addEventListener("turbo:before-stream-render", (event) => {
   const fallbackToDefaultActions = event.detail.render
   event.detail.render = function (streamElement) {
-    trigger_bootstrap_tooltip()
+    triggerBootstrapTooltip()
     fallbackToDefaultActions(streamElement)
   }
-}))
+})
