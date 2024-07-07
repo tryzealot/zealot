@@ -244,7 +244,7 @@ GEM
     interception (0.5)
     io-console (0.7.2)
     iostruct (0.1.2)
-    irb (1.13.2)
+    irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jb (0.8.2)
@@ -556,10 +556,10 @@ GEM
     rubyntlm (0.6.5)
       base64
     rubyzip (2.3.2)
-    sentry-rails (5.18.0)
+    sentry-rails (5.18.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.18.0)
-    sentry-ruby (5.18.0)
+      sentry-ruby (~> 5.18.1)
+    sentry-ruby (5.18.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -707,7 +707,7 @@ DEPENDENCIES
   rswag-ui (~> 2.13.0)
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.18.0)
+  sentry-rails (~> 5.18.1)
   sentry-ruby (~> 5.18.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
