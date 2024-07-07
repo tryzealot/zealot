@@ -971,6 +971,7 @@ zh-CN:
       messages:
         same_value: "%{key}没有发生变化，忽略此操作"
         invaild_json: 无效的 JSON 格式
+        invaild_jb: 无效格式
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
       models:
