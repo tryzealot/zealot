@@ -939,6 +939,9 @@ en-US:
       goback_title: Go back
       homepage_title: homepage
   active_job:
+    webhook:
+      failures:
+        empty_release: Not found any release to send test webhook.
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
@@ -970,6 +973,7 @@ en-US:
       messages:
         same_value: "%{key} not change, skip to update"
         invaild_json: Invalid JSON format
+        invaild_jb: Invalid format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
