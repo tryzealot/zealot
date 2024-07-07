@@ -940,6 +940,9 @@ zh-CN:
       goback_title: 上级页面
       homepage_title: 首页
   active_job:
+    webhook:
+      failures:
+        empty_release: 没有找到上传应用版本去发送测试网络钩子
     debug_file:
       success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
