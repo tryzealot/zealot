@@ -97,6 +97,7 @@ class Channel < ApplicationRecord
 
   def bundle_id_matched?(value)
     return true if bundle_id.blank? || bundle_id == '*'
+    return false if value.blank? # TODO: need verify why it empty(can not parse bundle id or package name or empty)
 
     value.match?(bundle_id)
   end
