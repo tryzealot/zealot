@@ -957,6 +957,7 @@ en:
       messages:
         same_value: "%{key} not change, skip to update"
         invaild_json: Invalid JSON format
+        invaild_jb: Invalid format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:
