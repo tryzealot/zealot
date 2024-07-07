@@ -73,7 +73,7 @@ gem 'sentry-rails', '~> 5.18.0'
 gem 'improved_jenkins_client', '~> 1.6.7'
 
 # Background job
-gem 'good_job', '~> 3.29.5'
+gem 'good_job', '~> 3.30.0'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
