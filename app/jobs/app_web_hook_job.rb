@@ -15,6 +15,15 @@ class AppWebHookJob < ApplicationJob
     @release = @channel.releases.last
     @user = User.find(user_id)
 
+    if @release.blank?
+      logger.error(log_message(t('active_job.webhook.failures.empty_release')))
+      return notificate_failure(
+        user_id: @user.id,
+        type: 'webhook',
+        message: t('active_job.webhook.failures.empty_release')
+      )
+    end
+
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
     logger.info(log_message("trigger json body: #{message_body}"))
@@ -53,7 +62,7 @@ class AppWebHookJob < ApplicationJob
                                    build_version: @release.build_version,
                                    bundle_id: @release.bundle_id,
                                    changelog: @release.text_changelog,
-                                   file_size: @release.file.size,
+                                   file_size: @release.file_size,
                                    release_url: @release.release_url,
                                    install_url: @release.install_url,
                                    icon_url: @release.icon_url,
@@ -98,5 +107,15 @@ class AppWebHookJob < ApplicationJob
 
   def log_message(message)
     "[Channel] #{@channel.id} #{message}"
+  end
+
+  def build_example_release
+    @channel.releases.build(
+      name: 'Example App',
+      bundle_id: 'im.ews.zealot.example.app',
+      release_version: '1.0.0',
+      build_version: '5',
+      git_commit: '31dbb8497b81e103ecadcab0ca724c3fd87b3ab9'
+    )
   end
 end

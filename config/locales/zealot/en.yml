@@ -929,6 +929,9 @@ en:
       goback_title: Go back
       homepage_title: homepage
   active_job:
+    webhook:
+      failures:
+        empty_release: Not found any release to send test webhook.
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
