@@ -33,7 +33,7 @@ class TeardownService
       process_mobileprovision(parser, metadata)
     else
       case parser.platform
-      when AppInfo::Platform::IOS
+      when AppInfo::Platform::IOS, AppInfo::Platform::APPLETV
         process_ios(parser, metadata)
       when AppInfo::Platform::ANDROID
         process_android(parser, metadata)
@@ -117,9 +117,9 @@ class TeardownService
     end
   end
 
-  ###########
-  # iOS     #
-  ###########
+  ###############
+  # iOS/AppleTV #
+  ###############
 
   def process_ios(parser, metadata)
     process_app_common(parser, metadata)
@@ -132,11 +132,11 @@ class TeardownService
       metadata.devices = devices
     end
 
-    if schemes = parser.info['CFBundleURLTypes']
-      metadata.url_schemes = schemes.each_with_object([]) do |value, obj|
-        next unless schemes_value = value['CFBundleURLSchemes']
+    if url_schemes = parser.url_schemes
+      metadata.url_schemes = url_schemes.each_with_object([]) do |option, obj|
+        next unless schemes = option[:schemes]
 
-        obj << schemes_value.split(', ')
+        obj << schemes.split(', ')
       end
     end
   end

@@ -6,6 +6,7 @@ class Metadatum < ApplicationRecord
 
   enum platform: {
     ios: 'ios',
+    appletv: 'appletv',
     android: 'android',
     mobileprovision: 'mobileprovision',
     macos: 'macos',

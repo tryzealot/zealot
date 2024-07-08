@@ -1,0 +1,42 @@
+.col-md-6
+  .card
+    .card-header
+      h3.card-title
+        i.icon.fas.fa-tv.text-secondary
+        = t('teardowns.show.metadata')
+      .card-tools
+        button.btn.btn-tool data-card-widget="collapse"
+          i.fas.fa-minus
+    .card-body.pl-2.pr-2.p-0
+      dl.system-info.pb-0
+        dt = t('teardowns.show.app_name')
+        dd
+          pre = @metadata.name
+        dt = t('teardowns.show.supported_device')
+        dd
+          pre #{device_name(@metadata.device)} (#{platform_name(@metadata.platform)})
+        dt = t('teardowns.show.version')
+        dd
+          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
+        dt = t('teardowns.show.package_name')
+        dd
+          pre = @metadata.bundle_id
+        dt = t('teardowns.show.release_type')
+        dd
+          pre = release_type_name(@metadata.release_type)
+        dt = t('teardowns.show.min_tvos_version')
+        dd
+          pre = @metadata.min_sdk_version
+        dt = t('teardowns.show.file_size')
+        dd
+          pre = number_to_human_size(@metadata.size)
+
+  == render 'devices_part', devices: @metadata.devices
+  == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
+
+.col-md-6
+  == render 'developer_certs_part'
+  == render 'mobileprovision_part'
+
+  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
+  == render 'card', title: 'Entitlements', raw: @metadata.entitlements

@@ -35,7 +35,7 @@ zh-CN:
       edit:
         title: 用户信息
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}">%{label}</a>。
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}" data-turbo-prefetch="false">%{label}</a>。
         resend: 重新发送激活邮件
         collaborators: 应用成员
         api: API
@@ -632,6 +632,7 @@ zh-CN:
       file_size: 文件大小
       release_type: 打包类型
       min_ios_version: 最低 iOS 版本
+      min_tvos_version: 最低 tvOS 版本
       min_macos_version: 最低 macOS 版本
       capabilities: 启用能力
       devise_list: '设备列表 (%{count})'
@@ -939,6 +940,9 @@ zh-CN:
       goback_title: 上级页面
       homepage_title: 首页
   active_job:
+    webhook:
+      failures:
+        empty_release: 没有找到上传应用版本去发送测试网络钩子
     debug_file:
       success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
@@ -970,6 +974,7 @@ zh-CN:
       messages:
         same_value: "%{key}没有发生变化，忽略此操作"
         invaild_json: 无效的 JSON 格式
+        invaild_jb: 无效格式
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
       models:
