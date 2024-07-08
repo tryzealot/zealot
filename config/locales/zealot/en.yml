@@ -35,7 +35,7 @@ en:
       edit:
         title: User information
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}">%{label}</a>.
+        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}" data-turbo-prefetch="false">%{label}</a>.
         resend: resend confirmation email
         collaborators: Collaborators
         api: API
@@ -637,8 +637,9 @@ en:
       sdk_version_range: Android min SDK / target SDK
       file_size: File size
       release_type: release type
-      min_ios_version: Min iOS version
-      min_macos_version: Min macOS version
+      min_ios_version: Minimum iOS version
+      min_tvos_version: Minimum tvOS version
+      min_macos_version: Minimum macOS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
       developer_certs_list: 'Developer Certificates (%{count})'
@@ -928,6 +929,9 @@ en:
       goback_title: Go back
       homepage_title: homepage
   active_job:
+    webhook:
+      failures:
+        empty_release: Not found any release to send test webhook.
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
@@ -956,6 +960,7 @@ en:
       messages:
         same_value: "%{key} not change, skip to update"
         invaild_json: Invalid JSON format
+        invaild_jb: Invalid format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
       models:

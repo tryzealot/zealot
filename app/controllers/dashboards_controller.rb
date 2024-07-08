@@ -24,7 +24,7 @@ class DashboardsController < ApplicationController
 
   def system_analytics
     general_widgets
-    admin_panels if current_user&.admin?
+    admin_panels
   end
 
   def general_widgets
@@ -37,6 +37,8 @@ class DashboardsController < ApplicationController
   end
 
   def admin_panels
+    return if !!current_user&.admin?
+
     @analytics.merge!({
       users: User.count,
       webhooks: WebHook.count,
@@ -58,25 +60,25 @@ class DashboardsController < ApplicationController
   end
 
   def user_apps
-    return App.count if Setting.guest_mode || current_user.admin?
+    return App.count if Setting.guest_mode || !!current_user&.admin?
 
     current_user.apps.count
   end
 
   def user_teardowns
-    return Metadatum.count if Setting.guest_mode || current_user.admin?
+    return Metadatum.count if Setting.guest_mode || !!current_user&.admin?
 
     current_user.metadatum.count
   end
 
   def user_debug_files
-    return DebugFile.count if Setting.guest_mode || current_user.admin?
+    return DebugFile.count if Setting.guest_mode || !!current_user&.admin?
 
     current_user.apps.sum {|app| app.total_debug_files }
   end
 
   def app_uploads
-    return Release.count if Setting.guest_mode || current_user.admin?
+    return Release.count if Setting.guest_mode || !!current_user&.admin?
 
     current_user.apps.sum {|app| app.total_releases }
   end

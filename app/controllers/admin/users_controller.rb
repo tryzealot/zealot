@@ -27,6 +27,7 @@ class Admin::UsersController < ApplicationController
     authorize @user
 
     @title = @user.email
+    @user.send(:generate_confirmation_token!) if @user.send(:confirmation_period_expired?)
   end
 
   def update
