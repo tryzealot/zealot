@@ -33,10 +33,11 @@ en-US:
         destroy_user: Destroy
         destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
-        title: User information
+        title: Edit user
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}">%{label}</a>.
-        resend: resend confirmation email
+        active_link_tip: If the inviting user does not receive the activation email.
+        resend: resend an email
+        profile: Profile
         collaborators: Collaborators
         api: API
         token: 密钥
@@ -48,7 +49,7 @@ en-US:
       unlock:
         message: 'User %{user} has been unlocked.'
       resend_confirmation:
-        message: '已重新发送确认邮件至%{user}用户'
+        message: 'Re-sent the confirmation email to user %{user}.'
     web_hooks:
       title: Webhooks
       index:
@@ -357,9 +358,13 @@ en-US:
     show:
       empty_channel: Not found any channel.
     new:
-      title: 'New scheme for %{app}'
+      title:
+        with_name: 'New scheme for %{app}'
+        without_name: New scheme
     edit:
-      title: 'Edit scheme for %{app}'
+      title:
+        with_name: 'Edit scheme for %{app}'
+        without_name: Edit scheme
   channels:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
@@ -395,9 +400,13 @@ en-US:
       empty_version: Not found any release with this version!
       more: More
     new:
-      title: 'Create new channel for %{name}'
+      title:
+        with_name: 'New channel for %{app}'
+        without_name: New channel
     edit:
-      title: 'Edit channel for %{name}'
+      title:
+        with_name: 'Edit channel for %{app}'
+        without_name: Edit channel
     branches:
       index:
         subtitle: 'Releases of branch %{branch}'
@@ -448,7 +457,7 @@ en-US:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Install requested
+      installed: Re-Install
       cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
@@ -629,16 +638,24 @@ en-US:
       version: Version
       package_name: Bundle id (package name)
       supported_device: Supported device
-      sdk_version_range: Android min SDK / target SDK
+      android_min_sdk: Minimum SDK
+      android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
+      activities: Activities (%{count})
+      deep_links: Deep Links (%{count})
+      features: Features (%{count})
+      url_schemes: URL Schemes (%{count})
+      permissions: Permissions (%{count})
+      services: Services (%{count})
+      entitlements: Entitlements (%{count})
       min_ios_version: Min iOS version
       min_tvos_version: Minimum tvOS version
-      min_macos_version: Min macOS version
+      min_macos_version: Minimum OS version
       capabilities: Capabilities
-      devise_list: 'UDID (%{count})'
-      developer_certs_list: 'Developer Certificates (%{count})'
-      cert: 'Cert %{index}'
+      devise_list: UDID (%{count})
+      developer_certs_list: Developer Certificates (%{count})
+      cert: Cert %{index}
       cert_expired_at: 'Expired at %{date}'
       cert_created: Created date
       cert_expired: Expired Date
@@ -649,12 +666,12 @@ en-US:
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: 'Signatures (%{count})'
-      signature: 'Scheme %{scheme}'
-      cert_fignger: 'Fingerprint %{digest}'
+      signature_title: Signatures (%{count})
+      signature: Scheme %{scheme}
+      cert_fignger: Fingerprint %{digest}
       signature_not_found: Not found
-      signature_verified: 'Verified'
-      signature_unverified: 'WIP'
+      signature_verified: Verified
+      signature_unverified: WIP
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -672,12 +689,13 @@ en-US:
       company_name: Company name
       binary_size: Binary size
       imports: Imports
+      uploaded_date: Uploaded date
+      uploader: Uploader
     help:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and use
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
+          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -721,8 +739,8 @@ en-US:
             <td>Permissions</td>
           </tr>
           <tr>
-            <td>Developer certs</td>
-            <td></td>
+            <td>Developer Certifications</td>
+            <td>Signatures</td>
           </tr>
           <tr>
             <td>Mobileprovision</td>
@@ -868,9 +886,6 @@ en-US:
       download:
         default:
           not_found: Not found debug file
-    jenkins:
-      build:
-        failed_request: Build request failed, please try again
   demo:
     app_name1: First App
     app_name2: Android Only App
