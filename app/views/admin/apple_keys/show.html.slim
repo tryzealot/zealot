@@ -9,11 +9,11 @@ ruby:
 
 .row
   .col-md-6
-    .card
+    .card.mb-3
       .card-header
         h3.card-title = t('.team_metadata')
       .card-body.p-0
-        table.table
+        table.table.table-bottom-borderless
           tr
             th = t('simple_form.labels.apple_team.display_name')
             td = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team)
@@ -21,11 +21,11 @@ ruby:
             th = t('simple_form.labels.apple_team.team_id')
             td = @apple_key.team.team_id
   .col-md-6
-    .card
+    .card.mb-3
       .card-header
         h3.card-title = t('.key_metadata')
       .card-body.p-0
-        table.table
+        table.table.table-bottom-borderless
           tr
             th = t('simple_form.labels.apple_key.issuer_id')
             td = @apple_key.issuer_id
@@ -48,7 +48,7 @@ ruby:
           = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-icon btn-success btn-sm'
       - if device_total
         .card-body.p-0
-          table.table
+          table.table.table-bottom-borderless
             tr
               th = t('.udid')
               th = t('.udid_name')
@@ -63,10 +63,10 @@ ruby:
                 td = device.platform
                 td = device.model
                 td = device.channels.count
-                td = device.created_at
+                td = device.created_at.to_fs(:nice)
       .card-footer
         - if @apple_key.last_synced_at.present?
-          span title="#{@apple_key.last_synced_at}" data-toggle="tooltip"
+          span title="#{@apple_key.last_synced_at}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
             = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
         - else
           = t('.never_sync')

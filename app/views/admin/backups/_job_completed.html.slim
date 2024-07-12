@@ -4,7 +4,7 @@
       .card-header
         h3.card-title = t('admin.backups.show.backup_files')
       .card-body.p-0
-        table.table
+        table.table.table-bottom-borderless
           tr
             th = t('admin.backups.show.filename')
             th = t('admin.backups.show.sha256')
@@ -14,7 +14,7 @@
           - backup_files.each do |file|
             tr
               td
-                i.fas.fa-check-circle.text-success.mr-2
+                i.fas.fa-check-circle.text-success.me-2
                 = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename)
               td
                 small = file.sha256

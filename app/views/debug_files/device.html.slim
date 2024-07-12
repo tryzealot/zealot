@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    a.btn.btn-icon.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
+    a.btn.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
       i.icon.far.fa-plus-square
       = t('debug_files.index.upload')
 
@@ -21,17 +21,17 @@
                 = link_to t('.number', value: debug_file.id), debug_file_path(debug_file)
               - else
                 = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file_path(debug_file)
-            abbr.debug-file-date.small data-toggle="tooltip" data-placement="bottom" title="#{debug_file.created_at}"
+            abbr.debug-file-date.small data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{debug_file.created_at.to_fs(:nice)}"
               = time_ago_in_words(debug_file.created_at)
           .debug-file-info.col.p-0
             - if debug_file.processing?
-              .pl-3.pt-3
+              .ps-3.pt-3
                 h6.pb-2 = t('.processing')
                 p.small = t('.refresh_page')
             - elsif ios_debug_file?(debug_file)
-              table.table.table-borderless.mb-0
+              table.table.table-borderless.mb-0.border-start
                 thead
-                  tr.debug-file-header
+                  tr
                     td.col-4 = t('.main_target')
                     td.col-3 = t('.arch')
                     td.col-2 = t('.libraries')
@@ -41,13 +41,13 @@
                     td = debug_file.main_object.object
                     td
                       - debug_file.archs.each do |arch|
-                        span.badge.badge-secondary.ml-1 = arch
+                        span.badge.text-bg-secondary.ms-1 = arch
                     td = debug_file.libraries.size
                     td = number_to_human_size(debug_file.filesize)
             - else
               table.table.table-borderless.mb-0
                 thead
-                  tr.debug-file-header
+                  tr
                     td.col-4 = t('.file_nums')
                     td.col-2 = t('.file_size')
                 tbody
@@ -56,7 +56,7 @@
                     td = number_to_human_size(debug_file.filesize)
 
       - if @debug_files.total_pages > 1
-        .pt-2.pb-3.pr-1.float-right
+        .pt-2.pb-3.pe-1.float-end
           = paginate @debug_files
     - else
       .card.card-outline.card-warning

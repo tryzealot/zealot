@@ -20,7 +20,11 @@ class Admin::UsersController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @user.save
 
-    redirect_to admin_users_path, notice: t('activerecord.success.create', key: t('admin.users.title'))
+    flash.now.notice = t('activerecord.success.create', key: t('admin.users.title'))
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+      format.turbo_stream
+    end
   end
 
   def edit
@@ -42,7 +46,11 @@ class Admin::UsersController < ApplicationController
     params.delete(:password) if params[:password].blank?
     return render :edit, status: :unprocessable_entity unless @user.update(params)
 
-    redirect_to admin_users_path, notice: t('activerecord.success.update', key: t('admin.users.title'))
+    flash.now.notice = t('activerecord.success.update', key: t('admin.users.title'))
+    respond_to do |format|
+      format.html { redirect_to edit_admin_user_path(@user) }
+      format.turbo_stream
+    end
   end
 
   def destroy
@@ -55,22 +63,38 @@ class Admin::UsersController < ApplicationController
     @user.destroy
 
     notice = t('activerecord.success.destroy', key: t('admin.users.title'))
-    redirect_to admin_users_path, status: :see_other, notice: notice
+    flash.now.notice = notice
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+      format.turbo_stream
+    end
   end
 
   def lock
     @user.lock_access!(send_instructions: false)
-    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
+    flash.now.notice = t('.message', user: @user.username)
+    respond_to do |format|
+      format.html { redirect_to edit_admin_user_path(@user) }
+      format.turbo_stream
+    end
   end
 
   def unlock
     @user.unlock_access!
-    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
+    flash.now.notice = t('.message', user: @user.username)
+    respond_to do |format|
+      format.html { redirect_to edit_admin_user_path(@user) }
+      format.turbo_stream
+    end
   end
 
   def resend_confirmation
     @user.send_confirmation_instructions
-    redirect_to edit_admin_user_path(@user), notice: t('.message', user: @user.username)
+    flash.now.notice = t('.message', user: @user.username)
+    # respond_to do |format|
+    #   format.html { redirect_to admin_user_path(@user) }
+    #   format.turbo_stream
+    # end
   end
 
   private

@@ -1,7 +1,7 @@
 - content_for :title do
   = t('.sign_up')
 
-.row.m-3
+.row.my-3
   .col-md-6.order-12.order-sm-1
     == render 'devise/shared/intro'
   .col-md-6.order-1.order-sm-12.mb-4
@@ -33,7 +33,7 @@
                           required: true,
                           input_html: { autocomplete: "new-password" }
 
-                = f.button :submit, t('.register'), class: 'btn-block'
+                = f.button :submit, t('.register'), class: 'w-100'
             .auth-providers.col-md-6
               == render 'devise/shared/links'
     - else

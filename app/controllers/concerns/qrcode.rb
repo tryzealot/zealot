@@ -9,8 +9,8 @@ module Qrcode
       color: '#465960'
     },
     dark: {
-      fill: '#343a40',
-      color: '#F0F4Fb'
+      fill: '#212529',
+      color: '#dedcdc'
     },
   }
 

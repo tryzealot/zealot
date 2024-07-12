@@ -33,10 +33,11 @@ en:
         destroy_user: Destroy
         destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
-        title: User information
+        title: Edit user
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}" data-turbo-prefetch="false">%{label}</a>.
-        resend: resend confirmation email
+        active_link_tip: If the inviting user does not receive the activation email.
+        resend: resend an email
+        profile: Profile
         collaborators: Collaborators
         api: API
         token: 密钥
@@ -48,7 +49,7 @@ en:
       unlock:
         message: 'User %{user} has been unlocked.'
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user {user}.'
+        message: 'Re-sent the confirmation email to user %{user}.'
     web_hooks:
       title: Webhooks
       index:
@@ -362,9 +363,13 @@ en:
     show:
       empty_channel: Not found any channel.
     new:
-      title: 'New scheme for %{app}'
+      title:
+        with_name: 'New scheme for %{app}'
+        without_name: New scheme
     edit:
-      title: 'Edit scheme for %{app}'
+      title:
+        with_name: 'Edit scheme for %{app}'
+        without_name: Edit scheme
   channels:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
@@ -400,9 +405,13 @@ en:
       empty_version: Not found any release with this version!
       more: More
     new:
-      title: 'Create new channel for %{name}'
+      title:
+        with_name: 'New channel for %{app}'
+        without_name: New channel
     edit:
-      title: 'Edit channel for %{name}'
+      title:
+        with_name: 'Edit channel for %{app}'
+        without_name: Edit channel
     branches:
       index:
         subtitle: 'Releases of branch %{branch}'
@@ -453,7 +462,7 @@ en:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Install requested
+      installed: Re-Install
       cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
@@ -634,12 +643,31 @@ en:
       version: Version
       package_name: Bundle id (package name)
       supported_device: Supported device
-      sdk_version_range: Android min SDK / target SDK
+      android_min_sdk: Minimum SDK
+      android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
+      activities:
+        one: Activity (%{count})
+        other: Activities (%{count})
+      deep_links:
+        one: Deep Link (%{count})
+        other: Deep Links (%{count})
+      features:
+        one: Feature (%{count})
+        other: Features (%{count})
+      url_schemes:
+        one: URL Scheme (%{count})
+        other: URL Schemes (%{count})
+      permissions:
+        one: Permission (%{count})
+        other: Permissions (%{count})
+      services:
+        one: Service (%{count})
+        other: Services (%{count})
       min_ios_version: Minimum iOS version
       min_tvos_version: Minimum tvOS version
-      min_macos_version: Minimum macOS version
+      min_macos_version: Minimum OS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
       developer_certs_list: 'Developer Certificates (%{count})'
@@ -677,12 +705,13 @@ en:
       company_name: Company name
       binary_size: Binary size
       imports: Imports
+      uploaded_date: Uploaded date
+      uploader: Uploader
     help:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and use
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
+          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -726,8 +755,8 @@ en:
             <td>Permissions</td>
           </tr>
           <tr>
-            <td>Developer certs</td>
-            <td></td>
+            <td>Developer Certifications</td>
+            <td>Signatures</td>
           </tr>
           <tr>
             <td>Mobileprovision</td>
@@ -873,9 +902,6 @@ en:
       download:
         default:
           not_found: Not found debug file
-    jenkins:
-      build:
-        failed_request: Build request failed, please try again
   demo:
     app_name1: First App
     app_name2: Android Only App

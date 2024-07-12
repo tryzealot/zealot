@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import jquery from "jquery"
+import * as bootstrap from "bootstrap"
 
 const DIALOG_ID = "modal-dialog"
 
@@ -11,15 +11,19 @@ export default class extends Controller {
     cancel: String
   }
 
-  click() {
+  click(event) {
+    event.preventDefault()
+
     this.prepare()
-    jquery("#" + DIALOG_ID).modal()
+    const modalNode = document.getElementById(DIALOG_ID)
+    const modal = new bootstrap.Modal(modalNode)
+    modal.show()
   }
 
   prepare() {
     const dialog = document.getElementById(DIALOG_ID)
     if (dialog === null) {
-      const contentNode = document.getElementsByClassName("content-wrapper")[0]
+      const contentNode = document.getElementsByClassName("app-wrapper")[0]
       const firstNode = contentNode.firstChild
       contentNode.insertBefore(this.dialogElement, firstNode)
     }
@@ -37,19 +41,17 @@ export default class extends Controller {
     const button = destroyForm.getElementsByTagName("button")[0]
     button.classList.remove("d-none")
 
-    root.innerHTML = "<div class='modal-dialog' role='document'>" +
+    root.innerHTML = "<div class='modal-dialog'>" +
       "<div class='modal-content'>" +
         "<div class='modal-header'>" +
           "<h4 class='modal-title'>" + this.titleValue + "</h4>" +
-          "<button class='close' aria-label='Close' data-dismiss='modal' type='button'>" +
-            "<span aria-hidden='true'> &times;</span>" +
-          "</button>" +
+          "<button class='btn-close' aria-label='Close' data-dismiss='modal' type='button'></button>" +
         "</div>" +
         "<div class='modal-body'>" +
           "<p>" + this.contentValue + "</p>" +
         "</div>" +
         "<div class='modal-footer'>" +
-          "<button class='btn btn-default' data-dismiss='modal'>" + this.cancelValue + "</button>" +
+          "<button class='btn btn-outline-secondary' data-bs-dismiss='modal'>" + this.cancelValue + "</button>" +
           destroyForm.outerHTML +
         "</div>" +
       "</div >" +
@@ -57,5 +59,4 @@ export default class extends Controller {
 
     return root
   }
-
 }

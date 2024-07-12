@@ -1,0 +1,9 @@
+= turbo_frame_tag channel, class: 'd-flex border-top' do
+  .p-2.m-2.flex-grow-1
+    = link_to channel.name, friendly_channel_overview_path(channel)
+  - if current_user&.manage?(app: app)
+    .p-2.flex-shrink-1
+      = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', class: 'btn-box-tool', \
+        data: { turbo_frame: :modal }
+      = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', class: 'btn-box-tool', \
+        data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }

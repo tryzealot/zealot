@@ -4,12 +4,17 @@
 - content_for :section_title do
   = @title
 
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{teardowns_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     .card.card-outline-tabs.card-primary.card-outline
       .card-body
         = form_tag(teardowns_path, multipart: true) do |form|
-          .form-group
+          .mb-3
             = label_tag :file, "#{t('.file')} #{content_tag(:abbr, '*', title: 'required')}".html_safe, for: 'file'
             .input-group
               = file_field_tag 'file', class: 'form-control-file', id: 'file'

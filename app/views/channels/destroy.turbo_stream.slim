@@ -1,0 +1,4 @@
+= turbo_stream.remove @channel
+
+- if @scheme.channels.count.zero?
+  = turbo_stream.replace "#{dom_id(@scheme)}_channels", partial: 'apps/empty_channel'

@@ -36,19 +36,29 @@ class AppsController < ApplicationController
 
     create_owner
     create_schemes_and_channels
-    redirect_to apps_path, notice: t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+
+    flash.now.notice = t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+    respond_to do |format|
+      format.html { redirect_to apps_path }
+      format.turbo_stream
+    end
   end
 
   def update
     @app.update(app_params)
-    redirect_to apps_path
+    respond_to do |format|
+      format.html { redirect_to apps_path }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @app.destroy
     destroy_app_data
 
-    redirect_to apps_path, status: :see_other
+    respond_to do |format|
+      format.any { redirect_to apps_path }
+    end
   end
 
   def new_owner
@@ -57,17 +67,26 @@ class AppsController < ApplicationController
 
   def update_owner
     @title = t('apps.new_owner.title')
+    @previous_user = @collaborator.user
     user_id = owner_params[:user_id]
-    if @collaborator.user.id == user_id.to_i
+    if @previous_user.id == user_id.to_i
       notice = t('activerecord.errors.messages.same_value', key: t('apps.new_owner.title'))
       return redirect_to @collaborator.app, notice: notice, status: :see_other
     end
 
     new_owner = User.find(user_id)
+    if existed_collaborator = @app.collaborators.find_by(user: new_owner)
+      existed_collaborator.destroy
+    end
+
     return render :new_owner, status: :unprocessable_entity unless @collaborator.update(user: new_owner)
 
     notice = t('activerecord.success.update', key: t('apps.new_owner.title'))
-    redirect_to @app, notice: notice, status: :see_other
+    flash.now.notice = notice
+    respond_to do |format|
+      format.html { redirect_to @app }
+      format.turbo_stream
+    end
   end
 
   private

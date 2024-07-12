@@ -1,23 +1,26 @@
 - if recently_releases.size > 0
-  .card
+  .card.mb-3
     .card-header
       h3.card-title
         i.icon.fas.fa-history
         = t('releases.show.last_ten_uploads')
       .card-tools
-        button.btn.btn-tool data-card-widget="collapse"
-          i.fas.fa-minus
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
     .card-body.pb-0
       .timeline
         - recently_releases.each do |release|
+          ruby:
+            is_current = current_release == release
           div
-            i.fa-circle class="#{current_release == release ? 'fas' : 'far'}"
+            i.timeline-icon.fa-circle class="#{is_current ? 'fas' : 'far'}"
             .timeline-item
-              span.time
+              span.time data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-title="#{release.created_at.to_fs(:nice)}"
                 i.icon.fas.fa-clock
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
-                = link_to release.app_name, friendly_channel_release_path(release.channel, release), class: 'pr-1'
+                = link_to release.app_name, friendly_channel_release_path(release.channel, release), class: 'pe-1', data: { turbo_frame: :release, turbo_action: :advance }
                 - if release.release_version && release.build_version
                   = t('releases.show.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
                 - elsif release.release_version
@@ -25,8 +28,8 @@
                 - else
                   = t('releases.show.upload_auto_version_release', version: release.version)
               - if release.changelog.present?
-                .timeline-body.pb-0
-                  = changelog_render(release.text_changelog(head_line: true), class: 'changelog changelog-full mb-0')
+                .timeline-body
+                  = changelog_render release.text_changelog(head_line: true)
               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                 .timeline-footer
                   - if release.device_type
@@ -45,11 +48,12 @@
                       - else
                         = release.short_git_commit
         div
-          i.fas.fa-clock
+          i.timeline-icon.fas.fa-clock
+
     - if user_signed_in_or_guest_mode?
       ruby:
         channel_path = friendly_channel_overview_path(current_release.channel)
 
-      .card-footer.p-1
-        a.btn.btn-block.btn-flat.text-primary href="#{channel_path}"
+      .card-footer.d-grid.p-1
+        a.btn.w-100.btn-flat.text-primary href="#{channel_path}" data-turbo="false"
           = t('releases.show.more')

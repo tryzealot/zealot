@@ -34,6 +34,10 @@ class Admin::ServiceController < ApplicationController
 
   private
 
+  def render_unauthorized_smtp(exception)
+    respond_with_error(401, exception)
+  end
+
   def client
     @client ||= PumaControlClient.new
   end

@@ -6,7 +6,7 @@
 
 .row
   .col-md-6
-    .card.system_info
+    .card.system_info.mb-3
       .card-header
         h3.card-title = t('.server_info')
       .card-body
@@ -73,15 +73,16 @@
               | )
 
   .col-md-6
-    .card.card-outline class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
+    .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
       .card-header
         h3.card-title = t('.file_permissions')
         .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-minus
+          button.btn.btn-tool data-lte-toggle="card-collapse"
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body.p-0
-        p.pl-4.pt-3 = t('.messages.file_permissions_tip', icon: '<i class="fas fa-exclamation-triangle text-red">')
-        table.table
+        p.ps-4.pt-3 = t('.messages.file_permissions_tip', icon: '<i class="fas fa-exclamation-triangle text-red">')
+        table.table.table-bottom-borderless
           - @file_permissions[:permissions].each do |permission|
             tr
               td = permission[:path]
@@ -91,12 +92,13 @@
                 - else
                   i.fas.fa-exclamation-triangle.text-red
 
-    .card
+    .card.mb-3
       .card-header
         h3.card-title = t('.volume_mounted')
         .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-minus
+          button.btn.btn-tool data-lte-toggle="card-collapse"
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body
         - unless @disks.blank?
           dl.system-info
@@ -111,12 +113,13 @@
         - else
           = t('.fail_detect_disk')
 
-    .card.collapsed-card
+    .card.collapsed-card.mb-3
       .card-header
         h3.card-title = t('.system_environment')
         .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-plus
+          button.btn.btn-tool data-lte-toggle="card-collapse"
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body
         dl.system-info
           - @env.each do |key, value|
@@ -125,14 +128,15 @@
               pre
                 = secure_value(key, value)
 
-    .card.collapsed-card
+    .card.collapsed-card.mb-3
       .card-header
         h3.card-title = t('.ruby_gems')
         .card-tools
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-plus
+          button.btn.btn-tool data-lte-toggle="card-collapse"
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body.p-0
-        table.table
+        table.table.table-bottom-borderless
           - @gems.each do |name, version|
             tr
               td = name

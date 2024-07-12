@@ -12,7 +12,7 @@
   }
 }
 
-.dark-mode {
+@include color-mode(dark) {
   .backups,
   .backup {
     .run-backup,

@@ -1,12 +1,20 @@
 - content_for :title do
   = @title
 
+- content_for :section_title do
+  = @title
+
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{teardowns_path}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   - if @metadata.release.present?
     ruby:
       link = link_to(@metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release))
     .col-md-12
-      .callout.callout-info
+      .callout.callout-info.mb-3
         h5 = t('.related_app')
         p
           = raw t('.related_body', link: link)

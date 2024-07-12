@@ -3,14 +3,14 @@
   data-release-download-install-url-value="#{@release.install_url}"
   data-release-download-install-limited-value="#{Setting.preset_install_limited.to_json}"
   data-release-download-installing-value="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
-  data-release-download-installed-value="<i class='fas fa-mobile-alt'></i>#{t('releases.show.installed')}"
+  data-release-download-installed-value="<i class='fas fa-download'></i>#{t('releases.show.installed')}"
   data-release-download-open-safari-value="#{t('releases.show.app_open_in_safari')}"
   data-release-download-open-brower-value="#{t('releases.show.app_open_in_webbrower')}"
 ]
   == render 'releases/body/app_limited'
   == render 'releases/body/install_issues'
 
-  .install-buttons data-release-download-target="buttons"
+  .action-buttons data-release-download-target="buttons"
     - if @release.file?
       - if @release.platform == 'iOS'
         - if @release.cert_expired?
@@ -22,7 +22,7 @@
             data-action="release-download#install"
             data-release-download-target="installButton"
           ]
-            i.fas.fa-mobile-alt
+            i.fas.fa-download
             = t('releases.show.install')
 
       a.btn.btn-icon.btn-lg.btn-success[
@@ -30,7 +30,7 @@
         href="#{@release.download_url}"
         target="_blank"
       ]
-        i.fas.fa-download
+        i.fas.fa-hard-drive
         = t('releases.show.download')
     - else
       button.btn.btn-icon.btn-lg.btn-secondary.disabled
@@ -43,13 +43,7 @@
           i.fas.fa-trash-alt
           = t('releases.show.destroy')
 
-    / - if @release.ci_url.present?
-    /   button#build_it.btn.btn-icon.btn-lg.btn-success data-app-id="#{@release.app.id}" data-job="#{@release.ci_url}" data-loading-text=("<i class='fa fa-circle-o-notch fa-spin'></i> 正在构建...") data-toggle="modal" onclick="build()"
-    /     i.fas.fa-wrench
-    /     | 构建
-
     .ios-issues
-      / p#jekins_buld_alert.alert.alert-warning.d-none.mt-1 role="alert"
       - if @release.file? && @release.cert_expired?
         .ios-cert-expired
           i.fas.fa-asterisk

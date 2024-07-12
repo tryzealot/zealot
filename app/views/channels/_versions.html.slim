@@ -1,11 +1,11 @@
-.card.card-solid
+.card.mb-3
   .card-header
     h3.card-title
       i.icon.fas.fa-archive
       = t('channels.show.major_versions')
   .card-body.table-responsive.p-0
     - if @versions.count > 0
-      table.table
+      table.table.table-bottom-borderless
         tr
           th = t('channels.show.release_version')
           th = t('channels.show.total_version')
@@ -20,5 +20,4 @@
 
   - if @versions.count > 0
     .card-footer.p-1
-      a.btn.btn-block.text-primary href="#{friendly_channel_versions_path(@channel)}"
-        = t('channels.show.more')
+      = link_to t('channels.show.more'), friendly_channel_versions_path(@channel), class: 'btn text-primary w-100', data: { turbo: false }

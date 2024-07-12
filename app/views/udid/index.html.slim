@@ -11,12 +11,12 @@
     data-udid-macos-tip-value="#{t('.macos_tip')}"
     data-udid-nonapple-tip-value="#{t('.nonapple_tip')}"
   ]
-    .card
+    .card.mb-3
       .card-body.text-center data-udid-target="qrcode"
         = install_qrcode_image_tag
         .pt-4.text-center data-udid-target="tip" = t('.apple_tip')
       .install-profile data-udid-target="install"
-          = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg btn-block'
+        = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg w-100 rounded-0 rounded-bottom'
 
     - if params[:preview].present?
       .card
