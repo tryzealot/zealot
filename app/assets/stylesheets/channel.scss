@@ -1,19 +1,45 @@
-.product-list-in-card {
-  .item {
+.products-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .product-item {
+    @extend .d-flex;
+    @extend .py-2;
+
+    border-bottom: 1px solid var(--bs-border-color) !important;
+
     .product-img {
-      margin-left: 10px;
+      @extend .ps-3;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
     }
 
     .product-info {
-      margin-left: 70px;
-      margin-right: 10px;
+      @extend .w-100;
+      @extend .px-3;
+
+      font-weight: 500;
+
+      .product-description {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        p {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+
+    &:last-child {
+      border-bottom: none !important;
     }
   }
-}
-
-.filter-nav {
-  // border: 1px solid #000;
-  @extend .card !optional;
 }
 
 .nav-pills .nav-link-flat {

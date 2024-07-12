@@ -5,7 +5,7 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.bg-green href="#{new_admin_backup_path}"
+  a.btn.btn-success href="#{new_admin_backup_path}"
     i.icon.far.fa-plus-square
     = t('.new_schedule')
 
@@ -14,7 +14,7 @@
     - unless @backups.empty?
       .card
         .card-body.p-0
-          table.table.backups
+          table.table.table-bottom-borderless.backups
             thead
               tr
                 th = t('.key')

@@ -21,7 +21,34 @@ module ApplicationHelper
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
-    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
+      contoller_name == 'users/confirmations'
+  end
+
+  def sidebar_link_to(icon, path, text:, active_path:nil, **options)
+    active_path ||= path
+    link_class = "nav-link #{active_class(active_path)}"
+    tag.li(class: 'nav-item') do
+      icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
+        tag.p(text)
+      end
+    end
+  end
+
+  def icon_link_to(icon, path, **options)
+    link_options = options[:link]
+    link_to(path, **link_options) do
+      icon_options = options[:icon] || {}
+      icon_options[:class] = "#{icon} #{icon_options[:class]}"
+      concat(tag.i(**icon_options))
+
+      text = options[:text]
+      if block_given?
+        text = yield
+      end
+
+      concat(text) if text.present?
+    end
   end
 
   def button_link_to(title, url, icon = nil, **options)
@@ -50,6 +77,11 @@ module ApplicationHelper
     end
 
     is_current ? class_name : ''
+  end
+
+  def show_modal(title, **options, &)
+    options[:title] = title
+    render 'shared/modal', **options, &
   end
 
   def platform_name(platform)
@@ -129,7 +161,7 @@ module ApplicationHelper
     when 'ios', 'appletv'
       ['fa-apple', 'bg-secondary']
     when 'android'
-      ['fa-android', 'bg-green']
+      ['fa-android', 'bg-green-400']
     when 'windows'
       ['fa-windows', 'bg-primary']
     when 'macos'
@@ -137,7 +169,7 @@ module ApplicationHelper
     when 'linux'
       ['fa-linux', 'bg-info']
     else
-      ['fa-adn', 'bg-lightblue']
+      ['fa-adn', 'bg-blue-400']
     end
   end
 
@@ -152,7 +184,7 @@ module ApplicationHelper
   end
 
   def zealot_version
-    content_tag :span, class: 'version ml-1' do
+    content_tag :span, class: 'version ms-1' do
       prefix = 'Version'
       version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
 

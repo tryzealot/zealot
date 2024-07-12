@@ -22,15 +22,28 @@
     }
 
     .time-title {
-      @extend .bg-olive !optional;
+      @extend .bg-primary !optional;
       @extend .text-white;
+
+      padding: 2px 4px;
     }
 
     .timeline-item {
       margin-left: 40px;
       background-color: #f8f8f8;
 
+      .timeline-body {
+        @extend .py-2;
+
+        ul {
+          @extend .ps-4;
+        }
+      }
+
       .timeline-footer {
+        @extend .pt-1;
+        @extend .pb-2;
+
         .badge {
           margin-left: 5px;
           color: #31708f;
@@ -55,36 +68,38 @@
   }
 }
 
-.dark-mode {
-  .timeline::before {
-    background-color: #454d55;
-  }
-
-  .timeline div {
-    .fas,
-    .fa,
-    .fab,
-    .far {
-      background-color: #454d55;
-    }
-
-    .time-title {
-      color: #373737 !important;
-    }
-
-    .timeline-item {
-      background-color: #454d55;
-      border-color: #3a3a3a;
-
-      .timeline-header {
-        border-color: #444;
+@include color-mode(dark) {
+  .timeline {
+    div {
+      .fas,
+      .fa,
+      .fab,
+      .far {
+        background-color: #454d55;
       }
 
-      .timeline-footer .badge {
-        color: #dbe3ec;
-        background-color: #486685;
-        border-color: #3f6791;
+      .time-title {
+        background-color: var(--bs-primary-bg) !important;
       }
+
+      .timeline-item {
+        background-color: #293138;
+        border-color: var(--bs-border-color);
+
+        .timeline-header {
+          border-color: var(--bs-border-color);
+        }
+
+        .timeline-footer .badge {
+          color: #dbe3ec;
+          background-color: #486685;
+          border-color: var(--bs-primary-bg);
+        }
+      }
+    }
+
+    &::before {
+      background-color: #454d55;
     }
   }
 }

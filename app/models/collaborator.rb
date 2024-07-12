@@ -7,6 +7,8 @@ class Collaborator < ApplicationRecord
   belongs_to :user
   belongs_to :app
 
+  default_scope { order(owner: :desc, role: :desc) }
+
   enum role: %i[member developer admin]
 
   validates :owner, inclusion: [ true, false ]

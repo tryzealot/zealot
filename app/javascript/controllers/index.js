@@ -18,4 +18,7 @@ application.register("udid", UDIDController)
 import BulkOperationController from "./bulk_operation_controller"
 application.register("bulk-operation", BulkOperationController)
 
+import ModalController from "./modal_controller"
+application.register("modal", ModalController)
+
 import "./admin"

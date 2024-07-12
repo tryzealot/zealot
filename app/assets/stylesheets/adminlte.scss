@@ -1,14 +1,53 @@
 @import "bootstrap/scss/bootstrap";
-@import "bootstrap/scss/functions";
-@import "admin-lte/build/scss/_bootstrap-variables";
+@import "admin-lte/src/scss/adminlte";
 
-@import "admin-lte/build/scss/variables";
-@import "admin-lte/build/scss/variables-alt";
-@import "admin-lte/build/scss/mixins";
+@include color-mode(dark) {
+  --bs-border-color: rgba(255, 255, 255, 0.15);
 
-@import "admin-lte/build/scss/parts/core";
-@import "admin-lte/build/scss/parts/components";
-@import "admin-lte/build/scss/parts/extra-components";
-@import "admin-lte/build/scss/parts/pages";
-@import "admin-lte/build/scss/parts/plugins";
-@import "admin-lte/build/scss/parts/miscellaneous";
+  // input {
+  //   background-color: #393a3c !important;
+  //   border-color: #505356 !important;
+  //   color: #999 !important;
+  // }
+
+  .app-header {
+    border-color: var(--bs-border-color) !important;
+  }
+
+  .text-bg-info {
+    background-color: var(--bs-info-bg) !important;
+  }
+
+  .card-info {
+    .card-header {
+      background-color: var(--bs-info-bg) !important;
+      color: #fff !important;
+    }
+  }
+
+  .card-danger {
+    .card-header {
+      background-color: var(--bs-danger-bg) !important;
+    }
+  }
+
+  .card-warning {
+    border-top: 3px solid var(--bs-warning-border-subtle);
+
+    .card-header {
+      background-color: var(--bs-warning-bg-subtle) !important;
+      color: var(--bd-callout-color) !important;
+    }
+  }
+
+  .card-header {
+    border-color: var(--bs-border-color) !important;
+  }
+
+  .pagination {
+    .active > a {
+      background-color: var(--bs-primary-bg);
+      border-color: var(--bs-primary-bg);
+    }
+  }
+}

@@ -1,9 +1,9 @@
 zh-CN:
   function_section: 功能区域
   toolbox_section: 工具箱
-  admin_section: 管理面板
-  monitors_section: 监控
-  user_profile: 详情
+  admin_section: 管理区域
+  monitors_section: 监控区域
+  user_profile: 用户详情
   log_out: 登出
   log_in: 登录
   intro:
@@ -33,10 +33,11 @@ zh-CN:
         destroy_user: 删除
         destroy_user_confirm: 你确定要删除【%{user}】用户？
       edit:
-        title: 用户信息
+        title: 修改用户
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}" data-turbo-prefetch="false">%{label}</a>。
-        resend: 重新发送激活邮件
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件
+        resend: 重发激活邮件
+        profile: 个人信息
         collaborators: 应用成员
         api: API
         token: Token
@@ -358,16 +359,20 @@ zh-CN:
     show:
       empty_channel: 没有发现已创建的渠道，请新建一个
     new:
-      title: '%{app}新建类型'
+      title:
+        with_name: '%{app}新建类型'
+        without_name: 新建类型
     edit:
-      title: '%{app}编辑类型'
+      title:
+        with_name: '%{app}编辑类型'
+        without_name: 编辑类型
   channels:
     title: 应用渠道
     subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
-      activity: 最近上传动态
+      activity: 上传时间线
       upload_release: 上传应用
       metadata: 渠道信息
       device_type: 设备类型
@@ -396,9 +401,13 @@ zh-CN:
       empty_version: 该版本没有任何上传记录！
       more: 查看更多
     new:
-      title: '%{name}新建渠道'
+      title:
+        with_name: '%{app}新建渠道'
+        without_name: 新建渠道
     edit:
-      title: '%{name}编辑渠道'
+      title:
+        with_name: '%{app}编辑渠道'
+        without_name: 编辑渠道
     branches:
       index:
         subtitle: '%{branch} 分支版本列表'
@@ -448,14 +457,14 @@ zh-CN:
       teardown_metadata: 解包信息
       install: 安装
       download: 下载
-      installing: 安装到桌面 ...
-      installed: 安装请求完毕，重新安装
+      installing: 安装中 ...
+      installed: 重新安装
       cert_expired: 证书过期无法安装
       destroy: 删除
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
-      cannot_install_or_untrusted_enterprise_developer: 请查看桌面，若没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
+      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面。点击这里解决应用安装失败或遇到 "未受信任的企业级开发者" 错误。
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
@@ -628,16 +637,24 @@ zh-CN:
       version: 版本
       package_name: 包名
       supported_device: 支持设备
-      sdk_version_range: Android 最低版本 / 目标版本
+      android_min_sdk: 最低支持版本
+      android_target_sdk: 编译构建版本
       file_size: 文件大小
       release_type: 打包类型
+      activities: Activities (%{count})
+      deep_links: Deep Links (%{count})
+      features: Features (%{count})
+      url_schemes: URL Schemes (%{count})
+      permissions: Permissions (%{count})
+      services: Services (%{count})
+      entitlements: Entitlements (%{count})
       min_ios_version: 最低 iOS 版本
       min_tvos_version: 最低 tvOS 版本
-      min_macos_version: 最低 macOS 版本
+      min_macos_version: 最低系统版本
       capabilities: 启用能力
-      devise_list: '设备列表 (%{count})'
-      developer_certs_list: '开发者证书 (%{count})'
-      cert: '证书 %{index}'
+      devise_list: 设备列表 (%{count})
+      developer_certs_list: 开发者证书 (%{count})
+      cert: 证书 %{index}
       cert_expired_at: '%{date} 到期'
       cert_created: 创建日期
       cert_expired: 失效日期
@@ -648,12 +665,12 @@ zh-CN:
       cert_subject: 主题
       cert_digest: 数字摘要
       cert_length: 长度
-      signature_title: '应用签名 (%{count})'
-      signature: '签名版本 %{scheme}'
-      cert_fignger: '签名指纹 %{digest}'
+      signature_title: 应用签名 (%{count})
+      signature: 签名版本 %{scheme}
+      cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
-      signature_verified: '签名校验通过'
-      signature_unverified: '签名校验待开发'
+      signature_verified: 签名校验通过
+      signature_unverified: 签名校验待开发
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)
@@ -671,13 +688,14 @@ zh-CN:
       company_name: 公司名称
       binary_size: 二进制文件大小
       imports: 引用库
+      uploaded_date: 上传日期
+      uploader: 上传者
     help:
       title: 帮助中心
       body_html: |
         <p>
-          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用通过强大的
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> 强力驱动读取出来应用中的实用信息用于辅助阅读、
-          参考和定位问题：
+          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
+          诊断、参考和定位问题：
         </p>
         <table class="table table-bordered">
           <tr>
@@ -722,7 +740,7 @@ zh-CN:
           </tr>
           <tr>
             <td>开发者证书</td>
-            <td></td>
+            <td>签名信息</td>
           </tr>
           <tr>
             <td>描述文件</td>
@@ -867,9 +885,6 @@ zh-CN:
       download:
         default:
           not_found: 调试文件版本不存在
-    jenkins:
-      build:
-        failed_request: 构建请求失败，请重新尝试
   demo:
     app_name1: 默认应用
     app_name2: 默认 Android 应用

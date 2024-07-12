@@ -1,26 +1,23 @@
 .col-md-12
   - if @metadata.present?
-    .card
+    .card.mb-3
       .card-header
         h3.card-title
           i.icon.fas.fa-history
           = t('teardowns.index.upload_history')
       .card-body.p-0
-        table.table.table-hover
+        table.table.table-hover.table-bottom-borderless
           tr
-            th = t('teardowns.index.uploaded_at')
             th = t('teardowns.index.app_name')
             th = t('teardowns.index.version')
             th = t('teardowns.index.platform')
-            th = t('teardowns.index.uploader')
+            th.d-none.d-sm-table-cell = t('teardowns.index.uploader')
+            th style="width: 160px" = t('teardowns.index.uploaded_at')
 
             - if user_signed_in? && @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
-              th = t('teardowns.index.actions')
+              th.d-none.d-sm-table-cell style="width: 90px" = t('teardowns.index.actions')
           - @metadata.each_with_index do |md, index|
             tr
-              td
-                span data-toggle="tooltip" title="#{md.created_at}"
-                  = time_ago_in_words(md.created_at)
               td
                 = link_to (md.name || '-'), teardown_path(md)
               td
@@ -32,21 +29,24 @@
                   | -
               td
                 = platform_name(md.platform)
-              td
+              td.d-none.d-sm-table-cell
                 = md.user&.username || t('teardowns.index.anonymous')
+              td
+                span data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{md.created_at.to_fs(:nice)}"
+                  = time_ago_in_words(md.created_at)
 
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
-                td
+                td.d-none.d-sm-table-cell
                   = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
                     data: { turbo_confirm: t('teardowns.messages.confirm.destroy') } do
                     i.fas.fa-trash-alt
 
       - if @metadata.total_pages > 1
         .card-footer.clearfix
-          .float-right
+          .float-end
             = paginate @metadata
   - else
-    .card.card-outline.card-warning
+    .card.card-outline.card-warning.mb-3
       .card-header.card-border
         h3.card-title = t('teardowns.index.not_found.title')
       .card-body = t('teardowns.index.not_found.body_html')

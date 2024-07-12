@@ -129,8 +129,8 @@ Rails.application.routes.draw do
       resources :settings
       resources :users, except: :show do
         member do
-          get :lock
-          get :resend_confirmation
+          put :lock
+          put :resend_confirmation
           delete :unlock
         end
       end
@@ -226,14 +226,6 @@ Rails.application.routes.draw do
     end
 
     resources :devices, only: %i[update]
-
-    namespace :jenkins do
-      get 'projects', to: 'projects#index'
-      get 'projects/:project', to: 'projects#show', as: 'project'
-      get 'projects/:project/build', to: 'build#create', as: 'project_build'
-      get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
-    end
-
     resources :version, only: :index
 
     if Setting.openapi_ui
