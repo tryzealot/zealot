@@ -10,20 +10,31 @@ const notificationChannel = consumer.subscriptions.create("NotificationChannel",
     if (Object.keys(data).length === 0) { return }
 
     var color = "success"
-    var icon = "fas fa-check"
+    var icon = "fa-check"
     if (data.status !== "success") {
-      icon = "fas fa-exclamation-triangle"
+      icon = "fa-exclamation-triangle"
       color = "danger"
     }
 
-    const notificationNode = document.getElementById("notifications")
-    const newNotification = document.createElement("div");
-    newNotification.classList.add("alert", "alert-dismissible", `alert-${color}`)
-    newNotification.innerHTML = "<button aria-hidden='true' class='close' data-dismiss='alert'>×</button>" +
-      "<h4><i class='icon fas fa-" + icon + "'></i>" +
-      "<span id='flash_notice'>" + data.message + "</span></h4 ></div >"
+    const body = document.createElement("div")
+    const bodyIcon = document.createElement("i")
+    bodyIcon.classList.add("flex-shrink-0", "me-2", "fas", `fas-${icon}`)
+    body.appendChild(bodyIcon)
 
-    notificationNode.insertBefore(newNotification, notificationNode.firstChild)
+    const messageText = document.createTextNode(data.message)
+    body.appendChild(messageText)
+
+    const closeButton = document.createElement("button")
+    closeButton.classList.add("btn-sm", "btn-close")
+    closeButton.setAttribute("data-bs-dismiss", "alert")
+
+    const notificationAlert = document.createElement("div")
+    notificationAlert.classList.add("alert", "alert-dismissible", "fade", "show", `alert-${color}`)
+    notificationAlert.appendChild(body)
+    notificationAlert.appendChild(closeButton)
+
+    const notificationNode = document.getElementById("notifications")
+    notificationNode.insertBefore(notificationAlert, notificationNode.firstChild)
 
     if (data.refresh_page) {
       setTimeout(() => {
