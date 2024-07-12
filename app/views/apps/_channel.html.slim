@@ -1,6 +1,6 @@
 = turbo_frame_tag channel, class: 'd-flex border-top' do
   .p-2.m-2.flex-grow-1
-    = link_to channel.name, friendly_channel_overview_path(channel)
+    = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
   - if current_user&.manage?(app: app)
     .p-2.flex-shrink-1
       = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', class: 'btn-box-tool', \
