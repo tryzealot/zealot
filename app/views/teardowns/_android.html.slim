@@ -45,7 +45,7 @@ ruby:
           pre = number_to_human_size(@metadata.size)
         dt = t('teardowns.show.uploaded_date')
         dd
-          pre = @metadata.created_at.to_fs(:nice)
+          pre = l(@metadata.created_at, format: :nice)
         dt = t('teardowns.show.uploader')
         dd
           pre = @metadata.user.username

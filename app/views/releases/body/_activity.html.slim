@@ -16,7 +16,7 @@
           div
             i.timeline-icon.fa-circle class="#{is_current ? 'fas' : 'far'}"
             .timeline-item
-              span.time data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-title="#{release.created_at.to_fs(:nice)}"
+              span.time data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-title="#{l(release.created_at, format: :nice)}"
                 i.icon.fas.fa-clock
                 = time_ago_in_words(release.created_at)
               h3.timeline-header

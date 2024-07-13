@@ -22,7 +22,7 @@
           pre = "#{@metadata.mobileprovision['team_name']} (#{@metadata.mobileprovision['team_identifier'].first})"
         dt = t('teardowns.show.created_at')
         dd
-          pre = @metadata.mobileprovision['created_at'].to_datetime.to_fs(:nice)
+          pre = l(@metadata.mobileprovision['created_at'].to_datetime, format: :nice)
         dt = t('teardowns.show.expired_at')
         dd
           pre

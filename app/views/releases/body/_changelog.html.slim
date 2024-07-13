@@ -14,7 +14,7 @@
           .product-info
             - if date = changelog['date']
               small.float-end
-                span.badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{date}"
+                span.badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(Time.parse(date), format: :nice)}"
                   = time_ago_in_words(date)
             - if changelog['author']
               small.float-end.me-1

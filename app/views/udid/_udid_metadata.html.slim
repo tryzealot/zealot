@@ -25,4 +25,4 @@
           == render 'udid/item', key: 'serial', value: params[:serial], copy: true
 
         - if device.present?
-          == render 'udid/item', key: 'created_at', value: device.created_at.to_fs(:nice), copy: false
+          == render 'udid/item', key: 'created_at', value: l(device.created_at, format: :nice), copy: false

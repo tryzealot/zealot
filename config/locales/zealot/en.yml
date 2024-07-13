@@ -916,6 +916,15 @@ en:
       channel3: F-Droid
       channel4: TapTap
       channel5: Amazon
+
+  date:
+    formats:
+      nice: '%b %d, %Y'
+
+  time:
+    formats:
+      nice: '%b %d, %Y, %I:%M %p GMT%:::z'
+
   errors:
     code:
       '400':
