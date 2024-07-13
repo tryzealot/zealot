@@ -546,7 +546,7 @@ en-US:
       version: Build number
       device_type: Platform
       release_version: Version
-      file_nums: Numbers of file
+      filename: Filename
       file_size: File size
       uploaded_at: Upload date
       missing_file: Missing file
@@ -555,9 +555,10 @@ en-US:
       destroy: Destroy
       main_target: 'Main target: %{value}'
       arch: Architecture
+      target: Target
       uuid: UUID
-      libraries: Libraries
-      filename: Filename
+      libraries: 库 (%{count})
+      files: 文件 (%{count})
     device:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
