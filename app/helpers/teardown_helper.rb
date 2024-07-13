@@ -14,20 +14,20 @@ module TeardownHelper
     duration = ActiveSupport::Duration.build(time - Time.now)
     time_in_words = distance_of_time_in_words(time, Time.now)
 
-    style_name = 'text-green'
+    style_name = 'text-success'
     message = t('teardowns.show.expired_in', time: time_in_words)
 
     if duration.value < 0
-      style_name = 'text-red'
+      style_name = 'text-danger'
       message = t('teardowns.show.already_expired', time: time_in_words)
     elsif duration.value == 0
-      style_name = 'text-red'
+      style_name = 'text-danger'
       message = t('teardowns.show.expired')
     else
-      style_name = (duration.value <= 3.months.to_i) ? 'text-yellow' : 'text-green'
+      style_name = (duration.value <= 3.months.to_i) ? 'text-warning' : 'text-success'
     end
 
-    content_tag(:span, "#{prefix}#{message}", class: colorful ? [style_name, 'text-bold'] : [])
+    content_tag(:span, "#{prefix}#{message}", class: colorful ? [style_name, 'fw-bolder'] : [])
   end
 
   def android_version_info(api_version)
