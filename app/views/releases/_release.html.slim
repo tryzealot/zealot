@@ -8,7 +8,7 @@
 
   .col-md-4.col-lg-3
     - if current_user&.manage?
-      = link_to t('releases.new.title'), new_channel_release_path(release.channel), class: 'btn btn-success w-100 mb-3'
+      = link_to t('releases.new.title'), new_channel_release_path(release.channel), class: 'btn btn-success w-100 mb-3', data: { turbo: false }
 
     - if user_signed_in_or_guest_mode?
       == render 'releases/sidebar/debug_file', debug_file: release.debug_file
