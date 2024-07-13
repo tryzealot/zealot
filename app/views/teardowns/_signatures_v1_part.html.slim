@@ -12,7 +12,7 @@
         .fs-6.fw-bolder.flex-fill
           = t('teardowns.show.cert', index: "#{i + 1} (#{cert['public_key_type']})")
         small.text-body-secondary.float-end
-          = t('teardowns.show.cert_expired_at', date: cert['expired_at'])
+          = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(cert['expired_at']), format: :nice))
       ul
         li
           span.key = t('teardowns.show.cert_issuer')
