@@ -62,11 +62,13 @@ i.icon {
 }
 
 .table-bottom-borderless {
-  tr:last-child {
-    td {
-      @extend .rounded-bottom;
+  tbody {
+    tr:last-child {
+      td {
+        @extend .rounded-bottom;
 
-      border-bottom: none !important;
+        border-bottom: none !important;
+      }
     }
   }
 }

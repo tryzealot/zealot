@@ -545,7 +545,7 @@ zh-CN:
       version: 编号
       device_type: 平台
       release_version: 版本信息
-      file_nums: 文件数量
+      filename: 文件名
       file_size: 文件大小
       uploaded_at: 上传时间
       missing_file: 调试文件遗失
@@ -554,9 +554,10 @@ zh-CN:
       destroy: 删除
       main_target: '主项目: %{value}'
       arch: 架构
+      target: 名称
       uuid: UUID
-      libraries: 库
-      filename: 文件
+      libraries: 库 (%{count})
+      files: 文件 (%{count})
     device:
       title: '%{app} %{device} 调试文件'
       number: '#%{value}'
