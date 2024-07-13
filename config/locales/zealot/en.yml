@@ -92,8 +92,8 @@ en:
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :admin.apple_keys.title
-        team_metadata: Team metadata
-        key_metadata: Key Metadata
+        team_metadata: Team
+        key_metadata: Key
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
