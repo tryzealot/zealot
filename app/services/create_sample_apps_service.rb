@@ -454,6 +454,7 @@ class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/Cla
       m.build_version = '9236'
       m.size = 26521079
       m.min_sdk_version = '23'
+      m.target_sdk_version = '31'
       m.release_type = 'enterprise'
       m.url_schemes = ['content', 'feed', 'file', 'itpc', 'pcast', 'pktc', 'rss']
       m.activities = [
