@@ -56,7 +56,7 @@
           = link_to_if user_signed_in_or_guest_mode?, @release.source, @release.ci_url, data: { turbo: false }
       - if @release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = @release.metadata.mobileprovision['expired_at']
-          li title="#{t('releases.show.certificate_expired_date', date: expired_date)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+          li title="#{t('releases.show.certificate_expired_date', date: l(Time.zone.parse(expired_date), format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fas.fa-certificate
             = expired_date_tips(expired_date, colorful: false)
         li title="#{t('releases.show.metadata')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"

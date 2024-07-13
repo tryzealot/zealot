@@ -42,10 +42,10 @@
               span.value = certificate_name(certificate['issuer'])
             li
               span.key = t('teardowns.show.cert_created')
-              span.value = certificate['created_at']
+              span.value = l(Time.zone.parse(certificate['created_at']), format: :nice)
             li
               span.key = t('teardowns.show.cert_expired')
-              span.value = t('teardowns.show.cert_expired_at', date: certificate['expired_at'])
+              span.value = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
             li
               span.key = t('teardowns.show.cert_fignger', digest: 'SHA-256')
               span.value = certificate['fingerprint']['sha256']
