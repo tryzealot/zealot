@@ -911,6 +911,12 @@ en-US:
       x_days: " %{count} 天"
       x_months: " %{count} 个月"
       x_years: " %{count} 年"
+  date:
+    formats:
+      nice: '%b %d, %Y'
+  time:
+    formats:
+      nice: '%b %d, %Y, %I:%M %p GMT%:::z'
   errors:
     code:
       '400':
