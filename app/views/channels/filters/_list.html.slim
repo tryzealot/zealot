@@ -39,7 +39,7 @@
               td.d-none.d-sm-table-cell
                 = git_commit_url(release.channel.git_url, release.git_commit) || '-'
               td
-                span data-bs-toggle="tooltip" title="#{release.created_at.to_fs(:nice)}"
+                span data-bs-toggle="tooltip" title="#{l(release.created_at, format: :nice)}"
                   = time_ago_in_words(release.created_at)
 
     .card-footer

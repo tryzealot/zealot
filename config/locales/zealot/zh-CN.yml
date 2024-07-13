@@ -912,6 +912,14 @@ zh-CN:
       x_months: " %{count} 个月"
       x_years: " %{count} 年"
 
+  date:
+    formats:
+      nice: '%Y-%m-%d'
+
+  time:
+    formats:
+      nice: '%Y-%m-%d %p %I:%M GMT%:::z'
+
   errors:
     code:
       '400':

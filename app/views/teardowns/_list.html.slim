@@ -32,7 +32,7 @@
               td.d-none.d-sm-table-cell
                 = md.user&.username || t('teardowns.index.anonymous')
               td
-                span data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{md.created_at.to_fs(:nice)}"
+                span data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(md.created_at, format: :nice)}"
                   = time_ago_in_words(md.created_at)
 
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))

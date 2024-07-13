@@ -32,7 +32,7 @@
         li title="#{t('releases.show.filesize')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
           i.fas.fa-weight
           = " #{number_to_human_size(@release.file.size)}"
-      li title="#{t('releases.show.uploaded_at', date: @release.created_at.to_fs(:nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+      li title="#{t('releases.show.uploaded_at', date: l(@release.created_at, format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
         i.fas.fa-calendar
         = time_ago_in_words(@release.created_at)
       - if @release.branch.present?
