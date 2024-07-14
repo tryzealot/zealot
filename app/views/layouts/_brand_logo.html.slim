@@ -1,6 +1,6 @@
 // Brand Logo
 = turbo_frame_tag 'site_title' do
-  a.navbar-brand href="#{ root_path }"
+  a.navbar-brand href="#{ root_path }" data-turbo="false"
     picture
       source srcset="#{image_url("zealot-icon-dark.png")}" media="(prefers-color-scheme: dark)" class="dark-brand-image brand-image"
       = image_tag 'zealot-icon.png', class: 'brand-image'

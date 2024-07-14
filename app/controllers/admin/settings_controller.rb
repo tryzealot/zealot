@@ -41,7 +41,7 @@ class Admin::SettingsController < ApplicationController
     end
   rescue JSON::ParserError
     @setting.errors.add(:value, :invaild_json)
-    @value = @setting.value || @setting.default_value
+    @value = setting_param[:value]
     return render :edit, status: :unprocessable_entity
   end
 
