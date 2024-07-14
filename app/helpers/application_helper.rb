@@ -194,7 +194,15 @@ module ApplicationHelper
 
   def show_api
     return unless openapi_ui_enabled?
-    link_to 'API', api_openapi_ui_path, target: '_blank'
+
+    locale = current_user&.locale || I18n.default_locale
+    I18n.with_locale(locale) do
+      # FIXME: patch to switch locale with hard-code
+      language = I18n.t(locale, scope: 'settings.site_locale', default: :en)
+      append_path = "/index.html?urls.primaryName=#{language}"
+
+      link_to 'API', "#{api_openapi_ui_path}#{append_path}", target: '_blank'
+    end
   end
 
   def openapi_ui_enabled?
