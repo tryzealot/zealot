@@ -1,7 +1,7 @@
 .system-log {
-  background: #2f2936;
+  background: var(--bs-body-bg);
 
   pre {
-    color: #dedede;
+    color: var(--bs-body-color);
   }
 }
