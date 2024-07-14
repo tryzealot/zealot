@@ -66,14 +66,14 @@ export default class extends Controller {
 
   updateRestaringState() {
     this.buttonTarget.classList.replace("bg-success", "bg-warning")
-    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
+    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync icon'></i>" +
       this.restartingValue
   }
 
   updateRestartedState() {
     this.buttonTarget.classList.replace("bg-warning", "bg-success")
 
-    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
+    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync icon'></i>" +
       this.restartedValue
   }
 

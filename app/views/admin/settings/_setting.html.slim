@@ -1,0 +1,31 @@
+ruby:
+  value = params[:value]
+  display_value = display_value(key, value)
+
+= turbo_frame_tag "setting_#{key}" do
+  dl.system-info
+    dt = t("admin.settings.#{key}")
+    dd
+      - if params[:readonly] || (value.is_a?(Hash) && secure_key?(value))
+        pre.disabled.mb-2
+          - if key == 'mailer_options' && value.present?
+            .float-right
+              button.btn.btn-sm.bg-primary[
+                data-controller="admin-smtp-verify"
+                data-admin-smtp-verify-inprocess-value="#{t('.smtp_verify_inprocess')}"
+                data-admin-smtp-verify-success-value="#{t('.smtp_verify_success')}"
+                data-admin-smtp-verify-failed-value="#{t('.smtp_verify_failed')}"
+                data-action="admin-smtp-verify#run"
+              ] = t('.smtp_verify')
+          == render 'switch_icon', value: value
+          = display_value
+      - else
+        pre.mb-2
+          == render 'switch_icon', value: value
+          = link_to display_value, edit_admin_setting_path(key), data: { turbo_frame: :modal }
+          - if key == 'mailer_options'
+            span.float-end
+              = button_to 'Verify', admin_service_smtp_test_path, class: 'btn btn-sm btn-outline-primary'
+
+      - if hint = t("admin.settings.#{key}_hint", default: nil)
+        small.form-text.text-muted = hint

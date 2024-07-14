@@ -4,7 +4,7 @@
       .card-header
         h3.card-title = t("admin.settings.#{@setting.var}")
 
-      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
+      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch, data: { action: 'turbo:submit-end->modal#close' }) do |f|
         .card-body
           - if @setting.errors.size > 0
             .callout.callout-danger.mb-3
@@ -29,8 +29,8 @@
         .card-footer
           - if @setting.persisted?
             .float-end
-              = link_to t('admin.settings.reset'), admin_setting_path(@setting.var), class: 'btn btn-danger', \
-                data: { turbo_method: :delete, turbo_confirm: t('channels.messages.confirm.destroy') }
+              = f.button :button, t('admin.settings.reset'), formmethod: :delete, formaction: admin_setting_path(@setting.var), class: 'btn btn-danger', \
+                data: { turbo_confirm: t('channels.messages.confirm.destroy') }
 
           .float-left
             = f.button :submit
