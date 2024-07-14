@@ -42,16 +42,17 @@
                 span data-bs-toggle="tooltip" title="#{l(release.created_at, format: :nice)}"
                   = time_ago_in_words(release.created_at)
 
-    .card-footer
-      - if @releases.total_pages > 1
-        .float-end
-          = paginate @releases
+    - if @releases.total_pages > 1 || current_user&.manage?(app: channel.app)
+      .card-footer
+        - if @releases.total_pages > 1
+          .float-end
+            = paginate @releases
 
-      - if current_user&.manage?(app: channel.app)
-        .actions
-          .buttons
-            = f.submit t('.delete'), class: 'btn btn-danger', \
-              data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('channels.messages.confirm.destroy') }
+        - if current_user&.manage?(app: channel.app)
+          .actions
+            .buttons
+              = f.submit t('.delete'), class: 'btn btn-danger', \
+                data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('channels.messages.confirm.destroy') }
 - else
   .card-body.p-0
     p.p-3 = t('channels.show.empty_version')
