@@ -19,7 +19,7 @@ nav.app-header.navbar.navbar-expand.bg-body
             = link_to t('log_in'), new_user_session_path, class: 'nav-link'
     - else
       .navbar-empty
-        == render 'layouts/brand_logo'
+        == render 'layouts/brand_logo', site_title: Setting.site_title
 
 // Main Sidebar Container
 - if user_signed_in_or_guest_mode?

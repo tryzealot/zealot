@@ -1,6 +1,6 @@
 aside.app-sidebar.bg-body-secondary.shadow
   .sidebar-brand
-    == render 'layouts/brand_logo'
+    == render 'layouts/brand_logo', site_title: Setting.site_title
   .sidebar-wrapper
     nav.mt-2
       ul.nav.sidebar-menu.flex-column data-lte-toggle="treeview" role="menu" data-accordion="false"

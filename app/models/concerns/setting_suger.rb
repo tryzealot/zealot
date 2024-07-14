@@ -3,6 +3,10 @@
 module SettingSuger
   extend ActiveSupport::Concern
 
+  def value_or_default
+    Setting.send(var.to_sym)
+  end
+
   def readonly?
     self.class.get_field(var.to_sym).try(:[], :readonly) === true
   end
@@ -25,6 +29,15 @@ module SettingSuger
 
   def present
     @present ||= self.class.get_field(var)
+  end
+
+  def params
+    Setting.site_configs.find do |scope, items|
+      item = items.find { |key, params| var == key }
+      return item.last if item
+    end
+
+    nil
   end
 
   private
