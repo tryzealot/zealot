@@ -1,4 +1,6 @@
 import "@hotwired/turbo-rails"
+import { OverlayScrollbars } from "overlayscrollbars"
+
 import { Tooltip } from "bootstrap"
 import { PushMenu, CardWidget, Treeview } from "admin-lte"
 
@@ -23,6 +25,10 @@ const triggerAdminlteCardCollapse = () => {
 }
 
 const triggerAdminlteSidebarToggle = () => {
+  const pushMenuDefaults = {
+    sidebarBreakpoint: 992
+  }
+
   const sidebarToggle = "[data-lte-toggle=\"sidebar\"]"
   const sidebarTriggerList = document.querySelectorAll(sidebarToggle)
   sidebarTriggerList.forEach((btn) => {
@@ -36,13 +42,29 @@ const triggerAdminlteSidebarToggle = () => {
 
       if (button) {
         event?.preventDefault()
-        const data = new PushMenu(button, {
-          sidebarBreakpoint: 992
-        })
+        const data = new PushMenu(button, pushMenuDefaults)
         data.toggle()
       }
     })
   })
+
+  // Fixes overlay scrollbar on sidebar menu
+  const sidebarWrapper = document.querySelector(".sidebar-wrapper");
+  if (sidebarWrapper) {
+    const OverlayScrollbarsDefault = {
+      scrollbarTheme: "os-theme-light",
+      scrollbarAutoHide: "leave",
+      scrollbarClickScroll: true,
+    }
+
+    OverlayScrollbars(sidebarWrapper, {
+      scrollbars: {
+        theme: OverlayScrollbarsDefault.scrollbarTheme,
+        autoHide: OverlayScrollbarsDefault.scrollbarAutoHide,
+        clickScroll: OverlayScrollbarsDefault.scrollbarClickScroll,
+      },
+    });
+  }
 }
 
 const triggerAdminlteTreeviewToggle = () => {
