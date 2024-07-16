@@ -1,7 +1,7 @@
 ruby:
   bundle_id = debug_file.main_object.data['identifier']
 .col-md-12
-  .card.mb-4
+  .card.mb-3
     .card-header
       h3.card-title = t('debug_files.show.main_target', value: debug_file.main_object.object)
     .card-body.p-0
@@ -19,7 +19,7 @@ ruby:
 
 - if debug_file.libraries.present?
   .col-md-12
-    .card.mb-4
+    .card.mb-3
       .card-header
         h3.card-title = t('debug_files.show.libraries', count: debug_file.libraries.count)
       .card-body.p-0

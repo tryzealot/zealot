@@ -1,4 +1,4 @@
-.card
+.card.mb-3
   .card-header
     h3.card-title
       i.icon.fas.fa-anchor
@@ -25,7 +25,7 @@
             span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.available_web_hooks_count
 
-      #web_hooks_listContent.tab-content.mt-2
+      #web_hooks_listContent.tab-content
         #enabled.tab-pane.fade.show.active
           == render 'web_hooks/enabled'
         #shared.tab-pane.fade
