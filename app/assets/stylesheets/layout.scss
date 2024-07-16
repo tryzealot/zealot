@@ -81,6 +81,19 @@ i.icon {
   --bs-tooltip-color: var(--bs-tooltip-color);
 }
 
+.app-content-header {
+  .section-title {
+    margin-bottom: 0;
+  }
+
+  /* col-sm and below style */
+  @media (max-width: 767.98px) {
+    .section-title {
+      margin-bottom: 0.6rem;
+    }
+  }
+}
+
 @include color-mode(dark) {
   .cover {
     opacity: 0.45;
