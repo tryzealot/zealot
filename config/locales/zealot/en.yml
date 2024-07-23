@@ -524,7 +524,6 @@ en:
         not_found_really: Not found this build.
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
-        require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
   debug_files:
     title: Debug files
     index:

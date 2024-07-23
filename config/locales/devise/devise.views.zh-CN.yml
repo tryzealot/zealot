@@ -74,6 +74,7 @@ zh-CN:
         message: 由于多次登录失败，您的帐户已被锁定。
         subject: 帐户解锁信息
     omniauth_callbacks:
+      disabled: 系统关闭了注册功能，请联系管理员。
       failure: 由于 %{reason}，无法从%{kind}获得授权。
       success: 成功地从%{kind}获得授权。
     passwords:
