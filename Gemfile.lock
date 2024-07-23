@@ -549,7 +549,7 @@ GEM
     sentry-rails (5.18.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.18.1)
-    sentry-ruby (5.18.1)
+    sentry-ruby (5.18.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -694,7 +694,7 @@ DEPENDENCIES
   rubocop (>= 0.70)
   rubocop-rails
   sentry-rails (~> 5.18.1)
-  sentry-ruby (~> 5.18.0)
+  sentry-ruby (~> 5.18.2)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
   solid_cache (~> 0.6.0)
