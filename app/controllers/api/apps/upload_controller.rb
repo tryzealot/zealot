@@ -34,8 +34,6 @@ class Api::Apps::UploadController < Api::BaseController
   private
 
   def create_or_update_release
-    raise AppInfo::UnknownFormatError, t('releases.messages.errors.require_parsable') unless @app_parser
-
     ActiveRecord::Base.transaction do
       new_record? ? create_new_app_build : create_build_from_exist_app
     end
@@ -52,7 +50,8 @@ class Api::Apps::UploadController < Api::BaseController
     release = @channel.releases.build
     authorize release
 
-    if @channel.device_type == 'ios' || @channel.device_type == 'android'
+    if @channel.bundle_id != '*' && @app_parser &&
+       (@channel.device_type == 'ios' || @channel.device_type == 'android')
       message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
         expect: @channel.bundle_id)
       raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
@@ -85,7 +84,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file(release_params, @app_parser, 'api')
+    @release = channel.releases.upload_file(release_params, parser: @app_parser, source: 'api')
     authorize @release
 
     @release.save!

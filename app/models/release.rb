@@ -42,9 +42,9 @@ class Release < ApplicationRecord
   end
 
   # 上传 app
-  def self.upload_file(params, parser = nil, default_source = 'web')
+  def self.upload_file(params, parser: nil, source: 'web')
     Release.new(params) do |release|
-      release.parse!(parser, default_source)
+      release.parse!(parser, source)
     end
   end
 
