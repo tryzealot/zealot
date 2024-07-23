@@ -120,7 +120,7 @@ export default class extends Controller {
     let textNode = this.installLimitedTarget.getElementsByClassName("text")[0]
     let brNode = document.createElement("br")
     textNode.appendChild(brNode)
-    if (isiOS) {
+    if (isiOS()) {
       textNode.appendChild(document.createTextNode(this.openSafariValue))
     } else {
       textNode.appendChild(document.createTextNode(this.openBrowerValue))
