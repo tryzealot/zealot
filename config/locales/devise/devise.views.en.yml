@@ -5,3 +5,5 @@ en:
         danger_zone: Danger Zone
         cancel_my_account: Delete account
         unhappy: Do you really want to delete your account?
+    omniauth_callbacks:
+      disabled: Registration mode is closed. Please contact the administrator.
