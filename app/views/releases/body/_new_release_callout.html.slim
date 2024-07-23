@@ -5,6 +5,6 @@
       = t('releases.show.not_latest_release')
     p
       = raw t('releases.show.released_new_version', \
-        version: latest_release.release_version ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
+        version: latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
         time: time_ago_in_words(latest_release.created_at), \
         link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release)))
