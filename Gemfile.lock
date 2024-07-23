@@ -220,7 +220,7 @@ GEM
       rake (>= 13)
     graphiql-rails (1.10.0)
       railties
-    graphql (2.3.9)
+    graphql (2.3.10)
       base64
     hashie (5.0.0)
     health_check (3.1.0)
@@ -656,7 +656,7 @@ DEPENDENCIES
   gitlab_omniauth-ldap (~> 2.2.0)
   good_job (~> 4.1.0)
   graphiql-rails
-  graphql (~> 2.3.9)
+  graphql (~> 2.3.10)
   health_check (~> 3.1.0)
   jb (~> 0.8.2)
   jsbundling-rails (~> 1.3)
