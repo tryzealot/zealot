@@ -438,7 +438,7 @@ en-US:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}'
+      released_new_version: 'Build %{version} uploaded at %{time} ago, %{link}.'
       view_latest_version: Check it out
       name: App
       version: Auto Version
