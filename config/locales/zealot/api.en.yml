@@ -13,7 +13,7 @@ en:
 
         ```json
         {
-          "version": "5.3.4",
+          "version": "5.3.5",
           "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
           "build_date": "2024-05-23T06:04:48.989Z"
         }
