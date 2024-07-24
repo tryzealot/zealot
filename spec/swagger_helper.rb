@@ -255,7 +255,7 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.version.description'),
             type: :object,
             properties: {
-              version: { type: :integer, format: :int32, example: '5.3.4' },
+              version: { type: :integer, format: :int32, example: '5.3.5' },
               vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
               build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
             }
