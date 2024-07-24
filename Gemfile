@@ -67,7 +67,7 @@ gem 'pghero', '~> 3.6.0'
 
 ## Exception handler
 gem 'sentry-ruby', '~> 5.18.0'
-gem 'sentry-rails', '~> 5.18.1'
+gem 'sentry-rails', '~> 5.18.2'
 
 # Background job
 gem 'good_job', '~> 4.1.0'
