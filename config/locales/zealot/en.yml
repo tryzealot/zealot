@@ -34,7 +34,7 @@ en-US:
       edit:
         title: Edit user
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email.
+        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}">%{label}</a>.
         resend: resend an email
         profile: Profile
         collaborators: Collaborators
@@ -456,13 +456,13 @@ en-US:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Re-Install
+      installed: Installed, reinstall
       cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
       more: More releases
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
-      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
+      cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or failed to install?
       last_ten_uploads: Activity
       upload_full_version_release: ':''dashboard.timeline.upload_full_version_release'''
       upload_auto_version_release: ':''dashboard.timeline.upload_auto_version_release'''
@@ -527,7 +527,6 @@ en-US:
         not_found_really: Not found release
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
-        require_parsable: Upload file can not parsable, ensure the uploaded file is in a supported format.
   debug_files:
     title: Debug files
     index:
@@ -651,7 +650,7 @@ en-US:
       entitlements: Entitlements (%{count})
       min_ios_version: Min iOS version
       min_tvos_version: Minimum tvOS version
-      min_macos_version: Minimum OS version
+      min_macos_version: Min macOS version
       capabilities: Capabilities
       devise_list: UDID (%{count})
       developer_certs_list: Developer Certificates (%{count})
