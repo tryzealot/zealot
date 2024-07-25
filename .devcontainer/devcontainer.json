@@ -22,6 +22,7 @@
       "extensions": [
         "Shopify.ruby-lsp",
         "KoichiSasada.vscode-rdbg",
+        "kaiwood.endwise",
         "sianglim.slim",
         "eamodio.gitlens",
         "bung87.rails",
