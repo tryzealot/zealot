@@ -41,7 +41,7 @@
                 span.value = certificate_name(certificate['issuer'])
               li
                 span.key = t('teardowns.show.cert_created')
-                span.value = l(Time.zone.parse(certificate['created_at']), format: :nice))
+                span.value = l(Time.zone.parse(certificate['created_at']), format: :nice)
               li
                 span.key = t('teardowns.show.cert_expired')
                 span.value = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
