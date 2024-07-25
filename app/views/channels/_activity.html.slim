@@ -15,7 +15,7 @@
             .product-img
               = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
             .product-info
-              span.badge.text-bg-light.float-end data-bs-toggle="tooltip" title="#{l(release.created_at, format: :nice)}"
+              span.badge.text-bg-light.float-end data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(release.created_at, format: :nice)}"
                 = time_ago_in_words(release.created_at)
               = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
 
