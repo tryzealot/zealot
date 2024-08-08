@@ -109,7 +109,7 @@ en:
         slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
         password: Need password by fill it when user is not log in.
       release:
-        file: Support iOS, Android, macOS, Windows and Linux binary file.
+        file: Support iOS, Android, HarmonyOS, macOS, Windows and Linux binary file.
         release_version: It is recommended to name the main version <a href="https://semver.org/lang/zh-CN/">X.Y.Z semantic version</a>
         build_version: Internal version number
         changelog: What new features this app contains, fix what issues, and so on.
