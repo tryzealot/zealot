@@ -3,7 +3,7 @@ class AddRoleToUsersApps < ActiveRecord::Migration[7.1]
     add_column :apps_users, :role, :integer, null: false, default: 0
 
     # all preview apps were created by owner.
-    Collaborator.update_all(role: Collaborator.roles[:admin])
+    Collaborator.update_all(role: Collaborator.roles[:admin]) if Collaborator.any?
   end
 
   def down
