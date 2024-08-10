@@ -104,8 +104,6 @@ module ApplicationHelper
       'Linux'
     when 'windows'
       'Windows'
-    when 'harmonyos'
-      'HarmonyOS'
     else
       platform
     end
@@ -113,42 +111,28 @@ module ApplicationHelper
 
   def device_name(device)
     case device.downcase.to_sym
-    when AppInfo::Device::Apple::IPHONE
+    when AppInfo::Device::IPHONE
       'iPhone'
-    when AppInfo::Device::Apple::IPAD
+    when AppInfo::Device::IPAD
       'iPad'
-    when AppInfo::Device::Apple::UNIVERSAL
+    when AppInfo::Device::UNIVERSAL
       'Universal'
-    when AppInfo::Device::Apple::APPLETV
+    when AppInfo::Device::APPLETV
       'tvOS'
-    when AppInfo::Device::Google::PHONE
+    when AppInfo::Device::PHONE
       'Phone'
-    when AppInfo::Device::Google::WATCH
+    when AppInfo::Device::WATCH
       'Watch'
-    when AppInfo::Device::Google::TELEVISION
+    when AppInfo::Device::TELEVISION
       'TV'
-    when AppInfo::Device::Google::TABLET
+    when AppInfo::Device::TABLET
       'Tablet'
-    when AppInfo::Device::Google::AUTOMOTIVE
+    when AppInfo::Device::AUTOMOTIVE
       'Automotive'
-    when AppInfo::Device::Microsoft::WINDOWS
+    when AppInfo::Device::WINDOWS
       'Windows'
-    when AppInfo::Device::Apple::MACOS
+    when AppInfo::Device::MACOS
       'macOS'
-    when AppInfo::Device::Huawei::DEFAULT
-      'HarmonyOS'
-    when AppInfo::Device::Huawei::PHONE
-      'Phone'
-    when AppInfo::Device::Huawei::TABLET
-      'Tablet'
-    when AppInfo::Device::Huawei::TV
-      'TV'
-    when AppInfo::Device::Huawei::WEARABLE
-      'Wearable'
-    when AppInfo::Device::Huawei::CAR
-      'Car'
-    when AppInfo::Device::Huawei::TWO_IN_ONE
-      '2-in-1'
     else device
     end
   end
@@ -178,8 +162,6 @@ module ApplicationHelper
       ['fa-apple', 'bg-secondary']
     when 'android'
       ['fa-android', 'bg-green-400']
-    when 'harmonyos'
-      ['fa-adn', 'bg-black']
     when 'windows'
       ['fa-windows', 'bg-primary']
     when 'macos'
