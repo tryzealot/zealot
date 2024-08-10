@@ -361,17 +361,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_040749) do
     t.string "timezone", default: "Asia/Shanghai", null: false
   end
 
-  create_table "visibilities", force: :cascade do |t|
-    t.string "relationable_type"
-    t.bigint "relationable_id"
-    t.integer "level", default: 0, null: false
-    t.string "vault"
-    t.datetime "expired_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["relationable_type", "relationable_id"], name: "index_visibilities_on_relationable"
-  end
-
   create_table "web_hooks", force: :cascade do |t|
     t.bigint "channel_id"
     t.string "url"

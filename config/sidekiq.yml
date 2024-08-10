@@ -1,8 +1,0 @@
----
-:queues:
-  - [app_parse, 5]
-  - [webhook, 5]
-  - [backup, 4]
-  - [mailers, 3]
-  - [schedule, 2]
-  - [default, 1]
