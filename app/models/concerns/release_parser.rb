@@ -68,10 +68,6 @@ module ReleaseParser
              return if parser.icons.blank?
 
              biggest_icon(parser.icons)
-           when AppInfo::Platform::HARMONYOS
-             return if parser.icons.blank?
-
-             biggest_icon(parser.icons)
            end
 
     File.open(file, 'rb') if file

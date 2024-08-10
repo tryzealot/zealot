@@ -146,8 +146,6 @@ class Release < ApplicationRecord
       'iOS'
     elsif android?
       'Android'
-    elsif harmonyos?
-      'HarmonyOS'
     elsif mac?
       'macOS'
     elsif windows?
@@ -168,10 +166,6 @@ class Release < ApplicationRecord
     platform_type.casecmp?('android') || platform_type.casecmp?('phone') ||
     platform_type.casecmp?('tablet') || platform_type.casecmp?('watch') ||
     platform_type.casecmp?('television') || platform_type.casecmp?('automotive')
-  end
-
-  def harmonyos?
-    platform_type.casecmp?('harmonyos') || platform_type.casecmp?('default')
   end
 
   def mac?

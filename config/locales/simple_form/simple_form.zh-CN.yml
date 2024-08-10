@@ -110,7 +110,7 @@ zh-CN:
         slug: URL 的唯一标识
         password: 设置后对非登录用户会要求输入密码
       release:
-        file: 支持 iOS、Android、HarmonyOS、macOS、Windows、Linux 各种应用类型的文件
+        file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
         release_version: 应用对外公布的主版本号，推荐使用 <a href="https://semver.org/lang/zh-CN/">X.Y.Z 语义化版本</a>命名
         build_version: 应用内部版本号
         changelog: 这个应用包含了什么新特性，修复了什么问题等
