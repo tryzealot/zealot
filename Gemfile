@@ -7,7 +7,8 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'puma', '~> 6.4.2'
 gem 'rails', '~> 7.1.3'
 gem 'rails-i18n', '~> 7.0.5'
-gem 'rake', '~> 13.0.4'
+gem 'rack-cors', '~> 2.0.2'
+gem 'rack', '~> 3.0.11'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
@@ -19,7 +20,6 @@ gem 'lograge', '~> 0.14.0'
 # API
 gem 'active_model_serializers', '~> 0.10.14'
 gem 'graphql', '~> 2.3.10'
-gem 'rack-cors', '~> 2.0.2'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
@@ -38,6 +38,7 @@ gem 'carrierwave', '~> 3.0.7'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
+gem 'rake', '~> 13.0.4'
 gem 'rails-settings-cached', '~> 2.9.4'
 gem 'app-info', '~> 3.1.4'
 gem 'faraday', '~> 2.10.1'
