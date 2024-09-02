@@ -171,10 +171,10 @@
   resolved "https://registry.yarnpkg.com/@stimulus-components/checkbox-select-all/-/checkbox-select-all-6.0.0.tgz#215e1d7d64280ce722a3d9ec7dbcc5bfd0343c57"
   integrity sha512-8zuvjiwq/bxSer7PtPl++w0BYESd5/tJdlo9yae9iXsa0AlYlgZDC2kHAtz271GaldxMokQkGCpOkmBBvM+X0Q==
 
-admin-lte@^4.0.0-beta1:
-  version "4.0.0-beta1"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-beta1.tgz#8af1b90b680e9d1fe068ba50a35227b4db6ee18b"
-  integrity sha512-sRpozBFpM65uJbr4zJ38RAfhgfIrJlM2aWaLlfBSkz0cuALl/cJSn1hSc437IPw+rS7r+j82Y6H5HCYJSNUBIg==
+admin-lte@^4.0.0-beta2:
+  version "4.0.0-beta2"
+  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-beta2.tgz#d5336154624c9c0ff78139f70f9ef140e929acc7"
+  integrity sha512-Ofav0BKnCnz+IeeXrHQZ6JWnHouwv+fDYyfagRpjfFaMBmYCljA2Qo1+fCGkJuJn/SfNPhFpJhbUt+l2tH0LwA==
 
 anymatch@~3.1.2:
   version "3.1.2"
