@@ -80,7 +80,7 @@ gem 'propshaft', '0.9.0'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'cssbundling-rails', '~> 1.4'
 ## Javascript
-gem 'stimulus-rails', '~> 1.3.3'
+gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0'
 
 # Reduces boot times through caching; required in config/boot.rb
