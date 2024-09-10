@@ -219,7 +219,7 @@ GEM
     google-protobuf (4.28.0-x86_64-linux)
       bigdecimal
       rake (>= 13)
-    graphiql-rails (1.10.0)
+    graphiql-rails (1.10.1)
       railties
     graphql (2.3.14)
       base64
