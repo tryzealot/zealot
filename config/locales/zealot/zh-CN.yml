@@ -606,7 +606,7 @@ zh-CN:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 iPhone 的 IPA、Android 的 APK/AAB、macOS 的 mobileprovision 以及 macOS.app.zip、Window 的 EXE 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'

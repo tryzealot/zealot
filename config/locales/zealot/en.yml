@@ -616,8 +616,8 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
-      submit: Start work
+      file_hint: Support iPhone IPA, Android APK/AAB, macOS MobileProvision and macOS.app.zip, Windows EXE file
+      submit: Parse metadata
     create:
       create: :teardowns.new.title
     index:

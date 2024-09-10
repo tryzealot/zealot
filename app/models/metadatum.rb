@@ -10,7 +10,8 @@ class Metadatum < ApplicationRecord
     android: 'android',
     mobileprovision: 'mobileprovision',
     macos: 'macos',
-    windows: 'windows'
+    windows: 'windows',
+    harmonyos: 'harmonyos'
   }
 
   alias_attribute :packet_name, :bundle_id

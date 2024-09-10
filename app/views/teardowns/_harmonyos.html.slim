@@ -1,0 +1,43 @@
+ruby:
+  begin
+    app_name = @metadata.name
+  rescue Android::NotFoundError
+    app_name = t('teardowns.show.unknow_app_name')
+  end
+
+.col-md-6
+  .card.mb-3
+    .card-header
+      h3.card-title
+        i.icon.fab.fa-android.text-green
+        = t('teardowns.show.metadata')
+      .card-tools
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
+    .card-body.ps-2.pe-2.p-0
+      dl.system-info.pb-0
+        dt = t('teardowns.show.app_name')
+        dd
+          pre = app_name
+        dt = t('teardowns.show.version')
+        dd
+          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
+        dt = t('teardowns.show.package_name')
+        dd
+          pre = @metadata.bundle_id
+        dt
+          = t('teardowns.show.supported_device')
+        dd
+          pre
+            = device_name(@metadata.device)
+            |  (HarmonyOS)
+        dt = t('teardowns.show.file_size')
+        dd
+          pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = l(@metadata.created_at, format: :nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
