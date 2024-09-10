@@ -41,6 +41,8 @@ class TeardownService
         process_macos(parser, metadata)
       when AppInfo::Platform::WINDOWS
         process_windows(parser, metadata)
+      when AppInfo::Platform::HARMONYOS
+        process_harmonyos(parser, metadata)
       end
       parser.clear!
     end
@@ -244,6 +246,20 @@ class TeardownService
       key, value = ent
       obj[key] = value
     end
+  end
+
+  #########################
+  # HarmonyOS             #
+  #########################
+
+  def process_harmonyos(parser, metadata)
+    metadata.name = parser.name
+    metadata.bundle_id = parser.bundle_id
+    metadata.platform = parser.platform
+    metadata.device = parser.device
+    metadata.release_version = parser.release_version
+    metadata.build_version = parser.build_version
+    metadata.size = parser.size
   end
 
   def checksum(file)
