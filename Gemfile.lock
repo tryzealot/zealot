@@ -93,7 +93,7 @@ GEM
     android_parser (2.7.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (3.1.4)
+    app-info (3.2.0)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (>= 2.7, < 3.0)
       base64 (~> 0.2.0)
@@ -204,19 +204,19 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    google-protobuf (4.27.2)
+    google-protobuf (4.28.0)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-aarch64-linux)
+    google-protobuf (4.28.0-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-arm64-darwin)
+    google-protobuf (4.28.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-x86_64-darwin)
+    google-protobuf (4.28.0-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-x86_64-linux)
+    google-protobuf (4.28.0-x86_64-linux)
       bigdecimal
       rake (>= 13)
     graphiql-rails (1.10.0)
@@ -236,7 +236,7 @@ GEM
     image_size (3.4.0)
     interception (0.5)
     io-console (0.7.2)
-    iostruct (0.1.2)
+    iostruct (0.1.3)
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -621,7 +621,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     zeitwerk (2.6.17)
-    zhexdump (0.1.1)
+    zhexdump (0.2.0)
 
 PLATFORMS
   aarch64-linux
@@ -641,7 +641,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.1.4)
+  app-info (~> 3.2.0)
   awesome_print
   better_errors
   binding_of_caller
