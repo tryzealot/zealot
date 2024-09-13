@@ -76,7 +76,7 @@ gem 'activejob-status', '~> 1.0.2'
 
 # Assets
 ## Use jsbundling-rails, cssbundling-rails to run rake tasks, core is build/build:css in package.json
-gem 'propshaft', '0.9.0'
+gem 'propshaft', '1.0.0'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'cssbundling-rails', '~> 1.4'
 ## Javascript
