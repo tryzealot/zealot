@@ -391,7 +391,7 @@ GEM
       multipart-post (>= 2.0.0)
       rainbow
       zhexdump (>= 0.0.2)
-    pg (1.5.7)
+    pg (1.5.8)
     pghero (3.6.0)
       activerecord (>= 6.1)
     plist (3.7.1)
