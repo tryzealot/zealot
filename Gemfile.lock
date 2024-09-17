@@ -395,7 +395,7 @@ GEM
     pghero (3.6.0)
       activerecord (>= 6.1)
     plist (3.7.1)
-    propshaft (0.9.0)
+    propshaft (1.0.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -678,7 +678,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pghero (~> 3.6.0)
   plist (~> 3.7.1)
-  propshaft (= 0.9.0)
+  propshaft (= 1.0.0)
   pry-rails
   pry-rescue
   puma (~> 6.4.2)
