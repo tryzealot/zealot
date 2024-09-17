@@ -22,7 +22,7 @@ services:
   # Tools
   pgweb:
     # no editing function yet, https://github.com/sosedoff/pgweb/issues/656
-    image: sosedoff/pgweb
+    image: sosedoff/pgweb:0.16.1
     restart: unless-stopped
     network_mode: service:db
     environment:
