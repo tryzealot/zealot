@@ -46,7 +46,7 @@ RUN bundle config --global frozen 1 && \
     bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
+RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
