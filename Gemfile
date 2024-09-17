@@ -30,6 +30,7 @@ gem 'kramdown', '~> 2.4'
 gem 'simple_form', '~> 5.3'
 gem 'rswag-api', '~> 2.14.0'
 gem 'rswag-ui', '~> 2.14.0'
+gem 'ostruct' # needs in rswag
 
 # Model
 gem 'friendly_id', '~> 5.5.1'
