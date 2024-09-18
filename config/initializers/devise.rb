@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-Dir.glob(Rails.root.join('lib/omni_auth/strategies/**/*.rb')).each do |filename|
-  require_dependency filename
-end
-
 FEISHU_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:client_id] = Setting.feishu[:app_id]
   env['omniauth.strategy'].options[:client_secret] = Setting.feishu[:app_secret]
