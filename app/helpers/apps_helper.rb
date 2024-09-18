@@ -98,7 +98,7 @@ module AppsHelper
   end
 
   def app_qrcode_tag(release)
-    if Setting.site_appearance != 'auto'
+    if current_user&.appearance != 'auto' || Setting.site_appearance != 'auto'
       theme = current_user&.appearance || Setting.site_appearance
       return image_tag channel_release_qrcode_path(@release.channel, @release,
         size: :large, theme: theme)
