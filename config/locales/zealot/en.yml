@@ -1018,6 +1018,12 @@ en:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
+        udid:
+          attributes:
+            name:
+              invalid_value: Register device %{value} was invalid.
+              api: 'Apple return error: %{message}'
+              unknown: 'Unknown error: %{message}'
         debug_file:
           attributes:
             app_id:
