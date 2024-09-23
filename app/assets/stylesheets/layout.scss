@@ -77,8 +77,8 @@ i.icon {
   --bs-tooltip-max-width: 300px;
   --bs-tooltip-padding-x: 0.6rem;
   --bs-tooltip-padding-y: 0.3rem;
-  --bs-tooltip-bg: var(--bs-tooltip-bg);
-  --bs-tooltip-color: var(--bs-tooltip-color);
+  --bs-tooltip-bg: #000;
+  --bs-tooltip-color: var(--bs-white);
 }
 
 .app-content-header {
@@ -134,7 +134,7 @@ i.icon {
   }
 
   .default-tooltip {
-    --bs-tooltip-bg: #000;
+    --bs-tooltip-bg: #3f3f3f;
     --bs-tooltip-color: var(--bs-white);
   }
 }
