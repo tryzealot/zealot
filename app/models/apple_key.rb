@@ -39,11 +39,11 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil, platform = 'IOS')
-    remote_device = client.device(uuid: uuid)
+    remote_device = client.device(udid: udid)
     db_device = Device.find_by(udid: udid)
     return db_device if remote_device && db_device
 
-    if remtoe_device && !db_device
+    if remote_device && !db_device
       devices << remote_device
       return remote_device
     end
@@ -62,33 +62,35 @@ class AppleKey < ApplicationRecord
     message = e.errors[0]['detail']
     is_exists = message.include?('already exists')
 
-    # udid had registered, force sync device
+    # udid had registered, but not exists in zealot system, needs to force sync device
     if is_exists
       sync_devices
       return self
     end
 
+    invaild_device = Device.new
     # invaild udid
     if message.include?('invalid value')
       # This is never happen, never ever!
-      errors.add(:devices, :invalid_value, value: udid)
+      invaild_device.errors.add(:name, :invalid_value, value: udid)
     else
-      errors.add(:devices, :api, message: message)
+      invaild_device.errors.add(:name, :api, message: message)
     end
 
-    self
+    invaild_device
   rescue => e
     logger.error "Register device raise an exception: #{e}"
     logger.error e.backtrace.join("\n")
 
     message = e.respond_to?(:errors) ? errors[0]['detail'] : e.message
-    errors.add(:devices, :unknown, message: message)
 
-    self
+    invaild_device = Device.new
+    invaild_device.errors.add(:name, :unknown, message: message)
+    invaild_device
   end
 
   def update_device_name(device)
-    response_device = client.rename_device(device.name, id: device.device_id, udid: device.udid)
+    client.rename_device(device.name, id: device.device_id, udid: device.udid)
   rescue TinyAppstoreConnect::InvalidEntityError => e
     logger.error "Device may not exists or the other error in apple key #{id}: #{e}"
   end

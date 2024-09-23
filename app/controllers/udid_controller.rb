@@ -54,10 +54,10 @@ class UdidController < ApplicationController
     name = [ 'Zealot', platform, SecureRandom.hex(4) ].compact.join('-') if name.blank? # Max 50 chars
 
     new_device = apple_key.register_device(udid, name, platform)
-    unless new_device.valid?
-      logger.debug "Register failed with errors: #{new_device.errors}"
-      error_message = new_device.errors.messages[:devices][0]
-      flash[:alter] = error_message if error_message.present?
+    if new_device.errors.present?
+      logger.debug "Register failed with errors: #{new_device.errors.full_messages}"
+      error_message = new_device.errors.messages[:name].join(' / ')
+      flash[:warn] = error_message if error_message.present?
       return render :show, status: :unprocessable_entity
     end
 
