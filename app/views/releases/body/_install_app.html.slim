@@ -1,13 +1,10 @@
 .app-actions[
   data-controller="release-download"
   data-release-download-install-url-value="#{@release.install_url}"
-  data-release-download-install-limited-value="#{Setting.preset_install_limited.to_json}"
   data-release-download-installing-value="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
   data-release-download-installed-value="<i class='fas fa-download'></i>#{t('releases.show.installed')}"
-  data-release-download-open-safari-value="#{t('releases.show.app_open_in_safari')}"
-  data-release-download-open-brower-value="#{t('releases.show.app_open_in_webbrower')}"
 ]
-  == render 'releases/body/app_limited'
+  == render 'shared/install_limited', safari_text: t('releases.show.app_open_in_safari'), brower_text: t('releases.show.app_open_in_webbrower')
   == render 'releases/body/install_issues'
 
   .action-buttons data-release-download-target="buttons"
