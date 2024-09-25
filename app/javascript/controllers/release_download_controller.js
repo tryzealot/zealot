@@ -6,7 +6,6 @@ const LOADING_TIMEOUT = 8000
 
 export default class extends Controller {
   static targets = [
-    "installLimited",
     "buttons",
 
     "installButton",
@@ -27,10 +26,6 @@ export default class extends Controller {
   }
 
   connect() {
-    if (this.isInstallLimited()) {
-      return this.renderInstallLimited()
-    }
-
     if (isiOS()) {
       this.showIntallButton()
       this.hideDownloadButton()
@@ -76,27 +71,6 @@ export default class extends Controller {
     if (this.hasDownloadButtonTarget) {
       this.downloadButtonTarget.classList.add("d-none")
     }
-  }
-
-  renderInstallLimited() {
-    let textNode = this.installLimitedTarget.getElementsByClassName("text")[0]
-    let brNode = document.createElement("br")
-    textNode.appendChild(brNode)
-    if (isiOS()) {
-      textNode.appendChild(document.createTextNode(this.openSafariValue))
-    } else {
-      textNode.appendChild(document.createTextNode(this.openBrowerValue))
-    }
-
-    this.installLimitedTarget.classList.remove("d-none")
-    this.buttonsTarget.classList.add("d-none")
-  }
-
-  isInstallLimited() {
-    let ua = navigator.userAgent
-    let matches = this.installLimitedValue.find(keyword => ua.includes(keyword))
-
-    return !!matches
   }
 
   sleep(ms) {

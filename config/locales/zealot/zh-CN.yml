@@ -434,7 +434,6 @@ zh-CN:
       api: 接口上传
     show:
       enter_password: 访问密码
-      app_limited: 无法在当前应用安装
       app_touch_menu: 点击右上角菜单
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
@@ -766,6 +765,8 @@ zh-CN:
       macos_tip: 系统限制无法检测 macOS 芯片类型，请自行选择使用 iPhone、iPad 扫码或点击下面按钮获取设备 UDID
       nonapple_tip: :'udid.index.apple_tip'
       fetch_udid: 获取设备 UDID
+      app_open_in_safari: 在 Safari 中打开并获取
+      app_open_in_webbrower: 在任意浏览器中打开并获取
       help:
         title: 为什么要下载安装描述文件获取设备 UDID?
         body_html: |

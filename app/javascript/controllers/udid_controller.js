@@ -2,7 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 import { uaParser, isiOS, isMacOS } from "./utils"
 
 export default class extends Controller {
-  static targets = ["qrcode", "install", "tip", "debug"]
+  static targets = [
+    "qrcode",
+    "install",
+    "tip",
+    "debug"
+  ]
+
   static values = {
     appleTip: String,
     macosTip: String,
