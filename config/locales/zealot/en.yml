@@ -433,7 +433,6 @@ en-US:
       api: API
     show:
       enter_password: Enter password
-      app_limited: Install limited in current app
       app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
@@ -766,6 +765,8 @@ en-US:
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
       nonapple_tip: ':udid.index.apple_tip'
       fetch_udid: Get your UDID now
+      app_open_in_safari: Choose "Open in Safari" and fetch
+      app_open_in_webbrower: Open with any browser and fetch
       help:
         title: Why need to install profile to fetch your UDID?
         body_html: |
