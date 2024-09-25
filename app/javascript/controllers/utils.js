@@ -51,4 +51,11 @@ const isNonAppleOS = () => {
   return !(os.name === "Mac OS" || os.name === "iOS")
 }
 
-export { poll, uaParser, isMacOS, isiOS, isNonAppleOS }
+const isUserAgentLimited = (keywords) => {
+  let ua = navigator.userAgent
+  let matches = keywords.find((keyword) => ua.includes(keyword))
+
+  return !!matches
+}
+
+export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited }
