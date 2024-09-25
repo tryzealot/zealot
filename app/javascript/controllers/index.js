@@ -6,6 +6,9 @@ application.register("global", GlobalController)
 import ClipboardCenterController from "./clipboard_center_controller"
 application.register("clipboard-center", ClipboardCenterController)
 
+import installLimitedController from "./install_limited_controller"
+application.register("install-limited", installLimitedController)
+
 import ReleaseDownloadController from "./release_download_controller"
 application.register("release-download", ReleaseDownloadController)
 
