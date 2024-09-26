@@ -123,6 +123,18 @@ en-US:
           bundle_id: identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
           git_url: Git repository URL
           password: Enable password visit
+      release_options:
+        description: App's build metadata form data
+        properties:
+          build_version: Build version
+          release_version: Release version
+          release_type: 应用类型，比如 debug, beta, adhoc, release, enterprise 等
+          source: the source of upload (default is `api`)
+          changelog: Change log, accept plain text or JSON formatted data
+          branch: a branch name from source control tool
+          git_commit: Git Commit SHA value
+          ci_url: the build url of a CI service
+          custom_fields: JSON formatted custom fields, icon only accepts fontawesome.
       collaborator_options:
         description: App's collaborator form data
         properties:
@@ -227,6 +239,18 @@ en-US:
       destroy:
         title: Destroy a channel
         description: Destroy a scheme's channel
+    releases:
+      default:
+        tags: Release
+        responses:
+          update: Update a build
+          destroy: Destroy build
+      update:
+        title: Update a build metedata
+        description: Update a build of app verison, custom_fileds, changelog etc
+      destroy:
+        title: Destroy a build
+        description: Destroy a app's build
     collaborators:
       default:
         tags: Collaborators
