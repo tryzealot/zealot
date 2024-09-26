@@ -29,7 +29,7 @@ RSpec.describe 'Schemes API' do
       operationId 'createScheme'
 
       include_examples :primary_key_parameter, :app_id
-      include_examples :request_form_body, '#/definitions/SchemeOptions'
+      include_examples :request_body, '#/definitions/SchemeOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.schemes.default.responses.create') do
@@ -49,7 +49,7 @@ RSpec.describe 'Schemes API' do
       operationId 'updateScheme'
 
       include_examples :primary_key_parameter
-      include_examples :request_form_body, '#/definitions/SchemeOptions'
+      include_examples :request_body, '#/definitions/SchemeOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.schemes.default.responses.update') do

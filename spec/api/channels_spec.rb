@@ -29,7 +29,7 @@ RSpec.describe 'Channels API' do
       operationId 'createChannel'
 
       include_examples :primary_key_parameter, :scheme_id
-      include_examples :request_form_body, '#/definitions/ChannelOptions'
+      include_examples :request_body, '#/definitions/ChannelOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.channels.default.responses.create') do
@@ -49,7 +49,7 @@ RSpec.describe 'Channels API' do
       operationId 'updateChannel'
 
       include_examples :primary_key_parameter
-      include_examples :request_form_body, '#/definitions/ChannelOptions'
+      include_examples :request_body, '#/definitions/ChannelOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.channels.default.responses.update') do
