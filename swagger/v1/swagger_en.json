@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zealot API",
-    "version": "v1.3",
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.3.6\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](/docs/user-guide/user_settings).\n"
+    "version": "v1.4",
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.3.6\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).\n"
   },
   "servers": [
     {
@@ -61,9 +61,21 @@
         ],
         "description": "Create an App",
         "operationId": "createApp",
-        "parameters": [
-
-        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Get an App",
@@ -82,15 +94,6 @@
                 "schema": {
                   "$ref": "#/components/responses/Unauthorized"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/AppOptions"
               }
             }
           }
@@ -411,6 +414,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Get an App",
@@ -439,15 +457,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/AppOptions"
               }
             }
           }
@@ -575,6 +584,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Create a channel",
@@ -606,15 +630,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/ChannelOptions"
-              }
-            }
-          }
         }
       }
     },
@@ -636,6 +651,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update a channel",
@@ -664,15 +694,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/ChannelOptions"
               }
             }
           }
@@ -813,6 +834,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Create a collaborator",
@@ -844,15 +880,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
         }
       },
       "put": {
@@ -880,6 +907,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update a collaborator",
@@ -908,15 +950,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
               }
             }
           }
@@ -1248,6 +1281,123 @@
         }
       }
     },
+    "/releases/{id}": {
+      "put": {
+        "summary": "Update a build metedata",
+        "tags": [
+          "Release"
+        ],
+        "description": "Update a build of app verison, custom_fileds, changelog etc",
+        "operationId": "updateRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ReleaseOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ReleaseOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Translation missing: en.api.releases.default.responses.show",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Release"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy a build",
+        "tags": [
+          "Release"
+        ],
+        "description": "Destroy a app's build",
+        "operationId": "destroyRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Destroy build",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/apps/{app_id}/schemes": {
       "get": {
         "summary": "Get a scheme",
@@ -1319,6 +1469,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Create a scheme",
@@ -1350,15 +1515,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/SchemeOptions"
-              }
-            }
-          }
         }
       }
     },
@@ -1380,6 +1536,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update a scheme",
@@ -1408,15 +1579,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/SchemeOptions"
               }
             }
           }
@@ -1534,9 +1696,21 @@
         ],
         "description": "Create an user",
         "operationId": "createUser",
-        "parameters": [
-
-        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Create an user",
@@ -1565,15 +1739,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/UserOptions"
               }
             }
           }
@@ -1648,6 +1813,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update a user",
@@ -1676,15 +1856,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/UserOptions"
               }
             }
           }
@@ -2763,6 +2934,7 @@
           "enum": [
             "ios",
             "android",
+            "harmonyos",
             "macos",
             "windows",
             "linux"
@@ -2784,6 +2956,54 @@
         "password": {
           "type": "string",
           "description": "Enable password visit"
+        }
+      }
+    },
+    "ReleaseOptions": {
+      "description": "App's build metadata form data",
+      "type": "object",
+      "properties": {
+        "build_version": {
+          "type": "string",
+          "description": "Build version"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "Release version"
+        },
+        "release_type": {
+          "type": "string",
+          "description": "Translation missing: en.api.definitions.release_options.properties.release_type"
+        },
+        "source": {
+          "type": "string",
+          "description": "the source of upload (default is `api`)"
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "description": "Change log, accept plain text or JSON formatted data"
+        },
+        "branch": {
+          "type": "string",
+          "description": "a branch name from source control tool"
+        },
+        "git_commit": {
+          "type": "string",
+          "description": "Git Commit SHA value"
+        },
+        "ci_url": {
+          "type": "string",
+          "description": "the build url of a CI service"
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "description": "JSON formatted custom fields, icon only accepts fontawesome."
         }
       }
     },
