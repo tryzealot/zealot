@@ -123,6 +123,17 @@ en:
           bundle_id: identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
           git_url: Git repository URL
           password: Enable password visit
+      release_options:
+        description: App's build metadata form data
+        properties:
+          build_version: Build version
+          release_version: Release version
+          source: the source of upload (default is `api`)
+          changelog: Change log, accept plain text or JSON formatted data
+          branch: a branch name from source control tool
+          git_commit: Git Commit SHA value
+          ci_url: the build url of a CI service
+          custom_fields: JSON formatted custom fields, icon only accepts fontawesome.
       collaborator_options:
         description: App's collaborator form data
         properties:
@@ -144,6 +155,7 @@ en:
           file: Zip arichved file (dSYM or Proguard)
           release_version: Release version (requires if Android's Proguard file)
           build_version: Build version (requires if Android's Proguard file)
+
     apps:
       default:
         tags: Apps
@@ -185,6 +197,7 @@ en:
       destroy:
         title: Destroy an App
         description: Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.
+
     schemes:
       default:
         tags: Schemes
@@ -206,6 +219,7 @@ en:
       destroy:
         title: Destroy a scheme
         description: Destroy a scheme from the App
+
     channels:
       default:
         tags: Channel
@@ -227,6 +241,20 @@ en:
       destroy:
         title: Destroy a channel
         description: Destroy a scheme's channel
+
+    releases:
+      default:
+        tags: Release
+        responses:
+          update: Update a build
+          destroy: Destroy build
+      update:
+        title: Update a build metedata
+        description: Update a build of app verison, custom_fileds, changelog etc
+      destroy:
+        title: Destroy a build
+        description: Destroy a app's build
+
     collaborators:
       default:
         tags: Collaborators
@@ -248,6 +276,7 @@ en:
       destroy:
         title: Remove a collaborator from an App
         description: Remove a collaborator from an App
+
     debug_files:
       default:
         tags: Debug files
@@ -285,6 +314,7 @@ en:
       destroy:
         title: Destroy a debug file
         description: Destroy a debug file ID and all data, include dSYM or Proguard files.
+
     users:
       default:
         tags: Users
@@ -321,6 +351,7 @@ en:
       unlock:
         title: Unlock a user
         description: Unlock a user to enable log in
+
     version:
       default:
         tags: Version
