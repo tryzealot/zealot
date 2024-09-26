@@ -18,7 +18,10 @@ ruby:
                 data-action="admin-smtp-verify#run"
               ] = t('admin.settings.index.smtp_verify')
           == render 'switch_icon', value: value
-          = display_value
+          - if key == 'mailer_options' && Rails.env.development?
+            = Setting.mailer_method
+          - else
+            = display_value
       - else
         pre.mb-2
           == render 'switch_icon', value: value
