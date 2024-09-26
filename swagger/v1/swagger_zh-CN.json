@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Zealot API",
-    "version": "v1.3",
-    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n\n准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：\n\n```json\n{\n  \"version\": \"5.3.6\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 接口认证\n\n接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### 用户密钥\n\n用户密钥在[用户详情](/docs/user-guide/user_settings)最底部找到。\n"
+    "version": "v1.4",
+    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n\n准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：\n\n```json\n{\n  \"version\": \"5.3.6\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 接口认证\n\n接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### 用户密钥\n\n用户密钥在[用户详情](https://zealot.ews.im/zh-Hans/docs/user-guide/user_settings)最底部找到。\n"
   },
   "servers": [
     {
@@ -61,9 +61,21 @@
         ],
         "description": "根据应用名创建应用",
         "operationId": "createApp",
-        "parameters": [
-
-        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "应用详情",
@@ -82,15 +94,6 @@
                 "schema": {
                   "$ref": "#/components/responses/Unauthorized"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/AppOptions"
               }
             }
           }
@@ -411,6 +414,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/AppOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "应用详情",
@@ -439,15 +457,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/AppOptions"
               }
             }
           }
@@ -575,6 +584,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "应用渠道详情",
@@ -606,15 +630,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/ChannelOptions"
-              }
-            }
-          }
         }
       }
     },
@@ -636,6 +651,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ChannelOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "更新应用渠道信息",
@@ -664,15 +694,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/ChannelOptions"
               }
             }
           }
@@ -813,6 +834,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "应用成员详情",
@@ -844,15 +880,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
         }
       },
       "put": {
@@ -880,6 +907,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "更新应用成员信息",
@@ -908,15 +950,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
               }
             }
           }
@@ -1248,6 +1281,123 @@
         }
       }
     },
+    "/releases/{id}": {
+      "put": {
+        "summary": "更新应用版本元信息",
+        "tags": [
+          "应用版本"
+        ],
+        "description": "更新应用版本的版本、自定义字段、变更日志等信息",
+        "operationId": "updateRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ReleaseOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/ReleaseOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Translation missing: zh-CN.api.releases.default.responses.show",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Release"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除应用版本",
+        "tags": [
+          "应用版本"
+        ],
+        "description": "删除应用版本",
+        "operationId": "destroyRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除应用版本",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/apps/{app_id}/schemes": {
       "get": {
         "summary": "获取应用类型详情",
@@ -1319,6 +1469,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "应用类型详情",
@@ -1350,15 +1515,6 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/SchemeOptions"
-              }
-            }
-          }
         }
       }
     },
@@ -1380,6 +1536,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/SchemeOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "更新应用类型信息",
@@ -1408,15 +1579,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/SchemeOptions"
               }
             }
           }
@@ -1534,9 +1696,21 @@
         ],
         "description": "创建用户",
         "operationId": "createUser",
-        "parameters": [
-
-        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "用户详情",
@@ -1565,15 +1739,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/UserOptions"
               }
             }
           }
@@ -1648,6 +1813,21 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UserOptions"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "更新用户信息",
@@ -1676,15 +1856,6 @@
                 "schema": {
                   "$ref": "#/components/responses/NotFound"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/UserOptions"
               }
             }
           }
@@ -2763,6 +2934,7 @@
           "enum": [
             "ios",
             "android",
+            "harmonyos",
             "macos",
             "windows",
             "linux"
@@ -2784,6 +2956,54 @@
         "password": {
           "type": "string",
           "description": "密码访问"
+        }
+      }
+    },
+    "ReleaseOptions": {
+      "description": "应用版本元信息表单字段结构",
+      "type": "object",
+      "properties": {
+        "build_version": {
+          "type": "string",
+          "description": "构建版本"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "发布版本"
+        },
+        "release_type": {
+          "type": "string",
+          "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
+        },
+        "source": {
+          "type": "string",
+          "description": "上传渠道名称，默认是 `api`"
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "description": "变更日志，接受纯文本或 JSON 格式化的数据"
+        },
+        "branch": {
+          "type": "string",
+          "description": "代码控制软件的分支名"
+        },
+        "git_commit": {
+          "type": "string",
+          "description": "代码控制软件提交哈希值"
+        },
+        "ci_url": {
+          "type": "string",
+          "description": "持续构建系统构建 URL"
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
         }
       }
     },
