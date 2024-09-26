@@ -1,4 +1,7 @@
 default: &default
+  <% if (url = ENV['ZEALOT_POSTGRES_URL']) && !url.to_s.empty? %>
+  url: <%= url %>
+  <% else %>
   adapter: postgresql
   encoding: utf8
   pool: 5
@@ -7,6 +10,8 @@ default: &default
   username: <%= ENV['ZEALOT_POSTGRES_USERNAME'] || 'zealot' %>
   password: <%= ENV['ZEALOT_POSTGRES_PASSWORD'] || '' %>
   database: <%= (host = ENV['ZEALOT_POSTGRES_DB_NAME'] || 'zealot'; case ENV['RAILS_ENV'] when 'test' then "#{host}_test"; when 'production' then host else "#{host}_development"; end) %>
+  sslmode: <%= ENV['ZEALOT_POSTGRES_SSLMODE'] || 'none' %>
+  <% end %>
 
 development:
   <<: *default
