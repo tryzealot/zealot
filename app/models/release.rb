@@ -16,10 +16,10 @@ class Release < ApplicationRecord
   has_one :metadata, class_name: 'Metadatum', dependent: :destroy
   has_and_belongs_to_many :devices, dependent: :destroy
 
-  validates :file, presence: true
+  validates :file, presence: true, on: :create
   validate :bundle_id_matched, on: :create
-  validate :determine_file_exist
-  validate :determine_disk_space
+  validate :determine_file_exist, on: :create
+  validate :determine_disk_space, on: :create
 
   before_create :auto_release_version
   before_create :default_source

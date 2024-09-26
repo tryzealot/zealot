@@ -109,11 +109,17 @@ namespace :zealot do
   task :swaggerize do
     ENV['RAILS_ENV'] = 'test'
     current_locale = ENV['DEFAULT_LOCALE']
+
     Rails.configuration.i18n.available_locales.each do |locale|
+      # reset task invoke status and execute
+      Rake::Task['rswag:specs:swaggerize'].reenable
+
+      puts "Generating swagger file ... #{locale}"
       ENV['DEFAULT_LOCALE'] = current_locale.to_s
-      puts "Generating #{locale} swagger ..."
-      Rake::Task['rswag'].invoke
+      Rake::Task['rswag:specs:swaggerize'].invoke
     end
+
+    # restore
     ENV['DEFAULT_LOCALE'] = current_locale
     ENV.delete('RAILS_ENV')
   end

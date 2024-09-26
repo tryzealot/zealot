@@ -120,6 +120,18 @@ zh-CN:
           bundle_id: 包名校验， 默认是 `*` 不做校验 (iOS 指的是 bundle_id，Android 指的是 package name)
           git_url: Git 仓库地址
           password: 密码访问
+      release_options:
+        description: 应用版本元信息表单字段结构
+        properties:
+          build_version: 构建版本
+          release_version: 发布版本
+          release_type: 应用类型，比如 debug, beta, adhoc, release, enterprise 等
+          source: 上传渠道名称，默认是 `api`
+          changelog: 变更日志，接受纯文本或 JSON 格式化的数据
+          branch: 代码控制软件的分支名
+          git_commit: 代码控制软件提交哈希值
+          ci_url: 持续构建系统构建 URL
+          custom_fields: 这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome
       collaborator_options:
         description: 应用成员表单字段结构
         properties:
@@ -227,6 +239,19 @@ zh-CN:
       destroy:
         title: 删除应用渠道
         description: 从应用中删除指定应用渠道
+
+    releases:
+      default:
+        tags: 应用版本
+        responses:
+          update: 更新应用版本
+          destroy: 删除应用版本
+      update:
+        title: 更新应用版本元信息
+        description: 更新应用版本的版本、自定义字段、变更日志等信息
+      destroy:
+        title: 删除应用版本
+        description: 删除应用版本
 
     collaborators:
       default:

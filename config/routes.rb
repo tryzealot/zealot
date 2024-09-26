@@ -213,6 +213,7 @@ Rails.application.routes.draw do
 
       resources :collaborators, param: :user_id, except: %i[index new edit]
     end
+    resources :releases, only: %i[update destroy]
 
     resources :debug_files, except: %i[new edit create] do
       collection do
