@@ -37,6 +37,9 @@ namespace :zealot do
       puts "Zealot initialize database ..."
       Rake::Task['db:migrate'].invoke
 
+      # NOTE: wait db migrate then insert data
+      sleep 3
+
       puts "Zealot initialize admin user and sample data ..."
       Rake::Task['db:seed'].invoke
     end
@@ -77,10 +80,10 @@ namespace :zealot do
     if vcs = Setting.vcs_ref
       message += "revision #{vcs[0..7]}"
     end
-    message = message ? " (#{message})" : nil
-    docker = (docker_tag = ENV['DOCKER_TAG']) ? " [docker:#{docker_tag}]" : nil
+    message = message.present? ? " (#{message})" : nil
+    docker = (docker_tag = ENV['DOCKER_TAG']).present? ? " [docker:#{docker_tag}]" : nil
 
-    puts "Zealot #{version}#{message}#{docker}"
+    puts "Zealot version: #{version}#{message}#{docker}"
   end
 
   desc "Zealot | generate swagger files"
