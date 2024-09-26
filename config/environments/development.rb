@@ -73,7 +73,22 @@ Rails.application.configure do
   # If using a Heroku, Vagrant or generic remote development environment,
   # use letter_opener_web, accessible at  /letter_opener.
   # Otherwise, use letter_opener, which launches a browser window to view sent mail.
-  config.action_mailer.delivery_method = %w[HEROKU_APP_ID VAGRANT REMOTE_DEV].select { |k| ENV[k].present? }.empty? ? :letter_opener_web : :letter_opener
+  if ActiveModel::Type::Boolean.new.cast(ENV['ENABLE_DEVELOPMENT_MAILER_TEST'])
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              ENV['SMTP_ADDRESS'],
+      port:                 ENV['SMTP_PORT'].to_i,
+      domain:               ENV['SMTP_DOMAIN'] || ENV['ZEALOT_DOMAIN'],
+      user_name:            ENV['SMTP_USERNAME'].presence,
+      password:             ENV['SMTP_PASSWORD'].presence,
+      authentication:       ENV['SMTP_AUTH_METHOD'] == 'none' ? nil : ENV['SMTP_AUTH_METHOD'].presence || 'plain',
+      enable_starttls:      ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS_AUTO']) ?
+                              :auto : ActiveModel::Type::Boolean.new.cast(ENV['SMTP_ENABLE_STARTTLS']),
+      openssl_verify_mode:  ENV['SMTP_OPENSSL_VERIFY_MODE'],
+    }
+  else
+    config.action_mailer.delivery_method = %w[HEROKU_APP_ID VAGRANT REMOTE_DEV].select { |k| ENV[k].present? }.empty? ? :letter_opener_web : :letter_opener
+  end
 
   # # Use an evented file watcher to asynchronously detect changes in source code,
   # # routes, locales, etc. This feature depends on the listen gem.

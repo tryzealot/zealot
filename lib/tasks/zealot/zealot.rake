@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../zealot/smtp_validator'
+
 namespace :zealot do
   desc 'Zealot | Upgrade zealot or setting up database'
   task upgrade: :environment do
@@ -9,12 +11,29 @@ namespace :zealot do
 
   desc 'Zealot | Precheck service healthly'
   task precheck: :environment do
-    # nothing to do
+    Rake::Task['zealot:check:smtp'].invoke
   end
 
   desc 'Zealot | Remove all data and init demo data and user'
   task reset: :environment do
     ResetForDemoModeJob.perform_now
+  end
+
+  namespace :check do
+    task smtp: :environment do
+      puts "SMTP testing ..."
+
+      smtp_validator = Zealot::SMTPValidator.new
+      if smtp_validator.configured?
+        success = smtp_validator.verify
+        unless success
+          fail smtp_validator.error_message
+          exit!
+        end
+      else
+        puts "smtp is not configure, skip"
+      end
+    end
   end
 
   namespace :db do

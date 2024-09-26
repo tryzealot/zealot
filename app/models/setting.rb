@@ -105,6 +105,8 @@ class Setting < RailsSettings::Base
       readonly: true, display: true
     field :mailer_default_reply_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
       readonly: true, display: true
+    field :mailer_method, type: :string, display: false, readonly: true,
+      default: Rails.configuration.action_mailer.delivery_method
     field :mailer_options, type: :hash, display: true, readonly: true,
       default: Rails.configuration.action_mailer.smtp_settings, validates: { json: { format: :hash } }
   end
