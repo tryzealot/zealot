@@ -9,7 +9,7 @@ RSpec.configure do |config|
       openapi: '3.1.0',
       info: {
         title: 'Zealot API',
-        version: 'v1.3',
+        version: 'v1.4',
         description: I18n.t('api.info.description')
       },
       servers: [
@@ -255,7 +255,7 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.version.description'),
             type: :object,
             properties: {
-              version: { type: :integer, format: :int32, example: '5.3.6' },
+              version: { type: :integer, format: :int32, example: '5.3.7' },
               vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
               build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
             }
@@ -337,6 +337,21 @@ RSpec.configure do |config|
             bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
             git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
             password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') }
+          }
+        },
+        ReleaseOptions: {
+          description: I18n.t('api.definitions.release_options.description'),
+          type: :object,
+          properties: {
+            build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
+            release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
+            release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
+            source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
+            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
+            branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
+            git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
+            ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
+            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
           }
         },
         CollaboratorOptions: {

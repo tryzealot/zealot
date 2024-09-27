@@ -37,6 +37,9 @@ namespace :zealot do
       puts "Zealot initialize database ..."
       Rake::Task['db:migrate'].invoke
 
+      # NOTE: wait db migrate then insert data
+      sleep 3
+
       puts "Zealot initialize admin user and sample data ..."
       Rake::Task['db:seed'].invoke
     end
@@ -77,21 +80,27 @@ namespace :zealot do
     if vcs = Setting.vcs_ref
       message += "revision #{vcs[0..7]}"
     end
-    message = message ? " (#{message})" : nil
-    docker = (docker_tag = ENV['DOCKER_TAG']) ? " [docker:#{docker_tag}]" : nil
+    message = message.present? ? " (#{message})" : nil
+    docker = (docker_tag = ENV['DOCKER_TAG']).present? ? " [docker:#{docker_tag}]" : nil
 
-    puts "Zealot #{version}#{message}#{docker}"
+    puts "Zealot version: #{version}#{message}#{docker}"
   end
 
   desc "Zealot | generate swagger files"
   task :swaggerize do
     ENV['RAILS_ENV'] = 'test'
     current_locale = ENV['DEFAULT_LOCALE']
+
     Rails.configuration.i18n.available_locales.each do |locale|
+      # reset task invoke status and execute
+      Rake::Task['rswag:specs:swaggerize'].reenable
+
+      puts "Generating swagger file ... #{locale}"
       ENV['DEFAULT_LOCALE'] = current_locale.to_s
-      puts "Generating #{locale} swagger ..."
-      Rake::Task['rswag'].invoke
+      Rake::Task['rswag:specs:swaggerize'].invoke
     end
+
+    # restore
     ENV['DEFAULT_LOCALE'] = current_locale
     ENV.delete('RAILS_ENV')
   end
