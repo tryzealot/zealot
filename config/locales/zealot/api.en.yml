@@ -1,4 +1,4 @@
-en:
+en-US:
   api:
     info:
       description: |
@@ -13,7 +13,7 @@ en:
 
         ```json
         {
-          "version": "5.3.6",
+          "version": "6.0.0",
           "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
           "build_date": "2024-05-23T06:04:48.989Z"
         }
@@ -50,11 +50,11 @@ en:
       supported_values: Supported values in %{values}
     schemas:
       app_index:
-        description: Apps returned in a list
+        description: App returned in a list
       app_versions:
         description: Apps returned in a list
       app:
-        description: App object
+        description: App
       scheme:
         description: App scheme object
       channel:
@@ -62,11 +62,11 @@ en:
       release:
         description: App's release build object
       release_changelog:
-        description: Changelog of release build
+        description: Changelogs of build
       release_custom_field:
-        description: Custom fields of release build
+        description: Custom fields of build
       collaborator:
-        description: Collaborator object
+        description: App collaborator
       debug_file:
         description: Debug file object
       debug_file_metadata:
@@ -83,7 +83,7 @@ en:
         description: Version object
     responses:
       unauthorized:
-        description: Unauthorized Response
+        description: 401 Unauthorized Response
       not_found:
         default: Resource not found
         description: '%{model} not found'
@@ -128,6 +128,7 @@ en:
         properties:
           build_version: Build version
           release_version: Release version
+          release_type: 应用类型，比如 debug, beta, adhoc, release, enterprise 等
           source: the source of upload (default is `api`)
           changelog: Change log, accept plain text or JSON formatted data
           branch: a branch name from source control tool
@@ -155,7 +156,6 @@ en:
           file: Zip arichved file (dSYM or Proguard)
           release_version: Release version (requires if Android's Proguard file)
           build_version: Build version (requires if Android's Proguard file)
-
     apps:
       default:
         tags: Apps
@@ -197,15 +197,14 @@ en:
       destroy:
         title: Destroy an App
         description: Destroy an App all data by ID, include schemes, channel, builds, debug files and the other related resources.
-
     schemes:
       default:
         tags: Schemes
         responses:
-          index: Return a list of schemes
-          show: Get a scheme
+          index: Schemes
+          show: Scheme
           create: Create a scheme
-          update: Update a scheme
+          update: Scheme
           destroy: Destroy a scheme
       create:
         title: Create an App's scheme
@@ -219,15 +218,14 @@ en:
       destroy:
         title: Destroy a scheme
         description: Destroy a scheme from the App
-
     channels:
       default:
         tags: Channel
         responses:
-          index: Return a list of channels
-          show: Get a channel
+          index: Channels
+          show: Channel
           create: Create a channel
-          update: Update a channel
+          update: Channel
           destroy: Destroy channel
       create:
         title: Create a channel
@@ -241,7 +239,6 @@ en:
       destroy:
         title: Destroy a channel
         description: Destroy a scheme's channel
-
     releases:
       default:
         tags: Release
@@ -254,15 +251,14 @@ en:
       destroy:
         title: Destroy a build
         description: Destroy a app's build
-
     collaborators:
       default:
         tags: Collaborators
         responses:
-          index: Return a list of collaborators
-          show: Return a collaborator
+          index: Collaborators
+          show: Collaborator
           create: Create a collaborator
-          update: Update a collaborator
+          update: Collaborator
           destroy: Destroy a collaborator
       create:
         title: Add a collaborator to an App
@@ -276,15 +272,14 @@ en:
       destroy:
         title: Remove a collaborator from an App
         description: Remove a collaborator from an App
-
     debug_files:
       default:
         tags: Debug files
         responses:
-          index: Return a list of debug files
+          index: DebugFiles
           download: Redirect to binary file URL
-          show: Get a debug file
-          upload: Upload a debug file
+          show: DebugFile
+          upload: DebugFile
           update: Update a debug file
           destroy: Destroy a debug file
       index:
@@ -307,23 +302,19 @@ en:
       upload:
         title: Upload a debug file
         description: |
-          Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:
-
-          - `iOS`: a Zipped dSYM file
-          - `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.
+          Upload a dSYM or Proguard file which it was archived with zip formatted
       destroy:
         title: Destroy a debug file
         description: Destroy a debug file ID and all data, include dSYM or Proguard files.
-
     users:
       default:
         tags: Users
         responses:
-          index: Return a list of users
+          index: Users
           search: Return a list of users
-          show: Return a user
+          show: User
           create: Create an user
-          update: Update a user
+          update: User
           destroy: Destroy an user
           lock: Return process result
           unlock: Return process result
@@ -351,7 +342,6 @@ en:
       unlock:
         title: Unlock a user
         description: Unlock a user to enable log in
-
     version:
       default:
         tags: Version
