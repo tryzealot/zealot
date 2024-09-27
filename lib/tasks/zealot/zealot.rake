@@ -30,7 +30,7 @@ namespace :zealot do
           fail smtp_validator.error_message
           exit!
         end
-        echo "SMTP verified successful"
+        puts "SMTP verified successful"
       else
         puts "SMTP is not configure, skip"
       end
