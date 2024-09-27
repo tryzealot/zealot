@@ -23,7 +23,7 @@ namespace :zealot do
     task smtp: :environment do
       puts "SMTP testing ..."
 
-      smtp_validator = Zealot::SMTPValidator.new
+      smtp_validator = Zealot::SmtpValidator.new
       if smtp_validator.configured?
         success = smtp_validator.verify
         unless success

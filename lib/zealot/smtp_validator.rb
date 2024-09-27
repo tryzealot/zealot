@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-require 'pp'
 
-class Zealot::SMTPValidator
+class Zealot::SmtpValidator
   def initialize
     if enabled?
       @address = Setting.mailer_options[:address]
