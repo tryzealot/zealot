@@ -614,7 +614,7 @@ GEM
     webp-ffi (0.4.0)
       ffi (>= 1.9.0)
       ffi-compiler (>= 0.1.2)
-    webrick (1.8.1)
+    webrick (1.8.2)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
