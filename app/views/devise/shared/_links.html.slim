@@ -1,4 +1,4 @@
-- if devise_mapping.omniauthable? && Setting.registrations_mode
+- if devise_mapping.omniauthable?
   .social-auth-links.mb-3
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
