@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_action :disable_registrations_mode unless Setting.registrations_mode
-
   User.oauth_providers.each do |provider_name|
     define_method(provider_name) do
       omniauth_callback(provider_name)
@@ -51,9 +49,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def goback_path
     omni_params = request.env['omniauth.params']
     omni_params&['back'].presence || request.env['HTTP_REFERER'] || root_path
-  end
-
-  def disable_registrations_mode
-    redirect_to user_session_path, alert: t('devise.omniauth_callbacks.disabled')
   end
 end

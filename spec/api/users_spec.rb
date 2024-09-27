@@ -67,7 +67,7 @@ RSpec.describe 'Users API' do
       description I18n.t('api.users.create.description')
       operationId 'createUser'
 
-      include_examples :request_form_body, '#/definitions/UserOptions'
+      include_examples :request_body, '#/definitions/UserOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.users.default.responses.create') do
@@ -87,7 +87,7 @@ RSpec.describe 'Users API' do
       operationId 'updateUser'
 
       include_examples :primary_key_parameter
-      include_examples :request_form_body, '#/definitions/UserOptions'
+      include_examples :request_body, '#/definitions/UserOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.users.default.responses.update') do
