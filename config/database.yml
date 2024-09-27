@@ -21,3 +21,8 @@ test:
 
 production:
   <<: *default
+
+cache:
+  <<: *default
+  database: cache
+  migrations_paths: db/cache_migrate
