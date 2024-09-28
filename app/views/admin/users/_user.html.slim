@@ -11,7 +11,7 @@
     - elsif user.confirmed_at
       span.badge.text-bg-secondary = t('admin.users.index.activated')
     - else
-      = link_to t('admin.users.index.inactive'), edit_admin_user_path(user), class: 'badge text-bg-primary'
+      span.badge.text-bg-primary = t('admin.users.index.inactive')
   .col-2.my-auto.d-none.d-sm-table-cell
     - if user.last_sign_in_at
       = time_ago_in_words(user.last_sign_in_at)
