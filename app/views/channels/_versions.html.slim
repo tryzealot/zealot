@@ -12,7 +12,7 @@
         - @versions.each do |version|
           tr
             td
-              = link_to version, friendly_channel_version_path(@channel, version)
+              = link_to version, friendly_channel_version_path(@channel, version), data: { turbo: false }
             td
               = @channel.release_version_count(version)
     - else
