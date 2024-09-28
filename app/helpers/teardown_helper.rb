@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module TeardownHelper
+  def teardown_owner?(metadata)
+    return false unless current_user
+    return true if current_user.manage?
+
+    metadata.user == current_user
+  end
+
   def android_v1_signature?(certificates)
     !certificates.any? { |cert| cert.key?('scheme') }
   end
