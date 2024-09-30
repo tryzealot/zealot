@@ -296,11 +296,15 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    memoist (0.16.2)
     method_source (1.1.0)
     mini_magick (4.13.1)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
     minitest (5.25.1)
+    mkmf-lite (0.7.1)
+      memoist (~> 0.16.2)
+      ptools (~> 1.4)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.7.1)
@@ -407,6 +411,7 @@ GEM
       pry (>= 0.12.0)
     psych (5.1.2)
       stringio
+    ptools (1.5.0)
     public_suffix (6.0.1)
     puma (6.4.3)
       nio4r (~> 2.0)
@@ -576,8 +581,9 @@ GEM
       attr_required (>= 0.0.5)
       faraday (~> 2.0)
       faraday-follow_redirects
-    sys-filesystem (1.5.0)
+    sys-filesystem (1.5.2)
       ffi (~> 1.1)
+      mkmf-lite (~> 0.7)
     temple (0.10.3)
     thor (1.3.2)
     tilt (2.4.0)
@@ -701,7 +707,7 @@ DEPENDENCIES
   slim-rails (~> 3.6.3)
   solid_cache (~> 1.0.6)
   stimulus-rails (~> 1.3.4)
-  sys-filesystem (~> 1.5.0)
+  sys-filesystem (~> 1.5.2)
   tiny_appstore_connect (~> 0.1.12)
   turbo-rails (~> 2.0)
   vmstat (~> 2.3.0)
