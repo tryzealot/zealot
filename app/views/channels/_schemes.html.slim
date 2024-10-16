@@ -8,5 +8,6 @@
           scheme_link = using_friendly_channel_path(scheme, @channel)
         - if scheme_link.present?
           li.nav-item
-            a.nav-link.nav-link-flat href="#{scheme_link}" class="#{@channel.scheme.name == scheme.name ? 'active' : ''}"
-              = scheme.name
+            = link_to scheme.name, scheme_link, \
+              class: "nav-link nav-link-flat #{@channel.scheme.name == scheme.name ? 'active' : ''}", \
+              data: { turbo_action: :advance }
