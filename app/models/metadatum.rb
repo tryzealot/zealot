@@ -4,7 +4,7 @@ class Metadatum < ApplicationRecord
   belongs_to :release
   belongs_to :user
 
-  enum platform: {
+  enum :platform, {
     ios: 'ios',
     appletv: 'appletv',
     android: 'android',

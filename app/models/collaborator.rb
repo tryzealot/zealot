@@ -9,7 +9,7 @@ class Collaborator < ApplicationRecord
 
   default_scope { order(owner: :desc, role: :desc) }
 
-  enum role: %i[member developer admin]
+  enum :role, %i[member developer admin]
 
   validates :owner, inclusion: [ true, false ]
   validates :role, presence: true, exclusion: { in: Collaborator.roles.values }

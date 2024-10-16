@@ -9,10 +9,10 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :recoverable, :lockable,
          :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect]
 
-  enum role: %i[member developer admin]
-  enum locale: enum_roles
-  enum appearance: enum_appearances
-  enum timezone: enum_timezones
+  enum :role, %i[member developer admin]
+  enum :locale, enum_roles
+  enum :appearance, enum_appearances
+  enum :timezone, enum_timezones
 
   has_and_belongs_to_many :apps, dependent: :destroy
   has_many :collaborators, dependent: :destroy
