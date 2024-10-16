@@ -33,7 +33,7 @@ class Channel < ApplicationRecord
     releases.last
   end
 
-  def recently_releases(limit = 10)
+  def recently_releases(limit = Setting.per_page)
     releases.limit(limit).order(id: :desc)
   end
 
