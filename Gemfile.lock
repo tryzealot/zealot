@@ -546,10 +546,10 @@ GEM
       base64
     rubyzip (2.3.2)
     securerandom (0.3.1)
-    sentry-rails (5.20.1)
+    sentry-rails (5.21.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.20.1)
-    sentry-ruby (5.20.1)
+      sentry-ruby (~> 5.21.0)
+    sentry-ruby (5.21.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -618,7 +618,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.18)
+    zeitwerk (2.7.0)
     zhexdump (0.2.0)
 
 PLATFORMS
@@ -695,8 +695,8 @@ DEPENDENCIES
   rswag-ui (~> 2.15.0)
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.20.1)
-  sentry-ruby (~> 5.20.1)
+  sentry-rails (~> 5.21.0)
+  sentry-ruby (~> 5.21.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
   solid_cache (~> 1.0.6)
