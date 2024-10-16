@@ -9,7 +9,7 @@
           scheme_link = using_friendly_channel_path(scheme, @channel)
         - if scheme_link.present?
           li
-            = link_to scheme.name, scheme_link, class: 'dropdown-item'
+            = link_to scheme.name, scheme_link, class: 'dropdown-item', data: { turbo_action: :advance }
 
   .nav-item.dropdown.channels.w-50
     button.btn.btn-secondary.dropdown-toggle.w-100.rounded-0.rounded-end data-bs-toggle="dropdown"
@@ -21,7 +21,8 @@
       - if channels.present?
         - channels.each do |channel|
           li
-            = link_to channel_platform(channel), friendly_channel_overview_path(channel), class: 'dropdown-item'
+            = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
+              class: 'dropdown-item', data: { turbo_action: :advance }
       - else
         li
           span.text-gray.dropdown-item = t('channels.show.none')
