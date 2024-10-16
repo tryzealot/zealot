@@ -1,7 +1,7 @@
 = turbo_frame_tag :release, class: 'row' do
   .col-md-8.col-lg-9
     == render 'releases/body/new_release_callout', enable_callout: release.scheme.new_build_callout, latest_release: release.outdated?
-    == render 'releases/body/metadata'
+    == render 'releases/body/metadata', release: release
     == render 'releases/body/changelog'
     == render 'releases/body/devices'
     == render 'releases/body/activity', current_release: release, recently_releases: release.channel.recently_releases
