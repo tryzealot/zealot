@@ -9,6 +9,12 @@ a {
   text-decoration: none;
 }
 
+.callout {
+  a {
+    text-decoration: underline;
+  }
+}
+
 .navbar-brand {
   .brand-text {
     vertical-align: middle;
@@ -102,12 +108,6 @@ i.icon {
   .nav-item .active {
     color: #fff;
     background-color: var(--bs-primary-bg);
-  }
-
-  .callout {
-    a {
-      text-decoration: underline;
-    }
   }
 
   .border-bottom {
