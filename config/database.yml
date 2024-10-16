@@ -1,5 +1,5 @@
 default: &default
-  <% if (url = ENV['ZEALOT_POSTGRES_URL']) && !url.to_s.empty? %>
+  <% if (url = ENV['ZEALOT_DATABASE_URL']) && !url.to_s.empty? %>
   url: <%= url %>
   <% else %>
   adapter: postgresql
