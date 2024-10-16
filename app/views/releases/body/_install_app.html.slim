@@ -1,6 +1,6 @@
 .app-actions[
   data-controller="release-download"
-  data-release-download-install-url-value="#{@release.install_url}"
+  data-release-download-install-url-value="#{release.install_url}"
   data-release-download-installing-value="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
   data-release-download-installed-value="<i class='fas fa-download'></i>#{t('releases.show.installed')}"
 ]
@@ -8,9 +8,9 @@
   == render 'releases/body/install_issues'
 
   .action-buttons data-release-download-target="buttons"
-    - if @release.file?
-      - if @release.platform == 'iOS'
-        - if @release.cert_expired?
+    - if release.file?
+      - if release.platform == 'iOS'
+        - if release.cert_expired?
           button.btn.btn-icon.btn-lg.btn-secondary.disabled
             i.fas.fa-certificate
             = t('releases.show.cert_expired')
@@ -24,7 +24,7 @@
 
       a.btn.btn-icon.btn-lg.btn-success[
         data-release-download-target="downloadButton"
-        href="#{@release.download_url}"
+        href="#{release.download_url}"
         target="_blank"
       ]
         i.fas.fa-hard-drive
@@ -34,14 +34,14 @@
         i.fas.fa-ghost
         = t('releases.show.missing_file')
 
-    - if current_user&.manage?(app: @app)
-      = link_to channel_release_path(@release.channel, @release), class: 'btn btn-icon btn-lg btn-danger', \
+    - if current_user&.manage?(app: app)
+      = link_to channel_release_path(release.channel, release), class: 'btn btn-icon btn-lg btn-danger', \
         data: { turbo_method: :delete, turbo_confirm: t('releases.messages.confirm.destroy') } do
           i.fas.fa-trash-alt
           = t('releases.show.destroy')
 
     .ios-issues
-      - if @release.file? && @release.cert_expired?
+      - if release.file? && release.cert_expired?
         .ios-cert-expired
           i.fas.fa-asterisk
           a href="javascript:void(0);" data-action="release-download#showCertExpired"
