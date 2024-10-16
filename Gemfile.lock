@@ -248,8 +248,8 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
-    json-schema (4.3.1)
-      addressable (>= 2.8)
+    json-schema (5.0.1)
+      addressable (~> 2.8)
     jsonapi-renderer (0.2.2)
     jwt (2.8.2)
       base64
@@ -512,9 +512,9 @@ GEM
     rswag-api (2.14.0)
       activesupport (>= 5.2, < 8.0)
       railties (>= 5.2, < 8.0)
-    rswag-specs (2.14.0)
+    rswag-specs (2.15.0)
       activesupport (>= 5.2, < 8.0)
-      json-schema (>= 2.2, < 5.0)
+      json-schema (>= 2.2, < 6.0)
       railties (>= 5.2, < 8.0)
       rspec-core (>= 2.14)
     rswag-ui (2.15.0)
@@ -546,10 +546,10 @@ GEM
       base64
     rubyzip (2.3.2)
     securerandom (0.3.1)
-    sentry-rails (5.20.1)
+    sentry-rails (5.21.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.20.1)
-    sentry-ruby (5.20.1)
+      sentry-ruby (~> 5.21.0)
+    sentry-ruby (5.21.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -618,7 +618,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.18)
+    zeitwerk (2.7.0)
     zhexdump (0.2.0)
 
 PLATFORMS
@@ -695,8 +695,8 @@ DEPENDENCIES
   rswag-ui (~> 2.15.0)
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.20.1)
-  sentry-ruby (~> 5.20.1)
+  sentry-rails (~> 5.21.0)
+  sentry-ruby (~> 5.21.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
   solid_cache (~> 1.0.6)
