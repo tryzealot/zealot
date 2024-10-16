@@ -4,7 +4,8 @@ class Device < ApplicationRecord
   has_and_belongs_to_many :releases
   has_and_belongs_to_many :apple_keys
 
-  validates :name, presence: true
+  # TODO: why name must requires?
+  # validates :name, presence: true
 
   attr_accessor :sync_to_apple_key
 
