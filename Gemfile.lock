@@ -389,7 +389,7 @@ GEM
       rainbow
       zhexdump (>= 0.0.2)
     pg (1.5.8)
-    pghero (3.6.0)
+    pghero (3.6.1)
       activerecord (>= 6.1)
     plist (3.7.1)
     propshaft (1.1.0)
@@ -675,7 +675,7 @@ DEPENDENCIES
   openssl (~> 3.2.0)
   ostruct
   pg (>= 0.18, < 2.0)
-  pghero (~> 3.6.0)
+  pghero (~> 3.6.1)
   plist (~> 3.7.1)
   propshaft (= 1.1.0)
   pry-rails
