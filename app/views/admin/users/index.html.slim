@@ -14,17 +14,16 @@
     .card
       .card-body.p-0
         .p-2.ps-3.d-flex.fw-bolder.border-bottom.border-1
-          .col-sm-4.col-md-2.my-auto
+          .col-3.col-md-3.my-auto
             = t('.nickname')
-          .col-sm-4.col-md-3.my-auto
+          .col-7.col-md-4.my-auto
             = t('.email')
-          .col-sm-4.col-md-2.my-auto
+          .col-3.col-md-2.my-auto
             = t('.role')
-          .col-sm-2.my-auto.d-none.d-sm-table-cell
+          .col-2.col-md-1.my-auto.d-none.d-sm-table-cell
             = t('.status')
-          .col-2.my-auto.d-none.d-sm-table-cell
+          .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
             = t('.last_login_time')
-          .col-1.my-auto.d-none.d-sm-table-cell
         #users
           - @users.each_with_index do |user, i|
             = render user
