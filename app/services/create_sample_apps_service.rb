@@ -2,7 +2,7 @@
 
 require 'securerandom'
 
-class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/ClassLength
+class CreateSampleAppsService # rubocop:disable Metrics/ClassLength
   RELEASE_COUNT = 3
 
   def call(user)
@@ -656,15 +656,51 @@ class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/Cla
     metadata.save!(validate: false)
   end
 
-  def stardford_app(user)
+  def stardford_app(user) # rubocop:disable Metrics/MethodLength
     app_name = I18n.t('demo.app_name1')
     app_bundle_id = 'com.zealot.app-demo'
-    channels = %i[Android iOS]
     schemes = [
-      I18n.t('settings.preset_schemes.beta'),
-      I18n.t('settings.preset_schemes.adhoc'),
-      I18n.t('settings.preset_schemes.production'),
+      {
+        name: I18n.t('settings.preset_schemes.beta'),
+        channels: [
+          {
+            name: 'Android',
+            slug: 'appBetaAndroid'
+          },
+          {
+            name: 'iOS',
+            slug: 'appBetaiPhone'
+          }
+        ]
+      },
+      {
+        name: I18n.t('settings.preset_schemes.adhoc'),
+        channels: [
+          {
+            name: 'Android',
+            slug: 'appAdhocAndroid'
+          },
+          {
+            name: 'iOS',
+            slug: 'appAdhociPhone'
+          }
+        ]
+      },
+      {
+        name: I18n.t('settings.preset_schemes.production'),
+        channels: [
+          {
+            name: 'Android',
+            slug: 'appProductionAndroid'
+          },
+          {
+            name: 'iOS',
+            slug: 'appProductioniPhone'
+          }
+        ]
+      }
     ]
+
     changelog = [
       {
         author: I18n.t('settings.preset_role.developer'),
@@ -688,11 +724,11 @@ class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/Cla
 
     app = create_app(app_name, user)
 
-    schemes.each do |scheme_name|
-      scheme = app.schemes.find_or_create_by name: scheme_name
-      channels.each do |channel_name|
-        channel = scheme.channels.find_or_create_by name: channel_name,
-                                                    device_type: channel_name.downcase.to_sym
+    schemes.each do |scheme_data|
+      scheme = app.schemes.find_or_create_by name: scheme_data[:name]
+      scheme_data[:channels].each do |channel_data|
+        channel_data[:device_type] = channel_data[:name].downcase.to_sym
+        channel = scheme.channels.find_or_create_by channel_data
         bundle_id = generate_bundle_id app_bundle_id, channel
         release_type = case scheme.name
                        when I18n.t('settings.preset_schemes.beta')
@@ -723,7 +759,7 @@ class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/Cla
     app_name = I18n.t('demo.app_name2')
     app_bundle_id = 'com.zealot.android.app-demo'
     schemes = [ I18n.t('settings.preset_schemes.production') ]
-    channels = I18n.t('demo.android_channels').values
+    channels = I18n.t('demo.android_channels', locale: :en).values
     changelog = "bump 0.1.0\nfix: xxx\nfeat: xxx done"
 
     app = create_app(app_name, user)
@@ -731,8 +767,10 @@ class CreateSampleAppsService # rubocop:disable Metrics/MethodLength,Metrics/Cla
     schemes.each do |scheme_name|
       scheme = app.schemes.find_or_create_by name: scheme_name
       channels.each_with_index do |channel_name, i|
+        slug = CGI.escape("android#{channel_name.capitalize}")
         channel = scheme.channels.find_or_create_by name: channel_name,
-                                                    device_type: :android
+                                                    device_type: :android,
+                                                    slug: slug
         generate_release(
           channel,
           app_bundle_id,
