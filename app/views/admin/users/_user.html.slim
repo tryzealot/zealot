@@ -1,26 +1,19 @@
 = turbo_frame_tag user, class: 'p-2 ps-3 border-top d-flex' do
-  .col-3.col-md-2.my-auto
+  .col-3.col-md-3.my-auto
     = link_to user.username, edit_admin_user_path(user), data: { turbo_frame: :modal }
-  .col-7.col-md-3.my-auto
+  .col-7.col-md-4.my-auto
     = user.email
   .col-3.col-md-2.my-auto
     = user.role_name
-  .col-2.my-auto.d-none.d-sm-table-cell
+  .col-2.col-md-1.my-auto.d-none.d-sm-table-cell
     - if user.access_locked?
       span.badge.text-bg-danger = t('admin.users.index.locked')
     - elsif user.confirmed_at
       span.badge.text-bg-secondary = t('admin.users.index.activated')
     - else
       span.badge.text-bg-primary = t('admin.users.index.inactive')
-  .col-2.my-auto.d-none.d-sm-table-cell
+  .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
     - if user.last_sign_in_at
       = time_ago_in_words(user.last_sign_in_at)
     - else
       = t('admin.users.index.never_logged_in')
-  .col-1.my-auto.d-none.d-sm-table-cell
-    - if default_admin_in_demo_mode?(current_user)
-      button.btn.text-danger.p-0.float-end
-        i.fas.fa-trash-alt
-    - else
-      = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger p-0 me-3 float-end', \
-        data: { turbo_method: :delete, turbo_confirm: t('admin.users.index.destroy_user_confirm', user: user.username) }
