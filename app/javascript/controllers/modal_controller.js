@@ -8,7 +8,15 @@ export default class extends Controller {
     this.modal.show()
   }
 
+  disconnect() {
+    this.clear()
+  }
+
   close() {
+    this.clear()
+  }
+
+  clear() {
     this.modal.hide()
     this.element.remove()
   }
