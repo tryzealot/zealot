@@ -166,6 +166,8 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.4.2)
+      i18n (>= 1.8.11, < 2)
     faraday (2.12.0)
       faraday-net_http (>= 2.0, < 3.4)
       json
@@ -649,6 +651,7 @@ DEPENDENCIES
   devise-i18n (~> 1.12.1)
   dotenv-rails
   factory_bot_rails
+  faker
   faraday (~> 2.12.0)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)

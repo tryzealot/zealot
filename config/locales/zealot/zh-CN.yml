@@ -847,6 +847,7 @@ zh-CN:
     preset_schemes:
       beta: 测试版
       adhoc: 内测版
+      enterprise: 企业版
       production: 产品版
     preset_role:
       member: 用户
