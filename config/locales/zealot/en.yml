@@ -868,6 +868,7 @@ en:
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
+      enterprise: Enterprise
       production: Production
     preset_role:
       member: Member

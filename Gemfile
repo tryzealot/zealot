@@ -114,6 +114,8 @@ group :development, :test do
   gem 'pry-rescue'
 
   gem 'factory_bot_rails'
+  gem 'faker'
+
   gem 'rspec-rails'
   gem 'rswag-specs'
 end
