@@ -37,7 +37,7 @@ class ResetForDemoModeJob < ApplicationJob
 
   def reset_table_auto_sequences
     [
-      App, Scheme, Channel, Release, Device, Metadatum, DebugFile,
+      App, Scheme, Channel, Release, Device, Metadatum, DebugFile, DebugFileMetadatum,
       Setting, AppleKey, AppleTeam, User, WebHook, Backup
     ].each do |model|
       sequence_name = ActiveRecord::Base.connection.execute(
