@@ -17,7 +17,11 @@
             "path": "/bin/zsh",
             "icon": "star"
           }
-        }
+        },
+        "rubyLsp.rubyVersionManager": {
+          "identifier": "asdf"
+        },
+        "dev.containers.mountWaylandSocket": false
       },
       "extensions": [
         "Shopify.ruby-lsp",
