@@ -19,7 +19,7 @@
           }
         },
         "rubyLsp.rubyVersionManager": {
-          "identifier": "asdf"
+          "identifier": "auto"
         },
         "dev.containers.mountWaylandSocket": false
       },
