@@ -379,7 +379,7 @@ GEM
       webfinger (~> 2.0)
     openssl (3.2.0)
     orm_adapter (0.5.0)
-    ostruct (0.6.0)
+    ostruct (0.6.1)
     parallel (1.25.1)
     parser (3.3.3.0)
       ast (~> 2.4.1)
