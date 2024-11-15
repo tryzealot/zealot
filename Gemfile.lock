@@ -517,9 +517,9 @@ GEM
       json-schema (>= 2.2, < 5.0)
       railties (>= 5.2, < 8.0)
       rspec-core (>= 2.14)
-    rswag-ui (2.15.0)
-      actionpack (>= 5.2, < 8.0)
-      railties (>= 5.2, < 8.0)
+    rswag-ui (2.16.0)
+      actionpack (>= 5.2, < 8.1)
+      railties (>= 5.2, < 8.1)
     rubocop (1.64.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -690,7 +690,7 @@ DEPENDENCIES
   rspec-rails
   rswag-api (~> 2.15.0)
   rswag-specs
-  rswag-ui (~> 2.15.0)
+  rswag-ui (~> 2.16.0)
   rubocop (>= 0.70)
   rubocop-rails
   sentry-rails (~> 5.21.0)
