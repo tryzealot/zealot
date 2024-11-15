@@ -249,10 +249,10 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.200.tgz#7f56b3313762dbb85b64490aa33c5f431419aafd"
   integrity sha512-gVmi3MabEa+Bkatvw0/k1Y3WTidcIf3qNbb9L8qc+AmT2UmkVqUZhJpSLvKmH10twCYIGzn7yySW/lOpg81Duw==
 
-"@stimulus-components/checkbox-select-all@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@stimulus-components/checkbox-select-all/-/checkbox-select-all-6.0.0.tgz#215e1d7d64280ce722a3d9ec7dbcc5bfd0343c57"
-  integrity sha512-8zuvjiwq/bxSer7PtPl++w0BYESd5/tJdlo9yae9iXsa0AlYlgZDC2kHAtz271GaldxMokQkGCpOkmBBvM+X0Q==
+"@stimulus-components/checkbox-select-all@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@stimulus-components/checkbox-select-all/-/checkbox-select-all-6.1.0.tgz#81da1ae620c2591ca247b32938a80e8c18b8b357"
+  integrity sha512-FTwLyYBrVw7WneVJy9sP/J3sCVxx8/mz7U+tDJhQsVrlfM2sCyVXRNMexzb7vt/STTqz9+crN9MeWFv52hxh5Q==
 
 admin-lte@^4.0.0-beta2:
   version "4.0.0-beta2"
