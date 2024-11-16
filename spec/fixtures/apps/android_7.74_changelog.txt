@@ -1,0 +1,6 @@
+Fix search term persists when navigating to different podcast page.
+Fix the show notes web view jumping after loading.
+Fix play button local file getting set to pause after episode completion.
+Fix volume that was not returning to the original level after restarting sleep timer by shaking the device.
+Add sleep timer settings to sleep timer bottom sheet.
+Add Google Engage SDK integration.

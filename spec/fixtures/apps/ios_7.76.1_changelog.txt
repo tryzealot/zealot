@@ -1,0 +1,5 @@
+Implements a new stream and download mechanism to address playback skipping issues.
+Implement limits for auto-downloads of new episodes.
+Implement shuffle button in Up Next view.
+Adds limits configuration for auto-downloads of new episodes.
+Fix crashing issues when syncing with an Apple Watch.
