@@ -137,8 +137,13 @@ class Release < ApplicationRecord
     errors.add(:file, message)
   end
 
-  def perform_teardown_job(user_id)
-    TeardownJob.perform_later(id, user_id)
+  def perform_teardown_job(user_id, when_to_run: :later)
+    case when_to_run
+    when :later
+      TeardownJob.perform_later(id, user_id)
+    when :now
+      TeardownJob.perform_now(id, user_id)
+    end
   end
 
   def platform
