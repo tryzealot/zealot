@@ -2,7 +2,7 @@
 
 require 'securerandom'
 
-class CreateSampleAppsService # rubocop:disable Metrics/ClassLength
+class CreateSampleDataService # rubocop:disable Metrics/ClassLength
   RELEASE_COUNT = 3
 
   def call(user)

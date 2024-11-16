@@ -62,7 +62,7 @@ class ResetForDemoModeJob < ApplicationJob
 
   def init_demo_data
     user = CreateAdminService.new.call
-    CreateSampleAppsService.new.call(user)
+    CreateSampleDataService.new.call(user)
   end
 
   def demo_mode?
