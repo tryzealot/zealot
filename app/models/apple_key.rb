@@ -11,9 +11,7 @@ class AppleKey < ApplicationRecord
   validate :appstoreconnect_api_role_permissions, on: :create
   validate :distribution_certificate, on: :create
 
-  before_validation :generate_checksum
-  after_save :create_relate_team
-  after_create :start_sync_device_job
+  before_create :generate_checksum
 
   def private_key_filename
     @private_key_filename ||= "#{key_id}.key"
@@ -95,9 +93,7 @@ class AppleKey < ApplicationRecord
     logger.error "Device may not exists or the other error in apple key #{id}: #{e}"
   end
 
-  private
-
-  def create_relate_team
+  def sync_team
     cert = apple_distribtion_certiticate
     logger.debug "Fetching distribution_certificates is #{cert.name}"
     create_team(
@@ -106,9 +102,11 @@ class AppleKey < ApplicationRecord
     )
   end
 
-  def start_sync_device_job
+  def sync_devices_job
     SyncAppleDevicesJob.perform_later(id)
   end
+
+  private
 
   def private_key_format
     OpenSSL::PKey.read(private_key)

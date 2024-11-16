@@ -34,7 +34,7 @@ class Device < ApplicationRecord
     device
   end
 
-  def start_sync_device_job(apple_key_id)
+  def sync_devices_job(apple_key_id)
     SyncDeviceNameJob.perform_later(apple_key_id, id)
   end
 
