@@ -17,7 +17,7 @@ RUN apt-get update && \
     build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev libyaml-dev  \
     imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
     tzdata \
-    vim git-flow tig tmux
+    vim git-lfs tig tmux
 
 # Install postgresql-client-16
 RUN curl -1sLf 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg && \
@@ -46,7 +46,7 @@ ENV RUBY_YJIT_ENABLE=true
 ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
 RUN git clone --quiet https://github.com/asdf-vm/asdf.git ${ASDF_DIR} && \
     echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
-    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
+    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git tmux npm yarn ruby gem bundler rails)/g" ~/.zshrc
 
 RUN asdf plugin add nodejs && \
     asdf install nodejs $NODEJS_VERSION && \
