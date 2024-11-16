@@ -1,0 +1,6 @@
+Add download button to playback actions.
+Add the ability to auto download episodes after subscribing to a podcast.
+Add support for the Catalan laguage.
+Add referrals to the app.
+Keep the playing service in the foreground when casting.
+Move Up Next clear queue button to app bar.
