@@ -61,25 +61,29 @@ class DashboardsController < ApplicationController
 
   def user_apps
     return App.count if Setting.guest_mode || !!current_user&.admin?
+    return 0 unless current_user&.apps
 
     current_user.apps.count
   end
 
   def user_teardowns
     return Metadatum.count if Setting.guest_mode || !!current_user&.admin?
+    return 0 unless current_user&.metadatum
 
     current_user.metadatum.count
   end
 
   def user_debug_files
     return DebugFile.count if Setting.guest_mode || !!current_user&.admin?
+    return 0 unless current_user&.apps
 
     current_user.apps.sum {|app| app.total_debug_files }
   end
 
   def app_uploads
     return Release.count if Setting.guest_mode || !!current_user&.admin?
-
+    return 0 unless current_user&.apps
+    
     current_user.apps.sum {|app| app.total_releases }
   end
 end
