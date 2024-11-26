@@ -19,6 +19,7 @@
         'ActiveRecord::RecordInvalid',
         'ActiveRecord::NoDatabaseError',
         'ActiveRecord::PendingMigrationError',
+        'TinyAppstoreConnect::ConnectAPIError',
         'PG::ConnectionBad',
         'AppInfo::UnkownFileTypeError',
         'Interrupt',
