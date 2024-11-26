@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@crowdin/cli@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-4.2.0.tgz#93a5ed79f5e2b05ecb1e0ffeddeadda9b5438d98"
-  integrity sha512-2RbZhITZJL9fMvHyElrk6EY1heAls127o/UgeE+Yp7EqvvkpeEdNTsiGf02s19yw5OFmFZlnPGIwfI2xLWtJdw==
+"@crowdin/cli@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-4.4.0.tgz#8ba6718b079f3af4032dd499ad38fdf1dfc40f62"
+  integrity sha512-oKpM535mnzCaZRWcTAIDYfMY0ABnl0VkxM++7sfpAyn6dtf+QGhxHuruOfuOwEaSOJxG0pEhCy0UC2LpYUUb2Q==
   dependencies:
     command-exists-promise "^2.0.2"
     node-fetch "2.7.0"
