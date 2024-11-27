@@ -8,6 +8,7 @@
   = f.input :branch
   = f.input :git_commit
   = f.input :ci_url
+  = f.input :use_original_filename, as: :radio_buttons, collection: [[true, '启用'], [false, '禁用']], checked: @use_original_filename
   = f.input :changelog, input_html: { rows: 10, cols: 10 }
 
   = f.button :submit
