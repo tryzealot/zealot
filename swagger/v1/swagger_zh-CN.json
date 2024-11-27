@@ -2318,6 +2318,10 @@
           "has_password": {
             "type": "boolean",
             "example": false
+          },
+          "download_filename_type": {
+            "type": "string",
+            "example": "original"
           }
         }
       },
@@ -2922,7 +2926,8 @@
       "type": "object",
       "required": [
         "name",
-        "device_type"
+        "device_type",
+        "download_filename_type"
       ],
       "properties": {
         "name": {
@@ -2956,6 +2961,14 @@
         "password": {
           "type": "string",
           "description": "密码访问"
+        },
+        "download_filename_type": {
+          "type": "string",
+          "enum": [
+            "system",
+            "original"
+          ],
+          "description": "下载文件文件名的生成规则"
         }
       }
     },

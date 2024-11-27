@@ -137,6 +137,7 @@ RSpec.configure do |config|
               bundle_id: { type: :string, example: '*' },
               git_url: { type: :string, example: 'https://github.com/tryzealot/zealot' },
               has_password: { type: :boolean, example: false },
+              download_filename_type: { type: :string, example: 'original' },
             }
           },
           Release: {
@@ -336,7 +337,8 @@ RSpec.configure do |config|
             slug: { type: :string, description: I18n.t('api.definitions.channel_options.properties.slug') },
             bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
             git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
-            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') }
+            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') },
+            download_filename_type: { type: :string, enum: Channel.download_filename_types.keys, description: I18n.t('api.definitions.channel_options.properties.download_filename_type') }
           }
         },
         ReleaseOptions: {
