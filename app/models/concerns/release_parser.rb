@@ -27,11 +27,11 @@ module ReleaseParser
     # iOS, Android only
     self.name ||= parser.name
     self.bundle_id = parser.bundle_id if parser.respond_to?(:bundle_id)
-    self.source ||= default_source
+    self.source = default_source if self.source.blank?
     self.device_type = parser.device
     self.release_version = parser.release_version
     self.build_version = parser.build_version
-    self.release_type ||= parser.release_type if parser.respond_to?(:release_type)
+    self.release_type = parser.release_type if release_type.blank? && parser.respond_to?(:release_type)
 
     icon_file = fetch_icon(parser)
     self.icon = icon_file if icon_file
