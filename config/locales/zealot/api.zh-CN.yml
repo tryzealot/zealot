@@ -120,6 +120,7 @@ zh-CN:
           bundle_id: 包名校验， 默认是 `*` 不做校验 (iOS 指的是 bundle_id，Android 指的是 package name)
           git_url: Git 仓库地址
           password: 密码访问
+          download_filename_type: 下载文件的文件名生成规则
       release_options:
         description: 应用版本元信息表单字段结构
         properties:

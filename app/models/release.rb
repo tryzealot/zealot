@@ -109,13 +109,9 @@ class Release < ApplicationRecord
   end
 
   def download_filename
-    if original_filename.present?
-      original_filename
-    else
-      [
-        channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
-      ].join('_') + file_extname
-    end
+    [
+      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
+    ].join('_') + file_extname
   end
 
   def empty_changelog(use_default_changelog = true)
