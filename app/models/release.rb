@@ -71,6 +71,23 @@ class Release < ApplicationRecord
     "#{app.name} #{scheme.name} #{channel.name}"
   end
 
+  def native_codes(original: true)
+    return unless native_codes = metadata&.native_codes
+    return native_codes if original
+
+    native_codes.each_with_object({}) do |code, obj|
+      key = nil
+      key = :x86 if code.include?('x86')
+      key = :arm if code.include?('arm')
+      key = :mips if code.include?('mips')
+      key = riscv if code.include?('riscv')
+      next unless key
+
+      obj[key] ||= []
+      obj[key] = code
+    end
+  end
+
   def size
     file&.size
   end
@@ -266,7 +283,7 @@ class Release < ApplicationRecord
   def determine_disk_space
     upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
 
-    # Combo Orginal file and unarchived files
+    # Combo original file and unarchived files
     if upload_path.bytes_free < (self&.file&.size || 0) * 3
       errors.add(:file, :not_enough_space)
     end
