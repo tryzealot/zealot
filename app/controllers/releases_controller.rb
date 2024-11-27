@@ -91,7 +91,8 @@ class ReleasesController < ApplicationController
 
   def release_params
     params.require(:release).permit(
-      :file, :changelog, :release_version, :build_version, :release_type, :branch, :git_commit, :ci_url, :use_original_filename
+      :file, :changelog, :release_version, :build_version, :release_type, :branch, :git_commit, 
+      :ci_url, :use_original_filename
     )
   end
 
