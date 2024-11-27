@@ -36,7 +36,7 @@
 
     - if current_user&.manage?(app: app)
       = link_to channel_release_path(release.channel, release), class: 'btn btn-icon btn-lg btn-danger', \
-        data: { turbo_method: :delete, turbo_confirm: t('releases.messages.confirm.destroy') } do
+        data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('releases.messages.confirm.destroy') } do
           i.fas.fa-trash-alt
           = t('releases.show.destroy')
 
