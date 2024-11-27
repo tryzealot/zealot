@@ -28,6 +28,10 @@
         li title="#{t('releases.show.release_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
           i.fas.fa-cubes
           = release_type_url_builder(release)
+      - if release.native_codes.present?
+        li title="#{t('releases.show.native_codes')} #{release.native_codes.join(', ')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+          i.fas.fa-microchip
+          = native_codes(release)
       - if release.file.present?
         li title="#{t('releases.show.filesize')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
           i.fas.fa-weight
