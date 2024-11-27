@@ -50,7 +50,6 @@ zh-CN:
         branch: Git 分支名称
         git_commit: Git 最后提交 SHA
         ci_url: CI URL
-        use_original_filename: 使用原文件名
       web_hook:
         url: URL
         body: 自定义消息体
@@ -119,7 +118,6 @@ zh-CN:
         branch: 通常情况是 main 或 develop
         git_commit: 通常是 40 位长度的哈希值
         ci_url: Jenkins、Gitlab CI 具体构建的地址
-        use_original_filename: 启用此选项后，下载文件的名称将与上传文件的名称保持一致
       web_hook:
         body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:

@@ -50,7 +50,6 @@ en:
         branch: Git branch
         git_commit: Git commit SHA
         ci_url: CI URL
-        use_original_filename: Use original file name
       web_hook:
         url: URL
         body: Body
@@ -118,7 +117,6 @@ en:
         branch: Git branch. In general either main or develop.
         git_commit: 40 bit length SHA value of git commit
         ci_url: The CI URL specific like Jenkins, Gitlab CI etc
-        use_original_filename: When this option is enabled, the name of the downloaded file will remain the same as the name of the uploaded file.
       web_hook:
         body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.
       debug_file:

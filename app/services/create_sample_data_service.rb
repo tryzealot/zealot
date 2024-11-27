@@ -796,8 +796,7 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
       branch: 'develop',
       device_type: device_type || channel.device_type,
       git_commit: SecureRandom.hex,
-      changelog: changelog,
-      use_original_filename: false
+      changelog: changelog
     ).save(validate: false)
   end
 

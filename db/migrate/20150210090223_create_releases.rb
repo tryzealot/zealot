@@ -15,7 +15,6 @@ class CreateReleases < ActiveRecord::Migration[6.0]
       t.jsonb :changelog, null: false
       t.string :file, null: true
       t.jsonb :devices, null: false, default: []
-      t.boolean :use_original_filename, default: false
 
       t.timestamps
     end

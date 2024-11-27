@@ -2393,10 +2393,6 @@
           "created_at": {
             "type": "date",
             "example": "2024-03-01 12:00:00 +0800"
-          },
-          "use_original_filename": {
-            "type": "boolean",
-            "example": true
           }
         }
       },
@@ -2875,10 +2871,6 @@
           "type": "string",
           "description": "持续构建系统构建 URL"
         },
-        "use_original_filename": {
-          "type": "boolean",
-          "example": true
-        },
         "custom_fields": {
           "type": "array",
           "items": {
@@ -3005,10 +2997,6 @@
         "ci_url": {
           "type": "string",
           "description": "持续构建系统构建 URL"
-        },
-        "use_original_filename": {
-          "type": "boolean",
-          "example": true
         },
         "custom_fields": {
           "type": "array",
