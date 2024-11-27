@@ -445,6 +445,8 @@ zh-CN:
       device_type: 平台
       release_version: 构建版本
       release_type: 打包类型
+      native_codes: 原生架构
+      multi_native_codes: 多架构
       filesize: 文件体积
       uploaded_at: 上传时间 %{date}
       git_branch: Git 分支
@@ -629,11 +631,12 @@ zh-CN:
       expired: 刚好过期
       related_app: 关联提醒
       related_body: 当前解包关联的应用是%{link}
-      unknow_app_name: 未知
+      unkonwn: 未知
       metadata: 应用信息
       app_name: 名称
       version: 版本
       package_name: 包名
+      native_codes: 原生架构
       supported_device: 支持设备
       android_min_sdk: 最低支持版本
       android_target_sdk: 编译构建版本
