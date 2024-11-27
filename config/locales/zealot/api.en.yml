@@ -103,7 +103,6 @@ en:
           branch: a branch name from source control tool
           git_commit: Git Commit SHA value
           ci_url: the build url of a CI service
-          use_original_filename: When this option is enabled, the name of the downloaded file will be the same as the name of the uploaded file. The default value is `false`
           custom_fields: JSON formatted custom fields, icon only accepts fontawesome.
       app_options:
         description: App form data
@@ -134,7 +133,6 @@ en:
           branch: a branch name from source control tool
           git_commit: Git Commit SHA value
           ci_url: the build url of a CI service
-          use_original_filename: When this option is enabled, the name of the downloaded file will be the same as the name of the uploaded file. The default value is `false`
           custom_fields: JSON formatted custom fields, icon only accepts fontawesome.
       collaborator_options:
         description: App's collaborator form data

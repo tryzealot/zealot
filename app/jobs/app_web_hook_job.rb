@@ -115,8 +115,7 @@ class AppWebHookJob < ApplicationJob
       bundle_id: 'im.ews.zealot.example.app',
       release_version: '1.0.0',
       build_version: '5',
-      git_commit: '31dbb8497b81e103ecadcab0ca724c3fd87b3ab9',
-      use_original_filename: false
+      git_commit: '31dbb8497b81e103ecadcab0ca724c3fd87b3ab9'
     )
   end
 end
