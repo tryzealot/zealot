@@ -786,7 +786,6 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
   end
 
   def generate_release(channel, app_bundle_id, release_type, changelog, build_version: '1', device_type: nil)
-    #warning("TODO: 暂时缺 :use_original_filename，不知道需不需要加")
     Release.new(
       channel: channel,
       bundle_id: app_bundle_id,
@@ -797,7 +796,8 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
       branch: 'develop',
       device_type: device_type || channel.device_type,
       git_commit: SecureRandom.hex,
-      changelog: changelog
+      changelog: changelog,
+      use_original_filename: false
     ).save(validate: false)
   end
 
