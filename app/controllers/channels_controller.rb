@@ -89,7 +89,7 @@ class ChannelsController < ApplicationController
   def channel_params
     params.require(:channel).permit(
       :scheme_id, :name, :device_type, :bundle_id,
-      :slug, :password, :git_url
+      :slug, :password, :git_url, :download_filename_type
     )
   end
 

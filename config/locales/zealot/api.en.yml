@@ -123,6 +123,7 @@ en:
           bundle_id: identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)
           git_url: Git repository URL
           password: Enable password visit
+          download_filename_type: Download filename type
       release_options:
         description: App's build metadata form data
         properties:

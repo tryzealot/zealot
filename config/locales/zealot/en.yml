@@ -382,6 +382,7 @@ en:
       slug: Slug
       password: Visit password
       git_url: Git URL
+      download_filename_type: Download filename type
       match_rule: Match Rule %{value}
       wildmatch: (wild match)
       total_releases: Total uploads
