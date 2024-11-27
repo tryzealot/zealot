@@ -25,7 +25,7 @@ class Api::ReleasesController < Api::BaseController
   def release_params
     params.permit(
       :release_version, :build_version, :release_type, :source, :branch, :git_commit,
-      :ci_url, :custom_fields, :changelog
+      :ci_url, :custom_fields, :changelog, :use_original_filename
     )
   end
 end

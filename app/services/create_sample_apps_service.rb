@@ -786,6 +786,7 @@ class CreateSampleAppsService # rubocop:disable Metrics/ClassLength
   end
 
   def generate_release(channel, app_bundle_id, release_type, changelog, build_version: '1', device_type: nil)
+    #warning("TODO: 暂时缺 :use_original_filename，不知道需不需要加")
     Release.new(
       channel: channel,
       bundle_id: app_bundle_id,

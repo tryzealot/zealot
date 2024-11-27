@@ -100,6 +100,7 @@ zh-CN:
           branch: 代码控制软件的分支名
           git_commit: 代码控制软件提交哈希值
           ci_url: 持续构建系统构建 URL
+          use_original_filename: 启用此选项后，下载文件的名称将与上传文件的名称保持一致，默认是 `false`
           custom_fields: 这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome
       app_options:
         description: 应用表单字段结构
@@ -131,6 +132,7 @@ zh-CN:
           branch: 代码控制软件的分支名
           git_commit: 代码控制软件提交哈希值
           ci_url: 持续构建系统构建 URL
+          use_original_filename: 启用此选项后，下载文件的名称将与上传文件的名称保持一致，默认是 `false`
           custom_fields: 这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome
       collaborator_options:
         description: 应用成员表单字段结构

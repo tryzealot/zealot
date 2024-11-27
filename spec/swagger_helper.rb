@@ -159,6 +159,7 @@ RSpec.configure do |config|
               text_changelog: { type: :string, example: '- bump 1.1\n-n fixes bugs' },
               custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }},
               created_at: { type: :date, example: '2024-03-01 12:00:00 +0800' },
+              use_original_filename: { type: :boolean, example: true },
             }
           },
           ReleaseChangelog: {
@@ -305,6 +306,7 @@ RSpec.configure do |config|
             branch: { type: :string, description: I18n.t('api.definitions.upload_options.properties.branch') },
             git_commit: { type: :string, description: I18n.t('api.definitions.upload_options.properties.git_commit') },
             ci_url: { type: :string, description: I18n.t('api.definitions.upload_options.properties.ci_url') },
+            use_original_filename: { type: :boolean, description: I18n.t('api.definitions.upload_options.properties.use_original_filename') },
             custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.upload_options.properties.custom_fields')},
           }
         },
@@ -351,6 +353,7 @@ RSpec.configure do |config|
             branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
             git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
             ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
+            use_original_filename: { type: :boolean, description: I18n.t('api.definitions.release_options.properties.use_original_filename') },
             custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
           }
         },
