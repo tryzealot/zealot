@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@crowdin/cli@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-4.2.0.tgz#93a5ed79f5e2b05ecb1e0ffeddeadda9b5438d98"
-  integrity sha512-2RbZhITZJL9fMvHyElrk6EY1heAls127o/UgeE+Yp7EqvvkpeEdNTsiGf02s19yw5OFmFZlnPGIwfI2xLWtJdw==
+"@crowdin/cli@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-4.4.0.tgz#8ba6718b079f3af4032dd499ad38fdf1dfc40f62"
+  integrity sha512-oKpM535mnzCaZRWcTAIDYfMY0ABnl0VkxM++7sfpAyn6dtf+QGhxHuruOfuOwEaSOJxG0pEhCy0UC2LpYUUb2Q==
   dependencies:
     command-exists-promise "^2.0.2"
     node-fetch "2.7.0"
@@ -133,10 +133,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.24.0.tgz#168ab1c7e1c318b922637fad8f339d48b01e1244"
   integrity sha512-7IAFPrjSQIJrGsK6flwg7NFmwBoSTyF3rl7If0hNUFQU4ilTsEPL6GuMuU9BfIWVVGuRnuIidkSMC+c0Otu8IA==
 
-"@fortawesome/fontawesome-free@^6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.6.0.tgz#0e984f0f2344ee513c185d87d77defac4c0c8224"
-  integrity sha512-60G28ke/sXdtS9KZCpZSHHkCbdsOGEhIUGlwq6yhY74UpTiToIh8np7A8yphhM4BWsvNFtIvLpi4co+h9Mr9Ow==
+"@fortawesome/fontawesome-free@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.1.tgz#160a48730d533ec77578ed0141661a8f0150a71d"
+  integrity sha512-ALIk/MOh5gYe1TG/ieS5mVUsk7VUIJTJKPMK9rFFqOgfp0Q3d5QiBXbcOMwUvs37fyZVCz46YjOE6IFeOAXCHA==
 
 "@hotwired/stimulus@^3.2.2":
   version "3.2.2"

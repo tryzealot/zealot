@@ -13,7 +13,6 @@
             th = t('teardowns.index.platform')
             th.d-none.d-sm-table-cell = t('teardowns.index.uploader')
             th style="width: 160px" = t('teardowns.index.uploaded_at')
-
             - if user_signed_in? && @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
               th.d-none.d-sm-table-cell style="width: 90px" = t('teardowns.index.actions')
           - @metadata.each_with_index do |md, index|
@@ -36,10 +35,17 @@
                   = time_ago_in_words(md.created_at)
 
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
-                td.d-none.d-sm-table-cell
-                  = button_to teardown_path(md), method: :delete, class: 'btn btn-tool', \
-                    data: { turbo_confirm: t('teardowns.messages.confirm.destroy') } do
+                td.d-none.d-sm-table-cell[
+                  data-controller="destroy"
+                  data-destroy-title-value="#{t('debug_files.confirm.destroy.title')}"
+                  data-destroy-content-value="#{t('teardowns.messages.confirm.destroy')}"
+                  data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
+                ]
+                  button.btn.btn-tool data-action="click->destroy#click"
                     i.fas.fa-trash-alt
+
+                  = button_to t('debug_files.confirm.destroy.ok'),  teardown_path(md), method: :delete, \
+                    class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
 
       - if @metadata.total_pages > 1
         .card-footer.clearfix

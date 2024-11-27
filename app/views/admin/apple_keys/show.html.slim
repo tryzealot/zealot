@@ -23,27 +23,23 @@ ruby:
     .card.mb-3
       .card-header
         h3.card-title = t('.key_metadata')
+        - if current_user&.manage?
+          .card-tools 
+            = link_to t('.download_private_key'), private_key_admin_apple_key_path(@apple_key), \
+              class: 'btn btn-success btn-sm', title: "#{@apple_key.private_key_filename}", \
+              data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
       .card-body.p-0
         .d-flex.px-3.py-2.border-bottom
           .fw-bold.flex-fill = t('simple_form.labels.apple_key.issuer_id')
           .text-end = @apple_key.issuer_id
         .d-flex.px-3.py-2
           .fw-bold.flex-fill = t('simple_form.labels.apple_key.key_id')
-          .text-end
-            = @apple_key.key_id
-            - if current_user&.manage?
-              |  (
-              span title="#{@apple_key.private_key_filename}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-                = link_to t('.download_private_key'), private_key_admin_apple_key_path(@apple_key)
-              | )
-
+          .text-end = @apple_key.key_id
   .col-md-12
     .card
       .card-header
         h3.card-title
           = t('.devices', size: device_total)
-        .card-tools
-          = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-success btn-sm'
       - if device_total
         .card-body.p-0
           table.table.table-bottom-borderless
@@ -65,6 +61,9 @@ ruby:
                   span title="#{l(device.created_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
                     = time_ago_in_words(device.created_at)
       .card-footer
+        .float-end
+          = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-success btn-sm'
+
         - if @apple_key.last_synced_at.present?
           span title="#{l(@apple_key.last_synced_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
             = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
