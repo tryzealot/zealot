@@ -39,7 +39,7 @@ class UdidController < ApplicationController
     end
 
     if device_params[:sync_to_apple_key].to_i == 1
-      @device.start_sync_device_job(@apple_key.id)
+      @device.sync_devices_job(@apple_key.id)
     end
 
     redirect_to admin_apple_key_path(@apple_key.id)

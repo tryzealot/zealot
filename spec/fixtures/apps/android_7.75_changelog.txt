@@ -1,0 +1,8 @@
+Add an advanced setting to display artwork in episode listing.
+Add a setting that controls whether the remaining playback time adjusts for playback speed and skipped chapters.
+Display buffer position more accurately for cached episode.
+Speed up listening history search.
+Fix search podcast results scroll back to the start after subscribing.
+Fix episodes stuck on the downloads page.
+Display web-page based HTML transcripts in web view.
+Add a progress bar in the browse view on Android Auto.
