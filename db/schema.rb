@@ -282,6 +282,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_07_040749) do
     t.jsonb "custom_fields", default: [], null: false
     t.string "name"
     t.string "device_type"
+    t.boolean "use_original_filename", default: false
     t.index ["build_version"], name: "index_releases_on_build_version"
     t.index ["bundle_id"], name: "index_releases_on_bundle_id"
     t.index ["channel_id", "version"], name: "index_releases_on_channel_id_and_version", unique: true

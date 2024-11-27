@@ -9,18 +9,19 @@ class Api::Apps::UploadController < Api::BaseController
   #
   # POST /api/apps/upload
   #
-  # @param token         [String]   required  user token
-  # @param file          [String]   required  file of app
-  # @param channel_key   [String]   optional  channel key of app
-  # @param name          [String]   optional  name of app
-  # @param password      [String]   optional  password to download app
-  # @param release_type  [String]   optional  release type(debug, beta, adhoc, release, enterprise etc)
-  # @param source        [String]   optional  upload source(api, cli, jenkins, gitlab-ci etc)
-  # @param changelog     [String]   optional  changelog
-  # @param branch        [String]   optional  git branch
-  # @param git_commit    [String]   optional  git commit
-  # @param ci_url        [String]   optional  ci url
-  # @return              [String]   json formatted app info
+  # @param token                 [String]   required  user token
+  # @param file                  [String]   required  file of app
+  # @param channel_key           [String]   optional  channel key of app
+  # @param name                  [String]   optional  name of app
+  # @param password              [String]   optional  password to download app
+  # @param release_type          [String]   optional  release type(debug, beta, adhoc, release, enterprise etc)
+  # @param source                [String]   optional  upload source(api, cli, jenkins, gitlab-ci etc)
+  # @param changelog             [String]   optional  changelog
+  # @param branch                [String]   optional  git branch
+  # @param git_commit            [String]   optional  git commit
+  # @param ci_url                [String]   optional  ci url
+  # @param use_original_filename [Boolean]  optional  whether to use the original file name (true/false)
+  # @return                      [String]   json formatted app info
   def create
     create_or_update_release
     perform_teardown_job
@@ -123,7 +124,7 @@ class Api::Apps::UploadController < Api::BaseController
   def release_params
     params.permit(
       :file, :release_type, :source, :branch, :git_commit,
-      :ci_url, :changelog, :devices, :custom_fields
+      :ci_url, :changelog, :devices, :custom_fields, :use_original_filename
     )
   end
 

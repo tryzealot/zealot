@@ -32,6 +32,7 @@ module ReleaseParser
     self.release_version = parser.release_version
     self.build_version = parser.build_version
     self.release_type ||= parser.release_type if parser.respond_to?(:release_type)
+    self.original_filename = File.basename(file.path) if parser.use_original_filename
 
     icon_file = fetch_icon(parser)
     self.icon = icon_file if icon_file
