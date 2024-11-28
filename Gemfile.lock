@@ -90,11 +90,11 @@ GEM
     android_parser (2.7.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (3.2.0)
+    app-info (3.3.0)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (>= 2.7, < 3.0)
       base64 (~> 0.2.0)
-      google-protobuf (>= 4.27.1, < 5.0.0)
+      google-protobuf (>= 4.27.5, < 5.0.0)
       icns (~> 0.2.0)
       image_size (>= 1.5, < 3.5)
       nkf (~> 0.2.0)
@@ -166,7 +166,7 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
-    faker (3.4.2)
+    faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.12.1)
       faraday-net_http (>= 2.0, < 3.5)
@@ -198,31 +198,31 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (4.4.2)
+    good_job (4.5.0)
       activejob (>= 6.1.0)
       activerecord (>= 6.1.0)
       concurrent-ruby (>= 1.3.1)
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    google-protobuf (4.28.2)
+    google-protobuf (4.28.3)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.2-aarch64-linux)
+    google-protobuf (4.28.3-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.2-arm64-darwin)
+    google-protobuf (4.28.3-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.2-x86_64-darwin)
+    google-protobuf (4.28.3-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.2-x86_64-linux)
+    google-protobuf (4.28.3-x86_64-linux)
       bigdecimal
       rake (>= 13)
     graphiql-rails (1.10.1)
       railties
-    graphql (2.4.3)
+    graphql (2.4.4)
       base64
       fiber-storage
     hashie (5.0.0)
@@ -237,7 +237,7 @@ GEM
     image_size (3.4.0)
     interception (0.5)
     io-console (0.7.2)
-    iostruct (0.1.3)
+    iostruct (0.2.0)
     irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -412,7 +412,7 @@ GEM
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.5.0)
       nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
@@ -639,7 +639,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.14)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.2.0)
+  app-info (~> 3.3.0)
   awesome_print
   better_errors
   binding_of_caller
@@ -655,9 +655,9 @@ DEPENDENCIES
   faraday (~> 2.12.1)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
-  good_job (~> 4.4.2)
+  good_job (~> 4.5.0)
   graphiql-rails
-  graphql (~> 2.4.3)
+  graphql (~> 2.4.4)
   health_check (~> 3.1.0)
   jb (~> 0.8.2)
   jsbundling-rails (~> 1.3)
@@ -681,7 +681,7 @@ DEPENDENCIES
   propshaft (= 1.1.0)
   pry-rails
   pry-rescue
-  puma (~> 6.4.3)
+  puma (~> 6.5.0)
   pundit (~> 2.4.0)
   rack (~> 3.0.11)
   rack-cors (~> 2.0.2)

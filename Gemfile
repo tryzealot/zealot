@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 6.4.3'
+gem 'puma', '~> 6.5.0'
 gem 'rails', '~> 7.2.2'
 gem 'rails-i18n', '~> 7.0.5'
 gem 'rack-cors', '~> 2.0.2'
@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.14.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.14'
-gem 'graphql', '~> 2.4.3'
+gem 'graphql', '~> 2.4.4'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
@@ -41,7 +41,7 @@ gem 'webp-ffi', '~> 0.4.0'
 # Helper
 gem 'rake', '~> 13.0.4'
 gem 'rails-settings-cached', '~> 2.9.5'
-gem 'app-info', '~> 3.2.0'
+gem 'app-info', '~> 3.3.0'
 gem 'faraday', '~> 2.12.1'
 gem 'rqrcode'
 
@@ -72,7 +72,7 @@ gem 'sentry-ruby', '~> 5.21.0'
 gem 'sentry-rails', '~> 5.21.0'
 
 # Background job
-gem 'good_job', '~> 4.4.2'
+gem 'good_job', '~> 4.5.0'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets

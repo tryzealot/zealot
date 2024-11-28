@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_07_07_040749) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_27_060125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -259,6 +259,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_07_040749) do
     t.datetime "updated_at", null: false
     t.string "platform"
     t.jsonb "deep_links", default: [], null: false
+    t.jsonb "native_codes", default: [], null: false
     t.index ["checksum"], name: "index_metadata_on_checksum"
     t.index ["release_id"], name: "index_metadata_on_release_id"
     t.index ["user_id"], name: "index_metadata_on_user_id"
@@ -357,7 +358,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_07_040749) do
     t.datetime "locked_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "locale", default: "zh-CN", null: false
+    t.string "locale", default: "en", null: false
     t.string "appearance", default: "light", null: false
     t.string "timezone", default: "Asia/Shanghai", null: false
   end

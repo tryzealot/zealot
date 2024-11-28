@@ -25,7 +25,7 @@ class TeardownJob < ApplicationJob
 
     metadata.update_attribute(:release_id, release_id)
     release = release(id: release_id)
-    release.update(release_type: metadata.release_type)
+    release.update(release_type: metadata.release_type) if release.release_type.blank?
   end
 
   def determine_file!(release_id)
