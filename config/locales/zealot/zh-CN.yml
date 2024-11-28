@@ -378,7 +378,10 @@ zh-CN:
       slug: 唯一地址
       password: 访问密码
       git_url: Git 仓库地址
-      download_filename_type: 下载文件的文件名生成规则
+      download_filename_type: 下载文件的文件名生成规则。当前规则：
+      download_filename_type_item:
+        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        original_filename: 使用上传文件的原文件名
       match_rule: 匹配模式 %{value}
       wildmatch: (不限制上传包的包名)
       total_releases: 上传版本
