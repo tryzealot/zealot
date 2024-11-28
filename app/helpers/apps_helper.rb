@@ -28,8 +28,14 @@ module AppsHelper
     image_tag(release.icon_url, **options)
   end
 
-  def app_device(device)
+  def native_codes(release)
+    native_codes = release.native_codes
+    return if native_codes.blank?
 
+    count = native_codes.size
+    return t('releases.show.multi_native_codes') if count > 0
+    
+    native_codes[0]
   end
 
   def logged_in_or_without_auth?(release)

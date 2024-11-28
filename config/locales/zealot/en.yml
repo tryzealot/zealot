@@ -450,6 +450,8 @@ en:
       device_type: Device
       release_version: Release version (build version)
       release_type: Release type
+      native_codes: Native codes
+      multi_native_codes: Universal
       filesize: File size
       uploaded_at: Uploaded time %{date}
       git_branch: Git branch
@@ -640,11 +642,12 @@ en:
       expired: Expired now!
       related_app: Release related
       related_body: This teardown was relates with %{link}
-      unknow_app_name: Unknown
+      unkonwn: Unknown
       metadata: Metadata
       app_name: App name
       version: Version
       package_name: Bundle id (package name)
+      native_codes: Native codes
       supported_device: Supported device
       android_min_sdk: Minimum SDK
       android_target_sdk: Target SDK

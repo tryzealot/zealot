@@ -2,7 +2,7 @@ ruby:
   begin
     app_name = @metadata.name
   rescue Android::NotFoundError
-    app_name = t('teardowns.show.unknow_app_name')
+    app_name = t('teardowns.show.unkonwn')
   end
 
 .col-md-6
@@ -26,6 +26,11 @@ ruby:
         dt = t('teardowns.show.package_name')
         dd
           pre = @metadata.packet_name
+        dt
+          = t('teardowns.show.native_codes')
+        dd
+          pre
+            = @metadata.native_codes.join(', ')
         dt
           = t('teardowns.show.supported_device')
         dd
