@@ -41,7 +41,7 @@ en:
         git_url: Git URL
         slug: Slug
         password: Password
-        download_filename_type: Download filename type
+        download_filename_type: Download file name type
       release:
         file: File
         release_version: Release version
