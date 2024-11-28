@@ -41,7 +41,7 @@ zh-CN:
         git_url: Git 仓库地址
         slug: 唯一地址
         password: 访问密码
-        download_filename_type: 下载文件文件名
+        download_filename_type: 下载文件文件名类型
       release:
         file: 应用文件
         release_version: 产品版本
