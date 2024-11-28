@@ -17,9 +17,11 @@ class Channel < ApplicationRecord
     macos: 'macOS', windows: 'Windows', linux: 'Linux'
   }
 
+  DEFAULT_DOWNLOAD_FILENAME_TYPE = :version_datetime
+
   enum :download_filename_type, {
-    system: 'system',
-    original: 'original'
+    version_datetime: 'version_datetime',
+    original_filename: 'original_filename'
   }
 
   delegate :count, to: :enabled_web_hooks, prefix: true
@@ -153,6 +155,6 @@ class Channel < ApplicationRecord
   end
 
   def set_default_download_filename_type
-    self.download_filename_type ||= Channel.download_filename_types.keys.first
+    self.download_filename_type ||= DEFAULT_DOWNLOAD_FILENAME_TYPE
   end
 end
