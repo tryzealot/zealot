@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# 默认开启 Sentry，如果不想使用设置 ZEALOT_SENTRY_DISABLE=1
-# if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENTRY_DISABLE'] || false)
+# Disable error report to set ZEALOT_SENTRY_DISABLE=1, enabled by default.
+if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENTRY_DISABLE'] || false)
   Rails.configuration.to_prepare do
     Sentry.init do |config|
       config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.us.sentry.io/1878137'
@@ -26,13 +26,13 @@
         'SystemExit',
       ]
 
-      if vcs_ref = Setting.vcs_ref.presence
-        release = [Setting.version, vcs_ref]
-        if docker_tag = ENV['DOCKER_TAG'].presence
-          release << ENV['DOCKER_TAG']
-        end
-        config.release = release.join('-')
-      end
+      config.release = Setting.version
     end
+
+    Sentry.set_tags(
+      docker_tag: ENV['DOCKER_TAG'].presence || 'development',
+      vcs_ref: Setting.vcs_ref.presence,
+      locale: I18n.default_locale
+    )
   end
-# end
+end
