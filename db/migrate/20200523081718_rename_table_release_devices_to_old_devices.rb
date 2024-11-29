@@ -1,12 +1,12 @@
 class RenameTableReleaseDevicesToOldDevices < ActiveRecord::Migration[6.0]
-  def up
+  def change
     rename_column :releases, :devices, :legacy_devices
-    # migrate_devices
-  end
-
-  def down
-    # rollback_device
-    rename_column :releases, :legacy_devices, :devices
+    reversible do |dir|
+      Release.find_each do |release|
+        dir.up { migrate_devices }
+        dir.down { rollback_device }
+      end
+    end
   end
 
   private
