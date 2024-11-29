@@ -49,8 +49,12 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+    .tap { |logger| logger.formatter = ::Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
   # Prepend all log lines with the following tags.
-  config.log_tags = %i[request_id]
+  # config.log_tags = %i[request_id]
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
