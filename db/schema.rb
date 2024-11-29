@@ -83,7 +83,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_060125) do
     t.string "git_url"
     t.string "password"
     t.string "key"
-    t.string "download_filename_type", null: false
+    t.string "download_filename_type"
     t.index ["bundle_id"], name: "index_channels_on_bundle_id"
     t.index ["device_type"], name: "index_channels_on_device_type"
     t.index ["name"], name: "index_channels_on_name"
