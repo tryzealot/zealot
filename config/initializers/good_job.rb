@@ -52,12 +52,6 @@ Rails.application.reloader.to_prepare do
     rescue ActiveRecord::StatementInvalid
       # initialize zealot, ignore
     end
-
-    logger_level = ::Logger.const_get(ENV.fetch('RAILS_LOG_LEVEL', 'info').upcase.to_s)
-    logger_level = ::Logger::DEBUG if Rails.env.development?
-    logger = Rails.logger.dup
-    logger.level = logger_level
-    config.good_job.logger = logger
   end
 end
 
