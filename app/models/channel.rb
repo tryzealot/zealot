@@ -17,6 +17,7 @@ class Channel < ApplicationRecord
     macos: 'macOS', windows: 'Windows', linux: 'Linux'
   }
 
+  # 修改该变量后，记得同步修改数据库的默认值
   DEFAULT_DOWNLOAD_FILENAME_TYPE = :version_datetime
 
   enum :download_filename_type, {
