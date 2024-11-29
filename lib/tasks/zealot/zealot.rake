@@ -53,15 +53,13 @@ namespace :zealot do
     end
 
     # 初始化
-    task setup: ['db:create'] do
+    task setup: :environment do
       puts "Zealot initialize database ..."
-      Rake::Task['db:migrate'].invoke
-
-      # NOTE: wait db migrate then insert data
-      sleep 3
+      system("rails db:create")
+      system("rails db:migrate")
 
       puts "Zealot initialize admin user and sample data ..."
-      Rake::Task['db:seed'].invoke
+      system("rails db:seed")
     end
 
     # 升级
