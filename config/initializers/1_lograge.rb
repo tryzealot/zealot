@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if Rails.env.production?
+if Rails.env.production? && ENV['ZEALOT_LOG_FORMAT'] != 'rails'
   def fetch_ip(controller)
     controller.request.remote_ip
   rescue ActionDispatch::RemoteIp::IpSpoofAttackError
@@ -34,11 +34,21 @@ if Rails.env.production?
   end
 
   Rails.application.configure do
-    # Better log formatting
     config.lograge.enabled = true
-    io = ENV['HEROKU_APP_ID'].present? ? 'log/zealot.log' : STDOUT
-    config.lograge.logger = ActiveSupport::Logger.new(io)
 
+    config.lograge.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    config.lograge.formatter = case ENV['ZEALOT_LOG_FORMAT']
+                               when 'json'
+                                 Lograge::Formatters::JSON.new
+                               when 'lines'
+                                 Lograge::Formatters::Lines.new
+                               when 'graylog2'
+                                 Lograge::Formatters::Graylog2.new
+                               when 'ltsv'
+                                 Lograge::Formatters::LTSV.new
+                               else
+                                 Lograge::Formatters::KeyValue.new
+                               end
     config.lograge.custom_payload do |controller|
       custom_payload(controller)
     end
@@ -47,11 +57,12 @@ if Rails.env.production?
       options = { time: Time.zone.now }
 
       if exception = event.payload[:exception]
-        options[:exception] = exception
+        options[:exception] = exception[0]
+        options[:exception_message] = exception[1]
       end
 
       if exception_object = event.payload[:exception_object]
-        options[:exception_object] = exception_object
+        options[:exception_backtrace] = exception_object.backtrace
       end
 
       options
