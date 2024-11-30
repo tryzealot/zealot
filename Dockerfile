@@ -63,8 +63,8 @@ FROM ruby:3.3.5-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
-
-ARG ZEALOT_VERSION="6.0.0"
+ARG ZEALOT_VERSION
+ 
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
@@ -75,21 +75,11 @@ ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
 ARG TARGETARCH
 
-LABEL org.opencontainers.image.title="Zealot" \
-      org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
-      org.opencontainers.image.url="https://zealot.ews.im/" \
-      org.opencontainers.image.authors="icyleaf <icyleaf.cn@gmail.com>" \
-      org.opencontainers.image.source="https://github.com/tryzealot/zealot" \
-      org.opencontainers.image.created=$BUILD_DATE \
-      org.opencontainers.image.revision=$VCS_REF \
-      org.opencontainers.image.version=$ZEALOT_VERSION
-
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
     DOCKER_TAG="$TAG" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     ZEALOT_VCS_REF="$VCS_REF" \
-    ZEALOT_VERSION="$ZEALOT_VERSION" \
     ZEALOT_BUILD_DATE="$BUILD_DATE" \
     RAILS_ENV="production" \
     RUBY_YJIT_ENABLE="true"
