@@ -126,9 +126,14 @@ class Release < ApplicationRecord
   end
 
   def download_filename
-    [
-      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
-    ].join('_') + file_extname
+    case channel.download_filename_type.downcase.to_sym
+    when :version_datetime
+      version_datetime_filename
+    when :original_filename
+      original_filename
+    else
+      default_filename
+    end
   end
 
   def empty_changelog(use_default_changelog = true)
@@ -317,5 +322,19 @@ class Release < ApplicationRecord
 
   def retained_build_job
     RetainedBuildsJob.perform_later(channel)
+  end
+
+  def original_filename
+    file? ? file.identifier : default_filename
+  end
+  
+  def version_datetime_filename
+    [
+      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
+    ].join('_') + file_extname
+  end
+
+  def default_filename
+    version_datetime_filename
   end
 end

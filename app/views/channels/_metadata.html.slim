@@ -23,6 +23,10 @@
     .d-flex.flex-column.border-bottom.py-2.px-3
       span.font-weight-bold = @channel.releases.count
       span.text-muted = t('channels.show.total_releases')
+    .d-flex.flex-column.border-bottom.py-2.px-3
+      span.font-weight-bold title=t("channels.show.download_filename_type_item.#{@channel.download_filename_type}") data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="left"
+        = @channel.download_filename_type
+      span.text-muted = t("channels.show.download_filename_type")
     .d-flex.flex-column.py-2.px-3.mb-0
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')

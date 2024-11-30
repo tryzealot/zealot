@@ -17,6 +17,13 @@ class Channel < ApplicationRecord
     macos: 'macOS', windows: 'Windows', linux: 'Linux'
   }
 
+  DEFAULT_DOWNLOAD_FILENAME_TYPE = :version_datetime
+
+  enum :download_filename_type, {
+    version_datetime: 'version_datetime',
+    original_filename: 'original_filename'
+  }
+
   delegate :count, to: :enabled_web_hooks, prefix: true
   delegate :count, to: :available_web_hooks, prefix: true
   delegate :app, to: :scheme
@@ -28,6 +35,9 @@ class Channel < ApplicationRecord
   validates :name, presence: true
   validates :slug, uniqueness: true
   validates :device_type, presence: true, inclusion: { in: self.device_types.keys }
+  validates :download_filename_type, presence: true, inclusion: { in: self.download_filename_types.keys }
+
+  before_validation :set_default_download_filename_type, on: :create
 
   def latest_release
     releases.last
@@ -142,5 +152,9 @@ class Channel < ApplicationRecord
 
   def delete_app_recently_releases_cache
     Rails.cache.delete(recently_release_cache_key)
+  end
+
+  def set_default_download_filename_type
+    self.download_filename_type ||= DEFAULT_DOWNLOAD_FILENAME_TYPE
   end
 end

@@ -41,6 +41,7 @@ en:
         git_url: Git URL
         slug: Slug
         password: Password
+        download_filename_type: Download file name type
       release:
         file: File
         release_version: Release version
@@ -108,6 +109,7 @@ en:
         git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host.
         slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
         password: Need password by fill it when user is not log in.
+        download_filename_type: Download file name generation rules.
       release:
         file: Support iOS, Android, HarmonyOS, macOS, Windows and Linux binary file.
         release_version: It is recommended to name the main version <a href="https://semver.org/lang/zh-CN/">X.Y.Z semantic version</a>

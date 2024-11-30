@@ -48,6 +48,8 @@ class Api::ChannelsController < Api::BaseController
   end
 
   def channel_params
-    @channel_params ||= params.permit(:name, :slug, :device_type, :bundle_id, :password, :git_url)
+    @channel_params ||= params.permit(
+      :name, :slug, :device_type, :bundle_id, :password, :git_url, :download_filename_type
+    )
   end
 end
