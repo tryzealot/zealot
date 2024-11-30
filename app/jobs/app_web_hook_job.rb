@@ -67,7 +67,11 @@ class AppWebHookJob < ApplicationJob
                                    install_url: @release.install_url,
                                    icon_url: @release.icon_url,
                                    qrcode_url: @release.qrcode_url,
-                                   uploaded_at: @release.created_at
+                                   uploaded_at: @release.created_at,
+                                   ci_url: @release.ci_url,
+                                   branch: @release.branch,
+                                   source: @release.source,
+                                   release_type: @release.release_type
                                  }
   end
 
@@ -88,7 +92,11 @@ class AppWebHookJob < ApplicationJob
       install_url: @install_url,
       icon_url: @icon_url,
       qrcode_url: @qrcode_url,
-      uploaded_at: @uploaded_at
+      uploaded_at: @uploaded_at,
+      ci_url: @release.ci_url,
+      branch: @release.branch,
+      source: @release.source,
+      release_type: @release.release_type
     }'
   end
 
