@@ -53,15 +53,13 @@ namespace :zealot do
     end
 
     # 初始化
-    task setup: ['db:create'] do
+    task setup: :environment do
       puts "Zealot initialize database ..."
-      Rake::Task['db:migrate'].invoke
-
-      # NOTE: wait db migrate then insert data
-      sleep 3
+      system("rails db:create")
+      system("rails db:migrate")
 
       puts "Zealot initialize admin user and sample data ..."
-      Rake::Task['db:seed'].invoke
+      system("rails db:seed")
     end
 
     # 升级
@@ -107,21 +105,15 @@ namespace :zealot do
   end
 
   desc "Zealot | generate swagger files"
-  task :swaggerize do
-    ENV['RAILS_ENV'] = 'test'
+  task swaggerize: :environment do
     current_locale = ENV['DEFAULT_LOCALE']
 
-    Rails.configuration.i18n.available_locales.each do |locale|
-      # reset task invoke status and execute
-      Rake::Task['rswag:specs:swaggerize'].reenable
-
+    Rails.configuration.i18n.available_locales.sort.each do |locale|
       puts "Generating swagger file ... #{locale}"
-      ENV['DEFAULT_LOCALE'] = current_locale.to_s
-      Rake::Task['rswag:specs:swaggerize'].invoke
+      system("DEFAULT_LOCALE=#{locale} rails rswag:specs:swaggerize 2>&1 > /dev/null")
     end
 
     # restore
     ENV['DEFAULT_LOCALE'] = current_locale
-    ENV.delete('RAILS_ENV')
   end
 end
