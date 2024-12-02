@@ -103,9 +103,7 @@
     "/apps/version_exist": {
       "get": {
         "summary": "Check version build exists",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -185,9 +183,7 @@
     "/apps/versions": {
       "get": {
         "summary": "Get version builds",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -231,9 +227,7 @@
     "/apps/latest": {
       "get": {
         "summary": "Get the latest builds",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -300,9 +294,7 @@
         ],
         "description": "Upload a iOS, Android, macOS, Windows or Linux App",
         "operationId": "uploadApp",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "201": {
             "description": "Upload an App",
@@ -1017,9 +1009,7 @@
     "/debug_files": {
       "get": {
         "summary": "List debug files",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Debug files"
         ],
@@ -1066,9 +1056,7 @@
     "/debug_files/download": {
       "get": {
         "summary": "Download debug file",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Debug files"
         ],
@@ -1235,9 +1223,7 @@
         ],
         "description": "Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:\n\n- `iOS`: a Zipped dSYM file\n- `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.\n",
         "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Upload a debug file",
@@ -2074,9 +2060,7 @@
     "/version": {
       "get": {
         "summary": "Get version information",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Version"
         ],
@@ -2099,9 +2083,7 @@
   },
   "security": [
     {
-      "token": [
-
-      ]
+      "token": []
     }
   ],
   "components": {
@@ -2926,8 +2908,7 @@
       "type": "object",
       "required": [
         "name",
-        "device_type",
-        "download_filename_type"
+        "device_type"
       ],
       "properties": {
         "name": {
@@ -2965,10 +2946,10 @@
         "download_filename_type": {
           "type": "string",
           "enum": [
-            "system",
-            "original"
+            "version_datetime",
+            "original_filename"
           ],
-          "description": "Download filename type"
+          "description": "Download file name type"
         }
       }
     },
