@@ -103,9 +103,7 @@
     "/apps/version_exist": {
       "get": {
         "summary": "检查应用版本是否存在",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -185,9 +183,7 @@
     "/apps/versions": {
       "get": {
         "summary": "应用渠道的上传版本列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -231,9 +227,7 @@
     "/apps/latest": {
       "get": {
         "summary": "搜索指定版本后面的应用版本列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -300,9 +294,7 @@
         ],
         "description": "上传 iOS、Android、macOS、Linux 或 Windows 应用",
         "operationId": "uploadApp",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "201": {
             "description": "已上传的应用版本详情",
@@ -1017,9 +1009,7 @@
     "/debug_files": {
       "get": {
         "summary": "获取调试文件列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "调试文件"
         ],
@@ -1066,9 +1056,7 @@
     "/debug_files/download": {
       "get": {
         "summary": "下载调试文件",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "调试文件"
         ],
@@ -1235,9 +1223,7 @@
         ],
         "description": "上传 dSYM 或 Proguard 打包成 zip 压缩调试文件\n\n- `iOS`: 使用 Zip 压缩后的 dSYM 文件\n- `Android`: 使用 Zip 压缩后包含 mapping.txt、R.txt 和 AndroidManifest.xml 的文件\n",
         "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "调试文件详情",
@@ -2074,9 +2060,7 @@
     "/version": {
       "get": {
         "summary": "获取版本信息",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "版本"
         ],
@@ -2099,9 +2083,7 @@
   },
   "security": [
     {
-      "token": [
-
-      ]
+      "token": []
     }
   ],
   "components": {
@@ -2926,8 +2908,7 @@
       "type": "object",
       "required": [
         "name",
-        "device_type",
-        "download_filename_type"
+        "device_type"
       ],
       "properties": {
         "name": {
@@ -2965,10 +2946,10 @@
         "download_filename_type": {
           "type": "string",
           "enum": [
-            "system",
-            "original"
+            "version_datetime",
+            "original_filename"
           ],
-          "description": "下载文件文件名的生成规则"
+          "description": "下载文件的文件名生成规则"
         }
       }
     },
