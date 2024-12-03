@@ -42,13 +42,13 @@ const isiOS = () => {
 
 const isMacOS = () => {
   let os = uaParser.getOS()
-  return os.name === "Mac OS"
+  return os.name === "macOS"
 }
 
 // Detect NonApple OS (Windows/Linux/Android etc)
 const isNonAppleOS = () => {
   let os = uaParser.getOS()
-  return !(os.name === "Mac OS" || os.name === "iOS")
+  return !(os.name === "macOS" || os.name === "iOS")
 }
 
 const isUserAgentLimited = (keywords) => {

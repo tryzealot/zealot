@@ -25,8 +25,6 @@ export default class extends Controller {
       this.tipTarget.innerText = this.nonappleTipValue
     }
 
-    this.renderDebugZone
-
     if (this.isPreviewFeature()) {
       this.renderDebugZone()
     }
@@ -37,9 +35,9 @@ export default class extends Controller {
   }
 
   renderDebugZone() {
-    console.log(uaParser.getResult())
-    const iOS_1to12 = /iPad|iPhone|iPod/.test(navigator.platform)
-    const iOS13_maxTouchPoints = (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+    const platform = navigator?.userAgentData?.platform || navigator?.platform;
+    const iOS_1to12 = /iPad|iPhone|iPod/.test(platform)
+    const iOS13_maxTouchPoints = (platform === "MacIntel" && navigator.maxTouchPoints > 1)
     const iOS13_ontouchend = (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     const iOS1to12quirk = function() {
       var audio = new Audio() // temporary Audio object
@@ -47,7 +45,7 @@ export default class extends Controller {
       return audio.volume === 1
     }
 
-    let message = "usparse result: " + JSON.stringify(uaParser.getResult()) +
+    let message = "user agent parser result: " + JSON.stringify(uaParser.getResult()) +
       "\n iOS_1to12: " + iOS_1to12 +
       "\n iOS13_maxTouchPoints: " + iOS13_maxTouchPoints +
       "\n iOS13_ontouchend: " + iOS13_ontouchend +
