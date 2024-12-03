@@ -18,7 +18,7 @@ gem "solid_cache", "~> 1.0.6"
 gem 'lograge', '~> 0.14.0'
 
 # API
-gem 'active_model_serializers', '~> 0.10.14'
+gem 'active_model_serializers', '~> 0.10.15'
 gem 'graphql', '~> 2.4.4'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
