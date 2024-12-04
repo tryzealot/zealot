@@ -49,7 +49,7 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_model_serializers (0.10.14)
+    active_model_serializers (0.10.15)
       actionpack (>= 4.1)
       activemodel (>= 4.1)
       case_transform (>= 0.2)
@@ -285,7 +285,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.1)
+    logger (1.6.2)
     lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -304,7 +304,7 @@ GEM
     mini_magick (4.13.1)
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
-    minitest (5.25.2)
+    minitest (5.25.3)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.7.1)
@@ -547,7 +547,7 @@ GEM
     rubyntlm (0.6.5)
       base64
     rubyzip (2.3.2)
-    securerandom (0.3.2)
+    securerandom (0.4.0)
     sentry-rails (5.21.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.21.0)
@@ -637,7 +637,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.14)
+  active_model_serializers (~> 0.10.15)
   activejob-status (~> 1.0.2)
   app-info (~> 3.3.0)
   awesome_print
