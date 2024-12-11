@@ -250,10 +250,15 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rails/actioncable@^7.0", "@rails/actioncable@^7.2.200":
+"@rails/actioncable@^7.0":
   version "7.2.200"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.200.tgz#7f56b3313762dbb85b64490aa33c5f431419aafd"
   integrity sha512-gVmi3MabEa+Bkatvw0/k1Y3WTidcIf3qNbb9L8qc+AmT2UmkVqUZhJpSLvKmH10twCYIGzn7yySW/lOpg81Duw==
+
+"@rails/actioncable@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.0.1.tgz#2e291560e06af4dc43ae60ce0ac458726c53e588"
+  integrity sha512-gxRd3OnXm6IB4YxOJE6a6A+5ArQMzOKorceMTaIjiemCfWbJCMNZjXDKfIvgNff52x4vSLd1JQCcXtV4pVTJ1w==
 
 "@stimulus-components/checkbox-select-all@^6.1.0":
   version "6.1.0"
