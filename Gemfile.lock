@@ -158,7 +158,7 @@ GEM
     drb (2.2.1)
     email_validator (2.2.4)
       activemodel
-    erubi (1.13.0)
+    erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
     factory_bot (6.5.0)
@@ -285,7 +285,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.3)
+    logger (1.6.4)
     lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -548,10 +548,10 @@ GEM
       base64
     rubyzip (2.3.2)
     securerandom (0.4.1)
-    sentry-rails (5.22.0)
+    sentry-rails (5.22.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.22.0)
-    sentry-ruby (5.22.0)
+      sentry-ruby (~> 5.22.1)
+    sentry-ruby (5.22.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -698,7 +698,7 @@ DEPENDENCIES
   rswag-ui (~> 2.16.0)
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.22.0)
+  sentry-rails (~> 5.22.1)
   sentry-ruby (~> 5.22.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.6.3)
