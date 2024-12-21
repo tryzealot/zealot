@@ -93,7 +93,7 @@ group :development do
   gem 'graphiql-rails'
 
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.9.2'
+  gem 'debug', '~> 1.10.0'
 
   # better rails
   gem 'awesome_print'
