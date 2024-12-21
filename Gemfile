@@ -5,8 +5,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 6.5.0'
-gem 'rails', '~> 7.2.2'
-gem 'rails-i18n', '~> 7.0.5'
+gem 'rails', '~> 8.0.1'
+gem 'rails-i18n', '~> 8.0.1'
 gem 'rack-cors', '~> 2.0.2'
 gem 'rack', '~> 3.0.11'
 
