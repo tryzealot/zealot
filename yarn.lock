@@ -265,10 +265,10 @@
   resolved "https://registry.yarnpkg.com/@stimulus-components/checkbox-select-all/-/checkbox-select-all-6.1.0.tgz#81da1ae620c2591ca247b32938a80e8c18b8b357"
   integrity sha512-FTwLyYBrVw7WneVJy9sP/J3sCVxx8/mz7U+tDJhQsVrlfM2sCyVXRNMexzb7vt/STTqz9+crN9MeWFv52hxh5Q==
 
-admin-lte@^4.0.0-beta2:
-  version "4.0.0-beta2"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-beta2.tgz#d5336154624c9c0ff78139f70f9ef140e929acc7"
-  integrity sha512-Ofav0BKnCnz+IeeXrHQZ6JWnHouwv+fDYyfagRpjfFaMBmYCljA2Qo1+fCGkJuJn/SfNPhFpJhbUt+l2tH0LwA==
+admin-lte@^4.0.0-beta3:
+  version "4.0.0-beta3"
+  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-beta3.tgz#8be40ab4ff20f102b2525d8b28cc905240b68fb6"
+  integrity sha512-q2VoAOu1DtZ7z41M2gQ05VMNYkFCAMxFU+j/HUMwCOlr/e3VhO+qww2SGJw4OxBw5nZQ7YV78+wK2RiB7ConzQ==
 
 balanced-match@^1.0.0:
   version "1.0.2"
