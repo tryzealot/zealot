@@ -84,7 +84,7 @@ class Admin::SystemInfoController < ApplicationController
 
   def set_disk_volumes
     @disks = Sys::Filesystem.mounts.each_with_object([]) do |mount, obj|
-      mount_options = mount.options.split(',').map(&:strip)
+      # mount_options = mount.options.split(',').map(&:strip)
       # next if (EXCLUDED_MOUNT_OPTIONS & mount_options).any?
       next if (EXCLUDED_MOUNT_TYPES & [mount.mount_type]).any?
 
