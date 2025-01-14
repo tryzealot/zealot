@@ -20,7 +20,7 @@ module ReleaseParser
   rescue => e
     logger.error e.full_message
   ensure
-    parser&.clear!
+    parser&.clear! if parser&.respond_to?(:clear!)
   end
 
   def build_metadata(parser, default_source)
