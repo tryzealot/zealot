@@ -6,10 +6,10 @@ class AppleKey < ApplicationRecord
   has_many :devices, through: :apple_keys_devices
 
   validates :issuer_id, :key_id, :private_key, :filename, :checksum, presence: true
-  validates :checksum, uniqueness: true, on: :create
-  validate :private_key_format, on: :create
-  validate :appstoreconnect_api_role_permissions, on: :create
-  validate :distribution_certificate, on: :create
+  validates :checksum, uniqueness: true, on: :create, if: :requires_fields?
+  validate :private_key_format, on: :create, if: :requires_fields?
+  validate :appstoreconnect_api_role_permissions, on: :create, if: :requires_fields?
+  validate :distribution_certificate_exists, on: :create, if: :requires_fields?
 
   before_create :generate_checksum
 
@@ -126,7 +126,7 @@ class AppleKey < ApplicationRecord
     errors.add(:key_id, :unknown, message: "[#{e.class}]: #{e.message}")
   end
 
-  def distribution_certificate
+  def distribution_certificate_exists
     if apple_distribtion_certiticate.blank?
       errors.add(:issuer_id, :missing_distribution_certificate)
     end
@@ -134,6 +134,10 @@ class AppleKey < ApplicationRecord
 
   def apple_distribtion_certiticate
     @apple_distribtion_certiticate ||= client.distribution_certificates.to_model
+  end
+
+  def requires_fields?
+    issuer_id.present? && key_id.present? || private_key.present?
   end
 
   def client
