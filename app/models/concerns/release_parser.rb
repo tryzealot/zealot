@@ -40,7 +40,7 @@ module ReleaseParser
   def relates_to_devices(parser)
     # iOS 且是 AdHoc 尝试解析 UDID 列表
     if parser.platform == AppInfo::Platform::IOS &&
-       parser.release_type == AppInfo::IPA::ExportType::ADHOC && \
+       parser.release_type == AppInfo::IPA::ExportType::ADHOC && 
        parser.devices.present?
 
       parser.devices.each do |udid|
