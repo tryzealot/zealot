@@ -32,8 +32,7 @@
         "bung87.rails",
         "bung87.vscode-gemfile",
         "EditorConfig.EditorConfig",
-        "formulahendry.auto-complete-tag",
-        "rangav.vscode-thunder-client"
+        "formulahendry.auto-complete-tag"
       ]
     }
   },
