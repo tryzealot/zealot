@@ -712,4 +712,4 @@ DEPENDENCIES
   webp-ffi (~> 0.4.0)
 
 BUNDLED WITH
-   2.5.10
+   2.6.3
