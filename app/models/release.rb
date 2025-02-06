@@ -188,7 +188,8 @@ class Release < ApplicationRecord
 
   def ios?
     platform_type.casecmp?('ios') || platform_type.casecmp?('iphone') ||
-    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal')
+    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal') ||
+    platform_type.casecmp?('appletv')
   end
 
   def android?
