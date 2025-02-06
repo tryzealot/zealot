@@ -25,19 +25,13 @@ RUN curl -1sLf 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | gpg --dear
     apt-get update && \
     apt-get install -y postgresql-client libpq-dev
 
-# Install caddy
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
-    apt-get update && \
-    apt-get install -y caddy
-
 ENV ZEALOT_PATH=/workspace
 
 USER vscode
 
 # Install asdf, ruby (with YJIT enabled) and nodejs
-ARG RUBY_VERSION="3.3.5"
-ARG NODEJS_VERSION="20.17.0"
+ARG RUBY_VERSION="3.3.7"
+ARG NODEJS_VERSION="22.13.1"
 LABEL zealot.containers.ruby="$RUBY_VERSION"
 LABEL zealot.containers.nodejs="$NODEJS_VERSION"
 
