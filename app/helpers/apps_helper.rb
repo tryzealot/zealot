@@ -33,7 +33,7 @@ module AppsHelper
     return if native_codes.blank?
 
     count = native_codes.size
-    return t('releases.show.multi_native_codes') if count > 0
+    return t('releases.show.multi_native_codes') if count > 1
     
     native_codes[0]
   end
