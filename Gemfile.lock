@@ -379,7 +379,7 @@ GEM
       tzinfo
       validate_url
       webfinger (~> 2.0)
-    openssl (3.2.0)
+    openssl (3.3.0)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     parallel (1.26.3)
@@ -675,7 +675,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 1.0.1)
   omniauth-rails_csrf_protection (~> 1.0.2)
   omniauth_openid_connect (= 0.8.0)
-  openssl (~> 3.2.0)
+  openssl (~> 3.3.0)
   ostruct
   pg (>= 0.18, < 2.0)
   pghero (~> 3.6.1)
