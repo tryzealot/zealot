@@ -1,9 +1,9 @@
-FROM ruby:3.3.5-alpine AS builder
+FROM --platform=$BUILDPLATFORM ruby:3.3.7-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
-ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat xz"
-ARG RUBY_PACKAGES="ruby-dev tzdata"
- 
+ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
+ARG RUBY_PACKAGES="tzdata"
+
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
@@ -41,10 +41,9 @@ RUN bundle config --global frozen 1 && \
     bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle config set path 'vendor/bundle' && \
-    bundle config build.nokogiri --use-system-libraries && \
     bundle lock --add-platform ruby && \
     bundle config set force_ruby_platform true && \
-    bundle install
+    bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
@@ -59,13 +58,13 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM ruby:3.3.5-alpine
+FROM --platform=$BUILDPLATFORM ruby:3.3.7-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
 ARG ZEALOT_VERSION
- 
+
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
