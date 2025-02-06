@@ -59,7 +59,7 @@ gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
 gem 'omniauth_openid_connect', '0.8.0'
 
 ## UDID
-gem 'openssl', '~> 3.2.0'
+gem 'openssl', '~> 3.3.0'
 gem 'plist', '~> 3.7.1'
 
 ## OS
