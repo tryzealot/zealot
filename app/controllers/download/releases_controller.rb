@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
 class Download::ReleasesController < ApplicationController
-  include AppsHelper
-
   before_action :set_release
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
 
   def show
     # password protected check
-    unless logged_in_or_without_auth?(@release) 
+    unless helpers.logged_in_or_without_auth?(@release) 
       return redirect_to channel_release_path(@release.channel, @release, back_url: @release.download_url)
     end
 
