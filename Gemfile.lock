@@ -396,7 +396,7 @@ GEM
     pg (1.5.9)
     pghero (3.6.1)
       activerecord (>= 6.1)
-    plist (3.7.1)
+    plist (3.7.2)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -684,7 +684,7 @@ DEPENDENCIES
   ostruct
   pg (>= 0.18, < 2.0)
   pghero (~> 3.6.1)
-  plist (~> 3.7.1)
+  plist (~> 3.7.2)
   propshaft (= 1.1.0)
   pry-rails
   pry-rescue
