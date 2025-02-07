@@ -14,7 +14,6 @@
 `Dockerfile` | 运行时镜像，主要是节省编译时间
 `docker-compose.yml` | 项目服务依赖
 `create-db-user.sql` | 用于初始化 Postgres 默认用户及权限
-`extensions` | vscode 扩展相关服务
 
 ## 镜像
 
