@@ -1,4 +1,0 @@
-*.ipa filter=lfs diff=lfs merge=lfs -binary
-*.apk filter=lfs diff=lfs merge=lfs -binary
-*.aab filter=lfs diff=lfs merge=lfs -binary
-*.zip filter=lfs diff=lfs merge=lfs -binary
