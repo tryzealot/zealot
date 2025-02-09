@@ -1,3 +1,0 @@
-Implement shuffle button in Up Next view.
-Use a single icon for folders upsell.
-Adds Playback 2024.
