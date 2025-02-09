@@ -1,7 +1,0 @@
-Refactors the Discover view to improve impressions tracking.
-Attempt to fix the crash when a device run out of space.
-Fix Share Extension in iOS 18.
-Adding Referrals feature.
-New Custom playback settings.
-Optimize database on startup.
-Show dynamic island on full screen player, and ajust layout.
