@@ -35,7 +35,7 @@ gem 'ostruct' # needs in rswag
 # Model
 gem 'friendly_id', '~> 5.5.1'
 gem 'kaminari', '~> 1.2.2'
-gem 'carrierwave', '~> 3.0.7'
+gem 'carrierwave', '~> 3.1.1'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
