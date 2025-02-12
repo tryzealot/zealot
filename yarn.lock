@@ -601,10 +601,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-overlayscrollbars@^2.10.1:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-2.10.1.tgz#ab9d32312e46c0643c377bd4d2942ead7e51dc9e"
-  integrity sha512-BQoUAaw533ZbqBIE8LzKtsIiOKzB3pkhA6oS2ol+8THB5b2VO91myEXPlKrQqXQRYHG53f/169fFBNrGZ9tzag==
+overlayscrollbars@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-2.11.0.tgz#72531e3b3de33de60e2e97a4d5f4385435edc3e1"
+  integrity sha512-4le6aI4VzimWPnqKXifqdhjEwTQKiWnuYo8bKuAG0VqISy8h165eGodC1LREshn0YrOe4rJ7ctQ2UlvoIFGjiA==
 
 path-is-absolute@^1.0.0:
   version "1.0.1"
