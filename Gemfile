@@ -8,7 +8,7 @@ gem 'puma', '~> 6.6.0'
 gem 'rails', '~> 8.0.1'
 gem 'rails-i18n', '~> 8.0.1'
 gem 'rack-cors', '~> 2.0.2'
-gem 'rack', '~> 3.0.11'
+gem 'rack', '~> 3.0.14'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
