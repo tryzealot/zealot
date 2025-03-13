@@ -30,6 +30,8 @@ class Admin::ServiceController < ApplicationController
     end
 
     render json: { mesage: 'Ok' }
+  rescue => e
+    render json: { mesage: e.message }, status: :forbidden
   end
 
   private
