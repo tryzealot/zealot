@@ -10,6 +10,9 @@ class App < ApplicationRecord
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
   scope :debug_files, -> { joins(:debug_files).distinct }
+  scope :search, ->(query) {
+    query.present? ? where("LOWER(name) LIKE ?", "%#{query.downcase}%") : all
+  }
 
   validates :name, presence: true
 
