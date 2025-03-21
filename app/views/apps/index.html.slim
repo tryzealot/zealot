@@ -10,6 +10,17 @@
       i.icon.far.fa-plus-square
       = t('apps.new.title')
 
+#search.row.mb-5
+  .col-sm-3
+  .col-sm-6
+    form method="get" action=apps_path class="row"
+      .col-sm-10
+        input.form-control type="text" name="search" value=params[:search] placeholder="Search apps..."
+      .col-sm-2
+        button.btn.btn-success type="submit"
+          i.fas.fa-search
+          | Search
+
 #apps.row
   - if @apps.size > 0
     - @apps.each do |app|
