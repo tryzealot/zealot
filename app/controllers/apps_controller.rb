@@ -9,8 +9,9 @@ class AppsController < ApplicationController
 
   def index
     @title = t('.title')
-    @apps = manage_user_or_guest_mode? ? App.all : current_user.apps.all
-    authorize @apps if @app.present?
+    base_scope = manage_user_or_guest_mode? ? App.all : current_user.apps
+    @apps = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
+    authorize @apps if @apps.present?
   end
 
   def show

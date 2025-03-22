@@ -1,0 +1,6 @@
+.col-md-12
+  form.form action=apps_path method="get" data-turbo="false"
+    .input-group
+      input.form-control name="search" value=params[:search] placeholder="#{t('apps.index.searching_app')}" type="text"
+      button.btn.btn-outline-secondary
+        i.fas.fa-search
