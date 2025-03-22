@@ -293,6 +293,7 @@ zh-CN:
       channels: 渠道
       uploads: 上传
       created_at: 创建于%{time}
+      searching_app: 搜索应用
       not_found:
         title: 没有发现任何应用
         body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增应用。

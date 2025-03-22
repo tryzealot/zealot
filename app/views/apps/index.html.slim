@@ -10,6 +10,9 @@
       i.icon.far.fa-plus-square
       = t('apps.new.title')
 
+#search.row.mb-4
+  == render 'search'
+
 #apps.row
   - if @apps.size > 0
     - @apps.each do |app|
