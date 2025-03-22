@@ -297,6 +297,7 @@ en:
       channels: channels
       uploads: uploads
       created_at: Created at %{time}
+      searching_app: Search apps
       not_found:
         title: Not found app.
         body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
