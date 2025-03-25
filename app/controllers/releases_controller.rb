@@ -78,7 +78,7 @@ class ReleasesController < ApplicationController
 
   def app_limited?
     Setting.preset_install_limited
-      .find {|q| request.user_agent.include?(q) }
+      .find {|q| request.user_agent&.include?(q) }
       .present?
   end
 
