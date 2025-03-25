@@ -6,9 +6,9 @@ class DebugFilesController < ApplicationController
 
   def index
     @title = t('debug_files.title')
-    @apps = manage_user_or_guest_mode? ? App.debug_files.all : current_user.apps.all
+    @apps = manage_user_or_guest_mode? ? App.debug_files.all : current_user&.apps
 
-    authorize @apps.first if @apps.present?
+    authorize @apps.present? ? @apps.first : DebugFile.new
   end
 
   def show
