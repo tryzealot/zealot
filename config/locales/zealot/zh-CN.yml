@@ -890,6 +890,9 @@ zh-CN:
         show:
           not_found: 应用版本不存在
           missing_params: 参数缺失，请使用 bundle_id, release_version, build_version 或 bundle_id, git_commit 组合参数
+    schemes:
+      index:
+        not_found: 应用 ID=%{id} 没有找到应用类型
     debug_files:
       download:
         default:

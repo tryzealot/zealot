@@ -8,8 +8,9 @@ class Api::SchemesController < Api::BaseController
   # GET /api/apps/:app_id/schemes
   def index
     @schemes = @app.schemes
-    authorize @schemes.first if @schemes
+    raise ActiveRecord::RecordNotFound, t('api.schemes.index.not_found', id: @app.id) if @schemes.blank? 
 
+    authorize @schemes.first
     render json: @schemes
   end
 

@@ -911,6 +911,9 @@ en:
         show:
           not_found: Not found release
           missing_params: combo with bundle_id, release_version, build_version or bundle_id, git_commit
+    schemes:
+      index:
+        not_found: Couldn't find Scheme with App ID=%{id}
     debug_files:
       download:
         default:
