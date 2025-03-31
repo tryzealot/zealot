@@ -25,6 +25,6 @@
     "crowdin": "crowdin"
   },
   "devDependencies": {
-    "@crowdin/cli": "^4.6.1"
+    "@crowdin/cli": "^4.7.0"
   }
 }
