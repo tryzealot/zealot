@@ -61,6 +61,14 @@ OIDC_OMNIAUTH_SETUP = lambda do |env|
   }
 end
 
+GITHUB_OMNIAUTH_SETUP = lambda do |env|
+  strategy = env['omniauth.strategy']
+  strategy.options[:client_id] = ENV['GITHUB_CLIENT_ID']
+  strategy.options[:client_secret] = ENV['GITHUB_CLIENT_SECRET']
+  strategy.options[:scope] = 'read:org,user:email'
+  strategy.options[:required_org] = ENV['GITHUB_REQUIRED_ORG']
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -345,6 +353,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, setup: GOOGLE_OMNIAUTH_SETUP
   config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::LDAP
   config.omniauth :openid_connect, setup: OIDC_OMNIAUTH_SETUP
+  config.omniauth :github, setup: GITHUB_OMNIAUTH_SETUP
 end
 
 module SafeStoreLocation

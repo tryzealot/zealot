@@ -7,7 +7,7 @@ class User < ApplicationRecord
   extend UserOmniauth
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable, :lockable,
-         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect]
+         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect github]
 
   enum :role, %i[member developer admin]
   enum :locale, enum_roles
