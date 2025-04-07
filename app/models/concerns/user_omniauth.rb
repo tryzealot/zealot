@@ -54,4 +54,8 @@ module UserOmniauth
   def enabled_gitlab?
     defined?(OmniAuth::Strategies::GitLab) && Setting.gitlab[:enabled]
   end
+
+  def enabled_github?
+    defined?(OmniAuth::Strategies::GitHub) && Setting.github[:enabled]
+  end
 end
