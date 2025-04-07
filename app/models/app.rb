@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class App < ApplicationRecord
-  default_scope { order(id: :asc) }
+  # default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
   has_many :collaborators, dependent: :destroy
@@ -12,6 +12,9 @@ class App < ApplicationRecord
   scope :debug_files, -> { joins(:debug_files).distinct }
   scope :search_by_name, ->(query) {
     query.present? ? where("name ILIKE ?", "%#{query}%") : all
+  }
+  scope :sort_by_name, ->(query) {
+    query.present? ? order("name #{query}") : all
   }
 
   validates :name, presence: true
