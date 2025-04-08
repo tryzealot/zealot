@@ -14,7 +14,8 @@ class App < ApplicationRecord
     query.present? ? where("name ILIKE ?", "%#{query}%") : all
   }
   scope :sort_by_name, ->(query) {
-    query.present? ? order("name #{query}") : all
+    direction = %w[asc desc].include?(query&.downcase) ? query.upcase : "ASC"
+    order(name: direction.downcase.to_sym)
   }
 
   validates :name, presence: true
