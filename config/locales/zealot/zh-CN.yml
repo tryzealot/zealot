@@ -1078,8 +1078,8 @@ zh-CN:
       username: LDAP 账户
       password: LDAP 密码
     github:
-      org_check_fail: 'GitHub 組織檢查失敗： %{code}'
-      org_required_fail: '您必須是 %{required_org} GitHub 組織的成員才能登入。'
+      org_check_fail: 'GitHub 组织检查失败： %{code}'
+      org_required_fail: '您必须是 %{required_org} GitHub 组织的成员才能登录。'
     shared:
       hint: '- 或者 -'
       links:
