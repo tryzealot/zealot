@@ -73,7 +73,7 @@ class Setting < RailsSettings::Base
       scope: ENV['GITHUB_SCOPE'] || 'user,read:org',
       app_id: ENV['GITHUB_CLIENT_ID'],
       secret: ENV['GITHUB_CLIENT_SECRET'],
-      required_org: ENV['GITHUB_REQUIRED_ORG'] || nil
+      required_org: ENV['GITHUB_REQUIRED_ORG']
     }, validates: { json: { format: :hash } }
 
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
