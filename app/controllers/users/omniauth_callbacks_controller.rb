@@ -20,7 +20,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     required_org = strategy.options[:required_org]
     provider = UserProvider.find_by(name: auth.provider, uid: auth.uid)
 
-    if auth.provider == 'github' && defined?(required_org) && required_org.present?
+    if auth.provider == 'github' && required_org.present?
       begin
         check_github_org(auth, required_org)
       rescue => e
