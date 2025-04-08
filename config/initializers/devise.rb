@@ -63,10 +63,10 @@ end
 
 GITHUB_OMNIAUTH_SETUP = lambda do |env|
   strategy = env['omniauth.strategy']
-  strategy.options[:client_id] = ENV['GITHUB_CLIENT_ID']
-  strategy.options[:client_secret] = ENV['GITHUB_CLIENT_SECRET']
+  strategy.options[:client_id] = Setting.github[:app_id]
+  strategy.options[:client_secret] = Setting.github[:secret]
   strategy.options[:scope] = 'read:org,user:email'
-  strategy.options[:required_org] = ENV['GITHUB_REQUIRED_ORG']
+  strategy.options[:required_org] = Setting.github[:required_org]
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
