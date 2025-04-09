@@ -1,5 +1,16 @@
 = turbo_frame_tag app, class: 'col-md-3' do
   .card.widget-app
+    div
+      - if app.archived 
+        = button_link_to '', unarchive_app_path(app), 'history', \
+          class: 'btn btn-outline btn-icon btn-sm', title: t('apps.show.unarchive_app'), \
+          data: { toggle: :tooltip, turbo_method: :post, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
+
+      - else
+        = button_link_to '', archive_app_path(app), 'archive', \
+          class: 'btn btn-outline btn-icon btn-sm', title: t('apps.show.archive_app'), \
+          data: { toggle: :tooltip, turbo_method: :post, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}", turbo_frame: 'apps_list' }
+
     .card-body.p-0
       .text-center.mt-3
         = link_to app_icon(app.recently_release, class: 'app-icon shadow-sm rounded-circle'), app_path(app), data: { turbo: false }
