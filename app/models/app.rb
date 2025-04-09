@@ -17,6 +17,8 @@ class App < ApplicationRecord
     direction = %w[asc desc].include?(query&.downcase) ? query.upcase : "ASC"
     order(name: direction.downcase.to_sym)
   }
+  scope :archived, -> { where(archived: true) }
+  scope :active, -> { where(archived: false).or(where(archived: nil)) }
 
   validates :name, presence: true
 
@@ -106,6 +108,14 @@ class App < ApplicationRecord
 
   def collaborator_user_ids
     collaborators.select(:user_id).map(&:user_id)
+  end
+
+  def archive!
+    update!(archived: true)
+  end
+
+  def unarchive!
+    update!(archived: false)
   end
 
   private

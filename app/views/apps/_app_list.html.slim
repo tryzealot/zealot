@@ -1,0 +1,11 @@
+= turbo_frame_tag "apps_list" do
+  #apps.row
+    - if apps.present?
+      - apps.each do |app|
+        == render app
+    - else
+      .col-md-12
+        .card.card-outline.card-warning
+          .card-header.card-border
+            h3.card-title = t('apps.index.not_found.title')
+          .card-body = t('apps.index.not_found.body_html')
