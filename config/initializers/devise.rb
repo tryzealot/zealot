@@ -65,7 +65,7 @@ GITHUB_OMNIAUTH_SETUP = lambda do |env|
   strategy = env['omniauth.strategy']
   strategy.options[:client_id] = Setting.github[:app_id]
   strategy.options[:client_secret] = Setting.github[:secret]
-  strategy.options[:scope] = 'read:org,user:email'
+  strategy.options[:scope] = Setting.github[:scope]
   strategy.options[:required_org] = Setting.github[:required_org]
 end
 
