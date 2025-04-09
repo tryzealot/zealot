@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     member do
       get :new_owner
       put :update_owner
+      post :archive
+      post :unarchive
+    end
+
+    collection do
+      get :archived
     end
 
     resources :collaborators, except: %i[index show]

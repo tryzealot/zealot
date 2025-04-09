@@ -292,6 +292,13 @@ en:
       not_found: Not found any upload.
   apps:
     title: Apps
+    archived_title: Archived Apps
+    archived:
+      success: App successfully archived.
+      error: Error archiving the app.
+    unarchived:
+      success: App successfully unarchived.
+      error: Error unarchiving the app.
     index:
       schemes: schemes
       channels: channels
@@ -305,6 +312,8 @@ en:
       new_scheme: New scheme
       edit_app: Edit app
       destroy_app: Destroy app
+      archive_app: Archive app
+      unarchive_app: Unarchive app
       new_channel: New Channel
       edit_scheme: Edit Scheme
       destroy_scheme: Destroy Scheme
@@ -346,6 +355,8 @@ en:
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
+        archive_app: Confirm to archive `%{name}` app and all related data of schemes, channels and uploaded releases?
+        unarchive_app: Confirm to unarchive `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
         delete_collaborator: Confirm to destroy `%{name}` collaborator?
