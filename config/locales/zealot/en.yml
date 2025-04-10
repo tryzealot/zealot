@@ -1088,6 +1088,9 @@ en:
       title: LDAP
       username: LDAP Username
       password: LDAP Password
+    github:
+      org_check_fail: 'GitHub org check failed: %{code}'
+      org_required_fail: 'You must be a member of the %{required_org} GitHub organization to sign in.'
     shared:
       hint: '- Or -'
       links:

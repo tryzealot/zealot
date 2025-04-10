@@ -67,6 +67,15 @@ class Setting < RailsSettings::Base
       secret: ENV['GITLAB_SECRET'],
     }, validates: { json: { format: :hash } }
 
+    field :github, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITHUB_ENABLED'] || false),
+      site: ENV['GITHUB_SITE'] || 'https://github.com/login/oauth/authorize',
+      scope: ENV['GITHUB_SCOPE'] || 'user,read:org',
+      app_id: ENV['GITHUB_CLIENT_ID'],
+      secret: ENV['GITHUB_CLIENT_SECRET'],
+      required_org: ENV['GITHUB_REQUIRED_ORG']
+    }, validates: { json: { format: :hash } }
+
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
