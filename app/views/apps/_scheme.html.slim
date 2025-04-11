@@ -20,7 +20,7 @@
             == render 'apps/channel', channel: channel, scheme: scheme, app: @app
         - else
             == render 'apps/empty_channel'
-    - if current_user&.manage?(app: @app)
+    - if current_user&.manage?(app: @app) && @app.archived != true
       .card-footer.p-1
         = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), \
           'plus-square', class: 'btn btn-icon text-primary', data: { turbo_frame: :modal }

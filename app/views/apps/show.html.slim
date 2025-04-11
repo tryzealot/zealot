@@ -1,17 +1,20 @@
 - content_for :title do
-  = @app.name
+  = @app.name 
 
 - content_for :section_title do
   = turbo_frame_tag @app do
     = @app.name
+    - if @app.archived == true
+      small.badge.bg-warning.text-white.py-1.px-1.align-middle.ms-2 style="font-size: .8rem" = t('apps.label.archived')
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
     .btn-group role="group"
-      = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
-        'plus-square', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', data: { turbo_frame: :modal }
-      = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', \
-        title: t('apps.show.edit_app'), data: { toggle: :tooltip, turbo_frame: :modal }
+      - if @app.archived != true
+        = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
+          'plus-square', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', data: { turbo_frame: :modal }
+        = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', \
+          title: t('apps.show.edit_app'), data: { toggle: :tooltip, turbo_frame: :modal }
       = button_link_to '', app_path(@app), 'trash-alt', \
         class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', title: t('apps.show.destroy_app'), \
         data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }

@@ -207,6 +207,7 @@ Rails.application.routes.draw do
       collection do
         post :upload, to: 'apps/upload#create'
 
+        get :archived
         get :latest, to: 'apps/latest#show'
         get :version_exist, to: 'apps/version_exist#show'
         get :versions, to: 'apps/versions#index'

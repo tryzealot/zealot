@@ -2,7 +2,7 @@
   .card-header
     h3.card-title = t('apps.show.collaborators')
     .card-tools
-      - if current_user.admin? || current_user.app_roles?(app, :admin)
+      - if @app.archived != true && (current_user.admin? || current_user.app_roles?(app, :admin))
         a href="#{new_app_collaborator_path(app)}" data-turbo-frame="modal"
           i.icon.fas.fa-user-plus
           = t('apps.show.new_collaborator')

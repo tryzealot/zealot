@@ -532,6 +532,7 @@ zh-CN:
         not_found_really: 您访问的应用版本真的不存在
         invalid_password: 密码错误，请重新输入
         bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
+        upload_to_archived_app: '应用 %{app} 已归档，无法上传新的版本。'
   debug_files:
     title: 调试文件
     index:
