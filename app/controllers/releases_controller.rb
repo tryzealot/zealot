@@ -34,6 +34,12 @@ class ReleasesController < ApplicationController
   end
 
   def create
+    if @channel.app.archived == true
+      message = t('releases.messages.errors.upload_to_archived_app', app: @channel.app.name)
+      redirect_to channel_path(@channel), alert: message
+      return
+    end
+
     @title = t('releases.new.title')
     @release = @channel.releases.upload_file(release_params)
     authorize @release

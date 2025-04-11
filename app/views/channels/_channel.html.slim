@@ -7,7 +7,7 @@
       == render 'web_hooks'
 
   .col-md-4
-    - if current_user&.manage?(app: @app)
+    - if current_user&.manage?(app: @app) && @app.archived != true
       = link_to new_channel_release_path(channel), class: 'btn btn-success w-100 mb-3', data: { turbo: false } do
         i.icon.far.fa-plus-square
         = t('channels.show.upload_release')

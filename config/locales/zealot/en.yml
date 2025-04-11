@@ -549,6 +549,7 @@ en:
         not_found_really: Not found this build.
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
+        upload_to_archived_app: 'The app %{app} is archived and does not support uploading new releases.'
   debug_files:
     title: Debug files
     index:
