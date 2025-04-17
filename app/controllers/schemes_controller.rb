@@ -67,6 +67,7 @@ class SchemesController < ApplicationController
 
   def set_app
     @app = App.find(params[:app_id])
+    raise_if_app_archived!(@app)
   end
 
   def set_scheme

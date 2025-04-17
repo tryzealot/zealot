@@ -8,9 +8,11 @@
         i.fas.fa-plus data-lte-icon="expand"
         i.fas.fa-minus data-lte-icon="collapse"
   .card-body.pb-1
-    section#add-webhooks
-      h5 = t('web_hooks.create')
-      == render 'web_hooks/form'
+
+    - unless @channel.app.archived
+      section#add-webhooks
+        h5 = t('web_hooks.create')
+        == render 'web_hooks/form'
 
     section#webhooks-list
       ul#web_hooks_list.nav.nav-tabs role="tablist"

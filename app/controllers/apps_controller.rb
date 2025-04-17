@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AppsController < ApplicationController
+  include AppArchived
+
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy new_owner update_owner]
   before_action :set_selected_schemes_and_channels, only: %i[edit]
@@ -28,6 +30,8 @@ class AppsController < ApplicationController
   end
 
   def edit
+    raise_if_app_archived!(@app)
+
     @title = t('.title')
   end
 
@@ -47,6 +51,8 @@ class AppsController < ApplicationController
   end
 
   def update
+    raise_if_app_archived!(@app)
+
     @app.update(app_params)
     respond_to do |format|
       format.html { redirect_to apps_path }
@@ -64,10 +70,14 @@ class AppsController < ApplicationController
   end
 
   def new_owner
+    raise_if_app_archived!(@app)
+
     @title = t('.title')
   end
 
   def update_owner
+    raise_if_app_archived!(@app)
+
     @title = t('apps.new_owner.title')
     @previous_user = @collaborator.user
     user_id = owner_params[:user_id]
