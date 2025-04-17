@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::AppsController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_app, only: %i[show update destroy]
 
@@ -39,6 +41,8 @@ class Api::AppsController < Api::BaseController
 
   # PUT /api/apps/:id
   def update
+    raise_if_app_archived!(@app)
+
     @app.update!(app_params)
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels'
   end

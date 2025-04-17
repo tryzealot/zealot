@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::Apps::UploadController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_parser
   before_action :set_channel
@@ -146,6 +148,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def set_channel
     @channel = Channel.find_by(key: params[:channel_key])
+    raise_if_app_archived!(@channel.app)
   end
 
   def append_present_value_from_params(data, key)
