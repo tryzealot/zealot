@@ -34,7 +34,7 @@ class Zealot::SmtpValidator
     when Net::SMTPAuthenticationError
       'Username and Password not accepted, check your SMTP username and password.'
     else
-      'Unkown error, check your SMTP settings.'
+      'Unknown error, check your SMTP settings.'
     end
   end
 
