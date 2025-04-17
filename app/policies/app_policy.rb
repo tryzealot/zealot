@@ -30,7 +30,7 @@ class AppPolicy < ApplicationPolicy
   end
 
   def update_owner?
-    admin?|| app_owner?
+    admin? || app_owner?
   end
 
   def archive?
