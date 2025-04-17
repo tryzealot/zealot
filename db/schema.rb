@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_27_060125) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_170907) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "apple_keys", force: :cascade do |t|
     t.string "issuer_id", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_060125) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "archived", default: false, null: false
     t.index ["name"], name: "index_apps_on_name"
   end
 
@@ -358,7 +359,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_060125) do
     t.datetime "locked_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "locale", default: "en", null: false
+    t.string "locale", default: "zh-CN", null: false
     t.string "appearance", default: "light", null: false
     t.string "timezone", default: "Asia/Shanghai", null: false
   end

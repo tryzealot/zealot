@@ -801,79 +801,6 @@
           }
         }
       },
-      "post": {
-        "summary": "添加用户到应用成员",
-        "tags": [
-          "应用成员"
-        ],
-        "description": "添加指定用户到指定应用成员列表",
-        "operationId": "createCollaborator",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            },
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "应用成员详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collaborator"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "用户密钥认证失败",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "资源未找到",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        }
-      },
       "put": {
         "summary": "更新应用成员权限",
         "tags": [
@@ -979,6 +906,81 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators": {
+      "post": {
+        "summary": "添加用户到应用成员",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "添加指定用户到指定应用成员列表",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "应用成员详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
                 }
               }
             }
