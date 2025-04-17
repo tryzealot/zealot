@@ -10,7 +10,7 @@
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
     .btn-group role="group"
-      - if @app.archived != true
+      - if !@app.archived
         = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
           'plus-square', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', data: { turbo_frame: :modal }
         = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', \
@@ -29,7 +29,7 @@ ruby:
         - @app.schemes.each do |scheme|
           == render 'scheme', scheme: scheme, card_column_width: app_scheme_columns(app_scheme_count)
       - else
-        == render 'empty_scheme'
+        == render 'empty_scheme', app: @app
 
   - if current_user&.manage?(app: @app)
     .col-md-12
