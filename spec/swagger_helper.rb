@@ -44,6 +44,19 @@ RSpec.configure do |config|
               type: :string
             }
           },
+          appScopeParam: {
+            scope: {
+              in: :query,
+              name: :scope,
+              required: false,
+              description: I18n.t('api.parameters.app_scope'),
+              schema: {
+                type: :string,
+                # enum: ['all', 'archived', 'active'], 
+              }
+            }
+          },
+  
           pageParam: {
             in: :query,
             name: :page,
@@ -79,6 +92,7 @@ RSpec.configure do |config|
             properties: {
               id: { type: :integer, format: :int32, example: 1 },
               name: { type: :string, example: 'First App' },
+              archived: { type: :boolean, example: false },
               schemes: { type: :array, items: { '$ref': '#/components/schemas/Scheme' }}
             }
           },
@@ -291,6 +305,9 @@ RSpec.configure do |config|
         },
       },
       definitions: {
+        ListAppOptions: {
+
+        },
         UploadAppOptions: {
           description: I18n.t('api.definitions.upload_options.description'),
           type: :object,

@@ -18,9 +18,19 @@
         "tags": [
           "应用"
         ],
-        "description": "获取所有应用列表详情，支持分页，按照最新创建时间倒序",
+        "description": "获取所有未归档应用列表详情，支持分页，按照最新创建时间倒序",
         "operationId": "listApps",
         "parameters": [
+          {
+            "default": "all",
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "应用范围 / 可选值有 all, active, archived",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "$ref": "#/components/parameters/pageParam"
           },
@@ -241,6 +251,7 @@
             "name": "bundle_id",
             "in": "query",
             "required": false,
+            "description": "应用的包名，iOS 取 bundle_id，Android 取 package_name",
             "schema": {
               "type": "string"
             }
@@ -248,7 +259,8 @@
           {
             "name": "release_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "主版本号",
             "schema": {
               "type": "string"
             }
@@ -256,7 +268,8 @@
           {
             "name": "build_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "内部版本号",
             "schema": {
               "type": "string"
             }
@@ -351,6 +364,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -401,6 +415,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -466,6 +481,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -518,6 +534,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "应用类型 id",
             "schema": {
               "type": "string"
             }
@@ -571,6 +588,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "应用类型 id",
             "schema": {
               "type": "string"
             }
@@ -638,6 +656,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -703,6 +722,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -755,6 +775,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -763,6 +784,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -813,6 +835,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -821,6 +844,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -886,6 +910,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -894,6 +919,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -946,6 +972,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -954,6 +981,7 @@
             "name": "user_id",
             "in": "query",
             "required": false,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -1128,6 +1156,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1178,6 +1207,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1282,6 +1312,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1304,7 +1335,7 @@
         },
         "responses": {
           "200": {
-            "description": "Translation missing: zh-CN.api.releases.default.responses.show",
+            "description": "应用版本详情",
             "content": {
               "application/json": {
                 "schema": {
@@ -1347,6 +1378,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1399,6 +1431,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -1452,6 +1485,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -1519,6 +1553,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1584,6 +1619,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1636,6 +1672,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1746,6 +1783,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1796,6 +1834,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1861,6 +1900,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1910,9 +1950,10 @@
         "operationId": "searchUser",
         "parameters": [
           {
-            "name": "email",
             "in": "query",
             "required": true,
+            "name": "email",
+            "description": "电子邮箱",
             "schema": {
               "type": "path"
             }
@@ -1968,6 +2009,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -2020,6 +2062,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -2107,6 +2150,17 @@
           "type": "string"
         }
       },
+      "appScopeParam": {
+        "scope": {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "description": "Translation missing: zh-CN.api.parameters.app_scope",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
       "pageParam": {
         "in": "query",
         "name": "page",
@@ -2147,6 +2201,10 @@
             "type": "string",
             "example": "First App"
           },
+          "archived": {
+            "type": "boolean",
+            "example": false
+          },
           "schemes": {
             "type": "array",
             "items": {
@@ -2156,7 +2214,7 @@
         }
       },
       "AppVersionsIndex": {
-        "description": "Apps returned in a list",
+        "description": "应用版本列表",
         "type": "object",
         "properties": {
           "id": {
@@ -2310,7 +2368,7 @@
         }
       },
       "Release": {
-        "description": "App's release build object",
+        "description": "应用版本",
         "type": "object",
         "properties": {
           "version": {
@@ -2808,6 +2866,7 @@
     }
   },
   "definitions": {
+    "ListAppOptions": {},
     "UploadAppOptions": {
       "description": "上传应用版本表单字段结构",
       "type": "object",
