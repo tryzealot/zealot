@@ -14,9 +14,6 @@ class Api::CollaboratorsController < Api::BaseController
 
   # POST /api/apps/:app_id/collaborators
   def create
-    raise_if_app_archived!(@app)
-
-
     collaborator = @app.collaborators.find_by(user_id: params[:user_id])
     raise Zealot::Error::RecordExisted.new(model: collaborator) if collaborator
 

@@ -801,79 +801,6 @@
           }
         }
       },
-      "post": {
-        "summary": "Add a collaborator to an App",
-        "tags": [
-          "Collaborators"
-        ],
-        "description": "Add a collaborator to an App",
-        "operationId": "createCollaborator",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            },
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Create a collaborator",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collaborator"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        }
-      },
       "put": {
         "summary": "Update a collaborator's role",
         "tags": [
@@ -979,6 +906,81 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators": {
+      "post": {
+        "summary": "Add a collaborator to an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Add a collaborator to an App",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create a collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
                 }
               }
             }
