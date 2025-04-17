@@ -117,4 +117,8 @@ module AppsHelper
       end
     end
   end
+
+  def archived_path?
+    current_page?(controller: 'apps/archives')
+  end
 end

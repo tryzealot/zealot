@@ -6,7 +6,7 @@ aside.app-sidebar.bg-body-secondary.shadow
       ul.nav.sidebar-menu.flex-column data-lte-toggle="treeview" role="menu" data-accordion="false"
         = sidebar_link_to('fas fa-th', root_path, text: t('dashboard.title'))
         = sidebar_link_to('fab fa-adn', apps_path, text: t('apps.title'))
-        = sidebar_link_to('fas fa-archive', archived_apps_path, text: t('apps.archived_title'))
+        = sidebar_link_to('fas fa-archive', archived_apps_path, text: t('apps.archives.title'))
         = sidebar_link_to('fas fa-bug', debug_files_path, text: t('debug_files.title'))
 
         li.nav-header = t('toolbox_section')

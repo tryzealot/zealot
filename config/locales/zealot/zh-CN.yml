@@ -295,12 +295,14 @@ zh-CN:
       created_at: 创建于%{time}
       searching_app: 搜索应用
       not_found:
-        title: 没有发现任何应用
-        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增应用。
+        title: 没有发现任何应用或全部已归档
+        body_html: 新建应用请点击右上角的 <i class="far fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
     show:
       new_scheme: 新增类型
       edit_app: 编辑应用
       destroy_app: 删除应用
+      archive_app: 归档应用
+      unarchive_app: 取消归档应用
       new_channel: 新增渠道
       edit_scheme: 编辑类型
       destroy_scheme: 删除类型
@@ -335,6 +337,13 @@ zh-CN:
     new_owner:
       title: 转移拥有者
       user_hint: 转移至其他成员，你会失去该应用的所有权限！
+    archives:
+      title: 已归档应用
+      index:
+        title: :'apps.archived.title'
+        not_found:
+          title: 没有发现任何已归档应用
+          body_html: 如果应用长期不再使用且不想删除可以进行归档操作。
     messages:
       failture:
         not_found_app_by_version: '没有找到应用版本: %{version}'
@@ -345,6 +354,8 @@ zh-CN:
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
         delete_collaborator: 确定删除【%{name}】成员?
+        archive_app: 确认归档应用 `%{name}`，归档后应用将不再显示在应用列表中并无法上传新的应用版本？
+        unarchive_app: 确认取消归档应用 `%{name}`，取消归档后应用将移到应用列表中并开启上传新的应用版本？
   collaborators:
     default:
       title: 应用成员
@@ -1005,6 +1016,8 @@ zh-CN:
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
+      archived: "%{key}归档成功"
+      unarchived: "%{key}取消归档成功"
       destroy: "%{key}删除成功"
     errors:
       messages:
@@ -1013,6 +1026,7 @@ zh-CN:
         invaild_jb: 无效格式
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
+        unknown: "%{key}操作失败"
       models:
         collaborator:
           attributes:

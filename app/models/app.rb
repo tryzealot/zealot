@@ -110,12 +110,12 @@ class App < ApplicationRecord
     collaborators.select(:user_id).map(&:user_id)
   end
 
-  def archive!
-    update!(archived: true)
+  def archive
+    update(archived: true)
   end
 
-  def unarchive!
-    update!(archived: false)
+  def unarchive
+    update(archived: false)
   end
 
   private

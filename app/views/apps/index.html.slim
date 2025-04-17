@@ -10,7 +10,15 @@
       i.icon.far.fa-plus-square
       = t('apps.new.title')
 
-#search.row.mb-4
-  == render 'search'
+- if @apps.present?
+  #search.row.mb-4
+    == render 'apps/search'
 
-== render 'apps/app_list', apps: @apps
+#apps.row
+  - if @apps.present?
+    - @apps.each do |app|
+      == render "apps/app", app: app
+  - elsif archived_path?
+    == render "apps/empty_archived_app"
+  - else
+    == render "apps/empty_active_app"

@@ -19,12 +19,10 @@ Rails.application.routes.draw do
     member do
       get :new_owner
       put :update_owner
-      post :archive
-      post :unarchive
     end
 
     collection do
-      get :archived
+      resources :archives, only: %i[index update destroy], path: 'archived', module: :apps, as: 'archived_apps'
     end
 
     resources :collaborators, except: %i[index show]

@@ -292,13 +292,6 @@ en:
       not_found: Not found any upload.
   apps:
     title: Apps
-    archived_title: Archived Apps
-    archived:
-      success: App successfully archived.
-      error: Error archiving the app.
-    unarchived:
-      success: App successfully unarchived.
-      error: Error unarchiving the app.
     index:
       schemes: schemes
       channels: channels
@@ -348,6 +341,13 @@ en:
     new_owner:
       title: Switch to new owner
       user_hint: You will be remove from this app after select the other user!
+    archives:
+      title: Archived App
+      index:
+        title: :'apps.archived.title'
+        not_found:
+          title: Not found archived app
+          body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
@@ -355,11 +355,11 @@ en:
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
         delete_app: Confirm to destroy `%{name}` app and all related data of schemes, channels and uploaded releases?
-        archive_app: Confirm to archive `%{name}` app and all related data of schemes, channels and uploaded releases?
-        unarchive_app: Confirm to unarchive `%{name}` app and all related data of schemes, channels and uploaded releases?
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
         delete_collaborator: Confirm to destroy `%{name}` collaborator?
+        archive_app: Confirm to archive `%{name}` app and disable to upload any new release?
+        unarchive_app: Confirm to unarchive `%{name}` app and enable to upload new release?
   collaborators:
     default:
       title: Collaborator
@@ -1018,6 +1018,8 @@ en:
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
+      archived: "Archived %{key} successfully"
+      unarchived: "Actived %{key} successfully"
       destroy: "Deleted %{key} successfully"
     errors:
       messages:
@@ -1026,6 +1028,7 @@ en:
         invaild_jb: Invalid format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
+        unknown: "%{key} fail to operated"
       models:
         collaborator:
           attributes:
