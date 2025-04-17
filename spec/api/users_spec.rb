@@ -48,7 +48,7 @@ RSpec.describe 'Users API' do
       description I18n.t('api.users.search.description')
       operationId 'searchUser'
 
-      parameter name: :email, in: :query, type: :path, required: true
+      include_examples :lazy_parameter, :email, in: :query, type: :path, required: true
 
       produces 'application/json'
       response 200, I18n.t('api.users.default.responses.search') do

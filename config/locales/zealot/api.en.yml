@@ -39,8 +39,13 @@ en:
       token:
         description: User token
     parameters:
+      id: Primary Key ID
+      scheme_id: App scheme id
+      app_id: App ID
+      user_id: User ID
       page: Pagination page
       per_page: Page size
+      scope: Scope
       channel_key: Channel key
       bundle_id: '`bundle_id` for iOS, `package_name` for Android'
       git_commit: Git Commit SHA
@@ -48,6 +53,7 @@ en:
       release_version: Release version
       build_version: Build version
       supported_values: Supported values in %{values}
+      email: Email
     schemas:
       app_index:
         description: Apps returned in a list
@@ -129,6 +135,7 @@ en:
         properties:
           build_version: Build version
           release_version: Release version
+          release_type: Release type, Eg, debug, beta, adhoc, release, enterprise etc
           source: the source of upload (default is `api`)
           changelog: Change log, accept plain text or JSON formatted data
           branch: a branch name from source control tool
@@ -161,15 +168,16 @@ en:
       default:
         tags: Apps
         responses:
-          index: Return a list of Apps
+          index: Return a list of active Apps
           show: Get an App
           versions: Return a build based list of Apps
           latest: Return the latest builds by App ID
           upload: Upload an App
           destroy: Destroy an App
+          archived: Return a list of archived App
       index:
         title: List Apps
-        description: Lists all apps, paginated and sorted by created date (newest first)
+        description: Lists apps by scope, paginated and sorted by created date (newest first)
       show:
         title: Get an App
         description: Get an App detail
@@ -247,6 +255,7 @@ en:
       default:
         tags: Release
         responses:
+          show: App Build Detail
           update: Update a build
           destroy: Destroy build
       update:

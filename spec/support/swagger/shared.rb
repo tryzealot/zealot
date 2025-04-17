@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Paramters
-shared_examples :paramter do |key, **options|
+shared_examples :lazy_parameter do |key, **options|
   options[:name] = key || :id
   options[:in] ||= options[:name] == :id ? :path : :query
   options[:type] ||= :string
@@ -22,6 +22,10 @@ shared_examples :paramter do |key, **options|
 end
 
 shared_examples :primary_key_parameter do |key, **options|
+  key ||= :id
+  tranlate_key = options.delete(:description) || "api.parameters.#{key}"
+  options[:description] = I18n.t(tranlate_key) if I18n.exists?(tranlate_key)
+
   parameter name: (key || :id), in: options.fetch(:in, :path), type: options.fetch(:type, :string),
             required: options.fetch(:required, true), **options
 end
@@ -33,15 +37,6 @@ end
 
 shared_examples :channel_key_parameter do
   parameter '$ref': '#/components/parameters/channelKeyParam'
-end
-
-shared_examples :version_parameters do |**options|
-  query = options.fetch(:in, :query)
-  type = options.fetch(:type, :string)
-  required = options.fetch(:required, true)
-
-  parameter name: :release_version, in: query, type: type, required: required, **options
-  parameter name: :build_version, in: query, type: type, required: required, **options
 end
 
 # workaround to request both form data and json of body

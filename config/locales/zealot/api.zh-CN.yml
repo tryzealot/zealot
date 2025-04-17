@@ -36,8 +36,13 @@ zh-CN:
       token:
         description: 用户密钥
     parameters:
+      id: 主键 ID
+      scheme_id: 应用类型 id
+      app_id: 应用 ID
+      user_id: 用户 ID
       page: 页码
       per_page: 单页数量
+      scope: 应用范围
       channel_key: 应用渠道 Key
       bundle_id: 应用的包名，iOS 取 bundle_id，Android 取 package_name
       git_commit: Git 提交哈希值
@@ -45,11 +50,12 @@ zh-CN:
       release_version: 主版本号
       build_version: 内部版本号
       supported_values: 可选值有 %{values}
+      email: 电子邮箱
     schemas:
       app_index:
         description: 应用列表
       app_versions:
-        description: Apps returned in a list
+        description: 应用版本列表
       app:
         description: 应用
       scheme:
@@ -57,7 +63,7 @@ zh-CN:
       channel:
         description: 应用渠道
       release:
-        description: App's release build object
+        description: 应用版本
       release_changelog:
         description: 应用版本的更新日志
       release_custom_field:
@@ -165,9 +171,10 @@ zh-CN:
           latest: 最新上传应用版本列表
           upload: 已上传的应用版本详情
           destroy: 已删除应用
+          archived: 已归档应用列表
       index:
         title: 获取应用列表
-        description: 获取所有应用列表详情，支持分页，按照最新创建时间倒序
+        description: 获取所有未归档应用列表详情，支持分页，按照最新创建时间倒序
       show:
         title: 获取应用详情
         description: 获取应用详情
@@ -245,6 +252,7 @@ zh-CN:
       default:
         tags: 应用版本
         responses:
+          show: 应用版本详情
           update: 更新应用版本
           destroy: 删除应用版本
       update:

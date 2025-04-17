@@ -30,7 +30,7 @@ RSpec.describe 'Collaborators API' do
       operationId 'createCollaborator'
 
       include_examples :primary_key_parameter, :app_id
-      include_examples :paramter, :user_id
+      include_examples :lazy_parameter, :user_id
       include_examples :request_body, '#/definitions/CollaboratorOptions'
 
       produces 'application/json'

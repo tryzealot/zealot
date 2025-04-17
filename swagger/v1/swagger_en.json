@@ -18,9 +18,19 @@
         "tags": [
           "Apps"
         ],
-        "description": "Lists all apps, paginated and sorted by created date (newest first)",
+        "description": "Lists apps by scope, paginated and sorted by created date (newest first)",
         "operationId": "listApps",
         "parameters": [
+          {
+            "default": "all",
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "Scope / Supported values in all, active, archived",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "$ref": "#/components/parameters/pageParam"
           },
@@ -30,7 +40,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Return a list of Apps",
+            "description": "Return a list of active Apps",
             "content": {
               "application/json": {
                 "schema": {
@@ -241,6 +251,7 @@
             "name": "bundle_id",
             "in": "query",
             "required": false,
+            "description": "`bundle_id` for iOS, `package_name` for Android",
             "schema": {
               "type": "string"
             }
@@ -248,7 +259,8 @@
           {
             "name": "release_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "Release version",
             "schema": {
               "type": "string"
             }
@@ -256,7 +268,8 @@
           {
             "name": "build_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "Build version",
             "schema": {
               "type": "string"
             }
@@ -351,6 +364,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -401,6 +415,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -466,6 +481,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -518,6 +534,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "App scheme id",
             "schema": {
               "type": "string"
             }
@@ -571,6 +588,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "App scheme id",
             "schema": {
               "type": "string"
             }
@@ -638,6 +656,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -703,6 +722,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -755,6 +775,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -763,6 +784,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -813,6 +835,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -821,6 +844,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -886,6 +910,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -894,6 +919,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -946,6 +972,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -954,6 +981,7 @@
             "name": "user_id",
             "in": "query",
             "required": false,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -1128,6 +1156,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1178,6 +1207,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1282,6 +1312,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1304,7 +1335,7 @@
         },
         "responses": {
           "200": {
-            "description": "Translation missing: en.api.releases.default.responses.show",
+            "description": "App Build Detail",
             "content": {
               "application/json": {
                 "schema": {
@@ -1347,6 +1378,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1399,6 +1431,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -1452,6 +1485,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -1519,6 +1553,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1584,6 +1619,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1636,6 +1672,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1746,6 +1783,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1796,6 +1834,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1861,6 +1900,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1910,9 +1950,10 @@
         "operationId": "searchUser",
         "parameters": [
           {
-            "name": "email",
             "in": "query",
             "required": true,
+            "name": "email",
+            "description": "Email",
             "schema": {
               "type": "path"
             }
@@ -1968,6 +2009,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -2020,6 +2062,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -2107,6 +2150,17 @@
           "type": "string"
         }
       },
+      "appScopeParam": {
+        "scope": {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "description": "Translation missing: en.api.parameters.app_scope",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
       "pageParam": {
         "in": "query",
         "name": "page",
@@ -2146,6 +2200,10 @@
           "name": {
             "type": "string",
             "example": "First App"
+          },
+          "archived": {
+            "type": "boolean",
+            "example": false
           },
           "schemes": {
             "type": "array",
@@ -2808,6 +2866,7 @@
     }
   },
   "definitions": {
+    "ListAppOptions": {},
     "UploadAppOptions": {
       "description": "Upload app form data options",
       "type": "object",
@@ -2969,7 +3028,7 @@
         },
         "release_type": {
           "type": "string",
-          "description": "Translation missing: en.api.definitions.release_options.properties.release_type"
+          "description": "Release type, Eg, debug, beta, adhoc, release, enterprise etc"
         },
         "source": {
           "type": "string",
