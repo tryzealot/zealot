@@ -1,6 +1,8 @@
-#webhooks-list {
-  @extend .mt-4 !optional;
+#add-webhooks {
+  @extend .mb-4 !optional;
+}
 
+#webhooks-list {
   .bg-light-gray {
     margin-right: 5px;
     background-color: #f3f2f2;

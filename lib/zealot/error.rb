@@ -23,6 +23,12 @@ class Zealot::Error < StandardError
     end
   end
 
+  class AppArchivedDeny < Zealot::Error
+    def message
+      I18n.t('errors.messages.app_archived', name: @data[:name])
+    end
+  end
+
   module API
     class NotFound < Zealot::Error
       def message

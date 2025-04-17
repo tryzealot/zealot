@@ -549,7 +549,6 @@ en:
         not_found_really: Not found this build.
         invalid_password: Invalid password
         bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
-        upload_to_archived_app: 'The app %{app} is archived and does not support uploading new releases.'
   debug_files:
     title: Debug files
     index:
@@ -869,6 +868,7 @@ en:
 
         Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
         Authorized request by %{name}: %{url}
+
   web_hooks:
     title: :admin.web_hooks.title
     create: :admin.web_hooks.new.title
@@ -972,6 +972,8 @@ en:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      homepage_title: homepage
+      goback_title: Go back
       blank: Can't be blank
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
@@ -989,8 +991,7 @@ en:
       record_not_found: Record not found
       user_not_found: User not found
       api_not_found: API not found
-      goback_title: Go back
-      homepage_title: homepage
+      app_archived: "App %{name} was archived, can not process current action."
   active_job:
     webhook:
       failures:

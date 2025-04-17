@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChannelsController < ApplicationController
+  include AppArchived
+
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_scheme, except: %i[show destroy_releases]
   before_action :set_channel, only: %i[show edit update destroy]
@@ -15,6 +17,8 @@ class ChannelsController < ApplicationController
   end
 
   def new
+    raise_if_app_archived!(@scheme.app)
+
     @channel = @scheme.channels.build
     @page_title = t('.title.with_name', app: @channel.app.name)
     @title = t('.title.without_name')
@@ -22,6 +26,8 @@ class ChannelsController < ApplicationController
   end
 
   def create
+    raise_if_app_archived!(@scheme.app)
+
     @channel = @scheme.channels.new(channel_params)
     authorize @channel
 
@@ -37,11 +43,15 @@ class ChannelsController < ApplicationController
   end
 
   def edit
+    raise_if_app_archived!(@scheme.app)
+
     @page_title = t('.title.with_name', app: @channel.app.name)
     @title = t('.title.without_name')
   end
 
   def update
+    raise_if_app_archived!(@scheme.app)
+
     @channel.update(channel_params)
     respond_to do |format|
       format.html { redirect_back fallback_location: friendly_channel_overview_path(@channel) }
@@ -50,6 +60,8 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
+    raise_if_app_archived!(@scheme.app)
+
     @channel.destroy
     respond_to do |format|
       format.html { redirect_to app_path(@app) }
@@ -60,6 +72,8 @@ class ChannelsController < ApplicationController
   def destroy_releases
     channel = Channel.friendly.find(params[:name] || params[:id])
     authorize channel
+
+    raise_if_app_archived!(channel.app)
 
     if params[:channel].blank?
       channel.releases.destroy_all
