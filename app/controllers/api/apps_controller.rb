@@ -8,7 +8,7 @@ class Api::AppsController < Api::BaseController
 
   # GET /api/apps
   def index
-    @apps = manage_user? ? App.active : current_user.apps.active
+    @apps = app_scopes
     authorize @apps.first if @apps.present?
 
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
@@ -54,6 +54,17 @@ class Api::AppsController < Api::BaseController
   end
 
   protected
+
+  def app_scopes
+    case params[:scope]
+    when 'archived'
+      manage_user? ? App.archived : current_user.apps.archived
+    when 'active'
+      manage_user? ? App.active : current_user.apps.active
+    else
+      manage_user? ? App.all : current_user.apps.all
+    end
+  end
 
   def set_app
     @app = App.find(params[:id])
