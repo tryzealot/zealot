@@ -1,0 +1,6 @@
+= turbo_stream.remove dom_id(@app)
+= turbo_stream.append('notifications', partial: 'layouts/messages')
+
+- if @apps.blank?
+  = turbo_stream.remove "search"
+  = turbo_stream.replace "apps", partial: 'apps/empty_active_app'
