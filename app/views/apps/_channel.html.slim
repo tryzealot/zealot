@@ -3,7 +3,7 @@
     = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
   - if current_user&.manage?(app: app)
     .p-2.flex-shrink-1
-      -if @app.archived != true
+      - if !@app.archived
         = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', class: 'btn-box-tool', \
           data: { turbo_frame: :modal }
         = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', class: 'btn-box-tool', \

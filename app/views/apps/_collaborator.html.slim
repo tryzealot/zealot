@@ -7,7 +7,9 @@
       span.badge.text-bg-secondary.ms-1 = t('apps.show.it_is_you')
   .col-5.my-auto = t(collaborator.role, scope: 'settings.preset_role')
   .col-2.my-auto.pe-2
-    - if collaborator.owner?
+    - if @app.archived
+      / nothing to do
+    - elsif collaborator.owner?
       - if same_user?(collaborator) || current_user.admin?
         = button_link_to '', new_owner_app_path(@app), 'people-arrows', class: 'float-end', data: { turbo_frame: :modal }
     - elsif edit_role_user?(collaborator)
