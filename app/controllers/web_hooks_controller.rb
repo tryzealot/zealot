@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WebHooksController < ApplicationController
+  include AppArchived
+
   before_action :authenticate_user!
   before_action :set_channel
   before_action :set_web_hook, except: [:create]
@@ -45,6 +47,7 @@ class WebHooksController < ApplicationController
 
   def set_channel
     @channel = Channel.friendly.find(params[:channel_id])
+    raise_if_app_archived!(@channel.app)
   end
 
   def set_web_hook

@@ -967,6 +967,8 @@ zh-CN:
       '503':
         title: 服务暂时不可用，无法请求该页面
     messages:
+      homepage_title: 首页
+      goback_title: 上级页面
       blank: 不能为空值
       inclusion: 不包含在可选值列表中
       only_integer: 必须是数字
@@ -984,8 +986,7 @@ zh-CN:
       record_not_found: 此查询数据找不到
       user_not_found: 没有找到此用户
       api_not_found: 没有这个接口
-      goback_title: 上级页面
-      homepage_title: 首页
+      app_archived: "%{name}应用已归档，无法进行此操作"
   active_job:
     webhook:
       failures:

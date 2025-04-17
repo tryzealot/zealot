@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class CollaboratorsController < ApplicationController
+  include AppArchived
+
   before_action :set_app
   before_action :set_collaborator, only: %i[ edit update destroy ]
 
   # GET /apps/:app_id/collaborators/new
   def new
+    raise_if_app_archived!(@app)
+
     @title = t('.title')
     @collaborator = @app.collaborators.build
     authorize @collaborator
@@ -13,6 +17,8 @@ class CollaboratorsController < ApplicationController
 
   # POST /apps/:app_id/collaborators
   def create
+    raise_if_app_archived!(@app)
+
     @collaborator = @app.collaborators.new(collaborator_params)
     authorize @collaborator
 
@@ -29,11 +35,14 @@ class CollaboratorsController < ApplicationController
 
   # GET /collaborators/1/edit
   def edit
+    raise_if_app_archived!(@app)
+
     @title = t('.title')
   end
 
   # PATCH/PUT /collaborators/1
   def update
+    raise_if_app_archived!(@app)
     return render :edit, status: :unprocessable_entity unless @collaborator.update(collaborator_params)
 
     notice = t('activerecord.success.update', key: t('collaborators.default.title'))
@@ -46,6 +55,8 @@ class CollaboratorsController < ApplicationController
 
   # DELETE /collaborators/1
   def destroy
+    raise_if_app_archived!(@app)
+    
     app = @collaborator.app
     @collaborator.destroy!
 

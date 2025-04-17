@@ -31,7 +31,7 @@
       span.font-weight-bold = @channel.key
       span.text-muted = t('channels.show.channel_key')
 
-  - if current_user&.manage?(app: @app)
+  - if current_user&.manage?(app: @app) && !@app.archived
     .card-footer.p-1
       = link_to t('channels.show.edit_channel'), edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel), \
         class: 'btn w-100 text-primary', data: { turbo_frame: :modal }
