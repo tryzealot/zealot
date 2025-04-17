@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::ChannelsController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_scheme, only: %i[index create]
   before_action :set_channel, only: %i[show update destroy]
@@ -12,6 +14,8 @@ class Api::ChannelsController < Api::BaseController
 
   # POST /api/schemes/:scheme_id/channels
   def create
+    raise_if_app_archived!(@scheme.app)
+
     @channel = @scheme.channels.create!(channel_params)
     authorize @channel
 
@@ -25,12 +29,16 @@ class Api::ChannelsController < Api::BaseController
 
   # PUT /api/channels/:id
   def update
+    raise_if_app_archived!(@channel.app)
+
     @channel.update!(channel_params)
     render json: @channel
   end
 
   # DELETE /api/channels/:id
   def destroy
+    raise_if_app_archived!(@channel.app)
+
     @channel.destroy!
     render json: { mesage: 'OK' }
   end
