@@ -42,7 +42,7 @@ gem 'webp-ffi', '~> 0.4.0'
 gem 'rake', '~> 13.0.4'
 gem 'rails-settings-cached', '~> 2.9.6'
 gem 'app-info', '~> 3.3.0'
-gem 'faraday', '~> 2.12.2'
+gem 'faraday', '~> 2.13.0'
 gem 'rqrcode'
 
 ## Auth
