@@ -1003,6 +1003,7 @@ zh-CN:
         max_keeps_limited: '%{key} 备份设置最大限制值为零'
         dump_command: '执行备份命令执行失败: %{message}'
         restore_command: '恢复备份命令执行失败: %{message}'
+        storage_full: '备份存储空间不足，无法创建新的备份: %{key}'
   activerecord:
     attributes:
       channel:
