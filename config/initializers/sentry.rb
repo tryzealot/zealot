@@ -24,6 +24,7 @@ if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENT
         'AppInfo::UnkownFileTypeError',
         'Interrupt',
         'SystemExit',
+        'Errno::ENOSPC',
       ]
 
       config.release = Setting.version
