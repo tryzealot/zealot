@@ -26,11 +26,11 @@ namespace :zealot do
       smtp_validator = Zealot::SmtpValidator.new
       if smtp_validator.configured?
         success = smtp_validator.verify
-        unless success
-          fail smtp_validator.error_message
-          exit!
+        if success
+          puts "SMTP verified successful"
+        else
+          puts "SMTP verified fail: #{smtp_validator.error_message}"
         end
-        puts "SMTP verified successful"
       else
         puts "SMTP is not configure, skip"
       end
