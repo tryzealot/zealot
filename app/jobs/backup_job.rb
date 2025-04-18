@@ -20,13 +20,24 @@ class BackupJob < ApplicationJob
   end
 
   rescue_from(Zealot::Backup::DatabaseError) do |e|
+    logger.error(e.message)
+
     key = e.is_a?(Zealot::Backup::DumpDatabaseError) ?
       'active_job.backup.failures.dump_command' : 'active_job.backup.failures.restore_command'
-
     notificate_failure(
       user_id: @user_id,
       type: 'backup',
       message: t(key, message: e.message)
+    )
+  end
+
+  rescue_from(Errno::ENOSPC) do |e|
+    logger.error(e.message)
+
+    notificate_failure(
+      user_id: @user_id,
+      type: 'backup',
+      message: t('active_job.backup.failures.storage_full', key: @backup.key)
     )
   end
 

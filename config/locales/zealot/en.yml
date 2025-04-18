@@ -1008,6 +1008,7 @@ en:
         max_keeps_limited: '%{key} backup maximum limit value was zero'
         dump_command: 'Executing dump backup commands failed: %{message}'
         restore_command: 'Executing restore backup commands failed: %{message}'
+        storage_full: 'Not enough disk space, please check the backup storage: %{key}'
   activerecord:
     attributes:
       channel:
