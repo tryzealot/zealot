@@ -233,7 +233,7 @@ Rails.application.routes.draw do
     resources :devices, only: %i[update]
     resources :version, only: :index
 
-    if Setting.openapi_ui
+    if Setting.show_footer_openapi_endpoints
       mount Rswag::Api::Engine => '/swagger', as: :openapi
       mount Rswag::Ui::Engine => '/swagger', as: :openapi_ui
     end
