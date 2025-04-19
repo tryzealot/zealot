@@ -4,4 +4,5 @@ footer.app-footer
 
   div
     span = powered_by
-    span.px-1 = zealot_version
+    - if Setting.show_footer_version
+      span.px-1 = zealot_version

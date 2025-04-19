@@ -46,8 +46,6 @@ class Setting < RailsSettings::Base
           type: :boolean, restart_required: true, display: true
     field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
           type: :boolean, restart_required: true, display: true
-    field :openapi_ui, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_OPENAPI_UI_ENABLED'] || 'false'),
-          type: :boolean, restart_required: true, display: true
     field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
           type: :boolean, readonly: true, display: true
   end
@@ -139,7 +137,15 @@ class Setting < RailsSettings::Base
       display: (value = ENV['GOOGLE_ANALYTICS_ID']) && value.present?
   end
 
-  # Backup settings
+  # misc settings
+  scope :misc do
+    field :show_footer_version, type: :boolean, display: true,
+      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_VERSION'] || 'true')
+    field :show_footer_openapi_endpoints, type: :boolean, restart_required: true, display: true,
+      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_OPENAPI_ENDPOINTS'] || 'false')
+  end
+
+  # Backup settings1
   field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
     pg_schema: 'public',

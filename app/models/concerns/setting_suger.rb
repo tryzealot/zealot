@@ -15,6 +15,10 @@ module SettingSuger
     value == default_value
   end
 
+  def restart_required?
+    present[:restart_required]
+  end
+
   def default_value
     present[:default]
   end
@@ -46,7 +50,7 @@ module SettingSuger
     self.class.restart_required!
   end
 
-  def need_restart?
+  def restart_required?
     value_of(var, source: :restart_required) == true
   end
 
