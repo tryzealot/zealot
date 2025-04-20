@@ -211,7 +211,7 @@ module ApplicationHelper
   end
 
   def show_api
-    return unless openapi_ui_enabled?
+    return unless openapi_endpoints_enabled?
 
     locale = current_user&.locale || I18n.default_locale
     I18n.with_locale(locale) do
@@ -223,7 +223,7 @@ module ApplicationHelper
     end
   end
 
-  def openapi_ui_enabled?
-    Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.openapi_ui
+  def openapi_endpoints_enabled?
+    Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.show_footer_openapi_endpoints
   end
 end
