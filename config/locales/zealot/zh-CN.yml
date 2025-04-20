@@ -120,6 +120,7 @@ zh-CN:
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
+        restart_required: 重启后生效
       update:
         title: 编辑设置
       edit:
@@ -145,15 +146,12 @@ zh-CN:
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
-      openapi_ui: OpenAPI UI
-      openapi_ui_hint: 开启后可在各页面底部找到 API 链接
       third_party_auth: 第三方登录
       ldap: LDAP
       oidc: OpenID Connect
       feishu: 飞书
       gitlab: Gitlab
       google_oauth: Google OAuth
-      # misc: 杂项
       smtp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_reply_to: 默认邮件回复地址
@@ -164,6 +162,9 @@ zh-CN:
       umami_website_id: Umami 统计
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
+      misc: 杂项
+      show_footer_version: 显示底部版本号
+      show_footer_openapi_endpoints: 显示底部 OpenAPI 链接
       empty_value: 空值
       no_editable_key: 当前设置为可读，无法修改
       reset: 恢复默认值
