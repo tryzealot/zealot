@@ -50,7 +50,7 @@ module SettingSuger
     self.class.restart_required!
   end
 
-  def restart_required?
+  def need_restart?
     value_of(var, source: :restart_required) == true
   end
 
