@@ -90,7 +90,7 @@ GEM
     android_parser (2.7.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (3.3.0)
+    app-info (3.3.1)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (>= 2.7, < 3.0)
       base64 (~> 0.2.0)
@@ -206,19 +206,19 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    google-protobuf (4.28.3)
+    google-protobuf (4.30.2)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.3-aarch64-linux)
+    google-protobuf (4.30.2-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.3-arm64-darwin)
+    google-protobuf (4.30.2-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.3-x86_64-darwin)
+    google-protobuf (4.30.2-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.3-x86_64-linux)
+    google-protobuf (4.30.2-x86_64-linux)
       bigdecimal
       rake (>= 13)
     graphiql-rails (1.10.4)
@@ -239,7 +239,7 @@ GEM
     image_size (3.4.0)
     interception (0.5)
     io-console (0.8.0)
-    iostruct (0.2.0)
+    iostruct (0.5.0)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
@@ -504,7 +504,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.3.9)
+    rexml (3.4.1)
     rouge (4.3.0)
     rqrcode (3.0.0)
       chunky_png (~> 1.0)
@@ -564,7 +564,7 @@ GEM
       logger
     rubyntlm (0.6.5)
       base64
-    rubyzip (2.3.2)
+    rubyzip (2.4.1)
     securerandom (0.4.1)
     sentry-rails (5.23.0)
       railties (>= 5.0)
@@ -660,7 +660,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.15)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.3.0)
+  app-info (~> 3.3.1)
   awesome_print
   better_errors
   binding_of_caller
