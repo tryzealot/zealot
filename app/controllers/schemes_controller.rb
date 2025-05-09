@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SchemesController < ApplicationController
+  include AppArchived
+  
   before_action :authenticate_user!, except: :show
   before_action :set_scheme, except: %i[create new]
   before_action :process_scheme_params, only: %i[create]
