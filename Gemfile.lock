@@ -433,7 +433,7 @@ GEM
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.0.14)
+    rack (3.0.16)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-oauth2 (2.2.1)
@@ -705,7 +705,7 @@ DEPENDENCIES
   pry-rescue
   puma (~> 6.6.0)
   pundit (~> 2.4.0)
-  rack (~> 3.0.14)
+  rack (~> 3.0.16)
   rack-cors (~> 2.0.2)
   rails (~> 8.0.2)
   rails-i18n (~> 8.0.1)
