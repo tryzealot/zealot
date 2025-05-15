@@ -295,7 +295,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.24.0)
+    loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -309,7 +309,7 @@ GEM
       benchmark
       logger
     mini_mime (1.1.5)
-    mini_portile2 (2.8.8)
+    mini_portile2 (2.8.9)
     minitest (5.25.5)
     msgpack (1.8.0)
     multi_json (1.15.0)
@@ -422,7 +422,7 @@ GEM
     pry-rescue (1.6.0)
       interception (>= 0.5)
       pry (>= 0.12.0)
-    psych (5.2.4)
+    psych (5.2.6)
       date
       stringio
     public_suffix (6.0.1)
@@ -566,10 +566,10 @@ GEM
       base64
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    sentry-rails (5.23.0)
+    sentry-rails (5.24.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.23.0)
-    sentry-ruby (5.23.0)
+      sentry-ruby (~> 5.24.0)
+    sentry-ruby (5.24.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -718,8 +718,8 @@ DEPENDENCIES
   rswag-ui (~> 2.16.0)
   rubocop (>= 0.70)
   rubocop-rails
-  sentry-rails (~> 5.23.0)
-  sentry-ruby (~> 5.23.0)
+  sentry-rails (~> 5.24.0)
+  sentry-ruby (~> 5.24.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.7.0)
   solid_cache (~> 1.0.7)
