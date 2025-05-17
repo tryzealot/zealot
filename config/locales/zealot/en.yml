@@ -499,6 +499,7 @@ en:
       major_versions: :channels.show.major_versions
       view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
+      app_was_archived: Read only for archived app.
     new:
       title: :channels.show.upload_release
     install:
