@@ -51,6 +51,9 @@ section
                         - if release.short_git_commit
                           small.badge
                             = release.short_git_commit
+                        - if release.app.archived
+                          small.badge.text-bg-warning
+                            | Archived
 
               div
                 i.timeline-icon.fas.fa-clock.text-white.bg-secondary

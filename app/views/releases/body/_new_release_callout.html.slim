@@ -8,3 +8,9 @@
         version: latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
         time: time_ago_in_words(latest_release.created_at), \
         link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release)))
+
+- if @release.app.archived
+  .callout.callout-warning.mb-3
+    h5
+      i.icon.fas.fa-box-archive
+      = t('releases.show.app_was_archived')
