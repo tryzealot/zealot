@@ -15,15 +15,6 @@ log {
 	}
 }
 
-# handle reverse proxy crash errors
-handle_errors {
-	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
-	handle @5xx {
-		rewrite * /errors/{err.status_code}.html
-		file_server
-	}
-}
-
 @zealot {
 	path *
 
@@ -35,14 +26,41 @@ reverse_proxy @zealot {
 	to localhost:3000
 
 	health_uri /health
-	health_interval 1s
-	health_timeout 30s
+	health_interval 2s
+	health_timeout 10s
 
 	header_up X-Forwarded-Proto https
 
 	@accel header X-Accel-Redirect *
 	handle_response @accel {
 		rewrite * {http.reverse_proxy.header.X-Accel-Redirect}
+		file_server
+	}
+}
+
+# handle reverse proxy crash errors
+handle_errors {
+	# @debug path /debug-errors
+	# handle @debug {
+	# 	respond `Error Details:
+	# 	Status Code: {http.error.status_code}
+	# 	Error: {http.error}
+	# 	Error Message: {err.message}
+	# 	Error Status: {err.status_code}
+	# 	HTTP Error: {http.error.message}
+	# 	Error Name: {http.error.name}
+	# 	Stack: {http.error.trace}` 200
+	# }
+
+	@backend_down `{err.message}.contains("no upstreams available")`
+	handle @backend_down {
+		rewrite * /loading.html
+		file_server
+	}
+
+	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
+	handle @5xx {
+		rewrite * /errors/{err.status_code}.html
 		file_server
 	}
 }
