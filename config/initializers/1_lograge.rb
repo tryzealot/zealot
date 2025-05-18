@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Default log format is key-value pairs.
 if Rails.env.production? && ENV['ZEALOT_LOG_FORMAT'] != 'rails'
   def fetch_ip(controller)
     controller.request.remote_ip
