@@ -6,6 +6,9 @@ on:
       - '.github/workflows/publish_codespace.yml'
       - '.devcontainer/Dockerfile.base'
       - '.mise.toml'
+      - 'Gemfile*'
+      - 'package.json'
+      - 'yarn.lock'
     branches:
       - develop
   workflow_dispatch:

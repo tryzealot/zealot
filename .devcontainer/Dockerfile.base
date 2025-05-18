@@ -58,7 +58,7 @@ ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
 RUN gem install bundler foreman && \
     npm install --global yarn sass esbuild
 
-COPY Gemfile Gemfile.lock package.json ./
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 USER root
 RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
 USER vscode
