@@ -20,6 +20,7 @@ log {
 
 	# static files
 	not file
+	not path /health
 }
 
 reverse_proxy @zealot {
