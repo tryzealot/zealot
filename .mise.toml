@@ -1,3 +1,27 @@
 [tools]
 ruby="3.3.8"
 nodejs="22.15.1"
+
+[tasks.web]
+description = "Running Rails server"
+run = "bin/rails server -p 3000 -b 0.0.0.0"
+
+[tasks.worker]
+description = "Running Background worker"
+run = "bin/good_job start 2>&1 | tee -a log/worker.log"
+
+[tasks.js]
+description = "Running Javascript compiler server"
+run = "yarn build --watch"
+
+[tasks.css]
+description = "Running CSS compiler watcher"
+run = "yarn build:css --watch"
+
+[tasks.start] 
+description = "Start all server"
+depends = ["web", "worker", "js", "css"]
+
+[tasks.caddy]
+description = "Running Caddy server"
+run = "caddy run --watch --config docker/rootfs/etc/Caddyfile"
