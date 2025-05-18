@@ -16,7 +16,7 @@ RUN apt-get update && \
     debian-keyring debian-archive-keyring apt-transport-https \
     build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev libyaml-dev  \
     imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
-    tzdata \
+    caddy tzdata \
     vim git-lfs tig tmux
 
 # Install postgresql-client from offical repo
@@ -30,7 +30,7 @@ ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
 RUN curl https://mise.run | sh
 
 # Install lazygit
-ENV LAZYGIT_VERSION="0.45.2"
+ENV LAZYGIT_VERSION="0.50.0"
 RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin && \
     chmod +x /usr/local/bin/lazygit
 
