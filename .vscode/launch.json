@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "ruby_lsp",
+      "request": "attach",
+      "name": "Attach to existing server"
+    }
+  ]
+}
