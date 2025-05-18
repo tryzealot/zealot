@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/publish_codespace.yml'
       - '.devcontainer/Dockerfile.base'
+      - '.mise.toml'
     branches:
       - develop
   workflow_dispatch:
