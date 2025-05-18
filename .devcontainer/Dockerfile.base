@@ -55,7 +55,7 @@ RUN mise trust && \
     mise reshim
 
 ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
-RUN gem install bundler foreman && \
+RUN gem install bundler && \
     npm install --global yarn sass esbuild
 
 COPY Gemfile Gemfile.lock package.json yarn.lock ./

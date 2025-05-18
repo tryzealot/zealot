@@ -95,6 +95,7 @@ group :development do
 
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
   gem 'debug', '~> 1.10.0'
+  gem 'ruby-lsp-rails'
 
   # better rails
   gem 'awesome_print'
