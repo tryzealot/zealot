@@ -54,13 +54,13 @@ handle_errors {
 	# 	Stack: {http.error.trace}` 200
 	# }
 
-	@backend_down `{err.message}.contains("connect: connection refused") && {http.request.uri.path} != '/api/version'`
-	handle @backend_down {
-		rewrite * /loading.html
-		file_server {
-			status 200
-		}
-	}
+	# @backend_down `{err.message}.contains("connect: connection refused") && {http.request.uri.path} != '/api/version'`
+	# handle @backend_down {
+	# 	rewrite * /loading.html
+	# 	file_server {
+	# 		status 200
+	# 	}
+	# }
 
 	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
 	handle @5xx {
