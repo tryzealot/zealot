@@ -3,7 +3,7 @@
 # require_relative '../../lib/zealot/goodjob_health_check'
 
 HealthCheck.setup do |config|
-  config.uri = 'health'
+  config.uri = '/api/health'
 
   config.standard_checks = %w[database cache]
   config.full_checks = %w[database migrations cache]

@@ -25,7 +25,7 @@ log {
 reverse_proxy @zealot {
 	to localhost:3000
 
-	# health_uri /health
+	# health_uri /api/health
 	# health_interval 2s
 	# health_timeout 10s
 
@@ -54,7 +54,7 @@ handle_errors {
 	# 	Stack: {http.error.trace}` 200
 	# }
 
-	@backend_down `{err.message}.contains("connect: connection refused") && ({http.request.uri.path} != '/health' || {http.request.uri.path} != '/api/version' )`
+	@backend_down `{err.message}.contains("connect: connection refused") && {http.request.uri.path} != '/api/version'`
 	handle @backend_down {
 		rewrite * /loading.html
 		file_server {
