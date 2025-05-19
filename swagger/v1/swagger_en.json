@@ -1301,10 +1301,10 @@
     },
     "/health": {
       "get": {
-        "summary": "获取健康检查结果",
+        "summary": "Get health check result",
         "security": [],
         "tags": [
-          "健康检查"
+          "Health"
         ],
         "description": "",
         "operationId": "gethealthintext",
@@ -1336,10 +1336,10 @@
     },
     "/health.json": {
       "get": {
-        "summary": "Translation missing: en.api.health.show.titleJson",
+        "summary": "Get health check in JSON format",
         "security": [],
         "tags": [
-          "健康检查"
+          "Health"
         ],
         "description": "",
         "operationId": "gethealthinjson",

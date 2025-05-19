@@ -33,20 +33,19 @@
     }
   </style>
   <script type="text/javascript">
+    const duration = 2000; // 2 seconds
     function checkHealth() {
-      fetch('/health', {
+      fetch('/api/version', {
         method: 'GET',
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache'
-        }
+        },
+        signal: AbortSignal.timeout(duration)
       })
       .then(response => {
         if (response.status === 200) {
-          console.log('Health check succeeded, reloading...');
           window.location.href = '/';
-        } else {
-          console.log('Health check failed, status:', response.status);
         }
       })
       .catch(error => {
@@ -82,7 +81,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       setLanguage();
       checkHealth();
-      setInterval(checkHealth, 2000);
+      setInterval(checkHealth, duration);
     });
   </script>
 </head>
