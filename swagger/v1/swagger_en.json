@@ -1299,6 +1299,74 @@
         }
       }
     },
+    "/health": {
+      "get": {
+        "summary": "获取健康检查结果",
+        "security": [],
+        "tags": [
+          "健康检查"
+        ],
+        "description": "",
+        "operationId": "gethealthintext",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "unhealthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health.json": {
+      "get": {
+        "summary": "Translation missing: en.api.health.show.titleJson",
+        "security": [],
+        "tags": [
+          "健康检查"
+        ],
+        "description": "",
+        "operationId": "gethealthinjson",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unhealth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/releases/{id}": {
       "put": {
         "summary": "Update a build metedata",
@@ -2819,6 +2887,34 @@
           "build_date": {
             "type": "string",
             "example": "2024-05-23T06:04:48.989Z"
+          }
+        }
+      },
+      "Health": {
+        "description": "Health check object",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "healthy"
+          }
+        }
+      },
+      "Unhealth": {
+        "description": "Health check object",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "unhealthy"
           }
         }
       }

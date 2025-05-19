@@ -266,6 +266,7 @@ RSpec.configure do |config|
             }
           },
 
+          # Version information
           Version: {
             description: I18n.t('api.schemas.version.description'),
             type: :object,
@@ -273,6 +274,25 @@ RSpec.configure do |config|
               version: { type: :integer, format: :int32, example: '6.0.0' },
               vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
               build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
+            }
+          },
+
+          # Health check
+          Health: {
+            description: I18n.t('api.schemas.health.description'),
+            type: :object,
+            properties: {
+              healthy: { type: :boolean, example: true },
+              message: { type: :string, example: 'healthy' }
+            }
+          },
+
+          Unhealth: {
+            description: I18n.t('api.schemas.health.description'),
+            type: :object,
+            properties: {
+              healthy: { type: :boolean, example: false },
+              message: { type: :string, example: 'unhealthy' }
             }
           }
         },
