@@ -33,6 +33,7 @@
     }
   </style>
   <script type="text/javascript">
+    const timeout = 5000; // 5 seconds
     const duration = 2000; // 2 seconds
     function checkHealth() {
       fetch('/api/version', {
@@ -41,7 +42,7 @@
         headers: {
           'Cache-Control': 'no-cache'
         },
-        signal: AbortSignal.timeout(duration)
+        signal: AbortSignal.timeout(timeout)
       })
       .then(response => {
         if (response.status === 200) {
