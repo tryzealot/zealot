@@ -20,15 +20,14 @@ log {
 
 	# static files
 	not file
-	not path /health
 }
 
 reverse_proxy @zealot {
 	to localhost:3000
 
-	health_uri /health
-	health_interval 2s
-	health_timeout 10s
+	# health_uri /health
+	# health_interval 2s
+	# health_timeout 10s
 
 	header_up X-Forwarded-Proto https
 
@@ -55,7 +54,7 @@ handle_errors {
 	# 	Stack: {http.error.trace}` 200
 	# }
 
-	@backend_down `{err.message}.contains("no upstreams available")`
+	@backend_down `{err.message}.contains("connect: connection refused") && ({http.request.uri.path} != '/health' || {http.request.uri.path} != '/api/version' )`
 	handle @backend_down {
 		rewrite * /loading.html
 		file_server {
