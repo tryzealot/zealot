@@ -87,6 +87,8 @@ en:
         description: User object
       version:
         description: Version object
+      health:
+        description: Health check object
     responses:
       unauthorized:
         description: Unauthorized Response
@@ -369,4 +371,13 @@ en:
           show: Get version information
       show:
         title: Get version information
+        description: ''
+    health:
+      default:
+        tags: Health
+        responses:
+          show: Get health check result
+      show:
+        title: Get health check result
+        titleJson: Get health check in JSON format
         description: ''
