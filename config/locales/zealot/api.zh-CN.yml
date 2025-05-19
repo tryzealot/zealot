@@ -84,6 +84,8 @@ zh-CN:
         description: 用户
       version:
         description: 版本信息
+      health:
+        description: 健康检查
     responses:
       unauthorized:
         description: 用户密钥认证失败
@@ -366,3 +368,13 @@ zh-CN:
       show:
         title: 获取版本信息
         description: ''
+    health:
+      default:
+        tags: 健康检查
+        responses:
+          show: 服务健康结果
+      show:
+        title: 获取健康检查结果
+        titleJson: 获取 JSON 格式健康检查结果
+        description: ''
+
