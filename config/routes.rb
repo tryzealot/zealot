@@ -119,11 +119,6 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # Health check
-  #############################################
-  health_check_routes
-
-  #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
@@ -188,6 +183,8 @@ Rails.application.routes.draw do
   #############################################
   # API v1
   #############################################
+  health_check_routes
+
   namespace :api do
     resources :users, except: %i[new edit] do
       collection do
