@@ -7,10 +7,10 @@ rm -f tmp/pids/.pid
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 
 echo ""
-echo "Zealot 6.0 is comming soon, here is some changes: "
-echo " * redis is not requires as a dependency, you can remove it saftly."
-echo " * NEW WEB UI desgin rewrite, feedback is welcome with any issue."
+echo "Zealot 6.0 is out!, here is some changes: "
 echo " * Swagger API explorer is buit-in."
+echo " * NEW WEB UI desgin rewrite, feedback is welcome with any issue."
+echo " * redis is not requires as a dependency, you can remove it saftly."
 echo ""
 
 if [ -n "$REDIS_URL" ]; then
