@@ -6,18 +6,15 @@ ruby:
 // Content Header (Page header)
 
 - if section_title.present?
-  section.content-header
+  .app-content-header
     .container-fluid
-      .row.pl-2
-        .col-sm-8.pl-0
-          h1 = yield :section_title
-        .col-sm-4.px-0
-          - if right_panel.present?
-            div.float-sm-right
-              = right_panel
+      .row
+        .col-sm-8
+          h3.section-title = yield :section_title
 
-          - if breadcrumb.present?
-            ol.breadcrumb.float-sm-right
-              = breadcrumb
+        .col-sm-4
+          - if right_panel.present?
+            .float-sm-end
+              = right_panel
 - else
   .pt-3

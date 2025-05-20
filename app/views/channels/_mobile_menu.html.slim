@@ -1,27 +1,29 @@
-nav.filter-nav.navbar.navbar-expand.navbar-white.d-block.d-sm-none
-  ul.navbar-nav
-    li.nav-item.dropdown
-      a#dropdownSubMenu1.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
-        = @channel.scheme.name
-      ul.dropdown-menu.border-0.shadow aria-labelledby="dropdownSubMenu1" style=("left: 0px; right: inherit;")
-        - @app.schemes.each do |scheme|
-          ruby:
-            scheme_link = using_friendly_channel_path(scheme, @channel)
-          - if scheme_link.present?
-            li
-              = link_to scheme.name, scheme_link, class: "dropdown-item"
 
-    li.nav-item.dropdown
-      a#dropdownSubMenu1.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
-        = channel_platform(@channel)
-      ul.dropdown-menu.border-0.shadow aria-labelledby="dropdownSubMenu1" style=("left: 0px; right: inherit;")
+.d-flex.flex-row.d-block.d-sm-none.mb-3
+  .nav-item.dropdown.schemes.w-50
+    button.btn.btn-secondary.dropdown-toggle.w-100.rounded-0.rounded-start data-bs-toggle="dropdown"
+      = @channel.scheme.name
+    ul.dropdown-menu
+      - @app.schemes.each do |scheme|
         ruby:
-          channels = @channel.scheme.channels.select {|c| c != @channel }
-
-        - if channels.present?
-          - channels.each do |channel|
-            li
-              = link_to channel_platform(channel), friendly_channel_overview_path(channel), class: "dropdown-item"
-        - else
+          scheme_link = using_friendly_channel_path(scheme, @channel)
+        - if scheme_link.present?
           li
-            span.text-gray class="dropdown-item" = t('channels.show.none')
+            = link_to scheme.name, scheme_link, class: 'dropdown-item', data: { turbo_action: :advance }
+
+  .nav-item.dropdown.channels.w-50
+    button.btn.btn-secondary.dropdown-toggle.w-100.rounded-0.rounded-end data-bs-toggle="dropdown"
+      = channel_platform(@channel)
+    ul.dropdown-menu
+      ruby:
+        channels = @channel.scheme.channels.select {|c| c != @channel }
+
+      - if channels.present?
+        - channels.each do |channel|
+          li
+            = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
+              class: 'dropdown-item', data: { turbo_action: :advance }
+      - else
+        li
+          span.text-gray.dropdown-item = t('channels.show.none')
+

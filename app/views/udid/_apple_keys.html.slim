@@ -1,13 +1,13 @@
 - if (result != 'new_device' || apple_keys.present?)
   .col-md-12
     - unless apple_keys.empty?
-      .card.system_info
+      .card.system_info.mb-4
         .card-header
           h3.card-title
             i.icon.fas.fa-info-circle
             = t("udid.show.#{result}")
         .card-body.p-0
-          table.table
+          table.table.table-bottom-borderless
             tr
               th = t('udid.show.team_name')
               th = t('udid.show.team_id')
@@ -22,7 +22,7 @@
                     register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
                   td = button_to t('udid.show.register_device'), register_link, class: 'btn btn-sm btn-success'
     - else
-      .card.card-outline.card-warning
+      .card.card-outline.card-warning.mb-4
         .card-header.card-border
           h3.card-title
             i.icon.fas.fa-info-circle

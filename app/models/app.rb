@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class App < ApplicationRecord
-  default_scope { order(id: :asc) }
+  # default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
   has_many :collaborators, dependent: :destroy
@@ -10,6 +10,15 @@ class App < ApplicationRecord
 
   scope :all_names, -> { all.map { |c| [c.name, c.id] } }
   scope :debug_files, -> { joins(:debug_files).distinct }
+  scope :search_by_name, ->(query) {
+    query.present? ? where("name ILIKE ?", "%#{query}%") : all
+  }
+  scope :sort_by_name, ->(query) {
+    direction = %w[asc desc].include?(query&.downcase) ? query.upcase : "ASC"
+    order(name: direction.downcase.to_sym)
+  }
+  scope :archived, -> { where(archived: true) }
+  scope :active, -> { where(archived: false).or(where(archived: nil)) }
 
   validates :name, presence: true
 
@@ -99,6 +108,14 @@ class App < ApplicationRecord
 
   def collaborator_user_ids
     collaborators.select(:user_id).map(&:user_id)
+  end
+
+  def archive
+    update(archived: true)
+  end
+
+  def unarchive
+    update(archived: false)
   end
 
   private

@@ -1,5 +1,4 @@
 en:
-  function_section: Function
   toolbox_section: Toolbox
   admin_section: Admin
   monitors_section: Monitor
@@ -7,7 +6,7 @@ en:
   log_out: Log out
   log_in: Log in
   intro:
-    title: Self-hosted Beta App Distribution for Android, iOS and macOS apps
+    title: Self-hosted Beta App Distribution for Android, iOS, macOS, Windows and Linux apps
     description: Continuous everything. Automate the lifecycle of your apps. Connect your CI to build in the cloud, test on thousands of real devices, distribute to beta testers and app stores. All in one place.
   links:
     back_to_list: Back to list
@@ -33,10 +32,11 @@ en:
         destroy_user: Destroy
         destroy_user_confirm: Are you sure you want to delete the `%{user}` user?
       edit:
-        title: User information
+        title: Edit user
         active_link: Active link
-        active_link_tip: If the inviting user does not receive the activation email, use this link to active or <a href="%{link}" data-turbo-prefetch="false">%{label}</a>.
-        resend: resend confirmation email
+        active_link_tip: If the inviting user does not receive the activation email.
+        resend: resend an email
+        profile: Profile
         collaborators: Collaborators
         api: API
         token: 密钥
@@ -48,7 +48,7 @@ en:
       unlock:
         message: 'User %{user} has been unlocked.'
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user {user}.'
+        message: 'Re-sent the confirmation email to user %{user}.'
     web_hooks:
       title: Webhooks
       index:
@@ -91,8 +91,8 @@ en:
           body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :admin.apple_keys.title
-        team_metadata: Team metadata
-        key_metadata: Key Metadata
+        team_metadata: Team
+        key_metadata: Key
         devices: Devices (%{size})
         sync_now: Sync now
         last_synced_at: Last synced at %{time}
@@ -120,6 +120,7 @@ en:
         apply_for_restart: Apply for restart
         service_restarting: Service restarting ...
         service_restarted: Refresh page ...
+        restart_required: Restart required
       update:
         title: Edit setting
       edit:
@@ -145,15 +146,12 @@ en:
       guest_mode: Guest mode
       demo_mode: Demo mode
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
-      openapi_ui: OpenAPI UI
-      openapi_ui_hint: Display the API link in footer section if enabled
       third_party_auth: Third-party Auth
       ldap: LDAP
       oidc: OpenID Connect
       feishu: Feihsu
       gitlab: Gitlab
       google_oauth: Google OAuth
-      #misc: 杂项
       smtp: Email SMTP
       mailer_default_from: Default email send from
       mailer_default_reply_to: Default email reply to
@@ -164,6 +162,9 @@ en:
       umami_website_id: Umami Website ID
       archives: Archive uploaded binaries
       keep_uploads: Keep all builds
+      misc: Misc
+      show_footer_version: Show Zealot version information in the footer.
+      show_footer_openapi_endpoints: Show OpenAPI documentation endpoints in the footer.
       empty_value: Empty
       no_editable_key: Read only
       reset: Reset to default value
@@ -297,6 +298,7 @@ en:
       channels: channels
       uploads: uploads
       created_at: Created at %{time}
+      searching_app: Search apps
       not_found:
         title: Not found app.
         body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
@@ -304,6 +306,8 @@ en:
       new_scheme: New scheme
       edit_app: Edit app
       destroy_app: Destroy app
+      archive_app: Archive app
+      unarchive_app: Unarchive app
       new_channel: New Channel
       edit_scheme: Edit Scheme
       destroy_scheme: Destroy Scheme
@@ -338,6 +342,13 @@ en:
     new_owner:
       title: Switch to new owner
       user_hint: You will be remove from this app after select the other user!
+    archives:
+      title: Archived App
+      index:
+        title: :'apps.archived.title'
+        not_found:
+          title: Not found archived app
+          body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
         not_found_app_by_version: 'Not found app version: %{version}'
@@ -348,6 +359,8 @@ en:
         delete_app_scheme: Confirm to destroy `%{name}` scheme and all related data of channels and uploaded releases?
         delete_app_channel: Confirm to destroy `%{name}` channel and all related data of uploaded releases?
         delete_collaborator: Confirm to destroy `%{name}` collaborator?
+        archive_app: Confirm to archive `%{name}` app and disable to upload any new release?
+        unarchive_app: Confirm to unarchive `%{name}` app and enable to upload new release?
   collaborators:
     default:
       title: Collaborator
@@ -362,9 +375,13 @@ en:
     show:
       empty_channel: Not found any channel.
     new:
-      title: 'New scheme for %{app}'
+      title:
+        with_name: 'New scheme for %{app}'
+        without_name: New scheme
     edit:
-      title: 'Edit scheme for %{app}'
+      title:
+        with_name: 'Edit scheme for %{app}'
+        without_name: Edit scheme
   channels:
     title: Channels
     subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
@@ -378,6 +395,10 @@ en:
       slug: Slug
       password: Visit password
       git_url: Git URL
+      download_filename_type: Download filename rule
+      download_filename_type_item:
+        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        original_filename: Use the original file name of the uploaded file
       match_rule: Match Rule %{value}
       wildmatch: (wild match)
       total_releases: Total uploads
@@ -400,9 +421,13 @@ en:
       empty_version: Not found any release with this version!
       more: More
     new:
-      title: 'Create new channel for %{name}'
+      title:
+        with_name: 'New channel for %{app}'
+        without_name: New channel
     edit:
-      title: 'Edit channel for %{name}'
+      title:
+        with_name: 'Edit channel for %{app}'
+        without_name: Edit channel
     branches:
       index:
         subtitle: 'Releases of branch %{branch}'
@@ -430,18 +455,19 @@ en:
       api: API
     show:
       enter_password: Enter password
-      app_limited: Install limited in current app
       app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: 'Build %{version} uploaded at %{time} ago on %{link}.'
-      view_latest_version: Check it out
+      released_new_version: '%{link} %{version} uploaded at %{time} ago!'
+      view_latest_version: The latest version
       name: App
       version: Auto Version
       device_type: Device
       release_version: Release version (build version)
       release_type: Release type
+      native_codes: Native codes
+      multi_native_codes: Universal
       filesize: File size
       uploaded_at: Uploaded time %{date}
       git_branch: Git branch
@@ -453,7 +479,7 @@ en:
       install: Install
       download: Download
       installing: Installing ...
-      installed: Install requested
+      installed: Re-Install
       cert_expired: Can not install, certificate was expired
       destroy: Destroy
       missing_file: Missing file
@@ -473,6 +499,7 @@ en:
       major_versions: :channels.show.major_versions
       view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
+      app_was_archived: Read only for archived app.
     new:
       title: :channels.show.upload_release
     install:
@@ -541,7 +568,7 @@ en:
       version: Build number
       device_type: Platform
       release_version: Version
-      file_nums: Numbers of file
+      filename: Filename
       file_size: File size
       uploaded_at: Upload date
       missing_file: Missing file
@@ -550,9 +577,14 @@ en:
       destroy: Destroy
       main_target: 'Main target: %{value}'
       arch: Architecture
+      target: Target
       uuid: UUID
-      libraries: Libraries
-      filename: Filename
+      libraries:
+        one: Library (%{count})
+        other: Libraries (%{count})
+      files:
+        one: File (%{count})
+        other: Files (%{count})
     device:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
@@ -603,8 +635,8 @@ en:
       title: New teardown
       file: File
       choose_file: Choose file
-      file_hint: Support .apk/.aab/.ipa/.mobileprovision and macOS.app.zip file
-      submit: Start work
+      file_hint: Support iPhone IPA, Android APK/AAB, macOS MobileProvision and macOS.app.zip, Windows EXE file
+      submit: Parse metadata
     create:
       create: :teardowns.new.title
     index:
@@ -627,18 +659,38 @@ en:
       expired: Expired now!
       related_app: Release related
       related_body: This teardown was relates with %{link}
-      unknow_app_name: Unknown
+      unkonwn: Unknown
       metadata: Metadata
       app_name: App name
       version: Version
       package_name: Bundle id (package name)
+      native_codes: Native codes
       supported_device: Supported device
-      sdk_version_range: Android min SDK / target SDK
+      android_min_sdk: Minimum SDK
+      android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
+      activities:
+        one: Activity (%{count})
+        other: Activities (%{count})
+      deep_links:
+        one: Deep Link (%{count})
+        other: Deep Links (%{count})
+      features:
+        one: Feature (%{count})
+        other: Features (%{count})
+      url_schemes:
+        one: URL Scheme (%{count})
+        other: URL Schemes (%{count})
+      permissions:
+        one: Permission (%{count})
+        other: Permissions (%{count})
+      services:
+        one: Service (%{count})
+        other: Services (%{count})
       min_ios_version: Minimum iOS version
       min_tvos_version: Minimum tvOS version
-      min_macos_version: Minimum macOS version
+      min_macos_version: Minimum OS version
       capabilities: Capabilities
       devise_list: 'UDID (%{count})'
       developer_certs_list: 'Developer Certificates (%{count})'
@@ -676,12 +728,13 @@ en:
       company_name: Company name
       binary_size: Binary size
       imports: Imports
+      uploaded_date: Uploaded date
+      uploader: Uploader
     help:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and use
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> powered to teardown it inside:
+          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -725,12 +778,12 @@ en:
             <td>Permissions</td>
           </tr>
           <tr>
-            <td>Developer certs</td>
-            <td></td>
+            <td>Developer Certifications</td>
+            <td>Signatures</td>
           </tr>
           <tr>
             <td>Mobileprovision</td>
-            <td></td>
+            <td>Native codes</td>
           </tr>
         </table>
     messages:
@@ -752,7 +805,9 @@ en:
       apple_tip: Use iPhone or iPad to scan the QR Code to install
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
       nonapple_tip: :udid.index.apple_tip
-      fetch_udid: Get your UDID now
+      fetch_udid: Fetch your UDID now
+      app_open_in_safari: Choose "Open in Safari" and fetch
+      app_open_in_webbrower: Open with any browser and fetch
       help:
         title: Why need to install profile to fetch your UDID?
         body_html: |
@@ -815,6 +870,7 @@ en:
 
         Install this temporary profile to find and display the UDID on your device. It is automatically removed from device right after get your UDID.
         Authorized request by %{name}: %{url}
+
   web_hooks:
     title: :admin.web_hooks.title
     create: :admin.web_hooks.new.title
@@ -834,6 +890,7 @@ en:
     preset_schemes:
       beta: Beta
       adhoc: Adhoc
+      enterprise: Enterprise
       production: Production
     preset_role:
       member: Member
@@ -868,13 +925,13 @@ en:
         show:
           not_found: Not found release
           missing_params: combo with bundle_id, release_version, build_version or bundle_id, git_commit
+    schemes:
+      index:
+        not_found: Couldn't find Scheme with App ID=%{id}
     debug_files:
       download:
         default:
           not_found: Not found debug file
-    jenkins:
-      build:
-        failed_request: Build request failed, please try again
   demo:
     app_name1: First App
     app_name2: Android Only App
@@ -884,6 +941,15 @@ en:
       channel3: F-Droid
       channel4: TapTap
       channel5: Amazon
+
+  date:
+    formats:
+      nice: '%b %d, %Y'
+
+  time:
+    formats:
+      nice: '%b %d, %Y, %I:%M %p GMT%:::z'
+
   errors:
     code:
       '400':
@@ -908,6 +974,8 @@ en:
       '503':
         title: The page could not be served due to a temporary server failure.
     messages:
+      homepage_title: homepage
+      goback_title: Go back
       blank: Can't be blank
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
@@ -925,8 +993,7 @@ en:
       record_not_found: Record not found
       user_not_found: User not found
       api_not_found: API not found
-      goback_title: Go back
-      homepage_title: homepage
+      app_archived: "App %{name} was archived, can not process current action."
   active_job:
     webhook:
       failures:
@@ -943,6 +1010,7 @@ en:
         max_keeps_limited: '%{key} backup maximum limit value was zero'
         dump_command: 'Executing dump backup commands failed: %{message}'
         restore_command: 'Executing restore backup commands failed: %{message}'
+        storage_full: 'Not enough disk space, please check the backup storage: %{key}'
   activerecord:
     attributes:
       channel:
@@ -954,6 +1022,8 @@ en:
     success:
       create: "Created %{key} successfully"
       update: "Updated %{key} successfully"
+      archived: "Archived %{key} successfully"
+      unarchived: "Actived %{key} successfully"
       destroy: "Deleted %{key} successfully"
     errors:
       messages:
@@ -962,6 +1032,7 @@ en:
         invaild_jb: Invalid format
         incorrect_json_format: Unknown JSON format
         empty_json_value: JSON value is empty
+        unknown: "%{key} fail to operated"
       models:
         collaborator:
           attributes:
@@ -976,6 +1047,12 @@ en:
               forbidden: Without permission, Apple key needs developer or high permissions.
               unknown: 'Unknown error: %{message}'
             devices:
+              invalid_value: Register device %{value} was invalid.
+              api: 'Apple return error: %{message}'
+              unknown: 'Unknown error: %{message}'
+        udid:
+          attributes:
+            name:
               invalid_value: Register device %{value} was invalid.
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
@@ -1019,6 +1096,9 @@ en:
       title: LDAP
       username: LDAP Username
       password: LDAP Password
+    github:
+      org_check_fail: 'GitHub org check failed: %{code}'
+      org_required_fail: 'You must be a member of the %{required_org} GitHub organization to sign in.'
     shared:
       hint: '- Or -'
       links:

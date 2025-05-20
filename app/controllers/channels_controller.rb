@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChannelsController < ApplicationController
+  include AppArchived
+
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_scheme, except: %i[show destroy_releases]
   before_action :set_channel, only: %i[show edit update destroy]
@@ -15,40 +17,63 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    @title = t('channels.new.title', name: @scheme.app_name)
+    raise_if_app_archived!(@scheme.app)
+
     @channel = @scheme.channels.build
+    @page_title = t('.title.with_name', app: @channel.app.name)
+    @title = t('.title.without_name')
     authorize @channel
   end
 
   def create
+    raise_if_app_archived!(@scheme.app)
+
     @channel = @scheme.channels.new(channel_params)
     authorize @channel
 
     app_url = app_path(@channel.scheme.app)
     return redirect_to app_url, alert: @channel.errors.full_messages.to_sentence unless @channel.save
 
-    message = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    redirect_to app_url, notice: message
+    notice = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
+    flash.now.notice = notice
+    respond_to do |format|
+      format.html { redirect_to app_url }
+      format.turbo_stream
+    end
   end
 
   def edit
-    @title = t('channels.edit.title', name: @scheme.app_name)
+    raise_if_app_archived!(@scheme.app)
+
+    @page_title = t('.title.with_name', app: @channel.app.name)
+    @title = t('.title.without_name')
   end
 
   def update
+    raise_if_app_archived!(@scheme.app)
+
     @channel.update(channel_params)
-    redirect_back fallback_location: friendly_channel_overview_path(@channel)
+    respond_to do |format|
+      format.html { redirect_back fallback_location: friendly_channel_overview_path(@channel) }
+      format.turbo_stream
+    end
   end
 
   def destroy
-    @channel.destroy
+    raise_if_app_archived!(@scheme.app)
 
-    redirect_to app_path(@app), status: :see_other
+    @channel.destroy
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def destroy_releases
     channel = Channel.friendly.find(params[:name] || params[:id])
     authorize channel
+
+    raise_if_app_archived!(channel.app)
 
     if params[:channel].blank?
       channel.releases.destroy_all
@@ -78,7 +103,7 @@ class ChannelsController < ApplicationController
   def channel_params
     params.require(:channel).permit(
       :scheme_id, :name, :device_type, :bundle_id,
-      :slug, :password, :git_url
+      :slug, :password, :git_url, :download_filename_type
     )
   end
 

@@ -41,6 +41,7 @@ zh-CN:
         git_url: Git 仓库地址
         slug: 唯一地址
         password: 访问密码
+        download_filename_type: 下载文件文件名类型
       release:
         file: 应用文件
         release_version: 产品版本
@@ -109,8 +110,9 @@ zh-CN:
         git_url: Git 项目地址，填写 Github 或 Gitlab 或其他自建地址
         slug: URL 的唯一标识
         password: 设置后对非登录用户会要求输入密码
+        download_filename_type: 文件名的生成规则，系统内置或使用原文件名
       release:
-        file: 支持 iOS、Android、macOS、Windows、Linux 各种应用类型的文件
+        file: 支持 iOS、Android、HarmonyOS、macOS、Windows、Linux 各种应用类型的文件
         release_version: 应用对外公布的主版本号，推荐使用 <a href="https://semver.org/lang/zh-CN/">X.Y.Z 语义化版本</a>命名
         build_version: 应用内部版本号
         changelog: 这个应用包含了什么新特性，修复了什么问题等

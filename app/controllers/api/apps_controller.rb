@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 class Api::AppsController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_app, only: %i[show update destroy]
 
   # GET /api/apps
   def index
-    @apps = manage_user? ? App.all : current_user.apps.all
+    @apps = app_scopes
+    authorize @apps.first if @apps.present?
+
+    render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
+  end
+
+  # GET /api/apps/arquived
+  def archived
+    @apps = manage_user? ? App.archived : current_user.apps.archived
     authorize @apps.first if @apps.present?
 
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
@@ -31,6 +41,8 @@ class Api::AppsController < Api::BaseController
 
   # PUT /api/apps/:id
   def update
+    raise_if_app_archived!(@app)
+
     @app.update!(app_params)
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels'
   end
@@ -42,6 +54,17 @@ class Api::AppsController < Api::BaseController
   end
 
   protected
+
+  def app_scopes
+    case params[:scope]
+    when 'archived'
+      manage_user? ? App.archived : current_user.apps.archived
+    when 'active'
+      manage_user? ? App.active : current_user.apps.active
+    else
+      manage_user? ? App.all : current_user.apps.all
+    end
+  end
 
   def set_app
     @app = App.find(params[:id])

@@ -21,7 +21,34 @@ module ApplicationHelper
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
-    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations'
+    contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
+      contoller_name == 'users/confirmations'
+  end
+
+  def sidebar_link_to(icon, path, text:, active_path:nil, **options)
+    active_path ||= path
+    link_class = "nav-link #{active_class(active_path)}"
+    tag.li(class: 'nav-item') do
+      icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
+        tag.p(text)
+      end
+    end
+  end
+
+  def icon_link_to(icon, path, **options)
+    link_options = options[:link]
+    link_to(path, **link_options) do
+      icon_options = options[:icon] || {}
+      icon_options[:class] = "#{icon} #{icon_options[:class]}"
+      concat(tag.i(**icon_options))
+
+      text = options[:text]
+      if block_given?
+        text = yield
+      end
+
+      concat(text) if text.present?
+    end
   end
 
   def button_link_to(title, url, icon = nil, **options)
@@ -52,6 +79,11 @@ module ApplicationHelper
     is_current ? class_name : ''
   end
 
+  def show_modal(title, **options, &)
+    options[:title] = title
+    render 'shared/modal', **options, &
+  end
+
   def platform_name(platform)
     case platform.downcase
     when 'ios'
@@ -72,6 +104,8 @@ module ApplicationHelper
       'Linux'
     when 'windows'
       'Windows'
+    when 'harmonyos'
+      'HarmonyOS'
     else
       platform
     end
@@ -79,28 +113,42 @@ module ApplicationHelper
 
   def device_name(device)
     case device.downcase.to_sym
-    when AppInfo::Device::IPHONE
+    when AppInfo::Device::Apple::IPHONE
       'iPhone'
-    when AppInfo::Device::IPAD
+    when AppInfo::Device::Apple::IPAD
       'iPad'
-    when AppInfo::Device::UNIVERSAL
+    when AppInfo::Device::Apple::UNIVERSAL
       'Universal'
-    when AppInfo::Device::APPLETV
+    when AppInfo::Device::Apple::APPLETV
       'tvOS'
-    when AppInfo::Device::PHONE
+    when AppInfo::Device::Google::PHONE
       'Phone'
-    when AppInfo::Device::WATCH
+    when AppInfo::Device::Google::WATCH
       'Watch'
-    when AppInfo::Device::TELEVISION
+    when AppInfo::Device::Google::TELEVISION
       'TV'
-    when AppInfo::Device::TABLET
+    when AppInfo::Device::Google::TABLET
       'Tablet'
-    when AppInfo::Device::AUTOMOTIVE
+    when AppInfo::Device::Google::AUTOMOTIVE
       'Automotive'
-    when AppInfo::Device::WINDOWS
+    when AppInfo::Device::Microsoft::WINDOWS
       'Windows'
-    when AppInfo::Device::MACOS
+    when AppInfo::Device::Apple::MACOS
       'macOS'
+    when AppInfo::Device::Huawei::DEFAULT
+      'HarmonyOS'
+    when AppInfo::Device::Huawei::PHONE
+      'Phone'
+    when AppInfo::Device::Huawei::TABLET
+      'Tablet'
+    when AppInfo::Device::Huawei::TV
+      'TV'
+    when AppInfo::Device::Huawei::WEARABLE
+      'Wearable'
+    when AppInfo::Device::Huawei::CAR
+      'Car'
+    when AppInfo::Device::Huawei::TWO_IN_ONE
+      '2-in-1'
     else device
     end
   end
@@ -129,7 +177,9 @@ module ApplicationHelper
     when 'ios', 'appletv'
       ['fa-apple', 'bg-secondary']
     when 'android'
-      ['fa-android', 'bg-green']
+      ['fa-android', 'bg-green-400']
+    when 'harmonyos'
+      ['fa-adn', 'bg-black']
     when 'windows'
       ['fa-windows', 'bg-primary']
     when 'macos'
@@ -137,7 +187,7 @@ module ApplicationHelper
     when 'linux'
       ['fa-linux', 'bg-info']
     else
-      ['fa-adn', 'bg-lightblue']
+      ['fa-adn', 'bg-blue-400']
     end
   end
 
@@ -152,7 +202,7 @@ module ApplicationHelper
   end
 
   def zealot_version
-    content_tag :span, class: 'version ml-1' do
+    content_tag :span, class: 'version ms-1' do
       prefix = 'Version'
       version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
 
@@ -161,11 +211,19 @@ module ApplicationHelper
   end
 
   def show_api
-    return unless openapi_ui_enabled?
-    link_to 'API', api_openapi_ui_path, target: '_blank'
+    return unless openapi_endpoints_enabled?
+
+    locale = current_user&.locale || I18n.default_locale
+    I18n.with_locale(locale) do
+      # FIXME: patch to switch locale with hard-code
+      language = I18n.t(locale, scope: 'settings.site_locale', default: :en)
+      append_path = "/index.html?urls.primaryName=#{language}"
+
+      link_to 'API', "#{api_openapi_ui_path}#{append_path}", target: '_blank'
+    end
   end
 
-  def openapi_ui_enabled?
-    Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.openapi_ui
+  def openapi_endpoints_enabled?
+    Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.show_footer_openapi_endpoints
   end
 end

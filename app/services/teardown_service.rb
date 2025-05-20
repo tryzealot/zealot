@@ -41,6 +41,8 @@ class TeardownService
         process_macos(parser, metadata)
       when AppInfo::Platform::WINDOWS
         process_windows(parser, metadata)
+      when AppInfo::Platform::HARMONYOS
+        process_harmonyos(parser, metadata)
       end
       parser.clear!
     end
@@ -70,12 +72,13 @@ class TeardownService
 
     metadata.bundle_id = parser.package_name
     metadata.target_sdk_version = parser.target_sdk_version
-    metadata.activities = parser&.activities&.select(&:present?).map(&:name)
-    metadata.permissions = parser&.use_permissions&.select(&:present?) || []
-    metadata.features = parser&.use_features&.select(&:present?) || []
-    metadata.services = parser&.services&.sort_by(&:name)&.select(&:present?)&.map(&:name) || []
-    metadata.url_schemes = parser&.schemes&.sort
-    metadata.deep_links = parser&.deep_links&.sort
+    metadata.activities = parser.activities&.select(&:present?).map(&:name)
+    metadata.permissions = parser.use_permissions&.select(&:present?) || []
+    metadata.features = parser.use_features&.select(&:present?) || []
+    metadata.services = parser.services&.sort_by(&:name)&.select(&:present?)&.map(&:name) || []
+    metadata.url_schemes = parser.schemes&.sort
+    metadata.deep_links = parser.deep_links&.sort
+    metadata.native_codes = parser.native_codes
 
     process_signature_certs(parser, metadata)
   end
@@ -135,8 +138,7 @@ class TeardownService
     if url_schemes = parser.url_schemes
       metadata.url_schemes = url_schemes.each_with_object([]) do |option, obj|
         next unless schemes = option[:schemes]
-
-        obj << schemes.split(', ')
+        obj.concat(schemes)
       end
     end
   end
@@ -245,6 +247,20 @@ class TeardownService
       key, value = ent
       obj[key] = value
     end
+  end
+
+  #########################
+  # HarmonyOS             #
+  #########################
+
+  def process_harmonyos(parser, metadata)
+    metadata.name = parser.name
+    metadata.bundle_id = parser.bundle_id
+    metadata.platform = parser.platform
+    metadata.device = parser.device
+    metadata.release_version = parser.release_version
+    metadata.build_version = parser.build_version
+    metadata.size = parser.size
   end
 
   def checksum(file)

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_07_040749) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_170907) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "apple_keys", force: :cascade do |t|
     t.string "issuer_id", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_040749) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "archived", default: false, null: false
     t.index ["name"], name: "index_apps_on_name"
   end
 
@@ -83,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_040749) do
     t.string "git_url"
     t.string "password"
     t.string "key"
+    t.string "download_filename_type"
     t.index ["bundle_id"], name: "index_channels_on_bundle_id"
     t.index ["device_type"], name: "index_channels_on_device_type"
     t.index ["name"], name: "index_channels_on_name"
@@ -258,6 +260,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_040749) do
     t.datetime "updated_at", null: false
     t.string "platform"
     t.jsonb "deep_links", default: [], null: false
+    t.jsonb "native_codes", default: [], null: false
     t.index ["checksum"], name: "index_metadata_on_checksum"
     t.index ["release_id"], name: "index_metadata_on_release_id"
     t.index ["user_id"], name: "index_metadata_on_user_id"

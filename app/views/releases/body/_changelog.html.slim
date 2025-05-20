@@ -1,23 +1,24 @@
-.card
+.card.mb-3
   .card-header
     h3.card-title
       i.icon.fas.fa-align-left
       = t('releases.show.changelog')
     .card-tools
-      button.btn.btn-tool data-card-widget="collapse"
-        i.fas.fa-minus
+      button.btn.btn-tool data-lte-toggle="card-collapse"
+        i.fas.fa-plus data-lte-icon="expand"
+        i.fas.fa-minus data-lte-icon="collapse"
   .card-body.p-0
-    ul.products-list.product-list-in-card.p-0
+    ul.products-list.mb-0
       - @release.array_changelog.each do |changelog|
-        li.item.pl-3.pr-3.pb-2
-          .product-title
+        li.product-item
+          .product-info
             - if date = changelog['date']
-              small.float-right
-                span.badge.badge-light data-toggle="tooltip" title="#{date}"
+              small.float-end
+                span.badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(Time.parse(date), format: :nice)}"
                   = time_ago_in_words(date)
             - if changelog['author']
-              small.float-right.mr-1
-                span.badge.badge-info data-toggle="tooltip" title="#{changelog['email']}"
+              small.float-end.me-1
+                span.badge.text-bg-info data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{changelog['email']}"
                   = changelog['author']
 
-            = changelog_render changelog['message'], class: 'changelog changelog-item mb-1'
+            = changelog_render changelog['message'], class: 'product-description'

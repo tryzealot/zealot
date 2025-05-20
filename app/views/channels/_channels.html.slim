@@ -1,8 +1,10 @@
-.card.card-solid.d-none.d-sm-block
+.card.d-none.d-sm-block.mb-3
   .card-header
     h3.card-title = t('channels.show.channel')
   .card-body.p-0
     ul.nav.nav-pills.flex-column
       - @channel.scheme.channels.each do |channel|
         li.nav-item
-          = link_to channel_platform(channel), friendly_channel_overview_path(channel), class: "nav-link nav-link-flat #{(params[:id] || params[:channel]) == channel.slug ? 'active' : ''}"
+          = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
+            class: "nav-link nav-link-flat #{(params[:id] || params[:channel]) == channel.slug ? 'active' : ''}", \
+            data: { turbo_action: :advance }

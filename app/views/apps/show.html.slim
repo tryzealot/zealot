@@ -1,74 +1,35 @@
-ruby:
-  schemes_total = @app.schemes.count
-
 - content_for :title do
-  = @app.name
+  = @app.name 
 
 - content_for :section_title do
-  = @app.name
+  = turbo_frame_tag @app do
+    = @app.name
+    - if @app.archived == true
+      small.badge.bg-warning.text-white.py-1.px-1.align-middle.ms-2 style="font-size: .8rem" = t('apps.label.archived')
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    .btn-group
-      = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
-        'plus-square', class: 'btn btn-default btn-icon btn-sm btn-flat'
-      = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-default btn-icon btn-sm btn-flat', \
-        title: t('apps.show.edit_app'), data: { toggle: :tooltip }
+    .btn-group role="group"
+      - if !@app.archived
+        = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
+          'plus-square', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', data: { turbo_frame: :modal }
+        = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', \
+          title: t('apps.show.edit_app'), data: { toggle: :tooltip, turbo_frame: :modal }
       = button_link_to '', app_path(@app), 'trash-alt', \
-        class: 'btn btn-default btn-icon btn-sm btn-flat', title: t('apps.show.destroy_app'), \
+        class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', title: t('apps.show.destroy_app'), \
         data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
-.row
-  - if schemes_total > 0
-    - @app.schemes.each do |scheme|
-      .app-channel class="col-md-#{app_channel_columns(schemes_total)}"
-        .card
-          .card-header
-            h3.card-title
-              = scheme.name
-            .card-tools
-              - if scheme.retained_builds > 0
-                span.badge.badge-success data-toggle="tooltip" title="#{t('.retained_build')}" style="margin-right: 4px"
-                  = scheme.retained_builds
-              - if !scheme.new_build_callout
-                span.badge.badge-warning title="#{t('.disabled_new_build_callout')}" data-toggle="tooltip"
-                  i.fa.fa-bell-slash
-              - else
-                span.badge.badge-success title="#{t('.enabled_new_build_callout')}" data-toggle="tooltip"
-                  i.fa.fa-bell
-          .card-body.p-0
-            section.app-section id="scheme-#{scheme.id}"
-              table.table
-                - if scheme.channels.count > 0
-                  - scheme.channels.each do |channel|
-                    tr
-                      td
-                        = link_to channel.name, friendly_channel_overview_path(channel)
-                      - if current_user&.manage?(app: @app)
-                        td style="width: 120px"
-                          = button_link_to '', edit_app_scheme_channel_path(@app, scheme, channel), 'edit', class: 'btn-box-tool'
-                          = button_link_to '', app_scheme_channel_path(@app, scheme, channel), 'trash-alt', class: 'btn-box-tool', \
-                            data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
-                - else
-                  tr
-                    td colspan="2"
-                      = t('apps.show.not_found_channel_body_html')
-          - if current_user&.manage?(app: @app)
-            .card-footer.p-1
-              = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), 'plus-square', class: 'btn btn-icon text-primary'
-              .btn-group.float-right
-                = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary', \
-                  title: t('apps.show.edit_scheme'), data: { toggle: 'tooltip' }
-                = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
-                  title: t('apps.show.destroy_scheme'), \
-                  data: { toggle: 'tooltip', turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
+ruby:
+  app_scheme_count = @app.schemes.count
 
-  - else
-    .col-md-12
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('apps.show.not_found_scheme.title')
-        .card-body = t('apps.show.not_found_scheme.body_html')
+.row
+  .col-md-12
+    #schemes.row
+      - if app_scheme_count > 0
+        - @app.schemes.each do |scheme|
+          == render 'scheme', scheme: scheme, card_column_width: app_scheme_columns(app_scheme_count)
+      - else
+        == render 'empty_scheme', app: @app
 
   - if current_user&.manage?(app: @app)
     .col-md-12

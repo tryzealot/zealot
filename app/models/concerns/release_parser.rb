@@ -20,18 +20,18 @@ module ReleaseParser
   rescue => e
     logger.error e.full_message
   ensure
-    parser&.clear!
+    parser&.clear! if parser&.respond_to?(:clear!)
   end
 
   def build_metadata(parser, default_source)
     # iOS, Android only
     self.name ||= parser.name
     self.bundle_id = parser.bundle_id if parser.respond_to?(:bundle_id)
-    self.source ||= default_source
+    self.source = default_source if self.source.blank?
     self.device_type = parser.device
     self.release_version = parser.release_version
     self.build_version = parser.build_version
-    self.release_type ||= parser.release_type if parser.respond_to?(:release_type)
+    self.release_type = parser.release_type if release_type.blank? && parser.respond_to?(:release_type)
 
     icon_file = fetch_icon(parser)
     self.icon = icon_file if icon_file
@@ -39,12 +39,13 @@ module ReleaseParser
 
   def relates_to_devices(parser)
     # iOS 且是 AdHoc 尝试解析 UDID 列表
-    return parser.platform == AppInfo::Platform::IOS &&
-      parser.release_type == AppInfo::IPA::ExportType::ADHOC &&
-      parser.devices.present?
+    if parser.platform == AppInfo::Platform::IOS &&
+       parser.release_type == AppInfo::IPA::ExportType::ADHOC && 
+       parser.devices.present?
 
-    parser.devices.each do |udid|
-      devices << Device.find_or_create_by(udid: udid)
+      parser.devices.each do |udid|
+        self.devices.find_or_initialize_by(udid: udid)
+      end
     end
   end
 
@@ -65,6 +66,10 @@ module ReleaseParser
 
             biggest_icon(parser.icons(exclude: :xml))
            when AppInfo::Platform::WINDOWS
+             return if parser.icons.blank?
+
+             biggest_icon(parser.icons)
+           when AppInfo::Platform::HARMONYOS
              return if parser.icons.blank?
 
              biggest_icon(parser.icons)

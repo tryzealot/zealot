@@ -1,46 +1,66 @@
 import { Controller } from "@hotwired/stimulus"
-import jquery from "jquery"
 import ClipboardJS from "clipboard"
+import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
-  static targets = [ "source", "button" ]
+  static targets = [ "source" ]
 
-  copy() {
-    this.hideTooltip()
+  copy(event) {
+    event.preventDefault()
+    const button = event.target
     if (!ClipboardJS.isSupported()) {
-      this.button.attr("disabled", true)
-      return this.renderUnsupport()
+      button.setAttribute("disabled", true)
+      return this.renderUnsupport(button)
     }
 
     ClipboardJS.copy(this.sourceTarget)
 
-    this.renderSuccess()
+    this.renderSuccess(button)
+    this.showTooltip(button)
   }
 
-  renderUnsupport() {
-    this.button.addClass("btn-warning")
-      .removeClass("btn-primary")
+  renderNormal(button) {
+    button.classList.add("btn-primary")
+    button.classList.remove("btn-success", "btn-warning")
 
-    this.button.find("i")
-      .addClass("fa-tired")
-      .removeClass("fa-clipboard")
+    const icon = button.querySelector("i")
+    if (icon) {
+      icon.classList.add("fa-clipboard")
+      icon.classList.remove("fa-tired", "fa-thumbs-up")
+    }
   }
 
-  renderSuccess() {
-    this.button.addClass("btn-success")
-      .removeClass("btn-primary")
+  renderUnsupport(button) {
+    button.classList.add("btn-warning")
+    button.classList.remove("btn-primary")
 
-    this.button.find("i")
-      .addClass("fa-thumbs-up")
-      .removeClass("fa-clipboard")
+    const icon = button.querySelector("i")
+    if (icon) {
+      icon.classList.add("fa-tired")
+      icon.classList.remove("fa-clipboard")
+    }
   }
 
-  hideTooltip() {
-    this.button.tooltip("hide")
-    this.button.tooltip("disable")
+  renderSuccess(button) {
+    button.classList.add("btn-success")
+    button.classList.remove("btn-primary")
+
+    const icon = button.querySelector("i")
+    if (icon) {
+      icon.classList.add("fa-thumbs-up")
+      icon.classList.remove("fa-clipboard")
+    }
   }
 
-  get button() {
-    return jquery(this.buttonTarget)
+  async showTooltip(button) {
+    const tooltip = new bootstrap.Tooltip(button)
+    if (tooltip) {
+      await this.sleep(3000)
+      this.renderNormal(button)
+    }
+  }
+
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   }
 }

@@ -44,6 +44,19 @@ RSpec.configure do |config|
               type: :string
             }
           },
+          appScopeParam: {
+            scope: {
+              in: :query,
+              name: :scope,
+              required: false,
+              description: I18n.t('api.parameters.app_scope'),
+              schema: {
+                type: :string,
+                # enum: ['all', 'archived', 'active'], 
+              }
+            }
+          },
+  
           pageParam: {
             in: :query,
             name: :page,
@@ -79,6 +92,7 @@ RSpec.configure do |config|
             properties: {
               id: { type: :integer, format: :int32, example: 1 },
               name: { type: :string, example: 'First App' },
+              archived: { type: :boolean, example: false },
               schemes: { type: :array, items: { '$ref': '#/components/schemas/Scheme' }}
             }
           },
@@ -137,6 +151,7 @@ RSpec.configure do |config|
               bundle_id: { type: :string, example: '*' },
               git_url: { type: :string, example: 'https://github.com/tryzealot/zealot' },
               has_password: { type: :boolean, example: false },
+              download_filename_type: { type: :string, example: 'original' },
             }
           },
           Release: {
@@ -251,13 +266,33 @@ RSpec.configure do |config|
             }
           },
 
+          # Version information
           Version: {
             description: I18n.t('api.schemas.version.description'),
             type: :object,
             properties: {
-              version: { type: :integer, format: :int32, example: '5.3.7' },
+              version: { type: :integer, format: :int32, example: '6.0.0' },
               vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
               build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
+            }
+          },
+
+          # Health check
+          Health: {
+            description: I18n.t('api.schemas.health.description'),
+            type: :object,
+            properties: {
+              healthy: { type: :boolean, example: true },
+              message: { type: :string, example: 'healthy' }
+            }
+          },
+
+          Unhealth: {
+            description: I18n.t('api.schemas.health.description'),
+            type: :object,
+            properties: {
+              healthy: { type: :boolean, example: false },
+              message: { type: :string, example: 'unhealthy' }
             }
           }
         },
@@ -290,6 +325,9 @@ RSpec.configure do |config|
         },
       },
       definitions: {
+        ListAppOptions: {
+
+        },
         UploadAppOptions: {
           description: I18n.t('api.definitions.upload_options.description'),
           type: :object,
@@ -336,7 +374,23 @@ RSpec.configure do |config|
             slug: { type: :string, description: I18n.t('api.definitions.channel_options.properties.slug') },
             bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
             git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
-            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') }
+            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') },
+            download_filename_type: { type: :string, enum: Channel.download_filename_types.keys, description: I18n.t('api.definitions.channel_options.properties.download_filename_type') }
+          }
+        },
+        ReleaseOptions: {
+          description: I18n.t('api.definitions.release_options.description'),
+          type: :object,
+          properties: {
+            build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
+            release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
+            release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
+            source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
+            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
+            branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
+            git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
+            ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
+            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
           }
         },
         ReleaseOptions: {

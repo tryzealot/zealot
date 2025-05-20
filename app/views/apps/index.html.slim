@@ -6,16 +6,19 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?
-    a.btn.btn-icon.btn-success href="#{new_app_path}"
+    a.btn.btn-success href="#{new_app_path}" data-turbo-frame="modal"
       i.icon.far.fa-plus-square
       = t('apps.new.title')
 
-.row
-  - if @apps.size > 0
-    == render 'list'
+- if @apps.present?
+  #search.row.mb-4
+    == render 'apps/search'
+
+#apps.row
+  - if @apps.present?
+    - @apps.each do |app|
+      == render "apps/app", app: app
+  - elsif archived_path?
+    == render "apps/empty_archived_app"
   - else
-    .col-md-12
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('apps.index.not_found.title')
-        .card-body = t('apps.index.not_found.body_html')
+    == render "apps/empty_active_app"

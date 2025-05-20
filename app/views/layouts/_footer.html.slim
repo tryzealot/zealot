@@ -1,7 +1,8 @@
-footer.main-footer.pt-2.pb-2
-  .float-right
+footer.app-footer
+  .float-end.d-none.d-sm-inline
     = show_api
 
-  p.m-0
-    = powered_by
-    = zealot_version
+  div
+    span = powered_by
+    - if Setting.show_footer_version
+      span.px-1 = zealot_version

@@ -6,5 +6,5 @@ class WebHook < ApplicationRecord
   delegate :count, to: :channels, prefix: true
 
   validates :channel_id, :url, presence: true
-  validates :body, presence: true, jb: true
+  validates :body, jb: true
 end

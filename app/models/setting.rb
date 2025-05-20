@@ -46,8 +46,6 @@ class Setting < RailsSettings::Base
           type: :boolean, restart_required: true, display: true
     field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
           type: :boolean, restart_required: true, display: true
-    field :openapi_ui, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_OPENAPI_UI_ENABLED'] || 'false'),
-          type: :boolean, restart_required: true, display: true
     field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
           type: :boolean, readonly: true, display: true
   end
@@ -65,6 +63,15 @@ class Setting < RailsSettings::Base
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
       app_id: ENV['GITLAB_APP_ID'],
       secret: ENV['GITLAB_SECRET'],
+    }, validates: { json: { format: :hash } }
+
+    field :github, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITHUB_ENABLED'] || false),
+      site: ENV['GITHUB_SITE'] || 'https://github.com/login/oauth/authorize',
+      scope: ENV['GITHUB_SCOPE'] || 'user,read:org',
+      app_id: ENV['GITHUB_CLIENT_ID'],
+      secret: ENV['GITHUB_CLIENT_SECRET'],
+      required_org: ENV['GITHUB_REQUIRED_ORG']
     }, validates: { json: { format: :hash } }
 
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
@@ -94,7 +101,7 @@ class Setting < RailsSettings::Base
       auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
       token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
       userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
-      scope: ENV.fetch('OIDC_SCOPE', 'openid,email,profile,address'),
+      scope: ENV.fetch('OIDC_SCOPE', 'openid,email,profile'),
       response_type: ENV.fetch('OIDC_RESPONSE_TYPE', 'code'),
       uid_field: ENV.fetch('OIDC_UID_FIELD', 'preferred_username')
     }, validates: { json: { format: :hash } }
@@ -105,12 +112,14 @@ class Setting < RailsSettings::Base
       readonly: true, display: true
     field :mailer_default_reply_to, default: ENV['ACTION_MAILER_DEFAULT_TO'], type: :string,
       readonly: true, display: true
+    field :mailer_method, type: :string, display: false, readonly: true,
+      default: Rails.configuration.action_mailer.delivery_method
     field :mailer_options, type: :hash, display: true, readonly: true,
       default: Rails.configuration.action_mailer.smtp_settings, validates: { json: { format: :hash } }
   end
 
   scope :information do
-    field :version, default: (ENV['ZEALOT_VERSION'] || 'development'), type: :string, readonly: true
+    field :version, default: Zealot::Application::VERSION, type: :string, readonly: true
     field :vcs_ref, default: (ENV['ZEALOT_VCS_REF'] || ENV['HEROKU_SLUG_COMMIT']), type: :string, readonly: true
     field :build_date, default: (ENV['ZEALOT_BUILD_DATE'] || ENV['HEROKU_RELEASE_CREATED_AT']),
           type: :string, readonly: true
@@ -128,7 +137,15 @@ class Setting < RailsSettings::Base
       display: (value = ENV['GOOGLE_ANALYTICS_ID']) && value.present?
   end
 
-  # Backup settings
+  # misc settings
+  scope :misc do
+    field :show_footer_version, type: :boolean, display: true,
+      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_VERSION'] || 'true')
+    field :show_footer_openapi_endpoints, type: :boolean, restart_required: true, display: true,
+      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_OPENAPI_ENDPOINTS'] || 'false')
+  end
+
+  # Backup settings1
   field :backup, type: :hash, readonly: true, default: {
     path: 'public/backup',
     pg_schema: 'public',

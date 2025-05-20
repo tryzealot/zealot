@@ -1,5 +1,5 @@
 .col-md-12
-  .card.system_info
+  .card.mb-3
     .card-header
       h3.card-title
         i.icon.fas.fa-info-circle
@@ -25,4 +25,4 @@
           == render 'udid/item', key: 'serial', value: params[:serial], copy: true
 
         - if device.present?
-          == render 'udid/item', key: 'created_at', value: device.created_at, copy: false
+          == render 'udid/item', key: 'created_at', value: l(device.created_at, format: :nice), copy: false

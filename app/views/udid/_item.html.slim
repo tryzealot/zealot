@@ -3,15 +3,11 @@ ruby:
   copy_id = "#{key}-value"
 
 dt = title
-dd.input-group.mb-3 data-controller="clipboard-center"
-  input.form-control.rounded-0 value="#{value}" readonly="true" data-clipboard-center-target="source"
+dd.d-flex.mb-4 data-controller="clipboard-center"
+  input.flex-fill.rounded-start.border-0.p-2.ps-3 value="#{value}" readonly="true" data-clipboard-center-target="source"
   - if copy.present?
-    span.input-group-append
-      button.btn.btn-primary.btn-flat.btn-clipboard[
-        data-clipboard-center-target="button"
-        data-action="clipboard-center#copy"
-        data-clipboard-text="#{value}"
-        data-toggle="tooltip"
-        title="Copy me"
-      ]
-        i.far.fa-clipboard
+    button.btn.btn-primary.rounded-0.rounded-end[
+      data-action="clipboard-center#copy"
+      data-clipboard-text="#{value}"
+    ]
+      i.far.fa-clipboard

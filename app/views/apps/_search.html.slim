@@ -1,0 +1,16 @@
+- current_params = request.query_parameters.except("sort")
+
+.col-md-12
+  form.form action=apps_path method="get" data-turbo="false"
+    .input-group
+      input.form-control name="search" value=params[:search] placeholder="#{t('apps.index.searching_app')}" type="text"
+      button.btn.btn-outline-secondary
+        i.fas.fa-search
+      
+      - desc_active = params[:sort] == "asc" ? "active" : ""
+      - asc_active = params[:sort] == "desc" ? "active" : ""
+
+      a.btn.btn-outline-secondary class=desc_active href="?#{current_params.to_query}&sort=asc"
+            i.fas.fa-arrow-down-a-z
+      a.btn.btn-outline-secondary class=asc_active href="?#{current_params.to_query}&sort=desc"
+            i.fas.fa-arrow-up-z-a

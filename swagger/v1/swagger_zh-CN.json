@@ -3,7 +3,7 @@
   "info": {
     "title": "Zealot API",
     "version": "v1.4",
-    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n\n准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：\n\n```json\n{\n  \"version\": \"5.3.7\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 接口认证\n\n接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### 用户密钥\n\n用户密钥在[用户详情](https://zealot.ews.im/zh-Hans/docs/user-guide/user_settings)最底部找到。\n"
+    "description": "文档可能提供或没有提供测试接口的工具，便于快速测试，你还可以使用如下工具：\n\n- [cURL](https://curl.se/) (推荐，命令行工具)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- 任意浏览器，如果你不需要设置 headers 或请求主体\n\n准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：\n\n```json\n{\n  \"version\": \"6.0.0\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 接口认证\n\n接口目前仅提供在用户密钥认证方式，参数是 `token`，请求接口时可在接口 query 或表单字段中传递此字段。\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### 用户密钥\n\n用户密钥在[用户详情](https://zealot.ews.im/zh-Hans/docs/user-guide/user_settings)最底部找到。\n"
   },
   "servers": [
     {
@@ -18,9 +18,19 @@
         "tags": [
           "应用"
         ],
-        "description": "获取所有应用列表详情，支持分页，按照最新创建时间倒序",
+        "description": "获取所有未归档应用列表详情，支持分页，按照最新创建时间倒序",
         "operationId": "listApps",
         "parameters": [
+          {
+            "default": "all",
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "应用范围 / 可选值有 all, active, archived",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "$ref": "#/components/parameters/pageParam"
           },
@@ -103,9 +113,7 @@
     "/apps/version_exist": {
       "get": {
         "summary": "检查应用版本是否存在",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -185,9 +193,7 @@
     "/apps/versions": {
       "get": {
         "summary": "应用渠道的上传版本列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -231,9 +237,7 @@
     "/apps/latest": {
       "get": {
         "summary": "搜索指定版本后面的应用版本列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "应用"
         ],
@@ -247,6 +251,7 @@
             "name": "bundle_id",
             "in": "query",
             "required": false,
+            "description": "应用的包名，iOS 取 bundle_id，Android 取 package_name",
             "schema": {
               "type": "string"
             }
@@ -254,7 +259,8 @@
           {
             "name": "release_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "主版本号",
             "schema": {
               "type": "string"
             }
@@ -262,7 +268,8 @@
           {
             "name": "build_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "内部版本号",
             "schema": {
               "type": "string"
             }
@@ -300,9 +307,7 @@
         ],
         "description": "上传 iOS、Android、macOS、Linux 或 Windows 应用",
         "operationId": "uploadApp",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "201": {
             "description": "已上传的应用版本详情",
@@ -359,6 +364,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -409,6 +415,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -474,6 +481,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -526,6 +534,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "应用类型 id",
             "schema": {
               "type": "string"
             }
@@ -579,6 +588,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "应用类型 id",
             "schema": {
               "type": "string"
             }
@@ -646,6 +656,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -711,6 +722,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -763,6 +775,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -771,6 +784,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -778,79 +792,6 @@
         ],
         "responses": {
           "200": {
-            "description": "应用成员详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collaborator"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "用户密钥认证失败",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "资源未找到",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "添加用户到应用成员",
-        "tags": [
-          "应用成员"
-        ],
-        "description": "添加指定用户到指定应用成员列表",
-        "operationId": "createCollaborator",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            },
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
             "description": "应用成员详情",
             "content": {
               "application/json": {
@@ -894,6 +835,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -902,6 +844,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -967,6 +910,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -975,6 +919,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "用户 ID",
             "schema": {
               "type": "string"
             }
@@ -1014,12 +959,87 @@
         }
       }
     },
+    "/apps/{app_id}/collaborators": {
+      "post": {
+        "summary": "添加用户到应用成员",
+        "tags": [
+          "应用成员"
+        ],
+        "description": "添加指定用户到指定应用成员列表",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "应用 ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "description": "用户 ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "应用成员详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "用户密钥认证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源未找到",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/debug_files": {
       "get": {
         "summary": "获取调试文件列表",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "调试文件"
         ],
@@ -1066,9 +1086,7 @@
     "/debug_files/download": {
       "get": {
         "summary": "下载调试文件",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "调试文件"
         ],
@@ -1138,6 +1156,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1188,6 +1207,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1235,9 +1255,7 @@
         ],
         "description": "上传 dSYM 或 Proguard 打包成 zip 压缩调试文件\n\n- `iOS`: 使用 Zip 压缩后的 dSYM 文件\n- `Android`: 使用 Zip 压缩后包含 mapping.txt、R.txt 和 AndroidManifest.xml 的文件\n",
         "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "调试文件详情",
@@ -1281,6 +1299,74 @@
         }
       }
     },
+    "/health": {
+      "get": {
+        "summary": "获取健康检查结果",
+        "security": [],
+        "tags": [
+          "健康检查"
+        ],
+        "description": "",
+        "operationId": "gethealthintext",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "unhealthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health.json": {
+      "get": {
+        "summary": "获取 JSON 格式健康检查结果",
+        "security": [],
+        "tags": [
+          "健康检查"
+        ],
+        "description": "",
+        "operationId": "gethealthinjson",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unhealth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/releases/{id}": {
       "put": {
         "summary": "更新应用版本元信息",
@@ -1294,6 +1380,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1316,7 +1403,7 @@
         },
         "responses": {
           "200": {
-            "description": "Translation missing: zh-CN.api.releases.default.responses.show",
+            "description": "应用版本详情",
             "content": {
               "application/json": {
                 "schema": {
@@ -1359,6 +1446,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1411,6 +1499,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -1464,6 +1553,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "应用 ID",
             "schema": {
               "type": "string"
             }
@@ -1531,6 +1621,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1596,6 +1687,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1648,6 +1740,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1758,6 +1851,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1808,6 +1902,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1873,6 +1968,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -1922,9 +2018,10 @@
         "operationId": "searchUser",
         "parameters": [
           {
-            "name": "email",
             "in": "query",
             "required": true,
+            "name": "email",
+            "description": "电子邮箱",
             "schema": {
               "type": "path"
             }
@@ -1980,6 +2077,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -2032,6 +2130,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "主键 ID",
             "schema": {
               "type": "string"
             }
@@ -2074,9 +2173,7 @@
     "/version": {
       "get": {
         "summary": "获取版本信息",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "版本"
         ],
@@ -2099,9 +2196,7 @@
   },
   "security": [
     {
-      "token": [
-
-      ]
+      "token": []
     }
   ],
   "components": {
@@ -2121,6 +2216,17 @@
         "description": "应用渠道 Key",
         "schema": {
           "type": "string"
+        }
+      },
+      "appScopeParam": {
+        "scope": {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "description": "Translation missing: zh-CN.api.parameters.app_scope",
+          "schema": {
+            "type": "string"
+          }
         }
       },
       "pageParam": {
@@ -2163,6 +2269,10 @@
             "type": "string",
             "example": "First App"
           },
+          "archived": {
+            "type": "boolean",
+            "example": false
+          },
           "schemes": {
             "type": "array",
             "items": {
@@ -2172,7 +2282,7 @@
         }
       },
       "AppVersionsIndex": {
-        "description": "Apps returned in a list",
+        "description": "应用版本列表",
         "type": "object",
         "properties": {
           "id": {
@@ -2318,11 +2428,15 @@
           "has_password": {
             "type": "boolean",
             "example": false
+          },
+          "download_filename_type": {
+            "type": "string",
+            "example": "original"
           }
         }
       },
       "Release": {
-        "description": "App's release build object",
+        "description": "应用版本",
         "type": "object",
         "properties": {
           "version": {
@@ -2764,7 +2878,7 @@
           "version": {
             "type": "integer",
             "format": "int32",
-            "example": "5.3.7"
+            "example": "6.0.0"
           },
           "vcs_ref": {
             "type": "string",
@@ -2773,6 +2887,34 @@
           "build_date": {
             "type": "string",
             "example": "2024-05-23T06:04:48.989Z"
+          }
+        }
+      },
+      "Health": {
+        "description": "健康检查",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "healthy"
+          }
+        }
+      },
+      "Unhealth": {
+        "description": "健康检查",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "unhealthy"
           }
         }
       }
@@ -2820,6 +2962,7 @@
     }
   },
   "definitions": {
+    "ListAppOptions": {},
     "UploadAppOptions": {
       "description": "上传应用版本表单字段结构",
       "type": "object",
@@ -2956,6 +3099,62 @@
         "password": {
           "type": "string",
           "description": "密码访问"
+        },
+        "download_filename_type": {
+          "type": "string",
+          "enum": [
+            "version_datetime",
+            "original_filename"
+          ],
+          "description": "下载文件的文件名生成规则"
+        }
+      }
+    },
+    "ReleaseOptions": {
+      "description": "应用版本元信息表单字段结构",
+      "type": "object",
+      "properties": {
+        "build_version": {
+          "type": "string",
+          "description": "构建版本"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "发布版本"
+        },
+        "release_type": {
+          "type": "string",
+          "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
+        },
+        "source": {
+          "type": "string",
+          "description": "上传渠道名称，默认是 `api`"
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "description": "变更日志，接受纯文本或 JSON 格式化的数据"
+        },
+        "branch": {
+          "type": "string",
+          "description": "代码控制软件的分支名"
+        },
+        "git_commit": {
+          "type": "string",
+          "description": "代码控制软件提交哈希值"
+        },
+        "ci_url": {
+          "type": "string",
+          "description": "持续构建系统构建 URL"
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
         }
       }
     },

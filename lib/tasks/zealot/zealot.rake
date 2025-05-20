@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../zealot/smtp_validator'
+
 namespace :zealot do
   desc 'Zealot | Upgrade zealot or setting up database'
   task upgrade: :environment do
@@ -9,12 +11,30 @@ namespace :zealot do
 
   desc 'Zealot | Precheck service healthly'
   task precheck: :environment do
-    # nothing to do
+    Rake::Task['zealot:check:smtp'].invoke
   end
 
   desc 'Zealot | Remove all data and init demo data and user'
   task reset: :environment do
     ResetForDemoModeJob.perform_now
+  end
+
+  namespace :check do
+    task smtp: :environment do
+      puts "SMTP testing ..."
+
+      smtp_validator = Zealot::SmtpValidator.new
+      if smtp_validator.configured?
+        success = smtp_validator.verify
+        if success
+          puts "SMTP verified successful"
+        else
+          puts "SMTP verified fail: #{smtp_validator.error_message}"
+        end
+      else
+        puts "SMTP is not configure, skip"
+      end
+    end
   end
 
   namespace :db do
@@ -33,15 +53,16 @@ namespace :zealot do
     end
 
     # 初始化
-    task setup: ['db:create'] do
+    task setup: :environment do
       puts "Zealot initialize database ..."
-      Rake::Task['db:migrate'].invoke
+      system("rails db:create")
+      system("rails db:migrate")
 
       # NOTE: wait db migrate then insert data
       sleep 3
 
       puts "Zealot initialize admin user and sample data ..."
-      Rake::Task['db:seed'].invoke
+      system("rails db:seed")
     end
 
     # 升级
@@ -87,21 +108,15 @@ namespace :zealot do
   end
 
   desc "Zealot | generate swagger files"
-  task :swaggerize do
-    ENV['RAILS_ENV'] = 'test'
+  task swaggerize: :environment do
     current_locale = ENV['DEFAULT_LOCALE']
 
-    Rails.configuration.i18n.available_locales.each do |locale|
-      # reset task invoke status and execute
-      Rake::Task['rswag:specs:swaggerize'].reenable
-
+    Rails.configuration.i18n.available_locales.sort.each do |locale|
       puts "Generating swagger file ... #{locale}"
-      ENV['DEFAULT_LOCALE'] = current_locale.to_s
-      Rake::Task['rswag:specs:swaggerize'].invoke
+      system("DEFAULT_LOCALE=#{locale} rails rswag:specs:swaggerize 2>&1 > /dev/null")
     end
 
     # restore
     ENV['DEFAULT_LOCALE'] = current_locale
-    ENV.delete('RAILS_ENV')
   end
 end

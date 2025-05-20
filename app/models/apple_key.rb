@@ -6,14 +6,12 @@ class AppleKey < ApplicationRecord
   has_many :devices, through: :apple_keys_devices
 
   validates :issuer_id, :key_id, :private_key, :filename, :checksum, presence: true
-  validates :checksum, uniqueness: true, on: :create
-  validate :private_key_format, on: :create
-  validate :appstoreconnect_api_role_permissions, on: :create
-  validate :distribution_certificate, on: :create
+  validates :checksum, uniqueness: true, on: :create, if: :requires_fields?
+  validate :private_key_format, on: :create, if: :requires_fields?
+  validate :appstoreconnect_api_role_permissions, on: :create, if: :requires_fields?
+  validate :distribution_certificate_exists, on: :create, if: :requires_fields?
 
-  before_validation :generate_checksum
-  after_save :create_relate_team
-  after_create :start_sync_device_job
+  before_create :generate_checksum
 
   def private_key_filename
     @private_key_filename ||= "#{key_id}.key"
@@ -39,11 +37,11 @@ class AppleKey < ApplicationRecord
   end
 
   def register_device(udid, name = nil, platform = 'IOS')
-    remote_device = client.device(uuid: uuid)
+    remote_device = client.device(udid: udid)
     db_device = Device.find_by(udid: udid)
     return db_device if remote_device && db_device
 
-    if remtoe_device && !db_device
+    if remote_device && !db_device
       devices << remote_device
       return remote_device
     end
@@ -62,40 +60,40 @@ class AppleKey < ApplicationRecord
     message = e.errors[0]['detail']
     is_exists = message.include?('already exists')
 
-    # udid had registered, force sync device
+    # udid had registered, but not exists in zealot system, needs to force sync device
     if is_exists
       sync_devices
       return self
     end
 
+    invaild_device = Device.new
     # invaild udid
     if message.include?('invalid value')
       # This is never happen, never ever!
-      errors.add(:devices, :invalid_value, value: udid)
+      invaild_device.errors.add(:name, :invalid_value, value: udid)
     else
-      errors.add(:devices, :api, message: message)
+      invaild_device.errors.add(:name, :api, message: message)
     end
 
-    self
+    invaild_device
   rescue => e
     logger.error "Register device raise an exception: #{e}"
     logger.error e.backtrace.join("\n")
 
     message = e.respond_to?(:errors) ? errors[0]['detail'] : e.message
-    errors.add(:devices, :unknown, message: message)
 
-    self
+    invaild_device = Device.new
+    invaild_device.errors.add(:name, :unknown, message: message)
+    invaild_device
   end
 
   def update_device_name(device)
-    response_device = client.rename_device(device.name, id: device.device_id, udid: device.udid)
+    client.rename_device(device.name, id: device.device_id, udid: device.udid)
   rescue TinyAppstoreConnect::InvalidEntityError => e
     logger.error "Device may not exists or the other error in apple key #{id}: #{e}"
   end
 
-  private
-
-  def create_relate_team
+  def sync_team
     cert = apple_distribtion_certiticate
     logger.debug "Fetching distribution_certificates is #{cert.name}"
     create_team(
@@ -104,9 +102,11 @@ class AppleKey < ApplicationRecord
     )
   end
 
-  def start_sync_device_job
+  def sync_devices_job
     SyncAppleDevicesJob.perform_later(id)
   end
+
+  private
 
   def private_key_format
     OpenSSL::PKey.read(private_key)
@@ -126,7 +126,7 @@ class AppleKey < ApplicationRecord
     errors.add(:key_id, :unknown, message: "[#{e.class}]: #{e.message}")
   end
 
-  def distribution_certificate
+  def distribution_certificate_exists
     if apple_distribtion_certiticate.blank?
       errors.add(:issuer_id, :missing_distribution_certificate)
     end
@@ -134,6 +134,10 @@ class AppleKey < ApplicationRecord
 
   def apple_distribtion_certiticate
     @apple_distribtion_certiticate ||= client.distribution_certificates.to_model
+  end
+
+  def requires_fields?
+    issuer_id.present? && key_id.present? || private_key.present?
   end
 
   def client

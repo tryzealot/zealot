@@ -1,13 +1,12 @@
 zh-CN:
-  function_section: 功能区域
   toolbox_section: 工具箱
-  admin_section: 管理面板
-  monitors_section: 监控
-  user_profile: 详情
+  admin_section: 管理区域
+  monitors_section: 监控区域
+  user_profile: 用户详情
   log_out: 登出
   log_in: 登录
   intro:
-    title: 移动应用上传竟然如此简单、移动 App 应用分发系统
+    title: 应用托管竟然如此简单、全平台 App 应用分发系统
     description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
   links:
     back_to_list: 返回列表
@@ -33,10 +32,11 @@ zh-CN:
         destroy_user: 删除
         destroy_user_confirm: 你确定要删除【%{user}】用户？
       edit:
-        title: 用户信息
+        title: 修改用户
         active_link: 激活链接
-        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件，可通过本链接激活或<a href="%{link}" data-turbo-prefetch="false">%{label}</a>。
-        resend: 重新发送激活邮件
+        active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件
+        resend: 重发激活邮件
+        profile: 个人信息
         collaborators: 应用成员
         api: API
         token: Token
@@ -120,6 +120,7 @@ zh-CN:
         apply_for_restart: 需重启服务生效
         service_restarting: 服务重启中 ...
         service_restarted: 刷新页面 ...
+        restart_required: 重启后生效
       update:
         title: 编辑设置
       edit:
@@ -145,15 +146,12 @@ zh-CN:
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
-      openapi_ui: OpenAPI UI
-      openapi_ui_hint: 开启后可在各页面底部找到 API 链接
       third_party_auth: 第三方登录
       ldap: LDAP
       oidc: OpenID Connect
       feishu: 飞书
       gitlab: Gitlab
       google_oauth: Google OAuth
-      # misc: 杂项
       smtp: 邮件配置
       mailer_default_from: 默认邮件发件地址
       mailer_default_reply_to: 默认邮件回复地址
@@ -164,6 +162,9 @@ zh-CN:
       umami_website_id: Umami 统计
       archives: 上传文件
       keep_uploads: 永久保存上传应用版本
+      misc: 杂项
+      show_footer_version: 显示底部版本号
+      show_footer_openapi_endpoints: 显示底部 OpenAPI 链接
       empty_value: 空值
       no_editable_key: 当前设置为可读，无法修改
       reset: 恢复默认值
@@ -293,13 +294,16 @@ zh-CN:
       channels: 渠道
       uploads: 上传
       created_at: 创建于%{time}
+      searching_app: 搜索应用
       not_found:
-        title: 没有发现任何应用
-        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增应用。
+        title: 没有发现任何应用或全部已归档
+        body_html: 新建应用请点击右上角的 <i class="far fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
     show:
       new_scheme: 新增类型
       edit_app: 编辑应用
       destroy_app: 删除应用
+      archive_app: 归档应用
+      unarchive_app: 取消归档应用
       new_channel: 新增渠道
       edit_scheme: 编辑类型
       destroy_scheme: 删除类型
@@ -334,6 +338,13 @@ zh-CN:
     new_owner:
       title: 转移拥有者
       user_hint: 转移至其他成员，你会失去该应用的所有权限！
+    archives:
+      title: 已归档应用
+      index:
+        title: :'apps.archived.title'
+        not_found:
+          title: 没有发现任何已归档应用
+          body_html: 如果应用长期不再使用且不想删除可以进行归档操作。
     messages:
       failture:
         not_found_app_by_version: '没有找到应用版本: %{version}'
@@ -344,6 +355,8 @@ zh-CN:
         delete_app_scheme: 确定删除【%{name}】类型和渠道以及已上传的应用数据?
         delete_app_channel: 确定删除【%{name}】渠道和已上传的应用数据?
         delete_collaborator: 确定删除【%{name}】成员?
+        archive_app: 确认归档应用 `%{name}`，归档后应用将不再显示在应用列表中并无法上传新的应用版本？
+        unarchive_app: 确认取消归档应用 `%{name}`，取消归档后应用将移到应用列表中并开启上传新的应用版本？
   collaborators:
     default:
       title: 应用成员
@@ -358,22 +371,30 @@ zh-CN:
     show:
       empty_channel: 没有发现已创建的渠道，请新建一个
     new:
-      title: '%{app}新建类型'
+      title:
+        with_name: '%{app}新建类型'
+        without_name: 新建类型
     edit:
-      title: '%{app}编辑类型'
+      title:
+        with_name: '%{app}编辑类型'
+        without_name: 编辑类型
   channels:
     title: 应用渠道
     subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
-      activity: 最近上传动态
+      activity: 上传时间线
       upload_release: 上传应用
       metadata: 渠道信息
       device_type: 设备类型
       slug: 唯一地址
       password: 访问密码
       git_url: Git 仓库地址
+      download_filename_type: 下载文件名规则
+      download_filename_type_item:
+        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        original_filename: 使用上传文件的文件名
       match_rule: 匹配模式 %{value}
       wildmatch: (不限制上传包的包名)
       total_releases: 上传版本
@@ -396,9 +417,13 @@ zh-CN:
       empty_version: 该版本没有任何上传记录！
       more: 查看更多
     new:
-      title: '%{name}新建渠道'
+      title:
+        with_name: '%{app}新建渠道'
+        without_name: 新建渠道
     edit:
-      title: '%{name}编辑渠道'
+      title:
+        with_name: '%{app}编辑渠道'
+        without_name: 编辑渠道
     branches:
       index:
         subtitle: '%{branch} 分支版本列表'
@@ -426,18 +451,19 @@ zh-CN:
       api: 接口上传
     show:
       enter_password: 访问密码
-      app_limited: 无法在当前应用安装
       app_touch_menu: 点击右上角菜单
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
       not_latest_release: 当前不是最新版本！
-      released_new_version: '版本 %{version} 于%{time}发布，%{link}。'
-      view_latest_version: 查看最新版本
+      released_new_version: '%{link} %{version} 于%{time}发布！'
+      view_latest_version: 最新版本
       name: 应用
       version: 上传版本
       device_type: 平台
       release_version: 构建版本
       release_type: 打包类型
+      native_codes: 原生架构
+      multi_native_codes: 多架构
       filesize: 文件体积
       uploaded_at: 上传时间 %{date}
       git_branch: Git 分支
@@ -448,14 +474,14 @@ zh-CN:
       teardown_metadata: 解包信息
       install: 安装
       download: 下载
-      installing: 安装到桌面 ...
-      installed: 安装请求完毕，重新安装
+      installing: 安装中 ...
+      installed: 重新安装
       cert_expired: 证书过期无法安装
       destroy: 删除
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
-      cannot_install_or_untrusted_enterprise_developer: 请查看桌面，若没有发现下载的应用或遇到 "未受信任的企业级开发者" 错误？
+      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面。点击这里解决应用安装失败或遇到 "未受信任的企业级开发者" 错误。
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
@@ -469,6 +495,7 @@ zh-CN:
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
       custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型。
+      app_was_archived: 应用已归档仅限只读操作
     new:
       title: :'channels.show.upload_release'
     install:
@@ -518,6 +545,7 @@ zh-CN:
         not_found_really: 您访问的应用版本真的不存在
         invalid_password: 密码错误，请重新输入
         bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
+        upload_to_archived_app: '应用 %{app} 已归档，无法上传新的版本。'
   debug_files:
     title: 调试文件
     index:
@@ -535,7 +563,7 @@ zh-CN:
       version: 编号
       device_type: 平台
       release_version: 版本信息
-      file_nums: 文件数量
+      filename: 文件名
       file_size: 文件大小
       uploaded_at: 上传时间
       missing_file: 调试文件遗失
@@ -544,9 +572,10 @@ zh-CN:
       destroy: 删除
       main_target: '主项目: %{value}'
       arch: 架构
+      target: 名称
       uuid: UUID
-      libraries: 库
-      filename: 文件
+      libraries: 库 (%{count})
+      files: 文件 (%{count})
     device:
       title: '%{app} %{device} 调试文件'
       number: '#%{value}'
@@ -597,7 +626,7 @@ zh-CN:
       title: 新建应用解包
       file: 文件
       choose_file: 选择文件
-      file_hint: 支持 .apk/.aab/.ipa/.mobileprovision 以及 macOS.app.zip 文件
+      file_hint: 支持 iPhone 的 IPA、Android 的 APK/AAB、macOS 的 mobileprovision 以及 macOS.app.zip、Window 的 EXE 文件
       submit: 开始解包
     create:
       create: :'teardowns.new.title'
@@ -621,22 +650,31 @@ zh-CN:
       expired: 刚好过期
       related_app: 关联提醒
       related_body: 当前解包关联的应用是%{link}
-      unknow_app_name: 未知
+      unkonwn: 未知
       metadata: 应用信息
       app_name: 名称
       version: 版本
       package_name: 包名
+      native_codes: 原生架构
       supported_device: 支持设备
-      sdk_version_range: Android 最低版本 / 目标版本
+      android_min_sdk: 最低支持版本
+      android_target_sdk: 编译构建版本
       file_size: 文件大小
       release_type: 打包类型
+      activities: Activities (%{count})
+      deep_links: Deep Links (%{count})
+      features: Features (%{count})
+      url_schemes: URL Schemes (%{count})
+      permissions: Permissions (%{count})
+      services: Services (%{count})
+      entitlements: Entitlements (%{count})
       min_ios_version: 最低 iOS 版本
       min_tvos_version: 最低 tvOS 版本
-      min_macos_version: 最低 macOS 版本
+      min_macos_version: 最低系统版本
       capabilities: 启用能力
-      devise_list: '设备列表 (%{count})'
-      developer_certs_list: '开发者证书 (%{count})'
-      cert: '证书 %{index}'
+      devise_list: 设备列表 (%{count})
+      developer_certs_list: 开发者证书 (%{count})
+      cert: 证书 %{index}
       cert_expired_at: '%{date} 到期'
       cert_created: 创建日期
       cert_expired: 失效日期
@@ -647,12 +685,12 @@ zh-CN:
       cert_subject: 主题
       cert_digest: 数字摘要
       cert_length: 长度
-      signature_title: '应用签名 (%{count})'
-      signature: '签名版本 %{scheme}'
-      cert_fignger: '签名指纹 %{digest}'
+      signature_title: 应用签名 (%{count})
+      signature: 签名版本 %{scheme}
+      cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
-      signature_verified: '签名校验通过'
-      signature_unverified: '签名校验待开发'
+      signature_verified: 签名校验通过
+      signature_unverified: 签名校验待开发
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)
@@ -670,13 +708,14 @@ zh-CN:
       company_name: 公司名称
       binary_size: 二进制文件大小
       imports: 引用库
+      uploaded_date: 上传日期
+      uploader: 上传者
     help:
       title: 帮助中心
       body_html: |
         <p>
-          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用通过强大的
-          <a href="https://github.com/icyleaf/app_info" target="_blank">app_info</a> 强力驱动读取出来应用中的实用信息用于辅助阅读、
-          参考和定位问题：
+          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
+          诊断、参考和定位问题：
         </p>
         <table class="table table-bordered">
           <tr>
@@ -721,11 +760,11 @@ zh-CN:
           </tr>
           <tr>
             <td>开发者证书</td>
-            <td></td>
+            <td>签名信息</td>
           </tr>
           <tr>
             <td>描述文件</td>
-            <td></td>
+            <td>原生架构</td>
           </tr>
         </table>
     messages:
@@ -748,6 +787,8 @@ zh-CN:
       macos_tip: 系统限制无法检测 macOS 芯片类型，请自行选择使用 iPhone、iPad 扫码或点击下面按钮获取设备 UDID
       nonapple_tip: :'udid.index.apple_tip'
       fetch_udid: 获取设备 UDID
+      app_open_in_safari: 在 Safari 中打开并获取
+      app_open_in_webbrower: 在任意浏览器中打开并获取
       help:
         title: 为什么要下载安装描述文件获取设备 UDID?
         body_html: |
@@ -828,6 +869,7 @@ zh-CN:
     preset_schemes:
       beta: 测试版
       adhoc: 内测版
+      enterprise: 企业版
       production: 产品版
     preset_role:
       member: 用户
@@ -862,13 +904,13 @@ zh-CN:
         show:
           not_found: 应用版本不存在
           missing_params: 参数缺失，请使用 bundle_id, release_version, build_version 或 bundle_id, git_commit 组合参数
+    schemes:
+      index:
+        not_found: 应用 ID=%{id} 没有找到应用类型
     debug_files:
       download:
         default:
           not_found: 调试文件版本不存在
-    jenkins:
-      build:
-        failed_request: 构建请求失败，请重新尝试
   demo:
     app_name1: 默认应用
     app_name2: 默认 Android 应用
@@ -895,6 +937,14 @@ zh-CN:
       x_months: " %{count} 个月"
       x_years: " %{count} 年"
 
+  date:
+    formats:
+      nice: '%Y-%m-%d'
+
+  time:
+    formats:
+      nice: '%Y-%m-%d %p %I:%M GMT%:::z'
+
   errors:
     code:
       '400':
@@ -919,6 +969,8 @@ zh-CN:
       '503':
         title: 服务暂时不可用，无法请求该页面
     messages:
+      homepage_title: 首页
+      goback_title: 上级页面
       blank: 不能为空值
       inclusion: 不包含在可选值列表中
       only_integer: 必须是数字
@@ -936,8 +988,7 @@ zh-CN:
       record_not_found: 此查询数据找不到
       user_not_found: 没有找到此用户
       api_not_found: 没有这个接口
-      goback_title: 上级页面
-      homepage_title: 首页
+      app_archived: "%{name}应用已归档，无法进行此操作"
   active_job:
     webhook:
       failures:
@@ -954,6 +1005,7 @@ zh-CN:
         max_keeps_limited: '%{key} 备份设置最大限制值为零'
         dump_command: '执行备份命令执行失败: %{message}'
         restore_command: '恢复备份命令执行失败: %{message}'
+        storage_full: '备份存储空间不足，无法创建新的备份: %{key}'
   activerecord:
     attributes:
       channel:
@@ -968,6 +1020,8 @@ zh-CN:
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
+      archived: "%{key}归档成功"
+      unarchived: "%{key}取消归档成功"
       destroy: "%{key}删除成功"
     errors:
       messages:
@@ -976,6 +1030,7 @@ zh-CN:
         invaild_jb: 无效格式
         incorrect_json_format: 未知 JSON 格式
         empty_json_value: JSON 值为空
+        unknown: "%{key}操作失败"
       models:
         collaborator:
           attributes:
@@ -992,6 +1047,12 @@ zh-CN:
               forbidden: 密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥
               unknown: '未知错误: %{message}'
             devices:
+              invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
+              api: '苹果返回错误：%{message}'
+              unknown: '未知错误: %{message}'
+        udid:
+          attributes:
+            name:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
               api: '苹果返回错误：%{message}'
               unknown: '未知错误: %{message}'
@@ -1035,6 +1096,9 @@ zh-CN:
       title: LDAP 登录
       username: LDAP 账户
       password: LDAP 密码
+    github:
+      org_check_fail: 'GitHub 组织检查失败： %{code}'
+      org_required_fail: '您必须是 %{required_org} GitHub 组织的成员才能登录。'
     shared:
       hint: '- 或者 -'
       links:

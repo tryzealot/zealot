@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::CollaboratorsController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_app
   before_action :set_collaborator, except: %i[create]
@@ -35,6 +37,7 @@ class Api::CollaboratorsController < Api::BaseController
 
   def set_app
     @app = App.find(params[:app_id])
+    raise_if_app_archived!(@app)
   end
 
   def set_collaborator

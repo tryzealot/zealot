@@ -1,16 +1,2 @@
-- content_for :section_title do
-  = t('.title')
-
-- content_for :title do
-  = t('.title')
-
-.row
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title = t('.title')
-        .card-tools
-          a href="#{admin_users_path}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
-      == render 'form'
+= show_modal(t('.title')) do
+  == render 'form', user: @user

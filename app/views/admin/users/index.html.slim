@@ -5,51 +5,25 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-icon.btn-success href="#{new_admin_user_path}"
-    i.icon.far.fa-plus-square
-    = t('.new_user')
+  = icon_link_to('far fa-plus-square', new_admin_user_path, text: t('.new_user'), \
+    link: { class: 'btn btn-success', data: { turbo_frame: :modal } }, \
+    icon: { class: 'me-1' })
 
 .row
   .col-md-12
     .card
       .card-body.p-0
-        table.table
-          thead
-            tr
-              th = t('.nickname')
-              th.d-none.d-sm-table-cell = t('.email')
-              th = t('.role')
-              th = t('.status')
-              th.d-none.d-sm-table-cell = t('.last_login_time')
-              th.d-none.d-sm-table-cell style="width: 20px" = t('.action')
-          tbody
-            - @users.each_with_index do |user, i|
-              tr
-                td
-                  = link_to user.username, edit_admin_user_path(user)
-                td.d-none.d-sm-table-cell
-                  = user.email
-                td
-                  = user.role_name
-                td
-                  - if user.access_locked?
-                    span.badge.badge-danger = t('.locked')
-                  - elsif user.confirmed_at
-                    span.badge.badge-secondary = t('.activated')
-                  - else
-                    = link_to t('.inactive'), edit_admin_user_path(user), class: 'badge badge-primary'
-
-                td.d-none.d-sm-table-cell
-                  - if user.last_sign_in_at
-                    = time_ago_in_words(user.last_sign_in_at)
-                  - else
-                    = t('.never_logged_in')
-                td.d-none.d-sm-table-cell
-                  - if default_admin_in_demo_mode?(current_user)
-                    button.btn.text-danger
-                      i.fas.fa-trash-alt
-                  - else
-                    = button_link_to '', admin_user_path(user), 'trash-alt', class: 'btn text-danger', \
-                      data: { turbo_method: :delete, turbo_confirm: t('.destroy_user_confirm', user: user.username) }
-
-
+        .p-2.ps-3.d-flex.fw-bolder.border-bottom.border-1
+          .col-3.col-md-3.my-auto
+            = t('.nickname')
+          .col-7.col-md-4.my-auto
+            = t('.email')
+          .col-3.col-md-2.my-auto
+            = t('.role')
+          .col-2.col-md-1.my-auto.d-none.d-sm-table-cell
+            = t('.status')
+          .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
+            = t('.last_login_time')
+        #users
+          - @users.each_with_index do |user, i|
+            = render user

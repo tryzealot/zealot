@@ -1,9 +1,9 @@
 - if resource.errors.any?
   .alert.alert-danger.alert-dismissible data-turbo-cache="false"
-    button.close data-dismiss="alert" aria-hidden="true" ×
-    h5
-      i.icon.fas.fa-ban
+    div
+      i.flex-shrink-0.me-2.fas.fa-ban
       = t('errors.messages.not_saved', count: resource.errors.count, resource: resource.class.model_name.human.downcase)
-    ul.pl-3.mb-0
-      - resource.errors.full_messages.each do |message|
-        li = message
+      ul.ps-3.mb-0
+        - resource.errors.full_messages.each do |message|
+          li = message
+    button.btn-sm.btn-close type="button" data-bs-dismiss="alert" aria-label="Close"

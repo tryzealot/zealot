@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SchemesController < ApplicationController
+  include AppArchived
+  
   before_action :authenticate_user!, except: :show
   before_action :set_scheme, except: %i[create new]
   before_action :process_scheme_params, only: %i[create]
@@ -8,7 +10,8 @@ class SchemesController < ApplicationController
   before_action :set_app
 
   def new
-    @title = t('schemes.new.title', app: @app.name)
+    @page_title =t('.title.with_name', app: @app.name)
+    @title = t('.title.without_name')
     @scheme = @app.schemes.build
     authorize @scheme
   end
@@ -21,25 +24,37 @@ class SchemesController < ApplicationController
     return render :new, status: :unprocessable_entity unless @scheme.save
 
     create_channels(channels)
-    redirect_to app_path(@app), notice: t('activerecord.success.create', key: t('schemes.title'))
+
+    flash.now.notice = t('activerecord.success.create', key: t('schemes.title'))
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def edit
     authorize @scheme
-    @title = t('schemes.edit.title', app: @app.name)
+    @page_title =t('.title.with_name', app: @app.name)
+    @title = t('.title.without_name')
   end
 
   def update
     authorize @scheme
     @scheme.update(scheme_params)
-    redirect_to app_path(@app)
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     authorize @scheme
     @scheme.destroy
 
-    redirect_to app_path(@app), status: :see_other
+    respond_to do |format|
+      format.html { redirect_to app_path(@app) }
+      format.turbo_stream
+    end
   end
 
   protected
@@ -54,6 +69,7 @@ class SchemesController < ApplicationController
 
   def set_app
     @app = App.find(params[:app_id])
+    raise_if_app_archived!(@app)
   end
 
   def set_scheme

@@ -16,58 +16,49 @@ RUN apt-get update && \
     debian-keyring debian-archive-keyring apt-transport-https \
     build-essential gnupg2 tar git zsh libssl-dev zlib1g-dev libyaml-dev  \
     imagemagick libjpeg-dev libpng-dev libtiff-dev libwebp-dev \
-    tzdata \
-    vim git-flow tig tmux
+    caddy tzdata \
+    vim git-lfs tig tmux
 
-# Install postgresql-client-16
+# Install postgresql-client from offical repo
 RUN curl -1sLf 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg && \
     echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     apt-get install -y postgresql-client libpq-dev
 
-# Install caddy
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
-    apt-get update && \
-    apt-get install -y caddy
+# Install mise
+ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
+RUN curl https://mise.run | sh
 
-ENV ZEALOT_PATH=/workspace
+# Install lazygit
+ENV LAZYGIT_VERSION="0.50.0"
+RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/lazygit
 
 USER vscode
 
-# Install asdf, ruby (with YJIT enabled) and nodejs
-ARG RUBY_VERSION="3.3.0"
-ARG NODEJS_VERSION="20.11.1"
-LABEL zealot.containers.ruby="$RUBY_VERSION"
-LABEL zealot.containers.nodejs="$NODEJS_VERSION"
+RUN mise use -g usage && \
+    echo 'eval "$(mise activate bash --shims)"' >> ~/.bash_profile && \
+    echo 'eval "$(mise activate bash)"' >> ~/.bashrc && \
+    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian mise git tmux npm yarn ruby gem bundler rails)/g" ~/.zshrc
 
-ARG ASDF_DIR="/home/vscode/.asdf"
-ENV RUBY_YJIT_ENABLE=true
-ENV PATH "${ASDF_DIR}/bin:${ASDF_DIR}/shims:$PATH"
-RUN git clone --quiet https://github.com/asdf-vm/asdf.git ${ASDF_DIR} && \
-    echo ". ${ASDF_DIR}/asdf.sh" >> ~/.bashrc && \
-    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian asdf git git-flow tmux yarn ruby gem bundler rails)/g" ~/.zshrc
-
-RUN asdf plugin add nodejs && \
-    asdf install nodejs $NODEJS_VERSION && \
-    asdf global nodejs ${NODEJS_VERSION}
-
-# Enable YJIT *NEED* Rust 1.58.0+
-RUN asdf plugin add rust && \
-    asdf install rust latest && \
-    asdf global rust latest
-
-RUN export RUBY_CONFIGURE_OPTS="--enable-yjit" && \
-    asdf plugin add ruby && \
-    asdf install ruby $RUBY_VERSION && \
-    asdf global ruby ${RUBY_VERSION}
-
+ENV ZEALOT_PATH=/workspace
 WORKDIR /workspace
 
-RUN gem install bundler foreman && \
+COPY .mise.toml ./
+RUN mise trust && \
+    export RUBY_CONFIGURE_OPTS="--disable-install-doc" && \
+    mise install && \
+    RUBY_VERSION=$(cat .mise.toml | grep ruby | sed -E 's/([^=]+)="([^"]+)"/\1@\2/') && \
+    mise use -g $RUBY_VERSION && \
+    NODEJS_VERSION=$(cat .mise.toml | grep nodejs | sed -E 's/([^=]+)="([^"]+)"/\1@\2/') && \
+    mise use -g $NODEJS_VERSION && \
+    mise reshim
+
+ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
+RUN gem install bundler && \
     npm install --global yarn sass esbuild
 
-COPY Gemfile Gemfile.lock package.json ./
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 USER root
 RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
 USER vscode

@@ -1,7 +1,2 @@
-- content_for :title do
-  = @title
-
-- content_for :section_title do
-  = @title
-
-== render 'form'
+= show_modal(@title) do
+  == render 'form'

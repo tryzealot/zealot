@@ -1,7 +1,7 @@
 <!doctype html>
 <head>
   <meta charset="utf-8"/>
-  <title>Zealot is loading</title>
+  <title>Zealot is starting</title>
   <style>
     html {
       height: 100%;
@@ -14,50 +14,126 @@
       background: linear-gradient(135deg,  #3023ae 0%,#c86dd7 100%);
       background-attachment: fixed;
     }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .message {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
+  <script type="text/javascript">
+    const timeout = 5000; // 5 seconds
+    const duration = 2000; // 2 seconds
+    function checkHealth() {
+      fetch('/api/version', {
+        method: 'GET',
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        },
+        signal: AbortSignal.timeout(timeout)
+      })
+      .then(response => {
+        if (response.status === 200) {
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        console.log('Health check error:', error);
+      });
+    }
+
+    function setLanguage() {
+      const userLang = navigator.language || navigator.userLanguage;
+      console.log("Browser language:", userLang);
+      
+      // Define locales object
+      const locales = {
+        zh: {
+          title: "应用正在启动中...",
+          description: "系统正在检测应用状态，将在服务就绪后自动刷新"
+        },
+        en: {
+          title: "Application is starting...",
+          description: "The system is checking application status and will automatically refresh when ready"
+        }
+      };
+      
+      // Determine which locale to use
+      const isChinese = /^zh\b/.test(userLang);
+      const locale = isChinese ? locales.zh : locales.en;
+      
+      // Update content directly
+      document.getElementById('title').textContent = locale.title;
+      document.getElementById('description').textContent = locale.description;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      setLanguage();
+      checkHealth();
+      setInterval(checkHealth, duration);
+    });
+  </script>
 </head>
 <body>
-<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-<svg width="120" height="120" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
-  <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
-      <circle cx="22" cy="22" r="6" stroke-opacity="0">
-          <animate attributeName="r"
-               begin="1.5s" dur="3s"
-               values="6;22"
-               calcMode="linear"
-               repeatCount="indefinite" />
-          <animate attributeName="stroke-opacity"
-               begin="1.5s" dur="3s"
-               values="1;0" calcMode="linear"
-               repeatCount="indefinite" />
-          <animate attributeName="stroke-width"
-               begin="1.5s" dur="3s"
-               values="2;0" calcMode="linear"
-               repeatCount="indefinite" />
-      </circle>
-      <circle cx="22" cy="22" r="6" stroke-opacity="0">
-          <animate attributeName="r"
-               begin="3s" dur="3s"
-               values="6;22"
-               calcMode="linear"
-               repeatCount="indefinite" />
-          <animate attributeName="stroke-opacity"
-               begin="3s" dur="3s"
-               values="1;0" calcMode="linear"
-               repeatCount="indefinite" />
-          <animate attributeName="stroke-width"
-               begin="3s" dur="3s"
-               values="2;0" calcMode="linear"
-               repeatCount="indefinite" />
-      </circle>
-      <circle cx="22" cy="22" r="8">
-          <animate attributeName="r"
-               begin="0s" dur="1.5s"
-               values="6;1;2;3;4;5;6"
-               calcMode="linear"
-               repeatCount="indefinite" />
-      </circle>
-  </g>
-</svg>
+<div class="container">
+  <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+  <svg width="120" height="120" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+    <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
+        <circle cx="22" cy="22" r="6" stroke-opacity="0">
+            <animate attributeName="r"
+                 begin="1.5s" dur="3s"
+                 values="6;22"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                 begin="1.5s" dur="3s"
+                 values="1;0" calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-width"
+                 begin="1.5s" dur="3s"
+                 values="2;0" calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+        <circle cx="22" cy="22" r="6" stroke-opacity="0">
+            <animate attributeName="r"
+                 begin="3s" dur="3s"
+                 values="6;22"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                 begin="3s" dur="3s"
+                 values="1;0" calcMode="linear"
+                 repeatCount="indefinite" />
+            <animate attributeName="stroke-width"
+                 begin="3s" dur="3s"
+                 values="2;0" calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+        <circle cx="22" cy="22" r="8">
+            <animate attributeName="r"
+                 begin="0s" dur="1.5s"
+                 values="6;1;2;3;4;5;6"
+                 calcMode="linear"
+                 repeatCount="indefinite" />
+        </circle>
+    </g>
+  </svg>
+  <div class="message">
+    <h2 id="title"></h2>
+    <p id="description"></p>
+  </div>
+</div>
 </body>
 </html>

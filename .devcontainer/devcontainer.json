@@ -17,18 +17,25 @@
             "path": "/bin/zsh",
             "icon": "star"
           }
-        }
+        },
+        "rubyLsp.rubyVersionManager": {
+          "identifier": "auto"
+        },
+        "dev.containers.mountWaylandSocket": false
       },
       "extensions": [
         "Shopify.ruby-lsp",
         "KoichiSasada.vscode-rdbg",
+        "kaiwood.endwise",
         "sianglim.slim",
         "eamodio.gitlens",
         "bung87.rails",
         "bung87.vscode-gemfile",
         "EditorConfig.EditorConfig",
         "formulahendry.auto-complete-tag",
-        "rangav.vscode-thunder-client"
+        "AndrewButson.vscode-openapi-viewer",
+        "eamodio.gitlens",
+        "tompollak.lazygit-vscode"
       ]
     }
   },

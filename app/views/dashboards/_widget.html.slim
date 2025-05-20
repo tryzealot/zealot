@@ -1,13 +1,13 @@
-.col-md-3.col-sm-4
+div class="#{defined?(widget_style) ? widget_style : 'd-none d-md-block col-md-6 col-lg-3'}"
   .info-box
-    span.info-box-icon class="#{color_style}"
+    .info-box-icon.shadow-sm.text-white class="#{color_style}"
       i class="#{icon}"
     .info-box-content
-      span.info-box-text
+      .info-box-text
         - if url.present?
           a href="#{url}" data-no-turbolink="true"
             = title
         - else
           = title
-      span.info-box-number
+      .info-box-number
         = count

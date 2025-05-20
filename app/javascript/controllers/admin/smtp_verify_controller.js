@@ -21,7 +21,7 @@ export default class extends Controller {
     })
     .then((response) => {
       if (response.status === 200) {
-        console.info(`smtp verify success`)
+        console.info("smtp verify success")
         target.innerHTML = this.successValue
       } else {
         response.json().then((body) => {

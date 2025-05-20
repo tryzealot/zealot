@@ -1,23 +1,30 @@
-
-.navbar-empty {
-  @extend .navbar-collapse !optional;
-  @extend .justify-content-md-center !optional;
-
-  .brand-link {
-    padding: 0;
-
-    [class*="navbar-white"] & {
-      color: $black;
-    }
-
-    [class*="navbar-black"] & {
-      color: $white;
-    }
+.navbar-brand {
+  img {
+    width: 40px;
+    height: 40px;
   }
 }
 
-.layout-top-nav .wrapper .main-header .navbar-empty .brand-image {
-  margin-top: -0.1rem;
+a {
+  text-decoration: none;
+}
+
+.callout {
+  a {
+    text-decoration: underline;
+  }
+}
+
+.navbar-brand {
+  .brand-text {
+    vertical-align: middle;
+  }
+}
+
+.navbar-empty {
+  @extend .navbar-collapse !optional;
+  @extend .justify-content-center !optional;
+  @extend .align-items-center !optional;
 }
 
 ul.pagination {
@@ -28,10 +35,6 @@ ul.pagination {
   .table {
     margin-bottom: 0;
   }
-}
-
-.callout a {
-  text-decoration: none;
 }
 
 .login-box {
@@ -64,27 +67,51 @@ i.icon {
   }
 }
 
-.dark-mode {
+.table-bottom-borderless {
+  tbody {
+    tr:last-child {
+      td {
+        @extend .rounded-bottom;
+
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+
+.default-tooltip {
+  --bs-tooltip-max-width: 300px;
+  --bs-tooltip-padding-x: 0.6rem;
+  --bs-tooltip-padding-y: 0.3rem;
+  --bs-tooltip-bg: #000;
+  --bs-tooltip-color: var(--bs-white);
+}
+
+.app-content-header {
+  .section-title {
+    margin-bottom: 0;
+  }
+
+  /* col-sm and below style */
+  @media (max-width: 767.98px) {
+    .section-title {
+      margin-bottom: 0.6rem;
+    }
+  }
+}
+
+@include color-mode(dark) {
   .cover {
     opacity: 0.45;
   }
 
   .nav-item .active {
     color: #fff;
-    background-color: #3f6791;
-  }
-
-  a {
-    color: #64adfb;
-  }
-
-  .callout {
-    border-color: #3f474e;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+    background-color: var(--bs-primary-bg);
   }
 
   .border-bottom {
-    border-color: #6c757d !important;
+    border-color: var(--bs-border-color) !important;
   }
 
   .img-bordered-sm {
@@ -101,4 +128,19 @@ i.icon {
     background-color: #393a3c !important;
     color: #999 !important;
   }
+
+  .btn-secondary {
+    background-color: var(--bs-card-bg);
+  }
+
+  .default-tooltip {
+    --bs-tooltip-bg: #3f3f3f;
+    --bs-tooltip-color: var(--bs-white);
+  }
+}
+
+.app-footer {
+  @extend .py-2;
+
+  min-height: 1rem;
 }

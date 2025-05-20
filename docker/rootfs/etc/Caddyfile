@@ -15,15 +15,6 @@ log {
 	}
 }
 
-# handle reverse proxy crash errors
-handle_errors {
-	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
-	handle @5xx {
-		rewrite * /errors/{err.status_code}.html
-		file_server
-	}
-}
-
 @zealot {
 	path *
 
@@ -34,15 +25,47 @@ handle_errors {
 reverse_proxy @zealot {
 	to localhost:3000
 
-	health_uri /health
-	health_interval 1s
-	health_timeout 30s
+	# health_uri /api/health
+	# health_interval 2s
+	# health_timeout 10s
 
 	header_up X-Forwarded-Proto https
 
 	@accel header X-Accel-Redirect *
 	handle_response @accel {
 		rewrite * {http.reverse_proxy.header.X-Accel-Redirect}
+		rewrite * {rp.header.X-Accel-Redirect}
+		method  * GET
+		file_server
+	}
+}
+
+# handle reverse proxy crash errors
+handle_errors {
+	# @debug path /debug-errors
+	# handle @debug {
+	# 	respond `Error Details:
+	# 	Status Code: {http.error.status_code}
+	# 	Error: {http.error}
+	# 	Error Message: {err.message}
+	# 	Error Status: {err.status_code}
+	# 	HTTP Error: {http.error.message}
+	# 	Error Name: {http.error.name}
+	# 	Stack: {http.error.trace}` 200
+	# }
+
+	# show loading page if backend is down
+	@backend_down `{err.message}.contains("connect: connection refused") && {http.request.header.Accept}.matches(".*text/html.*")`
+	handle @backend_down {
+		rewrite * /loading.html
+		file_server {
+			status 200
+		}
+	}
+
+	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
+	handle @5xx {
+		rewrite * /errors/{err.status_code}.html
 		file_server
 	}
 }

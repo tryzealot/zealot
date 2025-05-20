@@ -1,26 +1,27 @@
-- if @release.devices.present?
+- if devices.present?
   .devices
-    .card.collapsed-card
+    .card.collapsed-card.mb-3
       .card-header
         h3.card-title
           i.icon.fas.fa-mobile-alt
-          = t('releases.show.devices', count: @release.devices.count)
+          = t('releases.show.devices', count: devices.count)
         .card-tools
-          button.btn.btn-tool data-toggle="dropdown" title="#{t('releases.show.sync_devices_feature', link: t('admin.apple_keys.title'))}"
+          button.btn.btn-tool data-bs-toggle="dropdown" title="#{t('releases.show.sync_devices_feature', link: t('admin.apple_keys.title'))}"
             i.fas.fa-info-circle
           .dropdown-menu.dropdown-menu-right
             small.dropdown-item
               = raw t('releases.show.sync_devices_feature', link: link_to(t('admin.apple_keys.title'), t('releases.show.apple_team_link'), target: '_blank'))
 
-          button.btn.btn-tool data-card-widget="collapse"
-            i.fas.fa-plus
+          button.btn.btn-tool data-lte-toggle="card-collapse"
+            i.fas.fa-plus data-lte-icon="expand"
+            i.fas.fa-minus data-lte-icon="collapse"
       .card-body.p-0
-        table.table
-          - @release.devices.each do |device|
+        table.table.table-bottom-borderless
+          - devices.each do |device|
             tr
               td
                 span = device.udid
                 - if device.name.present?
-                  .float-right
-                    small.badge.badge-light
+                  .float-end
+                    small.badge.text-bg-light
                       = device.name

@@ -42,9 +42,9 @@ class Release < ApplicationRecord
   end
 
   # 上传 app
-  def self.upload_file(params, parser = nil, default_source = 'web')
+  def self.upload_file(params, parser: nil, source: 'web')
     Release.new(params) do |release|
-      release.parse!(parser, default_source)
+      release.parse!(parser, source)
     end
   end
 
@@ -69,6 +69,23 @@ class Release < ApplicationRecord
 
   def app_name
     "#{app.name} #{scheme.name} #{channel.name}"
+  end
+
+  def native_codes(original: true)
+    return unless native_codes = metadata&.native_codes
+    return native_codes if original
+
+    native_codes.each_with_object({}) do |code, obj|
+      key = nil
+      key = :x86 if code.include?('x86')
+      key = :arm if code.include?('arm')
+      key = :mips if code.include?('mips')
+      key = riscv if code.include?('riscv')
+      next unless key
+
+      obj[key] ||= []
+      obj[key] = code
+    end
   end
 
   def size
@@ -109,9 +126,14 @@ class Release < ApplicationRecord
   end
 
   def download_filename
-    [
-      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
-    ].join('_') + file_extname
+    case channel.download_filename_type.downcase.to_sym
+    when :version_datetime
+      version_datetime_filename
+    when :original_filename
+      original_filename
+    else
+      default_filename
+    end
   end
 
   def empty_changelog(use_default_changelog = true)
@@ -137,8 +159,13 @@ class Release < ApplicationRecord
     errors.add(:file, message)
   end
 
-  def perform_teardown_job(user_id)
-    TeardownJob.perform_later(id, user_id)
+  def perform_teardown_job(user_id, when_to_run: :later)
+    case when_to_run
+    when :later
+      TeardownJob.perform_later(id, user_id)
+    when :now
+      TeardownJob.perform_now(id, user_id)
+    end
   end
 
   def platform
@@ -146,6 +173,8 @@ class Release < ApplicationRecord
       'iOS'
     elsif android?
       'Android'
+    elsif harmonyos?
+      'HarmonyOS'
     elsif mac?
       'macOS'
     elsif windows?
@@ -159,13 +188,18 @@ class Release < ApplicationRecord
 
   def ios?
     platform_type.casecmp?('ios') || platform_type.casecmp?('iphone') ||
-    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal')
+    platform_type.casecmp?('ipad') || platform_type.casecmp?('universal') ||
+    platform_type.casecmp?('appletv')
   end
 
   def android?
     platform_type.casecmp?('android') || platform_type.casecmp?('phone') ||
     platform_type.casecmp?('tablet') || platform_type.casecmp?('watch') ||
     platform_type.casecmp?('television') || platform_type.casecmp?('automotive')
+  end
+
+  def harmonyos?
+    platform_type.casecmp?('harmonyos') || platform_type.casecmp?('default')
   end
 
   def mac?
@@ -255,7 +289,7 @@ class Release < ApplicationRecord
   def determine_disk_space
     upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
 
-    # Combo Orginal file and unarchived files
+    # Combo original file and unarchived files
     if upload_path.bytes_free < (self&.file&.size || 0) * 3
       errors.add(:file, :not_enough_space)
     end
@@ -289,5 +323,19 @@ class Release < ApplicationRecord
 
   def retained_build_job
     RetainedBuildsJob.perform_later(channel)
+  end
+
+  def original_filename
+    file? ? file.identifier : default_filename
+  end
+  
+  def version_datetime_filename
+    [
+      channel.slug, release_version, build_version, created_at.strftime('%Y%m%d%H%M')
+    ].join('_') + file_extname
+  end
+
+  def default_filename
+    version_datetime_filename
   end
 end

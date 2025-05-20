@@ -3,7 +3,7 @@
   "info": {
     "title": "Zealot API",
     "version": "v1.4",
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"5.3.7\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).\n"
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"6.0.0\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).\n"
   },
   "servers": [
     {
@@ -18,9 +18,19 @@
         "tags": [
           "Apps"
         ],
-        "description": "Lists all apps, paginated and sorted by created date (newest first)",
+        "description": "Lists apps by scope, paginated and sorted by created date (newest first)",
         "operationId": "listApps",
         "parameters": [
+          {
+            "default": "all",
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "Scope / Supported values in all, active, archived",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "$ref": "#/components/parameters/pageParam"
           },
@@ -30,7 +40,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Return a list of Apps",
+            "description": "Return a list of active Apps",
             "content": {
               "application/json": {
                 "schema": {
@@ -103,9 +113,7 @@
     "/apps/version_exist": {
       "get": {
         "summary": "Check version build exists",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -185,9 +193,7 @@
     "/apps/versions": {
       "get": {
         "summary": "Get version builds",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -231,9 +237,7 @@
     "/apps/latest": {
       "get": {
         "summary": "Get the latest builds",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Apps"
         ],
@@ -247,6 +251,7 @@
             "name": "bundle_id",
             "in": "query",
             "required": false,
+            "description": "`bundle_id` for iOS, `package_name` for Android",
             "schema": {
               "type": "string"
             }
@@ -254,7 +259,8 @@
           {
             "name": "release_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "Release version",
             "schema": {
               "type": "string"
             }
@@ -262,7 +268,8 @@
           {
             "name": "build_version",
             "in": "query",
-            "required": true,
+            "required": false,
+            "description": "Build version",
             "schema": {
               "type": "string"
             }
@@ -300,9 +307,7 @@
         ],
         "description": "Upload a iOS, Android, macOS, Windows or Linux App",
         "operationId": "uploadApp",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "201": {
             "description": "Upload an App",
@@ -359,6 +364,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -409,6 +415,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -474,6 +481,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -526,6 +534,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "App scheme id",
             "schema": {
               "type": "string"
             }
@@ -579,6 +588,7 @@
             "name": "scheme_id",
             "in": "path",
             "required": true,
+            "description": "App scheme id",
             "schema": {
               "type": "string"
             }
@@ -646,6 +656,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -711,6 +722,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -763,6 +775,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -771,6 +784,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -779,79 +793,6 @@
         "responses": {
           "200": {
             "description": "Return a collaborator",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Collaborator"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/NotFound"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Add a collaborator to an App",
-        "tags": [
-          "Collaborators"
-        ],
-        "description": "Add a collaborator to an App",
-        "operationId": "createCollaborator",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            },
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Create a collaborator",
             "content": {
               "application/json": {
                 "schema": {
@@ -894,6 +835,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -902,6 +844,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -967,6 +910,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -975,6 +919,7 @@
             "name": "user_id",
             "in": "path",
             "required": true,
+            "description": "User ID",
             "schema": {
               "type": "string"
             }
@@ -1014,12 +959,87 @@
         }
       }
     },
+    "/apps/{app_id}/collaborators": {
+      "post": {
+        "summary": "Add a collaborator to an App",
+        "tags": [
+          "Collaborators"
+        ],
+        "description": "Add a collaborator to an App",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "App ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "description": "User ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create a collaborator",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/debug_files": {
       "get": {
         "summary": "List debug files",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Debug files"
         ],
@@ -1066,9 +1086,7 @@
     "/debug_files/download": {
       "get": {
         "summary": "Download debug file",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Debug files"
         ],
@@ -1138,6 +1156,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1188,6 +1207,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1235,9 +1255,7 @@
         ],
         "description": "Upload a dSYM or Proguard file which it was archived with zip formatted whit it accepts:\n\n- `iOS`: a Zipped dSYM file\n- `Android`: a Zipped file includes mapping.txt, R.txt or AndroidManifest.xml files.\n",
         "operationId": "uploadDebugFile",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Upload a debug file",
@@ -1281,6 +1299,74 @@
         }
       }
     },
+    "/health": {
+      "get": {
+        "summary": "Get health check result",
+        "security": [],
+        "tags": [
+          "Health"
+        ],
+        "description": "",
+        "operationId": "gethealthintext",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "unhealthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health.json": {
+      "get": {
+        "summary": "Get health check in JSON format",
+        "security": [],
+        "tags": [
+          "Health"
+        ],
+        "description": "",
+        "operationId": "gethealthinjson",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unhealth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/releases/{id}": {
       "put": {
         "summary": "Update a build metedata",
@@ -1294,6 +1380,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1316,7 +1403,7 @@
         },
         "responses": {
           "200": {
-            "description": "Translation missing: en.api.releases.default.responses.show",
+            "description": "App Build Detail",
             "content": {
               "application/json": {
                 "schema": {
@@ -1359,6 +1446,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1411,6 +1499,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -1464,6 +1553,7 @@
             "name": "app_id",
             "in": "path",
             "required": true,
+            "description": "App ID",
             "schema": {
               "type": "string"
             }
@@ -1531,6 +1621,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1596,6 +1687,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1648,6 +1740,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1758,6 +1851,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1808,6 +1902,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1873,6 +1968,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -1922,9 +2018,10 @@
         "operationId": "searchUser",
         "parameters": [
           {
-            "name": "email",
             "in": "query",
             "required": true,
+            "name": "email",
+            "description": "Email",
             "schema": {
               "type": "path"
             }
@@ -1980,6 +2077,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -2032,6 +2130,7 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Primary Key ID",
             "schema": {
               "type": "string"
             }
@@ -2074,9 +2173,7 @@
     "/version": {
       "get": {
         "summary": "Get version information",
-        "security": [
-
-        ],
+        "security": [],
         "tags": [
           "Version"
         ],
@@ -2099,9 +2196,7 @@
   },
   "security": [
     {
-      "token": [
-
-      ]
+      "token": []
     }
   ],
   "components": {
@@ -2121,6 +2216,17 @@
         "description": "Channel key",
         "schema": {
           "type": "string"
+        }
+      },
+      "appScopeParam": {
+        "scope": {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "description": "Translation missing: en.api.parameters.app_scope",
+          "schema": {
+            "type": "string"
+          }
         }
       },
       "pageParam": {
@@ -2162,6 +2268,10 @@
           "name": {
             "type": "string",
             "example": "First App"
+          },
+          "archived": {
+            "type": "boolean",
+            "example": false
           },
           "schemes": {
             "type": "array",
@@ -2318,6 +2428,10 @@
           "has_password": {
             "type": "boolean",
             "example": false
+          },
+          "download_filename_type": {
+            "type": "string",
+            "example": "original"
           }
         }
       },
@@ -2764,7 +2878,7 @@
           "version": {
             "type": "integer",
             "format": "int32",
-            "example": "5.3.7"
+            "example": "6.0.0"
           },
           "vcs_ref": {
             "type": "string",
@@ -2773,6 +2887,34 @@
           "build_date": {
             "type": "string",
             "example": "2024-05-23T06:04:48.989Z"
+          }
+        }
+      },
+      "Health": {
+        "description": "Health check object",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "healthy"
+          }
+        }
+      },
+      "Unhealth": {
+        "description": "Health check object",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "unhealthy"
           }
         }
       }
@@ -2820,6 +2962,7 @@
     }
   },
   "definitions": {
+    "ListAppOptions": {},
     "UploadAppOptions": {
       "description": "Upload app form data options",
       "type": "object",
@@ -2956,6 +3099,62 @@
         "password": {
           "type": "string",
           "description": "Enable password visit"
+        },
+        "download_filename_type": {
+          "type": "string",
+          "enum": [
+            "version_datetime",
+            "original_filename"
+          ],
+          "description": "Download file name type"
+        }
+      }
+    },
+    "ReleaseOptions": {
+      "description": "App's build metadata form data",
+      "type": "object",
+      "properties": {
+        "build_version": {
+          "type": "string",
+          "description": "Build version"
+        },
+        "release_version": {
+          "type": "string",
+          "description": "Release version"
+        },
+        "release_type": {
+          "type": "string",
+          "description": "Release type, Eg, debug, beta, adhoc, release, enterprise etc"
+        },
+        "source": {
+          "type": "string",
+          "description": "the source of upload (default is `api`)"
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseChangelog"
+          },
+          "description": "Change log, accept plain text or JSON formatted data"
+        },
+        "branch": {
+          "type": "string",
+          "description": "a branch name from source control tool"
+        },
+        "git_commit": {
+          "type": "string",
+          "description": "Git Commit SHA value"
+        },
+        "ci_url": {
+          "type": "string",
+          "description": "the build url of a CI service"
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ReleaseCustomField"
+          },
+          "description": "JSON formatted custom fields, icon only accepts fontawesome."
         }
       }
     },

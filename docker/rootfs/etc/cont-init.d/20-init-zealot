@@ -6,19 +6,21 @@ cd /app
 rm -f tmp/pids/.pid
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 
-echo "!!!!!!!!!!!! BREAKING CHANGES !!!!!!!!!!!!"
-echo "Zealot removes -> redis <- dependency, refactors backup feature completely."
-echo "If you have any problems with running, please refer to: https://github.com/tryzealot/zealot/pull/1318"
-echo "!!!!!!!!!!!! BREAKING CHANGES !!!!!!!!!!!!"
+echo ""
+echo "Zealot 6.0 is out!, here is some changes: "
+echo " * Swagger API explorer is buit-in."
+echo " * NEW WEB UI desgin rewrite, feedback is welcome with any issue."
+echo " * redis is not requires as a dependency, you can remove it saftly."
+echo ""
 
 if [ -n "$REDIS_URL" ]; then
   echo
   case $REDIS_URL in
     *redis:*|localhost:*|127.0.0.1:*)
-      echo "-> Detected REDIS_URL and redis service, you can remove redis service and the variable."
+      echo "[WARN] Detected REDIS_URL and redis service, you can remove redis service and the variable."
       ;;
     *)
-      echo "-> Detected REDIS_URL variable, you can remove the variable."
+      echo "[WARN] Detected REDIS_URL variable, you can remove the variable."
       ;;
   esac
 fi

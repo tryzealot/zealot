@@ -28,10 +28,14 @@ class Admin::AppleKeysController < ApplicationController
     @apple_key.private_key = private_key&.read
     @apple_key.filename = private_key&.original_filename
 
-    if @apple_key.save
-      redirect_to admin_apple_key_path(@apple_key), notice: t('admin.apple_keys.create.successful')
-    else
-      render :new, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      if @apple_key.save
+        @apple_key.sync_team
+        @apple_key.sync_devices_job
+        redirect_to admin_apple_key_path(@apple_key), notice: t('admin.apple_keys.create.successful')
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
