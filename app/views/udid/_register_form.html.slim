@@ -1,5 +1,5 @@
 .col-md-12
-  .card
+  .card.mb-3
     = simple_form_for(Device.new, url: register_udid_path) do |f|
       .card-header
         h3.card-title
@@ -7,6 +7,8 @@
         .card-tools
       .card-body
         = f.error_notification
+        - unless f.object.errors.empty?
+          = debug f.object.errors
         = f.input :name
         = f.input :udid, as: :hidden, input_html: { value: udid }
         = f.input :platform, as: :hidden, input_html: { value: product }

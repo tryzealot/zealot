@@ -3,7 +3,7 @@
     .card-header
       h3.card-title = t('admin.backups.show.performing_jobs')
     .card-body.p-0
-      table.table
+      table.table.table-bottom-borderless
         tr
           th = t('admin.backups.show.backup_id')
           th = t('admin.backups.show.backup_status')
@@ -15,16 +15,16 @@
               = job.job.id
             td
               - if job.job.running? || job.job.status == :queued
-                .badge.badge-warning style="margin-right: 5px"
+                .badge.text-bg-warning style="margin-right: 5px"
                   = job_progress(job.status)
                 - if job.status.present?
-                  .badge.badge-info
+                  .badge.text-bg-info
                     = job_stage(job.status[:stage])
               - else
-                .badge.badge-danger style="margin-right: 5px"
+                .badge.text-bg-danger style="margin-right: 5px"
                   = job.job.status
                 - if job.status.present?
-                  .badge.badge-info
+                  .badge.text-bg-info
                     = job_stage(job.status[:stage])
                 div
                   small

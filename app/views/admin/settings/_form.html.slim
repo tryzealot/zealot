@@ -3,17 +3,13 @@
     .card
       .card-header
         h3.card-title = t("admin.settings.#{@setting.var}")
-        .card-tools
-          a href="#{admin_settings_path}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
 
-      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch) do |f|
+      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch, data: { action: 'turbo:submit-end->modal#close' }) do |f|
         .card-body
-          - if @setting.errors.size > 0
-            .callout.callout-danger
+          - if @setting.errors.any?
+            .callout.callout-danger.mb-3
               h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
-              ul.mb-0
+              ul.ps-4
                 - @setting.errors.each do |error|
                   li = error.message
 
@@ -21,7 +17,7 @@
           - if @setting.type == :boolean
             = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: ActiveModel::Type::Boolean.new.cast(@value) }
           - elsif @setting.type == :hash || @setting.type == :array
-            = f.input :value, as: :text, input_html: { value: JSON.pretty_generate(@value) }
+            = f.input :value, as: :text, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value) }
           - elsif @setting.inclusion?
             = f.input :value, as: :radio_buttons, collection: @setting.inclusion_values, checked: @value
           - else
@@ -32,9 +28,9 @@
               = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
         .card-footer
           - if @setting.persisted?
-            .float-right
-              = link_to t('admin.settings.reset'), admin_setting_path(@setting.var), class: 'btn btn-danger', \
-                data: { turbo_method: :delete, turbo_confirm: t('channels.messages.confirm.destroy') }
+            .float-end
+              = f.button :button, t('admin.settings.reset'), formmethod: :delete, formaction: admin_setting_path(@setting.var), class: 'btn btn-danger', \
+                data: { turbo_confirm: t('channels.messages.confirm.destroy') }
 
           .float-left
             = f.button :submit

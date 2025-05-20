@@ -1,12 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import jquery from "jquery"
+import * as bootstrap from "bootstrap";
 import { isiOS, isMacOS } from "./utils"
 
 const LOADING_TIMEOUT = 8000
 
 export default class extends Controller {
   static targets = [
-    "installLimited",
     "buttons",
 
     "installButton",
@@ -27,10 +26,6 @@ export default class extends Controller {
   }
 
   connect() {
-    if (this.isInstallLimited()) {
-      return this.renderInstallLimited()
-    }
-
     if (isiOS()) {
       this.showIntallButton()
       this.hideDownloadButton()
@@ -48,53 +43,15 @@ export default class extends Controller {
   }
 
   showCertExpired() {
-    jquery("#cert-expired-issues").modal("toggle")
+    const modalNode = document.getElementById("cert-expired-issues")
+    const modal = new bootstrap.Modal(modalNode)
+    modal.toggle()
   }
 
   showQA() {
-    jquery("#install-issues").modal("toggle")
-  }
-
-  build() {
-    // jquery version legacy
-    // var button = $("#build_it");
-    // button.button("loading");
-
-    // var app_job = button.data("job");
-    // var url = HOST + "api/v2/jenkins/projects/" + app_job + "/build";
-    // console.log("build url: ", url);
-
-    // $.ajax({
-    //   url: url,
-    //   type: "get",
-    //   dataType: "json",
-    //   success: function (data) {
-    //     console.log(data)
-    //     if (data.code == 201 || data.code == 200) {
-    //       var url = data.url + "console";
-    //       message = "请求成功！访问这里查看详情：<a href="' + url + '">" + url + "</a>";
-    //     } else {
-    //       message = "错误：" + data.message;
-    //     }
-
-    //     if (data.code == 201) {
-    //       sleep(8000);
-    //     }
-
-    //     $("#jekins_buld_alert").removeClass("hidden").html(message);
-    //   },
-    //   error: function (xhr, ajaxOptions, thrownError) {
-    //     button.button("reset");
-    //     //  $("#cache-info").data("key", xhr.responseJSON.cache).removeClass("hide")
-    //     //  $("#result")
-    //     //      .html("请求失败！接口返回：" + xhr.responseJSON.message)
-    //     //      .addClass("alert alert-danger")
-    //     //      .show()
-    //   },
-    //   complete: function () {
-    //     button.button("reset");
-    //   }
-    // });
+    const modalNode = document.getElementById("install-issues")
+    const modal = new bootstrap.Modal(modalNode)
+    modal.toggle()
   }
 
   async renderLoading(target) {
@@ -114,27 +71,6 @@ export default class extends Controller {
     if (this.hasDownloadButtonTarget) {
       this.downloadButtonTarget.classList.add("d-none")
     }
-  }
-
-  renderInstallLimited() {
-    let textNode = this.installLimitedTarget.getElementsByClassName("text")[0]
-    let brNode = document.createElement("br")
-    textNode.appendChild(brNode)
-    if (isiOS()) {
-      textNode.appendChild(document.createTextNode(this.openSafariValue))
-    } else {
-      textNode.appendChild(document.createTextNode(this.openBrowerValue))
-    }
-
-    this.installLimitedTarget.classList.remove("d-none")
-    this.buttonsTarget.classList.add("d-none")
-  }
-
-  isInstallLimited() {
-    let ua = navigator.userAgent
-    let matches = this.installLimitedValue.find(keyword => ua.includes(keyword))
-
-    return !!matches
   }
 
   sleep(ms) {

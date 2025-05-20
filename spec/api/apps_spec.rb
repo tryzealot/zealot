@@ -8,7 +8,8 @@ RSpec.describe 'Apps API' do
       tags I18n.t('api.apps.default.tags')
       description I18n.t('api.apps.index.description')
       operationId 'listApps'
-
+      
+      include_examples :lazy_parameter, :scope, enum: %i[all active archived], default: 'all'
       include_examples :pagiation_parameters
 
       produces 'application/json'
@@ -28,11 +29,11 @@ RSpec.describe 'Apps API' do
       description I18n.t('api.apps.version_exist.description')
       operationId 'versionExistApps'
 
-      include_examples :paramter, :channel_key, required: true
-      include_examples :paramter, :bundle_id, required: true
-      include_examples :paramter, :git_commit
-      include_examples :paramter, :release_version
-      include_examples :paramter, :build_version
+      include_examples :lazy_parameter, :channel_key, required: true
+      include_examples :lazy_parameter, :bundle_id, required: true
+      include_examples :lazy_parameter, :git_commit
+      include_examples :lazy_parameter, :release_version
+      include_examples :lazy_parameter, :build_version
 
       produces 'application/json'
       response 200, I18n.t('api.apps.default.responses.show') do
@@ -72,8 +73,9 @@ RSpec.describe 'Apps API' do
       operationId 'getLatestApp'
 
       include_examples :channel_key_parameter
-      parameter name: :bundle_id, in: :query, type: :string, required: false
-      include_examples :version_parameters
+      include_examples :lazy_parameter, :bundle_id
+      include_examples :lazy_parameter, :release_version
+      include_examples :lazy_parameter, :build_version
 
       produces 'application/json'
       response '200', I18n.t('api.apps.default.responses.latest') do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReleasesController < ApplicationController
+  include AppArchived
+
   before_action :authenticate_login!, except: %i[index show auth]
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
@@ -28,12 +30,22 @@ class ReleasesController < ApplicationController
   end
 
   def new
+    raise_if_app_archived!(@channel.app)
+
     @title = t('releases.new.title')
     @release = @channel.releases.new
     authorize @release
   end
 
   def create
+    raise_if_app_archived!(@channel.app)
+
+    if @channel.app.archived == true
+      message = t('releases.messages.errors.upload_to_archived_app', app: @channel.app.name)
+      redirect_to channel_path(@channel), alert: message
+      return
+    end
+
     @title = t('releases.new.title')
     @release = @channel.releases.upload_file(release_params)
     authorize @release
@@ -50,6 +62,8 @@ class ReleasesController < ApplicationController
 
   def destroy
     authorize @release
+    raise_if_app_archived!(@channel.app)
+
     @release.destroy
 
     notice = t('activerecord.success.destroy', key: "#{t('releases.title')}")
@@ -57,12 +71,15 @@ class ReleasesController < ApplicationController
   end
 
   def auth
+    raise_if_app_archived!(@channel.app)
+
     unless @release.password_match?(cookies, params[:password])
       @error_message = t('releases.messages.errors.invalid_password')
       return render :show, status: :unprocessable_entity
     end
 
-    redirect_to friendly_channel_release_path(@channel, @release), status: :see_other
+    back_url = params[:back_url] || friendly_channel_release_path(@channel, @release)
+    redirect_to back_url, status: :see_other
   end
 
   protected
@@ -77,7 +94,7 @@ class ReleasesController < ApplicationController
 
   def app_limited?
     Setting.preset_install_limited
-      .find {|q| request.user_agent.include?(q) }
+      .find {|q| request.user_agent&.include?(q) }
       .present?
   end
 

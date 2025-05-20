@@ -1,0 +1,15 @@
+.col-md-12
+        .card.mb-3
+          .card-header
+            h3.card-title = t('debug_files.show.files', count: @debug_file.proguard_files.count)
+          .card-body.p-0
+            table.table.table-bottom-borderless
+              thead
+                tr
+                  td = t('debug_files.show.filename')
+                  td = t('debug_files.show.file_size')
+              tbody
+                - @debug_file.proguard_files.each do |file|
+                  tr
+                    td = file['name']
+                    td = number_to_human_size(file['size'])

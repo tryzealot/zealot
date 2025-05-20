@@ -1,31 +1,34 @@
-.card
+.card.mb-3
   .card-header
     h3.card-title
       i.icon.fas.fa-anchor
       = t('web_hooks.title')
     .card-tools
-      button.btn.btn-tool data-card-widget="collapse"
-        i.fas.fa-minus
-  .card-body
-    section#add-webhooks
-      h5 = t('web_hooks.create')
-      == render 'web_hooks/form'
+      button.btn.btn-tool data-lte-toggle="card-collapse"
+        i.fas.fa-plus data-lte-icon="expand"
+        i.fas.fa-minus data-lte-icon="collapse"
+  .card-body.pb-1
+
+    - unless @channel.app.archived
+      section#add-webhooks
+        h5 = t('web_hooks.create')
+        == render 'web_hooks/form'
 
     section#webhooks-list
-      ul.nav.nav-tabs id="web_hooks_list" role="tablist"
+      ul#web_hooks_list.nav.nav-tabs role="tablist"
         li.nav-item
-          a.nav-link.active data-toggle="tab" role="tab" id="enabled-tab" href="#enabled" aria-controls="enabled" aria-selected="true"
+          button.nav-link.active data-toggle="tab" data-bs-toggle="tab" data-bs-target="#enabled"
             = t('web_hooks.enable')
-            span.badge.badge-secondary.badge-pill.ml-1
+            span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.enabled_web_hooks_count
         li.nav-item
-          a.nav-link data-toggle="tab" role="tab" id="shared-tab" href="#shared" aria-controls="shared" aria-selected="false"
+          button.nav-link data-toggle="tab" data-bs-toggle="tab" data-bs-target="#shared"
             = t('web_hooks.shared')
-            span.badge.badge-secondary.badge-pill.ml-1
+            span.badge.text-bg-secondary.text-bg-pill.ms-1
               = @channel.available_web_hooks_count
 
-      .tab-content id="web_hooks_listContent"
-        .tab-pane.fade.show.active id="enabled" role="tabpanel" aria-labelledby="enabled-tab"
+      #web_hooks_listContent.tab-content
+        #enabled.tab-pane.fade.show.active
           == render 'web_hooks/enabled'
-        .tab-pane.fade id="shared" role="tabpanel" aria-labelledby="shared-tab"
+        #shared.tab-pane.fade
           == render 'web_hooks/shared'

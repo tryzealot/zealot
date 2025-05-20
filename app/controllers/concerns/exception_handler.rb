@@ -8,9 +8,11 @@ module ExceptionHandler
                 ActionController::MissingFile, Zealot::Error::RecordNotFound,
                 with: :not_found
     rescue_from ActionController::InvalidAuthenticityToken, with: :unprocessable_entity
-    rescue_from ActionController::UnknownFormat, AppInfo::Error, Errno::ECONNREFUSED, with: :not_acceptable
+    rescue_from ActionController::UnknownFormat, AppInfo::Error, Errno::ECONNREFUSED,
+                with: :not_acceptable
     rescue_from ActionController::ParameterMissing, CarrierWave::InvalidParameter,
-                JSON::ParserError, AppInfo::UnknownFormatError, with: :bad_request
+                JSON::ParserError, AppInfo::UnknownFormatError, Zealot::Error::AppArchivedDeny,
+                with: :bad_request
     rescue_from Faraday::Error, OpenSSL::SSL::SSLError,
                 TinyAppstoreConnect::ConnectAPIError, with: :internal_server_error
     rescue_from Pundit::NotAuthorizedError, with: :forbidden

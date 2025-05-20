@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/publish_codespace.yml'
       - '.devcontainer/Dockerfile.base'
+      - '.mise.toml'
+      - 'Gemfile*'
+      - 'package.json'
+      - 'yarn.lock'
     branches:
       - develop
   workflow_dispatch:
@@ -41,7 +45,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: .devcontainer/Dockerfile.base

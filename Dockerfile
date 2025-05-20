@@ -1,7 +1,7 @@
-FROM ruby:3.3.3-alpine as builder
+FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
-ARG DEV_PACKAGES="libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
+ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
@@ -46,7 +46,7 @@ RUN bundle config --global frozen 1 && \
     bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_TOKEN=precompile_placeholder bin/rails assets:precompile
+RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
@@ -58,13 +58,13 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM ruby:3.3.3-alpine
+FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG TAG
+ARG ZEALOT_VERSION
 
-ARG ZEALOT_VERSION="5.3.7"
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
@@ -75,21 +75,11 @@ ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
 ARG TARGETARCH
 
-LABEL org.opencontainers.image.title="Zealot" \
-      org.opencontainers.image.description="Over The Air Server for deployment of Android and iOS apps" \
-      org.opencontainers.image.url="https://zealot.ews.im/" \
-      org.opencontainers.image.authors="icyleaf <icyleaf.cn@gmail.com>" \
-      org.opencontainers.image.source="https://github.com/tryzealot/zealot" \
-      org.opencontainers.image.created=$BUILD_DATE \
-      org.opencontainers.image.revision=$VCS_REF \
-      org.opencontainers.image.version=$ZEALOT_VERSION
-
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
     DOCKER_TAG="$TAG" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     ZEALOT_VCS_REF="$VCS_REF" \
-    ZEALOT_VERSION="$ZEALOT_VERSION" \
     ZEALOT_BUILD_DATE="$BUILD_DATE" \
     RAILS_ENV="production" \
     RUBY_YJIT_ENABLE="true"

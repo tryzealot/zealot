@@ -1,73 +1,28 @@
-.sidebar
-  nav.mt-2
-    ul.nav.nav-pills.nav-sidebar.flex-column data-widget="treeview" role="menu"
-      li.nav-header = t('function_section')
-      li class="nav-item"
-        a.nav-link href="#{root_path}" class="#{active_class(root_path)}"
-          i.nav-icon.fas.fa-th
-          p = t('dashboard.title')
-      li class="nav-item"
-        a.nav-link href="#{apps_path}" class="#{active_class(apps_path)}"
-          i.nav-icon.fab.fa-adn
-          p = t('apps.title')
-      li class="nav-item"
-        a.nav-link href="#{debug_files_path}" class="#{active_class(debug_files_path)}"
-          i.nav-icon.fas.fa-bug
-          p = t('debug_files.title')
+aside.app-sidebar.bg-body-secondary.shadow
+  .sidebar-brand
+    == render 'layouts/brand_logo', site_title: Setting.site_title
+  .sidebar-wrapper
+    nav.mt-2
+      ul.nav.sidebar-menu.flex-column data-lte-toggle="treeview" role="menu" data-accordion="false"
+        = sidebar_link_to('fas fa-th', root_path, text: t('dashboard.title'))
+        = sidebar_link_to('fab fa-adn', apps_path, text: t('apps.title'))
+        = sidebar_link_to('fas fa-archive', archived_apps_path, text: t('apps.archives.title'))
+        = sidebar_link_to('fas fa-bug', debug_files_path, text: t('debug_files.title'))
 
-      li.nav-header = t('toolbox_section')
-      li class="nav-item"
-        a.nav-link href="#{teardowns_path}" class="#{active_class(teardowns_path)}"
-          i.nav-icon.fas.fa-layer-group
-          p = t('teardowns.title')
-      li class="nav-item"
-        a.nav-link href="#{udid_index_path}" class="#{active_class(udid_index_path)}"
-          i.nav-icon.fas.fa-eye
-          p = t('udid.title')
+        li.nav-header = t('toolbox_section')
+        = sidebar_link_to('fas fa-layer-group', teardowns_path, text: t('teardowns.title'))
+        = sidebar_link_to('fas fa-eye', udid_index_path, text: t('udid.title'))
 
-      - if current_user&.admin?
-        li.nav-header = t('admin_section')
-        li.nav-item
-          a.nav-link href="#{admin_users_path}" class="#{active_class(admin_users_path)}"
-            i.nav-icon.fas.fa-user
-            p = t('admin.users.title')
-        li.nav-item
-          a.nav-link href="#{admin_web_hooks_path}" class="#{active_class(admin_web_hooks_path)}"
-            i.nav-icon.fas.fa-anchor
-            p = t('web_hooks.title')
-        li.nav-item
-          a.nav-link href="#{admin_apple_keys_path}" class="#{active_class(admin_apple_keys_path)}"
-            i.nav-icon.fas.fa-key
-            p = t('admin.apple_keys.title')
-        li.nav-item
-          a.nav-link href="#{admin_backups_path}" class="#{active_class(admin_backups_path)}"
-            i.nav-icon.fas.fa-window-restore
-            p = t('admin.backups.title')
-        li.nav-item
-          a.nav-link href="#{admin_settings_path}" class="#{active_class(admin_settings_path)}"
-            i.nav-icon.fas.fa-cog
-            p = t('admin.settings.title')
-        li.nav-item class="#{active_class([admin_system_info_index_path, admin_logs_path, admin_background_jobs_path, admin_database_analytics_path], 'menu-open')}"
-          a.nav-link href="#" class="#{active_class([admin_system_info_index_path, admin_logs_path, admin_background_jobs_path, admin_database_analytics_path])}"
-            i.nav-icon.fas.fa-laptop-code
-            p
-              = t('monitors_section')
-              i.right.fas.fa-angle-left
-          ul.nav.nav-treeview
-            li.nav-item
-              a.nav-link href="#{admin_system_info_index_path}" class="#{active_class(admin_system_info_index_path)}"
-                i.nav-icon.fas.fa-info-circle
-                = t('admin.system_info.title')
-            li.nav-item
-              a.nav-link href="#{admin_logs_path}" class="#{active_class(admin_logs_path)}"
-                i.nav-icon.fas.fa-file
-                = t('admin.logs.title')
-            li.nav-item
-              a.nav-link href="#{admin_background_jobs_path}" class="#{active_class(admin_background_jobs_path)}"
-                i.nav-icon.fas.fa-chart-bar
-                = t('admin.background_jobs.title')
-            li.nav-item
-              a.nav-link href="#{admin_database_analytics_path}" class="#{active_class(admin_database_analytics_path)}"
-                i.nav-icon.fas.fa-database
-                = t('admin.database_analytics.title')
+        - if current_user&.admin?
+          li.nav-header = t('admin_section')
+          = sidebar_link_to('fas fa-user', admin_users_path, text: t('admin.users.title'))
+          = sidebar_link_to('fas fa-anchor', admin_web_hooks_path, text: t('web_hooks.title'))
+          = sidebar_link_to('fas fa-key', admin_apple_keys_path, text: t('admin.apple_keys.title'))
+          = sidebar_link_to('fas fa-window-restore', admin_backups_path, text: t('admin.backups.title'))
+          = sidebar_link_to('fas fa-cog', admin_settings_path, text: t('admin.settings.title'))
 
+          li.nav-header = t('monitors_section')
+          = sidebar_link_to('fas fa-info-circle', admin_system_info_index_path, text: t('admin.system_info.title'))
+          = sidebar_link_to('fas fa-file', admin_logs_path, text: t('admin.logs.title'))
+          = sidebar_link_to('fas fa-chart-bar', admin_background_jobs_path, text: t('admin.background_jobs.title'))
+          = sidebar_link_to('fas fa-database', admin_database_analytics_path, text: t('admin.database_analytics.title'))

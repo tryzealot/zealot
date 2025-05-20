@@ -9,7 +9,7 @@ module AppsHelper
     Channel.device_types.values
   end
 
-  def app_channel_columns(schemes_total)
+  def app_scheme_columns(schemes_total)
     case schemes_total
     when 1 then 12
     when 2 then 6
@@ -28,8 +28,14 @@ module AppsHelper
     image_tag(release.icon_url, **options)
   end
 
-  def app_device(device)
+  def native_codes(release)
+    native_codes = release.native_codes
+    return if native_codes.blank?
 
+    count = native_codes.size
+    return t('releases.show.multi_native_codes') if count > 1
+    
+    native_codes[0]
   end
 
   def logged_in_or_without_auth?(release)
@@ -72,7 +78,7 @@ module AppsHelper
 
     title = release_type_name(release_type)
     if params[:name] != release_type && user_signed_in_or_guest_mode?
-      link_to(title, friendly_channel_release_types_path(release.channel, name: release_type))
+      link_to(title, friendly_channel_release_types_path(release.channel, name: release_type), data: { turbo: false })
     else
       title
     end
@@ -98,7 +104,7 @@ module AppsHelper
   end
 
   def app_qrcode_tag(release)
-    if Setting.site_appearance != 'auto'
+    if current_user&.appearance != 'auto' || Setting.site_appearance != 'auto'
       theme = current_user&.appearance || Setting.site_appearance
       return image_tag channel_release_qrcode_path(@release.channel, @release,
         size: :large, theme: theme)
@@ -110,5 +116,9 @@ module AppsHelper
         image_tag channel_release_qrcode_path(release.channel, release, size: :large)
       end
     end
+  end
+
+  def archived_path?
+    current_page?(controller: 'apps/archives')
   end
 end

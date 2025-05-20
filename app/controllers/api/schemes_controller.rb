@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::SchemesController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_app, only: %i[index create]
   before_action :set_scheme, only: %i[show update destroy]
@@ -8,13 +10,16 @@ class Api::SchemesController < Api::BaseController
   # GET /api/apps/:app_id/schemes
   def index
     @schemes = @app.schemes
-    authorize @schemes.first if @schemes
+    raise ActiveRecord::RecordNotFound, t('api.schemes.index.not_found', id: @app.id) if @schemes.blank? 
 
+    authorize @schemes.first
     render json: @schemes
   end
 
   # POST /api/apps/:app_id/schemes
   def create
+    raise_if_app_archived!(@scheme.app)
+
     @scheme = @app.schemes.create!(scheme_params)
     authorize @scheme
 
@@ -28,12 +33,16 @@ class Api::SchemesController < Api::BaseController
 
   # PUT /api/schemes/:id
   def update
+    raise_if_app_archived!(@scheme.app)
+
     @scheme.update!(scheme_params)
     render json: @scheme
   end
 
   # DELETE /api/schemes/:id
   def destroy
+    raise_if_app_archived!(@scheme.app)
+
     @scheme.destroy!
     render json: { mesage: 'OK' }
   end

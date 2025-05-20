@@ -1,0 +1,78 @@
+:root {
+  --bs-btn-success-bg: #28a745;
+  --bs-btn-success-color: #fff;
+  --bs-btn-danger-bg: #dc3545;
+  --bs-btn-danger-color: #fff;
+}
+
+// TODO: improve color in light mode
+// .btn-primary {
+//   --bs-btn-font-weight: 600;
+//   --bs-btn-color: var(--bs-white);
+//   --bs-btn-bg: var(--bd-violet-bg);
+//   --bs-btn-border-color: var(--bd-violet-bg);
+//   --bs-btn-hover-color: var(--bs-white);
+//   --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+//   --bs-btn-active-color: var(--bs-btn-hover-color);
+// }
+
+.btn-secondary {
+  --bs-btn-bg: #f8f9fa !important;
+  --bs-btn-color: #444 !important;
+  --bs-btn-border-color: var(--bs-border-color-translucent) !important;
+  --bs-btn-hover-bg: #e9ecef !important;
+
+  &:hover {
+    color: var(--bs-btn-color) !important;
+  }
+}
+
+@include color-mode(dark) {
+  --bs-primary-bg: #3f6791;
+  --bs-primary-color: #fff;
+  --bs-primary-border-color: #35597f;
+  --bs-primary-hover-bg: #335476;
+  --bs-primary-hover-color: #fff;
+  --bs-primary-hover-border-color: #304e6d;
+  --bs-success-bg: #1c6543;
+  --bs-success-color: #fff;
+  --bs-success-border-color: #186340;
+  --bs-warning-bg: #e99d24;
+  --bs-warning-color: #fff;
+  --bs-wanring-border-color: #997404;
+  --bs-info-bg: #3498db;
+  --bs-danger-bg: #e74c3c;
+  --bs-outline-secondary-color: #cecece;
+
+  .btn-primary {
+    background-color: var(--bs-primary-bg);
+    color: var(--bs-primary-color);
+    border-color: var(--bs-primary-border-color);
+
+    &:hover {
+      background-color: var(--bs-primary-hover-bg);
+      color: var(--bs-primary-hover-color);
+      border-color: var(--bs-primary-hover-border-color);
+    }
+  }
+
+  .btn-secondary {
+    --bs-btn-bg: #6c757d !important;
+    --bs-btn-color: var(--bs-body-color) !important;
+    --bs-btn-border-color: var(--bs-border-color-translucent) !important;
+  }
+
+  .btn-success {
+    background-color: var(--bs-success-bg);
+    color: var(--bs-success-color);
+    border-color: var(--bs-success-border-color);
+  }
+
+  .btn-danger {
+    background-color: var(--bs-danger-bg);
+  }
+
+  .btn-outline-secondary {
+    color: var(--bs-outline-secondary-color);
+  }
+}

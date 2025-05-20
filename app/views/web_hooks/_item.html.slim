@@ -19,30 +19,35 @@ tr
           = t('web_hooks.current_channel')
         - else
           = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel)
-  td style="width: 70px"
-    - if type == :enabled
-      .btn-group-vertical
-        .btn-group
-          button.btn.btn-sm.btn-default data-toggle="tooltip" data-placement="top" title="#{t('web_hooks.test')}" disabled="true"
-            i.fas.fa-bullhorn
-          button.btn.btn-sm.btn-default.dropdown-toggle.dropdown-icon.dropdown-hover data-toggle="dropdown"
-          ul.dropdown-menu role="menu" x-placement="bottom-start"
-            li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}"
-                = t('simple_form.labels.web_hook.upload_events')
-            li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'download_events')}"
-                = t('simple_form.labels.web_hook.download_events')
-            li
-              a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}"
-                = t('simple_form.labels.web_hook.changelog_events')
-        - if web_hook.channels_count == 1
-          = link_to channel_web_hook_path(@channel, web_hook), class: 'btn btn-sm btn-danger', \
-            data: { turbo_method: :delete, turbo_confirm: t('web_hooks.messages.confirm.destroy'), toggle: 'tooltip', placement: 'bottom', title: t('web_hooks.destroy') } do
-            i.fas.fa-trash-alt
-        - else
-          a.btn.btn-sm.btn-warning data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.disable')}" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
-            i.fas.fa-stop
-    - elsif type == :shared
-      a.btn.btn-sm.btn-default del="nofollow" data-toggle="tooltip" data-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
-        i.fas.fa-play
+
+  - unless @channel.app.archived
+    td style="width: 70px"
+      - if type == :enabled
+        .btn-group-vertical
+          .dropdown
+            button.btn.btn-sm.btn-outline-secondary.dropdown-toggle.rounded-0.rounded-top [
+                data-bs-toggle="dropdown"
+                data-bs-title="#{t('web_hooks.test')}"
+              ]
+              i.fas.fa-bullhorn
+            ul.dropdown-menu
+              li
+                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}"
+                  = t('simple_form.labels.web_hook.upload_events')
+              li
+                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'download_events')}"
+                  = t('simple_form.labels.web_hook.download_events')
+              li
+                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}"
+                  = t('simple_form.labels.web_hook.changelog_events')
+
+          - if web_hook.channels_count == 1
+            = link_to channel_web_hook_path(@channel, web_hook), class: 'btn btn-sm btn-danger rounded-0 rounded-bottom', \
+              data: { turbo_method: :delete, turbo_confirm: t('web_hooks.messages.confirm.destroy'), toggle: 'tooltip', placement: 'bottom', title: t('web_hooks.destroy') } do
+              i.fas.fa-trash-alt
+          - else
+            a.btn.btn-sm.btn-warning.rounded-0.rounded-bottom data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{t('web_hooks.disable')}" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
+              i.fas.fa-link-slash
+      - elsif type == :shared
+        a.btn.btn-sm.btn-outline-secondary del="nofollow" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
+          i.fas.fa-link

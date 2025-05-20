@@ -65,6 +65,8 @@ module Zealot::Backup
 
       exit_message = []
       success = [compress_pid, dump_pid].all? do |pid|
+        next if pid.blank?
+
         _, exitstatus = Process.waitpid2(pid)
         prefix_message = compress_pid == pid ? 'compress' : 'dump'
         message = "#{prefix_message} #{exitstatus.to_s}"
@@ -96,6 +98,8 @@ module Zealot::Backup
 
       exit_message = []
       success = [decompress_pid, restore_pid].all? do |pid|
+        next if pid.blank?
+
         _, exitstatus = Process.waitpid2(pid)
         prefix_message = decompress_pid == pid ? 'decompress' : 'restore'
         message = "#{prefix_message} #{exitstatus.to_s}"

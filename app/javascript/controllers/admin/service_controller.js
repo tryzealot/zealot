@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { Zealot } from "../zealot"
 import { poll } from "../utils"
-import jquery from "jquery"
 
 const RESTART_URI = "admin/service/restart"
 const HEALTH_CHECK_URI = "admin/service/status"
@@ -58,19 +57,23 @@ export default class extends Controller {
   }
 
   clearNotifcation() {
-    jquery("#notifications").fadeOut()
+    const notification = document.getElementById("notifications")
+    notification.classList.add("fade")
+    setTimeout(function() {
+      notification.classList.add("d-none")
+    }, 300);
   }
 
   updateRestaringState() {
     this.buttonTarget.classList.replace("bg-success", "bg-warning")
-    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
+    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync icon'></i>" +
       this.restartingValue
   }
 
   updateRestartedState() {
     this.buttonTarget.classList.replace("bg-warning", "bg-success")
 
-    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync'></i>" +
+    this.buttonTarget.innerHTML = "<i class='fas fa-spin fa-sync icon'></i>" +
       this.restartedValue
   }
 

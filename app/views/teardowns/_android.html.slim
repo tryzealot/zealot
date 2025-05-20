@@ -2,19 +2,20 @@ ruby:
   begin
     app_name = @metadata.name
   rescue Android::NotFoundError
-    app_name = t('teardowns.show.unknow_app_name')
+    app_name = t('teardowns.show.unkonwn')
   end
 
 .col-md-6
-  .card
+  .card.mb-3
     .card-header
       h3.card-title
-        i.icon.fab.fa-android.text-green
+        i.icon.fab.fa-android.text-success
         = t('teardowns.show.metadata')
       .card-tools
-        button.btn.btn-tool data-card-widget="collapse"
-          i.fas.fa-minus
-    .card-body.pl-2.pr-2.p-0
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
+    .card-body.ps-2.pe-2.p-0
       dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
         dd
@@ -26,26 +27,43 @@ ruby:
         dd
           pre = @metadata.packet_name
         dt
+          = t('teardowns.show.native_codes')
+        dd
+          pre
+            = @metadata.native_codes.join(', ')
+        dt
           = t('teardowns.show.supported_device')
         dd
           pre
             = device_name(@metadata.device)
             |  (Android)
-        dt = t('teardowns.show.sdk_version_range')
-        dd
-          pre = "#{@metadata.min_sdk_version} / #{@metadata.target_sdk_version}"
+        dt = t('teardowns.show.android_min_sdk')
+        - if @metadata.min_sdk_version.present?
+          dd
+            pre = android_version_info(@metadata.min_sdk_version)
+        - if @metadata.target_sdk_version.present?
+          dt = t('teardowns.show.android_target_sdk')
+          dd
+            pre = android_version_info(@metadata.target_sdk_version)
         dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = l(@metadata.created_at, format: :nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
 
-  = render 'card', title: 'Activities', raw: @metadata.activities
+  = render 'card', title: t('teardowns.show.activities', count: @metadata.activities.size), raw: @metadata.activities
 
 .col-md-6
   - if @metadata.developer_certs.present?
     == render 'signatures_part', signatures: @metadata.developer_certs
 
-  == render 'card', title: 'Deep Links', raw: @metadata.deep_links
-  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
-  == render 'card', title: 'Features', raw: @metadata.features
-  == render 'card', title: 'Permissions', raw: @metadata.permissions
-  == render 'card', title: 'Services', raw: @metadata.services
+  == render 'card', title: t('teardowns.show.deep_links', count: @metadata.deep_links.size), raw: @metadata.deep_links
+  == render 'card', title: t('teardowns.show.url_schemes', count: @metadata.url_schemes.size), raw: @metadata.url_schemes
+  == render 'card', title: t('teardowns.show.features', count: @metadata.features.size), raw: @metadata.features
+  == render 'card', title: t('teardowns.show.permissions', count: @metadata.permissions.size), raw: @metadata.permissions
+  == render 'card', title: t('teardowns.show.services', count: @metadata.services.size), raw: @metadata.services
+  == render 'destroy', md: @metadata

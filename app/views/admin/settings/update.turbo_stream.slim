@@ -1,0 +1,7 @@
+- if @setting.var == 'site_title'
+  = turbo_stream.replace 'site_title', partial: 'layouts/brand_logo', locals: { site_title: Setting.send(@setting.var.to_sym) }
+
+= turbo_stream.replace 'system_restart', partial: 'admin/settings/restart_button', locals: { required: Setting.need_restart? }
+= turbo_stream.replace "setting_#{@setting.var}", partial: 'admin/settings/setting', locals: { key: @setting.var, params: @setting.params }
+= turbo_stream.append :notifications, partial: 'layouts/messages'
+

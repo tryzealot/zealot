@@ -23,14 +23,14 @@ RSpec.describe 'Collaborators API' do
     end
   end
 
-  path '/apps/{app_id}/collaborators/{user_id}' do
+  path '/apps/{app_id}/collaborators' do
     post I18n.t('api.collaborators.create.title') do
       tags I18n.t('api.collaborators.default.tags')
       description I18n.t('api.collaborators.create.description')
       operationId 'createCollaborator'
 
       include_examples :primary_key_parameter, :app_id
-      include_examples :primary_key_parameter, :user_id
+      include_examples :lazy_parameter, :user_id
       include_examples :request_body, '#/definitions/CollaboratorOptions'
 
       produces 'application/json'

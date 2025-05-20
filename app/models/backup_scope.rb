@@ -6,7 +6,7 @@ class BackupScope < ApplicationRecord
 
   belongs_to :backup
 
-  enum key: { database: DATABASE, channel: CHANNEL }
+  enum :key, { database: DATABASE, channel: CHANNEL }
 
   scope :database?, -> { exists?(key: DATABASE) }
   scope :channel?, -> { exists?(key: CHANNEL) }

@@ -1,13 +1,14 @@
 .col-md-6
-  .card
+  .card.mb-3
     .card-header
       h3.card-title
         i.icon.fab.fa-apple.text-secondary
         = t('teardowns.show.metadata')
       .card-tools
-        button.btn.btn-tool data-card-widget="collapse"
-          i.fas.fa-minus
-    .card-body.pl-2.pr-2.p-0
+        button.btn.btn-tool data-lte-toggle="card-collapse"
+          i.fas.fa-plus data-lte-icon="expand"
+          i.fas.fa-minus data-lte-icon="collapse"
+    .card-body.ps-2.pe-2.p-0
       dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
         dd
@@ -30,13 +31,20 @@
         dt = t('teardowns.show.file_size')
         dd
           pre = number_to_human_size(@metadata.size)
+        dt = t('teardowns.show.uploaded_date')
+        dd
+          pre = l(@metadata.created_at, format: :nice)
+        dt = t('teardowns.show.uploader')
+        dd
+          pre = @metadata.user.username
 
   == render 'devices_part', devices: @metadata.devices
   == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
 
 .col-md-6
   == render 'developer_certs_part'
-  == render 'mobileprovision_part'
+  == render 'mobileprovision_part', enable_icon: false
 
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+  == render 'destroy', md: @metadata

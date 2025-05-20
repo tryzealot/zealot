@@ -40,7 +40,7 @@ Rails.application.reloader.to_prepare do
     config.good_job.preserve_job_records = true
     config.good_job.retry_on_unhandled_error = false
     config.good_job.on_thread_error = -> (exception) { Rails.error.report(exception) }
-    config.good_job.execution_mode = :external
+    config.good_job.execution_mode = :async
     config.good_job.queues = '*'
     config.good_job.max_threads = (ENV['ZEALOT_WORKER_CONCURRENCY'] || '5').to_i
     config.good_job.poll_interval = (ENV['ZEALOT_WORKER_POLL_INTERVAL'] || '30').to_i
@@ -52,12 +52,6 @@ Rails.application.reloader.to_prepare do
     rescue ActiveRecord::StatementInvalid
       # initialize zealot, ignore
     end
-
-    logger_level = ::Logger.const_get(ENV.fetch('RAILS_LOG_LEVEL', 'info').upcase.to_s)
-    logger_level = ::Logger::DEBUG if Rails.env.development?
-    logger = Rails.logger.dup
-    logger.level = logger_level
-    config.good_job.logger = logger
   end
 end
 

@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       put :update_owner
     end
 
+    collection do
+      resources :archives, only: %i[index update destroy], path: 'archived', module: :apps, as: 'archived_apps'
+    end
+
     resources :collaborators, except: %i[index show]
 
     resources :schemes, except: %i[show] do
@@ -115,11 +119,6 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # Health check
-  #############################################
-  health_check_routes
-
-  #############################################
   # Admin
   #############################################
   authenticate :user, ->(user) { user.admin? } do
@@ -129,8 +128,8 @@ Rails.application.routes.draw do
       resources :settings
       resources :users, except: :show do
         member do
-          get :lock
-          get :resend_confirmation
+          put :lock
+          put :resend_confirmation
           delete :unlock
         end
       end
@@ -184,6 +183,8 @@ Rails.application.routes.draw do
   #############################################
   # API v1
   #############################################
+  health_check_routes
+
   namespace :api do
     resources :users, except: %i[new edit] do
       collection do
@@ -227,17 +228,9 @@ Rails.application.routes.draw do
     end
 
     resources :devices, only: %i[update]
-
-    namespace :jenkins do
-      get 'projects', to: 'projects#index'
-      get 'projects/:project', to: 'projects#show', as: 'project'
-      get 'projects/:project/build', to: 'build#create', as: 'project_build'
-      get 'projects/:project/status/(:id)', to: 'status#show', as: 'project_status'
-    end
-
     resources :version, only: :index
 
-    if Setting.openapi_ui
+    if Setting.show_footer_openapi_endpoints
       mount Rswag::Api::Engine => '/swagger', as: :openapi
       mount Rswag::Ui::Engine => '/swagger', as: :openapi_ui
     end

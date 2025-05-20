@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::Apps::UploadController < Api::BaseController
+  include AppArchived
+
   before_action :validate_user_token
   before_action :set_parser
   before_action :set_channel
@@ -51,7 +53,7 @@ class Api::Apps::UploadController < Api::BaseController
     authorize release
 
     if @channel.bundle_id != '*' && @app_parser &&
-      (@channel.device_type == 'ios' || @channel.device_type == 'android')
+       (@channel.device_type == 'ios' || @channel.device_type == 'android')
       message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
         expect: @channel.bundle_id)
       raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
@@ -84,7 +86,7 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def create_release(channel)
-    @release = channel.releases.upload_file(release_params, @app_parser, 'api')
+    @release = channel.releases.upload_file(release_params, parser: @app_parser, source: 'api')
     authorize @release
 
     @release.save!
@@ -133,6 +135,7 @@ class Api::Apps::UploadController < Api::BaseController
       append_present_value_from_params(obj, :slug)
       append_present_value_from_params(obj, :password)
       append_present_value_from_params(obj, :git_url)
+      append_present_value_from_params(obj, :download_filename_type)
       obj
     }.call
   end
@@ -145,6 +148,7 @@ class Api::Apps::UploadController < Api::BaseController
 
   def set_channel
     @channel = Channel.find_by(key: params[:channel_key])
+    raise_if_app_archived!(@channel.app)
   end
 
   def append_present_value_from_params(data, key)

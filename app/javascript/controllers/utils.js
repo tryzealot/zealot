@@ -42,13 +42,20 @@ const isiOS = () => {
 
 const isMacOS = () => {
   let os = uaParser.getOS()
-  return os.name === "Mac OS"
+  return os.name === "macOS"
 }
 
 // Detect NonApple OS (Windows/Linux/Android etc)
 const isNonAppleOS = () => {
   let os = uaParser.getOS()
-  return !(os.name === "Mac OS" || os.name === "iOS")
+  return !(os.name === "macOS" || os.name === "iOS")
 }
 
-export { poll, uaParser, isMacOS, isiOS, isNonAppleOS }
+const isUserAgentLimited = (keywords) => {
+  let ua = navigator.userAgent
+  let matches = keywords.find((keyword) => ua.includes(keyword))
+
+  return !!matches
+}
+
+export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited }

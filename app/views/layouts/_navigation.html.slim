@@ -1,31 +1,27 @@
-// Navbar
-nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-  - if user_signed_in_or_guest_mode?
-    ul.navbar-nav
-      li.nav-item
-        a.nav-link data-widget="pushmenu" href="#" role="button"
-          i.fas.fa-bars
+nav.app-header.navbar.navbar-expand.bg-body
+  .container-fluid
+    - if user_signed_in_or_guest_mode?
+      ul.navbar-nav
+        li.nav-item
+          button.nav-link data-lte-toggle="sidebar" role="button"
+            i.fas.fa-bars
 
-    // Right navbar links
-    ul.navbar-nav.ml-auto
-      - if user_signed_in?
-        li.nav-item
-          a.nav-link.dropdown-toggle.dropstart data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"
-            = current_user.username
-          .dropdown-menu.dropdown-menu-right
-            = link_to t('user_profile'), edit_user_registration_path, class: 'dropdown-item'
-            = button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
-      - else
-        li.nav-item
-          = link_to t('log_in'), new_user_session_path, class: 'nav-link'
-  - else
-    .navbar-empty
-      == render 'layouts/brand_logo'
+      ul.navbar-nav.ms-auto
+        - if user_signed_in?
+          li.nav-item.dropdown
+            button.nav-link.dropdown-toggle data-bs-toggle="dropdown"
+              = current_user.username
+            .dropdown-menu.dropdown-menu-end
+              = link_to t('user_profile'), edit_user_registration_path, class: 'dropdown-item'
+              = button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+        - else
+          li.nav-item
+            = link_to t('log_in'), new_user_session_path, class: 'nav-link'
+    - else
+      .navbar-empty
+        == render 'layouts/brand_logo', site_title: Setting.site_title
 
 // Main Sidebar Container
 - if user_signed_in_or_guest_mode?
-  aside.main-sidebar.sidebar-light-primary.elevation-2
-    == render 'layouts/brand_logo'
-
-    // Sidebar
-    == render 'layouts/main_sidebar'
+  // Sidebar
+  == render 'layouts/main_sidebar'

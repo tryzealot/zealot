@@ -4,15 +4,16 @@
 - content_for :section_title do
   = @channel.app_name
 
+- content_for :section_rightpanel do
+  a.btn.btn-secondary href="#{friendly_channel_overview_path(@channel)}"
+    i.icon.far.fa-list-alt
+    = t('links.back_to_list')
+
 .row
   .col-md-12
     .card
       .card-header
         h3.card-title
           = @title
-        .card-tools
-          a href="#{friendly_channel_overview_path(@channel)}"
-            i.icon.far.fa-list-alt
-            = t('links.back_to_list')
       .card-body
         == render 'form'

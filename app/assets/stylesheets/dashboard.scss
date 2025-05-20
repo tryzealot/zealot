@@ -1,3 +1,12 @@
+.bg-category-app      { background-color: #0EA5E9 !important; } /* 靛蓝 */
+.bg-category-debug    { background-color: #EF4444 !important; } /* 红色 */
+.bg-category-unpack   { background-color: #9CA3AF !important; } /* 灰色 */
+.bg-category-upload   { background-color: #6366F1 !important; } /* 青蓝 */
+.bg-category-hooks    { background-color: #10B981 !important; } /* 绿色 */
+.bg-category-users    { background-color: #FBBF24 !important; } /* 黄色 */
+.bg-category-jobs     { background-color: #EC4899 !important; } /* 粉红 */
+.bg-category-disk     { background-color: #8B5CF6 !important; } /* 紫色 */
+
 .timeline::before {
   left: 13px;
 }
@@ -22,15 +31,28 @@
     }
 
     .time-title {
-      @extend .bg-olive !optional;
+      @extend .bg-primary !optional;
       @extend .text-white;
+
+      padding: 2px 4px;
     }
 
     .timeline-item {
       margin-left: 40px;
       background-color: #f8f8f8;
 
+      .timeline-body {
+        @extend .py-2;
+
+        ul {
+          @extend .ps-4;
+        }
+      }
+
       .timeline-footer {
+        @extend .pt-1;
+        @extend .pb-2;
+
         .badge {
           margin-left: 5px;
           color: #31708f;
@@ -55,36 +77,38 @@
   }
 }
 
-.dark-mode {
-  .timeline::before {
-    background-color: #454d55;
-  }
-
-  .timeline div {
-    .fas,
-    .fa,
-    .fab,
-    .far {
-      background-color: #454d55;
-    }
-
-    .time-title {
-      color: #373737 !important;
-    }
-
-    .timeline-item {
-      background-color: #454d55;
-      border-color: #3a3a3a;
-
-      .timeline-header {
-        border-color: #444;
+@include color-mode(dark) {
+  .timeline {
+    div {
+      .fas,
+      .fa,
+      .fab,
+      .far {
+        background-color: #454d55;
       }
 
-      .timeline-footer .badge {
-        color: #dbe3ec;
-        background-color: #486685;
-        border-color: #3f6791;
+      .time-title {
+        background-color: var(--bs-primary-bg) !important;
       }
+
+      .timeline-item {
+        background-color: #293138;
+        border-color: var(--bs-border-color);
+
+        .timeline-header {
+          border-color: var(--bs-border-color);
+        }
+
+        .timeline-footer .badge {
+          color: #dbe3ec;
+          background-color: #486685;
+          border-color: var(--bs-primary-bg);
+        }
+      }
+    }
+
+    &::before {
+      background-color: #454d55;
     }
   }
 }

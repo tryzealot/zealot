@@ -14,7 +14,7 @@ class Admin::SettingsController < ApplicationController
     authorize @setting
 
     @title = t('.title')
-    @value = @setting.value || @setting.default_value
+    @value = @setting.value_or_default
   end
 
   def update
@@ -29,25 +29,32 @@ class Admin::SettingsController < ApplicationController
       return render :edit, status: :unprocessable_entity unless @setting.save
 
       message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
-      redirect_to admin_settings_path, notice: message
+      flash.now.notice = message
     else
       message = t('activerecord.errors.messages.same_value', key: t("admin.settings.#{@setting.var}"))
-      redirect_to admin_settings_path, alert: message
+      flash.now.alert = message
+    end
+
+    respond_to do |format|
+      format.html { admin_settings_path }
+      format.turbo_stream
     end
   rescue JSON::ParserError
     @setting.errors.add(:value, :invaild_json)
-    @value = @setting.value || @setting.default_value
+    @value = setting_param[:value]
     return render :edit, status: :unprocessable_entity
   end
 
   def destroy
     authorize @setting
-
-    key = @setting.var
     @setting.destroy
 
-    notice = t('activerecord.success.destroy', key: t("admin.settings.#{key}"))
-    redirect_to admin_settings_path, status: :see_other, notice: notice
+    message = t('activerecord.success.destroy', key: t("admin.settings.#{@setting.var}"))
+    flash.now.notice = message
+    respond_to do |format|
+      format.html { admin_settings_path }
+      format.turbo_stream
+    end
   end
 
   private

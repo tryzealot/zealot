@@ -1,6 +1,7 @@
 // Brand Logo
-a.brand-link href="#{ root_path }"
-  picture
-    source srcset="#{image_url("zealot-icon-dark.png")}" media="(prefers-color-scheme: dark)" class="dark-brand-image brand-image"
-    = image_tag 'zealot-icon.png', class: 'brand-image'
-  span.brand-text.font-weight-light = Setting.site_title
+= turbo_frame_tag 'site_title' do
+  a.navbar-brand href="#{ root_path }" data-turbo="false"
+    picture
+      source srcset="#{image_url("zealot-icon-dark.png")}" media="(prefers-color-scheme: dark)" class="dark-brand-image brand-image"
+      = image_tag 'zealot-icon.png', class: 'brand-image'
+    span.brand-text.fw-light = site_title

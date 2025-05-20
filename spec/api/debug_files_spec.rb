@@ -31,9 +31,9 @@ RSpec.describe 'DebugFiles API' do
       operationId 'downloadDebugFiles'
 
       include_examples :channel_key_parameter
-      include_examples :paramter, :release_version, required: true
-      include_examples :paramter, :build_version
-      include_examples :paramter, :order, enum: %i[version upload_date], default: :version
+      include_examples :lazy_parameter, :release_version, required: true
+      include_examples :lazy_parameter, :build_version
+      include_examples :lazy_parameter, :order, enum: %i[version upload_date], default: :version
 
       response 302, I18n.t('api.debug_files.default.responses.download') do
         header 'Location', schema: { type: :string }, description: I18n.t('api.debug_files.default.responses.download')

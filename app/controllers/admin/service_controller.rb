@@ -30,9 +30,15 @@ class Admin::ServiceController < ApplicationController
     end
 
     render json: { mesage: 'Ok' }
+  rescue => e
+    render json: { mesage: e.message }, status: :forbidden
   end
 
   private
+
+  def render_unauthorized_smtp(exception)
+    respond_with_error(401, exception)
+  end
 
   def client
     @client ||= PumaControlClient.new

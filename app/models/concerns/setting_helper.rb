@@ -43,9 +43,11 @@ module SettingHelper
         obj[scope] = items.each_with_object({}) do |item, inner|
           key = item[:key]
           value = send(key.to_sym)
+          restart_required = item[:options][:restart_required] || false
           inner[key] = {
             value: value,
-            readonly: item[:readonly]
+            readonly: item[:readonly],
+            restart_required: restart_required
           }
         end
       end
