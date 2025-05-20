@@ -159,6 +159,7 @@ GEM
     drb (2.2.1)
     email_validator (2.2.4)
       activemodel
+    erb (5.0.1)
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
@@ -199,7 +200,7 @@ GEM
       rubyntlm (~> 0.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (4.10.0)
+    good_job (4.10.1)
       activejob (>= 6.1.0)
       activerecord (>= 6.1.0)
       concurrent-ruby (>= 1.3.1)
@@ -469,7 +470,7 @@ GEM
       activesupport (= 8.0.2)
       bundler (>= 1.15.0)
       railties (= 8.0.2)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -497,7 +498,8 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.4)
       logger
-    rdoc (6.13.1)
+    rdoc (6.14.0)
+      erb
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
     reline (0.6.1)
@@ -650,7 +652,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.7.2)
+    zeitwerk (2.7.3)
     zhexdump (0.2.0)
 
 PLATFORMS
@@ -687,7 +689,7 @@ DEPENDENCIES
   faraday (~> 2.13.1)
   friendly_id (~> 5.5.1)
   gitlab_omniauth-ldap (~> 2.2.0)
-  good_job (~> 4.10.0)
+  good_job (~> 4.10.1)
   graphiql-rails
   graphql (~> 2.5.7)
   health_check (~> 3.1.0)
