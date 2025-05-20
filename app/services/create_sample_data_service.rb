@@ -11,6 +11,9 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
     if Setting.demo_mode
       create_sample_teardown(user)
       create_sample_debug_files
+
+      create_sample_devices
+      create_apple_developer
     end
   end
 
@@ -739,6 +742,8 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
                          'release'
                        end
 
+        next unless channel.persisted?
+
         RELEASE_COUNT.times do |i|
           generate_release(
             channel,
@@ -771,6 +776,8 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
         channel = scheme.channels.find_or_create_by name: channel_name,
                                                     device_type: :android,
                                                     slug: slug
+        next unless channel.persisted?
+
         generate_release(
           channel,
           app_bundle_id,
@@ -839,6 +846,126 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
     "#{app_bundle_id}.#{channel.name.downcase}"
   end
 
+  def create_apple_developer
+    key_id = 'PZYM8XX95Q'
+
+    apple_key = AppleKey.find_or_initialize_by(
+      issuer_id: '573eebfd-619d-4996-a37d-5889c24b8cd7',
+      key_id: key_id,
+      private_key: generate_private_key,
+      filename: "#{key_id}.p8",
+    )
+  
+    if apple_key.new_record?
+      apple_key.save(validate: false)
+      apple_key.create_team(
+        team_id: 'PZYM8XX95Q',
+        name: 'Zealot Team',
+        display_name: 'Zealot Team (Sample)',
+      )
+    end
+
+    AppleKeyDevice.where(apple_key: apple_key).delete_all
+    Device.all.each do |device|
+      AppleKeyDevice.create(
+        apple_key: apple_key,
+        device: device
+      )
+    end
+  end
+
+  APPLE_DEVICES =[
+    {
+      platform: 'IOS',
+      device: 'IPHONE',
+      name: 'iPhone',
+      models: [
+        'iPhone X',
+        'iPhone XR',
+        'iPhone XS',
+        'iPhone XS Max',
+        'iPhone 11',
+        'iPhone 11 Pro',
+        'iPhone 11 Pro Max',
+        'iPhone 12',
+        'iPhone 12 mini',
+        'iPhone 12 Pro',
+        'iPhone 12 Pro Max',
+        'iPhone 13',
+        'iPhone 13 mini',
+        'iPhone 13 Pro',
+        'iPhone 13 Pro Max',
+        'iPhone 14',
+        'iPhone 14 Plus',
+        'iPhone 14 Pro',
+        'iPhone 14 Pro Max',
+        'iPhone 15',
+        'iPhone 15 Plus',
+        'iPhone 15 Pro',
+        'iPhone 15 Pro Max',
+        'iPhone 16',
+        'iPhone 16 Plus',
+        'iPhone 16 Pro',
+        'iPhone 16 Pro Max'
+      ]
+    },
+    {
+      platform: 'MAC_OS',
+      device: 'MAC',
+      name: 'Mac',
+      models: [
+        'MacBook Air M1',
+        'MacBook Pro 13" M1',
+        'Mac mini M1',
+        'iMac 24" M1',
+        'MacBook Pro 14" M1 Pro',
+        'MacBook Pro 16" M1 Pro',
+        'MacBook Pro 14" M1 Max',
+        'MacBook Pro 16" M1 Max',
+        'Mac Studio M1 Max',
+        'Mac Studio M1 Ultra',
+        'MacBook Air M2',
+        'MacBook Pro 13" M2',
+        'Mac mini M2',
+        'MacBook Pro 14" M2 Pro',
+        'MacBook Pro 16" M2 Pro',
+        'MacBook Pro 14" M2 Max',
+        'MacBook Pro 16" M2 Max',
+        'Mac Studio M2 Max',
+        'Mac Studio M2 Ultra',
+        'MacBook Air 13" M3',
+        'MacBook Air 15" M3',
+        'MacBook Pro 14" M3',
+        'MacBook Pro 16" M3',
+        'MacBook Pro 14" M3 Pro',
+        'MacBook Pro 16" M3 Pro',
+        'MacBook Pro 14" M3 Max',
+        'MacBook Pro 16" M3 Max',
+        'iMac 24" M3',
+        'Mac mini M3',
+        'Mac mini M3 Pro',
+        'Mac mini M4'
+      ]
+    }
+  ]
+
+  def create_sample_devices
+    20.times do |i|
+      device = APPLE_DEVICES.sample
+      model = device[:models].sample
+
+      Device.create(
+        udid: SecureRandom.uuid,
+        device_id: device[:device],
+        name: "#{Faker::FunnyName.name}'s #{device[:name]}",
+        model: model,
+        platform: device[:platform],
+        status: 'ENABLED',
+        created_at: Faker::Time.between_dates(from: Date.today - 1, to: Date.today, period: :all)
+      )
+    end
+  end
+
   def create_app(name, user)
     app = App.find_or_initialize_by(name:)
     return app unless app.new_record?
@@ -850,5 +977,16 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
 
   def the_user(user)
     user.is_a?(Array) ? user.first : user
+  end
+
+  def generate_private_key
+    <<~EOT
+    -----BEGIN PRIVATE KEY-----
+    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgGH2MylyZjjRdauTk
+    xxXW6p8VSHqIeVRRKSJPg1xn6+KgCgYIKoZIzj0DAQehRANCAAS/mNzQ7aBbIBr3
+    DiHiJGIDEzi6+q3mmyhH6ZWQWFdFei2qgdyM1V6qtRPVq+yHBNSBebbR4noE/IYO
+    hMdWYrKn
+    -----END PRIVATE KEY----
+    EOT
   end
 end
