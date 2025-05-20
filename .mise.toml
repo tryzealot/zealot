@@ -24,13 +24,11 @@ run = "yarn build:css --watch"
 
 [tasks.dev] 
 description = "Start all server"
-wait_for = ["js", "css"]
-depends = ["web", "worker"]
+depends = ["js", "css", "web", "worker"]
 
 [tasks.debug]
 description = "Start all server (web debug mode)"
-wait_for = ["js", "css"]
-depends = ["debug_web", "worker"]
+depends = ["js", "css", "debug_web", "worker"]
 
 [tasks.caddy]
 description = "Running Caddy server"
