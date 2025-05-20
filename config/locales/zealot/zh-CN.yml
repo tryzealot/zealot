@@ -6,7 +6,7 @@ zh-CN:
   log_out: 登出
   log_in: 登录
   intro:
-    title: 移动应用上传竟然如此简单、移动 App 应用分发系统
+    title: 应用托管竟然如此简单、全平台 App 应用分发系统
     description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
   links:
     back_to_list: 返回列表
