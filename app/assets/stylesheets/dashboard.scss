@@ -1,3 +1,12 @@
+.bg-category-app      { background-color: #0EA5E9 !important; } /* 靛蓝 */
+.bg-category-debug    { background-color: #EF4444 !important; } /* 红色 */
+.bg-category-unpack   { background-color: #9CA3AF !important; } /* 灰色 */
+.bg-category-upload   { background-color: #6366F1 !important; } /* 青蓝 */
+.bg-category-hooks    { background-color: #10B981 !important; } /* 绿色 */
+.bg-category-users    { background-color: #FBBF24 !important; } /* 黄色 */
+.bg-category-jobs     { background-color: #EC4899 !important; } /* 粉红 */
+.bg-category-disk     { background-color: #8B5CF6 !important; } /* 紫色 */
+
 .timeline::before {
   left: 13px;
 }
