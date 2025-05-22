@@ -58,6 +58,9 @@ namespace :zealot do
       system("rails db:create")
       system("rails db:migrate")
 
+      # NOTE: wait db migrate then insert data
+      sleep 3
+
       puts "Zealot initialize admin user and sample data ..."
       system("rails db:seed")
     end
