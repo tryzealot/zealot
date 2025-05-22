@@ -126,7 +126,7 @@ class Release < ApplicationRecord
   end
 
   def download_filename
-    case channel.download_filename_type.downcase.to_sym
+    case channel.download_filename_type&.downcase&.to_sym
     when :version_datetime
       version_datetime_filename
     when :original_filename
