@@ -90,7 +90,7 @@ GEM
     android_parser (2.7.0)
       rexml (> 3.0)
       rubyzip (>= 1.0, < 3.0)
-    app-info (3.3.1)
+    app-info (3.3.2)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       android_parser (>= 2.7, < 3.0)
       base64 (~> 0.2.0)
@@ -309,6 +309,7 @@ GEM
       benchmark
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.25.5)
     msgpack (1.8.0)
     multi_json (1.15.0)
@@ -329,6 +330,9 @@ GEM
       net-protocol
     nio4r (2.7.4)
     nkf (0.2.0)
+    nokogiri (1.18.8)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.8-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.8-arm-linux-gnu)
@@ -667,7 +671,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.15)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.3.1)
+  app-info (~> 3.3.2)
   awesome_print
   better_errors
   binding_of_caller
