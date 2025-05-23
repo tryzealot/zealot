@@ -18,7 +18,7 @@ class Api::SchemesController < Api::BaseController
 
   # POST /api/apps/:app_id/schemes
   def create
-    raise_if_app_archived!(@scheme.app)
+    raise_if_app_archived!(@app)
 
     @scheme = @app.schemes.create!(scheme_params)
     authorize @scheme
