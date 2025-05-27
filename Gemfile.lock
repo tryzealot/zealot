@@ -156,7 +156,7 @@ GEM
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
       railties (>= 6.1)
-    drb (2.2.1)
+    drb (2.2.3)
     email_validator (2.2.4)
       activemodel
     erb (5.0.1)
@@ -403,8 +403,8 @@ GEM
       rainbow
       zhexdump (>= 0.0.2)
     pg (1.5.9)
-    pghero (3.6.2)
-      activerecord (>= 6.1)
+    pghero (3.7.0)
+      activerecord (>= 7.1)
     plist (3.7.2)
     pp (0.6.2)
       prettyprint
@@ -711,7 +711,7 @@ DEPENDENCIES
   openssl (~> 3.3.0)
   ostruct
   pg (>= 0.18, < 2.0)
-  pghero (~> 3.6.2)
+  pghero (~> 3.7.0)
   plist (~> 3.7.2)
   propshaft (= 1.1.0)
   pry-rails
