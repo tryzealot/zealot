@@ -3,7 +3,7 @@
 class AppIconUploader < ApplicationUploader
   include CarrierWave::MiniMagick
 
-  process :convert_to_png_if_image
+  process convert: :png, if: :not_png?
 
   def store_dir
     "#{base_store_dir}/apps/a#{model.app.id}/r#{model.id}/icons"
@@ -17,10 +17,10 @@ class AppIconUploader < ApplicationUploader
     %i(png webp jpeg jpg bmp)
   end
 
-  def convert_to_png_if_image
-    return if file.nil?
-    return if File.extname(file.path) != '.png'
-    
-    self.class.process convert: :png
+  # @param [ActionDispatch::Http::UploadedFile] file
+  def not_png?(file)
+    return false if file.nil?
+
+    File.extname(file.path) != '.png'
   end
 end

@@ -7,7 +7,7 @@ class AddDownloadFileTypeToChannel < ActiveRecord::Migration[7.2]
     reversible do |dir|
       dir.up do
         # update previous the value of download_filename_type
-        Channel.where(download_filename_type: nil).update_all download_filename_type: :DEFAULT_DOWNLOAD_FILENAME_TYPE
+        Channel.where(download_filename_type: nil).update_all download_filename_type: Channel::DEFAULT_DOWNLOAD_FILENAME_TYPE
       end
     end
   end
