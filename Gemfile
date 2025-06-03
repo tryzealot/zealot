@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.14.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.15'
-gem 'graphql', '~> 2.5.7'
+gem 'graphql', '~> 2.5.8'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
@@ -73,7 +73,7 @@ gem 'sentry-ruby', '~> 5.24.0'
 gem 'sentry-rails', '~> 5.24.0'
 
 # Background job
-gem 'good_job', '~> 4.10.0'
+gem 'good_job', '~> 4.10.2'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
