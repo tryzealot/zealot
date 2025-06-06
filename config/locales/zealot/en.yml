@@ -1041,20 +1041,22 @@ en:
         apple_key:
           attributes:
             issuer_id:
-              missing_distribution_certificate: Create distribution certificate then try again.
+              missing_distribution_certificate: Create distribution certificate then try again
             key_id:
-              unauthorized: Without authority, please check issuer id and private key.
-              forbidden: Without permission, Apple key needs developer or high permissions.
-              required_agreement_missing_or_expired: Apple key needs agreement, please login to Apple Developer and accept the agreement.
+              unauthorized: Without authority, please check issuer id and private key
+              forbidden: Without permission, Apple key needs developer or high permissions
+              required_agreement_missing_or_expired: Apple key needs agreement, please login to Apple Developer and accept the agreement
               unknown: 'Unknown error: %{message}'
             devices:
-              invalid_value: Register device %{value} was invalid.
+              invalid_value: Register device %{value} was invalid
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
+            checksum:
+              taken: matched, the private key was existed
         udid:
           attributes:
             name:
-              invalid_value: Register device %{value} was invalid.
+              invalid_value: Register device %{value} was invalid
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
         debug_file:
@@ -1064,7 +1066,7 @@ en:
             file:
               blank: Choose a zip file with supported type
             checksum:
-              taken: File exists, cannot be uploaded
+              taken: matched, the debug file was existed
         backup:
           attributes:
             schedule:
