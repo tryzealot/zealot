@@ -9,7 +9,6 @@ class AppleKey < ApplicationRecord
   validates :checksum, uniqueness: true, on: :create, if: :requires_fields?
   validate :private_key_format, on: :create, if: :requires_fields?
   validate :appstoreconnect_api_role_permissions, on: :create, if: :requires_fields?
-  validate :distribution_certificate_exists, on: :create, if: :requires_fields?
 
   before_create :generate_checksum
 
@@ -115,21 +114,23 @@ class AppleKey < ApplicationRecord
     errors.add(:private_key, "[#{e.class}] #{e.message}")
   end
 
+  # Detect if the API key has the required permissions to access App Store Connect. and 
+  # if the distribution certificate exists.
   def appstoreconnect_api_role_permissions
-    client.devices
-  rescue TinyAppstoreConnect::InvalidUserCredentialsError
-    errors.add(:key_id, :unauthorized)
-  rescue TinyAppstoreConnect::ForbiddenError
-    errors.add(:key_id, :forbidden)
-  rescue => e
-    logger.error "Throws an error: #{e.message}, with trace: #{e.backtrace.join("\n")}"
-    errors.add(:key_id, :unknown, message: "[#{e.class}]: #{e.message}")
-  end
-
-  def distribution_certificate_exists
     if apple_distribtion_certiticate.blank?
       errors.add(:issuer_id, :missing_distribution_certificate)
     end
+  rescue TinyAppstoreConnect::ForbiddenError => e
+    if e.message.include?('required agreement is missing or has expired')
+      errors.add(:key_id, :required_agreement_missing_or_expired)
+    else
+      errors.add(:key_id, :forbidden)
+    end
+  rescue TinyAppstoreConnect::InvalidUserCredentialsError
+    errors.add(:key_id, :unauthorized)
+  rescue => e
+    logger.error "Throws an error: #{e.message}, with trace: #{e.backtrace.join("\n")}"
+    errors.add(:key_id, :unknown, message: "[#{e.class}]: #{e.message}")
   end
 
   def apple_distribtion_certiticate
