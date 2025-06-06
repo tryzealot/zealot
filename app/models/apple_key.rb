@@ -5,12 +5,12 @@ class AppleKey < ApplicationRecord
   has_many :apple_keys_devices, class_name: 'AppleKeyDevice'
   has_many :devices, through: :apple_keys_devices
 
-  validates :issuer_id, :key_id, :private_key, :filename, :checksum, presence: true
+  validates :issuer_id, :key_id, :private_key, :filename, presence: true
   validates :checksum, uniqueness: true, on: :create, if: :requires_fields?
   validate :private_key_format, on: :create, if: :requires_fields?
   validate :appstoreconnect_api_role_permissions, on: :create, if: :requires_fields?
 
-  before_create :generate_checksum
+  before_validation :generate_checksum
 
   def private_key_filename
     @private_key_filename ||= "#{key_id}.key"

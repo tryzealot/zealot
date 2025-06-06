@@ -6,7 +6,7 @@
     = f.input :key_id, required: true
     - if @apple_key.new_record?
       = f.input :private_key, as: :file
-      - if @apple_key.errors.size > 0
+      - if @apple_key.errors[:checksum].present?
         = f.input :checksum, disabled: true
     - else
       = f.input :filename, disabled: true
