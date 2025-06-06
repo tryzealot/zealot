@@ -64,7 +64,7 @@ en:
         release_version: Release version
         build_version: Build version
         file: File
-        checksum: File checksum
+        checksum: File Hash Verification
       setting:
         value: Value
       apple_key:
@@ -72,6 +72,7 @@ en:
         key_id: Key ID
         private_key: Private key
         devices: Devices
+        checksum: Private key Hash Verification
       apple_team:
         display_name: Display name
         name: Team name
@@ -87,52 +88,60 @@ en:
         max_keeps: Max keeps
         enabled: Enabled
         schedule_settings: Schedule settings
-        parsing: Parsing ...
+        parsing: Parsing
       device:
         name: Device name
         apple_keys: Apple Keys
         sync_to_apple_key: Synchronize to Apple developer
+
     hints:
       defaults:
-        channel: For example, the platform of app.
+        channel: For example, the platform of app
       app:
         schemes:
           name: :simple_form.hints.scheme.name
       scheme:
         name: Apply the type of feature to target audience
-        new_build_callout: Display a new callout at the top of the page when visiting a previous build of app.
-        retained_builds: Set the maximum retained versions, the earlier versions will be deleted automatically if exceeded, the default is 0 which means to retain all versions.
+        new_build_callout: Display a new callout at the top of the page when visiting a previous build of app
+        retained_builds: Set the maximum retained versions, the earlier versions will be deleted automatically if exceeded, the default is 0 which means to retain all versions
       channel:
-        name: Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market.
-        device_type: Which device type of app. for example, iOS, Android, macOS etc.
-        bundle_id: Validate the bundle id (package name) of app, leave empty or fill * to skip validate.
-        git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host.
-        slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form.
-        password: Need password by fill it when user is not log in.
-        download_filename_type: Download file name generation rules.
+        name: Recommended distinguishing different channels according to the application platform, single platform applications can also be the name of the distribution market
+        device_type: Which device type of app. for example, iOS, Android, macOS etc
+        bundle_id: Validate the bundle id (package name) of app, leave empty or fill * to skip validate
+        git_url: Git URL, for example, the repo URL of Github, Gitlab or self-host
+        slug: A slug is the part of a URL that identifies a particular page on a website in an easy-to-read form
+        password: Need password by fill it when user is not log in
+        download_filename_type: Download file name generation rules
       release:
-        file: Support iOS, Android, HarmonyOS, macOS, Windows and Linux binary file.
+        file: Support iOS, Android, HarmonyOS, macOS, Windows and Linux binary file
         release_version: It is recommended to name the main version <a href="https://semver.org/lang/zh-CN/">X.Y.Z semantic version</a>
         build_version: Internal version number
-        changelog: What new features this app contains, fix what issues, and so on.
-        release_type: 'iOS: debug、adhoc, release; Android: debug, release.'
-        branch: Git branch. In general either main or develop.
+        changelog: What new features this app contains, fix what issues, and so on
+        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
+        branch: Git branch. In general either main or develop
         git_commit: 40 bit length SHA value of git commit
         ci_url: The CI URL specific like Jenkins, Gitlab CI etc
       web_hook:
-        body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty.
+        body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty
       debug_file:
-        device_type: Which device type of app. for example, iOS, Android, macOS etc.
+        device_type: Which device type of app. for example, iOS, Android, macOS etc
         file: Zip compressed file required
+        checksum: Uniqueness verification of the debug file only
       backup:
         key: Unique backup key
         schedule: |
           Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
-          <a href="https://crontab.guru/">Cron</a>.
-        max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup.
+          <a href="https://crontab.guru/">Cron</a>
+        max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup
+      apple_key:
+        issuer_id: UUID format, for example, 12345678-1234-1234-1234-123456789012
+        key_id: Make sure it mateches the downloaded private key file, for example, ABCDEFGH12
+        private_key: Accept private key files with any file extension. You can download it from Apple Developer account
+        checksum: Uniqueness verification of the private key file only
+
     placeholders:
       release:
-        changelog: The developer is lazy without leaving anything.
+        changelog: The developer is lazy without leaving anything
       web_hook:
         url: 'http://example.com/web-hooks'
         body: |
@@ -157,7 +166,6 @@ en:
       debug_file:
         release_version: '1.0.0'
         build_version: '1.0'
-        checksum: 'Ignore me, pure validate the file use'
       backup:
         schedule: every day at noon / 12 0 * * *
       device:

@@ -9,5 +9,6 @@
   = f.input :release_version
   = f.input :build_version
   = f.input :file, required: true
-  = f.input :checksum, disabled: true
+  - if @debug_file.errors[:checksum].present?
+    = f.input :checksum, disabled: true
   = f.button :submit
