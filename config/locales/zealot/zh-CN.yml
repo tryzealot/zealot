@@ -1051,6 +1051,8 @@ zh-CN:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
               api: '苹果返回错误：%{message}'
               unknown: '未知错误: %{message}'
+            checksum:
+              taken: 匹配，密钥文件已存在
         udid:
           attributes:
             name:
