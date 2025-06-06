@@ -118,8 +118,8 @@ zh-CN:
         smtp_verify_success: 验证成功
         smtp_verify_failed: 验证失败
         apply_for_restart: 需重启服务生效
-        service_restarting: 服务重启中 ...
-        service_restarted: 刷新页面 ...
+        service_restarting: 服务重启中
+        service_restarted: 刷新页面
         restart_required: 重启后生效
       update:
         title: 编辑设置
@@ -1045,6 +1045,7 @@ zh-CN:
             key_id:
               unauthorized: 用户身份认证失败，请重新检查各项参数是否正确
               forbidden: 密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥
+              required_agreement_missing_or_expired: 苹果开发者协议未同意或已过期，请重新登录苹果开发者网站同意协议后再重新执行当前操作
               unknown: '未知错误: %{message}'
             devices:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
