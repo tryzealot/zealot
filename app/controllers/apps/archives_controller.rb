@@ -5,7 +5,7 @@ class Apps::ArchivesController < ApplicationController
 
   def index
     @title = t('apps.archives.title')
-    base_scope = manage_user_or_guest_mode? ? App.archived : current_user.apps.active
+    base_scope = manage_user_or_guest_mode? ? App.archived : current_user.apps.archived
     base_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
     @apps = params[:sort].present? ? base_scope.sort_by_name(params[:sort]) : base_scope
     authorize @apps if @apps.present?
