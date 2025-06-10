@@ -954,8 +954,10 @@ en:
     code:
       '400':
         title: The request you submitted was invalid or malformed
+        content: This may be due to incorrect parameters or missing required parameters
       '403':
         title: You don't have permission to view this page
+        content: You don't have permission to access this page or perform this action
       '404':
         title: Not Found
         content: The page you are looking for isn't here.
