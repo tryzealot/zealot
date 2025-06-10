@@ -7,11 +7,11 @@ class DebugFilePolicy < ApplicationPolicy
   end
 
   def new?
-    any_manage?
+    app_manage?
   end
 
   def create?
-    any_manage?
+    app_manage?
   end
 
   def edit?
@@ -51,7 +51,11 @@ class DebugFilePolicy < ApplicationPolicy
   end
 
   def any_manage?
-    manage? || manage?(app: app)
+    manage? || (app && manage?(app: app))
+  end
+
+  def app_manage?
+    any_manage? || app_collaborator?(user, user.apps.map(&:id))
   end
 
   def app

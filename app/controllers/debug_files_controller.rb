@@ -17,7 +17,7 @@ class DebugFilesController < ApplicationController
 
   def new
     @title = t('debug_files.index.upload')
-    @apps = App.all
+    @apps = manage_user_or_guest_mode? ? App.active : current_user.apps.active 
     @debug_file = DebugFile.new
     @debug_file.app_id = params[:app_id] if params[:app_id] && App.find(params[:app_id])
     @debug_file.device_type = params[:device]
