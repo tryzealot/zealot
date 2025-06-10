@@ -47,7 +47,7 @@ class DebugFilePolicy < ApplicationPolicy
   private
 
   def app_user?
-    guest_mode? || any_manage? || Collaborator.where(user: user, app: app).exists?
+    guest_mode? || any_manage? || app_collaborator?(user, app)
   end
 
   def any_manage?

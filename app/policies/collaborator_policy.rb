@@ -34,10 +34,6 @@ class CollaboratorPolicy < ApplicationPolicy
 
   private
 
-  def app_user?
-    guest_mode? || any_manage? || Collaborator.where(user: user, app: app).exists?
-  end
-
   def any_manage?
     manage? || manage?(app: app)
   end
