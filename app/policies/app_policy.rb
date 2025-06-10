@@ -34,15 +34,15 @@ class AppPolicy < ApplicationPolicy
   end
 
   def archive?
-    admin? || manage?
-  end
-
-  def unarchive?
-    admin? || manage?
+    any_manage?
   end
 
   def archived?
-    admin? || manage?
+    any_manage?
+  end
+
+  def unarchive?
+    any_manage?
   end
 
   class Scope < Scope
@@ -62,6 +62,6 @@ class AppPolicy < ApplicationPolicy
   end
 
   def app_owner?
-    Collaborator.where(user: user, app: record, role: 'admin', owner: true).exists?
+    app_collaborator?(user, record, role: 'owner', exclude: true)
   end
 end
