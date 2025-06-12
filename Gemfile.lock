@@ -112,7 +112,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    bigdecimal (3.2.1)
+    bigdecimal (3.2.2)
     bindata (2.5.0)
     bindex (0.8.1)
     binding_of_caller (1.0.1)
@@ -578,10 +578,10 @@ GEM
       base64
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    sentry-rails (5.24.0)
+    sentry-rails (5.25.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.24.0)
-    sentry-ruby (5.24.0)
+      sentry-ruby (~> 5.25.0)
+    sentry-ruby (5.25.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -732,8 +732,8 @@ DEPENDENCIES
   rubocop (>= 0.70)
   rubocop-rails
   ruby-lsp-rails
-  sentry-rails (~> 5.24.0)
-  sentry-ruby (~> 5.24.0)
+  sentry-rails (~> 5.25.0)
+  sentry-ruby (~> 5.25.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.7.0)
   solid_cache (~> 1.0.7)
