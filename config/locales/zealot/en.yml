@@ -117,9 +117,9 @@ en:
         smtp_verify_inprocess: Verification Inprocessing
         smtp_verify_success: Verification successful
         smtp_verify_failed: Verification failed
-        apply_for_restart: Apply for restart
-        service_restarting: Service restarting ...
-        service_restarted: Refresh page ...
+        apply_for_restart: Apply and Restart
+        service_restarting: Restarting
+        service_restarted: Refresh
         restart_required: Restart required
       update:
         title: Edit setting
@@ -954,8 +954,10 @@ en:
     code:
       '400':
         title: The request you submitted was invalid or malformed
+        content: This may be due to incorrect parameters or missing required parameters
       '403':
         title: You don't have permission to view this page
+        content: You don't have permission to access this page or perform this action
       '404':
         title: Not Found
         content: The page you are looking for isn't here.
@@ -1041,19 +1043,22 @@ en:
         apple_key:
           attributes:
             issuer_id:
-              missing_distribution_certificate: Create distribution certificate then try again.
+              missing_distribution_certificate: Create distribution certificate then try again
             key_id:
-              unauthorized: Without authority, please check issuer id and private key.
-              forbidden: Without permission, Apple key needs developer or high permissions.
+              unauthorized: Without authority, please check issuer id and private key
+              forbidden: Without permission, Apple key needs developer or high permissions
+              required_agreement_missing_or_expired: Apple key needs agreement, please login to Apple Developer and accept the agreement
               unknown: 'Unknown error: %{message}'
             devices:
-              invalid_value: Register device %{value} was invalid.
+              invalid_value: Register device %{value} was invalid
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
+            checksum:
+              taken: matched, the private key was existed
         udid:
           attributes:
             name:
-              invalid_value: Register device %{value} was invalid.
+              invalid_value: Register device %{value} was invalid
               api: 'Apple return error: %{message}'
               unknown: 'Unknown error: %{message}'
         debug_file:
@@ -1063,7 +1068,7 @@ en:
             file:
               blank: Choose a zip file with supported type
             checksum:
-              taken: File exists, cannot be uploaded
+              taken: matched, the debug file was existed
         backup:
           attributes:
             schedule:

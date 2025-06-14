@@ -19,7 +19,7 @@ gem 'lograge', '~> 0.14.0'
 
 # API
 gem 'active_model_serializers', '~> 0.10.15'
-gem 'graphql', '~> 2.5.8'
+gem 'graphql', '~> 2.5.9'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
@@ -66,11 +66,11 @@ gem 'plist', '~> 3.7.2'
 ## OS
 gem 'sys-filesystem', '~> 1.5.3'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 3.6.2'
+gem 'pghero', '~> 3.7.0'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 5.24.0'
-gem 'sentry-rails', '~> 5.24.0'
+gem 'sentry-ruby', '~> 5.25.0'
+gem 'sentry-rails', '~> 5.25.0'
 
 # Background job
 gem 'good_job', '~> 4.10.2'
