@@ -118,8 +118,8 @@ zh-CN:
         smtp_verify_success: 验证成功
         smtp_verify_failed: 验证失败
         apply_for_restart: 需重启服务生效
-        service_restarting: 服务重启中 ...
-        service_restarted: 刷新页面 ...
+        service_restarting: 服务重启中
+        service_restarted: 刷新页面
         restart_required: 重启后生效
       update:
         title: 编辑设置
@@ -949,8 +949,10 @@ zh-CN:
     code:
       '400':
         title: 您提交的请求无效或格式不正确
+        content: 可能是参数错误或缺少必要的参数
       '403':
         title: 你没有访问这个页面的权限
+        content: 当前用户没有权限访问此页面或执行此操作
       '404':
         title: 找不到你想要的内容
         content: 当前访问的页面不存在或者已经被移动
@@ -1045,11 +1047,14 @@ zh-CN:
             key_id:
               unauthorized: 用户身份认证失败，请重新检查各项参数是否正确
               forbidden: 密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥
+              required_agreement_missing_or_expired: 苹果开发者协议未同意或已过期，请重新登录苹果开发者网站同意协议后再重新执行当前操作
               unknown: '未知错误: %{message}'
             devices:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
               api: '苹果返回错误：%{message}'
               unknown: '未知错误: %{message}'
+            checksum:
+              taken: 匹配，密钥文件已存在
         udid:
           attributes:
             name:

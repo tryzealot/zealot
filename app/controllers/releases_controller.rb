@@ -99,7 +99,7 @@ class ReleasesController < ApplicationController
   end
 
   def set_release
-    @release = Release.find params[:id]
+    @release = @channel.releases.find params[:id]
   end
 
   def set_channel

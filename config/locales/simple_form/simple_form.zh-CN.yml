@@ -64,7 +64,7 @@ zh-CN:
         release_version: 发布版本
         build_version: 构建版本
         file: 调试文件
-        checksum: 唯一校验码
+        checksum: 文件校验码
       setting:
         value: 值
       apple_key:
@@ -72,6 +72,7 @@ zh-CN:
         key_id: 密钥 ID
         private_key: 密钥文件
         devices: 测试设备
+        checksum: 密钥文件校验码
       apple_team:
         display_name: 显示名称
         name: 注册主体
@@ -125,12 +126,18 @@ zh-CN:
       debug_file:
         device_type: 应用设备类型
         file: 必须使用 zip 文件压缩后的调试文件
+        checksum: 仅用于做调试文件唯一性校验使用
       backup:
         key: 名称必须是唯一，不可和其他备份重复
         schedule: |
           表达式支持<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">英语语义</a>或
           <a href="https://crontab.guru/">Cron</a>，暂不支持单次执行
         max_keeps: 备份达到设置上限会删除最早的文件，-1 不限制设置; 0 不可备份
+      apple_key:
+        issuer_id: UUID 格式，例如 12345678-1234-1234-1234-123456789012
+        key_id: 确保和下载的密钥文件匹配，例如 ABCDEFGH12
+        private_key: 接受任意文件后缀格式的密钥文件，你可以从苹果开发者账户下载
+        checksum: 仅用于做密钥文件唯一性校验使用
 
     placeholders:
       release:
@@ -159,7 +166,6 @@ zh-CN:
       debug_file:
         release_version: '1.0.0'
         build_version: '1.0'
-        checksum: '纯校验使用，随文件生成无需填写'
       backup:
         schedule: every day at noon / 12 0 * * *
       device:

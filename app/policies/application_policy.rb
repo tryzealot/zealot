@@ -57,8 +57,11 @@ class ApplicationPolicy
 
   protected
 
-  def app_collaborator?(user, app)
-    Collaborator.where(user: user, app: app).exists?
+  def app_collaborator?(user, app, role: nil, exclude: false)
+    model = Collaborator.where(user: user, app: app)
+    return model.exists? unless role
+    
+    exclude ? model.where.not(role: role).exists? : model.where(role: role).exists?
   end
 
   def user_signed_in_or_guest_mode?
