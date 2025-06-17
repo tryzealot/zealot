@@ -94,7 +94,7 @@ group :development do
   gem 'graphiql-rails'
 
   ## VSCode debug: https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
-  gem 'debug', '~> 1.10.0'
+  gem 'debug', '~> 1.11.0'
   gem 'ruby-lsp-rails'
 
   # better rails
