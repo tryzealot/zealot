@@ -148,7 +148,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.13.0)
+    devise-i18n (1.14.0)
       devise (>= 4.9.0)
       rails-i18n
     diff-lcs (1.6.1)
@@ -498,7 +498,7 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.4)
       logger
-    rdoc (6.14.0)
+    rdoc (6.14.1)
       erb
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
@@ -682,7 +682,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.4)
   debug (~> 1.11.0)
   devise (~> 4.9.4)
-  devise-i18n (~> 1.13.0)
+  devise-i18n (~> 1.14.0)
   dotenv-rails
   factory_bot_rails
   faker
