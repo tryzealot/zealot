@@ -304,10 +304,10 @@
   dependencies:
     undici-types "~6.20.0"
 
-admin-lte@^4.0.0-beta3:
-  version "4.0.0-beta3"
-  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-beta3.tgz#8be40ab4ff20f102b2525d8b28cc905240b68fb6"
-  integrity sha512-q2VoAOu1DtZ7z41M2gQ05VMNYkFCAMxFU+j/HUMwCOlr/e3VhO+qww2SGJw4OxBw5nZQ7YV78+wK2RiB7ConzQ==
+admin-lte@^4.0.0-rc2:
+  version "4.0.0-rc2"
+  resolved "https://registry.yarnpkg.com/admin-lte/-/admin-lte-4.0.0-rc2.tgz#a2e5a27c2ad45e6a71601d68cc5f97676b09c088"
+  integrity sha512-VMi9+Fl/Eu/XFFH3V86jcIgiKs/VqKStKvDxZbdEcgEwXgjV/d2MP76UEnanVIjnC3lxqXESzmzu1iAhnNtlzg==
 
 ansi-regex@^5.0.1:
   version "5.0.1"
