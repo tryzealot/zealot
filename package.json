@@ -17,7 +17,7 @@
     "esbuild": "^0.25.5",
     "overlayscrollbars": "^2.11.4",
     "sass": "^1.89.2",
-    "ua-parser-js": "^2.0.3"
+    "ua-parser-js": "^2.0.4"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2017",
