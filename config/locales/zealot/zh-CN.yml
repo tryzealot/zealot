@@ -198,6 +198,9 @@ zh-CN:
         dev_new_version: 发现新版本 (开发环境始终显示)
         messages:
           file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
+          path_not_exist: 路径不存在
+          path_not_writable: 路径不可写
+          path_not_readable: 路径不可读
     backups:
       title: 数据备份
       index:
