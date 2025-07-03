@@ -7,13 +7,23 @@ export default class extends Controller {
   static values = {
     env: String,
     rootUrl: String,
-    apperance: String
+    appearance: String
   }
 
   connect() {
-    this.initZealot()
-    this.setupRailsDebugMode()
-    this.switchDarkMode()
+    if (this.isInitialized) {
+      return
+    }
+
+    try {
+      this.initZealot()
+      this.setupRailsDebugMode()
+      this.switchDarkMode()
+      this.setupThemeObserver()
+      this.isInitialized = true
+    } catch (error) {
+      console.error('GlobalController initialization error:', error)
+    }
   }
 
   initZealot() {
@@ -23,10 +33,10 @@ export default class extends Controller {
   }
 
   switchDarkMode() {
-    const apperance = Zealot.siteApperance
-    if (apperance === "dark" || (apperance === "auto" && Zealot.isDarkMode())) {
+    const appearance = Zealot.siteApperance
+    if (appearance === "dark" || (appearance === "auto" && Zealot.isDarkMode())) {
       document.documentElement.setAttribute("data-bs-theme", "dark");
-    } else if (apperance === "light" && Zealot.isDarkMode()) {
+    } else if (appearance === "light" && Zealot.isDarkMode()) {
       var darkBrandImage = document.getElementsByClassName("dark-brand-image")
       Array.prototype.forEach.call(darkBrandImage, (element) => {
         element.remove()
