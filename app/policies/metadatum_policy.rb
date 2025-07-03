@@ -3,7 +3,7 @@
 class MetadatumPolicy < ApplicationPolicy
 
   def show?
-    user_signed_in? && (owner? || any_manage? || app_member?)
+    user_signed_in_or_guest_mode? || (user_signed_in? && (owner? || any_manage? || app_member?))
   end
 
   def new?
