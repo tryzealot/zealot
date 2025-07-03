@@ -29,7 +29,7 @@ ruby:
       .card-header.card-border
         h3.card-title = t('.change_password')
       .card-body
-        = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put }) do |f|
+        = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_password }) do |f|
           = f.error_notification
 
           = f.input :current_password, input_html: { autocomplete: "password" }
