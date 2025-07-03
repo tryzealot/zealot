@@ -1,110 +1,193 @@
 import "@hotwired/turbo-rails"
 import { OverlayScrollbars } from "overlayscrollbars"
-
 import { Tooltip } from "bootstrap"
 import { PushMenu, CardWidget, Treeview } from "admin-lte"
 
-const triggerBootstrapTooltip = () => {
-  const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle=\"tooltip\"]")
-  tooltipTriggerList.forEach((element) => {
-    new Tooltip(element)
-  })
-}
-
-const triggerAdminlteCardCollapse = () => {
-  const cardCollapseButtonsList = document.querySelectorAll("[data-lte-toggle=\"card-collapse\"]")
-  cardCollapseButtonsList.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      event.preventDefault()
-
-      const target = event.target
-      const data = new CardWidget(target)
-      data.toggle()
-    })
-  })
-}
-
-const triggerAdminlteSidebarToggle = () => {
-  const pushMenuDefaults = {
-    sidebarBreakpoint: 992
+// Patch AdminLTE to adapt to Turbo
+class FrameworkManager {
+  constructor() {
+    this.initialized = false
+    this.tooltipInstances = new Map()
+    this.overlayScrollbarsInstance = null
+    this.config = {
+      pushMenu: {
+        sidebarBreakpoint: 992
+      },
+      treeview: {
+        animationSpeed: 300,
+        accordion: true
+      },
+      overlayScrollbars: {
+        scrollbarTheme: "os-theme-light",
+        scrollbarAutoHide: "leave",
+        scrollbarClickScroll: true,
+      }
+    }
   }
 
-  const sidebarToggle = "[data-lte-toggle=\"sidebar\"]"
-  const sidebarTriggerList = document.querySelectorAll(sidebarToggle)
-  sidebarTriggerList.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
+  init() {
+    if (this.initialized) 
+    
+    this.setupEventDelegation()
+    this.initializeComponents()
+    this.initialized = true
+  }
+
+  setupEventDelegation() {
+    document.addEventListener('click', this.handleClick.bind(this))
+    
+    document.addEventListener('turbo:load', this.handleTurboLoad.bind(this))
+    document.addEventListener('turbo:frame-load', this.handleTurboFrameLoad.bind(this))
+    document.addEventListener('turbo:before-stream-render', this.handleTurboBeforeStreamRender.bind(this))
+  }
+
+  handleClick(event) {
+    const target = event.target
+
+    try {
+      if (target.matches('[data-lte-toggle="card-collapse"]') || target.closest('[data-lte-toggle="card-collapse"]')) {
+        this.handleCardCollapse(event)
+        return
+      }
+
+      if (target.matches('[data-lte-toggle="sidebar"]') || target.closest('[data-lte-toggle="sidebar"]')) {
+        this.handleSidebarToggle(event)
+        return
+      }
+
+      if (target.matches('[data-lte-toggle="treeview"]') || target.closest('[data-lte-toggle="treeview"]')) {
+        this.handleTreeviewToggle(event)
+        return
+      }
+    } catch (error) {
+      console.error('FrameworkManager handleClick error:', error)
+    }
+  }
+
+  handleCardCollapse(event) {
+    event.preventDefault()
+    const target = event.target.closest('[data-lte-toggle="card-collapse"]')
+    if (target) {
+      const cardWidget = new CardWidget(target)
+      cardWidget.toggle()
+    }
+  }
+
+  handleSidebarToggle(event) {
+    event.preventDefault()
+    const target = event.target.closest('[data-lte-toggle="sidebar"]')
+    if (target) {
+      const pushMenu = new PushMenu(target, this.config.pushMenu)
+      pushMenu.toggle()
+    }
+  }
+
+  handleTreeviewToggle(event) {
+    const target = event.target
+    const targetItem = target.closest(".nav-item")
+    const targetLink = target.closest(".nav-link")
+
+    if (target?.getAttribute("href") === "#" || targetLink?.getAttribute("href") === "#") {
       event.preventDefault()
-      let button = event.currentTarget
-
-      if (button?.dataset.lteToggle !== "sidebar") {
-        button = button?.closest(sidebarToggle)
-      }
-
-      if (button) {
-        event?.preventDefault()
-        const data = new PushMenu(button, pushMenuDefaults)
-        data.toggle()
-      }
-    })
-  })
-
-  // Fixes overlay scrollbar on sidebar menu
-  const sidebarWrapper = document.querySelector(".sidebar-wrapper");
-  if (sidebarWrapper) {
-    const OverlayScrollbarsDefault = {
-      scrollbarTheme: "os-theme-light",
-      scrollbarAutoHide: "leave",
-      scrollbarClickScroll: true,
     }
 
-    OverlayScrollbars(sidebarWrapper, {
-      scrollbars: {
-        theme: OverlayScrollbarsDefault.scrollbarTheme,
-        autoHide: OverlayScrollbarsDefault.scrollbarAutoHide,
-        clickScroll: OverlayScrollbarsDefault.scrollbarClickScroll,
-      },
-    });
+    if (targetItem) {
+      const treeview = new Treeview(targetItem, this.config.treeview)
+      treeview.toggle()
+    }
+  }
+
+  handleTurboLoad() {
+    this.refreshTooltips()
+    this.initializeSidebarScrollbar()
+  }
+
+  handleTurboFrameLoad() {
+    this.refreshTooltips()
+  }
+
+  handleTurboBeforeStreamRender(event) {
+    const fallbackToDefaultActions = event.detail.render
+    event.detail.render = (streamElement) => {
+      fallbackToDefaultActions(streamElement)
+      requestAnimationFrame(() => {
+        this.refreshTooltips()
+      })
+    }
+  }
+
+  refreshTooltips() {
+    try {
+      this.tooltipInstances.forEach((tooltip, element) => {
+        if (!document.contains(element)) {
+          tooltip.dispose()
+          this.tooltipInstances.delete(element)
+        }
+      })
+
+      const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      tooltipElements.forEach(element => {
+        if (!this.tooltipInstances.has(element)) {
+          const tooltip = new Tooltip(element)
+          this.tooltipInstances.set(element, tooltip)
+        }
+      })
+    } catch (error) {
+      console.error('Error refreshing tooltips:', error)
+    }
+  }
+
+  initializeSidebarScrollbar() {
+    const sidebarWrapper = document.querySelector(".sidebar-wrapper")
+    if (!sidebarWrapper) return
+
+    try {
+      if (this.overlayScrollbarsInstance) {
+        this.overlayScrollbarsInstance.destroy()
+      }
+
+      this.overlayScrollbarsInstance = OverlayScrollbars(sidebarWrapper, {
+        scrollbars: {
+          theme: this.config.overlayScrollbars.scrollbarTheme,
+          autoHide: this.config.overlayScrollbars.scrollbarAutoHide,
+          clickScroll: this.config.overlayScrollbars.scrollbarClickScroll,
+        },
+      })
+    } catch (error) {
+      console.error('Error initializing sidebar scrollbar:', error)
+    }
+  }
+
+  initializeComponents() {
+    this.refreshTooltips()
+    this.initializeSidebarScrollbar()
+  }
+
+  destroy() {
+    this.tooltipInstances.forEach(tooltip => tooltip.dispose())
+    this.tooltipInstances.clear()
+
+    if (this.overlayScrollbarsInstance) {
+      this.overlayScrollbarsInstance.destroy()
+      this.overlayScrollbarsInstance = null
+    }
+
+    this.initialized = false
   }
 }
 
-const triggerAdminlteTreeviewToggle = () => {
-  const treeviewToggleList = document.querySelectorAll("[data-lte-toggle=\"treeview\"]")
-  treeviewToggleList.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      const target = event.target
-      const targetItem = target.closest(".nav-item")
-      const targetLink = target.closest(".nav-link")
+const frameworkManager = new FrameworkManager()
 
-      if (target?.getAttribute("href") === "#" || targetLink?.getAttribute("href") === "#") {
-        event.preventDefault()
-      }
+document.addEventListener('DOMContentLoaded', () => {
+  frameworkManager.init()
+})
 
-      if (targetItem) {
-        const data = new Treeview(targetItem, {
-          animationSpeed: 300,
-          accordion: true
-        })
-
-        data.toggle()
-      }
-    })
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    frameworkManager.init()
   })
+} else {
+  frameworkManager.init()
 }
 
-const triggerEvents = ["load", "turbo:load", "turbo:frame-load"]
-triggerEvents.forEach((name) => {
-  window.addEventListener(name, () => {
-    triggerBootstrapTooltip()
-    triggerAdminlteCardCollapse()
-    triggerAdminlteSidebarToggle()
-    triggerAdminlteTreeviewToggle()
-  })
-})
-
-window.addEventListener("turbo:before-stream-render", (event) => {
-  const fallbackToDefaultActions = event.detail.render
-  event.detail.render = function (streamElement) {
-    triggerBootstrapTooltip()
-    fallbackToDefaultActions(streamElement)
-  }
-})
+window.frameworkManager = frameworkManager
