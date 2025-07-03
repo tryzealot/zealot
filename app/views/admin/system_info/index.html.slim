@@ -85,7 +85,8 @@
                 - if permission[:health]
                   i.fas.fa-check.text-success
                 - else
-                  i.fas.fa-exclamation-triangle.text-danger
+                  span title="#{permission[:reason]}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="left"
+                    i.fas.fa-exclamation-triangle.text-danger
       .card-footer
         = t('.messages.file_permissions_tip', icon: '<i class="fas fa-exclamation-triangle text-danger">')
 

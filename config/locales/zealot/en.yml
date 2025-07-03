@@ -200,6 +200,9 @@ en:
         dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+          path_not_exist: Path does not exist
+          path_not_writable: Path is not writable
+          path_not_readable: Path is not readable
     backups:
       title: Backups
       index:
