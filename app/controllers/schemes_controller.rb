@@ -25,7 +25,7 @@ class SchemesController < ApplicationController
 
     create_channels(channels)
 
-    flash.now.notice = t('activerecord.success.create', key: t('schemes.title'))
+    flash.now.notice = t('activerecord.success.create', key: "#{@scheme.name} #{t('schemes.title')}")
     respond_to do |format|
       format.html { redirect_to app_path(@app) }
       format.turbo_stream
@@ -41,6 +41,8 @@ class SchemesController < ApplicationController
   def update
     authorize @scheme
     @scheme.update(scheme_params)
+
+    flash.now.notice = t('activerecord.success.update', key: "#{@scheme.name} #{t('schemes.title')}")
     respond_to do |format|
       format.html { redirect_to app_path(@app) }
       format.turbo_stream
@@ -51,6 +53,7 @@ class SchemesController < ApplicationController
     authorize @scheme
     @scheme.destroy
 
+    flash.now.notice = t('activerecord.success.destroy', key: "#{@scheme.name} #{t('schemes.title')}")
     respond_to do |format|
       format.html { redirect_to app_path(@app) }
       format.turbo_stream
