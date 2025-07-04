@@ -416,6 +416,7 @@ zh-CN:
       empty_version_shortly: 暂无版本
       empty_version: 该版本没有任何上传记录！
       more: 查看更多
+      app_detail: 应用详情
     new:
       title:
         with_name: '%{app}新建渠道'
