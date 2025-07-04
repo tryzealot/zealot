@@ -16,7 +16,7 @@ html
   body[
     data-controller="global"
     data-global-root-url-value="#{root_url}"
-    data-global-apperance-value="#{current_user&.appearance || Setting.site_appearance}"
+    data-global-appearance-value="#{current_user&.appearance || Setting.site_appearance}"
   ]
     .wrapper
       == render 'layouts/navigation'

@@ -19,7 +19,6 @@ export default class extends Controller {
       this.initZealot()
       this.setupRailsDebugMode()
       this.switchDarkMode()
-      this.setupThemeObserver()
       this.isInitialized = true
     } catch (error) {
       console.error('GlobalController initialization error:', error)
@@ -28,7 +27,7 @@ export default class extends Controller {
 
   initZealot() {
     Zealot.rootUrl = this.rootUrlValue
-    Zealot.siteApperance = this.apperanceValue
+    Zealot.siteApperance = this.appearanceValue
     Zealot.env = this.envValue
   }
 
