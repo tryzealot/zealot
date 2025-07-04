@@ -424,6 +424,7 @@ en:
       empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
       more: More
+      app_detail: App detail
     new:
       title:
         with_name: 'New channel for %{app}'
