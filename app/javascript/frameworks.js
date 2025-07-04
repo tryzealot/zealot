@@ -25,11 +25,11 @@ class FrameworkManager {
       }
     }
 
-    this.adminlte = window.AdminLte
+    this.adminlte = window.adminlte
   }
 
   init() {
-    if (this.initialized) 
+    if (this.initialized) return
     
     this.setupEventDelegation()
     this.initializeComponents()
@@ -37,10 +37,16 @@ class FrameworkManager {
   }
 
   setupEventDelegation() {
-    document.addEventListener('click', this.handleClick.bind(this))
-    document.addEventListener('turbo:load', this.handleTurboLoad.bind(this))
-    document.addEventListener('turbo:frame-load', this.handleTurboFrameLoad.bind(this))
+    document.addEventListener('click', this.patchAdminLTEHandler.bind(this))
+    document.addEventListener('turbo:load', this.patchAdminLTEHandler.bind(this))
+    document.addEventListener('turbo:frame-load', this.patchAdminLTEHandler.bind(this))
     document.addEventListener('turbo:before-stream-render', this.handleTurboBeforeStreamRender.bind(this))
+  }
+
+  patchAdminLTEHandler(event) {
+    this.handleClick(event)
+    this.handleTurboLoad()
+    this.handleTurboFrameLoad()
   }
 
   handleClick(event) {
