@@ -1,7 +1,8 @@
 import "@hotwired/turbo-rails"
 import { OverlayScrollbars } from "overlayscrollbars"
 import { Tooltip } from "bootstrap"
-import { PushMenu, CardWidget, Treeview } from "admin-lte"
+
+import "admin-lte"
 
 // Patch AdminLTE to adapt to Turbo
 class FrameworkManager {
@@ -23,6 +24,8 @@ class FrameworkManager {
         scrollbarClickScroll: true,
       }
     }
+
+    this.adminlte = window.AdminLte
   }
 
   init() {
@@ -35,7 +38,6 @@ class FrameworkManager {
 
   setupEventDelegation() {
     document.addEventListener('click', this.handleClick.bind(this))
-    
     document.addEventListener('turbo:load', this.handleTurboLoad.bind(this))
     document.addEventListener('turbo:frame-load', this.handleTurboFrameLoad.bind(this))
     document.addEventListener('turbo:before-stream-render', this.handleTurboBeforeStreamRender.bind(this))
@@ -67,8 +69,8 @@ class FrameworkManager {
   handleCardCollapse(event) {
     event.preventDefault()
     const target = event.target.closest('[data-lte-toggle="card-collapse"]')
-    if (target) {
-      const cardWidget = new CardWidget(target)
+    if (target && this.adminlte?.CardWidget) {
+      const cardWidget = new this.adminlte.CardWidget(target)
       cardWidget.toggle()
     }
   }
@@ -76,8 +78,8 @@ class FrameworkManager {
   handleSidebarToggle(event) {
     event.preventDefault()
     const target = event.target.closest('[data-lte-toggle="sidebar"]')
-    if (target) {
-      const pushMenu = new PushMenu(target, this.config.pushMenu)
+    if (target && this.adminlte?.PushMenu) {
+      const pushMenu = new this.adminlte.PushMenu(target, this.config.pushMenu)
       pushMenu.toggle()
     }
   }
@@ -91,8 +93,8 @@ class FrameworkManager {
       event.preventDefault()
     }
 
-    if (targetItem) {
-      const treeview = new Treeview(targetItem, this.config.treeview)
+    if (targetItem && this.adminlte?.Treeview) {
+      const treeview = new this.adminlte.Treeview(targetItem, this.config.treeview)
       treeview.toggle()
     }
   }
