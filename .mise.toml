@@ -22,14 +22,6 @@ run = "yarn build --watch"
 description = "Running CSS compiler watcher"
 run = "yarn build:css --watch"
 
-[tasks.dev] 
-description = "Start all server"
-depends = ["js", "css", "web", "worker"]
-
-[tasks.debug]
-description = "Start all server (web debug mode)"
-depends = ["js", "css", "debug_web", "worker"]
-
 [tasks.caddy]
 description = "Running Caddy server"
 run = "caddy run --watch --config docker/rootfs/etc/Caddyfile"
