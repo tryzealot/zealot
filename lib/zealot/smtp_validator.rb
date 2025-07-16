@@ -24,7 +24,7 @@ class Zealot::SmtpValidator
     end
 
     true
-  rescue StandardError => e
+  rescue StandardError, SignalException => e
     @error = e
     false
   end
