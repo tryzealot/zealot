@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine AS builder
+FROM --platform=$BUILDPLATFORM ruby:3.4.5-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -58,7 +58,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine
+FROM --platform=$BUILDPLATFORM ruby:3.4.5-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
