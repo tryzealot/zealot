@@ -36,7 +36,7 @@ RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGI
 
 USER vscode
 
-RUN mise use -g usage && \
+RUN mise use -g usage || true && \
     echo 'eval "$(mise activate bash --shims)"' >> ~/.bash_profile && \
     echo 'eval "$(mise activate bash)"' >> ~/.bashrc && \
     sed -i -E "s/^plugins=\(.+\)$/plugins=(debian mise git tmux npm yarn ruby gem bundler rails)/g" ~/.zshrc
