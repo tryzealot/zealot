@@ -410,7 +410,7 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
-    propshaft (1.2.0)
+    propshaft (1.2.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -710,7 +710,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pghero (~> 3.7.0)
   plist (~> 3.7.2)
-  propshaft (= 1.2.0)
+  propshaft (= 1.2.1)
   pry-rails
   pry-rescue
   puma (~> 6.6.0)
