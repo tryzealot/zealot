@@ -1,4 +1,4 @@
-name: Publish Nightly Docker Image
+name: Publish Preview Docker Image
 on:
   push:
     paths-ignore:
@@ -6,7 +6,7 @@ on:
       - '.github/*.yml'
       - '.github/workflows/publish_codespace.yml'
       - '.github/workflows/publish_release.yml'
-      - '.github/workflows/publish_preview.yml'
+      - '.github/workflows/publish_nightly.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'
@@ -15,10 +15,10 @@ on:
       - 'Procfile*'
       - '*.yaml'
     branches:
-      - develop
+      - 'release/*'
 
 env:
-  DOCKER_TAG: nightly
+  DOCKER_TAG: preview
 
 jobs:
   push_to_registry:
@@ -36,11 +36,6 @@ jobs:
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-
-    - name: Get build date
-      id: build_date
-      run: |
-        echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
@@ -64,7 +59,6 @@ jobs:
           ghcr.io/${{ github.repository }}
         tags: |
           type=raw,value=${{ env.DOCKER_TAG }}
-          type=raw,value=${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
 
     - name: Build and Push
       uses: docker/build-push-action@v6
