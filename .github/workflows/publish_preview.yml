@@ -63,7 +63,11 @@ jobs:
           ${{ github.repository }}
           ghcr.io/${{ github.repository }}
         tags: |
+<<<<<<< HEAD
           type=raw,value=${{ steps.release_version.outputs.RELEASE_VERSION }}-${{ env.DOCKER_TAG }}
+=======
+          type=raw,value=${{ env.DOCKER_TAG }}
+>>>>>>> cc2c1783 (chore: add preview docker tag build to test release branch)
 
     - name: Build and Push
       uses: docker/build-push-action@v6
