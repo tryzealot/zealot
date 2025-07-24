@@ -1,1 +1,2 @@
 = turbo_stream.replace dom_id(@channel), partial: 'apps/channel', locals: { channel: @channel, scheme: @scheme, app: @scheme.app }
+= turbo_stream.append :notifications, partial: 'layouts/messages'
