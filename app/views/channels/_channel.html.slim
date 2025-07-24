@@ -16,3 +16,8 @@
     == render 'channels'
     == render 'versions'
     == render 'metadata'
+
+    - if user_signed_in_or_guest_mode?
+      = link_to app_path(@app), class: 'btn btn-secondary w-100 mt-3', data: { turbo: false } do
+          i.icon.far.fa-list-alt
+          = t('channels.show.app_detail')

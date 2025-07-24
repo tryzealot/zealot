@@ -150,6 +150,7 @@ en:
       ldap: LDAP
       oidc: OpenID Connect
       feishu: Feihsu
+      github: Github
       gitlab: Gitlab
       google_oauth: Google OAuth
       smtp: Email SMTP
@@ -199,6 +200,9 @@ en:
         dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+          path_not_exist: Path does not exist
+          path_not_writable: Path is not writable
+          path_not_readable: Path is not readable
     backups:
       title: Backups
       index:
@@ -420,6 +424,7 @@ en:
       empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
       more: More
+      app_detail: App detail
     new:
       title:
         with_name: 'New channel for %{app}'
@@ -1111,6 +1116,7 @@ en:
           feishu: Feishu
           google: Google
           gitlab: Gitlab
+          github: Github
           openidconnect: OpenID
   helpers:
     submit:

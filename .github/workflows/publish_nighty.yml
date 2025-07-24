@@ -6,6 +6,7 @@ on:
       - '.github/*.yml'
       - '.github/workflows/publish_codespace.yml'
       - '.github/workflows/publish_release.yml'
+      - '.github/workflows/publish_preview.yml'
       - '*.md'
       - '.*'
       - 'LICENSE'

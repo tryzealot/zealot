@@ -65,9 +65,22 @@ class Admin::SystemInfoController < ApplicationController
       paths.each do |path|
         real_path = scope == :system ? path : Rails.root.join(path)
         health = File.writable?(real_path)
+        reason = if !File.exist?(real_path)
+                    t('.messages.path_not_exist')
+                  elsif !File.writable?(real_path)
+                    t('.messages.path_not_writable')
+                  elsif !File.readable?(real_path)
+                    t('.messages.path_not_readable')
+                  else
+                    nil
+                  end
 
         @file_permissions[:health] = false if !health
-        @file_permissions[:permissions].push(path: real_path.to_s, health: health)
+        @file_permissions[:permissions].push(
+          path: real_path.to_s, 
+          health: health,
+          reason: reason
+        )
       end
     end
 
