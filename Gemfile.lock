@@ -402,7 +402,11 @@ GEM
       multipart-post (>= 2.0.0)
       rainbow
       zhexdump (>= 0.0.2)
-    pg (1.5.9)
+    pg (1.6.0)
+    pg (1.6.0-aarch64-linux)
+    pg (1.6.0-arm64-darwin)
+    pg (1.6.0-x86_64-darwin)
+    pg (1.6.0-x86_64-linux)
     pghero (3.7.0)
       activerecord (>= 7.1)
     plist (3.7.2)
