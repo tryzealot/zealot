@@ -820,10 +820,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-overlayscrollbars@^2.11.4:
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-2.11.4.tgz#68a776731106f9f767d5b667fb2024127d282a94"
-  integrity sha512-GKYQo3OZ1QWnppNjQVv5hfpn+glYUxc6+ufW+ivdXUyLWFNc01XoH2Z36KGM4I8e5pXYeA3ElNItcXiLvmUhnQ==
+overlayscrollbars@^2.11.5:
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-2.11.5.tgz#e5eb9be2816d63718db11cff355f2116202dbdce"
+  integrity sha512-vTUfCtjJbTjiarrxl9qdK04ZxlQdB4ugXfiqctVZytYDXH259OM4whROMGDE6T8uCYmSYPqiOFIKZ1erVkJnFg==
 
 package-json-from-dist@^1.0.0:
   version "1.0.1"
