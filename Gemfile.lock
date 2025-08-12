@@ -504,7 +504,7 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
-    regexp_parser (2.10.0)
+    regexp_parser (2.11.1)
     reline (0.6.2)
       io-console (~> 0.5)
     request_store (1.7.0)
@@ -546,7 +546,7 @@ GEM
     rswag-ui (2.16.0)
       actionpack (>= 5.2, < 8.1)
       railties (>= 5.2, < 8.1)
-    rubocop (1.79.1)
+    rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
