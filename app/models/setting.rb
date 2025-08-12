@@ -40,7 +40,9 @@ class Setting < RailsSettings::Base
   end
 
   scope :switch_mode do
-    field :registrations_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
+    field :registrations_enabled, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
+          type: :boolean, display: true
+    field :login_enabled, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_LOGIN_ENABLED'] || 'true'),
           type: :boolean, display: true
     field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'),
           type: :boolean, restart_required: true, display: true
