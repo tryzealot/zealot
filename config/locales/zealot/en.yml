@@ -142,7 +142,10 @@ en:
       per_page: Per page
       max_per_page: Max per page
       switch_mode: Switch mode
-      registrations_mode: Registrations mode
+      registrations_enabled: User registrations
+      registrations_enabled_hint: Enable or disable user registration via the built-in authentication system. If disabled, only administrators can create new users.
+      login_enabled: User login
+      login_enabled_hint: Enable or disable user login via the built-in authentication system. If disabled, only third-party authentication methods are available.
       guest_mode: Guest mode
       demo_mode: Demo mode
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
@@ -1102,6 +1105,7 @@ en:
         token: Token
     normal:
       title: Normal
+      user_login_disabled: User authentication is disabled, please contact the administrator.
     ldap:
       title: LDAP
       username: LDAP Username
