@@ -16,7 +16,7 @@
     "compare-versions": "^6.1.1",
     "esbuild": "^0.25.9",
     "overlayscrollbars": "^2.11.5",
-    "sass": "^1.90.0",
+    "sass": "^1.91.0",
     "ua-parser-js": "^2.0.4"
   },
   "scripts": {
