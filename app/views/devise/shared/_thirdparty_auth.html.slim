@@ -1,0 +1,7 @@
+- if devise_mapping.omniauthable? && resource_class.oauth_providers.any?
+  .social-auth-links.mb-3.d-grid
+    - resource_class.oauth_providers.each do |provider|
+      - unless provider == :ldap
+        = devise_provider_login_path(provider)
+- elsif !Setting.login_enabled? && resource_class.oauth_providers.empty?
+  == render 'devise/shared/disabled_login'
