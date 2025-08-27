@@ -6,20 +6,24 @@
   .col-md-6.order-12.order-sm-1
     == render 'devise/shared/intro'
   .col-md-6.order-1.order-sm-12.mb-4
-    - if Setting.registrations_mode
+    - if Setting.registrations_enabled || Setting.login_enabled
       .card
         .card-header
           h3.card-title = t('.resend_unlock_instructions')
         .card-body
           .row
-            .auth-form.col-md-6
-              = simple_form_for(resource, as: resource_name, url: user_unlock_path(resource_name), html: { method: :post }) do |f|
-                == render "devise/shared/error_messages", resource: resource
+            - if Setting.login_enabled
+              .auth-form.col-md-6
+                = simple_form_for(resource, as: resource_name, url: user_unlock_path(resource_name), html: { method: :post }) do |f|
+                  == render "devise/shared/error_messages", resource: resource
 
-                = f.input :email, hint: '',
-                        required: true,
-                        autofocus: true,
-                        input_html: { autocomplete: "email" }
-                = f.button :submit, t('.resend_unlock_instructions'), class: 'w-100'
+                  = f.input :email, hint: '',
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: "email" }
+                  = f.button :submit, t('.resend_unlock_instructions'), class: 'w-100'
+            - else
+              .col-md-6
+                == render 'devise/shared/disabled_login'
             .auth-providers.col-md-6
               == render 'devise/shared/links'

@@ -142,7 +142,10 @@ zh-CN:
       per_page: 每页返回条目数
       max_per_page: 每页最大返回条目数
       switch_mode: 模式开关
-      registrations_mode: 注册模式
+      registrations_enabled: 允许用户注册
+      registrations_enabled_hint: 启用或关闭内置认证系统的用户注册功能。关闭后仅管理员可以创建新用户
+      login_enabled: 允许用户登录
+      login_enabled_hint: 启用或关闭内置认证系统的用户登录功能。关闭后仅可使用第三方认证方式登录
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
@@ -1102,6 +1105,7 @@ zh-CN:
         token: 密钥
     normal:
       title: 标准登录
+      user_login_disabled: 用户登录已被禁用，请联系管理员
     ldap:
       title: LDAP 登录
       username: LDAP 账户

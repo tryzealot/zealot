@@ -11,16 +11,19 @@
         h3.card-title = t('.forgot_your_password')
       .card-body
         .row
-          .auth-form.col-md-6
-            = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-              = f.error_notification
+          - if Setting.login_enabled
+            .auth-form.col-md-6
+              = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+                = f.error_notification
 
-              = f.input :email, hint: '',
-                      required: true,
-                      autofocus: true,
-                      input_html: { autocomplete: "email" }
+                = f.input :email, hint: '',
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email" }
 
-              = f.button :submit, t('.send_me_reset_password_instructions'), class: 'w-100'
-
+                = f.button :submit, t('.send_me_reset_password_instructions'), class: 'w-100'
+          - else
+            .col-md-6
+              == render 'devise/shared/disabled_login'
           .auth-providers.col-md-6
             == render 'devise/shared/links'

@@ -1,21 +1,18 @@
-- if devise_mapping.omniauthable?
-  .social-auth-links.mb-3.d-grid
-    - resource_class.oauth_providers.each do |provider|
-      - unless provider == :ldap
-        = devise_provider_login_path(provider)
+== render 'devise/shared/thirdparty_auth'
 
-- if controller_name != 'sessions'
-  p.mb-1
-    = link_to t('devise.shared.links.sign_in'), new_session_path(resource_name)
+- if Setting.login_enabled
+  - if controller_name != 'sessions'
+    p.mb-1
+      = link_to t('devise.shared.links.sign_in'), new_session_path(resource_name)
 
-- if Setting.registrations_mode && devise_mapping.registerable? && controller_name != 'registrations'
-  p.mb-1
-    = link_to t('devise.shared.links.sign_up'), new_registration_path(resource_name)
+  - if Setting.registrations_enabled && devise_mapping.registerable? && controller_name != 'registrations'
+    p.mb-1
+      = link_to t('devise.shared.links.sign_up'), new_registration_path(resource_name)
 
-- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-  p.mb-1
-    = link_to t('devise.shared.links.forgot_your_password'), new_password_path(resource_name)
+  - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+    p.mb-1
+      = link_to t('devise.shared.links.forgot_your_password'), new_password_path(resource_name)
 
-- if devise_mapping.confirmable? && controller_name != 'confirmations'
-  p.mb-1
-    = link_to t('devise.shared.links.didn_t_receive_confirmation_instructions'), new_confirmation_path(resource_name)
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    p.mb-1
+      = link_to t('devise.shared.links.didn_t_receive_confirmation_instructions'), new_confirmation_path(resource_name)
