@@ -64,7 +64,7 @@ gem 'openssl', '~> 3.3.0'
 gem 'plist', '~> 3.7.2'
 
 ## OS
-gem 'sys-filesystem', '~> 1.5.3'
+gem 'sys-filesystem', '~> 1.5.4'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.7.0'
 
