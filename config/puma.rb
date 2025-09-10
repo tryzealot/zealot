@@ -60,7 +60,7 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # This directive tells Puma to first boot the application and load code before
 # forking the application. This takes advantage of Copy On Write process
 # behavior so workers use less memory. If you use this option you need to make
-# sure to reconnect any threads in the `on_worker_boot` block.
+# sure to reconnect any threads in the `before_worker_boot` block.
 # preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
@@ -80,12 +80,12 @@ if workers_size > 0 && defined?(GoodJob)
     GoodJob.shutdown
   end
 
-  on_worker_boot do
+  before_worker_boot do
     GoodJob.logger.info { 'Starting Puma worker process.' }
     GoodJob.restart
   end
 
-  on_worker_shutdown do
+  before_worker_shutdown do
     GoodJob.logger.info { 'Stopping Puma worker process.' }
     GoodJob.shutdown
   end
