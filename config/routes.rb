@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     resources :releases, path_names: { new: 'upload' } do
       scope module: :releases do
         get :install, to: 'install#show'
+        get :authenticate_and_redirect, to: 'install#authenticate_and_redirect'
       end
 
       scope module: :releases do

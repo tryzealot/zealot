@@ -14,8 +14,7 @@ module ReleaseUrl
   def install_url
     return download_url unless platform == 'iOS'
 
-    ios_url = channel_release_install_url(channel.slug, id)
-    "itms-services://?action=download-manifest&url=#{ios_url}"
+    channel_release_authenticate_and_redirect_url(channel.slug, id)
   end
 
   def release_url
