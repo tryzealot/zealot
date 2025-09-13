@@ -46,7 +46,7 @@ gem 'faraday', '~> 2.13.4'
 gem 'rqrcode'
 
 ## Auth
-gem 'pundit', '~> 2.5.0'
+gem 'pundit', '~> 2.5.1'
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.15.0'
 
