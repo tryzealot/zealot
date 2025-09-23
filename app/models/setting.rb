@@ -76,6 +76,15 @@ class Setting < RailsSettings::Base
       required_org: ENV['GITHUB_REQUIRED_ORG']
     }, validates: { json: { format: :hash } }
 
+    field :gitea, type: :hash, display: true, restart_required: true, default: {
+      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITEA_ENABLED'] || false),
+      site: ENV['GITEA_SITE'] || 'https://try.gitea.io',
+      scope: ENV['GITEA_SCOPE'] || 'user',
+      app_id: ENV['GITEA_APP_ID'],
+      secret: ENV['GITEA_SECRET'],
+      required_org: ENV['GITEA_REQUIRED_ORG']
+    }, validates: { json: { format: :hash } }
+
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
       enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
