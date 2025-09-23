@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 7.0.3'
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.0.3'
 gem 'rails-i18n', '~> 8.0.2'
 gem 'rack-cors', '~> 3.0.0'
 gem 'rack', '~> 3.0.16'
@@ -69,8 +69,8 @@ gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.7.0'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 5.26.0'
-gem 'sentry-rails', '~> 5.26.0'
+gem 'sentry-ruby', '~> 5.27.1'
+gem 'sentry-rails', '~> 5.27.1'
 
 # Background job
 gem 'good_job', '~> 4.12.0'
