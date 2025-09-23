@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative '../../lib/omniauth/strategies/gitea'
 
 FEISHU_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:client_id] = Setting.feishu[:app_id]
@@ -67,6 +68,20 @@ GITHUB_OMNIAUTH_SETUP = lambda do |env|
   strategy.options[:client_secret] = Setting.github[:secret]
   strategy.options[:scope] = Setting.github[:scope]
   strategy.options[:required_org] = Setting.github[:required_org]
+end
+
+GITEA_OMNIAUTH_SETUP = lambda do |env|
+  strategy = env['omniauth.strategy']
+  strategy.options[:client_id] = Setting.gitea[:app_id]
+  strategy.options[:client_secret] = Setting.gitea[:secret]
+  strategy.options[:scope] = Setting.gitea[:scope]
+  if site = Setting.gitea[:site].presence
+    strategy.options[:client_options] = {
+      site: site,
+      authorize_url: URI.join(site, '/login/oauth/authorize').to_s,
+      token_url: URI.join(site, '/login/oauth/access_token').to_s
+    }
+  end
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -354,6 +369,7 @@ Devise.setup do |config|
   config.omniauth :ldap, setup: LDAP_OMNIAUTH_SETUP, strategy_class: OmniAuth::Strategies::LDAP
   config.omniauth :openid_connect, setup: OIDC_OMNIAUTH_SETUP
   config.omniauth :github, setup: GITHUB_OMNIAUTH_SETUP
+  config.omniauth :gitea, setup: GITEA_OMNIAUTH_SETUP
 end
 
 module SafeStoreLocation

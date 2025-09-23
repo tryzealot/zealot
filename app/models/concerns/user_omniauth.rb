@@ -4,7 +4,7 @@ module UserOmniauth
   extend ActiveSupport::Concern
 
   def from_omniauth(auth)
-    email = auth.info.email
+    # email = auth.info.email
     password = Devise.friendly_token[0, 20]
     user = User.find_or_initialize_by(email: auth.info.email) do |u|
       u.username = auth.info.name
@@ -57,5 +57,9 @@ module UserOmniauth
 
   def enabled_github?
     defined?(OmniAuth::Strategies::GitHub) && Setting.github[:enabled]
+  end
+
+  def enabled_gitea?
+    defined?(OmniAuth::Strategies::Gitea) && Setting.gitea[:enabled]
   end
 end
