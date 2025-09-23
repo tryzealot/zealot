@@ -57,7 +57,7 @@ class Release < ApplicationRecord
     prepared_releases = if current_release
       where('id > ?', current_release.id).order(id: :desc)
     else
-      newer_versions = release_versions.select { |version| ge_version(version, release_version) }
+      newer_versions = channel.release_versions.select { |version| ge_version(version, release_version) }
       where(elease_version: newer_versions,).order(id: :desc)
     end
 
