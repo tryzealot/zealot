@@ -415,7 +415,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.4.0)
+    prism (1.5.1)
     propshaft (1.2.1)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
