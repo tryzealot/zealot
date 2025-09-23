@@ -6,11 +6,13 @@ if Rails.env.production? && ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENT
     Sentry.init do |config|
       config.dsn = ENV['ZEALOT_SENTRY_DNS'] || 'https://133aefa9f52448a1a7900ba9d02f93e1@o333914.ingest.us.sentry.io/1878137'
 
+      config.enable_logs = true
       config.logger = Rails.logger
       config.environment = Rails.env
       config.enabled_environments = %w[production development]
       config.include_local_variables = true
       config.rails.report_rescued_exceptions = true
+      config.rails.structured_logging.enabled = true
       config.breadcrumbs_logger = %i[active_support_logger sentry_logger http_logger]
       config.enabled_patches << :faraday << :graphql
       config.send_default_pii = true
