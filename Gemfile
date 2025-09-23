@@ -52,12 +52,12 @@ gem 'devise-i18n', '~> 1.15.0'
 
 gem 'omniauth', '~> 2.1.3'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
-gem 'omniauth-google-oauth2', '~> 1.0.1'
-gem 'omniauth-gitlab', '~> 4.0.0'
+gem 'omniauth-google-oauth2', '~> 1.2.1'
+gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
 gem 'gitlab_omniauth-ldap', '~> 2.3.0', require: 'omniauth-ldap'
 gem 'omniauth_openid_connect', '0.8.0'
-gem 'omniauth-github', '~> 2.0.0'
+gem 'omniauth-github', '~> 2.0.1'
 
 ## UDID
 gem 'openssl', '~> 3.3.0'
