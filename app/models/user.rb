@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+PROVIDERS = %i[feishu gitlab google_oauth2 ldap openid_connect github gitea].freeze
+
 class User < ApplicationRecord
   include UserSettings
   include UserRoles
@@ -7,7 +9,7 @@ class User < ApplicationRecord
   extend UserOmniauth
   devise :database_authenticatable, :registerable, :confirmable,
          :rememberable, :trackable, :validatable, :recoverable, :lockable,
-         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect github]
+         :omniauthable, omniauth_providers: PROVIDERS
 
   enum :role, %i[member developer admin]
   enum :locale, enum_roles
