@@ -16,7 +16,7 @@ jobs:
           token: ${{ secrets.SECRET_API_TOKEN }}
           image-names: "zealot"
           tag-selection: untagged
-          cut-off: "90days"
+          cut-off: 4w
           dry-run: false
       - name: Clean tryzealot/codespace images
         uses: snok/container-retention-policy@v3.0.1
@@ -25,5 +25,5 @@ jobs:
           token: ${{ secrets.SECRET_API_TOKEN }}
           image-names: "codespace"
           tag-selection: untagged
-          cut-off: "90days"
+          cut-off: 4w
           dry-run: false
