@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative '../../lib/omniauth/strategies/gitea'
+require_relative '../../lib/omni_auth/strategies/gitea'
 
 FEISHU_OMNIAUTH_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:client_id] = Setting.feishu[:app_id]
