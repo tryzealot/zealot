@@ -50,7 +50,7 @@ gem 'pundit', '~> 2.5.2'
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.15.0'
 
-gem 'omniauth', '~> 2.1.3'
+gem 'omniauth', '~> 2.1.4'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
 gem 'omniauth-gitlab', '~> 4.1.0'
