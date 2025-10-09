@@ -112,7 +112,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    bigdecimal (3.2.3)
+    bigdecimal (3.3.1)
     bindata (2.5.0)
     bindex (0.8.1)
     binding_of_caller (1.0.1)
@@ -159,7 +159,7 @@ GEM
     drb (2.2.3)
     email_validator (2.2.4)
       activemodel
-    erb (5.0.2)
+    erb (5.0.3)
     erubi (1.13.1)
     et-orbi (1.3.0)
       tzinfo
@@ -198,7 +198,7 @@ GEM
       omniauth (>= 1.3, < 3)
       pyu-ruby-sasl (>= 0.0.3.3, < 0.1)
       rubyntlm (~> 0.5)
-    globalid (1.2.1)
+    globalid (1.3.0)
       activesupport (>= 6.1)
     good_job (4.12.0)
       activejob (>= 6.1.0)
@@ -311,7 +311,7 @@ GEM
       logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (5.25.5)
+    minitest (5.26.0)
     msgpack (1.8.0)
     multi_xml (0.7.2)
       bigdecimal (~> 3.1)
@@ -414,7 +414,7 @@ GEM
     pghero (3.7.0)
       activerecord (>= 7.1)
     plist (3.7.2)
-    pp (0.6.2)
+    pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
     prism (1.5.1)
@@ -506,9 +506,10 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.4)
       logger
-    rdoc (6.14.2)
+    rdoc (6.15.0)
       erb
       psych (>= 4.0.0)
+      tsort
     regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
@@ -604,7 +605,7 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    solid_cache (1.0.7)
+    solid_cache (1.0.8)
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
@@ -637,7 +638,7 @@ GEM
     unicode-display_width (3.1.5)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.0.3)
+    uri (1.0.4)
     useragent (0.16.11)
     uuidtools (2.2.0)
     validate_url (1.0.15)
@@ -747,7 +748,7 @@ DEPENDENCIES
   sentry-ruby (~> 5.28.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.7.0)
-  solid_cache (~> 1.0.7)
+  solid_cache (~> 1.0.8)
   stimulus-rails (~> 1.3.4)
   sys-filesystem (~> 1.5.4)
   tiny_appstore_connect (~> 0.1.12)
