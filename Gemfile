@@ -12,7 +12,7 @@ gem 'rack', '~> 3.0.16'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem "solid_cache", "~> 1.0.7"
+gem "solid_cache", "~> 1.0.8"
 
 # Logger
 gem 'lograge', '~> 0.14.0'
