@@ -3,13 +3,18 @@
 module Customize
   extend ActiveSupport::Concern
 
-  def switch_locale(&action)
-    locale = current_user&.locale
+  def current_locale
+    locale = current_user&.locale || I18n.default_locale
+
     if Setting.demo_mode && !current_user
       locale = vaild_locale(extrace_locale_from_headers)
     end
 
-    I18n.with_locale(locale, &action)
+    locale
+  end
+
+  def switch_locale(&action)
+    I18n.with_locale(current_locale, &action)
   end
 
   def switch_timezone(&action)
