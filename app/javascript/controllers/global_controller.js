@@ -33,6 +33,7 @@ export default class extends Controller {
 
   switchDarkMode() {
     const appearance = Zealot.siteApperance
+    this.setGoodJobThemeMode(appearance);
     if (appearance === "dark" || (appearance === "auto" && Zealot.isDarkMode())) {
       document.documentElement.setAttribute("data-bs-theme", "dark");
     } else if (appearance === "light" && Zealot.isDarkMode()) {
@@ -41,6 +42,10 @@ export default class extends Controller {
         element.remove()
       })
     }
+  }
+
+  setGoodJobThemeMode(appearance) {
+    localStorage.setItem("good_job-theme", appearance);
   }
 
   setupRailsDebugMode() {
