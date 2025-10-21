@@ -586,10 +586,10 @@ GEM
       base64
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    sentry-rails (5.28.0)
+    sentry-rails (5.28.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.28.0)
-    sentry-ruby (5.28.0)
+      sentry-ruby (~> 5.28.1)
+    sentry-ruby (5.28.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.1)
@@ -744,7 +744,7 @@ DEPENDENCIES
   rubocop (>= 0.70)
   rubocop-rails
   ruby-lsp-rails
-  sentry-rails (~> 5.28.0)
+  sentry-rails (~> 5.28.1)
   sentry-ruby (~> 5.28.0)
   simple_form (~> 5.3)
   slim-rails (~> 3.7.0)
