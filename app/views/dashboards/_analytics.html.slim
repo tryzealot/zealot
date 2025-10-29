@@ -10,3 +10,31 @@
       == render 'widget', title: t('dashboard.analytics.users'), count: @analytics[:users], url: admin_users_path, color_style: 'bg-yellow-400', icon: 'fa-solid fa-user'
       == render 'widget', title: t('dashboard.analytics.background_jobs'), count: @analytics[:jobs], url: admin_background_jobs_path, color_style: 'bg-red-300', icon: 'fa-solid fa-bezier-curve'
       == render 'widget', title: t('dashboard.analytics.disk_usage'), count: @analytics[:disk], url: admin_system_info_index_path, color_style: 'bg-teal-500', icon: 'fa-solid fa-server'
+
+  .row.d-sm-none
+    .col-md-12
+      ul.list-group.mb-3
+        li.list-group-item.d-flex.justify-content-between.align-items-start
+          .me-auto
+            i.fa-brands.fa-adn.pe-1
+            = link_to t('dashboard.analytics.apps'), apps_path, data: { turbo_action: :advance }
+          .badge.text-bg-primary.rounded-pill
+            = @analytics[:apps]
+        li.list-group-item.d-flex.justify-content-between.align-items-start
+          .me-auto
+            i.fa-solid.fa-bug.pe-1
+            = link_to t('dashboard.analytics.debug_files'), debug_files_path, data: { turbo_action: :advance }
+          .badge.text-bg-primary.rounded-pill
+            = @analytics[:debug_files]
+        li.list-group-item.d-flex.justify-content-between.align-items-start
+          .me-auto  
+            i.fa-solid.fa-layer-group.pe-1
+            = link_to t('dashboard.analytics.teardowns'), teardowns_path, data: { turbo_action: :advance }
+          .badge.text-bg-primary.rounded-pill
+            = @analytics[:teardowns]
+        li.list-group-item.d-flex.justify-content-between.align-items-start 
+          .me-auto  
+            i.fa-solid.fa-paper-plane.pe-1
+            = t('dashboard.analytics.uploads')
+          .badge.text-bg-primary.rounded-pill
+            = @analytics[:releases]
