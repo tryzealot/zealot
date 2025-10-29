@@ -464,7 +464,7 @@ en:
     show:
       enter_password: Enter password
       app_touch_menu: Click menu right-top corner
-      app_open_in_safari: Choose "Open in safari" and install
+      app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
       released_new_version: '%{link} %{version} uploaded at %{time} ago!'
@@ -816,7 +816,7 @@ en:
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
       nonapple_tip: :udid.index.apple_tip
       fetch_udid: Fetch your UDID now
-      app_open_in_safari: Choose "Open in safari" and fetch
+      app_open_in_safari: Choose "Open in Safari" and fetch
       app_open_in_webbrower: Open with any browser and fetch
       help:
         title: Why need to install profile to fetch your UDID?
@@ -838,7 +838,7 @@ en:
                 <li>macOS: Open the profile named <code>install.mobileconfig</code> then open "System Settings" and click "Profile" in left sidebar menu.</li>
               </ol>
             </li>
-            <li>After install it will open safari and redirect a result page then delete the profile automatically.</li>
+            <li>After install it will open Safari and redirect a result page then delete the profile automatically.</li>
           </ol>
     show:
       title: Device
