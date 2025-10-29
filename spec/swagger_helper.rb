@@ -190,7 +190,7 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.release_custom_field.description'),
             type: :object,
             properties: {
-              icon: { type: :string, example: 'fas fa-flag' },
+              icon: { type: :string, example: 'fa-solid fa-flag' },
               name: { type: :string, example: 'Country' },
               value: { type: :string, example: 'China' },
             }

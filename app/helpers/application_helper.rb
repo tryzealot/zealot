@@ -53,7 +53,7 @@ module ApplicationHelper
 
   def button_link_to(title, url, icon = nil, **options)
     options[:class] = "btn #{options[:class]}"
-    base_fontawesome = options.delete(:base_fa) || 'fas'
+    base_fontawesome = options.delete(:base_fa) || 'fa-solid'
 
     content = title
     if icon.present?
@@ -165,7 +165,7 @@ module ApplicationHelper
 
   def device_icon(device_type)
     icon, _ = device_style(device_type)
-    tag.i(class: "fab #{icon}")
+    tag.i(class: "fa-brands #{icon}")
   end
 
   def timeline_app_icon(device_type)
