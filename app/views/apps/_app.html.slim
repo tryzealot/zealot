@@ -4,11 +4,11 @@
       - if current_user&.manage?(app: @app)
         - if app.archived 
           = button_link_to '', archived_app_path(app), 'history', \
-            class: 'btn btn-outline btn-icon btn-sm', title: t('apps.show.unarchive_app'), \
+            class: 'btn-outline btn-icon btn-sm', title: t('apps.show.unarchive_app'), \
             data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
         - else
           = button_link_to '', archived_app_path(app), 'archive', \
-            class: 'btn btn-outline btn-icon btn-sm', title: t('apps.show.archive_app'), \
+            class: 'btn-outline btn-icon btn-sm', title: t('apps.show.archive_app'), \
             data: { toggle: :tooltip, turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }
 
     .card-body.p-0
