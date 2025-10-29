@@ -27,5 +27,5 @@
   "devDependencies": {
     "@crowdin/cli": "^4.11.0"
   },
-  "pack'ageManager": "pnpm"
+  "packageManager": "pnpm"
 }
