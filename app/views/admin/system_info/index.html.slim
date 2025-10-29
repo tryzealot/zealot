@@ -51,7 +51,7 @@
                 = "#{number_to_human_size(memory[:used])} / #{number_to_human_size(memory[:total])}"
                 .progress.
                   .progress-bar-striped class="#{memory[:color]}" role="progressbar" aria-valuenow="#{memory[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{memory[:percent]}%"
-                    span.sr-only = "#{memory[:percent]}%"
+                    span.visually-hidden = "#{memory[:percent]}%"
               - else
                 = t('.fail_detect_memory')
           dt = t('.disk_info')
@@ -61,7 +61,7 @@
                 = "#{number_to_human_size(diskspace[:used])} / #{number_to_human_size(diskspace[:total])}"
                 .progress
                   .progress-bar-striped class="#{diskspace[:color]}" role="progressbar" aria-valuenow="#{diskspace[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{diskspace[:percent]}%"
-                    span.sr-only = "#{diskspace[:percent]}%"
+                    span.visually-hidden = "#{diskspace[:percent]}%"
               - else
                 = t('.fail_detect_disk')
           dt = t('.lauched_time')
@@ -107,7 +107,7 @@
                   = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
                   .progress data-mount-options="#{disk[:mount_options]}"
                     .progress-bar-striped class="#{disk[:color]}" role="progressbar" aria-valuenow="#{disk[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{disk[:percent]}%"
-                      span.sr-only = "#{disk[:percent]}%"
+                      span.visually-hidden = "#{disk[:percent]}%"
         - else
           = t('.fail_detect_disk')
 
