@@ -15,7 +15,7 @@
   div {
     margin-right: 0;
 
-    .fas,
+    .fa-solid,
     .fa,
     .fab,
     .far {
@@ -80,7 +80,7 @@
 @include color-mode(dark) {
   .timeline {
     div {
-      .fas,
+      .fa-solid,
       .fa,
       .fab,
       .far {

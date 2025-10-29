@@ -1,7 +1,7 @@
 - if resource.errors.any?
   .alert.alert-danger.alert-dismissible data-turbo-cache="false"
     div
-      i.flex-shrink-0.me-2.fas.fa-ban
+      i.flex-shrink-0.me-2.fa-solid.fa-ban
       = t('errors.messages.not_saved', count: resource.errors.count, resource: resource.class.model_name.human.downcase)
       ul.ps-3.mb-0
         - resource.errors.full_messages.each do |message|

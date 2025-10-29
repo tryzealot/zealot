@@ -33,4 +33,4 @@
               .btn-group
                 = link_to job_admin_backup_path(@backup, job_id: job.job.id), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
                   data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: job.job.id) } do
-                  i.fas.fa-trash-alt.text-danger
+                  i.fa-solid.fa-trash-alt.text-danger

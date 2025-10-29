@@ -12,7 +12,7 @@
   == render 'dashboards/widget', title: t('udid.show.releases'), count: @release_total, url: '', \
      color_style: 'bg-pink-500', icon: 'fab fa-gg', widget_style: 'col-12 col-sm-4'
   == render 'dashboards/widget', title: t('udid.show.apple_keys'), count: @apple_key_total, url: '', \
-     color_style: 'bg-warning', icon: 'fas fa-key', widget_style: 'col-12 col-sm-4'
+     color_style: 'bg-warning', icon: 'fa-solid fa-key', widget_style: 'col-12 col-sm-4'
 
   == render 'udid/udid_metadata', device: @device
   == render 'udid/apps', device: @device, channels: @channels
