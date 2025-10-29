@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine AS builder
+FROM --platform=$BUILDPLATFORM ruby:3.4.7-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm pnpm zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -51,14 +51,14 @@ RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
     package.json postcss.config.js pnpm-lock.yaml && \
-    cd /app/vendor/bundle/ruby/3.3.0 && \
+    cd /app/vendor/bundle/ruby/3.4.0 && \
       rm -rf cache/*.gem && \
       find gems/ -name "*.c" -delete && \
       find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine
+FROM --platform=$BUILDPLATFORM ruby:3.4.7-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
