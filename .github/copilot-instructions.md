@@ -16,7 +16,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 ## Technology Stack
 
 ### Backend
-- **Primary Language**: Ruby 3.2+
+- **Primary Language**: Ruby 3.4+
 - **Framework**: Ruby on Rails 8.0+
 - **Database**: PostgreSQL
 - **Cache**: Solid Cache
@@ -39,7 +39,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 ## Coding Guidelines
 
 ### Ruby/Rails Standards
-- **Ruby Version**: Target Ruby 3.2+ features
+- **Ruby Version**: Target Ruby 3.4+ features
 - **Rails Version**: Target Rails 8.0+ features
 - **Style Guide**: Follow RuboCop configuration in `.rubocop.yml`
 - **Frozen String Literals**: Always include `# frozen_string_literal: true` at the top of Ruby files (except config.ru, Gemfile, Rakefile, and config files)
