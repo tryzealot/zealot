@@ -426,8 +426,8 @@ en:
       total_version: Versions
       empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
-      more: More
-      app_detail: App detail
+      view_more: View More
+      app_detail: View App
     new:
       title:
         with_name: 'New channel for %{app}'
@@ -464,7 +464,7 @@ en:
     show:
       enter_password: Enter password
       app_touch_menu: Click menu right-top corner
-      app_open_in_safa-regulari: Choose "Open in Safa-regulari" and install
+      app_open_in_safari: Choose "Open in safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
       released_new_version: '%{link} %{version} uploaded at %{time} ago!'
@@ -597,7 +597,9 @@ en:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
-      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      refresh_page: "If there is no change for a long time, please try to refresh this page.
+
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
       reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
@@ -814,7 +816,7 @@ en:
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
       nonapple_tip: :udid.index.apple_tip
       fetch_udid: Fetch your UDID now
-      app_open_in_safa-regulari: Choose "Open in Safa-regulari" and fetch
+      app_open_in_safari: Choose "Open in safari" and fetch
       app_open_in_webbrower: Open with any browser and fetch
       help:
         title: Why need to install profile to fetch your UDID?
@@ -836,7 +838,7 @@ en:
                 <li>macOS: Open the profile named <code>install.mobileconfig</code> then open "System Settings" and click "Profile" in left sidebar menu.</li>
               </ol>
             </li>
-            <li>After install it will open Safa-regulari and redirect a result page then delete the profile automatically.</li>
+            <li>After install it will open safari and redirect a result page then delete the profile automatically.</li>
           </ol>
     show:
       title: Device
@@ -868,7 +870,9 @@ en:
       team_id: Team ID
       register_device: Register
       related_apple_keys_not_found: Not found any Apple Team.
-      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
+      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,
+
+        but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
       title: Fetch Device UDID Profile
