@@ -27,8 +27,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(@hotwired/stimulus@3.2.2)
       admin-lte:
-        specifier: ^4.0.0-rc3
-        version: 4.0.0-rc3
+        specifier: ^4.0.0-rc4
+        version: 4.0.0-rc4
       bootstrap:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
@@ -328,8 +328,8 @@ packages:
     peerDependencies:
       '@hotwired/stimulus': ^3
 
-  admin-lte@4.0.0-rc3:
-    resolution: {integrity: sha512-BKEGJknLiNW/l++6tjO9YIy2x6il4y/S977cSaRfi+wadZF3xe7U+vDR8q2H99CVC49VmPqRwb36hiyEVmBQTw==}
+  admin-lte@4.0.0-rc4:
+    resolution: {integrity: sha512-k+ILDKHO6Tn77nMqvQ+wmQoes0Eky/s23jp2P07nUbbILk+7RMnLkCW2jFgiXaO9eFQ2fhmes0LAXJmQbdfpjA==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -733,7 +733,7 @@ snapshots:
     dependencies:
       '@hotwired/stimulus': 3.2.2
 
-  admin-lte@4.0.0-rc3: {}
+  admin-lte@4.0.0-rc4: {}
 
   balanced-match@1.0.2: {}
 
