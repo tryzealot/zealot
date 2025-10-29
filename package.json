@@ -3,6 +3,11 @@
   "version": "6.1.0",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2017",
+    "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "crowdin": "crowdin"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@hotwired/stimulus": "^3.2.2",
@@ -19,12 +24,8 @@
     "sass": "^1.93.2",
     "ua-parser-js": "^2.0.6"
   },
-  "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2017",
-    "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "crowdin": "crowdin"
-  },
   "devDependencies": {
     "@crowdin/cli": "^4.11.0"
-  }
+  },
+  "packageManager": "pnpm"
 }
