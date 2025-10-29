@@ -28,9 +28,9 @@ module Admin
       when :scheduled, :running
         tag.div(tag.span('Processing', class: 'visually-hidden'), class: 'spinner-grow spinner-grow-sm text-warning me-2')
       when :discarded, :retried
-        tag.i(class: 'fas fa-exclamation-circle text-danger me-2')
+        tag.i(class: 'fa-solid fa-exclamation-circle text-danger me-2')
       when :succeeded
-        tag.i(class: 'fas fa-check-circle text-success me-2')
+        tag.i(class: 'fa-solid fa-check-circle text-success me-2')
       end
     end
 
