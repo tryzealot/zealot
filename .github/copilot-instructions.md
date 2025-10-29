@@ -5,6 +5,7 @@ This file provides guidance to GitHub Copilot when working with code in this rep
 ## Project Overview
 
 Zealot is an open-source self-hosted continuous integration platform for mobile app distribution. It provides:
+
 - Multi-platform application hosting (macOS, iOS, Android, Windows, Linux)
 - Automated test device management and Apple Developer integration
 - Rich developer toolkits with REST API, iOS/Android SDKs, and fastlane plugin
@@ -16,6 +17,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 ## Technology Stack
 
 ### Backend
+
 - **Primary Language**: Ruby 3.4+
 - **Framework**: Ruby on Rails 8.0+
 - **Database**: PostgreSQL
@@ -25,12 +27,14 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Testing**: RSpec with Factory Bot
 
 ### Frontend
+
 - **JavaScript Framework**: Hotwired Stimulus 3.2+, Turbo Rails
 - **Build Tool**: esbuild
 - **CSS**: Sass, Bootstrap 5.3+
 - **Admin UI**: AdminLTE 4.0
 
 ### Tools & Infrastructure
+
 - **Linter**: RuboCop (with rubocop-rails)
 - **Server**: Puma
 - **Containerization**: Docker
@@ -39,6 +43,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 ## Coding Guidelines
 
 ### Ruby/Rails Standards
+
 - **Ruby Version**: Target Ruby 3.4+ features
 - **Rails Version**: Target Rails 8.0+ features
 - **Style Guide**: Follow RuboCop configuration in `.rubocop.yml`
@@ -49,6 +54,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Class Length**: Maximum 250 lines
 
 ### File Organization
+
 - **Controllers**: `app/controllers/` - Handle HTTP requests
 - **Models**: `app/models/` - Business logic and database interactions
 - **Services**: `app/services/` - Complex business operations
@@ -61,6 +67,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Stylesheets**: `app/assets/stylesheets/` - Sass/SCSS files
 
 ### JavaScript/Frontend Standards
+
 - **Framework**: Use Hotwired Stimulus for JavaScript interactions
 - **Turbo**: Leverage Turbo Drive, Frames, and Streams for dynamic updates
 - **Build**: Use esbuild for JavaScript bundling
@@ -69,6 +76,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Target**: ES2017+ features
 
 ### Database & Migrations
+
 - **Always create reversible migrations** when possible
 - **Add indexes** for foreign keys and frequently queried columns
 - **Include comments** on complex migrations
@@ -78,6 +86,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 ## Testing Expectations
 
 ### RSpec Guidelines
+
 - **Location**: All tests live in `spec/` directory
 - **Factory Bot**: Use factories from `spec/factories/` for test data
 - **Coverage**: Aim for comprehensive test coverage for new features
@@ -89,6 +98,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
   - **GraphQL specs**: Test queries and mutations
 
 ### Running Tests
+
 ```bash
 # Run all tests
 bundle exec rspec
@@ -101,6 +111,7 @@ bundle exec rspec --tag focus
 ```
 
 ### Test Requirements
+
 - **Every functional change must include tests**
 - **Update existing tests** when modifying behavior
 - **Mock external services** to avoid network calls in tests
@@ -110,6 +121,7 @@ bundle exec rspec --tag focus
 ## Build & Validation
 
 ### Ruby/Rails Commands
+
 ```bash
 # Install dependencies
 bundle install
@@ -131,6 +143,7 @@ bundle exec rails console
 ```
 
 ### JavaScript/Frontend Commands
+
 ```bash
 # Install dependencies
 pnpm install
@@ -143,6 +156,7 @@ pnpm build:css
 ```
 
 ### Database Commands
+
 ```bash
 # Create database
 bundle exec rails db:create
@@ -160,11 +174,13 @@ bundle exec rails db:reset
 ## Development Workflow
 
 ### Before Making Changes
+
 1. **Check current state**: Run tests and linter to understand baseline
 2. **Read related code**: Understand the context and existing patterns
 3. **Plan your changes**: Make minimal, focused modifications
 
 ### Making Changes
+
 1. **Follow existing patterns** in similar files
 2. **Write tests first** or alongside code changes
 3. **Run linter frequently**: `bundle exec rubocop -a`
@@ -172,6 +188,7 @@ bundle exec rails db:reset
 5. **Write descriptive commit messages**
 
 ### Before Submitting
+
 1. **Run full test suite**: `bundle exec rspec`
 2. **Fix all linting issues**: `bundle exec rubocop`
 3. **Verify migrations**: Test both up and down
@@ -181,6 +198,7 @@ bundle exec rails db:reset
 ## Common Patterns
 
 ### Service Objects
+
 ```ruby
 # frozen_string_literal: true
 
@@ -200,17 +218,20 @@ end
 ```
 
 ### GraphQL Mutations
+
 - Follow existing mutation patterns in `app/graphql/mutations/`
 - Include proper authorization checks
 - Return appropriate error messages
 
 ### API Endpoints
+
 - Use Active Model Serializers for JSON responses
 - Follow RESTful conventions
 - Include proper authentication/authorization
 - Version APIs when making breaking changes
 
 ### Background Jobs
+
 - Keep jobs idempotent
 - Handle failures gracefully
 - Use appropriate queue names
