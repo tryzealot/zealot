@@ -9,6 +9,7 @@ on:
       - 'Gemfile*'
       - 'package.json'
       - 'yarn.lock'
+      - 'pnpm-lock.yaml'
     branches:
       - develop
   workflow_dispatch:

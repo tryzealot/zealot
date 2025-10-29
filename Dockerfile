@@ -1,7 +1,7 @@
 FROM --platform=$BUILDPLATFORM ruby:3.3.8-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
-ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm yarn zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
+ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm pnpm zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
 ARG REPLACE_CHINA_MIRROR="true"
@@ -25,15 +25,15 @@ RUN set -ex && \
     fi && \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
-      yarn config set registry $NPM_REGISTRY; \
+      pnpm config set registry $NPM_REGISTRY; \
     fi && \
     gem install $RUBY_GEMS
 
 WORKDIR $APP_ROOT
 
 # Node dependencies
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./
@@ -50,7 +50,7 @@ RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
-    package.json postcss.config.js yarn.lock && \
+    package.json postcss.config.js pnpm-lock.yaml && \
     cd /app/vendor/bundle/ruby/3.3.0 && \
       rm -rf cache/*.gem && \
       find gems/ -name "*.c" -delete && \
