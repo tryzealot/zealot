@@ -1,7 +1,7 @@
 - if enable_callout && latest_release
   .callout.callout-warning.mb-3
     h5
-      i.icon.fas.fa-info
+      i.icon.fa-solid.fa-info
       = t('releases.show.not_latest_release')
     p
       = raw t('releases.show.released_new_version', \
@@ -12,5 +12,5 @@
 - if @release.app.archived
   .callout.callout-warning.mb-3
     h5
-      i.icon.fas.fa-box-archive
+      i.icon.fa-solid.fa-box-archive
       = t('releases.show.app_was_archived')

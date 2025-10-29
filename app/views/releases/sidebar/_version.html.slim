@@ -2,12 +2,12 @@
   .card.mb-3
     .card-header
       h3.card-title
-        i.icon.fas.fa-archive
+        i.icon.fa-solid.fa-archive
         = t('releases.show.major_versions')
       .card-tools
         button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fas.fa-plus data-lte-icon="expand"
-          i.fas.fa-minus data-lte-icon="collapse"
+          i.fa-solid.fa-plus data-lte-icon="expand"
+          i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.p-0
       table.table.table-bottom-borderless
         - channel.release_versions.each do |version|

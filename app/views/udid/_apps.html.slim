@@ -3,7 +3,7 @@
     .card.mb-3
       .card-header
         h3.card-title
-          i.icon.fas.fa-cubes
+          i.icon.fa-solid.fa-cubes
           = t('udid.show.registered_apps')
       .card-body
         .timeline
@@ -15,7 +15,7 @@
               i.far.fa-circle
               .timeline-item
                 span.time
-                  i.icon.fas.fa-clock
+                  i.icon.fa-solid.fa-clock
                   = time_ago_in_words(release.created_at)
                 h3.timeline-header
                   = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pe-1')
@@ -43,7 +43,7 @@
                         - else
                           = release.short_git_commit
           div
-            i.fas.fa-clock
+            i.fa-solid.fa-clock
   - else
     .card.card-outline.card-warning
       .card-header.card-border

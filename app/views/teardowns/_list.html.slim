@@ -3,7 +3,7 @@
     .card.mb-3
       .card-header
         h3.card-title
-          i.icon.fas.fa-history
+          i.icon.fa-solid.fa-history
           = t('teardowns.index.upload_history')
       .card-body.p-0
         table.table.table-hover.table-bottom-borderless
@@ -42,7 +42,7 @@
                   data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
                 ]
                   button.btn.btn-tool data-action="click->destroy#click"
-                    i.fas.fa-trash-alt
+                    i.fa-solid.fa-trash-alt
 
                   = button_to t('debug_files.confirm.destroy.ok'),  teardown_path(md), method: :delete, \
                     class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }

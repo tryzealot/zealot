@@ -10,7 +10,7 @@
     ul.app-metadata
       - if release.name.present?
         li title="#{t('releases.show.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-list-ul
+          i.fa-solid.fa-list-ul
           = link_to_if user_signed_in_or_guest_mode?, release.app_name, friendly_channel_overview_path(release.channel), data: { turbo: false }
       li title="#{t('releases.show.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
         i.fab.fa-gg
@@ -20,28 +20,28 @@
         = device_name(release.device_type)
       - if release.release_version.present?
         li title="#{t('releases.show.release_version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-server
+          i.fa-solid.fa-server
           = release.release_version
           - if release.build_version.present?
             | (#{release.build_version})
       - if release.release_type.present?
         li title="#{t('releases.show.release_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-cubes
+          i.fa-solid.fa-cubes
           = release_type_url_builder(release)
       - if release.native_codes.present?
         li title="#{t('releases.show.native_codes')} #{release.native_codes.join(', ')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-microchip
+          i.fa-solid.fa-microchip
           = native_codes(release)
       - if release.file.present?
         li title="#{t('releases.show.filesize')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-weight
+          i.fa-solid.fa-weight
           = " #{number_to_human_size(release.file.size)}"
       li title="#{t('releases.show.uploaded_at', date: l(release.created_at, format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        i.fas.fa-calendar
+        i.fa-solid.fa-calendar
         = time_ago_in_words(release.created_at)
       - if release.branch.present?
         li title="#{t('releases.show.git_branch')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-code-branch
+          i.fa-solid.fa-code-branch
           = git_branch_url(release)
       - if release.git_commit.present?
         li title="#{t('releases.show.git_commit')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
@@ -50,10 +50,10 @@
       - if release.custom_fields.is_a?(Array) && release.custom_fields.present?
         - release.custom_fields.each do |field|
           li title="#{field['name']}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i class="#{field['icon'] || 'fas fa-hashtag'}"
+            i class="#{field['icon'] || 'fa-solid fa-hashtag'}"
             = field['value']
       li title="#{t('releases.show.source')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        i.fas.fa-compass
+        i.fa-solid.fa-compass
         - if release.ci_url.blank?
           = t("releases.sources.#{release.source.downcase}", default: release.source)
         - else
@@ -61,10 +61,10 @@
       - if release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = release.metadata.mobileprovision['expired_at']
           li title="#{t('releases.show.certificate_expired_date', date: l(Time.zone.parse(expired_date), format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fas.fa-certificate
+            i.fa-solid.fa-certificate
             = expired_date_tips(expired_date, colorful: false)
         li title="#{t('releases.show.metadata')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fas.fa-layer-group
+          i.fa-solid.fa-layer-group
           = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), teardown_path(release.metadata), data: { turbo: false }
 
     == render 'releases/body/install_app', release: release, app: release.app
