@@ -393,21 +393,6 @@ RSpec.configure do |config|
             custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
           }
         },
-        ReleaseOptions: {
-          description: I18n.t('api.definitions.release_options.description'),
-          type: :object,
-          properties: {
-            build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
-            release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
-            release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
-            source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
-            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
-            branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
-            git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
-            ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
-            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
-          }
-        },
         CollaboratorOptions: {
           description: I18n.t('api.definitions.collaborator_options.description'),
           type: :object,

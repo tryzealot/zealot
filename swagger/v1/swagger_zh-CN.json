@@ -2538,7 +2538,7 @@
         "properties": {
           "icon": {
             "type": "string",
-            "example": "fas fa-flag"
+            "example": "fa-solid fa-flag"
           },
           "name": {
             "type": "string",
@@ -3107,54 +3107,6 @@
             "original_filename"
           ],
           "description": "下载文件的文件名生成规则"
-        }
-      }
-    },
-    "ReleaseOptions": {
-      "description": "应用版本元信息表单字段结构",
-      "type": "object",
-      "properties": {
-        "build_version": {
-          "type": "string",
-          "description": "构建版本"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "发布版本"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
-        },
-        "source": {
-          "type": "string",
-          "description": "上传渠道名称，默认是 `api`"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "变更日志，接受纯文本或 JSON 格式化的数据"
-        },
-        "branch": {
-          "type": "string",
-          "description": "代码控制软件的分支名"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "代码控制软件提交哈希值"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "持续构建系统构建 URL"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
         }
       }
     },
