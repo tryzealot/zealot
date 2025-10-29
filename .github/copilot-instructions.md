@@ -21,7 +21,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Database**: PostgreSQL
 - **Cache**: Solid Cache
 - **API**: GraphQL, Active Model Serializers
-- **Background Jobs**: ActiveJob with Sidekiq/Solid Queue
+- **Background Jobs**: ActiveJob with GoodJob
 - **Testing**: RSpec with Factory Bot
 
 ### Frontend
@@ -221,7 +221,7 @@ end
 - **Supported languages**: English (en), Simplified Chinese (zh-CN)
 - **Always use i18n keys** in views and controllers
 - **Add translations** for both English and Chinese when adding new text
-- **Use crowdin** for managing translations
+- **Use Crowdin** for managing translations
 
 ## Security Considerations
 
