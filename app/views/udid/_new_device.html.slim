@@ -5,9 +5,9 @@
       = t('udid.show.unregistered')
 
   == render 'dashboards/widget', title: t('udid.show.channels'), count: @channel_total, url: '', \
-     color_style: 'bg-indigo-600', icon: 'fab fa-adn', widget_style: 'col-12 col-sm-4'
+     color_style: 'bg-indigo-600', icon: 'fa-brands fa-adn', widget_style: 'col-12 col-sm-4'
   == render 'dashboards/widget', title: t('udid.show.releases'), count: @release_total, url: '', \
-     color_style: 'bg-pink-500', icon: 'fab fa-gg', widget_style: 'col-12 col-sm-4'
+     color_style: 'bg-pink-500', icon: 'fa-brands fa-gg', widget_style: 'col-12 col-sm-4'
   == render 'dashboards/widget', title: t('udid.show.apple_keys'), count: @apple_key_total, url: '', \
      color_style: 'bg-warning', icon: 'fa-solid fa-key', widget_style: 'col-12 col-sm-4'
 
