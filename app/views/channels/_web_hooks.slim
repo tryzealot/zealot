@@ -1,12 +1,12 @@
 .card.mb-3
   .card-header
     h3.card-title
-      i.icon.fas.fa-anchor
+      i.icon.fa-solid.fa-anchor
       = t('web_hooks.title')
     .card-tools
       button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fas.fa-plus data-lte-icon="expand"
-        i.fas.fa-minus data-lte-icon="collapse"
+        i.fa-solid.fa-plus data-lte-icon="expand"
+        i.fa-solid.fa-minus data-lte-icon="collapse"
   .card-body.pb-1
 
     - unless @channel.app.archived

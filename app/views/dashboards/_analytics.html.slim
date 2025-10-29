@@ -1,12 +1,12 @@
 .analytics
   .row
-    == render 'widget', title: t('dashboard.analytics.apps'), count: @analytics[:apps], url: apps_path, color_style: 'bg-blue-500', icon: 'fab fa-adn'
-    == render 'widget', title: t('dashboard.analytics.debug_files'), count: @analytics[:debug_files], url: debug_files_path, color_style: 'bg-orange-500', icon: 'fas fa-bug'
-    == render 'widget', title: t('dashboard.analytics.teardowns'), count: @analytics[:teardowns], url: teardowns_path, color_style: 'bg-pink-500', icon: 'fas fa-layer-group'
-    == render 'widget', title: t('dashboard.analytics.uploads'), count: @analytics[:releases], url: nil, color_style: 'bg-green-500', icon: 'fas fa-paper-plane'
+    == render 'widget', title: t('dashboard.analytics.apps'), count: @analytics[:apps], url: apps_path, color_style: 'bg-blue-500', icon: 'fa-brands fa-adn'
+    == render 'widget', title: t('dashboard.analytics.debug_files'), count: @analytics[:debug_files], url: debug_files_path, color_style: 'bg-orange-500', icon: 'fa-solid fa-bug'
+    == render 'widget', title: t('dashboard.analytics.teardowns'), count: @analytics[:teardowns], url: teardowns_path, color_style: 'bg-pink-500', icon: 'fa-solid fa-layer-group'
+    == render 'widget', title: t('dashboard.analytics.uploads'), count: @analytics[:releases], url: nil, color_style: 'bg-green-500', icon: 'fa-solid fa-paper-plane'
 
     - if current_user&.admin?
-      == render 'widget', title: t('dashboard.analytics.web_hooks'), count: @analytics[:webhooks], url: admin_web_hooks_path, color_style: 'bg-blue-400', icon: 'fas fa-anchor'
-      == render 'widget', title: t('dashboard.analytics.users'), count: @analytics[:users], url: admin_users_path, color_style: 'bg-yellow-400', icon: 'fas fa-user'
-      == render 'widget', title: t('dashboard.analytics.background_jobs'), count: @analytics[:jobs], url: admin_background_jobs_path, color_style: 'bg-red-300', icon: 'fas fa-bezier-curve'
-      == render 'widget', title: t('dashboard.analytics.disk_usage'), count: @analytics[:disk], url: admin_system_info_index_path, color_style: 'bg-teal-500', icon: 'fas fa-server'
+      == render 'widget', title: t('dashboard.analytics.web_hooks'), count: @analytics[:webhooks], url: admin_web_hooks_path, color_style: 'bg-blue-400', icon: 'fa-solid fa-anchor'
+      == render 'widget', title: t('dashboard.analytics.users'), count: @analytics[:users], url: admin_users_path, color_style: 'bg-yellow-400', icon: 'fa-solid fa-user'
+      == render 'widget', title: t('dashboard.analytics.background_jobs'), count: @analytics[:jobs], url: admin_background_jobs_path, color_style: 'bg-red-300', icon: 'fa-solid fa-bezier-curve'
+      == render 'widget', title: t('dashboard.analytics.disk_usage'), count: @analytics[:disk], url: admin_system_info_index_path, color_style: 'bg-teal-500', icon: 'fa-solid fa-server'

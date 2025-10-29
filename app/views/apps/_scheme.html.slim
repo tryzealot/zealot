@@ -21,12 +21,13 @@
         - else
             == render 'apps/empty_channel'
     - if current_user&.manage?(app: @app) && !@app.archived
-      .card-footer.p-1
-        = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), \
-          'plus-square', class: 'btn btn-icon text-primary', data: { turbo_frame: :modal }
-        .btn-group.float-end
-          = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn btn-icon text-primary', \
+      .card-footer.px-1.d-flex 
+        .flex-grow-1
+          = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, scheme), \
+            'plus-square', class: 'btn-icon text-primary', data: { turbo_frame: :modal }
+        .btn-group.flex-shrink-1
+          = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-box-tool text-primary', \
             title: t('apps.show.edit_scheme'), data: { toggle: 'tooltip', turbo_frame: :modal }
-          = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn btn-icon text-danger', \
+          = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-box-tool text-danger', \
             title: t('apps.show.destroy_scheme'), \
             data: { toggle: 'tooltip', turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }

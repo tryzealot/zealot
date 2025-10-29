@@ -15,10 +15,10 @@
   div {
     margin-right: 0;
 
-    .fas,
+    .fa-solid,
     .fa,
-    .fab,
-    .far {
+    .fa-brands,
+    .fa-regular {
       left: 0;
     }
 
@@ -80,10 +80,10 @@
 @include color-mode(dark) {
   .timeline {
     div {
-      .fas,
+      .fa-solid,
       .fa,
-      .fab,
-      .far {
+      .fa-brands,
+      .fa-regular {
         background-color: #454d55;
       }
 

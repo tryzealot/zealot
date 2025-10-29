@@ -88,7 +88,7 @@ zh-CN:
         destroy_confirm: 确定删除苹果开发者【%{team} (%{team_id})】
         not_found:
           title: 没有发现任何苹果开发者
-          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新增。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增。
       show:
         title: :'admin.apple_keys.title'
         team_metadata: 团队信息
@@ -200,7 +200,7 @@ zh-CN:
         new_version: '发现新版本 '
         dev_new_version: 发现新版本 (开发环境始终显示)
         messages:
-          file_permissions_tip: 如果你看到下面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
+          file_permissions_tip: 如果你看到上面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
           path_not_exist: 路径不存在
           path_not_writable: 路径不可写
           path_not_readable: 路径不可读
@@ -223,7 +223,7 @@ zh-CN:
         destroy_confirm: 确认删除 %{key}？
         not_found:
           title: 没有发现任何备份计划
-          body_html: 点击右上角的 <i class="far fa-plus-square"></i> 生成备份文件。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
       show:
         title: '%{key} 备份计划'
         run_backup: 执行新备份
@@ -248,7 +248,7 @@ zh-CN:
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
         not_found:
           title: 没有发现任何备份文件
-          body_html: 点击右上角的 <i class="far fa-play-circle"></i> 执行备份。
+          body_html: 点击右上角的 <i class="fa-regular fa-play-circle"></i> 执行备份。
       new:
         title: 新增备份
         schedule: 定时任务
@@ -304,7 +304,7 @@ zh-CN:
       searching_app: 搜索应用
       not_found:
         title: 没有发现任何应用或全部已归档
-        body_html: 新建应用请点击右上角的 <i class="far fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
+        body_html: 新建应用请点击右上角的 <i class="fa-regular fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
     show:
       new_scheme: 新增类型
       edit_app: 编辑应用
@@ -318,11 +318,11 @@ zh-CN:
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
       not_found_channel_body_html: |
-        没有发现任何渠道，选择右上角的 <i class="far fa-plus-square"></i> 新增渠道
+        没有发现任何渠道，选择右上角的 <i class="fa-regular fa-plus-square"></i> 新增渠道
       not_found_scheme:
         title: 没有发现任何应用类型
         body_html: |
-          <p>选择右上角的 <i class="far fa-plus-square"></i> 新增类型</p>
+          <p>选择右上角的 <i class="fa-regular fa-plus-square"></i> 新增类型</p>
           <p>创建应用类型通常是给应用进行分类，比如从研发流程来说可以分为：</p>
           <ul>
             <li>开发版本、内测版本、公测版本、线上版本</li>
@@ -408,7 +408,7 @@ zh-CN:
       channel_key: 渠道 KEY
       edit_channel: 渠道管理
       none: 无
-      not_found: 还没有收到任何上传记录，点击右上角的 <i class="far fa-plus-square"></i> 上传应用
+      not_found: 还没有收到任何上传记录，点击右上角的 <i class="fa-regular fa-plus-square"></i> 上传应用
       id: ID
       build_version: 开发版本
       git_branch: 分支
@@ -422,8 +422,8 @@ zh-CN:
       total_version: 版本数量
       empty_version_shortly: 暂无版本
       empty_version: 该版本没有任何上传记录！
-      more: 查看更多
-      app_detail: 应用详情
+      view_more: 查看更多
+      view_app: 应用详情
     new:
       title:
         with_name: '%{app}新建渠道'
@@ -564,7 +564,7 @@ zh-CN:
       ios_count: dSYM
       not_found:
         title: 没有发现任何调试文件！
-        body_html: 选择右上角的 <i class="far fa-plus-square"></i> 上传调试文件
+        body_html: 选择右上角的 <i class="fa-regular fa-plus-square"></i> 上传调试文件
     show:
       title: '%{app} %{device} %{version} 调试文件'
       name: 应用名称
@@ -650,7 +650,7 @@ zh-CN:
       anonymous: 匿名者
       not_found:
         title: 没有发现任何应用解包！
-        body_html: 点击右上角的 <i class="far fa-plus-square"></i> 新建应用解包。
+        body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包。
     show:
       title: '%{name} 解包信息'
       expired_in: '约%{time}后过期'
@@ -722,7 +722,7 @@ zh-CN:
       title: 帮助中心
       body_html: |
         <p>
-          通过右上角 <i class="far fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
+          通过右上角 <i class="fa-regular fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
           诊断、参考和定位问题：
         </p>
         <table class="table table-bordered">
