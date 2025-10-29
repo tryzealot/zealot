@@ -9,7 +9,7 @@
   .col-md-4
     - if current_user&.manage?(app: @app) && !@app.archived
       = link_to new_channel_release_path(channel), class: 'btn btn-success w-100 mb-3', data: { turbo: false } do
-        i.icon.far.fa-plus-square
+        i.icon.fa-regular.fa-plus-square
         = t('channels.show.upload_release')
 
     == render 'schemes'
@@ -19,5 +19,5 @@
 
     - if user_signed_in_or_guest_mode?
       = link_to app_path(@app), class: 'btn btn-secondary w-100 mt-3', data: { turbo: false } do
-          i.icon.far.fa-list-alt
+          i.icon.fa-regular.fa-list-alt
           = t('channels.show.app_detail')

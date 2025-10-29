@@ -14,7 +14,7 @@
           ruby:
             is_current = current_release == release
           div
-            i.timeline-icon.fa-circle class="#{is_current ? 'fa-solid' : 'far'}"
+            i.timeline-icon.fa-circle class="#{is_current ? 'fa-solid' : 'fa-regular'}"
             .timeline-item
               span.time data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-title="#{l(release.created_at, format: :nice)}"
                 i.icon.fa-solid.fa-clock

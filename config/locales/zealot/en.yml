@@ -88,7 +88,7 @@ en:
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
-          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
+          body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :admin.apple_keys.title
         team_metadata: Team
@@ -227,7 +227,7 @@ en:
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
-          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
+          body_html: Click the button to <i class="fa-regular fa-plus-square"></i> new a backup.
       show:
         title: '%{key} backup'
         run_backup: Run a backup
@@ -252,7 +252,7 @@ en:
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         not_found:
           title: Not found any backup file
-          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
+          body_html: Click the button to <i class="fa-regular fa-play-circle"></i> new a backup file.
       new:
         title: New backup
         schedule: Schedule
@@ -308,7 +308,7 @@ en:
       searching_app: Search apps
       not_found:
         title: Not found app.
-        body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New app on the top-right.
     show:
       new_scheme: New scheme
       edit_app: Edit app
@@ -322,11 +322,11 @@ en:
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
       not_found_channel_body_html: |
-        Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
+        Not found any channel. Click the button to <i class="fa-regular fa-plus-square"></i> new a channel.
       not_found_scheme:
         title: Not found any scheme.
         body_html: |
-          <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
+          <p>Click the button to <i class="fa-regular fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
             <li>Debug, Adhoc, Public test and Production</li>
@@ -412,7 +412,7 @@ en:
       channel_key: Channel KEY
       edit_channel: Edit channel
       none: None
-      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
+      not_found: Not found any releases, click the button <i class="fa-regular fa-plus-square"></i> upload a release.
       id: ID
       build_version: Build version
       git_branch: Branch
@@ -464,7 +464,7 @@ en:
     show:
       enter_password: Enter password
       app_touch_menu: Click menu right-top corner
-      app_open_in_safari: Choose "Open in Safari" and install
+      app_open_in_safa-regulari: Choose "Open in Safa-regulari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
       released_new_version: '%{link} %{version} uploaded at %{time} ago!'
@@ -569,7 +569,7 @@ en:
       ios_count: dSYM
       not_found:
         title: Not found any debug file!
-        body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
     show:
       title: '%{app} %{device} %{version} Debug file'
       name: App name
@@ -659,7 +659,7 @@ en:
       anonymous: Anonymous
       not_found:
         title: Not found any teardown!
-        body_html: Click the button <i class="far fa-plus-square"></i> New teardown
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
       expired_in: Expire in %{time}
@@ -742,7 +742,7 @@ en:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
+          Click the button <i class="fa-regular fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -814,7 +814,7 @@ en:
       macos_tip: System limited to detect macOS's chip. choose to use the iPhone and iPad scan code or press button to get the device UDID please.
       nonapple_tip: :udid.index.apple_tip
       fetch_udid: Fetch your UDID now
-      app_open_in_safari: Choose "Open in Safari" and fetch
+      app_open_in_safa-regulari: Choose "Open in Safa-regulari" and fetch
       app_open_in_webbrower: Open with any browser and fetch
       help:
         title: Why need to install profile to fetch your UDID?
@@ -836,7 +836,7 @@ en:
                 <li>macOS: Open the profile named <code>install.mobileconfig</code> then open "System Settings" and click "Profile" in left sidebar menu.</li>
               </ol>
             </li>
-            <li>After install it will open Safari and redirect a result page then delete the profile automatically.</li>
+            <li>After install it will open Safa-regulari and redirect a result page then delete the profile automatically.</li>
           </ol>
     show:
       title: Device

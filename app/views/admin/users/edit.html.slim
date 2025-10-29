@@ -17,7 +17,7 @@
                 data-action="clipboard-center#copy"
                 data-clipboard-text="#{confirmation_url}"
               ]
-                i.far.fa-clipboard
+                i.fa-regular.fa-clipboard
             small.form-text.text-muted
               = raw t('admin.users.edit.active_link_tip', label: t('admin.users.edit.resend'), link: resend_confirmation_admin_user_path(@user))
 
@@ -54,7 +54,7 @@
                 data-action="clipboard-center#copy"
                 data-clipboard-text="#{@user.token}"
               ]
-                i.far.fa-clipboard
+                i.fa-regular.fa-clipboard
 
       .card.mb-3
         .card-body

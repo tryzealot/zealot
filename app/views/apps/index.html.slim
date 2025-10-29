@@ -7,7 +7,7 @@
 - content_for :section_rightpanel do
   - if current_user&.manage?
     a.btn.btn-success href="#{new_app_path}" data-turbo-frame="modal"
-      i.icon.far.fa-plus-square
+      i.icon.fa-regular.fa-plus-square
       = t('apps.new.title')
 
 - if @apps.present?
