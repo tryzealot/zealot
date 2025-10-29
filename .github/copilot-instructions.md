@@ -34,7 +34,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Linter**: RuboCop (with rubocop-rails)
 - **Server**: Puma
 - **Containerization**: Docker
-- **Package Manager**: Bundler (Ruby), Yarn (JavaScript)
+- **Package Manager**: Bundler (Ruby), pnpm (JavaScript)
 
 ## Coding Guidelines
 
@@ -133,13 +133,13 @@ bundle exec rails console
 ### JavaScript/Frontend Commands
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Build JavaScript
-yarn build
+pnpm build
 
 # Build CSS
-yarn build:css
+pnpm build:css
 ```
 
 ### Database Commands
