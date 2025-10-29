@@ -1,8 +1,8 @@
 .app-actions[
   data-controller="release-download"
   data-release-download-install-url-value="#{release.install_url}"
-  data-release-download-installing-value="<i class='fas fa-spin fa-sync'></i>#{t('releases.show.installing')}"
-  data-release-download-installed-value="<i class='fas fa-download'></i>#{t('releases.show.installed')}"
+  data-release-download-installing-value="<i class='fa-solid fa-spin fa-sync'></i>#{t('releases.show.installing')}"
+  data-release-download-installed-value="<i class='fa-solid fa-download'></i>#{t('releases.show.installed')}"
 ]
   == render 'shared/install_limited', safari_text: t('releases.show.app_open_in_safari'), brower_text: t('releases.show.app_open_in_webbrower')
   == render 'releases/body/install_issues'
@@ -13,14 +13,14 @@
         - if release.platform == 'iOS'
           - if release.cert_expired?
             button.btn.btn-icon.btn-lg.btn-secondary.disabled
-              i.fas.fa-certificate
+              i.fa-solid.fa-certificate
               = t('releases.show.cert_expired')
           - else
             button.btn.btn-icon.btn-lg.btn-success.d-none[
               data-action="release-download#install"
               data-release-download-target="installButton"
             ]
-              i.fas.fa-download
+              i.fa-solid.fa-download
               = t('releases.show.install')
 
         a.btn.btn-icon.btn-lg.btn-success[
@@ -28,27 +28,27 @@
           href="#{release.download_url}"
           target="_blank"
         ]
-          i.fas.fa-hard-drive
+          i.fa-solid.fa-hard-drive
           = t('releases.show.download')
       - else
         button.btn.btn-icon.btn-lg.btn-secondary.disabled
-          i.fas.fa-ghost
+          i.fa-solid.fa-ghost
           = t('releases.show.missing_file')
 
       - if current_user&.manage?(app: app)
         = link_to channel_release_path(release.channel, release), class: 'btn btn-icon btn-lg btn-danger', \
           data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('releases.messages.confirm.destroy') } do
-            i.fas.fa-trash-alt
+            i.fa-solid.fa-trash-alt
             = t('releases.show.destroy')
 
       .ios-issues
         - if release.file? && release.cert_expired?
           .ios-cert-expired
-            i.fas.fa-asterisk
+            i.fa-solid.fa-asterisk
             a href="javascript:void(0);" data-action="release-download#showCertExpired"
               = t('releases.show.cannot_install_cause_of_certificate_expired')
 
         .ios-install-issues.d-none data-release-download-target="installIssue"
-          i.fas.fa-asterisk
+          i.fa-solid.fa-asterisk
           a href="javascript:void(0);" data-action="release-download#showQA"
             = t('releases.show.cannot_install_or_untrusted_enterprise_developer')

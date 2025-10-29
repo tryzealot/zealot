@@ -88,7 +88,7 @@ en:
         destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
-          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
+          body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :admin.apple_keys.title
         team_metadata: Team
@@ -202,7 +202,7 @@ en:
         new_version: 'A new update is available '
         dev_new_version: Found new version (dev mode)
         messages:
-          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+          file_permissions_tip: If you see a warning icon in the list above it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
           path_not_exist: Path does not exist
           path_not_writable: Path is not writable
           path_not_readable: Path is not readable
@@ -227,7 +227,7 @@ en:
         destroy_confirm: 'Confirm to destroy: %{key}?'
         not_found:
           title: Not found any backup
-          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
+          body_html: Click the button to <i class="fa-regular fa-plus-square"></i> new a backup.
       show:
         title: '%{key} backup'
         run_backup: Run a backup
@@ -252,7 +252,7 @@ en:
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         not_found:
           title: Not found any backup file
-          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
+          body_html: Click the button to <i class="fa-regular fa-play-circle"></i> new a backup file.
       new:
         title: New backup
         schedule: Schedule
@@ -308,7 +308,7 @@ en:
       searching_app: Search apps
       not_found:
         title: Not found app.
-        body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New app on the top-right.
     show:
       new_scheme: New scheme
       edit_app: Edit app
@@ -322,11 +322,11 @@ en:
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
       not_found_channel_body_html: |
-        Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
+        Not found any channel. Click the button to <i class="fa-regular fa-plus-square"></i> new a channel.
       not_found_scheme:
         title: Not found any scheme.
         body_html: |
-          <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
+          <p>Click the button to <i class="fa-regular fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
             <li>Debug, Adhoc, Public test and Production</li>
@@ -412,7 +412,7 @@ en:
       channel_key: Channel KEY
       edit_channel: Edit channel
       none: None
-      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
+      not_found: Not found any releases, click the button <i class="fa-regular fa-plus-square"></i> upload a release.
       id: ID
       build_version: Build version
       git_branch: Branch
@@ -426,8 +426,8 @@ en:
       total_version: Versions
       empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
-      more: More
-      app_detail: App detail
+      view_more: View More
+      app_detail: View App
     new:
       title:
         with_name: 'New channel for %{app}'
@@ -569,7 +569,7 @@ en:
       ios_count: dSYM
       not_found:
         title: Not found any debug file!
-        body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
     show:
       title: '%{app} %{device} %{version} Debug file'
       name: App name
@@ -597,7 +597,9 @@ en:
       title: '%{app} %{device} Debug file'
       number: '#%{value}'
       processing: Processing in background, take a coffee break ...
-      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      refresh_page: "If there is no change for a long time, please try to refresh this page.
+
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
       reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
@@ -659,7 +661,7 @@ en:
       anonymous: Anonymous
       not_found:
         title: Not found any teardown!
-        body_html: Click the button <i class="far fa-plus-square"></i> New teardown
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
       title: '%{name} Teardown result'
       expired_in: Expire in %{time}
@@ -742,7 +744,7 @@ en:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
+          Click the button <i class="fa-regular fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -868,7 +870,9 @@ en:
       team_id: Team ID
       register_device: Register
       related_apple_keys_not_found: Not found any Apple Team.
-      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
+      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,
+
+        but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
       title: Fetch Device UDID Profile

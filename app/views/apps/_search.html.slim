@@ -5,12 +5,12 @@
     .input-group
       input.form-control name="search" value=params[:search] placeholder="#{t('apps.index.searching_app')}" type="text"
       button.btn.btn-outline-secondary
-        i.fas.fa-search
+        i.fa-solid.fa-search
       
       - desc_active = params[:sort] == "asc" ? "active" : ""
       - asc_active = params[:sort] == "desc" ? "active" : ""
 
       a.btn.btn-outline-secondary class=desc_active href="?#{current_params.to_query}&sort=asc"
-            i.fas.fa-arrow-down-a-z
+            i.fa-solid.fa-arrow-down-a-z
       a.btn.btn-outline-secondary class=asc_active href="?#{current_params.to_query}&sort=desc"
-            i.fas.fa-arrow-up-z-a
+            i.fa-solid.fa-arrow-up-z-a

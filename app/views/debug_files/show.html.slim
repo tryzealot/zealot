@@ -14,7 +14,7 @@ ruby:
 
 - content_for :section_rightpanel do
   a.btn.btn-secondary href="#{device_app_debug_files_path(@app, platform_name(@debug_file.device_type))}"
-    i.icon.far.fa-list-alt
+    i.icon.fa-regular.fa-list-alt
     = t('links.back_to_list')
 
 .row
@@ -35,25 +35,25 @@ ruby:
       .card-body
         ul.app-metadata
           li title="#{t('.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fas.fa-list-ul
+            i.fa-solid.fa-list-ul
             = link_to @app.name, app_path(@app)
           li title="#{t('.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fab.fa-gg
+            i.fa-brands.fa-gg
             = @debug_file.id
           li title="#{t('.device_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             = device_icon(@debug_file.device_type)
             = platform_name(@debug_file.device_type)
           li title="#{t('.release_version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fas.fa-server
+            i.fa-solid.fa-server
             = @debug_file.release_version
             - if @debug_file.build_version.present?
               | (#{@debug_file.build_version})
           - if @debug_file.filesize.present?
             li title="#{t('.file_size')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-              i.fas.fa-weight
+              i.fa-solid.fa-weight
               = " #{number_to_human_size(@debug_file.filesize)}"
           li title="#{t('.uploaded_at')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fas.fa-calendar
+            i.fa-solid.fa-calendar
             = time_ago_in_words(@debug_file.created_at)
         .app-actions[
           data-controller="destroy"
@@ -63,11 +63,11 @@ ruby:
         ]
           - if @debug_file.file?
             a.btn.btn-icon.btn-lg.btn-success.mb-1 href="#{@debug_file.file_url}" target="_blank"
-              i.icon.fas.fa-download
+              i.icon.fa-solid.fa-download
               = t('.download')
           - else
             button.btn.btn-secondary.btn-lg.btn-icon.disabled.mb-1
-              i.icon.fas.fa-ghost
+              i.icon.fa-solid.fa-ghost
               = t('.missing_file')
 
           - if current_user&.manage?(app: @debug_file.app)
@@ -79,7 +79,7 @@ ruby:
             button.btn.btn-icon.btn-lg.btn-danger.mb-1[
               data-action="click->destroy#click"
             ]
-              i.icon.fas.fa-trash-alt
+              i.icon.fa-solid.fa-trash-alt
               = t('.destroy')
 
             = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \

@@ -1,12 +1,12 @@
 .card.mb-3
   .card-header
     h3.card-title
-      i.icon.fas.fa-qrcode
+      i.icon.fa-solid.fa-qrcode
       = t('releases.show.qrcode')
     .card-tools
       button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fas.fa-plus data-lte-icon="expand"
-        i.fas.fa-minus data-lte-icon="collapse"
+        i.fa-solid.fa-plus data-lte-icon="expand"
+        i.fa-solid.fa-minus data-lte-icon="collapse"
   .card-body.text-center.p-0
     .qr_code
       = app_qrcode_tag(@release)

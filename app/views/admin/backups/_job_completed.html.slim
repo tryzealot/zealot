@@ -14,7 +14,7 @@
           - backup_files.each do |file|
             tr
               td
-                i.fas.fa-check-circle.text-success.me-2
+                i.fa-solid.fa-check-circle.text-success.me-2
                 = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename)
               td
                 small = file.sha256
@@ -23,7 +23,7 @@
               td
                 = link_to archive_admin_backup_path(backup, key: file.basename), class: 'btn btn-sm destroy-backup', title: t('admin.backups.show.destroy'), \
                   data: { turbo_method: :delete, turbo_confirm: t('admin.backups.index.destroy_confirm', key: backup.key) } do
-                  i.fas.fa-trash-alt.text-danger
+                  i.fa-solid.fa-trash-alt.text-danger
   - else
     .card.card-outline.card-warning
       .card-header.card-border
