@@ -88,6 +88,9 @@ gem 'turbo-rails', '~> 2.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
 
+# Generating fake data for tests and sample data in production
+gem 'faker'
+
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.10'
   gem 'web-console', '>= 3.3.0'
@@ -116,8 +119,7 @@ group :development, :test do
   gem 'pry-rescue'
 
   gem 'factory_bot_rails'
-  gem 'faker'
-
+  
   gem 'rspec-rails'
   gem 'rswag-specs'
 end
