@@ -120,7 +120,7 @@ zh-CN:
         release_type: iOS 的 debug、adhoc、release / Android 的 debug、release 等
         branch: 通常情况是 main 或 develop
         git_commit: 通常是 40 位长度的哈希值
-        ci_url: Jenkins、Gitlab CI 具体构建的地址
+        ci_url: Jenkins、Gitlab CI、Github Action 等具体构建的地址
       web_hook:
         body: 自定义的 JSON 消息体以满足不同第三方服务消息体的要求，不填写会使用<a href="https://zealot.ews.im/zh-Hans/docs/user-guide/webhooks">默认结构</a>
       debug_file:

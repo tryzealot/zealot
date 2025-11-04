@@ -1088,7 +1088,7 @@ en:
         release:
           attributes:
             file:
-              not_enough_space: Not enough disk space
+              not_enough_space: "is %{file_size}. Disk space only left %{disk_free} is not enough to upload"
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
