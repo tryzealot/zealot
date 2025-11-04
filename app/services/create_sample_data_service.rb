@@ -848,12 +848,15 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
 
   def create_apple_developer
     key_id = 'PZYM8XX95Q'
+    private_key = generate_private_key
+    checksum = Digest::SHA1.hexdigest(private_key)
 
     apple_key = AppleKey.find_or_initialize_by(
       issuer_id: '573eebfd-619d-4996-a37d-5889c24b8cd7',
       key_id: key_id,
-      private_key: generate_private_key,
+      private_key: private_key,
       filename: "#{key_id}.p8",
+      checksum: checksum
     )
   
     if apple_key.new_record?
@@ -861,7 +864,7 @@ class CreateSampleDataService # rubocop:disable Metrics/ClassLength
       apple_key.create_team(
         team_id: 'PZYM8XX95Q',
         name: 'Zealot Team',
-        display_name: 'Zealot Team (Sample)',
+        display_name: 'Zealot Developer Team (Alias Name)',
       )
     end
 
