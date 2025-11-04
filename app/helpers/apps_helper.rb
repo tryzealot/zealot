@@ -69,8 +69,8 @@ module AppsHelper
       branch
     else
       link_to(
-        branch, 
-        friendly_channel_branches_path(release.channel, name: branch), 
+        branch,
+        friendly_channel_branches_path(release.channel, name: branch),
         data: { turbo: false }
       )
     end
