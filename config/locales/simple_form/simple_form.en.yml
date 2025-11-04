@@ -120,7 +120,7 @@ en:
         release_type: 'iOS: debug、adhoc, release; Android: debug, release'
         branch: Git branch. In general either main or develop
         git_commit: 40 bit length SHA value of git commit
-        ci_url: The CI URL specific like Jenkins, Gitlab CI etc
+        ci_url: The CI URL specific like Jenkins, Gitlab CI, Github Action etc
       web_hook:
         body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty
       debug_file:

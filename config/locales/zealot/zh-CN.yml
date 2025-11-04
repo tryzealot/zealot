@@ -1027,6 +1027,8 @@ zh-CN:
         name: 设备名称
       collaborator:
         owner: 拥有者
+      release:
+        file: 应用文件
     success:
       create: "%{key}创建成功"
       update: "%{key}更新成功"
@@ -1084,7 +1086,7 @@ zh-CN:
         release:
           attributes:
             file:
-              not_enough_space: 磁盘空间不足以解析或存储上传应用文件
+              not_enough_space: " %{file_size}，因文件系统空间只剩于 %{disk_free} 无法上传"
   user_mailer:
     omniauth_welcome_email:
       subject: 欢迎使用 %{title}
