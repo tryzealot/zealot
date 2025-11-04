@@ -16,10 +16,10 @@ class User < ApplicationRecord
   enum :appearance, enum_appearances
   enum :timezone, enum_timezones
 
-  has_and_belongs_to_many :apps, dependent: :destroy
+  has_and_belongs_to_many :apps
   has_many :collaborators, dependent: :destroy
   has_many :metadatum, dependent: :destroy
-  has_many :providers, dependent: :destroy, class_name: 'UserProvider'
+  has_many :providers, class_name: 'UserProvider', dependent: :destroy
 
   scope :avaiables, -> (id) { where.not(id: id) }
 
