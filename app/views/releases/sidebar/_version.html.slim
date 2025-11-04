@@ -13,5 +13,5 @@
         - channel.release_versions.each do |version|
           tr
             td
-              = link_to version, friendly_channel_version_path(channel: channel.slug, name: version)
+              = link_to version, friendly_channel_version_path(channel: channel.slug, name: version), data: { turbo: false }
 

@@ -58,7 +58,7 @@ module AppsHelper
     end
     commit_url = File.join(git_url, 'commit', commit)
 
-    content_tag(:a, commit_name, href: commit_url)
+    link_to(commit_name, commit_url, data: { turbo: false })
   end
 
   def git_branch_url(release)
@@ -68,7 +68,11 @@ module AppsHelper
     if params[:name] == branch
       branch
     else
-      link_to(branch, friendly_channel_branches_path(release.channel, name: branch))
+      link_to(
+        branch, 
+        friendly_channel_branches_path(release.channel, name: branch), 
+        data: { turbo: false }
+      )
     end
   end
 
