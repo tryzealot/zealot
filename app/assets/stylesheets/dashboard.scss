@@ -80,13 +80,6 @@
 @include color-mode(dark) {
   .timeline {
     div {
-      .fa-solid,
-      .fa,
-      .fa-brands,
-      .fa-regular {
-        background-color: #454d55;
-      }
-
       .time-title {
         background-color: var(--bs-primary-bg) !important;
       }
