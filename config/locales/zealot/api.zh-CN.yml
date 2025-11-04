@@ -9,11 +9,11 @@ zh-CN:
         - [Postman](https://www.postman.com/downloads/)
         - 任意浏览器，如果你不需要设置 headers 或请求主体
 
-        准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：
+        准备好工具，你可以通过 `GET` 请求 {host}/api/version 可看到 Zealot 版本信息：
 
         ```json
         {
-          "version": "6.0.0",
+          "version": "6.1.0",
           "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
           "build_date": "2024-05-23T06:04:48.989Z"
         }
