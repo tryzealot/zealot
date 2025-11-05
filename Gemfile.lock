@@ -138,7 +138,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
-    date (3.4.1)
+    date (3.5.0)
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -242,7 +242,7 @@ GEM
     interception (0.5)
     io-console (0.8.1)
     iostruct (0.5.0)
-    irb (1.15.2)
+    irb (1.15.3)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -509,7 +509,7 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.5)
       logger
-    rdoc (6.15.0)
+    rdoc (6.15.1)
       erb
       psych (>= 4.0.0)
       tsort
@@ -590,10 +590,10 @@ GEM
       base64
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    sentry-rails (6.0.0)
+    sentry-rails (6.1.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.0.0)
-    sentry-ruby (6.0.0)
+      sentry-ruby (~> 6.1.0)
+    sentry-ruby (6.1.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.4.0)
@@ -642,7 +642,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
-    uri (1.0.4)
+    uri (1.1.1)
     useragent (0.16.11)
     uuidtools (2.2.0)
     validate_url (1.0.15)
@@ -748,8 +748,8 @@ DEPENDENCIES
   rubocop (>= 0.70)
   rubocop-rails
   ruby-lsp-rails
-  sentry-rails (~> 6.0.0)
-  sentry-ruby (~> 6.0.0)
+  sentry-rails (~> 6.1.0)
+  sentry-ruby (~> 6.1.0)
   simple_form (~> 5.4)
   slim-rails (~> 3.7.0)
   solid_cache (~> 1.0.8)
