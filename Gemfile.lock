@@ -544,9 +544,9 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.6)
-    rswag-api (2.16.0)
-      activesupport (>= 5.2, < 8.1)
-      railties (>= 5.2, < 8.1)
+    rswag-api (2.17.0)
+      activesupport (>= 5.2, < 8.2)
+      railties (>= 5.2, < 8.2)
     rswag-specs (2.16.0)
       activesupport (>= 5.2, < 8.1)
       json-schema (>= 2.2, < 6.0)
@@ -742,7 +742,7 @@ DEPENDENCIES
   rake (~> 13.0.4)
   rqrcode
   rspec-rails
-  rswag-api (~> 2.16.0)
+  rswag-api (~> 2.17.0)
   rswag-specs
   rswag-ui (~> 2.16.0)
   rubocop (>= 0.70)
