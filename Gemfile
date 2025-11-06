@@ -28,8 +28,8 @@ gem 'jb', '~> 0.8.2'
 gem 'slim-rails', '~> 3.7.0'
 gem 'kramdown', '~> 2.5'
 gem 'simple_form', '~> 5.4'
-gem 'rswag-api', '~> 2.16.0'
-gem 'rswag-ui', '~> 2.16.0'
+gem 'rswag-api', '~> 2.17.0'
+gem 'rswag-ui', '~> 2.17.0'
 gem 'ostruct' # needs in rswag
 
 # Model
