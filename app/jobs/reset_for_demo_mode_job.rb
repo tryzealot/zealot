@@ -4,6 +4,7 @@ class ResetForDemoModeJob < ApplicationJob
   queue_as :schedule
 
   discard_on GoodJob::Job::ActionForStateMismatchError
+  discard_on GoodJob::AdvisoryLockable::RecordAlreadyAdvisoryLockedError
 
   def perform
     return unless demo_mode?
