@@ -346,6 +346,9 @@ GEM
       net-protocol
     nio4r (2.7.5)
     nkf (0.2.0)
+    nokogiri (1.18.10)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.10-arm-linux-gnu)
@@ -689,6 +692,7 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
+  ruby
   x86_64-darwin-18
   x86_64-darwin-19
   x86_64-darwin-20
