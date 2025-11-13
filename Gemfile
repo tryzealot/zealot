@@ -108,6 +108,10 @@ group :development do
   # helpers
   gem 'letter_opener', '~> 1.10'
   gem 'letter_opener_web', '~> 3.0'
+
+  # Chrome extension devtools
+  ## rails-panel https://chromewebstore.google.com/detail/rails-panel/gjpfobpafnhjhbajcjgccbbdofdckggg
+  gem 'meta_request', github: 'dejan/rails_panel', ref: 'meta_request-v0.8.5'
 end
 
 group :development, :test do
