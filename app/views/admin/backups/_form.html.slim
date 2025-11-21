@@ -8,7 +8,7 @@
     .card-body
       = f.error_notification
 
-      = f.input :enabled, input_html: { checked: true }
+      = f.input :enabled, as: :boolean
       = f.input :key, required: true
       = f.input :max_keeps, required: true
       / = f.input :notification
@@ -39,10 +39,10 @@
       - unless @backup.new_record?
         .float-end
           - if @backup.enabled
-            = link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
-              data: { turbo_method: :post }
+            = button_link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
+              class: 'btn-warning', data: { turbo_method: :post }
           - else
-            = link_to t('admin.backups.new.enable'), enable_admin_backup_path(@backup), \
-              data: { turbo_method: :post }
+            = button_link_to t('admin.backups.new.enable'), enable_admin_backup_path(@backup), \
+              class: 'btn-success', data: { turbo_method: :post }
 
       = f.button :submit
