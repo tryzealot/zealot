@@ -35,7 +35,7 @@ class ChannelsController < ApplicationController
     return redirect_to app_url, alert: @channel.errors.full_messages.to_sentence unless @channel.save
 
     notice = t('activerecord.success.create', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    flash.now.notice = notice
+    flash[:notice] = notice
     respond_to do |format|
       format.html { redirect_to app_url }
       format.turbo_stream
@@ -54,7 +54,7 @@ class ChannelsController < ApplicationController
 
     @channel.update(channel_params)
     notice = t('activerecord.success.update', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    flash.now.notice = notice
+    flash[:notice] = notice
     respond_to do |format|
       format.html { redirect_back fallback_location: friendly_channel_overview_path(@channel) }
       format.turbo_stream
@@ -66,7 +66,7 @@ class ChannelsController < ApplicationController
 
     @channel.destroy
     notice = t('activerecord.success.destroy', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
-    flash.now.notice = notice
+    flash[:notice] = notice
     respond_to do |format|
       format.html { redirect_to app_path(@app) }
       format.turbo_stream

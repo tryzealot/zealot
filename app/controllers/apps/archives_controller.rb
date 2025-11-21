@@ -21,7 +21,7 @@ class Apps::ArchivesController < ApplicationController
     return  redirect_to apps_path(@app), alert: alert unless @app.archive
 
     notice = t('activerecord.success.archived', key: "#{@app.name} #{t('apps.title')}")
-    flash.now.notice = notice
+    flash[:notice] = notice
     respond_to do |format|
       format.html { redirect_to apps_path }
       format.turbo_stream
@@ -35,7 +35,7 @@ class Apps::ArchivesController < ApplicationController
 
     @apps = manage_user_or_guest_mode? ? App.archived : current_user.apps.unarchive
     notice = t('activerecord.success.unarchived', key: "#{@app.name} #{t('apps.title')}")
-    flash.now.notice = notice
+    flash[:notice] = notice
     respond_to do |format|
       format.html { redirect_to apps_path, notice: t('apps.unarchived.success') }
       format.turbo_stream
