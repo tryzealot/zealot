@@ -18,7 +18,7 @@ zh-CN:
       index:
         title: :'admin.users.title'
         new_user: :'admin.users.new.title'
-        number: '#'
+        number: "#"
         nickname: 用户昵称
         email: 邮箱
         role: 权限
@@ -44,16 +44,16 @@ zh-CN:
         unlock_user: 启用用户
         destroy_user: 删除用户
       lock:
-        message: '%{user}用户已变更为停用状态'
+        message: "%{user}用户已变更为停用状态"
       unlock:
-        message: '%{user}用户已变更为启用状态'
+        message: "%{user}用户已变更为启用状态"
       resend_confirmation:
-        message: '已重新发送确认邮件至%{user}用户'
+        message: "已重新发送确认邮件至%{user}用户"
     web_hooks:
       title: 网络钩子
       index:
         title: :'admin.web_hooks.title'
-        number: '#'
+        number: "#"
         url: URL
         channels: 渠道列表
         action: 操作
@@ -78,7 +78,7 @@ zh-CN:
         title: 添加开发者
       index:
         title: :'admin.apple_keys.title'
-        number: '#'
+        number: "#"
         team_name: 团队名称
         team_id: 团队标识符
         created_at: 创建时间
@@ -117,9 +117,9 @@ zh-CN:
         smtp_verify_inprocess: 验证中
         smtp_verify_success: 验证成功
         smtp_verify_failed: 验证失败
-        apply_for_restart: 需重启服务生效
+        restart_to_apply: 需重启服务生效
         service_restarting: 服务重启中
-        service_restarted: 刷新页面
+        service_restarted: 应用中
         restart_required: 重启后生效
       update:
         title: 编辑设置
@@ -127,7 +127,7 @@ zh-CN:
         title: 编辑设置
       enable: 开启
       disable: 关闭
-      validates: '条件：%{value}'
+      validates: "条件：%{value}"
       general: 通用配置
       site_https: 启用 HTTPS
       site_title: 网站标题
@@ -180,12 +180,12 @@ zh-CN:
         vcs_ref: Git 哈希值
         build_date: 构建日期
         server_info: 服务器信息
-        found_new_version: '发现新版本: %{version}'
+        found_new_version: "发现新版本: %{version}"
         os_info: 操作系统
         postgres_version: PostgreSQL 版本
         ruby_version: Ruby 版本
         cpu_info: CPU
-        cpu_core: '%{count} 核'
+        cpu_core: "%{count} 核"
         fail_detect_cpu: CPU 信息监测失败
         memory_info: 内存
         fail_detect_memory: 内存信息监测失败
@@ -197,7 +197,7 @@ zh-CN:
         file_permissions: 文件权限
         ruby_gems: Ruby Gems
         logs: 日志
-        new_version: '发现新版本 '
+        new_version: "发现新版本 "
         dev_new_version: 发现新版本 (开发环境始终显示)
         messages:
           file_permissions_tip: 如果你看到上面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
@@ -219,13 +219,13 @@ zh-CN:
         edit: 编辑
         destroy: 删除
         database: 数据库
-        app: '%{count} 应用'
+        app: "%{count} 应用"
         destroy_confirm: 确认删除 %{key}？
         not_found:
           title: 没有发现任何备份计划
           body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
       show:
-        title: '%{key} 备份计划'
+        title: "%{key}备份计划"
         run_backup: 执行新备份
         backup_files: 备份文件
         filename: 文件名
@@ -255,13 +255,13 @@ zh-CN:
         disable: 禁用
         enable: 启用
       edit:
-        title: 编辑 %{key} 备份计划
+        title: 编辑%{key}备份计划
       perform:
-        success: 备份任务正在后台工作中
+        success: 备份任务%{key}正在后台工作中
       destroy_archive:
-        success: 备份文件成功删除
+        success: 备份文件%{key}成功删除
       cancel_job:
-        success: 备份任务成功取消
+        success: 备份任务%{key}成功取消
       parse_schedule:
         invalid_expression: 表达式无法解析
     background_jobs:
@@ -354,7 +354,7 @@ zh-CN:
           body_html: 如果应用长期不再使用且不想删除可以进行归档操作。
     messages:
       failture:
-        not_found_app_by_version: '没有找到应用版本: %{version}'
+        not_found_app_by_version: "没有找到应用版本: %{version}"
         not_found_app: 没有找到应用 %{id}，跳转至应用列表
         missing_schemes_and_channels: 没有勾选任何应用类型和渠道！
       confirm:
@@ -379,15 +379,15 @@ zh-CN:
       empty_channel: 没有发现已创建的渠道，请新建一个
     new:
       title:
-        with_name: '%{app}新建类型'
+        with_name: "%{app}新建类型"
         without_name: 新建类型
     edit:
       title:
-        with_name: '%{app}编辑类型'
+        with_name: "%{app}编辑类型"
         without_name: 编辑类型
   channels:
     title: 应用渠道
-    subtitle: '%{total_scheme} 类型 %{total_channel} 渠道'
+    subtitle: "%{total_scheme} 类型 %{total_channel} 渠道"
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
@@ -400,7 +400,7 @@ zh-CN:
       git_url: Git 仓库地址
       download_filename_type: 下载文件名规则
       download_filename_type_item:
-        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        version_datetime: "{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}"
         original_filename: 使用上传文件的文件名
       match_rule: 匹配模式 %{value}
       wildmatch: (不限制上传包的包名)
@@ -426,23 +426,23 @@ zh-CN:
       view_app: 应用详情
     new:
       title:
-        with_name: '%{app}新建渠道'
+        with_name: "%{app}新建渠道"
         without_name: 新建渠道
     edit:
       title:
-        with_name: '%{app}编辑渠道'
+        with_name: "%{app}编辑渠道"
         without_name: 编辑渠道
     branches:
       index:
-        subtitle: '%{branch} 分支版本列表'
+        subtitle: "%{branch} 分支版本列表"
     release_types:
       index:
-        subtitle: '%{type} 类型版本列表'
+        subtitle: "%{type} 类型版本列表"
     versions:
       index:
         subtitle: 版本列表
       show:
-        subtitle: '%{version} 主版本列表'
+        subtitle: "%{version} 主版本列表"
     filters:
       list:
         delete: 删除
@@ -463,7 +463,7 @@ zh-CN:
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
       not_latest_release: 当前不是最新版本！
-      released_new_version: '%{link} %{version} 于%{time}发布！'
+      released_new_version: "%{link} %{version} 于%{time}发布！"
       view_latest_version: 最新版本
       name: 应用
       version: 上传版本
@@ -494,10 +494,10 @@ zh-CN:
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
-      devices: '%{count} 台测试设备 (UDID)'
+      devices: "%{count} 台测试设备 (UDID)"
       sync_devices_feature: 推荐使用%{link}同步设备名称
       apple_team_link: https://zealot.ews.im/zh-Hans/docs/user-guide/administrator/apple-team
-      debug_file: '%{type} 调试文件'
+      debug_file: "%{type} 调试文件"
       qrcode: 二维码
       scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
@@ -552,8 +552,8 @@ zh-CN:
         deleted_programly: 系统开启了清理老版本功能而当前版本属于历史老版本被清理掉
         not_found_really: 您访问的应用版本真的不存在
         invalid_password: 密码错误，请重新输入
-        bundle_id_not_matched: '应用的包名 %{got} 和约束的包名 %{expect} 无法匹配'
-        upload_to_archived_app: '应用 %{app} 已归档，无法上传新的版本。'
+        bundle_id_not_matched: "应用的包名 %{got} 和约束的包名 %{expect} 无法匹配"
+        upload_to_archived_app: "应用 %{app} 已归档，无法上传新的版本。"
   debug_files:
     title: 调试文件
     index:
@@ -566,7 +566,7 @@ zh-CN:
         title: 没有发现任何调试文件！
         body_html: 选择右上角的 <i class="fa-regular fa-plus-square"></i> 上传调试文件
     show:
-      title: '%{app} %{device} %{version} 调试文件'
+      title: "%{app} %{device} %{version} 调试文件"
       name: 应用名称
       version: 编号
       device_type: 平台
@@ -578,15 +578,15 @@ zh-CN:
       download: 下载
       reprocess: 重新解析
       destroy: 删除
-      main_target: '主项目: %{value}'
+      main_target: "主项目: %{value}"
       arch: 架构
       target: 名称
       uuid: UUID
       libraries: 库 (%{count})
       files: 文件 (%{count})
     device:
-      title: '%{app} %{device} 调试文件'
-      number: '#%{value}'
+      title: "%{app} %{device} 调试文件"
+      number: "#%{value}"
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
       refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
       reparse_required: 无法解析包名，缺失或需要重新解析
@@ -652,8 +652,8 @@ zh-CN:
         title: 没有发现任何应用解包！
         body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包。
     show:
-      title: '%{name} 解包信息'
-      expired_in: '约%{time}后过期'
+      title: "%{name} 解包信息"
+      expired_in: "约%{time}后过期"
       already_expired: 过期%{time}
       expired: 刚好过期
       related_app: 关联提醒
@@ -683,7 +683,7 @@ zh-CN:
       devise_list: 设备列表 (%{count})
       developer_certs_list: 开发者证书 (%{count})
       cert: 证书 %{index}
-      cert_expired_at: '%{date} 到期'
+      cert_expired_at: "%{date} 到期"
       cert_created: 创建日期
       cert_expired: 失效日期
       cert_version: 版本
@@ -778,15 +778,15 @@ zh-CN:
     messages:
       confirm:
         destroy: 确定删除?
-      upload_events: '%{name} 上传了 %{version} 版本'
-      download_events: '%{name} %{version} 版本被下载'
-      changelog_events: '%{name} %{version} 版本更新了变更日志'
-      unknown_events: '%{name} 触发了未知事件: %{event}'
+      upload_events: "%{name} 上传了 %{version} 版本"
+      download_events: "%{name} %{version} 版本被下载"
+      changelog_events: "%{name} %{version} 版本更新了变更日志"
+      unknown_events: "%{name} 触发了未知事件: %{event}"
       errors:
-        not_found_file: '无法找到解包文件: %{message}'
+        not_found_file: "无法找到解包文件: %{message}"
         not_support_file_type: 应用的文件类型不支持
         failed_get_metadata: 应用解析异常，请确保是支持的文件类型且没有安全加固处理
-        unknown_parse: '上传应用解析发现未知异常: %{message} (%{class})'
+        unknown_parse: "上传应用解析发现未知异常: %{message} (%{class})"
         choose_supported_file_type: 请选择需要解包的 .apk/.aab/.ipa/.mobileprovision 或 macOS.app.zip 文件
   udid:
     title: 设备 UDID
@@ -821,7 +821,7 @@ zh-CN:
       title: 设备信息
       metadata: 设备信息
       registered_but_no_related_app: 本设备已注册，很遗憾还没有发现关联应用
-      registered_with_related_apps:  本设备已注册，下面选择需要安装的应用吧
+      registered_with_related_apps: 本设备已注册，下面选择需要安装的应用吧
       register: 本设备还未注册，快去选择对应的苹果开发者主体注册吧！
       unregistered: 发现一台未注册的设备，复制 UDID 给苹果开发工程师哦！
       registered_apps: 可安装应用
@@ -869,7 +869,7 @@ zh-CN:
     destroy: 删除
     disable: 禁用
     messages:
-      parse_done_and_refreshing: '解析完成，页面正在刷新 ...'
+      parse_done_and_refreshing: "解析完成，页面正在刷新 ..."
       confirm:
         destroy: 确定删除?
   settings:
@@ -931,9 +931,9 @@ zh-CN:
 
   datetime:
     distance_in_words:
-      about_x_hours: '约 %{count} 小时'
-      about_x_months: '约 %{count} 个月'
-      about_x_years: '约 %{count} 年'
+      about_x_hours: "约 %{count} 小时"
+      about_x_months: "约 %{count} 个月"
+      about_x_years: "约 %{count} 年"
       almost_x_years: 接近 %{count} 年
       half_a_minute: 半分钟前
       less_than_x_seconds: 不到 %{count} 秒
@@ -947,36 +947,36 @@ zh-CN:
 
   date:
     formats:
-      nice: '%Y-%m-%d'
+      nice: "%Y-%m-%d"
 
   time:
     formats:
-      nice: '%Y-%m-%d %p %I:%M GMT%:::z'
+      nice: "%Y-%m-%d %p %I:%M GMT%:::z"
 
   errors:
     code:
-      '400':
+      "400":
         title: 您提交的请求无效或格式不正确
         content: 可能是参数错误或缺少必要的参数
-      '403':
+      "403":
         title: 你没有访问这个页面的权限
         content: 当前用户没有权限访问此页面或执行此操作
-      '404':
+      "404":
         title: 找不到你想要的内容
         content: 当前访问的页面不存在或者已经被移动
-      '406':
+      "406":
         title: 页面无法处理请求
-      '410':
+      "410":
         title: 你所要访问的页面此处已不存在
-      '422':
+      "422":
         content: 无法确认登录信息。你是不是屏蔽了 Cookie？
         title: 无法确认登录信息
-      '429':
+      "429":
         title: 请求被限制
-      '500':
+      "500":
         content: 抱歉，我们的后台出错了
         title: 这个页面有问题
-      '503':
+      "503":
         title: 服务暂时不可用，无法请求该页面
     messages:
       homepage_title: 首页
@@ -1007,15 +1007,15 @@ zh-CN:
       success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
       failures:
         not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
-        not_matched_bundle_id: '现有应用并不包含上传 bundle id: %{bundle_id}'
+        not_matched_bundle_id: "现有应用并不包含上传 bundle id: %{bundle_id}"
         unknown_format: 上传的调试文件类型识别错误
     backup:
-      success: '%{key} 备份创建完成'
+      success: "%{key} 备份创建完成"
       failures:
-        max_keeps_limited: '%{key} 备份设置最大限制值为零'
-        dump_command: '执行备份命令执行失败: %{message}'
-        restore_command: '恢复备份命令执行失败: %{message}'
-        storage_full: '备份存储空间不足，无法创建新的备份: %{key}'
+        max_keeps_limited: "%{key} 备份设置最大限制值为零"
+        dump_command: "执行备份命令执行失败: %{message}"
+        restore_command: "恢复备份命令执行失败: %{message}"
+        storage_full: "备份存储空间不足，无法创建新的备份: %{key}"
   activerecord:
     attributes:
       channel:
@@ -1035,6 +1035,9 @@ zh-CN:
       archived: "%{key}归档成功"
       unarchived: "%{key}取消归档成功"
       destroy: "%{key}删除成功"
+      reset: "重置%{key}为默认值成功"
+      update_and_restart: "%{key}更新成功，需要重启才能生效"
+      reset_and_restart: "重置%{key}为默认值成功，需要重启才能生效"
     errors:
       messages:
         same_value: "%{key}没有发生变化，忽略此操作"
@@ -1058,19 +1061,19 @@ zh-CN:
               unauthorized: 用户身份认证失败，请重新检查各项参数是否正确
               forbidden: 密钥权限太低，重新生成一个最低限度为【开发者】权限的密钥
               required_agreement_missing_or_expired: 苹果开发者协议未同意或已过期，请重新登录苹果开发者网站同意协议后再重新执行当前操作
-              unknown: '未知错误: %{message}'
+              unknown: "未知错误: %{message}"
             devices:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
-              api: '苹果返回错误：%{message}'
-              unknown: '未知错误: %{message}'
+              api: "苹果返回错误：%{message}"
+              unknown: "未知错误: %{message}"
             checksum:
               taken: 匹配，密钥文件已存在
         udid:
           attributes:
             name:
               invalid_value: 注册设备 %{value} 是无效的请检测后重新尝试
-              api: '苹果返回错误：%{message}'
-              unknown: '未知错误: %{message}'
+              api: "苹果返回错误：%{message}"
+              unknown: "未知错误: %{message}"
         debug_file:
           attributes:
             app_id:
@@ -1113,17 +1116,17 @@ zh-CN:
       username: LDAP 账户
       password: LDAP 密码
     github:
-      org_check_fail: 'GitHub 组织检查失败： %{code}'
-      org_required_fail: '您必须是 %{required_org} GitHub 组织的成员才能登录。'
+      org_check_fail: "GitHub 组织检查失败： %{code}"
+      org_required_fail: "您必须是 %{required_org} GitHub 组织的成员才能登录。"
     shared:
-      hint: '- 或者 -'
+      hint: "- 或者 -"
       links:
         provider:
           feishu: 飞书
-          google: 'Google '
-          gitlab: 'Gitlab '
-          github: 'Github '
-          openidconnect: 'OpenID '
+          google: "Google "
+          gitlab: "Gitlab "
+          github: "Github "
+          openidconnect: "OpenID "
   helpers:
     submit:
       user:

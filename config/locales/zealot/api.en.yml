@@ -47,7 +47,7 @@ en:
       per_page: Page size
       scope: Scope
       channel_key: Channel key
-      bundle_id: '`bundle_id` for iOS, `package_name` for Android'
+      bundle_id: "`bundle_id` for iOS, `package_name` for Android"
       git_commit: Git Commit SHA
       order: Sort by order
       release_version: Release version
@@ -94,7 +94,7 @@ en:
         description: Unauthorized Response
       not_found:
         default: Resource not found
-        description: '%{model} not found'
+        description: "%{model} not found"
       destroyed:
         default: Resource was destroyed
     definitions:
@@ -371,7 +371,7 @@ en:
           show: Get version information
       show:
         title: Get version information
-        description: ''
+        description: ""
     health:
       default:
         tags: Health
@@ -380,4 +380,4 @@ en:
       show:
         title: Get health check result
         titleJson: Get health check in JSON format
-        description: ''
+        description: ""

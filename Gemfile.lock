@@ -662,6 +662,10 @@ GEM
       activemodel (>= 3.0.0)
       public_suffix
     version_gem (1.1.9)
+    view_component (4.1.1)
+      actionview (>= 7.1.0, < 8.2)
+      activesupport (>= 7.1.0, < 8.2)
+      concurrent-ruby (~> 1)
     vmstat (2.3.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -771,6 +775,7 @@ DEPENDENCIES
   sys-filesystem (~> 1.5.4)
   tiny_appstore_connect (~> 0.1.12)
   turbo-rails (~> 2.0)
+  view_component (~> 4.1)
   vmstat (~> 2.3.0)
   web-console (>= 3.3.0)
   webp-ffi (~> 0.4.0)
