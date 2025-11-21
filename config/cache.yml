@@ -1,5 +1,4 @@
 default: &default
-  database: <%= Rails.env %>
   store_options:
     max_age: <%= 1.week.to_i %>
     max_size: <%= 256.megabytes %>
@@ -7,9 +6,11 @@ default: &default
 
 development:
   <<: *default
+  database: cache
 
 test:
   <<: *default
 
 production:
   <<: *default
+  database: cache

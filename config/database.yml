@@ -14,15 +14,20 @@ default: &default
   <% end %>
 
 development:
-  <<: *default
+  primary: &primary_development
+    <<: *default
+  cache:
+    <<: *primary_development
+  cable:
+    <<: *primary_development
 
 test:
   <<: *default
 
 production:
-  <<: *default
-
-cache:
-  <<: *default
-  database: cache
-  migrations_paths: db/cache_migrate
+  primary: &primary_production
+    <<: *default
+  cache:
+    <<: *primary_production
+  cable:
+    <<: *primary_production
