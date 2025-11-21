@@ -1,11 +1,11 @@
 = turbo_frame_tag user, class: 'p-2 ps-3 border-top d-flex' do
   .col-3.col-md-3.my-auto
     = link_to user.username, edit_admin_user_path(user), data: { turbo_frame: :modal }
-  .col-7.col-md-4.my-auto
+  .col-7.col-md-3.my-auto
     = user.email
   .col-3.col-md-2.my-auto
     = user.role_name
-  .col-2.col-md-1.my-auto.d-none.d-sm-table-cell
+  .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
     - if user.access_locked?
       span.badge.text-bg-danger = t('admin.users.index.locked')
     - elsif user.confirmed_at
