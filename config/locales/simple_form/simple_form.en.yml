@@ -130,7 +130,7 @@ en:
       backup:
         key: Unique backup key
         schedule: |
-          Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
+          Expression support <a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup
       apple_key:
