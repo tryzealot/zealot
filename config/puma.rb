@@ -63,8 +63,11 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # sure to reconnect any threads in the `before_worker_boot` block.
 # preload_app!
 
-# Allow puma to be restarted by `rails restart` command.
-# plugin :tmp_restart
+# Allow puma to be restarted by `bin/rails restart` command.
+plugin :tmp_restart
+
+# Run the Solid Queue supervisor inside of Puma for single-server deployments.
+# plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Start the Puma control rack application on +url+. This application can
 # be communicated with to control the main server. Additionally, you can
