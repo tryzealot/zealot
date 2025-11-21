@@ -261,11 +261,11 @@ en:
       edit:
         title: Edit %{key} backup
       perform:
-        success: Backup was successfully scheduled to run in the background.
+        success: Backup job %{key} was performed successfully.
       destroy_archive:
-        success: Backup was deleted successfully.
+        success: Backup job %{key} was deleted successfully.
       cancel_job:
-        success: Backup Job was canceled successfully.
+        success: Backup job %{key} was canceled successfully.
       parse_schedule:
         invalid_expression: Invalid expression
     background_jobs:

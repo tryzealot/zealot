@@ -225,7 +225,7 @@ zh-CN:
           title: 没有发现任何备份计划
           body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
       show:
-        title: "%{key} 备份计划"
+        title: "%{key}备份计划"
         run_backup: 执行新备份
         backup_files: 备份文件
         filename: 文件名
@@ -255,13 +255,13 @@ zh-CN:
         disable: 禁用
         enable: 启用
       edit:
-        title: 编辑 %{key} 备份计划
+        title: 编辑%{key}备份计划
       perform:
-        success: 备份任务正在后台工作中
+        success: 备份任务%{key}正在后台工作中
       destroy_archive:
-        success: 备份文件成功删除
+        success: 备份文件%{key}成功删除
       cancel_job:
-        success: 备份任务成功取消
+        success: 备份任务%{key}成功取消
       parse_schedule:
         invalid_expression: 表达式无法解析
     background_jobs:
