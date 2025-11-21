@@ -18,7 +18,7 @@ en:
       index:
         title: :admin.users.title
         new_user: :admin.users.new.title
-        number: '#'
+        number: "#"
         nickname: Nickname
         email: E-mail
         role: Role
@@ -44,16 +44,16 @@ en:
         unlock_user: Unlock
         destroy_user: Destroy
       lock:
-        message: 'User %{user} has been locked.'
+        message: "User %{user} has been locked."
       unlock:
-        message: 'User %{user} has been unlocked.'
+        message: "User %{user} has been unlocked."
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user %{user}.'
+        message: "Re-sent the confirmation email to user %{user}."
     web_hooks:
       title: Webhooks
       index:
         title: :admin.web_hooks.title
-        number: '#'
+        number: "#"
         url: URL
         channels: Channels
         action: Action
@@ -78,14 +78,14 @@ en:
         title: New Apple Developer
       index:
         title: :admin.apple_keys.title
-        number: '#'
+        number: "#"
         team_name: Team name
         team_id: Team ID
         created_at: Created at
         action: Action
         new_apple_key: :admin.apple_keys.new.title
         destroy: Destroy
-        destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
+        destroy_confirm: "Confirm to destroy: %{team} (%{team_id})"
         not_found:
           title: Not found Apple Developer.
           body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Apple Developer on the top-right.
@@ -117,9 +117,9 @@ en:
         smtp_verify_inprocess: Verification Inprocessing
         smtp_verify_success: Verification successful
         smtp_verify_failed: Verification failed
-        apply_for_restart: Apply and Restart
+        restart_to_apply: Restart to apply
         service_restarting: Restarting
-        service_restarted: Refresh
+        service_restarted: Applying
         restart_required: Restart required
       update:
         title: Edit setting
@@ -127,7 +127,7 @@ en:
         title: Edit setting
       enable: Enabled
       disable: Disabled
-      validates: 'Rule: %{value}'
+      validates: "Rule: %{value}"
       general: General
       site_https: Enable HTTPS
       site_title: Site title
@@ -180,14 +180,14 @@ en:
         vcs_ref: Git Ref
         build_date: Build date
         server_info: Server info
-        found_new_version: 'Found new version: %{version}'
+        found_new_version: "Found new version: %{version}"
         os_info: OS info
         postgres_version: PostgreSQL version
         ruby_version: Ruby version
         cpu_info: CPU
         cpu_core:
-          one: '%{count} Core'
-          other: '%{count} Cores'
+          one: "%{count} Core"
+          other: "%{count} Cores"
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -199,7 +199,7 @@ en:
         file_permissions: File permissions
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: 'A new update is available '
+        new_version: "A new update is available "
         dev_new_version: Found new version (dev mode)
         messages:
           file_permissions_tip: If you see a warning icon in the list above it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
@@ -222,14 +222,14 @@ en:
         destroy: Destroy
         database: Database
         app:
-          one: '%{count} App'
-          other: '%{count} Apps'
-        destroy_confirm: 'Confirm to destroy: %{key}?'
+          one: "%{count} App"
+          other: "%{count} Apps"
+        destroy_confirm: "Confirm to destroy: %{key}?"
         not_found:
           title: Not found any backup
           body_html: Click the button to <i class="fa-regular fa-plus-square"></i> new a backup.
       show:
-        title: '%{key} backup'
+        title: "%{key} backup"
         run_backup: Run a backup
         backup_files: Backup files
         filename: Filename
@@ -281,7 +281,7 @@ en:
       index:
         title: :admin.logs.title
         loading: Loading ...
-        error_message: 'Log fetch failed, return status code: '
+        error_message: "Log fetch failed, return status code: "
   dashboard:
     title: Dashboard
     analytics:
@@ -358,7 +358,7 @@ en:
           body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app_by_version: "Not found app version: %{version}"
         not_found_app: Not found app by id %{id}, redirect to list of app
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
@@ -383,15 +383,15 @@ en:
       empty_channel: Not found any channel.
     new:
       title:
-        with_name: 'New scheme for %{app}'
+        with_name: "New scheme for %{app}"
         without_name: New scheme
     edit:
       title:
-        with_name: 'Edit scheme for %{app}'
+        with_name: "Edit scheme for %{app}"
         without_name: Edit scheme
   channels:
     title: Channels
-    subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
+    subtitle: "Scheme %{total_scheme} Channel %{total_channel}"
     show:
       scheme: :schemes.title
       channel: :channels.title
@@ -404,7 +404,7 @@ en:
       git_url: Git URL
       download_filename_type: Download filename rule
       download_filename_type_item:
-        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        version_datetime: "{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}"
         original_filename: Use the original file name of the uploaded file
       match_rule: Match Rule %{value}
       wildmatch: (wild match)
@@ -430,23 +430,23 @@ en:
       app_detail: View App
     new:
       title:
-        with_name: 'New channel for %{app}'
+        with_name: "New channel for %{app}"
         without_name: New channel
     edit:
       title:
-        with_name: 'Edit channel for %{app}'
+        with_name: "Edit channel for %{app}"
         without_name: Edit channel
     branches:
       index:
-        subtitle: 'Releases of branch %{branch}'
+        subtitle: "Releases of branch %{branch}"
     release_types:
       index:
-        subtitle: 'Releases of scheme %{type}'
+        subtitle: "Releases of scheme %{type}"
     versions:
       index:
         subtitle: Releases
       show:
-        subtitle: 'Releases of version %{version}'
+        subtitle: "Releases of version %{version}"
     filters:
       list:
         delete: Delete
@@ -467,7 +467,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: '%{link} %{version} uploaded at %{time} ago!'
+      released_new_version: "%{link} %{version} uploaded at %{time} ago!"
       view_latest_version: The latest version
       name: App
       version: Auto Version
@@ -498,10 +498,10 @@ en:
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
-      devices: '%{count} test devices (UDID)'
+      devices: "%{count} test devices (UDID)"
       sync_devices_feature: Synchronize device name with %{link} recommended
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: '%{type} matched'
+      debug_file: "%{type} matched"
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
@@ -558,7 +558,7 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean job.
         not_found_really: Not found this build.
         invalid_password: Invalid password
-        bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
+        bundle_id_not_matched: "Bundle id or package name not matched between release %{got} and rule %{expect}"
   debug_files:
     title: Debug files
     index:
@@ -571,7 +571,7 @@ en:
         title: Not found any debug file!
         body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
     show:
-      title: '%{app} %{device} %{version} Debug file'
+      title: "%{app} %{device} %{version} Debug file"
       name: App name
       version: Build number
       device_type: Platform
@@ -583,7 +583,7 @@ en:
       download: Download
       reprocess: Reprocess
       destroy: Destroy
-      main_target: 'Main target: %{value}'
+      main_target: "Main target: %{value}"
       arch: Architecture
       target: Target
       uuid: UUID
@@ -594,12 +594,13 @@ en:
         one: File (%{count})
         other: Files (%{count})
     device:
-      title: '%{app} %{device} Debug file'
-      number: '#%{value}'
+      title: "%{app} %{device} Debug file"
+      number: "#%{value}"
       processing: Processing in background, take a coffee break ...
-      refresh_page: "If there is no change for a long time, please try to refresh this page.
+      refresh_page:
+        'If there is no change for a long time, please try to refresh this page.
 
-        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the "background tasks".'
       reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
@@ -663,7 +664,7 @@ en:
         title: Not found any teardown!
         body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
-      title: '%{name} Teardown result'
+      title: "%{name} Teardown result"
       expired_in: Expire in %{time}
       already_expired: Expired %{time}
       expired: Expired now!
@@ -702,10 +703,10 @@ en:
       min_tvos_version: Minimum tvOS version
       min_macos_version: Minimum OS version
       capabilities: Capabilities
-      devise_list: 'UDID (%{count})'
-      developer_certs_list: 'Developer Certificates (%{count})'
-      cert: 'Cert %{index}'
-      cert_expired_at: 'Expired at %{date}'
+      devise_list: "UDID (%{count})"
+      developer_certs_list: "Developer Certificates (%{count})"
+      cert: "Cert %{index}"
+      cert_expired_at: "Expired at %{date}"
       cert_created: Created date
       cert_expired: Expired Date
       cert_version: Version
@@ -715,12 +716,12 @@ en:
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: 'Signatures (%{count})'
-      signature: 'Scheme %{scheme}'
-      cert_fignger: 'Fingerprint %{digest}'
+      signature_title: "Signatures (%{count})"
+      signature: "Scheme %{scheme}"
+      cert_fignger: "Fingerprint %{digest}"
       signature_not_found: Not found
-      signature_verified: 'Verified'
-      signature_unverified: 'Unverified (WIP)'
+      signature_verified: "Verified"
+      signature_unverified: "Unverified (WIP)"
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -799,16 +800,16 @@ en:
     messages:
       confirm:
         destroy: Destroy confirm?
-      upload_events: '%{name} uploaded release %{version}'
-      download_events: '%{name} %{version} downloaded'
-      changelog_events: '%{name} %{version} update the changelog'
-      unknown_events: '%{name} triggered unknown event: %{event}'
+      upload_events: "%{name} uploaded release %{version}"
+      download_events: "%{name} %{version} downloaded"
+      changelog_events: "%{name} %{version} update the changelog"
+      unknown_events: "%{name} triggered unknown event: %{event}"
       errors:
-        not_found_file: 'Not found debug file: %{message}'
+        not_found_file: "Not found debug file: %{message}"
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: 'Unknown parse error: %{message} (%{class})'
-        choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
+        unknown_parse: "Unknown parse error: %{message} (%{class})"
+        choose_supported_file_type: "Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file"
   udid:
     title: Fetch UDID
     index:
@@ -870,7 +871,8 @@ en:
       team_id: Team ID
       register_device: Register
       related_apple_keys_not_found: Not found any Apple Team.
-      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,
+      related_apps_not_found_with_registered_device:
+        "This device is registered by synchronization service,
 
         but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
@@ -894,7 +896,7 @@ en:
     destroy: Destroy
     disable: Disable
     messages:
-      parse_done_and_refreshing: 'Teardown done, refresh page ...'
+      parse_done_and_refreshing: "Teardown done, refresh page ..."
       confirm:
         destroy: Destroy confirm?
   settings:
@@ -956,36 +958,36 @@ en:
 
   date:
     formats:
-      nice: '%b %d, %Y'
+      nice: "%b %d, %Y"
 
   time:
     formats:
-      nice: '%b %d, %Y, %I:%M %p GMT%:::z'
+      nice: "%b %d, %Y, %I:%M %p GMT%:::z"
 
   errors:
     code:
-      '400':
+      "400":
         title: The request you submitted was invalid or malformed
         content: This may be due to incorrect parameters or missing required parameters
-      '403':
+      "403":
         title: You don't have permission to view this page
         content: You don't have permission to access this page or perform this action
-      '404':
+      "404":
         title: Not Found
         content: The page you are looking for isn't here.
-      '406':
+      "406":
         title: This page is not available in the requested format.
-      '410':
+      "410":
         title: The page you were looking for doesn't exist here anymore.
-      '422':
+      "422":
         content: Security verification failed. Are you blocking cookies?
         title: Security verification failed
-      '429':
+      "429":
         title: Too many requests
-      '500':
+      "500":
         content: We're sorry, but something went wrong on our end.
         title: This page is not correct
-      '503':
+      "503":
         title: The page could not be served due to a temporary server failure.
     messages:
       homepage_title: homepage
@@ -994,11 +996,11 @@ en:
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
       json_format: Must be JSON standard format
-      not_authorized_policy: 'No authorized operate %{model} on %{query} action'
-      not_match_url: 'Not match page: %{url}'
-      unexpected_parameter: 'Unexpected parameter: %{value}'
-      length_range: 'Length range: %{minimum} ~ %{maximum}'
-      optional_value: 'Optional value: %{value}'
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
+      not_match_url: "Not match page: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
+      length_range: "Length range: %{minimum} ~ %{maximum}"
+      optional_value: "Optional value: %{value}"
       invaild_in_demo_mode: Forbidden in demo mode
       record_existed: "%{model} record existed."
       development_only: Development only
@@ -1016,15 +1018,15 @@ en:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
         not_found_file: Debug file is missing with unknown issue.
-        not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
+        not_matched_bundle_id: "Not found bundle id with selected app: %{bundle_id}"
         unknown_format: Unknown debug file format.
     backup:
-      success: '%{key} backup created successfully.'
+      success: "%{key} backup created successfully."
       failures:
-        max_keeps_limited: '%{key} backup maximum limit value was zero'
-        dump_command: 'Executing dump backup commands failed: %{message}'
-        restore_command: 'Executing restore backup commands failed: %{message}'
-        storage_full: 'Not enough disk space, please check the backup storage: %{key}'
+        max_keeps_limited: "%{key} backup maximum limit value was zero"
+        dump_command: "Executing dump backup commands failed: %{message}"
+        restore_command: "Executing restore backup commands failed: %{message}"
+        storage_full: "Not enough disk space, please check the backup storage: %{key}"
   activerecord:
     attributes:
       channel:
@@ -1039,6 +1041,9 @@ en:
       archived: "Archived %{key} successfully"
       unarchived: "Actived %{key} successfully"
       destroy: "Deleted %{key} successfully"
+      reset: "Reset %{key} to default value successfully"
+      update_and_restart: "Updated %{key} successfully, needs restart to apply"
+      reset_and_restart: "Reset %{key} to default value successfully, needs restart to apply"
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
@@ -1060,19 +1065,19 @@ en:
               unauthorized: Without authority, please check issuer id and private key
               forbidden: Without permission, Apple key needs developer or high permissions
               required_agreement_missing_or_expired: Apple key needs agreement, please login to Apple Developer and accept the agreement
-              unknown: 'Unknown error: %{message}'
+              unknown: "Unknown error: %{message}"
             devices:
               invalid_value: Register device %{value} was invalid
-              api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{message}'
+              api: "Apple return error: %{message}"
+              unknown: "Unknown error: %{message}"
             checksum:
               taken: matched, the private key was existed
         udid:
           attributes:
             name:
               invalid_value: Register device %{value} was invalid
-              api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{message}'
+              api: "Apple return error: %{message}"
+              unknown: "Unknown error: %{message}"
         debug_file:
           attributes:
             app_id:
@@ -1092,7 +1097,7 @@ en:
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
-      default_password: 'You authorized the third-party service to register Zealot, Here is the password:'
+      default_password: "You authorized the third-party service to register Zealot, Here is the password:"
   devise:
     confirmations:
       new:
@@ -1115,10 +1120,10 @@ en:
       username: LDAP Username
       password: LDAP Password
     github:
-      org_check_fail: 'GitHub org check failed: %{code}'
-      org_required_fail: 'You must be a member of the %{required_org} GitHub organization to sign in.'
+      org_check_fail: "GitHub org check failed: %{code}"
+      org_required_fail: "You must be a member of the %{required_org} GitHub organization to sign in."
     shared:
-      hint: '- Or -'
+      hint: "- Or -"
       links:
         provider:
           feishu: Feishu
