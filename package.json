@@ -13,7 +13,7 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.20",
     "@popperjs/core": "^2.11.8",
-    "@rails/actioncable": "^8.1.0",
+    "@rails/actioncable": "^8.1.100",
     "@stimulus-components/checkbox-select-all": "^6.1.0",
     "@stimulus-components/notification": "^3.0.0",
     "admin-lte": "^4.0.0-rc4",
@@ -22,7 +22,7 @@
     "compare-versions": "^6.1.1",
     "esbuild": "^0.25.11",
     "overlayscrollbars": "^2.12.0",
-    "sass": "^1.93.2",
+    "sass": "^1.94.2",
     "ua-parser-js": "^2.0.6"
   },
   "devDependencies": {

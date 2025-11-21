@@ -21,7 +21,7 @@ importers:
         specifier: ^2.11.8
         version: 2.11.8
       '@rails/actioncable':
-        specifier: ^8.1.0
+        specifier: ^8.1.100
         version: 8.1.100
       '@stimulus-components/checkbox-select-all':
         specifier: ^6.1.0
@@ -48,8 +48,8 @@ importers:
         specifier: ^2.12.0
         version: 2.12.0
       sass:
-        specifier: ^1.93.2
-        version: 1.93.2
+        specifier: ^1.94.2
+        version: 1.94.2
       ua-parser-js:
         specifier: ^2.0.6
         version: 2.0.6
@@ -511,8 +511,8 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
-  sass@1.93.2:
-    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
+  sass@1.94.2:
+    resolution: {integrity: sha512-N+7WK20/wOr7CzA2snJcUSSNTCzeCGUTFY3OgeQP3mZ1aj9NMQ0mSTXwlrnd89j33zzQJGqIN52GIOmYrfq46A==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -937,7 +937,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  sass@1.93.2:
+  sass@1.94.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.4
