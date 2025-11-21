@@ -98,7 +98,7 @@ zh-CN:
         cancel_my_account: 注销我的帐户
         currently_waiting_confirmation_for_email: 等待确认 %{email}
         leave_blank_if_you_don_t_want_to_change_it: 如不想更改，则无需填写
-        title: '%{resource}信息'
+        title: "%{resource}信息"
         unhappy: 注销账户后，您的数据将会彻底移除！
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认更改
@@ -125,7 +125,7 @@ zh-CN:
         didn_t_receive_unlock_instructions: 没有收到解锁账号确认邮件?
         forgot_your_password: 忘记密码？
         sign_in: 登录账户
-        sign_in_with_provider: '%{provider}登录'
+        sign_in_with_provider: "%{provider}登录"
         sign_up: 注册账户
       minimum_password_length: "（最少%{count}个字符）"
     unlocks:
@@ -143,4 +143,4 @@ zh-CN:
       not_locked: 未被锁定
       not_saved:
         one: 一个%{resource}错误：
-        other: '%{count} 个%{resource}错误：'
+        other: "%{count} 个%{resource}错误："

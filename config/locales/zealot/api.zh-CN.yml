@@ -91,7 +91,7 @@ zh-CN:
         description: 用户密钥认证失败
       not_found:
         default: 资源未找到
-        description: '%{model}未找到'
+        description: "%{model}未找到"
       destroyed:
         default: 资源已被删除
     definitions:
@@ -367,7 +367,7 @@ zh-CN:
           show: 版本信息
       show:
         title: 获取版本信息
-        description: ''
+        description: ""
     health:
       default:
         tags: 健康检查
@@ -376,5 +376,4 @@ zh-CN:
       show:
         title: 获取健康检查结果
         titleJson: 获取 JSON 格式健康检查结果
-        description: ''
-
+        description: ""

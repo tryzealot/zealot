@@ -1,15 +1,15 @@
 zh-CN:
   simple_form:
-    "yes": 'Yes'
-    "no": 'No'
+    "yes": "Yes"
+    "no": "No"
     required:
-      text: '必填项'
-      mark: '*'
+      text: "必填项"
+      mark: "*"
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: '请检查如下问题:'
+      default_message: "请检查如下问题:"
     labels:
       defaults:
         name: 名称
@@ -101,9 +101,9 @@ zh-CN:
         schemes:
           name: :'simple_form.hints.scheme.name'
       scheme:
-          name: 应用在功能、面向受众划分的类型
-          new_build_callout: 用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗
-          retained_builds: 设置最大保留版本，超过的会自动删除早期的版本，默认为 0 表示保留所有版本
+        name: 应用在功能、面向受众划分的类型
+        new_build_callout: 用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗
+        retained_builds: 设置最大保留版本，超过的会自动删除早期的版本，默认为 0 表示保留所有版本
       channel:
         name: 推荐按照应用平台区分不同渠道，单平台应用也可以是分发市场的名称
         device_type: 应用设备类型
@@ -143,7 +143,7 @@ zh-CN:
       release:
         changelog: 开发者很懒什么都没有填写
       web_hook:
-        url: 'http://example.com/web-hooks'
+        url: "http://example.com/web-hooks"
         body: |
           {
             event: @event,
@@ -164,8 +164,8 @@ zh-CN:
             uploaded_at: @uploaded_at
           }
       debug_file:
-        release_version: '1.0.0'
-        build_version: '1.0'
+        release_version: "1.0.0"
+        build_version: "1.0"
       backup:
         schedule: every day at noon / 12 0 * * *
       device:
