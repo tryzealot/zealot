@@ -3,3 +3,17 @@
 @import 'settings';
 @import 'logs';
 @import 'backups';
+
+.iframe-wrapper {
+  @extend .rounded-2;
+  @extend .border;
+  @extend .border-1;
+  overflow: hidden;
+  height: calc(94vh - 120px);
+
+  iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+}

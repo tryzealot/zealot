@@ -8,6 +8,10 @@
   .col-md-12
     - if @web_hooks.size > 0
       .card
+        .card-header
+          h3.card-title
+            i.icon.fa-solid.fa-bell
+            = t('.links', count: @web_hooks.size)
         .card-body.p-0
           table.table.table-bottom-borderless
             thead

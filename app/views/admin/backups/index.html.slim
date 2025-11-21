@@ -13,6 +13,10 @@
   .col-md-12
     - unless @backups.empty?
       .card
+        .card-header
+          h3.card-title
+            i.icon.fa-solid.fa-box-open
+            = t('.schedules')
         .card-body.p-0
           table.table.table-bottom-borderless.backups
             thead

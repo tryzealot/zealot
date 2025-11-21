@@ -13,6 +13,10 @@
   .col-md-12
     - if @apple_keys.size > 0
       .card
+        .card-header
+          h3.card-title
+            i.icon.fa-solid.fa-people-group
+            = t('.teams', count: @apple_keys.size)
         .card-body.p-0
           table.table.table-bottom-borderless
             thead
