@@ -24,13 +24,13 @@ gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
 # View
+gem 'view_component', '~> 4.1'
 gem 'jb', '~> 0.8.2'
 gem 'slim-rails', '~> 3.7.0'
 gem 'kramdown', '~> 2.5'
 gem 'simple_form', '~> 5.4'
 gem 'rswag-api', '~> 2.17.0'
 gem 'rswag-ui', '~> 2.17.0'
-gem 'ostruct' # needs in rswag
 
 # Model
 gem 'friendly_id', '~> 5.5.1'
@@ -44,6 +44,7 @@ gem 'rails-settings-cached', '~> 2.9.6'
 gem 'app-info', '~> 3.3.2'
 gem 'faraday', '~> 2.14.0'
 gem 'rqrcode'
+gem 'ostruct' # needs in rswag
 
 ## Auth
 gem 'pundit', '~> 2.5.2'
