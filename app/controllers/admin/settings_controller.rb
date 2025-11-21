@@ -28,11 +28,13 @@ class Admin::SettingsController < ApplicationController
       @setting.value = @value
       return render :edit, status: :unprocessable_entity unless @setting.save
 
-      message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
-      flash.now.notice = message
+      key = @setting.params[:restart_required] ? 
+        'activerecord.success.update_and_restart' : 'activerecord.success.update'
+      message = t(key, key: t("admin.settings.#{@setting.var}"))
+      flash[:notice] = message
     else
       message = t('activerecord.errors.messages.same_value', key: t("admin.settings.#{@setting.var}"))
-      flash.now.alert = message
+      flash[:alert] = message
     end
 
     respond_to do |format|
@@ -49,8 +51,10 @@ class Admin::SettingsController < ApplicationController
     authorize @setting
     @setting.destroy
 
-    message = t('activerecord.success.destroy', key: t("admin.settings.#{@setting.var}"))
-    flash.now.notice = message
+    key = @setting.params[:restart_required] ? 
+        'activerecord.success.reset_and_restart' : 'activerecord.success.reset'
+    message = t(key, key: t("admin.settings.#{@setting.var}"))
+    flash[:notice] = message
     respond_to do |format|
       format.html { admin_settings_path }
       format.turbo_stream

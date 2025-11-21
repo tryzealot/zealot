@@ -26,6 +26,9 @@ importers:
       '@stimulus-components/checkbox-select-all':
         specifier: ^6.1.0
         version: 6.1.0(@hotwired/stimulus@3.2.2)
+      '@stimulus-components/notification':
+        specifier: ^3.0.0
+        version: 3.0.0(@hotwired/stimulus@3.2.2)(hotkeys-js@3.13.15)
       admin-lte:
         specifier: ^4.0.0-rc4
         version: 4.0.0-rc4
@@ -328,6 +331,11 @@ packages:
     peerDependencies:
       '@hotwired/stimulus': ^3
 
+  '@stimulus-components/notification@3.0.0':
+    resolution: {integrity: sha512-oZrIAcEayLNIhcetMJSLP6S9ryWjiFWBI5JKm639UuRsfSRyxiaHMddb3Xch/Umq6K24h/t2l1zVxxOm/UnMOA==}
+    peerDependencies:
+      '@hotwired/stimulus': ^3.0.0
+
   admin-lte@4.0.0-rc4:
     resolution: {integrity: sha512-k+ILDKHO6Tn77nMqvQ+wmQoes0Eky/s23jp2P07nUbbILk+7RMnLkCW2jFgiXaO9eFQ2fhmes0LAXJmQbdfpjA==}
 
@@ -406,6 +414,9 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  hotkeys-js@3.13.15:
+    resolution: {integrity: sha512-gHh8a/cPTCpanraePpjRxyIlxDFrIhYqjuh01UHWEwDpglJKCnvLW8kqSx5gQtOuSsJogNZXLhOdbSExpgUiqg==}
 
   immutable@5.1.4:
     resolution: {integrity: sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==}
@@ -516,6 +527,12 @@ packages:
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+
+  stimulus-use@0.52.3:
+    resolution: {integrity: sha512-stZ5dID6FUrGCR/ChWUa0FT5Z8iqkzT6lputOAb50eF+Ayg7RzJj4U/HoRlp2NV333QfvoRidru9HLbom4hZVw==}
+    peerDependencies:
+      '@hotwired/stimulus': '>= 3'
+      hotkeys-js: '>= 3'
 
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -733,6 +750,13 @@ snapshots:
     dependencies:
       '@hotwired/stimulus': 3.2.2
 
+  '@stimulus-components/notification@3.0.0(@hotwired/stimulus@3.2.2)(hotkeys-js@3.13.15)':
+    dependencies:
+      '@hotwired/stimulus': 3.2.2
+      stimulus-use: 0.52.3(@hotwired/stimulus@3.2.2)(hotkeys-js@3.13.15)
+    transitivePeerDependencies:
+      - hotkeys-js
+
   admin-lte@4.0.0-rc4: {}
 
   balanced-match@1.0.2: {}
@@ -833,6 +857,8 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hotkeys-js@3.13.15: {}
+
   immutable@5.1.4: {}
 
   inflight@1.0.6:
@@ -928,6 +954,11 @@ snapshots:
       rechoir: 0.6.2
 
   source-map-js@1.2.1: {}
+
+  stimulus-use@0.52.3(@hotwired/stimulus@3.2.2)(hotkeys-js@3.13.15):
+    dependencies:
+      '@hotwired/stimulus': 3.2.2
+      hotkeys-js: 3.13.15
 
   supports-preserve-symlinks-flag@1.0.0: {}
 

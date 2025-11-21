@@ -1,17 +1,18 @@
 dl.system-info {
-  padding: 10px;
+  @extend .p-2;
+  @extend .mb-0;
   font-size: 16px;
-  margin-bottom: 0;
 
   dt {
     margin-bottom: 8px;
   }
 
   dd {
-    margin-bottom: 20px;
+    margin-bottom: 0;
 
     pre {
-      border: 0;
+      @extend .border-0;
+      @extend .rounded-1;
       background-color: #f7f8f9;
       color: #2f2936;
 
