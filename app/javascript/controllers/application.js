@@ -1,8 +1,10 @@
 import { Application } from "@hotwired/stimulus"
 import CheckboxSelectAll from "@stimulus-components/checkbox-select-all"
+import Notification from '@stimulus-components/notification' // ADD THIS 
 
 const application = Application.start()
 application.register("checkbox-select-all", CheckboxSelectAll)
+application.register("notification", Notification)
 
 // Configure Stimulus development experience
 window.Stimulus = application
