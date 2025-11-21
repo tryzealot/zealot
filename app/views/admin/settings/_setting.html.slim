@@ -37,4 +37,4 @@ ruby:
               = button_to 'Verify', admin_service_smtp_test_path, class: 'btn btn-sm btn-outline-primary'
 
       - if hint = t("admin.settings.#{key}_hint", default: nil)
-        small.form-text.text-muted = hint
+        p.form-text.text-muted.px-1.mb-0 = hint
