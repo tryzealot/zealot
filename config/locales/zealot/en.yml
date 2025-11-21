@@ -53,6 +53,9 @@ en:
       title: Webhooks
       index:
         title: :admin.web_hooks.title
+        links:
+          one: Notification Link
+          other: Notification Links
         number: "#"
         url: URL
         channels: Channels
@@ -78,6 +81,9 @@ en:
         title: New Apple Developer
       index:
         title: :admin.apple_keys.title
+        teams:
+          one: Team
+          other: Teams
         number: "#"
         team_name: Team name
         team_id: Team ID
@@ -211,6 +217,7 @@ en:
       index:
         title: :'admin.backups.title'
         new_schedule: New Schedule
+        schedules: Schedules
         key: Key
         scopes: Scopes
         schedule: Schedule

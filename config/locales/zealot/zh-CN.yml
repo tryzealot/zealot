@@ -53,6 +53,7 @@ zh-CN:
       title: 网络钩子
       index:
         title: :'admin.web_hooks.title'
+        links: 通知链接
         number: "#"
         url: URL
         channels: 渠道列表
@@ -78,6 +79,7 @@ zh-CN:
         title: 添加开发者
       index:
         title: :'admin.apple_keys.title'
+        teams: 团队
         number: "#"
         team_name: 团队名称
         team_id: 团队标识符
@@ -209,6 +211,7 @@ zh-CN:
       index:
         title: :'admin.backups.title'
         new_schedule: 新备份计划
+        schedules: 备份计划
         key: 备份名称
         scopes: 备份范围
         schedule: 备份频率
