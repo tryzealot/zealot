@@ -1,0 +1,15 @@
+.p-2[
+  class="alert #{@style}"
+  style="min-width: 340px; max-width: 420px"
+  data-controller="notification"
+  data-notification-delay-value="#{@options[:delay]}"
+]
+  .d-flex.align-items-center.gap-2.w-100
+    .d-flex.align-items-center.justify-content-center.p-1
+      i class="fa-solid fa-#{@icon} fs-3"
+    .flex-grow-1.text-break
+      - if @title.present?
+        p.mb-1.fw-bold.fs-6 = @title
+      p.mb-0.fs-6 = @message
+    / button type="button" class="btn-close flex-shrink-0 ms-2" data-bs-dismiss="alert" aria-label="Close"
+
