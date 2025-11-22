@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 7.1.0'
 gem 'rails', '~> 8.1.1'
-gem 'rails-i18n', '~> 8.0.2'
+gem 'rails-i18n', '~> 8.1.0'
 gem 'rack-cors', '~> 3.0.0'
 gem 'rack', '>= 3.1.18'
 
@@ -53,7 +53,7 @@ gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.15.0'
 
 gem 'omniauth', '~> 2.1.4'
-gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
+gem 'omniauth-rails_csrf_protection', '~> 2.0.0'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
 gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
