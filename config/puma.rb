@@ -77,25 +77,25 @@ plugin :tmp_restart
 activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
 
 # Handle good_job
-if workers_size > 0 && defined?(GoodJob)
-  before_fork do
-    GoodJob.logger.info { 'Before fork process.' }
-    GoodJob.shutdown
-  end
+# if workers_size > 0 && defined?(GoodJob)
+#   before_fork do
+#     GoodJob.logger.info { 'Before fork process.' }
+#     GoodJob.shutdown
+#   end
 
-  before_worker_boot do
-    GoodJob.logger.info { 'Starting Puma worker process.' }
-    GoodJob.restart
-  end
+#   before_worker_boot do
+#     GoodJob.logger.info { 'Starting Puma worker process.' }
+#     GoodJob.restart
+#   end
 
-  before_worker_shutdown do
-    GoodJob.logger.info { 'Stopping Puma worker process.' }
-    GoodJob.shutdown
-  end
+#   before_worker_shutdown do
+#     GoodJob.logger.info { 'Stopping Puma worker process.' }
+#     GoodJob.shutdown
+#   end
 
-  MAIN_PID = Process.pid
-  at_exit do
-    GoodJob.logger.info { 'Puma shutting down.' }
-    GoodJob.shutdown if Process.pid == MAIN_PID
-  end
-end
+#   MAIN_PID = Process.pid
+#   at_exit do
+#     GoodJob.logger.info { 'Puma shutting down.' }
+#     GoodJob.shutdown if Process.pid == MAIN_PID
+#   end
+# end
