@@ -384,7 +384,7 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.2)
+    omniauth-rails_csrf_protection (2.0.0)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     omniauth_openid_connect (0.8.0)
@@ -697,7 +697,6 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
-  ruby
   x86_64-darwin-18
   x86_64-darwin-19
   x86_64-darwin-20
@@ -741,7 +740,7 @@ DEPENDENCIES
   omniauth-github (~> 2.0.1)
   omniauth-gitlab (~> 4.1.0)
   omniauth-google-oauth2 (~> 1.2.1)
-  omniauth-rails_csrf_protection (~> 1.0.2)
+  omniauth-rails_csrf_protection (~> 2.0.0)
   omniauth_openid_connect (= 0.8.0)
   openssl (~> 3.3.2)
   ostruct
