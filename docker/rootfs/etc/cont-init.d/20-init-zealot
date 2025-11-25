@@ -5,6 +5,7 @@ cd /app
 # Clear pid if unexpected exception exit
 rm -f tmp/pids/.pid
 mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
+mkdir -p public/backup public/uploads
 
 echo ""
 echo "Zealot 6.0 is out!, here is some changes: "
