@@ -8,6 +8,15 @@ class DashboardsController < ApplicationController
 
     system_analytics
     recently_upload
+
+    # flash.now[:warn] = {
+    #   title: 'warn title',
+    #   message: 'warn warn warn warn warn warn warn warn warn warn',
+    #     delay: 2000
+    # }
+    # flash.now[:notice] = 'Test successful notification message.'
+    # flash.now[:warn] = 'Test warning notification message.'
+    # flash.now[:alert] = 'Test failure notification message.'
   end
 
   private

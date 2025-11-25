@@ -24,7 +24,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       begin
         check_github_org(auth, required_org)
       rescue => e
-        flash[:alert] = e.message
+        flash.now[:alert] = e.message
         redirect_to new_user_session_path
         return
       end
@@ -34,7 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if provider
       provider.update_omniauth(auth.credentials)
 
-      flash[:notice] = t('devise.omniauth_callbacks.success', kind: name)
+      flash.now[:notice] = t('devise.omniauth_callbacks.success', kind: name)
       return sign_in_and_redirect provider.user
     end
     
@@ -71,10 +71,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def store_new_user(name, auth)
     begin
       user = User.from_omniauth(auth)
-      flash[:notice] = t('devise.registrations.signed_up')
+      flash.now[:notice] = t('devise.registrations.signed_up')
       sign_in_and_redirect user
     rescue => e
-      flash[:alert] = e.message
+      flash.now[:alert] = e.message
       redirect_to new_user_session_path
     end
   end

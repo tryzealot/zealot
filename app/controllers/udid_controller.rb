@@ -57,7 +57,7 @@ class UdidController < ApplicationController
     if new_device.errors.present?
       logger.debug "Register failed with errors: #{new_device.errors.full_messages}"
       error_message = new_device.errors.messages[:name].join(' / ')
-      flash[:warn] = error_message if error_message.present?
+      flash.now[:warn] = error_message if error_message.present?
       return render :show, status: :unprocessable_entity
     end
 
