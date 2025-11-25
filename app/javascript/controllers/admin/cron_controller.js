@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
 
-const PARSE_URI = "admin/backups/parse_schedule"
+const CRON_PARSER_URI = "/admin/backups/parse_schedule"
 
 export default class extends Controller {
   static targets = ["source"]
@@ -15,7 +14,7 @@ export default class extends Controller {
     let inputTarget = event.target
     this.resetInput(inputTarget)
 
-    let requestUrl = Zealot.rootUrl + PARSE_URI + "?q=" + encodeURIComponent(event.target.value)
+    let requestUrl = CRON_PARSER_URI + "?q=" + encodeURIComponent(event.target.value)
     let response = await fetch(requestUrl)
     let body = await response.json()
 
