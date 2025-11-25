@@ -1,6 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
-import consumer from "../../channels/consumer";
 
 const VERIFY_URI = "admin/service/smtp_verify.json"
 
@@ -16,7 +14,7 @@ export default class extends Controller {
     const target = event.target
     target.innerHTML = this.inprocessValue
 
-    fetch(Zealot.rootUrl + VERIFY_URI, {
+    fetch(VERIFY_URI, {
       method: "POST"
     })
     .then((response) => {

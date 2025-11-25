@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
 import { poll } from "../utils"
 
 export default class extends Controller {
@@ -16,7 +15,7 @@ export default class extends Controller {
     this.loop = true
     const fetchLogs = async () => {
       if (!this.loop) { return }
-      const response = await fetch(Zealot.rootUrl + this.uriValue)
+      const response = await fetch(this.uriValue)
       if (response && response.status === 200) {
         let content = await response.text()
         this.sourceTarget.innerHTML = content

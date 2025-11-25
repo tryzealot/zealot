@@ -1,9 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
 import { poll } from "../utils"
 
-const RESTART_URI = "admin/service/restart"
-const HEALTH_CHECK_URI = "admin/service/status"
+const RESTART_URI = "/admin/service/restart"
+const HEALTH_CHECK_URI = "/admin/service/status"
 
 export default class extends Controller {
   static targets = ["button"]
@@ -25,7 +24,7 @@ export default class extends Controller {
 
     // Run loop to check service is back online
     const healthCheck = async () => {
-      const response = await fetch(Zealot.rootUrl + HEALTH_CHECK_URI)
+      const response = await fetch(HEALTH_CHECK_URI)
       return response && response.status === 200
     }
 
@@ -43,7 +42,7 @@ export default class extends Controller {
   }
 
   serviceRestart() {
-    fetch(Zealot.rootUrl + RESTART_URI, {
+    fetch(RESTART_URI, {
         method: "POST"
       })
       .then((response) => response.status === 200)
