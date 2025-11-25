@@ -953,6 +953,20 @@ en:
       download:
         default:
           not_found: Not found debug file
+
+  modal:
+    destroy_apple_key:
+      title: Destroy Apple Developer
+      body: |
+        Once %{team} (%{team_id}) is deleted, it will be permanently unrecoverable or unrecoverable,
+        please operate with caution!
+    tooltip:
+      delete: Delete
+    buttons:
+      close: Close
+      cancel: Cancel
+      confirm: Confirm
+
   demo:
     app_name1: First App
     app_name2: Android Only App
