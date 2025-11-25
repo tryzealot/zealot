@@ -6,7 +6,7 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --format=esm --target=es2017",
     "build:css": "sass app/assets/stylesheets/application.sass.scss:app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "post-install": "cp -r node_modules/@fortawesome/fontawesome-free/webfonts public",
+    "post-install": "cp -r node_modules/@fortawesome/fontawesome-free/webfonts/ public/webfonts",
     "crowdin": "crowdin"
   },
   "dependencies": {
