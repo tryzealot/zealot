@@ -62,4 +62,4 @@ COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
 USER root
 RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
 USER vscode
-RUN bundle install && pnpm install
+RUN bundle install && pnpm install && pnpm run post-install

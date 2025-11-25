@@ -33,7 +33,7 @@ WORKDIR $APP_ROOT
 
 # Node dependencies
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile && pnpm run post-install
 
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./

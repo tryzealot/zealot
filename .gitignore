@@ -38,6 +38,7 @@ db/*.sqlite3
 /public/packs-test
 /public/system/
 /public/uploads
+/public/webfonts
 /spec/tmp/*
 /cache
 /capybara*
