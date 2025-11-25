@@ -25,7 +25,7 @@ class ReleasesController < ApplicationController
     authorize @release
 
     unless @release.custom_fields.is_a?(Array)
-      flash[:warn] = t('.custom_fields_invalid_json_format')
+      flash.now[:warn] = t('.custom_fields_invalid_json_format')
     end
   end
 

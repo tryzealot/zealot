@@ -43,7 +43,7 @@ class AppsController < ApplicationController
     create_owner
     create_schemes_and_channels
 
-    flash[:notice] = t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
+    flash.now[:notice] = t('activerecord.success.create', key: "#{@app.name} #{t('apps.title')}")
     respond_to do |format|
       format.html { redirect_to apps_path }
       format.turbo_stream
@@ -94,7 +94,7 @@ class AppsController < ApplicationController
     return render :new_owner, status: :unprocessable_entity unless @collaborator.update(user: new_owner)
 
     notice = t('activerecord.success.update', key: t('apps.new_owner.title'))
-    flash[:notice] = notice
+    flash.now[:notice] = notice
     respond_to do |format|
       format.html { redirect_to @app }
       format.turbo_stream

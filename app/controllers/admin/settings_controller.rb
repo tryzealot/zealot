@@ -31,10 +31,10 @@ class Admin::SettingsController < ApplicationController
       key = @setting.params[:restart_required] ? 
         'activerecord.success.update_and_restart' : 'activerecord.success.update'
       message = t(key, key: t("admin.settings.#{@setting.var}"))
-      flash[:notice] = message
+      flash.now[:notice] = message
     else
       message = t('activerecord.errors.messages.same_value', key: t("admin.settings.#{@setting.var}"))
-      flash[:alert] = message
+      flash.now[:alert] = message
     end
 
     respond_to do |format|
@@ -54,7 +54,7 @@ class Admin::SettingsController < ApplicationController
     key = @setting.params[:restart_required] ? 
         'activerecord.success.reset_and_restart' : 'activerecord.success.reset'
     message = t(key, key: t("admin.settings.#{@setting.var}"))
-    flash[:notice] = message
+    flash.now[:notice] = message
     respond_to do |format|
       format.html { admin_settings_path }
       format.turbo_stream
