@@ -276,7 +276,7 @@ en:
       parse_schedule:
         invalid_expression: Invalid expression
     background_jobs:
-      title: Background jobs
+      title: Jobs
       index:
         title: :admin.background_jobs.title
     database_analytics:
