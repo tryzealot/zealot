@@ -19,7 +19,6 @@ export default class extends Controller {
   }
 
   renderInstallLimited() {
-    console.log("sdfsfdsdffd")
     let textNode = this.modalTarget.getElementsByClassName("text")[0]
     let brNode = document.createElement("br")
     textNode.appendChild(brNode)

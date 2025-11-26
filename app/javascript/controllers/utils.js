@@ -58,4 +58,12 @@ const isUserAgentLimited = (keywords) => {
   return !!matches
 }
 
-export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited }
+const turboStream = (path, options = {}) => {
+  const headers = options.headers || {}
+  headers['Accept'] = 'text/vnd.turbo-stream.html'
+  return fetch(path, { ...options, headers })
+    .then(response => response.text())
+    .then(html => Turbo.renderStreamMessage(html))
+}
+
+export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited, turboStream }

@@ -181,6 +181,11 @@ Rails.application.routes.draw do
   end
 
   #############################################
+  # Misc
+  #############################################
+  resources :modals, only: :show, param: :type, constraints: { type: /[a-z0-9\-]+/ }
+
+  #############################################
   # API v1
   #############################################
   health_check_routes

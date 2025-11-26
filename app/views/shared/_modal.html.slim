@@ -8,3 +8,6 @@
           button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
         .modal-body
           = yield
+        - if content_for?(:footer)
+          .modal-footer
+            = yield :footer

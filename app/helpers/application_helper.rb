@@ -79,8 +79,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     is_current ? class_name : ''
   end
 
-  def show_modal(title, **options, &)
-    options[:title] = title
+  def show_modal(**options, &)
     render 'shared/modal', **options, &
   end
 
