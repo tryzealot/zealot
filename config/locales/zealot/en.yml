@@ -526,31 +526,6 @@ en:
 
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
-      install_error:
-        title: Install issues and the solution
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              If you manually install an app on iOS 9+, you must also manually establish trust.
-              Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
-            </li>
-            <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
-          </ol>
-        ok: Okay
-      cert_expired_error:
-        title: iOS signature certificate issues
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
-              and shelved in order to prevent apps from being distributed in the App Store app store.
-              The signature certificate is valid for one year from the date of issuance. After the expiration,
-              you need to re-generate and re-sign the app before you can continue to install it.
-            </li>
-            <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
-            <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
-          </ol>
-        ok: Okay
       confirm:
         destroy: :web_hooks.messages.confirm.destroy
       errors:
@@ -954,18 +929,45 @@ en:
         default:
           not_found: Not found debug file
 
-  modal:
+  modals:
+    destroy:
+      title: Destroy confirm?
+      body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
     destroy_apple_key:
       title: Destroy Apple Developer
       body: |
         Once %{team} (%{team_id}) is deleted, it will be permanently unrecoverable or unrecoverable,
         please operate with caution!
+    install_issue:
+      title: Install issues and the solution
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            If you manually install an app on iOS 9+, you must also manually establish trust.
+            Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
+          </li>
+          <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
+        </ol>
+    cert_expired_issues:
+      title: iOS signature certificate issues
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
+            and shelved in order to prevent apps from being distributed in the App Store app store.
+            The signature certificate is valid for one year from the date of issuance. After the expiration,
+            you need to re-generate and re-sign the app before you can continue to install it.
+          </li>
+          <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
+          <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
+        </ol>
     tooltip:
       delete: Delete
     buttons:
       close: Close
       cancel: Cancel
       confirm: Confirm
+      okay: Okay
 
   demo:
     app_name1: First App

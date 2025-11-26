@@ -518,29 +518,6 @@ zh-CN:
 
         - 开发者很懒没有留下更新日志😂
         - 有不可抗拒的因素造成日志丢失👽
-      install_error:
-        title: 安装中的错误及解决办法
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
-              选择该应用对应的企业证书，点击文字 "信任企业开发者"。
-            </li>
-            <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
-          </ol>
-        ok: 明白
-      cert_expired_error:
-        title: iOS 签名证书的错误及解决办法
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              在 iOS 系统中，苹果为了防止应用尽在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
-              签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。
-            </li>
-            <li>告知应用的开发人员，去苹果开发者网站重新生成签名证书并重新签名打包上传就能解决。</li>
-            <li>重新生成签名证书不会对之前的应用有任何效果，也就是一旦过期永远都是过期，除非重新签名。</li>
-          </ol>
-        ok: 明白
       confirm:
         destroy: :'web_hooks.messages.confirm.destroy'
       errors:
@@ -922,6 +899,45 @@ zh-CN:
       download:
         default:
           not_found: 调试文件版本不存在
+
+  modals:
+    destroy:
+      title: 删除确认?
+      body: 一旦数据被删除，将永久无法恢复，请谨慎操作！
+    destroy_apple_key:
+      title: 删除苹果开发者账户确认?
+      body: |
+        一旦 %{team} (%{team_id}) 被删除，将永久无法恢复，请谨慎操作！
+    install_issue:
+      title: 安装中的错误及解决办法
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
+            选择该应用对应的企业证书，点击文字 "信任企业开发者"。
+          </li>
+          <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
+        </ol>
+    cert_expired_issues:
+      title: iOS 签名证书的错误及解决办法
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            在 iOS 系统中，苹果为了防止应用尽在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
+            签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。
+          </li>
+          <li>告知应用的开发人员，去苹果开发者网站重新生成签名证书并重新签名打包上传就能解决。</li>
+          <li>重新生成签名证书不会对之前的应用有任何效果，也就是一旦过期永远都是过期，除非重新签名。</li>
+        </ol>
+    tooltip:
+      delete: 删除
+    buttons:
+      close: 关闭
+      cancel: 取消
+      confirm: 确定
+      destroy: 删除
+      okay: 明白
+
   demo:
     app_name1: 默认应用
     app_name2: 默认 Android 应用

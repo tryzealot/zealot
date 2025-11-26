@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ModalsController < ApplicationController
-
   before_action :available_only
   before_action :set_body
 
@@ -14,11 +13,11 @@ class ModalsController < ApplicationController
   def set_body
     case type
     when 'install-issue'
-      @title = t('releases.messages.install_error.title')
-      @body = t('releases.messages.install_error.body_html')
+      @title = t('modals.install_issue.title')
+      @body = t('modals.install_issue.body_html')
     when 'cert-expired-issues'
-      @title = t('releases.messages.cert_expired_error.title')
-      @body = t('releases.messages.cert_expired_error.body_html')
+      @title = t('modals.cert_expired_issues.title')
+      @body = t('modals.cert_expired_issues.body_html')
     end
   end
 
