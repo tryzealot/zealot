@@ -6,8 +6,8 @@
 
 - content_for :section_rightpanel do
   = render_confirm_modal( \
-    t('modal.destroy_apple_key.body', team: @apple_key.team.display_name, team_id: @apple_key.team.team_id), \
-    title: t('modal.destroy_apple_key.title'), \
+    t('modals.destroy_apple_key.body', team: @apple_key.team.display_name, team_id: @apple_key.team.team_id), \
+    title: t('modals.destroy_apple_key.title'), \
     confirm_link: admin_apple_key_path(@apple_key), \
   ) do
     .btn-group
@@ -23,6 +23,8 @@
         data-bs-custom-class="default-tooltip"
       ]
         i.fa-solid.fa-trash-alt
+      = link_to admin_apple_key_path(@apple_key), class: 'btn btn-outline-secondary', data: { turbo_frame: :modal } do 
+        = t('edit')
 
 ruby: 
   device_total = @apple_key.devices.count

@@ -39,11 +39,11 @@
                     = time_ago_in_words(apple_key.created_at)
                   td.d-none.d-sm-block
                     = render_confirm_modal( \
-                      t('modal.destroy_apple_key.body', team: apple_key.team.display_name, team_id: apple_key.team.team_id), \
-                      title: t('modal.destroy_apple_key.title'), \
+                      t('modals.destroy_apple_key.body', team: apple_key.team.display_name, team_id: apple_key.team.team_id), \
+                      title: t('modals.destroy_apple_key.title'), \
                       confirm_link: admin_apple_key_path(apple_key), \
-                      confirm_value: t('modal.buttons.confirm'), \
-                      cancel_value: t('modal.buttons.cancel'), \
+                      confirm_value: t('modals.buttons.confirm'), \
+                      cancel_value: t('modals.buttons.cancel'), \
                     )
     - else
       .card.card-outline.card-warning

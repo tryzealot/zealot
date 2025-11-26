@@ -2,5 +2,5 @@
   button.btn.btn-outline-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
 
 = turbo_stream.replace :modal do
-  = show_modal(title: @title) do 
+  = render_modal(title: @title) do 
     = @body
