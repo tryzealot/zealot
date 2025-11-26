@@ -1,6 +1,6 @@
 = content_for :footer do
-  button.btn.btn-outline-secondary data-bs-dismiss="modal" = t('releases.messages.install_error.ok')
+  button.btn.btn-outline-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
 
 = turbo_stream.replace :modal do
-  = show_modal(title: @title, footer: 'OKS') do 
+  = show_modal(title: @title) do 
     = @body
