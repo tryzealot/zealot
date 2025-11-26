@@ -1,0 +1,14 @@
+= helpers.turbo_frame_tag :modal do
+  = content_tag(wrapper_tag, class: wrapper_classes, data: wrapper_data) do
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title
+            = title
+          - if close_button
+            button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
+        .modal-body
+          = content || body
+        - if content_for?(:footer)
+          .modal-footer
+            = yield :footer
