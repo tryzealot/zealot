@@ -5,7 +5,6 @@
   data-release-download-installed-value="<i class='fa-solid fa-download'></i>#{t('releases.show.installed')}"
 ]
   == render 'shared/install_limited', safari_text: t('releases.show.app_open_in_safari'), brower_text: t('releases.show.app_open_in_webbrower')
-  == render 'releases/body/install_issues'
 
   - unless release.app.archived
     .action-buttons data-release-download-target="buttons"
