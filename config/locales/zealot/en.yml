@@ -998,6 +998,7 @@ en:
         content: The page you are looking for isn't here.
       "406":
         title: This page is not available in the requested format.
+        content: The requested format is not supported for this page.
       "410":
         title: The page you were looking for doesn't exist here anymore.
       "422":

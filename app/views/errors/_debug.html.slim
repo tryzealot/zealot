@@ -1,11 +1,10 @@
 - if Rails.env.development?
-  .card
+  .card.card-secondary.card-outline
     .card-header
       h3.card-title
-        i.icon.fa-solid.fa-error
+        i.icon.fa-solid.fa-bug
         = "#{@exception.class}: #{@exception.message}"
-      .card-tools
-        small.badge = t('errors.messages.development_only')
+        small.badge.ms-2.bg-secondary = t('errors.messages.development_only')
     .card-body.p-0
       table.table.table-hover.table-bottom-borderless
         - @exception.backtrace.each do |link|
