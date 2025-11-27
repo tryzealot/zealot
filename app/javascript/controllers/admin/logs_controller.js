@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { poll } from "../utils"
+import { poll } from "../../utils/helpers"
 
 export default class extends Controller {
   static targets = [ "source", "refresh" ]

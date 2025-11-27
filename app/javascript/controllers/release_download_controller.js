@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isiOS, isMacOS, turboStream } from "./utils"
+import { isiOS, isMacOS, turboStream } from "../utils/helpers"
 
 const LOADING_TIMEOUT = 8000
 
