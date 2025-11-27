@@ -62,8 +62,9 @@ class ModalComponent < ViewComponent::Base
     @wrapper_classes ||= -> {
       default_classes = 'modal fade'
       modal_size = @options.fetch(:size, nil)
+      modal_size = (modal_size ? "modal-#{modal_size}" : nil)].compact.join(' ')
       new_classes = @options.fetch(:wrapper_classes, '')
-      [default_classes, new_classes, "modal-#{modal_size}"].join(' ')
+      [default_classes, new_classes, modal_size].join(' ')
     }.call
   end
 
