@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { uaParser, isiOS, isMacOS } from "./utils"
+import { uaParser, isiOS, isMacOS } from "../utils/helpers"
 
 export default class extends Controller {
   static targets = [

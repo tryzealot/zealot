@@ -1,11 +1,21 @@
+ruby: 
+  device_total = @apple_key.devices.count
+
 - content_for :section_title do
   = @apple_key.team&.name || t('.title')
 
 - content_for :title do
   = t('.title')
 
-ruby:
-  device_total = @apple_key.devices.count
+- content_for :section_rightpanel do
+  .btn-group
+    = button_link_to '', private_key_admin_apple_key_path(@apple_key), 'download', \
+      class: 'btn btn-outline-secondary btn-icon', \
+      title: "#{t('.download_private_key')}", \
+      data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
+    = button_link_to '', admin_apple_key_path(@apple_key), 'trash-alt', \
+      class: 'btn btn-tool', \
+      data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{@apple_key.team&.display_name} (#{@apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
 
 .row
   .col-md-6
@@ -23,11 +33,6 @@ ruby:
     .card.mb-3
       .card-header
         h3.card-title = t('.key_metadata')
-        - if current_user&.manage?
-          .card-tools 
-            = link_to t('.download_private_key'), private_key_admin_apple_key_path(@apple_key), \
-              class: 'btn btn-success btn-sm', title: "#{@apple_key.private_key_filename}", \
-              data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
       .card-body.p-0
         .d-flex.px-3.py-2.border-bottom
           .fw-bold.flex-fill = t('simple_form.labels.apple_key.issuer_id')

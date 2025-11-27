@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isiOS, isUserAgentLimited } from "./utils"
+import { isiOS, isUserAgentLimited } from "../utils/helpers"
 
 export default class extends Controller {
   static targets = [
@@ -19,7 +19,6 @@ export default class extends Controller {
   }
 
   renderInstallLimited() {
-    console.log("sdfsfdsdffd")
     let textNode = this.modalTarget.getElementsByClassName("text")[0]
     let brNode = document.createElement("br")
     textNode.appendChild(brNode)

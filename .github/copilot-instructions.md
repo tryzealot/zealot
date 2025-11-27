@@ -31,7 +31,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **JavaScript Framework**: Hotwired Stimulus 3.2+, Turbo Rails
 - **Build Tool**: esbuild
 - **CSS**: Sass, Bootstrap 5.3+
-- **Admin UI**: AdminLTE 4.0
+- **UI**: AdminLTE 4.0, FontAwesome 7+
 
 ### Tools & Infrastructure
 
@@ -82,6 +82,14 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Include comments** on complex migrations
 - **Test migrations** both up and down
 - **Use strong parameters** in controllers
+
+## Styling
+
+- **AdminLTE** or **Bootstrap** Only:
+  - Do not write custom CSS
+  - Do not use scoped CSS
+  - Do not use inline styles
+  - Always use Bootstrap utility classes
 
 ## Testing Expectations
 

@@ -6,7 +6,7 @@
           i.icon.fa-solid.fa-history
           = t('teardowns.index.upload_history')
       .card-body.p-0
-        table.table.table-hover.table-bottom-borderless
+        table.table.table-bottom-borderless
           tr
             th = t('teardowns.index.app_name')
             th = t('teardowns.index.version')
@@ -35,17 +35,12 @@
                   = time_ago_in_words(md.created_at)
 
               - if user_signed_in? && (md.user == current_user || current_user&.manage?(app: md.app))
-                td.d-none.d-sm-table-cell[
-                  data-controller="destroy"
-                  data-destroy-title-value="#{t('debug_files.confirm.destroy.title')}"
-                  data-destroy-content-value="#{t('teardowns.messages.confirm.destroy')}"
-                  data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
-                ]
-                  button.btn.btn-tool data-action="click->destroy#click"
-                    i.fa-solid.fa-trash-alt
-
-                  = button_to t('debug_files.confirm.destroy.ok'),  teardown_path(md), method: :delete, \
-                    class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
+                td.d-none.d-sm-table-cell
+                  = button_link_to '', teardown_path(md), 'trash-alt', \
+                    class: 'btn btn-tool', data: { \
+                      turbo_method: :delete, \
+                      turbo_confirm: t('modals.confirm.body'), \
+                    }
 
       - if @metadata.total_pages > 1
         .card-footer.clearfix
