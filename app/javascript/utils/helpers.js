@@ -1,4 +1,5 @@
 import { UAParser } from "ua-parser-js"
+import { Turbo } from "@hotwired/turbo-rails"
 
 const POLL_INTERVAL = 1000
 
@@ -63,8 +64,8 @@ const turboStream = (path, options = {}) => {
   headers["Accept"] = "text/vnd.turbo-stream.html"
   
   return fetch(path, { ...options, headers })
-    .then(response => response.text())
-    .then(html => Turbo.renderStreamMessage(html))
+    .then((response) => response.text())
+    .then((html) => Turbo.renderStreamMessage(html))
 }
 
 const createHtmlElement = (text) => {

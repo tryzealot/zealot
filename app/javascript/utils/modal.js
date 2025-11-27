@@ -30,8 +30,8 @@ class ConfirmDialog {
     // Bind a cleanup listener only once to prevent event listener accumulation
     if (!root._confirmCleanupBound) {
       root.addEventListener("hidden.bs.modal", () => {
-        const roles = ['cancel', 'confirm', 'ok']
-        roles.forEach(role => {
+        const roles = ["cancel", "confirm", "ok"]
+        roles.forEach((role) => {
           const btn = root.querySelector(`[data-role="${role}"]`)
           if (btn) btn.replaceWith(btn.cloneNode(true))
         })
@@ -103,11 +103,11 @@ class ConfirmDialog {
     const cancelText = (this.options.cancelText || "Cancel").toString()
     const variant = (this.options.variant || "confirm") // confirm | alert
 
-    const header = this.root.querySelector('[data-role="header"]')
-    const titleEl = this.root.querySelector('[data-role="title"]')
-    const messageEl = this.root.querySelector('[data-role="message"]')
-    const confirmBtn = this.root.querySelector('[data-role="confirm"]')
-    const cancelBtn = this.root.querySelector('[data-role="cancel"]')
+    const header = this.root.querySelector("[data-role=\"header\"]")
+    const titleEl = this.root.querySelector("[data-role=\"title\"]")
+    const messageEl = this.root.querySelector("[data-role=\"message\"]")
+    const confirmBtn = this.root.querySelector("[data-role=\"confirm\"]")
+    const cancelBtn = this.root.querySelector("[data-role=\"cancel\"]")
 
     if (title.length > 0) {
       header.classList.remove("d-none")
@@ -150,22 +150,15 @@ class ConfirmDialog {
     if (variant === "alert") {
       const okBtn = this.resetButtonByRole("ok") || this.resetButtonByRole("confirm")
       if (okBtn) {
-        okBtn.addEventListener(
-          "click",
-          (evt) => {
-            evt.preventDefault()
-            this.options.on_ok?.()
-            this.dialog.hide()
-          },
-          { once: true }
-        )
+        okBtn.addEventListener("click", (evt) => {
+          evt.preventDefault()
+          this.options.on_ok?.()
+          this.dialog.hide()
+        }, { once: true })
       }
+
       // Allow clicking the backdrop or close button to count as cancel
-      this.root.addEventListener(
-        "hidden.bs.modal",
-        () => this.options.on_cancel?.(),
-        { once: true }
-      )
+      this.root.addEventListener("hidden.bs.modal", () => this.options.on_cancel?.(), { once: true })
       return
     }
 
@@ -175,19 +168,17 @@ class ConfirmDialog {
 
     if (cancelBtn) {
       cancelBtn.addEventListener("click", (evt) => {
-          evt.preventDefault()
-          this.options.on_cancel?.()
-        }, { once: true }
-      )
+        evt.preventDefault()
+        this.options.on_cancel?.()
+      }, { once: true })
     }
 
     if (confirmBtn) {
       confirmBtn.addEventListener("click", (evt) => {
-          evt.preventDefault()
-          this.options.on_ok?.()
-          this.dialog.hide()
-        }, { once: true }
-      )
+        evt.preventDefault()
+        this.options.on_ok?.()
+        this.dialog.hide()
+      }, { once: true })
     }
   }
 }
@@ -197,10 +188,10 @@ export function confirmModalHandler(message, options = {}) {
     const dialog = new ConfirmDialog(message, {
       ...options,
       variant: "confirm",
-      on_ok() {
+      onOk() {
         resolve(true)
       },
-      on_cancel() {
+      onCancel() {
         resolve(false)
       }
     })
@@ -213,10 +204,10 @@ export function openModal(message, options = {}) {
     const dialog = new ConfirmDialog(message, {
       ...options,
       variant: "alert",
-      on_ok() {
+      onOk() {
         resolve(true)
       },
-      on_cancel() {
+      onCancel() {
         resolve(false)
       }
     })

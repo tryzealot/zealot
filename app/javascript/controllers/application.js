@@ -1,4 +1,6 @@
 import { Application } from "@hotwired/stimulus"
+import { Turbo } from "@hotwired/turbo-rails"
+
 import CheckboxSelectAll from "@stimulus-components/checkbox-select-all"
 import Notification from "@stimulus-components/notification"
 import { confirmModalHandler } from "../utils/modal"
