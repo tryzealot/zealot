@@ -183,7 +183,7 @@ Rails.application.routes.draw do
   #############################################
   # Misc
   #############################################
-  resources :modals, only: :show, param: :type, constraints: { type: /[a-z0-9\-]+/ }
+  resources :modals, only: :show, param: :type, constraints: { type: /[a-z0-9\-_]+/ }
 
   #############################################
   # API v1

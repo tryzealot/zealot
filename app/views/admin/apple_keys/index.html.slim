@@ -38,13 +38,10 @@
                   td
                     = time_ago_in_words(apple_key.created_at)
                   td.d-none.d-sm-block
-                    = render_confirm_modal( \
-                      t('modals.destroy_apple_key.body', team: apple_key.team.display_name, team_id: apple_key.team.team_id), \
-                      title: t('modals.destroy_apple_key.title'), \
-                      confirm_link: admin_apple_key_path(apple_key), \
-                      confirm_value: t('modals.buttons.confirm'), \
-                      cancel_value: t('modals.buttons.cancel'), \
-                    )
+                    = link_to modal_path(type: 'destroy-apple-key', id: apple_key), \
+                      class: 'btn btn-tool', \
+                      data: { turbo_frame: :modal, turbo_stream: true, bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' } do
+                        i.fa-solid.fa-trash-alt
     - else
       .card.card-outline.card-warning
         .card-header.card-border

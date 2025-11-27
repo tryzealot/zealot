@@ -936,7 +936,7 @@ en:
     destroy_apple_key:
       title: Destroy Apple Developer
       body: |
-        Once %{team} (%{team_id}) is deleted, it will be permanently unrecoverable or unrecoverable,
+        Once %{name} is deleted, it will be permanently unrecoverable or unrecoverable,
         please operate with caution!
     install_issue:
       title: Install issues and the solution

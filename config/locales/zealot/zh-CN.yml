@@ -907,7 +907,7 @@ zh-CN:
     destroy_apple_key:
       title: 删除苹果开发者账户确认?
       body: |
-        一旦 %{team} (%{team_id}) 被删除，将永久无法恢复，请谨慎操作！
+        一旦 %{name} 被删除，将永久无法恢复，请谨慎操作！
     install_issue:
       title: 安装中的错误及解决办法
       body_html: |

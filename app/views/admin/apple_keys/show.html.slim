@@ -5,26 +5,16 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  = render_confirm_modal( \
-    t('modals.destroy_apple_key.body', team: @apple_key.team.display_name, team_id: @apple_key.team.team_id), \
-    title: t('modals.destroy_apple_key.title'), \
-    confirm_link: admin_apple_key_path(@apple_key), \
-  ) do
-    .btn-group
-      = button_link_to '', private_key_admin_apple_key_path(@apple_key), 'download', \
-        class: 'btn btn-outline-secondary btn-icon', \
-        title: "#{t('.download_private_key')}", \
-        data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
+  .btn-group
+    = button_link_to '', private_key_admin_apple_key_path(@apple_key), 'download', \
+      class: 'btn btn-outline-secondary btn-icon', \
+      title: "#{t('.download_private_key')}", \
+      data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
 
-      button.btn.btn-outline-secondary[
-        title="#{t('modal.tooltip.delete')}"
-        data-action='click->destroy#click'
-        data-bs-toggle="tooltip" 
-        data-bs-custom-class="default-tooltip"
-      ]
-        i.fa-solid.fa-trash-alt
-      = link_to admin_apple_key_path(@apple_key), class: 'btn btn-outline-secondary', data: { turbo_frame: :modal } do 
-        = t('edit')
+    = link_to modal_path(type: 'destroy-apple-key', id: @apple_key), \
+      class: 'btn btn-outline-secondary btn-icon', \
+      data: { turbo_frame: :modal, turbo_stream: true } do 
+      i.fa-solid.fa-trash-alt
 
 ruby: 
   device_total = @apple_key.devices.count
