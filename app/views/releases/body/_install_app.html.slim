@@ -35,10 +35,9 @@
           = t('releases.show.missing_file')
 
       - if current_user&.manage?(app: app)
-        = link_to channel_release_path(release.channel, release), class: 'btn btn-icon btn-lg btn-danger', \
-          data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('releases.messages.confirm.destroy') } do
-            i.fa-solid.fa-trash-alt
-            = t('releases.show.destroy')
+        = button_link_to t('modals.buttons.destroy'), channel_release_path(release.channel, release), 'trash-alt', \
+          class: 'btn btn-icon btn-lg btn-danger', \
+          data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 
       .ios-issues
         - if release.file? && release.cert_expired?

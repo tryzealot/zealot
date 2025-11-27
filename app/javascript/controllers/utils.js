@@ -60,10 +60,17 @@ const isUserAgentLimited = (keywords) => {
 
 const turboStream = (path, options = {}) => {
   const headers = options.headers || {}
-  headers['Accept'] = 'text/vnd.turbo-stream.html'
+  headers["Accept"] = "text/vnd.turbo-stream.html"
+  
   return fetch(path, { ...options, headers })
     .then(response => response.text())
     .then(html => Turbo.renderStreamMessage(html))
 }
 
-export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited, turboStream }
+const createHtmlElement = (text) => {
+  const element = document.createElement("template")
+  element.innerHTML = text
+  return element.content.children[0]
+}
+
+export { poll, uaParser, isMacOS, isiOS, isNonAppleOS, isUserAgentLimited, turboStream, createHtmlElement }

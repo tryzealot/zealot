@@ -27,7 +27,11 @@
             'plus-square', class: 'btn-icon text-primary', data: { turbo_frame: :modal }
         .btn-group.flex-shrink-1
           = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', class: 'btn-box-tool text-primary', \
-            title: t('apps.show.edit_scheme'), data: { toggle: 'tooltip', turbo_frame: :modal }
+            title: t('apps.show.edit_scheme'), data: { turbo_frame: :modal, bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
           = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', class: 'btn-box-tool text-danger', \
             title: t('apps.show.destroy_scheme'), \
-            data: { toggle: 'tooltip', turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: scheme.app_name)}" }
+            data: { \
+              bs_toggle: :tooltip, bs_custom_class: 'default-tooltip', \
+              turbo_method: :delete, \
+              turbo_confirm: t("apps.messages.confirm.delete_app_scheme", name: scheme.app_name), \
+            }

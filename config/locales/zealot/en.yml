@@ -62,8 +62,6 @@ en:
         action: Action
         not_found: Not found any Webhook.
         create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
-        destroy: Destroy
-        destroy_confirm: Destroy confirm?
       show:
         title: Webhook detail
       new:
@@ -90,8 +88,6 @@ en:
         created_at: Created at
         action: Action
         new_apple_key: :admin.apple_keys.new.title
-        destroy: Destroy
-        destroy_confirm: "Confirm to destroy: %{team} (%{team_id})"
         not_found:
           title: Not found Apple Developer.
           body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Apple Developer on the top-right.
@@ -226,12 +222,10 @@ en:
         action: Action
         run_backup: Run a backup
         edit: Edit
-        destroy: Destroy
         database: Database
         app:
           one: "%{count} App"
           other: "%{count} Apps"
-        destroy_confirm: "Confirm to destroy: %{key}?"
         not_found:
           title: Not found any backup
           body_html: Click the button to <i class="fa-regular fa-plus-square"></i> new a backup.
@@ -244,7 +238,6 @@ en:
         size: Size
         action: Action
         download: Download
-        destroy: Destroy
         performing_jobs: Performing jobs
         backup_id: Backup ID
         backup_status: Status
@@ -459,8 +452,6 @@ en:
         delete: Delete
         delete_all: Delete all
     messages:
-      confirm:
-        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -496,7 +487,6 @@ en:
       installing: Installing ...
       installed: Re-Install
       cert_expired: Can not install, certificate was expired
-      destroy: Destroy
       missing_file: Missing file
       more: More releases
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
@@ -526,8 +516,6 @@ en:
 
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
-      confirm:
-        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -564,7 +552,6 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
-      destroy: Destroy
       main_target: "Main target: %{value}"
       arch: Architecture
       target: Target
@@ -616,12 +603,6 @@ en:
           <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard</a>
           code to debug.
         </p>
-    confirm:
-      destroy:
-        title: Destroy the debug file confirm?
-        body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
-        ok: Destroy
-        cancel: Cancel
   teardowns:
     title: Teardowns
     new:
@@ -780,8 +761,6 @@ en:
           </tr>
         </table>
     messages:
-      confirm:
-        destroy: Destroy confirm?
       upload_events: "%{name} uploaded release %{version}"
       download_events: "%{name} %{version} downloaded"
       changelog_events: "%{name} %{version} update the changelog"
@@ -875,12 +854,9 @@ en:
     not_found: Not found any webhook
     current_channel: Current channel
     test: Test
-    destroy: Destroy
     disable: Disable
     messages:
       parse_done_and_refreshing: "Teardown done, refresh page ..."
-      confirm:
-        destroy: Destroy confirm?
   settings:
     title: :admin.settings.title
     preset_schemes:
@@ -930,7 +906,7 @@ en:
           not_found: Not found debug file
 
   modals:
-    destroy:
+    confirm:
       title: Destroy confirm?
       body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
     destroy_apple_key:
@@ -967,7 +943,8 @@ en:
       close: Close
       cancel: Cancel
       confirm: Confirm
-      okay: Okay
+      destroy: Destroy
+      okay: OK
 
   demo:
     app_name1: First App
