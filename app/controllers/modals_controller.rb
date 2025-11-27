@@ -17,14 +17,14 @@ class ModalsController < ApplicationController
       title_key:   'cert_expired_issues.title',
       body_key:    'cert_expired_issues.body_html'
     },
-    'destroy-apple-key' => {
-      title_key:      'destroy_apple_key.title',
-      body_key:       'destroy_apple_key.body',
-      body_locals:    ->(record) { { name: "#{record.team&.display_name} (#{record.team&.team_id})" } },
-      confirm_value:  'buttons.destroy',
-      confirm_link:   ->(c, id) { c.admin_apple_key_path(id) },
-      record:         ->(id) { AppleKey.find(id) }
-    }
+    # 'destroy-apple-key' => {
+    #   title_key:      'destroy_apple_key.title',
+    #   body_key:       'destroy_apple_key.body',
+    #   body_locals:    ->(record) { { name: "#{record.team&.display_name} (#{record.team&.team_id})" } },
+    #   confirm_value:  'buttons.destroy',
+    #   confirm_link:   ->(c, id) { c.admin_apple_key_path(id) },
+    #   record:         ->(id) { AppleKey.find(id) }
+    # }
   }.freeze
 
   AVAILABLE_TYPES = MODAL_CONFIG.keys.freeze
