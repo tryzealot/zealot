@@ -10,8 +10,12 @@ module Admin
       parse_schedule(schedule).to_cron_s
     end
 
+    def next_schedule_time(schedule)
+      Time.zone.at(parse_schedule(schedule).next_time.to_i)
+    end
+
     def next_schedule_to_human(schedule)
-      parse_schedule(schedule).next_time
+      distance_of_time_in_words_to_now(next_schedule_time(schedule))
     end
 
     def explan_scopes(backup)
