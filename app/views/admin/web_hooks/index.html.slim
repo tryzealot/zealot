@@ -25,12 +25,11 @@
                   td
                     = link_to web_hook.url, edit_admin_web_hook_path(web_hook)
                   td.w-25
-                    - web_hook.channels.each do |channel|
-                      span.me-1.badge.text-bg-secondary = channel.app_name
-                    / = raw web_hook.channels.map {|c| c.app_name }.join("<br />")
+                    .badge.text-bg-info = web_hook.channels.size
                   td.d-none.d-sm-table-cell
-                    = link_to t('.destroy'), admin_web_hook_path(web_hook), \
-                      data: { turbo_method: :delete, turbo_confirm: t('.destroy_confirm') }
+                    = button_link_to '', admin_web_hook_path(web_hook), 'trash-alt', \
+                      class: 'btn btn-tool', title: t('modals.buttons.destroy'), \
+                      data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
     - else
       .card.card-outline.card-warning
         .card-header.card-border

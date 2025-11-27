@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import * as bootstrap from "bootstrap";
-import { isiOS, isMacOS } from "./utils"
+import { isiOS, isMacOS, turboStream } from "../utils/helpers"
 
 const LOADING_TIMEOUT = 8000
 
@@ -43,15 +42,11 @@ export default class extends Controller {
   }
 
   showCertExpired() {
-    const modalNode = document.getElementById("cert-expired-issues")
-    const modal = new bootstrap.Modal(modalNode)
-    modal.toggle()
+    turboStream("/modals/cert-expired-issues")
   }
 
   showQA() {
-    const modalNode = document.getElementById("install-issues")
-    const modal = new bootstrap.Modal(modalNode)
-    modal.toggle()
+    turboStream("/modals/install-issue")
   }
 
   async renderLoading(target) {

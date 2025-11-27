@@ -1,4 +1,7 @@
-- current_params = request.query_parameters.except("sort")
+ruby: 
+  current_params = request.query_parameters.except(:sort)
+  desc_active = params[:sort] == "asc" ? "active" : ""
+  asc_active = params[:sort] == "desc" ? "active" : ""
 
 .col-md-12
   form.form action=apps_path method="get" data-turbo="false"
@@ -6,11 +9,7 @@
       input.form-control name="search" value=params[:search] placeholder="#{t('apps.index.searching_app')}" type="text"
       button.btn.btn-outline-secondary
         i.fa-solid.fa-search
-      
-      - desc_active = params[:sort] == "asc" ? "active" : ""
-      - asc_active = params[:sort] == "desc" ? "active" : ""
-
-      a.btn.btn-outline-secondary class=desc_active href="?#{current_params.to_query}&sort=asc"
-            i.fa-solid.fa-arrow-down-a-z
-      a.btn.btn-outline-secondary class=asc_active href="?#{current_params.to_query}&sort=desc"
-            i.fa-solid.fa-arrow-up-z-a
+      = button_link_to '', apps_path(current_params.merge(sort: :asc)), 'arrow-down-a-z', \
+        class: 'btn btn-outline-secondary'
+      = button_link_to '', apps_path(current_params.merge(sort: :desc)), 'arrow-up-z-a', \
+        class: 'btn btn-outline-secondary'

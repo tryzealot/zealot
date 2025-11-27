@@ -12,9 +12,6 @@ application.register("install-limited", installLimitedController)
 import ReleaseDownloadController from "./release_download_controller"
 application.register("release-download", ReleaseDownloadController)
 
-import DestroyController from "./destroy_controller"
-application.register("destroy", DestroyController)
-
 import UDIDController from "./udid_controller"
 application.register("udid", UDIDController)
 

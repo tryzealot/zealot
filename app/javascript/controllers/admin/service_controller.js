@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { poll } from "../utils"
+import { poll } from "../../utils/helpers"
 
 const RESTART_URI = "/admin/service/restart"
 const HEALTH_CHECK_URI = "/admin/service/status"

@@ -25,7 +25,7 @@
                 th = t('.team_name')
                 th = t('.team_id')
                 th = t('.created_at')
-                th = t('.action')
+                th.d-none.d-sm-block = t('.action')
             tbody
               - @apple_keys.each_with_index do |apple_key, i|
                 tr
@@ -37,9 +37,10 @@
                     = apple_key.team.team_id
                   td
                     = time_ago_in_words(apple_key.created_at)
-                  td
-                    = link_to t('.destroy'), admin_apple_key_path(apple_key), \
-                      data: { turbo_method: :delete, turbo_confirm: t('.destroy_confirm', team: apple_key.team.display_name, team_id: apple_key.team.team_id) }
+                  td.d-none.d-sm-block
+                    = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', \
+                      class: 'btn btn-tool', \
+                      data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{apple_key.team&.display_name} (#{apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
     - else
       .card.card-outline.card-warning
         .card-header.card-border

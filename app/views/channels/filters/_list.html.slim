@@ -52,7 +52,7 @@
           .actions
             .buttons
               = f.submit t('.delete'), class: 'btn btn-danger', \
-                data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('channels.messages.confirm.destroy') }
+                data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('modals.confirm.body') }
 - else
   .card-body.p-0
     p.p-3 = t('channels.show.empty_version')
