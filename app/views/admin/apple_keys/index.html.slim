@@ -38,9 +38,9 @@
                   td
                     = time_ago_in_words(apple_key.created_at)
                   td.d-none.d-sm-block
-                    = button_link_to '', modal_path(type: 'destroy-apple-key', id: apple_key), 'trash-alt', \
+                    = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', \
                       class: 'btn btn-tool', \
-                      data: { turbo_frame: :modal, turbo_stream: true, bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
+                      data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{apple_key.team&.display_name} (#{apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
     - else
       .card.card-outline.card-warning
         .card-header.card-border
