@@ -39,7 +39,7 @@
     "documentLink": true,
     "documentSymbols": true,
     "foldingRanges": true,
-    "formatting": false,
+    "formatting": true,
     "hover": true,
     "inlayHint": true,
     "onTypeFormatting": true,
@@ -54,4 +54,7 @@
   "rubyLsp.featureFlags": {
     "all": true
   },
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
 }

@@ -532,7 +532,7 @@ GEM
       railties (>= 7.0)
     rexml (3.4.4)
     rouge (4.6.1)
-    rqrcode (3.1.0)
+    rqrcode (3.1.1)
       chunky_png (~> 1.0)
       rqrcode_core (~> 2.0)
     rqrcode_core (2.0.0)
@@ -744,7 +744,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (~> 2.0.0)
   omniauth_openid_connect (= 0.8.0)
   openssl (~> 3.3.2)
-  ostruct
   pg (>= 0.18, < 2.0)
   pghero (~> 3.7.0)
   plist (~> 3.7.2)
@@ -759,7 +758,7 @@ DEPENDENCIES
   rails-i18n (~> 8.1.0)
   rails-settings-cached (~> 2.9.6)
   rake (~> 13.0.4)
-  rqrcode
+  rqrcode (~> 3.1.1)
   rspec-rails
   rswag-api (~> 2.17.0)
   rswag-specs
