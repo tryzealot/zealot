@@ -1,9 +1,0 @@
-= content_tag(@element, class: @classes, data: { \
-    controller: "destroy", \
-    destroy_title_value: @title, \
-    destroy_body_value: @body, \
-    destroy_cancel_value: cancel_value \
-  }) do
-  = content.presence || default_button
-  = button_to confirm_value, @confirm_link, method: :delete, class: 'btn btn-danger d-none', \
-    form: { data: { 'destroy-target' => 'destroyButton' } }
