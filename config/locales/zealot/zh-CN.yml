@@ -60,8 +60,6 @@ zh-CN:
         action: 操作
         not_found: 没有发现网络钩子
         create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
-        destroy: 删除
-        destroy_confirm: 你确定？
       show:
         title: 网络钩子详情
       new:
@@ -86,8 +84,6 @@ zh-CN:
         created_at: 创建时间
         action: 操作
         new_apple_key: :'admin.apple_keys.new.title'
-        destroy: 删除
-        destroy_confirm: 确定删除苹果开发者【%{team} (%{team_id})】
         not_found:
           title: 没有发现任何苹果开发者
           body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增。
@@ -220,10 +216,8 @@ zh-CN:
         action: 操作
         run_backup: 执行新备份
         edit: 编辑
-        destroy: 删除
         database: 数据库
         app: "%{count} 应用"
-        destroy_confirm: 确认删除 %{key}？
         not_found:
           title: 没有发现任何备份计划
           body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
@@ -236,7 +230,6 @@ zh-CN:
         size: 大小
         action: 操作
         download: 下载
-        destroy: 删除
         performing_jobs: 进行中的备份任务
         backup_id: 备份 ID
         backup_status: 备份状态
@@ -451,8 +444,6 @@ zh-CN:
         delete: 删除
         delete_all: 全部删除
     messages:
-      confirm:
-        destroy: :'web_hooks.messages.confirm.destroy'
       errors:
         not_found_channel: 没有找到应用渠道 %{id}，跳转至应用列表
   releases:
@@ -488,7 +479,6 @@ zh-CN:
       installing: 安装中 ...
       installed: 重新安装
       cert_expired: 证书过期无法安装
-      destroy: 删除
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
@@ -518,8 +508,6 @@ zh-CN:
 
         - 开发者很懒没有留下更新日志😂
         - 有不可抗拒的因素造成日志丢失👽
-      confirm:
-        destroy: :'web_hooks.messages.confirm.destroy'
       errors:
         not_found_release_and_redirect_to_channel: 应用版本不存在或已经被移除，页面跳转至应用渠道详情
         not_found_release_and_redirect_to_latest_release: 版本不存在或已经被移除，跳转至最新版本
@@ -557,7 +545,6 @@ zh-CN:
       missing_file: 调试文件遗失
       download: 下载
       reprocess: 重新解析
-      destroy: 删除
       main_target: "主项目: %{value}"
       arch: 架构
       target: 名称
@@ -602,12 +589,6 @@ zh-CN:
           <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard 混淆</a>
           后代码复原使用。如果使用了 tinker 还可以生成的 AndroidManifest.xml 和 R.txt 等文件也做一起压缩处理。
         </p>
-    confirm:
-      destroy:
-        title: 删除确认调试文件?
-        body: 一旦删除数据将永久无法找回或恢复，请慎重操作！
-        ok: 我心已决
-        cancel: 还是算了
   teardowns:
     title: 应用解包
     new:
@@ -756,8 +737,6 @@ zh-CN:
           </tr>
         </table>
     messages:
-      confirm:
-        destroy: 确定删除?
       upload_events: "%{name} 上传了 %{version} 版本"
       download_events: "%{name} %{version} 版本被下载"
       changelog_events: "%{name} %{version} 版本更新了变更日志"
@@ -846,12 +825,9 @@ zh-CN:
     not_found: 没有发现网络钩子
     current_channel: 当前渠道
     test: 测试
-    destroy: 删除
     disable: 禁用
     messages:
       parse_done_and_refreshing: "解析完成，页面正在刷新 ..."
-      confirm:
-        destroy: 确定删除?
   settings:
     title: :'admin.settings.title'
     preset_schemes:
@@ -901,7 +877,7 @@ zh-CN:
           not_found: 调试文件版本不存在
 
   modals:
-    destroy:
+    confirm:
       title: 删除确认?
       body: 一旦数据被删除，将永久无法恢复，请谨慎操作！
     destroy_apple_key:

@@ -55,12 +55,7 @@ ruby:
           li title="#{t('.uploaded_at')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
             i.fa-solid.fa-calendar
             = time_ago_in_words(@debug_file.created_at)
-        .app-actions[
-          data-controller="destroy"
-          data-destroy-title-value="#{t('debug_files.confirm.destroy.title')}"
-          data-destroy-body-value="#{t('debug_files.confirm.destroy.body')}"
-          data-destroy-cancel-value="#{t('debug_files.confirm.destroy.cancel')}"
-        ]
+        .app-actions
           - if @debug_file.file?
             a.btn.btn-icon.btn-lg.btn-success.mb-1 href="#{@debug_file.file_url}" target="_blank"
               i.icon.fa-solid.fa-download
@@ -76,14 +71,11 @@ ruby:
                 i.icon.fa.fa-repeat
                 = t('.reprocess')
 
-            button.btn.btn-icon.btn-lg.btn-danger.mb-1[
-              data-action="click->destroy#click"
-            ]
-              i.icon.fa-solid.fa-trash-alt
-              = t('.destroy')
-
-            = button_to t('debug_files.confirm.destroy.ok'), debug_file_path(@debug_file), method: :delete, \
-              class: 'btn btn-danger d-none', form: { data: { 'destroy-target' => 'destroyButton' } }
+            = button_link_to t('modals.buttons.destroy'), debug_file_path(@debug_file), 'trash-alt', \
+              class: 'btn btn-danger btn-icon btn-lg mb-1', data: { \
+                turbo_method: :delete, \
+                turbo_confirm: t('modals.confirm.body'), \
+              }
 
   - unless @debug_file.processing?
     - if ios_debug_file?(@debug_file)

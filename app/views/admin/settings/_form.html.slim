@@ -30,7 +30,7 @@
           - if @setting.persisted?
             .float-end
               = f.button :button, t('admin.settings.reset'), formmethod: :delete, formaction: admin_setting_path(@setting.var), class: 'btn btn-danger', \
-                data: { turbo_confirm: t('channels.messages.confirm.destroy') }
+                data: { turbo_confirm: t('modals.confirm.body') }
 
           .float-left
             = f.button :submit

@@ -38,10 +38,9 @@
                   td
                     = time_ago_in_words(apple_key.created_at)
                   td.d-none.d-sm-block
-                    = link_to modal_path(type: 'destroy-apple-key', id: apple_key), \
+                    = button_link_to '', modal_path(type: 'destroy-apple-key', id: apple_key), 'trash-alt', \
                       class: 'btn btn-tool', \
-                      data: { turbo_frame: :modal, turbo_stream: true, bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' } do
-                        i.fa-solid.fa-trash-alt
+                      data: { turbo_frame: :modal, turbo_stream: true, bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
     - else
       .card.card-outline.card-warning
         .card-header.card-border
