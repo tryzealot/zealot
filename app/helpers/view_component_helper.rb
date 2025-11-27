@@ -2,15 +2,15 @@
 
 module ViewComponentHelper
   def render_modal(**options, &)
-    title = options.delete(:title)
-    body = options.delete(:body)
-    render ModalComponent.new(title: title, body: body, **options), &
+    render ModalComponent.new(**options), &
   end
 
-  def render_confirm_modal(body, confirm_link: nil, title: nil, **options, &block)
-    options[:tooltip_value] ||= t('modals.tooltip.delete')
+  def render_confirm_modal(**options, &)
+    raise ArgumentError, 'confirm_link is required' unless options.key?(:confirm_link)
+
     options[:confirm_value] ||= t('modals.buttons.confirm')
     options[:cancel_value] ||= t('modals.buttons.cancel')
-    render(ConfirmModalComponent.new(body, confirm_link: confirm_link, title: title, **options), &block)
+    options[:tooltip_value] ||= t('modals.tooltip.delete')
+    render(ConfirmModalComponent.new(body, confirm_link: confirm_link, title: title, **options), &)
   end
 end
