@@ -44,8 +44,7 @@ gem 'rake', '~> 13.0.4'
 gem 'rails-settings-cached', '~> 2.9.6'
 gem 'app-info', '~> 3.3.2'
 gem 'faraday', '~> 2.14.0'
-gem 'rqrcode'
-gem 'ostruct' # needs in rswag
+gem 'rqrcode', '~> 3.1.1'
 
 ## Auth
 gem 'pundit', '~> 2.5.2'

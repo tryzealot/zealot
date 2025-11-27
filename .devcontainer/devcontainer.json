@@ -19,7 +19,8 @@
           }
         },
         "rubyLsp.rubyVersionManager": {
-          "identifier": "auto"
+          "identifier": "mise",
+          "formatter": "auto"
         },
         "dev.containers.mountWaylandSocket": false
       },

@@ -4,3 +4,4 @@ import { Zealot } from "../controllers/zealot"
 if (Zealot.isDevelopment) {
   ActionCable.logger.enabled = true
 }
+import "./logging_channel"
