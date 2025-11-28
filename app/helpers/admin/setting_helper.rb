@@ -5,7 +5,21 @@ module Admin
     def display_value(key, value)
       case value
       when Hash
-        value.blank? ? t('admin.settings.empty_value') : pretty_json(value)
+        if value.blank?
+          t('admin.settings.empty_value')
+        else
+          enabled = value[:enabled]
+          return pretty_json(value) if enabled.nil?
+
+          text = display_value(key, enabled)
+          case key
+          when 'passwordless_login_enabled'
+            expired = distance_of_time_in_words_to_now(value[:token_expiry_in_minutes].minutes.since)
+            enabled ? "#{text} (#{expired})" : text
+          else
+            text
+          end
+        end
       when Array
         value.blank? ? t('admin.settings.empty_value') : value.join(', ')
       when TrueClass
