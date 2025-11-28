@@ -44,6 +44,10 @@ class Setting < RailsSettings::Base
           type: :boolean, display: true
     field :login_enabled, default: to_bool(ENV['ZEALOT_LOGIN_ENABLED'] || 'true'),
           type: :boolean, display: true
+    field :passwordless_login_enabled, type: :hash, display: true, restart_required: true, default: {
+      enabled: to_bool(ENV['ZEALOT_PASSWORDLESS_LOGIN_ENABLED'] || 'false'),
+      token_expiry_in_minutes: (ENV['ZEALOT_PASSWORDLESS_TOKEN_EXPIRY_MINUTES'] || '20').to_i
+    }, validates: { json: { format: :hash } }
     field :guest_mode, default: to_bool(ENV['ZEALOT_GUEST_MODE'] || 'false'),
           type: :boolean, restart_required: true, display: true
     field :keep_uploads, default: to_bool(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),

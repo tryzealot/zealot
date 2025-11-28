@@ -144,6 +144,8 @@ zh-CN:
       registrations_enabled_hint: 启用或关闭内置认证系统的用户注册功能。关闭后仅管理员可以创建新用户
       login_enabled: 允许用户登录
       login_enabled_hint: 启用或关闭内置认证系统的用户登录功能。关闭后仅可使用第三方认证方式登录
+      passwordless_login_enabled: 允许无密码登录
+      passwordless_login_enabled_hint: 启用或关闭内置认证系统的无密码登录功能。通过邮件发送链接在有效期内进行可以登录
       guest_mode: 游客模式
       demo_mode: 演示模式
       demo_mode_hint: 开启演示模式会触发：每天定时恢复默认数据；无法编辑或删除默认管理员；隐私数据会安全化显示且无法编辑
@@ -155,8 +157,8 @@ zh-CN:
       github: Github
       google_oauth: Google OAuth
       smtp: 邮件配置
-      mailer_default_from: 默认邮件发件地址
-      mailer_default_reply_to: 默认邮件回复地址
+      mailer_default_from: 发送地址
+      mailer_default_reply_to: 回复地址
       mailer_options: 发件服务器配置
       analytics: 统计
       google_analytics_id: Google 统计
@@ -274,6 +276,10 @@ zh-CN:
         title: :'admin.logs.title'
         loading: 日志加载中 ...
         error_message: 日志获取失败，返回状态码：
+    services:
+      smtp_verify:
+        smtp_method_only: 仅支持 SMTP 邮件服务验证
+        no_mailer_configuration: 没有发现 SMTP 邮件配置
   dashboard:
     title: 控制台
     analytics:
@@ -933,12 +939,12 @@ zh-CN:
       half_a_minute: 半分钟前
       less_than_x_seconds: 不到 %{count} 秒
       less_than_x_minutes: 不到 %{count} 分钟
-      over_x_years: " %{count} 年多"
-      x_seconds: " %{count} 秒"
-      x_minutes: " %{count} 分钟"
-      x_days: " %{count} 天"
-      x_months: " %{count} 个月"
-      x_years: " %{count} 年"
+      over_x_years: "%{count} 年多"
+      x_seconds: "%{count} 秒"
+      x_minutes: "%{count} 分钟"
+      x_days: "%{count} 天"
+      x_months: "%{count} 个月"
+      x_years: "%{count} 年"
 
   date:
     formats:
@@ -1112,8 +1118,8 @@ zh-CN:
       username: LDAP 账户
       password: LDAP 密码
     passwordless:
-      title: 魔法登录
-      send_magic_link: 发送魔法连接
+      title: 免密登录
+      send_magic_link: 发送魔法链接
       not_found_in_database: 没有找到该邮箱对应的用户
       magic_link_sent: 已向您的邮箱发送登录链接。请按照链接登录您的账户
       magic_link_sent_paranoid: 如果您的账户存在，您将收到一封包含登录链接的电子邮件。请按照链接登录您的账户
