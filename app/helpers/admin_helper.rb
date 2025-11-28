@@ -12,7 +12,7 @@ module AdminHelper
   def secure_key?(data)
     return false unless data.is_a?(Hash)
 
-    Setting.demo_mode && data.keys.select {|k| secure?(k) }.any?
+    Setting.demo_mode && data.keys.any? { |key| secure?(key) }
   end
 
   def secure_value(key, value)
