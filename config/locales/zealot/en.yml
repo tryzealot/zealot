@@ -1120,6 +1120,24 @@ en:
       title: LDAP
       username: LDAP Username
       password: LDAP Password
+    passwordless:
+      title: Passwordless
+      send_magic_link: Send magic link
+      not_found_in_database: No user found for this email
+      magic_link_sent: A login link has been sent to your email. Please follow the link to log in to your account
+      magic_link_sent_paranoid: If your account exists, you will receive an email with a login link. Please follow the link to log in to your account
+      signed_in: :devise.sessions.signed_in
+    failure:
+      magic_link_invalid: Invalid or expired login link
+    mailer:
+      magic_link:
+        subject: Here's your magic login link ✨
+        body: |
+          <p>Hello %{email}!</p>
+          <p>You can login using the link below:</p>
+          <p>%{link}</p>
+          <p>Note that the link will expire in %{expiration_time}.</p>
+        login_link_text: Log in to my account
     github:
       org_check_fail: "GitHub org check failed: %{code}"
       org_required_fail: "You must be a member of the %{required_org} GitHub organization to sign in."

@@ -1111,6 +1111,24 @@ zh-CN:
       title: LDAP 登录
       username: LDAP 账户
       password: LDAP 密码
+    passwordless:
+      title: 魔法登录
+      send_magic_link: 发送魔法连接
+      not_found_in_database: 没有找到该邮箱对应的用户
+      magic_link_sent: 已向您的邮箱发送登录链接。请按照链接登录您的账户
+      magic_link_sent_paranoid: 如果您的账户存在，您将收到一封包含登录链接的电子邮件。请按照链接登录您的账户
+      signed_in: :devise.sessions.signed_in
+    failure:
+      magic_link_invalid: 无效或已过期的登录链接
+    mailer:
+      magic_link:
+        subject: "这是您的魔法登录链接 ✨"
+        body: |
+          <p>你好 %{email}!</p>
+          <p>您可以使用以下链接登录：</p>
+          <p>%{link}</p>
+          <p>请注意，链接将在 %{expiration_time}后过期。</p>
+        login_link_text: 点击这里登录到您的账户
     github:
       org_check_fail: "GitHub 组织检查失败： %{code}"
       org_required_fail: "您必须是 %{required_org} GitHub 组织的成员才能登录。"
@@ -1122,6 +1140,7 @@ zh-CN:
           google: "Google "
           gitlab: "Gitlab "
           github: "Github "
+          gitea: "Gitea "
           openidconnect: "OpenID "
   helpers:
     submit:
