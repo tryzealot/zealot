@@ -5,9 +5,15 @@
   = @title
 
 - content_for :section_rightpanel do
-  a.btn.btn-secondary href="#{teardowns_path}"
-    i.icon.fa-regular.fa-list-alt
-    = t('links.back_to_list')
+  .btn-group
+    = button_link_to '', teardowns_path, 'list-alt', \
+      class: 'btn btn-outline-secondary btn-icon', \
+      title: "#{t('links.back_to_list')}", \
+      data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
+    - if teardown_owner?(@metadata)
+      = button_link_to '', teardown_path(@metadata), 'trash-alt', \
+        class: 'btn btn-outline-secondary btn-icon', title: t('modals.buttons.destroy'), \
+        data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
 
 .row
   - if @metadata.release.present?
