@@ -7,4 +7,4 @@ USER root
 RUN chown -R vscode:vscode /workspace
 USER vscode
 
-RUN bundle install && pnpm install && pnpm run post-install
+RUN bundle install && pnpm install
