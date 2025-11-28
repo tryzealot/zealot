@@ -1,7 +1,7 @@
 ruby:
   value = params[:value]
   display_value = display_value(key, value)
-  readonly = params[:readonly] || (value.is_a?(Hash) && secure_key?(value))
+  readonly = params[:readonly] || secure_key?(value)
   is_mailer = (key == 'mailer_options')
   show_mailer_method = is_mailer && Rails.env.development?
 

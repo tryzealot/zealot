@@ -10,6 +10,8 @@ module AdminHelper
   end
 
   def secure_key?(data)
+    return false unless data.is_a?(Hash)
+
     Setting.demo_mode && data.keys.select {|k| secure?(k) }.any?
   end
 
@@ -20,6 +22,9 @@ module AdminHelper
   private
 
   def secure?(key)
+    # Check if the key is blank or matches a specific value
+    return false if key.blank? || key == 'token_expiry_in_minutes'
+
     Rails.application
          .config
          .filter_parameters
