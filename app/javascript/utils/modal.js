@@ -20,24 +20,18 @@ class ConfirmDialog {
   getOrCreateRoot() {
     let root = document.getElementById(DIALOG_ID)
     if (!root) {
-      const appWrapperNode = document.getElementsByClassName("app-wrapper")[0]
-      const firstNode = appWrapperNode.firstChild
       root = this.buildRoot()
-      appWrapperNode.insertBefore(root, firstNode)
+      document.body.appendChild(root)
+    } else {
+      if (root.parentElement !== document.body) {
+        root.remove()
+        document.body.appendChild(root)
+      } else {
+        document.body.appendChild(root)
+      }
     }
-    this.dialog = bootstrap.Modal.getOrCreateInstance(root)
 
-    // Bind a cleanup listener only once to prevent event listener accumulation
-    if (!root._confirmCleanupBound) {
-      root.addEventListener("hidden.bs.modal", () => {
-        const roles = ["cancel", "confirm", "ok"]
-        roles.forEach((role) => {
-          const btn = root.querySelector(`[data-role="${role}"]`)
-          if (btn) btn.replaceWith(btn.cloneNode(true))
-        })
-      })
-      root._confirmCleanupBound = true
-    }
+    this.dialog = bootstrap.Modal.getOrCreateInstance(root)
 
     return root
   }
@@ -152,13 +146,10 @@ class ConfirmDialog {
       if (okBtn) {
         okBtn.addEventListener("click", (evt) => {
           evt.preventDefault()
-          this.options.on_ok?.()
+          this.options.onOk?.()
           this.dialog.hide()
         }, { once: true })
       }
-
-      // Allow clicking the backdrop or close button to count as cancel
-      this.root.addEventListener("hidden.bs.modal", () => this.options.on_cancel?.(), { once: true })
       return
     }
 
@@ -169,14 +160,14 @@ class ConfirmDialog {
     if (cancelBtn) {
       cancelBtn.addEventListener("click", (evt) => {
         evt.preventDefault()
-        this.options.on_cancel?.()
+        this.options.konCancel?.()
       }, { once: true })
     }
 
     if (confirmBtn) {
       confirmBtn.addEventListener("click", (evt) => {
         evt.preventDefault()
-        this.options.on_ok?.()
+        this.options.onOk?.()
         this.dialog.hide()
       }, { once: true })
     }
