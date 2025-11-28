@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::ServicesController < ApplicationController
-
   respond_to :json
 
   def restart
@@ -43,7 +42,7 @@ class Admin::ServicesController < ApplicationController
       ).success?
     end
 
-    render json: { message: 'Ok' }, status: :ok
+    render json: { message: 'ok' }, status: :ok
   rescue => e
     render json: { message: e.message }, status: :forbidden
   end

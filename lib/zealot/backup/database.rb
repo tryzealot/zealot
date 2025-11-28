@@ -64,12 +64,11 @@ module Zealot::Backup
       compress_wr.close
 
       exit_message = []
-      success = [compress_pid, dump_pid].all? do |pid|
-        next if pid.blank?
-
+      pids = [compress_pid, dump_pid].compact
+      success = pids.all? do |pid|
         _, exitstatus = Process.waitpid2(pid)
         prefix_message = compress_pid == pid ? 'compress' : 'dump'
-        message = "#{prefix_message} #{exitstatus.to_s}"
+        message = "#{prefix_message} #{exitstatus}"
         exit_message << message
         logger.debug message
         exitstatus.success?
@@ -97,12 +96,11 @@ module Zealot::Backup
       decompress_rd.close
 
       exit_message = []
-      success = [decompress_pid, restore_pid].all? do |pid|
-        next if pid.blank?
-
+      pids = [decompress_pid, restore_pid].compact
+      success = pids.all? do |pid|
         _, exitstatus = Process.waitpid2(pid)
         prefix_message = decompress_pid == pid ? 'decompress' : 'restore'
-        message = "#{prefix_message} #{exitstatus.to_s}"
+        message = "#{prefix_message} #{exitstatus}"
         exit_message << message
         logger.debug message
         exitstatus.success?
