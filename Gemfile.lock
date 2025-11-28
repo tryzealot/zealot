@@ -163,6 +163,9 @@ GEM
     devise-i18n (1.15.0)
       devise (>= 4.9.0)
       rails-i18n
+    devise-passwordless (1.1.0)
+      devise
+      globalid
     diff-lcs (1.6.2)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
@@ -324,6 +327,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.26.2)
     msgpack (1.8.0)
     multi_xml (0.7.2)
@@ -345,6 +349,9 @@ GEM
       net-protocol
     nio4r (2.7.5)
     nkf (0.2.0)
+    nokogiri (1.18.10)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.10-arm-linux-gnu)
@@ -717,6 +724,7 @@ DEPENDENCIES
   debug (~> 1.11.0)
   devise (~> 4.9.4)
   devise-i18n (~> 1.15.0)
+  devise-passwordless (~> 1.1.0)
   dotenv-rails
   factory_bot_rails
   faker

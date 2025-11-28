@@ -5,8 +5,8 @@ class User < ApplicationRecord
   include UserRoles
 
   extend UserOmniauth
-  devise :database_authenticatable, :registerable, :confirmable,
-         :rememberable, :trackable, :validatable, :recoverable, :lockable,
+  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :trackable, 
+         :validatable, :recoverable, :lockable, :magic_link_authenticatable, 
          :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect github gitea].freeze
 
   enum :role, %i[member developer admin]
