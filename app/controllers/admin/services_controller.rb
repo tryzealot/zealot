@@ -17,7 +17,7 @@ class Admin::ServicesController < ApplicationController
   end
 
   def smtp_verify
-    if Setting.mailer_method != 'smtp'
+    if Setting.mailer_method.to_sym != :smtp
       message = t('.smtp_method_only')
       flash.now[:alert] = message
       return render json: { message: message }, status: :bad_request
