@@ -50,6 +50,7 @@ gem 'rqrcode', '~> 3.1.1'
 gem 'pundit', '~> 2.5.2'
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.15.0'
+gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
 gem 'omniauth-rails_csrf_protection', '~> 2.0.0'

@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   # User
   #############################################
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions',
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
+    omniauth_callbacks: 'users/omniauth_callbacks',
   }, skip: :unlocks
 
   #############################################
@@ -166,13 +167,14 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :service do
-        # zealot service
-        post :restart
-        get :status
-
-        # smtp
-        post :smtp_verify
+      resources :services, only: [] do
+        collection do
+          # zealot service
+          post :restart
+          get :status
+          # smtp
+          post :smtp_verify
+        end
       end
 
       mount GoodJob::Engine, at: 'jobs', as: :jobs

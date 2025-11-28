@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import { poll } from "../../utils/helpers"
 
-const RESTART_URI = "/admin/service/restart"
-const HEALTH_CHECK_URI = "/admin/service/status"
+const RESTART_URI = "/admin/services/restart"
+const HEALTH_CHECK_URI = "/admin/services/status"
 
 export default class extends Controller {
   static targets = ["button"]

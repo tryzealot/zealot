@@ -1,0 +1,9 @@
+ruby:
+  email = @resource.email
+  link = link_to(
+    t(".login_link_text"), 
+    magic_link_url(@resource, @scope_name => {email: @resource.email, token: @token, remember_me: @remember_me})
+  )
+  expiration_time = distance_of_time_in_words_to_now(Devise.passwordless_login_within.since)
+
+= t('.body', email: email, link: link, expiration_time: expiration_time).html_safe
