@@ -17,11 +17,11 @@
           - if @setting.type == :boolean
             = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: ActiveModel::Type::Boolean.new.cast(@value) }
           - elsif @setting.type == :hash || @setting.type == :array
-            = f.input :value, as: :text, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value) }
+            = f.input :value, as: :text, label: false, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value) }
           - elsif @setting.inclusion?
-            = f.input :value, as: :radio_buttons, collection: @setting.inclusion_values, checked: @value
+            = f.input :value, as: :radio_buttons, label: false, collection: @setting.inclusion_values, checked: @value
           - else
-            = f.input :value, as: :text, input_html: { value: @value }
+            = f.input :value, as: :text, label: false, input_html: { value: @value }
 
           - unless @setting.field_validates.empty?
             small.form-text.text-muted
