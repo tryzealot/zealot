@@ -22,7 +22,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
     contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
-      contoller_name == 'users/confirmations'
+      contoller_name == 'users/confirmations' || contoller_name == 'users/sessions'
   end
 
   def sidebar_link_to(icon, path, text:, active_path:nil, **options)
