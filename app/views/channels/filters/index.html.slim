@@ -6,7 +6,7 @@
 
 .row
   .col-md-12
-    .card.mb-3
+    .card.mb-3 class=(@releases.present? ? '' : 'card-outline card-warning')
       .card-header
         h3.card-title = @subtitle
       == render 'channels/filters/list', releases: @releases, channel: @channel

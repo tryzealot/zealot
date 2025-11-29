@@ -54,6 +54,6 @@
               = f.submit t('.delete'), class: 'btn btn-danger', \
                 data: { bulk_operation_target: 'destroyButton', turbo_confirm: t('modals.confirm.body') }
 - else
-  .card-body.p-0
-    p.p-3 = t('channels.show.empty_version')
+  .card-body
+    = t('channels.show.empty_version')
 
