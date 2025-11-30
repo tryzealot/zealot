@@ -6,26 +6,38 @@ require 'open3'
 class Admin::LogsController < ApplicationController
   before_action :set_log, only: :retrive
 
-  FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
+  DEFAULT_FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
   MAX_LINE_NUMBER = 500
 
   def index
-    @filename = FILENAME
-    @interval = params[:interval] || 1000
+    @log_files = available_logs.map { |p| p.basename.to_s }
+    @filename = DEFAULT_FILENAME
+    @interval = params[:interval] || 2000
   end
 
   def retrive
-    render plain: @logs
+    render plain: streaming_file(log_path)
   end
 
   private
+
+  def available_logs
+    log_dir = Rails.root.join('log')
+    Dir.children(log_dir).filter_map do |name|
+      next if name.start_with?('.')
+      next if name.end_with?('.gz')
+
+      path = log_dir.join(name)
+      File.file?(path) && File.readable?(path) ? path : nil
+    end.sort_by { |p| -File.mtime(p).to_i }
+  end
 
   def set_log
     @logs = streaming_file(log_path)
   end
 
   def log_path
-    Rails.root.join('log', FILENAME)
+    Rails.root.join('log', params[:file] || DEFAULT_FILENAME)
   end
 
   CHUNK_SIZE = 8192
