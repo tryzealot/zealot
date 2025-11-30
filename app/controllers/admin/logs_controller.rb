@@ -6,49 +6,69 @@ require 'open3'
 class Admin::LogsController < ApplicationController
   before_action :set_log, only: :retrive
 
-  FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
+  DEFAULT_FILENAME = Rails.env.development? ? 'development.log' : 'zealot.log'
   MAX_LINE_NUMBER = 500
 
   def index
-    @filename = FILENAME
-    @interval = params[:interval] || 1000
+    @log_files = available_logs.map { |p| p.basename.to_s }
+    @filename = DEFAULT_FILENAME
+    @interval = params[:interval] || 2000
   end
 
   def retrive
-    render plain: @logs
+    render plain: streaming_file(log_path)
   end
 
   private
 
-  def set_log
-    @max_line = params[:number] || MAX_LINE_NUMBER
-    @logs = logs(@max_line)
+  def available_logs
+    log_dir = Rails.root.join('log')
+    Dir.children(log_dir).filter_map do |name|
+      next if name.start_with?('.')
+      next if name.end_with?('.gz')
+
+      path = log_dir.join(name)
+      File.file?(path) && File.readable?(path) ? path : nil
+    end.sort_by { |p| -File.mtime(p).to_i }
   end
 
-  def logs(line)
-    return '' unless File.readable?(log_path)
-
-    cmd_stdout = ''
-    cmd_stderr = ''
-    cmd_status = nil
-    cmd = %W(tail -n #{line} #{log_path})
-    Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
-      out_reader = Thread.new { stdout.read }
-      err_reader = Thread.new { stderr.read }
-
-      stdin.close
-
-      cmd_stdout = out_reader.value
-      cmd_stderr = err_reader.value
-      cmd_status = wait_thr.value
-    end
-
-    content = cmd_stdout.strip
-    content = content.gsub(/\[\d+m/, '') if Rails.env.development?
-    content
+  def set_log
+    @logs = streaming_file(log_path)
   end
 
   def log_path
-    Rails.root.join('log', FILENAME)
+    Rails.root.join('log', params[:file] || DEFAULT_FILENAME)
+  end
+
+  CHUNK_SIZE = 8192
+  def streaming_file(path) 
+    return '' unless File.readable?(path)
+    return '' if MAX_LINE_NUMBER <= 0
+
+    content = ''
+    File.open(path, 'r') do |file|
+      size = file.size
+      return '' if size.zero?
+
+      pos = size
+      chunks = []
+      lines_found = 0
+
+      while pos.positive? && lines_found <= MAX_LINE_NUMBER
+        read_size = [CHUNK_SIZE, pos].min
+        pos -= read_size
+        file.seek(pos)
+        data = file.read(read_size)
+        chunks.unshift(data)
+        lines_found += data.count("\n")
+      end
+
+      buffer = chunks.join
+      content = buffer.split("\n").last(MAX_LINE_NUMBER).join("\n")
+    end
+
+    # Remove ANSI color codes in development environment
+    content = content.strip.gsub(/\e\[[0-9;]*[A-Za-z]?/, '') if Rails.env.development?
+    content
   end
 end
