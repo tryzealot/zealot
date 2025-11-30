@@ -12,8 +12,8 @@
       data-admin-logs-interval-value="#{@interval}"
       data-admin-logs-error-message-value="#{t('.error_message')}"
     ]
-      .card-header.p-0.pt-1
-        ul.nav.nav-tabs role="tablist"
+      .card-header.p-0.pt-1.border-bottom-0
+        ul.nav.nav-tabs
           - @log_files.each_with_index do |file, index|
             li.nav-item id="nav_log_#{index}"
               button.nav-link[
