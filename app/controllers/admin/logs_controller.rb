@@ -21,34 +21,42 @@ class Admin::LogsController < ApplicationController
   private
 
   def set_log
-    @max_line = params[:number] || MAX_LINE_NUMBER
-    @logs = logs(@max_line)
-  end
-
-  def logs(line)
-    return '' unless File.readable?(log_path)
-
-    cmd_stdout = ''
-    cmd_stderr = ''
-    cmd_status = nil
-    cmd = %W(tail -n #{line} #{log_path})
-    Open3.popen3(*cmd) do |stdin, stdout, stderr, wait_thr|
-      out_reader = Thread.new { stdout.read }
-      err_reader = Thread.new { stderr.read }
-
-      stdin.close
-
-      cmd_stdout = out_reader.value
-      cmd_stderr = err_reader.value
-      cmd_status = wait_thr.value
-    end
-
-    content = cmd_stdout.strip
-    content = content.gsub(/\[\d+m/, '') if Rails.env.development?
-    content
+    @logs = streaming_file(log_path)
   end
 
   def log_path
     Rails.root.join('log', FILENAME)
+  end
+
+  CHUNK_SIZE = 8192
+  def streaming_file(path) 
+    return '' unless File.readable?(path)
+    return '' if MAX_LINE_NUMBER <= 0
+
+    content = ''
+    File.open(path, 'r') do |file|
+      size = file.size
+      return '' if size.zero?
+
+      pos = size
+      chunks = []
+      lines_found = 0
+
+      while pos.positive? && lines_found <= MAX_LINE_NUMBER
+        read_size = [CHUNK_SIZE, pos].min
+        pos -= read_size
+        file.seek(pos)
+        data = file.read(read_size)
+        chunks.unshift(data)
+        lines_found += data.count("\n")
+      end
+
+      buffer = chunks.join
+      content = buffer.split("\n").last(MAX_LINE_NUMBER).join("\n")
+    end
+
+    # Remove ANSI color codes in development environment
+    content = content.strip.gsub(/\e\[[0-9;]*[A-Za-z]?/, '') if Rails.env.development?
+    content
   end
 end
