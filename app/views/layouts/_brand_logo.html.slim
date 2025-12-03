@@ -1,4 +1,4 @@
-= turbo_frame_tag 'site_title', class: 'flex flex-col items-center  justify-center' do
+= turbo_frame_tag 'site_title', class: 'flex flex-col items-center justify-center' do
   = link_to root_path, class: 'flex items-center', data: { turbo: false } do
     = picture_tag(class: 'inline-block') do
       = tag(:source, srcset: image_path('zealot-icon-dark.png'), media: '(prefers-color-scheme: dark)', class: 'size-11')

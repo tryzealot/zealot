@@ -11,14 +11,14 @@
       = t('apps.new.title')
 
 - if @apps.present?
-  #search.row.mb-4
+  #search.mb-4
     == render 'apps/search'
 
-#apps.row
-  - if @apps.present?
+- if @apps.present?
+  ul.list.bg-base-100.rounded-box.shadow-md
     - @apps.each do |app|
-      == render "apps/app", app: app
-  - elsif archived_path?
-    == render "apps/empty_archived_app"
-  - else
-    == render "apps/empty_active_app"
+      == render app
+- elsif archived_path?
+  == render 'apps/empty_archived_app'
+- else
+  == render 'apps/empty_active_app'
