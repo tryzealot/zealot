@@ -17,26 +17,23 @@ html lang="#{I18n.locale}"
     link[rel="icon" type="image/x-icon" href="#{asset_path('zealot-icon@3x.png')}"]
     == favicon_link_tag 'zealot-icon.png'
     == favicon_link_tag 'zealot-icon-dark.png', media: "(prefers-color-scheme: dark)"
-    == stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
-    == javascript_include_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
+
+    / == vite_client_tag
+    == vite_stylesheet_tag 'application', 'data-turbolinks-track': 'reload'
+    == vite_javascript_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
     == yield :header_tags
     == action_cable_meta_tag
     == csrf_meta_tags
 
-  body[
-    class="layout-fixed #{body_class}"
-    data-controller="global"
-    data-global-env-value="#{Rails.env}"
-    data-global-root-url-value="#{root_url}"
-    data-global-appearance-value="#{current_user&.appearance || Setting.site_appearance}"
-  ]
-    .app-wrapper
-      == render 'layouts/navigation'
-
-      main.app-main
+  body
+    .drawer class="lg:drawer-open"
+      input#zealot-drawer.drawer-toggle type="checkbox"
+      .drawer-content
+        == render 'layouts/navigation'
         == render 'layouts/content'
-
-      == render 'layouts/footer'
+        == render 'layouts/footer'
+      .drawer-side class="is-drawer-close:overflow-visible"
+        == render 'layouts/sidebar'
 
     == render 'layouts/notifications'
     == render 'layouts/analytics'
