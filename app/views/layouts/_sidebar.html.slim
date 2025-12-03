@@ -1,9 +1,10 @@
 - if user_signed_in_or_guest_mode?
   label.drawer-overlay for="zealot-drawer" aria-label="close sidebar"
   aside.flex.min-h-full.flex-col.items-start.bg-base-200[
-    class="is-drawer-close:w-16 is-drawer-open:w-50"
+    class="is-drawer-close:w-18 is-drawer-open:w-58"
   ]
-    == render 'layouts/brand_logo', site_title: Setting.site_title
+    .m-3
+      == render 'layouts/brand_logo', site_title: Setting.site_title
 
     ul.menu.menu-lg.w-full.grow
       = sidebar_link_to('fa-solid fa-th', root_path, text: t('dashboard.title'))
@@ -11,19 +12,19 @@
       = sidebar_link_to('fa-solid fa-archive', archived_apps_path, text: t('apps.archives.title'))
       = sidebar_link_to('fa-solid fa-bug', debug_files_path, text: t('debug_files.title'))
 
-      li class='is-drawer-close:hidden' = t('toolbox_section')
+      li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('toolbox_section')
       = sidebar_link_to('fa-solid fa-layer-group', teardowns_path, text: t('teardowns.title'))
       = sidebar_link_to('fa-solid fa-eye', udid_index_path, text: t('udid.title'))
 
       - if current_user&.admin?
-        li class='is-drawer-close:hidden' = t('admin_section')
+        li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('admin_section')
         = sidebar_link_to('fa-solid fa-user', admin_users_path, text: t('admin.users.title'))
         = sidebar_link_to('fa-solid fa-anchor', admin_web_hooks_path, text: t('web_hooks.title'))
         = sidebar_link_to('fa-solid fa-key', admin_apple_keys_path, text: t('admin.apple_keys.title'))
         = sidebar_link_to('fa-solid fa-window-restore', admin_backups_path, text: t('admin.backups.title'))
         = sidebar_link_to('fa-solid fa-cog', admin_settings_path, text: t('admin.settings.title'))
 
-        li class='is-drawer-close:hidden' = t('monitors_section')
+        li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('monitors_section')
         = sidebar_link_to('fa-solid fa-info-circle', admin_system_info_index_path, text: t('admin.system_info.title'))
         = sidebar_link_to('fa-solid fa-file-contract', admin_logs_path, text: t('admin.logs.title'))
         = sidebar_link_to('fa-solid fa-bars-progress', admin_background_jobs_path, text: t('admin.background_jobs.title'))

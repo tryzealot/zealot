@@ -31,8 +31,8 @@ html lang="#{I18n.locale}"
       .drawer-content
         == render 'layouts/navigation'
         == render 'layouts/content'
-        == render 'layouts/footer'
-      .drawer-side class="is-drawer-close:overflow-visible"
+        / == render 'layouts/footer'
+      .drawer-side
         == render 'layouts/sidebar'
 
     == render 'layouts/notifications'

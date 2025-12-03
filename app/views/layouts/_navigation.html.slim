@@ -3,7 +3,8 @@ nav.navbar.bg-base-100.shadow-sm
     .navbar-start
       label.btn.btn-square.btn-ghost for="zealot-drawer" aria-label="open sidebar"
         i.fa-solid.fa-bars
-      == render 'layouts/brand_logo', site_title: Setting.site_title
+      div class="md:hidden"
+        == render 'layouts/brand_logo', site_title: Setting.site_title
   - else
     .navbar-start
     .navbar-center
