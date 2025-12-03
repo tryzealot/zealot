@@ -27,12 +27,18 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def sidebar_link_to(icon, path, text:, active_path:nil, **options)
     active_path ||= path
-    link_class = "nav-link #{active_class(active_path)}"
-    tag.li(class: 'nav-item') do
-      icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
-        tag.p(text)
+    link_class = "is-drawer-close:tooltip is-drawer-close:tooltip-right #{active_class(active_path)}"
+    tag.li do
+      link_to path , class: "#{link_class}", data: { tip: text } do
+        concat(tag.i(class: icon))
+        concat(tag.span(text, class: 'is-drawer-close:hidden'))
       end
     end
+
+    #   icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
+    #     tag.span(text, class: 'is-drawer-close:hidden')
+    #   end
+    # end
   end
 
   def icon_link_to(icon, path, **options)
@@ -65,7 +71,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   # 激活 li 的 class
-  def active_class(link_paths, class_name = 'active')
+  def active_class(link_paths, class_name = 'menu-active')
     link_paths = [ link_paths ] if link_paths.is_a?(String)
 
     is_current = false
@@ -155,34 +161,6 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
       'AdHoc'
     else
       release_type.capitalize
-    end
-  end
-
-  def device_icon(device_type)
-    icon, _ = device_style(device_type)
-    tag.i(class: "fa-brands #{icon}")
-  end
-
-  def timeline_app_icon(device_type)
-    device_style(device_type).join(' ')
-  end
-
-  def device_style(device_type)
-    case device_type.downcase
-    when 'ios', 'appletv'
-      ['fa-apple', 'bg-secondary']
-    when 'android'
-      ['fa-android', 'bg-green-400']
-    when 'harmonyos'
-      ['fa-adn', 'bg-black']
-    when 'windows'
-      ['fa-windows', 'bg-primary']
-    when 'macos'
-      ['fa-app-store', 'bg-blue']
-    when 'linux'
-      ['fa-linux', 'bg-info']
-    else
-      ['fa-adn', 'bg-blue-400']
     end
   end
 
