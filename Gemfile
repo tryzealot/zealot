@@ -86,6 +86,7 @@ gem 'cssbundling-rails', '~> 1.4'
 ## Javascript
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0'
+gem 'vite_rails', '~> 3.0.19'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
