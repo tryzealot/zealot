@@ -31,7 +31,7 @@ class FlashComponent < ViewComponent::Base
     {
       notice: 'alert-success',
       warn:   'alert-warning',
-      alert:  'alert-danger'
+      alert:  'alert-error'
     }[type] || 'alert-info'
   end
 
