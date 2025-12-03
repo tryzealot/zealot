@@ -1,8 +1,9 @@
 import "@hotwired/turbo-rails"
-import "admin-lte"
 
-import { OverlayScrollbars } from "overlayscrollbars"
-import { Tooltip } from "bootstrap"
+// TODO: Remove this, unused imports
+// import "admin-lte"
+// import { OverlayScrollbars } from "overlayscrollbars"
+// import { Tooltip } from "bootstrap"
 
 // Patch AdminLTE to adapt to Turbo
 class FrameworkManager {
@@ -365,16 +366,16 @@ class FrameworkManager {
   }
 }
 
-const frameworkManager = new FrameworkManager()
+// const frameworkManager = new FrameworkManager()
 
-// Ensure initialization under various loading states
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    frameworkManager.init()
-  })
-} else {
-  frameworkManager.init()
-}
+// // Ensure initialization under various loading states
+// if (document.readyState === 'loading') {
+//   document.addEventListener('DOMContentLoaded', () => {
+//     frameworkManager.init()
+//   })
+// } else {
+//   frameworkManager.init()
+// }
 
-window.frameworkManager = frameworkManager
-export { frameworkManager }
+// window.frameworkManager = frameworkManager
+// export { frameworkManager }
