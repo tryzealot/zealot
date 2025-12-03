@@ -1,8 +1,8 @@
-footer.app-footer
-  .float-end.d-none.d-sm-inline
-    = show_api
-
-  div
-    span = powered_by
-    - if Setting.show_footer_version
-      span.px-1 = zealot_version
+- unless devise_page?
+  footer.bg-neutral.text-neutral-content.px-4.py-3.mt-auto
+    .max-w-7xl.mx-auto.flex.justify-between.items-center
+      span = powered_by
+      - if Setting.show_footer_version
+        = zealot_version
+    .flex.space-x-4
+      = show_api

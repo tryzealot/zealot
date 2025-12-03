@@ -1,27 +1,21 @@
-nav.app-header.navbar.navbar-expand.bg-body
-  .container-fluid
-    - if user_signed_in_or_guest_mode?
-      ul.navbar-nav
-        li.nav-item
-          button.nav-link data-lte-toggle="sidebar" role="button"
-            i.fa-solid.fa-bars
-
-      ul.navbar-nav.ms-auto
-        - if user_signed_in?
-          li.nav-item.dropdown
-            button.nav-link.dropdown-toggle data-bs-toggle="dropdown"
-              = current_user.username
-            .dropdown-menu.dropdown-menu-end
-              = link_to t('user_profile'), edit_user_registration_path, class: 'dropdown-item'
-              = button_to t('log_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
-        - else
-          li.nav-item
-            = link_to t('log_in'), new_user_session_path, class: 'nav-link'
-    - else
-      .navbar-empty
-        == render 'layouts/brand_logo', site_title: Setting.site_title
-
-// Main Sidebar Container
-- if user_signed_in_or_guest_mode?
-  // Sidebar
-  == render 'layouts/main_sidebar'
+nav.navbar.bg-base-100.shadow-sm
+  - if user_signed_in_or_guest_mode?
+    .navbar-start
+      label.btn.btn-square.btn-ghost for="zealot-drawer" aria-label="open sidebar"
+        i.fa-solid.fa-bars
+      == render 'layouts/brand_logo', site_title: Setting.site_title
+  - else
+    .navbar-start
+    .navbar-center
+      == render 'layouts/brand_logo', site_title: Setting.site_title
+  .navbar-end
+    - if user_signed_in?
+      .dropdown.dropdown-end
+        .btn.m-1 tabindex="0" role="button" = current_user.username
+        ul.dropdown-content.menu.bg-base-200.rounded-box.z-1.w-25.p-2.shadow-sm
+          li = link_to t('user_profile'), edit_user_registration_path
+          li = button_to t('log_out'), destroy_user_session_path, method: :delete
+    - elsif !devise_page?
+      ul.menu.menu-horizontal.px-1
+        li
+          = link_to t('log_in'), new_user_session_path, class: 'btn'
