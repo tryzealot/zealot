@@ -327,6 +327,7 @@ en:
       retained_build: Retained builds
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
+      total_builds: Total builds
       not_found_channel_body_html: |
         Not found any channel. Click the button to <i class="fa-regular fa-plus-square"></i> new a channel.
       not_found_scheme:
