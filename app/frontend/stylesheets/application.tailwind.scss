@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "~fontawesome/css/all.min.css";
+
+@plugin "daisyui";
+
+/* Load used tailwind + daisyui styles */
+@source "../../views/**/*.html.*";
+@source "../../views/**/*.rb";
+@source "../../helpers/**/*.rb";
+@source "../../components/**/*";
+/* @source "../../../config/initializers/simple_form_daisyui.rb";  */
+
+@source inline("sr-only");
