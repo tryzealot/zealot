@@ -1,10 +1,11 @@
-.card.d-none.d-sm-block.mb-3
+.card class="tw:hidden tw:md:block"
   .card-header
     h3.card-title = t('channels.show.channel')
-  .card-body.p-0
-    ul.nav.nav-pills.flex-column
+  .card-body class="tw:p-0"
+    ul class="tw:list"
       - @channel.scheme.channels.each do |channel|
-        li.nav-item
+        ruby:
+          actived_class = (params[:id] || params[:channel]) == channel.slug ? 'tw:bg-primary' : ''
+        li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
           = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
-            class: "nav-link nav-link-flat #{(params[:id] || params[:channel]) == channel.slug ? 'active' : ''}", \
             data: { turbo_action: :advance }

@@ -10,8 +10,7 @@
       class: 'tw:btn tw:btn-success', data: { turbo_frame: 'modal' }
 
 - if @apps.present?
-  #search-bar class="tw:mb-4"
-    == render 'apps/search'
+  == render 'apps/search'
 
 - if @apps.present?
   ul#apps class="tw:list tw:bg-base-100 tw:rounded-box tw:shadow-md"

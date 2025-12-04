@@ -316,12 +316,14 @@ zh-CN:
       new_channel: 新增渠道
       edit_scheme: 编辑类型
       destroy_scheme: 删除类型
+      edit_channel: 编辑渠道
+      destroy_channel: 删除渠道
       retained_build: 最大版本保留数
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
       total_builds: 上传版本数
       not_found_channel_body_html: |
-        没有发现任何渠道，选择右上角的 <i class="fa-regular fa-plus-square"></i> 新增渠道
+        没有发现任何渠道，点击底部的 <i class="fa-solid fa-plus-square"></i> 按钮新增渠道
       not_found_scheme:
         title: 没有发现任何应用类型
         body_html: |

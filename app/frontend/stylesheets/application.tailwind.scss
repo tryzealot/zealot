@@ -1,14 +1,12 @@
-@import "tailwindcss" prefix(tw);
 @import "~fontawesome/css/all.min.css";
-/* @import "./components/adminlte-card.css"; */
-
+@import "tailwindcss" prefix(tw);
 @plugin "daisyui";
+
+@import "./components/card.css";
 
 /* Load used tailwind + daisyui styles */
 @source "../../views/**/*.html.*";
-@source "../../views/**/*.rb";
 @source "../../helpers/**/*.rb";
 @source "../../components/**/*";
 @source "../../../config/initializers/simple_form_daisyui.rb";
 
-@source inline("sr-only");

@@ -1,3 +1,6 @@
+ruby: 
+  schemes_total = @app.schemes.count
+
 - content_for :title do
   = @app.name 
 
@@ -22,8 +25,8 @@
         class: 'tw:btn tw:join-item tw:tooltip tw:text-error', \
         data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
-#schemes
-  - if @app.schemes.count.positive?
+#schemes class="tw:gap-4 tw:mb-4 #{app_scheme_columns(schemes_total)}"
+  - if schemes_total.positive?
     - @app.schemes.each do |scheme|
       == render 'scheme', scheme: scheme
   - else

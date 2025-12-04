@@ -6,10 +6,10 @@ ruby:
   = f.error_notification
   = f.input :name, required: true
   = f.input :retained_builds
-  = f.input :new_build_callout, value: true
+  = f.input :new_build_callout, as: :boolean
 
   - if new_or_create_route?
     = f.simple_fields_for :channel_attributes do |n|
       = n.input :name, as: :check_boxes, collection: preset_channels, checked: checked_channel
-  .float-right
-    = f.button :submit
+
+  = f.button :submit, class: 'tw:mt-2'

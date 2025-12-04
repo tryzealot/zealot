@@ -7,9 +7,9 @@ zh-CN:
       mark: "*"
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
+      html: "*"
     error_notification:
-      default_message: "请检查如下问题:"
+      default_message: "请检查如下问题"
     labels:
       defaults:
         name: 名称
@@ -41,7 +41,7 @@ zh-CN:
         git_url: Git 仓库地址
         slug: 唯一地址
         password: 访问密码
-        download_filename_type: 下载文件文件名类型
+        download_filename_type: 下载文件名类型
       release:
         file: 应用文件
         release_version: 产品版本

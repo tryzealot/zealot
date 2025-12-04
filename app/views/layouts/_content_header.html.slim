@@ -5,10 +5,12 @@ ruby:
 
 // Content Header (Page header)
 - if section_title.present?
-  .app-container-header class="tw:flex tw:min-w-0 tw:items-center tw:justify-between tw:mb-5"
+  .app-container-header class="tw:flex tw:min-w-0 tw:items-center tw:justify-between tw:py-2"
     div class="tw:min-w-0 tw:items-center"
       h2 class="tw:text-2xl tw:font-bold" = yield :section_title
 
     - if right_panel.present?
-      div class="tw:ml-6 tw:flex tw:items-center"
+      div class="tw:flex tw:items-center"
         = right_panel
+- else
+  div class="tw:py-2"

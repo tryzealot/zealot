@@ -1,26 +1,20 @@
 ruby:
   avaiable_users = User.avaiables(app.collaborator_user_ids)
 
-.col-md-12
-  .card
-    - if new_or_create_route?
-      - if avaiable_users.present?
-        = simple_form_for [app, collaborator], data: { action: 'turbo:submit-end->modal#close' } do |f|
-          .card-body
-            = f.error_notification
+- if new_or_create_route?
+  - if avaiable_users.present?
+    = simple_form_for [app, collaborator], data: { action: 'turbo:submit-end->modal#close' } do |f|
+      = f.error_notification
 
-            = f.association :user, collection: avaiable_users, label_method: :username, value_method: :id, include_blank: false
-            = f.input :role, collection: collaborator_roles, include_blank: false
-          .card-footer
-            = f.button :submit
-      - else
-        .card-body
-          = t('collaborators.new.errors.all_users_were_added')
-    - else
-      = simple_form_for collaborator, url: app_collaborator_path(app, id: collaborator.user.id), data: { action: 'turbo:submit-end->modal#close' } do |f|
-        .card-body
-          = f.error_notification
-          = f.association :user, label_method: :username, value_method: :id, disabled: true
-          = f.input :role, collection: collaborator_roles, include_blank: false
-        .card-footer
-          = f.button :submit
+      = f.association :user, collection: avaiable_users, label_method: :username, value_method: :id, include_blank: false
+      = f.input :role, collection: collaborator_roles, include_blank: false  
+      = f.button :submit
+  - else
+    div class="tw:text-warning"
+      = t('collaborators.new.errors.all_users_were_added')
+- else
+  = simple_form_for collaborator, url: app_collaborator_path(app, id: collaborator.user.id), data: { action: 'turbo:submit-end->modal#close' } do |f|
+    = f.error_notification
+    = f.association :user, label_method: :username, value_method: :id, disabled: true
+    = f.input :role, collection: collaborator_roles, include_blank: false
+    = f.button :submit

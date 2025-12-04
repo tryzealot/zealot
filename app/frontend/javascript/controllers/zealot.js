@@ -9,7 +9,7 @@ Zealot.isDarkMode = function () {
 
 Zealot.isDevelopment = function () {
   // env was given value in global_controller
-  return Zealot.env === DEVELOPMENT_ENV
+  return import.meta.env.RAILS_ENV === DEVELOPMENT_ENV
 }
 
 window.Zealot = Zealot

@@ -10,11 +10,10 @@ module AppsHelper
   end
 
   def app_scheme_columns(schemes_total)
-    case schemes_total
-    when 1 then 12
-    when 2 then 6
-    else 4
-    end
+    md_cols = schemes_total >= 2 ? 2 : 1
+    lg_cols = schemes_total >= 4 ? 4 : schemes_total
+
+    "tw:grid tw:grid-cols-1 tw:md:grid-cols-#{md_cols} tw:lg:grid-cols-#{lg_cols}"
   end
 
   def app_icon(release, options = {})
