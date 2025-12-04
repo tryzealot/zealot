@@ -1,11 +1,11 @@
 = turbo_frame_tag app do
-  li.list-row
+  li class="tw:list-row"
     div
-      = link_to app_icon(app.recently_release, class: 'size-20 rounded-box'), app_path(app), data: { turbo: false }
+      = link_to app_icon(app.recently_release, class: 'tw:size-20 tw:rounded-box'), app_path(app), data: { turbo: false }
     div
-      p = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo: false }
-      p.tooltip.tooltip-right.text-primary-content/50 data-tip=l(app.created_at, format: :nice) = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
-      .breadcrumbs.text-sm
+      p = link_to app.name, app_path(app), class: 'tw:text-lg tw:font-bold', data: { turbo: false }
+      p class="tw:tooltip tw:tooltip-right tw:text-primary-content/50" data-tip=l(app.created_at, format: :nice) = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+      div class="tw:breadcrumbs tw:text-sm"
         ul
           li = "#{app.total_schemes} #{t('apps.index.schemes')}"
           li = "#{app.total_channels} #{t('apps.index.channels')}"
@@ -14,42 +14,9 @@
     - if current_user&.manage?(app: @app)
       - if app.archived 
         = button_link_to '', archived_app_path(app), 'history', \
-          class: 'btn btn-square btn-ghost tooltip tooltip-left', \
+          class: 'tw:btn tw:btn-square tw:btn-ghost tw:tooltip tw:tooltip-left', \
           data: { tip: t('apps.show.unarchive_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
       - else
         = button_link_to '', archived_app_path(app), 'archive', \
-          class: 'btn btn-square btn-ghost tooltip tooltip-left', \
+          class: 'tw:btn tw:btn-square tw:btn-ghost tw:tooltip tw:tooltip-left', \
           data: { tip: t('apps.show.archive_app'), turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }
-
-
-      / small.text-muted title="#{l(app.created_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom"
-      /   = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
-
-    / .actions
-    /   - if current_user&.manage?(app: @app)
-    /     - if app.archived 
-    /       = button_link_to '', archived_app_path(app), 'history', \
-    /         class: 'btn-outline btn-icon btn-sm', title: t('apps.show.unarchive_app'), \
-    /         data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
-    /     - else
-    /       = button_link_to '', archived_app_path(app), 'archive', \
-    /         class: 'btn-outline btn-icon btn-sm', title: t('apps.show.archive_app'), \
-    /         data: { toggle: :tooltip, turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }
-
-    / .card-body.p-0
-    /   .text-center.mt-3
-    /     = link_to app_icon(app.recently_release, class: 'app-icon shadow-sm rounded-circle'), app_path(app), data: { turbo: false }
-    /   h3.profile-username.text-center
-    /     = link_to app.name, app_path(app), data: { turbo: false }
-    /   p.created-time.text-muted.text-center title="#{l(app.created_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom"
-    /     = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
-    /   .d-flex.flex-column.pt-2
-    /     .border-top.py-2.px-3
-    /       b = t('apps.index.schemes')
-    /       span.float-end = app.total_schemes
-    /     .border-top.py-2.px-3
-    /       b = t('apps.index.channels')
-    /       span.float-end = app.total_channels
-    /     .border-top.py-2.px-3
-    /       b = t('apps.index.uploads')
-    /       span.float-end = app.total_releases

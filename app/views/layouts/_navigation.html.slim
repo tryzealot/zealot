@@ -1,22 +1,22 @@
-nav.navbar.bg-base-100.shadow-sm
+nav class="tw:navbar tw:bg-base-100 tw:shadow-sm"
   - if user_signed_in_or_guest_mode?
-    .navbar-start
-      label.btn.btn-square.btn-ghost for="zealot-drawer" aria-label="open sidebar"
+    div class="tw:navbar-start"
+      label class="tw:btn tw:btn-square tw:btn-ghost tw:drawer-button" for="zealot-drawer" aria-label="open sidebar"
         i.fa-solid.fa-bars
-      div class="md:hidden"
+      div class="tw:md:hidden"
         == render 'layouts/brand_logo', site_title: Setting.site_title
   - else
-    .navbar-start
-    .navbar-center
+    div class="tw:navbar-start"
+    div class="tw:navbar-center"
       == render 'layouts/brand_logo', site_title: Setting.site_title
-  .navbar-end
+  div class="tw:navbar-end"
     - if user_signed_in?
-      .dropdown.dropdown-end
-        .btn.m-1 tabindex="0" role="button" = current_user.username
-        ul.dropdown-content.menu.bg-base-200.rounded-box.z-1.w-25.p-2.shadow-sm
+      div class="tw:dropdown tw:dropdown-end"
+        div class="tw:btn tw:m-1" tabindex="0" role="button" = current_user.username
+        ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-25 tw:p-2 tw:shadow-sm"
           li = link_to t('user_profile'), edit_user_registration_path
           li = button_to t('log_out'), destroy_user_session_path, method: :delete
     - elsif !devise_page?
-      ul.menu.menu-horizontal.px-1
+      ul class="tw:menu tw:menu-horizontal tw:px-1"
         li
-          = link_to t('log_in'), new_user_session_path, class: 'btn'
+          = link_to t('log_in'), new_user_session_path, class: 'tw:btn'

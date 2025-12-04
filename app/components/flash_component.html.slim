@@ -1,6 +1,6 @@
-.alert[
+div[
   role="alert"
-  class="#{@style}"
+  class="tw:alert #{@style}"
   style="min-width: 340px; max-width: 420px"
   data-controller="notification"
   data-notification-delay-value="#{1000000}"
@@ -8,7 +8,7 @@
   i class="fa-solid fa-#{@icon} fs-3"
   div
     - if @title.present?
-      h3.font-bold = @title
-      .text-xs = @message
+      h3 class="tw:font-bold" = @title
+      div class="tw:text-xs" = @message
     - else
       = @message

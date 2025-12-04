@@ -1,8 +1,8 @@
 - unless devise_page?
-  footer.bg-neutral.text-neutral-content.px-4.py-3.mt-auto
-    .max-w-7xl.mx-auto.flex.justify-between.items-center
+  footer class="tw:bg-neutral tw:text-neutral-content tw:px-4 tw:py-3 tw:mt-auto"
+    div class="tw:max-w-7xl tw:mx-auto tw:flex tw:justify-between tw:items-center"
       span = powered_by
       - if Setting.show_footer_version
         = zealot_version
-    .flex.space-x-4
+    div class="tw:flex tw:space-x-4"
       = show_api

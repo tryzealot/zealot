@@ -1,5 +1,5 @@
-.stats.shadow.w-full
-  .grid.grid-cols-4.gap-1 class="md:grid-cols-8"
+div class="tw:stats tw:shadow tw:w-full"
+  div class="tw:grid tw:grid-cols-4 tw:gap-1 md:grid-cols-8"
     == render 'widget', title: t('dashboard.analytics.apps'), count: @analytics[:apps], url: apps_path, icon: 'fa-brands fa-adn'
     == render 'widget', title: t('dashboard.analytics.debug_files'), count: @analytics[:debug_files], url: debug_files_path, icon: 'fa-solid fa-bug'
     == render 'widget', title: t('dashboard.analytics.teardowns'), count: @analytics[:teardowns], url: teardowns_path, icon: 'fa-solid fa-layer-group'

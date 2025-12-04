@@ -1,61 +1,31 @@
 - if user_signed_in_or_guest_mode?
-  label.drawer-overlay for="zealot-drawer" aria-label="close sidebar"
-  aside.flex.min-h-full.flex-col.items-start.bg-base-200[
-    class="is-drawer-close:w-18 is-drawer-open:w-58"
+  label class="tw:drawer-overlay" for="zealot-drawer" aria-label="close sidebar"
+  aside[
+    class="tw:flex tw:min-h-full tw:flex-col tw:items-start tw:bg-base-200 tw:is-drawer-close:w-18 tw:is-drawer-open:w-58"
   ]
-    .m-3
+    div class="tw:m-3"
       == render 'layouts/brand_logo', site_title: Setting.site_title
 
-    ul.menu.menu-lg.w-full.grow
+    ul class="tw:menu tw:menu-lg tw:w-full tw:grow"
       = sidebar_link_to('fa-solid fa-th', root_path, text: t('dashboard.title'))
       = sidebar_link_to('fa-brands fa-adn', apps_path, text: t('apps.title'))
       = sidebar_link_to('fa-solid fa-archive', archived_apps_path, text: t('apps.archives.title'))
       = sidebar_link_to('fa-solid fa-bug', debug_files_path, text: t('debug_files.title'))
 
-      li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('toolbox_section')
+      li class="tw:mt-4 tw:ml-4 tw:font-bold tw:text-lg tw:is-drawer-close:hidden" = t('toolbox_section')
       = sidebar_link_to('fa-solid fa-layer-group', teardowns_path, text: t('teardowns.title'))
       = sidebar_link_to('fa-solid fa-eye', udid_index_path, text: t('udid.title'))
 
       - if current_user&.admin?
-        li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('admin_section')
+        li class="tw:mt-4 tw:ml-4 tw:font-bold tw:text-lg tw:is-drawer-close:hidden" = t('admin_section')
         = sidebar_link_to('fa-solid fa-user', admin_users_path, text: t('admin.users.title'))
         = sidebar_link_to('fa-solid fa-anchor', admin_web_hooks_path, text: t('web_hooks.title'))
         = sidebar_link_to('fa-solid fa-key', admin_apple_keys_path, text: t('admin.apple_keys.title'))
         = sidebar_link_to('fa-solid fa-window-restore', admin_backups_path, text: t('admin.backups.title'))
         = sidebar_link_to('fa-solid fa-cog', admin_settings_path, text: t('admin.settings.title'))
 
-        li.mt-4.ml-4.font-bold.text-lg class='is-drawer-close:hidden' = t('monitors_section')
+        li class="tw:mt-4 tw:ml-4 tw:font-bold tw:text-lg tw:is-drawer-close:hidden" = t('monitors_section')
         = sidebar_link_to('fa-solid fa-info-circle', admin_system_info_index_path, text: t('admin.system_info.title'))
         = sidebar_link_to('fa-solid fa-file-contract', admin_logs_path, text: t('admin.logs.title'))
         = sidebar_link_to('fa-solid fa-bars-progress', admin_background_jobs_path, text: t('admin.background_jobs.title'))
         = sidebar_link_to('fa-solid fa-database', admin_database_analytics_path, text: t('admin.database_analytics.title'))
-
-
-  / aside.app-sidebar.bg-body-secondary.shadow
-  /   .sidebar-brand
-  /     == render 'layouts/brand_logo', site_title: Setting.site_title
-  /   .sidebar-wrapper
-  /     nav.mt-2
-  /       ul.nav.sidebar-menu.flex-column data-lte-toggle="treeview" role="menu" data-accordion="false"
-  /         = sidebar_link_to('fa-solid fa-th', root_path, text: t('dashboard.title'))
-  /         = sidebar_link_to('fa-brands fa-adn', apps_path, text: t('apps.title'))
-  /         = sidebar_link_to('fa-solid fa-archive', archived_apps_path, text: t('apps.archives.title'))
-  /         = sidebar_link_to('fa-solid fa-bug', debug_files_path, text: t('debug_files.title'))
-
-  /         li.nav-header = t('toolbox_section')
-  /         = sidebar_link_to('fa-solid fa-layer-group', teardowns_path, text: t('teardowns.title'))
-  /         = sidebar_link_to('fa-solid fa-eye', udid_index_path, text: t('udid.title'))
-
-  /         - if current_user&.admin?
-  /           li.nav-header = t('admin_section')
-  /           = sidebar_link_to('fa-solid fa-user', admin_users_path, text: t('admin.users.title'))
-  /           = sidebar_link_to('fa-solid fa-anchor', admin_web_hooks_path, text: t('web_hooks.title'))
-  /           = sidebar_link_to('fa-solid fa-key', admin_apple_keys_path, text: t('admin.apple_keys.title'))
-  /           = sidebar_link_to('fa-solid fa-window-restore', admin_backups_path, text: t('admin.backups.title'))
-  /           = sidebar_link_to('fa-solid fa-cog', admin_settings_path, text: t('admin.settings.title'))
-
-  /           li.nav-header = t('monitors_section')
-  /           = sidebar_link_to('fa-solid fa-info-circle', admin_system_info_index_path, text: t('admin.system_info.title'))
-  /           = sidebar_link_to('fa-solid fa-file-contract', admin_logs_path, text: t('admin.logs.title'))
-  /           = sidebar_link_to('fa-solid fa-bars-progress', admin_background_jobs_path, text: t('admin.background_jobs.title'))
-  /           = sidebar_link_to('fa-solid fa-database', admin_database_analytics_path, text: t('admin.database_analytics.title'))

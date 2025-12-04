@@ -4,11 +4,11 @@ ruby:
   asc_active = params[:sort] == "desc" ? "active" : ""
 
 form action=apps_path method="get"
-  .join.w-full
-    input.join-item.input.w-full name="search" value=params[:search] placeholder=t('apps.index.searching_app') type="text"
-    button.join-item.btn type="submit"
+  div class="tw:join tw:w-full"
+    input class="tw:join-item tw:input tw:w-full" name="search" value=params[:search] placeholder=t('apps.index.searching_app') type="text"
+    button class="tw:join-item tw:btn" type="submit"
       i.fa-solid.fa-search
     = button_link_to '', apps_path(current_params.merge(sort: :asc)), 'arrow-down-a-z', \
-      class: 'join-item btn'
+      class: 'tw:join-item tw:btn'
     = button_link_to '', apps_path(current_params.merge(sort: :desc)), 'arrow-up-z-a', \
-      class: 'join-item btn'
+      class: 'tw:join-item tw:btn'
