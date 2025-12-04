@@ -3,7 +3,7 @@ ruby:
   desc_active = params[:sort] == "asc" ? "active" : ""
   asc_active = params[:sort] == "desc" ? "active" : ""
 
-form action=apps_path method="get"
+form id="app-search-bar" action=apps_path method="get" class="tw:mt-2"
   div class="tw:join tw:w-full"
     input class="tw:join-item tw:input tw:w-full" name="search" value=params[:search] placeholder=t('apps.index.searching_app') type="text"
     button class="tw:join-item tw:btn" type="submit"

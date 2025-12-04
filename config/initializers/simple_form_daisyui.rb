@@ -2,6 +2,11 @@
 
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
+  DEFAULT_LABEL_CLASS = 'tw:fieldset-legend'
+  DEFAULT_INPUT_LABEL_CLASS = 'tw:text-md tw:font-semibold'
+  DEFAULT_HINT_WRAP =  { tag: 'p', class: 'tw:label tw:mt-1 tw:text-xs tw:opacity-70 tw:whitespace-normal tw:break-words' }
+  DEFAULT_ERROR_WRAP = { tag: 'p', class: 'tw:mt-1 tw:text-error tw:text-xs tw:whitespace-normal tw:break-words' }
+
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
   config.default_form_class = 'tw:space-y-4'
@@ -29,17 +34,15 @@ SimpleForm.setup do |config|
   config.error_notification_class = 'tw:alert tw:alert-error'
 
   # Method used to tidy up errors. Specify any Rails Array method.
-  config.error_method = :to_sentence
+  config.error_method = :titem_wrapper_tago_sentence
 
   # add validation classes to `input_field`
   config.input_field_error_class = 'tw:input-error'
-  config.input_field_valid_class = 'tw:input-success'
-  config.label_class = 'tw:label-text tw:text-sm'
+  # config.input_field_valid_class = 'tw:input-success'
+  # config.label_class = 'tw:text-md tw:font-semibold'
 
-  # vertical forms
-  #
-  # vertical default_wrapper
-  config.wrappers :vertical_form, tag: 'fieldset', class: 'tw:fieldset ' do |b|
+  # vertical forms (default_wrapper)
+  config.wrappers :vertical_form, tag: 'fieldset', class: 'tw:fieldset' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -47,124 +50,136 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'tw:fieldset-legend', error_class: 'tw:text-error'
-    b.use :input, class: 'tw:input tw:w-full', error_class: 'tw:input-error', valid_class: 'tw:input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'tw:mt-2 tw:text-error tw:text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'tw:label' }
+    b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error'
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+    b.use :input, class: 'tw:input tw:w-full'
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
   # vertical input for boolean (aka checkboxes)
-  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'fieldset', error_class: '' do |b|
+  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'tw:fieldset' do |b|
     b.use :html5
     b.optional :readonly
-    b.use :input, class: 'tw:checkbox', error_class: 'tw:input-error', valid_class: 'tw:input-success'
-    b.use :label, class: 'tw:font-bold tw:text-base-content tw:pl-2', error_class: 'tw:text-error'
-    b.use :hint, wrap_with: { tag: 'p', class: 'tw:pt-2 tw:block tw:text-xs tw:opacity-70' }
-    b.use :full_error, wrap_with: { tag: 'p', class: 'tw:block tw:text-error tw:text-xs' }
+    b.wrapper :legend_tag, tag: 'label', class: DEFAULT_INPUT_LABEL_CLASS, error_class: 'tw:text-error' do |ba|
+      ba.use :input, class: 'tw:toggle tw:toggle-primary tw:mr-2'
+      ba.use :label_text
+    end
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
   end
 
   # vertical input for radio buttons and check boxes
   config.wrappers :vertical_collection, tag: 'div',
-                  class: 'fieldset',
+                  class: 'tw:fieldset',
                   item_wrapper_class: 'tw:mb-1',
-                  item_label_class: 'tw:font-bold tw:text-base-content tw:pl-2' do |b|
+                  item_label_class: "#{DEFAULT_INPUT_LABEL_CLASS} tw:pl-2" do |b|
     b.use :html5
     b.optional :readonly
-    b.wrapper :legend_tag, tag: 'legend', class: 'tw:fieldset-legend', error_class: 'tw:text-error' do |ba|
+    b.wrapper :legend_tag, tag: 'p', class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error' do |ba|
       ba.use :label_text
     end
-
-    b.use :input, class: 'tw:radio', error_class: 'tw:text-error', valid_class: 'tw:text-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'tw:block tw:mt-2 tw:text-error tw:text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'tw:mt-2 tw:text-xs tw:opacity-70' }
+    b.use :input, class: 'tw:toggle tw:toggle-primary'
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
   end
 
   # vertical file input
-  config.wrappers :vertical_file, tag: 'fieldset', class: '' do |b|
+  config.wrappers :vertical_file, tag: 'fieldset', class: 'tw:fieldset' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
     b.optional :minlength
     b.optional :readonly
-    b.use :label, class: 'tw:label tw:label-text text-sm block', error_class: 'tw:text-error'
-    b.use :input, class: 'file-input file-input-bordered', error_class: 'input-error',
-                  valid_class: 'input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'tw:mt-2 tw:text-error tw:text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'tw:mt-2 tw:text-xs tw:opacity-70' }
-  end
-
-  # vertical multi select
-  config.wrappers :vertical_multi_select, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.wrapper tag: 'div', class: 'inline-flex space-x-1' do |ba|
-      ba.use :input, class: 'select select-bordered', error_class: 'select-error', valid_class: 'select-success'
-    end
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
-  end
-
-  # vertical date input
-  config.wrappers :vertical_date, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
-  end
-
-  # vertical time input
-  config.wrappers :vertical_time, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
-  end
-
-  # vertical date time
-  config.wrappers :vertical_datetime, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
-  end
-
-  # vertical date time zone
-  config.wrappers :vertical_datetime_local, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
+    b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error'
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+    b.use :input, class: 'tw:file-input tw:w-full', error_class: 'tw:input-error', valid_class: 'tw:input-success'
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
   # vertical select
-  config.wrappers :vertical_select, tag: 'div', class: '', error_class: 'f', valid_class: '' do |b|
+  config.wrappers :vertical_select, tag: 'fieldset', class: 'tw:fieldset' do |b|
     # b.use :html5
     b.optional :readonly
-    b.use :label, class: 'tw:fieldset-legend', error_class: 'tw:text-error'
-    b.use :input, class: 'tw:select', error_class: 'tw:select-error', valid_class: 'tw:select-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'tw:mt-2 tw:text-error tw:text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'tw:label' }
+    b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error'
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+    b.use :input, class: 'tw:select tw:w-full'
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
-  # vertical range
-  config.wrappers :vertical_range, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
+  # vertical multi select
+  # config.wrappers :vertical_multi_select, tag: 'fieldset', class: 'tw:fieldset', error_class: 'f', valid_class: '' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.use :label, class: 'tw:fieldset-legend', error_class: 'tw:text-error'
+  #   b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+  #   b.wrapper tag: 'div', class: 'inline-flex space-x-1' do |ba|
+  #     ba.use :input, class: 'tw:select tw:select-bordered', error_class: 'tw:select-error', valid_class: 'tw:select-success'
+  #   end
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
+  # # vertical range
+  # config.wrappers :vertical_range, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.optional :step
+  #   b.use :label, class: 'tw:fieldset-legend', error_class: 'tw:text-error'
+  #   b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+  #   b.use :input, class: 'range', error_class: 'range-error', valid_class: 'range-success'
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
+  # textarea
+  config.wrappers :vertical_textarea, tag: 'fieldset', class: 'tw:fieldset' do |b|
     b.use :html5
+    b.use :placeholder
     b.optional :readonly
-    b.optional :step
-    b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
-    b.use :input, class: 'range', error_class: 'range-error', valid_class: 'range-success'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
-    b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-xs opacity-70' }
+    b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error'
+    b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
+    b.use :input, class: 'tw:textarea tw:w-full'
+    b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
+
+  # # vertical date input
+  # config.wrappers :vertical_date, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
+  #   b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
+  #   b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
+  # # vertical time input
+  # config.wrappers :vertical_time, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
+  #   b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
+  #   b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
+  # # vertical date time
+  # config.wrappers :vertical_datetime, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
+  #   b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
+  #   b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
+  # # vertical date time zone
+  # config.wrappers :vertical_datetime_local, tag: 'fieldset', class: '', error_class: 'f', valid_class: '' do |b|
+  #   b.use :html5
+  #   b.optional :readonly
+  #   b.use :label, class: 'label label-text text-sm block', error_class: 'text-error'
+  #   b.use :input, class: 'input input-bordered', error_class: 'input-error', valid_class: 'input-success'
+  #   b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-error text-xs' }
+  #   b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  # end
+
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form
@@ -173,15 +188,16 @@ SimpleForm.setup do |config|
   # type as key and the wrapper used for the input.
   config.wrapper_mappings = {
     boolean: :vertical_boolean,
+    # range: :vertical_range,
+    select: :vertical_select,
+    file: :vertical_file,
+    text: :vertical_textarea,
     check_boxes: :vertical_collection,
     collection: :vertical_collection,
-    date: :vertical_date,
-    datetime: :vertical_datetime,
-    file: :vertical_file,
     radio_buttons: :vertical_collection,
-    range: :vertical_range,
-    select: :vertical_select,
-    time: :vertical_time,
-    datetime_local: :vertical_datetime_local
+    # date: :vertical_date,
+    # datetime: :vertical_datetime,
+    # time: :vertical_time,
+    # datetime_local: :vertical_datetime_local,
   }
 end

@@ -1,11 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
-import { Modal } from "bootstrap"
 
 // Connects to data-controller="modal"
 export default class extends Controller {
   connect() {
-    this.modal = new Modal(this.element)
-    this.modal.show()
+    this.element.showModal()
   }
 
   disconnect() {
@@ -17,7 +15,7 @@ export default class extends Controller {
   }
 
   clear() {
-    this.modal.hide()
+    // this.modal.hide()
     this.element.remove()
   }
 }

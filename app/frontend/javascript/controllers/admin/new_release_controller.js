@@ -9,7 +9,7 @@ export default class extends Controller {
   static targets = ["newVersion"]
 
   connect() {
-    if (Zealot.isDevelopment()) {
+    if (Zealot.isDevelopment) {
       this.render(this.titleValue, PROJECT_URL)
     } else {
       this.check()

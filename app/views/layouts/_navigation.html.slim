@@ -1,4 +1,4 @@
-nav class="tw:navbar tw:bg-base-100 tw:shadow-sm"
+div class="tw:navbar tw:bg-base-300 tw:shadow-lg tw:shadow-red-800"
   - if user_signed_in_or_guest_mode?
     div class="tw:navbar-start"
       label class="tw:btn tw:btn-square tw:btn-ghost tw:drawer-button" for="zealot-drawer" aria-label="open sidebar"
@@ -13,7 +13,7 @@ nav class="tw:navbar tw:bg-base-100 tw:shadow-sm"
     - if user_signed_in?
       div class="tw:dropdown tw:dropdown-end"
         div class="tw:btn tw:m-1" tabindex="0" role="button" = current_user.username
-        ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-25 tw:p-2 tw:shadow-sm"
+        ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-32 tw:p-2 tw:shadow-sm"
           li = link_to t('user_profile'), edit_user_registration_path
           li = button_to t('log_out'), destroy_user_session_path, method: :delete
     - elsif !devise_page?

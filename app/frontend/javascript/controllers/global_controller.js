@@ -17,7 +17,6 @@ export default class extends Controller {
 
     try {
       this.initZealot()
-      this.setupRailsDebugMode()
       this.switchDarkMode()
       this.isInitialized = true
     } catch (error) {
@@ -46,10 +45,5 @@ export default class extends Controller {
 
   setGoodJobThemeMode(appearance) {
     localStorage.setItem("good_job-theme", appearance);
-  }
-
-  setupRailsDebugMode() {
-    application.debug = Zealot.isDevelopment()
-    ActionCable.logger.enabled = Zealot.isDevelopment()
   }
 }

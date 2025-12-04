@@ -1,12 +1,16 @@
-= turbo_frame_tag channel, class: 'd-flex border-top' do
-  .p-2.m-2.flex-grow-1
-    = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
-    .badge.text-bg-secondary.ms-2 title="#{t('apps.show.total_builds')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-      = channel.releases.count
-  - if current_user&.manage?(app: app)
-    .py-2.px-1.flex-shrink-1
-      - if !app.archived
-        = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', class: 'btn-box-tool', \
-          data: { turbo_frame: :modal }
-        = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', class: 'btn-box-tool', \
-          data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
+= turbo_frame_tag channel, class: '' do
+  li class="tw:list-row"
+    div class="tw:col-span-full tw:flex tw:justify-between tw:items-center"
+      div class="tw:grow"
+        = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
+        span class="tw:badge tw:badge-sm tw:bg-neutral tw:ms-2 tw:tooltip" data-tip=t('apps.show.total_builds')
+          = channel.releases.count
+      - if current_user&.manage?(app: app)
+        div class="tw:flex tw:gap-2"
+          - if !app.archived
+            = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', \
+              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip', \
+              data: { tip: t('apps.show.edit_channel'), turbo_frame: :modal }
+            = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', \
+              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip', \
+              data: { tip: t('apps.show.destroy_channel'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }

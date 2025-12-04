@@ -1,20 +1,25 @@
-= turbo_frame_tag collaborator, class: 'p-2 ps-3 border-top d-flex' do
-  .col-5.my-auto
-    = collaborator.user.username
-    - if collaborator.owner?
-      span.badge.text-bg-primary.ms-1 = t('apps.show.collaborator_owner')
-    - if same_user?(collaborator)
-      span.badge.text-bg-secondary.ms-1 = t('apps.show.it_is_you')
-  .col-5.my-auto = t(collaborator.role, scope: 'settings.preset_role')
-  .col-2.my-auto.pe-2
+= turbo_frame_tag collaborator, class: 'tw:flex tw:flex-row tw:items-center tw:border-t tw:py-2  tw:px-3' do
+  div class="tw:basis-2/4"
+    div class="tw:xs:grid tw:md:flex tw:grid-cols-1 tw:justify-start tw:gap-1"
+      div = collaborator.user.username
+      div
+        - if collaborator.owner?
+          span class="tw:badge tw:badge-xs tw:md:badge-sm tw:badge-secondary" = t('apps.show.collaborator_owner')
+        - if same_user?(collaborator)
+          span class="tw:badge tw:badge-xs tw:md:badge-sm tw:badge-neutral" = t('apps.show.it_is_you')
+  div class="tw:basis-1/4" = t(collaborator.role, scope: 'settings.preset_role')
+  div class="tw:basis-1/4 tw:flex tw:justify-end tw:gap-1"
     - if @app.archived
       / nothing to do
     - elsif collaborator.owner?
       - if same_user?(collaborator) || current_user.admin?
-        = button_link_to '', new_owner_app_path(@app), 'people-arrows', class: 'float-end', data: { turbo_frame: :modal }
+        = button_link_to '', new_owner_app_path(@app), 'people-arrows', \
+          class: 'tw:btn-square tw:btn-ghost', data: { turbo_frame: :modal }
     - elsif edit_role_user?(collaborator)
-      .d-flex.justify-content-end
+      div class="tw:join tw:space-x-1"
         = button_link_to '', edit_app_collaborator_path(@app, collaborator.user_id), 'edit', \
-          data: { turbo_frame: :modal }, class: 'btn-box-tool p-1 me-3'
-        = button_link_to '', app_collaborator_path(@app, collaborator.user_id), 'trash-alt', class: 'btn-box-tool p-1', \
+          class: 'tw:join-item tw:btn-square tw:btn-ghost', \
+          data: { turbo_frame: :modal }
+        = button_link_to '', app_collaborator_path(@app, collaborator.user_id), 'trash-alt', \
+          class: 'tw:join-item tw:btn-square tw:btn-ghost tw:text-error', \
           data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_collaborator', name: collaborator.user.username)}" }
