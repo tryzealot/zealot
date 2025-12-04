@@ -1,5 +1,5 @@
 - if devise_mapping.omniauthable? && resource_class.oauth_providers.any?
-  .social-auth-links.mb-3.d-grid
+  div class="tw:grid tw:grid-cols-1 tw:gap-1"
     - resource_class.oauth_providers.each do |provider|
       - unless provider == :ldap
         = devise_provider_login_path(provider)

@@ -1,4 +1,23 @@
 - if ldap_auth_enable?
-  li.nav-item role="presentation"
-    button#login-tabs-ldap-tab.nav-link data-bs-toggle="pill" data-bs-target="#login-tabs-ldap"
-      = t('devise.ldap.title')
+  input class="tw:tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
+  div class="tw:tab-content tw:bg-base-100 tw:border-base-300 tw:px-5 tw:py-3"
+    div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-3 tw:my-2"
+      div class="tw:order-1 tw:border-base-200 tw:md:border-r-2 tw:md:pe-4"
+        = form_tag(user_ldap_omniauth_callback_path) do
+          fieldset class="tw:fieldset"
+            = label_tag :username, t('devise.ldap.username'), class: 'tw:fieldset-legend'
+            = text_field_tag :username, nil, class: "tw:input tw:w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
+
+          fieldset class="tw:fieldset"
+            = label_tag :password, t('devise.ldap.password'), class: 'tw:fieldset-legend'
+            = text_field_tag :password, nil, class: "tw:input tw:w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
+
+          - if devise_mapping.rememberable?
+            fieldset class="tw:fieldset"
+              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'tw:toggle tw:toggle-primary' 
+              = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'tw:text-md tw:font-semibold'
+
+          = submit_tag t('devise.sessions.new.sign_in'), class: "tw:btn tw:btn-primary w-full", data: { qa_selector: 'sign_in_button' }
+      div class="tw:order-2"
+        == render 'devise/shared/links'
+

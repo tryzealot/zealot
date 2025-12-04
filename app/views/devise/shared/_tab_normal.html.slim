@@ -1,3 +1,15 @@
-li.nav-item role="presentation"
-  button#login-tabs-standard-tab.nav-link.active data-bs-toggle="pill" data-bs-target="#login-tabs-standard"
-    = t('devise.normal.title')
+input class="tw:tab" name="login-tab" type="radio" checked="checked" aria-label=t('devise.normal.title') 
+div class="tw:tab-content tw:bg-base-100 tw:border-base-300 tw:px-5 tw:py-3"
+  - if Setting.login_enabled
+    div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-3 tw:my-2"
+      div class="tw:order-1 tw:border-base-200 tw:md:border-r-2 tw:md:pe-4"
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          = f.error_notification
+          = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", class: 'form-control' }
+          = f.input :password, required: true, input_html: { autocomplete: "current-password" }
+          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+          = f.button :submit, t('devise.sessions.new.sign_in'), class: 'btn btn-primary w-full'
+      div class="tw:order-2"
+        == render 'devise/shared/links'
+  - else
+    == render 'devise/shared/links'
