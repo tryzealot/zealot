@@ -29,12 +29,13 @@
     "@crowdin/cli": "^4.11.0",
     "@tailwindcss/vite": "^4.1.17",
     "daisyui": "^5.5.5",
-    "rollup": "^4.53.3",
     "esbuild": "^0.25.11",
+    "rollup": "^4.53.3",
     "sass": "^1.94.2",
     "vite": "^5.4.21",
     "vite-plugin-rails": "^0.5.0",
-    "vite-plugin-ruby": "^5.1.1"
+    "vite-plugin-ruby": "^5.1.1",
+    "vite-plugin-stimulus-hmr": "^3.0.0"
   },
   "packageManager": "pnpm@10.22.0"
 }
