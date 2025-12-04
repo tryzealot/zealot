@@ -6,18 +6,17 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?
-    a.btn.btn-success href="#{new_app_path}" data-turbo-frame="modal"
-      i.icon.fa-regular.fa-plus-square
-      = t('apps.new.title')
+    = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
+      class: 'tw:btn tw:btn-success', data: { turbo_frame: 'modal' }
 
 - if @apps.present?
-  #search.mb-4
+  #search-bar class="tw:mb-4"
     == render 'apps/search'
 
 - if @apps.present?
-  ul.list.bg-base-100.rounded-box.shadow-md
+  ul#apps class="tw:list tw:bg-base-100 tw:rounded-box tw:shadow-md"
     - @apps.each do |app|
-      == render app
+      == render 'apps/app', app: app
 - elsif archived_path?
   == render 'apps/empty_archived_app'
 - else

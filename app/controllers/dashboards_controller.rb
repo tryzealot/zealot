@@ -46,7 +46,7 @@ class DashboardsController < ApplicationController
   end
 
   def admin_panels
-    return if !!current_user&.admin?
+    return unless current_user&.admin?
 
     @analytics.merge!({
       users: User.count,

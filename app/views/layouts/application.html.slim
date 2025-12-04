@@ -1,10 +1,3 @@
-ruby:
-  if user_signed_in_or_guest_mode?
-    body_class = 'sidebar-expand-lg sidebar-mini bg-body-tertiary'
-  else
-    body_class = 'layout-top-nav'
-  end
-
 doctype html
 html lang="#{I18n.locale}"
   head
@@ -26,13 +19,13 @@ html lang="#{I18n.locale}"
     == csrf_meta_tags
 
   body
-    .drawer class="lg:drawer-open"
-      input#zealot-drawer.drawer-toggle type="checkbox"
-      .drawer-content
+    div class="tw:drawer tw:lg:drawer-open"
+      input id="zealot-drawer" class="tw:drawer-toggle" type="checkbox"
+      div class="tw:drawer-content"
         == render 'layouts/navigation'
         == render 'layouts/content'
         / == render 'layouts/footer'
-      .drawer-side
+      div class="tw:drawer-side tw:is-drawer-close:overflow-visible"
         == render 'layouts/sidebar'
 
     == render 'layouts/notifications'
