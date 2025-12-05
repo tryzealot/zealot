@@ -9,8 +9,8 @@
         div class="tw:flex tw:gap-2"
           - if !app.archived
             = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', \
-              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip', \
+              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip tw:tooltip-left', \
               data: { tip: t('apps.show.edit_channel'), turbo_frame: :modal }
             = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', \
-              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip', \
+              class: 'tw:btn-xs tw:btn-ghost tw:btn-circle tw:tooltip tw:tooltip-left', \
               data: { tip: t('apps.show.destroy_channel'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
