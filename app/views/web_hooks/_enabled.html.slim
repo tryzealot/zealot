@@ -1,6 +1,0 @@
-- if @channel.enabled_web_hooks_count > 0
-  table.table.table-bottom-borderless.mt-2
-    - @channel.web_hooks.all.each do |web_hook|
-      == render 'web_hooks/item', current_channel: @channel, web_hook: web_hook, type: :enabled
-- else
-  == render 'web_hooks/not_found'
