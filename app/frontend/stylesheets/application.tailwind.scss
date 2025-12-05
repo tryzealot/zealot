@@ -1,6 +1,9 @@
 @import "~fontawesome/css/all.min.css";
 @import "tailwindcss" prefix(tw);
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: all;
+};
 
 @import "./components/card.css";
 
