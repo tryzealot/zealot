@@ -11,7 +11,7 @@
     - if current_user&.manage?(app: @app) && !@app.archived
       = button_link_to t('channels.show.upload_release'), new_channel_release_path(channel), \
         'plus-square', base_fa: 'fa-regular', \
-        class: 'tw:btn tw:btn-primary tw:w-full', data: { turbo: false }
+        class: 'tw:btn tw:btn-primary tw:w-full', data: { turbo_frame: '_top' }
 
     == render 'schemes'
     == render 'channels'
@@ -19,4 +19,4 @@
 
     - if user_signed_in_or_guest_mode?
       = button_link_to t('channels.show.view_app'), app_path(@app), 'cube', \
-        class: 'tw:btn tw:w-full', data: { turbo: false }
+        class: 'tw:btn tw:w-full', data: { turbo_frame: '_top' }

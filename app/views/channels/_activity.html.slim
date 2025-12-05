@@ -14,10 +14,12 @@
           li class="tw:list-row"
             div 
               = link_to friendly_channel_release_path(release.channel, release), \
-                data: { turbo_frame: dom_id(release) } do 
+                data: { turbo_frame: '_top' } do 
                   = app_icon(release)
             div
-              div = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
+              div 
+                = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), \
+                  data: { turbo_frame: '_top' }
               div class="tw:text-md tw:opacity-60"
                 - if release.release_version.present?
                   = release.release_version
