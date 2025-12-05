@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class App < ApplicationRecord
+  include RecentlyReleasesCacheable
+
   # default_scope { order(id: :asc) }
 
   has_and_belongs_to_many :users
@@ -120,11 +122,7 @@ class App < ApplicationRecord
 
   private
 
-  def recently_release_cache_key
-    @recently_release_cache_key ||= "app_#{id}_recently_release"
-  end
-
-  def delete_app_recently_releases_cache
-    Rails.cache.delete(recently_release_cache_key)
+  def recently_release_app_id
+    id
   end
 end
