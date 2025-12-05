@@ -2,7 +2,7 @@ ruby:
   schemes_total = @app.schemes.count
 
 - content_for :title do
-  = @app.name 
+  = @app.name
 
 - content_for :section_title do
   = turbo_frame_tag @app do
@@ -25,12 +25,13 @@ ruby:
         class: 'tw:btn tw:join-item tw:tooltip tw:text-error', \
         data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
-#schemes class="tw:gap-4 tw:mb-4 #{app_scheme_columns(schemes_total)}"
-  - if schemes_total.positive?
-    - @app.schemes.each do |scheme|
-      == render 'scheme', scheme: scheme
-  - else
-    == render 'empty_scheme', app: @app
+= turbo_frame_tag @app do
+  #schemes class="tw:gap-4 tw:mb-4 #{app_scheme_columns(schemes_total)}"
+    - if schemes_total.positive?
+      - @app.schemes.each do |scheme|
+        == render 'scheme', scheme: scheme
+    - else
+      == render 'empty_scheme', app: @app
 
-- if current_user&.manage?(app: @app)
-  == render "collaborators", app: @app
+  - if current_user&.manage?(app: @app)
+    == render "collaborators", app: @app

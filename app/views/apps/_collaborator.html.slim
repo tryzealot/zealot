@@ -2,9 +2,9 @@
   div class="tw:basis-2/4"
     div class="tw:xs:grid tw:md:flex tw:grid-cols-1 tw:justify-start tw:gap-1"
       div = collaborator.user.username
-      div
+      div class="tw:space-x-1"
         - if collaborator.owner?
-          span class="tw:badge tw:badge-xs tw:md:badge-sm tw:badge-secondary" = t('apps.show.collaborator_owner')
+          span class="tw:badge tw:badge-xs tw:md:badge-sm tw:badge-primary" = t('apps.show.collaborator_owner')
         - if same_user?(collaborator)
           span class="tw:badge tw:badge-xs tw:md:badge-sm tw:badge-neutral" = t('apps.show.it_is_you')
   div class="tw:basis-1/4" = t(collaborator.role, scope: 'settings.preset_role')

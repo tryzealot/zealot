@@ -3,9 +3,7 @@
 
 @plugin "daisyui" {
   themes: all;
-};
-
-@import "./components/card.css";
+}
 
 /* Load used tailwind + daisyui styles */
 @source "../../views/**/*.html.*";
@@ -13,3 +11,5 @@
 @source "../../components/**/*";
 @source "../../../config/initializers/simple_form_daisyui.rb";
 
+@import "./apps";
+@import "./components/card";

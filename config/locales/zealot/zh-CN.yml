@@ -302,7 +302,7 @@ zh-CN:
       schemes: 类型
       channels: 渠道
       uploads: 上传
-      created_at: 创建于%{time}
+      created_at: 创建于 %{time}
       searching_app: 搜索应用
       not_found:
         title: 没有发现任何应用或全部已归档

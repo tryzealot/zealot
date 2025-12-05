@@ -16,14 +16,16 @@ module AppsHelper
     "tw:grid tw:grid-cols-1 tw:md:grid-cols-#{md_cols} tw:lg:grid-cols-#{lg_cols}"
   end
 
+  APP_ICON_CLASS = ["app-icon"]
   def app_icon(release, options = {})
+    image_class = options.delete(:class).to_s.split(' ')
+    image_class = (APP_ICON_CLASS + image_class).uniq
     unless release&.icon && release.icon.file && release.icon.file.exists?
+      options[:class] = image_class.push('app-empty-icon').join(' ')
       return image_tag('zealot-icon.png', **options)
     end
-
-    options[:data] ||= {}
-    options[:data][:release_id] ||= release.id
-    options[:data][:channel_id] ||= release.channel.slug
+    
+    options[:class] = image_class
     image_tag(release.icon_url, **options)
   end
 
