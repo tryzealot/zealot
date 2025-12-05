@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Channel < ApplicationRecord
+  include RecentlyReleasesCacheable
+
   default_scope { order(id: :asc) }
 
   include FriendlyId
@@ -156,5 +158,9 @@ class Channel < ApplicationRecord
 
   def set_default_download_filename_type
     self.download_filename_type ||= DEFAULT_DOWNLOAD_FILENAME_TYPE
+  end
+
+  def recently_release_app_id
+    app.id
   end
 end
