@@ -1,7 +1,7 @@
-= simple_form_for(@web_hook, url: channel_web_hooks_path(@channel)) do |f|
+= simple_form_for(channel.web_hooks.new, url: channel_web_hooks_path(channel)) do |f|
   = f.error_notification
   
-  = f.input :channel_id, as: :hidden, input_html: { value: @channel.id }
+  = f.input :channel_id, as: :hidden, input_html: { value: channel.id }
   = f.input :url, required: true
   = f.input :body, as: :text, input_html: { rows: 18, cols: 10 }
   div class="tw:flex tw:justify-between tw:items-center tw:gap-6 tw:mx-2"

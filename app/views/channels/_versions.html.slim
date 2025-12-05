@@ -1,26 +1,29 @@
+ruby: 
+  versions = channel.release_versions(5)
+
 .card
   .card-header
     h3.card-title
       i.fa-solid.fa-archive class="tw:mr-1"
       = t('channels.show.major_versions')
   .card-body class="tw:table-responsive tw:p-0"
-    - if @versions.count > 0
+    - if versions.count > 0
       table class="tw:table tw:table-bottom-borderless"
         thead
           tr
             th = t('channels.show.release_version')
             th = t('channels.show.total_version')
         tbody
-          - @versions.each do |version|
+          - versions.each do |version|
             tr
               td
-                = link_to version, friendly_channel_version_path(@channel, version), data: { turbo: false }
+                = link_to version, friendly_channel_version_path(channel, version), data: { turbo: false }
               td
-                = @channel.release_version_count(version)
+                = channel.release_version_count(version)
     - else
       div class="tw:p-3" = t('channels.show.empty_version_shortly')
 
-  - if @versions.count > 0
+  - if versions.count > 0
     .card-footer class="tw:p-0 tw:bg-none"
-      = link_to t('channels.show.view_more'), friendly_channel_versions_path(@channel), \
+      = link_to t('channels.show.view_more'), friendly_channel_versions_path(channel), \
         class: 'tw:btn tw:btn-ghost tw:w-full', data: { turbo_frame: '_top' }

@@ -3,10 +3,10 @@
     h3.card-title = t('channels.show.scheme')
   .card-body class="tw:p-0"
     ul class="tw:list"
-      - @app.schemes.each do |scheme|
+      - app.schemes.each do |scheme|
         ruby:
-          scheme_link = using_friendly_channel_path(scheme, @channel)
-          actived_class = @channel.scheme.name == scheme.name ? 'tw:bg-primary' : ''
+          scheme_link = using_friendly_channel_path(scheme, channel)
+          actived_class = channel.scheme.name == scheme.name ? 'tw:bg-primary' : ''
         - if scheme_link.present?
           li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
             = link_to scheme.name, scheme_link, \

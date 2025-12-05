@@ -9,30 +9,6 @@
         i.fa-solid.fa-minus data-lte-icon="collapse"
   .card-body class="tw:p-0"
     div class="tw:tabs tw:tabs-box"
-      == render 'web_hooks/tab_enabled'
-      == render 'web_hooks/tab_shared'
-      == render 'web_hooks/tab_new'
-
-    / - unless @channel.app.archived
-    /   section#add-webhooks
-    /     h5 = t('web_hooks.create')
-    /     == render 'web_hooks/form'
-
-    / section#webhooks-list
-    /   ul#web_hooks_list.nav.nav-tabs role="tablist"
-    /     li.nav-item
-    /       button.nav-link.active data-toggle="tab" data-bs-toggle="tab" data-bs-target="#enabled"
-    /         = t('web_hooks.enable')
-    /         span.badge.text-bg-secondary.text-bg-pill.ms-1
-    /           = @channel.enabled_web_hooks_count
-    /     li.nav-item
-    /       button.nav-link data-toggle="tab" data-bs-toggle="tab" data-bs-target="#shared"
-    /         = t('web_hooks.shared')
-    /         span.badge.text-bg-secondary.text-bg-pill.ms-1
-    /           = @channel.available_web_hooks_count
-
-    /   #web_hooks_listContent.tab-content
-    /     #enabled.tab-pane.fade.show.active
-    /       == render 'web_hooks/enabled'
-    /     #shared.tab-pane.fade
-    /       == render 'web_hooks/shared'
+      == render 'web_hooks/tab_enabled', channel: channel
+      == render 'web_hooks/tab_shared', channel: channel
+      == render 'web_hooks/tab_new', channel: channel

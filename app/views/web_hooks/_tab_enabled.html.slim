@@ -1,11 +1,11 @@
 input[
   class="tw:tab" name="webhook-tab" type="radio" checked="checked" 
-  aria-label="#{t('web_hooks.enable')} (#{@channel.enabled_web_hooks_count})"
+  aria-label="#{t('web_hooks.enable')} (#{channel.enabled_web_hooks_count})"
 ]
 div class="tw:tab-content tw:bg-base-100 tw:border-base-300 tw:px-5 tw:py-3"
-  - if @channel.enabled_web_hooks_count > 0
+  - if channel.enabled_web_hooks_count > 0
     table class="tw:table"
-      - @channel.web_hooks.all.each do |web_hook|
-        == render 'web_hooks/item', current_channel: @channel, web_hook: web_hook, type: :enabled
+      - channel.web_hooks.all.each do |web_hook|
+        == render 'web_hooks/item', channel: channel, web_hook: web_hook, type: :enabled
   - else
     == render 'web_hooks/not_found'

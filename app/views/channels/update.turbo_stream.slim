@@ -1,2 +1,9 @@
 = turbo_stream.replace dom_id(@channel, :app), partial: 'apps/channel', locals: { channel: @channel, scheme: @scheme, app: @scheme.app }
 = turbo_stream.append :notifications, partial: 'layouts/notifications'
+
+= turbo_stream.replace @channel, partial: 'channels/channel', locals: { \
+  channel: @channel, \
+  scheme: @channel.scheme, \
+  app: @channel.app, \
+  releases: @channel.recently_releases(params.fetch(:per_page, Setting.per_page).to_i, page: params[:page] || 1) \
+}

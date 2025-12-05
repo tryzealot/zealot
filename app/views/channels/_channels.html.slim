@@ -3,7 +3,7 @@
     h3.card-title = t('channels.show.channel')
   .card-body class="tw:p-0"
     ul class="tw:list"
-      - @channel.scheme.channels.each do |channel|
+      - scheme.channels.each do |channel|
         ruby:
           actived_class = (params[:id] || params[:channel]) == channel.slug ? 'tw:bg-primary' : ''
         li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
