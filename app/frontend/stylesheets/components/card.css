@@ -1,6 +1,6 @@
 .card {
   @layer components {
-    @apply tw:flex tw:flex-col tw:rounded-lg tw:relative tw:shadow-lg;
+    @apply tw:bg-base-100 tw:flex tw:flex-col tw:rounded-lg tw:relative tw:shadow-lg tw:shadow-base-300;
 
     .card-header {
       @apply tw:bg-base-200 tw:rounded-t-md tw:p-3;
@@ -55,6 +55,12 @@
     &:has(> :checked) {
       outline: 2px solid currentColor;
     } */
+  }
+}
+
+.card-border {
+  @layer components {
+    @apply tw:border tw:border-base-300;
   }
 }
 

@@ -1,17 +1,22 @@
-var Zealot = Zealot || {}
-
 const DEVELOPMENT_ENV = "development"
+const existingZealot = typeof window !== "undefined" ? window.Zealot ?? {} : {}
 
-Zealot.isDarkMode = function () {
-  return window.matchMedia("(prefers-color-scheme: dark)")
-    .matches
+const Zealot = {
+  ...existingZealot,
+  log(...args) {
+    if (!this.isDevelopment) { return }
+    console.log(...args)
+  },
+  get isDarkMode() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+  },
+  get isDevelopment() {
+    return import.meta.env.RAILS_ENV === DEVELOPMENT_ENV
+  }
 }
 
-Zealot.isDevelopment = function () {
-  // env was given value in global_controller
-  return import.meta.env.RAILS_ENV === DEVELOPMENT_ENV
-}
-
-window.Zealot = Zealot
+// if (typeof window !== "undefined") {
+//   window.Zealot = Zealot
+// }
 
 export { Zealot }
