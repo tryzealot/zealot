@@ -1,22 +1,22 @@
 = turbo_frame_tag :channel, class: 'tw:grid tw:gap-4 tw:grid-cols-1 tw:md:grid-cols-12' do
-  div class="tw:md:col-span-8"
-    / == render 'mobile_menu'
+  div class="tw:md:col-span-8 tw:space-y-6"
+    == render 'mobile_menu'
     == render 'activity'
+    == render 'metadata'
+
     - if current_user&.manage?(app: @app)
       == render 'web_hooks'
 
-  div class="tw:md:col-span-4 tw:flex-cols tw:space-y-4"
+  div class="tw:md:col-span-4 tw:space-y-6"
     - if current_user&.manage?(app: @app) && !@app.archived
       = button_link_to t('channels.show.upload_release'), new_channel_release_path(channel), \
-      'plus-square', base_fa: 'fa-regular', \
-      class: 'tw:btn tw:btn-primary tw:w-full', data: { turbo: false }
+        'plus-square', base_fa: 'fa-regular', \
+        class: 'tw:btn tw:btn-primary tw:w-full', data: { turbo: false }
 
     == render 'schemes'
     == render 'channels'
     == render 'versions'
-    == render 'metadata'
 
     - if user_signed_in_or_guest_mode?
-      = link_to app_path(@app), class: 'tw:btn tw:btn-secondary tw:w-full tw:mt-3', data: { turbo: false } do
-        i.icon.fa-regular.fa-list-alt
-        = t('channels.show.view_app')
+      = button_link_to t('channels.show.view_app'), app_path(@app), 'cube', \
+        class: 'tw:btn tw:w-full', data: { turbo: false }

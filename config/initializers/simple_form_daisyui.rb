@@ -9,7 +9,7 @@ SimpleForm.setup do |config|
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
-  config.default_form_class = 'tw:space-y-4'
+  config.default_form_class = ''
 
   # Default class for buttons
   config.button_class = 'tw:btn tw:btn-primary'
@@ -42,7 +42,7 @@ SimpleForm.setup do |config|
   # config.label_class = 'tw:text-md tw:font-semibold'
 
   # vertical forms (default_wrapper)
-  config.wrappers :vertical_form, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  config.wrappers :vertical_form, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -57,7 +57,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical input for boolean (aka checkboxes)
-  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
     b.use :html5
     b.optional :readonly
     b.wrapper :legend_tag, tag: 'label', class: DEFAULT_INPUT_LABEL_CLASS, error_class: 'tw:text-error' do |ba|
@@ -70,7 +70,7 @@ SimpleForm.setup do |config|
 
   # vertical input for radio buttons and check boxes
   config.wrappers :vertical_collection, tag: 'div',
-                  class: 'tw:fieldset',
+                  class: 'tw:fieldset tw:mb-2',
                   item_wrapper_class: 'tw:mb-1',
                   item_label_class: "#{DEFAULT_INPUT_LABEL_CLASS} tw:pl-2" do |b|
     b.use :html5
@@ -84,7 +84,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical file input
-  config.wrappers :vertical_file, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  config.wrappers :vertical_file, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -97,7 +97,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical select
-  config.wrappers :vertical_select, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  config.wrappers :vertical_select, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
     # b.use :html5
     b.optional :readonly
     b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'tw:text-error'
@@ -107,7 +107,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical multi select
-  # config.wrappers :vertical_multi_select, tag: 'fieldset', class: 'tw:fieldset', error_class: 'f', valid_class: '' do |b|
+  # config.wrappers :vertical_multi_select, tag: 'fieldset', class: 'tw:fieldset tw:mb-2', error_class: 'f', valid_class: '' do |b|
   #   b.use :html5
   #   b.optional :readonly
   #   b.use :label, class: 'tw:fieldset-legend', error_class: 'tw:text-error'
@@ -119,7 +119,7 @@ SimpleForm.setup do |config|
   # end
 
   # # vertical range
-  # config.wrappers :vertical_range, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  # config.wrappers :vertical_range, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
   #   b.use :html5
   #   b.optional :readonly
   #   b.optional :step
@@ -130,7 +130,7 @@ SimpleForm.setup do |config|
   # end
 
   # textarea
-  config.wrappers :vertical_textarea, tag: 'fieldset', class: 'tw:fieldset' do |b|
+  config.wrappers :vertical_textarea, tag: 'fieldset', class: 'tw:fieldset tw:mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :readonly
@@ -138,6 +138,12 @@ SimpleForm.setup do |config|
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
     b.use :input, class: 'tw:textarea tw:w-full'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
+  end
+
+  config.wrappers :vertical_hidden do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :input, type: :hidden
   end
 
   # # vertical date input
@@ -195,6 +201,7 @@ SimpleForm.setup do |config|
     check_boxes: :vertical_collection,
     collection: :vertical_collection,
     radio_buttons: :vertical_collection,
+    hidden: :vertical_hidden,
     # date: :vertical_date,
     # datetime: :vertical_datetime,
     # time: :vertical_time,

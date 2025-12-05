@@ -1,35 +1,34 @@
-.card.mb-3
+.card
   .card-header
     h3.card-title
-      i.icon.fa-solid.fa-history
+      i.fa-solid.fa-history class="tw:mr-1"
       = t('channels.show.activity')
     .card-tools
-      span.badge.bg-secondary title="#{t('apps.show.total_builds')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
+      span class="tw:badge tw:badge-neutral tw:tooltip tw:tooltip-left" data-tip=t('apps.show.total_builds')
         = @channel.releases.count
 
-  .card-body.p-0
-    ul.products-list
-      - if @releases.count > 0
+  .card-body class="tw:p-0"
+    ul class="tw:list tw:bg-base-100 tw:rounded-box tw:shadow-md"
+      - unless @releases.empty?
         - @releases.each do |release|
-          li.product-item
-            .product-img
-              = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
-            .product-info
-              span.badge.text-bg-light.float-end data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(release.created_at, format: :nice)}"
-                = time_ago_in_words(release.created_at)
-              = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
-
-              span.product-description
+          li class="tw:list-row"
+            div 
+              = app_icon(release, class: 'tw:rounded-circle tw:border-sm tw:size-9')
+            div
+              div = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
+              div class="tw:text-md tw:opacity-60"
                 - if release.release_version.present?
                   = release.release_version
                   - if release.build_version.present?
                     | (#{release.build_version})
                 - else
                   = release.file.identifier
+            div
+              span class="tw:opacity-80 tw:tooltip tw:tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
+                = time_ago_in_words(release.created_at)
       - else
-        li.item.p-3
-          = raw t('channels.show.not_found')
+        li = raw t('channels.show.not_found')
+
   - if @releases.total_pages > 1
-    .card-footer
-      .float-end
-        = paginate @releases
+    .card-footer class="tw:pt-4 tw:flex tw:justify-end tw:border-t tw:border-base-300"
+      = paginate @releases

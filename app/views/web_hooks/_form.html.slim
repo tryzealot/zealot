@@ -1,14 +1,13 @@
 = simple_form_for(@web_hook, url: channel_web_hooks_path(@channel)) do |f|
   = f.error_notification
-
-  .form-inputs
-    = f.input :channel_id, as: :hidden, input_html: { value: @channel.id }
-
-    = f.input :url, required: true
-    = f.input :body, input_html: { rows: 10 }
+  
+  = f.input :channel_id, as: :hidden, input_html: { value: @channel.id }
+  = f.input :url, required: true
+  = f.input :body, as: :text, input_html: { rows: 18, cols: 10 }
+  div class="tw:flex tw:justify-between tw:items-center tw:gap-6 tw:mx-2"
     = f.input :upload_events, as: :boolean, input_html: { checked: true }
     = f.input :download_events, as: :boolean
     = f.input :changelog_events, as: :boolean
-
-  .form-actions
+  
+  div class="tw:mt-3"
     = f.button :submit

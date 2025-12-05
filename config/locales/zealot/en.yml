@@ -1179,7 +1179,7 @@ en:
       release:
         create: Upload
       web_hook:
-        create: Create
+        create: Create new webhook
         update: Update
       debug_file:
         create: Upload
