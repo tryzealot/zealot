@@ -1,6 +1,2 @@
-- if page.current?
-  li.page-item class="active"
-    = content_tag(:a, page, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link')
-- else
-  li.page-item
-    = link_to(page, url, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link')
+button class="tw:join-item tw:btn #{page.current? && "tw:btn-active"}"
+  == link_to_unless page.current?, page, url, {remote: remote, rel: page.rel}
