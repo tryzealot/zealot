@@ -8,4 +8,4 @@
           actived_class = (params[:id] || params[:channel]) == channel.slug ? 'tw:bg-primary' : ''
         li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
           = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
-            data: { turbo_action: :advance }
+            data: { turbo_frame: '_top' }

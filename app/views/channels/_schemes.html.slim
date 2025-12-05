@@ -10,4 +10,4 @@
         - if scheme_link.present?
           li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
             = link_to scheme.name, scheme_link, \
-              data: { turbo_action: :advance }
+              data: { turbo_frame: '_top' }

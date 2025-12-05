@@ -18,9 +18,9 @@
               td
                 = @channel.release_version_count(version)
     - else
-      .p-3 = t('channels.show.empty_version_shortly')
+      div class="tw:p-3" = t('channels.show.empty_version_shortly')
 
   - if @versions.count > 0
     .card-footer class="tw:p-0 tw:bg-none"
       = link_to t('channels.show.view_more'), friendly_channel_versions_path(@channel), \
-        class: 'tw:btn tw:w-full', data: { turbo: false }
+        class: 'tw:btn tw:btn-ghost tw:w-full', data: { turbo_frame: '_top' }
