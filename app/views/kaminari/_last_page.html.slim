@@ -1,2 +1,2 @@
-li
-  = get_pagination_link current_page.last?, t('views.pagination.last'), url, '', remote
+button class="tw:join-item tw:btn" 
+  == link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote
