@@ -5,12 +5,12 @@
       = t('channels.show.activity')
     .card-tools
       span class="tw:badge tw:badge-neutral tw:tooltip tw:tooltip-left" data-tip=t('apps.show.total_builds')
-        = @channel.releases.count
+        = channel.releases.count
 
   .card-body class="tw:p-0"
     ul class="tw:list tw:bg-base-100 tw:rounded-box tw:shadow-md"
-      - unless @releases.empty?
-        - @releases.each do |release|
+      - unless releases.empty?
+        - releases.each do |release|
           li class="tw:list-row"
             div 
               = link_to friendly_channel_release_path(release.channel, release), \
@@ -33,6 +33,6 @@
       - else
         li = raw t('channels.show.not_found')
 
-  - if @releases.total_pages > 1
+  - if releases.total_pages > 1
     .card-footer class="tw:pt-4 tw:flex tw:justify-end tw:border-t tw:border-base-300"
-      = paginate @releases
+      = paginate releases

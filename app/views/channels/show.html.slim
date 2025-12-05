@@ -6,4 +6,4 @@
   small class="tw:pl-2 tw:text-sm"
     = @subtitle
 
-= render @channel
+= render @channel, scheme: @channel.scheme, app: @app, releases: @releases

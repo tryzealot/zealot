@@ -13,12 +13,12 @@ tr
     div class="tw:flex tw:gap-1"
       - web_hook.channels.all.each do |shared_channel|
         span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
-          - if shared_channel == current_channel
+          - if shared_channel == channel
             = t('web_hooks.current_channel')
           - else
             = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel)
 
-  - unless @channel.app.archived
+  - unless channel.app.archived
     td class="tw:px-0"
       - if type == :enabled
         div class="tw:join"
@@ -29,19 +29,19 @@ tr
               li class="tw:opacity-60 tw:text-sm tw:pl-3" Test Web Hook
               - events.each do |event|
                 li = link_to t("simple_form.labels.web_hook.#{event}"), \
-                  test_channel_web_hook_path(@channel, web_hook, event), \
+                  test_channel_web_hook_path(channel, web_hook, event), \
                   data: { turbo: false }
 
           - if web_hook.channels_count == 1
-            = button_link_to '', channel_web_hook_path(@channel, web_hook), 'trash-alt', \
+            = button_link_to '', channel_web_hook_path(channel, web_hook), 'trash-alt', \
               class: 'btn btn-sm btn-danger rounded-0 rounded-bottom', title: t('web_hooks.destroy'), \
               data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip', bs_placement: 'bottom' }
           - else
-            = link_to disable_channel_web_hook_path(@channel, web_hook), \
+            = link_to disable_channel_web_hook_path(channel, web_hook), \
               class: 'tw:btn tw:join-item tw:btn-warning tw:opacity-80 tw:tooltip', \
               data: { tip: t('web_hooks.disable'), turbo: false } do
               i.fa-solid.fa-link-slash
       - elsif type == :shared
-        = button_link_to '', enable_channel_web_hook_path(@channel, web_hook), 'link', \
+        = button_link_to '', enable_channel_web_hook_path(channel, web_hook), 'link', \
           class: 'tw:btn-sm tw:tooltip tw:tooltip-left', \
           data: { tip: t('web_hooks.enable'), turbo: false }

@@ -1,11 +1,11 @@
 input[
   class="tw:tab" name="webhook-tab" type="radio" 
-  aria-label="#{t('web_hooks.shared')} (#{@channel.available_web_hooks_count})"
+  aria-label="#{t('web_hooks.shared')} (#{channel.available_web_hooks_count})"
 ]
 div class="tw:tab-content tw:bg-base-100 tw:border-base-300 tw:px-5 tw:py-3"
-  - if @channel.available_web_hooks_count > 0
+  - if channel.available_web_hooks_count > 0
     table class="tw:table"
-      - @channel.available_web_hooks.each do |web_hook|
-        == render 'web_hooks/item', current_channel: @channel, web_hook: web_hook, type: :shared
+      - channel.available_web_hooks.each do |web_hook|
+        == render 'web_hooks/item', channel: channel, web_hook: web_hook, type: :shared
   - else
     == render 'web_hooks/not_found'

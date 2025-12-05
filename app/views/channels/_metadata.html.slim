@@ -7,34 +7,34 @@
     table class="tw:table"
       tr
         td class="tw:font-bold tw:opacity-60" = t('channels.show.device_type')
-        td = platform_name(@channel.device_type)
+        td = platform_name(channel.device_type)
       tr
         td class="tw:font-bold tw:opacity-60" = t('channels.show.slug')
-        td = @channel.slug
-      - if current_user&.manage?(app: @app)
+        td = channel.slug
+      - if current_user&.manage?(app: app)
         tr
           td class="tw:font-bold tw:opacity-60" = t('channels.show.password')
-          td = @channel.password.blank? ? t('channels.show.none') : @channel.password
+          td = channel.password.blank? ? t('channels.show.none') : channel.password
       tr
-        td class="tw:font-bold tw:opacity-60" = t('channels.show.match_rule', value: @channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
-        td = @channel.bundle_id
+        td class="tw:font-bold tw:opacity-60" = t('channels.show.match_rule', value: channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
+        td = channel.bundle_id
       tr
         td class="tw:font-bold tw:opacity-60" = t('channels.show.git_url')
-        td = @channel.git_url.blank? ? t('channels.show.none') : @channel.git_url
+        td = channel.git_url.blank? ? t('channels.show.none') : channel.git_url
       tr
         td class="tw:font-bold tw:opacity-60" = t('channels.show.total_releases')
-        td = @channel.releases.count
+        td = channel.releases.count
       tr
         td class="tw:font-bold tw:opacity-60" = t("channels.show.download_filename_type")
         td 
-          span class="tw:tooltip" data-tip=t("channels.show.download_filename_type_item.#{@channel.download_filename_type}") 
-            = @channel.download_filename_type
+          span class="tw:tooltip" data-tip=t("channels.show.download_filename_type_item.#{channel.download_filename_type}") 
+            = channel.download_filename_type
       tr
         td class="tw:font-bold tw:opacity-60" = t('channels.show.channel_key')
-        td = @channel.key
+        td = channel.key
 
-  - if current_user&.manage?(app: @app) && !@app.archived
+  - if current_user&.manage?(app: app) && !app.archived
     .card-footer class="tw:p-0"
       = link_to t('channels.show.edit_channel'), \
-        edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel), \
+        edit_app_scheme_channel_path(channel.scheme.app, channel.scheme, channel), \
         class: 'tw:btn tw:w-full', data: { turbo_frame: :modal }

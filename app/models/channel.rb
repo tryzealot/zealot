@@ -45,8 +45,8 @@ class Channel < ApplicationRecord
     releases.last
   end
 
-  def recently_releases(limit = Setting.per_page)
-    releases.limit(limit).order(id: :desc)
+  def recently_releases(limit = Setting.per_page, page: 1)
+    releases.page(page).per(limit).order(id: :desc)
   end
 
   # Find new releases by given arguments, following rules:
