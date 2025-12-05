@@ -1,8 +1,8 @@
-= turbo_frame_tag channel, class: '' do
+= turbo_frame_tag dom_id(channel, :app) do
   li class="tw:list-row"
     div class="tw:col-span-full tw:flex tw:justify-between tw:items-center"
       div class="tw:grow"
-        = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
+        = link_to channel.name, channel_path(channel.id), data: { turbo_target: 'top' }
         span class="tw:badge tw:badge-sm tw:bg-neutral tw:ms-2 tw:tooltip" data-tip=t('apps.show.total_builds')
           = channel.releases.count
       - if current_user&.manage?(app: app)

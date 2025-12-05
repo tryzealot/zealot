@@ -1,10 +1,14 @@
-= turbo_frame_tag app do
+= turbo_frame_tag dom_id(app, :user) do
   li class="tw:list-row"
     div
-      = link_to app_icon(app.recently_release, class: 'tw:size-20 tw:rounded-box'), app_path(app), data: { turbo: false }
+      = link_to app_path(app), data: { turbo_frame: '_top' } do
+        = app_icon(app.recently_release)
     div
-      p = link_to app.name, app_path(app), class: 'tw:text-lg tw:font-bold', data: { turbo: false }
-      p class="tw:tooltip tw:tooltip-right tw:text-primary-content/50" data-tip=l(app.created_at, format: :nice) = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+      p = link_to app.name, app_path(app), class: 'tw:text-lg tw:font-bold', data: { turbo_frame: '_top' }
+      p[
+        class="tw:tooltip tw:tooltip-right tw:text-primary-content/50" 
+        data-tip=l(app.created_at, format: :nice)
+      ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
       div class="tw:breadcrumbs tw:text-sm"
         ul
           li = "#{app.total_schemes} #{t('apps.index.schemes')}"
