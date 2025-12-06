@@ -18,13 +18,7 @@ html lang="#{I18n.locale}"
     == action_cable_meta_tag
     == csrf_meta_tags
 
-  body[
-    data-controller="global"
-    data-global-root-url-value=root_path
-    data-global-appearance-value=Setting.site_appearance
-    data-global-light-theme-value=Setting.site_light_theme
-    data-global-dark-theme-value=Setting.site_dark_theme
-  ]
+  body data-theme=active_appearance data-controller="global"
     div class="tw:drawer tw:lg:drawer-open"
       input id="zealot-drawer" class="tw:drawer-toggle" type="checkbox"
       div class="tw:drawer-content"

@@ -1,15 +1,3 @@
-@import "~fontawesome/css/all.min.css";
-@import "tailwindcss" prefix(tw);
-
-@plugin "daisyui" {
-  themes: all;
-}
-
-/* Load used tailwind + daisyui styles */
-@source "../../views/**/*.html.*";
-@source "../../helpers/**/*.rb";
-@source "../../components/**/*";
-@source "../../../config/initializers/simple_form_daisyui.rb";
-
+@import "./theme";
 @import "./apps";
 @import "./components/card";
