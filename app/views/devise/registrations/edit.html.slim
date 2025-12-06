@@ -4,64 +4,65 @@
 ruby:
   demo_mode = default_admin_in_demo_mode?(resource)
 
-.row
-  .col-md-12
-    .card.mb-3
-      .card-header.card-border
-        h3.card-title = t('.title', resource: resource.model_name.human)
-      .card-body
-        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-          = f.error_notification
+.tw:flex.tw:flex-col.tw:gap-4
+  .card.card-border
+    .card-header
+      h3.card-title = t('.title', resource: resource.model_name.human)
+    .card-body
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = f.error_notification
 
-          = f.input :username, required: true, autofocus: true
-          = f.input :email, required: true, autofocus: true
-          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-            p
-              = t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email)
+        = f.input :username, required: true, autofocus: true
+        = f.input :email, required: true, autofocus: true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          p
+            = t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email)
 
-          = f.input :locale, as: :select, collection: User.options_roles, label_method: :last, value_method: :first, include_blank: false
-          = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
-          = f.input :timezone, as: :select, collection: User.options_timezones, label_method: :last, value_method: :first, include_blank: false
+        = f.input :locale, as: :select, collection: User.options_roles, label_method: :last, value_method: :first, include_blank: false
+        = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
+        = f.input :timezone, as: :select, collection: User.options_timezones, label_method: :last, value_method: :first, include_blank: false
 
-          = f.button :submit, class: 'btn-lg'
+        = f.button :submit, class: 'btn-lg'
 
-    .card.mb-3
-      .card-header.card-border
-        h3.card-title = t('.change_password')
-      .card-body
-        = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_password }) do |f|
-          = f.error_notification
+  .card
+    .card-header.card-border
+      h3.card-title = t('.change_password')
+    .card-body
+      = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_password }) do |f|
+        = f.error_notification
 
-          = f.input :current_password, input_html: { autocomplete: "password" }
-          = f.input :password, input_html: { autocomplete: "new-password" }
-          = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
-
-          - if demo_mode
-            = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
-          - else
-            = f.button :submit, t('.update_password'), class: 'btn-lg'
-
-    .card.mb-3
-      .card-header.card-border
-        h3.card-title = t('.api')
-      .card-body
-        .form-group
-          label.mb-2 = t('.token')
-          .d-flex data-controller="clipboard-center"
-            input.flex-fill.rounded-start.border-0.w-100.p-2.ps-3 type="text" readonly=true value="#{@user.token}" data-clipboard-center-target="source"
-            button.btn.btn-primary.rounded-0.rounded-end[
-              data-action="clipboard-center#copy"
-              data-clipboard-text="#{@user.token}"
-            ]
-              i.fa-regular.fa-clipboard
-
-    .card.card-danger.mb-3
-      .card-header.card-border
-        h3.card-title = t('.danger_zone')
-      .card-body
-        p = t('.unhappy')
+        = f.input :current_password, input_html: { autocomplete: "password" }
+        = f.input :password, input_html: { autocomplete: "new-password" }
+        = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
 
         - if demo_mode
-          = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'btn btn-lg btn-primary', disabled: true
+          = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
         - else
-          = button_to t('.cancel_my_account'), user_registration_path, data: { turbo_confirm: t('modals.confirm.body') }, method: :delete, class: 'btn btn-lg btn-danger'
+          = f.button :submit, t('.update_password'), class: 'btn-lg'
+
+  .card.card-border
+    .card-header
+      h3.card-title = t('.api')
+    .card-body
+      label.tw:mb-2 = t('.token')
+      .tw:join.tw:w-full data-controller="clipboard-center"
+        input.tw:join-item.tw:input.tw:w-full[
+          type="text"
+          readonly=true 
+          value="#{@user.token}"
+          data-clipboard-center-target="source"
+        ] 
+        button.tw:join-item.tw:btn data-action="clipboard-center#copy"
+          i.fa-regular.fa-clipboard
+
+  .card.card-border.card-error
+    .card-header
+      h3.card-title = t('.danger_zone')
+    .card-body
+      p = t('.unhappy')
+      - if demo_mode
+        = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'tw:btn tw:btn-lg tw:btn-primary tw:btn-disabled'
+      - else
+        = button_to t('.cancel_my_account'), user_registration_path, \
+          class: 'tw:btn tw:btn-lg tw:btn-error', \
+          data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

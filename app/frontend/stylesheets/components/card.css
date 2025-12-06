@@ -113,6 +113,14 @@
   }
 }
 
+.card-error {
+  @layer components {
+    .card-header {
+      @apply tw:bg-error;
+    }
+  }
+}
+
 /* 
 .card-header {
   @layer components {
