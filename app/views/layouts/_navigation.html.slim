@@ -12,7 +12,9 @@ div class="tw:navbar tw:border-base-300 tw:border-b tw:shadow-none tw:transition
   div class="tw:navbar-end"
     - if user_signed_in?
       div class="tw:dropdown tw:dropdown-end"
-        div class="tw:btn tw:m-1" tabindex="0" role="button" = current_user.username
+        div class="tw:btn tw:btn-ghost" tabindex="0" role="button" 
+          = current_user.username
+          i.fa-solid.fa-caret-down
         ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-32 tw:p-2 tw:shadow-sm"
           li = link_to t('user_profile'), edit_user_registration_path
           li = button_to t('log_out'), destroy_user_session_path, method: :delete

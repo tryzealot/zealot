@@ -24,12 +24,12 @@
                   input [type="checkbox" name="channel[release_ids][]" value="#{release.id}"
                         data-bulk-operation-target="checkbox" data-action="bulk-operation#switchDeleteButton"]
               td
-                = link_to release.version, friendly_channel_release_path(release.channel, release.id)
+                = link_to release.version, friendly_channel_release_path(release.channel, release.id), data: { turbo_frame: '_top' }
               td
                 - if release.release_version == (params[:id] || params[:name])
                   span class="tw:opacity-70" = release.release_version || '-'
                 - else
-                  = link_to (release.release_version || '-'), friendly_channel_version_path(release.channel, release.release_version)
+                  = link_to (release.release_version || '-'), friendly_channel_version_path(release.channel, release.release_version), data: { turbo_frame: '_top' }
               td
                 span class="tw:opacity-70" = release.build_version || '-'
               - if channel.device_type.downcase == 'ios'

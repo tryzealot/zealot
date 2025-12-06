@@ -4,10 +4,10 @@
       h2.card-title = scheme.name
       .card-tools class="tw:gap-1"
         - if scheme.retained_builds.positive?
-          span class="tw:badge tw:badge-sm tw:bg-neutral tw:text-warning/80 tw:me-2 tw:tooltip tw:tooltip-left" data-tip=t('apps.show.retained_build', count: scheme.retained_builds)
+          span class="tw:badge tw:badge-sm tw:badge-neutral tw:text-warning/80 tw:me-2 tw:tooltip tw:tooltip-left" data-tip=t('apps.show.retained_build', count: scheme.retained_builds)
             = scheme.retained_builds
         - unless scheme.new_build_callout
-          span class="tw:badge tw:badge-sm tw:bg-neutral tw:text-warning/80 tw:me-2 tw:tooltip tw:tooltip-left" data-tip=t('apps.show.disabled_new_build_callout')
+          span class="tw:badge tw:badge-sm tw:badge-neutral tw:text-warning/80 tw:me-2 tw:tooltip tw:tooltip-left" data-tip=t('apps.show.disabled_new_build_callout')
             i class="fa fa-bell-slash"
     .card-body class="tw:p-0"
       ui id="#{dom_id(scheme)}_channels" class="tw:list"

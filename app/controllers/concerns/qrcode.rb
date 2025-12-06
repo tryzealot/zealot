@@ -5,44 +5,64 @@ module Qrcode
 
   THEMES = {
     light: {
-      fill: '#FFFFFF',
-      color: '#465960'
+      fill: 'FFFFFF',
+      color: '465960'
     },
     dark: {
-      fill: '#212529',
-      color: '#dedcdc'
+      fill: '000000',
+      color: 'DEDCDC'
     },
   }
 
   def qrcode_options
-    {
-      module_px_size: px_size,
-      fill: theme[:fill],
+    options = {
+      offset: 0,
+      module_px_size: size,
       color: theme[:color],
-      offset: 10
     }
+  
+    case params[:format]
+    when 'png'
+      options.merge!({
+        bit_depth: 1,
+        border_modules: 4,
+        color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+        resize_exactly_to: false,
+        resize_gte_to: false,
+        fill: theme[:fill],
+        offset: 10
+      })
+    else
+      options.merge!({
+        shape_rendering: 'crispEdges',
+        standalone: true,
+        use_path: true,
+        module_px_size: size,
+        color: theme[:color],
+      })
+    end
+
+    options
   end
 
   private
 
   def theme
-    @theme ||= -> do
-      name = params.fetch(:theme, 'light') == 'light' ? :light : :dark
-      THEMES[name]
-    end.call
+    @theme ||= THEMES[params.fetch(:theme, 'light').to_sym] || :light
   end
 
-  def px_size
-    case params[:size]
-    when 'thumb'
+  def size
+    case params.fetch(:size, 'md')
+    when 'sm'
       3
-    when 'medium'
+    when 'md'
       5
-    when 'large'
-      6
-    when 'extra'
-      8
+    when 'lg'
+      7
+    when 'xl'
+      9
     else
+      # xs
       2
     end
   end

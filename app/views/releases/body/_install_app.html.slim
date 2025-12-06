@@ -7,46 +7,43 @@
   == render 'shared/install_limited', safari_text: t('releases.show.app_open_in_safari'), brower_text: t('releases.show.app_open_in_webbrower')
 
   - unless release.app.archived
-    .action-buttons data-release-download-target="buttons"
+    .action-buttons class="tw:my-3 tw:space-x-3" data-release-download-target="buttons"
       - if release.file?
         - if release.platform == 'iOS'
           - if release.cert_expired?
-            button.btn.btn-icon.btn-lg.btn-secondary.disabled
+            button class="tw:btn tw:btn-lg tw:btn-secondary tw:btn-disabled"
               i.fa-solid.fa-certificate
               = t('releases.show.cert_expired')
           - else
-            button.btn.btn-icon.btn-lg.btn-success.d-none[
+            button[
+              class="tw:btn tw:btn-icon tw:btn-lg tw:btn-success tw:d-none"
               data-action="release-download#install"
               data-release-download-target="installButton"
             ]
               i.fa-solid.fa-download
               = t('releases.show.install')
 
-        a.btn.btn-icon.btn-lg.btn-success[
-          data-release-download-target="downloadButton"
-          href="#{release.download_url}"
-          target="_blank"
-        ]
-          i.fa-solid.fa-hard-drive
-          = t('releases.show.download')
+        = button_link_to t('releases.show.download'), release.download_url, 'hard-drive', \
+          class: 'tw:btn tw:btn-lg tw:btn-success', target: '_blank', \
+          data: { release_download_target: 'downloadButton' }
       - else
-        button.btn.btn-icon.btn-lg.btn-secondary.disabled
+        button class="tw:btn tw:btn-lg tw:btn-secondary tw:btn-disabled"
           i.fa-solid.fa-ghost
           = t('releases.show.missing_file')
 
       - if current_user&.manage?(app: app)
         = button_link_to t('modals.buttons.destroy'), channel_release_path(release.channel, release), 'trash-alt', \
-          class: 'btn btn-icon btn-lg btn-danger', \
+          class: 'tw:btn tw:btn-lg tw:btn-error', \
           data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 
-      .ios-issues
-        - if release.file? && release.cert_expired?
-          .ios-cert-expired
-            i.fa-solid.fa-asterisk
-            a href="javascript:void(0);" data-action="release-download#showCertExpired"
-              = t('releases.show.cannot_install_cause_of_certificate_expired')
-
-        .ios-install-issues.d-none data-release-download-target="installIssue"
+    .ios-issues
+      - if release.file? && release.cert_expired?
+        .ios-cert-expired
           i.fa-solid.fa-asterisk
-          a href="javascript:void(0);" data-action="release-download#showQA"
-            = t('releases.show.cannot_install_or_untrusted_enterprise_developer')
+          a href="javascript:void(0);" data-action="release-download#showCertExpired"
+            = t('releases.show.cannot_install_cause_of_certificate_expired')
+
+      .ios-install-issues.d-none data-release-download-target="installIssue"
+        i.fa-solid.fa-asterisk
+        a href="javascript:void(0);" data-action="release-download#showQA"
+          = t('releases.show.cannot_install_or_untrusted_enterprise_developer')

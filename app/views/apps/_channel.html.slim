@@ -2,9 +2,12 @@
   li class="tw:list-row"
     div class="tw:col-span-full tw:flex tw:justify-between tw:items-center"
       div class="tw:grow"
-        = link_to channel.name, channel_path(channel.id), data: { turbo_target: 'top' }
+        = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo_frame: '_top' }
         span class="tw:badge tw:badge-sm tw:bg-neutral tw:ms-2 tw:tooltip" data-tip=t('apps.show.total_builds')
           = channel.releases.count
+        - if channel.password.present?
+          span class="tw:badge tw:badge-sm tw:bg-neutral tw:text-warning tw:opacity-80 tw:ms-2"
+            i.fa-solid.fa-lock
       - if current_user&.manage?(app: app)
         div class="tw:flex tw:gap-2"
           - if !app.archived

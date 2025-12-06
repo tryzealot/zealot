@@ -30,7 +30,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 
 - **JavaScript Framework**: Hotwired Stimulus 3.2+, Turbo Rails
 - **Build Tool**: vite
-- **CSS**: TailwindCSS, DailyUI, FontAwesome 7+
+- **CSS**: TailwindCSS with prefix "tw:", DailyUI, FontAwesome 7+
 
 ### Tools & Infrastructure
 
