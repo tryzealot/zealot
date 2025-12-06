@@ -19,13 +19,13 @@ html lang="#{I18n.locale}"
     == csrf_meta_tags
 
   body data-theme=active_appearance data-controller="global"
-    div class="tw:drawer tw:lg:drawer-open"
-      input id="zealot-drawer" class="tw:drawer-toggle" type="checkbox"
-      div class="tw:drawer-content"
+    div class="drawer lg:drawer-open"
+      input id="zealot-drawer" class="drawer-toggle" type="checkbox"
+      div class="drawer-content"
         == render 'layouts/navigation'
         == render 'layouts/content'
         / == render 'layouts/footer'
-      div class="tw:drawer-side tw:is-drawer-close:overflow-visible"
+      div class="drawer-side is-drawer-close:overflow-visible"
         == render 'layouts/sidebar'
 
     == render 'layouts/notifications'

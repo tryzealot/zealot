@@ -1,23 +1,23 @@
 - if ldap_auth_enable?
-  input class="tw:tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
-  div class="tw:tab-content tw:bg-base-100 tw:border-base-300 tw:px-5 tw:py-3"
-    div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-3 tw:my-2"
-      div class="tw:order-1 tw:border-base-200 tw:md:border-r-2 tw:md:pe-4"
+  input class="tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
+  div class="tab-content bg-base-100 border-base-300 px-5 py-3"
+    div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
+      div class="order-1 border-base-200 md:border-r-2 md:pe-4"
         = form_tag(user_ldap_omniauth_callback_path) do
-          fieldset class="tw:fieldset"
-            = label_tag :username, t('devise.ldap.username'), class: 'tw:fieldset-legend'
-            = text_field_tag :username, nil, class: "tw:input tw:w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
+          fieldset class="fieldset"
+            = label_tag :username, t('devise.ldap.username'), class: 'fieldset-legend'
+            = text_field_tag :username, nil, class: "input w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
 
-          fieldset class="tw:fieldset"
-            = label_tag :password, t('devise.ldap.password'), class: 'tw:fieldset-legend'
-            = text_field_tag :password, nil, class: "tw:input tw:w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
+          fieldset class="fieldset"
+            = label_tag :password, t('devise.ldap.password'), class: 'fieldset-legend'
+            = text_field_tag :password, nil, class: "input w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
 
           - if devise_mapping.rememberable?
-            fieldset class="tw:fieldset"
-              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'tw:toggle tw:toggle-primary' 
-              = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'tw:text-md tw:font-semibold'
+            fieldset class="fieldset"
+              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'toggle toggle-primary' 
+              = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'text-md font-semibold'
 
-          = submit_tag t('devise.sessions.new.sign_in'), class: "tw:btn tw:btn-primary w-full", data: { qa_selector: 'sign_in_button' }
-      div class="tw:order-2"
+          = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary w-full", data: { qa_selector: 'sign_in_button' }
+      div class="order-2"
         == render 'devise/shared/links'
 

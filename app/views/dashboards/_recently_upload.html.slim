@@ -1,92 +1,92 @@
 == render AppReleaseActivityComponent.new(\
   @releases, active_id: 31,\
   title: t('dashboard.timeline.title'), \
-  icon: 'tw:fa-solid tw:fa-history'\
+  icon: 'fa-solid fa-history'\
 )
 
 / .card
 /   .card-header
 /     h3.card-title
-/       i class="tw:icon tw:fa-solid tw:fa-history tw:mr-2"
+/       i class="icon fa-solid fa-history mr-2"
 /       = t('dashboard.timeline.title')
 
 /   - if @releases.present?
-/     .card-body class="tw:bg-base-200 tw:p-0 tw:pb-3"
+/     .card-body class="bg-base-200 p-0 pb-3"
 /       ruby:
 /         loop_date = Time.current
 /       - @releases.each_with_index do |release, i|
 /         - if i == 0 || (loop_date.to_date != release.created_at.to_date)
 /           ruby:
 /             loop_date = release.created_at
-/           div class="tw:divider tw:text-md tw:m-0 tw:text-base-content/60"
+/           div class="divider text-md m-0 text-base-content/60"
 /             = l(release.created_at.to_date, format: :nice)
 
-/         div class="tw:px-4 tw:py-1 tw:rounded-box tw:transition-colors hover:bg-base-200"
-/           div class="tw:flex tw:items-start tw:gap-3 tw:justify-items-center"
-/             div class="tw:size-9 tw:rounded-full tw:bg-base-300 tw:flex tw:items-center tw:justify-center tw:text-base-content/70"
+/         div class="px-4 py-1 rounded-box transition-colors hover:bg-base-200"
+/           div class="flex items-start gap-3 justify-items-center"
+/             div class="size-9 rounded-full bg-base-300 flex items-center justify-center text-base-content/70"
 /               = timeline_app_icon(release.channel.device_type)
 
-/             div class="tw:flex-1 tw:min-w-0"
-/               div class="tw:flex tw:flex-col tw:gap-2 tw:mb-1 tw:sm:flex-row tw:sm:items-center"
+/             div class="flex-1 min-w-0"
+/               div class="flex flex-col gap-2 mb-1 sm:flex-row sm:items-center"
 /                 = link_to( \
 /                   release.app_name, \
 /                   friendly_channel_release_path(release.channel, release), \
-/                   class: 'tw:link tw:link-hover tw:text-md tw:font-semibold tw:leading-tight tw:break-words', \
+/                   class: 'link link-hover text-md font-semibold leading-tight break-words', \
 /                   data: { turbo: false } \
 /                 )
 
-/                 span class="tw:tooltip tw:tooltip-left tw:sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
-/                   span class="tw:text-xs tw:text-base-content/50 tw:inline-flex tw:items-center tw:gap-1"
-/                     i class="tw:fa-solid tw:fa-clock"
+/                 span class="tooltip tooltip-left sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
+/                   span class="text-xs text-base-content/50 inline-flex items-center gap-1"
+/                     i class="fa-solid fa-clock"
 /                     = time_ago_in_words(release.created_at)
 
 /               - if release.release_version && release.build_version
-/                 p class="tw:text-sm tw:mb-2 tw:text-base-content/80"
+/                 p class="text-sm mb-2 text-base-content/80"
 /                   = t('dashboard.timeline.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
 /               - elsif release.release_version
-/                 p class="tw:text-sm tw:mb-2 tw:text-base-content/80"
+/                 p class="text-sm mb-2 text-base-content/80"
 /                   = t('dashboard.timeline.upload_auto_version_release', version: release.release_version)
 /               - else
-/                 p class="tw:text-sm tw:mb-2 tw:text-base-content/80"
+/                 p class="text-sm mb-2 text-base-content/80"
 /                   = t('dashboard.timeline.upload_auto_version_release', version: release.version)
 
 /               - if release.changelog.present?
-/                 div class="tw:prose tw:prose-sm tw:max-w-none tw:text-base-content/90 tw:m-4"
-/                   ul class="tw:list-disc"
+/                 div class="prose prose-sm max-w-none text-base-content/90 m-4"
+/                   ul class="list-disc"
 /                     - release.changelog.each do |commit|
 /                       li
-/                         div class="tw:flex tw:flex-wrap tw:items-center tw:gap-x-2 tw:gap-y-1"
-/                           span class="tw:font-medium" = commit['message'] || commit[:message]
+/                         div class="flex flex-wrap items-center gap-x-2 gap-y-1"
+/                           span class="font-medium" = commit['message'] || commit[:message]
 /                           - if commit['author'] || commit[:author]
-/                             span class="tw:text-xs tw:text-base-content/50"
+/                             span class="text-xs text-base-content/50"
 /                               = (commit['author'] || commit[:author])
 /                           - if commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]
-/                             span class="tw:badge tw:badge-ghost tw:badge-xs"
+/                             span class="badge badge-ghost badge-xs"
 /                               = (commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]).to_s[0,8]
 /                           - if commit['date'] || commit[:date]
-/                             span class="tw:tooltip tw:tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
-/                               span class="tw:text-xs tw:text-base-content/50 tw:inline-flex tw:items-center tw:gap-1"
-/                                 i class="tw:fa-solid tw:fa-clock"
+/                             span class="tooltip tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
+/                               span class="text-xs text-base-content/50 inline-flex items-center gap-1"
+/                                 i class="fa-solid fa-clock"
 /                                 = time_ago_in_words(Time.parse(commit['date'] || commit[:date])) rescue (commit['date'] || commit[:date])
 
 /               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present? || release.app.archived
-/                 div class="tw:mt-1 tw:flex tw:flex-wrap tw:items-center tw:gap-2"
+/                 div class="mt-1 flex flex-wrap items-center gap-2"
 /                   - if release.release_type
-/                     span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
+/                     span class="badge badge-sm badge-soft badge-info"
 /                       = release_type_name(release.release_type)
 /                   - if release.branch
-/                     span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
+/                     span class="badge badge-sm badge-soft badge-info"
 /                       = release.branch
 /                   - if release.short_git_commit
-/                     span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
+/                     span class="badge badge-sm badge-soft badge-info"
 /                       = release.short_git_commit
 /                   - if release.app.archived
-/                     span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
+/                     span class="badge badge-sm badge-soft badge-info"
 /                       | Archived
 /   - else
-/     div class="tw:px-4 tw:py-6 tw:text-base-content/60"
+/     div class="px-4 py-6 text-base-content/60"
 /       = t('dashboard.timeline.not_found')
 
 /   - if @releases.total_pages > 1
-/     .card-footer class="tw:pt-4 tw:flex tw:justify-end tw:border-t tw:border-base-300"
+/     .card-footer class="pt-4 flex justify-end border-t border-base-300"
 /       = paginate @releases

@@ -1,8 +1,9 @@
 @import "~fontawesome/css/all.min.css";
-@import "tailwindcss" prefix(tw);
+@import "tailwindcss";
 
 @plugin "daisyui" {
   themes: all;
+  prefix: "d-";
 }
 
 /* Load used tailwind + daisyui styles */

@@ -13,7 +13,7 @@ module AppsHelper
     md_cols = schemes_total >= 2 ? 2 : 1
     lg_cols = schemes_total >= 4 ? 4 : schemes_total
 
-    "tw:grid tw:grid-cols-1 tw:md:grid-cols-#{md_cols} tw:lg:grid-cols-#{lg_cols}"
+    "grid grid-cols-1 md:grid-cols-#{md_cols} lg:grid-cols-#{lg_cols}"
   end
 
   APP_ICON_CLASS = ["app-icon"]

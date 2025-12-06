@@ -7,13 +7,13 @@
 - content_for :section_rightpanel do
   - if current_user&.manage?
     = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
-      class: 'tw:btn tw:btn-success', data: { turbo_frame: 'modal' }
+      class: 'btn btn-success', data: { turbo_frame: 'modal' }
 
 - if @apps.present?
   == render 'apps/search'
 
 - if @apps.present?
-  ul#apps class="tw:list tw:bg-base-100 tw:rounded-box tw:shadow-md"
+  ul#apps class="list bg-base-100 rounded-box shadow-md"
     - @apps.each do |app|
       == render 'apps/app', app: app
 - elsif archived_path?

@@ -3,12 +3,12 @@ ruby:
   desc_active = params[:sort] == "asc" ? "active" : ""
   asc_active = params[:sort] == "desc" ? "active" : ""
 
-form id="app-search-bar" action=apps_path method="get" class="tw:mt-2"
-  div class="tw:join tw:w-full"
-    input class="tw:join-item tw:input tw:w-full" name="search" value=params[:search] placeholder=t('apps.index.searching_app') type="text"
-    button class="tw:join-item tw:btn" type="submit"
+form id="app-search-bar" action=apps_path method="get" class="mt-2"
+  div class="join w-full"
+    input class="join-item input w-full" name="search" value=params[:search] placeholder=t('apps.index.searching_app') type="text"
+    button class="join-item btn" type="submit"
       i.fa-solid.fa-search
     = button_link_to '', apps_path(current_params.merge(sort: :asc)), 'arrow-down-a-z', \
-      class: 'tw:join-item tw:btn'
+      class: 'join-item btn'
     = button_link_to '', apps_path(current_params.merge(sort: :desc)), 'arrow-up-z-a', \
-      class: 'tw:join-item tw:btn'
+      class: 'join-item btn'

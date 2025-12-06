@@ -4,10 +4,10 @@
   = f.input :channel_id, as: :hidden, input_html: { value: channel.id }
   = f.input :url, required: true
   = f.input :body, as: :text, input_html: { rows: 18, cols: 10 }
-  div class="tw:flex tw:justify-between tw:items-center tw:gap-6 tw:mx-2"
+  div class="flex justify-between items-center gap-6 mx-2"
     = f.input :upload_events, as: :boolean, input_html: { checked: true }
     = f.input :download_events, as: :boolean
     = f.input :changelog_events, as: :boolean
   
-  div class="tw:mt-3"
+  div class="mt-3"
     = f.button :submit

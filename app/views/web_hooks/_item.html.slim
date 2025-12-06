@@ -2,17 +2,17 @@ ruby:
   events = [:upload_events, :download_events, :changelog_events]
 
 tr
-  td class="tw:px-0 tw:space-y-1 tw:space-x-4"
-    div class="tw:font-bold tw:break-all"
+  td class="px-0 space-y-1 space-x-4"
+    div class="font-bold break-all"
       = web_hook.url
-    div class="tw:space-x-1"
+    div class="space-x-1"
       - events.each do |event|
         - if web_hook.send(event) == 1
-          span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-secondary"
+          span class="badge badge-sm badge-soft badge-secondary"
             = t("simple_form.labels.web_hook.#{event}")
-    div class="tw:flex tw:gap-1"
+    div class="flex gap-1"
       - web_hook.channels.all.each do |shared_channel|
-        span class="tw:badge tw:badge-sm tw:badge-soft tw:badge-info"
+        span class="badge badge-sm badge-soft badge-info"
           - if shared_channel == channel
             = t('web_hooks.current_channel')
           - else
@@ -20,29 +20,29 @@ tr
               data: { turbo_frame: '_top' }
 
   - unless channel.app.archived
-    td class="tw:px-0"
+    td class="px-0"
       - if type == :enabled
-        div class="tw:join"
-          div class=" tw:dropdown tw:dropdown-top tw:dropdown-end"
-            button class="tw:btn tw:join-item tw:tooltip" data-tip=t('web_hooks.test')
+        div class="join"
+          div class=" dropdown dropdown-top dropdown-end"
+            button class="btn join-item tooltip" data-tip=t('web_hooks.test')
               i.fa-regular.fa-comment-dots
-            ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-60 tw:p-2 tw:shadow-sm"
-              li class="tw:opacity-60 tw:text-sm tw:px-3 tw:py-2" = t('web_hooks.test')
+            ul class="dropdown-content menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
+              li class="opacity-60 text-sm px-3 py-2" = t('web_hooks.test')
               - events.each do |event|
                 li = link_to t("simple_form.labels.web_hook.#{event}"), \
                   test_channel_web_hook_path(channel, web_hook, event), \
                   data: { turbo: false }
           - if web_hook.channel_id == channel.id
             = button_link_to '', channel_web_hook_path(channel, web_hook), 'trash-alt', \
-              class: 'tw:btn tw:text-error tw:tooltip', \
+              class: 'btn text-error tooltip', \
               data: { tip: t('web_hooks.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
           - else
             / MUST disable turbo to avoid pre-fetching issue
             = button_link_to '', disable_channel_web_hook_path(channel, web_hook), 'link-slash', \
-              class: 'tw:btn tw:join-item tw:text-warning tw:tooltip', \
+              class: 'btn join-item text-warning tooltip', \
               data: { tip: t('web_hooks.disable'), turbo: false }
       - elsif type == :shared
         / MUST disable turbo to avoid pre-fetching issue
         = button_link_to '', enable_channel_web_hook_path(channel, web_hook), 'link', \
-          class: 'tw:btn-sm tw:tooltip tw:tooltip-left', \
+          class: 'btn-sm tooltip tooltip-left', \
           data: { tip: t('web_hooks.enable'), turbo: false }

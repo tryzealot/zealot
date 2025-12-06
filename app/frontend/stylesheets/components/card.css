@@ -7,40 +7,40 @@
 
 .card {
   @layer components {
-    @apply tw:bg-base-100 tw:flex tw:flex-col tw:relative;
-    @apply tw:shadow-2xl tw:shadow-base-300 tw:rounded-md;
+    @apply bg-base-100 flex flex-col relative;
+    @apply shadow-2xl shadow-base-300 rounded-md;
     /* background-color: var(--card-body-bg-color); */
 
     .card-header {
-      @apply tw:p-3 tw:border-b;
-      @apply tw:flex tw:justify-between tw:items-center;
+      @apply p-3 border-b;
+      @apply flex justify-between items-center;
       border-color: var(--card-border-color);
 
       .card-title {
-        @apply tw:text-lg tw:font-semibold;
+        @apply text-lg font-semibold;
       }
       .card-tools {
-        @apply tw:flex tw:items-center tw:gap-2;
+        @apply flex items-center gap-2;
         > * {
-          @apply tw:inline-flex tw:items-center tw:justify-center;
+          @apply inline-flex items-center justify-center;
         }
       }
     }
 
     .card-body {
-      @apply tw:flex tw:flex-col tw:gap-2 tw:p-3 tw:rounded-b-md;
+      @apply flex flex-col gap-2 p-3 rounded-b-md;
       :where(p) {
-        @apply tw:grow;
+        @apply grow;
       }
     }
 
     .card-footer {
-      @apply tw:bg-base-200 tw:rounded-b-lg tw:p-3;
+      @apply bg-base-200 rounded-b-lg p-3;
     }
 
     &:has(> .card-footer) {
       .card-body {
-        @apply tw:rounded-none;
+        @apply rounded-none;
       }
     }
 
@@ -87,11 +87,11 @@
 
 .card.card-border {
   @layer components {
-    @apply tw:border tw:rounded-md;
+    @apply border rounded-md;
     border-color: var(--card-border-color);
 
     .card-header {
-      @apply tw:border-b;
+      @apply border-b;
       border-color: var(--card-border-color);
     }
   }
@@ -100,7 +100,7 @@
 .card-info {
   @layer components {
     .card-header {
-      @apply tw:bg-info;
+      @apply bg-info;
     }
   }
 }
@@ -108,7 +108,7 @@
 .card-success {
   @layer components {
     .card-header {
-      @apply tw:bg-success;
+      @apply bg-success;
     }
   }
 }
@@ -116,7 +116,7 @@
 .card-error {
   @layer components {
     .card-header {
-      @apply tw:bg-error;
+      @apply bg-error;
     }
   }
 }
@@ -124,33 +124,33 @@
 /* 
 .card-header {
   @layer components {
-    @apply tw:flex tw:justify-between tw:items-center;
+    @apply flex justify-between items-center;
     .card-title {
-      @apply tw:text-lg tw:font-semibold;
+      @apply text-lg font-semibold;
     }
     .card-tools {
-      @apply tw:flex tw:items-center tw:gap-2;
+      @apply flex items-center gap-2;
       > * {
-        @apply tw:inline-flex tw:items-center tw:justify-center;
+        @apply inline-flex items-center justify-center;
       }
     }
   }
 }
 .card-body {
   @layer components {
-    @apply tw:flex tw:flex-col tw:gap-2 tw:bg-base-content;
+    @apply flex flex-col gap-2 bg-base-content;
     :where(p) {
-      @apply tw:grow;
+      @apply grow;
     }
 
     &:has(> .border-t) {
-      @apply tw:border-t-indigo-500;
+      @apply border-t-indigo-500;
     }
   }
 }
 
 .card-footer {
   @layer components {
-    @apply tw:flex tw:items-center;
+    @apply flex items-center;
   }
 } */

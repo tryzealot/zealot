@@ -3,8 +3,8 @@
     h3.card-title
       i.fa-solid.fa-qrcode
       = t('releases.show.qrcode')
-  .card-body class="tw:rounded-none tw:p-0"
-    div class="tw:flex tw:justify-center tw:w-full tw:p-4"
+  .card-body class="rounded-none p-0"
+    div class="flex justify-center w-full p-4"
       = app_qrcode_tag(@release)
-  .card-footer class="tw:justify-center" 
+  .card-footer class="justify-center" 
     = t('releases.show.scan_qrcode_with_any_supported_app')

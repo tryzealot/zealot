@@ -5,7 +5,7 @@ ruby:
   = f.error_notification
 
   = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
-  div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-6"
+  div class="grid grid-cols-1 md:grid-cols-2 gap-6"
     div 
       = f.input :name, required: true
       = f.input :device_type, collection: Channel.device_types, label_method: :last, value_method: :first, selected: channel.device_type ? channel.device_type : Channel.device_types.first
@@ -17,4 +17,4 @@ ruby:
       = f.input :password, as: :string
       - if params[:action] != 'new'
         = f.input :key, input_html: { disabled: true }
-  = f.button :submit, class: 'tw:mt-2'
+  = f.button :submit, class: 'mt-2'

@@ -19,7 +19,7 @@ export default class extends Controller {
   }
 
   renderNormal(button) {
-    button.classList.remove("tw:text-success", "tw:text-warning")
+    button.classList.remove("text-success", "text-warning")
     const icon = button.querySelector("i")
     if (icon) {
       icon.classList.add("fa-clipboard")
@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   renderUnsupport(button) {
-    button.classList.add("tw:text-warning")
+    button.classList.add("text-warning")
 
     const icon = button.querySelector("i")
     if (icon) {
@@ -38,7 +38,7 @@ export default class extends Controller {
   }
 
   renderSuccess(button) {
-    button.classList.add("tw:text-success")
+    button.classList.add("text-success")
     const icon = button.querySelector("i")
     if (icon) {
       icon.classList.add("fa-thumbs-up")

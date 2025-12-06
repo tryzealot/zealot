@@ -1,10 +1,10 @@
 - if enable_callout && latest_release
-  .tw:card.tw:card-sm.tw:bg-warning.tw:text-primary-content
-    .tw:card-body
-      h2.tw:card-title
+  .card.card-sm.bg-warning.text-primary-content
+    .card-body
+      h2.card-title
         i.fa-solid.fa-info
         = t('releases.show.not_latest_release')
-      div.tw:text-base
+      div.text-base
         = raw t('releases.show.released_new_version', \
           version: latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
           time: time_ago_in_words(latest_release.created_at), \

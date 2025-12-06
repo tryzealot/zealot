@@ -1,11 +1,11 @@
 
-div class="tw:stat"
+div class="stat"
   / .stat-figure.text-primary
   /   i class="#{icon}"
-  div class="tw:stat-title"
-    i class="tw:pr-1 #{icon}"
+  div class="stat-title"
+    i class="pr-1 #{icon}"
     = title
-  div class="tw:stat-value"
+  div class="stat-value"
     - if url.present?
       = link_to count.presence || '-', url
     - else
