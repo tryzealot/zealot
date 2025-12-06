@@ -4,8 +4,8 @@
       h3.card-title
         i.fa-solid.fa-archive
         = t('releases.show.major_versions')
-    .card-body class="tw:p-0"
-      table class="tw:table"
+    .card-body class="p-0"
+      table class="table"
         - channel.release_versions.each do |version|
           tr
             td

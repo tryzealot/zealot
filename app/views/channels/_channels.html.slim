@@ -1,11 +1,11 @@
-.card class="tw:hidden tw:md:block"
+.card class="hidden md:block"
   .card-header
     h3.card-title = t('channels.show.channel')
-  .card-body class="tw:p-0"
-    ul class="tw:list"
+  .card-body class="p-0"
+    ul class="list"
       - scheme.channels.each do |channel|
         ruby:
-          actived_class = (params[:id] || params[:channel]) == channel.slug ? 'tw:bg-primary' : ''
-        li class="tw:list-row tw:p-3 tw:rounded-none #{actived_class}"
+          actived_class = (params[:id] || params[:channel]) == channel.slug ? 'bg-primary' : ''
+        li class="list-row p-3 rounded-none #{actived_class}"
           = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
             data: { turbo_frame: '_top' }

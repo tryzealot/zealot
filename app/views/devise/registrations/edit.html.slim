@@ -4,7 +4,7 @@
 ruby:
   demo_mode = default_admin_in_demo_mode?(resource)
 
-.tw:flex.tw:flex-col.tw:gap-4
+.flex.flex-col.gap-4
   .card.card-border
     .card-header
       h3.card-title = t('.title', resource: resource.model_name.human)
@@ -44,15 +44,15 @@ ruby:
     .card-header
       h3.card-title = t('.api')
     .card-body
-      label.tw:mb-2 = t('.token')
-      .tw:join.tw:w-full data-controller="clipboard-center"
-        input.tw:join-item.tw:input.tw:w-full[
+      label.mb-2 = t('.token')
+      .join.w-full data-controller="clipboard-center"
+        input.join-item.input.w-full[
           type="text"
           readonly=true 
           value="#{@user.token}"
           data-clipboard-center-target="source"
         ] 
-        button.tw:join-item.tw:btn data-action="clipboard-center#copy"
+        button.join-item.btn data-action="clipboard-center#copy"
           i.fa-regular.fa-clipboard
 
   .card.card-border.card-error
@@ -61,8 +61,8 @@ ruby:
     .card-body
       p = t('.unhappy')
       - if demo_mode
-        = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'tw:btn tw:btn-lg tw:btn-primary tw:btn-disabled'
+        = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'btn btn-lg btn-primary btn-disabled'
       - else
         = button_to t('.cancel_my_account'), user_registration_path, \
-          class: 'tw:btn tw:btn-lg tw:btn-error', \
+          class: 'btn btn-lg btn-error', \
           data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

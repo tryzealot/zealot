@@ -1,16 +1,16 @@
-.card class="tw:shadow-lg tw:shadow-cyan-500/50"
+.card class="shadow-lg shadow-cyan-500/50"
   .card-header
     h3.card-title = t('apps.show.collaborators')
     .card-tools
       - if (current_user.admin? || current_user.app_roles?(app, :admin)) && !@app.archived
         = button_link_to t('apps.show.new_collaborator'), new_app_collaborator_path(app), 'user-plus', \
-          class: 'tw:btn-ghost', \
+          class: 'btn-ghost', \
           data: { turbo_frame: 'modal' }
-  .card-body class="tw:p-0"
-    div class="tw:flex tw:flex-row tw:py-2 tw:px-3 tw:font-medium"
-      div class="tw:basis-2/4" = t('apps.show.username')
-      div class="tw:basis-1/4" = t('apps.show.role')
-      div class="tw:basis-1/4"
+  .card-body class="p-0"
+    div class="flex flex-row py-2 px-3 font-medium"
+      div class="basis-2/4" = t('apps.show.username')
+      div class="basis-1/4" = t('apps.show.role')
+      div class="basis-1/4"
     #collaborators
       - app.collaborators.each do |collaborator|
         == render 'collaborator', collaborator: collaborator, app: @app

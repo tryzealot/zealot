@@ -4,12 +4,12 @@
 - content_for :title do
   = t('.sign_in')
 
-div class="tw:section tw:mx-auto tw:max-w-6xl tw:px-4 tw:md:px-6"
-  div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-5 tw:gap-8 tw:my-2"
-    div class="tw:col-span-2 tw:order-2 tw:md:order-1"
+div class="section mx-auto max-w-6xl px-4 md:px-6"
+  div class="grid grid-cols-1 md:grid-cols-5 gap-8 my-2"
+    div class="col-span-2 order-2 md:order-1"
       == render 'devise/shared/intro'
-    div class="tw:col-span-3 tw:order-1 tw:md:order-2"
-      div class="tw:tabs tw:tabs-box"
+    div class="col-span-3 order-1 md:order-2"
+      div class="tabs tabs-box"
         == render 'devise/shared/tab_normal'
         == render 'devise/shared/tab_passwordless'
         == render 'devise/shared/tab_ldap'

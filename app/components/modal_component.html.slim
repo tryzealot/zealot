@@ -1,14 +1,14 @@
 = helpers.turbo_frame_tag :modal do
   = content_tag wrapper_tag, class: wrapper_classes, data: wrapper_data, role: 'dialog' do
-    div class="tw:modal-box #{modal_size}"
+    div class="modal-box #{modal_size}"
       - if close_button
         form method="dialog"
-          button class="tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-2 tw:top-2" autofocus=false
+          button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" autofocus=false
             i.fa-solid.fa-x
-      h3 class="tw:text-lg tw:font-bold"
+      h3 class="text-lg font-bold"
         = title
-      div class="tw:py-4"
+      div class="py-4"
         = content || body
       - if content_for? :footer
-        div class="tw:modal-action"
+        div class="modal-action"
           = content_for :footer

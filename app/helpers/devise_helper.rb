@@ -10,8 +10,8 @@ module DeviseHelper
     url = [:user, name.to_sym, :omniauth, :authorize]
     icon = (key == 'openidconnect') ? 'openid' : key
 
-    button_to(url, class: 'tw:btn tw:w-full tw:flex tw:flex-row', method: :post, data: { turbo: false }) do
-      concat(content_tag(:span, title, class: 'tw:grow tw:text-left'))
+    button_to(url, class: 'btn w-full flex flex-row', method: :post, data: { turbo: false }) do
+      concat(content_tag(:span, title, class: 'grow text-left'))
       concat(content_tag(:i, nil, class: "fa-brands fa-#{icon}"))
     end
   end

@@ -1,12 +1,12 @@
-= turbo_frame_tag release, class: 'tw:grid tw:gap-4 tw:grid-cols-1 tw:md:grid-cols-12' do
-  div class="tw:md:col-span-9 tw:3xl:col-span-10 tw:space-y-6"
+= turbo_frame_tag release, class: 'grid gap-4 grid-cols-1 md:grid-cols-12' do
+  div class="md:col-span-9 3xl:col-span-10 space-y-6"
     == render 'releases/body/new_release_callout', enable_callout: release.scheme.new_build_callout, latest_release: release.outdated?
     == render 'releases/body/metadata', release: release
     == render 'releases/body/changelog', release: release
     == render 'releases/body/devices', devices: release.devices
     == render 'releases/body/activity', current_release: release, recently_releases: release.channel.recently_releases
 
-  div class="tw:md:col-span-3 tw:3xl:col-span-2 tw:space-y-6"
+  div class="md:col-span-3 3xl:col-span-2 space-y-6"
     == render 'releases/upload_button', app: app, channel: channel
     - if user_signed_in_or_guest_mode?
       == render 'releases/sidebar/debug_file', debug_file: release.debug_file
@@ -14,4 +14,4 @@
     == render 'releases/sidebar/qrcode'
     - if user_signed_in_or_guest_mode?
       = link_to t('releases.show.view_detail'), friendly_channel_overview_path(release.channel), \
-        class: 'tw:btn tw:w-full', data: { turbo_frame: '_top' }
+        class: 'btn w-full', data: { turbo_frame: '_top' }

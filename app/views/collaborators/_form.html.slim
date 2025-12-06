@@ -10,7 +10,7 @@ ruby:
       = f.input :role, collection: collaborator_roles, include_blank: false  
       = f.button :submit
   - else
-    div class="tw:text-warning"
+    div class="text-warning"
       = t('collaborators.new.errors.all_users_were_added')
 - else
   = simple_form_for collaborator, url: app_collaborator_path(app, id: collaborator.user.id), data: { action: 'turbo:submit-end->modal#close' } do |f|

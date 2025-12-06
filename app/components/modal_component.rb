@@ -24,10 +24,10 @@ class ModalComponent < ViewComponent::Base
 
   # FIXME: migrate bootstrap tooltip to daisyUI
   def default_button
-    tag.button class: 'tw:btn tw:btn-tool', title: tooltip_value, data: {
+    tag.button class: 'btn btn-tool', title: tooltip_value, data: {
       action: 'click->destroy#click', 
     } do
-      tag.i class: 'fa-solid fa-trash-alt tw:text-danger'
+      tag.i class: 'fa-solid fa-trash-alt text-danger'
     end
   end
 
@@ -59,7 +59,7 @@ class ModalComponent < ViewComponent::Base
 
   def wrapper_classes
     @wrapper_classes ||= -> {
-      default_classes = 'tw:modal'
+      default_classes = 'modal'
       new_classes = @options.fetch(:wrapper_classes, '')
       [default_classes, new_classes, modal_position].join(' ')
     }.call
@@ -74,29 +74,29 @@ class ModalComponent < ViewComponent::Base
   def modal_size
     @modal_size ||= case @options.fetch(:size, 'md').to_sym
                     when :xs
-                      'tw:w-11/12 tw:max-w-xs'
+                      'w-11/12 max-w-xs'
                     when :sm
-                      'tw:w-11/12 tw:max-w-sm'
+                      'w-11/12 max-w-sm'
                     when :md
                       # default
                       ''
                     when :lg
-                      'tw:w-11/12 tw:max-w-lg'
+                      'w-11/12 max-w-lg'
                     when :xl
-                      'tw:w-11/12 tw:max-w-xl'
+                      'w-11/12 max-w-xl'
                     when :'2xl'
-                      'tw:w-11/12 tw:max-w-2xl'
+                      'w-11/12 max-w-2xl'
                     when :'3xl'
-                      'tw:w-11/12 tw:max-w-3xl'
+                      'w-11/12 max-w-3xl'
                     when :'4xl'
-                      'tw:w-11/12 tw:max-w-4xl'
+                      'w-11/12 max-w-4xl'
                     when :'5xl'
-                      'tw:w-11/12 tw:max-w-5xl'
+                      'w-11/12 max-w-5xl'
                     end
   end
 
   def modal_position
     # default position is bottom on small screens, middle on larger screens
-    @modal_position ||= @options.fetch(:position, 'tw:modal-bottom tw:sm:modal-middle')
+    @modal_position ||= @options.fetch(:position, 'modal-bottom sm:modal-middle')
   end
 end

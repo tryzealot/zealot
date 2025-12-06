@@ -1,5 +1,5 @@
-= turbo_frame_tag 'site_title', class: 'tw:flex tw:flex-col tw:items-center tw:justify-center' do
-  = link_to root_path, class: 'tw:flex tw:items-center', data: { turbo: false } do
-    = image_tag 'zealot-icon.png', class: 'brand-image-light tw:size-11'
-    = image_tag 'zealot-icon-dark.png', class: 'brand-image-dark tw:size-11'
-    span class="tw:text-xl tw:is-drawer-close:hidden" = site_title
+= turbo_frame_tag 'site_title', class: 'flex flex-col items-center justify-center' do
+  = link_to root_path, class: 'flex items-center', data: { turbo: false } do
+    = image_tag 'zealot-icon.png', class: 'brand-image-light size-11'
+    = image_tag 'zealot-icon-dark.png', class: 'brand-image-dark size-11'
+    span class="text-xl is-drawer-close:hidden" = site_title
