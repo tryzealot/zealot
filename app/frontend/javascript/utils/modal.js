@@ -68,7 +68,7 @@ class ConfirmDialog {
     footerDiv.classList.add("modal-footer")
 
     const cancelBtn = document.createElement("button")
-    cancelBtn.classList.add("btn", "btn-secondary")
+    cancelBtn.classList.add("d-btn", "d-btn-secondary")
     cancelBtn.setAttribute("data-bs-dismiss", "modal")
     cancelBtn.value = "cancel"
     cancelBtn.dataset.role = "cancel"
@@ -76,7 +76,7 @@ class ConfirmDialog {
     footerDiv.appendChild(cancelBtn)
 
     const confirmBtn = document.createElement("button")
-    confirmBtn.classList.add("btn", "btn-danger")
+    confirmBtn.classList.add("d-btn", "d-btn-danger")
     confirmBtn.value = "confirm"
     confirmBtn.dataset.role = "confirm"
     confirmBtn.textContent = "OK"
@@ -118,13 +118,13 @@ class ConfirmDialog {
 
     if (variant === "alert") {
       cancelBtn.classList.add("d-none")
-      confirmBtn.classList.remove("btn-danger")
-      confirmBtn.classList.add("btn-primary")
+      confirmBtn.classList.remove("d-btn-danger")
+      confirmBtn.classList.add("d-btn-primary")
       confirmBtn.dataset.role = "ok"
     } else {
       cancelBtn.classList.remove("d-none")
-      confirmBtn.classList.remove("btn-primary")
-      confirmBtn.classList.add("btn-danger")
+      confirmBtn.classList.remove("d-btn-primary")
+      confirmBtn.classList.add("d-btn-danger")
       confirmBtn.dataset.role = "confirm"
     }
   }

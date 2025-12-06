@@ -31,13 +31,13 @@
                 - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
                   .timeline-footer
                     - if release.release_type.present?
-                      small.badge
+                      small.d-badge
                         = release_type_name(release.release_type)
                     - if release.branch.present?
-                      small.badge
+                      small.d-badge
                         = release.branch
                     - if release.short_git_commit.present?
-                      small.badge
+                      small.d-badge
                         - if release.channel.git_url.present?
                           = git_commit_url(channel.git_url, release.git_commit)
                         - else

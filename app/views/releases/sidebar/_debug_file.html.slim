@@ -7,7 +7,7 @@
       h3.card-title
         i.fa-solid.fa-bug
         = t('releases.show.debug_file', type: debug_file_type(debug_file))
-        span class="badge badge-sm text-neutral ms-1" beta
+        span class="d-badge d-badge-sm text-neutral ms-1" beta
     .card-body class="p-0"
       - debug_file.metadata.each_with_index do |metadata, index|
           - if metadata.type == 'proguard'

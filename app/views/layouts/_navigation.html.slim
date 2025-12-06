@@ -1,24 +1,24 @@
-div class="navbar border-base-300 border-b shadow-none transition-colors"
+div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   - if user_signed_in_or_guest_mode?
-    div class="navbar-start"
-      label class="btn btn-square btn-ghost drawer-button" for="zealot-drawer" aria-label="open sidebar"
-        i.fa-solid.fa-bars
+    div class="d-navbar-start"
+      == render SwapIconComponent.new(preset: :hamburger, \
+        label: { class: 'fa-lg ms-2', for: 'zealot-drawer' })
       div class="md:hidden"
         == render 'layouts/brand_logo', site_title: Setting.site_title
   - else
-    div class="navbar-start"
-    div class="navbar-center"
+    div class="d-navbar-start"
+    div class="d-navbar-center"
       == render 'layouts/brand_logo', site_title: Setting.site_title
-  div class="navbar-end"
+  div class="d-navbar-end"
     - if user_signed_in?
-      div class="dropdown dropdown-end"
+      div class="d-dropdown d-dropdown-end"
         div class="btn btn-ghost" tabindex="0" role="button" 
           = current_user.username
           i.fa-solid.fa-caret-down
-        ul class="dropdown-content menu bg-base-200 rounded-box z-1 w-32 p-2 shadow-sm"
+        ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-32 p-2 shadow-sm"
           li = link_to t('user_profile'), edit_user_registration_path
           li = button_to t('log_out'), destroy_user_session_path, method: :delete
     - elsif !devise_page?
-      ul class="menu menu-horizontal px-1"
+      ul class="d-menu d-menu-horizontal px-1"
         li
           = link_to t('log_in'), new_user_session_path, class: 'btn'

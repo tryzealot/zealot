@@ -40,7 +40,7 @@
               td class="hidden sm:block"
                 span class="opacity-70" = git_commit_url(release.channel.git_url, release.git_commit) || '-'
               td
-                div class="tooltip tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
+                div class="d-tooltip d-tooltip-left" data-tip=l(release.created_at, format: :nice)
                   span class="opacity-80" = time_ago_in_words(release.created_at)
 
     - if @releases.total_pages > 1 || (current_user&.manage?(app: channel.app) && !channel.app.archived)
@@ -48,7 +48,7 @@
         - if current_user&.manage?(app: channel.app)
           button[
             type="submit" 
-            class="btn btn-error tooltip tooltip-right" 
+            class="btn btn-error d-tooltip d-tooltip-right" 
             data-bulk-operation-target="destroyButton"
             data-turbo-confirm=t('modals.confirm.body')
             data-tip=t('.delete')

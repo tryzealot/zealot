@@ -1,4 +1,4 @@
-div class="stats shadow w-full"
+div class="d-stats shadow w-full"
   div class="grid grid-cols-4 gap-1 md:grid-cols-8"
     == render 'widget', title: t('dashboard.analytics.apps'), count: @analytics[:apps], url: apps_path, icon: 'fa-brands fa-adn'
     == render 'widget', title: t('dashboard.analytics.debug_files'), count: @analytics[:debug_files], url: debug_files_path, icon: 'fa-solid fa-bug'

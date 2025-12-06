@@ -2,7 +2,7 @@
   .card-header
     h3.card-title
       - if @icon.present?
-        i class="mr-2 #{@icon}"
+        i.mr-2 class="#{@icon}"
       = @title
 
   - if @releases.present?
@@ -13,7 +13,7 @@
         - if i == 0 || (loop_date.to_date != release.created_at.to_date)
           ruby:
             loop_date = release.created_at
-          div class="divider text-md m-0 text-base-content/60"
+          div class="d-divider text-md m-0 text-base-content/60"
             = l(release.created_at.to_date, format: :nice)
 
         div class="px-4 py-1 rounded-box transition-colors hover:bg-base-200"
@@ -34,7 +34,7 @@
                   data: { turbo_frame: '_top' } \
                 )
 
-                span class="tooltip tooltip-left sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
+                span class="d-tooltip d-tooltip-left sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
                   span class="text-xs text-base-content/50 inline-flex items-center gap-1"
                     i class="fa-solid fa-clock"
                     = time_ago_in_words(release.created_at)
@@ -50,8 +50,8 @@
                   = t('dashboard.timeline.upload_auto_version_release', version: release.version)
 
               - if release.changelog.present?
-                div class="prose prose-sm max-w-none text-base-content/90 m-4"
-                  ul class="list-disc items-center"
+                div class="text-base-content/90 my-2"
+                  ul class="list-inline items-center"
                     - release.changelog.each do |commit|
                       li class="flex flex-wrap justify-items-end items-center gap-x-2 gap-y-1"
                         span class="font-medium" = commit['message'] || commit[:message]
@@ -59,10 +59,10 @@
                           span class="text-xs text-base-content/50"
                             = (commit['author'] || commit[:author])
                         - if commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]
-                          span class="badge badge-ghost badge-xs"
+                          span class="d-badge d-badge-ghost d-badge-xs"
                             = (commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]).to_s[0,8]
                         - if commit['date'] || commit[:date]
-                          span class="tooltip tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
+                          span class="d-tooltip d-tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
                             span class="text-xs text-base-content/50 inline-flex items-center gap-1"
                               i class="fa-solid fa-clock"
                               = time_ago_in_words(Time.parse(commit['date'] || commit[:date])) rescue (commit['date'] || commit[:date])
@@ -70,17 +70,16 @@
               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present? || release.app.archived
                 div class="mt-1 flex flex-wrap items-center gap-2"
                   - if release.release_type
-                    span class="badge badge-sm badge-soft badge-info"
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
                       = helpers.release_type_name(release.release_type)
                   - if release.branch
-                    span class="badge badge-sm badge-soft badge-info"
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
                       = release.branch
                   - if release.short_git_commit
-                    span class="badge badge-sm badge-soft badge-info"
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
                       = release.short_git_commit
-                  - if release.app.archived
-                    span class="badge badge-sm badge-soft badge-info"
-                      | Archived
+                  span class="d-badge d-badge-sm d-badge-soft d-badge-warning"
+                    = t('apps.archives.title')
   - else
     div class="px-4 py-6 text-base-content/60"
       = t('dashboard.timeline.not_found')

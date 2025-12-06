@@ -1,5 +1,5 @@
-input class="tab" name="login-tab" type="radio" checked="checked" aria-label=t('devise.normal.title') 
-div class="tab-content bg-base-100 border-base-300 px-5 py-3"
+input class="d-tab" name="login-tab" type="radio" checked="checked" aria-label=t('devise.normal.title') 
+div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
   - if Setting.login_enabled
     div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
       div class="order-1 border-base-200 md:border-r-2 md:pe-4"
@@ -8,7 +8,7 @@ div class="tab-content bg-base-100 border-base-300 px-5 py-3"
           = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", class: 'form-control' }
           = f.input :password, required: true, input_html: { autocomplete: "current-password" }
           = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-          = f.button :submit, t('devise.sessions.new.sign_in'), class: 'btn btn-primary w-full'
+          = f.button :submit, t('devise.sessions.new.sign_in'), class: 'd-btn d-btn-primary w-full'
       div class="order-2"
         == render 'devise/shared/links'
   - else

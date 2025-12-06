@@ -1,23 +1,23 @@
 - if ldap_auth_enable?
-  input class="tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
-  div class="tab-content bg-base-100 border-base-300 px-5 py-3"
+  input class="d-tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
+  div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
     div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
       div class="order-1 border-base-200 md:border-r-2 md:pe-4"
         = form_tag(user_ldap_omniauth_callback_path) do
-          fieldset class="fieldset"
-            = label_tag :username, t('devise.ldap.username'), class: 'fieldset-legend'
-            = text_field_tag :username, nil, class: "input w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
+          fieldset class="d-fieldset"
+            = label_tag :username, t('devise.ldap.username'), class: 'd-fieldset-legend'
+            = text_field_tag :username, nil, class: "d-input w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true
 
-          fieldset class="fieldset"
-            = label_tag :password, t('devise.ldap.password'), class: 'fieldset-legend'
-            = text_field_tag :password, nil, class: "input w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
+          fieldset class="d-fieldset"
+            = label_tag :password, t('devise.ldap.password'), class: 'd-fieldset-legend'
+            = text_field_tag :password, nil, class: "d-input w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
 
           - if devise_mapping.rememberable?
-            fieldset class="fieldset"
-              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'toggle toggle-primary' 
+            fieldset class="d-fieldset"
+              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'd-toggle d-toggle-primary' 
               = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'text-md font-semibold'
 
-          = submit_tag t('devise.sessions.new.sign_in'), class: "btn btn-primary w-full", data: { qa_selector: 'sign_in_button' }
+          = submit_tag t('devise.sessions.new.sign_in'), class: "d-btn d-btn-primary w-full", data: { qa_selector: 'sign_in_button' }
       div class="order-2"
         == render 'devise/shared/links'
 

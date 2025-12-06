@@ -2,9 +2,9 @@
 
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  DEFAULT_LABEL_CLASS = 'fieldset-legend'
+  DEFAULT_LABEL_CLASS = 'd-fieldset-legend'
   DEFAULT_INPUT_LABEL_CLASS = 'text-md font-semibold'
-  DEFAULT_HINT_WRAP =  { tag: 'p', class: 'label mt-1 text-xs opacity-70 whitespace-normal break-words' }
+  DEFAULT_HINT_WRAP =  { tag: 'p', class: 'd-label mt-1 text-xs opacity-70 whitespace-normal break-words' }
   DEFAULT_ERROR_WRAP = { tag: 'p', class: 'mt-1 text-error text-xs whitespace-normal break-words' }
 
   # You can define the default class to be used on forms. Can be overriden
@@ -12,7 +12,7 @@ SimpleForm.setup do |config|
   config.default_form_class = ''
 
   # Default class for buttons
-  config.button_class = 'btn btn-primary'
+  config.button_class = 'd-btn d-btn-primary'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = ''
@@ -31,18 +31,18 @@ SimpleForm.setup do |config|
   config.include_default_input_wrapper_class = false
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'alert alert-error'
+  config.error_notification_class = 'd-alert d-alert-error'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   config.error_method = :titem_wrapper_tago_sentence
 
   # add validation classes to `input_field`
-  config.input_field_error_class = 'input-error'
+  config.input_field_error_class = 'd-input-error'
   # config.input_field_valid_class = 'input-success'
   # config.label_class = 'text-md font-semibold'
 
   # vertical forms (default_wrapper)
-  config.wrappers :vertical_form, tag: 'fieldset', class: 'fieldset mb-2' do |b|
+  config.wrappers :vertical_form, tag: 'fieldset', class: 'd-fieldset mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -52,16 +52,16 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'text-error'
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
-    b.use :input, class: 'input w-full'
+    b.use :input, class: 'd-input w-full'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
   # vertical input for boolean (aka checkboxes)
-  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'fieldset mb-2' do |b|
+  config.wrappers :vertical_boolean, tag: 'fieldset', class: 'd-fieldset mb-2' do |b|
     b.use :html5
     b.optional :readonly
     b.wrapper :legend_tag, tag: 'label', class: DEFAULT_INPUT_LABEL_CLASS, error_class: 'text-error' do |ba|
-      ba.use :input, class: 'toggle toggle-primary mr-2'
+      ba.use :input, class: 'd-toggle d-toggle-primary mr-2'
       ba.use :label_text
     end
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
@@ -70,7 +70,7 @@ SimpleForm.setup do |config|
 
   # vertical input for radio buttons and check boxes
   config.wrappers :vertical_collection, tag: 'div',
-                  class: 'fieldset mb-2',
+                  class: 'd-fieldset mb-2',
                   item_wrapper_class: 'mb-1',
                   item_label_class: "#{DEFAULT_INPUT_LABEL_CLASS} pl-2" do |b|
     b.use :html5
@@ -78,13 +78,13 @@ SimpleForm.setup do |config|
     b.wrapper :legend_tag, tag: 'p', class: DEFAULT_LABEL_CLASS, error_class: 'text-error' do |ba|
       ba.use :label_text
     end
-    b.use :input, class: 'toggle toggle-primary'
+    b.use :input, class: 'd-toggle d-toggle-primary'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
   end
 
   # vertical file input
-  config.wrappers :vertical_file, tag: 'fieldset', class: 'fieldset mb-2' do |b|
+  config.wrappers :vertical_file, tag: 'fieldset', class: 'd-fieldset mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -92,17 +92,17 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'text-error'
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
-    b.use :input, class: 'file-input w-full', error_class: 'input-error', valid_class: 'input-success'
+    b.use :input, class: 'd-file-input w-full', error_class: 'd-input-error', valid_class: 'd-input-success'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
   # vertical select
-  config.wrappers :vertical_select, tag: 'fieldset', class: 'fieldset mb-2' do |b|
+  config.wrappers :vertical_select, tag: 'fieldset', class: 'd-fieldset mb-2' do |b|
     # b.use :html5
     b.optional :readonly
     b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'text-error'
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
-    b.use :input, class: 'select w-full'
+    b.use :input, class: 'd-select w-full'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 
@@ -130,13 +130,13 @@ SimpleForm.setup do |config|
   # end
 
   # textarea
-  config.wrappers :vertical_textarea, tag: 'fieldset', class: 'fieldset mb-2' do |b|
+  config.wrappers :vertical_textarea, tag: 'fieldset', class: 'd-fieldset mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :readonly
     b.use :label, class: DEFAULT_LABEL_CLASS, error_class: 'text-error'
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
-    b.use :input, class: 'textarea w-full'
+    b.use :input, class: 'd-textarea w-full'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
   end
 

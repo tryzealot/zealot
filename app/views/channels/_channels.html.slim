@@ -2,10 +2,10 @@
   .card-header
     h3.card-title = t('channels.show.channel')
   .card-body class="p-0"
-    ul class="list"
+    ul class="d-list"
       - scheme.channels.each do |channel|
         ruby:
           actived_class = (params[:id] || params[:channel]) == channel.slug ? 'bg-primary' : ''
-        li class="list-row p-3 rounded-none #{actived_class}"
+        li class="d-list-row p-3 rounded-none #{actived_class}"
           = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
             data: { turbo_frame: '_top' }

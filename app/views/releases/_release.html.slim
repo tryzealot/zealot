@@ -14,4 +14,4 @@
     == render 'releases/sidebar/qrcode'
     - if user_signed_in_or_guest_mode?
       = link_to t('releases.show.view_detail'), friendly_channel_overview_path(release.channel), \
-        class: 'btn w-full', data: { turbo_frame: '_top' }
+        class: 'd-btn w-full', data: { turbo_frame: '_top' }

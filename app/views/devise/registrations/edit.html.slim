@@ -45,14 +45,14 @@ ruby:
       h3.card-title = t('.api')
     .card-body
       label.mb-2 = t('.token')
-      .join.w-full data-controller="clipboard-center"
-        input.join-item.input.w-full[
+      d-join.w-full data-controller="clipboard-center"
+        input.d-join-item.input.w-full[
           type="text"
           readonly=true 
           value="#{@user.token}"
           data-clipboard-center-target="source"
         ] 
-        button.join-item.btn data-action="clipboard-center#copy"
+        button.d-join-item.btn data-action="clipboard-center#copy"
           i.fa-regular.fa-clipboard
 
   .card.card-border.card-error

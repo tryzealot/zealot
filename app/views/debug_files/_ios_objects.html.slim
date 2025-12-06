@@ -14,7 +14,7 @@ ruby:
           - debug_file.main_objects.each do |metadata|
             tr
               td
-                span.badge.text-bg-secondary = metadata.type
+                span.d-badge.text-bg-secondary = metadata.type
               td = metadata.uuid
 
 - if debug_file.libraries.present?
@@ -33,5 +33,5 @@ ruby:
               tr
                 td
                   = metadata.data['identifier']
-                  span.badge.text-bg-secondary.ms-1 = metadata.type
+                  span.d-badge.text-bg-secondary.ms-1 = metadata.type
                 td = metadata.uuid

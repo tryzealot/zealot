@@ -1,19 +1,19 @@
 = turbo_frame_tag dom_id(channel, :app) do
-  li class="list-row"
-    div class="col-span-full flex justify-between items-center"
+  li class="d-list-row"
+    div class="flex col-span-full justify-between items-center"
       div class="grow"
         = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo_frame: '_top' }
-        span class="badge badge-sm bg-neutral ms-2 tooltip" data-tip=t('apps.show.total_builds')
+        span class="d-badge d-badge-sm bg-neutral ms-2 d-tooltip" data-tip=t('apps.show.total_builds')
           = channel.releases.count
         - if channel.password.present?
-          span class="badge badge-sm bg-neutral text-warning opacity-80 ms-2"
+          span class="d-badge d-badge-sm bg-neutral text-warning opacity-80 ms-2"
             i.fa-solid.fa-lock
       - if current_user&.manage?(app: app)
         div class="flex gap-2"
           - if !app.archived
             = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', \
-              class: 'btn-xs btn-ghost btn-circle tooltip tooltip-left', \
+              class: 'd-btn-xs d-btn-ghost d-btn-circle d-tooltip d-tooltip-left', \
               data: { tip: t('apps.show.edit_channel'), turbo_frame: :modal }
             = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', \
-              class: 'btn-xs btn-ghost btn-circle tooltip tooltip-left', \
+              class: 'd-btn-xs d-btn-ghost d-btn-circle d-tooltip d-tooltip-left', \
               data: { tip: t('apps.show.destroy_channel'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }

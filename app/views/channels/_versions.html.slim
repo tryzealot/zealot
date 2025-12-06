@@ -8,7 +8,7 @@ ruby:
       = t('channels.show.major_versions')
   .card-body class="table-responsive p-0"
     - if versions.count > 0
-      table class="table table-bottom-borderless"
+      table.d-table
         thead
           tr
             th = t('channels.show.release_version')
@@ -26,4 +26,4 @@ ruby:
   - if versions.count > 0
     .card-footer class="p-0 bg-none"
       = link_to t('channels.show.view_more'), friendly_channel_versions_path(channel), \
-        class: 'btn btn-ghost w-full', data: { turbo_frame: '_top' }
+        class: 'd-btn d-btn-ghost w-full', data: { turbo_frame: '_top' }
