@@ -1,14 +1,30 @@
 :root {
-  --card-border-color: var(--color-base-100);
+  --card-border-color: var(--color-base-300);
+  --card-header-bg-color: var(--color-base-200);
+  --card-body-bg-color: var(--color-base-300);
+  --card-footer-bg-color: var(--color-base-200);
 }
 
 .card {
   @layer components {
     @apply tw:bg-base-100 tw:flex tw:flex-col tw:relative;
-    @apply tw:shadow-2xl tw:shadow-gray-500/80 tw:rounded-md;
+    @apply tw:shadow-2xl tw:shadow-base-300 tw:rounded-md;
+    /* background-color: var(--card-body-bg-color); */
 
     .card-header {
-      @apply tw:bg-base-200 tw:rounded-t-md tw:p-3;
+      @apply tw:p-3 tw:border-b;
+      @apply tw:flex tw:justify-between tw:items-center;
+      border-color: var(--card-border-color);
+
+      .card-title {
+        @apply tw:text-lg tw:font-semibold;
+      }
+      .card-tools {
+        @apply tw:flex tw:items-center tw:gap-2;
+        > * {
+          @apply tw:inline-flex tw:items-center tw:justify-center;
+        }
+      }
     }
 
     .card-body {
@@ -20,6 +36,12 @@
 
     .card-footer {
       @apply tw:bg-base-200 tw:rounded-b-lg tw:p-3;
+    }
+
+    &:has(> .card-footer) {
+      .card-body {
+        @apply tw:rounded-none;
+      }
     }
 
     /* outline-width: 2px;
@@ -91,6 +113,7 @@
   }
 }
 
+/* 
 .card-header {
   @layer components {
     @apply tw:flex tw:justify-between tw:items-center;
@@ -105,7 +128,7 @@
     }
   }
 }
-*/ .card-body {
+.card-body {
   @layer components {
     @apply tw:flex tw:flex-col tw:gap-2 tw:bg-base-content;
     :where(p) {
@@ -122,4 +145,4 @@
   @layer components {
     @apply tw:flex tw:items-center;
   }
-}
+} */
