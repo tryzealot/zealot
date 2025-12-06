@@ -9,6 +9,10 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     Setting.site_title
   end
 
+  def active_appearance
+    current_user&.appearance || Setting.site_appearance
+  end
+
   def new_or_create_route?
     current_page?(action: 'new') || current_page?(action: 'create') ||
     params[:action] == 'new' || params[:action] == 'create'

@@ -1,0 +1,25 @@
+@import "~fontawesome/css/all.min.css";
+@import "tailwindcss" prefix(tw);
+
+@plugin "daisyui" {
+  themes: all;
+}
+
+/* Load used tailwind + daisyui styles */
+@source "../../views/**/*.html.*";
+@source "../../helpers/**/*.rb";
+@source "../../components/**/*";
+@source "../../javascript/**/*.js";
+@source "../../../config/initializers/simple_form_daisyui.rb";
+
+@layer base {
+  .brand-image-dark {
+    display: none;
+  }
+  [data-theme="dark"] .brand-image-dark {
+    display: inline-block;
+  }
+  [data-theme="dark"] .brand-image-light {
+    display: none;
+  }
+}
