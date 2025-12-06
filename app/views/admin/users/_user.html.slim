@@ -7,11 +7,11 @@
     = user.role_name
   .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
     - if user.access_locked?
-      span.badge.text-bg-danger = t('admin.users.index.locked')
+      span.d-badge.text-bg-danger = t('admin.users.index.locked')
     - elsif user.confirmed_at
-      span.badge.text-bg-secondary = t('admin.users.index.activated')
+      span.d-badge.text-bg-secondary = t('admin.users.index.activated')
     - else
-      span.badge.text-bg-primary = t('admin.users.index.inactive')
+      span.d-badge.text-bg-primary = t('admin.users.index.inactive')
   .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
     - if user.last_sign_in_at
       = time_ago_in_words(user.last_sign_in_at)

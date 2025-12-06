@@ -1,10 +1,12 @@
-input[
-  class="tab" name="webhook-tab" type="radio" checked="checked" 
+input.d-tab[
+  name="webhook-tab" 
+  type="radio"
+  checked="true" 
   aria-label="#{t('web_hooks.enable')} (#{channel.enabled_web_hooks_count})"
 ]
-div class="tab-content bg-base-100 border-base-300 px-5 py-3"
+div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
   - if channel.enabled_web_hooks_count > 0
-    table class="table"
+    table class="d-table"
       - channel.web_hooks.all.each do |web_hook|
         == render 'web_hooks/item', channel: channel, web_hook: web_hook, type: :enabled
   - else

@@ -24,7 +24,7 @@ class ModalComponent < ViewComponent::Base
 
   # FIXME: migrate bootstrap tooltip to daisyUI
   def default_button
-    tag.button class: 'btn btn-tool', title: tooltip_value, data: {
+    tag.button class: 'd-btn', title: tooltip_value, data: {
       action: 'click->destroy#click', 
     } do
       tag.i class: 'fa-solid fa-trash-alt text-danger'
@@ -59,7 +59,7 @@ class ModalComponent < ViewComponent::Base
 
   def wrapper_classes
     @wrapper_classes ||= -> {
-      default_classes = 'modal'
+      default_classes = 'd-modal'
       new_classes = @options.fetch(:wrapper_classes, '')
       [default_classes, new_classes, modal_position].join(' ')
     }.call
@@ -97,6 +97,6 @@ class ModalComponent < ViewComponent::Base
 
   def modal_position
     # default position is bottom on small screens, middle on larger screens
-    @modal_position ||= @options.fetch(:position, 'modal-bottom sm:modal-middle')
+    @modal_position ||= @options.fetch(:position, 'd-modal-bottom sm:d-modal-middle')
   end
 end

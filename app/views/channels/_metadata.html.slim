@@ -4,7 +4,7 @@
       i.fa-solid.fa-gear class="mr-1"
       = t('channels.show.metadata')
   .card-body class="p-0"
-    table class="table"
+    table class="d-table"
       tr
         td class="font-bold opacity-60" = t('channels.show.device_type')
         td = platform_name(channel.device_type)
@@ -27,7 +27,7 @@
       tr
         td class="font-bold opacity-60" = t("channels.show.download_filename_type")
         td 
-          span class="tooltip" data-tip=t("channels.show.download_filename_type_item.#{channel.download_filename_type}") 
+          span class="d-" data-tip=t("channels.show.download_filename_type_item.#{channel.download_filename_type}") 
             = channel.download_filename_type
       tr
         td class="font-bold opacity-60" = t('channels.show.channel_key')
@@ -37,4 +37,4 @@
     .card-footer class="p-0"
       = link_to t('channels.show.edit_channel'), \
         edit_app_scheme_channel_path(channel.scheme.app, channel.scheme, channel), \
-        class: 'btn w-full', data: { turbo_frame: :modal }
+        class: 'd-btn d-btn-ghost w-full', data: { turbo_frame: :modal }

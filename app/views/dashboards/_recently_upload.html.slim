@@ -1,5 +1,5 @@
 == render AppReleaseActivityComponent.new(\
-  @releases, active_id: 31,\
+  @releases, \
   title: t('dashboard.timeline.title'), \
   icon: 'fa-solid fa-history'\
 )
@@ -61,7 +61,7 @@
 /                             span class="text-xs text-base-content/50"
 /                               = (commit['author'] || commit[:author])
 /                           - if commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]
-/                             span class="badge badge-ghost badge-xs"
+/                             span class="d-badge d-badge-ghost d-badge-xs"
 /                               = (commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]).to_s[0,8]
 /                           - if commit['date'] || commit[:date]
 /                             span class="tooltip tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
@@ -72,16 +72,16 @@
 /               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present? || release.app.archived
 /                 div class="mt-1 flex flex-wrap items-center gap-2"
 /                   - if release.release_type
-/                     span class="badge badge-sm badge-soft badge-info"
+/                     span class="d-badge d-badge-sm d-badge-soft d-badge-info"
 /                       = release_type_name(release.release_type)
 /                   - if release.branch
-/                     span class="badge badge-sm badge-soft badge-info"
+/                     span class="d-badge d-badge-sm d-badge-soft d-badge-info"
 /                       = release.branch
 /                   - if release.short_git_commit
-/                     span class="badge badge-sm badge-soft badge-info"
+/                     span class="d-badge d-badge-sm d-badge-soft d-badge-info"
 /                       = release.short_git_commit
 /                   - if release.app.archived
-/                     span class="badge badge-sm badge-soft badge-info"
+/                     span class="d-badge d-badge-sm d-badge-soft d-badge-info"
 /                       | Archived
 /   - else
 /     div class="px-4 py-6 text-base-content/60"

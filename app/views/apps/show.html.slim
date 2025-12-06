@@ -8,21 +8,21 @@ ruby:
   = turbo_frame_tag @app do
     = @app.name
     - if @app.archived == true
-      small class="badge badge-sm badge-warning py-1 ms-2" 
+      small class="d-badge d-badge-sm d-badge-warning py-1 ms-2" 
         = t('apps.label.archived')
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    div class="join"
+    .d-join
       - if !@app.archived
         = button_link_to '', new_app_scheme_path(@app), 'plus-square', \
-          class: 'btn join-item tooltip', \
+          class: 'd-join-item d-btn d-tooltip', \
           data: { tip: t('apps.show.new_scheme'), turbo_frame: :modal }
         = button_link_to '', edit_app_path(@app), 'edit', \
-          class: 'btn join-item tooltip', \
+          class: 'd-join-item d-btn d-tooltip', \
           data: { tip: t('apps.show.edit_app'), turbo_frame: :modal }
       = button_link_to '', app_path(@app), 'trash-alt', \
-        class: 'btn join-item tooltip text-error', \
+        class: 'd-join-item d-btn d-tooltip text-error', \
         data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 = turbo_frame_tag @app do

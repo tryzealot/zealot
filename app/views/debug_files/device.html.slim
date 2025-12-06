@@ -41,7 +41,7 @@
                     td = debug_file.main_object.object
                     td
                       - debug_file.archs.each do |arch|
-                        span.badge.text-bg-secondary.ms-1 = arch
+                        span.d-badge.text-bg-secondary.ms-1 = arch
                     td = debug_file.libraries.size
                     td = number_to_human_size(debug_file.filesize)
             - else

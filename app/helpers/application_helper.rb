@@ -31,11 +31,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def sidebar_link_to(icon, path, text:, active_path:nil, **options)
     active_path ||= path
-    link_class = "is-drawer-close:tooltip is-drawer-close:tooltip-right #{active_class(active_path)}"
+    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right #{active_class(active_path)}"
     tag.li do
-      link_to path , class: link_class, data: { tip: text } do
+      link_to path, class: link_class, data: { tip: text } do
         concat(tag.i(class: icon))
-        concat(tag.span(text, class: 'is-drawer-close:hidden'))
+        concat(tag.span(text, class: 'd-is-drawer-close:hidden'))
       end
     end
   end
@@ -57,7 +57,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def button_link_to(title, url, icon = nil, **options)
-    options[:class] = "btn #{options[:class]}"
+    options[:class] = "d-btn mr-1 #{options[:class]}"
     base_fontawesome = options.delete(:base_fa) || 'fa-solid'
 
     content = title
@@ -70,7 +70,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   # 激活 li 的 class
-  def active_class(link_paths, class_name = 'menu-active')
+  def active_class(link_paths, class_name = 'd-menu-active')
     link_paths = [ link_paths ] if link_paths.is_a?(String)
 
     is_current = false

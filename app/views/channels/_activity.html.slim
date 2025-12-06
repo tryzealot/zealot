@@ -4,14 +4,14 @@
       i.fa-solid.fa-history class="mr-1"
       = t('channels.show.activity')
     .card-tools
-      span class="badge badge-neutral tooltip tooltip-left" data-tip=t('apps.show.total_builds')
+      span class="d-badge d-badge-neutral d-tooltip d-tooltip-left" data-tip=t('apps.show.total_builds')
         = channel.releases.count
 
   .card-body class="p-0"
-    ul class="list bg-base-100 rounded-box shadow-md"
+    ul class="d-list bg-base-100 rounded-box shadow-md"
       - unless releases.empty?
         - releases.each do |release|
-          li class="list-row"
+          li class="d-list-row"
             div 
               = link_to friendly_channel_release_path(release.channel, release), \
                 data: { turbo_frame: '_top' } do 
@@ -28,7 +28,7 @@
                 - else
                   = release.file.identifier
             div
-              span class="opacity-80 tooltip tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
+              span class="opacity-80 d-tooltip d-tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
                 = time_ago_in_words(release.created_at)
       - else
         li = raw t('channels.show.not_found')

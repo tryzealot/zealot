@@ -15,16 +15,16 @@
               = job.job.id
             td
               - if job.job.running? || job.job.status == :queued
-                .badge.text-bg-warning style="margin-right: 5px"
+                .d-badge.text-bg-warning style="margin-right: 5px"
                   = job_progress(job.status)
                 - if job.status.present?
-                  .badge.text-bg-info
+                  .d-badge.text-bg-info
                     = job_stage(job.status[:stage])
               - else
-                .badge.text-bg-danger style="margin-right: 5px"
+                .d-badge.text-bg-danger style="margin-right: 5px"
                   = job.job.status
                 - if job.status.present?
-                  .badge.text-bg-info
+                  .d-badge.text-bg-info
                     = job_stage(job.status[:stage])
                 div
                   small

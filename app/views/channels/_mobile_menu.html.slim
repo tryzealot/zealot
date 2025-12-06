@@ -2,27 +2,27 @@ ruby:
   scheme_channels = scheme.channels.select {|c| c != channel }
 
 div class="flex md:hidden mb-3 justify-between gap-2"
-  details class="dropdown dropdown-xl dropdown-center w-full"
-    summary class="btn m-1 w-full text-lg"
+  details class="d-dropdown d-dropdown-xl d-dropdown-center w-full"
+    summary class="d-btn m-1 w-full text-lg"
       = channel.scheme.name
       i.fa-solid.fa-caret-down
-    ul class="dropdown-content menu bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
+    ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
       - app.schemes.each do |scheme|
         ruby:
           scheme_link = using_friendly_channel_path(scheme, channel)
         - if scheme_link.present?
           li class="w-full"
-            = link_to scheme.name, scheme_link, data: { turbo_action: :advance }
+            = link_to scheme.name, scheme_link, data: { turbo_frame: '_top' }
 
-  details class="dropdown dropdown-end w-full"
-    summary class="btn m-1 w-full text-lg"
+  details class="d-dropdown d-dropdown-end w-full"
+    summary class="d-btn m-1 w-full text-lg"
       = channel_platform(channel)
       i.fa-solid.fa-caret-down
-    ul class="dropdown-content menu items-center bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
+    ul class="d-dropdown-content d-menu items-center bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
       - if scheme_channels.present?
         - scheme_channels.each do |channel|
           li class="w-full"
             = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
-              data: { turbo_action: :advance }
+              data: { turbo_frame: '_top' }
       - else
         li class="text-gray" = t('channels.show.none')

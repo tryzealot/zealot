@@ -7,16 +7,16 @@
   == render 'shared/install_limited', safari_text: t('releases.show.app_open_in_safari'), brower_text: t('releases.show.app_open_in_webbrower')
 
   - unless release.app.archived
-    .action-buttons class="my-3 space-x-3" data-release-download-target="buttons"
+    .action-buttons class="flex gap-2 my-3" data-release-download-target="buttons"
       - if release.file?
         - if release.platform == 'iOS'
           - if release.cert_expired?
-            button class="btn btn-lg btn-secondary btn-disabled"
+            button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
               i.fa-solid.fa-certificate
               = t('releases.show.cert_expired')
           - else
             button[
-              class="btn btn-icon btn-lg btn-success d-none"
+              class="d-btn d-btn-icon d-btn-lg d-btn-success d-none"
               data-action="release-download#install"
               data-release-download-target="installButton"
             ]
@@ -24,16 +24,16 @@
               = t('releases.show.install')
 
         = button_link_to t('releases.show.download'), release.download_url, 'hard-drive', \
-          class: 'btn btn-lg btn-success', target: '_blank', \
+          class: 'd-btn d-btn-lg d-btn-success', target: '_blank', \
           data: { release_download_target: 'downloadButton' }
       - else
-        button class="btn btn-lg btn-secondary btn-disabled"
+        button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
           i.fa-solid.fa-ghost
           = t('releases.show.missing_file')
 
       - if current_user&.manage?(app: app)
         = button_link_to t('modals.buttons.destroy'), channel_release_path(release.channel, release), 'trash-alt', \
-          class: 'btn btn-lg btn-error', \
+          class: 'd-btn d-btn-lg d-btn-error', \
           data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 
     .ios-issues

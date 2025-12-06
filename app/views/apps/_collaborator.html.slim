@@ -1,12 +1,12 @@
-= turbo_frame_tag collaborator, class: 'flex flex-row items-center border-t border-base-300 py-2  px-3' do
+= turbo_frame_tag collaborator, class: 'flex flex-row items-center border-t border-base-300 py-2 px-3' do
   div class="basis-2/4"
     div class="xs:grid md:flex grid-cols-1 justify-start gap-1"
       div = collaborator.user.username
       div class="space-x-1"
         - if collaborator.owner?
-          span class="badge badge-xs md:badge-sm badge-primary" = t('apps.show.collaborator_owner')
+          span class="d-badge d-badge-xs md:d-badge-sm d-badge-primary" = t('apps.show.collaborator_owner')
         - if same_user?(collaborator)
-          span class="badge badge-xs md:badge-sm badge-neutral" = t('apps.show.it_is_you')
+          span class="d-badge d-badge-xs md:d-badge-sm d-badge-neutral" = t('apps.show.it_is_you')
   div class="basis-1/4" = t(collaborator.role, scope: 'settings.preset_role')
   div class="basis-1/4 flex justify-end gap-1"
     - if @app.archived
@@ -14,12 +14,12 @@
     - elsif collaborator.owner?
       - if same_user?(collaborator) || current_user.admin?
         = button_link_to '', new_owner_app_path(@app), 'people-arrows', \
-          class: 'btn-square btn-ghost', data: { turbo_frame: :modal }
+          class: 'd-btn-square d-btn-ghost', data: { turbo_frame: :modal }
     - elsif edit_role_user?(collaborator)
-      div class="join space-x-1"
+      div class="d-join space-x-1"
         = button_link_to '', edit_app_collaborator_path(@app, collaborator.user_id), 'edit', \
-          class: 'join-item btn-square btn-ghost', \
+          class: 'd-join-item d-btn-square d-btn-ghost', \
           data: { turbo_frame: :modal }
         = button_link_to '', app_collaborator_path(@app, collaborator.user_id), 'trash-alt', \
-          class: 'join-item btn-square btn-ghost text-error', \
+          class: 'd-join-item d-btn-square d-btn-ghost text-error', \
           data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_collaborator', name: collaborator.user.username)}" }

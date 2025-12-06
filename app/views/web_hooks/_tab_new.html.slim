@@ -1,3 +1,3 @@
-input class="tab" name="webhook-tab" type="radio" aria-label=t('web_hooks.create')
-div class="tab-content bg-base-100 border-base-300 px-5 py-3"
+input.d-tab[name="webhook-tab"] type="radio" aria-label=t('web_hooks.create')
+div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
   == render 'web_hooks/form', channel: channel
