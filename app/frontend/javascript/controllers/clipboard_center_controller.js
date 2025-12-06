@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 import ClipboardJS from "clipboard"
-import * as bootstrap from "bootstrap"
 
 export default class extends Controller {
   static targets = [ "source" ]
@@ -20,9 +19,7 @@ export default class extends Controller {
   }
 
   renderNormal(button) {
-    button.classList.add("btn-primary")
-    button.classList.remove("btn-success", "btn-warning")
-
+    button.classList.remove("tw:text-success", "tw:text-warning")
     const icon = button.querySelector("i")
     if (icon) {
       icon.classList.add("fa-clipboard")
@@ -31,8 +28,7 @@ export default class extends Controller {
   }
 
   renderUnsupport(button) {
-    button.classList.add("btn-warning")
-    button.classList.remove("btn-primary")
+    button.classList.add("tw:text-warning")
 
     const icon = button.querySelector("i")
     if (icon) {
@@ -42,9 +38,7 @@ export default class extends Controller {
   }
 
   renderSuccess(button) {
-    button.classList.add("btn-success")
-    button.classList.remove("btn-primary")
-
+    button.classList.add("tw:text-success")
     const icon = button.querySelector("i")
     if (icon) {
       icon.classList.add("fa-thumbs-up")
@@ -53,11 +47,8 @@ export default class extends Controller {
   }
 
   async showTooltip(button) {
-    const tooltip = new bootstrap.Tooltip(button)
-    if (tooltip) {
-      await this.sleep(3000)
-      this.renderNormal(button)
-    }
+    await this.sleep(3000)
+    this.renderNormal(button)
   }
 
   sleep(ms) {
