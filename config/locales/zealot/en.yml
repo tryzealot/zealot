@@ -861,8 +861,9 @@ en:
     shared: Shared
     not_found: Not found any webhook
     current_channel: Current channel
-    test: Test
+    test: Send test event
     disable: Disable
+    destroy: Destroy
     messages:
       parse_done_and_refreshing: "Teardown done, refresh page ..."
   settings:

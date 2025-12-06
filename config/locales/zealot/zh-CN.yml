@@ -832,8 +832,9 @@ zh-CN:
     shared: 共享
     not_found: 没有发现网络钩子
     current_channel: 当前渠道
-    test: 测试
+    test: 发送测试事件
     disable: 禁用
+    destroy: 删除
     messages:
       parse_done_and_refreshing: "解析完成，页面正在刷新 ..."
   settings:

@@ -2,8 +2,8 @@ ruby:
   events = [:upload_events, :download_events, :changelog_events]
 
 tr
-  td class="tw:px-0 tw:space-y-1"
-    div class="tw:font-bold"
+  td class="tw:px-0 tw:space-y-1 tw:space-x-4"
+    div class="tw:font-bold tw:break-all"
       = web_hook.url
     div class="tw:space-x-1"
       - events.each do |event|
@@ -16,32 +16,33 @@ tr
           - if shared_channel == channel
             = t('web_hooks.current_channel')
           - else
-            = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel)
+            = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel), \
+              data: { turbo_frame: '_top' }
 
   - unless channel.app.archived
     td class="tw:px-0"
       - if type == :enabled
         div class="tw:join"
           div class=" tw:dropdown tw:dropdown-top tw:dropdown-end"
-            button class="tw:btn tw:join-item" tabindex="0" role="button" 
-              i.fa-solid.fa-bullhorn
+            button class="tw:btn tw:join-item tw:tooltip" data-tip=t('web_hooks.test')
+              i.fa-regular.fa-comment-dots
             ul class="tw:dropdown-content tw:menu tw:bg-base-200 tw:rounded-box tw:z-1 tw:w-60 tw:p-2 tw:shadow-sm"
-              li class="tw:opacity-60 tw:text-sm tw:pl-3" Test Web Hook
+              li class="tw:opacity-60 tw:text-sm tw:px-3 tw:py-2" = t('web_hooks.test')
               - events.each do |event|
                 li = link_to t("simple_form.labels.web_hook.#{event}"), \
                   test_channel_web_hook_path(channel, web_hook, event), \
                   data: { turbo: false }
-
-          - if web_hook.channels_count == 1
+          - if web_hook.channel_id == channel.id
             = button_link_to '', channel_web_hook_path(channel, web_hook), 'trash-alt', \
-              class: 'btn btn-sm btn-danger rounded-0 rounded-bottom', title: t('web_hooks.destroy'), \
-              data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip', bs_placement: 'bottom' }
+              class: 'tw:btn tw:text-error tw:tooltip', \
+              data: { tip: t('web_hooks.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
           - else
-            = link_to disable_channel_web_hook_path(channel, web_hook), \
-              class: 'tw:btn tw:join-item tw:btn-warning tw:opacity-80 tw:tooltip', \
-              data: { tip: t('web_hooks.disable'), turbo: false } do
-              i.fa-solid.fa-link-slash
+            / MUST disable turbo to avoid pre-fetching issue
+            = button_link_to '', disable_channel_web_hook_path(channel, web_hook), 'link-slash', \
+              class: 'tw:btn tw:join-item tw:text-warning tw:tooltip', \
+              data: { tip: t('web_hooks.disable'), turbo: false }
       - elsif type == :shared
+        / MUST disable turbo to avoid pre-fetching issue
         = button_link_to '', enable_channel_web_hook_path(channel, web_hook), 'link', \
           class: 'tw:btn-sm tw:tooltip tw:tooltip-left', \
           data: { tip: t('web_hooks.enable'), turbo: false }
