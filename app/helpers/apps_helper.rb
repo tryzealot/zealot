@@ -72,7 +72,7 @@ module AppsHelper
       link_to(
         branch,
         friendly_channel_branches_path(release.channel, name: branch),
-        data: { turbo: false }
+        data: { turbo_frame: '_top' }
       )
     end
   end
@@ -109,16 +109,17 @@ module AppsHelper
   end
 
   def app_qrcode_tag(release)
-    if current_user&.appearance != 'auto' || Setting.site_appearance != 'auto'
-      theme = current_user&.appearance || Setting.site_appearance
-      return image_tag channel_release_qrcode_path(@release.channel, @release,
-        size: :large, theme: theme)
+    appearance = active_appearance
+    if (appearance) != 'auto'
+      return image_tag channel_release_qrcode_path(
+        @release.channel, @release,
+        size: :lg, theme: appearance, format: :svg)
     end
 
     content_tag(:picture) do
-      qrcode_uri = channel_release_qrcode_path(release.channel, release, size: :large, theme: :dark)
+      qrcode_uri = channel_release_qrcode_path(release.channel, release, size: :lg, theme: :dark, format: :svg)
       content_tag(:source, media: "(prefers-color-scheme: dark)",  srcset: qrcode_uri) do
-        image_tag channel_release_qrcode_path(release.channel, release, size: :large)
+        image_tag channel_release_qrcode_path(release.channel, release, size: :lg, format: :svg)
       end
     end
   end

@@ -22,7 +22,7 @@ module ReleaseUrl
     friendly_channel_release_url(channel, self)
   end
 
-  def qrcode_url(size = :thumb)
-    channel_release_qrcode_url(channel, self, size: size)
+  def qrcode_url(**options)
+    channel_release_qrcode_url(channel, self, **options)
   end
 end

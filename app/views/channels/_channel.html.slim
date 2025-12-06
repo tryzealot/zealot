@@ -8,11 +8,7 @@
       == render 'web_hooks', channel: channel
 
   div class="tw:md:col-span-4 tw:space-y-6"
-    - if current_user&.manage?(app: app) && !app.archived
-      = button_link_to t('channels.show.upload_release'), new_channel_release_path(channel), \
-        'plus-square', base_fa: 'fa-regular', \
-        class: 'tw:btn tw:btn-primary tw:w-full', data: { turbo_frame: '_top' }
-
+    == render 'releases/upload_button', app: app, channel: channel
     == render 'schemes', app: app, scheme: scheme, channel: channel
     == render 'channels', app: app, scheme: scheme, channel: channel
     == render 'versions', channel: channel

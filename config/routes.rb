@@ -58,7 +58,11 @@ Rails.application.routes.draw do
       end
 
       scope module: :releases do
-        get :qrcode, to: 'qrcode#show'
+        get 'qrcode(/:size)(/:theme)', to: 'qrcode#show', as: :qrcode, defaults: {
+          size: 'md',
+          theme: 'light',
+          format: 'png'
+        }
       end
 
       member do

@@ -7,7 +7,14 @@ ruby:
     "data-install-limited-open-brower-value" => brower_text
   }
 
-.install-limited.d-none *attributes
+.install-limited[
+  class="tw:hidden"
+  data-controller="install-limited"
+  data-install-limited-keywords-value="Setting.preset_install_limited.to_json"
+  data-install-limited-target="modal"
+  data-install-limited-open-safari-value="safari_text"
+  data-install-limited-open-brower-value="brower_text"
+]
   .cover
     .app-limited-tips
       span.text.text-right

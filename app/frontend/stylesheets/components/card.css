@@ -1,6 +1,11 @@
+:root {
+  --card-border-color: var(--color-base-100);
+}
+
 .card {
   @layer components {
-    @apply tw:bg-base-100 tw:flex tw:flex-col tw:rounded-lg tw:relative tw:shadow-lg tw:shadow-base-300;
+    @apply tw:bg-base-100 tw:flex tw:flex-col tw:relative;
+    @apply tw:shadow-2xl tw:shadow-gray-500/80 tw:rounded-md;
 
     .card-header {
       @apply tw:bg-base-200 tw:rounded-t-md tw:p-3;
@@ -58,9 +63,15 @@
   }
 }
 
-.card-border {
+.card.card-border {
   @layer components {
-    @apply tw:border tw:border-base-300;
+    @apply tw:border tw:rounded-md;
+    border-color: var(--card-border-color);
+
+    .card-header {
+      @apply tw:border-b;
+      border-color: var(--card-border-color);
+    }
   }
 }
 
@@ -93,9 +104,8 @@
       }
     }
   }
-} */
-
-.card-body {
+}
+*/ .card-body {
   @layer components {
     @apply tw:flex tw:flex-col tw:gap-2 tw:bg-base-content;
     :where(p) {
@@ -104,7 +114,7 @@
 
     &:has(> .border-t) {
       @apply tw:border-t-indigo-500;
-    } 
+    }
   }
 }
 
@@ -112,4 +122,4 @@
   @layer components {
     @apply tw:flex tw:items-center;
   }
-} 
+}

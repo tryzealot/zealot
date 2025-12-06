@@ -1,13 +1,15 @@
-.card.mb-3
+.card.mb-3 data-controller="card"
   .card-header
     h3.card-title
-      i.icon.fa-solid.fa-align-left
+      i.fa-solid.fa-align-left
       = t('releases.show.changelog')
     .card-tools
-      button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fa-solid.fa-plus data-lte-icon="expand"
-        i.fa-solid.fa-minus data-lte-icon="collapse"
-  .card-body.p-0
+      == render SwapIconComponent.new(preset: :switch, click: 'card#toggle')
+      / label.tw:swap.tw:swap-rotate
+      /   input type="checkbox"
+      /   i.fa-solid.fa-plus class="tw:swap-off"
+      /   i.fa-solid.fa-minus class="tw:swap-on"
+  .card-body data-card-target="body"
     ul.products-list.mb-0
       - @release.array_changelog.each do |changelog|
         li.product-item

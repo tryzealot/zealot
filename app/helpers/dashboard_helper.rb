@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module DashboardHelper # rubocop:disable Metrics/ModuleLength
-  def device_icon(device_type)
+  def device_icon(device_type, i_class: nil)
     icon, _ = device_style(device_type)
-    tag.i(class: "fa-brands #{icon}")
+    tag.i(class: "fa-brands #{icon} #{i_class}")
   end
 
   def timeline_app_icon(value)

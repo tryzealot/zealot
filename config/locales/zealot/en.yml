@@ -405,7 +405,6 @@ en:
       scheme: :schemes.title
       channel: :channels.title
       activity: Activity
-      upload_release: Upload a release
       metadata: Metadata
       device_type: Device type
       slug: Slug
@@ -497,7 +496,7 @@ en:
       installed: Re-Install
       cert_expired: Can not install, certificate was expired
       missing_file: Missing file
-      more: More releases
+      more: More builds
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
@@ -509,13 +508,13 @@ en:
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
       debug_file: "%{type} matched"
       qrcode: QR Code
-      scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
+      scan_qrcode_with_any_supported_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
       view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
       app_was_archived: Read only for archived app.
     new:
-      title: :channels.show.upload_release
+      title: Upload new build
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -530,7 +529,7 @@ en:
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
         not_found: Not found
         not_found_app: App not found or had been destroyed
-        not_found_release: Not found any release of channel
+        not_found_release: Not found any build of channel
         redirect_to_app_list: Redirect to app list
         reidrect_channel_detal: Redirect to channel page
         deleted_manually: Maybe destroy by developer.

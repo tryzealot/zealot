@@ -396,8 +396,7 @@ zh-CN:
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
-      activity: 上传时间线
-      upload_release: 上传应用
+      activity: 时间线
       metadata: 渠道信息
       device_type: 设备类型
       slug: 唯一地址
@@ -501,13 +500,13 @@ zh-CN:
       apple_team_link: https://zealot.ews.im/zh-Hans/docs/user-guide/administrator/apple-team
       debug_file: "%{type} 调试文件"
       qrcode: 二维码
-      scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
+      scan_qrcode_with_any_supported_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
       custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型。
       app_was_archived: 应用已归档仅限只读操作
     new:
-      title: :'channels.show.upload_release'
+      title: 上传应用
     install:
       show:
         not_found: 找不到应用文件，无法提供下载服务

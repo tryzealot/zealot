@@ -5,11 +5,15 @@ class Releases::QrcodeController < ApplicationController
 
   before_action :set_release
 
-  ##
-  # 显示应用的二维码
-  # GET /apps/:slug/(:version)/qrcode
+  # Show the QR code for the release
+  # GET /apps/:slug/(:version)/qrcode(/:size)(/:theme).(:format)
   def show
-    render qrcode: friendly_channel_release_url(@release.channel, @release), **qrcode_options
+    content = friendly_channel_release_url(@release.channel, @release)
+    code = RQRCode::QRCode.new(content)
+    respond_to do |format|
+      format.svg { render plain: code.as_svg(qrcode_options) }
+      format.png { render plain: code.as_png(qrcode_options) }
+    end
   end
 
   private
