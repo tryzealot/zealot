@@ -1,2 +1,2 @@
-button class="d-join-item d-btn" 
-  == link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', remote: remote
+= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', remote: remote, \
+  class: "d-join-item d-btn d-btn-sm"

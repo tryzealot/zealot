@@ -432,7 +432,6 @@ en:
       major_versions: Major versions
       release_version: Release version
       total_version: Versions
-      empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
       view_more: View More
       app_detail: View App

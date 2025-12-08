@@ -1,13 +1,13 @@
 ruby: 
   versions = channel.release_versions(5)
 
-.card
-  .card-header
-    h3.card-title
-      i.fa-solid.fa-archive
-      = t('channels.show.major_versions')
-  .card-body class="table-responsive p-0"
-    - if versions.count > 0
+- if versions.count > 0
+  .card
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-archive
+        = t('channels.show.major_versions')
+    .card-body class="table-responsive p-0"
       table.d-table
         thead
           tr
@@ -17,13 +17,10 @@ ruby:
           - versions.each do |version|
             tr
               td
-                = link_to version, friendly_channel_version_path(channel, version), data: { turbo: false }
+                = link_to version, friendly_channel_version_path(channel, version), data: { turbo_frame: '_top' }
               td
                 = channel.release_version_count(version)
-    - else
-      div class="p-3" = t('channels.show.empty_version_shortly')
 
-  - if versions.count > 0
     .card-footer class="p-0 bg-none"
       = link_to t('channels.show.view_more'), friendly_channel_versions_path(channel), \
         class: 'd-btn d-btn-ghost w-full', data: { turbo_frame: '_top' }
