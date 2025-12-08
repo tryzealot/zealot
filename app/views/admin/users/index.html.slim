@@ -5,29 +5,21 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  = icon_link_to('fa-regular fa-plus-square', new_admin_user_path, text: t('.new_user'), \
-    link: { class: 'btn btn-success', data: { turbo_frame: :modal } }, \
-    icon: { class: 'me-1' })
+  = icon_link_to 'fa-regular fa-plus-square', new_admin_user_path, text: t('.new_user'), \
+    link: { class: 'd-btn d-btn-success', data: { turbo_frame: :modal } }
 
-.row
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title
-          i.fa-solid.fa-users-line
-          = t('.title')
-      .card-body.p-0
-        .p-2.ps-3.d-flex.fw-bolder.border-bottom.border-1
-          .col-7.col-md-3.my-auto
-            = t('.email')
-          .col-3.col-md-3.my-auto
-            = t('.nickname')
-          .col-3.col-md-2.my-auto
-            = t('.role')
-          .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
-            = t('.status')
-          .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
-            = t('.last_login_time')
-        #users
-          - @users.each_with_index do |user, i|
-            = render user
+.card
+  .card-header
+    h3.card-title
+      i.fa-solid.fa-users-line
+      = t('.title')
+  .card-body.p-0
+    div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-b border-base-300"
+      div class="basis-md" = t('.email')
+      div class="basis-2xs" = t('.nickname')
+      div class="basis-2xs" = t('.role')
+      div class="basis-2xs hidden sm:block" = t('.status')
+      div class="basis-xs hidden sm:block" = t('.last_login_time')
+    #users
+      - @users.each_with_index do |user, i|
+        = render user

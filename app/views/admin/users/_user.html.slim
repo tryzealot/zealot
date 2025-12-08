@@ -1,19 +1,20 @@
-= turbo_frame_tag user, class: 'p-2 ps-3 border-top d-flex' do
-  .col-7.col-md-3.my-auto
-    = link_to user.email, edit_admin_user_path(user), data: { turbo_frame: :modal }
-  .col-3.col-md-3.my-auto
+
+= turbo_frame_tag user, class: 'flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-t border-base-100' do
+  ruby: 
+    color, label = user_status(user)
+
+  div class="basis-md flex items-center gap-1"
+    .d-status.block.sm:hidden class="d-status-#{color}" aria-label="status"
+    = link_to user.email, edit_admin_user_path(user), data: { turbo_frame: '_top' }
+  div class="basis-2xs" 
     = user.username.presence || '-'
-  .col-3.col-md-2.my-auto
+  div class="basis-2xs"
     = user.role_name
-  .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
-    - if user.access_locked?
-      span.d-badge.text-bg-danger = t('admin.users.index.locked')
-    - elsif user.confirmed_at
-      span.d-badge.text-bg-secondary = t('admin.users.index.activated')
-    - else
-      span.d-badge.text-bg-primary = t('admin.users.index.inactive')
-  .col-2.col-md-2.my-auto.d-none.d-sm-table-cell
+  div class="basis-2xs hidden sm:block" 
+    .d-badge.d-badge-soft class="d-badge-#{color}" = label
+  div class="basis-xs hidden sm:block" 
     - if user.last_sign_in_at
-      = time_ago_in_words(user.last_sign_in_at)
+      span.d-tooltip.d-tooltip-left data-tip=l(user.last_sign_in_at, format: :nice) 
+        = time_ago_in_words(user.last_sign_in_at)
     - else
       = t('admin.users.index.never_logged_in')

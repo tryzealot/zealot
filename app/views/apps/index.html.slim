@@ -5,7 +5,7 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if current_user&.manage?
+  - if current_user&.manage? && !archived_path?
     = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
       class: 'd-btn d-btn-success', data: { turbo_frame: 'modal' }
 

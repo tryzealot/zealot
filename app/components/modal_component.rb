@@ -92,6 +92,8 @@ class ModalComponent < ViewComponent::Base
                       'w-11/12 max-w-4xl'
                     when :'5xl'
                       'w-11/12 max-w-5xl'
+                    when :'6xl'
+                      'w-11/12 max-w-6xl'
                     end
   end
 

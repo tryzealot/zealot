@@ -38,8 +38,7 @@ en:
         resend: Resend activation email
         profile: Profile
         collaborators: Collaborators
-        api: API
-        token: 密钥
+        api_token: API Token
         lock_user: Lock
         unlock_user: Unlock
         destroy_user: Destroy
@@ -95,9 +94,9 @@ en:
         title: :admin.apple_keys.title
         team_metadata: Team
         key_metadata: Key
-        devices: Devices (%{size})
+        devices: Devices
         sync_now: Sync now
-        last_synced_at: Last synced at %{time}
+        last_synced_at: Last synced at %{time} ago
         never_sync: Never sync
         download_private_key: Download private key
         udid: :udid.show.udid
