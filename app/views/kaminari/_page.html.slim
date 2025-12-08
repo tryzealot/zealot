@@ -1,2 +1,5 @@
-button class="d-join-item d-btn #{page.current? && "d-btn-active"}"
-  == link_to_unless page.current?, page, url, {remote: remote, rel: page.rel}
+- if page.current?
+  button class="d-join-item d-btn d-btn-sm d-btn-disabled"
+    = page
+- else
+  = link_to page, url, remote: remote, rel: page.rel, class: "d-join-item d-btn d-btn-sm"

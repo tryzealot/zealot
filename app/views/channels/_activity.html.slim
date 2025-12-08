@@ -11,7 +11,7 @@
     ul class="d-list bg-base-100 rounded-box shadow-md"
       - unless releases.empty?
         - releases.each do |release|
-          li class="d-list-row"
+          li.d-list-row
             div 
               = link_to friendly_channel_release_path(release.channel, release), \
                 data: { turbo_frame: '_top' } do 
@@ -31,7 +31,7 @@
               span class="opacity-80 d-tooltip d-tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
                 = time_ago_in_words(release.created_at)
       - else
-        li = raw t('channels.show.not_found')
+        li.p-4 = t('channels.show.not_found').html_safe
 
   - if releases.total_pages > 1
     .card-footer class="pt-4 flex justify-end border-t border-base-300"

@@ -421,10 +421,9 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
-      major_versions: 历史主版本
+      major_versions: 主版本
       release_version: 主版本号
       total_version: 版本数量
-      empty_version_shortly: 暂无版本
       empty_version: 该版本没有任何上传记录！
       view_more: 查看更多
       view_app: 应用详情

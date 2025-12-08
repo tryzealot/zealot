@@ -22,11 +22,11 @@ tr
   - unless channel.app.archived
     td class="px-0"
       - if type == :enabled
-        div class="d-join"
+        div.d-join
           div class="d-dropdown d-dropdown-top d-dropdown-end"
             button class="d-btn d-join-item d-tooltip" data-tip=t('web_hooks.test')
               i.fa-regular.fa-comment-dots
-            ul class="dropdown-content menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
+            ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
               li class="opacity-60 text-sm px-3 py-2" = t('web_hooks.test')
               - events.each do |event|
                 li = link_to t("simple_form.labels.web_hook.#{event}"), \
