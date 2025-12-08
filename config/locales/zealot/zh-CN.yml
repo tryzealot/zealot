@@ -227,6 +227,7 @@ zh-CN:
         run_backup: 执行新备份
         backup_files: 备份文件
         filename: 文件名
+        sha256: SHA256
         created_at: 生成时间
         size: 大小
         action: 操作

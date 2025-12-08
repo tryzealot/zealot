@@ -26,7 +26,9 @@ ruby:
         table.d-table
           tr
             td.font-semibold = t('simple_form.labels.apple_team.display_name')
-            td.text-right = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team)
+            td.text-right 
+              = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team), \
+                data: { turbo_frame: '_top' }
           tr
             td.font-semibold = t('simple_form.labels.apple_team.team_id')
             td.text-right = @apple_key.team.team_id

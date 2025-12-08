@@ -5,9 +5,8 @@
   = t('.title', key: @backup.key)
 
 - content_for :section_rightpanel do
-  = button_to perform_admin_backup_path(@backup), class: 'btn btn-icon btn-success', title: t('.create_new') do
-    i.fa-solid.fa-play-circle
-    = t('.run_backup')
+  = button_link_to t('.run_backup'), perform_admin_backup_path(@backup), 'play-circle', \
+    class: 'd-btn d-btn-success', title: t('.create_new')
 
 .row
   == render "job_completed", backup: @backup, backup_files: @backup_files
