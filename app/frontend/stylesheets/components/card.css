@@ -13,9 +13,8 @@
     @apply border border-base-300;
 
     .card-header {
-      @apply flex justify-between items-center p-3;
+      @apply flex flex-row justify-between items-center p-3;
       @apply border-b border-base-300;
-      /* border-color: var(--card-border-color); */
 
       .card-title {
         @apply text-lg font-semibold;
@@ -27,10 +26,11 @@
 
       .card-tools {
         @apply flex items-center gap-2;
-        > * {
-          @apply inline-flex items-center justify-center;
-        }
       }
+      /* 
+      > * {
+        @apply items-center justify-center;
+      } */
     }
 
     .card-body {

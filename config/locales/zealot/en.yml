@@ -502,7 +502,7 @@ en:
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
       devices: "%{count} test devices (UDID)"
-      sync_devices_feature: Synchronize device name with %{link} recommended
+      sync_devices_feature: Enable synchronize device
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
       debug_file: "%{type} matched"
       qrcode: QR Code
@@ -843,6 +843,8 @@ en:
 
         but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
+    edit:
+      information: Device Stats
     install:
       title: Fetch Device UDID Profile
       organization: Apple UDID Authorization Service

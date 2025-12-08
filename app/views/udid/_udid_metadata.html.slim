@@ -1,4 +1,4 @@
-.card.mb-3
+.card
   .card-header
     h3.card-title
       i.fa-solid.fa-mobile
@@ -13,8 +13,6 @@
           == render 'udid/item', key: 'platform', value: device.platform, copy: true
         - if device.model
           == render 'udid/item', key: 'model', value: device.model, copy: true
-        - if device.status
-          == render 'udid/item', key: 'status', value: t("udid.show.#{device.status.downcase}"), copy: false
 
       - if params[:product].present?
         == render 'udid/item', key: 'product', value: params[:product], copy: true
@@ -23,5 +21,7 @@
       - if params[:serial].present?
         == render 'udid/item', key: 'serial', value: params[:serial], copy: true
 
+      - if device.status
+          == render 'udid/item', key: 'status', value: t("udid.show.#{device.status.downcase}"), copy: false
       - if device.present?
         == render 'udid/item', key: 'created_at', value: l(device.created_at, format: :nice), copy: false

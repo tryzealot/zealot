@@ -1,27 +1,19 @@
 - if devices.present?
   .devices
-    .card.collapsed-card.mb-3
+    .card
       .card-header
         h3.card-title
           i.fa-solid.fa-mobile-alt
           = t('releases.show.devices', count: devices.count)
         .card-tools
-          button.btn.btn-tool data-bs-toggle="dropdown" title="#{t('releases.show.sync_devices_feature', link: t('admin.apple_keys.title'))}"
-            i.fa-solid.fa-info-circle
-          .dropdown-menu.dropdown-menu-right
-            small.dropdown-item
-              = raw t('releases.show.sync_devices_feature', link: link_to(t('admin.apple_keys.title'), t('releases.show.apple_team_link'), target: '_blank'))
-
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fa-solid.fa-plus data-lte-icon="expand"
-            i.fa-solid.fa-minus data-lte-icon="collapse"
+          = button_link_to '', t('releases.show.apple_team_link'), 'info-circle', target: '_blank', \
+            class: 'd-btn d-btn-ghost d-tooltip d-tooltip-left', data: { tip: t('releases.show.sync_devices_feature') }
       .card-body.p-0
-        table.table.table-bottom-borderless
+        table.d-table
           - devices.each do |device|
             tr
-              td
-                span = device.udid
+              td.flex.justify-between
+                = device.udid
                 - if device.name.present?
-                  .float-end
-                    small.d-badge.text-bg-light
-                      = device.name
+                  .text-sm.opacity-65
+                    = device.name

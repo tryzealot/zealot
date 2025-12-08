@@ -494,7 +494,7 @@ zh-CN:
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
       devices: "%{count} 台测试设备 (UDID)"
-      sync_devices_feature: 推荐使用%{link}同步设备名称
+      sync_devices_feature: 开启自动同步设备
       apple_team_link: https://zealot.ews.im/zh-Hans/docs/user-guide/administrator/apple-team
       debug_file: "%{type} 调试文件"
       qrcode: 二维码
@@ -814,6 +814,8 @@ zh-CN:
       related_apple_keys_not_found: 没有发现苹果开发者账户
       related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传
       related_apps_not_found: 当前设备可能还没有注册到苹果开发者或注册的应用没有上传到 Zealot
+    edit:
+      information: 关联信息
     install:
       title: 获取设备 UDID 描述文件
       organization: 苹果 UDID 授权服务

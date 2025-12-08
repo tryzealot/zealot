@@ -1,9 +1,2 @@
-- content_for :section_title do
-  = t('.title')
-
-- content_for :title do
-  = t('.title')
-
-.row
-  .col-md-12
-    == render 'form', title: t('.title')
+= render_modal(title: t('.title'), size: '3xl') do
+  == render 'form', backup: @backup

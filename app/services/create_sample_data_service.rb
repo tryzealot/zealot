@@ -8,6 +8,8 @@ class CreateSampleDataService
 
   def call(user)
     create_sample_apps(user)
+    create_sample_devices
+      create_apple_developer
 
     if Setting.demo_mode
       create_sample_teardown(user)
