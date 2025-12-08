@@ -2,7 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["source", "refresh"]
-  static values = { uri: String, interval: Number, errorMessage: String }
+  static values = {
+    uri: String,
+    interval: Number,
+    loadingMessage: String,
+    errorMessage: String
+  }
 
   timer = null
   requestId = 0
@@ -13,6 +18,8 @@ export default class extends Controller {
 
   start() {
     this.stop() // ensure clean start
+    this._scrollElement = null
+    this.sourceTarget.textContent = this.loadingMessageValue
     const interval = Number(this.intervalValue || 2000)
     const myId = ++this.requestId
 
@@ -21,6 +28,7 @@ export default class extends Controller {
 
       // remember whether user is at bottom before update
       const wasAtBottom = this.isAtBottom()
+      console.log("Fetching logs...", this.uriValue, wasAtBottom)
       try {
         const res = await fetch(this.uriValue)
         if (myId !== this.requestId) return
@@ -37,7 +45,7 @@ export default class extends Controller {
           this.sourceTarget.textContent = `${this.errorMessageValue || "Error: "}${res.status}`
         }
       } catch (_) {
-        // ignore aborts
+        this.sourceTarget.textContent = this.errorMessageValue || "Error: Unknown"
       }
     }
 
@@ -59,7 +67,7 @@ export default class extends Controller {
   }
 
   switch(event) {
-    const file = (event.target.dataset.file || event.target.innerText || event.target.textContent || "").trim()
+    const file = event.target.value.trim()
     if (!file) return
     const url = new URL(this.uriValue, window.location.origin)
     url.searchParams.set("file", file)
@@ -76,13 +84,35 @@ export default class extends Controller {
 
   // Helpers
   isAtBottom() {
-    const el = this.sourceTarget
+    const el = this.scrollContainer()
     const diff = el.scrollHeight - (el.scrollTop + el.clientHeight)
     return diff <= this.stickThreshold
   }
 
   scrollToBottom() {
-    const el = this.sourceTarget
-    el.scrollTop = el.scrollHeight
+    requestAnimationFrame(() => {
+      const el = this.scrollContainer()
+      el.scrollTop = el.scrollHeight
+    })
+  }
+
+  scrollContainer() {
+    if (this._scrollElement && document.body.contains(this._scrollElement)) {
+      return this._scrollElement
+    }
+
+    let current = this.sourceTarget
+    while (current && current !== document.body) {
+      const style = window.getComputedStyle(current)
+      const overflowY = style.overflowY || style.overflow
+      if (/(auto|scroll)/.test(overflowY)) {
+        this._scrollElement = current
+        return current
+      }
+      current = current.parentElement
+    }
+
+    this._scrollElement = this.sourceTarget
+    return this._scrollElement
   }
 }
