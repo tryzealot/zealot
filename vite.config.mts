@@ -1,11 +1,7 @@
 import { defineConfig } from "vite"
 import ViteRails from "vite-plugin-rails"
 import tailwindcss from "@tailwindcss/vite"
-import path from "path"
-import { fileURLToPath } from "url"
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import * as path from "path";
 
 export default defineConfig({
   plugins: [
@@ -15,10 +11,8 @@ export default defineConfig({
       envOptions: { defineOn: "import.meta.env" },
       fullReload: {
         additionalPaths: [
-          "config/routes.rb",
+          "app/components/**/*",
           "app/helpers/**/*",
-          "app/views/**/*",
-          "app/components/**/*"
         ],
         delay: 200,
       },

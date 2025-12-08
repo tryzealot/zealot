@@ -71,7 +71,7 @@ class UdidController < ApplicationController
 
   # GET /udid/qrcode
   def qrcode
-    render qrcode: udid_index_url, **qrcode_options
+    render_qrcode(udid_index_url)
   end
 
   private

@@ -4,6 +4,4 @@
 - content_for :section_title do
   = @title
 
-.row
-  .col-md-12
-    == render @device_status.to_s, device_status: @device_status
+== render @device_status.to_s, device_status: @device_status

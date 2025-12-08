@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   a.btn.btn-success href="#{new_admin_apple_key_path}"
-    i.icon.fa-regular.fa-plus-square
+    i.fa-regular.fa-plus-square
     = t('.new_apple_key')
 
 .row
@@ -15,7 +15,7 @@
       .card
         .card-header
           h3.card-title
-            i.icon.fa-solid.fa-people-group
+            i.fa-solid.fa-people-group
             = t('.teams', count: @apple_keys.size)
         .card-body.p-0
           table.table.table-bottom-borderless

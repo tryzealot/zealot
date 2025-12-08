@@ -7,7 +7,7 @@
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
     a.btn.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
-      i.icon.fa-regular.fa-plus-square
+      i.fa-regular.fa-plus-square
       = t('debug_files.index.upload')
 
 .row

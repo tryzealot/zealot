@@ -113,7 +113,12 @@ Rails.application.routes.draw do
   #############################################
   resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
     collection do
-      get :qrcode
+      get 'qrcode(/:size)(/:theme)', action: :qrcode, as: :qrcode, defaults: {
+        size: 'xl',
+        theme: 'light',
+        format: 'png'
+      }
+      # get :qrcode
       get :install
       post :retrieve, action: :create
     end

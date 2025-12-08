@@ -57,7 +57,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def button_link_to(title, url, icon = nil, **options)
-    options[:class] = "d-btn mr-1 #{options[:class]}"
+    options[:class] = "d-btn #{options[:class]}"
     base_fontawesome = options.delete(:base_fa) || 'fa-solid'
 
     content = title

@@ -1,5 +1,3 @@
-import * as bootstrap from "bootstrap"
-
 const DIALOG_ID = "modal-dialog"
 
 class ConfirmDialog {
@@ -31,7 +29,7 @@ class ConfirmDialog {
       }
     }
 
-    this.dialog = bootstrap.Modal.getOrCreateInstance(root)
+    // this.dialog = bootstrap.Modal.getOrCreateInstance(root)
 
     return root
   }
