@@ -1,6 +1,7 @@
 - content_for :title do
   = @title
 
-== render 'analytics'
-= turbo_frame_tag 'recently_upload', data: { turbo_action: :advance } do
-  == render 'recently_upload'
+.space-y-4
+  == render 'analytics'
+  = turbo_frame_tag 'recently_upload', data: { turbo_action: :advance } do
+    == render 'recently_upload'

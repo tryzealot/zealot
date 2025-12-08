@@ -1,0 +1,11 @@
+@layer base {
+  .brand-image-dark {
+    display: none;
+  }
+  [data-theme="dark"] .brand-image-dark {
+    display: inline-block;
+  }
+  [data-theme="dark"] .brand-image-light {
+    display: none;
+  }
+}

@@ -14,6 +14,14 @@ module Qrcode
     },
   }
 
+  def render_qrcode(content)
+    code = RQRCode::QRCode.new(content)
+    respond_to do |format|
+      format.svg { render plain: code.as_svg(qrcode_options) }
+      format.png { render plain: code.as_png(qrcode_options) }
+    end
+  end
+
   def qrcode_options
     options = {
       offset: 0,

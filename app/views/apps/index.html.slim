@@ -13,7 +13,7 @@
   == render 'apps/search'
 
 - if @apps.present?
-  ul#apps class="d-list bg-base-100 rounded-box shadow-md"
+  ul#apps class="d-list mt-3"
     - @apps.each do |app|
       == render 'apps/app', app: app
 - elsif archived_path?

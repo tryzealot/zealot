@@ -1,28 +1,27 @@
-.col-md-12
-  .card.mb-3
-    .card-header
-      h3.card-title
-        i.icon.fa-solid.fa-info-circle
-        = t('udid.show.metadata')
-    .card-body
-      dl.system-info.p-0
-        == render 'udid/item', key: 'udid', value: params[:udid], copy: true
-        - if device.present?
-          - if device.name
-            == render 'udid/item', key: 'name', value: device.name, copy: true
-          - if device.platform
-            == render 'udid/item', key: 'platform', value: device.platform, copy: true
-          - if device.model
-            == render 'udid/item', key: 'model', value: device.model, copy: true
-          - if device.status
-            == render 'udid/item', key: 'status', value: t("udid.show.#{device.status.downcase}"), copy: false
+.card.mb-3
+  .card-header
+    h3.card-title
+      i.fa-solid.fa-mobile
+      = t('udid.show.metadata')
+  .card-body
+    dl.system-info.p-0
+      == render 'udid/item', key: 'udid', value: params[:udid], copy: true
+      - if device.present?
+        - if device.name
+          == render 'udid/item', key: 'name', value: device.name, copy: true
+        - if device.platform
+          == render 'udid/item', key: 'platform', value: device.platform, copy: true
+        - if device.model
+          == render 'udid/item', key: 'model', value: device.model, copy: true
+        - if device.status
+          == render 'udid/item', key: 'status', value: t("udid.show.#{device.status.downcase}"), copy: false
 
-        - if params[:product].present?
-          == render 'udid/item', key: 'product', value: params[:product], copy: true
-        - if params[:version].present?
-          == render 'udid/item', key: 'version', value: params[:version], copy: true
-        - if params[:serial].present?
-          == render 'udid/item', key: 'serial', value: params[:serial], copy: true
+      - if params[:product].present?
+        == render 'udid/item', key: 'product', value: params[:product], copy: true
+      - if params[:version].present?
+        == render 'udid/item', key: 'version', value: params[:version], copy: true
+      - if params[:serial].present?
+        == render 'udid/item', key: 'serial', value: params[:serial], copy: true
 
-        - if device.present?
-          == render 'udid/item', key: 'created_at', value: l(device.created_at, format: :nice), copy: false
+      - if device.present?
+        == render 'udid/item', key: 'created_at', value: l(device.created_at, format: :nice), copy: false

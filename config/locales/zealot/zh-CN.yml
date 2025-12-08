@@ -575,7 +575,7 @@ zh-CN:
     help:
       title: 帮助中心
       body_html: |
-        <h4>什么是调试文件，如何找到它？</h4>
+        <h4 class="text-lg font-bold">什么是调试文件，如何找到它？</h4>
         <h5>iOS</h5>
         <p>下面以 XCode 作为 IDE 详细说明定位 dSYM 文件：</p>
         <ul>
@@ -773,7 +773,7 @@ zh-CN:
             （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
           </p>
           <strong>获取步骤</strong>
-          <ol>
+          <ol class="list-decimal">
             <li>点击系统会弹窗的 “允许” 下载描述文件</li>
             <li>打开描述文件
               <ol>

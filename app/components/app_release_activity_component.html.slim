@@ -1,19 +1,19 @@
 .card
-  .card-header
+  .card-header.border-b-0
     h3.card-title
       - if @icon.present?
         i.mr-2 class="#{@icon}"
       = @title
 
   - if @releases.present?
-    .card-body class="bg-base-200 p-0 pb-3"
+    .card-body class="p-0 pb-3"
       ruby:
         loop_date = Time.current
       - @releases.each_with_index do |release, i|
         - if i == 0 || (loop_date.to_date != release.created_at.to_date)
           ruby:
             loop_date = release.created_at
-          div class="d-divider text-md m-0 text-base-content/60"
+          div class="d-divider m-0 text-base-content/60"
             = l(release.created_at.to_date, format: :nice)
 
         div class="px-4 py-1 rounded-box transition-colors hover:bg-base-200"
@@ -68,18 +68,19 @@
                               = time_ago_in_words(Time.parse(commit['date'] || commit[:date])) rescue (commit['date'] || commit[:date])
 
               - if release.release_type.present? || release.branch.present? || release.short_git_commit.present? || release.app.archived
-                div class="mt-1 flex flex-wrap items-center gap-2"
-                  - if release.release_type
-                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
+                div class="flex flex-wrap items-center gap-2 mt-1"
+                  - if release.release_type.present?
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info" data-tip="release_type"
                       = helpers.release_type_name(release.release_type)
-                  - if release.branch
-                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
+                  - if release.branch.present?
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info" data-tip="branch"
                       = release.branch
-                  - if release.short_git_commit
-                    span class="d-badge d-badge-sm d-badge-soft d-badge-info"
+                  - if release.short_git_commit.present?
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-info" data-tip="short_git_commit"
                       = release.short_git_commit
-                  span class="d-badge d-badge-sm d-badge-soft d-badge-warning"
-                    = t('apps.archives.title')
+                  - if release.app.archived?
+                    span class="d-badge d-badge-sm d-badge-soft d-badge-warning" data-tip="archived"
+                      = t('apps.archives.title')
   - else
     div class="px-4 py-6 text-base-content/60"
       = t('dashboard.timeline.not_found')

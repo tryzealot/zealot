@@ -1,4 +1,5 @@
 :root {
+  --card-base-bg-color: var(--bg-base-100);
   --card-border-color: var(--color-base-300);
   --card-header-bg-color: var(--color-base-200);
   --card-body-bg-color: var(--color-base-300);
@@ -7,18 +8,24 @@
 
 .card {
   @layer components {
-    @apply bg-base-100 flex flex-col relative;
-    @apply shadow-2xl shadow-base-300 rounded-md;
-    /* background-color: var(--card-body-bg-color); */
+    @apply flex flex-col relative overflow-hidden;
+    @apply rounded-md card-base-bg-color shadow-sm shadow-black/5;
+    /* background-color: var(--card-base-bg-color); */
+    border-color: var(--card-border-color);
 
     .card-header {
-      @apply p-3 border-b;
+      @apply p-3 border-b border-base-300;
       @apply flex justify-between items-center;
-      border-color: var(--card-border-color);
+      /* border-color: var(--card-border-color); */
 
       .card-title {
         @apply text-lg font-semibold;
+
+        i {
+          @apply pr-1;
+        }
       }
+
       .card-tools {
         @apply flex items-center gap-2;
         > * {
@@ -34,9 +41,9 @@
       }
     }
 
-    .card-footer {
-      @apply bg-base-200 rounded-b-lg p-3;
-    }
+    /* .card-footer {
+      @apply card-base-bg-color rounded-b-lg p-3;
+    } */
 
     &:has(> .card-footer) {
       .card-body {
@@ -85,7 +92,7 @@
   }
 }
 
-.card.card-border {
+/* .card.card-border {
   @layer components {
     @apply border rounded-md;
     border-color: var(--card-border-color);
@@ -95,7 +102,7 @@
       border-color: var(--card-border-color);
     }
   }
-}
+} */
 
 .card-info {
   @layer components {
@@ -109,6 +116,20 @@
   @layer components {
     .card-header {
       @apply bg-success;
+    }
+  }
+}
+
+.card-warning {
+  @layer components {
+    .card-header {
+      @apply bg-warning;
+    }
+
+    &.card-outline {
+      .card-header {
+        @apply card-base-bg-color border-t-4 border-t-warning;
+      }
     }
   }
 }

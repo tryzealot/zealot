@@ -1,56 +1,55 @@
-.col-md-12
-  - if channels.present?
-    .card.mb-3
-      .card-header
-        h3.card-title
-          i.icon.fa-solid.fa-cubes
-          = t('udid.show.registered_apps')
-      .card-body
-        .timeline
-          - channels.each do |channel|
-            ruby:
-              release = channel.latest_release
+- if channels.present?
+  .card.mb-3
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-cubes
+        = t('udid.show.registered_apps')
+    .card-body
+      .timeline
+        - channels.each do |channel|
+          ruby:
+            release = channel.latest_release
 
-            div
-              i.fa-regular.fa-circle
-              .timeline-item
-                span.time
-                  i.icon.fa-solid.fa-clock
-                  = time_ago_in_words(release.created_at)
-                h3.timeline-header
-                  = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pe-1')
-                  - if release.release_version && release.build_version
-                    = t('udid.show.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
-                  - elsif release.release_version
-                    = t('udid.show.upload_auto_version_release', version: release.release_version)
-                  - else
-                    = t('udid.show.upload_auto_version_release', version: release.version)
-                - if release.changelog.present?
-                  .timeline-body
-                    = changelog_render release.text_changelog(head_line: true)
-                - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
-                  .timeline-footer
-                    - if release.release_type.present?
-                      small.d-badge
-                        = release_type_name(release.release_type)
-                    - if release.branch.present?
-                      small.d-badge
-                        = release.branch
-                    - if release.short_git_commit.present?
-                      small.d-badge
-                        - if release.channel.git_url.present?
-                          = git_commit_url(channel.git_url, release.git_commit)
-                        - else
-                          = release.short_git_commit
           div
-            i.fa-solid.fa-clock
-  - else
-    .card.card-outline.card-warning
-      .card-header.card-border
-        h3.card-title = t('udid.show.registered_apps')
-      .card-body
-        - if device.present?
-          = t('udid.show.related_apps_not_found_with_registered_device')
-        - else
-          = t('udid.show.related_apps_not_found')
+            i.fa-regular.fa-circle
+            .timeline-item
+              span.time
+                i.fa-solid.fa-clock
+                = time_ago_in_words(release.created_at)
+              h3.timeline-header
+                = link_to(release.app_name, friendly_channel_release_path(channel, release), class: 'pe-1')
+                - if release.release_version && release.build_version
+                  = t('udid.show.upload_full_version_release', release_version: release.release_version, build_version: release.build_version)
+                - elsif release.release_version
+                  = t('udid.show.upload_auto_version_release', version: release.release_version)
+                - else
+                  = t('udid.show.upload_auto_version_release', version: release.version)
+              - if release.changelog.present?
+                .timeline-body
+                  = changelog_render release.text_changelog(head_line: true)
+              - if release.release_type.present? || release.branch.present? || release.short_git_commit.present?
+                .timeline-footer
+                  - if release.release_type.present?
+                    small.d-badge
+                      = release_type_name(release.release_type)
+                  - if release.branch.present?
+                    small.d-badge
+                      = release.branch
+                  - if release.short_git_commit.present?
+                    small.d-badge
+                      - if release.channel.git_url.present?
+                        = git_commit_url(channel.git_url, release.git_commit)
+                      - else
+                        = release.short_git_commit
+        div
+          i.fa-solid.fa-clock
+- else
+  .card.card-warning.card-outline
+    .card-header.card-border
+      h3.card-title = t('udid.show.registered_apps')
+    .card-body
+      - if device.present?
+        = t('udid.show.related_apps_not_found_with_registered_device')
+      - else
+        = t('udid.show.related_apps_not_found')
 

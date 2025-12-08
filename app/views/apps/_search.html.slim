@@ -14,6 +14,6 @@ form id="app-search-bar" action=apps_path method="get" class="mt-2"
     button class="d-join-item d-btn" type="submit"
       i.fa-solid.fa-search
     = button_link_to '', apps_path(current_params.merge(sort: :asc)), 'arrow-down-a-z', \
-      class: 'd-join-item d-btn'
+      class: 'd-join-item mr-0'
     = button_link_to '', apps_path(current_params.merge(sort: :desc)), 'arrow-up-z-a', \
-      class: 'd-join-item d-btn'
+      class: 'd-join-item'
