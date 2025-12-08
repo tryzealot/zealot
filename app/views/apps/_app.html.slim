@@ -1,12 +1,12 @@
 = turbo_frame_tag dom_id(app, :user) do
-  li class="d-list-row"
+  li class="d-list-row justify-center"
     div
       = link_to app_path(app), data: { turbo_frame: '_top' } do
         = app_icon(app.recently_release)
     div
       p = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo_frame: '_top' }
       p[
-        class="d-tooltip d-tooltip-right text-primary-content/50" 
+        class="d-tooltip d-tooltip-right opacity-50", 
         data-tip=l(app.created_at, format: :nice)
       ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
       div class="d-breadcrumbs text-sm"

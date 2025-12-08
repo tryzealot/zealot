@@ -1,4 +1,4 @@
-.card class="shadow-lg shadow-cyan-500/50"
+.card
   .card-header
     h3.card-title = t('apps.show.collaborators')
     .card-tools
@@ -7,7 +7,7 @@
           class: 'd-btn-ghost', \
           data: { turbo_frame: 'modal' }
   .card-body class="p-0"
-    div class="flex flex-row py-2 px-3 font-medium"
+    div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65"
       div class="basis-2/4" = t('apps.show.username')
       div class="basis-1/4" = t('apps.show.role')
       div class="basis-1/4"

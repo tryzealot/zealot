@@ -6,7 +6,7 @@
         span class="d-badge d-badge-sm d-badge-ghost ms-2 d-tooltip" data-tip=t('apps.show.total_builds')
           = channel.releases.count
         - if channel.password.present?
-          span class="d-badge d-badge-sm d-badge-ghost text-warning opacity-80 ms-2"
+          span class="d-badge d-badge-sm d-badge-ghost text-success opacity-80 ms-2"
             i.fa-solid.fa-lock
       - if current_user&.manage?(app: app)
         div class="flex gap-2"

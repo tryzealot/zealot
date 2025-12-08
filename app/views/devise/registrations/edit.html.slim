@@ -5,7 +5,7 @@ ruby:
   demo_mode = default_admin_in_demo_mode?(resource)
 
 .flex.flex-col.gap-4
-  .card.card-border
+  .card
     .card-header
       h3.card-title = t('.title', resource: resource.model_name.human)
     .card-body
@@ -22,10 +22,10 @@ ruby:
         = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
         = f.input :timezone, as: :select, collection: User.options_timezones, label_method: :last, value_method: :first, include_blank: false
 
-        = f.button :submit, class: 'btn-lg'
+        = f.button :submit
 
   .card
-    .card-header.card-border
+    .card-header
       h3.card-title = t('.change_password')
     .card-body
       = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_password }) do |f|
@@ -38,31 +38,31 @@ ruby:
         - if demo_mode
           = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
         - else
-          = f.button :submit, t('.update_password'), class: 'btn-lg'
+          = f.button :submit, t('.update_password')
 
-  .card.card-border
+  .card
     .card-header
-      h3.card-title = t('.api')
-    .card-body
-      label.mb-2 = t('.token')
-      d-join.w-full data-controller="clipboard-center"
-        input.d-join-item.input.w-full[
+      h3.card-title = t('.api_token')
+    .card-body.py-5
+      .d-join.w-full data-controller="clipboard-center"
+        input.d-join-item.d-input.w-full[
           type="text"
           readonly=true 
           value="#{@user.token}"
           data-clipboard-center-target="source"
         ] 
-        button.d-join-item.btn data-action="clipboard-center#copy"
+        button.d-join-item.d-btn data-action="clipboard-center#copy"
           i.fa-regular.fa-clipboard
 
-  .card.card-border.card-error
+  .card
     .card-header
       h3.card-title = t('.danger_zone')
     .card-body
-      p = t('.unhappy')
       - if demo_mode
-        = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'btn btn-lg btn-primary btn-disabled'
+        = button_to t('errors.messages.invaild_in_demo_mode'), root_path, class: 'd-btn d-btn-primary d-btn-disabled'
       - else
         = button_to t('.cancel_my_account'), user_registration_path, \
-          class: 'btn btn-lg btn-error', \
+          class: 'd-btn d-btn-lg d-btn-error', \
           data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
+    .card-footer.opacity-65
+      = t('.cancel_my_account_warning')

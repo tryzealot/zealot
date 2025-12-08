@@ -2,7 +2,7 @@
   = form_with model: channel, url: destroy_releases_channel_path(channel), method: :delete, \
     data: { controller: 'bulk-operation' } do |f|
     .card-body class="p-0"
-      table class="table"
+      table class="d-table"
         thead
           tr
             - if current_user&.manage?(app: channel.app) && !channel.app.archived
@@ -48,7 +48,7 @@
         - if current_user&.manage?(app: channel.app)
           button[
             type="submit" 
-            class="btn btn-error d-tooltip d-tooltip-right" 
+            class="d-btn d-btn-error d-tooltip d-tooltip-right" 
             data-bulk-operation-target="destroyButton"
             data-turbo-confirm=t('modals.confirm.body')
             data-tip=t('.delete')
