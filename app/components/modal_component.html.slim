@@ -1,6 +1,6 @@
 = helpers.turbo_frame_tag :modal do
   = content_tag wrapper_tag, class: wrapper_classes, data: wrapper_data, role: 'dialog' do
-    div class="d-modal-box #{modal_size}"
+    .d-modal-box class=modal_size
       - if close_button
         form method="dialog"
           button class="d-btn d-btn-sm d-btn-circle d-btn-ghost absolute right-2 top-2" autofocus=false

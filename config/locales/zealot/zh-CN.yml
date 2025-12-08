@@ -38,8 +38,7 @@ zh-CN:
         resend: 重发激活邮件
         profile: 个人信息
         collaborators: 应用成员
-        api: API
-        token: Token
+        api_token: API 密钥
         lock_user: 停用用户
         unlock_user: 启用用户
         destroy_user: 删除用户
@@ -86,14 +85,14 @@ zh-CN:
         new_apple_key: :'admin.apple_keys.new.title'
         not_found:
           title: 没有发现任何苹果开发者
-          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增
       show:
         title: :'admin.apple_keys.title'
         team_metadata: 团队信息
         key_metadata: 密钥信息
-        devices: 测试设备 (%{size})
+        devices: 设备列表
         sync_now: 现在同步
-        last_synced_at: 上次同步时间为 %{time}
+        last_synced_at: 上次同步时间为 %{time}前
         never_sync: 尚未同步
         download_private_key: 下载私钥证书
         udid: :'udid.show.udid'
@@ -222,7 +221,7 @@ zh-CN:
         app: "%{count} 应用"
         not_found:
           title: 没有发现任何备份计划
-          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件
       show:
         title: "%{key}备份计划"
         run_backup: 执行新备份
@@ -246,7 +245,7 @@ zh-CN:
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
         not_found:
           title: 没有发现任何备份文件
-          body_html: 点击右上角的 <i class="fa-regular fa-play-circle"></i> 执行备份。
+          body_html: 点击右上角的 <i class="fa-regular fa-play-circle"></i> 执行备份
       new:
         title: 新增备份
         schedule: 定时任务
@@ -306,7 +305,7 @@ zh-CN:
       searching_app: 搜索应用
       not_found:
         title: 没有发现任何应用或全部已归档
-        body_html: 新建应用请点击右上角的 <i class="fa-regular fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
+        body_html: 新建应用请点击右上角的 <i class="fa-regular fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"
     show:
       new_scheme: 新增类型
       edit_app: 编辑应用
@@ -618,7 +617,7 @@ zh-CN:
       anonymous: 匿名者
       not_found:
         title: 没有发现任何应用解包！
-        body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包。
+        body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包
     show:
       title: "%{name} 解包信息"
       expired_in: "约%{time}后过期"

@@ -4,7 +4,5 @@
 - content_for :section_title do
   = t('.title')
 
-.row
-  .col-md-12
-    .iframe-wrapper
-      iframe src="#{admin_pghero_path}"
+.w-full class="h-[calc(100vh-10rem)]"
+  iframe.w-full.h-full src="#{admin_pghero_path}"

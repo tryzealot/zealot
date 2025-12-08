@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
   config.error_notification_class = 'd-alert d-alert-error'
 
   # Method used to tidy up errors. Specify any Rails Array method.
-  config.error_method = :titem_wrapper_tago_sentence
+  config.error_method = :to_sentence
 
   # add validation classes to `input_field`
   config.input_field_error_class = 'd-input-error'
