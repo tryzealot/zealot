@@ -15,33 +15,32 @@
         i.fa-solid.fa-box-open
         = t('.schedules')
     .card-body.p-0
-      table.table.table-bottom-borderless.backups
-        thead
-          tr
-            th = t('.key')
-            th = t('.scopes')
-            th = t('.schedule')
-            th = t('.next_schedule_at')
-            th = t('.enabled')
-            th = t('.action')
-        tbody
-          - @backups.each do |backup|
-            tr
-              td = link_to backup.key, admin_backup_path(backup)
-              td = explan_scopes(backup)
-              td = schedule_to_human(backup.schedule)
-              td data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(next_schedule_time(backup.schedule), format: :nice)}"
+      div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-b border-base-300"
+        div class="basis-sm" = t('.key')
+        div class="basis-sm" = t('.scopes')
+        div class="basis-xs" = t('.schedule')
+        div class="basis-xs hidden sm:block" = t('.next_schedule_at')
+        div class="basis-2xs hidden sm:block" = t('.enabled')
+        div class="basis-xs hidden sm:block"
+      #backups
+        - @backups.each do |backup|
+          div class='flex flex-row items-center py-2 px-3 text-sm font-semibold opacity-65 border-t border-base-100'
+            div class="basis-sm" = link_to backup.key, admin_backup_path(backup)
+            div class="basis-sm" = explan_scopes(backup)
+            div class="basis-xs" = schedule_to_human(backup.schedule)
+            div class="basis-xs"
+              .d-tooltip data-tip=l(next_schedule_time(backup.schedule), format: :nice)
                 = next_schedule_to_human(backup.schedule)
-              td == render 'admin/settings/switch_icon', value: backup.enabled
-              td
-                .btn-group.btn-tool
-                  = button_to perform_admin_backup_path(backup), class: 'btn btn-sm run-backup', title: t('.run_backup') do
-                    i.fa-solid.fa-play-circle
-                  = button_link_to '', edit_admin_backup_path(backup), 'edit', \
-                    class: 'btn btn-sm edit-backup', title: t('.edit')
-                  = button_link_to '', admin_backup_path(backup), 'trash-alt', \
-                    class: 'btn btn-sm', title: t('modals.buttons.destroy'), \
-                    data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
+            div class="basis-2xs" == render 'admin/settings/switch_icon', value: backup.enabled
+            div class="basis-xs"
+              .d-join
+                = button_to perform_admin_backup_path(backup), class: 'd-join-item d-btn d-btn-sm run-backup', title: t('.run_backup') do
+                  i.fa-solid.fa-play-circle
+                = button_link_to '', edit_admin_backup_path(backup), 'edit', \
+                  class: 'd-join-item d-btn d-btn-sm edit-backup', title: t('.edit')
+                = button_link_to '', admin_backup_path(backup), 'trash-alt', \
+                  class: 'd-join-item d-btn d-btn-sm', title: t('modals.buttons.destroy'), \
+                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 - else
   .card.card-outline.card-warning
     .card-header.card-border

@@ -8,30 +8,31 @@
       .card-header
         h3.card-title = t('simple_form.labels.backup.general')
         .card-tools 
-          = f.input :enabled, as: :boolean
+          = f.input :enabled, as: :boolean, wrapper_html: { class: 'mb-0!' }
       .card-body
         = f.input :key, required: true
         = f.input :max_keeps, required: true
         / = f.input :notification
 
-        h3.card-title = t('admin.backups.new.schedule')
         = f.input :schedule, required: true, input_html: { data: { action: 'admin-cron#parse' } }
-        .form-group.string.required.backup_schedule.form-group-valid
-          label.string.required for="backup_schedule"
+
+        fieldset.d-fieldset.mb-2
+          label.d-fieldset-legend for="backup_schedule"
             = t('simple_form.labels.backup.next_schedule_at')
-          input.form-control[
+          p.d-input.opacity-65.d-tooltip.d-tooltip-bottom[
             type="text"
+            data-tip=l(next_schedule_time(@backup.schedule), format: :nice)
             data-admin-cron-target="source"
-            disabled="true"
-            value="#{backup.schedule ? next_schedule_to_human(@backup.schedule) : ''}"
-          ]
+          ] = backup.schedule ? next_schedule_to_human(@backup.schedule) : ''
 
     .card
       .card-header
         h3.card-title = t('simple_form.labels.backup.schedule_settings')
       .card-body
         = f.input :enabled_apps, as: :check_boxes, collection: all_apps, checked: backup.enabled_apps
-        = f.label :enabled_database
+
+        fieldset.d-fieldset
+          = f.label :enabled_database, class: 'd-fieldset-legend'
         = f.input :enabled_database, label: t('simple_form.labels.backup.database_switch')
 
   .mt-4.flex.justify-between.items-center

@@ -235,6 +235,7 @@ en:
         run_backup: Run a backup
         backup_files: Backup files
         filename: Filename
+        sha256: SHA256
         created_at: Created at
         size: Size
         action: Action

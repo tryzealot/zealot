@@ -1,2 +1,2 @@
-= render_modal(title: t('.title')) do
+= render_modal(title: t('.title', key: @backup.key), size: '3xl') do
   == render 'form', backup: @backup

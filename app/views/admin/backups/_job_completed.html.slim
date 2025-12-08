@@ -1,16 +1,17 @@
-.col-md-12.mb-3
-  - if backup_files.present?
-    .card.backup
-      .card-header
-        h3.card-title = t('admin.backups.show.backup_files')
-      .card-body.p-0
-        table.table.table-bottom-borderless
+- if backup_files.present?
+  .card.backup
+    .card-header
+      h3.card-title = t('admin.backups.show.backup_files')
+    .card-body.p-0
+      table.d-table
+        thead
           tr
             th = t('admin.backups.show.filename')
             th = t('admin.backups.show.sha256')
             th = t('admin.backups.show.size')
             th = t('admin.backups.show.created_at')
             th = t('admin.backups.show.action')
+        tbody
           - backup_files.each do |file|
             tr
               td
@@ -19,14 +20,16 @@
               td
                 small = file.sha256
               td = number_to_human_size(file.size)
-              td = time_ago_in_words(file.created_at)
+              td 
+                .d-tooltip data-tip=l(file.created_at, format: :nice)  
+                  = time_ago_in_words(file.created_at)
               td
                 = button_link_to '', archive_admin_backup_path(backup, key: file.basename), 'trash-alt', \
-                  class: 'btn btn-sm destroy-backup', title: t('modals.buttons.destroy'), \
-                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
-  - else
-    .card.card-outline.card-warning
-      .card-header.card-border
-        h3.card-title = t('admin.backups.show.not_found.title')
-      .card-body
-        = t('admin.backups.show.not_found.body_html')
+                  class: 'd-btn d-btn-sm text-error d-tooltip destroy-backup', \
+                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), tip: t('modals.buttons.destroy') }
+- else
+  .card.card-outline.card-warning
+    .card-header.card-border
+      h3.card-title = t('admin.backups.show.not_found.title')
+    .card-body
+      = t('admin.backups.show.not_found.body_html')

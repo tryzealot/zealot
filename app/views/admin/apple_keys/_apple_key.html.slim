@@ -5,6 +5,6 @@
     div class="basis-xs" = apple_key.team.team_id
     div class="basis-3xs hidden sm:block" = time_ago_in_words(apple_key.created_at)
     div class="basis-3xs hidden sm:block" 
-      = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', class: 'd-btn d-btn-sm', \
+      = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', class: 'd-btn d-btn-sm text-error', \
         data: { turbo_method: :delete, \
           turbo_confirm: t('modals.destroy_apple_key.body', name: "#{apple_key.team&.display_name} (#{apple_key.team&.team_id})") }
