@@ -1,48 +1,47 @@
-= simple_form_for([:admin, @backup]) do |f|
-  .card[
+= simple_form_for([:admin, backup], data: { action: 'turbo:submit-end->modal#close' }) do |f|
+  = f.error_notification
+  .grid.grid-cols-1.md:grid-cols-2.gap-4[
     data-controller="admin-cron"
     data-admin-cron-parsing-value="#{t('simple_form.labels.backup.parsing')}"
   ]
-    .card-header
-      h3.card-title = t('simple_form.labels.backup.general')
-    .card-body
-      = f.error_notification
+    .card
+      .card-header
+        h3.card-title = t('simple_form.labels.backup.general')
+        .card-tools 
+          = f.input :enabled, as: :boolean
+      .card-body
+        = f.input :key, required: true
+        = f.input :max_keeps, required: true
+        / = f.input :notification
 
-      = f.input :enabled, as: :boolean
-      = f.input :key, required: true
-      = f.input :max_keeps, required: true
-      / = f.input :notification
+        h3.card-title = t('admin.backups.new.schedule')
+        = f.input :schedule, required: true, input_html: { data: { action: 'admin-cron#parse' } }
+        .form-group.string.required.backup_schedule.form-group-valid
+          label.string.required for="backup_schedule"
+            = t('simple_form.labels.backup.next_schedule_at')
+          input.form-control[
+            type="text"
+            data-admin-cron-target="source"
+            disabled="true"
+            value="#{backup.schedule ? next_schedule_to_human(@backup.schedule) : ''}"
+          ]
 
-    .card-header.pt-0
-      h3.card-title = t('admin.backups.new.schedule')
-    .card-body
-      = f.input :schedule, required: true, input_html: { data: { action: 'admin-cron#parse' } }
+    .card
+      .card-header
+        h3.card-title = t('simple_form.labels.backup.schedule_settings')
+      .card-body
+        = f.input :enabled_apps, as: :check_boxes, collection: all_apps, checked: backup.enabled_apps
+        = f.label :enabled_database
+        = f.input :enabled_database, label: t('simple_form.labels.backup.database_switch')
 
-      .form-group.string.required.backup_schedule.form-group-valid
-        label.string.required for="backup_schedule"
-          = t('simple_form.labels.backup.next_schedule_at')
-        input.form-control[
-          type="text"
-          data-admin-cron-target="source"
-          disabled="true"
-          value="#{@backup.schedule ? next_schedule_to_human(@backup.schedule) : ''}"
-        ]
+  .mt-4.flex.justify-between.items-center
+    = f.button :submit
 
-    .card-header.pt-0
-      h3.card-title = t('simple_form.labels.backup.schedule_settings')
-    .card-body
-      = f.input :enabled_apps, as: :check_boxes, collection: all_apps, checked: @backup.enabled_apps
-      = f.label :enabled_database
-      = f.input :enabled_database, label: t('simple_form.labels.backup.database_switch')
+    - unless @backup.new_record?
+      - if @backup.enabled
+        = button_link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
+          class: 'btn-warning', data: { turbo_method: :post }
+      - else
+        = button_link_to t('admin.backups.new.enable'), enable_admin_backup_path(@backup), \
+          class: 'btn-success', data: { turbo_method: :post }
 
-    .card-footer
-      - unless @backup.new_record?
-        .float-end
-          - if @backup.enabled
-            = button_link_to t('admin.backups.new.disable'), disable_admin_backup_path(@backup), \
-              class: 'btn-warning', data: { turbo_method: :post }
-          - else
-            = button_link_to t('admin.backups.new.enable'), enable_admin_backup_path(@backup), \
-              class: 'btn-success', data: { turbo_method: :post }
-
-      = f.button :submit

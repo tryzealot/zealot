@@ -1,0 +1,10 @@
+== turbo_frame_tag apple_key do 
+  div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-b border-base-300 items-center"
+    div class="basis-20" = apple_key.id
+    div class="basis-sm" = link_to apple_key.team.full_name, admin_apple_key_path(apple_key), data: { turbo_frame: '_top' }
+    div class="basis-xs" = apple_key.team.team_id
+    div class="basis-3xs hidden sm:block" = time_ago_in_words(apple_key.created_at)
+    div class="basis-3xs hidden sm:block" 
+      = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', class: 'd-btn d-btn-sm', \
+        data: { turbo_method: :delete, \
+          turbo_confirm: t('modals.destroy_apple_key.body', name: "#{apple_key.team&.display_name} (#{apple_key.team&.team_id})") }
