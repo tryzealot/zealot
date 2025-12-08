@@ -1,0 +1,17 @@
+.property {
+  @layer components {
+    @apply d-fieldset text-balance;
+
+    .property-key {
+      @apply d-fieldset-legend text-base;
+    }
+
+    .property-value {
+      @apply bg-base-200 rounded-md text-sm/7 w-full py-2 px-3 overflow-x-auto;
+
+      :where(a) {
+        @apply text-primary hover:underline;
+      }
+    }
+  }
+}

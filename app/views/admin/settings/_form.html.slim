@@ -1,36 +1,33 @@
-.row
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title = t("admin.settings.#{@setting.var}")
+.card
+  .card-header
+    h3.card-title = t("admin.settings.#{@setting.var}")
 
-      = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch, data: { action: 'turbo:submit-end->modal#close' }) do |f|
-        .card-body
-          - if @setting.errors.any?
-            .callout.callout-danger.mb-3
-              h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
-              ul.ps-4
-                - @setting.errors.each do |error|
-                  li = error.message
+  = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch, data: { action: 'turbo:submit-end->modal#close' }) do |f|
+    .card-body
+      - if @setting.errors.any?
+        .callout.callout-danger.mb-3
+          h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
+          ul.ps-4
+            - @setting.errors.each do |error|
+              li = error.message
 
-          input.hidden type="hidden" value="#{@setting.type}" name="setting[type]"
-          - if @setting.type == :boolean
-            = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: ActiveModel::Type::Boolean.new.cast(@value) }
-          - elsif @setting.type == :hash || @setting.type == :array
-            = f.input :value, as: :text, label: false, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value) }
-          - elsif @setting.inclusion?
-            = f.input :value, as: :radio_buttons, label: false, collection: @setting.inclusion_values, checked: @value
-          - else
-            = f.input :value, as: :text, label: false, input_html: { value: @value }
+      input.hidden type="hidden" value="#{@setting.type}" name="setting[type]"
+      - if @setting.type == :boolean
+        = f.input :value, label: t('admin.settings.enable'), as: :boolean, input_html: { checked: ActiveModel::Type::Boolean.new.cast(@value) }
+      - elsif @setting.type == :hash || @setting.type == :array
+        = f.input :value, as: :text, label: false, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value), rows: 10 }
+      - elsif @setting.inclusion?
+        = f.input :value, as: :radio_buttons, label: false, collection: @setting.inclusion_values, checked: @value
+      - else
+        = f.input :value, as: :text, label: false, input_html: { value: @value }
 
-          - unless @setting.field_validates.empty?
-            small.form-text.text-muted
-              = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
-        .card-footer
-          - if @setting.persisted?
-            .float-end
-              = f.button :button, t('admin.settings.reset'), formmethod: :delete, formaction: admin_setting_path(@setting.var), class: 'btn btn-danger', \
-                data: { turbo_confirm: t('modals.confirm.body') }
-
-          .float-left
-            = f.button :submit
+      - unless @setting.field_validates.empty?
+        .text-sm.opacity-50
+          = t('admin.settings.validates', value: @setting.field_validates.join(' / '))
+    .card-footer.flex.justify-between
+      = f.button :submit
+      - if @setting.persisted?
+        = f.button :button, t('admin.settings.reset'), \
+          formmethod: :delete, formaction: admin_setting_path(@setting.var), \
+          class: 'd-btn d-btn-secondary!', \
+          data: { turbo_confirm: t('modals.reset.body') }
