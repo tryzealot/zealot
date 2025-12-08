@@ -6,14 +6,13 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage? || current_user&.manage?(app: @apps.map(&:id)) 
-    a.btn.btn-success href="#{new_debug_file_path}"
-      i.fa-regular.fa-plus-square
-      = t('debug_files.index.upload')
+    = button_link_to t('debug_files.index.upload'), new_debug_file_path, 'plus-square', \
+      class: 'd-btn-success'
 
 - if @apps.present?
   - @apps.each_with_index do |app, i|
-    .zard.widget-app
-      .zard-body.p-0.pt-3
+    .card.widget-app
+      .card-body.p-0.pt-3
         .text-center
           = app_icon(app.recently_release, class: 'app-icon elevation-1 rounded-circle')
         h3.profile-username.text-center
@@ -26,7 +25,8 @@
             b = link_to t('.ios_count'), device_app_debug_files_path(app, 'iOS')
             span.float-end = app.ios_debug_files.count
 - else
-  .zard.zard-outline.zard-warning
-    .zard-header.zard-border
-      h3.zard-title = t('debug_files.index.not_found.title')
-    .zard-body = t('debug_files.index.not_found.body_html')
+  .card.card-outline.card-warning
+    .card-header
+      h3.card-title = t('debug_files.index.not_found.title')
+    .card-body
+      div = t('debug_files.index.not_found.body_html')

@@ -4,80 +4,73 @@
 - content_for :section_title do
   = t('.title')
 
-.row
-  .col-md-6
-    .card.system_info.mb-3
-      .card-header
-        h3.card-title = t('.server_info')
-      .card-body
-        dl.system-info
-          dt = t('.zealot_version')
-          dd[
-            data-controller="admin-new-release"
-            data-admin-new-release-version-value="#{Setting.version_info}"
-            data-admin-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
-          ]
-            pre
-              #current-version = Setting.version_info(suffix: true)
-              #new-version data-admin-new-release-target="newVersion"
-          - if @server[:zealot_vcs_ref]
-            dt = t('.vcs_ref')
-            dd
-              pre = vcs_ref_link(@server[:zealot_vcs_ref])
-          - if @server[:build_date]
-            dt = t('.build_date')
-            dd
-              pre = @server[:build_date]
-          dt = t('.os_info')
-          dd
-            pre = @server[:os_info]
-          dt = t('.postgres_version')
-          dd
-            pre = @server[:pg_version]
-          dt = t('.ruby_version')
-          dd
-            pre = @server[:ruby_version]
-          dt = t('.cpu_info')
-          dd
-            pre
-              - if @server[:cpu]
-                = t('.cpu_core', count: @server[:cpu])
-              - else
-                = t('.fail_detect_cpu')
-          dt = t('.memory_info')
-          dd
-            pre
-              - if memory = @server[:memory]
-                = "#{number_to_human_size(memory[:used])} / #{number_to_human_size(memory[:total])}"
-                .progress.
-                  .progress-bar-striped class="#{memory[:color]}" role="progressbar" aria-valuenow="#{memory[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{memory[:percent]}%"
-                    span.visually-hidden = "#{memory[:percent]}%"
-              - else
-                = t('.fail_detect_memory')
-          dt = t('.disk_info')
-          dd
-            pre
-              - if diskspace = @server[:diskspace]
-                = "#{number_to_human_size(diskspace[:used])} / #{number_to_human_size(diskspace[:total])}"
-                .progress
-                  .progress-bar-striped class="#{diskspace[:color]}" role="progressbar" aria-valuenow="#{diskspace[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{diskspace[:percent]}%"
-                    span.visually-hidden = "#{diskspace[:percent]}%"
-              - else
-                = t('.fail_detect_disk')
-          dt = t('.lauched_time')
-          dd
-            pre
-              = distance_of_time_in_words_to_now(@server[:booted_at])
-              |  (
-              = @server[:booted_at]
-              | )
+.grid.grid-cols-1.md:grid-cols-2.xl:grid-cols-3.2xl:grid-cols-4.gap-6
+  .card.system_info.mb-3
+    .card-header
+      h3.card-title = t('.server_info')
+    .card-body
+      .property
+        .property-key = t('.zealot_version')
+        .property-value.flex.justify-between[
+          data-controller="admin-new-release"
+          data-admin-new-release-version-value="#{Setting.version_info}"
+          data-admin-new-release-title-value="#{Rails.env.development? ? t('.dev_new_version') : t('.new_version')}"
+        ]
+          #current-version = Setting.version_info(suffix: true)
+          #new-version data-admin-new-release-target="newVersion"
 
-  .col-md-6
-    .card.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
+      - if @server[:zealot_vcs_ref]
+        .property
+          .property-key = t('.vcs_ref')
+          .property-value
+            = vcs_ref_link(@server[:zealot_vcs_ref])
+
+      - if @server[:build_date]
+        .property
+          .property-key = t('.build_date')
+          .property-value = @server[:build_date]
+      .property
+        .property-key = t('.os_info')
+        .property-value = @server[:os_info]
+      .property
+        .property-key = t('.postgres_version')
+        .property-value = @server[:pg_version]
+      .property
+        .property-key = t('.ruby_version')
+        .property-value = @server[:ruby_version]
+      .property
+        .property-key = t('.cpu_info')
+        .property-value
+          - if @server[:cpu]
+            = t('.cpu_core', count: @server[:cpu])
+          - else
+            = t('.fail_detect_cpu')
+      .property
+        .property-key = t('.memory_info')
+        .property-value.flex.flex-col
+          - if memory = @server[:memory]
+            = "#{number_to_human_size(memory[:used])} / #{number_to_human_size(memory[:total])}"
+            progress.d-progress class=progress_color(memory[:percent]) value=memory[:percent] max="100"
+          - else
+            = t('.fail_detect_memory')
+      .property
+        .property-key = t('.disk_info')
+        .property-value
+          - if diskspace = @server[:diskspace]
+            = "#{number_to_human_size(diskspace[:used])} / #{number_to_human_size(diskspace[:total])}"
+            progress.d-progress class=progress_color(diskspace[:percent]) value=diskspace[:percent] max="100"
+          - else
+            = t('.fail_detect_disk')
+      .property
+        .property-key = t('.lauched_time')
+        .property-value = "#{distance_of_time_in_words_to_now(@server[:booted_at])} (#{l(@server[:booted_at], format: :nice)})"
+
+  div
+    .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
       .card-header
         h3.card-title = t('.file_permissions')
       .card-body.p-0
-        table.table.table-bottom-borderless
+        table.d-table
           - @file_permissions[:permissions].each do |permission|
             tr
               td = permission[:path]
@@ -88,54 +81,49 @@
                   span title="#{permission[:reason]}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="left"
                     i.fa-solid.fa-exclamation-triangle.text-danger
       .card-footer
-        = t('.messages.file_permissions_tip', icon: '<i class="fa-solid fa-exclamation-triangle text-danger">')
+        .opacity-65 = t('.messages.file_permissions_tip')
 
-    .card.mb-3
+    .card.card-outline class=(@disks.blank? && 'card-error')
       .card-header
         h3.card-title = t('.volume_mounted')
-        .card-tools
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fa-solid.fa-plus data-lte-icon="expand"
-            i.fa-solid.fa-minus data-lte-icon="collapse"
-      .card-body
+        / .card-tools
+        /   button.btn.btn-tool data-lte-toggle="card-collapse"
+        /     i.fa-solid.fa-plus data-lte-icon="expand"
+        /     i.fa-solid.fa-minus data-lte-icon="collapse"
+      .card-body.py-1
         - unless @disks.blank?
-          dl.system-info
-            - @disks.each do |disk|
-              dt = disk[:mount_path]
-              dd
-                pre
-                  = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
-                  .progress data-mount-options="#{disk[:mount_options]}"
-                    .progress-bar-striped class="#{disk[:color]}" role="progressbar" aria-valuenow="#{disk[:percent]}" aria-valuemin="0" aria-valuemax="100" style="width: #{disk[:percent]}%"
-                      span.visually-hidden = "#{disk[:percent]}%"
+          - @disks.each do |disk|
+            .property
+              .property-key = disk[:mount_path]
+              .property-value
+                = "#{number_to_human_size(disk[:bytes_used])} / #{number_to_human_size(disk[:bytes_total])}"
+                progress.d-progress class=progress_color(disk[:percent]) value=disk[:percent] max="100"
         - else
           = t('.fail_detect_disk')
 
-    .card.collapsed-card.mb-3
-      .card-header
-        h3.card-title = t('.system_environment')
-        .card-tools
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fa-solid.fa-plus data-lte-icon="expand"
-            i.fa-solid.fa-minus data-lte-icon="collapse"
-      .card-body
-        dl.system-info
-          - @env.each do |key, value|
-            dt = key
-            dd
-              pre
-                = secure_value(key, value)
+  .card.collapsed-card
+    .card-header
+      h3.card-title = t('.system_environment')
+      / .card-tools
+      /   button.btn.btn-tool data-lte-toggle="card-collapse"
+      /     i.fa-solid.fa-plus data-lte-icon="expand"
+      /     i.fa-solid.fa-minus data-lte-icon="collapse"
+    .card-body
+      - @env.each do |key, value|
+        .property
+          .property-key = key
+          .property-value = secure_value(key, value)
 
-    .card.collapsed-card.mb-3
-      .card-header
-        h3.card-title = t('.ruby_gems')
-        .card-tools
-          button.btn.btn-tool data-lte-toggle="card-collapse"
-            i.fa-solid.fa-plus data-lte-icon="expand"
-            i.fa-solid.fa-minus data-lte-icon="collapse"
-      .card-body.p-0
-        table.table.table-bottom-borderless
-          - @gems.each do |name, version|
-            tr
-              td = name
-              td = version
+  .card.collapsed-card
+    .card-header
+      h3.card-title = t('.ruby_gems')
+      / .card-tools
+      /   button.btn.btn-tool data-lte-toggle="card-collapse"
+      /     i.fa-solid.fa-plus data-lte-icon="expand"
+      /     i.fa-solid.fa-minus data-lte-icon="collapse"
+    .card-body.p-0
+      table.d-table
+        - @gems.each do |name, version|
+          tr
+            td = name
+            td = version

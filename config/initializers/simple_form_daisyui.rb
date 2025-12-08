@@ -78,7 +78,7 @@ SimpleForm.setup do |config|
     b.wrapper :legend_tag, tag: 'p', class: DEFAULT_LABEL_CLASS, error_class: 'text-error' do |ba|
       ba.use :label_text
     end
-    b.use :input, class: 'd-toggle d-toggle-primary'
+    b.use :input, class: 'd-radio d-radio-primary'
     b.use :hint, wrap_with: DEFAULT_HINT_WRAP
     b.use :full_error, wrap_with: DEFAULT_ERROR_WRAP
   end

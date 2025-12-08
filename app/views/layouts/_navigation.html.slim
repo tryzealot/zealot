@@ -12,7 +12,7 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   div class="d-navbar-end"
     - if user_signed_in?
       div class="d-dropdown d-dropdown-end"
-        div class="btn btn-ghost" tabindex="0" role="button" 
+        div class="d-btn d-btn-ghost" tabindex="0" role="button" 
           = current_user.username
           i.fa-solid.fa-caret-down
         ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-32 p-2 shadow-sm"
@@ -21,4 +21,4 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
     - elsif !devise_page?
       ul class="d-menu d-menu-horizontal px-1"
         li
-          = link_to t('log_in'), new_user_session_path, class: 'btn'
+          = link_to t('log_in'), new_user_session_path, class: 'd-btn'

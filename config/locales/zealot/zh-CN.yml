@@ -888,6 +888,9 @@ zh-CN:
     confirm:
       title: 删除确认?
       body: 一旦数据被删除，将永久无法恢复，请谨慎操作！
+    reset:
+      title: 重置确认?
+      body: 当前设置将恢复为默认值，请确认操作！
     destroy_apple_key:
       title: 删除苹果开发者账户确认?
       body: |
