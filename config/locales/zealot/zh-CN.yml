@@ -1111,8 +1111,7 @@ zh-CN:
       edit:
         change_password: 修改密码
         update_password: 更新密码
-        api: API
-        token: 密钥
+        api_token: API 密钥
     normal:
       title: 标准登录
       user_login_disabled: 用户登录已被禁用，请联系管理员
