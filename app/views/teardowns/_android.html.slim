@@ -4,65 +4,72 @@ ruby:
   rescue Android::NotFoundError
     app_name = t('teardowns.show.unkonwn')
   end
+  
+  properties = [
+    {
+      key: t('teardowns.show.app_name'),
+      value: app_name
+    },
+    {
+      key: t('teardowns.show.version'),
+      value: "#{@metadata.release_version} (#{@metadata.build_version})"
+    },
+    {
+      key: t('teardowns.show.package_name'),
+      value: @metadata.packet_name
+    },
+    {
+      key: t('teardowns.show.native_codes'),
+      value: @metadata.native_codes.empty? ? '-' : @metadata.native_codes.join(', ')
+    },
+    {
+      key: t('teardowns.show.supported_device'),
+      value: "#{device_name(@metadata.device)} (Android)"
+    },
+    (@metadata.min_sdk_version.present? ? {
+      key: t('teardowns.show.android_min_sdk'),
+      value: android_version_info(@metadata.min_sdk_version)
+    } : nil),
+    (@metadata.target_sdk_version.present? ? {
+      key: t('teardowns.show.android_target_sdk'),
+      value: android_version_info(@metadata.target_sdk_version)
+    } : nil),
+    {
+      key: t('teardowns.show.file_size'),
+      value: number_to_human_size(@metadata.size)
+    },
+    {
+      key: t('teardowns.show.uploaded_date'),
+      value: l(@metadata.created_at, format: :nice)
+    },
+    {
+      key: t('teardowns.show.uploader'),
+      value: @metadata.user.username
+    }
+  ].compact
 
-.col-md-6
-  .card.mb-3
+.waterfall
+  .card
     .card-header
       h3.card-title
-        i.fa-brands.fa-android.text-success
-        = t('teardowns.show.metadata')
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.ps-2.pe-2.p-0
-      dl.system-info.pb-0
-        dt = t('teardowns.show.app_name')
-        dd
-          pre = app_name
-        dt = t('teardowns.show.version')
-        dd
-          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
-        dt = t('teardowns.show.package_name')
-        dd
-          pre = @metadata.packet_name
-        dt
-          = t('teardowns.show.native_codes')
-        dd
-          pre
-            = @metadata.native_codes.empty? ? '-' : @metadata.native_codes.join(', ')
-        dt
-          = t('teardowns.show.supported_device')
-        dd
-          pre
-            = device_name(@metadata.device)
-            |  (Android)
-        dt = t('teardowns.show.android_min_sdk')
-        - if @metadata.min_sdk_version.present?
-          dd
-            pre = android_version_info(@metadata.min_sdk_version)
-        - if @metadata.target_sdk_version.present?
-          dt = t('teardowns.show.android_target_sdk')
-          dd
-            pre = android_version_info(@metadata.target_sdk_version)
-        dt = t('teardowns.show.file_size')
-        dd
-          pre = number_to_human_size(@metadata.size)
-        dt = t('teardowns.show.uploaded_date')
-        dd
-          pre = l(@metadata.created_at, format: :nice)
-        dt = t('teardowns.show.uploader')
-        dd
-          pre = @metadata.user.username
+        i.fa-brands.fa-android.text-success.mr-1
+        = platform_name(@metadata.platform)
+      / .card-tools
+      /   button.btn.btn-tool data-lte-toggle="card-collapse"
+      /     i.fa-solid.fa-plus data-lte-icon="expand"
+      /     i.fa-solid.fa-minus data-lte-icon="collapse"
+    .card-body
+      - properties.each do |prop|
+        .property 
+          .property-key = prop[:key]
+          .property-value = prop[:value]
 
   = render 'card', title: t('teardowns.show.activities', count: @metadata.activities.size), raw: @metadata.activities
-
-.col-md-6
-  - if @metadata.developer_certs.present?
-    == render 'signatures_part', signatures: @metadata.developer_certs
-
   == render 'card', title: t('teardowns.show.deep_links', count: @metadata.deep_links.size), raw: @metadata.deep_links
   == render 'card', title: t('teardowns.show.url_schemes', count: @metadata.url_schemes.size), raw: @metadata.url_schemes
   == render 'card', title: t('teardowns.show.features', count: @metadata.features.size), raw: @metadata.features
   == render 'card', title: t('teardowns.show.permissions', count: @metadata.permissions.size), raw: @metadata.permissions
   == render 'card', title: t('teardowns.show.services', count: @metadata.services.size), raw: @metadata.services
+  
+  - if @metadata.developer_certs.present?
+    == render 'signatures_part', signatures: @metadata.developer_certs

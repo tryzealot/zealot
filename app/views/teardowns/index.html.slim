@@ -6,11 +6,41 @@
 
 - content_for :section_rightpanel do
   - if user_signed_in?
-    a.btn.btn-success href="#{new_teardown_path}"
-      i.fa-regular.fa-plus-square
-      = t('.create')
+    = button_link_to t('.create'), new_teardown_path, 'plus-square', base_fa: 'fa-regular', \
+      class: 'd-btn d-btn-success'
 
-.row
-  == render 'list'
+ruby: 
+  manage_role = @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
+
+.space-y-4
+  - if @metadata.present?
+    .card
+      .card-header
+        h3.card-title
+          i.fa-solid.fa-history
+          = t('.upload_history')
+      .card-body.p-0
+        table.d-table
+          thead
+            tr
+              th = t('.app_name')
+              th = t('.platform')
+              th.hidden.md:table-cell = t('.uploader')
+              th = t('.uploaded_at')
+              - if user_signed_in? && manage_role
+                th.hidden.md:table-cell
+          tbody
+            - @metadata.each do |md|
+              == render 'metadata', metadata: md, manage_role: manage_role
+      - if @metadata.total_pages > 1
+        .card-footer
+          .float-end
+            = paginate @metadata
+  - else 
+    .card.card-outline.card-warning
+      .card-header.card-border
+        h3.card-title = t('.not_found.title')
+      .card-body = t('.not_found.body_html')
+
   == render 'help'
 

@@ -1,9 +1,7 @@
-.col-md-8.col-lg-9
+.waterfall
   == render 'mobileprovision_part', enable_icon: true
   == render 'developer_certs_part'
   == render 'devices_part', devices: @metadata.devices
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
-
-.col-md-4.col-lg-3
   == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes

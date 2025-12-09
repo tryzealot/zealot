@@ -1,0 +1,24 @@
+= turbo_frame_tag metadata do
+  tr
+    td.flex.flex-col
+      = link_to (metadata.name || '-'), teardown_path(metadata)
+      - if metadata.release_version.present?
+        = metadata.release_version
+        - if metadata.build_version.present?
+          | (#{metadata.build_version})
+      - else
+        | -
+    td
+      = platform_name(metadata.platform)
+    td.hidden.md:table-cell
+      = metadata.user&.username || t('teardowns.index.anonymous')
+    td
+      .d-tooltip data-tip=l(metadata.created_at, format: :nice)
+        = time_ago_in_words(metadata.created_at)
+    - if user_signed_in? && manage_role
+      td.hidden.md:table-cell.text-end
+        = button_link_to '', teardown_path(metadata), 'trash-alt', \
+          class: 'd-btn d-btn-sm text-error', data: { \
+            turbo_method: :delete, \
+            turbo_confirm: t('modals.confirm.body'), \
+          }

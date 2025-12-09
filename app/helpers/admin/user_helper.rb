@@ -4,7 +4,7 @@ module Admin::UserHelper
   def user_status(user)
     if user.access_locked?
       ['error', t('admin.users.index.locked')]
-    elsif user.confirmed_at
+    elsif user.confirmed_at.present?
       ['success', t('admin.users.index.activated')]
     else
       ['ghost', t('admin.users.index.inactive')]

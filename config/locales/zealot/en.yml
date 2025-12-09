@@ -78,9 +78,7 @@ en:
         title: New Apple Developer
       index:
         title: :admin.apple_keys.title
-        teams:
-          one: Team
-          other: Teams
+        teams: Teams
         number: "#"
         team_name: Team name
         team_id: Team ID
@@ -614,10 +612,6 @@ en:
     title: Teardowns
     new:
       title: New teardown
-      file: File
-      choose_file: Choose file
-      file_hint: Support iPhone IPA, Android APK/AAB, macOS MobileProvision and macOS.app.zip, Windows EXE file
-      submit: Parse metadata
     create:
       create: :teardowns.new.title
     index:
@@ -634,7 +628,7 @@ en:
         title: Not found any teardown!
         body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
-      title: "%{name} Teardown result"
+      title: "%{name} teardown"
       expired_in: Expire in %{time}
       already_expired: Expired %{time}
       expired: Expired now!
@@ -717,7 +711,7 @@ en:
         <p>
           Click the button <i class="fa-regular fa-plus-square"></i> to upload app and review it inside:
         </p>
-        <table class="table table-bordered">
+        <table class="d-table">
           <tr>
             <th>iOS</th>
             <th>Android</th>
@@ -1161,40 +1155,42 @@ en:
           openidconnect: OpenID
   helpers:
     submit:
-      user:
-        create: Create
-        update: Update
-      app:
-        create: Create
-        update: Update
-      collaborator:
-        create: Create
-        update: Update
-      scheme:
-        create: Create
-        update: Update
-      channel:
-        create: Create
-        update: Update
+      # user:
+      #   create: Create
+      #   update: Update
+      # app:
+      #   create: Create
+      #   update: Update
+      # collaborator:
+      #   create: Create
+      #   update: Update
+      # scheme:
+      #   create: Create
+      #   update: Update
+      # channel:
+      #   create: Create
+      #   update: Update
       release:
-        create: Upload
-      web_hook:
-        create: Create new webhook
-        update: Update
+        create: Upload App
+      # web_hook:
+      #   create: Create new webhook
+      #   update: Update
+      teardown:
+        submit: Teardown
       debug_file:
-        create: Upload
+        create: Upload Debug file
       setting:
         create: Save
-        update: Save
-      apple_key:
-        create: Create
-      apple_team:
         update: Update
-      backup:
-        create: Create
-        update: Update
-      device:
-        update: Update
+      # apple_key:
+      #   create: Create
+      # apple_team:
+      #   update: Update
+      # backup:
+      #   create: Create
+      #   update: Update
+      # device:
+      #   update: Update
   views:
     pagination:
       truncate: ...
