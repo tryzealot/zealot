@@ -8,6 +8,15 @@
   [data-theme="dark"] .brand-image-light {
     display: none;
   }
+
+  a {
+    @apply text-primary hover:text-primary/80;
+
+    /* if parent node is .menu, do not apply */
+    .d-menu & {
+      @apply text-base-content hover:text-base-content;
+    }
+  }
 }
 
 @layer components {

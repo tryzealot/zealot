@@ -5,7 +5,7 @@
     ul class="d-list"
       - scheme.channels.each do |channel|
         ruby:
-          actived_class = (params[:id] || params[:channel]) == channel.slug ? 'bg-primary' : ''
+          actived_class = (params[:id] || params[:channel]) == channel.slug ? 'bg-base-300' : ''
         li class="d-list-row p-3 rounded-none #{actived_class}"
           = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
             data: { turbo_frame: '_top' }

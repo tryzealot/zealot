@@ -489,7 +489,7 @@ zh-CN:
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
-      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面。点击这里解决应用安装失败或遇到 "未受信任的企业级开发者" 错误。
+      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面，安装失败或遇到 "未受信任的企业级开发者" 错误点击这里
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'

@@ -6,7 +6,7 @@
       - app.schemes.each do |scheme|
         ruby:
           scheme_link = using_friendly_channel_path(scheme, channel)
-          actived_class = channel.scheme.name == scheme.name ? 'bg-primary' : ''
+          actived_class = channel.scheme.name == scheme.name ? 'bg-base-300' : ''
         - if scheme_link.present?
           li class="d-list-row p-3 rounded-none #{actived_class}"
             = link_to scheme.name, scheme_link, \
