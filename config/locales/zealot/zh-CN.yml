@@ -24,7 +24,6 @@ zh-CN:
         role: 权限
         status: 状态
         last_login_time: 最后登录时间
-        action: 操作
         activated: 已激活
         locked: 已停用
         inactive: 未激活
@@ -56,7 +55,6 @@ zh-CN:
         number: "#"
         url: URL
         channels: 渠道列表
-        action: 操作
         not_found: 没有发现网络钩子
         create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
       show:
@@ -81,7 +79,6 @@ zh-CN:
         team_name: 团队名称
         team_id: 团队标识符
         created_at: 创建时间
-        action: 操作
         new_apple_key: :'admin.apple_keys.new.title'
         not_found:
           title: 没有发现任何苹果开发者
@@ -214,7 +211,6 @@ zh-CN:
         schedule: 备份频率
         next_schedule_at: 下次备份时间
         enabled: 启用
-        action: 操作
         run_backup: 执行新备份
         edit: 编辑
         database: 数据库
@@ -230,7 +226,6 @@ zh-CN:
         sha256: SHA256
         created_at: 生成时间
         size: 大小
-        action: 操作
         download: 下载
         performing_jobs: 进行中的备份任务
         backup_id: 备份 ID
@@ -322,8 +317,7 @@ zh-CN:
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
       total_builds: 上传版本数
-      not_found_channel_body_html: |
-        没有发现任何渠道，点击底部的 <i class="fa-solid fa-plus-square"></i> 按钮新增渠道
+      not_found_channel: 没有发现任何渠道
       not_found_scheme:
         title: 没有发现任何应用类型
         body_html: |

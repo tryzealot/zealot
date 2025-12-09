@@ -7,7 +7,6 @@
 - content_for :section_rightpanel do
   == render 'action_buttons', backup: @backup
 
-.row
+.space-y-5 
   == render "job_completed", backup: @backup, backup_files: @backup_files
-  - if @performing_jobs.present?
-    == render "job_inprocess", backup: @backup, performing_jobs: @performing_jobs
+  == render "job_inprocess", backup: @backup, performing_jobs: @performing_jobs

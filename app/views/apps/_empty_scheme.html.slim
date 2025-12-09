@@ -3,4 +3,5 @@
     .card-header
       h3.card-title = t('apps.show.not_found_scheme.title')
     - if !app.archived
-      .card-body = t('apps.show.not_found_scheme.body_html')
+      .card-body 
+        p = t('apps.show.not_found_scheme.body_html')

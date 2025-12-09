@@ -18,7 +18,7 @@
               tr
                 th = t('.url')
                 th.w-25 = t('.channels')
-                th.d-none.d-sm-table-cell style="width: 100px" = t('.action')
+                th.d-none.d-sm-table-cell style="width: 100px"
             tbody
               - @web_hooks.each_with_index do |web_hook, i|
                 tr

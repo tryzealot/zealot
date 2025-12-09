@@ -26,7 +26,7 @@ ruby:
         data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 = turbo_frame_tag @app do
-  #schemes class="gap-4 mb-4 #{app_scheme_columns(schemes_total)}"
+  #schemes class="#{app_scheme_columns(schemes_total)} gap-4 mb-4 items-start *:break-inside-avoid"
     - if schemes_total.positive?
       - @app.schemes.each do |scheme|
         == render 'scheme', scheme: scheme
