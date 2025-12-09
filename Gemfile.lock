@@ -203,7 +203,7 @@ GEM
       ffi (>= 1.15.5)
       rake
     fiber-storage (1.0.1)
-    friendly_id (5.5.1)
+    friendly_id (5.6.0)
       activerecord (>= 4.0.0)
     fugit (1.12.1)
       et-orbi (~> 1.4)
@@ -648,7 +648,7 @@ GEM
     temple (0.10.4)
     thor (1.4.0)
     tilt (2.6.1)
-    timeout (0.4.4)
+    timeout (0.5.0)
     tiny_appstore_connect (0.1.12)
       CFPropertyList (>= 2.3.4, < 3.1.0)
       faraday (>= 1.10.0, < 3.0)
@@ -729,7 +729,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday (~> 2.14.0)
-  friendly_id (~> 5.5.1)
+  friendly_id (~> 5.6.0)
   gitlab_omniauth-ldap (~> 2.3.0)
   good_job (~> 4.13.0)
   graphiql-rails
