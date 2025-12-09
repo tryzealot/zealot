@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include ExceptionHandler
   include UserRole
   include Customize
+  include Breadcrumbable
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
