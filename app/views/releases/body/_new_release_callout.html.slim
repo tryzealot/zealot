@@ -3,12 +3,12 @@
     .card-body
       h2.card-title
         i.fa-solid.fa-info
-        = t('releases.show.not_latest_release')
-      div.text-base
+        = t('releases.show.new_build_released')
+      .text-base
         = raw t('releases.show.released_new_version', \
           version: latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
           time: time_ago_in_words(latest_release.created_at), \
-          link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release)))
+          link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release), data: { turbo_frame: '_top'}))
 
 - if @release.app.archived
   .callout.callout-warning.mb-3

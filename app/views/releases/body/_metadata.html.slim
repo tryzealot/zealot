@@ -4,7 +4,7 @@
       div 
         = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
       div 
-        div class="font-semibold text-xl" 
+        div class="font-semibold text-xl"
           = release.name || release.app_name
         div.text-break class="font-base text-sm opacity-60"
           = release.bundle_id || release.file.identifier
@@ -68,6 +68,7 @@
             = expired_date_tips(expired_date, colorful: false)
         div class="d-tooltip" data-tip=t('releases.show.metadata')
           i.fa-solid.fa-layer-group class="mr-1"
-          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), teardown_path(release.metadata), data: { turbo: false }
+          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), \
+            teardown_path(release.metadata), data: { turbo_frame: '_top' }
 
     == render 'releases/body/install_app', release: release, app: release.app
