@@ -69,7 +69,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     link_to content, url, **options
   end
 
-  # 激活 li 的 class
+  # Return active class if current page matches any of the link paths
   def active_class(link_paths, class_name = 'd-menu-active')
     link_paths = [ link_paths ] if link_paths.is_a?(String)
 
@@ -197,5 +197,10 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def openapi_endpoints_enabled?
     Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.show_footer_openapi_endpoints
+  end
+
+  def drawer_status
+    value = cookies.fetch('zealot-drawer-status', 'open') == 'open'
+    value ? true : nil
   end
 end
