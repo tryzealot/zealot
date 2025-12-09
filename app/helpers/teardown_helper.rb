@@ -25,16 +25,23 @@ module TeardownHelper # rubocop:disable Metrics/ModuleLength
     message = t('teardowns.show.expired_in', time: time_in_words)
 
     if duration.value < 0
-      style_name = 'text-danger'
+      style_name = 'text-error'
       message = t('teardowns.show.already_expired', time: time_in_words)
     elsif duration.value == 0
-      style_name = 'text-danger'
+      style_name = 'text-error'
       message = t('teardowns.show.expired')
     else
       style_name = (duration.value <= 3.months.to_i) ? 'text-warning' : 'text-success'
     end
 
-    content_tag(:span, "#{prefix}#{message}", class: colorful ? [style_name, 'fw-bolder'] : [])
+    tooltip = ['d-tooltip', 'd-tooltip-right']
+
+    options = {
+      class: colorful ? tooltip.concat([style_name, 'font-bold']) : tooltip,
+      data: { tip: l(Time.zone.parse(@metadata.mobileprovision['expired_at']), format: :nice) }
+    }
+
+    content_tag(:span, "#{prefix}#{message}", options)
   end
 
   def android_version_info(api_version)

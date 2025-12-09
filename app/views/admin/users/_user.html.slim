@@ -1,17 +1,18 @@
 
-= turbo_frame_tag user, class: 'flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-t border-base-100' do
+= turbo_frame_tag user, class: 'flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-t border-base-300 sm:items-center first:border-0' do
   ruby: 
-    color, label = user_status(user)
+    color, text = user_status(user)
 
   div class="basis-md flex items-center gap-1"
-    .d-status.block.sm:hidden class="d-status-#{color}" aria-label="status"
+    .block.sm:hidden
+      i.fa-solid.fa-circle class="text-#{color}"
     = link_to user.email, edit_admin_user_path(user), data: { turbo_frame: '_top' }
   div class="basis-2xs" 
     = user.username.presence || '-'
   div class="basis-2xs"
     = user.role_name
   div class="basis-2xs hidden sm:block" 
-    .d-badge.d-badge-soft class="d-badge-#{color}" = label
+    .d-badge.d-badge-sm class="d-badge-#{color}" = text
   div class="basis-xs hidden sm:block" 
     - if user.last_sign_in_at
       span.d-tooltip.d-tooltip-left data-tip=l(user.last_sign_in_at, format: :nice) 

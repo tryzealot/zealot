@@ -1,13 +1,12 @@
-.card.mb-3
+.card
   .card-header
     h3.card-title = t('teardowns.show.imports')
     .card-tools
       button.btn.btn-tool data-lte-toggle="card-collapse"
         i.fa-solid.fa-plus data-lte-icon="expand"
         i.fa-solid.fa-minus data-lte-icon="collapse"
-  .card-body.p-0.ps-3
-    dl.system-info.pb-0
-      - imports.each do |name, functions|
-        dt = name
-        dd
-          pre = functions.present? ? functions.join("\n") : '-'
+  .card-body
+    - imports.each do |name, functions|
+      .property
+        .property-key = name
+        .property-value = functions.present? ? functions.join("\n") : '-'

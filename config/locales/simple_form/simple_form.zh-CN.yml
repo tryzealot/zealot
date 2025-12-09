@@ -27,6 +27,8 @@ zh-CN:
         remember_me: 记住登录信息
       app:
         name: 应用名称
+      teardown:
+        file: 应用文件
       collaborator:
         user: 用户
         role: 权限
@@ -100,6 +102,8 @@ zh-CN:
       app:
         schemes:
           name: :'simple_form.hints.scheme.name'
+      teardown:
+        file: 支持 iPhone 的 IPA、Android 的 APK/AAB、macOS 的 mobileprovision 以及 macOS.app.zip、Window 的 EXE 文件
       scheme:
         name: 应用在功能、面向受众划分的类型
         new_build_callout: 用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗
