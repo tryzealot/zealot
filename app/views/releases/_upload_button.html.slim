@@ -1,4 +1,4 @@
 - if current_user&.manage?(app: app) && !app.archived
   = button_link_to t('releases.new.title'), new_channel_release_path(channel), \
     'plus-square', base_fa: 'fa-regular', \
-    class: 'btn btn-primary w-full', data: { turbo_frame: '_top' }
+    class: 'd-btn d-btn-success w-full', data: { turbo_frame: '_top' }

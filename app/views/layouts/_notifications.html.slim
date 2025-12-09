@@ -1,5 +1,5 @@
 = turbo_stream_from dom_id(current_user, :notifications) if user_signed_in?
 
-#notifications class="fixed bottom-0 right-0 z-0 mb-2 mr-2"
+#notifications class="space-y-3 fixed bottom-0 right-0 z-0 mb-2 mr-2"
   - flash.each do |type, message|
     = render FlashComponent.new(message, type: type)

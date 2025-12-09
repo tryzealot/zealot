@@ -9,3 +9,21 @@
     display: none;
   }
 }
+
+@layer components {
+  .app-limited-tips {
+    @apply fixed top-0 right-0 inset-0 w-full text-right bg-black/80 z-1000;
+  }
+
+  .app-limited-tips-content {
+    @apply inline-flex items-end justify-end m-2 gap-2;
+
+    span {
+      @apply text-base-content font-bold text-base leading-[30px] text-left;
+    }
+
+    img {
+      @apply size-12 inline-block mb-[13px];
+    }
+  }
+}
