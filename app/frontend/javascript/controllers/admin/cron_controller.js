@@ -9,19 +9,19 @@ export default class extends Controller {
   }
 
   async parse(event) {
-    this.sourceTarget.value = this.parsingValue
+    this.sourceTarget.innerText = this.parsingValue
 
     let inputTarget = event.target
     this.resetInput(inputTarget)
 
-    let requestUrl = CRON_PARSER_URI + "?q=" + encodeURIComponent(event.target.value)
+    let requestUrl = CRON_PARSER_URI + "?q=" + encodeURIComponent(inputTarget.value)
     let response = await fetch(requestUrl)
     let body = await response.json()
 
     if (response.ok) {
-      this.renderSuccess(event.target, body)
+      this.renderSuccess(inputTarget, body)
     } else {
-      this.renderFailure(event.target, body)
+      this.renderFailure(inputTarget, body)
     }
   }
 
@@ -29,28 +29,28 @@ export default class extends Controller {
     let nextScheduleAt = body.next_time
 
     this.switchValid(inputTarget)
-    this.sourceTarget.value = nextScheduleAt
+    this.sourceTarget.innerText = nextScheduleAt
   }
 
   renderFailure(inputTarget, body) {
     let message = body.error
 
     this.switchInvalid(inputTarget)
-    this.sourceTarget.value = message
+    this.sourceTarget.innerText = message
   }
 
   switchInvalid(inputTarget) {
-    inputTarget.classList.remove("is-valid")
-    inputTarget.classList.add("is-invalid")
+    inputTarget.classList.remove("d-input-success")
+    inputTarget.classList.add("d-input-error")
   }
 
   switchValid(inputTarget) {
-    inputTarget.classList.remove("is-invalid")
-    inputTarget.classList.add("is-valid")
+    inputTarget.classList.remove("d-input-error")
+    inputTarget.classList.add("d-input-success")
   }
 
   resetInput(inputTarget) {
-    inputTarget.classList.remove("is-valid")
-    inputTarget.classList.remove("is-invalid")
+    inputTarget.classList.remove("d-input-success")
+    inputTarget.classList.remove("d-input-error")
   }
 }

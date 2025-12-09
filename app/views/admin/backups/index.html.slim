@@ -12,7 +12,7 @@
   .card
     .card-header
       h3.card-title
-        i.fa-solid.fa-box-open
+        i.fa-solid.fa-box-open.mr-1
         = t('.schedules')
     .card-body.p-0.gap-0
       div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
@@ -22,25 +22,8 @@
         div class="hidden sm:block sm:col-span-2 md:col-span-3" = t('.next_schedule_at')
         div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
       #backups
-        - @backups.each do |backup|
-          div class='grid grid-cols-6 gap-2 py-2 px-3 text-sm font-semibold border-t border-base-300 first:border-0 sm:grid-cols-12 sm:items-center'
-            div class="col-span-6 sm:col-span-4 md:col-span-3 flex items-center gap-1 truncate"
-              span class="shrink-0" == render 'admin/settings/switch_icon', value: backup.enabled
-              span class="truncate" = link_to backup.key, admin_backup_path(backup)
-            div class="col-span-6 sm:col-span-4 md:col-span-3 truncate" = explan_scopes(backup)
-            div class="col-span-3 sm:col-span-2 md:col-span-1 truncate" = schedule_to_human(backup.schedule)
-            div class="hidden sm:block sm:col-span-2 md:col-span-3"
-              .d-tooltip data-tip=l(next_schedule_time(backup.schedule), format: :nice)
-                = next_schedule_to_human(backup.schedule)
-            div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
-              .d-join
-                = button_to perform_admin_backup_path(backup), class: 'd-join-item d-btn d-btn-sm run-backup', title: t('.run_backup') do
-                  i.fa-solid.fa-play-circle
-                = button_link_to '', edit_admin_backup_path(backup), 'edit', \
-                  class: 'd-join-item d-btn d-btn-sm edit-backup', title: t('.edit')
-                = button_link_to '', admin_backup_path(backup), 'trash-alt', \
-                  class: 'd-join-item d-btn d-btn-sm', title: t('modals.buttons.destroy'), \
-                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
+        == render @backups
+
 - else
   .card.card-outline.card-warning
     .card-header.card-border

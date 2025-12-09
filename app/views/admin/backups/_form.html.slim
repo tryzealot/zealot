@@ -21,7 +21,7 @@
             = t('simple_form.labels.backup.next_schedule_at')
           p.d-input.opacity-65.d-tooltip.d-tooltip-bottom[
             type="text"
-            data-tip=l(next_schedule_time(@backup.schedule), format: :nice)
+            data-tip=(backup.schedule && l(next_schedule_time(@backup.schedule), format: :nice))
             data-admin-cron-target="source"
           ] = backup.schedule ? next_schedule_to_human(@backup.schedule) : ''
 
