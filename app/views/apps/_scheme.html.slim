@@ -1,32 +1,31 @@
-= turbo_frame_tag dom_id(scheme, :app) do
-  .card
-    .card-header
-      h2.card-title = scheme.name
-      .card-tools class="gap-1"
-        - if scheme.retained_builds.positive?
-          span class="d-badge d-badge-sm d-badge-warning me-2 d-tooltip d-tooltip-left" data-tip=t('apps.show.retained_build', count: scheme.retained_builds)
-            = scheme.retained_builds
-        - unless scheme.new_build_callout
-          span class="d-badge d-badge-sm d-badge-warning me-2 d-tooltip d-tooltip-left" data-tip=t('apps.show.disabled_new_build_callout')
-            i class="fa fa-bell-slash"
-    .card-body class="p-0"
-      ui id="#{dom_id(scheme)}_channels" class="d-list"
-        - if scheme.channels.count.positive?
-          - scheme.channels.each do |channel|
-            == render 'apps/channel', channel: channel, scheme: scheme, app: @app
-        - else
-          == render 'apps/empty_channel', scheme: scheme
+= turbo_frame_tag dom_id(scheme, :app), class: 'card' do
+  .card-header
+    h2.card-title = scheme.name
+    .card-tools class="gap-1"
+      - if scheme.retained_builds.positive?
+        span class="d-badge d-badge-sm d-badge-warning me-2 d-tooltip d-tooltip-left" data-tip=t('apps.show.retained_build', count: scheme.retained_builds)
+          = scheme.retained_builds
+      - unless scheme.new_build_callout
+        span class="d-badge d-badge-sm d-badge-warning me-2 d-tooltip d-tooltip-left" data-tip=t('apps.show.disabled_new_build_callout')
+          i class="fa fa-bell-slash"
+  .card-body class="p-0"
+    ui id="#{dom_id(scheme)}_channels" class="d-list"
+      - if scheme.channels.count.positive?
+        - scheme.channels.each do |channel|
+          == render 'apps/channel', channel: channel, scheme: scheme, app: @app
+      - else
+        == render 'apps/empty_channel', scheme: scheme
 
-    .card-footer class="flex justify-between items-center"
-      = button_link_to '', new_app_scheme_channel_path(@app, scheme), 'plus-square', \
-        class: 'd-btn-ghost d-btn-circle d-tooltip', data: { tip: t('apps.show.new_channel'), turbo_frame: :modal }
-      = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', \
-        class: 'd-btn-ghost d-btn-circle d-tooltip', \
-        data: { tip: t('apps.show.edit_scheme'), turbo_frame: :modal }
-      = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', \
-        class: 'd-btn-ghost d-btn-circle d-tooltip d-tooltip-left text-error', \
-        data: { \
-          tip: t('apps.show.destroy_scheme'), \
-          turbo_method: :delete, \
-          turbo_confirm: t("apps.messages.confirm.delete_app_scheme", name: scheme.app_name), \
-        }
+  .card-footer class="flex justify-between items-center"
+    = button_link_to '', new_app_scheme_channel_path(@app, scheme), 'plus-square', \
+      class: 'd-btn-ghost d-btn-circle d-tooltip', data: { tip: t('apps.show.new_channel'), turbo_frame: :modal }
+    = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', \
+      class: 'd-btn-ghost d-btn-circle d-tooltip', \
+      data: { tip: t('apps.show.edit_scheme'), turbo_frame: :modal }
+    = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', \
+      class: 'd-btn-ghost d-btn-circle d-tooltip d-tooltip-left text-error', \
+      data: { \
+        tip: t('apps.show.destroy_scheme'), \
+        turbo_method: :delete, \
+        turbo_confirm: t("apps.messages.confirm.delete_app_scheme", name: scheme.app_name), \
+      }

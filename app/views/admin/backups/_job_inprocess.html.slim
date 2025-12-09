@@ -1,36 +1,11 @@
-.col-md-12
-  .card.backup
+- if @performing_jobs.present?
+  .card
     .card-header
       h3.card-title = t('admin.backups.show.performing_jobs')
-    .card-body.p-0
-      table.table.table-bottom-borderless
-        tr
-          th = t('admin.backups.show.backup_id')
-          th = t('admin.backups.show.backup_status')
-          th = t('admin.backups.show.action')
-        - performing_jobs.each do |job|
-          tr
-            td
-              = job_icon(job.job.status)
-              = job.job.id
-            td
-              - if job.job.running? || job.job.status == :queued
-                .d-badge.text-bg-warning style="margin-right: 5px"
-                  = job_progress(job.status)
-                - if job.status.present?
-                  .d-badge.text-bg-info
-                    = job_stage(job.status[:stage])
-              - else
-                .d-badge.text-bg-danger style="margin-right: 5px"
-                  = job.job.status
-                - if job.status.present?
-                  .d-badge.text-bg-info
-                    = job_stage(job.status[:stage])
-                div
-                  small
-                    = job.job.display_error
-            td
-              .btn-group
-                = button_link_to '', job_admin_backup_path(@backup, job_id: job.job.id), 'trash-alt', \
-                  class: 'btn btn-sm destroy-backup', title: t('modals.buttons.destroy'), \
-                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
+    .card-body.p-0.gap-0
+      div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
+        div class="col-span-6" = t('admin.backups.show.backup_id')
+        div class="col-span-3" = t('admin.backups.show.backup_status')
+        div class="hidden md:table-cell col-span-3"
+      - performing_jobs.each do |job|
+        == render 'job', backup: backup, job: job

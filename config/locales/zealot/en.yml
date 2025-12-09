@@ -24,7 +24,6 @@ en:
         role: Role
         status: Status
         last_login_time: Last login time
-        action: Action
         activated: Activated
         locked: Locked
         inactive: Inactive
@@ -58,7 +57,6 @@ en:
         number: "#"
         url: URL
         channels: Channels
-        action: Action
         not_found: Not found any Webhook.
         create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
       show:
@@ -83,7 +81,6 @@ en:
         team_name: Team name
         team_id: Team ID
         created_at: Created at
-        action: Action
         new_apple_key: :admin.apple_keys.new.title
         not_found:
           title: Not found Apple Developer.
@@ -218,7 +215,6 @@ en:
         schedule: Schedule
         next_schedule_at: Next schedule at
         enabled: Enabled
-        action: Action
         run_backup: Run a backup
         edit: Edit
         database: Database
@@ -236,7 +232,6 @@ en:
         sha256: SHA256
         created_at: Created at
         size: Size
-        action: Action
         download: Download
         performing_jobs: Performing jobs
         backup_id: Backup ID
@@ -328,8 +323,7 @@ en:
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
       total_builds: Total builds
-      not_found_channel_body_html: |
-        Not found any channel. Click the <i class="fa-solid fa-plus-square"></i> button to create a channel.
+      not_found_channel: Not found any channel.
       not_found_scheme:
         title: Not found any scheme.
         body_html: |

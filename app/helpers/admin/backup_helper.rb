@@ -31,12 +31,12 @@ module Admin::BackupHelper
     when :scheduled, :running
       tag.div(
         tag.span('Processing', class: 'visually-hidden'), 
-        class: 'spinner-grow spinner-grow-sm text-warning me-2'
+        class: 'd-loading d-loading-bars d-loading-sm text-primary mr-1'
       )
     when :discarded, :retried
-      tag.i(class: 'fa-solid fa-exclamation-circle text-danger me-2')
+      tag.i(class: 'fa-solid fa-exclamation-circle text-error mr-1')
     when :succeeded
-      tag.i(class: 'fa-solid fa-check-circle text-success me-2')
+      tag.i(class: 'fa-solid fa-check-circle text-success mr-1')
     end
   end
 
