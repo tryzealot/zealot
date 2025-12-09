@@ -38,7 +38,7 @@ module TeardownHelper # rubocop:disable Metrics/ModuleLength
 
     options = {
       class: colorful ? tooltip.concat([style_name, 'font-bold']) : tooltip,
-      data: { tip: l(Time.zone.parse(@metadata.mobileprovision['expired_at']), format: :nice) }
+      data: { tip: l(Time.zone.parse(expired_date), format: :nice) }
     }
 
     content_tag(:span, "#{prefix}#{message}", options)

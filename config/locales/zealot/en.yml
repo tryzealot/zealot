@@ -294,9 +294,9 @@ en:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_full_version_release: uploaded a version %{release_version} (%{build_version})
-      upload_auto_version_release: uploaded a version %{version}
-      not_found: Not found any upload.
+      upload_full_version_release: Released a build %{release_version} (%{build_version})
+      upload_auto_version_release: Released a build %{version}
+      not_found: Not found any released.
   apps:
     title: Apps
     index:
@@ -463,7 +463,7 @@ en:
       app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
-      not_latest_release: New release found!
+      new_build_released: New build found!
       released_new_version: "%{link} %{version} uploaded at %{time} ago!"
       view_latest_version: The latest version
       name: App
@@ -480,7 +480,7 @@ en:
       source: Source
       metadata: Metadata
       certificate_expired_date: Certificate expired at %{date}
-      teardown_metadata: More metadata
+      teardown_metadata: Teardown
       install: Install
       download: Download
       installing: Installing ...
@@ -497,9 +497,8 @@ en:
       devices: "%{count} test devices (UDID)"
       sync_devices_feature: Enable synchronize device
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: "%{type} matched"
       qrcode: QR Code
-      scan_qrcode_with_any_supported_app: Use your phone's camera to install it
+      scan_qrcode_with_any_supported_app: Use QR code scanner to install the app
       major_versions: :channels.show.major_versions
       view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
