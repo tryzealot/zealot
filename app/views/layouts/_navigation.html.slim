@@ -1,10 +1,11 @@
 div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   - if user_signed_in_or_guest_mode?
-    .d-navbar-start.ml-2
+    .d-navbar-start.ml-2.space-x-3
       label.d-btn.d-btn-square.b-btn-ghost for="zealot-drawer" aria-label="open sidebar"
         i.fa-solid.fa-bars.fa-lg
       .md:hidden
         == render 'layouts/brand_logo', site_title: Setting.site_title
+      == render 'layouts/breadcrumbs', breadcrumbs: @breadcrumbs
   - else
     div class="d-navbar-start"
     div class="d-navbar-center"

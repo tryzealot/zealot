@@ -7,6 +7,7 @@ class ReleasesController < ApplicationController
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
   before_action :authenticate_app!, only: :show
+  before_action -> { set_app_breadcrumbs(channel: @channel) }
 
   def index
     if @channel.releases.empty?
