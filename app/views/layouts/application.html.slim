@@ -11,7 +11,6 @@ html lang="#{I18n.locale}"
     == favicon_link_tag 'zealot-icon.png'
     == favicon_link_tag 'zealot-icon-dark.png', media: "(prefers-color-scheme: dark)"
 
-    / == vite_client_tag
     == vite_stylesheet_tag 'application', 'data-turbolinks-track': 'reload'
     == vite_javascript_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
     == yield :header_tags
@@ -19,8 +18,13 @@ html lang="#{I18n.locale}"
     == csrf_meta_tags
 
   body data-theme=active_appearance data-controller="global"
-    div class="d-drawer lg:d-drawer-open"
-      input#zealot-drawer class="d-drawer-toggle" type="checkbox"
+    .d-drawer.md:d-drawer-open data-controller="global"
+      input#zealot-drawer.d-drawer-toggle[
+        type="checkbox" 
+        checked=drawer_status
+        data-global-target="drawer" 
+        data-action="change->global#storeDrawerStatus"
+      ]
       div class="d-drawer-content"
         == render 'layouts/navigation'
         == render 'layouts/content'

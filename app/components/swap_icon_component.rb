@@ -20,8 +20,7 @@ class SwapIconComponent < ViewComponent::Base
     @on = options.delete(:on) || preset[:on]
     @off = options.delete(:off) || preset[:off]
     @styles = preset[:styles]
-
-    raise 'Not found preset or missing on, off propteries' if @on.blank? || @off.blank?
+    @manual_toggle = false
   end
 
   def load_preset(options)
@@ -30,12 +29,35 @@ class SwapIconComponent < ViewComponent::Base
 
   def label_tag(&block)
     options = @options.delete(:label) || {}
+    @manual_toggle = options[:for].present?
+    if manual_toggle?
+      options[:data] ||= {}
+      options[:data][:controller] = concat_data(options[:data][:controller], 'swap-icon')
+      options[:data][:action] = concat_data(options[:data][:action], 'click->swap-icon#sync')
+    end
     options[:class] = ['d-swap', @styles, options[:class]].compact.join(' ')
     tag.label(**options, &block)
   end
 
   def input_tag
     options = @options.delete(:input) || {}
-    tag.input(type: :checkbox, **options)
+    options[:type] ||= :checkbox
+    if manual_toggle?
+      options[:data] ||= {}
+      options[:data][:'swap-icon-target'] ||= 'input'
+    end
+    tag.input(**options)
+  end
+
+  private
+
+  attr_reader :manual_toggle
+
+  def manual_toggle?
+    @manual_toggle
+  end
+
+  def concat_data(current, extra)
+    [current, extra].compact.join(' ')
   end
 end

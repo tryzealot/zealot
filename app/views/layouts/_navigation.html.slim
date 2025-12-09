@@ -1,9 +1,9 @@
 div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   - if user_signed_in_or_guest_mode?
-    div class="d-navbar-start"
-      == render SwapIconComponent.new(preset: :hamburger, \
-        label: { class: 'fa-lg ms-2', for: 'zealot-drawer' })
-      div class="md:hidden"
+    .d-navbar-start.ml-2
+      label.d-btn.d-btn-square.b-btn-ghost for="zealot-drawer" aria-label="open sidebar"
+        i.fa-solid.fa-bars.fa-lg
+      .md:hidden
         == render 'layouts/brand_logo', site_title: Setting.site_title
   - else
     div class="d-navbar-start"
