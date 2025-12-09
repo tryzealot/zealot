@@ -6,7 +6,7 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage? || current_user&.manage?(app: @apps.map(&:id)) 
-    = button_link_to t('debug_files.index.upload'), new_debug_file_path, 'plus-square', \
+    = button_link_to t('debug_files.index.upload'), new_debug_file_path, 'plus-square', base_fa: 'fa-regular', \
       class: 'd-btn-success'
 
 - if @apps.present?

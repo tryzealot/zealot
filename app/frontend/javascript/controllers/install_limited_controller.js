@@ -3,7 +3,7 @@ import { isiOS, isUserAgentLimited } from "../utils/helpers"
 
 export default class extends Controller {
   static targets = [
-    "modal"
+    "content"
   ]
 
   static values = {
@@ -13,21 +13,17 @@ export default class extends Controller {
   }
 
   connect() {
-    if (isUserAgentLimited(this.keywordsValue)) {
-      return this.renderInstallLimited()
-    }
+    if (!isUserAgentLimited(this.keywordsValue)) { return }
+
+    this.renderInstallLimited()
   }
 
   renderInstallLimited() {
-    let textNode = this.modalTarget.getElementsByClassName("text")[0]
-    let brNode = document.createElement("br")
-    textNode.appendChild(brNode)
     if (isiOS()) {
-      textNode.appendChild(document.createTextNode(this.openSafariValue))
+      this.contentTarget.innerText = this.openSafariValue
     } else {
-      textNode.appendChild(document.createTextNode(this.openBrowerValue))
+      this.contentTarget.innerText = this.openBrowerValue
     }
-
-    this.modalTarget.classList.remove("d-none")
+    this.element.classList.remove("hidden")
   }
 }

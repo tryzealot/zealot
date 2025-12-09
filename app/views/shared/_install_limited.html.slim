@@ -1,22 +1,11 @@
-ruby:
-  attributes = {
-    "data-controller" => "install-limited",
-    "data-install-limited-keywords-value" => Setting.preset_install_limited.to_json,
-    "data-install-limited-target" => 'modal',
-    "data-install-limited-open-safari-value" => safari_text,
-    "data-install-limited-open-brower-value" => brower_text
-  }
-
 .install-limited[
   class="hidden"
   data-controller="install-limited"
-  data-install-limited-keywords-value="Setting.preset_install_limited.to_json"
-  data-install-limited-target="modal"
-  data-install-limited-open-safari-value="safari_text"
-  data-install-limited-open-brower-value="brower_text"
+  data-install-limited-keywords-value=Setting.preset_install_limited.to_json
+  data-install-limited-open-safari-value=safari_text
+  data-install-limited-open-brower-value=brower_text
 ]
-  .cover
-    .app-limited-tips
-      span.text.text-right
-        = t('releases.show.app_touch_menu')
+  .app-limited-tips
+    .app-limited-tips-content
+      span data-install-limited-target="content" = t('releases.show.app_touch_menu')
       = image_tag('icons/short-arrow.png')

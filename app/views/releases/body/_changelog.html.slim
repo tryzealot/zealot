@@ -1,24 +1,20 @@
-.card.mb-3 data-controller="card"
+.card data-controller="card"
   .card-header
     h3.card-title
       i.fa-solid.fa-align-left
       = t('releases.show.changelog')
     .card-tools
       == render SwapIconComponent.new(preset: :switch, input: { data: { action: 'card#toggle' } })
-  .card-body data-card-target="body"
-    / FIXME: need migrate to daisyui style
-    - if @release.array_changelog.blank?
-    ul.products-list.mb-0
-      - @release.array_changelog.each do |changelog|
-        li.product-item
-          .product-info
-            - if date = changelog['date']
-              small.float-end
-                span.d-badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(Time.parse(date), format: :nice)}"
-                  = time_ago_in_words(date)
-            - if changelog['author']
-              small.float-end.me-1
-                span.d-badge.text-bg-info data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{changelog['email']}"
-                  = changelog['author']
 
-            = changelog_render changelog['message'], class: 'product-description'
+  .card-body.p-0 data-card-target="body"
+    ul.d-list
+      - @release.array_changelog.each do |changelog|
+        li.d-list-row.flex.justify-between
+          = changelog_render changelog['message'], class: 'product-description'
+          .space-x-2
+            - if date = changelog['date']
+              span.d-badge.d-tooltip data-tip="#{l(Time.parse(date), format: :nice)}"
+                = time_ago_in_words(date)
+            - if changelog['author']
+              span.d-badge.d-tooltip data-tip="#{changelog['email']}"
+                = changelog['author']
