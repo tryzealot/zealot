@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
       return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
 
-    # 没有设置密码的情况下不更新该字段
+    # Skip password if not set
     params = user_params.dup
     params.delete(:password) if params[:password].blank?
     return render :edit, status: :unprocessable_entity unless @user.update(params)

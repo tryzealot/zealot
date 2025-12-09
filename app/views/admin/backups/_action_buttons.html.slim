@@ -1,0 +1,9 @@
+.d-join
+  = button_to perform_admin_backup_path(backup), class: 'd-join-item d-btn d-btn-sm text-success d-tooltip', \
+    data: { tip: t('admin.backups.index.run_backup') } do
+    i.fa-solid.fa-play-circle
+  = button_link_to '', edit_admin_backup_path(backup), 'edit', \
+    class: 'd-join-item d-btn d-btn-sm edit-backup d-tooltip', data: { tip: t('admin.backups.index.edit'), turbo_frame: 'modal' }
+  = button_link_to '', admin_backup_path(backup), 'trash-alt', \
+    class: 'd-join-item d-btn d-btn-sm text-error d-tooltip', \
+    data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

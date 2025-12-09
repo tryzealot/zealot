@@ -29,7 +29,7 @@
                   data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), tip: t('modals.buttons.destroy') }
 - else
   .card.card-outline.card-warning
-    .card-header.card-border
+    .card-header
       h3.card-title = t('admin.backups.show.not_found.title')
     .card-body
-      = t('admin.backups.show.not_found.body_html')
+      p = t('admin.backups.show.not_found.body_html')

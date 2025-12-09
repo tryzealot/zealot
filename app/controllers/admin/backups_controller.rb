@@ -69,19 +69,31 @@ class Admin::BackupsController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @backup.save
 
-    redirect_to admin_backups_path #, notice: t('admin.apple_keys.create.successful')
+    flash.now[:notice] = t('activerecord.success.create', key: t('admin.backups.title'))
+    respond_to do |format|
+      format.html { redirect_to admin_backups_path }
+      format.turbo_stream
+    end
   end
 
   def update
     return render :edit, status: :unprocessable_entity unless @backup.update(backup_params)
 
-    redirect_to admin_backups_path
+    flash.now[:notice] = t('activerecord.success.update', key: t('admin.backups.title'))
+    respond_to do |format|
+      format.html { redirect_to admin_backups_path }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @backup.destroy
-    notice = t('activerecord.success.destroy', key: t('admin.backups.title'))
-    redirect_to admin_backups_url, status: :see_other, notice: notice
+
+    flash.now[:notice] = t('activerecord.success.destroy', key: t('admin.backups.title'))
+    respond_to do |format|
+      format.html { redirect_to admin_backups_url }
+      format.turbo_stream
+    end
   end
 
   def parse_schedule
@@ -90,7 +102,7 @@ class Admin::BackupsController < ApplicationController
       return render json: {
         schedule: true,
         cron: parser.to_cron_s,
-        next_time: parser.next_time.to_s
+        next_time: helpers.l(helpers.next_schedule_time(parser), format: :nice)
       }, status: 200
     end
 

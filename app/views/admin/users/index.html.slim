@@ -21,5 +21,4 @@
       div class="basis-2xs hidden sm:block" = t('.status')
       div class="basis-xs hidden sm:block" = t('.last_login_time')
     #users
-      - @users.each_with_index do |user, i|
-        = render user
+      == render @users
