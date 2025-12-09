@@ -167,9 +167,9 @@ GEM
       devise
       globalid
     diff-lcs (1.6.2)
-    dotenv (3.1.8)
-    dotenv-rails (3.1.8)
-      dotenv (= 3.1.8)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
       railties (>= 6.1)
     drb (2.2.3)
     email_validator (2.2.4)
@@ -480,7 +480,7 @@ GEM
       rack (>= 3.0.0)
     rack-test (2.2.0)
       rack (>= 1.3)
-    rackup (2.2.1)
+    rackup (2.3.1)
       rack (>= 3)
     rails (8.1.1)
       actioncable (= 8.1.1)
@@ -525,7 +525,7 @@ GEM
       ffi (~> 1.0)
     rbs (3.9.5)
       logger
-    rdoc (6.16.1)
+    rdoc (6.17.0)
       erb
       psych (>= 4.0.0)
       tsort
