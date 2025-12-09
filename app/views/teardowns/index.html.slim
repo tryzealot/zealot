@@ -19,19 +19,17 @@ ruby:
         h3.card-title
           i.fa-solid.fa-history
           = t('.upload_history')
-      .card-body.p-0
-        table.d-table
-          thead
-            tr
-              th = t('.app_name')
-              th = t('.platform')
-              th.hidden.md:table-cell = t('.uploader')
-              th = t('.uploaded_at')
-              - if user_signed_in? && manage_role
-                th.hidden.md:table-cell
-          tbody
-            - @metadata.each do |md|
-              == render 'metadata', metadata: md, manage_role: manage_role
+      .card-body.p-0.gap-0
+        div class="flex flex-row gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center sm:text-sm"
+          div class="col-span-5 md:col-span-4" = t('.app_name')
+          div class="hidden sm:block sm:col-span-4 md:col-span-2" = t('.platform')
+          div class="hidden sm:block col-span-3 md:col-span-2" = t('.uploader')
+          div class="hidden md:block col-span-3" = t('.uploaded_at')
+          - if user_signed_in? && manage_role
+            div class="hidden md:block col-span-1 text-right"
+        - @metadata.each do |md|
+          == render 'metadata', metadata: md, manage_role: manage_role
+
       - if @metadata.total_pages > 1
         .card-footer
           .float-end
