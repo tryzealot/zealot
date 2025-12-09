@@ -36,14 +36,14 @@
           class: 'd-btn d-btn-lg d-btn-error', \
           data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 
-    .ios-issues
+    .ios-issues.text-sm
       - if release.file? && release.cert_expired?
         .ios-cert-expired
           i.fa-solid.fa-asterisk
           a href="javascript:void(0);" data-action="release-download#showCertExpired"
             = t('releases.show.cannot_install_cause_of_certificate_expired')
 
-      .ios-install-issues.d-none data-release-download-target="installIssue"
+      .ios-install-issues.hidden data-release-download-target="installIssue"
         i.fa-solid.fa-asterisk
         a href="javascript:void(0);" data-action="release-download#showQA"
           = t('releases.show.cannot_install_or_untrusted_enterprise_developer')

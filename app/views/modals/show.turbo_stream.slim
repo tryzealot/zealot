@@ -1,8 +1,9 @@
 = content_for :footer do
   - if @confirm_link.present? && @confirm_value.present?
-    = link_to @confirm_value, @confirm_link, method: :delete, class: "btn btn-danger"
+    = link_to @confirm_value, @confirm_link, method: :delete, class: "d-btn d-btn-error"
   - else
-    button.btn.btn-outline-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
+    form method="dialog"
+      button.d-btn.d-btn-soft.d-btn-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
 
 = turbo_stream.replace :modal do
   = render_modal(**@options) do 

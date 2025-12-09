@@ -26,10 +26,10 @@ export default class extends Controller {
 
   connect() {
     if (isiOS()) {
-      this.showIntallButton()
+      this.showInstallButton()
       this.hideDownloadButton()
     } else if (isMacOS()) {
-      this.showIntallButton()
+      this.showInstallButton()
     }
   }
 
@@ -53,18 +53,18 @@ export default class extends Controller {
     target.innerHTML = this.installingValue
     await this.sleep(LOADING_TIMEOUT)
     target.innerHTML = this.installedValue
-    this.installIssueTarget.classList.remove("d-none")
+    this.installIssueTarget.classList.remove("hidden")
   }
 
-  showIntallButton() {
+  showInstallButton() {
     if (this.hasInstallButtonTarget) {
-      this.installButtonTarget.classList.remove("d-none")
+      this.installButtonTarget.classList.remove("hidden")
     }
   }
 
   hideDownloadButton() {
     if (this.hasDownloadButtonTarget) {
-      this.downloadButtonTarget.classList.add("d-none")
+      this.downloadButtonTarget.classList.add("hidden")
     }
   }
 
