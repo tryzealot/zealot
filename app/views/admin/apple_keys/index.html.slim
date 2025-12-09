@@ -15,12 +15,12 @@
         i.fa-solid.fa-people-group
         = t('.teams')
     .card-body.p-0
-      div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-b border-base-300"
-        div class="basis-20" = t('.number')
-        div class="basis-sm" = t('.team_name')
-        div class="basis-xs" = t('.team_id')
-        div class="basis-3xs hidden sm:block" = t('.created_at')
-        div class="basis-3xs hidden sm:block" 
+      div class="flex flex-col gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center sm:text-sm"
+        div class="hidden sm:block sm:col-span-1" = t('.number')
+        div class="col-span-12 sm:col-span-7 md:col-span-5" = t('.team_name')
+        div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.team_id')
+        div class="hidden md:block md:col-span-2" = t('.created_at')
+        div class="hidden md:block md:col-span-1 justify-end"
       == render @apple_keys
 - else
   .card.card-outline.card-warning
