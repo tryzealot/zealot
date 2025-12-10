@@ -464,8 +464,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       new_build_released: New build found!
-      released_new_version: "%{link} %{version} uploaded at %{time} ago!"
-      view_latest_version: The latest version
+      released_new_version: "%{version_link} released %{time} ago!"
       name: App
       version: Auto Version
       device_type: Device

@@ -458,8 +458,7 @@ zh-CN:
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
       new_build_released: 发现新版本！
-      released_new_version: "%{link} %{version} 于%{time}发布！"
-      view_latest_version: 最新版本
+      released_new_version: "%{version_link} 于%{time}发布！"
       name: 应用
       version: 上传版本
       device_type: 平台
