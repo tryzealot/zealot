@@ -1,46 +1,54 @@
+ruby: 
+  properties = [
+    {
+      key: t('teardowns.show.app_name'),
+      value: @metadata.name
+    },
+    {
+      key: t('teardowns.show.supported_device'),
+      value: device_name(@metadata.device)
+    },
+    {
+      key: t('teardowns.show.version'),
+      value: "#{@metadata.release_version} (#{@metadata.build_version})"
+    },
+    {
+      key: t('teardowns.show.package_name'),
+      value: @metadata.bundle_id
+    },
+    {
+      key: t('teardowns.show.min_macos_version'),
+      value: macos_version_info(@metadata.min_sdk_version)
+    },
+    {
+      key: t('teardowns.show.file_size'),
+      value: number_to_human_size(@metadata.size)
+    },
+    {
+      key: t('teardowns.show.uploaded_date'),
+      value: l(@metadata.created_at, format: :nice)
+    },
+    {
+      key: t('teardowns.show.uploader'),
+      value: @metadata.user.username
+    }
+  ]
 
-.col-md-12
-  .card.mb-3
+.waterfall
+  .card
     .card-header
       h3.card-title
         i.fa-brands.fa-app-store.text-blue
         = platform_name(@metadata.platform)
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.p-0.ps-3
-      dl.system-info
-        dt = t('teardowns.show.app_name')
-        dd
-          pre = @metadata.name
-        dt = t('teardowns.show.supported_device')
-        dd
-          pre = device_name(@metadata.device)
-        dt = t('teardowns.show.version')
-        dd
-          pre = "#{@metadata.release_version} (#{@metadata.build_version})"
-        dt = t('teardowns.show.package_name')
-        dd
-          pre = @metadata.bundle_id
-        dt = t('teardowns.show.min_macos_version')
-        dd
-          pre = macos_version_info(@metadata.min_sdk_version)
-        dt = t('teardowns.show.file_size')
-        dd
-          pre = number_to_human_size(@metadata.size)
-        dt = t('teardowns.show.uploaded_date')
-        dd
-          pre = l(@metadata.created_at, format: :nice)
-        dt = t('teardowns.show.uploader')
-        dd
-          pre = @metadata.user.username
+    .card-body
+      - properties.each do |prop|
+        .property
+          .property-key = prop[:key]
+          .property-value = prop[:value]
 
   == render 'mobileprovision_part', enable_icon: false
   == render 'developer_certs_part'
   == render 'devices_part', devices: @metadata.devices
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
-
-.col-md-4
   == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes

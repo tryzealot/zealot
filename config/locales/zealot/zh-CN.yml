@@ -488,7 +488,7 @@ zh-CN:
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
-      devices: "%{count} 台测试设备 (UDID)"
+      devices: 测试设备
       sync_devices_feature: 开启自动同步设备
       apple_team_link: https://zealot.ews.im/zh-Hans/docs/user-guide/administrator/apple-team
       qrcode: 二维码
@@ -626,19 +626,33 @@ zh-CN:
       android_target_sdk: 编译构建版本
       file_size: 文件大小
       release_type: 打包类型
-      activities: Activities (%{count})
-      deep_links: Deep Links (%{count})
-      features: Features (%{count})
-      url_schemes: URL Schemes (%{count})
-      permissions: Permissions (%{count})
-      services: Services (%{count})
-      entitlements: Entitlements (%{count})
+      activities:
+        one: Activity
+        other: Activities
+      deep_links:
+        one: Deep Link
+        other: Deep Links
+      features:
+        one: Feature
+        other: Features
+      url_schemes:
+        one: URL Scheme
+        other: URL Schemes
+      permissions:
+        one: Permission
+        other: Permissions
+      services:
+        one: Service
+        other: Services
+      entitlements:
+        one: Entitlement
+        other: Entitlements
       min_ios_version: 最低 iOS 版本
       min_tvos_version: 最低 tvOS 版本
       min_macos_version: 最低系统版本
       capabilities: 启用能力
       devise_list: 设备列表 (%{count})
-      developer_certs_list: 开发者证书 (%{count})
+      developer_certs: 开发者证书
       cert: 证书 %{index}
       cert_expired_at: "%{date} 到期"
       cert_created: 创建日期
@@ -650,7 +664,7 @@ zh-CN:
       cert_subject: 主题
       cert_digest: 数字摘要
       cert_length: 长度
-      signature_title: 应用签名 (%{count})
+      signature_title: 应用签名
       signature: 签名版本 %{scheme}
       cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
@@ -889,7 +903,7 @@ zh-CN:
     install_issue:
       title: 安装中的错误及解决办法
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
             选择该应用对应的企业证书，点击文字 "信任企业开发者"。
@@ -899,7 +913,7 @@ zh-CN:
     cert_expired_issues:
       title: iOS 签名证书的错误及解决办法
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             在 iOS 系统中苹果为了限制应用只在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
             签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。

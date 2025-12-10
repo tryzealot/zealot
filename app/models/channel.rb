@@ -79,7 +79,11 @@ class Channel < ApplicationRecord
   end
 
   def app_name
-    "#{app.name} #{scheme.name} #{name}"
+    "#{app.name} #{channel_name}"
+  end
+
+  def channel_name
+    "#{scheme.name} #{name}"
   end
 
   def release_versions(limit = 10)

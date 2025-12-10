@@ -1,6 +1,6 @@
 .property {
   @layer components {
-    @apply d-fieldset text-balance;
+    @apply d-fieldset text-balance p-0;
 
     .property-key {
       @apply d-fieldset-legend text-base;

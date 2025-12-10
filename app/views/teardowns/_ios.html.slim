@@ -42,21 +42,18 @@ ruby:
   .card
     .card-header
       h3.card-title
-        i.fa-brands.fa-apple.text-white
+        i.fa-brands.fa-apple.text-red-500
         = platform_name(@metadata.platform)
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.ps-2.pe-2.p-0
-      - properties.each do |prop|
-        .property
-          .property-key = prop[:key]
-          .property-value = prop[:value]
+    .card-body.p-0.gap-0
+      .p-3
+        - properties.each do |prop|
+          .property
+            .property-key = prop[:key]
+            .property-value = prop[:value]
 
-  == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
-  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
-  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
+  == render 'card', key: 'capabilities', raw: @metadata.capabilities
+  == render 'card', key: 'url_schemes', raw: @metadata.url_schemes
+  == render 'card', key: 'entitlements', raw: @metadata.entitlements
   == render 'mobileprovision_part', enable_icon: false
   == render 'developer_certs_part'
   == render 'devices_part', devices: @metadata.devices

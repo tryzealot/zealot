@@ -56,10 +56,6 @@ ruby:
       h3.card-title
         i.fa-brands.fa-windows.text-info.mr-1
         = platform_name(@metadata.platform)
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body
       - properties.each do |prop|
         .property

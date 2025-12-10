@@ -1,7 +1,7 @@
 - return if breadcrumbs.blank?
 - return unless user_signed_in_or_guest_mode?
 
-div class="d-breadcrumbs text-sm"
+.d-breadcrumbs.text-xs
   ul
     - breadcrumbs.each_with_index do |crumb, index|
       li 

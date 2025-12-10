@@ -10,11 +10,11 @@
           = release.bundle_id || release.file.identifier
   .card-body
     div class="flex flex-wrap item-center gap-4"
-      - if release.name.present?
-        div class="d-tooltip" data-tip=t('releases.show.name')
-          i.fa-solid.fa-list-ul class="mr-1"
-          = link_to_if user_signed_in_or_guest_mode?, release.app_name, \
-            friendly_channel_overview_path(release.channel), data: { turbo_frame: '_top' }
+      / - if release.name.present?
+      /   div class="d-tooltip" data-tip=t('releases.show.name')
+      /     i.fa-solid.fa-list-ul class="mr-1"
+      /     = link_to_if user_signed_in_or_guest_mode?, release.app_name, \
+      /       friendly_channel_overview_path(release.channel), data: { turbo_frame: '_top' }
       div class="d-tooltip" data-tip=t('releases.show.version')
         i.fa-brands.fa-gg class="mr-1"
         = release.version

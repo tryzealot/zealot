@@ -1,19 +1,20 @@
 - if devices.present?
-  .devices
-    .card
-      .card-header
-        h3.card-title
-          i.fa-solid.fa-mobile-alt
-          = t('releases.show.devices', count: devices.count)
-        .card-tools
-          = button_link_to '', t('releases.show.apple_team_link'), 'info-circle', target: '_blank', \
-            class: 'd-btn d-btn-ghost d-tooltip d-tooltip-left', data: { tip: t('releases.show.sync_devices_feature') }
-      .card-body.p-0
-        table.d-table
-          - devices.each do |device|
-            tr
-              td.flex.justify-between
-                = device.udid
-                - if device.name.present?
-                  .text-sm.opacity-65
-                    = device.name
+  .card
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-mobile-alt
+        = t('releases.show.devices', count: devices.count)
+        .d-badge.d-badge-ghost = devices.count
+      .card-tools
+        = button_link_to '', t('releases.show.apple_team_link'), 'info-circle', target: '_blank', \
+          class: 'd-btn d-btn-sm d-btn-ghost d-tooltip d-tooltip-left', \
+          data: { tip: t('releases.show.sync_devices_feature') }
+    .card-body.p-0
+      table.d-table
+        - devices.each do |device|
+          tr
+            td.flex.justify-between
+              = device.udid
+              - if device.name.present?
+                .text-sm.opacity-65
+                  = device.name
