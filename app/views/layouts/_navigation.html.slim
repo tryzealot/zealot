@@ -7,7 +7,7 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
       /   == render 'layouts/brand_logo', site_title: Setting.site_title
       .hidden.md:block
         == render 'layouts/breadcrumbs', breadcrumbs: @breadcrumbs
-    .md:hidden.d-navbar-center
+    .d-navbar-center.md:hidden
       == render 'layouts/breadcrumbs', breadcrumbs: @breadcrumbs
   - else
     div class="d-navbar-start"

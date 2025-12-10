@@ -24,6 +24,30 @@
 }
 
 @layer components {
+  /* Breadcrumbs */
+  .breadcrumbs {
+    @apply d-menu d-menu-horizontal px-1 gap-1;
+
+    > li {
+      @apply relative flex items-center pl-2
+        before:content-['/'] before:absolute before:left-0 before:text-base-content/70 before:opacity-70
+        before:top-1/2 before:-translate-y-1/2 before:transform
+        first:pl-0 first:before:hidden;
+    }
+
+    details summary {
+      @apply cursor-pointer list-none;
+    }
+
+    details summary::-webkit-details-marker {
+      @apply hidden;
+    }
+
+    details summary::marker {
+      @apply hidden;
+    }
+  }
+
   /* App components */
   .app-limited-tips {
     @apply fixed top-0 right-0 inset-0 w-full text-right bg-black/80 z-1000;
