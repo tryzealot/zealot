@@ -1,12 +1,11 @@
-.card data-controller="card"
-  .card-header
+.card.card-collapse.card-collapse-plus
+  input type="checkbox" checked="checked"
+  .card-header.card-collapse-toggle
     h3.card-title
       i.fa-solid.fa-align-left
       = t('releases.show.changelog')
     .card-tools
-      == render SwapIconComponent.new(preset: :switch, input: { data: { action: 'card#toggle' } })
-
-  .card-body.p-0 data-card-target="body"
+  .card-body.p-0.gap-0
     ul.d-list
       - @release.array_changelog.each do |changelog|
         li.d-list-row.flex.justify-between

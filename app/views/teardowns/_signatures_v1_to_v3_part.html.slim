@@ -1,58 +1,57 @@
-.card-header
+label.card-header.card-collapse-toggle for="signatures-collapse"
   h3.card-title
-    = t('teardowns.show.signature_title', count: @metadata.developer_certs.size)
-  / .card-tools
-  /   button.btn.btn-tool data-lte-toggle="card-collapse"
-  /     i.fa-solid.fa-plus data-lte-icon="expand"
-  /     i.fa-solid.fa-minus data-lte-icon="collapse"
-.card-body.space-y-4
-  - signatures.each_with_index do |signature, i|
-    .card class="bg-base-200/40.shadow-sm.break-inside-avoid"
-      .card-body.gap-4
-        .flex.justify-between
-          .font-semibold
-            = t('teardowns.show.signature', scheme: "v#{signature['scheme']}")
-          .d-badge.d-badge-ghost.d-badge-sm
-            - if signature['certificates'].present?
-              = t('teardowns.show.signature_unverified')
-            - else
-              = t('teardowns.show.signature_not_found')
+    = t('teardowns.show.signature_title')
+    .d-badge.d-badge-ghost = @metadata.developer_certs.size
+  .card-tools
+.card-body.space-y-4.p-0
+  .p-3.space-y-4
+    - signatures.each_with_index do |signature, i|
+      .card class="bg-base-200/40.shadow-sm.break-inside-avoid"
+        .card-body.gap-4
+          .flex.justify-between
+            .font-semibold
+              = t('teardowns.show.signature', scheme: "v#{signature['scheme']}")
+            .d-badge.d-badge-ghost.d-badge-sm
+              - if signature['certificates'].present?
+                = t('teardowns.show.signature_unverified')
+              - else
+                = t('teardowns.show.signature_not_found')
 
-        - if signature['certificates'].present?
-          - signature['certificates'].each_with_index do |certificate, i|
-            .font-bold = t('teardowns.show.cert', index: "#{i + 1}")
-            ul.space-y-3.text-sm
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_serial')
-                span.font-medium = "#{certificate['serial']['number']} (#{certificate['serial']['hex']})"
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_version')
-                span.font-medium = certificate['version']
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_algorithem')
-                span.font-medium = certificate['algorithem']
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_digest')
-                span.font-medium = certificate['digest']
-              - if certificate['length'].present?
+          - if signature['certificates'].present?
+            - signature['certificates'].each_with_index do |certificate, i|
+              .font-bold = t('teardowns.show.cert', index: "#{i + 1}")
+              ul.space-y-3.text-sm
                 li.flex.flex-col.gap-1
-                  span.opacity-65 = t('teardowns.show.cert_length')
-                  span.font-medium = certificate['length']
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_issuer')
-                span.font-medium = certificate_name(certificate['issuer'])
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_created')
-                span.font-medium = l(Time.zone.parse(certificate['created_at']), format: :nice)
-              li.flex.flex-col.gap-1
-                span.opacity-65 = t('teardowns.show.cert_expired')
-                span.font-medium = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
-              li.flex.flex-col.gap-1.break-all
-                span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'SHA-256')
-                span.font-medium = certificate['fingerprint']['sha256']
-              li.flex.flex-col.gap-1.break-all
-                span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'SHA-1')
-                span.font-medium = certificate['fingerprint']['sha1']
-              li.flex.flex-col.gap-1.break-all
-                span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'MD5')
-                span.font-medium = certificate['fingerprint']['md5']
+                  span.opacity-65 = t('teardowns.show.cert_serial')
+                  span.font-medium = "#{certificate['serial']['number']} (#{certificate['serial']['hex']})"
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_version')
+                  span.font-medium = certificate['version']
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_algorithem')
+                  span.font-medium = certificate['algorithem']
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_digest')
+                  span.font-medium = certificate['digest']
+                - if certificate['length'].present?
+                  li.flex.flex-col.gap-1
+                    span.opacity-65 = t('teardowns.show.cert_length')
+                    span.font-medium = certificate['length']
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_issuer')
+                  span.font-medium = certificate_name(certificate['issuer'])
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_created')
+                  span.font-medium = l(Time.zone.parse(certificate['created_at']), format: :nice)
+                li.flex.flex-col.gap-1
+                  span.opacity-65 = t('teardowns.show.cert_expired')
+                  span.font-medium = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
+                li.flex.flex-col.gap-1.break-all
+                  span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'SHA-256')
+                  span.font-medium = certificate['fingerprint']['sha256']
+                li.flex.flex-col.gap-1.break-all
+                  span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'SHA-1')
+                  span.font-medium = certificate['fingerprint']['sha1']
+                li.flex.flex-col.gap-1.break-all
+                  span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'MD5')
+                  span.font-medium = certificate['fingerprint']['md5']

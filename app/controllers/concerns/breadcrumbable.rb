@@ -20,15 +20,11 @@ module Breadcrumbable
     # return empty trail if no app is provided
     return trail unless app
 
-    if scheme
-      trail << Breadcrumb.new(label: scheme.app_name, path: app_path(app))
-    else
-      trail << Breadcrumb.new(label: app.name, path: app_path(app))
-    end
+    trail << Breadcrumb.new(label: app.name, path: app_path(app))
 
     if channel
       trail << Breadcrumb.new(
-        label: channel.name,
+        label: channel.channel_name,
         path: channel_path(channel)
       )
     end

@@ -1,10 +1,15 @@
 - if @metadata.developer_certs.present?
-  .card
-    .card-header
+  - title = t('teardowns.show.developer_certs', count: @metadata.developer_certs.size)
+  - collapse_dom_id = "card-collapse-#{title.parameterize}"
+  .card.card-collapse.card-collapse-plus
+    input.card-collapse-input.hidden type="checkbox" id=collapse_dom_id checked="checked" 
+    label.card-header.card-collapse-toggle for=collapse_dom_id
       h3.card-title
-        = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
-    .card-body
-      .space-y-4
+        = title
+        .d-badge.d-badge-ghost = @metadata.developer_certs.size
+      .card-tools
+    .card-body.space-y-4.p-0
+      .p-3.space-y-4
         - @metadata.developer_certs.each_with_index do |certificate, i|
           .card class="break-inside-avoid"
             .card-body.gap-4

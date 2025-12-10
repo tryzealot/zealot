@@ -2,6 +2,6 @@
   == render 'mobileprovision_part', enable_icon: true
   == render 'developer_certs_part'
   == render 'devices_part', devices: @metadata.devices
-  == render 'card', title: 'Entitlements', raw: @metadata.entitlements
-  == render 'card', title: t('teardowns.show.capabilities'), raw: @metadata.capabilities
-  == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
+  == render 'card', key: 'entitlements', raw: @metadata.entitlements
+  == render 'card', key: 'capabilities', raw: @metadata.capabilities
+  == render 'card', key: 'url_schemes', raw: @metadata.url_schemes

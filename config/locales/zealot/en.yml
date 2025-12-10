@@ -485,7 +485,7 @@ en:
       download: Download
       installing: Installing ...
       installed: Re-Install
-      cert_expired: Can not install, certificate was expired
+      cert_expired: Certificate expired
       missing_file: Missing file
       more: More builds
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
@@ -494,7 +494,9 @@ en:
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
-      devices: "%{count} test devices (UDID)"
+      devices:
+        one: Test device
+        other: Test devices
       sync_devices_feature: Enable synchronize device
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
       qrcode: QR Code
@@ -638,30 +640,38 @@ en:
       android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
-      activities:
-        one: Activity (%{count})
-        other: Activities (%{count})
-      deep_links:
-        one: Deep Link (%{count})
-        other: Deep Links (%{count})
-      features:
-        one: Feature (%{count})
-        other: Features (%{count})
-      url_schemes:
-        one: URL Scheme (%{count})
-        other: URL Schemes (%{count})
-      permissions:
-        one: Permission (%{count})
-        other: Permissions (%{count})
-      services:
-        one: Service (%{count})
-        other: Services (%{count})
       min_ios_version: Minimum iOS version
       min_tvos_version: Minimum tvOS version
       min_macos_version: Minimum OS version
-      capabilities: Capabilities
-      devise_list: "UDID (%{count})"
-      developer_certs_list: "Developer Certificates (%{count})"
+      activities:
+        one: Activity
+        other: Activities
+      deep_links:
+        one: Deep Link
+        other: Deep Links
+      features:
+        one: Feature
+        other: Features
+      url_schemes:
+        one: URL Scheme
+        other: URL Schemes
+      permissions:
+        one: Permission
+        other: Permissions
+      services:
+        one: Service
+        other: Services
+      entitlements:
+        one: Entitlement
+        other: Entitlements
+      developer_certs:
+        one: Developer Certificate
+        other: Developer Certificates
+      capabilities:
+        one: Capability
+        other: Capabilities
+
+      devise_list: UDID
       cert: "Cert %{index}"
       cert_expired_at: "Expired at %{date}"
       cert_created: Created date
@@ -673,7 +683,7 @@ en:
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: "Signatures (%{count})"
+      signature_title: Signatures
       signature: "Scheme %{scheme}"
       cert_fignger: "Fingerprint %{digest}"
       signature_not_found: Not found
@@ -914,7 +924,7 @@ en:
     install_issue:
       title: Install issues and the solution
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             If you manually install an app on iOS 9+, you must also manually establish trust.
             Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
@@ -924,7 +934,7 @@ en:
     cert_expired_issues:
       title: iOS signature certificate issues
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
             and shelved in order to prevent apps from being distributed in the App Store app store.

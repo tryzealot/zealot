@@ -6,7 +6,7 @@
       = @title
 
   - if @releases.present?
-    .card-body class="p-0 pb-3"
+    .card-body.p-0.gap-0
       ruby:
         loop_date = Time.current
       - @releases.each_with_index do |release, i|
@@ -19,7 +19,7 @@
         div class="px-4 py-1 rounded-box transition-colors hover:bg-base-200"
           div class="flex items-start gap-3 justify-items-center"
             - if @active_id.present?
-              div class="size-7 rounded-full bg-neutral flex items-center justify-center"
+              div class="size-7 rounded-full bg-base-300 flex items-center justify-center"
                 i.fa-circle class=(release.id == @active_id ? 'fa-solid' : 'fa-regular')
             - else
               div class="size-9 rounded-full bg-base-300 flex items-center justify-center text-base-content/70"

@@ -1,5 +1,7 @@
 - if @metadata.mobileprovision.present?
   ruby:   
+    title = t('teardowns.show.mobileprovision')
+    collapse_dom_id = "card-collapse-mobileprovision"
     properties = [
       {
         key: t('teardowns.show.mobileprovision_name'),
@@ -23,18 +25,17 @@
       }
     ]
 
-  .card
-    .card-header
+  .card.card-collapse.card-collapse-plus
+    input.card-collapse-input.hidden type="checkbox" id=collapse_dom_id checked="checked" 
+    label.card-header.card-collapse-toggle for=collapse_dom_id
       h3.card-title
         - if enable_icon
           i.fa-solid.fa-certificate
-        = t('teardowns.show.mobileprovision')
+        = title
       .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body
-      - properties.each do |property|
-        .property
-          .property-key = property[:key]
-          .property-value = property[:value]
+    .card-body.p-0
+      .p-3
+        - properties.each do |property|
+          .property
+            .property-key = property[:key]
+            .property-value = property[:value]

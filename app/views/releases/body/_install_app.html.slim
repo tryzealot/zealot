@@ -39,11 +39,11 @@
     .ios-issues.text-sm
       - if release.file? && release.cert_expired?
         .ios-cert-expired
-          i.fa-solid.fa-asterisk
-          a href="javascript:void(0);" data-action="release-download#showCertExpired"
+          i.fa-solid.fa-asterisk.text-error.mr-1
+          a.text-error.hover:underline href="javascript:void(0);" data-action="release-download#showCertExpired"
             = t('releases.show.cannot_install_cause_of_certificate_expired')
 
       .ios-install-issues.hidden data-release-download-target="installIssue"
-        i.fa-solid.fa-asterisk
-        a href="javascript:void(0);" data-action="release-download#showQA"
+        i.fa-solid.fa-asterisk.text-error.mr-1
+        a.text-error.hover:underline href="javascript:void(0);" data-action="release-download#showQA"
           = t('releases.show.cannot_install_or_untrusted_enterprise_developer')

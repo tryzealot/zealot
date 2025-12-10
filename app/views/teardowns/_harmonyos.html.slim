@@ -36,43 +36,14 @@ ruby:
     }
   ]
 
-.waterfall class="columns-1!"
+.waterfall
   .card
     .card-header
       h3.card-title
         = image_tag 'icons/hmos.svg', alt: 'HarmonyOS', class: 'inline h-5 w-5 mr-1'
         = platform_name(@metadata.platform)
-      / .card-tools
-      /   button.btn.btn-tool data-lte-toggle="card-collapse"
-      /     i.fa-solid.fa-plus data-lte-icon="expand"
-      /     i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body
       - properties.each do |prop|
         .property
           .property-key = prop[:key]
           .property-value = prop[:value]
-      / dl.system-info.pb-0
-      /   dt = t('teardowns.show.app_name')
-      /   dd
-      /     pre = app_name
-      /   dt = t('teardowns.show.version')
-      /   dd
-      /     pre = "#{@metadata.release_version} (#{@metadata.build_version})"
-      /   dt = t('teardowns.show.package_name')
-      /   dd
-      /     pre = @metadata.bundle_id
-      /   dt
-      /     = t('teardowns.show.supported_device')
-      /   dd
-      /     pre
-      /       = device_name(@metadata.device)
-      /       |  (HarmonyOS)
-      /   dt = t('teardowns.show.file_size')
-      /   dd
-      /     pre = number_to_human_size(@metadata.size)
-      /   dt = t('teardowns.show.uploaded_date')
-      /   dd
-      /     pre = l(@metadata.created_at, format: :nice)
-      /   dt = t('teardowns.show.uploader')
-      /   dd
-      /     pre = @metadata.user.username

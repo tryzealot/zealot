@@ -1,21 +1,21 @@
 - if raw.present?
-  .card
-    .card-header
-      h3.card-title = title
+  - title = t(key, count: raw.size, scope: 'teardowns.show')
+  - collapse_dom_id = "card-collapse-#{key.parameterize}"
+  .card.card-collapse.card-collapse-plus
+    input.card-collapse-input.hidden type="checkbox" id=collapse_dom_id checked="checked" 
+    label.card-header.card-collapse-toggle for=collapse_dom_id
+      h3.card-title
+        = title
+        span.d-badge.d-badge-sm.d-badge-ghost = raw.size
       .card-tools
-        .d-badge.d-badge-sm.d-badge-ghost = raw.size
-      /   button.btn.btn-tool data-lte-toggle="card-collapse"
-      /     i.fa-solid.fa-plus data-lte-icon="expand"
-      /     i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.p-0
-      table.d-table
+    .card-body.p-0 
+      table.d-table.w-full
         - if raw.respond_to?(:keys)
           - raw.each do |key, value|
             tr
               td.opacity-65.font-semibold = key
-              td = value.is_a?(Array) ? value.join(', ') : value
+              td.text-wrap.break-all = value.is_a?(Array) ? value.join(', ') : value
         - else
           - raw.each do |value|
             tr
-              tr
-                td = value.is_a?(Array) ? value.join(', ') : value
+              td.text-wrap.break-all = value.is_a?(Array) ? value.join(', ') : value

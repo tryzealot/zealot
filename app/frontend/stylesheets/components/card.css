@@ -19,8 +19,12 @@
       .card-title {
         @apply text-lg font-semibold;
 
-        i {
+        :where(i) {
           @apply pr-1;
+        }
+
+        :where(.d-badge) {
+          @apply ml-2;
         }
       }
 
@@ -50,45 +54,6 @@
         @apply rounded-none;
       }
     }
-
-    /* outline-width: 2px;
-    transition: outline 0.2s ease-in-out;
-    outline: 0 solid #0000;
-    outline-offset: 2px;
-    &:focus {
-      @apply outline-hidden;
-    }
-
-    &:focus-visible {
-      outline-color: currentColor;
-    }
-
-    :where(figure:first-child) {
-      @apply overflow-hidden;
-      border-start-start-radius: inherit;
-      border-start-end-radius: inherit;
-      border-end-start-radius: unset;
-      border-end-end-radius: unset;
-    }
-
-    :where(figure:last-child) {
-      @apply overflow-hidden;
-      border-start-start-radius: unset;
-      border-start-end-radius: unset;
-      border-end-start-radius: inherit;
-      border-end-end-radius: inherit;
-    }
-
-    figure {
-      @apply flex items-center justify-center;
-    }
-    &:has(> input:is(input[type="checkbox"], input[type="radio"])) {
-      @apply cursor-pointer;
-      user-select: none;
-    }
-    &:has(> :checked) {
-      outline: 2px solid currentColor;
-    } */
   }
 }
 
@@ -185,6 +150,139 @@
     &.card-outline {
       .card-header {
         @apply bg-base-100 border-t-4 border-t-error;
+      }
+    }
+  }
+}
+
+.card.card-collapse {
+  @layer components {
+    display: grid;
+    grid-template-rows: max-content 0fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: max-content;
+    overflow: hidden;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: grid-template-rows 0.2s;
+    }
+
+    > input:is([type="checkbox"], [type="radio"]) {
+      grid-column-start: 1;
+      grid-row-start: 1;
+      appearance: none;
+      opacity: 0;
+      z-index: 1;
+      width: 100%;
+      min-height: 1lh;
+    }
+
+    > .card-header {
+      grid-column-start: 1;
+      grid-row-start: 1;
+      position: relative;
+
+      &.card-collapse-toggle {
+        cursor: pointer;
+      }
+    }
+
+    > .card-body {
+      grid-column-start: 1;
+      grid-row-start: 2;
+      content-visibility: hidden;
+      min-height: 0;
+
+      @supports not (content-visibility: hidden) {
+        visibility: hidden;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: content-visibility 0.2s allow-discrete,
+          visibility 0.2s allow-discrete, padding 0.2s ease-out,
+          background-color 0.2s ease-out;
+      }
+    }
+
+    .card-tools {
+      position: absolute;
+      top: 50%;
+      inset-inline-end: 1.4rem;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-50%);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition-property: all;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    &:focus-visible,
+    &:has(> input:is([type="checkbox"], [type="radio"]):focus-visible) {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    &:not(.card-collapse-close) {
+      > input:is([type="checkbox"], [type="radio"]),
+      > .card-header.card-collapse-toggle {
+        cursor: pointer;
+      }
+    }
+
+    &:not(.card-collapse-close):has(
+        > input:is([type="checkbox"], [type="radio"]):checked
+      ),
+    &.card-collapse-open {
+      grid-template-rows: max-content 1fr;
+
+      > .card-body {
+        content-visibility: visible;
+        min-height: fit-content;
+        padding-bottom: 1rem;
+
+        @supports not (content-visibility: visible) {
+          visibility: visible;
+        }
+      }
+    }
+
+    &.card-collapse-arrow .card-tools {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-color: currentColor;
+      border-style: solid;
+      border-width: 0 0 2px 2px;
+      transform-origin: 75% 75%;
+    }
+
+    &.card-collapse-arrow:has(
+        > input:is([type="checkbox"], [type="radio"]):checked
+      ),
+    &.card-collapse-arrow.card-collapse-open {
+      .card-tools {
+        transform: translateY(-50%) rotate(225deg);
+      }
+    }
+
+    &.card-collapse-plus .card-tools {
+      font-size: 1.25rem;
+    }
+
+    &.card-collapse-plus .card-tools::before {
+      content: "+";
+    }
+
+    &.card-collapse-plus:has(
+        > input:is([type="checkbox"], [type="radio"]):checked
+      ),
+    &.card-collapse-plus.card-collapse-open {
+      .card-tools::before {
+        content: "−";
       }
     }
   }

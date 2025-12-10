@@ -64,12 +64,12 @@ ruby:
           .property-key = prop[:key]
           .property-value = prop[:value]
 
-  = render 'card', title: t('teardowns.show.activities', count: @metadata.activities.size), raw: @metadata.activities
-  == render 'card', title: t('teardowns.show.deep_links', count: @metadata.deep_links.size), raw: @metadata.deep_links
-  == render 'card', title: t('teardowns.show.url_schemes', count: @metadata.url_schemes.size), raw: @metadata.url_schemes
-  == render 'card', title: t('teardowns.show.features', count: @metadata.features.size), raw: @metadata.features
-  == render 'card', title: t('teardowns.show.permissions', count: @metadata.permissions.size), raw: @metadata.permissions
-  == render 'card', title: t('teardowns.show.services', count: @metadata.services.size), raw: @metadata.services
+  == render 'card', key: 'activities', raw: @metadata.activities
+  == render 'card', key: 'deep_links', raw: @metadata.deep_links
+  == render 'card', key: 'url_schemes', raw: @metadata.url_schemes
+  == render 'card', key: 'features', raw: @metadata.features
+  == render 'card', key: 'permissions', raw: @metadata.permissions
+  == render 'card', key: 'services', raw: @metadata.services
   
   - if @metadata.developer_certs.present?
     == render 'signatures_part', signatures: @metadata.developer_certs
