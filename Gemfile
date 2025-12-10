@@ -53,7 +53,7 @@ gem 'devise-i18n', '~> 1.15.0'
 gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
-gem 'omniauth-rails_csrf_protection', '~> 2.0.0'
+gem 'omniauth-rails_csrf_protection', '~> 2.0.1'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
 gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
