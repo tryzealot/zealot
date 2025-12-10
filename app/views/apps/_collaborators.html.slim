@@ -3,9 +3,9 @@
     h3.card-title = t('apps.show.collaborators')
     .card-tools
       - if (current_user.admin? || current_user.app_roles?(app, :admin)) && !@app.archived
-        = button_link_to t('apps.show.new_collaborator'), new_app_collaborator_path(app), 'user-plus', \
-          class: 'd-btn-ghost', \
-          data: { turbo_frame: 'modal' }
+        = button_link_to '', new_app_collaborator_path(app), 'user-plus', \
+          class: 'd-btn-ghost d-tooltip d-tooltip-left', \
+          data: { turbo_frame: 'modal', tip: t('apps.show.new_collaborator') }
   .card-body class="p-0"
     div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65"
       div class="basis-2/4" = t('apps.show.username')
