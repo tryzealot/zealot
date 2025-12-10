@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { Zealot } from "./zealot.js"
 
 const DRAWER_STATUS_KEY = "zealot-drawer-status"
 const DRAWER_OPEN_VALUE = "open"
@@ -21,8 +22,11 @@ export default class extends Controller {
   }
 
   switchDarkMode() {
-    const appearance = this.element.getAttribute("data-theme")
-    this.setGoodJobThemeMode(appearance);
+    const appearance = document.body?.getAttribute("data-theme")
+    if (!appearance) return
+
+    Zealot.log(`Switching to theme: ${appearance}`)
+    this.setGoodJobThemeMode(appearance)
   }
 
   setGoodJobThemeMode(appearance) {
