@@ -1,9 +1,18 @@
 - return if breadcrumbs.blank?
 - return unless user_signed_in_or_guest_mode?
+- max_segment_length = 20
 
-.d-breadcrumbs.text-xs
-  ul
-    - breadcrumbs.each_with_index do |crumb, index|
-      li 
-        = link_to crumb.label, crumb.path, data: { turbo_frame: '_top' }, \
-          class: 'text-sm text-base-content hover:no-underline hover:bg-base-300 p-[5px] hover:rounded-sm'
+ul.breadcrumbs
+  - breadcrumbs.each do |crumb|
+    - label = crumb.label.to_s
+    - truncated = label.length > max_segment_length
+    - link = link_to label, crumb.path, data: { turbo_frame: "_top" }, class: "text-sm text-base-content hover:no-underline hover:bg-base-300 px-2 py-1 rounded-sm whitespace-nowrap"
+    li
+      - if truncated
+        details.breadcrumbs-dropdown
+          summary
+            i.fa-solid.fa-ellipsis
+          ul.p-2.bg-base-100.w-40.z-1
+            li = link
+      - else
+        = link
