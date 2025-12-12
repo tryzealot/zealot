@@ -15,32 +15,42 @@ class WebHooksController < ApplicationController
     end
 
     @channel.web_hooks << @web_hook
-    redirect_to_channel_url notice: t('activerecord.success.create', key: t('web_hooks.title'))
+
+    flash.now[:notice] = t('activerecord.success.create', key: t('web_hooks.title'))
+    redirect_to_channel_url 
   end
 
   def destroy
     authorize @web_hook
     @web_hook.destroy
-    redirect_to_channel_url notice: t('activerecord.success.destroy', key: t('web_hooks.title')), status: :see_other
+
+    flash.now[:notice] = t('activerecord.success.destroy', key: t('web_hooks.title'))
+    redirect_to_channel_url status: :see_other
   end
 
   def disable
     authorize @web_hook
     @channel.web_hooks.delete @web_hook
-    redirect_to_channel_url notice: t('admin.web_hooks.messages.success.disable')
+
+    flash.now[:notice] = t('admin.web_hooks.messages.success.disable')
+    redirect_to_channel_url
   end
 
   def enable
     authorize @web_hook
     @web_hook.channels << @channel
-    redirect_to channel_url(@channel, anchor: 'enabled'), notice: t('admin.web_hooks.messages.success.enable')
+
+    flash.now[:notice] = t('admin.web_hooks.messages.success.enable')
+    redirect_to channel_url(@channel, anchor: 'enabled')
   end
 
   def test
     authorize @web_hook
     event = params[:event] || 'upload_events'
     AppWebHookJob.perform_later event, @web_hook, @channel, current_user.id
-    redirect_to_channel_url notice: t('admin.web_hooks.messages.success.test')
+
+    flash.now[:notice] = t('admin.web_hooks.messages.success.test')
+    redirect_to_channel_url
   end
 
   private
