@@ -79,14 +79,11 @@ gem 'good_job', '~> 4.13.1'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
-## Use jsbundling-rails, cssbundling-rails to run rake tasks, core is build/build:css in package.json
+## Use jvite_rails to run rake tasks, core in package.json
 gem 'propshaft', '1.3.1'
-gem 'jsbundling-rails', '~> 1.3'
-gem 'cssbundling-rails', '~> 1.4'
-## Javascript
+gem 'vite_rails', '~> 3.0.19'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0'
-gem 'vite_rails', '~> 3.0.19'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
