@@ -8,6 +8,14 @@
   [data-theme="dark"] .brand-image-light {
     display: none;
   }
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] .brand-image-dark {
+      display: inline-block;
+    }
+    [data-theme="auto"] .brand-image-light {
+      display: none;
+    }
+  }
 
   a {
     @apply text-primary hover:text-primary/80;
