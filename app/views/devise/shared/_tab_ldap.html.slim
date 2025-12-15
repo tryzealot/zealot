@@ -1,9 +1,11 @@
 - if ldap_auth_enable?
-  input class="d-tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') 
+  input class="d-tab" name="login-tab" type="radio" aria-label=t('devise.ldap.title') value='ldap' checked=('checked' if active_tab == 'ldap')
   div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
     div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
       div class="order-1 border-base-200 md:border-r-2 md:pe-4"
         = form_tag(user_ldap_omniauth_callback_path) do
+          = hidden_field_tag :tab, 'ldap'
+
           fieldset class="d-fieldset"
             = label_tag :username, t('devise.ldap.username'), class: 'd-fieldset-legend'
             = text_field_tag :username, nil, class: "d-input w-full", autofocus: "autofocus", data: { qa_selector: 'username_field' }, required: true

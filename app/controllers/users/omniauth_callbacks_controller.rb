@@ -83,4 +83,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omni_params = request.env['omniauth.params']
     omni_params&['back'].presence || request.env['HTTP_REFERER'] || root_path
   end
+
+  # override Devise method
+  def after_omniauth_failure_path_for(scope)
+    options = {}
+    options[:tab] = params[:tab] if params[:tab].present?
+    new_session_path(scope, **options)
+  end
 end
