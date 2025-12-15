@@ -109,10 +109,8 @@ en:
       title: Settings
       index:
         title: :admin.settings.title
-        smtp_verify: Verify
-        smtp_verify_inprocess: Verification Inprocessing
-        smtp_verify_success: Verification successful
-        smtp_verify_failed: Verification failed
+        smtp_verify: Test
+        smtp_verify_inprocess: Testing
         restart_to_apply: Restart to apply
         service_restarting: Restarting
         service_restarted: Applying
