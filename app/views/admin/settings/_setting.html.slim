@@ -10,12 +10,10 @@ ruby:
     dt.flex.justify-between
       p.font-semibold = t("admin.settings.#{key}")
       - if is_mailer
-        button.d-btn.d-btn-xs.d-btn-info[
+        button.d-btn.d-btn-xs[
           data-controller="admin-smtp-verify"
-          data-admin-smtp-verify-inprocess-value="#{t('admin.settings.index.smtp_verify_inprocess')}"
-          data-admin-smtp-verify-success-value="#{t('admin.settings.index.smtp_verify_success')}"
-          data-admin-smtp-verify-failed-value="#{t('admin.settings.index.smtp_verify_failed')}"
-          data-action="admin-smtp-verify#run"
+          data-admin-smtp-verify-testing-value="#{t('admin.settings.index.smtp_verify_inprocess')}"
+          data-action="admin-smtp-verify#verify"
         ] = t('admin.settings.index.smtp_verify')
     dd.flex.flex-col.gap-2
       pre.rounded-sm.bg-base-300.align-middle.p-3 class="#{readonly && 'disabled'}"
