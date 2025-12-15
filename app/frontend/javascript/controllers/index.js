@@ -24,4 +24,7 @@ application.register("modal", ModalController)
 import SwapIconController from "./swap_icon_controller"
 application.register("swap-icon", SwapIconController)
 
+import TabSwitchController from "./tab_switch_controller"
+application.register("tab-switch", TabSwitchController)
+
 import "./admin"

@@ -1,9 +1,10 @@
-input class="d-tab" name="login-tab" type="radio" checked="checked" aria-label=t('devise.normal.title') 
+input class="d-tab" name="login-tab" type="radio" aria-label=t('devise.normal.title') value="normal" checked=('checked' if active_tab == 'normal')
 div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
   - if Setting.login_enabled
     div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
       div class="order-1 border-base-200 md:border-r-2 md:pe-4"
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          = hidden_field_tag :tab, 'normal'
           = f.error_notification
           = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", class: 'form-control' }
           = f.input :password, required: true, input_html: { autocomplete: "current-password" }
