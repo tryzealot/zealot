@@ -40,7 +40,7 @@ ruby:
   .card
     .card-header
       h3.card-title
-        = image_tag 'icons/hmos.svg', alt: 'HarmonyOS', class: 'inline h-5 w-5 mr-1'
+        = vite_image_tag 'images/icons/hmos.svg', alt: 'HarmonyOS', class: 'inline h-5 w-5 mr-1'
         = platform_name(@metadata.platform)
     .card-body
       - properties.each do |prop|

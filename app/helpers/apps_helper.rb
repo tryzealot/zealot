@@ -17,17 +17,12 @@ module AppsHelper
     "grid grid-cols-1 md:grid-cols-#{md_cols} lg:grid-cols-#{lg_cols} xl:grid-cols-#{xl_cols}"
   end
 
-  APP_ICON_CLASS = ["app-icon"]
   def app_icon(release, options = {})
-    image_class = options.delete(:class).to_s.split(' ')
-    image_class = (APP_ICON_CLASS + image_class).uniq
     unless release&.icon && release.icon.file && release.icon.file.exists?
-      options[:class] = image_class.push('app-empty-icon').join(' ')
-      return image_tag('zealot-icon.png', **options)
+      return vite_image_tag 'images/zealot-icon.png', **options
     end
     
-    options[:class] = image_class
-    image_tag(release.icon_url, **options)
+    image_tag release.icon_url, **options
   end
 
   def native_codes(release)

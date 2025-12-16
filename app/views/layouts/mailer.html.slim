@@ -2,10 +2,10 @@ doctype html
 html
   head
     title = yield :title
-    link[rel="apple-zealot-icon" sizes="60x60" href="#{asset_path('zealot-icon.png')}"]
-    link[rel="apple-zealot-icon" sizes="120x120" href="#{asset_path('zealot-icon@2x.png')}"]
-    link[rel="apple-zealot-icon" sizes="180x180" href="#{asset_path('zealot-icon@3x.png')}"]
-    link[rel="icon" type="image/x-icon" href="#{asset_path('zealot-icon@3x.png')}"]\
+    link[rel="apple-touch-icon" sizes="60x60" href="#{vite_asset_path('images/zealot-icon.png')}"]
+    link[rel="apple-touch-icon" sizes="120x120" href="#{vite_asset_path('images/zealot-icon@2x.png')}"]
+    link[rel="apple-touch-icon" sizes="180x180" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
+    link[rel="icon" type="image/x-icon" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
     meta[name="turbo-prefetch" content="false"]
     == favicon_link_tag 'zealot-icon.png'
     == stylesheet_link_tag 'application'
