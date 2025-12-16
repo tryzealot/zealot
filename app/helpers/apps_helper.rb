@@ -17,11 +17,16 @@ module AppsHelper
     "grid grid-cols-1 md:grid-cols-#{md_cols} lg:grid-cols-#{lg_cols} xl:grid-cols-#{xl_cols}"
   end
 
+  APP_ICON_CLASS = ['app-icon']
   def app_icon(release, options = {})
+    images_class = options.delete(:class).to_s.split(' ')
+    images_class = (APP_ICON_CLASS + images_class).uniq
     unless release&.icon && release.icon.file && release.icon.file.exists?
+      options[:class] = images_class.push('app-empty-icon').join(' ')
       return vite_image_tag 'images/zealot-icon.png', **options
     end
     
+    options[:class] = images_class.join(' ')
     image_tag release.icon_url, **options
   end
 
