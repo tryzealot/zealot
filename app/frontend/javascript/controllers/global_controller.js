@@ -23,7 +23,7 @@ export default class extends Controller {
 
   switchDarkMode() {
     const appearance = document.body?.getAttribute("data-theme")
-    if (!appearance) return
+    if (!appearance) { return }
 
     Zealot.log(`Switching to theme: ${appearance}`)
     this.setGoodJobThemeMode(appearance)
@@ -60,8 +60,8 @@ export default class extends Controller {
 
   getDrawerStatus() {
     const local = localStorage.getItem(DRAWER_STATUS_KEY)
-    if (local) return local
-
+    if (local) { return local }
+    
     const cookie = document.cookie
       .split("; ")
       .find((row) => row.startsWith(`${DRAWER_STATUS_KEY}=`))

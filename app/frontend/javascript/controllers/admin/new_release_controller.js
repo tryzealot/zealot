@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { compare } from "compare-versions"
+import { Zealot } from "../zealot"
 
 const PROJECT_URL = "https://github.com/tryzealot/zealot"
 const VERSION_URL = "https://api.github.com/repos/tryzealot/zealot/releases/latest"
