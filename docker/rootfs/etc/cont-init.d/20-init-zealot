@@ -8,10 +8,9 @@ mkdir -p tmp/pids tmp/cache tmp/uploads tmp/sockets log
 mkdir -p public/backup public/uploads
 
 echo ""
-echo "Zealot 6.0 is out!, here is some changes: "
+echo "Welcome to Zealot!, here is major changes: "
+echo " * Brand new UI rewrite, more modern and user friendly."
 echo " * Swagger API explorer is buit-in."
-echo " * NEW WEB UI desgin rewrite, feedback is welcome with any issue."
-echo " * redis is not requires as a dependency, you can remove it saftly."
 echo ""
 
 if [ -n "$REDIS_URL" ]; then
