@@ -10,8 +10,6 @@ ruby:
       h3.card-title = t('.title', resource: resource.model_name.human)
     .card-body
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-        = f.error_notification
-
         = f.input :username, required: true, autofocus: true
         = f.input :email, required: true, autofocus: true
         - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -29,8 +27,6 @@ ruby:
       h3.card-title = t('.change_appearance')
     .card-body
       = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_appearance }) do |f|
-        = f.error_notification
-
         = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
         = f.input :light_theme, as: :select, collection: User.options_light_themes, include_blank: false
         = f.input :dark_theme, as: :select, collection: User.options_dark_themes, include_blank: false
@@ -42,8 +38,6 @@ ruby:
       h3.card-title = t('.change_password')
     .card-body
       = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_password }) do |f|
-        = f.error_notification
-
         = f.input :current_password, input_html: { autocomplete: "password" }
         = f.input :password, input_html: { autocomplete: "new-password" }
         = f.input :password_confirmation, input_html: { autocomplete: "new-password" }

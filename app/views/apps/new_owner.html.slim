@@ -8,5 +8,4 @@
   = button_link_to '', app_path(@app), 'list-alt', class: 'd-btn d-tooltip', \
     base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
-.row
-  == render "new_owner_form", collaborator: @collaborator, app: @app
+== render "new_owner_form", collaborator: @collaborator, app: @app
