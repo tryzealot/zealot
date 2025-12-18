@@ -15,6 +15,7 @@ db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
 /tmp/*
+db/*_schema.rb
 
 # various artifacts
 **.war
@@ -93,3 +94,5 @@ yarn-debug.log*
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
 
+# Ignore local vendored gem
+/vendor/lib/*
