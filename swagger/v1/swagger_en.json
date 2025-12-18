@@ -3,7 +3,7 @@
   "info": {
     "title": "Zealot API",
     "version": "v1.4",
-    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/version:\n\n```json\n{\n  \"version\": \"6.0.0\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).\n"
+    "description": "This documentation doesn't provide a way to test our API. In order to facilitate testing, we recommend the following tools:\n\n- [cURL](https://curl.se/) (recommended, command-line)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Your web browser, if you don't need to send headers or a request body\n\nOnce you have a working client, you can test that it works by making a GET request to {host}/api/version:\n\n```json\n{\n  \"version\": \"6.2.0\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## Authentication\n\nThis API only accepts one options for authentication: Personal access tokens.\nAll tokens are tied to a Zealot user and use the `token` query of the request.\n\nExample:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### Personal access tokens\n\nPersonal access tokens (PATs) can be found in from the [user settings](https://zealot.ews.im/docs/user-guide/user_settings).\n"
   },
   "servers": [
     {
@@ -2538,7 +2538,7 @@
         "properties": {
           "icon": {
             "type": "string",
-            "example": "fas fa-flag"
+            "example": "fa-solid fa-flag"
           },
           "name": {
             "type": "string",
@@ -3125,54 +3125,6 @@
         "release_type": {
           "type": "string",
           "description": "Release type, Eg, debug, beta, adhoc, release, enterprise etc"
-        },
-        "source": {
-          "type": "string",
-          "description": "the source of upload (default is `api`)"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "Change log, accept plain text or JSON formatted data"
-        },
-        "branch": {
-          "type": "string",
-          "description": "a branch name from source control tool"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "Git Commit SHA value"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "the build url of a CI service"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "JSON formatted custom fields, icon only accepts fontawesome."
-        }
-      }
-    },
-    "ReleaseOptions": {
-      "description": "App's build metadata form data",
-      "type": "object",
-      "properties": {
-        "build_version": {
-          "type": "string",
-          "description": "Build version"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "Release version"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "Translation missing: en.api.definitions.release_options.properties.release_type"
         },
         "source": {
           "type": "string",

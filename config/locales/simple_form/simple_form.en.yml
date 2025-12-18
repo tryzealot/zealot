@@ -1,10 +1,10 @@
 en:
   simple_form:
-    "yes": 'Yes'
-    "no": 'No'
+    "yes": "Yes"
+    "no": "No"
     required:
-      text: 'Required field'
-      mark: '*'
+      text: "Required field"
+      mark: "*"
     #You can uncomment the line below if you need to overwrite the whole required html.
     #When using html, text and mark won't be used.
     #html: '<abbr title="required">*</abbr>'
@@ -117,10 +117,10 @@ en:
         release_version: It is recommended to name the main version <a href="https://semver.org/lang/zh-CN/">X.Y.Z semantic version</a>
         build_version: Internal version number
         changelog: What new features this app contains, fix what issues, and so on
-        release_type: 'iOS: debug、adhoc, release; Android: debug, release'
+        release_type: "iOS: debug、adhoc, release; Android: debug, release"
         branch: Git branch. In general either main or develop
         git_commit: 40 bit length SHA value of git commit
-        ci_url: The CI URL specific like Jenkins, Gitlab CI etc
+        ci_url: The CI URL specific like Jenkins, Gitlab CI, Github Action etc
       web_hook:
         body: Custom JSON struct body to apply the third party notification services. Use <a href="https://zealot.ews.im/docs/user-guide/webhooks">default structure</a> by leave it empty
       debug_file:
@@ -130,7 +130,7 @@ en:
       backup:
         key: Unique backup key
         schedule: |
-          Expression support<a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
+          Expression support <a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">English Natural Language</a> or
           <a href="https://crontab.guru/">Cron</a>
         max_keeps: Remove old backups if reach max keeps number, -1 means no limited, 0 never backup
       apple_key:
@@ -143,7 +143,7 @@ en:
       release:
         changelog: The developer is lazy without leaving anything
       web_hook:
-        url: 'http://example.com/web-hooks'
+        url: "http://example.com/web-hooks"
         body: |
           {
             event: @event,
@@ -164,8 +164,8 @@ en:
             uploaded_at: @uploaded_at
           }
       debug_file:
-        release_version: '1.0.0'
-        build_version: '1.0'
+        release_version: "1.0.0"
+        build_version: "1.0"
       backup:
         schedule: every day at noon / 12 0 * * *
       device:

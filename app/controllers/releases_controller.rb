@@ -25,7 +25,7 @@ class ReleasesController < ApplicationController
     authorize @release
 
     unless @release.custom_fields.is_a?(Array)
-      flash[:warn] = t('.custom_fields_invalid_json_format')
+      flash.now[:warn] = t('.custom_fields_invalid_json_format')
     end
   end
 
@@ -52,7 +52,7 @@ class ReleasesController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @release.save
 
-    # 触发异步任务
+    # Trigger webhooks and teardown jobs
     @release.channel.perform_web_hook('upload_events', current_user.id)
     @release.perform_teardown_job(current_user.id)
 
@@ -78,7 +78,7 @@ class ReleasesController < ApplicationController
       return render :show, status: :unprocessable_entity
     end
 
-    back_url = params[:back_url] || friendly_channel_release_path(@channel, @release)
+    back_url = params[:back_url].presence || friendly_channel_release_path(@channel, @release)
     redirect_to back_url, status: :see_other
   end
 

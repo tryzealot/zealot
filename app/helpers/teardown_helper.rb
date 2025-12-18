@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TeardownHelper
+module TeardownHelper # rubocop:disable Metrics/ModuleLength
   def teardown_owner?(metadata)
     return false unless current_user
     return true if current_user.manage?

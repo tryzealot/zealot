@@ -18,7 +18,7 @@ class DebugFileMetadatum < ApplicationRecord
     data['identifier']
   end
 
-  def extension # rubocop:disable Naming/PredicateName
+  def extension # rubocop:disable Naming/PredicatePrefix
     data['main'] != true
   end
 

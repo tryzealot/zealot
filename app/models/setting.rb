@@ -40,27 +40,31 @@ class Setting < RailsSettings::Base
   end
 
   scope :switch_mode do
-    field :registrations_enabled, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
+    field :registrations_enabled, default: to_bool(ENV['ZEALOT_REGISTER_ENABLED'] || 'true'),
           type: :boolean, display: true
-    field :login_enabled, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_LOGIN_ENABLED'] || 'true'),
+    field :login_enabled, default: to_bool(ENV['ZEALOT_LOGIN_ENABLED'] || 'true'),
           type: :boolean, display: true
-    field :guest_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_GUEST_MODE'] || 'false'),
+    field :passwordless_login_enabled, type: :hash, display: true, restart_required: true, default: {
+      enabled: to_bool(ENV['ZEALOT_PASSWORDLESS_LOGIN_ENABLED'] || 'false'),
+      token_expiry_in_minutes: (ENV['ZEALOT_PASSWORDLESS_TOKEN_EXPIRY_MINUTES'] || '20').to_i
+    }, validates: { json: { format: :hash } }
+    field :guest_mode, default: to_bool(ENV['ZEALOT_GUEST_MODE'] || 'false'),
           type: :boolean, restart_required: true, display: true
-    field :keep_uploads, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
+    field :keep_uploads, default: to_bool(ENV['ZEALOT_KEEP_UPLOADS'] || 'true'),
           type: :boolean, restart_required: true, display: true
-    field :demo_mode, default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_DEMO_MODE'] || 'false'),
+    field :demo_mode, default: to_bool(ENV['ZEALOT_DEMO_MODE'] || 'false'),
           type: :boolean, readonly: true, display: true
   end
 
   scope :third_party_auth do
     field :feishu, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['FEISHU_ENABLED'] || false),
+      enabled: to_bool(ENV['FEISHU_ENABLED'] || false),
       app_id: ENV['FEISHU_APP_ID'],
       app_secret: ENV['FEISHU_APP_SECRET'],
     }, validates: { json: { format: :hash } }
 
     field :gitlab, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITLAB_ENABLED'] || false),
+      enabled: to_bool(ENV['GITLAB_ENABLED'] || false),
       site: ENV['GITLAB_SITE'] || 'https://gitlab.com/api/v4',
       scope: ENV['GITLAB_SCOPE'] || 'read_user',
       app_id: ENV['GITLAB_APP_ID'],
@@ -68,7 +72,7 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
 
     field :github, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITHUB_ENABLED'] || false),
+      enabled: to_bool(ENV['GITHUB_ENABLED'] || false),
       site: ENV['GITHUB_SITE'] || 'https://github.com/login/oauth/authorize',
       scope: ENV['GITHUB_SCOPE'] || 'user,read:org',
       app_id: ENV['GITHUB_CLIENT_ID'],
@@ -77,7 +81,7 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
 
     field :gitea, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GITEA_ENABLED'] || false),
+      enabled: to_bool(ENV['GITEA_ENABLED'] || false),
       site: ENV['GITEA_SITE'] || 'https://try.gitea.io',
       scope: ENV['GITEA_SCOPE'] || 'user',
       app_id: ENV['GITEA_APP_ID'],
@@ -86,13 +90,13 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
 
     field :google_oauth, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['GOOGLE_OAUTH_ENABLED'] || false),
+      enabled: to_bool(ENV['GOOGLE_OAUTH_ENABLED'] || false),
       client_id: ENV['GOOGLE_CLIENT_ID'],
       secret: ENV['GOOGLE_SECRET'],
     }, validates: { json: { format: :hash } }
 
     field :ldap, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['LDAP_ENABLED'] || false),
+      enabled: to_bool(ENV['LDAP_ENABLED'] || false),
       host: ENV['LDAP_HOST'],
       port: ENV['LDAP_PORT'] || '389',
       encryption: ENV['LDAP_METHOD'] || ENV['LDAP_ENCRYPTION'] || 'plain', # LDAP_METHOD will be abandon in the future
@@ -103,12 +107,12 @@ class Setting < RailsSettings::Base
     }, validates: { json: { format: :hash } }
 
     field :oidc, type: :hash, display: true, restart_required: true, default: {
-      enabled: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_ENABLED'] || false),
+      enabled: to_bool(ENV['OIDC_ENABLED'] || false),
       name: ENV['OIDC_NAME'] || 'OIDC Provider',
       client_id: ENV['OIDC_CLIENT_ID'],
       client_secret: ENV['OIDC_CLIENT_SECRET'],
       issuer_url: ENV['OIDC_ISSUER_URL'],
-      discovery: ActiveModel::Type::Boolean.new.cast(ENV['OIDC_DISCOVERY'] || false),
+      discovery: to_bool(ENV['OIDC_DISCOVERY'] || false),
       auth_uri: ENV.fetch('OIDC_AUTH_URI', '/authorize'),
       token_uri: ENV.fetch('OIDC_TOKEN_URI', '/token'),
       userinfo_uri: ENV.fetch('OIDC_USERINFO_URI', '/userinfo'),
@@ -151,9 +155,9 @@ class Setting < RailsSettings::Base
   # misc settings
   scope :misc do
     field :show_footer_version, type: :boolean, display: true,
-      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_VERSION'] || 'true')
+      default: to_bool(ENV['ZEALOT_SHOW_FOOTER_VERSION'] || 'true')
     field :show_footer_openapi_endpoints, type: :boolean, restart_required: true, display: true,
-      default: ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SHOW_FOOTER_OPENAPI_ENDPOINTS'] || 'false')
+      default: to_bool(ENV['ZEALOT_SHOW_FOOTER_OPENAPI_ENDPOINTS'] || 'false')
   end
 
   # Backup settings1

@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "../zealot"
-import consumer from "../../channels/consumer";
 
-const VERIFY_URI = "admin/service/smtp_verify.json"
+const VERIFY_URI = "/admin/services/smtp_verify"
 
 export default class extends Controller {
   static values = {
@@ -16,7 +14,7 @@ export default class extends Controller {
     const target = event.target
     target.innerHTML = this.inprocessValue
 
-    fetch(Zealot.rootUrl + VERIFY_URI, {
+    fetch(VERIFY_URI, {
       method: "POST"
     })
     .then((response) => {
@@ -25,9 +23,11 @@ export default class extends Controller {
         target.innerHTML = this.successValue
       } else {
         response.json().then((body) => {
-          console.error(`smtp verify failed: ${body.error}`)
+          console.error(`smtp verify failed: ${body.message}`)
+          target.innerHTML = `${this.failedValue}: ${body.message}`
+          target.classList.remove("bg-primary")
+          target.classList.add("bg-danger")
         })
-        target.innerHTML = this.failedValue
       }
     })
   }

@@ -3,9 +3,9 @@
     h3.card-title = t('apps.show.collaborators')
     .card-tools
       - if (current_user.admin? || current_user.app_roles?(app, :admin)) && !@app.archived
-        a href="#{new_app_collaborator_path(app)}" data-turbo-frame="modal"
-          i.icon.fas.fa-user-plus
-          = t('apps.show.new_collaborator')
+        = icon_link_to 'fa-solid fa-user-plus', new_app_collaborator_path(app), \
+          text: t('apps.show.new_collaborator'), icon: { class: 'me-1' }, \
+          link: { data: { turbo_frame: 'modal' } }
   .card-body.p-0
     .p-2.ps-3.d-flex.fw-bolder.border-bottom.border-1
       .col-5.my-auto = t('apps.show.username')

@@ -1,9 +1,9 @@
-require:
+plugins:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 3.2
-  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.4
+  TargetRailsVersion: 8.0
   DisabledByDefault: true
   SuggestExtensions: false
   DisplayStyleGuide: true
@@ -101,7 +101,7 @@ Lint/AssignmentInCondition:
 Style/TrailingCommaInHashLiteral:
   Enabled: false
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Enabled: true
   Exclude:
     - app/serializers/channel_serializer.rb

@@ -105,9 +105,11 @@ i.icon {
     opacity: 0.45;
   }
 
-  .nav-item .active {
-    color: #fff;
-    background-color: var(--bs-primary-bg);
+  .nav-pills {
+    .nav-item .active {
+      color: #fff;
+      background-color: var(--bs-primary-bg);
+    }
   }
 
   .border-bottom {

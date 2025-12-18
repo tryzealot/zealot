@@ -38,6 +38,7 @@ db/*.sqlite3
 /public/packs-test
 /public/system/
 /public/uploads
+/public/webfonts
 /spec/tmp/*
 /cache
 /capybara*
@@ -66,6 +67,7 @@ node_modules/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.pnpm-store
 
 # Environment files that may contain sensitive data
 .*env

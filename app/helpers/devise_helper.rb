@@ -12,7 +12,7 @@ module DeviseHelper
 
     button_to(url, class: 'btn btn-outline-secondary w-100 text-start', method: :post, data: { turbo: false }) do
       concat(title)
-      concat(content_tag(:i, nil, class: "icon fab float-end fa-#{icon}"))
+      concat(content_tag(:i, nil, class: "icon fa-brands float-end fa-#{icon}"))
     end
   end
 

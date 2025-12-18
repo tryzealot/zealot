@@ -9,14 +9,14 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    .btn-group role="group"
+    .btn-group
       - if !@app.archived
         = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
-          'plus-square', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', data: { turbo_frame: :modal }
-        = button_link_to '', edit_app_path(@app), 'edit', class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', \
+          'plus-square', class: 'btn-outline-secondary btn-icon', data: { turbo_frame: :modal }
+        = button_link_to '', edit_app_path(@app), 'edit', class: 'btn-outline-secondary', \
           title: t('apps.show.edit_app'), data: { toggle: :tooltip, turbo_frame: :modal }
       = button_link_to '', app_path(@app), 'trash-alt', \
-        class: 'btn btn-outline-secondary btn-icon btn-sm btn-flat', title: t('apps.show.destroy_app'), \
+        class: 'btn-outline-secondary', title: t('apps.show.destroy_app'), \
         data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 ruby:

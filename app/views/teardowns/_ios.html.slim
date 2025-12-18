@@ -2,12 +2,12 @@
   .card.mb-3
     .card-header
       h3.card-title
-        i.icon.fab.fa-apple.text-secondary
+        i.icon.fa-brands.fa-apple.text-secondary
         = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fas.fa-plus data-lte-icon="expand"
-          i.fas.fa-minus data-lte-icon="collapse"
+          i.fa-solid.fa-plus data-lte-icon="expand"
+          i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.ps-2.pe-2.p-0
       dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
@@ -47,4 +47,3 @@
 
   == render 'card', title: 'URL Schemes', raw: @metadata.url_schemes
   == render 'card', title: 'Entitlements', raw: @metadata.entitlements
-  == render 'destroy', md: @metadata

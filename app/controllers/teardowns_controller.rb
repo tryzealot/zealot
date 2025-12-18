@@ -49,7 +49,7 @@ class TeardownsController < ApplicationController
     parse_app
   rescue => e
     logger.error "Teardown error: #{e}"
-    flash[:error] = case e
+    flash.now[:alert] = case e
       when AppInfo::NotFoundError, ActiveRecord::RecordNotFound
         t('teardowns.messages.errors.not_found_file', message: e.message)
       when ActionController::RoutingError

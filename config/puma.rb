@@ -18,8 +18,8 @@ pidfile ENV.fetch('PIDFILE') { 'tmp/pids/puma.pid' }
 # it based on your app's demands.
 #
 # RAILS_MAX_THREADS will match the default thread size for Active Record.
-max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
-min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
+max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i
+min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }.to_i
 threads min_threads_count, max_threads_count
 
 # Specifies the `environment` that Puma will run in.
@@ -41,8 +41,8 @@ environment rails_env
 #
 # If using threads and workers together, the concurrency of your application
 # will be THREADS * WORKERS.
-workers_size = ENV.fetch('WEB_CONCURRENCY') { 2 }
-workers workers_size
+workers_size = ENV.fetch('WEB_CONCURRENCY') { 1 }.to_i
+workers workers_size == 1 ? 0 : workers_size
 silence_single_worker_warning if rails_env == 'development'
 
 # An internal health check to verify that workers have checked in to the master
@@ -63,8 +63,11 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 # sure to reconnect any threads in the `before_worker_boot` block.
 # preload_app!
 
-# Allow puma to be restarted by `rails restart` command.
-# plugin :tmp_restart
+# Allow puma to be restarted by `bin/rails restart` command.
+plugin :tmp_restart
+
+# Run the Solid Queue supervisor inside of Puma for single-server deployments.
+# plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Start the Puma control rack application on +url+. This application can
 # be communicated with to control the main server. Additionally, you can
@@ -74,25 +77,25 @@ worker_timeout rails_env == 'development' ? 3600 : 30
 activate_control_app "tcp://#{ENV.fetch('PUMA_CONTROL_URL') { '127.0.0.1:9293' }}", { auth_token: ENV.fetch('PUMA_CONTROL_URL_TOKEN') { 'zealot' } }
 
 # Handle good_job
-if workers_size > 0 && defined?(GoodJob)
-  before_fork do
-    GoodJob.logger.info { 'Before fork process.' }
-    GoodJob.shutdown
-  end
+# if workers_size > 0 && defined?(GoodJob)
+#   before_fork do
+#     GoodJob.logger.info { 'Before fork process.' }
+#     GoodJob.shutdown
+#   end
 
-  before_worker_boot do
-    GoodJob.logger.info { 'Starting Puma worker process.' }
-    GoodJob.restart
-  end
+#   before_worker_boot do
+#     GoodJob.logger.info { 'Starting Puma worker process.' }
+#     GoodJob.restart
+#   end
 
-  before_worker_shutdown do
-    GoodJob.logger.info { 'Stopping Puma worker process.' }
-    GoodJob.shutdown
-  end
+#   before_worker_shutdown do
+#     GoodJob.logger.info { 'Stopping Puma worker process.' }
+#     GoodJob.shutdown
+#   end
 
-  MAIN_PID = Process.pid
-  at_exit do
-    GoodJob.logger.info { 'Puma shutting down.' }
-    GoodJob.shutdown if Process.pid == MAIN_PID
-  end
-end
+#   MAIN_PID = Process.pid
+#   at_exit do
+#     GoodJob.logger.info { 'Puma shutting down.' }
+#     GoodJob.shutdown if Process.pid == MAIN_PID
+#   end
+# end

@@ -1,10 +1,10 @@
 .card.mb-3
   .card-header
     h3.card-title
-      i.icon.fas.fa-history
+      i.icon.fa-solid.fa-history
       = t('channels.show.activity')
     .card-tools
-      span.badge.bg-success
+      span.badge.bg-secondary title="#{t('apps.show.total_builds')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
         = @channel.releases.count
 
   .card-body.p-0

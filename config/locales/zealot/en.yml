@@ -18,7 +18,7 @@ en:
       index:
         title: :admin.users.title
         new_user: :admin.users.new.title
-        number: '#'
+        number: "#"
         nickname: Nickname
         email: E-mail
         role: Role
@@ -35,7 +35,7 @@ en:
         title: Edit user
         active_link: Active link
         active_link_tip: If the inviting user does not receive the activation email.
-        resend: resend an email
+        resend: Resend activation email
         profile: Profile
         collaborators: Collaborators
         api: API
@@ -44,23 +44,24 @@ en:
         unlock_user: Unlock
         destroy_user: Destroy
       lock:
-        message: 'User %{user} has been locked.'
+        message: "User %{user} has been locked."
       unlock:
-        message: 'User %{user} has been unlocked.'
+        message: "User %{user} has been unlocked."
       resend_confirmation:
-        message: 'Re-sent the confirmation email to user %{user}.'
+        message: "Re-sent the confirmation email to user %{user}."
     web_hooks:
       title: Webhooks
       index:
         title: :admin.web_hooks.title
-        number: '#'
+        links:
+          one: Notification Link
+          other: Notification Links
+        number: "#"
         url: URL
         channels: Channels
         action: Action
         not_found: Not found any Webhook.
         create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
-        destroy: Destroy
-        destroy_confirm: Destroy confirm?
       show:
         title: Webhook detail
       new:
@@ -78,17 +79,18 @@ en:
         title: New Apple Developer
       index:
         title: :admin.apple_keys.title
-        number: '#'
+        teams:
+          one: Team
+          other: Teams
+        number: "#"
         team_name: Team name
         team_id: Team ID
         created_at: Created at
         action: Action
         new_apple_key: :admin.apple_keys.new.title
-        destroy: Destroy
-        destroy_confirm: 'Confirm to destroy: %{team} (%{team_id})'
         not_found:
           title: Not found Apple Developer.
-          body_html: Click the button <i class="far fa-plus-square"></i> New Apple Developer on the top-right.
+          body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Apple Developer on the top-right.
       show:
         title: :admin.apple_keys.title
         team_metadata: Team
@@ -117,9 +119,9 @@ en:
         smtp_verify_inprocess: Verification Inprocessing
         smtp_verify_success: Verification successful
         smtp_verify_failed: Verification failed
-        apply_for_restart: Apply and Restart
+        restart_to_apply: Restart to apply
         service_restarting: Restarting
-        service_restarted: Refresh
+        service_restarted: Applying
         restart_required: Restart required
       update:
         title: Edit setting
@@ -127,7 +129,7 @@ en:
         title: Edit setting
       enable: Enabled
       disable: Disabled
-      validates: 'Rule: %{value}'
+      validates: "Rule: %{value}"
       general: General
       site_https: Enable HTTPS
       site_title: Site title
@@ -146,6 +148,8 @@ en:
       registrations_enabled_hint: Enable or disable user registration via the built-in authentication system. If disabled, only administrators can create new users.
       login_enabled: User login
       login_enabled_hint: Enable or disable user login via the built-in authentication system. If disabled, only third-party authentication methods are available.
+      passwordless_login_enabled: Passwordless login
+      passwordless_login_enabled_hint: Enable or disable passwordless login via email links.
       guest_mode: Guest mode
       demo_mode: Demo mode
       demo_mode_hint: Enable demo mode will RESET data daily, CAN NOT destroy or edit default admin user profile, Filtered secure key and read only
@@ -180,14 +184,14 @@ en:
         vcs_ref: Git Ref
         build_date: Build date
         server_info: Server info
-        found_new_version: 'Found new version: %{version}'
+        found_new_version: "Found new version: %{version}"
         os_info: OS info
         postgres_version: PostgreSQL version
         ruby_version: Ruby version
         cpu_info: CPU
         cpu_core:
-          one: '%{count} Core'
-          other: '%{count} Cores'
+          one: "%{count} Core"
+          other: "%{count} Cores"
         fail_detect_cpu: Fail to detect CPU information
         memory_info: Memory
         fail_detect_memory: Fail to detect memory information
@@ -199,10 +203,10 @@ en:
         file_permissions: File permissions
         ruby_gems: Ruby Gems
         logs: Logs
-        new_version: 'A new update is available '
+        new_version: "A new update is available "
         dev_new_version: Found new version (dev mode)
         messages:
-          file_permissions_tip: If you see a warning icon in the list below it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
+          file_permissions_tip: If you see a warning icon in the list above it means that the paths are not writable, which may cause Zealot to be unavailable or abnormal.
           path_not_exist: Path does not exist
           path_not_writable: Path is not writable
           path_not_readable: Path is not readable
@@ -211,6 +215,7 @@ en:
       index:
         title: :'admin.backups.title'
         new_schedule: New Schedule
+        schedules: Schedules
         key: Key
         scopes: Scopes
         schedule: Schedule
@@ -219,17 +224,15 @@ en:
         action: Action
         run_backup: Run a backup
         edit: Edit
-        destroy: Destroy
         database: Database
         app:
-          one: '%{count} App'
-          other: '%{count} Apps'
-        destroy_confirm: 'Confirm to destroy: %{key}?'
+          one: "%{count} App"
+          other: "%{count} Apps"
         not_found:
           title: Not found any backup
-          body_html: Click the button to <i class="far fa-plus-square"></i> new a backup.
+          body_html: Click the button to <i class="fa-regular fa-plus-square"></i> new a backup.
       show:
-        title: '%{key} backup'
+        title: "%{key} backup"
         run_backup: Run a backup
         backup_files: Backup files
         filename: Filename
@@ -237,7 +240,6 @@ en:
         size: Size
         action: Action
         download: Download
-        destroy: Destroy
         performing_jobs: Performing jobs
         backup_id: Backup ID
         backup_status: Status
@@ -252,7 +254,7 @@ en:
         unknown_job_status: Unknown happened! Try again or report to zealot developer please.
         not_found:
           title: Not found any backup file
-          body_html: Click the button to <i class="far fa-play-circle"></i> new a backup file.
+          body_html: Click the button to <i class="fa-regular fa-play-circle"></i> new a backup file.
       new:
         title: New backup
         schedule: Schedule
@@ -261,15 +263,15 @@ en:
       edit:
         title: Edit %{key} backup
       perform:
-        success: Backup was successfully scheduled to run in the background.
+        success: Backup job %{key} was performed successfully.
       destroy_archive:
-        success: Backup was deleted successfully.
+        success: Backup job %{key} was deleted successfully.
       cancel_job:
-        success: Backup Job was canceled successfully.
+        success: Backup job %{key} was canceled successfully.
       parse_schedule:
         invalid_expression: Invalid expression
     background_jobs:
-      title: Background jobs
+      title: Jobs
       index:
         title: :admin.background_jobs.title
     database_analytics:
@@ -281,7 +283,11 @@ en:
       index:
         title: :admin.logs.title
         loading: Loading ...
-        error_message: 'Log fetch failed, return status code: '
+        error_message: "Log fetch failed, return status code: "
+    services:
+      smtp_verify:
+        smtp_method_only: Only SMTP mailer method is supported
+        no_mailer_configuration: No mailer configuration found
   dashboard:
     title: Dashboard
     analytics:
@@ -308,7 +314,7 @@ en:
       searching_app: Search apps
       not_found:
         title: Not found app.
-        body_html: Click the button <i class="far fa-plus-square"></i> New app on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New app on the top-right.
     show:
       new_scheme: New scheme
       edit_app: Edit app
@@ -321,12 +327,13 @@ en:
       retained_build: Retained builds
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
+      total_builds: Total builds
       not_found_channel_body_html: |
-        Not found any channel. Click the button to <i class="far fa-plus-square"></i> new a channel.
+        Not found any channel. Click the button to <i class="fa-regular fa-plus-square"></i> new a channel.
       not_found_scheme:
         title: Not found any scheme.
         body_html: |
-          <p>Click the button to <i class="far fa-plus-square"></i> new a scheme.</p>
+          <p>Click the button to <i class="fa-regular fa-plus-square"></i> new a scheme.</p>
           <p>Usually use a matter of classifying the app, for example in terms of the development process it can be divided: </p>
           <ul>
             <li>Debug, Adhoc, Public test and Production</li>
@@ -358,7 +365,7 @@ en:
           body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
-        not_found_app_by_version: 'Not found app version: %{version}'
+        not_found_app_by_version: "Not found app version: %{version}"
         not_found_app: Not found app by id %{id}, redirect to list of app
         missing_schemes_and_channels: Missing both schemes and channels.
       confirm:
@@ -383,15 +390,15 @@ en:
       empty_channel: Not found any channel.
     new:
       title:
-        with_name: 'New scheme for %{app}'
+        with_name: "New scheme for %{app}"
         without_name: New scheme
     edit:
       title:
-        with_name: 'Edit scheme for %{app}'
+        with_name: "Edit scheme for %{app}"
         without_name: Edit scheme
   channels:
     title: Channels
-    subtitle: 'Scheme %{total_scheme} Channel %{total_channel}'
+    subtitle: "Scheme %{total_scheme} Channel %{total_channel}"
     show:
       scheme: :schemes.title
       channel: :channels.title
@@ -404,7 +411,7 @@ en:
       git_url: Git URL
       download_filename_type: Download filename rule
       download_filename_type_item:
-        version_datetime: '{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}'
+        version_datetime: "{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}"
         original_filename: Use the original file name of the uploaded file
       match_rule: Match Rule %{value}
       wildmatch: (wild match)
@@ -412,7 +419,7 @@ en:
       channel_key: Channel KEY
       edit_channel: Edit channel
       none: None
-      not_found: Not found any releases, click the button <i class="far fa-plus-square"></i> upload a release.
+      not_found: Not found any releases, click the button <i class="fa-regular fa-plus-square"></i> upload a release.
       id: ID
       build_version: Build version
       git_branch: Branch
@@ -426,34 +433,32 @@ en:
       total_version: Versions
       empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
-      more: More
-      app_detail: App detail
+      view_more: View More
+      app_detail: View App
     new:
       title:
-        with_name: 'New channel for %{app}'
+        with_name: "New channel for %{app}"
         without_name: New channel
     edit:
       title:
-        with_name: 'Edit channel for %{app}'
+        with_name: "Edit channel for %{app}"
         without_name: Edit channel
     branches:
       index:
-        subtitle: 'Releases of branch %{branch}'
+        subtitle: "Releases of branch %{branch}"
     release_types:
       index:
-        subtitle: 'Releases of scheme %{type}'
+        subtitle: "Releases of scheme %{type}"
     versions:
       index:
         subtitle: Releases
       show:
-        subtitle: 'Releases of version %{version}'
+        subtitle: "Releases of version %{version}"
     filters:
       list:
         delete: Delete
         delete_all: Delete all
     messages:
-      confirm:
-        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_channel: Not found any channel by id %{id}, redirect to app list
   releases:
@@ -467,7 +472,7 @@ en:
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
       not_latest_release: New release found!
-      released_new_version: '%{link} %{version} uploaded at %{time} ago!'
+      released_new_version: "%{link} %{version} uploaded at %{time} ago!"
       view_latest_version: The latest version
       name: App
       version: Auto Version
@@ -489,7 +494,6 @@ en:
       installing: Installing ...
       installed: Re-Install
       cert_expired: Can not install, certificate was expired
-      destroy: Destroy
       missing_file: Missing file
       more: More releases
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
@@ -498,10 +502,10 @@ en:
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
-      devices: '%{count} test devices (UDID)'
+      devices: "%{count} test devices (UDID)"
       sync_devices_feature: Synchronize device name with %{link} recommended
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: '%{type} matched'
+      debug_file: "%{type} matched"
       qrcode: QR Code
       scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
       major_versions: :channels.show.major_versions
@@ -519,33 +523,6 @@ en:
 
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
-      install_error:
-        title: Install issues and the solution
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              If you manually install an app on iOS 9+, you must also manually establish trust.
-              Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
-            </li>
-            <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
-          </ol>
-        ok: Okay
-      cert_expired_error:
-        title: iOS signature certificate issues
-        body_html: |
-          <ol class="mb-0">
-            <li>
-              In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
-              and shelved in order to prevent apps from being distributed in the App Store app store.
-              The signature certificate is valid for one year from the date of issuance. After the expiration,
-              you need to re-generate and re-sign the app before you can continue to install it.
-            </li>
-            <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
-            <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
-          </ol>
-        ok: Okay
-      confirm:
-        destroy: :web_hooks.messages.confirm.destroy
       errors:
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
@@ -558,7 +535,7 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean job.
         not_found_really: Not found this build.
         invalid_password: Invalid password
-        bundle_id_not_matched: 'Bundle id or package name not matched between release %{got} and rule %{expect}'
+        bundle_id_not_matched: "Bundle id or package name not matched between release %{got} and rule %{expect}"
   debug_files:
     title: Debug files
     index:
@@ -569,9 +546,9 @@ en:
       ios_count: dSYM
       not_found:
         title: Not found any debug file!
-        body_html: Click the button <i class="far fa-plus-square"></i> upload a debug file on the top-right.
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
     show:
-      title: '%{app} %{device} %{version} Debug file'
+      title: "%{app} %{device} %{version} Debug file"
       name: App name
       version: Build number
       device_type: Platform
@@ -582,8 +559,7 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
-      destroy: Destroy
-      main_target: 'Main target: %{value}'
+      main_target: "Main target: %{value}"
       arch: Architecture
       target: Target
       uuid: UUID
@@ -594,10 +570,13 @@ en:
         one: File (%{count})
         other: Files (%{count})
     device:
-      title: '%{app} %{device} Debug file'
-      number: '#%{value}'
+      title: "%{app} %{device} Debug file"
+      number: "#%{value}"
       processing: Processing in background, take a coffee break ...
-      refresh_page: "If there is no change for a long time, please try to refresh this page.\nThis message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the \"background tasks\"."
+      refresh_page:
+        'If there is no change for a long time, please try to refresh this page.
+
+        This message is still displayed after several refreshes, please go to the admin panel to check if there is any exception in the "background tasks".'
       reparse_required: Missing identifier or package name, may be needs reprocess.
       main_target: Main target
       arch: Architecture(s)
@@ -631,12 +610,6 @@ en:
           <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard</a>
           code to debug.
         </p>
-    confirm:
-      destroy:
-        title: Destroy the debug file confirm?
-        body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
-        ok: Destroy
-        cancel: Cancel
   teardowns:
     title: Teardowns
     new:
@@ -659,9 +632,9 @@ en:
       anonymous: Anonymous
       not_found:
         title: Not found any teardown!
-        body_html: Click the button <i class="far fa-plus-square"></i> New teardown
+        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
-      title: '%{name} Teardown result'
+      title: "%{name} Teardown result"
       expired_in: Expire in %{time}
       already_expired: Expired %{time}
       expired: Expired now!
@@ -700,10 +673,10 @@ en:
       min_tvos_version: Minimum tvOS version
       min_macos_version: Minimum OS version
       capabilities: Capabilities
-      devise_list: 'UDID (%{count})'
-      developer_certs_list: 'Developer Certificates (%{count})'
-      cert: 'Cert %{index}'
-      cert_expired_at: 'Expired at %{date}'
+      devise_list: "UDID (%{count})"
+      developer_certs_list: "Developer Certificates (%{count})"
+      cert: "Cert %{index}"
+      cert_expired_at: "Expired at %{date}"
       cert_created: Created date
       cert_expired: Expired Date
       cert_version: Version
@@ -713,12 +686,12 @@ en:
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: 'Signatures (%{count})'
-      signature: 'Scheme %{scheme}'
-      cert_fignger: 'Fingerprint %{digest}'
+      signature_title: "Signatures (%{count})"
+      signature: "Scheme %{scheme}"
+      cert_fignger: "Fingerprint %{digest}"
       signature_not_found: Not found
-      signature_verified: 'Verified'
-      signature_unverified: 'Unverified (WIP)'
+      signature_verified: "Verified"
+      signature_unverified: "Unverified (WIP)"
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)
@@ -742,7 +715,7 @@ en:
       title: Help center
       body_html: |
         <p>
-          Click the button <i class="far fa-plus-square"></i> to upload app and review it inside:
+          Click the button <i class="fa-regular fa-plus-square"></i> to upload app and review it inside:
         </p>
         <table class="table table-bordered">
           <tr>
@@ -795,18 +768,16 @@ en:
           </tr>
         </table>
     messages:
-      confirm:
-        destroy: Destroy confirm?
-      upload_events: '%{name} uploaded release %{version}'
-      download_events: '%{name} %{version} downloaded'
-      changelog_events: '%{name} %{version} update the changelog'
-      unknown_events: '%{name} triggered unknown event: %{event}'
+      upload_events: "%{name} uploaded release %{version}"
+      download_events: "%{name} %{version} downloaded"
+      changelog_events: "%{name} %{version} update the changelog"
+      unknown_events: "%{name} triggered unknown event: %{event}"
       errors:
-        not_found_file: 'Not found debug file: %{message}'
+        not_found_file: "Not found debug file: %{message}"
         not_support_file_type: Not support file type
         failed_get_metadata: Failed to parse, make sure supported file type and unhardened
-        unknown_parse: 'Unknown parse error: %{message} (%{class})'
-        choose_supported_file_type: 'Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file'
+        unknown_parse: "Unknown parse error: %{message} (%{class})"
+        choose_supported_file_type: "Choose support file type: .apk/.abb/.ipa/.mobileprovision or macOS.app.zip file"
   udid:
     title: Fetch UDID
     index:
@@ -868,7 +839,10 @@ en:
       team_id: Team ID
       register_device: Register
       related_apple_keys_not_found: Not found any Apple Team.
-      related_apps_not_found_with_registered_device: "This device is registered by synchronization service,\nbut your device does not have an associated application to upload yet."
+      related_apps_not_found_with_registered_device:
+        "This device is registered by synchronization service,
+
+        but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
     install:
       title: Fetch Device UDID Profile
@@ -887,12 +861,9 @@ en:
     not_found: Not found any webhook
     current_channel: Current channel
     test: Test
-    destroy: Destroy
     disable: Disable
     messages:
-      parse_done_and_refreshing: 'Teardown done, refresh page ...'
-      confirm:
-        destroy: Destroy confirm?
+      parse_done_and_refreshing: "Teardown done, refresh page ..."
   settings:
     title: :admin.settings.title
     preset_schemes:
@@ -940,6 +911,48 @@ en:
       download:
         default:
           not_found: Not found debug file
+
+  modals:
+    confirm:
+      title: Destroy confirm?
+      body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
+    destroy_apple_key:
+      title: Destroy Apple Developer
+      body: |
+        Once %{name} is deleted, it will be permanently unrecoverable or unrecoverable,
+        please operate with caution!
+    install_issue:
+      title: Install issues and the solution
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            If you manually install an app on iOS 9+, you must also manually establish trust.
+            Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
+          </li>
+          <li>If you manually install an Adhoc app, make sure uninstall the same app from App Store!!</li>
+        </ol>
+    cert_expired_issues:
+      title: iOS signature certificate issues
+      body_html: |
+        <ol class="mb-0">
+          <li>
+            In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
+            and shelved in order to prevent apps from being distributed in the App Store app store.
+            The signature certificate is valid for one year from the date of issuance. After the expiration,
+            you need to re-generate and re-sign the app before you can continue to install it.
+          </li>
+          <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
+          <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
+        </ol>
+    tooltip:
+      delete: Delete
+    buttons:
+      close: Close
+      cancel: Cancel
+      confirm: Confirm
+      destroy: Destroy
+      okay: OK
+
   demo:
     app_name1: First App
     app_name2: Android Only App
@@ -952,36 +965,37 @@ en:
 
   date:
     formats:
-      nice: '%b %d, %Y'
+      nice: "%b %d, %Y"
 
   time:
     formats:
-      nice: '%b %d, %Y, %I:%M %p GMT%:::z'
+      nice: "%b %d, %Y, %I:%M %p GMT%:::z"
 
   errors:
     code:
-      '400':
+      "400":
         title: The request you submitted was invalid or malformed
         content: This may be due to incorrect parameters or missing required parameters
-      '403':
+      "403":
         title: You don't have permission to view this page
         content: You don't have permission to access this page or perform this action
-      '404':
+      "404":
         title: Not Found
         content: The page you are looking for isn't here.
-      '406':
+      "406":
         title: This page is not available in the requested format.
-      '410':
+        content: The requested format is not supported for this page.
+      "410":
         title: The page you were looking for doesn't exist here anymore.
-      '422':
+      "422":
         content: Security verification failed. Are you blocking cookies?
         title: Security verification failed
-      '429':
+      "429":
         title: Too many requests
-      '500':
+      "500":
         content: We're sorry, but something went wrong on our end.
         title: This page is not correct
-      '503':
+      "503":
         title: The page could not be served due to a temporary server failure.
     messages:
       homepage_title: homepage
@@ -990,11 +1004,11 @@ en:
       inclusion: Not included in the list of optional values.
       only_integer: Must be number
       json_format: Must be JSON standard format
-      not_authorized_policy: 'No authorized operate %{model} on %{query} action'
-      not_match_url: 'Not match page: %{url}'
-      unexpected_parameter: 'Unexpected parameter: %{value}'
-      length_range: 'Length range: %{minimum} ~ %{maximum}'
-      optional_value: 'Optional value: %{value}'
+      not_authorized_policy: "No authorized operate %{model} on %{query} action"
+      not_match_url: "Not match page: %{url}"
+      unexpected_parameter: "Unexpected parameter: %{value}"
+      length_range: "Length range: %{minimum} ~ %{maximum}"
+      optional_value: "Optional value: %{value}"
       invaild_in_demo_mode: Forbidden in demo mode
       record_existed: "%{model} record existed."
       development_only: Development only
@@ -1012,15 +1026,15 @@ en:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
         not_found_file: Debug file is missing with unknown issue.
-        not_matched_bundle_id: 'Not found bundle id with selected app: %{bundle_id}'
+        not_matched_bundle_id: "Not found bundle id with selected app: %{bundle_id}"
         unknown_format: Unknown debug file format.
     backup:
-      success: '%{key} backup created successfully.'
+      success: "%{key} backup created successfully."
       failures:
-        max_keeps_limited: '%{key} backup maximum limit value was zero'
-        dump_command: 'Executing dump backup commands failed: %{message}'
-        restore_command: 'Executing restore backup commands failed: %{message}'
-        storage_full: 'Not enough disk space, please check the backup storage: %{key}'
+        max_keeps_limited: "%{key} backup maximum limit value was zero"
+        dump_command: "Executing dump backup commands failed: %{message}"
+        restore_command: "Executing restore backup commands failed: %{message}"
+        storage_full: "Not enough disk space, please check the backup storage: %{key}"
   activerecord:
     attributes:
       channel:
@@ -1035,6 +1049,9 @@ en:
       archived: "Archived %{key} successfully"
       unarchived: "Actived %{key} successfully"
       destroy: "Deleted %{key} successfully"
+      reset: "Reset %{key} to default value successfully"
+      update_and_restart: "Updated %{key} successfully, needs restart to apply"
+      reset_and_restart: "Reset %{key} to default value successfully, needs restart to apply"
     errors:
       messages:
         same_value: "%{key} not change, skip to update"
@@ -1056,19 +1073,19 @@ en:
               unauthorized: Without authority, please check issuer id and private key
               forbidden: Without permission, Apple key needs developer or high permissions
               required_agreement_missing_or_expired: Apple key needs agreement, please login to Apple Developer and accept the agreement
-              unknown: 'Unknown error: %{message}'
+              unknown: "Unknown error: %{message}"
             devices:
               invalid_value: Register device %{value} was invalid
-              api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{message}'
+              api: "Apple return error: %{message}"
+              unknown: "Unknown error: %{message}"
             checksum:
               taken: matched, the private key was existed
         udid:
           attributes:
             name:
               invalid_value: Register device %{value} was invalid
-              api: 'Apple return error: %{message}'
-              unknown: 'Unknown error: %{message}'
+              api: "Apple return error: %{message}"
+              unknown: "Unknown error: %{message}"
         debug_file:
           attributes:
             app_id:
@@ -1084,11 +1101,11 @@ en:
         release:
           attributes:
             file:
-              not_enough_space: Not enough disk space
+              not_enough_space: "is %{file_size}. Disk space only left %{disk_free} is not enough to upload"
   user_mailer:
     omniauth_welcome_email:
       subject: Welcome to %{title}
-      default_password: 'You authorized the third-party service to register Zealot, Here is the password:'
+      default_password: "You authorized the third-party service to register Zealot, Here is the password:"
   devise:
     confirmations:
       new:
@@ -1110,11 +1127,29 @@ en:
       title: LDAP
       username: LDAP Username
       password: LDAP Password
+    passwordless:
+      title: Passwordless
+      send_magic_link: Send magic link
+      not_found_in_database: No user found for this email
+      magic_link_sent: A login link has been sent to your email. Please follow the link to log in to your account
+      magic_link_sent_paranoid: If your account exists, you will receive an email with a login link. Please follow the link to log in to your account
+      signed_in: :devise.sessions.signed_in
+    failure:
+      magic_link_invalid: Invalid or expired login link
+    mailer:
+      magic_link:
+        subject: Here's your magic login link ✨
+        body: |
+          <p>Hello %{email}!</p>
+          <p>You can login using the link below:</p>
+          <p>%{link}</p>
+          <p>Note that the link will expire in %{expiration_time}.</p>
+        login_link_text: Log in to my account
     github:
-      org_check_fail: 'GitHub org check failed: %{code}'
-      org_required_fail: 'You must be a member of the %{required_org} GitHub organization to sign in.'
+      org_check_fail: "GitHub org check failed: %{code}"
+      org_required_fail: "You must be a member of the %{required_org} GitHub organization to sign in."
     shared:
-      hint: '- Or -'
+      hint: "- Or -"
       links:
         provider:
           feishu: Feishu

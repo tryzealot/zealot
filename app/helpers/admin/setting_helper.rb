@@ -3,17 +3,30 @@
 module Admin
   module SettingHelper
     def display_value(key, value)
+      empty_value = t('admin.settings.empty_value')
+      return empty_value if value.nil? || (value.respond_to?(:empty?) && value.empty?)
+
       case value
       when Hash
-        value.blank? ? t('admin.settings.empty_value') : pretty_json(value)
+        enabled = value[:enabled]
+        return pretty_json(value) if enabled.nil?
+
+        text = display_value(key, enabled)
+        case key
+        when 'passwordless_login_enabled'
+          expired = distance_of_time_in_words_to_now(value[:token_expiry_in_minutes].minutes.since)
+          enabled ? "#{text} (#{expired})" : text
+        else
+          text
+        end
       when Array
-        value.blank? ? t('admin.settings.empty_value') : value.join(', ')
+        value.join(', ')
       when TrueClass
         t('admin.settings.enable')
       when FalseClass
         t('admin.settings.disable')
       else
-        value.blank? ? t('admin.settings.empty_value') : t("settings.#{key}.#{value}", default: value.to_s)
+        t("settings.#{key}.#{value}", default: value.to_s)
       end
     end
 

@@ -30,7 +30,7 @@ ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
 RUN curl https://mise.run | sh
 
 # Install lazygit
-ENV LAZYGIT_VERSION="0.52.0"
+ENV LAZYGIT_VERSION="0.55.1"
 RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin && \
     chmod +x /usr/local/bin/lazygit
 
@@ -39,7 +39,7 @@ USER vscode
 RUN mise use -g usage || true && \
     echo 'eval "$(mise activate bash --shims)"' >> ~/.bash_profile && \
     echo 'eval "$(mise activate bash)"' >> ~/.bashrc && \
-    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian mise git tmux npm yarn ruby gem bundler rails)/g" ~/.zshrc
+    sed -i -E "s/^plugins=\(.+\)$/plugins=(debian history mise git tmux npm ruby gem bundler rake rails)/g" ~/.zshrc
 
 ENV ZEALOT_PATH=/workspace
 WORKDIR /workspace
@@ -56,11 +56,10 @@ RUN mise trust && \
 
 ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
 RUN gem install bundler && \
-    npm install --global yarn sass esbuild mprocs
+    npm install --global pnpm sass esbuild mprocs
 
-COPY Gemfile Gemfile.lock package.json yarn.lock ./
+COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
 USER root
 RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
 USER vscode
-
-RUN bundle install && yarn install
+RUN bundle install && pnpm install

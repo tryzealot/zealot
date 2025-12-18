@@ -109,5 +109,13 @@ module SettingHelper
 
       "#{version}-#{docker_tag}"
     end
+
+    protected
+
+    # Helper method for casting string to boolean using ActiveModel::Type::Boolean
+    def to_bool(value)
+      ActiveModel::Type::Boolean.new.cast(value)
+    end
+
   end
 end

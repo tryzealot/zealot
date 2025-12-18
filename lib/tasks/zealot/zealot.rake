@@ -110,10 +110,17 @@ namespace :zealot do
   desc "Zealot | generate swagger files"
   task swaggerize: :environment do
     current_locale = ENV['DEFAULT_LOCALE']
+    locale_remapping = {
+      "zh-CN" => "zh-Hans",
+    }
 
+    system("mkdir -p tmp/docs")
     Rails.configuration.i18n.available_locales.sort.each do |locale|
       puts "Generating swagger file ... #{locale}"
       system("DEFAULT_LOCALE=#{locale} rails rswag:specs:swaggerize 2>&1 > /dev/null")
+      # generate files for docs use
+      output_file = "openapi_v1_#{locale_remapping[locale.to_s] || locale}.json"
+      system("cp -f swagger/v1/swagger_#{locale}.json tmp/docs/#{output_file}")
     end
 
     # restore

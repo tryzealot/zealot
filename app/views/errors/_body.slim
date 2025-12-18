@@ -9,10 +9,10 @@ ruby:
   .card-header
     - if content.present?
       h3.card-title
-        i.icon.fas.fa-error
+        i.icon.fa-solid.fa-circle-exclamation
         = content
 
   .card-body
     - if @message.present?
-      div = @message
-    div = raw t('errors.messages.goback_or_redirect_to_homepage', goback_link: goback_link_html, homepage_link: homepage_link_html)
+      p = @message
+    p.mb-0 = raw t('errors.messages.goback_or_redirect_to_homepage', goback_link: goback_link_html, homepage_link: homepage_link_html)

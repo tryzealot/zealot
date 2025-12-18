@@ -4,36 +4,37 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 7.0.4'
-gem 'rails', '~> 8.0.3'
-gem 'rails-i18n', '~> 8.0.2'
+gem 'puma', '~> 7.1.0'
+gem 'rails', '~> 8.1.1'
+gem 'rails-i18n', '~> 8.1.0'
 gem 'rack-cors', '~> 3.0.0'
 gem 'rack', '>= 3.1.18'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
-gem "solid_cache", "~> 1.0.8"
+gem 'solid_cache', '~> 1.0.10'
+gem 'solid_cable', '~> 3.0.12'
 
 # Logger
 gem 'lograge', '~> 0.14.0'
 
 # API
-gem 'active_model_serializers', '~> 0.10.15'
-gem 'graphql', '~> 2.5.14'
+gem 'active_model_serializers', '~> 0.10.16'
+gem 'graphql', '~> 2.5.16'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.12'
 
 # View
+gem 'view_component', '~> 4.1'
 gem 'jb', '~> 0.8.2'
-gem 'slim-rails', '~> 3.7.0'
+gem 'slim-rails', '~> 4.0.0'
 gem 'kramdown', '~> 2.5'
-gem 'simple_form', '~> 5.3'
-gem 'rswag-api', '~> 2.16.0'
-gem 'rswag-ui', '~> 2.16.0'
-gem 'ostruct' # needs in rswag
+gem 'simple_form', '~> 5.4'
+gem 'rswag-api', '~> 2.17.0'
+gem 'rswag-ui', '~> 2.17.0'
 
 # Model
-gem 'friendly_id', '~> 5.5.1'
+gem 'friendly_id', '~> 5.6.0'
 gem 'kaminari', '~> 1.2.2'
 gem 'carrierwave', '~> 3.1.2'
 gem 'webp-ffi', '~> 0.4.0'
@@ -43,15 +44,16 @@ gem 'rake', '~> 13.0.4'
 gem 'rails-settings-cached', '~> 2.9.6'
 gem 'app-info', '~> 3.3.2'
 gem 'faraday', '~> 2.14.0'
-gem 'rqrcode'
+gem 'rqrcode', '~> 3.1.1'
 
 ## Auth
 gem 'pundit', '~> 2.5.2'
 gem 'devise', '~> 4.9.4'
 gem 'devise-i18n', '~> 1.15.0'
+gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
-gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
+gem 'omniauth-rails_csrf_protection', '~> 2.0.1'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
 gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
@@ -60,20 +62,20 @@ gem 'omniauth_openid_connect', '0.8.0'
 gem 'omniauth-github', '~> 2.0.1'
 
 ## UDID
-gem 'openssl', '~> 3.3.1'
+gem 'openssl', '~> 3.3.2'
 gem 'plist', '~> 3.7.2'
 
 ## OS
-gem 'sys-filesystem', '~> 1.5.4'
+gem 'sys-filesystem', '~> 1.5.5'
 gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 3.7.0'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 5.28.0'
-gem 'sentry-rails', '~> 5.28.0'
+gem 'sentry-ruby', '~> 6.2.0'
+gem 'sentry-rails', '~> 6.2.0'
 
 # Background job
-gem 'good_job', '~> 4.12.0'
+gem 'good_job', '~> 4.13.1'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
@@ -87,6 +89,9 @@ gem 'turbo-rails', '~> 2.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
+
+# Generating fake data for tests and sample data in production
+gem 'faker'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.10'
@@ -105,6 +110,10 @@ group :development do
   # helpers
   gem 'letter_opener', '~> 1.10'
   gem 'letter_opener_web', '~> 3.0'
+
+  # Chrome extension devtools
+  ## rails-panel https://chromewebstore.google.com/detail/rails-panel/gjpfobpafnhjhbajcjgccbbdofdckggg
+  gem 'meta_request', github: 'dejan/rails_panel', ref: 'meta_request-v0.8.5'
 end
 
 group :development, :test do
@@ -116,8 +125,7 @@ group :development, :test do
   gem 'pry-rescue'
 
   gem 'factory_bot_rails'
-  gem 'faker'
-
+  
   gem 'rspec-rails'
   gem 'rswag-specs'
 end

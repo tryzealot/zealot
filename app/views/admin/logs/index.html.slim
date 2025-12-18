@@ -6,19 +6,31 @@
 
 .row
   .col-md-12
-    .card[
+    .card.card-tabs[
       data-controller="admin-logs"
       data-admin-logs-uri-value="#{retrive_admin_logs_path}"
       data-admin-logs-interval-value="#{@interval}"
       data-admin-logs-error-message-value="#{t('.error_message')}"
     ]
-      .card-header
-        h3.card-title
-          i.fas.fa-file
-          = " #{@filename}"
-        .card-tools
-          span.small data-admin-logs-target="refresh"
-
-      .card-body.system-log
-        pre data-admin-logs-target="source"
-          = t('.loading')
+      .card-header.p-0.pt-1.border-bottom-0
+        ul.nav.nav-tabs
+          - @log_files.each_with_index do |file, index|
+            li.nav-item id="nav_log_#{index}"
+              button.nav-link[
+                class=(index == 0 ? 'active' : '') 
+                data-bs-toggle="pill" 
+                data-bs-target="#tab_log_#{index}"
+                data-action="admin-logs#switch"
+              ] = file
+      .card-body
+        .tab-content
+          .tab-pane.fade.show.active
+            pre data-admin-logs-target="source"
+              = t('.loading')
+      .card-footer
+        span.small data-admin-logs-target="refresh" - 
+        .float-end
+          / Pre-select intervals for quick access, from 1 second to 10 seconds.
+          select.form-select.form-select-sm.w-auto.d-inline-block.ms-2 data-action="admin-logs#setInterval"
+            - [1000, 2000, 5000, 10000].each do |interval|
+              option value=interval selected=(interval.to_s == @interval.to_s) = "#{t('datetime.distance_in_words.x_seconds', count: interval / 1000)}"
