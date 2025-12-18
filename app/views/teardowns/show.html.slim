@@ -7,7 +7,7 @@
 - content_for :section_rightpanel do
   .d-join
     = button_link_to '', teardowns_path, 'list-alt', class: 'd-join-item d-btn d-tooltip', \
-      data: { tip: t('links.back_to_list')}
+      base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
     - if teardown_owner?(@metadata)
       = button_link_to '', teardown_path(@metadata), 'trash-alt', \
         class: 'd-join-item d-btn text-error d-tooltip', \

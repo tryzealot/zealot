@@ -10,20 +10,20 @@
       class: 'd-btn-success'
 
 - if @apps.present?
-  - @apps.each_with_index do |app, i|
-    .card.widget-app
-      .card-body.p-0.pt-3
-        .text-center
-          = app_icon(app.recently_release, class: 'app-icon elevation-1 rounded-circle')
-        h3.profile-username.text-center
-          = app.name
-        .d-flex.flex-column.pt-2
-          .border-top.py-2.px-3
-            b = link_to t('.android_count'), device_app_debug_files_path(app, 'Android')
-            span.float-end = app.android_debug_files.count
-          .border-top.py-2.px-3
-            b = link_to t('.ios_count'), device_app_debug_files_path(app, 'iOS')
-            span.float-end = app.ios_debug_files.count
+  .card
+    .card-body.p-0
+      ul.d-list
+        - @apps.each_with_index do |app, i|
+          li.d-list-row.items-center
+            div = app_icon(app.recently_release)
+            h1.text-2xl.font-bold = app.name
+            = link_to device_app_debug_files_path(app, 'Android'), class: 'd-btn' do 
+              = t('.android_count')
+              .d-badge.d-badge-sm = app.android_debug_files.count
+            = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-btn' do
+              = t('.ios_count')
+              .d-badge.d-badge-sm = app.ios_debug_files.count
+
 - else
   .card.card-outline.card-warning
     .card-header
