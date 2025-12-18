@@ -1,14 +1,18 @@
-= simple_form_for(@debug_file) do |f|
-  = f.error_notification
+= simple_form_for(@debug_file, html: { class: 'card'}) do |f|
+  .card-header
+    h3.card-title = @title
+  .card-body
+    = f.error_notification
 
-  - if current_user.manage?
-    = f.association :app, include_blank: false
-  - else
-    = f.association :app, collection: current_user.apps, include_blank: false
-  = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, include_blank: false
-  = f.input :release_version
-  = f.input :build_version
-  = f.input :file, required: true
-  - if @debug_file.errors[:checksum].present?
-    = f.input :checksum, disabled: true
-  = f.button :submit
+    - if current_user.manage?
+      = f.association :app, include_blank: false
+    - else
+      = f.association :app, collection: current_user.apps, include_blank: false
+    = f.input :device_type, collection: DebugFile.device_types, label_method: :last, value_method: :first, include_blank: false
+    = f.input :release_version
+    = f.input :build_version
+    = f.input :file, required: true
+    - if @debug_file.errors[:checksum].present?
+      = f.input :checksum, disabled: true
+  .card-footer
+    = f.button :submit

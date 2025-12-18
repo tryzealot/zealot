@@ -16,68 +16,66 @@ ruby:
   = button_link_to '', device_app_debug_files_path(@app, platform_name(@debug_file.device_type)), 'list-alt', \
     class: 'd-btn d-tooltip', base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
-.row
-  .col-md-12
-    .app-detail.card.mb-3
-      .card-header
-        h3.card-title
-          = app_icon(@debug_file.app.recently_release, class: 'app-icon rounded-circle img-bordered-sm')
-        .app-name
+
+.app-detail.card
+  .card-header
+    h3.card-title class="flex items-center gap-2"
+      div 
+        = app_icon(@debug_file.app.recently_release, class: 'app-icon rounded-circle img-bordered-sm')
+      div 
+        div class="font-semibold text-xl"
           = @debug_file.name
-          .app-identifier
-            - if @debug_file.processing?
-              = t('debug_files.device.processing')
-            - elsif @debug_file.bundle_id.present?
-              = @debug_file.bundle_id
-            - else
-              = t('debug_files.device.reparse_required')
-      .card-body
-        ul.app-metadata
-          li title="#{t('.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fa-solid.fa-list-ul
-            = link_to @app.name, app_path(@app)
-          li title="#{t('.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fa-brands.fa-gg
-            = @debug_file.id
-          li title="#{t('.device_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            = device_icon(@debug_file.device_type)
-            = platform_name(@debug_file.device_type)
-          li title="#{t('.release_version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fa-solid.fa-server
-            = @debug_file.release_version
-            - if @debug_file.build_version.present?
-              | (#{@debug_file.build_version})
-          - if @debug_file.filesize.present?
-            li title="#{t('.file_size')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-              i.fa-solid.fa-weight
-              = " #{number_to_human_size(@debug_file.filesize)}"
-          li title="#{t('.uploaded_at')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fa-solid.fa-calendar
-            = time_ago_in_words(@debug_file.created_at)
-        .app-actions
-          - if @debug_file.file?
-            a.btn.btn-icon.btn-lg.btn-success.mb-1 href="#{@debug_file.file_url}" target="_blank"
-              i.fa-solid.fa-download
-              = t('.download')
+        div.text-break class="font-base text-sm opacity-60"
+          - if @debug_file.processing?
+            = t('debug_files.device.processing')
+          - elsif @debug_file.bundle_id.present?
+            = @debug_file.bundle_id
           - else
-            button.btn.btn-secondary.btn-lg.btn-icon.disabled.mb-1
-              i.fa-solid.fa-ghost
-              = t('.missing_file')
+            = t('debug_files.device.reparse_required')
+  .card-body
+    div class="flex flex-wrap item-center gap-4"
+      div class="d-tooltip" data-tip=t('.name')
+        i.fa-solid.fa-list-ul.mr-1
+        = link_to @app.name, app_path(@app)
+      div class="d-tooltip" data-tip=t('.version')
+        i.fa-brands.fa-gg.mr-1
+        = @debug_file.id
+      div class="d-tooltip" data-tip=t('.device_type')
+        = safe_join([device_icon(@debug_file.device_type), platform_name(@debug_file.device_type)], ' ')
+      div class="d-tooltip" data-tip=t('.release_version')
+        i.fa-solid.fa-server.mr-1
+        = @debug_file.release_version
+        - if @debug_file.build_version.present?
+          | (#{@debug_file.build_version})
+      - if @debug_file.filesize.present?
+        div class="d-tooltip" data-tip=t('.file_size')
+          i.fa-solid.fa-weight.mr-1
+          = " #{number_to_human_size(@debug_file.filesize)}"
+      div class="d-tooltip" data-tip="#{t('.uploaded_at')} #{l(@debug_file.created_at, format: :nice)}"
+        i.fa-solid.fa-calendar.mr-1
+        = time_ago_in_words(@debug_file.created_at)
+    .app-actions.flex.gap-2.my-3
+      - if @debug_file.file?
+        = button_link_to t('.download'), @debug_file.file_url, 'download', target: '_blank', \
+          class: 'd-btn-lg d-btn-success'
+      - else
+        button.d-btn.d-btn-lg.d-btn-disabled
+          i.fa-solid.fa-ghost
+          = t('.missing_file')
 
-          - if current_user&.manage?(app: @debug_file.app)
-            - if !@debug_file.processing? && @debug_file.file?
-              = link_to reprocess_debug_file_path(@debug_file), class: 'btn btn-lg btn-icon btn-primary mb-1', data: { turbo_method: :post } do
-                i.fa.fa-repeat
-                = t('.reprocess')
+      - if current_user&.manage?(app: @debug_file.app)
+        - if !@debug_file.processing? && @debug_file.file?
+          = button_link_to t('.reprocess'), reprocess_debug_file_path(@debug_file), 'repeat', \
+            class: 'd-btn-lg d-btn-primary', data: { turbo_method: :post }
 
-            = button_link_to t('modals.buttons.destroy'), debug_file_path(@debug_file), 'trash-alt', \
-              class: 'btn btn-danger btn-icon btn-lg mb-1', data: { \
-                turbo_method: :delete, \
-                turbo_confirm: t('modals.confirm.body'), \
-              }
+        = button_link_to t('modals.buttons.destroy'), debug_file_path(@debug_file), 'trash-alt', \
+          class: 'd-btn d-btn-error d-btn-lg', data: { \
+            turbo_method: :delete, \
+            turbo_confirm: t('modals.confirm.body'), \
+          }
 
-  - unless @debug_file.processing?
-    - if ios_debug_file?(@debug_file)
-      == render 'ios_objects', debug_file: @debug_file
-    - else
-      == render 'android_files', proguard_files: @debug_file.proguard_files
+- unless @debug_file.processing?
+  - if ios_debug_file?(@debug_file)
+    == render 'ios_objects', debug_file: @debug_file
+  - else
+    == render 'android_files', proguard_files: @debug_file.proguard_files

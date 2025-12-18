@@ -6,60 +6,58 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    a.btn.btn-success href="#{new_debug_file_path(app_id: @app, device: params[:device])}"
-      i.fa-regular.fa-plus-square
-      = t('debug_files.index.upload')
+    = button_link_to t('debug_files.index.upload'), new_debug_file_path(app_id: @app, device: params[:device]), \
+      'plus-square', base_fa: 'fa-regular', class: 'd-btn-success'
 
-.row
-  .col-md-12
-    - if @debug_files.present?
-      - @debug_files.each do |debug_file|
-        .debug-file.row
-          .debug-file-version.col-md-3.pt-3.mb-2
-            h6.debug-file-title.mb-1
-              - if debug_file.processing?
-                = link_to t('.number', value: debug_file.id), debug_file_path(debug_file)
-              - else
-                = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file_path(debug_file)
-            abbr.debug-file-date.small data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{l(debug_file.created_at, format: :nice)}"
-              = time_ago_in_words(debug_file.created_at)
-          .debug-file-info.col.p-0
-            - if debug_file.processing?
-              .ps-3.pt-3
-                h6.pb-2 = t('.processing')
-                p.small = t('.refresh_page')
-            - elsif ios_debug_file?(debug_file)
-              table.table.table-borderless.mb-0.border-start
-                thead
-                  tr
-                    td.col-4 = t('.main_target')
-                    td.col-3 = t('.arch')
-                    td.col-2 = t('.libraries')
-                    td.col-3.col-md-1 = t('.filesize')
-                tbody
-                  tr
-                    td = debug_file.main_object.object
-                    td
-                      - debug_file.archs.each do |arch|
-                        span.d-badge.text-bg-secondary.ms-1 = arch
-                    td = debug_file.libraries.size
-                    td = number_to_human_size(debug_file.filesize)
-            - else
-              table.table.table-borderless.mb-0
-                thead
-                  tr
-                    td.col-4 = t('.file_nums')
-                    td.col-2 = t('.file_size')
-                tbody
-                  tr
-                    td = debug_file.proguard_files&.size
-                    td = number_to_human_size(debug_file.filesize)
+- if @debug_files.present?
+  - @debug_files.each do |debug_file|
+    .debug-file.flex.bg-base-300.border.border-base-100.rounded-md
+      .debug-file-version.grow-2.p-4.border-r.border-base-100
+        h6.debug-file-title.mb-1
+          - if debug_file.processing?
+            = link_to t('.number', value: debug_file.id), debug_file_path(debug_file)
+          - else
+            = link_to "#{debug_file.release_version} (#{debug_file.build_version})", debug_file_path(debug_file)
+        .debug-file-date.text-sm.d-tooltip.d-tooltip-right data-tip=l(debug_file.created_at, format: :nice)
+          = time_ago_in_words(debug_file.created_at)
+      .debug-file-info.grow-8
+        - if debug_file.processing?
+          .p-4.space-y-2
+            .font-semibold = t('.processing')
+            .text-sm.opacity-65 = t('.refresh_page')
+        - elsif ios_debug_file?(debug_file)
+          table.d-table
+            thead
+              tr
+                td = t('.main_target')
+                td = t('.arch')
+                td = t('.libraries')
+                td = t('.file_size')
+            tbody
+              tr
+                td = debug_file.main_object.object
+                td.space-x-1
+                  - debug_file.archs.each do |arch|
+                    span.d-badge.d-badge-sm = arch
+                td = debug_file.libraries.size
+                td = number_to_human_size(debug_file.filesize)
+        - else
+          table.d-table
+            thead
+              tr
+                td = t('.file_nums')
+                td = t('.file_size')
+            tbody
+              tr
+                td = debug_file.proguard_files&.size
+                td = number_to_human_size(debug_file.filesize)
 
-      - if @debug_files.total_pages > 1
-        .pt-2.pb-3.pe-1.float-end
-          = paginate @debug_files
-    - else
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('debug_files.index.not_found.title')
-        .card-body = t('debug_files.index.not_found.body_html')
+  - if @debug_files.total_pages > 1
+    .pt-2.pb-3.pe-1.float-end
+      = paginate @debug_files
+- else
+  .card.card-outline.card-warning
+    .card-header.card-border
+      h3.card-title = t('debug_files.index.not_found.title')
+    .card-body 
+      p = t('debug_files.index.not_found.body_html')
