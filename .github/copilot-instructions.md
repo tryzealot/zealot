@@ -24,7 +24,6 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Cache**: Solid Cache
 - **API**: GraphQL, Active Model Serializers
 - **Background Jobs**: ActiveJob with GoodJob
-- **Testing**: RSpec with Factory Bot
 
 ### Frontend
 
@@ -69,8 +68,7 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 
 - **Framework**: Use Hotwired Stimulus for JavaScript interactions
 - **Turbo**: Leverage Turbo Drive, Frames, and Streams for dynamic updates
-- **Build**: Use esbuild for JavaScript bundling
-- **CSS**: Write Sass/SCSS following Bootstrap 5.3+ conventions
+- **Build**: Use vite for CSS/JavaScript bundling
 - **Indentation**: 2 spaces for JavaScript
 - **Target**: ES2017+ features
 
@@ -84,46 +82,16 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 
 ## Styling
 
-- **AdminLTE** or **Bootstrap** Only:
+- **TailwindCSS** or **DaisyUI** Only:
   - Do not write custom CSS
   - Do not use scoped CSS
   - Do not use inline styles
-  - Always use Bootstrap utility classes
+  - Always use TailwindCSS or DaisyUI utility classes
+  - **Responsive Design**: Ensure components are responsive using Tailwind's responsive utilities
 
 ## Testing Expectations
 
-### RSpec Guidelines
-
-- **Location**: All tests live in `spec/` directory
-- **Factory Bot**: Use factories from `spec/factories/` for test data
-- **Coverage**: Aim for comprehensive test coverage for new features
-- **Test Types**:
-  - **Request specs**: `spec/api/` - API endpoint testing
-  - **Model specs**: Test validations, associations, and business logic
-  - **Controller specs**: Test controller actions and responses
-  - **Service specs**: Test service objects thoroughly
-  - **GraphQL specs**: Test queries and mutations
-
-### Running Tests
-
-```bash
-# Run all tests
-bundle exec rspec
-
-# Run specific test file
-bundle exec rspec spec/path/to/spec_file.rb
-
-# Run tests with specific tag
-bundle exec rspec --tag focus
-```
-
-### Test Requirements
-
-- **Every functional change must include tests**
-- **Update existing tests** when modifying behavior
-- **Mock external services** to avoid network calls in tests
-- **Use let/let!** for test data setup
-- **Follow existing test patterns** in the codebase
+Ignore test files for Copilot suggestions.
 
 ## Build & Validation
 
@@ -155,11 +123,8 @@ bundle exec rails console
 # Install dependencies
 pnpm install
 
-# Build JavaScript
+# Build JavaScript/CSS assets
 pnpm build
-
-# Build CSS
-pnpm build:css
 ```
 
 ### Database Commands
@@ -196,7 +161,6 @@ bundle exec rails db:reset
 
 ### Before Submitting
 
-1. **Run full test suite**: `bundle exec rspec`
 2. **Fix all linting issues**: `bundle exec rubocop`
 3. **Verify migrations**: Test both up and down
 4. **Check for N+1 queries**: Review database query performance
