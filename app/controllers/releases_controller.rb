@@ -78,7 +78,7 @@ class ReleasesController < ApplicationController
       return render :show, status: :unprocessable_entity
     end
 
-    back_url = params[:back_url] || friendly_channel_release_path(@channel, @release)
+    back_url = params[:back_url].presence || friendly_channel_release_path(@channel, @release)
     redirect_to back_url, status: :see_other
   end
 
