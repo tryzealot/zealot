@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 
 module Zealot
   class Application < Rails::Application
-    VERSION = '6.3.0'
+    VERSION = '7.0.0'
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
