@@ -128,6 +128,8 @@ en:
       site_locale: Site Locale
       site_domain: Site domain
       site_appearance: Site Appearance
+      site_light_theme: Site Light Theme
+      site_dark_theme: Site Dark Theme
       presets: Presets
       preset_schemes: Default schemes
       preset_role: Default user role
@@ -1113,6 +1115,8 @@ en:
         register_closed: Close to register now, contact the administrator please.
         register: Register
       edit:
+        change_appearance: Change appearance
+        update_appearance: Update appearance
         change_password: Change password
         update_password: Update password
         api_token: API Token

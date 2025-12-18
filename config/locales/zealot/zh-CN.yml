@@ -126,6 +126,8 @@ zh-CN:
       site_locale: 网站语言
       site_domain: 网站域名
       site_appearance: 网站外观
+      site_light_theme: 明亮主题
+      site_dark_theme: 深色主题
       presets: 预设值
       preset_schemes: 应用类型模板
       preset_role: 新用户权限
@@ -1127,6 +1129,8 @@ zh-CN:
         register_closed: 服务没有开放注册功能！请联系管理员开通账户。
         register: 注册
       edit:
+        change_appearance: 修改外观
+        update_appearance: 更新外观
         change_password: 修改密码
         update_password: 更新密码
         api_token: API 密钥

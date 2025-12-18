@@ -1,12 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "./zealot.js"
+import { Zealot } from "./zealot"
 
 const DRAWER_STATUS_KEY = "zealot-drawer-status"
 const DRAWER_OPEN_VALUE = "open"
 const DRAWER_CLOSED_VALUE = "closed"
 
 export default class extends Controller {
-  static targets = [ "drawer" ]
+  static targets = ["drawer"]
+  
+  static values = {
+    appearance: String,
+    themes: Object
+  }
 
   connect() {
     if (this.isInitialized) { return }
@@ -22,15 +27,35 @@ export default class extends Controller {
   }
 
   switchDarkMode() {
-    const appearance = document.body?.getAttribute("data-theme")
+    const appearance = this.element.getAttribute("data-theme")
     if (!appearance) { return }
 
-    Zealot.log(`Switching to theme: ${appearance}`)
-    this.setGoodJobThemeMode(appearance)
+    this.setZealotThemeMode()
+    this.setGoodJobThemeMode()
   }
 
-  setGoodJobThemeMode(appearance) {
-    localStorage.setItem("good_job-theme", appearance);
+  setZealotThemeMode() {
+    const appearance = this.appearanceValue
+    const lightTheme = this.themesValue.light
+    const darkTheme = this.themesValue.dark
+
+    console.log(this.themesValue)
+
+    Zealot.log(`Switching to theme: ${appearance}, light: ${lightTheme}, dark: ${darkTheme}`)
+
+    if (appearance === "auto") {
+      this.element.setAttribute("data-theme", Zealot.isDarkMode ? darkTheme : lightTheme)
+    } else if (appearance === 'dark') {
+      this.element.setAttribute("data-theme", darkTheme)
+    } else if (appearance === 'light') {
+      this.element.setAttribute("data-theme", lightTheme)
+    } else {
+      console.log("Unknown appearance mode:", appearance)
+    }
+  }
+
+  setGoodJobThemeMode() {
+    localStorage.setItem("good_job-theme", this.appearanceValue)
   }
 
   handleDocumentReady() {
