@@ -6,7 +6,7 @@
         = "#{@exception.class}: #{@exception.message}"
         small.d-badge.ms-2.bg-secondary = t('errors.messages.development_only')
     .card-body.p-0
-      table.table.table-hover.table-bottom-borderless
+      table.d-table.table-hover.table-bottom-borderless
         - @exception.backtrace.each do |link|
           tr
             td = link
