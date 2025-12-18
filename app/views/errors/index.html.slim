@@ -7,7 +7,6 @@ ruby:
 - content_for :section_title do
   = "#{@code} #{@title}"
 
-.row
-  .col-md-12
-    == render "errors/body"
-    == render 'errors/debug'
+.space-y-4
+  == render "errors/body"
+  == render 'errors/debug'
