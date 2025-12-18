@@ -30,10 +30,10 @@ html lang="#{I18n.locale}"
         data-global-target="drawer" 
         data-action="change->global#storeDrawerStatus"
       ]
-      div class="d-drawer-content"
+      div class="d-drawer-content flex flex-col min-h-screen"
         == render 'layouts/navigation'
         == render 'layouts/content'
-        / == render 'layouts/footer'
+        == render 'layouts/footer'
       div class="d-drawer-side d-is-drawer-close:overflow-visible"
         == render 'layouts/sidebar'
 
