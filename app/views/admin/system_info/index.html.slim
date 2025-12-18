@@ -86,10 +86,6 @@
     .card.card-outline class=(@disks.blank? && 'card-error')
       .card-header
         h3.card-title = t('.volume_mounted')
-        / .card-tools
-        /   button.btn.btn-tool data-lte-toggle="card-collapse"
-        /     i.fa-solid.fa-plus data-lte-icon="expand"
-        /     i.fa-solid.fa-minus data-lte-icon="collapse"
       .card-body.py-1
         - unless @disks.blank?
           - @disks.each do |disk|

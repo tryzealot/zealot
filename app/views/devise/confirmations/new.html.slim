@@ -1,21 +1,20 @@
 - content_for :title do
   = t('.title')
 
-.row.my-3
-  .col-md-6.order-12.order-sm-1
-    == render 'devise/shared/intro'
-  .col-md-6.order-1.order-sm-12.mb-4
-    .card
-      .card-header
-        h3.card-title = t('.title')
-      .card-body
-        .row
-          .auth-form.col-md-6
-            = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-              == render "devise/shared/error_messages", resource: resource
-
-              = f.input :email, required: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-              = f.button :submit, t('.resend_confirmation_instructions'), class: 'w-100'
-
-          .auth-providers.col-md-6
-            == render 'devise/shared/links'
+div class="d-section mx-auto max-w-6xl px-4 md:px-6"
+  div class="grid grid-cols-1 md:grid-cols-5 gap-8 my-2"
+    div class="col-span-2 order-2 md:order-1"
+      == render 'devise/shared/intro'
+    div class="col-span-3 order-1 md:order-2"
+      div.d-tabs.d-tabs-box
+        input class="d-tab" type="radio" aria-label=t('.title') checked='checked'
+        div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
+          div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
+            div class="order-1 border-base-200 md:border-r-2 md:pe-4"
+              = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+                = f.input :email, required: true, autofocus: true, \
+                  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), \
+                  input_html: { autocomplete: "email", class: 'form-control' }
+                = f.button :submit, t('.resend_confirmation_instructions'), class: 'd-btn d-btn-primary w-full'
+            div class="order-2"
+              == render 'devise/shared/links'

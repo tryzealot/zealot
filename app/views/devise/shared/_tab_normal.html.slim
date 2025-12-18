@@ -5,7 +5,6 @@ div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
       div class="order-1 border-base-200 md:border-r-2 md:pe-4"
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = hidden_field_tag :tab, 'normal'
-          = f.error_notification
           = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", class: 'form-control' }
           = f.input :password, required: true, input_html: { autocomplete: "current-password" }
           = f.input :remember_me, as: :boolean if devise_mapping.rememberable?

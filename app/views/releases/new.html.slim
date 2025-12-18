@@ -8,11 +8,9 @@
   = button_link_to '', friendly_channel_overview_path(@channel), 'list-alt', class: 'd-btn d-tooltip', \
     base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
-.row
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title
-          = @title
-      .card-body
-        == render 'form'
+.card
+  .card-header
+    h3.card-title
+      = @title
+  .card-body
+    == render 'form'
