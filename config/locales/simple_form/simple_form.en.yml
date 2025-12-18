@@ -22,6 +22,8 @@ en:
         password_confirmation: Password confirmation
         locale: Language
         appearance: Appearance
+        light_theme: Light theme
+        dark_theme: Dark theme
         timezone: Time Zone
         role: Role
         remember_me: Remember me

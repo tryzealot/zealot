@@ -40,7 +40,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  DEVISE_PERMITTED_PARAMTERS = %i[username email password password_confirmation remember_me locale appearance timezone]
+  DEVISE_PERMITTED_PARAMTERS = %i[
+    username email password password_confirmation remember_me 
+    locale appearance timezone light_theme dark_theme
+  ]
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit :sign_up, keys: DEVISE_PERMITTED_PARAMTERS
     devise_parameter_sanitizer.permit :account_update, keys: DEVISE_PERMITTED_PARAMTERS

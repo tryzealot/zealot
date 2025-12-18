@@ -21,7 +21,9 @@ zh-CN:
         password: 登录密码
         password_confirmation: 密码确认
         locale: 语言
-        appearance: 外观
+        appearance: 外观主题
+        light_theme: 明亮配色
+        dark_theme: 深色配色
         timezone: 时区
         role: 账户权限
         remember_me: 记住登录信息

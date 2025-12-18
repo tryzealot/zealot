@@ -9,6 +9,23 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     Setting.site_title
   end
 
+  def site_themes
+    {
+      light: current_user&.light_theme || Setting.site_light_theme,
+      dark: current_user&.dark_theme || Setting.site_dark_theme
+    }.to_json
+  end
+
+  def active_theme
+    return current_user.light_theme if current_user&.appearance == 'light'
+    return current_user.dark_theme if current_user&.appearance == 'dark'
+
+    return Setting.site_light_theme if Setting.site_appearance == 'light'
+    return Setting.site_dark_theme if Setting.site_appearance == 'dark'
+
+    'auto'
+  end
+
   def active_appearance
     current_user&.appearance || Setting.site_appearance
   end

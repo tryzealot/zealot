@@ -17,7 +17,12 @@ html lang="#{I18n.locale}"
     == action_cable_meta_tag
     == csrf_meta_tags
 
-  body data-theme=active_appearance data-controller="global"
+  body[
+    data-theme=active_theme
+    data-controller="global"
+    data-global-appearance-value=active_appearance
+    data-global-themes-value=site_themes
+  ]
     .d-drawer.md:d-drawer-open data-controller="global"
       input#zealot-drawer.d-drawer-toggle[
         type="checkbox" 
