@@ -12,7 +12,7 @@
   = simple_form_for(@web_hook, url: admin_web_hook_path(@web_hook)) do |f|
     .card-body
       = f.input :url
-      = f.input :body
+      = f.input :body, input_html: { rows: 18, cols: 10 }
       = f.input :upload_events, as: :boolean
       = f.input :download_events, as: :boolean
       = f.input :changelog_events, as: :boolean
