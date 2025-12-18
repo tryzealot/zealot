@@ -5,8 +5,8 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  = icon_link_to('fa-regular fa-list-alt', admin_users_path, text: t('links.back_to_list'), \
-    link: { class: 'd-btn', data: { turbo_frame: '_top' } })
+  = button_link_to '', admin_users_path, 'list-alt', class: 'd-join-item d-btn d-tooltip', \
+    base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
 = turbo_frame_tag @user do
   .grid.grid-cols-1.md:grid-cols-2.gap-4
