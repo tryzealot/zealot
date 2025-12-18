@@ -185,18 +185,14 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def powered_by
-    content_tag :span, class: 'powered_by' do
-      link_to 'Powered by Zealot', 'https://zealot.ews.im'
-    end
+    safe_join([
+      'Powered by', 
+      link_to('Zealot', 'https://zealot.ews.im')
+    ], ' ')
   end
 
   def zealot_version
-    content_tag :span, class: 'version ms-1' do
-      prefix = 'Version'
-      version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
-
-      raw "#{prefix} #{version_link}"
-    end
+    link_to Setting.version_info(suffix: true), Setting.repo_url
   end
 
   def show_api
