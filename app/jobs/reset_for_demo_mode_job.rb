@@ -4,13 +4,14 @@ class ResetForDemoModeJob < ApplicationJob
   queue_as :schedule
 
   discard_on GoodJob::Job::ActionForStateMismatchError
+  discard_on GoodJob::AdvisoryLockable::RecordAlreadyAdvisoryLockedError
 
   def perform
     return unless demo_mode?
 
     clean_app_data
     init_demo_data
-    # reset_jobs
+    reset_jobs
 
     # Clear cache
     SolidCache::Entry.clear_delete
@@ -28,6 +29,7 @@ class ResetForDemoModeJob < ApplicationJob
     Metadatum.destroy_all
     DebugFile.destroy_all
     App.destroy_all
+    Device.destroy_all
 
     # Admin
     Setting.destroy_all
@@ -52,6 +54,7 @@ class ResetForDemoModeJob < ApplicationJob
 
   def reset_jobs
     GoodJob::Job.all.each do |job|
+      # Skip current job
       next if job.job_class == self.class.name
 
       job.destroy_job

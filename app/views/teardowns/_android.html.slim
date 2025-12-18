@@ -9,12 +9,12 @@ ruby:
   .card.mb-3
     .card-header
       h3.card-title
-        i.icon.fab.fa-android.text-success
+        i.icon.fa-brands.fa-android.text-success
         = t('teardowns.show.metadata')
       .card-tools
         button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fas.fa-plus data-lte-icon="expand"
-          i.fas.fa-minus data-lte-icon="collapse"
+          i.fa-solid.fa-plus data-lte-icon="expand"
+          i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.ps-2.pe-2.p-0
       dl.system-info.pb-0
         dt = t('teardowns.show.app_name')
@@ -30,7 +30,7 @@ ruby:
           = t('teardowns.show.native_codes')
         dd
           pre
-            = @metadata.native_codes.join(', ')
+            = @metadata.native_codes.empty? ? '-' : @metadata.native_codes.join(', ')
         dt
           = t('teardowns.show.supported_device')
         dd
@@ -66,4 +66,3 @@ ruby:
   == render 'card', title: t('teardowns.show.features', count: @metadata.features.size), raw: @metadata.features
   == render 'card', title: t('teardowns.show.permissions', count: @metadata.permissions.size), raw: @metadata.permissions
   == render 'card', title: t('teardowns.show.services', count: @metadata.services.size), raw: @metadata.services
-  == render 'destroy', md: @metadata

@@ -26,7 +26,7 @@ class CollaboratorsController < ApplicationController
     return render :new, status: :unprocessable_entity unless @collaborator.save
 
     key = "#{@collaborator.user.username} #{t('collaborators.default.title')}"
-    flash.now.notice = t('activerecord.success.create', key: key)
+    flash.now[:notice] = t('activerecord.success.create', key: key)
     respond_to do |format|
       format.html { redirect_to @app }
       format.turbo_stream
@@ -46,7 +46,7 @@ class CollaboratorsController < ApplicationController
     return render :edit, status: :unprocessable_entity unless @collaborator.update(collaborator_params)
 
     notice = t('activerecord.success.update', key: t('collaborators.default.title'))
-    flash.now.notice = notice
+    flash.now[:notice] = notice
     respond_to do |format|
       format.html { redirect_to @app }
       format.turbo_stream
@@ -61,7 +61,7 @@ class CollaboratorsController < ApplicationController
     @collaborator.destroy!
 
     notice = t('activerecord.success.destroy', key: t('collaborators.default.title'))
-    flash.now.notice = notice
+    flash.now[:notice] = notice
     respond_to do |format|
       format.html { redirect_to app }
       format.turbo_stream

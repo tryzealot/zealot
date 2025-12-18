@@ -19,7 +19,8 @@
           }
         },
         "rubyLsp.rubyVersionManager": {
-          "identifier": "auto"
+          "identifier": "mise",
+          "formatter": "auto"
         },
         "dev.containers.mountWaylandSocket": false
       },
@@ -27,7 +28,7 @@
         "Shopify.ruby-lsp",
         "KoichiSasada.vscode-rdbg",
         "kaiwood.endwise",
-        "sianglim.slim",
+        "borama.ruby-slim",
         "eamodio.gitlens",
         "bung87.rails",
         "bung87.vscode-gemfile",
@@ -35,6 +36,7 @@
         "formulahendry.auto-complete-tag",
         "AndrewButson.vscode-openapi-viewer",
         "eamodio.gitlens",
+        "esbenp.prettier-vscode",
         "tompollak.lazygit-vscode"
       ]
     }

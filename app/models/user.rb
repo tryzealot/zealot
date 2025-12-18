@@ -7,19 +7,19 @@ class User < ApplicationRecord
   include UserRoles
 
   extend UserOmniauth
-  devise :database_authenticatable, :registerable, :confirmable,
-         :rememberable, :trackable, :validatable, :recoverable, :lockable,
-         :omniauthable, omniauth_providers: PROVIDERS
+  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :trackable, 
+         :validatable, :recoverable, :lockable, :magic_link_authenticatable, 
+         :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect github gitea].freeze
 
   enum :role, %i[member developer admin]
   enum :locale, enum_roles
   enum :appearance, enum_appearances
   enum :timezone, enum_timezones
 
-  has_and_belongs_to_many :apps, dependent: :destroy
+  has_and_belongs_to_many :apps
   has_many :collaborators, dependent: :destroy
   has_many :metadatum, dependent: :destroy
-  has_many :providers, dependent: :destroy, class_name: 'UserProvider'
+  has_many :providers, class_name: 'UserProvider', dependent: :destroy
 
   scope :avaiables, -> (id) { where.not(id: id) }
 

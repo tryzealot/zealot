@@ -4,10 +4,11 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+// Custom font family
 $font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
+// Extend color utilities to include all colors
 $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
-
 $utilities: map-merge(
   $utilities,
   (

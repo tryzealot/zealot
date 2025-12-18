@@ -190,7 +190,7 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.release_custom_field.description'),
             type: :object,
             properties: {
-              icon: { type: :string, example: 'fas fa-flag' },
+              icon: { type: :string, example: 'fa-solid fa-flag' },
               name: { type: :string, example: 'Country' },
               value: { type: :string, example: 'China' },
             }
@@ -376,21 +376,6 @@ RSpec.configure do |config|
             git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
             password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') },
             download_filename_type: { type: :string, enum: Channel.download_filename_types.keys, description: I18n.t('api.definitions.channel_options.properties.download_filename_type') }
-          }
-        },
-        ReleaseOptions: {
-          description: I18n.t('api.definitions.release_options.description'),
-          type: :object,
-          properties: {
-            build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
-            release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
-            release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
-            source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
-            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
-            branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
-            git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
-            ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
-            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
           }
         },
         ReleaseOptions: {

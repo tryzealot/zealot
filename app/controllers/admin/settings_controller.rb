@@ -28,11 +28,13 @@ class Admin::SettingsController < ApplicationController
       @setting.value = @value
       return render :edit, status: :unprocessable_entity unless @setting.save
 
-      message = t('activerecord.success.update', key: t("admin.settings.#{@setting.var}"))
-      flash.now.notice = message
+      key = @setting.params[:restart_required] ? 
+        'activerecord.success.update_and_restart' : 'activerecord.success.update'
+      message = t(key, key: t("admin.settings.#{@setting.var}"))
+      flash.now[:notice] = message
     else
       message = t('activerecord.errors.messages.same_value', key: t("admin.settings.#{@setting.var}"))
-      flash.now.alert = message
+      flash.now[:alert] = message
     end
 
     respond_to do |format|
@@ -49,8 +51,10 @@ class Admin::SettingsController < ApplicationController
     authorize @setting
     @setting.destroy
 
-    message = t('activerecord.success.destroy', key: t("admin.settings.#{@setting.var}"))
-    flash.now.notice = message
+    key = @setting.params[:restart_required] ? 
+        'activerecord.success.reset_and_restart' : 'activerecord.success.reset'
+    message = t(key, key: t("admin.settings.#{@setting.var}"))
+    flash.now[:notice] = message
     respond_to do |format|
       format.html { admin_settings_path }
       format.turbo_stream
@@ -74,7 +78,7 @@ class Admin::SettingsController < ApplicationController
 
   def verify_editable_setting
     readonly = @setting.readonly? === true
-    demo_guest_with_secure_key = @setting.value.is_a?(Hash) && helpers.secure_key?(@setting.value)
+    demo_guest_with_secure_key = helpers.secure_key?(@setting.value)
     if readonly || demo_guest_with_secure_key
       raise Pundit::NotAuthorizedError.new({ query: :edit, record: @setting})
     end

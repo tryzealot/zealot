@@ -19,8 +19,8 @@ class Release < ApplicationRecord
   validates :file, presence: true, on: :create
   validate :bundle_id_matched, on: :create
   validate :determine_file_exist, on: :create
-  validate :determine_disk_space, on: :create
 
+  before_validation :determine_disk_space
   before_create :auto_release_version
   before_create :default_source
   before_create :detect_device
@@ -288,10 +288,13 @@ class Release < ApplicationRecord
 
   def determine_disk_space
     upload_path = Sys::Filesystem.stat(Rails.root.join('public/uploads'))
+    disk_free_size = upload_path.bytes_free
+    file_size = self&.file&.size || 0
 
-    # Combo original file and unarchived files
-    if upload_path.bytes_free < (self&.file&.size || 0) * 3
-      errors.add(:file, :not_enough_space)
+    if disk_free_size <= file_size
+      disk_free_human = ActiveSupport::NumberHelper.number_to_human_size(disk_free_size)
+      file_size_human = ActiveSupport::NumberHelper.number_to_human_size(file_size)
+      errors.add(:file, :not_enough_space, disk_free: disk_free_human, file_size: file_size_human)
     end
   rescue
     # do nothing

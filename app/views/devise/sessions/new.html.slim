@@ -9,9 +9,11 @@
       .card-header
         ul.nav.nav-pills role="tablist"
           == render 'devise/shared/tab_normal'
+          == render 'devise/shared/tab_passwordless'
           == render 'devise/shared/tab_ldap'
 
       .card-body
         #login-box-tabs.tab-content
           == render 'devise/shared/form_normal'
+          == render 'devise/shared/form_passwordless'
           == render 'devise/shared/form_ldap'

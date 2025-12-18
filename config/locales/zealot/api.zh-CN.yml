@@ -9,11 +9,11 @@ zh-CN:
         - [Postman](https://www.postman.com/downloads/)
         - 任意浏览器，如果你不需要设置 headers 或请求主体
 
-        准备好工具，你可以通过 `GET` 请求 {host}/version 可看到 Zealot 版本信息：
+        准备好工具，你可以通过 `GET` 请求 {host}/api/version 可看到 Zealot 版本信息：
 
         ```json
         {
-          "version": "6.0.0",
+          "version": "6.2.0",
           "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
           "build_date": "2024-05-23T06:04:48.989Z"
         }
@@ -91,7 +91,7 @@ zh-CN:
         description: 用户密钥认证失败
       not_found:
         default: 资源未找到
-        description: '%{model}未找到'
+        description: "%{model}未找到"
       destroyed:
         default: 资源已被删除
     definitions:
@@ -367,7 +367,7 @@ zh-CN:
           show: 版本信息
       show:
         title: 获取版本信息
-        description: ''
+        description: ""
     health:
       default:
         tags: 健康检查
@@ -376,5 +376,4 @@ zh-CN:
       show:
         title: 获取健康检查结果
         titleJson: 获取 JSON 格式健康检查结果
-        description: ''
-
+        description: ""

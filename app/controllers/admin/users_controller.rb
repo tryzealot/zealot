@@ -20,7 +20,7 @@ class Admin::UsersController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @user.save
 
-    flash.now.notice = t('activerecord.success.create', key: t('admin.users.title'))
+    flash.now[:notice] = t('activerecord.success.create', key: t('admin.users.title'))
     respond_to do |format|
       format.html { redirect_to admin_users_path }
       format.turbo_stream
@@ -46,7 +46,7 @@ class Admin::UsersController < ApplicationController
     params.delete(:password) if params[:password].blank?
     return render :edit, status: :unprocessable_entity unless @user.update(params)
 
-    flash.now.notice = t('activerecord.success.update', key: t('admin.users.title'))
+    flash.now[:notice] = t('activerecord.success.update', key: t('admin.users.title'))
     respond_to do |format|
       format.html { redirect_to edit_admin_user_path(@user) }
       format.turbo_stream
@@ -63,7 +63,7 @@ class Admin::UsersController < ApplicationController
     @user.destroy
 
     notice = t('activerecord.success.destroy', key: t('admin.users.title'))
-    flash.now.notice = notice
+    flash.now[:notice] = notice
     respond_to do |format|
       format.html { redirect_to admin_users_path }
       format.turbo_stream
@@ -72,7 +72,7 @@ class Admin::UsersController < ApplicationController
 
   def lock
     @user.lock_access!(send_instructions: false)
-    flash.now.notice = t('.message', user: @user.username)
+    flash.now[:notice] = t('.message', user: @user.username)
     respond_to do |format|
       format.html { redirect_to edit_admin_user_path(@user) }
       format.turbo_stream
@@ -81,7 +81,7 @@ class Admin::UsersController < ApplicationController
 
   def unlock
     @user.unlock_access!
-    flash.now.notice = t('.message', user: @user.username)
+    flash.now[:notice] = t('.message', user: @user.username)
     respond_to do |format|
       format.html { redirect_to edit_admin_user_path(@user) }
       format.turbo_stream
@@ -90,7 +90,7 @@ class Admin::UsersController < ApplicationController
 
   def resend_confirmation
     @user.send_confirmation_instructions
-    flash.now.notice = t('.message', user: @user.username)
+    flash.now[:notice] = t('.message', user: @user.username)
     # respond_to do |format|
     #   format.html { redirect_to admin_user_path(@user) }
     #   format.turbo_stream

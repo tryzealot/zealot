@@ -1,40 +1,30 @@
 ruby:
   value = params[:value]
   display_value = display_value(key, value)
+  readonly = params[:readonly] || secure_key?(value)
+  is_mailer = (key == 'mailer_options')
+  show_mailer_method = is_mailer && Rails.env.development?
 
 = turbo_frame_tag "setting_#{key}" do
   dl.system-info
-    dt 
+    dt
       = t("admin.settings.#{key}")
-      - if params[:restart_required]
-        small.ps-2
-          | (
-          = t('admin.settings.index.restart_required')
-          | )
+      - if is_mailer
+        .float-end
+          button.badge.border-0.bg-primary[
+            data-controller="admin-smtp-verify"
+            data-admin-smtp-verify-inprocess-value="#{t('admin.settings.index.smtp_verify_inprocess')}"
+            data-admin-smtp-verify-success-value="#{t('admin.settings.index.smtp_verify_success')}"
+            data-admin-smtp-verify-failed-value="#{t('admin.settings.index.smtp_verify_failed')}"
+            data-action="admin-smtp-verify#run"
+          ] = t('admin.settings.index.smtp_verify')
     dd
-      - if params[:readonly] || (value.is_a?(Hash) && secure_key?(value))
-        pre.disabled.mb-2
-          - if key == 'mailer_options' && value.present?
-            .float-right
-              button.btn.btn-sm.bg-primary[
-                data-controller="admin-smtp-verify"
-                data-admin-smtp-verify-inprocess-value="#{t('admin.settings.index.smtp_verify_inprocess')}"
-                data-admin-smtp-verify-success-value="#{t('admin.settings.index.smtp_verify_success')}"
-                data-admin-smtp-verify-failed-value="#{t('admin.settings.index.smtp_verify_failed')}"
-                data-action="admin-smtp-verify#run"
-              ] = t('admin.settings.index.smtp_verify')
-          == render 'switch_icon', value: value
-          - if key == 'mailer_options' && Rails.env.development?
-            = Setting.mailer_method
-          - else
-            = display_value
-      - else
-        pre.mb-2
-          == render 'switch_icon', value: value
+      pre.mb-2 class="#{readonly && 'disabled'}"
+        == render 'switch_icon', value: value
+        - if readonly
+          = show_mailer_method ? Setting.mailer_method : display_value
+        - else
           = link_to display_value, edit_admin_setting_path(key), data: { turbo_frame: :modal }
-          - if key == 'mailer_options'
-            span.float-end
-              = button_to 'Verify', admin_service_smtp_test_path, class: 'btn btn-sm btn-outline-primary'
 
       - if hint = t("admin.settings.#{key}_hint", default: nil)
-        small.form-text.text-muted = hint
+        p.form-text.text-muted.px-1.mb-0 = hint

@@ -55,22 +55,6 @@ shared_examples :request_body do |ref, **options|
   }
 end
 
-# workaround to request both form data and json of body
-# ref: https://github.com/rswag/rswag/issues/528#issuecomment-1929012414
-shared_examples :request_body do |ref, **options|
-  metadata[:operation][:requestBody] = {
-    required: true,
-    content: {
-      'application/json': {
-        schema: { '$ref': ref }
-      },
-      'multipart/form-data': {
-        schema: { '$ref': ref }
-      }
-    }
-  }
-end
-
 shared_examples :request_form_body do |ref, **options|
   consumes 'multipart/form-data'
   parameter name: :body, in: :body, schema: { '$ref': ref }, **options

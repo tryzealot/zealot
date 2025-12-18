@@ -2,22 +2,22 @@
   .card.mb-3
     .card-header
       h3.card-title
-        i.icon.fas.fa-history
+        i.icon.fa-solid.fa-history
         = t('releases.show.last_ten_uploads')
       .card-tools
         button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fas.fa-plus data-lte-icon="expand"
-          i.fas.fa-minus data-lte-icon="collapse"
+          i.fa-solid.fa-plus data-lte-icon="expand"
+          i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.pb-0
       .timeline
         - recently_releases.each do |release|
           ruby:
             is_current = current_release == release
           div
-            i.timeline-icon.fa-circle class="#{is_current ? 'fas' : 'far'}"
+            i.timeline-icon.fa-circle class="#{is_current ? 'fa-solid' : 'fa-regular'}"
             .timeline-item
               span.time data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-title="#{l(release.created_at, format: :nice)}"
-                i.icon.fas.fa-clock
+                i.icon.fa-solid.fa-clock
                 = time_ago_in_words(release.created_at)
               h3.timeline-header
                 = link_to release.app_name, friendly_channel_release_path(release.channel, release), class: 'pe-1', data: { turbo_frame: :release, turbo_action: :advance }
@@ -48,7 +48,7 @@
                       - else
                         = release.short_git_commit
         div
-          i.timeline-icon.fas.fa-clock
+          i.timeline-icon.fa-solid.fa-clock
 
     - if user_signed_in_or_guest_mode?
       ruby:
@@ -56,4 +56,4 @@
 
       .card-footer.d-grid.p-1
         a.btn.w-100.btn-flat.text-primary href="#{channel_path}" data-turbo="false"
-          = t('releases.show.more')
+          = t('releases.show.view_more')

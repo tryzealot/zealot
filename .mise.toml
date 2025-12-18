@@ -1,5 +1,5 @@
 [tools]
-ruby="3.3.8"
+ruby="3.4.7"
 nodejs="22.15.1"
 
 [tasks.web]
@@ -16,11 +16,11 @@ run = "bin/good_job start 2>&1 | tee -a log/worker.log"
 
 [tasks.js]
 description = "Running Javascript compiler server"
-run = "yarn build --watch"
+run = "pnpm build --watch"
 
 [tasks.css]
 description = "Running CSS compiler watcher"
-run = "yarn build:css --watch"
+run = "pnpm build:css --watch"
 
 [tasks.caddy]
 description = "Running Caddy server"

@@ -34,7 +34,7 @@ class Admin::BackupsController < ApplicationController
     end
 
     @backup.perform_job(current_user.id)
-    redirect_back_or_to admin_backups_path, notice: t('.success')
+    redirect_back_or_to admin_backups_path, notice: t('.success', key: @backup.key)
   end
 
   def download_archive
@@ -47,12 +47,12 @@ class Admin::BackupsController < ApplicationController
 
   def destroy_archive
     @backup.destroy_directory(params[:key])
-    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
+    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success', key: @backup.key)
   end
 
   def cancel_job
     @backup.remove_background_jobs(params[:job_id])
-    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success')
+    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success', key: @backup.key)
   end
 
   def new
