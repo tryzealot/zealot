@@ -551,16 +551,16 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
-      main_target: "Main target: %{value}"
+      main_target: Main target
       arch: Architecture
       target: Target
       uuid: UUID
       libraries:
-        one: Library (%{count})
-        other: Libraries (%{count})
+        one: Library
+        other: Libraries
       files:
-        one: File (%{count})
-        other: Files (%{count})
+        one: File
+        other: Files
     device:
       title: "%{app} %{device} Debug file"
       number: "#%{value}"

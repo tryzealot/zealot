@@ -1,37 +1,40 @@
 ruby:
   bundle_id = debug_file.main_object.data['identifier']
-.col-md-12
-  .card.mb-3
-    .card-header
-      h3.card-title = t('debug_files.show.main_target', value: debug_file.main_object.object)
-    .card-body.p-0
-      table.table.table-bottom-borderless
-        thead
+
+.card.mb-3
+  .card-header
+    h3.card-title 
+      = t('debug_files.show.main_target')
+      .d-badge.d-badge-ghost = debug_file.main_object.object
+  .card-body.p-0
+    table.d-table
+      thead
+        tr
+          td = t('debug_files.show.arch')
+          td = t('debug_files.show.uuid')
+      tbody
+        - debug_file.main_objects.each do |metadata|
           tr
-            td = t('debug_files.show.arch')
-            td = t('debug_files.show.uuid')
-        tbody
-          - debug_file.main_objects.each do |metadata|
-            tr
-              td
-                span.d-badge.text-bg-secondary = metadata.type
-              td = metadata.uuid
+            td
+              .d-badge.d-badge-sm.d-badge-primary = metadata.type
+            td = metadata.uuid
 
 - if debug_file.libraries.present?
-  .col-md-12
-    .card.mb-3
-      .card-header
-        h3.card-title = t('debug_files.show.libraries', count: debug_file.libraries.count)
-      .card-body.p-0
-        table.table.table-bottom-borderless
-          thead
+  .card.mb-3
+    .card-header
+      h3.card-title 
+        = t('debug_files.show.libraries', count: debug_file.libraries.count)
+        .d-badge.d-badge-ghost = debug_file.libraries.count
+    .card-body.p-0
+      table.d-table
+        thead
+          tr
+            td = t('debug_files.show.target', count: debug_file.libraries.count)
+            td = t('debug_files.show.uuid')
+        tbody
+          - debug_file.libraries.each do |metadata|
             tr
-              td = t('debug_files.show.target', count: debug_file.libraries.count)
-              td.col-md-5 = t('debug_files.show.uuid')
-          tbody
-            - debug_file.libraries.each do |metadata|
-              tr
-                td
-                  = metadata.data['identifier']
-                  span.d-badge.text-bg-secondary.ms-1 = metadata.type
-                td = metadata.uuid
+              td
+                = metadata.data['identifier']
+                .d-badge.d-badge-sm.d-badge-primary.ml-1 = metadata.type
+              td = metadata.uuid

@@ -544,12 +544,12 @@ zh-CN:
       missing_file: 调试文件遗失
       download: 下载
       reprocess: 重新解析
-      main_target: "主项目: %{value}"
+      main_target: 主项目
       arch: 架构
       target: 名称
       uuid: UUID
-      libraries: 库 (%{count})
-      files: 文件 (%{count})
+      libraries: 库
+      files: 文件
     device:
       title: "%{app} %{device} 调试文件"
       number: "#%{value}"
