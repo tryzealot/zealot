@@ -38,7 +38,8 @@ ruby:
     .card.card-outline.card-warning
       .card-header.card-border
         h3.card-title = t('.not_found.title')
-      .card-body = t('.not_found.body_html')
+      .card-body 
+        p = t('.not_found.body_html')
 
   == render 'help'
 
