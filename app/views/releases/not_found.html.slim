@@ -1,19 +1,16 @@
 - content_for :title do
   = @title
 
-.row
-  .col-md-12
-    .card.card-danger
-      .card-header
-        h3.card-title
-          i.fa-solid.fa-cloud-rain
-          = @title
-      .card-body
-        ul.mb-0.px-3
-          li = t('releases.messages.errors.deleted_manually')
-          li = t('releases.messages.errors.deleted_programly')
-          li = t('releases.messages.errors.not_found_really')
-      - if @link_href && @link_title
-        .card-footer.p-0
-          a.btn.btn-outline-danger.rounded-0.rounded-bottom.w-100 href="#{@link_href}"
-            = @link_title
+.card.card-outline.card-error
+  .card-header
+    h3.card-title
+      i.fa-solid.fa-cloud-rain
+      = @title
+  .card-body
+    ul.list-disc.list-inside
+      li = t('releases.messages.errors.deleted_manually')
+      li = t('releases.messages.errors.deleted_programly')
+      li = t('releases.messages.errors.not_found_really')
+  - if @link_href && @link_title
+    .card-footer.p-0
+      = link_to @link_title, @link_href, class: 'd-btn text-error w-full'
