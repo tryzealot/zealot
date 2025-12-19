@@ -28,8 +28,10 @@ ruby:
     .card-body
       = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_appearance }) do |f|
         = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
-        = f.input :light_theme, as: :select, collection: User.options_light_themes, include_blank: false
-        = f.input :dark_theme, as: :select, collection: User.options_dark_themes, include_blank: false
+
+        .flex.flex-row.gap-4
+          = f.input :light_theme, as: :theme_select, collection: User.options_light_themes, include_blank: false, wrapper_html: { class: 'w-full' }
+          = f.input :dark_theme, as: :theme_select, collection: User.options_dark_themes, include_blank: false, wrapper_html: { class: 'w-full' }
 
         = f.button :submit, t('.update_appearance')
 

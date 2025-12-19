@@ -41,7 +41,6 @@ module SettingHelper
         cyberpunk
         valentine
         garden
-        aqua
         lofi
         pastel
         fantasy
@@ -63,6 +62,7 @@ module SettingHelper
         synthwave
         halloween
         forest
+        aqua
         black
         luxury
         dracula

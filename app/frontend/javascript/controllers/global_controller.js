@@ -26,6 +26,15 @@ export default class extends Controller {
     this.isInitialized = true
   }
 
+  previewTheme(event) {
+    const theme = event.target.value
+    Zealot.log("Previewing theme:", theme)
+    if (theme) {
+      document.documentElement.setAttribute("data-theme", theme)
+      document.body.setAttribute("data-theme", theme)
+    }
+  }
+
   switchAppearanceMode() {
     const appearance = this.element.getAttribute("data-theme")
     if (!appearance) { return }
