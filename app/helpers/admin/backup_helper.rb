@@ -28,15 +28,16 @@ module Admin::BackupHelper
 
   def job_icon(status)
     case status
-    when :scheduled, :running
-      tag.div(
-        tag.span('Processing', class: 'visually-hidden'), 
-        class: 'd-loading d-loading-bars d-loading-sm text-primary mr-1'
-      )
     when :discarded, :retried
       tag.i(class: 'fa-solid fa-exclamation-circle text-error mr-1')
     when :succeeded
       tag.i(class: 'fa-solid fa-check-circle text-success mr-1')
+    else
+      # :scheduled, :running
+      tag.div(
+        tag.span('Processing', class: 'visually-hidden'), 
+        class: 'd-loading d-loading-bars d-loading-sm text-primary mr-1'
+      )
     end
   end
 
