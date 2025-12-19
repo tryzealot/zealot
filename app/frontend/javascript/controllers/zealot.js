@@ -15,8 +15,8 @@ const Zealot = {
   }
 }
 
-// if (typeof window !== "undefined") {
-//   window.Zealot = Zealot
-// }
+if (typeof window !== "undefined") {
+  window.Zealot = Zealot
+}
 
 export { Zealot }

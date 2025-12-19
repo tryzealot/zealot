@@ -1,5 +1,5 @@
 doctype html
-html lang="#{I18n.locale}"
+html lang="#{I18n.locale}" data-theme=active_theme
   head
     title = page_title(yield :title)
     meta[charset="utf-8"]
@@ -18,12 +18,11 @@ html lang="#{I18n.locale}"
     == csrf_meta_tags
 
   body[
-    data-theme=active_theme
     data-controller="global"
     data-global-appearance-value=active_appearance
     data-global-themes-value=site_themes
   ]
-    .d-drawer.md:d-drawer-open data-controller="global"
+    .d-drawer.md:d-drawer-open
       input#zealot-drawer.d-drawer-toggle[
         type="checkbox" 
         checked=drawer_status
