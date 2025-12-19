@@ -24,12 +24,12 @@ class TeardownJob < ApplicationJob
     return if release_id.blank?
 
     metadata.update_attribute(:release_id, release_id)
-    release = release(id: release_id)
+    release = fetch_release(id: release_id)
     release.update(release_type: metadata.release_type) if release.release_type.blank?
   end
 
   def determine_file!(release_id)
-    release = release(id: release_id)
+    release = fetch_release(id: release_id)
     file = release&.file.file
     unless file && File.exist?(file.path)
       logger.error('File was not found, it had been clean or deleted')
@@ -39,7 +39,7 @@ class TeardownJob < ApplicationJob
     file
   end
 
-  def release(id: release_id)
+  def fetch_release(id:)
     @release ||= Release.find(id)
   end
 end

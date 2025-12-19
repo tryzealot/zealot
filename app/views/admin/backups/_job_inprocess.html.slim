@@ -1,11 +1,13 @@
+= turbo_stream_from current_user, :inprocessing_jobs
+
 - if @performing_jobs.present?
-  .card
+  #inprogress_jobs.card
     .card-header
       h3.card-title = t('admin.backups.show.performing_jobs')
     .card-body.p-0.gap-0
       div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
-        div class="col-span-6" = t('admin.backups.show.backup_id')
-        div class="col-span-3" = t('admin.backups.show.backup_status')
-        div class="hidden md:table-cell col-span-3"
+        div class="col-span-4" = t('admin.backups.show.backup_id')
+        div class="col-span-6" = t('admin.backups.show.backup_status')
+        div class="hidden md:table-cell col-span-2"
       - performing_jobs.each do |job|
         == render 'job', backup: backup, job: job

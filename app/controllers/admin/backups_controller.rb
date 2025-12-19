@@ -34,7 +34,8 @@ class Admin::BackupsController < ApplicationController
     end
 
     @backup.perform_job(current_user.id)
-    redirect_back_or_to admin_backups_path, notice: t('.success', key: @backup.key)
+    flash.now[:notice] = t('.success', key: @backup.key)
+    redirect_back_or_to admin_backups_path
   end
 
   def download_archive
@@ -51,8 +52,14 @@ class Admin::BackupsController < ApplicationController
   end
 
   def cancel_job
-    @backup.remove_background_jobs(params[:job_id])
-    redirect_to admin_backup_path(@backup), status: :see_other, notice: t('.success', key: @backup.key)
+    @job = GoodJob::Job.find(params[:job_id])
+    @backup.remove_background_jobs(@job.id)
+
+    flash.now[:notice] = t('.success', key: @backup.key)
+    respond_to do |format|
+      format.html { redirect_to admin_backup_path(@backup), status: :see_other }
+      format.turbo_stream
+    end
   end
 
   def new

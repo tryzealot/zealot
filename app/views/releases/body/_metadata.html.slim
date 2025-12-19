@@ -1,4 +1,6 @@
-.app-detail.card
+- tag_name = dom_id(release, :metadata)
+= turbo_stream_from current_user, tag_name
+= turbo_frame_tag tag_name, class: 'app-detail card' do
   .card-header
     h3.card-title class="flex items-center gap-2"
       div 

@@ -1,31 +1,52 @@
+= turbo_stream_from current_user, :completed_jobs
+
 - if backup_files.present?
   .card.backup
     .card-header
       h3.card-title = t('admin.backups.show.backup_files')
     .card-body.p-0.gap-0
-      table.d-table
-        thead
-          tr
-            th = t('admin.backups.show.filename')
-            th = t('admin.backups.show.size')
-            th = t('admin.backups.show.created_at')
-            th = t('admin.backups.show.sha256')
-            th
-        tbody
-          - backup_files.each do |file|
+      // Desktop/tablet: show table on md and up
+      .hidden.md:block
+        table.d-table.w-full.min-w-full
+          thead
             tr
-              td
-                i.fa-solid.fa-check-circle.text-success.me-2
-                = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename)
-              td = number_to_human_size(file.size)
-              td
-                .d-tooltip data-tip=l(file.created_at, format: :nice)  
+              th = t('admin.backups.show.filename')
+              th = t('admin.backups.show.size')
+              th = t('admin.backups.show.created_at')
+              th = t('admin.backups.show.sha256')
+              th
+          tbody
+            - backup_files.each do |file|
+              tr
+                td.break-words
+                  i.fa-solid.fa-check-circle.text-success.me-2
+                  = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename), class: 'break-words'
+                td = number_to_human_size(file.size)
+                td
+                  .d-tooltip data-tip=l(file.created_at, format: :nice)
+                    = time_ago_in_words(file.created_at)
+                td.text-xs.opacity-65.break-all.max-w-[28rem] = file.sha256
+                td.text-right
+                  = button_link_to '', archive_admin_backup_path(backup, key: file.basename), 'trash-alt', \
+                    class: 'd-btn d-btn-sm text-error d-tooltip destroy-backup', \
+                    data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), tip: t('modals.buttons.destroy') }
+
+      // Mobile: stacked cards (grid) for md and below
+      ul.d-list.md:hidden
+        - backup_files.each do |file|
+          li.d-list-row
+            div
+              i.fa-solid.fa-check-circle.text-success.me-2
+              = link_to file.shortname, archive_admin_backup_path(backup, key: file.basename), class: 'font-medium break-words'
+              .flex.gap-1.justify-start.items-center
+                .text-xs = number_to_human_size(file.size)
+                .text-xs.opacity-65.d-tooltip data-tip=l(file.created_at, format: :nice)
                   = time_ago_in_words(file.created_at)
-              td.text-xs.opacity-65 = file.sha256
-              td
-                = button_link_to '', archive_admin_backup_path(backup, key: file.basename), 'trash-alt', \
-                  class: 'd-btn d-btn-sm text-error d-tooltip destroy-backup', \
-                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), tip: t('modals.buttons.destroy') }
+              .text-xs.opacity-65.wrap-anywhere = file.sha256
+            div
+              = button_link_to '', archive_admin_backup_path(backup, key: file.basename), 'trash-alt', \
+                class: 'd-btn-sm d-btn-ghost text-error', \
+                data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 - else
   .card.card-outline.card-warning
     .card-header

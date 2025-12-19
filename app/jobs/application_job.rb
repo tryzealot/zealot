@@ -22,12 +22,21 @@ class ApplicationJob < ActiveJob::Base
   def notification_user(user_id:, message:, type:, **options)
     return if user_id.blank?
 
+    options[:type] = type
+    options[:status] = status
+
+    target = :notifications
+    html = ApplicationController.render(FlashComponent.new(message, **options), layout: false)
+    turbo_stream(method: :broadcast_append_to, user_id: user_id, target: target, html: html)
+  end
+
+  def turbo_stream(method:, user_id:, target:, **options)
+    return if user_id.blank?
+
     user = User.find(user_id)
-    targer_id = :notifications
-    Turbo::StreamsChannel.broadcast_append_to(
-      ActionView::RecordIdentifier.dom_id(user, targer_id),
-      target: targer_id,
-      html: ApplicationController.render(FlashComponent.new(message, type: type, status: status), layout: false)
-    )
+    streamables = options.delete(:streamables) || nil
+
+    options[:target] = target
+    Turbo::StreamsChannel.send(method.to_sym, user, streamables, **options)
   end
 end
