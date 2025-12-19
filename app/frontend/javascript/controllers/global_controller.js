@@ -26,7 +26,7 @@ export default class extends Controller {
     this.isInitialized = true
   }
 
-  switchDarkMode() {
+  switchAppearanceMode() {
     const appearance = this.element.getAttribute("data-theme")
     if (!appearance) { return }
 
@@ -39,16 +39,20 @@ export default class extends Controller {
     const lightTheme = this.themesValue.light
     const darkTheme = this.themesValue.dark
 
-    console.log(this.themesValue)
-
-    Zealot.log(`Switching to theme: ${appearance}, light: ${lightTheme}, dark: ${darkTheme}`)
-
+    Zealot.log(`Fetching theme: ${appearance}, light: ${lightTheme}, dark: ${darkTheme}`)
+    let activeTheme = null
     if (appearance === "auto") {
-      this.element.setAttribute("data-theme", Zealot.isDarkMode ? darkTheme : lightTheme)
+      activeTheme = Zealot.isDarkMode ? darkTheme : lightTheme
     } else if (appearance === 'dark') {
-      this.element.setAttribute("data-theme", darkTheme)
+      activeTheme = darkTheme
     } else if (appearance === 'light') {
-      this.element.setAttribute("data-theme", lightTheme)
+      activeTheme = lightTheme
+    } 
+
+    if (activeTheme) {
+      Zealot.log(`Setting theme to: ${activeTheme}`)
+      document.documentElement.setAttribute("data-theme", activeTheme)
+      document.body.setAttribute("data-theme", activeTheme)
     } else {
       console.log("Unknown appearance mode:", appearance)
     }
@@ -60,7 +64,7 @@ export default class extends Controller {
 
   handleDocumentReady() {
     try {
-      this.switchDarkMode()
+      this.switchAppearanceMode()
     } catch (error) {
       console.error("GlobalController initialization error:", error)
     }

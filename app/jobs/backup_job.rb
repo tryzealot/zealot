@@ -118,7 +118,7 @@ class BackupJob < ApplicationJob
       user_id: @user_id,
       type: 'backup',
       redirect_page: url_for(controller: 'admin/backups', action: 'show', id: @backup.id),
-      delay: 20000,
+      delay: 10000,
       message: t('active_job.backup.success', key: @backup.key)
     )
   end
