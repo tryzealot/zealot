@@ -4,7 +4,7 @@
 SimpleForm.setup do |config|
   DEFAULT_LABEL_CLASS = 'd-fieldset-legend'
   DEFAULT_INPUT_LABEL_CLASS = 'text-md font-semibold'
-  DEFAULT_HINT_WRAP =  { tag: 'p', class: 'd-label mt-1 text-xs opacity-70 whitespace-normal break-words' }
+  DEFAULT_HINT_WRAP = { tag: 'p', class: 'd-label mt-1 text-xs opacity-70 whitespace-normal break-words' }
   DEFAULT_ERROR_WRAP = { tag: 'p', class: 'mt-1 text-error text-xs whitespace-normal break-words' }
 
   # You can define the default class to be used on forms. Can be overriden
