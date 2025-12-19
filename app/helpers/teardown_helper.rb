@@ -16,7 +16,7 @@ module TeardownHelper # rubocop:disable Metrics/ModuleLength
     dn.map { |k, v| "#{k}=#{v}" }.join(', ')
   end
 
-  def expired_date_tips(expired_date, colorful: true, prefix: nil)
+  def expired_date_tips(expired_date, colorful: true, tooltip_position: nil)
     time = Time.parse(expired_date)
     duration = ActiveSupport::Duration.build(time - Time.now)
     time_in_words = distance_of_time_in_words(time, Time.now)
@@ -34,14 +34,15 @@ module TeardownHelper # rubocop:disable Metrics/ModuleLength
       style_name = (duration.value <= 3.months.to_i) ? 'text-warning' : 'text-success'
     end
 
-    tooltip = ['d-tooltip', 'd-tooltip-right']
+    tooltip = ['d-tooltip', tooltip_position ? "d-tooltip-#{tooltip_position}" : nil].compact
+    tip = t('releases.show.certificate_expired_date', date: l(Time.zone.parse(expired_date), format: :nice))
 
     options = {
       class: colorful ? tooltip.concat([style_name, 'font-bold']) : tooltip,
-      data: { tip: l(Time.zone.parse(expired_date), format: :nice) }
+      data: { tip: tip }
     }
 
-    content_tag(:span, "#{prefix}#{message}", options)
+    content_tag(:span, message, **options)
   end
 
   def android_version_info(api_version)

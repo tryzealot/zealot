@@ -1,6 +1,4 @@
-- tag_name = dom_id(release, :metadata)
-= turbo_stream_from current_user, tag_name
-= turbo_frame_tag tag_name, class: 'app-detail card' do
+= turbo_frame_tag dom_id(release, :metadata), class: 'app-detail card' do
   .card-header
     h3.card-title class="flex items-center gap-2"
       div 
@@ -65,7 +63,7 @@
           = link_to_if user_signed_in_or_guest_mode?, release.source, release.ci_url, data: { turbo: false }
       - if release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = release.metadata.mobileprovision['expired_at']
-          div class="d-tooltip" data-tip=t('releases.show.certificate_expired_date', date: l(Time.zone.parse(expired_date), format: :nice))
+          div
             i.fa-solid.fa-certificate class="mr-1"
             = expired_date_tips(expired_date, colorful: false)
         div class="d-tooltip" data-tip=t('releases.show.metadata')
