@@ -5,9 +5,9 @@
   = simple_form_for(@setting, url: admin_setting_path(@setting.var), method: :patch, data: { action: 'turbo:submit-end->modal#close' }) do |f|
     .card-body
       - if @setting.errors.any?
-        .callout.callout-danger.mb-3
+        .text-error
           h5 = t('activerecord.errors.models.setting.default_message', key: t("admin.settings.#{@setting.var}"))
-          ul.ps-4
+          ul.list-disc.list-inside
             - @setting.errors.each do |error|
               li = error.message
 
@@ -17,7 +17,7 @@
       - elsif @setting.type == :hash || @setting.type == :array
         = f.input :value, as: :text, label: false, input_html: { value: @setting.errors.any? ? @value : JSON.pretty_generate(@value), rows: 10 }
       - elsif @setting.inclusion?
-        = f.input :value, as: :radio_buttons, label: false, collection: @setting.inclusion_values, checked: @value
+        = f.input :value, as: (@setting.var.include?('theme') ? :theme_select : :radio_buttons), label: false, collection: @setting.inclusion_values, checked: @value
       - else
         = f.input :value, as: :text, label: false, input_html: { value: @value }
 
