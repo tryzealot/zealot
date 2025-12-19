@@ -4,7 +4,7 @@
 }
 
 .app-empty-icon {
-  @apply border border-gray-300 dark:border-0 dark:bg-white rounded;
+  @apply border border-gray-300 dark:border-0 dark:bg-white rounded-lg;
 }
 
 /* channel/show recent activity */
