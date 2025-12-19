@@ -1,8 +1,7 @@
-div[
-  role="d-alert"
-  class="d-alert max-w-220 #{@style}"
+.d-alert[
+  class="max-w-220 #{@style}"
   data-controller="notification"
-  data-notification-delay-value="#{3000}"
+  data-notification-delay-value=@options[:delay]
 ] 
   i class="fa-solid fa-#{@icon} fs-3"
   div
