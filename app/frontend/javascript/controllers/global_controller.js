@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "./zealot"
+import { Zealot } from "./zealot.js"
 
 const DRAWER_STATUS_KEY = "zealot-drawer-status"
 const DRAWER_OPEN_VALUE = "open"
@@ -15,13 +15,9 @@ export default class extends Controller {
 
   connect() {
     if (this.isInitialized) { return }
-    
-    if (document.readyState === "loading") {
-      this.documentReadyHandler ??= this.handleDocumentReady.bind(this)
-      document.addEventListener("DOMContentLoaded", this.documentReadyHandler, { once: true })
-    } else {
-      this.handleDocumentReady()
-    }
+
+    const documentReadyHandler = this.handleDocumentReady.bind(this)
+    document.addEventListener("turbo:load", documentReadyHandler)
 
     this.isInitialized = true
   }
@@ -36,7 +32,7 @@ export default class extends Controller {
   }
 
   switchAppearanceMode() {
-    const appearance = this.element.getAttribute("data-theme")
+    const appearance = document.documentElement.getAttribute("data-theme")
     if (!appearance) { return }
 
     this.setZealotThemeMode()
