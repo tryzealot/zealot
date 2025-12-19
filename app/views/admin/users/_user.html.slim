@@ -1,19 +1,19 @@
 
-= turbo_frame_tag user, class: 'flex flex-row py-2 px-3 text-sm font-semibold opacity-65 border-t border-base-300 sm:items-center first:border-0' do
+= turbo_frame_tag user, class: 'grid grid-cols-12 py-2 px-3 text-sm md:text-md font-semibold opacity-65 border-t border-base-300 sm:items-center first:border-0' do
   ruby: 
     color, text = user_status(user)
 
-  div class="basis-md flex items-center gap-1"
-    .block.sm:hidden
+  div class="col-span-6 md:col-span-3 flex items-center gap-1"
+    .block.md:hidden
       i.fa-solid.fa-circle class="text-#{color}"
     = link_to user.email, edit_admin_user_path(user), data: { turbo_frame: '_top' }
-  div class="basis-2xs" 
+  div class="col-span-4 md:col-span-2" 
     = user.username.presence || '-'
-  div class="basis-2xs"
+  div class="col-span-2"
     = user.role_name
-  div class="basis-2xs hidden sm:block" 
+  div class="col-span-2 hidden md:block" 
     .d-badge.d-badge-sm class="d-badge-#{color}" = text
-  div class="basis-xs hidden sm:block" 
+  div class="col-span-3 hidden md:block text-right" 
     - if user.last_sign_in_at
       span.d-tooltip.d-tooltip-left data-tip=l(user.last_sign_in_at, format: :nice) 
         = time_ago_in_words(user.last_sign_in_at)
