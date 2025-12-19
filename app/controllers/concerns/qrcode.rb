@@ -56,7 +56,7 @@ module Qrcode
   private
 
   def theme
-    @theme ||= THEMES[params.fetch(:theme, 'light').to_sym] || :light
+    @theme ||= THEMES[params.fetch(:theme, 'light').to_sym]
   end
 
   def size
