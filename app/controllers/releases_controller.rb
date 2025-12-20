@@ -41,7 +41,7 @@ class ReleasesController < ApplicationController
   def create
     raise_if_app_archived!(@channel.app)
 
-    if @channel.app.archived == true
+    if @channel.app.archived
       message = t('releases.messages.errors.upload_to_archived_app', app: @channel.app.name)
       redirect_to channel_path(@channel), alert: message
       return

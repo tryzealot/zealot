@@ -7,9 +7,9 @@ ruby:
 - content_for :section_title do
   = turbo_frame_tag @app do
     = @app.name
-    - if @app.archived == true
-      small class="d-badge d-badge-sm d-badge-warning py-1 ms-2" 
-        = t('apps.label.archived')
+    - if @app.archived
+      small class="d-badge d-badge-sm d-badge-warning py-1 ms-2"
+        = t('apps.show.archived')
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
