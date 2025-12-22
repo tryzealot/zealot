@@ -15,8 +15,8 @@
             = text_field_tag :password, nil, class: "d-input w-full", autofocus: "autofocus", data: { qa_selector: 'password_field' }, required: true
 
           - if devise_mapping.rememberable?
-            fieldset class="d-fieldset"
-              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'd-toggle d-toggle-primary' 
+            fieldset class="d-fieldset flex items-center my-2"
+              = check_box_tag :remember_me, '1', false, id: 'user_remember_me', class: 'd-toggle d-toggle-primary'
               = label_tag :remember_me, t('activerecord.attributes.user.remember_me'), class: 'text-md font-semibold'
 
           = submit_tag t('devise.sessions.new.sign_in'), class: "d-btn d-btn-primary w-full", data: { qa_selector: 'sign_in_button' }
