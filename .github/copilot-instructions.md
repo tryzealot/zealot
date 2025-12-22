@@ -61,8 +61,8 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 - **Serializers**: `app/serializers/` - API response formatting
 - **GraphQL**: `app/graphql/` - GraphQL schema and resolvers
 - **Views**: `app/views/` - HTML templates (Slim format)
-- **JavaScript**: `app/javascript/` - Stimulus controllers and frontend code
-- **Stylesheets**: `app/assets/stylesheets/` - Sass/SCSS files
+- **JavaScript**: `app/frontend/javascript` - Stimulus controllers and frontend code
+- **Stylesheets**: `app/frontend/stylesheets/` - Sass/SCSS files
 
 ### JavaScript/Frontend Standards
 
