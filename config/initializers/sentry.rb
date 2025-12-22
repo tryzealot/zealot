@@ -34,7 +34,7 @@ if !ActiveModel::Type::Boolean.new.cast(ENV['ZEALOT_SENTRY_DISABLE'] || false)
 
       # Adjust the sample rates to avoid high volume of events
       config.traces_sample_rate = 0.25
-      config.profiles_sample_rate = 0.0
+      config.profiles_sample_rate = nil
 
       config.before_send_transaction = lambda do |event, _hint|
         # Rails.logger.debug("Sentry Transaction: #{event.transaction}")
