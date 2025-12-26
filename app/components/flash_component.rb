@@ -29,10 +29,10 @@ class FlashComponent < ViewComponent::Base
 
   def style_for(type)
     {
-      notice: 'alert-success',
-      warn:   'alert-warning',
-      alert:  'alert-danger'
-    }[type] || 'alert-info'
+      notice: 'd-alert-success',
+      warn:   'd-alert-warning',
+      alert:  'd-alert-error'
+    }[type] || 'd-alert-info'
   end
 
   def icon_for(type)

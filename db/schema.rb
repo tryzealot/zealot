@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_21_145052) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_18_081921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pg_stat_statements"
+  enable_extension "pgcrypto"
 
   create_table "apple_keys", force: :cascade do |t|
     t.string "checksum", null: false
@@ -348,18 +348,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_21_145052) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "appearance", default: "light", null: false
+    t.string "appearance", default: "auto", null: false
     t.datetime "confirmation_sent_at", precision: nil
     t.string "confirmation_token"
     t.datetime "confirmed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
+    t.string "dark_theme", default: "dark"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "last_sign_in_at", precision: nil
     t.string "last_sign_in_ip"
+    t.string "light_theme", default: "light"
     t.string "locale", default: "zh-CN", null: false
     t.datetime "locked_at", precision: nil
     t.datetime "remember_created_at", precision: nil

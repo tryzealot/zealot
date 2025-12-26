@@ -5,26 +5,21 @@
   = @title
 
 - content_for :section_rightpanel do
-  .btn-group
-    = button_link_to '', teardowns_path, 'list-alt', \
-      class: 'btn btn-outline-secondary btn-icon', \
-      title: "#{t('links.back_to_list')}", \
-      data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
+  .d-join
+    = button_link_to '', teardowns_path, 'list-alt', class: 'd-join-item d-btn d-tooltip', \
+      base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
     - if teardown_owner?(@metadata)
       = button_link_to '', teardown_path(@metadata), 'trash-alt', \
-        class: 'btn btn-outline-secondary btn-icon', title: t('modals.buttons.destroy'), \
-        data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
+        class: 'd-join-item d-btn text-error d-tooltip', \
+        data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 
-.row
-  - if @metadata.release.present?
-    ruby:
-      link = link_to(@metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release))
-    .col-md-12
-      .callout.callout-info.mb-3
-        h5 
-          i.fa-brands.fa-adn.icon
-          = t('.related_app')
-        p
-          = raw t('.related_body', link: link)
+- if @metadata.release.present?
+  ruby:
+    link = link_to(@metadata.release.app_name, friendly_channel_release_path(@metadata.release.channel, @metadata.release))
 
-  == render @metadata.platform.to_s.downcase
+  .d-alert.d-alert-info.mb-4
+    p
+      i.fa-brands.fa-adn.icon
+      = raw t('.related_body', link: link)
+
+== render @metadata.platform.to_s.downcase

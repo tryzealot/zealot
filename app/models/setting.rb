@@ -22,6 +22,10 @@ class Setting < RailsSettings::Base
     field :site_appearance, default: (ENV['ZEALOT_APPEARANCE'] || builtin_appearances.keys[0].to_s),
           type: :string, display: true,
           validates: { presence: true, inclusion: { in: builtin_appearances.keys.map(&:to_s) } }
+    field :site_light_theme, default: builtin_light_themes[0], type: :string, display: true,
+          validates: { presence: true, inclusion: { in: builtin_light_themes } }
+    field :site_dark_theme, default: builtin_dark_themes[0], type: :string, display: true,
+          validates: { presence: true, inclusion: { in: builtin_dark_themes } }
     field :admin_email, default: (ENV['ZEALOT_ADMIN_EMAIL'] || 'admin@zealot.com'), type: :string, readonly: true
     field :admin_password, default: (ENV['ZEALOT_ADMIN_PASSWORD'] || 'ze@l0t'), type: :string, readonly: true
   end

@@ -1,16 +1,17 @@
-- if enable_callout && latest_release
-  .callout.callout-warning.mb-3
-    h5
-      i.icon.fa-solid.fa-info
-      = t('releases.show.not_latest_release')
-    p
-      = raw t('releases.show.released_new_version', \
-        version: latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version, \
-        time: time_ago_in_words(latest_release.created_at), \
-        link: link_to(t('releases.show.view_latest_version'), friendly_channel_release_path(latest_release.channel, latest_release)))
-
 - if @release.app.archived
-  .callout.callout-warning.mb-3
-    h5
-      i.icon.fa-solid.fa-box-archive
-      = t('releases.show.app_was_archived')
+  .d-alert.d-alert-warning.dark:d-alert-soft
+    i.fa-solid.fa-box-archive
+    span = t('releases.show.app_was_archived')
+
+- if enable_callout && latest_release
+  - latest_version = latest_release.release_version.present? ? "#{latest_release.release_version} #{latest_release.build_version ? " (#{latest_release.build_version})" : ''}" : latest_release.version
+  - link = friendly_channel_release_path(latest_release.channel, latest_release)
+  .d-alert.d-alert-info.dark:d-alert-soft
+    i.fa-solid.fa-info
+    div
+      span = t('releases.show.new_build_released')
+      span.pl-1 
+        = raw t('releases.show.released_new_version', \
+          time: time_ago_in_words(latest_release.created_at), \
+          version_link: link_to(latest_version, link, data: { turbo_frame: '_top'}))
+

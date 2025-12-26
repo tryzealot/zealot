@@ -1,8 +1,7 @@
 
-.card.mb-3
+.card.card-collapse.card-collapse-plus
+  input.card-collapse-input.hidden type="checkbox" id="signatures-collapse" checked="checked"
   - if android_v1_signature?(signatures)
-    / v1 签名
     == render 'signatures_v1_part', signatures: signatures
   - else
-    / v1-v3 签名
     == render 'signatures_v1_to_v3_part', signatures: signatures

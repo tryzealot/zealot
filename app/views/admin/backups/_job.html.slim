@@ -1,0 +1,24 @@
+= turbo_frame_tag dom_id(job.job, :backup), class: 'grid grid-cols-6 gap-2 py-2 px-3 text-sm font-semibold border-t border-base-300 first:border-0 sm:grid-cols-12 sm:items-center' do
+  .col-span-6.md:col-span-4
+    = job_icon(job.job.status)
+    = job.job.id
+    = button_link_to '', job_admin_backup_path(backup, job_id: job.job.id), 'trash-alt', \
+      class: 'd-btn d-btn-sm d-btn-ghost text-error d-tooltip md:hidden', \
+      data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
+
+  .col-span-6.space-x-1.space-y-1
+    - if job.job.running? || job.job.status == :queued
+      .d-badge.d-badge-sm.d-badge-ghost = job_progress(job.status)
+      - if job.status[:stage].present?
+         .d-badge.d-badge-sm.d-badge-ghost = job_stage(job.status[:stage])
+    - else
+      .d-badge.d-badge-sm.d-badge-ghost
+        = job.job.status
+      - if job.status[:stage].present?
+        .d-badge.d-badge-sm.d-badge-ghost = job_stage(job.status[:stage])
+      - if job.job.display_error.present?
+        .text-xs.md:text-sm.opacity-65 = job.job.display_error
+  .col-span-2.hidden.md:table-cell.text-right
+    = button_link_to '', job_admin_backup_path(backup, job_id: job.job.id), 'trash-alt', \
+      class: 'd-btn d-btn-sm text-error d-tooltip', \
+      data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

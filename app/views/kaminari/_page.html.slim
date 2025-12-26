@@ -1,6 +1,5 @@
 - if page.current?
-  li.page-item class="active"
-    = content_tag(:a, page, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link')
+  button class="d-join-item d-btn d-btn-sm d-btn-disabled"
+    = page
 - else
-  li.page-item
-    = link_to(page, url, remote: remote, rel: (page.next? ? 'next' : (page.prev? ? 'prev' : nil)), class: 'page-link')
+  = link_to page, url, remote: remote, rel: page.rel, class: "d-join-item d-btn d-btn-sm"

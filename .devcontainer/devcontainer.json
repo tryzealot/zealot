@@ -22,9 +22,14 @@
           "identifier": "mise",
           "formatter": "auto"
         },
-        "dev.containers.mountWaylandSocket": false
+        "dev.containers.mountWaylandSocket": false,
+        "files.associations": {
+          "*.css": "tailwindcss",
+          "*.scss": "tailwindcss"
+        }
       },
       "extensions": [
+        "bradlc.vscode-tailwindcss",
         "Shopify.ruby-lsp",
         "KoichiSasada.vscode-rdbg",
         "kaiwood.endwise",
@@ -35,7 +40,6 @@
         "EditorConfig.EditorConfig",
         "formulahendry.auto-complete-tag",
         "AndrewButson.vscode-openapi-viewer",
-        "eamodio.gitlens",
         "esbenp.prettier-vscode",
         "tompollak.lazygit-vscode"
       ]

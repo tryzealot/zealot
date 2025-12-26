@@ -1,12 +1,12 @@
-.card-header
+label.card-header.card-collapse-toggle for="signatures-collapse"
   h3.card-title
-    = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
+    = t('teardowns.show.developer_certs')
+    .d-badge.d-badge-ghost =@metadata.developer_certs.size
   .card-tools
-    button.btn.btn-tool data-lte-toggle="card-collapse"
-      i.fa-solid.fa-plus data-lte-icon="expand"
-      i.fa-solid.fa-minus data-lte-icon="collapse"
-.card-body.certificates
+.card-body
   - signatures.each_with_index do |cert, i|
+    .card class="bg-base-200/40.shadow-sm.break-inside-avoid"
+    
     .certificate
       .certificate-title
         .fs-6.fw-bolder.flex-fill

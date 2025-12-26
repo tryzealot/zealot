@@ -5,16 +5,9 @@
   = @title
 
 - content_for :section_rightpanel do
-  a.btn.btn-secondary href="#{debug_files_path}"
-    i.icon.fa-regular.fa-list-alt
-    = t('links.back_to_list')
+  = button_link_to '', debug_files_path, 'list-alt', class: 'd-btn d-tooltip', \
+    base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
-.row
-  .col-md-12
-    .card.mb-3
-      .card-header.card-border
-        h3.card-title = @title
-      .card-body
-        == render 'form'
-
+.space-y-4
+  == render 'form'
   == render 'help'

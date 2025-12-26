@@ -30,6 +30,51 @@ module SettingHelper
       }
     end
 
+    def builtin_light_themes
+      %w[
+        light
+        cupcake
+        bumblebee
+        emerald
+        corporate
+        retro
+        cyberpunk
+        valentine
+        garden
+        lofi
+        pastel
+        fantasy
+        wireframe
+        cmyk
+        autumn
+        acid
+        lemonade
+        winter
+        nord
+        caramellatte
+        silk
+      ]
+    end
+
+    def builtin_dark_themes
+     %w[
+        dark
+        synthwave
+        halloween
+        forest
+        aqua
+        black
+        luxury
+        dracula
+        business
+        night
+        coffee
+        dim
+        sunset
+        abyss
+      ]
+    end
+
     def builtin_install_limited
       [ 'MicroMessenger', 'DingTalk' ]
     end

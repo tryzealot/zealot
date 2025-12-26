@@ -1,0 +1,15 @@
+/* lobal app icon */
+.app-icon {
+  @apply rounded-lg size-18 overflow-hidden;
+}
+
+.app-empty-icon {
+  @apply border border-gray-300 dark:border-0 dark:bg-white rounded-lg;
+}
+
+/* channel/show recent activity */
+#app-channel-activity {
+  .app-icon {
+    @apply size-10;
+  }
+}

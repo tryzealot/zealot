@@ -6,11 +6,40 @@
 
 - content_for :section_rightpanel do
   - if user_signed_in?
-    a.btn.btn-success href="#{new_teardown_path}"
-      i.icon.fa-regular.fa-plus-square
-      = t('.create')
+    = button_link_to t('.create'), new_teardown_path, 'plus-square', base_fa: 'fa-regular', \
+      class: 'd-btn d-btn-success'
 
-.row
-  == render 'list'
+ruby: 
+  manage_role = @metadata.any? { |md| current_user&.manage?(app: md.app) || current_user == md.user }
+
+.space-y-4
+  - if @metadata.present?
+    .card
+      .card-header
+        h3.card-title
+          i.fa-solid.fa-history
+          = t('.upload_history')
+      .card-body.p-0.gap-0
+        div class="flex flex-row gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center sm:text-sm"
+          div class="col-span-5 md:col-span-4" = t('.app_name')
+          div class="hidden sm:block sm:col-span-4 md:col-span-2" = t('.platform')
+          div class="hidden sm:block col-span-3 md:col-span-2" = t('.uploader')
+          div class="hidden md:block col-span-3" = t('.uploaded_at')
+          - if user_signed_in? && manage_role
+            div class="hidden md:block col-span-1 text-right"
+        - @metadata.each do |md|
+          == render 'metadata', metadata: md, manage_role: manage_role
+
+      - if @metadata.total_pages > 1
+        .card-footer
+          .float-end
+            = paginate @metadata
+  - else 
+    .card.card-outline.card-warning
+      .card-header.card-border
+        h3.card-title = t('.not_found.title')
+      .card-body 
+        p = t('.not_found.body_html')
+
   == render 'help'
 

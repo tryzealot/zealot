@@ -7,6 +7,7 @@ class ReleasesController < ApplicationController
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]
   before_action :authenticate_app!, only: :show
+  before_action -> { set_app_breadcrumbs(channel: @channel) }
 
   def index
     if @channel.releases.empty?
@@ -40,7 +41,7 @@ class ReleasesController < ApplicationController
   def create
     raise_if_app_archived!(@channel.app)
 
-    if @channel.app.archived == true
+    if @channel.app.archived
       message = t('releases.messages.errors.upload_to_archived_app', app: @channel.app.name)
       redirect_to channel_path(@channel), alert: message
       return

@@ -1,53 +1,66 @@
+ruby:
+  properties = [
+    {
+      key: t('teardowns.show.product_name'),
+      value: @metadata.name || '-'
+    },
+    {
+      key: t('teardowns.show.file_description'),
+      value: @metadata.mobileprovision['file_description']
+    },
+    {
+      key: t('teardowns.show.archs'),
+      value: @metadata.mobileprovision['archs']
+    },
+    {
+      key: t('teardowns.show.file_version'),
+      value: @metadata.mobileprovision['file_version'] || '-'
+    },
+    {
+      key: t('teardowns.show.product_version'),
+      value: @metadata.mobileprovision['product_version'] || '-'
+    },
+    {
+      key: t('teardowns.show.assembly_version'),
+      value: @metadata.mobileprovision['assembly_version'] || '-'
+    },
+    {
+      key: t('teardowns.show.company_name'),
+      value: @metadata.mobileprovision['company_name'] || '-'
+    },
+    {
+      key: t('teardowns.show.original_filename'),
+      value: @metadata.mobileprovision['original_filename'] || '-'
+    },
+    {
+      key: t('teardowns.show.file_size'),
+      value: number_to_human_size(@metadata.size)
+    },
+    {
+      key: t('teardowns.show.binary_size'),
+      value: number_to_human_size(@metadata.mobileprovision['binary_size'])
+    },
+    {
+      key: t('teardowns.show.uploaded_date'),
+      value: l(@metadata.created_at, format: :nice)
+    },
+    {
+      key: t('teardowns.show.uploader'),
+      value: @metadata.user.username
+    }
+  ]
 
-.col-md-6
-  .card.mb-3
+.waterfall
+  .card
     .card-header
       h3.card-title
-        i.icon.fa-brands.fa-windows.text-primary
-        = t('teardowns.show.metadata')
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.ps-2.pe-2.p-0
-      dl.system-info
-        dt = t('teardowns.show.product_name')
-        dd
-          pre = @metadata.name || '-'
-        dt = t('teardowns.show.file_description')
-        dd
-          pre = @metadata.mobileprovision['file_description']
-        dt = t('teardowns.show.archs')
-        dd
-          pre #{@metadata.mobileprovision['archs']}
-        dt = t('teardowns.show.file_version') || '-'
-        dd
-          pre = @metadata.mobileprovision['file_version'] || '-'
-        dt = t('teardowns.show.product_version') || '-'
-        dd
-          pre = @metadata.mobileprovision['product_version'] || '-'
-        dt = t('teardowns.show.assembly_version')
-        dd
-          pre = @metadata.mobileprovision['assembly_version'] || '-'
-        dt = t('teardowns.show.company_name')
-        dd
-          pre = @metadata.mobileprovision['company_name'] || '-'
-        dt = t('teardowns.show.original_filename')
-        dd
-          pre = @metadata.mobileprovision['original_filename'] || '-'
-        dt = t('teardowns.show.file_size')
-        dd
-          pre = number_to_human_size(@metadata.size)
-        dt = t('teardowns.show.binary_size')
-        dd
-          pre = number_to_human_size(@metadata.mobileprovision['binary_size'])
-        dt = t('teardowns.show.uploaded_date')
-        dd
-          pre = l(@metadata.created_at, format: :nice)
-        dt = t('teardowns.show.uploader')
-        dd
-          pre = @metadata.user.username
-
-.col-md-6
+        i.fa-brands.fa-windows.text-info.mr-1
+        = platform_name(@metadata.platform)
+    .card-body
+      - properties.each do |prop|
+        .property
+          .property-key = prop[:key]
+          .property-value = prop[:value]
+     
   - if @metadata.entitlements.present?
     == render 'imports_part', imports: @metadata.entitlements

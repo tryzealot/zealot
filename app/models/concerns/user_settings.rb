@@ -22,6 +22,14 @@ module UserSettings
       enum_appearances
     end
 
+    def options_light_themes
+      Setting.builtin_light_themes
+    end
+
+    def options_dark_themes
+      Setting.builtin_dark_themes
+    end
+
     def enum_timezones
       ActiveSupport::TimeZone.all.each_with_object({}) do |timezone, obj|
         key = timezone.tzinfo.name

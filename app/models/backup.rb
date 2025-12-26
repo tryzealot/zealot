@@ -48,10 +48,16 @@ class Backup < ApplicationRecord
     jobs.each_with_object([]) do |good_job, obj|
       next if good_job.succeeded?
 
-      activejob_status = ActiveJob::Status.get(good_job.id)
-      job = PerformingJob.new(good_job, activejob_status)
-      obj << job
+      obj << performing_job(good_job)
     end
+  end
+
+  # Returns PerformingJob instance
+  def performing_job(provider_job_id)
+    # job is GoodJob::Job or provider_job_id is GoodJob::Job id from active job
+    good_job = provider_job_id.is_a?(GoodJob::Job) ? provider_job_id : GoodJob::Job.find(provider_job_id)
+    activejob_status = ActiveJob::Status.get(good_job.id)
+    PerformingJob.new(good_job, activejob_status)
   end
 
   def destroy_directory(name)

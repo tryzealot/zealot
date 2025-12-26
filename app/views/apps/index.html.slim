@@ -5,20 +5,18 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if current_user&.manage?
-    a.btn.btn-success href="#{new_app_path}" data-turbo-frame="modal"
-      i.icon.fa-regular.fa-plus-square
-      = t('apps.new.title')
+  - if current_user&.manage? && !archived_path?
+    = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
+      class: 'd-btn d-btn-success', data: { turbo_frame: 'modal' }
 
 - if @apps.present?
-  #search.row.mb-4
-    == render 'apps/search'
+  == render 'apps/search'
 
-#apps.row
-  - if @apps.present?
+- if @apps.present?
+  ul#apps class="d-list mt-3"
     - @apps.each do |app|
-      == render "apps/app", app: app
-  - elsif archived_path?
-    == render "apps/empty_archived_app"
-  - else
-    == render "apps/empty_active_app"
+      == render 'apps/app', app: app
+- elsif archived_path?
+  == render 'apps/empty_archived_app'
+- else
+  == render 'apps/empty_active_app'

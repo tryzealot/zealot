@@ -1,6 +1,6 @@
-= turbo_stream.remove dom_id(@app)
+= turbo_stream.remove dom_id(@app, :user)
 = turbo_stream.append('notifications', partial: 'layouts/notifications')
 
 - if @apps.blank?
-  = turbo_stream.remove "search"
-  = turbo_stream.replace "apps", partial: 'apps/empty_archived_app'
+  = turbo_stream.remove :'app-search-bar'
+  = turbo_stream.replace :apps, partial: 'apps/empty_archived_app'

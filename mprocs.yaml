@@ -1,5 +1,4 @@
 procs:
   server: bin/rails server -p 3000 -b 0.0.0.0
-  js: pnpm build --watch
-  css: pnpm build:css --watch
   worker: bin/good_job start 2>&1 | tee -a log/worker.log
+  vite: bin/vite dev

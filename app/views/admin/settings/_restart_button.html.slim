@@ -1,11 +1,11 @@
 = turbo_frame_tag 'system_restart' do
   - if required
-    button.btn.bg-warning.text-dark[
+    button.d-btn.d-btn-warning[
       data-controller="admin-service"
       data-admin-service-target="button"
       data-admin-service-restarting-value="#{t('admin.settings.index.service_restarting')}"
       data-admin-service-restarted-value="#{t('admin.settings.index.service_restarted')}"
       data-action="admin-service#restart"
     ]
-      i.icon.fa-solid.fa-redo-alt
+      i.fa-solid.fa-redo-alt
       = t('admin.settings.index.restart_to_apply')

@@ -5,14 +5,15 @@ ruby:
   goback_link_html = link_to(t('errors.messages.goback_title'), goback_href)
   homepage_link_html = link_to(t('errors.messages.homepage_title'), root_path)
 
-.card.mb-3 class="#{card_header_color}"
+.card.card-outline class="#{card_header_color}"
   .card-header
     - if content.present?
       h3.card-title
-        i.icon.fa-solid.fa-circle-exclamation
+        i.fa-solid.fa-circle-exclamation
         = content
 
   .card-body
     - if @message.present?
       p = @message
-    p.mb-0 = raw t('errors.messages.goback_or_redirect_to_homepage', goback_link: goback_link_html, homepage_link: homepage_link_html)
+  .card-footer
+    = raw t('errors.messages.goback_or_redirect_to_homepage', goback_link: goback_link_html, homepage_link: homepage_link_html)

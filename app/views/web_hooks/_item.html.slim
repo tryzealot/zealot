@@ -1,53 +1,48 @@
+ruby:
+  events = [:upload_events, :download_events, :changelog_events]
+
 tr
-  td
-    strong style="font-size: 75%"
+  td class="px-0 space-y-1 space-x-4"
+    div class="font-bold break-all"
       = web_hook.url
-    p
-      - if web_hook.upload_events == 1
-        span.badge.bg-light-gray
-          = t('simple_form.labels.web_hook.upload_events')
-      - if web_hook.download_events == 1
-        span.badge.bg-light-gray
-          = t('simple_form.labels.web_hook.download_events')
-      - if web_hook.changelog_events == 1
-        span.badge.bg-light-gray
-          = t('simple_form.labels.web_hook.changelog_events')
-  td style="width: 140px"
-    - web_hook.channels.all.each do |shared_channel|
-      span.badge.bg-light-gray
-        - if shared_channel == current_channel
-          = t('web_hooks.current_channel')
-        - else
-          = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel)
-
-  - unless @channel.app.archived
-    td style="width: 70px"
-      - if type == :enabled
-        .btn-group-vertical
-          .dropdown
-            button.btn.btn-sm.btn-outline-secondary.dropdown-toggle.rounded-0.rounded-top [
-                data-bs-toggle="dropdown"
-                data-bs-title="#{t('web_hooks.test')}"
-              ]
-              i.fa-solid.fa-bullhorn
-            ul.dropdown-menu
-              li
-                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'upload_events')}"
-                  = t('simple_form.labels.web_hook.upload_events')
-              li
-                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'download_events')}"
-                  = t('simple_form.labels.web_hook.download_events')
-              li
-                a.dropdown-item href="#{test_channel_web_hook_path(@channel, web_hook, 'changelog_events')}"
-                  = t('simple_form.labels.web_hook.changelog_events')
-
-          - if web_hook.channels_count == 1
-            = button_link_to '', channel_web_hook_path(@channel, web_hook), 'trash-alt', \
-              class: 'btn btn-sm btn-danger rounded-0 rounded-bottom', title: t('web_hooks.destroy'), \
-              data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip', bs_placement: 'bottom' }
+    div class="space-x-1"
+      - events.each do |event|
+        - if web_hook.send(event) == 1
+          span class="d-badge d-badge-sm d-badge-soft d-badge-secondary"
+            = t("simple_form.labels.web_hook.#{event}")
+    div class="flex gap-1"
+      - web_hook.channels.all.each do |shared_channel|
+        span class="d-badge d-badge-sm d-badge-soft d-badge-info"
+          - if shared_channel == channel
+            = t('web_hooks.current_channel')
           - else
-            a.btn.btn-sm.btn-warning.rounded-0.rounded-bottom data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{t('web_hooks.disable')}" href="#{disable_channel_web_hook_path(@channel, web_hook)}"
-              i.fa-solid.fa-link-slash
+            = link_to shared_channel.app_name, friendly_channel_overview_path(shared_channel), \
+              data: { turbo_frame: '_top' }
+
+  - unless channel.app.archived
+    td class="px-0"
+      - if type == :enabled
+        div.d-join
+          div class="d-dropdown d-dropdown-top d-dropdown-end"
+            button class="d-btn d-join-item d-tooltip" data-tip=t('web_hooks.test')
+              i.fa-regular.fa-comment-dots
+            ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
+              li class="opacity-60 text-sm px-3 py-2" = t('web_hooks.test')
+              - events.each do |event|
+                li = link_to t("simple_form.labels.web_hook.#{event}"), \
+                  test_channel_web_hook_path(channel, web_hook, event), \
+                  data: { turbo: false }
+          - if web_hook.channel_id == channel.id
+            = button_link_to '', channel_web_hook_path(channel, web_hook), 'trash-alt', \
+              class: 'd-btn text-error d-tooltip', \
+              data: { tip: t('web_hooks.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
+          - else
+            / MUST disable turbo to avoid pre-fetching issue
+            = button_link_to '', disable_channel_web_hook_path(channel, web_hook), 'link-slash', \
+              class: 'd-btn d-join-item text-warning d-tooltip', \
+              data: { tip: t('web_hooks.disable'), turbo: false }
       - elsif type == :shared
-        a.btn.btn-sm.btn-outline-secondary del="nofollow" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="bottom" title="#{t('web_hooks.enable')}" href="#{enable_channel_web_hook_path(@channel, web_hook)}"
-          i.fa-solid.fa-link
+        / MUST disable turbo to avoid pre-fetching issue
+        = button_link_to '', enable_channel_web_hook_path(channel, web_hook), 'link', \
+          class: 'd-btn-sm d-tooltip d-tooltip-left', \
+          data: { tip: t('web_hooks.enable'), turbo: false }

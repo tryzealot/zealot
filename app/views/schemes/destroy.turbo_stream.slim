@@ -1,8 +1,8 @@
 = turbo_stream.append :notifications, partial: 'layouts/notifications'
-= turbo_stream.remove @scheme
+= turbo_stream.remove dom_id(@scheme, :app)
 
 - if @app.schemes.count.zero?
   = turbo_stream.replace :schemes, partial: 'apps/empty_scheme', locals: { app: @app }
 - else
   - @app.schemes.each do |scheme|
-    = turbo_stream.replace dom_id(scheme), partial: 'apps/scheme', locals: { scheme: scheme, card_column_width: app_scheme_columns(@app.schemes.count) }
+    = turbo_stream.replace dom_id(scheme, :app), partial: 'apps/scheme', locals: { scheme: scheme, card_column_width: app_scheme_columns(@app.schemes.count) }

@@ -22,12 +22,26 @@ class ApplicationJob < ActiveJob::Base
   def notification_user(user_id:, message:, type:, **options)
     return if user_id.blank?
 
-    user = User.find(user_id)
-    targer_id = :notifications
-    Turbo::StreamsChannel.broadcast_append_to(
-      ActionView::RecordIdentifier.dom_id(user, targer_id),
-      target: targer_id,
-      html: ApplicationController.render(FlashComponent.new(message, type: type, status: status), layout: false)
-    )
+    options[:type] = type
+    options[:status] = status
+
+    target = :notifications
+    html = ApplicationController.render(FlashComponent.new(message, **options), layout: false)
+    turbo_stream(method: :broadcast_append_to, user_id: user_id, target: target, html: html)
+  end
+
+  def turbo_stream(method:, user_id: nil, target:, **options)
+    return if user_id.blank?
+
+    user = user_id ? User.find(user_id) : nil
+    streamables = options.delete(:streamables) || target
+    options[:target] = target
+
+    Turbo::StreamsChannel.send(method.to_sym, [user, streamables].compact, **options)
+  end
+
+  # Helper to generate dom_id in jobs
+  def dom_id(record, prefix = nil)
+    ActionView::RecordIdentifier.dom_id(record, prefix)
   end
 end

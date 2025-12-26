@@ -1,63 +1,63 @@
 - if @metadata.developer_certs.present?
-  .card.mb-3
-    .card-header
+  - title = t('teardowns.show.developer_certs', count: @metadata.developer_certs.size)
+  - collapse_dom_id = "card-collapse-#{title.parameterize}"
+  .card.card-collapse.card-collapse-plus
+    input.card-collapse-input.hidden type="checkbox" id=collapse_dom_id checked="checked" 
+    label.card-header.card-collapse-toggle for=collapse_dom_id
       h3.card-title
-        = t('teardowns.show.developer_certs_list', count: @metadata.developer_certs.size)
+        = title
+        .d-badge.d-badge-ghost = @metadata.developer_certs.size
       .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.certificates
-      - @metadata.developer_certs.each_with_index do |certificate, i|
-        .certificate
-          - if certificate['version'].present?
-            .certificate-title
-              .fs-6.fw-bolder.flex-fill
-                = "#{t('teardowns.show.cert', index: i + 1)} #{certificate['name']}"
-              small.text-body-secondary.float-end
+    .card-body.space-y-4.p-0
+      .p-3.space-y-4
+        - @metadata.developer_certs.each_with_index do |certificate, i|
+          .card class="break-inside-avoid"
+            .card-body.gap-4
+              h4 class="font-semibold text-base-content"
+                = "#{t('teardowns.show.cert', index: i + 1)} #{certificate['name']}".strip
+              small class="text-xs text-base-content/70"
                 = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
-            ul
-              li
-                span.key = t('teardowns.show.cert_serial')
-                span.value = "#{certificate['serial']['number']} (#{certificate['serial']['hex']})"
-              li
-                span.key = t('teardowns.show.cert_version')
-                span.value = certificate['version']
-              li
-                span.key = t('teardowns.show.cert_algorithem')
-                span.value = certificate['algorithem']
-              li
-                span.key = t('teardowns.show.cert_digest')
-                span.value = certificate['digest']
-              - if certificate['length'].present?
-                li
-                  span.key = t('teardowns.show.cert_length')
-                  span.value = certificate['length']
-              li
-                span.key = t('teardowns.show.cert_subject')
-                span.value = certificate_name(certificate['subject'])
-              li
-                span.key = t('teardowns.show.cert_issuer')
-                span.value = certificate_name(certificate['issuer'])
-              li
-                span.key = t('teardowns.show.cert_created')
-                span.value = l(Time.zone.parse(certificate['created_at']), format: :nice)
-              li
-                span.key = t('teardowns.show.cert_expired')
-                span.value = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
-              li
-                span.key = t('teardowns.show.cert_fignger', digest: 'SHA-256')
-                span.value = certificate['fingerprint']['sha256']
-              li
-                span.key = t('teardowns.show.cert_fignger', digest: 'SHA-1')
-                span.value = certificate['fingerprint']['sha1']
-              li
-                span.key = t('teardowns.show.cert_fignger', digest: 'MD5')
-                span.value = certificate['fingerprint']['md5']
-          - else
-            .certificate-title
-              .fs-6.fw-bolder.flex-fill
-                = t('teardowns.show.cert', index: i + 1)
-              small.text-body-secondary.float-end
-                = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
-            .py-2 = certificate['name']
+              - if certificate['version'].present?
+                ul.space-y-3.text-sm
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70"
+                      = t('teardowns.show.cert_serial')
+                    span class="font-mono text-base-content"
+                      = "#{certificate['serial']['number']} (#{certificate['serial']['hex']})"
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_version')
+                    span class="font-medium" = certificate['version']
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_algorithem')
+                    span class="font-medium" = certificate['algorithem']
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_digest')
+                    span class="font-medium" = certificate['digest']
+                  - if certificate['length'].present?
+                    li class="flex flex-col gap-1"
+                      span class="text-base-content/70" = t('teardowns.show.cert_length')
+                      span class="font-medium" = certificate['length']
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_subject')
+                    span class="font-medium" = certificate_name(certificate['subject'])
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_issuer')
+                    span class="font-medium" = certificate_name(certificate['issuer'])
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_created')
+                    span class="font-medium" = l(Time.zone.parse(certificate['created_at']), format: :nice)
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_expired')
+                    span class="font-medium" = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(certificate['expired_at']), format: :nice))
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_fignger', digest: 'SHA-256')
+                    span class="font-mono text-xs break-all" = certificate['fingerprint']['sha256']
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_fignger', digest: 'SHA-1')
+                    span class="font-mono text-xs break-all" = certificate['fingerprint']['sha1']
+                  li class="flex flex-col gap-1"
+                    span class="text-base-content/70" = t('teardowns.show.cert_fignger', digest: 'MD5')
+                    span class="font-mono text-xs break-all" = certificate['fingerprint']['md5']
+              - else
+                p class="text-sm text-base-content/80"
+                  = certificate['name']

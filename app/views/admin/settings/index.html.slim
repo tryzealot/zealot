@@ -7,12 +7,11 @@
 - content_for :section_rightpanel do
   == render 'restart_button', required: Setting.need_restart?
 
-- @settings.each do |scope, keys|
-  .row
-    .col-md-12
-      .card.mb-3
-        .card-header
-          h3.card-title = t("admin.settings.#{scope}")
-        .card-body
-          - keys.each do |key, params|
-            == render 'setting', key: key, params: params
+.grid.grid-cols-1.md:grid-cols-2.xl:grid-cols-3.2xl:grid-cols-4.gap-6
+  - @settings.each do |scope, keys|
+    .card
+      .card-header
+        h3.card-title = t("admin.settings.#{scope}")
+      .card-body
+        - keys.each do |key, params|
+          == render 'setting', key: key, params: params

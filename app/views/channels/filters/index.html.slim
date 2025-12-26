@@ -4,15 +4,14 @@
 - content_for :section_title do
   = @title
 
-.row
-  .col-md-12
-    .card.mb-3 class=(@releases.present? ? '' : 'card-outline card-warning')
-      .card-header
-        h3.card-title = @subtitle
-      == render 'channels/filters/list', releases: @releases, channel: @channel
-
-    - if @releases.present? && current_user&.manage?(app: @channel.app) && !@channel.app.archived
-      .card
-        .card-body
-          = button_to t('channels.filters.list.delete_all'), bulk_delete_url(@channel), class: 'btn btn-danger', \
-            method: :delete, data: { turbo_confirm: t('modals.confirm.body') }
+- content_for :section_rightpanel do
+  - if @releases.present? && current_user&.manage?(app: @channel.app) && !@channel.app.archived
+    = button_to bulk_delete_url(@channel), class: 'd-btn d-btn-error d-tooltip d-tooltip-left', method: :delete, \
+      data: { tip: t('channels.filters.list.delete_all'), turbo_confirm: t('modals.confirm.body') } do 
+        i.fa-solid.fa-trash-alt class="me-1"
+    
+= turbo_frame_tag @channel do
+  .card.mb-3
+    .card-header
+      h3.card-title = @subtitle
+    == render 'channels/filters/list', releases: @releases, channel: @channel

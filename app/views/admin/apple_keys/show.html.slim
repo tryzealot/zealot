@@ -8,46 +8,53 @@ ruby:
   = t('.title')
 
 - content_for :section_rightpanel do
-  .btn-group
+  .d-join
     = button_link_to '', private_key_admin_apple_key_path(@apple_key), 'download', \
-      class: 'btn btn-outline-secondary btn-icon', \
+      class: 'd-join-item d-btn text-info', \
       title: "#{t('.download_private_key')}", \
       data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
     = button_link_to '', admin_apple_key_path(@apple_key), 'trash-alt', \
-      class: 'btn btn-outline-secondary btn-icon', title: t('modals.buttons.destroy'), \
+      class: 'd-join-item d-btn text-error', title: t('modals.buttons.destroy'), \
       data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{@apple_key.team&.display_name} (#{@apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
 
-.row
-  .col-md-6
-    .card.mb-3
-      .card-header
+= turbo_frame_tag @apple_key do
+  .grid.grid-cols-1.md:grid-cols-2.gap-4.mb-4
+    .card
+      .card-header 
         h3.card-title = t('.team_metadata')
       .card-body.p-0
-        .d-flex.px-3.py-2.border-bottom
-          .fw-bold.flex-fill = t('simple_form.labels.apple_team.display_name')
-          .text-end = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team)
-        .d-flex.px-3.py-2
-          .fw-bold.flex-fill = t('simple_form.labels.apple_team.team_id')
-          .text-end = @apple_key.team.team_id
-  .col-md-6
-    .card.mb-3
+        table.d-table
+          tr
+            td.font-semibold = t('simple_form.labels.apple_team.display_name')
+            td.text-right 
+              = link_to @apple_key.team.display_name, edit_admin_apple_team_path(@apple_key.team), \
+                data: { turbo_frame: '_top' }
+          tr
+            td.font-semibold = t('simple_form.labels.apple_team.team_id')
+            td.text-right = @apple_key.team.team_id
+
+    .card
       .card-header
         h3.card-title = t('.key_metadata')
       .card-body.p-0
-        .d-flex.px-3.py-2.border-bottom
-          .fw-bold.flex-fill = t('simple_form.labels.apple_key.issuer_id')
-          .text-end = @apple_key.issuer_id
-        .d-flex.px-3.py-2
-          .fw-bold.flex-fill = t('simple_form.labels.apple_key.key_id')
-          .text-end = @apple_key.key_id
-  .col-md-12
-    .card
-      .card-header
-        h3.card-title
-          = t('.devices', size: device_total)
-      - if device_total
-        .card-body.p-0
-          table.table.table-bottom-borderless
+        table.d-table
+          tr
+            td.font-semibold = t('simple_form.labels.apple_key.issuer_id')
+            td.text-end = @apple_key.issuer_id
+          tr
+            td.font-semibold = t('simple_form.labels.apple_key.key_id')
+            td.text-end = @apple_key.key_id
+
+  .card
+    .card-header
+      h3.card-title
+        = t('.devices')
+      .card-tool 
+        .d-badge.d-badge-ghost = device_total
+    - if device_total
+      .card-body.p-0
+        table.d-table
+          thead 
             tr
               th = t('.udid')
               th = t('.udid_name')
@@ -55,9 +62,10 @@ ruby:
               th = t('.udid_model')
               th = t('.udid_related_apps')
               th = t('.udid_created_at')
+          tbody
             - @apple_key.devices.order(created_at: :desc).each do |device|
               tr
-                td = link_to device.udid, edit_udid_path(udid: device.udid, apple_key: @apple_key.id)
+                td = link_to device.udid, edit_udid_path(udid: device.udid, apple_key: @apple_key.id), data: { turbo_frame: '_top' }
                 td = device.name
                 td = device.platform
                 td = device.model
@@ -65,12 +73,13 @@ ruby:
                 td
                   span title="#{l(device.created_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
                     = time_ago_in_words(device.created_at)
-      .card-footer
-        .float-end
-          = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, class: 'btn btn-success btn-sm'
-
+    .card-footer
+      .flex.justify-between.items-center
         - if @apple_key.last_synced_at.present?
-          span title="#{l(@apple_key.last_synced_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
+          .opacity-65.d-tooltip.d-tooltip-right data-tip=l(@apple_key.last_synced_at, format: :nice)
             = t('.last_synced_at', time: time_ago_in_words(@apple_key.last_synced_at))
         - else
           = t('.never_sync')
+
+        = button_to t('.sync_now'), sync_devices_admin_apple_key_path(@apple_key), method: :put, \
+            class: 'd-btn d-btn-sm d-btn-primary'

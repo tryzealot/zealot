@@ -13,6 +13,8 @@
   },
   "files.associations": {
     "*.yml": "yaml",
+    "*.css": "tailwindcss",
+    "*.scss": "tailwindcss"
   },
   "search.exclude": {
     "**/.git": true,

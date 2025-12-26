@@ -6,14 +6,13 @@ class ChannelsController < ApplicationController
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_scheme, except: %i[show destroy_releases]
   before_action :set_channel, only: %i[show edit update destroy]
+  before_action -> { set_app_breadcrumbs(app: @app, scheme: @scheme, channel: @channel) },
+                only: %i[show edit update destroy]
 
   def show
-    @web_hook = @channel.web_hooks.new
-    @releases = @channel.releases
-                        .page(params.fetch(:page, 1))
-                        .per(params.fetch(:per_page, Setting.per_page))
-                        .order(id: :desc)
-    @versions = @channel.release_versions(5)
+    per_page = params.fetch(:per_page, Setting.per_page).to_i
+    page = params.fetch(:page, 1).to_i
+    @releases = @channel.recently_releases(per_page, page: page)
   end
 
   def new

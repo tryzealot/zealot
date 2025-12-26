@@ -14,13 +14,9 @@ run = "bundle exec rdbg -O -n -c -- bin/rails server -p 3000"
 description = "Running Background worker"
 run = "bin/good_job start 2>&1 | tee -a log/worker.log"
 
-[tasks.js]
-description = "Running Javascript compiler server"
-run = "pnpm build --watch"
-
-[tasks.css]
-description = "Running CSS compiler watcher"
-run = "pnpm build:css --watch"
+[tasks.vite]
+description = "Running Vite server"
+run = "pnpm dev"
 
 [tasks.caddy]
 description = "Running Caddy server"

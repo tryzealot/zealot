@@ -1,6 +1,5 @@
-== render 'layouts/content_header'
-
 // Main content
-.app-content
-  .container-fluid
+.app-container class="flex-1 px-4 py-2"
+  == render 'layouts/content_header'
+  .app-container-body
     == yield

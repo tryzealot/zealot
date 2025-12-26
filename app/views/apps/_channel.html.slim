@@ -1,12 +1,19 @@
-= turbo_frame_tag channel, class: 'd-flex border-top' do
-  .p-2.m-2.flex-grow-1
-    = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo: false }
-    .badge.text-bg-secondary.ms-2 title="#{t('apps.show.total_builds')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-      = channel.releases.count
-  - if current_user&.manage?(app: app)
-    .py-2.px-1.flex-shrink-1
-      - if !app.archived
-        = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', class: 'btn-box-tool', \
-          data: { turbo_frame: :modal }
-        = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', class: 'btn-box-tool', \
-          data: { turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }
+= turbo_frame_tag dom_id(channel, :app) do
+  li class="d-list-row hover:bg-base-200 hover:rounded-none"
+    div class="flex col-span-full justify-between items-center"
+      div class="grow"
+        = link_to channel.name, friendly_channel_overview_path(channel), data: { turbo_frame: '_top' }
+        span class="d-badge d-badge-sm d-badge-ghost ms-2 d-tooltip" data-tip=t('apps.show.total_builds')
+          = channel.releases.count
+        - if channel.password.present?
+          span class="d-badge d-badge-sm d-badge-ghost text-success opacity-80 ms-2"
+            i.fa-solid.fa-lock
+      - if current_user&.manage?(app: app)
+        div class="flex gap-2"
+          - if !app.archived
+            = button_link_to '', edit_app_scheme_channel_path(app.id, scheme.id, channel.id), 'edit', \
+              class: 'd-btn-xs d-btn-ghost d-btn-circle d-tooltip d-tooltip-left', \
+              data: { tip: t('apps.show.edit_channel'), turbo_frame: :modal }
+            = button_link_to '', app_scheme_channel_path(app.id, scheme.id, channel.id), 'trash-alt', \
+              class: 'd-btn-xs d-btn-ghost d-btn-circle d-tooltip d-tooltip-left', \
+              data: { tip: t('apps.show.destroy_channel'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app_channel', name: channel.app_name)}" }

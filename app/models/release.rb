@@ -6,6 +6,7 @@ class Release < ApplicationRecord
   include ReleaseUrl
   include ReleaseAuth
   include ReleaseParser
+  include RecentlyReleasesCacheable
 
   mount_uploader :file, AppFileUploader
   mount_uploader :icon, AppIconUploader
@@ -29,6 +30,7 @@ class Release < ApplicationRecord
   before_save   :strip_branch
 
   after_create  :retained_build_job
+  after_create  :delete_app_recently_releases_cache
 
   delegate :scheme, to: :channel
   delegate :app, to: :scheme
@@ -340,5 +342,9 @@ class Release < ApplicationRecord
 
   def default_filename
     version_datetime_filename
+  end
+
+  def recently_release_app_id
+    app.id
   end
 end

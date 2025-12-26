@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::Passwordless::SessionsController
+  before_action :set_default_active_tab, only: %i[new create]
+  
   def create
-    if magic_link_request?
-      super
-    else
-      Devise::SessionsController.instance_method(:create).bind(self).call
-    end
+    return super if magic_link_request?
+    
+    # For normal login, use the standard Devise create action
+    Devise::SessionsController.instance_method(:create).bind(self).call
   end
 
   protected
@@ -28,12 +29,16 @@ class Users::SessionsController < Devise::Passwordless::SessionsController
   end
 
   private
-
+  
   def create_params
     if magic_link_request?
       resource_params.permit(:email, :remember_me)
     else
       resource_params.permit(:email, :password, :remember_me)
     end
+  end
+
+  def set_default_active_tab
+    @active_tab = params[:tab].presence || 'normal'
   end
 end

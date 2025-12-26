@@ -46,6 +46,9 @@ class BackupJob < ApplicationJob
     @backup = Backup.find(backup_id)
     @manager = Zealot::Backup::Manager.new(backup_path, logger)
 
+    @job = @backup.performing_job(provider_job_id)
+    @target = ActionView::RecordIdentifier.dom_id(@job.job, :backup)
+
     update_status('start',
       total: 100,
       backup_key: @backup.key,
@@ -115,6 +118,7 @@ class BackupJob < ApplicationJob
       user_id: @user_id,
       type: 'backup',
       redirect_page: url_for(controller: 'admin/backups', action: 'show', id: @backup.id),
+      delay: 10000,
       message: t('active_job.backup.success', key: @backup.key)
     )
   end
@@ -127,6 +131,17 @@ class BackupJob < ApplicationJob
   def update_status(value, **params)
     status[:stage] = value.to_s
     status.update(params) if params
+
+    if (@user_id && @job)
+      turbo_stream(
+        method: :broadcast_replace_to,
+        user_id: @user_id,
+        streamables: :inprocessing_jobs,
+        target: @target,
+        partial: 'admin/backups/job',
+        locals: { job: @job, backup: @backup }
+      )
+    end
   end
 
   def backup_path

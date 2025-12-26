@@ -58,7 +58,11 @@ Rails.application.routes.draw do
       end
 
       scope module: :releases do
-        get :qrcode, to: 'qrcode#show'
+        get 'qrcode(/:size)(/:theme)', to: 'qrcode#show', as: :qrcode, defaults: {
+          size: 'md',
+          theme: 'light',
+          format: 'png'
+        }
       end
 
       member do
@@ -109,7 +113,12 @@ Rails.application.routes.draw do
   #############################################
   resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
     collection do
-      get :qrcode
+      get 'qrcode(/:size)(/:theme)', action: :qrcode, as: :qrcode, defaults: {
+        size: 'xl',
+        theme: 'light',
+        format: 'png'
+      }
+      # get :qrcode
       get :install
       post :retrieve, action: :create
     end
@@ -161,6 +170,7 @@ Rails.application.routes.draw do
           post :enable
           post :disable
           post :perform
+          # get :job, action: :refresh_job
           delete :job, action: :cancel_job
           get :archive, action: :download_archive
           delete :archive, action: :destroy_archive

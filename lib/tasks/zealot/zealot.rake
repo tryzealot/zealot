@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../zealot/smtp_validator'
-
 namespace :zealot do
   desc 'Zealot | Upgrade zealot or setting up database'
   task upgrade: :environment do

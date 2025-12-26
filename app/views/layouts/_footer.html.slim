@@ -1,8 +1,8 @@
-footer.app-footer
-  .float-end.d-none.d-sm-inline
-    = show_api
-
-  div
-    span = powered_by
-    - if Setting.show_footer_version
-      span.px-1 = zealot_version
+- unless devise_page?
+  footer class="flex justify-between bg-neutral mt-3 gap-3 px-4 py-3"
+    div class="max-w-7xl space-x-1"
+      span = powered_by
+      - if Setting.show_footer_version
+        = zealot_version
+    div class="flex space-x-4"
+      = show_api

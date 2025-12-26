@@ -3,14 +3,14 @@
     h3.card-title = t('apps.show.collaborators')
     .card-tools
       - if (current_user.admin? || current_user.app_roles?(app, :admin)) && !@app.archived
-        = icon_link_to 'fa-solid fa-user-plus', new_app_collaborator_path(app), \
-          text: t('apps.show.new_collaborator'), icon: { class: 'me-1' }, \
-          link: { data: { turbo_frame: 'modal' } }
-  .card-body.p-0
-    .p-2.ps-3.d-flex.fw-bolder.border-bottom.border-1
-      .col-5.my-auto = t('apps.show.username')
-      .col-5.my-auto = t('apps.show.role')
-      .col-2.my-auto
+        = button_link_to '', new_app_collaborator_path(app), 'user-plus', \
+          class: 'd-btn-ghost d-tooltip d-tooltip-left', \
+          data: { turbo_frame: 'modal', tip: t('apps.show.new_collaborator') }
+  .card-body class="p-0"
+    div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65"
+      div class="basis-2/4" = t('apps.show.username')
+      div class="basis-1/4" = t('apps.show.role')
+      div class="basis-1/4"
     #collaborators
       - app.collaborators.each do |collaborator|
         == render 'collaborator', collaborator: collaborator, app: @app

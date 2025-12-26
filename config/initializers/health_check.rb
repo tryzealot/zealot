@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/zealot/goodjob_health_check'
-
 Rails.configuration.to_prepare do
   HealthCheck.setup do |config|
     config.uri = '/api/health'
@@ -12,7 +10,7 @@ Rails.configuration.to_prepare do
     config.full_checks = %w[database migrations cache goodjob]
 
     config.add_custom_check('goodjob') do
-      Zealot::GoodjobHealthCheck.check
+      GoodJob::HealthCheck.check
     end
 
     ip_whitelist = ENV['ZEALOT_HEALTH_CHECK_IP_WHITELIST']

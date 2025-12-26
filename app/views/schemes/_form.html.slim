@@ -2,17 +2,14 @@ ruby:
   form_url = new_or_create_route? ? app_schemes_path : app_scheme_path(app, scheme)
   checked_channel = channels ? channels : 0
 
-.col-md-12
-  .card
-    = simple_form_for(scheme, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
-      .card-body
-        = f.error_notification
-        = f.input :name, required: true
-        = f.input :retained_builds
-        = f.input :new_build_callout, value: true
+= simple_form_for(scheme, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
+  = f.error_notification
+  = f.input :name, required: true
+  = f.input :retained_builds
+  = f.input :new_build_callout, as: :boolean
 
-        - if new_or_create_route?
-          = f.simple_fields_for :channel_attributes do |n|
-            = n.input :name, as: :check_boxes, collection: preset_channels, checked: checked_channel
-      .card-footer
-        = f.button :submit
+  - if new_or_create_route?
+    = f.simple_fields_for :channel_attributes do |n|
+      = n.input :name, as: :check_boxes, collection: preset_channels, checked: checked_channel
+
+  = f.button :submit, class: 'd-btn d-btn-primary mt-4'

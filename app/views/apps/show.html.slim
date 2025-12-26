@@ -1,36 +1,37 @@
+ruby: 
+  schemes_total = @app.schemes.count
+
 - content_for :title do
-  = @app.name 
+  = @app.name
 
 - content_for :section_title do
   = turbo_frame_tag @app do
     = @app.name
-    - if @app.archived == true
-      small.badge.bg-warning.text-white.py-1.px-1.align-middle.ms-2 style="font-size: .8rem" = t('apps.label.archived')
+    - if @app.archived
+      small class="d-badge d-badge-sm d-badge-warning py-1 ms-2"
+        = t('apps.show.archived')
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
-    .btn-group
+    .d-join
       - if !@app.archived
-        = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), \
-          'plus-square', class: 'btn-outline-secondary btn-icon', data: { turbo_frame: :modal }
-        = button_link_to '', edit_app_path(@app), 'edit', class: 'btn-outline-secondary', \
-          title: t('apps.show.edit_app'), data: { toggle: :tooltip, turbo_frame: :modal }
+        = button_link_to '', new_app_scheme_path(@app), 'plus-square', \
+          class: 'd-join-item d-btn d-tooltip', \
+          data: { tip: t('apps.show.new_scheme'), turbo_frame: :modal }
+        = button_link_to '', edit_app_path(@app), 'edit', \
+          class: 'd-join-item d-btn d-tooltip', \
+          data: { tip: t('apps.show.edit_app'), turbo_frame: :modal }
       = button_link_to '', app_path(@app), 'trash-alt', \
-        class: 'btn-outline-secondary', title: t('apps.show.destroy_app'), \
-        data: { toggle: :tooltip, turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
+        class: 'd-join-item d-btn d-tooltip text-error', \
+        data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
-ruby:
-  app_scheme_count = @app.schemes.count
-
-.row
-  .col-md-12
-    #schemes.row
-      - if app_scheme_count > 0
-        - @app.schemes.each do |scheme|
-          == render 'scheme', scheme: scheme, card_column_width: app_scheme_columns(app_scheme_count)
-      - else
-        == render 'empty_scheme', app: @app
+= turbo_frame_tag @app do
+  #schemes class="#{app_scheme_columns(schemes_total)} gap-4 mb-4 items-start *:break-inside-avoid"
+    - if schemes_total.positive?
+      - @app.schemes.each do |scheme|
+        == render 'scheme', scheme: scheme
+    - else
+      == render 'empty_scheme', app: @app
 
   - if current_user&.manage?(app: @app)
-    .col-md-12
-      == render "collaborators", app: @app
+    == render "collaborators", app: @app

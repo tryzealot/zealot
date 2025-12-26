@@ -1,23 +1,18 @@
+= turbo_frame_tag channel, class: 'grid gap-4 grid-cols-1 md:grid-cols-12' do
+  div class="md:col-span-8 space-y-6"
+    == render 'mobile_menu', app: app, scheme: scheme, channel: channel
+    == render 'activity', app: app, scheme: scheme, channel: channel, releases: releases
+    == render 'metadata', app: app, scheme: scheme, channel: channel
 
-= turbo_frame_tag :channel, class: 'row' do
-  .col-md-8
-    == render 'mobile_menu'
-    == render 'activity'
-    - if current_user&.manage?(app: @app)
-      == render 'web_hooks'
+    - if current_user&.manage?(app: app)
+      == render 'web_hooks', channel: channel
 
-  .col-md-4
-    - if current_user&.manage?(app: @app) && !@app.archived
-      = link_to new_channel_release_path(channel), class: 'btn btn-success w-100 mb-3', data: { turbo: false } do
-        i.icon.fa-regular.fa-plus-square
-        = t('channels.show.upload_release')
-
-    == render 'schemes'
-    == render 'channels'
-    == render 'versions'
-    == render 'metadata'
+  div class="md:col-span-4 space-y-6"
+    == render 'releases/upload_button', app: app, channel: channel
+    == render 'schemes', app: app, scheme: scheme, channel: channel
+    == render 'channels', app: app, scheme: scheme, channel: channel
+    == render 'versions', channel: channel
 
     - if user_signed_in_or_guest_mode?
-      = link_to app_path(@app), class: 'btn btn-secondary w-100 mt-3', data: { turbo: false } do
-          i.icon.fa-regular.fa-list-alt
-          = t('channels.show.view_app')
+      = button_link_to t('channels.show.view_app'), app_path(app), 'cube', \
+        class: 'd-btn w-full', data: { turbo_frame: '_top' }

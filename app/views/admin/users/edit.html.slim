@@ -1,80 +1,98 @@
-= render_modal(title: t('.title'), size: 'xl') do
-  .row
-    .col-md-6
-      - unless @user.confirmed?
-        .card.mb-3
-          .card-header.card-border
-            h3.card-title = t('admin.users.edit.active_link')
-            .card-tools
-              = link_to t('admin.users.edit.resend'), resend_confirmation_admin_user_path(@user), \
-                class: 'btn btn-primary', data: { turbo_method: :put, action: 'modal#close' }
-          .card-body
-            .d-flex data-controller="clipboard-center"
-              ruby:
-                confirmation_url = confirmation_url(@user, confirmation_token: @user.confirmation_token)
-              input.flex-fill.rounded-start.border-0.w-100.p-2.ps-3 value="#{confirmation_url}" readonly="true" data-clipboard-center-target="source"
-              button.btn.btn-primary.rounded-0.rounded-end[
-                data-action="clipboard-center#copy"
-                data-clipboard-text="#{confirmation_url}"
-              ]
-                i.fa-regular.fa-clipboard
-            small.form-text.text-muted
-              = raw t('admin.users.edit.active_link_tip', label: t('admin.users.edit.resend'), link: resend_confirmation_admin_user_path(@user))
+- content_for :title do
+  = t('.title')
 
-      .card.mb-3
-        .card-header.card-border
-          h3.card-title = t('admin.users.edit.profile')
-        == render 'form', user: @user
+- content_for :section_title do
+  = t('.title')
 
-    .col-md-6
+- content_for :section_rightpanel do
+  = button_link_to '', admin_users_path, 'list-alt', class: 'd-join-item d-btn d-tooltip', \
+    base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
+
+= turbo_frame_tag @user do
+  .grid.grid-cols-1.md:grid-cols-2.gap-4
+    .card
+      .card-header
+        h3.card-title = t('admin.users.edit.profile')
+      == render 'form', user: @user
+
+    .grid.grid-cols-1.gap-4
+      .card
+        .card-header
+          h3.card-title = t('admin.users.edit.active_link')
+          .card-tools
+            = link_to t('admin.users.edit.resend'), resend_confirmation_admin_user_path(@user), \
+              class: 'd-btn d-btn-info', data: { turbo_method: :put }
+        .card-body
+          .opacity-65.text-sm.pt-0.md:pt-2
+            = raw t('admin.users.edit.active_link_tip', label: t('admin.users.edit.resend'), link: resend_confirmation_admin_user_path(@user))
+          .d-join data-controller="clipboard-center"
+            ruby:
+              confirmation_url = confirmation_url(@user, confirmation_token: @user.confirmation_token)
+            input.d-join-item.d-input.rounded-start.w-full.p-2.ps-3 value="#{confirmation_url}" readonly="true" data-clipboard-center-target="source"
+            button.d-join-item.d-btn[
+              data-action="clipboard-center#copy"
+              data-clipboard-text="#{confirmation_url}"
+            ]
+              i.fa-regular.fa-clipboard
+
       - if @user.collaborators.present?
-        .card.mb-3
-          .card-header.card-border
+        .card
+          .card-header
             h3.card-title = t('admin.users.edit.collaborators')
           .card-body.p-0
-            table.table.table-bottom-borderless
+            table.d-table
               - @user.collaborators.each do |collaborator|
                 tr
-                  td = link_to collaborator.app.name, app_path(collaborator.app)
+                  td = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
                   td
                     - if collaborator.owner
-                      = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app)
+                      = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app),\
+                        data: { turbo_frame: 'modal' }
                     - else
-                      = link_to Setting.builtin_roles[collaborator.role.to_sym], edit_app_collaborator_path(collaborator.app, collaborator.user_id)
+                      = link_to Setting.builtin_roles[collaborator.role.to_sym], \
+                        edit_app_collaborator_path(collaborator.app, collaborator.user_id), \
+                        data: { turbo_frame: 'modal' }
 
-      .card.mb-3
-        .card-header.card-border
-          h3.card-title = t('admin.users.edit.api')
+      .card
+        .card-header
+          h3.card-title = t('admin.users.edit.api_token')
         .card-body
-          .d-flex.flex-column
-            label.pb-2 = t('admin.users.edit.token')
-            .d-flex data-controller="clipboard-center"
-              input.flex-fill.rounded-start.border-0.p-2.ps-3 type="text" readonly=true value="#{@user.token}" data-clipboard-center-target="source"
-              button.btn.btn-primary.rounded-0.rounded-end[
-                data-action="clipboard-center#copy"
-                data-clipboard-text="#{@user.token}"
-              ]
-                i.fa-regular.fa-clipboard
+          .d-join.pt-4 data-controller="clipboard-center"
+            input.d-join-item.d-input.w-full.p-2.ps-3[
+              type="text" 
+              readonly=true 
+              value="#{@user.token}" 
+              data-clipboard-center-target="source"
+            ]
+            button.d-join-item.d-btn[
+              data-action="clipboard-center#copy"
+              data-clipboard-text="#{@user.token}"
+            ]
+              i.fa-regular.fa-clipboard
 
-      .card.mb-3
+      .card
         .card-body
-          .float-end
+          .flex.justify-between
+            .space-x-1
+              - if @user.access_locked?
+                - if default_admin_in_demo_mode?(current_user)
+                  button.d-btn.d-btn-primary.d-btn-disabled
+                    = t('admin.users.edit.unlock_user')
+                - else
+                  = link_to t('admin.users.edit.unlock_user'), unlock_admin_user_path(@user), \
+                    class: 'd-btn d-btn-primary', data: { turbo_method: :delete, action: 'modal#close' }
+              - else
+                - if default_admin_in_demo_mode?(current_user)
+                  button.d-btn.d-btn-warning.d-btn-disabled
+                    = t('admin.users.edit.lock_user')
+                - else
+                  = link_to t('admin.users.edit.lock_user'), lock_admin_user_path(@user), \
+                    class: 'd-btn d-btn-warning', data: { turbo_method: :put, action: 'modal#close' }
+            
             - if default_admin_in_demo_mode?(current_user)
-              button.btn.btn-danger.disabled
+              button.d-btn.d-btn-error.d-btn-disabled
                 = t('admin.users.edit.destroy_user')
             - else
-              = link_to t('admin.users.edit.destroy_user'), admin_user_path(@user), class: 'btn btn-danger', \
-                        data: { turbo_method: :delete, action: 'modal#close', turbo_confirm: t('admin.users.index.destroy_user_confirm', user: @user.username) }
-          div
-            - if @user.access_locked?
-              - if default_admin_in_demo_mode?(current_user)
-                button.btn.btn-primary.disabled
-                  = t('admin.users.edit.unlock_user')
-              - else
-                = link_to t('admin.users.edit.unlock_user'), unlock_admin_user_path(@user), class: 'btn btn-primary', data: { turbo_method: :delete, action: 'modal#close' }
-            - else
-              - if default_admin_in_demo_mode?(current_user)
-                button.btn.btn-warning.disabled
-                  = t('admin.users.edit.lock_user')
-              - else
-                = link_to t('admin.users.edit.lock_user'), lock_admin_user_path(@user), class: 'btn btn-warning', data: { turbo_method: :put, action: 'modal#close' }
+              = link_to t('admin.users.edit.destroy_user'), admin_user_path(@user), class: 'd-btn d-btn-error', \
+                data: { turbo_method: :delete, action: 'modal#close', \
+                turbo_confirm: t('admin.users.index.destroy_user_confirm', user: @user.username) }
