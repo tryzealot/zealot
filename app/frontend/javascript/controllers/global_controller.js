@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { Zealot } from "./zealot.js"
 
-const DRAWER_STATUS_KEY = "zealot-drawer-status"
 const DRAWER_OPEN_VALUE = "open"
 const DRAWER_CLOSED_VALUE = "closed"
 
@@ -9,6 +8,7 @@ export default class extends Controller {
   static targets = ["drawer"]
   
   static values = {
+    drawerStatusKey: String,
     appearance: String,
     themes: Object
   }
@@ -19,7 +19,26 @@ export default class extends Controller {
     const documentReadyHandler = this.handleDocumentReady.bind(this)
     document.addEventListener("turbo:load", documentReadyHandler)
 
+    // Initialize drawer state
+    this.autoSwitchDrawerByDevice()
+    window.addEventListener("resize", this.autoSwitchDrawerByDevice.bind(this))
+
     this.isInitialized = true
+  }
+
+  autoSwitchDrawerByDevice() {
+    if (!this.hasDrawerTarget) return
+    // Tailwind md: 768px, lg: 1024px
+    const width = window.innerWidth
+    if (width >= 1024) {
+      // width above lg, drawer open
+      this.drawerTarget.checked = true
+      this.setDrawerStatus(DRAWER_OPEN_VALUE)
+    } else {
+      // else，drawer close
+      this.drawerTarget.checked = false
+      this.setDrawerStatus(DRAWER_CLOSED_VALUE)
+    }
   }
 
   previewTheme(event) {
@@ -48,9 +67,9 @@ export default class extends Controller {
     let activeTheme = null
     if (appearance === "auto") {
       activeTheme = Zealot.isDarkMode ? darkTheme : lightTheme
-    } else if (appearance === 'dark') {
+    } else if (appearance === "dark") {
       activeTheme = darkTheme
-    } else if (appearance === 'light') {
+    } else if (appearance === "light") {
       activeTheme = lightTheme
     } 
 
@@ -88,17 +107,17 @@ export default class extends Controller {
   }
 
   setDrawerStatus(value) {
-    localStorage.setItem(DRAWER_STATUS_KEY, value)
-    document.cookie = `${DRAWER_STATUS_KEY}=${value}; path=/; max-age=31536000; SameSite=Lax`
+    localStorage.setItem(this.drawerStatusKeyValue, value)
+    document.cookie = `${this.drawerStatusKeyValue}=${value}; path=/; max-age=31536000; SameSite=Lax`
   }
 
   getDrawerStatus() {
-    const local = localStorage.getItem(DRAWER_STATUS_KEY)
+    const local = localStorage.getItem(this.drawerStatusKeyValue)
     if (local) { return local }
     
     const cookie = document.cookie
       .split("; ")
-      .find((row) => row.startsWith(`${DRAWER_STATUS_KEY}=`))
+      .find((row) => row.startsWith(`${this.drawerStatusKeyValue}=`))
     return cookie ? cookie.split("=")[1] : DRAWER_OPEN_VALUE
   }
 }
