@@ -14,7 +14,9 @@ div[
 
   .card
     .card-body.gap-6 data-udid-target="qrcode"
-      .flex.justify-center.w-full = install_qrcode_image_tag
+      .flex.justify-center.w-full.relative
+        .d-skeleton.size-80 data-udid-target="skeleton"
+        .hidden data-udid-target="imageUrl" = install_qrcode_image_tag
       .opacity-60.text-center.items-center data-udid-target="tip" = t('.apple_tip')
     .card-footer.p-0 data-udid-target="install"
       = link_to t('.fetch_udid'), install_udid_index_path, class: 'd-btn d-btn-success d-btn-lg w-full rounded-t-none'
