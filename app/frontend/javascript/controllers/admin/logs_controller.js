@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { Zealot } from "../zealot"
 
 export default class extends Controller {
   static targets = ["source", "refresh"]
@@ -28,7 +29,7 @@ export default class extends Controller {
 
       // remember whether user is at bottom before update
       const wasAtBottom = this.isAtBottom()
-      console.log("Fetching logs...", this.uriValue, wasAtBottom)
+      Zealot.log("Fetching logs...", this.uriValue, wasAtBottom)
       try {
         const res = await fetch(this.uriValue)
         if (myId !== this.requestId) return
