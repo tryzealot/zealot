@@ -4,6 +4,8 @@ import { uaParser, isiOS, isMacOS } from "../utils/helpers"
 export default class extends Controller {
   static targets = [
     "qrcode",
+    "skeleton",
+    "imageUrl",
     "install",
     "tip",
     "debug"
@@ -25,8 +27,35 @@ export default class extends Controller {
       this.tipTarget.innerText = this.nonappleTipValue
     }
 
+    // skeleton loading for qrcode
+    this.showQrcodeSkeletonUntilLoaded()
+
     if (this.isPreviewFeature()) {
       this.renderDebugZone()
+    }
+  }
+
+  showQrcodeSkeletonUntilLoaded() {
+    if (!this.hasImageUrlTarget || !this.hasSkeletonTarget) return
+    
+    const container = this.imageUrlTarget
+    const img = container.querySelector('img')
+    if (!img) return
+
+    this.skeletonTarget.classList.remove('hidden')
+    container.classList.add('hidden')
+    if (img.complete) {
+      this.skeletonTarget.classList.add('hidden')
+      container.classList.remove('hidden')
+    } else {
+      img.addEventListener('load', () => {
+        this.skeletonTarget.classList.add('hidden')
+        container.classList.remove('hidden')
+      }, { once: true })
+      img.addEventListener('error', () => {
+        this.skeletonTarget.classList.add('hidden')
+        container.classList.remove('hidden')
+      }, { once: true })
     }
   }
 
