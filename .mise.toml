@@ -1,6 +1,6 @@
 [tools]
-ruby="3.4.7"
-nodejs="22.15.1"
+ruby="3.4.8"
+nodejs="24.12.0"
 
 [tasks.web]
 description = "Running Rails server"
