@@ -213,7 +213,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def drawer_status
-    value = cookies.fetch('zealot-drawer-status', 'open') == 'open'
+    value = cookies.fetch(drawer_status_key, 'open') == 'open'
     value ? true : nil
+  end
+
+  def drawer_status_key
+    'zealot-drawer-status'
   end
 end

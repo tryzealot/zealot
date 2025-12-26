@@ -39,22 +39,22 @@ export default class extends Controller {
     if (!this.hasImageUrlTarget || !this.hasSkeletonTarget) return
     
     const container = this.imageUrlTarget
-    const img = container.querySelector('img')
+    const img = container.querySelector("img")
     if (!img) return
 
-    this.skeletonTarget.classList.remove('hidden')
-    container.classList.add('hidden')
+    this.skeletonTarget.classList.remove("hidden")
+    container.classList.add("hidden")
     if (img.complete) {
-      this.skeletonTarget.classList.add('hidden')
-      container.classList.remove('hidden')
+      this.skeletonTarget.classList.add("hidden")
+      container.classList.remove("hidden")
     } else {
-      img.addEventListener('load', () => {
-        this.skeletonTarget.classList.add('hidden')
-        container.classList.remove('hidden')
+      img.addEventListener("load", () => {
+        this.skeletonTarget.classList.add("hidden")
+        container.classList.remove("hidden")
       }, { once: true })
-      img.addEventListener('error', () => {
-        this.skeletonTarget.classList.add('hidden')
-        container.classList.remove('hidden')
+      img.addEventListener("error", () => {
+        this.skeletonTarget.classList.add("hidden")
+        container.classList.remove("hidden")
       }, { once: true })
     }
   }
