@@ -22,6 +22,7 @@ html lang="#{I18n.locale}" data-theme=active_theme
     data-global-appearance-value=active_appearance
     data-global-themes-value=site_themes
   ]
+    == render 'layouts/announcement_bar'
     .d-drawer.md:d-drawer-open
       input#zealot-drawer.d-drawer-toggle[
         type="checkbox" 
