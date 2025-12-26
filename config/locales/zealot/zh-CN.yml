@@ -273,6 +273,7 @@ zh-CN:
         error_message: 日志获取失败，返回状态码：
     services:
       smtp_verify:
+        success: SMTP 邮件服务配置验证成功
         smtp_method_only: 仅支持 SMTP 邮件服务验证
         no_mailer_configuration: 没有发现 SMTP 邮件配置
   dashboard:

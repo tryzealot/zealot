@@ -14,7 +14,7 @@ export default class extends Controller {
 
     target.innerHTML = ""
     target.appendChild(this.loadingNode())
-    target.appendChild(document.createTextNode(this.inprocessValue))
+    target.appendChild(document.createTextNode(this.testingValue))
     await turboStream(VERIFY_URI, { method: "POST" })
     target.innerText = restoreValue
   }
