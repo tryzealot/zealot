@@ -1,0 +1,5 @@
+- if Setting.demo_mode
+  .d-alert.d-alert-info.rounded-none.py-2.flex.items-center.justify-center role="alert" id="announcement-bar"
+    span.text-center.flex-1 = t('announcement')
+    / button.d-btn.d-btn-xs.d-btn-ghost.d-btn-circle.ml-2 aria-label="Close" type="button" onclick="document.getElementById('announcement-bar').style.display='none'"
+    /   i.fa-solid.fa-times
