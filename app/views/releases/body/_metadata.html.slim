@@ -1,70 +1,74 @@
-.app-detail.card.mb-3
+= turbo_frame_tag dom_id(release, :metadata), class: 'app-detail card' do
   .card-header
-    h3.card-title
-      = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
-      .app-name
-        = release.name || release.app_name
-        .app-identifier.text-break
+    h3.card-title class="flex items-center gap-2"
+      div 
+        = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
+      div 
+        div class="font-semibold text-xl"
+          = release.name || release.app_name
+        div.text-break class="font-base text-sm opacity-60"
           = release.bundle_id || release.file.identifier
   .card-body
-    ul.app-metadata
-      - if release.name.present?
-        li title="#{t('releases.show.name')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-list-ul
-          = link_to_if user_signed_in_or_guest_mode?, release.app_name, friendly_channel_overview_path(release.channel), data: { turbo: false }
-      li title="#{t('releases.show.version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        i.fa-brands.fa-gg
+    div class="flex flex-wrap item-center gap-4"
+      / - if release.name.present?
+      /   div class="d-tooltip" data-tip=t('releases.show.name')
+      /     i.fa-solid.fa-list-ul class="mr-1"
+      /     = link_to_if user_signed_in_or_guest_mode?, release.app_name, \
+      /       friendly_channel_overview_path(release.channel), data: { turbo_frame: '_top' }
+      div class="d-tooltip" data-tip=t('releases.show.version')
+        i.fa-brands.fa-gg class="mr-1"
         = release.version
-      li title="#{t('releases.show.device_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        = device_icon(release.platform)
+      div class="d-tooltip" data-tip=t('releases.show.device_type')
+        = device_icon(release.platform, i_class: 'mr-1')
         = device_name(release.device_type)
       - if release.release_version.present?
-        li title="#{t('releases.show.release_version')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-server
+        div class="d-tooltip" data-tip=t('releases.show.release_version')
+          i.fa-solid.fa-server class="mr-1"
           = release.release_version
           - if release.build_version.present?
             | (#{release.build_version})
       - if release.release_type.present?
-        li title="#{t('releases.show.release_type')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-cubes
+        div class="d-tooltip" data-tip=t('releases.show.release_type')
+          i.fa-solid.fa-cubes class="mr-1"
           = release_type_url_builder(release)
       - if release.native_codes.present?
-        li title="#{t('releases.show.native_codes')} #{release.native_codes.join(', ')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-microchip
+        div class="d-tooltip" data-tip="#{t('releases.show.native_codes')} #{release.native_codes.join(', ')}"
+          i.fa-solid.fa-microchip class="mr-1"
           = native_codes(release)
       - if release.file.present?
-        li title="#{t('releases.show.filesize')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-weight
+        div class="d-tooltip" data-tip=t('releases.show.filesize')
+          i.fa-solid.fa-weight class="mr-1"
           = " #{number_to_human_size(release.file.size)}"
-      li title="#{t('releases.show.uploaded_at', date: l(release.created_at, format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        i.fa-solid.fa-calendar
+      div class="d-tooltip" data-tip=t('releases.show.uploaded_at', date: l(release.created_at, format: :nice))
+        i.fa-solid.fa-calendar class="mr-1"
         = time_ago_in_words(release.created_at)
       - if release.branch.present?
-        li title="#{t('releases.show.git_branch')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-code-branch
+        div class="d-tooltip" data-tip=t('releases.show.git_branch')
+          i.fa-solid.fa-code-branch class="mr-1"
           = git_branch_url(release)
       - if release.git_commit.present?
-        li title="#{t('releases.show.git_commit')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-brands.fa-git-alt
+        div class="d-tooltip" data-tip=t('releases.show.git_commit')
+          i.fa-brands.fa-git-alt class="mr-1"
           = git_commit_url(release.channel.git_url, release.git_commit)
       - if release.custom_fields.is_a?(Array) && release.custom_fields.present?
         - release.custom_fields.each do |field|
-          li title="#{field['name']}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i class="#{field['icon'] || 'fa-solid fa-hashtag'}"
+          div class="d-tooltip" data-tip=field['name']
+            i class="mr-1 #{field['icon'] || 'fa-solid fa-hashtag'}"
             = field['value']
-      li title="#{t('releases.show.source')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        i.fa-solid.fa-compass
+      div class="d-tooltip" data-tip=t('releases.show.source')
+        i.fa-solid.fa-compass class="mr-1"
         - if release.ci_url.blank?
           = t("releases.sources.#{release.source.downcase}", default: release.source)
         - else
           = link_to_if user_signed_in_or_guest_mode?, release.source, release.ci_url, data: { turbo: false }
       - if release.metadata.present? && user_signed_in_or_guest_mode?
         - if expired_date = release.metadata.mobileprovision['expired_at']
-          li title="#{t('releases.show.certificate_expired_date', date: l(Time.zone.parse(expired_date), format: :nice))}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-            i.fa-solid.fa-certificate
+          div
+            i.fa-solid.fa-certificate class="mr-1"
             = expired_date_tips(expired_date, colorful: false)
-        li title="#{t('releases.show.metadata')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-          i.fa-solid.fa-layer-group
-          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), teardown_path(release.metadata), data: { turbo: false }
+        div class="d-tooltip" data-tip=t('releases.show.metadata')
+          i.fa-solid.fa-layer-group class="mr-1"
+          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), \
+            teardown_path(release.metadata), data: { turbo_frame: '_top' }
 
     == render 'releases/body/install_app', release: release, app: release.app

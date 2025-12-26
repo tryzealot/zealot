@@ -46,7 +46,7 @@ class DashboardsController < ApplicationController
   end
 
   def admin_panels
-    return if !!current_user&.admin?
+    return unless current_user&.admin?
 
     @analytics.merge!({
       users: User.count,
@@ -59,7 +59,7 @@ class DashboardsController < ApplicationController
   def job_stats
     filters = GoodJob::JobsFilter.new(params)
     states = filters.states
-    "#{states["running"]} / #{states.values.sum}"
+    states['running']
   end
 
   def disk_usage

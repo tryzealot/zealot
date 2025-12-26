@@ -99,7 +99,7 @@ zh-CN:
         currently_waiting_confirmation_for_email: 等待确认 %{email}
         leave_blank_if_you_don_t_want_to_change_it: 如不想更改，则无需填写
         title: "%{resource}信息"
-        unhappy: 注销账户后，您的数据将会彻底移除！
+        cancel_my_account_warning: 注销账户后，您的数据将会彻底移除！
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认更改
       new:

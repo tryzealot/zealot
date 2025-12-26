@@ -1,14 +1,12 @@
-.p-2[
-  class="alert #{@style}"
-  style="min-width: 340px; max-width: 420px"
+.d-alert[
+  class="max-w-220 #{@style}"
   data-controller="notification"
-  data-notification-delay-value="#{@options[:delay]}"
-]
-  .d-flex.align-items-center.gap-2.w-100
-    .d-flex.align-items-center.justify-content-center.p-1
-      i class="fa-solid fa-#{@icon} fs-3"
-    .flex-grow-1.text-break
-      - if @title.present?
-        p.mb-1.fw-bold.fs-6 = @title
-      p.mb-0.fs-6 = @message
-
+  data-notification-delay-value=@options[:delay]
+] 
+  i class="fa-solid fa-#{@icon} fs-3"
+  div
+    - if @title.present?
+      h3 class="font-bold" = @title
+      div class="text-xs" = @message
+    - else
+      = @message

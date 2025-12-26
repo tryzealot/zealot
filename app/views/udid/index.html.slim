@@ -4,31 +4,29 @@
 - content_for :section_title do
   = @title
 
-.row
-  .col-md-12[
-    data-controller="udid"
-    data-udid-apple-tip-value="#{t('.apple_tip')}"
-    data-udid-macos-tip-value="#{t('.macos_tip')}"
-    data-udid-nonapple-tip-value="#{t('.nonapple_tip')}"
-  ]
-    == render 'shared/install_limited', safari_text: t('.app_open_in_safari'), brower_text: t('.app_open_in_webbrower')
+div[
+  data-controller="udid"
+  data-udid-apple-tip-value="#{t('.apple_tip')}"
+  data-udid-macos-tip-value="#{t('.macos_tip')}"
+  data-udid-nonapple-tip-value="#{t('.nonapple_tip')}"
+]
+  == render 'shared/install_limited', safari_text: t('.app_open_in_safari'), brower_text: t('.app_open_in_webbrower')
 
-    .card.mb-3
-      .card-body.text-center data-udid-target="qrcode"
-        = install_qrcode_image_tag
-        .pt-4.text-center data-udid-target="tip" = t('.apple_tip')
-      .install-profile data-udid-target="install"
-        = link_to t('.fetch_udid'), install_udid_index_path, class: 'btn btn-success btn-lg w-100 rounded-0 rounded-bottom'
+  .card
+    .card-body.gap-6 data-udid-target="qrcode"
+      .flex.justify-center.w-full = install_qrcode_image_tag
+      .opacity-60.text-center.items-center data-udid-target="tip" = t('.apple_tip')
+    .card-footer.p-0 data-udid-target="install"
+      = link_to t('.fetch_udid'), install_udid_index_path, class: 'd-btn d-btn-success d-btn-lg w-full rounded-t-none'
 
-    - if params[:preview].present?
-      .card
-        .card-header
-          h3.card-title Debug zone
-        .card-body
-          textarea.form-control.text data-udid-target="debug" rows="10"
+  - if params[:preview].present?
+    .card.mt-4
+      .card-header
+        h3.card-title Debug zone
+      .card-body
+        textarea.form-control.text data-udid-target="debug" rows="10"
 
-  .col-md-12
-    .card
-      .card-header.card-border
-        h3.card-title = t('.help.title')
-      .card-body = t('.help.body_html')
+.card.mt-4
+  .card-header
+    h3.card-title = t('.help.title')
+  .card-body = t('.help.body_html')

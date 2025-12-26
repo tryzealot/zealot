@@ -1,0 +1,23 @@
+- if debug_file.present?
+  .card
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-bug.mr-1
+        = debug_file_type(debug_file)
+    .card-body.p-0
+      - debug_file.metadata.each_with_index do |metadata, index|
+        - if metadata.type == 'proguard'
+          - metadata.data['files'].each_with_index do |file, f_index|
+            .border-t.border-base-300.first:border-0.py-2.px-3
+              .font-semibold = file["name"]
+              .text-sm.opacity-65 = number_to_human_size(file["size"])
+        - else
+          .border-t.border-base-300.first:border-0.py-2.px-3
+            .flex.gap-1.items-center
+              - if debug_file.multi_object? && metadata.data['main_app'] == true
+                i.fa.fa-star.text-warning.mr-1
+              .font-semibold = metadata.object
+              .d-badge.d-badge-sm.d-badge-ghost = metadata.type
+            .text-sm.opacity-65 = metadata.uuid
+    .card-footer.p-0
+      = button_link_to t('debug_files.show.download'), debug_file.file_url, 'download', class: 'd-btn w-full'

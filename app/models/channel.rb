@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Channel < ApplicationRecord
+  include RecentlyReleasesCacheable
+
   default_scope { order(id: :asc) }
 
   include FriendlyId
@@ -43,8 +45,8 @@ class Channel < ApplicationRecord
     releases.last
   end
 
-  def recently_releases(limit = Setting.per_page)
-    releases.limit(limit).order(id: :desc)
+  def recently_releases(limit = Setting.per_page, page: 1)
+    releases.page(page).per(limit).order(id: :desc)
   end
 
   # Find new releases by given arguments, following rules:
@@ -77,7 +79,11 @@ class Channel < ApplicationRecord
   end
 
   def app_name
-    "#{app.name} #{scheme.name} #{name}"
+    "#{app.name} #{channel_name}"
+  end
+
+  def channel_name
+    "#{scheme.name} #{name}"
   end
 
   def release_versions(limit = 10)
@@ -156,5 +162,9 @@ class Channel < ApplicationRecord
 
   def set_default_download_filename_type
     self.download_filename_type ||= DEFAULT_DOWNLOAD_FILENAME_TYPE
+  end
+
+  def recently_release_app_id
+    app.id
   end
 end

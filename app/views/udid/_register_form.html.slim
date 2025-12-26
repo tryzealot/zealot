@@ -1,18 +1,17 @@
-.col-md-12
-  .card.mb-3
-    = simple_form_for(Device.new, url: register_udid_path) do |f|
-      .card-header
-        h3.card-title
-          = t("udid.show.register_device")
-        .card-tools
-      .card-body
-        = f.error_notification
-        - unless f.object.errors.empty?
-          = debug f.object.errors
-        = f.input :name
-        = f.input :udid, as: :hidden, input_html: { value: udid }
-        = f.input :platform, as: :hidden, input_html: { value: product }
-        = f.input :apple_keys, collection: AppleTeam.all_names, label_method: :first, value_method: :last, include_blank: false
+.card.mb-3
+  = simple_form_for(Device.new, url: register_udid_path) do |f|
+    .card-header
+      h3.card-title
+        = t("udid.show.register_device")
+      .card-tools
+    .card-body
+      = f.error_notification
+      - unless f.object.errors.empty?
+        = debug f.object.errors
+      = f.input :name
+      = f.input :udid, as: :hidden, input_html: { value: udid }
+      = f.input :platform, as: :hidden, input_html: { value: product }
+      = f.input :apple_keys, collection: AppleTeam.all_names, label_method: :first, value_method: :last, include_blank: false
 
-      .card-footer
-          = f.button :submit, t('udid.show.register_device')
+    .card-footer
+        = f.button :submit, t('udid.show.register_device')

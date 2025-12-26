@@ -1,16 +1,14 @@
-= simple_form_for([:admin, @apple_key]) do |f|
-  .card-body
-    = f.error_notification
+= simple_form_for [:admin, apple_key], data: { action: 'turbo:submit-end->modal#close' } do |f|
+  = f.error_notification
 
-    = f.input :issuer_id, required: true
-    = f.input :key_id, required: true
-    - if @apple_key.new_record?
-      = f.input :private_key, as: :file
-      - if @apple_key.errors[:checksum].present?
-        = f.input :checksum, disabled: true
-    - else
-      = f.input :filename, disabled: true
+  = f.input :issuer_id, required: true
+  = f.input :key_id, required: true
+  - if apple_key.new_record?
+    = f.input :private_key, as: :file
+    - if apple_key.errors[:checksum].present?
       = f.input :checksum, disabled: true
+  - else
+    = f.input :filename, disabled: true
+    = f.input :checksum, disabled: true
 
-  .card-footer
-    = f.button :submit
+  = f.button :submit

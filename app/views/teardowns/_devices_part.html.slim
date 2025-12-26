@@ -1,19 +1,19 @@
 - if devices.present?
-  .card.mb-3
+  .card
     .card-header
       h3.card-title
         = t('teardowns.show.devise_list', count: devices.size)
-      .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
+      / .card-tools
+      /   button.btn.btn-tool data-lte-toggle="card-collapse"
+      /     i.fa-solid.fa-plus data-lte-icon="expand"
+      /     i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.p-0
-      table.table.table-bottom-borderless
+      table.d-table
         - devices.sort.each do |udid|
           tr
             td
               span = udid
               - if (device = Device.find_by(udid: udid)) && device.name.present?
                 .float-end
-                  small.badge.text-bg-light
+                  small.d-badge.text-bg-light
                     = device.name

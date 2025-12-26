@@ -24,7 +24,6 @@ en:
         role: Role
         status: Status
         last_login_time: Last login time
-        action: Action
         activated: Activated
         locked: Locked
         inactive: Inactive
@@ -38,8 +37,7 @@ en:
         resend: Resend activation email
         profile: Profile
         collaborators: Collaborators
-        api: API
-        token: 密钥
+        api_token: API Token
         lock_user: Lock
         unlock_user: Unlock
         destroy_user: Destroy
@@ -59,7 +57,6 @@ en:
         number: "#"
         url: URL
         channels: Channels
-        action: Action
         not_found: Not found any Webhook.
         create_web_hook_from_channel_inside: Create the Webhook via inside the channel of app, You can edit, destroy them here.
       show:
@@ -79,14 +76,11 @@ en:
         title: New Apple Developer
       index:
         title: :admin.apple_keys.title
-        teams:
-          one: Team
-          other: Teams
+        teams: Teams
         number: "#"
         team_name: Team name
         team_id: Team ID
         created_at: Created at
-        action: Action
         new_apple_key: :admin.apple_keys.new.title
         not_found:
           title: Not found Apple Developer.
@@ -95,9 +89,9 @@ en:
         title: :admin.apple_keys.title
         team_metadata: Team
         key_metadata: Key
-        devices: Devices (%{size})
+        devices: Devices
         sync_now: Sync now
-        last_synced_at: Last synced at %{time}
+        last_synced_at: Last synced at %{time} ago
         never_sync: Never sync
         download_private_key: Download private key
         udid: :udid.show.udid
@@ -115,10 +109,8 @@ en:
       title: Settings
       index:
         title: :admin.settings.title
-        smtp_verify: Verify
-        smtp_verify_inprocess: Verification Inprocessing
-        smtp_verify_success: Verification successful
-        smtp_verify_failed: Verification failed
+        smtp_verify: Test
+        smtp_verify_inprocess: Testing
         restart_to_apply: Restart to apply
         service_restarting: Restarting
         service_restarted: Applying
@@ -136,6 +128,8 @@ en:
       site_locale: Site Locale
       site_domain: Site domain
       site_appearance: Site Appearance
+      site_light_theme: Site Light Theme
+      site_dark_theme: Site Dark Theme
       presets: Presets
       preset_schemes: Default schemes
       preset_role: Default user role
@@ -221,7 +215,6 @@ en:
         schedule: Schedule
         next_schedule_at: Next schedule at
         enabled: Enabled
-        action: Action
         run_backup: Run a backup
         edit: Edit
         database: Database
@@ -236,9 +229,9 @@ en:
         run_backup: Run a backup
         backup_files: Backup files
         filename: Filename
+        sha256: SHA256
         created_at: Created at
         size: Size
-        action: Action
         download: Download
         performing_jobs: Performing jobs
         backup_id: Backup ID
@@ -301,9 +294,9 @@ en:
       disk_usage: Disk usage
     timeline:
       title: Timeline
-      upload_full_version_release: uploaded a version %{release_version} (%{build_version})
-      upload_auto_version_release: uploaded a version %{version}
-      not_found: Not found any upload.
+      upload_full_version_release: Released a build %{release_version} (%{build_version})
+      upload_auto_version_release: Released a build %{version}
+      not_found: Not found any released.
   apps:
     title: Apps
     index:
@@ -324,12 +317,13 @@ en:
       new_channel: New Channel
       edit_scheme: Edit Scheme
       destroy_scheme: Destroy Scheme
+      edit_channel: Edit Channel
+      destroy_channel: Destroy Channel
       retained_build: Retained builds
       disabled_new_build_callout: Disabled new build callout
       enabled_new_build_callout: Enabled new build callout
       total_builds: Total builds
-      not_found_channel_body_html: |
-        Not found any channel. Click the button to <i class="fa-regular fa-plus-square"></i> new a channel.
+      not_found_channel: Not found any channel.
       not_found_scheme:
         title: Not found any scheme.
         body_html: |
@@ -403,7 +397,6 @@ en:
       scheme: :schemes.title
       channel: :channels.title
       activity: Activity
-      upload_release: Upload a release
       metadata: Metadata
       device_type: Device type
       slug: Slug
@@ -431,7 +424,6 @@ en:
       major_versions: Major versions
       release_version: Release version
       total_version: Versions
-      empty_version_shortly: Nothing
       empty_version: Not found any release with this version!
       view_more: View More
       app_detail: View App
@@ -471,9 +463,8 @@ en:
       app_touch_menu: Click menu right-top corner
       app_open_in_safari: Choose "Open in Safari" and install
       app_open_in_webbrower: Open with any browser and install
-      not_latest_release: New release found!
-      released_new_version: "%{link} %{version} uploaded at %{time} ago!"
-      view_latest_version: The latest version
+      new_build_released: New build found!
+      released_new_version: "%{version_link} released %{time} ago!"
       name: App
       version: Auto Version
       device_type: Device
@@ -488,32 +479,33 @@ en:
       source: Source
       metadata: Metadata
       certificate_expired_date: Certificate expired at %{date}
-      teardown_metadata: More metadata
+      teardown_metadata: Teardown
       install: Install
       download: Download
       installing: Installing ...
       installed: Re-Install
-      cert_expired: Can not install, certificate was expired
+      cert_expired: Certificate expired
       missing_file: Missing file
-      more: More releases
+      more: More builds
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
       last_ten_uploads: Activity
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: Changelog
-      devices: "%{count} test devices (UDID)"
-      sync_devices_feature: Synchronize device name with %{link} recommended
+      devices:
+        one: Test device
+        other: Test devices
+      sync_devices_feature: Enable synchronize device
       apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
-      debug_file: "%{type} matched"
       qrcode: QR Code
-      scan_qrcode_with_any_suppprted_app: Use your phone's camera to install it
+      scan_qrcode_with_any_supported_app: Use QR code scanner to install the app
       major_versions: :channels.show.major_versions
       view_detail: Channel page
       custom_fields_invalid_json_format: Can not render custom fields, use array type not string value of JSON.
       app_was_archived: Read only for archived app.
     new:
-      title: :channels.show.upload_release
+      title: Upload new build
     install:
       show:
         not_found: Can not download, missing binary file.
@@ -528,7 +520,7 @@ en:
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
         not_found: Not found
         not_found_app: App not found or had been destroyed
-        not_found_release: Not found any release of channel
+        not_found_release: Not found any build of channel
         redirect_to_app_list: Redirect to app list
         reidrect_channel_detal: Redirect to channel page
         deleted_manually: Maybe destroy by developer.
@@ -559,16 +551,16 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
-      main_target: "Main target: %{value}"
+      main_target: Main target
       arch: Architecture
       target: Target
       uuid: UUID
       libraries:
-        one: Library (%{count})
-        other: Libraries (%{count})
+        one: Library
+        other: Libraries
       files:
-        one: File (%{count})
-        other: Files (%{count})
+        one: File
+        other: Files
     device:
       title: "%{app} %{device} Debug file"
       number: "#%{value}"
@@ -614,10 +606,6 @@ en:
     title: Teardowns
     new:
       title: New teardown
-      file: File
-      choose_file: Choose file
-      file_hint: Support iPhone IPA, Android APK/AAB, macOS MobileProvision and macOS.app.zip, Windows EXE file
-      submit: Parse metadata
     create:
       create: :teardowns.new.title
     index:
@@ -634,7 +622,7 @@ en:
         title: Not found any teardown!
         body_html: Click the button <i class="fa-regular fa-plus-square"></i> New teardown
     show:
-      title: "%{name} Teardown result"
+      title: "%{name} teardown"
       expired_in: Expire in %{time}
       already_expired: Expired %{time}
       expired: Expired now!
@@ -651,30 +639,38 @@ en:
       android_target_sdk: Target SDK
       file_size: File size
       release_type: release type
-      activities:
-        one: Activity (%{count})
-        other: Activities (%{count})
-      deep_links:
-        one: Deep Link (%{count})
-        other: Deep Links (%{count})
-      features:
-        one: Feature (%{count})
-        other: Features (%{count})
-      url_schemes:
-        one: URL Scheme (%{count})
-        other: URL Schemes (%{count})
-      permissions:
-        one: Permission (%{count})
-        other: Permissions (%{count})
-      services:
-        one: Service (%{count})
-        other: Services (%{count})
       min_ios_version: Minimum iOS version
       min_tvos_version: Minimum tvOS version
       min_macos_version: Minimum OS version
-      capabilities: Capabilities
-      devise_list: "UDID (%{count})"
-      developer_certs_list: "Developer Certificates (%{count})"
+      activities:
+        one: Activity
+        other: Activities
+      deep_links:
+        one: Deep Link
+        other: Deep Links
+      features:
+        one: Feature
+        other: Features
+      url_schemes:
+        one: URL Scheme
+        other: URL Schemes
+      permissions:
+        one: Permission
+        other: Permissions
+      services:
+        one: Service
+        other: Services
+      entitlements:
+        one: Entitlement
+        other: Entitlements
+      developer_certs:
+        one: Developer Certificate
+        other: Developer Certificates
+      capabilities:
+        one: Capability
+        other: Capabilities
+
+      devise_list: UDID
       cert: "Cert %{index}"
       cert_expired_at: "Expired at %{date}"
       cert_created: Created date
@@ -686,7 +682,7 @@ en:
       cert_subject: Subject
       cert_digest: Digest
       cert_length: Length
-      signature_title: "Signatures (%{count})"
+      signature_title: Signatures
       signature: "Scheme %{scheme}"
       cert_fignger: "Fingerprint %{digest}"
       signature_not_found: Not found
@@ -717,7 +713,7 @@ en:
         <p>
           Click the button <i class="fa-regular fa-plus-square"></i> to upload app and review it inside:
         </p>
-        <table class="table table-bordered">
+        <table class="d-table">
           <tr>
             <th>iOS</th>
             <th>Android</th>
@@ -844,6 +840,8 @@ en:
 
         but your device does not have an associated application to upload yet."
       related_apps_not_found: This device may be not register or related app not uploaded yet.
+    edit:
+      information: Device Stats
     install:
       title: Fetch Device UDID Profile
       organization: Apple UDID Authorization Service
@@ -860,8 +858,9 @@ en:
     shared: Shared
     not_found: Not found any webhook
     current_channel: Current channel
-    test: Test
+    test: Send test event
     disable: Disable
+    destroy: Destroy
     messages:
       parse_done_and_refreshing: "Teardown done, refresh page ..."
   settings:
@@ -924,7 +923,7 @@ en:
     install_issue:
       title: Install issues and the solution
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             If you manually install an app on iOS 9+, you must also manually establish trust.
             Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
@@ -934,7 +933,7 @@ en:
     cert_expired_issues:
       title: iOS signature certificate issues
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
             and shelved in order to prevent apps from being distributed in the App Store app store.
@@ -1116,10 +1115,11 @@ en:
         register_closed: Close to register now, contact the administrator please.
         register: Register
       edit:
+        change_appearance: Change appearance
+        update_appearance: Update appearance
         change_password: Change password
         update_password: Update password
-        api: API
-        token: Token
+        api_token: API Token
     normal:
       title: Normal
       user_login_disabled: User authentication is disabled, please contact the administrator.
@@ -1159,40 +1159,42 @@ en:
           openidconnect: OpenID
   helpers:
     submit:
-      user:
-        create: Create
-        update: Update
-      app:
-        create: Create
-        update: Update
-      collaborator:
-        create: Create
-        update: Update
-      scheme:
-        create: Create
-        update: Update
-      channel:
-        create: Create
-        update: Update
+      # user:
+      #   create: Create
+      #   update: Update
+      # app:
+      #   create: Create
+      #   update: Update
+      # collaborator:
+      #   create: Create
+      #   update: Update
+      # scheme:
+      #   create: Create
+      #   update: Update
+      # channel:
+      #   create: Create
+      #   update: Update
       release:
-        create: Upload
-      web_hook:
-        create: Create
-        update: Update
+        create: Upload App
+      # web_hook:
+      #   create: Create new webhook
+      #   update: Update
+      teardown:
+        submit: Teardown
       debug_file:
-        create: Upload
+        create: Upload Debug file
       setting:
         create: Save
-        update: Save
-      apple_key:
-        create: Create
-      apple_team:
         update: Update
-      backup:
-        create: Create
-        update: Update
-      device:
-        update: Update
+      # apple_key:
+      #   create: Create
+      # apple_team:
+      #   update: Update
+      # backup:
+      #   create: Create
+      #   update: Update
+      # device:
+      #   update: Update
   views:
     pagination:
       truncate: ...

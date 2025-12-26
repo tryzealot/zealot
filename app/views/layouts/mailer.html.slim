@@ -2,25 +2,24 @@ doctype html
 html
   head
     title = yield :title
-    link[rel="apple-zealot-icon" sizes="60x60" href="#{asset_path('zealot-icon.png')}"]
-    link[rel="apple-zealot-icon" sizes="120x120" href="#{asset_path('zealot-icon@2x.png')}"]
-    link[rel="apple-zealot-icon" sizes="180x180" href="#{asset_path('zealot-icon@3x.png')}"]
-    link[rel="icon" type="image/x-icon" href="#{asset_path('zealot-icon@3x.png')}"]\
+    link[rel="apple-touch-icon" sizes="60x60" href="#{vite_asset_path('images/zealot-icon.png')}"]
+    link[rel="apple-touch-icon" sizes="120x120" href="#{vite_asset_path('images/zealot-icon@2x.png')}"]
+    link[rel="apple-touch-icon" sizes="180x180" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
+    link[rel="icon" type="image/x-icon" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
     meta[name="turbo-prefetch" content="false"]
-    == favicon_link_tag 'zealot-icon.png'
-    == stylesheet_link_tag 'application'
-    == javascript_include_tag 'application', defer: true
+    == favicon_link_tag vite_asset_path('images/zealot-icon.png')
+    == favicon_link_tag vite_asset_path('images/zealot-icon-dark.png'), media: "(prefers-color-scheme: dark)"
+    == vite_stylesheet_tag 'application'
+    == vite_javascript_tag 'application', defer: true, type: :module
     == csrf_meta_tags
 
-  body.hold-transition.layout-top-nav[
-    data-controller="global"
-    data-global-root-url-value="#{root_url}"
-    data-global-appearance-value="#{Setting.site_appearance}"
-  ]
-    .container
-      .col.align-self-center.mt-5
-        .card.card-outline.card-primary
-          .card-header.text-center
-            = link_to Setting.site_title, Setting.site_domain, class: 'h1'
-          .card-body
-            = yield
+  body
+    .min-h-screen.flex.flex-col.p-4
+      .card.card-outline.card-info
+        .card-header
+          h3.card-title.justify-center
+            = link_to Setting.site_title, Setting.site_domain, class: 'link link-primary text-2xl font-semibold'
+        .card-body.gap-6
+          == yield
+        .card-footer.space-x-2
+          = link_to 'Github', 'https://github.com/tryzealot/zealot', class: 'link'

@@ -1,29 +1,31 @@
+ruby:
+  scheme_channels = scheme.channels.select {|c| c != channel }
 
-.d-flex.flex-row.d-block.d-sm-none.mb-3
-  .nav-item.dropdown.schemes.w-50
-    button.btn.btn-secondary.dropdown-toggle.w-100.rounded-0.rounded-start data-bs-toggle="dropdown"
-      = @channel.scheme.name
-    ul.dropdown-menu
-      - @app.schemes.each do |scheme|
+div class="flex md:hidden mb-3 justify-between gap-2"
+  details class="d-dropdown d-dropdown-xl d-dropdown-center w-full"
+    summary class="d-btn m-1 w-full text-lg text-left whitespace-normal wrap-break-word leading-tight"
+      = channel.scheme.name
+      i.fa-solid.fa-caret-down
+    ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
+      - app.schemes.each do |scheme|
         ruby:
-          scheme_link = using_friendly_channel_path(scheme, @channel)
+          scheme_link = using_friendly_channel_path(scheme, channel)
         - if scheme_link.present?
-          li
-            = link_to scheme.name, scheme_link, class: 'dropdown-item', data: { turbo_action: :advance }
+          li class="w-full"
+            = link_to scheme.name, scheme_link,
+              class: 'block text-left whitespace-normal break-words',
+              data: { turbo_frame: '_top' }
 
-  .nav-item.dropdown.channels.w-50
-    button.btn.btn-secondary.dropdown-toggle.w-100.rounded-0.rounded-end data-bs-toggle="dropdown"
-      = channel_platform(@channel)
-    ul.dropdown-menu
-      ruby:
-        channels = @channel.scheme.channels.select {|c| c != @channel }
-
-      - if channels.present?
-        - channels.each do |channel|
-          li
-            = link_to channel_platform(channel), friendly_channel_overview_path(channel), \
-              class: 'dropdown-item', data: { turbo_action: :advance }
+  details class="d-dropdown d-dropdown-end w-full"
+    summary class="d-btn m-1 w-full text-lg text-left whitespace-normal wrap-break-word leading-tight"
+      = channel_platform(channel)
+      i.fa-solid.fa-caret-down
+    ul class="d-dropdown-content d-menu items-center bg-base-200 rounded-box z-1 w-full p-2 shadow-sm text-lg"
+      - if scheme_channels.present?
+        - scheme_channels.each do |scheme_channel|
+          li class="w-full"
+            = link_to channel_platform(scheme_channel), friendly_channel_overview_path(scheme_channel),
+              class: 'block text-left whitespace-normal break-words',
+              data: { turbo_frame: '_top' }
       - else
-        li
-          span.text-gray.dropdown-item = t('channels.show.none')
-
+        li class="text-gray whitespace-normal wrap-break-word text-left" = t('channels.show.none')

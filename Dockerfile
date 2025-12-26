@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.4.7-alpine AS builder
+FROM --platform=$BUILDPLATFORM ruby:3.4.8-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm pnpm zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -46,7 +46,7 @@ RUN bundle config --global frozen 1 && \
     bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
 
 COPY . $APP_ROOT
-RUN SECRET_KEY_BASE=precompile_placeholder bin/rails assets:precompile
+RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
 
 # Remove folders not needed in resulting image
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
@@ -58,7 +58,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM --platform=$BUILDPLATFORM ruby:3.4.7-alpine
+FROM --platform=$BUILDPLATFORM ruby:3.4.8-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF

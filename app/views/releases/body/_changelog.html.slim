@@ -1,24 +1,19 @@
-.card.mb-3
-  .card-header
+.card.card-collapse.card-collapse-plus
+  input type="checkbox" checked="checked"
+  .card-header.card-collapse-toggle
     h3.card-title
-      i.icon.fa-solid.fa-align-left
+      i.fa-solid.fa-align-left
       = t('releases.show.changelog')
     .card-tools
-      button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fa-solid.fa-plus data-lte-icon="expand"
-        i.fa-solid.fa-minus data-lte-icon="collapse"
-  .card-body.p-0
-    ul.products-list.mb-0
+  .card-body.p-0.gap-0
+    ul.d-list
       - @release.array_changelog.each do |changelog|
-        li.product-item
-          .product-info
+        li.d-list-row.flex.justify-between
+          = changelog_render changelog['message'], class: 'product-description'
+          .space-x-2
             - if date = changelog['date']
-              small.float-end
-                span.badge.text-bg-light data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(Time.parse(date), format: :nice)}"
-                  = time_ago_in_words(date)
+              span.d-badge.d-tooltip data-tip="#{l(Time.parse(date), format: :nice)}"
+                = time_ago_in_words(date)
             - if changelog['author']
-              small.float-end.me-1
-                span.badge.text-bg-info data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{changelog['email']}"
-                  = changelog['author']
-
-            = changelog_render changelog['message'], class: 'product-description'
+              span.d-badge.d-tooltip data-tip="#{changelog['email']}"
+                = changelog['author']

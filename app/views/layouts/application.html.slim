@@ -1,42 +1,40 @@
-ruby:
-  if user_signed_in_or_guest_mode?
-    body_class = 'sidebar-expand-lg sidebar-mini bg-body-tertiary'
-  else
-    body_class = 'layout-top-nav'
-  end
-
 doctype html
-html lang="#{I18n.locale}"
+html lang="#{I18n.locale}" data-theme=active_theme
   head
     title = page_title(yield :title)
     meta[charset="utf-8"]
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
-    link[rel="apple-touch-icon" sizes="60x60" href="#{asset_path('zealot-icon.png')}"]
-    link[rel="apple-touch-icon" sizes="120x120" href="#{asset_path('zealot-icon@2x.png')}"]
-    link[rel="apple-touch-icon" sizes="180x180" href="#{asset_path('zealot-icon@3x.png')}"]
-    link[rel="icon" type="image/x-icon" href="#{asset_path('zealot-icon@3x.png')}"]
-    == favicon_link_tag 'zealot-icon.png'
-    == favicon_link_tag 'zealot-icon-dark.png', media: "(prefers-color-scheme: dark)"
-    == stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
-    == javascript_include_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
+    link[rel="apple-touch-icon" sizes="60x60" href="#{vite_asset_path('images/zealot-icon.png')}"]
+    link[rel="apple-touch-icon" sizes="120x120" href="#{vite_asset_path('images/zealot-icon@2x.png')}"]
+    link[rel="apple-touch-icon" sizes="180x180" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
+    link[rel="icon" type="image/x-icon" href="#{vite_asset_path('images/zealot-icon@3x.png')}"]
+    == favicon_link_tag vite_asset_path('images/zealot-icon.png')
+    == favicon_link_tag vite_asset_path('images/zealot-icon-dark.png'), media: "(prefers-color-scheme: dark)"
+
+    == vite_stylesheet_tag 'application', 'data-turbolinks-track': 'reload'
+    == vite_javascript_tag 'application', defer: true, type: :module, 'data-turbolinks-track': 'reload'
     == yield :header_tags
     == action_cable_meta_tag
     == csrf_meta_tags
 
   body[
-    class="layout-fixed #{body_class}"
     data-controller="global"
-    data-global-env-value="#{Rails.env}"
-    data-global-root-url-value="#{root_url}"
-    data-global-appearance-value="#{current_user&.appearance || Setting.site_appearance}"
+    data-global-appearance-value=active_appearance
+    data-global-themes-value=site_themes
   ]
-    .app-wrapper
-      == render 'layouts/navigation'
-
-      main.app-main
+    .d-drawer.md:d-drawer-open
+      input#zealot-drawer.d-drawer-toggle[
+        type="checkbox" 
+        checked=drawer_status
+        data-global-target="drawer" 
+        data-action="change->global#storeDrawerStatus"
+      ]
+      div class="d-drawer-content flex flex-col min-h-screen"
+        == render 'layouts/navigation'
         == render 'layouts/content'
-
-      == render 'layouts/footer'
+        == render 'layouts/footer'
+      div class="d-drawer-side d-is-drawer-close:overflow-visible"
+        == render 'layouts/sidebar'
 
     == render 'layouts/notifications'
     == render 'layouts/analytics'

@@ -11,7 +11,7 @@ class ModalsController < ApplicationController
     'install-issue' => {
       title_key:   'install_issue.title',
       body_key:    'install_issue.body_html',
-      title_locals: ->(record) { { name: record.name } }
+      # title_locals: ->(record) { { name: record&.name } }
     },
     'cert-expired-issues' => {
       title_key:   'cert_expired_issues.title',

@@ -14,7 +14,7 @@ zh-CN:
     users:
       title: 用户
       new:
-        title: 新建用户
+        title: 创建用户
       index:
         title: :'admin.users.title'
         new_user: :'admin.users.new.title'
@@ -24,7 +24,6 @@ zh-CN:
         role: 权限
         status: 状态
         last_login_time: 最后登录时间
-        action: 操作
         activated: 已激活
         locked: 已停用
         inactive: 未激活
@@ -38,8 +37,7 @@ zh-CN:
         resend: 重发激活邮件
         profile: 个人信息
         collaborators: 应用成员
-        api: API
-        token: Token
+        api_token: API 密钥
         lock_user: 停用用户
         unlock_user: 启用用户
         destroy_user: 删除用户
@@ -57,7 +55,6 @@ zh-CN:
         number: "#"
         url: URL
         channels: 渠道列表
-        action: 操作
         not_found: 没有发现网络钩子
         create_web_hook_from_channel_inside: 这里仅作已添加网络钩子的展示，添加需要从应用渠道详情中进行操作
       show:
@@ -82,18 +79,17 @@ zh-CN:
         team_name: 团队名称
         team_id: 团队标识符
         created_at: 创建时间
-        action: 操作
         new_apple_key: :'admin.apple_keys.new.title'
         not_found:
           title: 没有发现任何苹果开发者
-          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新增
       show:
         title: :'admin.apple_keys.title'
         team_metadata: 团队信息
         key_metadata: 密钥信息
-        devices: 测试设备 (%{size})
+        devices: 设备列表
         sync_now: 现在同步
-        last_synced_at: 上次同步时间为 %{time}
+        last_synced_at: 上次同步时间为 %{time}前
         never_sync: 尚未同步
         download_private_key: 下载私钥证书
         udid: :'udid.show.udid'
@@ -113,8 +109,6 @@ zh-CN:
         title: :'admin.settings.title'
         smtp_verify: 验证
         smtp_verify_inprocess: 验证中
-        smtp_verify_success: 验证成功
-        smtp_verify_failed: 验证失败
         restart_to_apply: 需重启服务生效
         service_restarting: 服务重启中
         service_restarted: 应用中
@@ -132,6 +126,8 @@ zh-CN:
       site_locale: 网站语言
       site_domain: 网站域名
       site_appearance: 网站外观
+      site_light_theme: 明亮主题
+      site_dark_theme: 深色主题
       presets: 预设值
       preset_schemes: 应用类型模板
       preset_role: 新用户权限
@@ -215,22 +211,21 @@ zh-CN:
         schedule: 备份频率
         next_schedule_at: 下次备份时间
         enabled: 启用
-        action: 操作
         run_backup: 执行新备份
         edit: 编辑
         database: 数据库
         app: "%{count} 应用"
         not_found:
           title: 没有发现任何备份计划
-          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 生成备份文件
       show:
         title: "%{key}备份计划"
         run_backup: 执行新备份
         backup_files: 备份文件
         filename: 文件名
+        sha256: SHA256
         created_at: 生成时间
         size: 大小
-        action: 操作
         download: 下载
         performing_jobs: 进行中的备份任务
         backup_id: 备份 ID
@@ -246,7 +241,7 @@ zh-CN:
         unknown_job_status: 未知备份状态，建议删除后重试再报错请联系开发者
         not_found:
           title: 没有发现任何备份文件
-          body_html: 点击右上角的 <i class="fa-regular fa-play-circle"></i> 执行备份。
+          body_html: 点击右上角的 <i class="fa-regular fa-play-circle"></i> 执行备份
       new:
         title: 新增备份
         schedule: 定时任务
@@ -302,11 +297,11 @@ zh-CN:
       schemes: 类型
       channels: 渠道
       uploads: 上传
-      created_at: 创建于%{time}
+      created_at: 创建于 %{time}
       searching_app: 搜索应用
       not_found:
         title: 没有发现任何应用或全部已归档
-        body_html: 新建应用请点击右上角的 <i class="fa-regular fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"。
+        body_html: 新建应用请点击右上角的 <i class="fa-regular fa-plus-square"></i> 进行操作，查看已归档应用请点击左侧导航栏的 "已归档应用"
     show:
       new_scheme: 新增类型
       edit_app: 编辑应用
@@ -316,12 +311,13 @@ zh-CN:
       new_channel: 新增渠道
       edit_scheme: 编辑类型
       destroy_scheme: 删除类型
+      edit_channel: 编辑渠道
+      destroy_channel: 删除渠道
       retained_build: 最大版本保留数
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
       total_builds: 上传版本数
-      not_found_channel_body_html: |
-        没有发现任何渠道，选择右上角的 <i class="fa-regular fa-plus-square"></i> 新增渠道
+      not_found_channel: 没有发现任何渠道
       not_found_scheme:
         title: 没有发现任何应用类型
         body_html: |
@@ -394,8 +390,7 @@ zh-CN:
     show:
       scheme: :'schemes.title'
       channel: :'channels.title'
-      activity: 上传时间线
-      upload_release: 上传应用
+      activity: 时间线
       metadata: 渠道信息
       device_type: 设备类型
       slug: 唯一地址
@@ -420,10 +415,9 @@ zh-CN:
       release_type: 打包类型
       uploaded_at: 上传时间
       actions: 操作
-      major_versions: 历史主版本
+      major_versions: 主版本
       release_version: 主版本号
       total_version: 版本数量
-      empty_version_shortly: 暂无版本
       empty_version: 该版本没有任何上传记录！
       view_more: 查看更多
       view_app: 应用详情
@@ -463,9 +457,8 @@ zh-CN:
       app_touch_menu: 点击右上角菜单
       app_open_in_safari: 在 Safari 中打开并安装
       app_open_in_webbrower: 在任意浏览器中打开并安装
-      not_latest_release: 当前不是最新版本！
-      released_new_version: "%{link} %{version} 于%{time}发布！"
-      view_latest_version: 最新版本
+      new_build_released: 发现新版本！
+      released_new_version: "%{version_link} 于%{time}发布！"
       name: 应用
       version: 上传版本
       device_type: 平台
@@ -489,23 +482,22 @@ zh-CN:
       missing_file: 应用文件遗失
       more: 更多上传
       cannot_install_cause_of_certificate_expired: 签名证书已过期，为什么无法安装？
-      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面。点击这里解决应用安装失败或遇到 "未受信任的企业级开发者" 错误。
+      cannot_install_or_untrusted_enterprise_developer: 应用已安装到桌面，安装失败或遇到 "未受信任的企业级开发者" 错误点击这里
       last_ten_uploads: 最近 10 次上传
       upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
       upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
       changelog: 更新日志
-      devices: "%{count} 台测试设备 (UDID)"
-      sync_devices_feature: 推荐使用%{link}同步设备名称
+      devices: 测试设备
+      sync_devices_feature: 开启自动同步设备
       apple_team_link: https://zealot.ews.im/zh-Hans/docs/user-guide/administrator/apple-team
-      debug_file: "%{type} 调试文件"
       qrcode: 二维码
-      scan_qrcode_with_any_suppprted_app: 任何支持二维码识别的 App 均可
+      scan_qrcode_with_any_supported_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
       custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型。
       app_was_archived: 应用已归档仅限只读操作
     new:
-      title: :'channels.show.upload_release'
+      title: 上传应用
     install:
       show:
         not_found: 找不到应用文件，无法提供下载服务
@@ -552,12 +544,12 @@ zh-CN:
       missing_file: 调试文件遗失
       download: 下载
       reprocess: 重新解析
-      main_target: "主项目: %{value}"
+      main_target: 主项目
       arch: 架构
       target: 名称
       uuid: UUID
-      libraries: 库 (%{count})
-      files: 文件 (%{count})
+      libraries: 库
+      files: 文件
     device:
       title: "%{app} %{device} 调试文件"
       number: "#%{value}"
@@ -574,7 +566,7 @@ zh-CN:
     help:
       title: 帮助中心
       body_html: |
-        <h4>什么是调试文件，如何找到它？</h4>
+        <h4 class="text-lg font-bold">什么是调试文件，如何找到它？</h4>
         <h5>iOS</h5>
         <p>下面以 XCode 作为 IDE 详细说明定位 dSYM 文件：</p>
         <ul>
@@ -600,10 +592,6 @@ zh-CN:
     title: 应用解包
     new:
       title: 新建应用解包
-      file: 文件
-      choose_file: 选择文件
-      file_hint: 支持 iPhone 的 IPA、Android 的 APK/AAB、macOS 的 mobileprovision 以及 macOS.app.zip、Window 的 EXE 文件
-      submit: 开始解包
     create:
       create: :'teardowns.new.title'
     index:
@@ -618,7 +606,7 @@ zh-CN:
       anonymous: 匿名者
       not_found:
         title: 没有发现任何应用解包！
-        body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包。
+        body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建应用解包
     show:
       title: "%{name} 解包信息"
       expired_in: "约%{time}后过期"
@@ -637,19 +625,33 @@ zh-CN:
       android_target_sdk: 编译构建版本
       file_size: 文件大小
       release_type: 打包类型
-      activities: Activities (%{count})
-      deep_links: Deep Links (%{count})
-      features: Features (%{count})
-      url_schemes: URL Schemes (%{count})
-      permissions: Permissions (%{count})
-      services: Services (%{count})
-      entitlements: Entitlements (%{count})
+      activities:
+        one: Activity
+        other: Activities
+      deep_links:
+        one: Deep Link
+        other: Deep Links
+      features:
+        one: Feature
+        other: Features
+      url_schemes:
+        one: URL Scheme
+        other: URL Schemes
+      permissions:
+        one: Permission
+        other: Permissions
+      services:
+        one: Service
+        other: Services
+      entitlements:
+        one: Entitlement
+        other: Entitlements
       min_ios_version: 最低 iOS 版本
       min_tvos_version: 最低 tvOS 版本
       min_macos_version: 最低系统版本
       capabilities: 启用能力
       devise_list: 设备列表 (%{count})
-      developer_certs_list: 开发者证书 (%{count})
+      developer_certs: 开发者证书
       cert: 证书 %{index}
       cert_expired_at: "%{date} 到期"
       cert_created: 创建日期
@@ -661,7 +663,7 @@ zh-CN:
       cert_subject: 主题
       cert_digest: 数字摘要
       cert_length: 长度
-      signature_title: 应用签名 (%{count})
+      signature_title: 应用签名
       signature: 签名版本 %{scheme}
       cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
@@ -693,7 +695,7 @@ zh-CN:
           通过右上角 <i class="fa-regular fa-plus-square"></i> 按钮上传 iOS、Android 移动应用就能轻松读取出来应用中的实用信息用于查阅、
           诊断、参考和定位问题：
         </p>
-        <table class="table table-bordered">
+        <table class="d-table">
           <tr>
             <th>iOS</th>
             <th>Android</th>
@@ -772,7 +774,7 @@ zh-CN:
             （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
           </p>
           <strong>获取步骤</strong>
-          <ol>
+          <ol class="list-decimal">
             <li>点击系统会弹窗的 “允许” 下载描述文件</li>
             <li>打开描述文件
               <ol>
@@ -815,6 +817,8 @@ zh-CN:
       related_apple_keys_not_found: 没有发现苹果开发者账户
       related_apps_not_found_with_registered_device: 本设备是通过其他设备同步的方式被注册，但您的设备还没有关联的应用上传
       related_apps_not_found: 当前设备可能还没有注册到苹果开发者或注册的应用没有上传到 Zealot
+    edit:
+      information: 关联信息
     install:
       title: 获取设备 UDID 描述文件
       organization: 苹果 UDID 授权服务
@@ -831,8 +835,9 @@ zh-CN:
     shared: 共享
     not_found: 没有发现网络钩子
     current_channel: 当前渠道
-    test: 测试
+    test: 发送测试事件
     disable: 禁用
+    destroy: 删除
     messages:
       parse_done_and_refreshing: "解析完成，页面正在刷新 ..."
   settings:
@@ -887,6 +892,9 @@ zh-CN:
     confirm:
       title: 删除确认?
       body: 一旦数据被删除，将永久无法恢复，请谨慎操作！
+    reset:
+      title: 重置确认?
+      body: 当前设置将恢复为默认值，请确认操作！
     destroy_apple_key:
       title: 删除苹果开发者账户确认?
       body: |
@@ -894,7 +902,7 @@ zh-CN:
     install_issue:
       title: 安装中的错误及解决办法
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
             选择该应用对应的企业证书，点击文字 "信任企业开发者"。
@@ -904,7 +912,7 @@ zh-CN:
     cert_expired_issues:
       title: iOS 签名证书的错误及解决办法
       body_html: |
-        <ol class="mb-0">
+        <ol class="list-decimal p-3">
           <li>
             在 iOS 系统中苹果为了限制应用只在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
             签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。
@@ -931,21 +939,23 @@ zh-CN:
       channel4: vivo
       channel5: 应用宝
 
-  datetime:
-    distance_in_words:
-      about_x_hours: "约 %{count} 小时"
-      about_x_months: "约 %{count} 个月"
-      about_x_years: "约 %{count} 年"
-      almost_x_years: 接近 %{count} 年
-      half_a_minute: 半分钟前
-      less_than_x_seconds: 不到 %{count} 秒
-      less_than_x_minutes: 不到 %{count} 分钟
-      over_x_years: "%{count} 年多"
-      x_seconds: "%{count} 秒"
-      x_minutes: "%{count} 分钟"
-      x_days: "%{count} 天"
-      x_months: "%{count} 个月"
-      x_years: "%{count} 年"
+  # Comments datetime translations are currently disabled.
+  # To complex to soluve number between chinese chars.
+  # datetime:
+  #   distance_in_words:
+  #     about_x_hours: "约 %{count} 小时"
+  #     about_x_months: "约 %{count} 个月"
+  #     about_x_years: "约 %{count} 年"
+  #     almost_x_years: 接近 %{count} 年
+  #     half_a_minute: 半分钟前
+  #     less_than_x_seconds: 不到 %{count} 秒
+  #     less_than_x_minutes: 不到 %{count} 分钟
+  #     over_x_years: "%{count} 年多"
+  #     x_seconds: "%{count} 秒"
+  #     x_minutes: "%{count} 分钟"
+  #     x_days: "%{count} 天"
+  #     x_months: "%{count} 个月"
+  #     x_years: "%{count} 年"
 
   date:
     formats:
@@ -1020,6 +1030,20 @@ zh-CN:
         restore_command: "恢复备份命令执行失败: %{message}"
         storage_full: "备份存储空间不足，无法创建新的备份: %{key}"
   activerecord:
+    models:
+      app: 应用
+      scheme: 应用类型
+      channel: 应用渠道
+      release: 应用版本
+      collaborator: 应用成员
+      apple_key: 苹果开发者账户
+      udid: 设备 UDID
+      debug_file: 调试文件
+      teardown: 应用解包
+      setting: 系统设置
+      web_hook: 网络钩子
+      device: 测试设备
+      backup: 数据备份
     attributes:
       channel:
         name: 渠道名称
@@ -1107,10 +1131,11 @@ zh-CN:
         register_closed: 服务没有开放注册功能！请联系管理员开通账户。
         register: 注册
       edit:
+        change_appearance: 修改外观
+        update_appearance: 更新外观
         change_password: 修改密码
         update_password: 更新密码
-        api: API
-        token: 密钥
+        api_token: API 密钥
     normal:
       title: 标准登录
       user_login_disabled: 用户登录已被禁用，请联系管理员
@@ -1151,38 +1176,24 @@ zh-CN:
           openidconnect: "OpenID "
   helpers:
     submit:
-      user:
-        create: 新增用户
-        update: 更新用户
-      app:
-        create: 新增应用
-        update: 更新应用
-      collaborator:
-        create: 新增成员
-        update: 更新成员
-      scheme:
-        create: 新增类型
-        update: 更新类型
-      channel:
-        create: 新增渠道
-        update: 更新渠道
+      # create: 新建%{model}
+      # update: 更新%{model}
+      # submit: 存储%{model}
       release:
         create: 上传应用
-      web_hook:
-        create: 新增网络钩子
-        update: 更新网络钩子
+      teardown:
+        submit: 开始解包
+        create: 开始解包
+        update: 更新解包
       debug_file:
         create: 上传调试文件
       setting:
         create: 保存设置
         update: 更新设置
-      apple_key:
-        create: 新增苹果开发者
       apple_team:
         update: 更新
       backup:
         create: 创建备份
-        update: 更新备份
       device:
         update: 更新名称
   views:

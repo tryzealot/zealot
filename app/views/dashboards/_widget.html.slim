@@ -1,13 +1,12 @@
-div class="#{defined?(widget_style) ? widget_style : 'd-none d-md-block col-md-6 col-lg-3'}"
-  .info-box
-    .info-box-icon.shadow-sm.text-white class="#{color_style}"
-      i class="#{icon}"
-    .info-box-content
-      .info-box-text
-        - if url.present?
-          a href="#{url}" data-no-turbolink="true"
-            = title
-        - else
-          = title
-      .info-box-number
-        = count
+
+div class="d-stat"
+  / .stat-figure.text-primary
+  /   i class="#{icon}"
+  div class="d-stat-title"
+    i class="pr-1 #{icon}"
+    = title
+  div class="d-stat-value"
+    - if url.present?
+      = link_to count.presence || '-', url
+    - else
+      = count

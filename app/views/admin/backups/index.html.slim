@@ -5,48 +5,28 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-success href="#{new_admin_backup_path}"
-    i.icon.fa-regular.fa-plus-square
-    = t('.new_schedule')
+  = icon_link_to 'fa-regular fa-plus-square', new_admin_backup_path, text: t('.new_schedule'), \
+    link: { class: 'd-btn d-btn-success', data: { turbo_frame: :modal } }
 
-.row
-  .col-md-12
-    - unless @backups.empty?
-      .card
-        .card-header
-          h3.card-title
-            i.icon.fa-solid.fa-box-open
-            = t('.schedules')
-        .card-body.p-0
-          table.table.table-bottom-borderless.backups
-            thead
-              tr
-                th = t('.key')
-                th = t('.scopes')
-                th = t('.schedule')
-                th = t('.next_schedule_at')
-                th = t('.enabled')
-                th = t('.action')
-            tbody
-              - @backups.each do |backup|
-                tr
-                  td = link_to backup.key, admin_backup_path(backup)
-                  td = explan_scopes(backup)
-                  td = schedule_to_human(backup.schedule)
-                  td data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(next_schedule_time(backup.schedule), format: :nice)}"
-                    = next_schedule_to_human(backup.schedule)
-                  td == render 'admin/settings/switch_icon', value: backup.enabled
-                  td
-                    .btn-group.btn-tool
-                      = button_to perform_admin_backup_path(backup), class: 'btn btn-sm run-backup', title: t('.run_backup') do
-                        i.fa-solid.fa-play-circle
-                      = button_link_to '', edit_admin_backup_path(backup), 'edit', \
-                        class: 'btn btn-sm edit-backup', title: t('.edit')
-                      = button_link_to '', admin_backup_path(backup), 'trash-alt', \
-                        class: 'btn btn-sm', title: t('modals.buttons.destroy'), \
-                        data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
-    - else
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('.not_found.title')
-        .card-body = t('.not_found.body_html')
+- unless @backups.empty?
+  .card
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-box-open.mr-1
+        = t('.schedules')
+    .card-body.p-0.gap-0
+      div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
+        div class="col-span-6 sm:col-span-4 md:col-span-3" = t('.key')
+        div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.scopes')
+        div class="hidden sm:block sm:col-span-2 md:col-span-1" = t('.schedule')
+        div class="hidden sm:block sm:col-span-2 md:col-span-3" = t('.next_schedule_at')
+        div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
+      #backups
+        == render @backups
+
+- else
+  .card.card-outline.card-warning
+    .card-header.card-border
+      h3.card-title = t('.not_found.title')
+    .card-body 
+      p = t('.not_found.body_html')

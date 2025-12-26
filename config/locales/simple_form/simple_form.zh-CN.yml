@@ -7,9 +7,9 @@ zh-CN:
       mark: "*"
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
+      html: "*"
     error_notification:
-      default_message: "请检查如下问题:"
+      default_message: "请检查如下问题"
     labels:
       defaults:
         name: 名称
@@ -21,12 +21,16 @@ zh-CN:
         password: 登录密码
         password_confirmation: 密码确认
         locale: 语言
-        appearance: 外观
+        appearance: 外观主题
+        light_theme: 明亮配色
+        dark_theme: 深色配色
         timezone: 时区
         role: 账户权限
         remember_me: 记住登录信息
       app:
         name: 应用名称
+      teardown:
+        file: 应用文件
       collaborator:
         user: 用户
         role: 权限
@@ -41,7 +45,7 @@ zh-CN:
         git_url: Git 仓库地址
         slug: 唯一地址
         password: 访问密码
-        download_filename_type: 下载文件文件名类型
+        download_filename_type: 下载文件名类型
       release:
         file: 应用文件
         release_version: 产品版本
@@ -100,6 +104,8 @@ zh-CN:
       app:
         schemes:
           name: :'simple_form.hints.scheme.name'
+      teardown:
+        file: 支持 iPhone 的 IPA、Android 的 APK/AAB、macOS 的 mobileprovision 以及 macOS.app.zip、Window 的 EXE 文件
       scheme:
         name: 应用在功能、面向受众划分的类型
         new_build_callout: 用于浏览不是最新上传版本详情时在页面顶部显示一个新上传版本提示窗

@@ -4,33 +4,30 @@
 - content_for :section_title do
   = t('.title')
 
-.row
-  .col-md-12
-    .card.card-tabs[
-      data-controller="admin-logs"
-      data-admin-logs-uri-value="#{retrive_admin_logs_path}"
-      data-admin-logs-interval-value="#{@interval}"
-      data-admin-logs-error-message-value="#{t('.error_message')}"
-    ]
-      .card-header.p-0.pt-1.border-bottom-0
-        ul.nav.nav-tabs
-          - @log_files.each_with_index do |file, index|
-            li.nav-item id="nav_log_#{index}"
-              button.nav-link[
-                class=(index == 0 ? 'active' : '') 
-                data-bs-toggle="pill" 
-                data-bs-target="#tab_log_#{index}"
-                data-action="admin-logs#switch"
-              ] = file
-      .card-body
-        .tab-content
-          .tab-pane.fade.show.active
-            pre data-admin-logs-target="source"
-              = t('.loading')
-      .card-footer
-        span.small data-admin-logs-target="refresh" - 
-        .float-end
-          / Pre-select intervals for quick access, from 1 second to 10 seconds.
-          select.form-select.form-select-sm.w-auto.d-inline-block.ms-2 data-action="admin-logs#setInterval"
-            - [1000, 2000, 5000, 10000].each do |interval|
-              option value=interval selected=(interval.to_s == @interval.to_s) = "#{t('datetime.distance_in_words.x_seconds', count: interval / 1000)}"
+.card.card-tabs.flex.flex-col[
+  class="h-[calc(100vh-10rem)]"
+  data-controller="admin-logs"
+  data-admin-logs-uri-value=retrive_admin_logs_path
+  data-admin-logs-interval-value=@interval
+  data-admin-logs-error-message-value=t('.error_message')
+  data-admin-logs-loading-message-value=t('.loading')
+]
+  .card-header.bg-base-200.p-0
+    .d-tabs.d-tabs-box
+      - @log_files.each_with_index do |file, index|
+        input.d-tab[
+          name="log_file"
+          type="radio" 
+          value=file
+          aria-label=file 
+          checked=(index.zero? ? 'checked' : nil) 
+          data-action="admin-logs#switch"
+        ]
+  .card-body.flex-1.overflow-hidden.p-0
+    pre.whitespace-pre-wrap.font-mono.text-sm.overflow-auto.p-3 data-admin-logs-target="source"
+      = t('.loading')
+  .card-footer.flex.justify-between
+    text-sm.opacity-65 data-admin-logs-target="refresh"
+    select.d-select.d-select-sm.w-20 data-action="admin-logs#setInterval"
+      - [1000, 2000, 5000, 10000].each do |interval|
+        option value=interval selected=(interval.to_s == @interval.to_s) = "#{t('datetime.distance_in_words.x_seconds', count: interval / 1000)}"

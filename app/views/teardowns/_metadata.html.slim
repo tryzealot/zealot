@@ -1,0 +1,22 @@
+= turbo_frame_tag metadata, class: 'gap-2 py-2 px-3 text-sm font-semibold border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center' do 
+  div class="col-span-5 md:col-span-4 flex flex-col gap-1 truncate" 
+    = link_to (metadata.name || '-'), teardown_path(metadata), data: { turbo_frame: '_top' }
+    - if metadata.release_version.present?
+      = metadata.release_version
+      - if metadata.build_version.present?
+        | (#{metadata.build_version})
+    - else
+      | -
+  div class="col-span-4 md:col-span-2 truncate" 
+    = platform_name(metadata.platform)
+  div class="hidden sm:block col-span-3 md:col-span-2 text-xs opacity-65"
+    = metadata.user&.username || t('teardowns.index.anonymous')
+  div class="hidden md:block col-span-3 text-xs opacity-65 d-tooltip" data-tip=l(metadata.created_at, format: :nice)
+    = time_ago_in_words(metadata.created_at)
+  - if user_signed_in? && manage_role
+    div class="hidden md:block col-span-1 text-right"
+      = button_link_to '', teardown_path(metadata), 'trash-alt', \
+        class: 'd-btn d-btn-sm text-error', data: { \
+          turbo_method: :delete, \
+          turbo_confirm: t('modals.confirm.body'), \
+        }

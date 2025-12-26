@@ -42,7 +42,15 @@ class UdidController < ApplicationController
       @device.sync_devices_job(@apple_key.id)
     end
 
-    redirect_to admin_apple_key_path(@apple_key.id)
+    if turbo_frame_request?
+      logger.debug "[icyleaf] Turbo Frame request detected in UDID update action"
+    else
+      logger.debug "[icyleaf] Regular request detected in UDID update action"
+    end
+
+    response.set_header('Turbo-Frame', '_top') if turbo_frame_request?
+    notice = t('activerecord.success.update', key: t('simple_form.labels.apple_key.devices'))
+    redirect_to admin_apple_key_path(@apple_key.id), notice: notice, status: :see_other
   end
 
   # POST /udid/:udid/register
@@ -71,7 +79,7 @@ class UdidController < ApplicationController
 
   # GET /udid/qrcode
   def qrcode
-    render qrcode: udid_index_url, **qrcode_options
+    render_qrcode(udid_index_url)
   end
 
   private

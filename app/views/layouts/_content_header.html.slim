@@ -4,17 +4,13 @@ ruby:
   breadcrumb = yield :breadcrumb
 
 // Content Header (Page header)
-
 - if section_title.present?
-  .app-content-header
-    .container-fluid
-      .row
-        .col-sm-8
-          h3.section-title = yield :section_title
+  .app-container-header class="flex min-w-0 items-center justify-between py-4"
+    div class="min-w-0 items-center"
+      h2 class="text-2xl font-bold" = yield :section_title
 
-        .col-sm-4
-          - if right_panel.present?
-            .float-sm-end
-              = right_panel
+    - if right_panel.present?
+      div class="flex items-center"
+        = right_panel
 - else
-  .pt-3
+  div class="my-1"

@@ -1,7 +1,5 @@
-// Brand Logo
-= turbo_frame_tag 'site_title' do
-  = link_to root_path, class: 'navbar-brand', data: { turbo: false } do
-    = picture_tag do
-      = tag(:source, srcset: image_path('zealot-icon-dark.png'), media: '(prefers-color-scheme: dark)', class: 'dark-brand-image brand-image')
-      = image_tag 'zealot-icon.png', class: 'brand-image'
-    span.brand-text.fw-light = site_title
+= turbo_frame_tag 'site_title', class: 'flex flex-col items-center justify-center' do
+  = link_to root_path, class: 'flex items-center text-base-content', data: { turbo_frame: '_top' } do
+    = vite_image_tag 'images/zealot-icon.png', class: 'brand-image-light size-11'
+    = vite_image_tag 'images/zealot-icon-dark.png', class: 'brand-image-dark size-11'
+    span class="text-xl d-is-drawer-close:hidden" = site_title

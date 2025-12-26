@@ -1,6 +1,0 @@
-- if @channel.available_web_hooks_count > 0
-  table.table.table-bottom-borderless.mt-2
-    - @channel.available_web_hooks.each do |web_hook|
-      == render 'web_hooks/item', current_channel: @channel, web_hook: web_hook, type: :shared
-- else
-  == render 'web_hooks/not_found'

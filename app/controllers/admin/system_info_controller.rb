@@ -112,8 +112,7 @@ class Admin::SystemInfoController < ApplicationController
           bytes_used: disk.bytes_used,
           mount_path: disk.path&.force_encoding('UTF-8'),
           mount_options: mount.options,
-          percent: percent,
-          color: progress_color(percent)
+          percent: percent
         )
       rescue Sys::Filesystem::Error
         next
@@ -151,8 +150,7 @@ class Admin::SystemInfoController < ApplicationController
     @memory = {
       used: memory.active_bytes,
       total: memory.total_bytes,
-      percent: percent,
-      color: progress_color(percent)
+      percent: percent
     }
   rescue
     @memory = nil
@@ -166,8 +164,7 @@ class Admin::SystemInfoController < ApplicationController
     @diskspace ||= {
       used: disk.bytes_used,
       total: disk.bytes_total,
-      percent: percent,
-      color: progress_color(percent)
+      percent: percent
     }
   rescue
     @diskspace = nil
@@ -182,16 +179,5 @@ class Admin::SystemInfoController < ApplicationController
 
   def percent(value, n)
     value.to_f / n.to_f * 100.0
-  end
-
-  def progress_color(percent)
-    case percent.to_i
-    when 0..60
-      'bg-success'
-    when 61..80
-      'bg-warning'
-    else
-      'bg-danger'
-    end
   end
 end

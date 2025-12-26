@@ -1,0 +1,5 @@
+= turbo_stream.remove dom_id(@job, :backup)
+= turbo_stream.append :notifications, partial: 'layouts/notifications'
+
+- if @backup.performing_jobs.empty?
+  = turbo_stream.remove 'inprogress_jobs'

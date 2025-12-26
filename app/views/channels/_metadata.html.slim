@@ -1,37 +1,40 @@
 .card
   .card-header
     h3.card-title
-      i.icon.fa-solid.fa-gear
+      i.fa-solid.fa-gear
       = t('channels.show.metadata')
-  .card-body.p-0
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold = platform_name(@channel.device_type)
-      span.text-muted = t('channels.show.device_type')
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold = @channel.slug
-      span.text-muted = t('channels.show.slug')
-    - if current_user&.manage?(app: @app)
-      .d-flex.flex-column.border-bottom.py-2.px-3
-        span.font-weight-bold = @channel.password.blank? ? t('channels.show.none') : @channel.password
-        span.text-muted = t('channels.show.password')
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold = @channel.bundle_id
-      span.text-muted = t('channels.show.match_rule', value: @channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold = @channel.git_url.blank? ? t('channels.show.none') : @channel.git_url
-      span.text-muted = t('channels.show.git_url')
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold = @channel.releases.count
-      span.text-muted = t('channels.show.total_releases')
-    .d-flex.flex-column.border-bottom.py-2.px-3
-      span.font-weight-bold title=t("channels.show.download_filename_type_item.#{@channel.download_filename_type}") data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="left"
-        = @channel.download_filename_type
-      span.text-muted = t("channels.show.download_filename_type")
-    .d-flex.flex-column.py-2.px-3.mb-0
-      span.font-weight-bold = @channel.key
-      span.text-muted = t('channels.show.channel_key')
+  .card-body class="p-0"
+    table class="d-table"
+      tr
+        td class="font-bold opacity-60" = t('channels.show.device_type')
+        td = platform_name(channel.device_type)
+      tr
+        td class="font-bold opacity-60" = t('channels.show.slug')
+        td = channel.slug
+      - if current_user&.manage?(app: app)
+        tr
+          td class="font-bold opacity-60" = t('channels.show.password')
+          td = channel.password.blank? ? t('channels.show.none') : channel.password
+      tr
+        td class="font-bold opacity-60" = t('channels.show.match_rule', value: channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
+        td = channel.bundle_id
+      tr
+        td class="font-bold opacity-60" = t('channels.show.git_url')
+        td = channel.git_url.blank? ? t('channels.show.none') : channel.git_url
+      tr
+        td class="font-bold opacity-60" = t('channels.show.total_releases')
+        td = channel.releases.count
+      tr
+        td class="font-bold opacity-60" = t("channels.show.download_filename_type")
+        td 
+          span class="d-" data-tip=t("channels.show.download_filename_type_item.#{channel.download_filename_type}") 
+            = channel.download_filename_type
+      tr
+        td class="font-bold opacity-60" = t('channels.show.channel_key')
+        td = channel.key
 
-  - if current_user&.manage?(app: @app) && !@app.archived
-    .card-footer.p-1
-      = link_to t('channels.show.edit_channel'), edit_app_scheme_channel_path(@channel.scheme.app, @channel.scheme, @channel), \
-        class: 'btn w-100 text-primary', data: { turbo_frame: :modal }
+  - if current_user&.manage?(app: app) && !app.archived
+    .card-footer class="p-0"
+      = link_to t('channels.show.edit_channel'), \
+        edit_app_scheme_channel_path(channel.scheme.app, channel.scheme, channel), \
+        class: 'd-btn d-btn-ghost w-full', data: { turbo_frame: :modal }

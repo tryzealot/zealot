@@ -1,31 +1,41 @@
 - if @metadata.mobileprovision.present?
-  .card.mb-3
-    .card-header
+  ruby:   
+    title = t('teardowns.show.mobileprovision')
+    collapse_dom_id = "card-collapse-mobileprovision"
+    properties = [
+      {
+        key: t('teardowns.show.mobileprovision_name'),
+        value: "#{@metadata.mobileprovision['profile_name']} (#{release_type_name(@metadata.release_type)})"
+      },
+      {
+        key: t('teardowns.show.uuid'),
+        value: @metadata.mobileprovision['uuid']
+      },
+      {
+        key: t('teardowns.show.team_id'),
+        value: "#{@metadata.mobileprovision['team_name']} (#{@metadata.mobileprovision['team_identifier'].first})"
+      },
+      {
+        key: t('teardowns.show.created_at'),
+        value: l(Time.zone.parse(@metadata.mobileprovision['created_at']), format: :nice)
+      },
+      {
+        key: t('teardowns.show.expired_at'),
+        value: expired_date_tips(@metadata.mobileprovision['expired_at'], colorful: true, tooltip_position: 'right').html_safe
+      }
+    ]
+
+  .card.card-collapse.card-collapse-plus
+    input.card-collapse-input.hidden type="checkbox" id=collapse_dom_id checked="checked" 
+    label.card-header.card-collapse-toggle for=collapse_dom_id
       h3.card-title
         - if enable_icon
-          i.icon.fa-solid.fa-certificate
-        = t('teardowns.show.mobileprovision')
+          i.fa-solid.fa-certificate
+        = title
       .card-tools
-        button.btn.btn-tool data-lte-toggle="card-collapse"
-          i.fa-solid.fa-plus data-lte-icon="expand"
-          i.fa-solid.fa-minus data-lte-icon="collapse"
-    .card-body.p-0.ps-3
-      dl.system-info.pb-0
-        dt = t('teardowns.show.mobileprovision_name')
-        dd
-          pre = "#{@metadata.mobileprovision['profile_name']} (#{release_type_name(@metadata.release_type)})"
-        dt = t('teardowns.show.uuid')
-        dd
-          pre = @metadata.mobileprovision['uuid']
-        dt = t('teardowns.show.team_id')
-        dd
-          pre = "#{@metadata.mobileprovision['team_name']} (#{@metadata.mobileprovision['team_identifier'].first})"
-        dt = t('teardowns.show.created_at')
-        dd
-          pre = l(Time.zone.parse(@metadata.mobileprovision['created_at']), format: :nice)
-        dt = t('teardowns.show.expired_at')
-        dd
-          pre
-            = "#{l(Time.zone.parse(@metadata.mobileprovision['expired_at']), format: :nice)} ("
-            = expired_date_tips(@metadata.mobileprovision['expired_at'], colorful: true)
-            | )
+    .card-body.p-0
+      .p-3
+        - properties.each do |property|
+          .property
+            .property-key = property[:key]
+            .property-value = property[:value]

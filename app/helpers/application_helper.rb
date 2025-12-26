@@ -9,6 +9,27 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     Setting.site_title
   end
 
+  def site_themes
+    {
+      light: current_user&.light_theme || Setting.site_light_theme,
+      dark: current_user&.dark_theme || Setting.site_dark_theme
+    }.to_json
+  end
+
+  def active_theme
+    return current_user.light_theme if current_user&.appearance == 'light'
+    return current_user.dark_theme if current_user&.appearance == 'dark'
+
+    return Setting.site_light_theme if Setting.site_appearance == 'light'
+    return Setting.site_dark_theme if Setting.site_appearance == 'dark'
+
+    'auto'
+  end
+
+  def active_appearance
+    current_user&.appearance || Setting.site_appearance
+  end
+
   def new_or_create_route?
     current_page?(action: 'new') || current_page?(action: 'create') ||
     params[:action] == 'new' || params[:action] == 'create'
@@ -27,10 +48,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def sidebar_link_to(icon, path, text:, active_path:nil, **options)
     active_path ||= path
-    link_class = "nav-link #{active_class(active_path)}"
-    tag.li(class: 'nav-item') do
-      icon_link_to(icon, path, link: { class: link_class }, icon: { class: 'nav-icon' }) do
-        tag.p(text)
+    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right #{active_class(active_path)}"
+    tag.li do
+      link_to path, class: link_class, data: { tip: text } do
+        concat(tag.i(class: icon))
+        concat(tag.span(text, class: 'd-is-drawer-close:hidden'))
       end
     end
   end
@@ -52,7 +74,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def button_link_to(title, url, icon = nil, **options)
-    options[:class] = "btn #{options[:class]}"
+    options[:class] = "d-btn #{options[:class]}"
     base_fontawesome = options.delete(:base_fa) || 'fa-solid'
 
     content = title
@@ -64,8 +86,8 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     link_to content, url, **options
   end
 
-  # 激活 li 的 class
-  def active_class(link_paths, class_name = 'active')
+  # Return active class if current page matches any of the link paths
+  def active_class(link_paths, class_name = 'd-menu-active')
     link_paths = [ link_paths ] if link_paths.is_a?(String)
 
     is_current = false
@@ -158,51 +180,19 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def device_icon(device_type)
-    icon, _ = device_style(device_type)
-    tag.i(class: "fa-brands #{icon}")
-  end
-
-  def timeline_app_icon(device_type)
-    device_style(device_type).join(' ')
-  end
-
-  def device_style(device_type)
-    case device_type.downcase
-    when 'ios', 'appletv'
-      ['fa-apple', 'bg-secondary']
-    when 'android'
-      ['fa-android', 'bg-green-400']
-    when 'harmonyos'
-      ['fa-adn', 'bg-black']
-    when 'windows'
-      ['fa-windows', 'bg-primary']
-    when 'macos'
-      ['fa-app-store', 'bg-blue']
-    when 'linux'
-      ['fa-linux', 'bg-info']
-    else
-      ['fa-adn', 'bg-blue-400']
-    end
-  end
-
   def github_repo_commit(ref)
     "#{Setting.repo_url}/commit/#{ref}"
   end
 
   def powered_by
-    content_tag :span, class: 'powered_by' do
-      link_to 'Powered by Zealot', 'https://zealot.ews.im'
-    end
+    safe_join([
+      'Powered by', 
+      link_to('Zealot', 'https://zealot.ews.im')
+    ], ' ')
   end
 
   def zealot_version
-    content_tag :span, class: 'version ms-1' do
-      prefix = 'Version'
-      version_link = link_to Setting.version_info(suffix: true), Setting.repo_url
-
-      raw "#{prefix} #{version_link}"
-    end
+    link_to Setting.version_info(suffix: true), Setting.repo_url
   end
 
   def show_api
@@ -220,5 +210,10 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def openapi_endpoints_enabled?
     Rails.application.routes.named_routes.key?(:api_openapi_ui) && Setting.show_footer_openapi_endpoints
+  end
+
+  def drawer_status
+    value = cookies.fetch('zealot-drawer-status', 'open') == 'open'
+    value ? true : nil
   end
 end

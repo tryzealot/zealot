@@ -1,2 +1,2 @@
-li
-  = get_pagination_link current_page.last?, t('views.pagination.last'), url, '', remote
+= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote, \
+  class: "d-join-item d-btn d-btn-sm"

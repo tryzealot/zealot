@@ -3,13 +3,13 @@ en:
     "yes": "Yes"
     "no": "No"
     required:
-      text: "Required field"
+      text: "required"
       mark: "*"
-    #You can uncomment the line below if you need to overwrite the whole required html.
-    #When using html, text and mark won't be used.
-    #html: '<abbr title="required">*</abbr>'
+      #You can uncomment the line below if you need to overwrite the whole required html.
+      #When using html, text and mark won't be used.
+      html: "*"
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message: "Please review the problems below"
     labels:
       defaults:
         name: Name
@@ -22,11 +22,15 @@ en:
         password_confirmation: Password confirmation
         locale: Language
         appearance: Appearance
+        light_theme: Light theme
+        dark_theme: Dark theme
         timezone: Time Zone
         role: Role
         remember_me: Remember me
       app:
         name: App name
+      teardown:
+        file: File
       collaborator:
         user: User
         role: Role
@@ -100,6 +104,8 @@ en:
       app:
         schemes:
           name: :simple_form.hints.scheme.name
+      teardown:
+        file: Support iOS, Android, HarmonyOS, macOS, Windows and Linux binary file
       scheme:
         name: Apply the type of feature to target audience
         new_build_callout: Display a new callout at the top of the page when visiting a previous build of app

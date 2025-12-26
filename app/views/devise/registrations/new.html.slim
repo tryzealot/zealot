@@ -1,43 +1,38 @@
 - content_for :title do
   = t('.sign_up')
 
-.row.my-3
-  .col-md-6.order-12.order-sm-1
-    == render 'devise/shared/intro'
-  .col-md-6.order-1.order-sm-12.mb-4
-    - if Setting.registrations_enabled
-      .card
-        .card-header
-          h3.card-title = t('.sign_up')
-        .card-body
-          .row
-            .auth-form.col-md-6
-              = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-                == render "devise/shared/error_messages", resource: resource
+div class="d-section mx-auto max-w-6xl px-4 md:px-6"
+  div class="grid grid-cols-1 md:grid-cols-5 gap-8 my-2"
+    div class="col-span-2 order-2 md:order-1"
+      == render 'devise/shared/intro'
+    div class="col-span-3 order-1 md:order-2"
+      div.d-tabs.d-tabs-box
+        input class="d-tab" type="radio" aria-label=t('.sign_up') checked='checked'
+        div class="d-tab-content bg-base-100 border-base-300 px-5 py-3"
+          - if Setting.registrations_enabled
+            div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-2"
+              div class="order-1 border-base-200 md:border-r-2 md:pe-4"
+                = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+                  = f.input :username,
+                            required: true,
+                            autofocus: true,
+                            input_html: { autocomplete: "username", class: 'form-control' }
+                  = f.input :email,
+                            required: true,
+                            autofocus: true,
+                            input_html: { autocomplete: "email", class: 'form-control' }
+                  = f.input :password,
+                            required: true,
+                            hint: t('devise.shared.minimum_password_length', count: @minimum_password_length),
+                            input_html: { autocomplete: "new-password" }
+                  = f.input :password_confirmation,
+                            required: true,
+                            input_html: { autocomplete: "new-password" }
 
-                = f.input :username,
-                          required: true,
-                          autofocus: true,
-                          hint: '',
-                          input_html: { autocomplete: "username", class: 'form-control' }
-                = f.input :email,
-                          required: true,
-                          autofocus: true,
-                          hint: '',
-                          input_html: { autocomplete: "email", class: 'form-control' }
-                = f.input :password,
-                          required: true,
-                          hint: t('devise.shared.minimum_password_length', count: @minimum_password_length),
-                          input_html: { autocomplete: "new-password" }
-                = f.input :password_confirmation,
-                          required: true,
-                          input_html: { autocomplete: "new-password" }
-
-                = f.button :submit, t('.register'), class: 'w-100'
-            .auth-providers.col-md-6
-              == render 'devise/shared/links'
-    - else
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('.error')
-        .card-body = t('.register_closed')
+                  = f.button :submit, t('.register'), class: 'w-full'
+              div class="order-2"
+                == render 'devise/shared/links'
+          - else
+            .pt-3.text-warning = t('.register_closed')
+            .d-divider OR
+            == render 'devise/shared/links'

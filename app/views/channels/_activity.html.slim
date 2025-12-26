@@ -1,35 +1,38 @@
-.card.mb-3
+.card#app-channel-activity
   .card-header
     h3.card-title
-      i.icon.fa-solid.fa-history
+      i.fa-solid.fa-history
       = t('channels.show.activity')
     .card-tools
-      span.badge.bg-secondary title="#{t('apps.show.total_builds')}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip"
-        = @channel.releases.count
+      span class="d-badge d-badge-ghost d-tooltip d-tooltip-left" data-tip=t('apps.show.total_builds')
+        = channel.releases.count
 
-  .card-body.p-0
-    ul.products-list
-      - if @releases.count > 0
-        - @releases.each do |release|
-          li.product-item
-            .product-img
-              = app_icon(release, class: 'app-icon rounded-circle img-bordered-sm')
-            .product-info
-              span.badge.text-bg-light.float-end data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" title="#{l(release.created_at, format: :nice)}"
-                = time_ago_in_words(release.created_at)
-              = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), data: { turbo: false }
-
-              span.product-description
+  .card-body class="p-0"
+    ul class="d-list bg-base-100 rounded-box shadow-md"
+      - unless releases.empty?
+        - releases.each do |release|
+          li.d-list-row
+            div 
+              = link_to friendly_channel_release_path(release.channel, release), \
+                data: { turbo_frame: '_top' } do 
+                  = app_icon(release)
+            div
+              div 
+                = link_to release.name || release.app_name, friendly_channel_release_path(release.channel, release), \
+                  data: { turbo_frame: '_top' }
+              div class="text-md opacity-60"
                 - if release.release_version.present?
                   = release.release_version
                   - if release.build_version.present?
                     | (#{release.build_version})
                 - else
                   = release.file.identifier
+            div
+              span class="opacity-80 d-tooltip d-tooltip-left" data-tip="#{l(release.created_at, format: :nice)}"
+                = time_ago_in_words(release.created_at)
       - else
-        li.item.p-3
-          = raw t('channels.show.not_found')
-  - if @releases.total_pages > 1
-    .card-footer
-      .float-end
-        = paginate @releases
+        li.p-4 = t('channels.show.not_found').html_safe
+
+  - if releases.total_pages > 1
+    .card-footer class="pt-4 flex justify-end border-t border-base-300"
+      = paginate releases

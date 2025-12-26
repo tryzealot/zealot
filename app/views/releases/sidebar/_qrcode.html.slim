@@ -1,13 +1,9 @@
-.card.mb-3
+.card
   .card-header
     h3.card-title
-      i.icon.fa-solid.fa-qrcode
+      i.fa-solid.fa-qrcode
       = t('releases.show.qrcode')
-    .card-tools
-      button.btn.btn-tool data-lte-toggle="card-collapse"
-        i.fa-solid.fa-plus data-lte-icon="expand"
-        i.fa-solid.fa-minus data-lte-icon="collapse"
-  .card-body.text-center.p-0
-    .qr_code
+  .card-body class="rounded-none p-0"
+    div class="flex justify-center w-full p-4"
       = app_qrcode_tag(@release)
-  .card-footer.text-center = t('releases.show.scan_qrcode_with_any_suppprted_app')
+  .card-footer.text-center = t('releases.show.scan_qrcode_with_any_supported_app')

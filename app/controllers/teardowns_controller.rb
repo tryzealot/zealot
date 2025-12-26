@@ -30,12 +30,12 @@ class TeardownsController < ApplicationController
   def show
     authorize @metadata
 
-    # Windows 应用会存在名称，版本号全无的情况
+    # Workground for windows app: name or version is blank
     name = @metadata.name || @metadata.id
     version = @metadata.release_version
     version += " (#{@metadata.build_version})" if @metadata.build_version.present?
 
-    @title = t('.title', name: "#{name} #{version}")
+    @title = t('.title', name: name)
   end
 
   def new
@@ -80,7 +80,7 @@ class TeardownsController < ApplicationController
   end
 
   def parse_app
-    unless file = params[:file]
+    unless file = teardown_params[:file]
       raise ActionController::RoutingError, t('teardowns.messages.errors.choose_supported_file_type')
     end
 
@@ -88,5 +88,9 @@ class TeardownsController < ApplicationController
     metadata.update_attribute(:user_id, current_user&.id) if current_user.present?
 
     redirect_to teardown_path(metadata)
+  end
+
+  def teardown_params
+    params.require(:teardown).permit(:file)
   end
 end

@@ -1,31 +1,30 @@
 - if (result != 'new_device' || apple_keys.present?)
-  .col-md-12
-    - unless apple_keys.empty?
-      .card.system_info.mb-4
-        .card-header
-          h3.card-title
-            i.icon.fa-solid.fa-info-circle
-            = t("udid.show.#{result}")
-        .card-body.p-0
-          table.table.table-bottom-borderless
+  - unless apple_keys.empty?
+    .card.system_info.mb-4
+      .card-header
+        h3.card-title
+          i.fa-solid.fa-info-circle
+          = t("udid.show.#{result}")
+      .card-body.p-0
+        table.d-table
+          tr
+            th = t('udid.show.team_name')
+            th = t('udid.show.team_id')
+            - if result == 'new_register_device'
+              th = t('udid.show.action')
+          - apple_keys.each do |apple_key|
             tr
-              th = t('udid.show.team_name')
-              th = t('udid.show.team_id')
+              td = apple_key.team.full_name
+              td = apple_key.team.team_id
               - if result == 'new_register_device'
-                th = t('udid.show.action')
-            - apple_keys.each do |apple_key|
-              tr
-                td = apple_key.team.full_name
-                td = apple_key.team.team_id
-                - if result == 'new_register_device'
-                  ruby:
-                    register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
-                  td = button_to t('udid.show.register_device'), register_link, class: 'btn btn-sm btn-success'
-    - else
-      .card.card-outline.card-warning.mb-4
-        .card-header.card-border
-          h3.card-title
-            i.icon.fa-solid.fa-info-circle
-            = t("udid.show.#{result}")
-        .card-body
-            = t('udid.show.related_apple_keys_not_found')
+                ruby:
+                  register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
+                td = button_to t('udid.show.register_device'), register_link, class: 'btn btn-sm btn-success'
+  - else
+    .card.card-outline.card-warning
+      .card-header
+        h3.card-title
+          i.fa-solid.fa-info-circle
+          = t("udid.show.#{result}")
+      .card-body
+          = t('udid.show.related_apple_keys_not_found')

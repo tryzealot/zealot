@@ -5,44 +5,26 @@
   = t('.title')
 
 - content_for :section_rightpanel do
-  a.btn.btn-success href="#{new_admin_apple_key_path}"
-    i.icon.fa-regular.fa-plus-square
-    = t('.new_apple_key')
+  = icon_link_to 'fa-regular fa-plus-square', new_admin_apple_key_path, text: t('.new_apple_key'), \
+    link: { class: 'd-btn d-btn-success', data: { turbo_frame: :modal } }
 
-.row
-  .col-md-12
-    - if @apple_keys.size > 0
-      .card
-        .card-header
-          h3.card-title
-            i.icon.fa-solid.fa-people-group
-            = t('.teams', count: @apple_keys.size)
-        .card-body.p-0
-          table.table.table-bottom-borderless
-            thead
-              tr
-                th = t('.number')
-                th = t('.team_name')
-                th = t('.team_id')
-                th = t('.created_at')
-                th.d-none.d-sm-block = t('.action')
-            tbody
-              - @apple_keys.each_with_index do |apple_key, i|
-                tr
-                  td
-                    = i + 1
-                  td
-                    = link_to apple_key.team.full_name, admin_apple_key_path(apple_key)
-                  td
-                    = apple_key.team.team_id
-                  td
-                    = time_ago_in_words(apple_key.created_at)
-                  td.d-none.d-sm-block
-                    = button_link_to '', admin_apple_key_path(apple_key), 'trash-alt', \
-                      class: 'btn btn-tool', \
-                      data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{apple_key.team&.display_name} (#{apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
-    - else
-      .card.card-outline.card-warning
-        .card-header.card-border
-          h3.card-title = t('.not_found.title')
-        .card-body = t('.not_found.body_html')
+- if @apple_keys.size > 0
+  .card
+    .card-header
+      h3.card-title
+        i.fa-solid.fa-people-group
+        = t('.teams')
+    .card-body.p-0.gap-0
+      div class="flex flex-col gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center sm:text-sm"
+        div class="hidden sm:block sm:col-span-1" = t('.number')
+        div class="col-span-12 sm:col-span-7 md:col-span-5" = t('.team_name')
+        div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.team_id')
+        div class="hidden md:block md:col-span-2" = t('.created_at')
+        div class="hidden md:block md:col-span-1 justify-end"
+      == render @apple_keys
+- else
+  .card.card-outline.card-warning
+    .card-header.card-border
+      h3.card-title = t('.not_found.title')
+    .card-body 
+      p = t('.not_found.body_html')

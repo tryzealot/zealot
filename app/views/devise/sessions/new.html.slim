@@ -1,19 +1,16 @@
 - content_for :title do
   = t('.sign_in')
 
-.row.my-3
-  .col-md-6.order-12.order-sm-1
-    == render 'devise/shared/intro'
-  .col-md-6.order-1.order-sm-12
-    .card
-      .card-header
-        ul.nav.nav-pills role="tablist"
-          == render 'devise/shared/tab_normal'
-          == render 'devise/shared/tab_passwordless'
-          == render 'devise/shared/tab_ldap'
-
-      .card-body
-        #login-box-tabs.tab-content
-          == render 'devise/shared/form_normal'
-          == render 'devise/shared/form_passwordless'
-          == render 'devise/shared/form_ldap'
+div class="d-section mx-auto max-w-6xl px-4 md:px-6"
+  div class="grid grid-cols-1 md:grid-cols-5 gap-8 my-2"
+    div class="col-span-2 order-2 md:order-1"
+      == render 'devise/shared/intro'
+    div class="col-span-3 order-1 md:order-2"
+      div.d-tabs.d-tabs-box[
+        data-controller='tab-switch'
+        data-tab-switch-default-tab-value='normal'
+        data-tab-switch-active-tab-value=@active_tab
+      ]
+        == render 'devise/shared/tab_normal', active_tab: @active_tab
+        == render 'devise/shared/tab_passwordless', active_tab: @active_tab
+        == render 'devise/shared/tab_ldap', active_tab: @active_tab

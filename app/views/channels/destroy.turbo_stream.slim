@@ -1,5 +1,5 @@
 = turbo_stream.append :notifications, partial: 'layouts/notifications'
-= turbo_stream.remove @channel
+= turbo_stream.remove dom_id(@channel, :app)
 
 - if @scheme.channels.count.zero?
-  = turbo_stream.replace "#{dom_id(@scheme)}_channels", partial: 'apps/empty_channel'
+  = turbo_stream.append "#{dom_id(@scheme)}_channels", partial: 'apps/empty_channel', locals: { scheme: @scheme }
