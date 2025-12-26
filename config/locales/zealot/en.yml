@@ -279,6 +279,7 @@ en:
         error_message: "Log fetch failed, return status code: "
     services:
       smtp_verify:
+        success: SMTP mailer service configuration verified successfully
         smtp_method_only: Only SMTP mailer method is supported
         no_mailer_configuration: No mailer configuration found
   dashboard:
