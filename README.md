@@ -64,6 +64,13 @@
 
 > **注意**: 演示服务中的数据每日都会重新初始化，不对用户上传的应用承担任何法律风险，后果自负！
 
+## 成为捐赠者
+
+<div align="left">
+  <a href="https://afdian.com/a/icyleaf"><img src="https://static.afdiancdn.com/static/img/logo/logo.png" height="46" width="46" alt="爱发电" title="使用爱发电赞助" /></a>
+  <a href="https://afdian.com/a/icyleaf"><img src="https://studio.buymeacoffee.com/assets/img/bmc-meta-new/new/apple-icon-120x120.png" height="46" width="46" alt="Buy Me A Coffee" title="Buy Me A Coffee" /></a>
+</div>
+
 ## 开发统计
 
 ![Alt](https://repobeats.axiom.co/api/embed/caba5e356c0e8258d395aaa9f70fec475a2eb643.svg "Repobeats analytics image")
