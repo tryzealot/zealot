@@ -81,7 +81,7 @@ gem 'activejob-status', '~> 1.0.2'
 # Assets
 ## Use jvite_rails to run rake tasks, core in package.json
 gem 'propshaft', '1.3.1'
-gem 'vite_rails', '~> 3.0.19'
+gem 'vite_rails', '~> 3.0.20'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0'
 
