@@ -3,13 +3,13 @@ name: Publish Codespace Docker Image
 on:
   push:
     paths:
-      - '.github/workflows/publish_codespace.yml'
-      - '.devcontainer/Dockerfile.base'
-      - '.mise.toml'
-      - 'Gemfile*'
-      - 'package.json'
-      - 'yarn.lock'
-      - 'pnpm-lock.yaml'
+      - ".github/workflows/publish_codespace.yml"
+      - ".devcontainer/Dockerfile.base"
+      - ".mise.toml"
+      - "Gemfile*"
+      - "package.json"
+      - "yarn.lock"
+      - "pnpm-lock.yaml"
     branches:
       - develop
   workflow_dispatch:
@@ -57,4 +57,4 @@ jobs:
           tags: |
             tryzealot/codespace:latest
             ghcr.io/tryzealot/codespace:latest
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
