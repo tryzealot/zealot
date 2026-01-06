@@ -2,18 +2,18 @@ name: Publish Nightly Docker Image
 on:
   push:
     paths-ignore:
-      - '.devcontainer/*'
-      - '.github/*.yml'
-      - '.github/workflows/publish_codespace.yml'
-      - '.github/workflows/publish_release.yml'
-      - '.github/workflows/publish_preview.yml'
-      - '*.md'
-      - '.*'
-      - 'LICENSE'
-      - 'Guardfile'
+      - ".devcontainer/*"
+      - ".github/*.yml"
+      - ".github/workflows/publish_codespace.yml"
+      - ".github/workflows/publish_release.yml"
+      - ".github/workflows/publish_preview.yml"
+      - "*.md"
+      - ".*"
+      - "LICENSE"
+      - "Guardfile"
       - Aptfile
-      - 'Procfile*'
-      - '*.yaml'
+      - "Procfile*"
+      - "*.yaml"
     branches:
       - develop
 
@@ -27,56 +27,62 @@ jobs:
     permissions:
       packages: write
       contents: read
+
+    # Ensure only one job runs at a time
+    concurrency:
+      group: push_to_registry
+      cancel-in-progress: true
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v6
+      - name: Checkout
+        uses: actions/checkout@v6
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Get build date
-      id: build_date
-      run: |
-        echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - name: Get build date
+        id: build_date
+        run: |
+          echo "BUILD_DATE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Docker metadata
-      id: metadata
-      uses: docker/metadata-action@v5
-      with:
-        images: |
-          ${{ github.repository }}
-          ghcr.io/${{ github.repository }}
-        tags: |
-          type=raw,value=${{ env.DOCKER_TAG }}
-          type=raw,value=${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+      - name: Docker metadata
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ github.repository }}
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=${{ env.DOCKER_TAG }}
+            type=raw,value=${{ env.DOCKER_TAG }}-${{ steps.build_date.outputs.BUILD_DATE_TAG }}
 
-    - name: Build and Push
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        push: true
-        labels: ${{ steps.metadata.outputs.labels }}
-        tags: ${{ steps.metadata.outputs.tags }}
-        annotations: ${{ steps.metadata.outputs.annotations }}
-        platforms: linux/amd64,linux/arm64
-        build-args: |
-          REPLACE_CHINA_MIRROR=false
-          VCS_REF=${{ github.sha }}
-          TAG=${{ env.DOCKER_TAG }}
-          BUILD_DATE=${{ fromJSON(steps.metadata.outputs.json).labels['org.opencontainers.image.created'] }}
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          labels: ${{ steps.metadata.outputs.labels }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          annotations: ${{ steps.metadata.outputs.annotations }}
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            REPLACE_CHINA_MIRROR=false
+            VCS_REF=${{ github.sha }}
+            TAG=${{ env.DOCKER_TAG }}
+            BUILD_DATE=${{ fromJSON(steps.metadata.outputs.json).labels['org.opencontainers.image.created'] }}
