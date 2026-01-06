@@ -29,7 +29,7 @@ gem 'view_component', '~> 4.1'
 gem 'jb', '~> 0.8.2'
 gem 'slim-rails', '~> 4.0.0'
 gem 'kramdown', '~> 2.5'
-gem 'simple_form', '~> 5.4'
+gem 'simple_form', '~> 5.4.1'
 gem 'rswag-api', '~> 2.17.0'
 gem 'rswag-ui', '~> 2.17.0'
 
@@ -81,7 +81,7 @@ gem 'activejob-status', '~> 1.0.2'
 # Assets
 ## Use jvite_rails to run rake tasks, core in package.json
 gem 'propshaft', '1.3.1'
-gem 'vite_rails', '~> 3.0.19'
+gem 'vite_rails', '~> 3.0.20'
 gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0'
 
