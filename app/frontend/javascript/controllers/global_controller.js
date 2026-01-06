@@ -46,7 +46,6 @@ export default class extends Controller {
     Zealot.log("Previewing theme:", theme)
     if (theme) {
       document.documentElement.setAttribute("data-theme", theme)
-      document.body.setAttribute("data-theme", theme)
     }
   }
 
@@ -76,7 +75,6 @@ export default class extends Controller {
     if (activeTheme) {
       Zealot.log(`Setting theme to: ${activeTheme}`)
       document.documentElement.setAttribute("data-theme", activeTheme)
-      document.body.setAttribute("data-theme", activeTheme)
     } else {
       console.log("Unknown appearance mode:", appearance)
     }
