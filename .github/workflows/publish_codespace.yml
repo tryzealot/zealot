@@ -22,6 +22,11 @@ jobs:
       packages: write
       contents: read
 
+    # Ensure only one job runs at a time
+    concurrency:
+      group: publish_codespace_image
+      cancel-in-progress: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
