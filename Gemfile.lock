@@ -14,7 +14,7 @@ GEM
       base64
       nkf
       rexml
-    action_text-trix (2.1.16)
+    action_text-trix (2.1.15)
       railties
     actioncable (8.1.1)
       actionpack (= 8.1.1)
@@ -47,7 +47,7 @@ GEM
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
     actiontext (8.1.1)
-      action_text-trix (~> 2.1.16)
+      action_text-trix (~> 2.1.15)
       actionpack (= 8.1.1)
       activerecord (= 8.1.1)
       activestorage (= 8.1.1)
