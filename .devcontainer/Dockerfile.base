@@ -30,7 +30,7 @@ ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
 RUN curl https://mise.run | sh
 
 # Install lazygit
-ENV LAZYGIT_VERSION="0.57.0"
+ENV LAZYGIT_VERSION="0.58.0"
 RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin && \
     chmod +x /usr/local/bin/lazygit
 
@@ -55,10 +55,11 @@ RUN mise trust && \
     mise reshim
 
 ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
-RUN gem install bundler && \
+COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
+
+RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n1 | awk '{print $1}') && \
     npm install --global pnpm mprocs
 
-COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
 USER root
 RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
 USER vscode
