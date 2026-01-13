@@ -128,7 +128,7 @@ GEM
     bindex (0.8.1)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.20.1)
+    bootsnap (1.21.0)
       msgpack (~> 1.2)
     builder (3.3.0)
     carrierwave (3.1.2)
@@ -710,7 +710,6 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
-  ruby
   x86_64-darwin-18
   x86_64-darwin-19
   x86_64-darwin-20
