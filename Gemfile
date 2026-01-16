@@ -92,7 +92,7 @@ gem 'bootsnap', '>= 1.4.7', require: false
 gem 'faker'
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.10'
+  gem 'listen', '>= 3.0.5', '< 3.11'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
