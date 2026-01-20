@@ -24,6 +24,15 @@ class AppWebHookJob < ApplicationJob
       )
     end
 
+    if @web_hook.url.blank?
+      logger.error(log_message(t('active_job.webhook.failures.empty_url')))
+      return notificate_failure(
+        user_id: @user.id,
+        type: 'webhook',
+        message: t('active_job.webhook.failures.empty_url')
+      )
+    end
+
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
     logger.info(log_message("trigger json body: #{message_body}"))
