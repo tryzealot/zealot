@@ -26,7 +26,7 @@ ruby:
     .card-header
       h3.card-title = t('.change_appearance')
     .card-body
-      = simple_form_for(resource, as: resource_name, url: demo_mode ? root_path : registration_path(resource_name), html: { method: :put, id: :change_appearance, data: { turbo: false } }) do |f|
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: :change_appearance, data: { turbo: false } }) do |f|
         = f.input :appearance, as: :select, collection: User.options_appearances, label_method: :last, value_method: :first, include_blank: false
 
         .flex.flex-row.gap-4
