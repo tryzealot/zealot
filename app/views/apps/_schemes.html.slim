@@ -1,0 +1,9 @@
+- schemes_total = app.schemes.count
+
+code = debug app_scheme_columns(schemes_total)
+#schemes class="#{app_scheme_columns(schemes_total)} gap-4 mb-4 items-start *:break-inside-avoid"
+  - if schemes_total.positive?
+    - app.schemes.each do |scheme|
+      == render 'apps/scheme', scheme: scheme, app: app
+  - else
+    == render 'apps/empty_scheme', app: app
