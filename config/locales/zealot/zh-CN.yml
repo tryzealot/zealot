@@ -287,7 +287,7 @@ zh-CN:
       web_hooks: :'admin.web_hooks.title'
       users: :'admin.users.title'
       background_jobs: :'admin.background_jobs.title'
-      disk_usage: 磁盘使用率
+      disk_usage: 存储空间
     timeline:
       title: 上传时间线
       upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
