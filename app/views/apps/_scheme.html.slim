@@ -12,18 +12,18 @@
     ui id="#{dom_id(scheme)}_channels" class="d-list"
       - if scheme.channels.count.positive?
         - scheme.channels.each do |channel|
-          == render 'channel', channel: channel, scheme: scheme, app: @app
+          == render 'apps/channel', channel: channel, scheme: scheme, app: app
       - else
-        == render 'empty_channel', scheme: scheme
+        == render 'apps/empty_channel', scheme: scheme
 
   - unless @app.archived
     .card-footer class="flex justify-between items-center"
-      = button_link_to '', new_app_scheme_channel_path(@app, scheme), 'plus-square', \
+      = button_link_to '', new_app_scheme_channel_path(app, scheme), 'plus-square', \
         class: 'd-btn-ghost d-btn-circle d-tooltip', data: { tip: t('apps.show.new_channel'), turbo_frame: :modal }
-      = button_link_to '', edit_app_scheme_path(@app, scheme), 'edit', \
+      = button_link_to '', edit_app_scheme_path(app, scheme), 'edit', \
         class: 'd-btn-ghost d-btn-circle d-tooltip', \
         data: { tip: t('apps.show.edit_scheme'), turbo_frame: :modal }
-      = button_link_to '', app_scheme_path(@app, scheme), 'trash-alt', \
+      = button_link_to '', app_scheme_path(app, scheme), 'trash-alt', \
         class: 'd-btn-ghost d-btn-circle d-tooltip d-tooltip-left text-error', \
         data: { \
           tip: t('apps.show.destroy_scheme'), \
