@@ -6,8 +6,6 @@
       .card-tools
     .card-body
       = f.error_notification
-      - unless f.object.errors.empty?
-        = debug f.object.errors
       = f.input :name
       = f.input :udid, as: :hidden, input_html: { value: udid }
       = f.input :platform, as: :hidden, input_html: { value: product }
