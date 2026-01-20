@@ -42,6 +42,8 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def devise_page?
     # current_page? method CAN NOT fuzzy matching
     contoller_name = params[:controller]
+    return false if contoller_name == 'users/registrations' && params[:action] == 'edit'
+
     contoller_name.start_with?('devise/') || contoller_name == 'users/registrations' ||
       contoller_name == 'users/confirmations' || contoller_name == 'users/sessions'
   end
