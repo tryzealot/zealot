@@ -8,6 +8,11 @@ class AppWebHookJob < ApplicationJob
 
   queue_as :webhook
 
+  # Automatically retry on network errors with exponential backoff
+  retry_on Faraday::Error, wait: :exponentially_longer, attempts: 3 do |job, error|
+    job.send(:handle_webhook_failure, error)
+  end
+
   def perform(event, web_hook, channel, user_id)
     @event = event
     @web_hook = web_hook
@@ -47,9 +52,12 @@ class AppWebHookJob < ApplicationJob
       { 'Content-Type' => 'application/json' }
     )
     logger.debug(log_message("trigger response body: #{response.body}"))
-    logger.info(log_message('trigger successfully')) if response.status == 200
-  rescue Faraday::Error => e
-    logger.error(log_message("trigger fail: #{e}"))
+    if response.success?
+      logger.info(log_message('trigger successfully'))
+    else
+      logger.error(log_message("trigger failed with status: #{response.status}"))
+      raise Faraday::Error, "response status: #{response.status}"
+    end
   end
 
   def message_body
@@ -124,6 +132,17 @@ class AppWebHookJob < ApplicationJob
 
   def log_message(message)
     "[Channel] #{@channel.id} #{message}"
+  end
+
+  def handle_webhook_failure(error)
+    _event, web_hook, _channel, user_id = arguments
+    return if user_id.blank?
+
+    notificate_failure(
+      user_id: user_id,
+      type: 'webhook',
+      message: t('active_job.webhook.failures.send_failed', url: web_hook&.url, error: error.message)
+    )
   end
 
   def build_example_release
