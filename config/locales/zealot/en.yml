@@ -1024,6 +1024,7 @@ en:
       failures:
         empty_release: Not found any release to send test webhook.
         empty_url: Webhook URL is empty.
+        send_failed: "Failed to send webhook to %{url}: %{error}"
     debug_file:
       success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
       failures:
