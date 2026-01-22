@@ -22,10 +22,14 @@ class ModalComponent < ViewComponent::Base
     @type ||= @options.fetch(:type, 'default')
   end
 
-  # FIXME: migrate bootstrap tooltip to daisyUI
+  def hide_ok
+    @hide_ok ||= @options.fetch(:hide_ok, false)
+  end
+
   def default_button
-    tag.button class: 'd-btn', title: tooltip_value, data: {
-      action: 'click->destroy#click', 
+    tag.button class: 'd-btn d-tooltip', data: {
+      tip: tooltip_value,
+      action: 'click->destroy#click',
     } do
       tag.i class: 'fa-solid fa-trash-alt text-danger'
     end

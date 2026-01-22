@@ -3,9 +3,9 @@ div class="d-stat"
   / .stat-figure.text-primary
   /   i class="#{icon}"
   div class="d-stat-title"
-    i class="pr-1 #{icon}"
+    / i class="pr-1 #{icon}"
     = title
-  div class="d-stat-value"
+  div class="d-stat-value text-[1.4rem] md:text-[2rem]"
     - if url.present?
       = link_to count.presence || '-', url
     - else

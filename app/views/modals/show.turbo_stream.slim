@@ -1,10 +1,13 @@
 = content_for :footer do
   - if @confirm_link.present? && @confirm_value.present?
     = link_to @confirm_value, @confirm_link, method: :delete, class: "d-btn d-btn-error"
-  - else
+  - elsif @options[:hide_ok].blank?
     form method="dialog"
       button.d-btn.d-btn-soft.d-btn-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
 
 = turbo_stream.replace :modal do
   = render_modal(**@options) do 
-    = @body
+    - if @options[:type] == 'sponsor'
+      == render 'sponsor'
+    - else
+      = @body

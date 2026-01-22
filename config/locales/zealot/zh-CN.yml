@@ -4,8 +4,9 @@ zh-CN:
   admin_section: 管理区域
   monitors_section: 监控区域
   user_profile: 用户详情
-  log_out: 登出
-  log_in: 登录
+  log_out: 用户登出
+  log_in: 用户登录
+  donate: 捐赠
   intro:
     title: 应用托管竟然如此简单、全平台 App 应用分发系统
     description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
@@ -922,6 +923,10 @@ zh-CN:
           <li>告知应用的开发人员，去苹果开发者网站重新生成签名证书并重新签名打包上传就能解决。</li>
           <li>重新生成签名证书不会对之前的应用有任何效果，也就是一旦过期永远都是过期，除非重新签名。</li>
         </ol>
+    sponsor:
+      title: 支持 Zealot 项目发展
+      intro: Zealot 是一个开源项目，致力于为移动应用开发者提供一个简单易用的内部分发平台。如果你觉得 Zealot 对你的工作有所帮助，欢迎通过以下方式支持项目的正常维护和持续发展
+      outro: 感谢你选择 Zealot 作为你的应用分发解决方案。
     tooltip:
       delete: 删除
     buttons:

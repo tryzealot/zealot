@@ -6,6 +6,15 @@
     .m-3
       == render 'layouts/brand_logo', site_title: Setting.site_title
 
+    - if user_signed_in?
+      div class="d-dropdown d-dropdown-start p-3 w-full block sm:hidden"
+        div class="flex justify-between rounded p-2 w-full hover:bg-base-100" tabindex="0" role="button"
+          span.font-semibold = current_user.username
+          i.fa-solid.fa-caret-down
+        ul class="d-dropdown-content d-menu bg-base-100 rounded-box z-1 w-54 p-2 shadow-sm"
+          li = link_to t('user_profile'), edit_user_registration_path
+          li = button_to t('log_out'), destroy_user_session_path, method: :delete
+
     ul class="d-menu d-menu-lg w-full grow"
       = sidebar_link_to('fa-solid fa-th', root_path, text: t('dashboard.title'))
       = sidebar_link_to('fa-brands fa-adn', apps_path, text: t('apps.title'))

@@ -6,6 +6,7 @@ en:
   user_profile: User profile
   log_out: Log out
   log_in: Log in
+  donate: Donate
   intro:
     title: Self-hosted Beta App Distribution for Android, iOS, macOS, Windows and Linux apps
     description: Continuous everything. Automate the lifecycle of your apps. Connect your CI to build in the cloud, test on thousands of real devices, distribute to beta testers and app stores. All in one place.
@@ -945,6 +946,10 @@ en:
           <li>Tell the developer to go to the Apple developer website to regenerate the signature certificate, build app and upload it.</li>
           <li>Regenerating a signed certificate will not have any effect on the previous application, i. e. once expired it will always be expired, unless re-sign the app.</li>
         </ol>
+    sponsor:
+      title: Support Zealot Project Development
+      intro: Zealot is an open-source project dedicated to providing mobile app developers with a simple and easy-to-use internal distribution platform. If you find Zealot helpful in your work, we welcome your support for our development through the following channels
+      outro: Your support is the driving force for our progress! Thank you for choosing Zealot as your app distribution solution.
     tooltip:
       delete: Delete
     buttons:
