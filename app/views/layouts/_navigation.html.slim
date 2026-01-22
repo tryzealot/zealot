@@ -20,7 +20,7 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
         i.fa-regular.fa-heart.text-red-500
         = t('donate')
     - if user_signed_in?
-      div class="d-dropdown d-dropdown-end hidden md:block"
+      div class="d-dropdown d-dropdown-end hidden sm:block"
         div class="d-btn d-btn-ghost" tabindex="0" role="button" 
           = current_user.username
           i.fa-solid.fa-caret-down

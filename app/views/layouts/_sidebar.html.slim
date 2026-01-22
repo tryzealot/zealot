@@ -12,8 +12,8 @@
           span.font-semibold = current_user.username
           i.fa-solid.fa-caret-down
         ul class="d-dropdown-content d-menu bg-base-100 rounded-box z-1 w-54 p-2 shadow-sm"
-          li = link_to t('user_profile'), edit_user_registration_path
-          li = button_to t('log_out'), destroy_user_session_path, method: :delete
+          li = link_to t('user_profile'), edit_user_registration_path, class: 'd-btn d-btn-ghost justify-start'
+          li = button_to t('log_out'), destroy_user_session_path, method: :delete, form: { class: 'd-btn d-btn-ghost justify-start' }
 
     ul class="d-menu d-menu-lg w-full grow"
       = sidebar_link_to('fa-solid fa-th', root_path, text: t('dashboard.title'))
