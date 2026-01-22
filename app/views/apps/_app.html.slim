@@ -1,26 +1,29 @@
 = turbo_frame_tag dom_id(app, :user) do
   li class="d-list-row justify-center hover:bg-base-200"
-    div
+    .flex-shrink-0
       = link_to app_path(app), data: { turbo_frame: '_top' } do
         = app_icon(app.recently_release)
     div
-      p = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo_frame: '_top' }
-      p[
-        class="d-tooltip d-tooltip-right opacity-50", 
-        data-tip=l(app.created_at, format: :nice)
-      ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+      div class="flex justify-between"
+        div
+          p = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo_frame: '_top' }
+          p[
+            class="d-tooltip d-tooltip-right opacity-50", 
+            data-tip=l(app.created_at, format: :nice)
+          ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+        - if current_user&.manage?(app: @app)
+          div class="text-right"
+            - if app.archived 
+              = button_link_to '', archived_app_path(app), 'history', \
+                class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
+                data: { tip: t('apps.show.unarchive_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
+            - else
+              = button_link_to '', archived_app_path(app), 'archive', \
+                class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
+                data: { tip: t('apps.show.archive_app'), turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }
+
       div class="d-breadcrumbs text-sm"
         ul
           li = "#{app.total_schemes} #{t('apps.index.schemes')}"
           li = "#{app.total_channels} #{t('apps.index.channels')}"
           li = "#{app.total_releases} #{t('apps.index.uploads')}"
-    
-    - if current_user&.manage?(app: @app)
-      - if app.archived 
-        = button_link_to '', archived_app_path(app), 'history', \
-          class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
-          data: { tip: t('apps.show.unarchive_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
-      - else
-        = button_link_to '', archived_app_path(app), 'archive', \
-          class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
-          data: { tip: t('apps.show.archive_app'), turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }

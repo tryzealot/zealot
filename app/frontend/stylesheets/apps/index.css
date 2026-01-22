@@ -1,4 +1,4 @@
-/* lobal app icon */
+/* global app icon */
 .app-icon {
   @apply rounded-lg size-18 overflow-hidden;
 }
