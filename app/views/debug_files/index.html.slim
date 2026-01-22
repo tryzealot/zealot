@@ -16,13 +16,22 @@
         - @apps.each_with_index do |app, i|
           li.d-list-row.items-center
             div = app_icon(app.recently_release)
-            h1.text-2xl.font-bold = app.name
-            = link_to device_app_debug_files_path(app, 'Android'), class: 'd-btn' do 
-              = t('.android_count')
-              .d-badge.d-badge-sm = app.android_debug_files.count
-            = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-btn' do
-              = t('.ios_count')
-              .d-badge.d-badge-sm = app.ios_debug_files.count
+            div
+              h1.text-2xl.font-bold = app.name
+              div class="d-join block md:hidden"
+                = link_to device_app_debug_files_path(app, 'Android'), class: 'd-join-item d-btn d-btn-sm' do 
+                  = t('.android_count')
+                  .d-badge.d-badge-sm = app.android_debug_files.count
+                = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-join-item d-btn d-btn-sm' do
+                  = t('.ios_count')
+                  .d-badge.d-badge-sm = app.ios_debug_files.count
+            div class="d-join hidden md:block"
+              = link_to device_app_debug_files_path(app, 'Android'), class: 'd-join-item d-btn' do 
+                = t('.android_count')
+                .d-badge.d-badge-sm = app.android_debug_files.count
+              = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-join-item d-btn' do
+                = t('.ios_count')
+                .d-badge.d-badge-sm = app.ios_debug_files.count
 
 - else
   .card.card-outline.card-warning
