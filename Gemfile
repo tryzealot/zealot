@@ -86,13 +86,13 @@ gem 'stimulus-rails', '~> 1.3.4'
 gem 'turbo-rails', '~> 2.0.21'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.7', require: false
+gem 'bootsnap', '>= 1.21.1', require: false
 
 # Generating fake data for tests and sample data in production
 gem 'faker'
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.10'
+  gem 'listen', '>= 3.10.0', '< 3.11'
   gem 'web-console', '>= 3.3.0'
   gem 'graphiql-rails'
 
