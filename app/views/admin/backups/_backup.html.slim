@@ -1,4 +1,4 @@
-= turbo_frame_tag dom_id(backup, :admin), class: 'grid grid-cols-6 gap-2 py-2 px-3 text-sm font-semibold border-t border-base-300 first:border-0 sm:grid-cols-12 sm:items-center' do
+= turbo_frame_tag dom_id(backup, :admin), class: 'grid grid-cols-6 leading-[2] py-2 px-3 text-sm font-semibold border-t border-base-300 first:border-0 sm:grid-cols-12 sm:items-center' do
   div class="col-span-6 sm:col-span-4 md:col-span-3 flex items-center gap-1 truncate"
     span class="shrink-0" == render 'admin/settings/switch_icon', value: backup.enabled
     span class="truncate" = link_to backup.key, admin_backup_path(backup), data: { turbo_frame: '_top' }
