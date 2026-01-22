@@ -83,7 +83,7 @@ gem 'activejob-status', '~> 1.0.2'
 gem 'propshaft', '1.3.1'
 gem 'vite_rails', '~> 3.0.20'
 gem 'stimulus-rails', '~> 1.3.4'
-gem 'turbo-rails', '~> 2.0'
+gem 'turbo-rails', '~> 2.0.21'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.7', require: false
