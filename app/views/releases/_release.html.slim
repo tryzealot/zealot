@@ -1,7 +1,7 @@
 / = turbo_stream_from dom_id(release, :metadata)
 = turbo_frame_tag release, class: 'grid gap-4 grid-cols-1 md:grid-cols-12' do
   div class="col-span-6 md:col-span-8 3xl:col-span-10 space-y-4"
-    == render 'releases/body/new_release_callout', enable_callout: release.scheme.new_build_callout, latest_release: release.outdated?
+    == render 'releases/body/new_release_callout', enable_callout: release.scheme.new_build_callout, latest_release: release.latest_version
     == render 'releases/body/metadata', release: release
     == render 'releases/body/changelog', release: release
     == render 'releases/body/devices', devices: release.devices
