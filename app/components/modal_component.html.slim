@@ -9,6 +9,6 @@
         = title
       div class="py-4"
         = content || body
-      - if content_for? :footer
+      - if content_for? :modal_footer
         div class="d-modal-action"
-          = content_for :footer
+          = content_for :modal_footer

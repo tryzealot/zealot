@@ -9,7 +9,7 @@
     - if user_signed_in_or_guest_mode?
       == render 'releases/body/debug_file', debug_file: release.debug_file
 
-  div class="md:col-span-4 3xl:col-span-2 space-y-4"
+  div class="col-span-6 md:col-span-4 3xl:col-span-2 space-y-4"
     == render 'releases/upload_button', app: app, channel: channel
     - if user_signed_in_or_guest_mode?
       == render 'releases/sidebar/version', channel: release.channel

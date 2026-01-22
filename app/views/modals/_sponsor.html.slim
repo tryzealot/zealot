@@ -1,0 +1,19 @@
+.flex.flex-col.gap-4
+  div
+    = t('sponsor.intro', scope: :modals)
+  
+  div.flex.flex-col.gap-3
+    = link_to 'https://github.com/sponsors/icyleaf', target: '_blank', class: 'd-btn d-btn-primary w-full' do
+      i.fa-brands.fa-github
+      | GitHub Sponsor
+    
+    = link_to 'https://buymeacoffee.com/icyleaf', target: '_blank', class: 'd-btn d-btn-warning w-full' do
+      i.fa-solid.fa-mug-hot
+      | Buy Me a Coffee
+    
+    = link_to 'https://afdian.com/a/icyleaf', target: '_blank', class: 'd-btn d-btn-secondary w-full' do
+      = vite_image_tag 'images/icons/afdian.svg', alt: '爱发电', class: 'inline h-4'
+      | 爱发电
+  
+  div
+    = t('sponsor.outro', scope: :modals)

@@ -14,9 +14,13 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
     div class="d-navbar-start"
     div class="d-navbar-center"
       == render 'layouts/brand_logo', site_title: Setting.site_title
-  div class="d-navbar-end"
+  div class="d-navbar-end flex gap-2"
+    - unless devise_page?
+      button.d-btn.d-btn-ghost data-action='global#showSponsorModal'
+        i.fa-regular.fa-heart.text-red-500
+        = t('donate')
     - if user_signed_in?
-      div class="d-dropdown d-dropdown-end"
+      div class="d-dropdown d-dropdown-end hidden md:block"
         div class="d-btn d-btn-ghost" tabindex="0" role="button" 
           = current_user.username
           i.fa-solid.fa-caret-down

@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import { Zealot } from "./zealot.js"
+import { turboStream } from "../utils/helpers"
+import { Zealot } from "./zealot"
 
 const DRAWER_OPEN_VALUE = "open"
 const DRAWER_CLOSED_VALUE = "closed"
@@ -118,4 +119,8 @@ export default class extends Controller {
       .find((row) => row.startsWith(`${this.drawerStatusKeyValue}=`))
     return cookie ? cookie.split("=")[1] : DRAWER_OPEN_VALUE
   }
-}
+
+  showSponsorModal() {
+    turboStream("/modals/sponsor")
+  }
+} 
