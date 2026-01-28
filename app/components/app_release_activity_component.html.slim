@@ -49,7 +49,7 @@
                 p class="text-sm mb-2 text-base-content/80"
                   = t('dashboard.timeline.upload_auto_version_release', version: release.version)
 
-              - if release.changelog.present?
+              - if release.changelog.present? && release.changelog.any?
                 div class="text-base-content/90 my-2"
                   ul class="list-inline items-center"
                     - release.changelog.each do |commit|
