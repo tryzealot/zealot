@@ -925,6 +925,7 @@ zh-CN:
         </ol>
     sponsor:
       title: 支持 Zealot 项目发展
+      more_channels: 更多渠道
       intro: Zealot 是一个开源项目，致力于为移动应用开发者提供一个简单易用的内部分发平台。如果你觉得 Zealot 对你的工作有所帮助，欢迎通过以下方式支持项目的正常维护和持续发展
       outro: 感谢你选择 Zealot 作为你的应用分发解决方案。
     tooltip:

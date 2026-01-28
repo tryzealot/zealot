@@ -948,6 +948,7 @@ en:
         </ol>
     sponsor:
       title: Support Zealot Project Development
+      more_channels: More channels
       intro: Zealot is an open-source project dedicated to providing mobile app developers with a simple and easy-to-use internal distribution platform. If you find Zealot helpful in your work, we welcome your support for our development through the following channels
       outro: Your support is the driving force for our progress! Thank you for choosing Zealot as your app distribution solution.
     tooltip:
