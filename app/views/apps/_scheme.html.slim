@@ -16,7 +16,7 @@
       - else
         == render 'apps/empty_channel', scheme: scheme
 
-  - unless @app.archived
+  - unless app.archived
     .card-footer class="flex justify-between items-center"
       = button_link_to '', new_app_scheme_channel_path(app, scheme), 'plus-square', \
         class: 'd-btn-ghost d-btn-circle d-tooltip', data: { tip: t('apps.show.new_channel'), turbo_frame: :modal }
