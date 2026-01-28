@@ -777,7 +777,7 @@ zh-CN:
             （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
           </p>
           <strong>获取步骤</strong>
-          <ol class="list-decimal">
+          <ol class="list-decimal px-5">
             <li>点击系统会弹窗的 “允许” 下载描述文件</li>
             <li>打开描述文件
               <ol>
@@ -905,7 +905,7 @@ zh-CN:
     install_issue:
       title: 安装中的错误及解决办法
       body_html: |
-        <ol class="list-decimal p-3">
+        <ol class="list-decimal px-5">
           <li>
             在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
             选择该应用对应的企业证书，点击文字 "信任企业开发者"。
@@ -915,7 +915,7 @@ zh-CN:
     cert_expired_issues:
       title: iOS 签名证书的错误及解决办法
       body_html: |
-        <ol class="list-decimal p-3">
+        <ol class="list-decimal px-5">
           <li>
             在 iOS 系统中苹果为了限制应用只在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
             签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。

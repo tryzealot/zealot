@@ -789,7 +789,7 @@ en:
       help:
         title: Why need to install profile to fetch your UDID?
         body_html: |
-          <p>
+          <p class="list-decimal px-5">
             UDID is an abbreviation for Unique Device Identifier. The UDID is a feature provided by Apple to identify iOS devices.
             Apple uses the UDID to communicate between Apple servers and individual iOS devices. This allows Apple to associate the
             Apple ID and the Cloud ID with the corresponding iOS device. Each iOS device has an unique ID.
@@ -926,7 +926,7 @@ en:
     install_issue:
       title: Install issues and the solution
       body_html: |
-        <ol class="list-decimal p-3">
+        <ol class="list-decimal px-5">
           <li>
             If you manually install an app on iOS 9+, you must also manually establish trust.
             Follow the steps to install: Settings.app -> General -> Profile -> Select Profile -> Trust.
@@ -936,7 +936,7 @@ en:
     cert_expired_issues:
       title: iOS signature certificate issues
       body_html: |
-        <ol class="list-decimal p-3">
+        <ol class="list-decimal px-5">
           <li>
             In iOS, Apple has designed a signature verification mechanism for apps developed, tested,
             and shelved in order to prevent apps from being distributed in the App Store app store.
