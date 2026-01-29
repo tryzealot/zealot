@@ -7,7 +7,7 @@ module UserOmniauth
     # email = auth.info.email
     password = Devise.friendly_token[0, 20]
     user = User.find_or_initialize_by(email: auth.info.email) do |u|
-      u.username = auth.info.name
+      u.username = auth.info.name.presence || auth.info.nickname.presence || auth.info.email.split('@').first
       u.password = password
     end
     new_record = user.new_record?
