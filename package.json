@@ -24,7 +24,7 @@
     "@crowdin/cli": "^4.13.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^25.1.0",
-    "rollup": "^4.56.0",
+    "rollup": "^4.57.0",
     "vite": "^7.3.1",
     "vite-plugin-rails": "^0.5.0"
   }
