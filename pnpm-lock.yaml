@@ -15,8 +15,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2
       '@hotwired/turbo-rails':
-        specifier: ^8.0.22
-        version: 8.0.22
+        specifier: ^8.0.23
+        version: 8.0.23
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
@@ -233,11 +233,11 @@ packages:
   '@hotwired/stimulus@3.2.2':
     resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
 
-  '@hotwired/turbo-rails@8.0.22':
-    resolution: {integrity: sha512-8HqjVD7KrkEt2x7b1zuNqlD5IqEe8Yyme8djYqVwajkkQh5AfnRvLI7Q+J7wWgNPS9LaDz5Tif7Z9/qemdjQ4g==}
+  '@hotwired/turbo-rails@8.0.23':
+    resolution: {integrity: sha512-iBILwda3qmQC7FYM70+4s6kEQ7Fx9dJ6+yGxjPyrz9a5JDx1+y7OAA5TA7GGVOZJoicMLrKGdFDNorl40X35lw==}
 
-  '@hotwired/turbo@8.0.22':
-    resolution: {integrity: sha512-A7M8vBgsmZ8W55IOEhTN7o0++zaJTavyGa1DW1rt+/b4VTr8QUWC/zu8wxMmwqvczaOe1nI/MkMq4lm2NmiHPg==}
+  '@hotwired/turbo@8.0.23':
+    resolution: {integrity: sha512-GZ7cijxEZ6Ig71u7rD6LHaRv/wcE/hNsc+nEfiWOkLNqUgLOwo5MNGWOy5ZV9ZUDSiQx1no7YxjTNnT4O6//cQ==}
     engines: {node: '>= 18'}
 
   '@isaacs/fs-minipass@4.0.1':
@@ -1053,12 +1053,12 @@ snapshots:
 
   '@hotwired/stimulus@3.2.2': {}
 
-  '@hotwired/turbo-rails@8.0.22':
+  '@hotwired/turbo-rails@8.0.23':
     dependencies:
-      '@hotwired/turbo': 8.0.22
+      '@hotwired/turbo': 8.0.23
       '@rails/actioncable': 8.1.200
 
-  '@hotwired/turbo@8.0.22': {}
+  '@hotwired/turbo@8.0.23': {}
 
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
