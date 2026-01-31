@@ -1020,6 +1020,7 @@ zh-CN:
       user_not_found: 没有找到此用户
       api_not_found: 没有这个接口
       app_archived: "%{name}应用已归档，无法进行此操作"
+      cannot_lock_default_admin: 默认管理员账户不能被禁用
   active_job:
     webhook:
       failures:
