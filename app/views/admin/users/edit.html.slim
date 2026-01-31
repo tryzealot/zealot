@@ -15,84 +15,85 @@
         h3.card-title = t('admin.users.edit.profile')
       == render 'form', user: @user
 
-    .grid.grid-cols-1.gap-4
-      .card
-        .card-header
-          h3.card-title = t('admin.users.edit.active_link')
-          .card-tools
-            = link_to t('admin.users.edit.resend'), resend_confirmation_admin_user_path(@user), \
-              class: 'd-btn d-btn-info', data: { turbo_method: :put }
-        .card-body
-          .opacity-65.text-sm.pt-0.md:pt-2
-            = raw t('admin.users.edit.active_link_tip', label: t('admin.users.edit.resend'), link: resend_confirmation_admin_user_path(@user))
-          .d-join data-controller="clipboard-center"
-            ruby:
-              confirmation_url = confirmation_url(@user, confirmation_token: @user.confirmation_token)
-            input.d-join-item.d-input.rounded-start.w-full.p-2.ps-3 value="#{confirmation_url}" readonly="true" data-clipboard-center-target="source"
-            button.d-join-item.d-btn[
-              data-action="clipboard-center#copy"
-              data-clipboard-text="#{confirmation_url}"
-            ]
-              i.fa-regular.fa-clipboard
-
-      - if @user.collaborators.present?
+    .flex.flex-col.gap-4
+      .grid.grid-cols-1.gap-4.items-start
         .card
           .card-header
-            h3.card-title = t('admin.users.edit.collaborators')
-          .card-body.p-0
-            table.d-table
-              - @user.collaborators.each do |collaborator|
-                tr
-                  td = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
-                  td
-                    - if collaborator.owner
-                      = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app),\
-                        data: { turbo_frame: 'modal' }
-                    - else
-                      = link_to Setting.builtin_roles[collaborator.role.to_sym], \
-                        edit_app_collaborator_path(collaborator.app, collaborator.user_id), \
-                        data: { turbo_frame: 'modal' }
+            h3.card-title = t('admin.users.edit.active_link')
+            .card-tools
+              = link_to t('admin.users.edit.resend'), resend_confirmation_admin_user_path(@user), \
+                class: 'd-btn d-btn-info', data: { turbo_method: :put }
+          .card-body
+            .opacity-65.text-sm.pt-0.md:pt-2
+              = raw t('admin.users.edit.active_link_tip', label: t('admin.users.edit.resend'), link: resend_confirmation_admin_user_path(@user))
+            .d-join data-controller="clipboard-center"
+              ruby:
+                confirmation_url = confirmation_url(@user, confirmation_token: @user.confirmation_token)
+              input.d-join-item.d-input.rounded-start.w-full.p-2.ps-3 value="#{confirmation_url}" readonly="true" data-clipboard-center-target="source"
+              button.d-join-item.d-btn[
+                data-action="clipboard-center#copy"
+                data-clipboard-text="#{confirmation_url}"
+              ]
+                i.fa-regular.fa-clipboard
 
-      .card
-        .card-header
-          h3.card-title = t('admin.users.edit.api_token')
-        .card-body
-          .d-join.pt-4 data-controller="clipboard-center"
-            input.d-join-item.d-input.w-full.p-2.ps-3[
-              type="text" 
-              readonly=true 
-              value="#{@user.token}" 
-              data-clipboard-center-target="source"
-            ]
-            button.d-join-item.d-btn[
-              data-action="clipboard-center#copy"
-              data-clipboard-text="#{@user.token}"
-            ]
-              i.fa-regular.fa-clipboard
+        - if @user.collaborators.present?
+          .card
+            .card-header
+              h3.card-title = t('admin.users.edit.collaborators')
+            .card-body.p-0
+              table.d-table
+                - @user.collaborators.each do |collaborator|
+                  tr
+                    td = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
+                    td
+                      - if collaborator.owner
+                        = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app),\
+                          data: { turbo_frame: 'modal' }
+                      - else
+                        = link_to Setting.builtin_roles[collaborator.role.to_sym], \
+                          edit_app_collaborator_path(collaborator.app, collaborator.user_id), \
+                          data: { turbo_frame: 'modal' }
 
-      .card
-        .card-body
-          .flex.justify-between
-            .space-x-1
-              - if @user.access_locked?
-                - if default_admin_in_demo_mode?(current_user)
-                  button.d-btn.d-btn-primary.d-btn-disabled
-                    = t('admin.users.edit.unlock_user')
+        .card
+          .card-header
+            h3.card-title = t('admin.users.edit.api_token')
+          .card-body
+            .d-join.pt-4 data-controller="clipboard-center"
+              input.d-join-item.d-input.w-full.p-2.ps-3[
+                type="text" 
+                readonly=true 
+                value="#{@user.token}" 
+                data-clipboard-center-target="source"
+              ]
+              button.d-join-item.d-btn[
+                data-action="clipboard-center#copy"
+                data-clipboard-text="#{@user.token}"
+              ]
+                i.fa-regular.fa-clipboard
+
+        .card
+          .card-body
+            .flex.justify-between
+              .space-x-1
+                - if @user.access_locked?
+                  - if default_admin_in_demo_mode?(current_user)
+                    button.d-btn.d-btn-primary.d-btn-disabled
+                      = t('admin.users.edit.unlock_user')
+                  - else
+                    = link_to t('admin.users.edit.unlock_user'), unlock_admin_user_path(@user), \
+                      class: 'd-btn d-btn-primary', data: { turbo_method: :delete, action: 'modal#close' }
                 - else
-                  = link_to t('admin.users.edit.unlock_user'), unlock_admin_user_path(@user), \
-                    class: 'd-btn d-btn-primary', data: { turbo_method: :delete, action: 'modal#close' }
+                  - if default_admin_in_demo_mode?(current_user)
+                    button.d-btn.d-btn-warning.d-btn-disabled
+                      = t('admin.users.edit.lock_user')
+                  - else
+                    = link_to t('admin.users.edit.lock_user'), lock_admin_user_path(@user), \
+                      class: 'd-btn d-btn-warning', data: { turbo_method: :put, action: 'modal#close' }
+              
+              - if default_admin_in_demo_mode?(current_user)
+                button.d-btn.d-btn-error.d-btn-disabled
+                  = t('admin.users.edit.destroy_user')
               - else
-                - if default_admin_in_demo_mode?(current_user)
-                  button.d-btn.d-btn-warning.d-btn-disabled
-                    = t('admin.users.edit.lock_user')
-                - else
-                  = link_to t('admin.users.edit.lock_user'), lock_admin_user_path(@user), \
-                    class: 'd-btn d-btn-warning', data: { turbo_method: :put, action: 'modal#close' }
-            
-            - if default_admin_in_demo_mode?(current_user)
-              button.d-btn.d-btn-error.d-btn-disabled
-                = t('admin.users.edit.destroy_user')
-            - else
-              = link_to t('admin.users.edit.destroy_user'), admin_user_path(@user), class: 'd-btn d-btn-error', \
-                data: { turbo_method: :delete, action: 'modal#close', \
-                turbo_confirm: t('admin.users.index.destroy_user_confirm', user: @user.username) }
+                = link_to t('admin.users.edit.destroy_user'), admin_user_path(@user), class: 'd-btn d-btn-error', \
+                  data: { turbo_frame: '_top', turbo_method: :delete, \
+                  turbo_confirm: t('admin.users.index.destroy_user_confirm', user: @user.username) }

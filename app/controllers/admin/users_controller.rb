@@ -57,17 +57,11 @@ class Admin::UsersController < ApplicationController
     if helpers.default_admin_in_demo_mode?(@user)
       return redirect_to admin_users_path, alert: t('errors.messages.invaild_in_demo_mode')
     end
-
     authorize @user
 
     @user.destroy
-
     notice = t('activerecord.success.destroy', key: t('admin.users.title'))
-    flash.now[:notice] = notice
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
-      format.turbo_stream
-    end
+    redirect_to admin_users_path, status: :see_other, notice: notice
   end
 
   def lock
