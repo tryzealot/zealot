@@ -50,7 +50,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
 
   def sidebar_link_to(icon, path, text:, active_path:nil, **options)
     active_path ||= path
-    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right #{active_class(active_path)}"
+    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active_class(active_path)}"
     tag.li do
       link_to path, class: link_class, data: { tip: text } do
         concat(tag.i(class: icon))
