@@ -21,7 +21,6 @@
     "ua-parser-js": "^2.0.8"
   },
   "devDependencies": {
-    "@crowdin/cli": "^4.13.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^25.1.0",
     "rollup": "^4.57.1",
