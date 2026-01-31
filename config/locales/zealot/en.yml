@@ -1024,7 +1024,8 @@ en:
       record_not_found: Record not found
       user_not_found: User not found
       api_not_found: API not found
-      app_archived: "App %{name} was archived, can not process current action."
+      app_archived: App %{name} was archived, can not process current action.
+      cannot_lock_default_admin: Default admin user can not be locked.
   active_job:
     webhook:
       failures:

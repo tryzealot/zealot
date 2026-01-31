@@ -65,6 +65,16 @@ class Admin::UsersController < ApplicationController
   end
 
   def lock
+    if @user.email == Setting.admin_email
+      alert = t('errors.messages.cannot_lock_default_admin')
+      flash.now[:alert] = alert
+      respond_to do |format|
+        format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render :edit, status: :unprocessable_entity }
+      end
+      return
+    end
+
     @user.lock_access!(send_instructions: false)
     flash.now[:notice] = t('.message', user: @user.username)
     respond_to do |format|
