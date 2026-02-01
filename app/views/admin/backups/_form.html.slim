@@ -1,4 +1,4 @@
-= simple_form_for([:admin, backup], data: { action: 'turbo:submit-end->modal#close' }) do |f|
+= simple_form_for [:admin, backup], data: { action: 'turbo:submit-end->modal#close' } do |f|
   = f.error_notification
   .grid.grid-cols-1.md:grid-cols-2.gap-4[
     data-controller="admin-cron"

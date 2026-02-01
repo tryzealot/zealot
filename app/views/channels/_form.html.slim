@@ -1,7 +1,6 @@
-ruby:
-  form_url = new_or_create_route? ? app_scheme_channels_path(scheme.app, scheme) : app_scheme_channel_path(app, scheme, channel)
+- form_url = new_or_create_route? ? app_scheme_channels_path(scheme.app, scheme) : app_scheme_channel_path(app, scheme, channel)
 
-= simple_form_for(channel, url: form_url, data: { action: 'turbo:submit-end->modal#close' }) do |f|
+= simple_form_for channel, url: form_url, data: { action: 'turbo:submit-end->modal#close' } do |f|
   = f.error_notification
 
   = f.input :scheme_id, as: :hidden, input_html: { value: params[:scheme_id] }
