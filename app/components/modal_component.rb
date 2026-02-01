@@ -78,31 +78,31 @@ class ModalComponent < ViewComponent::Base
   def modal_size
     @modal_size ||= case @options.fetch(:size, 'md').to_sym
                     when :xs
-                      'w-11/12 max-w-xs'
+                      'md:w-11/12 md:max-w-xs'
                     when :sm
-                      'w-11/12 max-w-sm'
+                      'md:w-11/12 md:max-w-sm'
                     when :md
                       # default
                       ''
                     when :lg
-                      'w-11/12 max-w-lg'
+                      'md:w-11/12 md:max-w-lg'
                     when :xl
-                      'w-11/12 max-w-xl'
+                      'md:w-11/12 md:max-w-xl'
                     when :'2xl'
-                      'w-11/12 max-w-2xl'
+                      'md:w-11/12 md:max-w-2xl'
                     when :'3xl'
-                      'w-11/12 max-w-3xl'
+                      'md:w-11/12 md:max-w-3xl'
                     when :'4xl'
-                      'w-11/12 max-w-4xl'
+                      'md:w-11/12 md:max-w-4xl'
                     when :'5xl'
-                      'w-11/12 max-w-5xl'
+                      'md:w-11/12 md:max-w-5xl'
                     when :'6xl'
-                      'w-11/12 max-w-6xl'
+                      'md:w-11/12 md:max-w-6xl'
                     end
   end
 
   def modal_position
     # default position is bottom on small screens, middle on larger screens
-    @modal_position ||= @options.fetch(:position, 'd-modal-bottom sm:d-modal-middle')
+    @modal_position ||= @options.fetch(:position, 'd-modal-bottom md:d-modal-middle')
   end
 end
