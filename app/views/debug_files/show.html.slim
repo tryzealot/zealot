@@ -16,7 +16,6 @@ ruby:
   = button_link_to '', device_app_debug_files_path(@app, platform_name(@debug_file.device_type)), 'list-alt', \
     class: 'd-btn d-tooltip', base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
-
 .app-detail.card
   .card-header
     h3.card-title class="flex items-center gap-2"
@@ -57,19 +56,19 @@ ruby:
     .app-actions.flex.gap-2.my-3
       - if @debug_file.file?
         = button_link_to t('.download'), @debug_file.file_url, 'download', target: '_blank', \
-          class: 'd-btn-lg d-btn-success'
+          class: 'd-btn md:d-btn-lg d-btn-success'
       - else
-        button.d-btn.d-btn-lg.d-btn-disabled
+        button.d-btn.d-btn-disabled class="d-btn md:d-btn-lg"
           i.fa-solid.fa-ghost
           = t('.missing_file')
 
       - if current_user&.manage?(app: @debug_file.app)
         - if !@debug_file.processing? && @debug_file.file?
           = button_link_to t('.reprocess'), reprocess_debug_file_path(@debug_file), 'repeat', \
-            class: 'd-btn-lg d-btn-primary', data: { turbo_method: :post }
+            class: 'd-btn md:d-btn-lg d-btn-primary', data: { turbo_method: :post }
 
         = button_link_to t('modals.buttons.destroy'), debug_file_path(@debug_file), 'trash-alt', \
-          class: 'd-btn d-btn-error d-btn-lg', data: { \
+          class: 'd-btn d-btn-error d-btn md:d-btn-lg', data: { \
             turbo_method: :delete, \
             turbo_confirm: t('modals.confirm.body'), \
           }
