@@ -1,5 +1,21 @@
 const DIALOG_ID = "modal-dialog"
 
+export function confirmModalHandler(message, options = {}) {
+  return new Promise((resolve) => {
+    const dialog = new ConfirmDialog(message, {
+      ...options,
+      variant: "confirm",
+      onOk() {
+        resolve(true)
+      },
+      onCancel() {
+        resolve(false)
+      }
+    })
+    dialog.open()
+  })
+}
+
 class ConfirmDialog {
   constructor(message, options = {}) {
     this.message = message
@@ -11,7 +27,7 @@ class ConfirmDialog {
 
   open() {
     requestAnimationFrame(() => {
-      this.dialog.show()
+      this.root.showModal()
     })
   }
 
@@ -21,69 +37,56 @@ class ConfirmDialog {
       root = this.buildRoot()
       document.body.appendChild(root)
     } else {
-      if (root.parentElement !== document.body) {
-        root.remove()
-        document.body.appendChild(root)
-      } else {
+      // Ensure the root is in the document body
+      if (!root.parentElement || root.parentElement !== document.body) {
         document.body.appendChild(root)
       }
     }
-
-    // this.dialog = bootstrap.Modal.getOrCreateInstance(root)
 
     return root
   }
 
   buildRoot() {
-    const root = document.createElement("div")
+    const root = document.createElement("dialog")
     root.id = DIALOG_ID
-    root.classList.add("modal", "fade")
-    root.setAttribute("role", "dialog")
-    root.setAttribute("tabindex", "-1")
+    root.classList.add("d-modal", "d-modal-bottom", "md:d-modal-middle")
+    root.setAttribute("data-controller", "modal")
 
     const dialogDiv = document.createElement("div")
-    dialogDiv.classList.add("modal-dialog")
-
-    const contentDiv = document.createElement("div")
-    contentDiv.classList.add("modal-content")
-
-    const headerDiv = document.createElement("div")
-    headerDiv.classList.add("modal-header")
-    headerDiv.dataset.role = "header"
-
-    const title = document.createElement("h4")
-    title.classList.add("modal-title")
-    title.dataset.role = "title"
-    headerDiv.appendChild(title)
+    dialogDiv.classList.add("d-modal-box")
+    const titleH = document.createElement("h3")
+    titleH.classList.add("text-lg", "font-bold")
+    titleH.dataset.role = "title"
+    dialogDiv.appendChild(titleH)
 
     const bodyDiv = document.createElement("div")
-    bodyDiv.classList.add("modal-body")
+    bodyDiv.classList.add("py-4")
     const bodyP = document.createElement("p")
     bodyP.dataset.role = "message"
     bodyDiv.appendChild(bodyP)
 
     const footerDiv = document.createElement("div")
-    footerDiv.classList.add("modal-footer")
+    footerDiv.classList.add("d-modal-action")
 
     const cancelBtn = document.createElement("button")
-    cancelBtn.classList.add("d-btn", "d-btn-secondary")
+    cancelBtn.classList.add("d-btn")
     cancelBtn.setAttribute("data-bs-dismiss", "modal")
     cancelBtn.value = "cancel"
     cancelBtn.dataset.role = "cancel"
+    cancelBtn.dataset.action = "modal#close"
     cancelBtn.textContent = "Cancel"
     footerDiv.appendChild(cancelBtn)
 
     const confirmBtn = document.createElement("button")
-    confirmBtn.classList.add("d-btn", "d-btn-danger")
+    confirmBtn.classList.add("d-btn", "d-btn-error")
     confirmBtn.value = "confirm"
     confirmBtn.dataset.role = "confirm"
+    cancelBtn.dataset.action = "modal#close"
     confirmBtn.textContent = "OK"
     footerDiv.appendChild(confirmBtn)
 
-    contentDiv.appendChild(headerDiv)
-    contentDiv.appendChild(bodyDiv)
-    contentDiv.appendChild(footerDiv)
-    dialogDiv.appendChild(contentDiv)
+    dialogDiv.appendChild(bodyDiv)
+    dialogDiv.appendChild(footerDiv)
     root.appendChild(dialogDiv)
 
     return root
@@ -95,17 +98,14 @@ class ConfirmDialog {
     const cancelText = (this.options.cancelText || "Cancel").toString()
     const variant = (this.options.variant || "confirm") // confirm | alert
 
-    const header = this.root.querySelector("[data-role=\"header\"]")
     const titleEl = this.root.querySelector("[data-role=\"title\"]")
     const messageEl = this.root.querySelector("[data-role=\"message\"]")
     const confirmBtn = this.root.querySelector("[data-role=\"confirm\"]")
     const cancelBtn = this.root.querySelector("[data-role=\"cancel\"]")
 
     if (title.length > 0) {
-      header.classList.remove("d-none")
       titleEl.textContent = title
     } else {
-      header.classList.add("d-none")
       titleEl.textContent = ""
     }
 
@@ -115,14 +115,14 @@ class ConfirmDialog {
     cancelBtn.textContent = cancelText
 
     if (variant === "alert") {
-      cancelBtn.classList.add("d-none")
-      confirmBtn.classList.remove("d-btn-danger")
+      cancelBtn.classList.add("hidden")
+      confirmBtn.classList.remove("d-btn-error")
       confirmBtn.classList.add("d-btn-primary")
       confirmBtn.dataset.role = "ok"
     } else {
-      cancelBtn.classList.remove("d-none")
+      cancelBtn.classList.remove("hidden")
       confirmBtn.classList.remove("d-btn-primary")
-      confirmBtn.classList.add("d-btn-danger")
+      confirmBtn.classList.add("d-btn-error")
       confirmBtn.dataset.role = "confirm"
     }
   }
@@ -145,7 +145,7 @@ class ConfirmDialog {
         okBtn.addEventListener("click", (evt) => {
           evt.preventDefault()
           this.options.onOk?.()
-          this.dialog.hide()
+          this.root.close()
         }, { once: true })
       }
       return
@@ -158,7 +158,8 @@ class ConfirmDialog {
     if (cancelBtn) {
       cancelBtn.addEventListener("click", (evt) => {
         evt.preventDefault()
-        this.options.konCancel?.()
+        this.options.onCancel?.()
+        this.root.close()
       }, { once: true })
     }
 
@@ -166,40 +167,8 @@ class ConfirmDialog {
       confirmBtn.addEventListener("click", (evt) => {
         evt.preventDefault()
         this.options.onOk?.()
-        this.dialog.hide()
+        this.root.close()
       }, { once: true })
     }
   }
-}
-
-export function confirmModalHandler(message, options = {}) {
-  return new Promise((resolve) => {
-    const dialog = new ConfirmDialog(message, {
-      ...options,
-      variant: "confirm",
-      onOk() {
-        resolve(true)
-      },
-      onCancel() {
-        resolve(false)
-      }
-    })
-    dialog.open()
-  })
-}
-
-export function openModal(message, options = {}) {
-  return new Promise((resolve) => {
-    const dialog = new ConfirmDialog(message, {
-      ...options,
-      variant: "alert",
-      onOk() {
-        resolve(true)
-      },
-      onCancel() {
-        resolve(false)
-      }
-    })
-    dialog.open()
-  })
 }

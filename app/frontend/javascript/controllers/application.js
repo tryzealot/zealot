@@ -12,7 +12,7 @@ application.register("checkbox-select-all", CheckboxSelectAll)
 application.register("notification", Notification)
 
 // Override Turbo's default confirm dialog
-// Turbo.config.forms.confirm = confirmModalHandler
+Turbo.config.forms.confirm = confirmModalHandler
 
 // Enable debug mode in development environment
 application.debug = Zealot.isDevelopment
