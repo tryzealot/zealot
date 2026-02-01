@@ -8,7 +8,7 @@
         div
           p = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo_frame: '_top' }
           p[
-            class="d-tooltip d-tooltip-right opacity-50", 
+            class="d-tooltip md:d-tooltip-right text-base-content/60", 
             data-tip=l(app.created_at, format: :nice)
           ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
         - if current_user&.manage?(app: @app)
