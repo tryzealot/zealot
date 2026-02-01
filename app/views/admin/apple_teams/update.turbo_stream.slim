@@ -1,0 +1,2 @@
+= turbo_stream.append :notifications, partial: 'layouts/notifications'
+= turbo_stream.replace dom_id(@apple_key, :metadata), partial: 'admin/apple_keys/metadata', locals: { apple_key: @apple_key }

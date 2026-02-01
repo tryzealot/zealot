@@ -1,4 +1,4 @@
-= simple_form_for(@apple_team, url: admin_apple_team_path(@apple_team)) do |f|
+= simple_form_for @apple_team, url: admin_apple_team_path(@apple_team), data: { action: 'turbo:submit-end->modal#close' } do |f|
   .card-body
     = f.error_notification
 

@@ -1,14 +1,2 @@
-- content_for :section_title do
-  = t('.title')
-
-- content_for :title do
-  = t('.title')
-
-- content_for :section_rightpanel do
-  = button_link_to '', admin_apple_key_path(@apple_team.key), 'list-alt', class: 'd-join-item d-btn d-tooltip', \
-    base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
-
-.card
-  .card-header
-    h3.card-title = t('.title')
+= render_modal(title: t('.title')) do
   == render 'form'

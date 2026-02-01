@@ -12,7 +12,7 @@ SimpleForm.setup do |config|
   config.default_form_class = ''
 
   # Default class for buttons
-  config.button_class = 'd-btn d-btn-primary'
+  config.button_class = 'd-btn d-btn-primary mt-3'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = ''

@@ -9,11 +9,16 @@ class Admin::AppleTeamsController < ApplicationController
 
   # PATCH/PUT /apple_teams/1
   def update
-    if @apple_team.update(apple_team_params)
-      notice = t('activerecord.success.update', key: t('simple_form.labels.apple_team.display_name'))
-      redirect_to admin_apple_key_path(@apple_team.key), notice: notice
-    else
-      render :edit, status: :unprocessable_entity
+    unless @apple_team.update(apple_team_params)
+      return render :edit, status: :unprocessable_entity
+    end
+
+    @apple_key = @apple_team.key
+
+    flash.now[:notice] = t('activerecord.success.update', key: t('simple_form.labels.apple_team.display_name'))
+    respond_to do |format|
+      format.html { redirect_to admin_apple_key_path(@apple_key) }
+      format.turbo_stream
     end
   end
 
