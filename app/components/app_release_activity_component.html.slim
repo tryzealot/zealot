@@ -34,7 +34,7 @@
                   data: { turbo_frame: '_top' } \
                 )
 
-                span class="d-tooltip d-tooltip-left sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
+                span class="d-tooltip d-tooltip-top md:d-tooltip-left sm:ml-auto" data-tip="#{l(release.created_at, format: :nice)}"
                   span class="text-xs text-base-content/50 inline-flex items-center gap-1"
                     i class="fa-solid fa-clock"
                     = time_ago_in_words(release.created_at)
@@ -62,7 +62,7 @@
                           span class="d-badge d-badge-ghost d-badge-xs"
                             = (commit['sha'] || commit[:sha] || commit['commit'] || commit[:commit]).to_s[0,8]
                         - if commit['date'] || commit[:date]
-                          span class="d-tooltip d-tooltip-left md:d-tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
+                          span class="d-tooltip d-tooltip-top md:d-tooltip-right" data-tip="#{commit['date'] || commit[:date]}"
                             span class="text-xs text-base-content/50 inline-flex items-center gap-1"
                               i class="fa-solid fa-clock"
                               = time_ago_in_words(Time.parse(commit['date'] || commit[:date])) rescue (commit['date'] || commit[:date])
