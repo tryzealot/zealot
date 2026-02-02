@@ -15,25 +15,27 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
     - unless devise_page?
       / Mobile: circle button
       .md:hidden
-        button.d-btn.d-btn-circle.s-9 data-action='global#showSponsorModal'
+        button.d-btn.d-btn-soft.d-btn-circle.s-9 data-action='global#showSponsorModal'
           i.fa-regular.fa-heart.text-red-500
       / Desktop: default button with text
       .hidden.md:block
-        button.d-btn.d-btn-ghost data-action='global#showSponsorModal'
+        button.d-btn.d-btn-soft data-action='global#showSponsorModal'
           i.fa-regular.fa-heart.text-red-500
           = t('donate')
     - if user_signed_in?
       div class="d-dropdown d-dropdown-end"
         .d-avatar.d-avatar-placeholder.hover:cursor-pointer tabindex="0" role="button"
-          .bg-secondary.text-neutral-content.w-9.rounded-full
+          .bg-secondary.text-neutral-content.w-9.rounded-full.hover:bg-secondary/70
             - initials = current_user.username.split.map { |name| name[0].upcase }.join[0,2]
             span = initials
         ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-32 p-2 shadow-sm"
           li = link_to t('user_profile'), edit_user_registration_path
           li = button_to t('log_out'), destroy_user_session_path, method: :delete
     - elsif !devise_page?
-      ul class="d-menu d-menu-horizontal"
-        li
-          = link_to new_user_session_path, class: 'd-btn d-btn-circle' do
-            i.fa-solid.fa-user
-            span.hidden.sm:block = t('log_in')
+      .md:hidden
+        = link_to new_user_session_path, class: 'd-btn d-btn-soft d-btn-circle' do
+          i.fa-solid.fa-user
+      .hidden.md:block
+        = link_to new_user_session_path, class: 'd-btn d-btn-soft' do
+          i.fa-solid.fa-user
+          = t('log_in')
