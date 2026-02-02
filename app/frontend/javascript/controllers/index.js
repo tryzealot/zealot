@@ -27,4 +27,7 @@ application.register("swap-icon", SwapIconController)
 import TabSwitchController from "./tab_switch_controller"
 application.register("tab-switch", TabSwitchController)
 
+import BreadcrumbsController from "./breadcrumbs_controller"
+application.register("breadcrumbs", BreadcrumbsController)
+
 import "./admin"
