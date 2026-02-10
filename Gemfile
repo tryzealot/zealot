@@ -49,7 +49,7 @@ gem 'rqrcode', '~> 3.2.0'
 ## Auth
 gem 'pundit', '~> 2.5.2'
 gem 'devise', '~> 5.0.0'
-gem 'devise-i18n', '~> 1.15.0'
+gem 'devise-i18n', '~> 1.16.0'
 gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
