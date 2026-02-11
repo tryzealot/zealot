@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fortawesome/fontawesome-free':
-        specifier: ^7.1.0
-        version: 7.1.0
+        specifier: ^7.2.0
+        version: 7.2.0
       '@hotwired/stimulus':
         specifier: ^3.2.2
         version: 3.2.2
@@ -219,8 +219,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fortawesome/fontawesome-free@7.1.0':
-    resolution: {integrity: sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA==}
+  '@fortawesome/fontawesome-free@7.2.0':
+    resolution: {integrity: sha512-3DguDv/oUE+7vjMeTSOjCSG+KeawgVQOHrKRnvUuqYh1mfArrh7s+s8hXW3e4RerBA1+Wh+hBqf8sJNpqNrBWg==}
     engines: {node: '>=6'}
 
   '@hotwired/stimulus@3.2.2':
@@ -909,7 +909,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.2':
     optional: true
 
-  '@fortawesome/fontawesome-free@7.1.0': {}
+  '@fortawesome/fontawesome-free@7.2.0': {}
 
   '@hotwired/stimulus@3.2.2': {}
 
