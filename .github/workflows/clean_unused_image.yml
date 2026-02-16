@@ -10,7 +10,7 @@ jobs:
     name: Delete old unused images
     steps:
       - name: Clean tryzealot/zealot images
-        uses: snok/container-retention-policy@v3.0.0
+        uses: snok/container-retention-policy@v3.0.1
         with:
           account: tryzealot
           token: ${{ secrets.SECRET_API_TOKEN }}
@@ -19,7 +19,7 @@ jobs:
           cut-off: 4w
           dry-run: false
       - name: Clean tryzealot/codespace images
-        uses: snok/container-retention-policy@v3.0.0
+        uses: snok/container-retention-policy@v3.0.1
         with:
           account: tryzealot
           token: ${{ secrets.SECRET_API_TOKEN }}
