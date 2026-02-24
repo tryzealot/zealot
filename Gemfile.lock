@@ -242,7 +242,8 @@ GEM
       base64
       fiber-storage
       logger
-    hashie (5.0.0)
+    hashie (5.1.0)
+      logger
     health_check (3.1.0)
       railties (>= 5.0)
     i18n (1.14.8)
@@ -331,8 +332,8 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.0)
-    multi_xml (0.7.2)
-      bigdecimal (~> 3.1)
+    multi_xml (0.8.1)
+      bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
     mutex_m (0.3.0)
     net-http (0.9.1)
@@ -364,7 +365,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.1-x86_64-linux-gnu)
       racc (~> 1.4)
-    oauth2 (2.0.17)
+    oauth2 (2.0.18)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
@@ -385,7 +386,7 @@ GEM
     omniauth-gitlab (4.1.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8.0)
-    omniauth-google-oauth2 (1.2.1)
+    omniauth-google-oauth2 (1.2.2)
       jwt (>= 2.9.2)
       oauth2 (~> 2.0)
       omniauth (~> 2.0)
@@ -759,7 +760,7 @@ DEPENDENCIES
   omniauth-feishu (~> 0.1.8)
   omniauth-github (~> 2.0.1)
   omniauth-gitlab (~> 4.1.0)
-  omniauth-google-oauth2 (~> 1.2.1)
+  omniauth-google-oauth2 (~> 1.2.2)
   omniauth-rails_csrf_protection (~> 2.0.1)
   omniauth_openid_connect (= 0.8.0)
   openssl (~> 3.3.2)
