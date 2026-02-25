@@ -10,20 +10,16 @@ jobs:
     name: Delete old unused images
     steps:
       - name: Clean tryzealot/zealot images
-        uses: snok/container-retention-policy@v3.0.0
+        uses: actions/delete-package-versions@v5
         with:
-          account: tryzealot
+          package-name: zealot
+          package-type: container
           token: ${{ secrets.SECRET_API_TOKEN }}
-          image-names: "zealot"
-          tag-selection: untagged
-          cut-off: 4w
-          dry-run: false
+          delete-only-untagged-versions: 'true'
       - name: Clean tryzealot/codespace images
-        uses: snok/container-retention-policy@v3.0.0
+        uses: actions/delete-package-versions@v5
         with:
-          account: tryzealot
+          package-name: codespace
+          package-type: container
           token: ${{ secrets.SECRET_API_TOKEN }}
-          image-names: "codespace"
-          tag-selection: untagged
-          cut-off: 4w
-          dry-run: false
+          delete-only-untagged-versions: 'true'
