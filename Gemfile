@@ -54,7 +54,7 @@ gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
 gem 'omniauth-rails_csrf_protection', '~> 2.0.1'
-gem 'omniauth-google-oauth2', '~> 1.2.1'
+gem 'omniauth-google-oauth2', '~> 1.2.2'
 gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
 gem 'gitlab_omniauth-ldap', '~> 2.3.0', require: 'omniauth-ldap'
