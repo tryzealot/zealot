@@ -110,7 +110,8 @@ class Release < ApplicationRecord
 
   def text_changelog(default_template: true, head_line: false, field: 'message')
     array_changelog(default_template: default_template).each_with_object([]) do |line, obj|
-      message = head_line ? line[field].split("\n")[0] : line[field]
+      value = line[field]&.to_s || ''
+      message = head_line ? value.split("\n")[0] : value
       obj << "- #{message}"
     end.join("\n")
   end
