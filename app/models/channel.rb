@@ -38,6 +38,7 @@ class Channel < ApplicationRecord
   validates :slug, uniqueness: true
   validates :device_type, presence: true, inclusion: { in: self.device_types.keys }
   validates :download_filename_type, presence: true, inclusion: { in: self.download_filename_types.keys }
+  validate :bundle_id_format_valid
 
   before_validation :set_default_download_filename_type, on: :create
 
@@ -146,6 +147,15 @@ class Channel < ApplicationRecord
   end
 
   private
+
+  def bundle_id_format_valid
+    return if bundle_id.blank? || bundle_id == '*'
+
+    # Only allow alphanumeric, dots, underscores, hyphens, and single asterisks as wildcards
+    unless bundle_id.match?(/\A[a-zA-Z0-9._\-*]+\z/)
+      errors.add(:bundle_id, :invalid, message: 'only supports * wildcard or alphanumeric characters')
+    end
+  end
 
   def generate_default_values
     self.key = Digest::MD5.hexdigest(File.join(SecureRandom.uuid, name))
