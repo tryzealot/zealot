@@ -17,7 +17,7 @@
     "clipboard": "^2.0.11",
     "compare-versions": "^6.1.1",
     "daisyui": "^5.5.19",
-    "tailwindcss": "^4.2.1",
+    "tailwindcss": "^4.2.2",
     "ua-parser-js": "^2.0.9"
   },
   "devDependencies": {
