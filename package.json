@@ -21,7 +21,7 @@
     "ua-parser-js": "^2.0.9"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^25.4.0",
     "rollup": "^4.59.0",
     "vite": "^7.3.1",
