@@ -21,8 +21,8 @@ importers:
         specifier: ^2.11.8
         version: 2.11.8
       '@rails/actioncable':
-        specifier: ^8.1.201
-        version: 8.1.201
+        specifier: ^8.1.300
+        version: 8.1.300
       '@stimulus-components/checkbox-select-all':
         specifier: ^6.1.0
         version: 6.1.0(@hotwired/stimulus@3.2.2)
@@ -252,8 +252,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@rails/actioncable@8.1.201':
-    resolution: {integrity: sha512-j4O7jn9jX3GtkVOO7KQDIRlBENwQiPNBAcaaa/FNMk7fPZjMUijGs+vk0PsB/VgZNDU2Y3C2hqVrXeLKy3iZ9g==}
+  '@rails/actioncable@8.1.300':
+    resolution: {integrity: sha512-zOENQsq3NM2jyBY6Z2qtZa3V/R/6OEqA+LGKixQbBMl7kk/J3FXDRcszPe74LsHNgB01jCl/DXu/xA8sHt4I/g==}
 
   '@rollup/rollup-android-arm-eabi@4.60.0':
     resolution: {integrity: sha512-WOhNW9K8bR3kf4zLxbfg6Pxu2ybOUbB2AjMDHSQx86LIF4rH4Ft7vmMwNt0loO0eonglSNy4cpD3MKXXKQu0/A==}
@@ -857,7 +857,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.23':
     dependencies:
       '@hotwired/turbo': 8.0.23
-      '@rails/actioncable': 8.1.201
+      '@rails/actioncable': 8.1.300
 
   '@hotwired/turbo@8.0.23': {}
 
@@ -882,7 +882,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@rails/actioncable@8.1.201': {}
+  '@rails/actioncable@8.1.300': {}
 
   '@rollup/rollup-android-arm-eabi@4.60.0':
     optional: true
