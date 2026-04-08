@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
-    "@types/node": "^25.4.0",
+    "@types/node": "^25.5.2",
     "rollup": "^4.60.1",
     "vite": "^7.3.2",
     "vite-plugin-rails": "^0.6.0"
