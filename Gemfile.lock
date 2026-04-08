@@ -461,7 +461,7 @@ GEM
     pyu-ruby-sasl (0.0.3.3)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.2.4)
+    rack (3.2.6)
     rack-contrib (2.5.0)
       rack (< 4)
     rack-cors (3.0.0)
