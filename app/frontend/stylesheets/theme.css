@@ -3,6 +3,7 @@
 
 @plugin "daisyui" {
   themes: all;
+  logs: false;
   prefix: "d-";
 }
 
