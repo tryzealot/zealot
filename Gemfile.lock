@@ -431,8 +431,8 @@ GEM
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
-    pghero (3.7.0)
-      activerecord (>= 7.1)
+    pghero (3.8.0)
+      activerecord (>= 7.2)
     plist (3.7.2)
     pp (0.6.3)
       prettyprint
@@ -767,7 +767,7 @@ DEPENDENCIES
   omniauth_openid_connect (= 0.8.0)
   openssl (~> 3.3.2)
   pg (>= 0.18, < 2.0)
-  pghero (~> 3.7.0)
+  pghero (~> 3.8.0)
   plist (~> 3.7.2)
   propshaft (= 1.3.1)
   pry-rails
