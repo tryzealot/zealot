@@ -15,4 +15,3 @@ jobs:
           # if true, the robot account @Issues-translate-bot must have modification permissions, invite @Issues-translate-bot to your project or use your custom bot.
           IS_MODIFY_TITLE: false
           CUSTOM_BOT_NOTE: Bot translate issue to English automatically. 👯👭🏻🧑‍🤝‍🧑👫🧑🏿‍🤝‍🧑🏻👩🏾‍🤝‍👨🏿👬🏿
-
