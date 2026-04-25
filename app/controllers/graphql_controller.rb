@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
-  # If accessing from outside this domain, nullify the session
-  # This allows for outside API access while preventing CSRF attacks,
-  # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
+  before_action :validate_bearer_token!
 
   def execute
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: validated_user,
+      current_user: current_user,
     }
     result = ZealotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -21,6 +18,13 @@ class GraphqlController < ApplicationController
   end
 
   private
+
+  # Validate Bearer token is present and valid
+  def validate_bearer_token!
+    return if validated_token.present?
+
+    render json: { errors: [{ message: 'Unauthorized' }] }, status: :unauthorized
+  end
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
@@ -49,7 +53,11 @@ class GraphqlController < ApplicationController
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
   end
 
-  def validated_user
+  def current_user
+    @current_user ||= validated_token
+  end
+
+  def validated_token
     auth_value = request.authorization
     return unless auth_value&.downcase&.start_with?('bearer')
 
