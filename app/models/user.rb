@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+PROVIDERS = %i[feishu gitlab google_oauth2 ldap openid_connect github gitea].freeze
+
 class User < ApplicationRecord
   include UserSettings
   include UserRoles
