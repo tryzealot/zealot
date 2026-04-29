@@ -27,69 +27,154 @@
     .message {
       margin-top: 20px;
       text-align: center;
+      max-width: 560px;
+      padding: 0 24px;
     }
     .hidden {
       display: none;
     }
+    .actions {
+      margin-top: 24px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      padding: 12px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    .button:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
   </style>
   <script type="text/javascript">
-    const timeout = 5000; // 5 seconds
-    const duration = 2000; // 2 seconds
-    function checkHealth() {
-      fetch('/api/version', {
-        method: 'GET',
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache'
-        },
-        signal: AbortSignal.timeout(timeout)
-      })
-      .then(response => {
-        if (response.status === 200) {
-          window.location.reload();
-        }
-      })
-      .catch(error => {
-        console.log('Health check error:', error);
-      });
-    }
+    const timeout = 5000;
+    const duration = 2000;
+    const maxFailures = 20;
+    let failureCount = 0;
+    let healthCheckTimer = null;
+    let healthCheckStopped = false;
 
     function setLanguage() {
       const userLang = navigator.language || navigator.userLanguage;
       console.log("Browser language:", userLang);
       
-      // Define locales object
       const locales = {
         zh: {
           title: "应用正在启动中...",
-          description: "系统正在检测应用状态，将在服务就绪后自动刷新"
+          description: "系统正在检测应用状态，将在服务就绪后自动刷新",
+          errorTitle: "应用启动失败",
+          errorDescription: "后台服务长时间未响应，已停止自动检查。请确认 Zealot 服务是否正常启动后再重试。",
+          retry: "重新检查"
         },
         en: {
           title: "Application is starting...",
-          description: "The system is checking application status and will automatically refresh when ready"
+          description: "The system is checking application status and will automatically refresh when ready",
+          errorTitle: "Application failed to start",
+          errorDescription: "The backend service did not respond for an extended period. Automatic checks have stopped. Verify that the Zealot service is running, then try again.",
+          retry: "Retry"
         }
       };
       
-      // Determine which locale to use
       const isChinese = /^zh\b/.test(userLang);
-      const locale = isChinese ? locales.zh : locales.en;
-      
-      // Update content directly
-      document.getElementById('title').textContent = locale.title;
-      document.getElementById('description').textContent = locale.description;
+      return isChinese ? locales.zh : locales.en;
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      setLanguage();
+    function renderLoadingState(locale) {
+      document.getElementById('spinner').classList.remove('hidden');
+      document.getElementById('title').textContent = locale.title;
+      document.getElementById('description').textContent = locale.description;
+      document.getElementById('retry').textContent = locale.retry;
+      document.getElementById('actions').classList.add('hidden');
+    }
+
+    function renderErrorState(locale) {
+      healthCheckStopped = true;
+      if (healthCheckTimer) {
+        clearTimeout(healthCheckTimer);
+      }
+
+      document.getElementById('spinner').classList.add('hidden');
+      document.getElementById('title').textContent = locale.errorTitle;
+      document.getElementById('description').textContent = locale.errorDescription;
+      document.getElementById('retry').textContent = locale.retry;
+      document.getElementById('actions').classList.remove('hidden');
+    }
+
+    function scheduleNextCheck() {
+      if (healthCheckStopped) {
+        return;
+      }
+
+      healthCheckTimer = window.setTimeout(checkHealth, duration);
+    }
+
+    async function checkHealth() {
+      if (healthCheckStopped) {
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/version', {
+          method: 'GET',
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache'
+          },
+          signal: AbortSignal.timeout(timeout)
+        });
+
+        if (response.status === 200) {
+          window.location.reload();
+          return;
+        }
+
+        failureCount += 1;
+        console.log('Health check returned status:', response.status, 'failure count:', failureCount);
+      } catch (error) {
+        failureCount += 1;
+        console.log('Health check error:', error, 'failure count:', failureCount);
+      }
+
+      if (failureCount >= maxFailures) {
+        renderErrorState(window.currentLocale);
+        return;
+      }
+
+      scheduleNextCheck();
+    }
+
+    function retryHealthCheck() {
+      failureCount = 0;
+      healthCheckStopped = false;
+      renderLoadingState(window.currentLocale);
       checkHealth();
-      setInterval(checkHealth, duration);
+    }
+      
+    document.addEventListener('DOMContentLoaded', function() {
+      window.currentLocale = setLanguage();
+      renderLoadingState(window.currentLocale);
+      document.getElementById('retry').addEventListener('click', retryHealthCheck);
+      checkHealth();
     });
   </script>
 </head>
 <body>
 <div class="container">
   <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-  <svg width="120" height="120" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+  <svg id="spinner" width="120" height="120" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
     <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
         <circle cx="22" cy="22" r="6" stroke-opacity="0">
             <animate attributeName="r"
@@ -133,6 +218,9 @@
   <div class="message">
     <h2 id="title"></h2>
     <p id="description"></p>
+    <div id="actions" class="actions hidden">
+      <button id="retry" class="button" type="button"></button>
+    </div>
   </div>
 </div>
 </body>

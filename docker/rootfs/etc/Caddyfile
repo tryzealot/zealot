@@ -55,9 +55,15 @@ handle_errors {
 	# }
 
 	# show loading page if backend is down
-	@backend_down `{err.message}.contains("connect: connection refused") && {http.request.header.Accept}.matches(".*text/html.*")`
+	@backend_down `{err.message}.contains("connect: connection refused") && {http.request.method}.matches("GET|HEAD") && {http.request.header.Accept}.matches(".*text/html.*")`
 	handle @backend_down {
 		rewrite * /loading.html
+		header {
+			Cache-Control "no-store, max-age=0, must-revalidate"
+			Pragma "no-cache"
+			Retry-After "3"
+			X-Robots-Tag "noindex, nofollow"
+		}
 		file_server {
 			status 200
 		}
@@ -66,6 +72,11 @@ handle_errors {
 	@5xx `{err.status_code} >= 500 && {err.status_code} < 600`
 	handle @5xx {
 		rewrite * /errors/{err.status_code}.html
+		header {
+			Cache-Control "no-store, max-age=0, must-revalidate"
+			Pragma "no-cache"
+			X-Robots-Tag "noindex, nofollow"
+		}
 		file_server
 	}
 }
