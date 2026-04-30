@@ -66,10 +66,28 @@
 
 ## 成为捐赠者
 
-<div align="left">
-  <a href="https://afdian.com/a/icyleaf"><img src="https://static.afdiancdn.com/static/img/logo/logo.png" height="46" width="46" alt="爱发电" title="使用爱发电赞助" /></a>
-  <a href="https://afdian.com/a/icyleaf"><img src="https://studio.buymeacoffee.com/assets/img/bmc-meta-new/new/apple-icon-120x120.png" height="46" width="46" alt="Buy Me A Coffee" title="Buy Me A Coffee" /></a>
-</div>
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://afdian.com/a/icyleaf">
+        <img src="https://static.afdiancdn.com/static/img/logo/logo.png" height="46" width="46" alt="爱发电" title="使用爱发电赞助" />
+      </a><br />
+      <sub>爱发电捐赠</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/sponsors/icyleaf">
+        <img src="https://camo.githubusercontent.com/369f5e3f574fd9693f5b1b6e193eb5211827ccacd0eec91ede06f7574e20f0c7/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f736974652f73706f6e736f72732f6c6f676f2d6d6f6e612e737667" width="46" height="46" alt="Github Sponsor" title="Become a Github Sponsor" />
+      </a><br />
+      <sub>Become A Sponsor</sub>
+    </td>
+    <td align="center">
+      <a href="https://buymeacoffee.com/icyleaf">
+        <img src="https://studio.buymeacoffee.com/assets/img/bmc-meta-new/new/apple-icon-120x120.png" height="46" width="46" alt="Buy Me A Coffee" title="Buy Me A Coffee" />
+      </a><br />
+      <sub>Buy Me A Beer</sub>
+    </td>
+  </tr>
+</table>
 
 ## 开发统计
 
@@ -78,7 +96,6 @@
 ## 发布协议
 
 [MIT][mit-link]
-
 
 [zealot-ios-sdk]: https://github.com/tryzealot/zealot-ios
 [android-android-sdk]: https://github.com/tryzealot/zealot-android
