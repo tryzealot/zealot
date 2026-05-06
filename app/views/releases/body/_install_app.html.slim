@@ -9,23 +9,28 @@
   - unless release.app.archived
     .action-buttons class="flex gap-2 my-3" data-release-download-target="buttons"
       - if release.file?
-        - if release.platform == 'iOS'
-          - if release.cert_expired?
-            button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
-              i.fa-solid.fa-certificate
-              = t('releases.show.cert_expired')
-          - else
-            button[
-              class="d-btn d-btn-lg d-btn-success hidden"
-              data-action="release-download#install"
-              data-release-download-target="installButton"
-            ]
-              i.fa-solid.fa-download
-              = t('releases.show.install')
+        - if current_user&.guest?
+          button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
+            i.fa-solid.fa-lock
+            = t('releases.show.no_permission_to_download')
+        - else
+          - if release.platform == 'iOS'
+            - if release.cert_expired?
+              button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
+                i.fa-solid.fa-certificate
+                = t('releases.show.cert_expired')
+            - else
+              button[
+                class="d-btn d-btn-lg d-btn-success hidden"
+                data-action="release-download#install"
+                data-release-download-target="installButton"
+              ]
+                i.fa-solid.fa-download
+                = t('releases.show.install')
 
-        = button_link_to t('releases.show.download'), release.download_url, 'hard-drive', \
-          class: 'd-btn d-btn-lg d-btn-success', target: '_blank', \
-          data: { release_download_target: 'downloadButton' }
+          = button_link_to t('releases.show.download'), release.download_url, 'hard-drive', \
+            class: 'd-btn d-btn-lg d-btn-success', target: '_blank', \
+            data: { release_download_target: 'downloadButton' }
       - else
         button class="d-btn d-btn-lg d-btn-secondary d-btn-disabled"
           i.fa-solid.fa-ghost

@@ -18,7 +18,8 @@ module SettingHelper
       {
         member: I18n.t('settings.preset_role.member', default: 'Member'),
         developer: I18n.t('settings.preset_role.developer', default: 'Developer'),
-        admin: I18n.t('settings.preset_role.admin', default: 'Admin')
+        admin: I18n.t('settings.preset_role.admin', default: 'Admin'),
+        guest: I18n.t('settings.preset_role.guest', default: 'Guest')
       }
     end
 
