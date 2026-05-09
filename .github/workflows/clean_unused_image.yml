@@ -17,11 +17,11 @@ jobs:
           package-type: container
           token: ${{ secrets.SECRET_API_TOKEN }}
           delete-only-untagged-versions: "true"
-      - name: Clean tryzealot/codespace images
-        uses: actions/delete-package-versions@v5
-        with:
-          owner: tryzealot
-          package-name: codespace
-          package-type: container
-          token: ${{ secrets.SECRET_API_TOKEN }}
-          delete-only-untagged-versions: "true"
+      # - name: Clean tryzealot/codespace images
+      #   uses: actions/delete-package-versions@v5
+      #   with:
+      #     owner: tryzealot
+      #     package-name: codespace
+      #     package-type: container
+      #     token: ${{ secrets.SECRET_API_TOKEN }}
+      #     delete-only-untagged-versions: "true"
