@@ -32,7 +32,7 @@ RUN set -ex && \
 WORKDIR $APP_ROOT
 
 # Node dependencies
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # Ruby dependencies
