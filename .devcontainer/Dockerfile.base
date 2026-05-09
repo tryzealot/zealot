@@ -55,7 +55,7 @@ RUN mise trust && \
     mise reshim
 
 ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
-COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
+COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n1 | awk '{print $1}') && \
     npm install --global pnpm mprocs
