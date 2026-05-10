@@ -67,13 +67,19 @@
 @layer components {
   /* Breadcrumbs */
   .breadcrumbs {
-    @apply d-menu d-menu-horizontal px-1 gap-1;
+    @apply d-menu d-menu-horizontal px-1 gap-1 flex-nowrap items-center overflow-x-auto;
 
     > li {
-      @apply relative flex items-center pl-2
-        before:content-['/'] before:absolute before:left-0 before:text-base-content/70 before:opacity-70
-        before:top-1/2 before:-translate-y-1/2 before:transform
-        first:pl-0 first:before:hidden;
+      @apply inline-flex flex-row items-center whitespace-nowrap;
+    }
+
+    > li + li::before {
+      content: "/";
+      @apply mx-0.5 text-sm leading-none text-base-content/70 opacity-70;
+    }
+
+    > li > a {
+      @apply inline-flex items-center whitespace-nowrap;
     }
 
     details summary {
