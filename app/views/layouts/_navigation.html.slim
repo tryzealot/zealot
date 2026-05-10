@@ -11,17 +11,21 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
     div class="d-navbar-start"
     div class="d-navbar-center"
       == render 'layouts/brand_logo', site_title: Setting.site_title
-  div class="d-navbar-end flex-1 md:flex-3 gap-1"
+  div class="d-navbar-end flex-1 md:flex-3 gap-1.5"
     - unless devise_page?
-      / Mobile: circle button
-      .md:hidden
-        button.d-btn.d-btn-soft.d-btn-circle.s-9 data-action='global#showSponsorModal'
+      - if user_signed_in?
+        button.d-btn.d-btn-soft.d-btn-circle.s-9 aria-label=t('donate') data-action='global#showSponsorModal'
           i.fa-regular.fa-heart.text-red-500
-      / Desktop: default button with text
-      .hidden.md:block
-        button.d-btn.d-btn-soft data-action='global#showSponsorModal'
-          i.fa-regular.fa-heart.text-red-500
-          = t('donate')
+      - else
+        / Mobile: circle button
+        .md:hidden
+          button.d-btn.d-btn-soft.d-btn-circle.s-9 data-action='global#showSponsorModal'
+            i.fa-regular.fa-heart.text-red-500
+        / Desktop: default button with text
+        .hidden.md:block
+          button.d-btn.d-btn-soft data-action='global#showSponsorModal'
+            i.fa-regular.fa-heart.text-red-500
+            = t('donate')
     - if user_signed_in?
       div class="d-dropdown d-dropdown-end"
         .d-avatar.d-avatar-placeholder.hover:cursor-pointer tabindex="0" role="button"
