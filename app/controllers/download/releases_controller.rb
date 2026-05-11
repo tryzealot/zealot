@@ -4,12 +4,10 @@ class Download::ReleasesController < ApplicationController
   before_action :set_release
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
+  rescue_from Pundit::NotAuthorizedError, with: :render_guest_not_authorized_response
 
   def show
-    if current_user&.guest?
-      return redirect_to channel_release_path(@release.channel, @release),
-        alert: I18n.t('releases.messages.errors.no_permission_to_download')
-    end
+    authorize @release, :download?
 
     # password protected check
     unless helpers.logged_in_or_without_auth?(@release)
@@ -22,10 +20,7 @@ class Download::ReleasesController < ApplicationController
   end
 
   def download
-    if current_user&.guest?
-      return redirect_to channel_release_path(@release.channel, @release),
-        alert: I18n.t('releases.messages.errors.no_permission_to_download')
-    end
+    authorize @release, :download?
 
     # 触发 web_hook
     @release.channel.perform_web_hook('download_events', current_user&.id)
@@ -42,6 +37,11 @@ class Download::ReleasesController < ApplicationController
     render json: {
       error: t('.not_found')
     }, status: :not_found
+  end
+
+  def render_guest_not_authorized_response
+    redirect_to channel_release_path(@release.channel, @release),
+      alert: I18n.t('releases.messages.errors.no_permission_to_download')
   end
 
   def set_release

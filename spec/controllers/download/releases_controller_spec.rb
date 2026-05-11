@@ -16,7 +16,10 @@ RSpec.describe Download::ReleasesController, type: :controller do
     context 'when signed in as guest' do
       let(:guest) { create(:user, :guest) }
 
-      before { sign_in guest }
+      before do
+        sign_in guest
+        allow(controller).to receive(:authorize).and_raise(Pundit::NotAuthorizedError)
+      end
 
       it 'redirects to the release page' do
         get :show, params: { id: 1 }
@@ -31,6 +34,7 @@ RSpec.describe Download::ReleasesController, type: :controller do
 
     context 'when not signed in' do
       before do
+        allow(controller).to receive(:authorize).and_return(true)
         allow(release).to receive(:cookie_password_matched?).and_return(false)
       end
 
@@ -45,7 +49,10 @@ RSpec.describe Download::ReleasesController, type: :controller do
     context 'when signed in as guest' do
       let(:guest) { create(:user, :guest) }
 
-      before { sign_in guest }
+      before do
+        sign_in guest
+        allow(controller).to receive(:authorize).and_raise(Pundit::NotAuthorizedError)
+      end
 
       it 'redirects to the release page' do
         get :download, params: { id: 1, filename: 'app.ipa' }
@@ -63,6 +70,7 @@ RSpec.describe Download::ReleasesController, type: :controller do
 
       before do
         sign_in member
+        allow(controller).to receive(:authorize).and_return(true)
         allow(release).to receive(:file).and_return(double(size: 1024, path: '/tmp/app.ipa'))
         allow(release).to receive(:download_filename).and_return('app.ipa')
         allow(channel).to receive(:perform_web_hook)
