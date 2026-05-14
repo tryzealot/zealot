@@ -62,7 +62,7 @@ gem 'omniauth_openid_connect', '0.8.0'
 gem 'omniauth-github', '~> 2.0.1'
 
 ## UDID
-gem 'openssl', '~> 3.3.2'
+gem 'openssl', '~> 3.3.3'
 gem 'plist', '~> 3.7.2'
 
 ## OS
