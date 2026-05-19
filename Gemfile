@@ -22,7 +22,7 @@ gem 'lograge', '~> 0.14.0'
 gem 'active_model_serializers', '~> 0.10.16'
 gem 'graphql', '~> 2.6.2'
 gem 'health_check', '~> 3.1.0'
-gem 'tiny_appstore_connect', '~> 0.1.12'
+gem 'tiny_appstore_connect', '~> 0.1.13'
 
 # View
 gem 'view_component', '~> 4.10.0'
