@@ -36,7 +36,7 @@ gem 'rswag-ui', '~> 2.17.0'
 # Model
 gem 'friendly_id', '~> 5.7.0'
 gem 'kaminari', '~> 1.2.2'
-gem 'carrierwave', '~> 3.1.2'
+gem 'carrierwave', '~> 3.1.3'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
