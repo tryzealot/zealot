@@ -111,7 +111,7 @@ group :development do
 
   # Chrome extension devtools
   ## rails-panel https://chromewebstore.google.com/detail/rails-panel/gjpfobpafnhjhbajcjgccbbdofdckggg
-  gem 'meta_request', github: 'dejan/rails_panel', ref: 'meta_request-v0.8.5'
+  gem 'meta_request', github: 'dejan/rails_panel', ref: 'meta_request-v0.8.6'
 end
 
 group :development, :test do
