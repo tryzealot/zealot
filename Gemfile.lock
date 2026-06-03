@@ -262,7 +262,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jb (0.8.2)
-    json (2.19.5)
+    json (2.19.8)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -450,7 +450,7 @@ GEM
     pry-rescue (1.6.0)
       interception (>= 0.5)
       pry (>= 0.12.0)
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_suffix (7.0.5)
@@ -613,10 +613,10 @@ GEM
       base64
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    sentry-rails (6.5.0)
+    sentry-rails (6.6.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.5.0)
-    sentry-ruby (6.5.0)
+      sentry-ruby (~> 6.6.0)
+    sentry-ruby (6.6.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -788,8 +788,8 @@ DEPENDENCIES
   rubocop (>= 0.70)
   rubocop-rails
   ruby-lsp-rails
-  sentry-rails (~> 6.5.0)
-  sentry-ruby (~> 6.5.0)
+  sentry-rails (~> 6.6.0)
+  sentry-ruby (~> 6.6.0)
   simple_form (~> 5.4.1)
   slim-rails (~> 4.0.0)
   solid_cable (~> 3.0.12)
