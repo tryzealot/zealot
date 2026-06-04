@@ -25,7 +25,7 @@ gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.13'
 
 # View
-gem 'view_component', '~> 4.11.0'
+gem 'view_component', '~> 4.12.0'
 gem 'jb', '~> 0.8.2'
 gem 'slim-rails', '~> 4.0.0'
 gem 'kramdown', '~> 2.5'
