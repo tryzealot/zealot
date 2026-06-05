@@ -47,19 +47,19 @@ importers:
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.3.0
-        version: 4.3.0(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0))
+        version: 4.3.0(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0))
       '@types/node':
-        specifier: ^25.9.0
-        version: 25.9.0
+        specifier: ^25.9.1
+        version: 25.9.1
       rollup:
         specifier: ^4.61.1
         version: 4.61.1
       vite:
         specifier: ^8.0.16
-        version: 8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)
+        version: 8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)
       vite-plugin-rails:
         specifier: ^0.6.0
-        version: 0.6.0(rollup@4.61.1)(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0))
+        version: 0.6.0(rollup@4.61.1)(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0))
 
 packages:
 
@@ -596,8 +596,8 @@ packages:
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
 
-  '@types/node@25.9.0':
-    resolution: {integrity: sha512-AOQwYUNolgy3VosiRqXrACUXTN8nJUtPl7FJXMqZVyxiiCLhQuG3jXKvCS1ALr+Y2OmZhzzLVlYPEqJaiqkaJQ==}
+  '@types/node@25.9.1':
+    resolution: {integrity: sha512-xfrlY7UD5rMJk3ZVJP8BNzS28J36YJg+xp+LPXV1TdWxr8uMH5A860QNxYDGQe/ylDSgjxE52Q9VnO7p75tJxg==}
 
   clipboard@2.0.11:
     resolution: {integrity: sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==}
@@ -1231,12 +1231,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.0
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.0
 
-  '@tailwindcss/vite@4.3.0(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0))':
+  '@tailwindcss/vite@4.3.0(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0))':
     dependencies:
       '@tailwindcss/node': 4.3.0
       '@tailwindcss/oxide': 4.3.0
       tailwindcss: 4.3.0
-      vite: 8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)
+      vite: 8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)
 
   '@tybys/wasm-util@0.10.2':
     dependencies:
@@ -1245,7 +1245,7 @@ snapshots:
 
   '@types/estree@1.0.9': {}
 
-  '@types/node@25.9.0':
+  '@types/node@25.9.1':
     dependencies:
       undici-types: 7.24.6
 
@@ -1485,9 +1485,9 @@ snapshots:
 
   undici-types@7.24.6: {}
 
-  vite-plugin-environment@1.1.3(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)):
+  vite-plugin-environment@1.1.3(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)):
     dependencies:
-      vite: 8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)
+      vite: 8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)
 
   vite-plugin-full-reload@1.2.0:
     dependencies:
@@ -1496,24 +1496,24 @@ snapshots:
 
   vite-plugin-manifest-sri@0.2.0: {}
 
-  vite-plugin-rails@0.6.0(rollup@4.61.1)(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)):
+  vite-plugin-rails@0.6.0(rollup@4.61.1)(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)):
     dependencies:
       rollup-plugin-gzip: 4.2.0(rollup@4.61.1)
-      vite: 8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)
-      vite-plugin-environment: 1.1.3(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0))
+      vite: 8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)
+      vite-plugin-environment: 1.1.3(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0))
       vite-plugin-full-reload: 1.2.0
       vite-plugin-manifest-sri: 0.2.0
-      vite-plugin-ruby: 5.2.0(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0))
+      vite-plugin-ruby: 5.2.0(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0))
       vite-plugin-stimulus-hmr: 3.0.0
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-ruby@5.2.0(vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)):
+  vite-plugin-ruby@5.2.0(vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)):
     dependencies:
       obug: 2.1.1
       tinyglobby: 0.2.17
-      vite: 8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0)
+      vite: 8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0)
 
   vite-plugin-stimulus-hmr@3.0.0:
     dependencies:
@@ -1522,7 +1522,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.0.16(@types/node@25.9.0)(esbuild@0.27.2)(jiti@2.7.0):
+  vite@8.0.16(@types/node@25.9.1)(esbuild@0.27.2)(jiti@2.7.0):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -1530,7 +1530,7 @@ snapshots:
       rolldown: 1.0.3
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 25.9.0
+      '@types/node': 25.9.1
       esbuild: 0.27.2
       fsevents: 2.3.3
       jiti: 2.7.0
