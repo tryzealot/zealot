@@ -39,7 +39,7 @@ class ThemeSelectInput < SimpleForm::Inputs::Base
   end
 
   def item_for(theme)
-    theme_name = theme.to_s
+    theme_name = theme.is_a?(String) ? theme.to_s : theme[0]
     selected_classes = (theme_name == @current) ? 'ring-2 ring-primary' : ''
 
     onclick = %Q{
@@ -71,21 +71,21 @@ class ThemeSelectInput < SimpleForm::Inputs::Base
         onclick: onclick,
         onkeydown: onkeydown
       ) do
-        option_div = template.content_tag(
+        template.content_tag(
           :div,
           class: 'flex items-center justify-between p-2 bg-base-100 hover:bg-base-200 transition-colors duration-150 flex-1',
           data: { 'd-theme' => theme_name }
         ) do
           text = template.content_tag(:span, theme_name.capitalize, class: 'text-sm flex-shrink-0')
-          colors = template.content_tag(:div, class: 'flex items-center gap-2 flex-shrink-0 ml-auto') do
+          colors = template.content_tag(:div, class: 'flex items-center gap-2 flex-shrink-0 ml-auto', 
+data: { 'd-theme' => theme_name }) do
             primary = template.content_tag(:span, '', class: 'w-4 h-4 rounded-full bg-primary')
             secondary = template.content_tag(:span, '', class: 'w-4 h-4 rounded-full bg-secondary')
             primary + secondary
           end
+          
           text + colors
         end
-
-        option_div
       end
     end
   end
