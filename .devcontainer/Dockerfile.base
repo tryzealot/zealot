@@ -30,7 +30,7 @@ ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
 RUN curl https://mise.run | sh
 
 # Install lazygit
-ENV LAZYGIT_VERSION="0.58.0"
+ENV LAZYGIT_VERSION="0.63.0"
 RUN curl -L https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin && \
     chmod +x /usr/local/bin/lazygit
 
