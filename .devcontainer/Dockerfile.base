@@ -1,4 +1,4 @@
-ARG VARIANT=bookworm
+ARG VARIANT=trixie
 FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 
 # Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
