@@ -308,7 +308,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
-    lograge (0.14.0)
+    lograge (0.15.0)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -753,7 +753,7 @@ DEPENDENCIES
   letter_opener (~> 1.10)
   letter_opener_web (~> 3.0)
   listen (>= 3.10.0, < 3.11)
-  lograge (~> 0.14.0)
+  lograge (~> 0.15.0)
   meta_request!
   omniauth (~> 2.1.4)
   omniauth-feishu (~> 0.1.8)
