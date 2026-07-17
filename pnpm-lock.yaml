@@ -47,7 +47,7 @@ importers:
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.3.3
-        version: 4.3.3(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0))
+        version: 4.3.3(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0))
       '@types/node':
         specifier: ^26.1.1
         version: 26.1.1
@@ -55,11 +55,11 @@ importers:
         specifier: ^4.62.2
         version: 4.62.2
       vite:
-        specifier: ^8.1.4
-        version: 8.1.4(@types/node@26.1.1)(jiti@2.7.0)
+        specifier: ^8.1.5
+        version: 8.1.5(@types/node@26.1.1)(jiti@2.7.0)
       vite-plugin-rails:
         specifier: ^0.6.0
-        version: 0.6.0(rollup@4.62.2)(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0))
+        version: 0.6.0(rollup@4.62.2)(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0))
 
 packages:
 
@@ -581,8 +581,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  nanoid@3.3.15:
-    resolution: {integrity: sha512-y7Wygv/7mEOvxTuEQDB8StXdMRBWf1kR/tlhAzBRUFkB2jfcLOAxO/SHmOO2zgz1pVgK29/kyupn059/bCHdjA==}
+  nanoid@3.3.16:
+    resolution: {integrity: sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -601,8 +601,8 @@ packages:
     resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
     engines: {node: '>=12'}
 
-  postcss@8.5.16:
-    resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
+  postcss@8.5.19:
+    resolution: {integrity: sha512-Mz8SaolMd8nB+G13WkORcxQKHZ/NE4xXevtkJHVuG+guo9/wYKlIMTKAqGdEmYOXR2ijPjTYNHssizdaVSUNdQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   rolldown@1.1.5:
@@ -694,8 +694,8 @@ packages:
   vite-plugin-stimulus-hmr@3.0.0:
     resolution: {integrity: sha512-KElOiZOlaG4XilQQHrzK8M1u5UfK4EFfADJKQYbnmsUMifDOnPR6anVYgHAN95QyWJ67Q/rYWe5BB9M5OxocfQ==}
 
-  vite@8.1.4:
-    resolution: {integrity: sha512-bTT9PsdWO+MQMNG9ZXIP/qM9wGh37DFxTV/sPq9cFpHr3w4jkgef032PkAL9jAqhk3Nz8NQw3O8n6/xFkqO4QQ==}
+  vite@8.1.5:
+    resolution: {integrity: sha512-7ULLwsCdYx/nRyrpiEwvqb5TFHrMVZyBt+rg/OAXT7rgj/z+DtTDyKFeLAdDkubDVDKD8jOsndmy7m55XcfUsw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -996,12 +996,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.3
 
-  '@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0))':
+  '@tailwindcss/vite@4.3.3(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0))':
     dependencies:
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
-      vite: 8.1.4(@types/node@26.1.1)(jiti@2.7.0)
+      vite: 8.1.5(@types/node@26.1.1)(jiti@2.7.0)
 
   '@tybys/wasm-util@0.10.3':
     dependencies:
@@ -1113,7 +1113,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nanoid@3.3.15: {}
+  nanoid@3.3.16: {}
 
   obug@2.1.3: {}
 
@@ -1123,9 +1123,9 @@ snapshots:
 
   picomatch@4.0.5: {}
 
-  postcss@8.5.16:
+  postcss@8.5.19:
     dependencies:
-      nanoid: 3.3.15
+      nanoid: 3.3.16
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -1222,9 +1222,9 @@ snapshots:
 
   undici-types@8.3.0: {}
 
-  vite-plugin-environment@1.1.3(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0)):
+  vite-plugin-environment@1.1.3(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0)):
     dependencies:
-      vite: 8.1.4(@types/node@26.1.1)(jiti@2.7.0)
+      vite: 8.1.5(@types/node@26.1.1)(jiti@2.7.0)
 
   vite-plugin-full-reload@1.2.0:
     dependencies:
@@ -1233,24 +1233,24 @@ snapshots:
 
   vite-plugin-manifest-sri@0.2.0: {}
 
-  vite-plugin-rails@0.6.0(rollup@4.62.2)(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0)):
+  vite-plugin-rails@0.6.0(rollup@4.62.2)(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0)):
     dependencies:
       rollup-plugin-gzip: 4.2.0(rollup@4.62.2)
-      vite: 8.1.4(@types/node@26.1.1)(jiti@2.7.0)
-      vite-plugin-environment: 1.1.3(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0))
+      vite: 8.1.5(@types/node@26.1.1)(jiti@2.7.0)
+      vite-plugin-environment: 1.1.3(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0))
       vite-plugin-full-reload: 1.2.0
       vite-plugin-manifest-sri: 0.2.0
-      vite-plugin-ruby: 5.2.2(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0))
+      vite-plugin-ruby: 5.2.2(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0))
       vite-plugin-stimulus-hmr: 3.0.0
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-ruby@5.2.2(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0)):
+  vite-plugin-ruby@5.2.2(vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0)):
     dependencies:
       obug: 2.1.3
       tinyglobby: 0.2.17
-      vite: 8.1.4(@types/node@26.1.1)(jiti@2.7.0)
+      vite: 8.1.5(@types/node@26.1.1)(jiti@2.7.0)
 
   vite-plugin-stimulus-hmr@3.0.0:
     dependencies:
@@ -1259,11 +1259,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0):
+  vite@8.1.5(@types/node@26.1.1)(jiti@2.7.0):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.5
-      postcss: 8.5.16
+      postcss: 8.5.19
       rolldown: 1.1.5
       tinyglobby: 0.2.17
     optionalDependencies:
