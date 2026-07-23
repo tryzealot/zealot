@@ -1,6 +1,8 @@
 name: Publish Release Docker Image
 on:
   push:
+    paths:
+      - ".github/workflows/publish_release.yml"
     tags:
       - "*"
 
