@@ -1,4 +1,6 @@
 name: Sync README to Organization
+permissions:
+  contents: read
 on:
   push:
     paths:
