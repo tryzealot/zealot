@@ -264,7 +264,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jb (0.8.2)
-    json (2.21.1)
+    json (2.21.2)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
       aes_key_wrap
