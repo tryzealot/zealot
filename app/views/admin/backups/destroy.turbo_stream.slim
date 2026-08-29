@@ -1,2 +1,3 @@
 = turbo_stream.remove dom_id(@backup, :admin)
+= turbo_stream.append(:backups, partial: 'empty_backup') if @empty_backup
 = turbo_stream.append :notifications, partial: 'layouts/notifications'

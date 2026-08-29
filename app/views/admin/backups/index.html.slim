@@ -8,25 +8,20 @@
   = icon_link_to 'fa-regular fa-plus-square', new_admin_backup_path, text: t('.new_schedule'), \
     link: { class: 'd-btn d-btn-success', data: { turbo_frame: :modal } }
 
-- unless @backups.empty?
-  .card
-    .card-header
-      h3.card-title
-        i.fa-solid.fa-box-open.mr-1
-        = t('.schedules')
-    .card-body.p-0.gap-0
-      div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
-        div class="col-span-6 sm:col-span-4 md:col-span-3" = t('.key')
-        div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.scopes')
-        div class="hidden sm:block sm:col-span-2 md:col-span-1" = t('.schedule')
-        div class="hidden sm:block sm:col-span-2 md:col-span-3" = t('.next_schedule_at')
-        div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
-      #backups
+.card
+  .card-header
+    h3.card-title
+      i.fa-solid.fa-box-open.mr-1
+      = t('.schedules')
+  .card-body.p-0.gap-0
+    div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
+      div class="col-span-6 sm:col-span-4 md:col-span-3" = t('.key')
+      div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.scopes')
+      div class="hidden sm:block sm:col-span-2 md:col-span-1" = t('.schedule')
+      div class="hidden sm:block sm:col-span-2 md:col-span-3" = t('.next_schedule_at')
+      div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
+    #backups
+      - unless @backups.empty?
         == render @backups
-
-- else
-  .card.card-outline.card-warning
-    .card-header.card-border
-      h3.card-title = t('.not_found.title')
-    .card-body 
-      p = t('.not_found.body_html')
+      - else
+        == render 'empty_backup'

@@ -95,7 +95,8 @@ class Admin::BackupsController < ApplicationController
 
   def destroy
     @backup.destroy
-
+    @empty_backup = Backup.count.zero?
+    
     flash.now[:notice] = t('activerecord.success.destroy', key: t('admin.backups.title'))
     respond_to do |format|
       format.html { redirect_to admin_backups_url }
