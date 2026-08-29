@@ -60,7 +60,6 @@ COPY Gemfile Gemfile.lock package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n1 | awk '{print $1}') && \
     npm install --global pnpm mprocs
 
-USER root
-RUN chmod a+w Gemfile.lock && mkdir node_modules && chown -R vscode:vscode /workspace
-USER vscode
+COPY --chown=vscode:vscode Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
+RUN mkdir -p node_modules
 RUN bundle install && pnpm install
