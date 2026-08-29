@@ -42,25 +42,25 @@ module Zealot::Backup
     end
 
     def dump
+      unless config['adapter'] == 'postgresql'
+        raise Zealot::Backup::DumpDatabaseError, "dump failed: unsupported database adapter #{config['adapter'].inspect}"
+      end
+
       FileUtils.rm_f(db_file_name)
 
       compress_rd, compress_wr = IO.pipe
       compress_pid = spawn(gzip_cmd, in: compress_rd, out: [db_file_name, 'w', 0600])
       compress_rd.close
 
-      dump_pid =
-        case config['adapter']
-        when 'postgresql'
-          logger.debug "Dumping PostgreSQL database #{config['database']} ... "
-          pg_env
-          pgsql_args = ["--clean"] # Pass '--clean' to include 'DROP TABLE' statements in the DB dump.
-          if Setting.backup[:pg_schema]
-            pgsql_args << "-n"
-            pgsql_args << Setting.backup[:pg_schema]
-          end
+      logger.debug "Dumping PostgreSQL database #{config['database']} ... "
+      pg_env
+      pgsql_args = ["--clean"] # Pass '--clean' to include 'DROP TABLE' statements in the DB dump.
+      if Setting.backup[:pg_schema]
+        pgsql_args << "-n"
+        pgsql_args << Setting.backup[:pg_schema]
+      end
 
-          spawn('pg_dump', *pgsql_args, config['database'], out: compress_wr)
-        end
+      dump_pid = spawn('pg_dump', *pgsql_args, config['database'], out: compress_wr)
       compress_wr.close
 
       exit_message = []
@@ -82,17 +82,17 @@ module Zealot::Backup
     end
 
     def restore
+      unless config['adapter'] == 'postgresql'
+        raise Zealot::Backup::RestoreDatabaseError, "restore failed: unsupported database adapter #{config['adapter'].inspect}"
+      end
+
       decompress_rd, decompress_wr = IO.pipe
       decompress_pid = spawn(*%w(gzip -cd), out: decompress_wr, in: db_file_name)
       decompress_wr.close
 
-      restore_pid =
-        case config['adapter']
-        when 'postgresql'
-          logger.debug "Restoring PostgreSQL database #{config['database']} ... "
-          pg_env
-          spawn('psql', config['database'], in: decompress_rd)
-        end
+      logger.debug "Restoring PostgreSQL database #{config['database']} ... "
+      pg_env
+      restore_pid = spawn('psql', config['database'], in: decompress_rd)
       decompress_rd.close
 
       exit_message = []
@@ -134,14 +134,7 @@ module Zealot::Backup
     end
 
     def config
-      @config ||= -> {
-        config = ERB.new(File.read(Rails.root.join('config', 'database.yml'))).result()
-        if YAML.respond_to?(:unsafe_load)
-          YAML.unsafe_load(config)
-        else
-          YAML.load(config)
-        end[Rails.env]
-      }.call
+      @config ||= ActiveRecord::Base.connection_db_config.configuration_hash.stringify_keys
     end
 
     def db_file_name
