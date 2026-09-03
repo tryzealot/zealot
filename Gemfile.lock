@@ -133,12 +133,12 @@ GEM
     bootsnap (1.25.0)
       msgpack (~> 1.5)
     builder (3.3.0)
-    carrierwave (3.1.3)
+    carrierwave (3.1.4)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
       addressable (~> 2.6)
-      image_processing (~> 1.1)
-      marcel (~> 1.0.0)
+      image_processing (>= 1.1, < 3)
+      marcel (>= 1.0.0, < 3)
       ssrf_filter (~> 1.0)
     case_transform (0.2)
       activesupport
@@ -251,9 +251,7 @@ GEM
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     icns (0.2.0)
-    image_processing (1.14.0)
-      mini_magick (>= 4.9.5, < 6)
-      ruby-vips (>= 2.0.17, < 3)
+    image_processing (2.1.0)
     image_size (3.4.0)
     interception (0.5)
     io-console (0.9.2)
@@ -324,10 +322,8 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.4)
+    marcel (1.2.1)
     method_source (1.1.0)
-    mini_magick (5.3.1)
-      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.6)
@@ -607,9 +603,6 @@ GEM
       ruby-lsp (>= 0.26.0, < 0.27.0)
     ruby-macho (4.1.0)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.3.0)
-      ffi (~> 1.12)
-      logger
     rubyntlm (0.6.5)
       base64
     rubyzip (2.4.1)
@@ -735,7 +728,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap (>= 1.21.1)
-  carrierwave (~> 3.1.3)
+  carrierwave (~> 3.1.4)
   debug (~> 1.11.1)
   devise (~> 5.0.4)
   devise-i18n (~> 1.16.0)
