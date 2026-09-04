@@ -71,8 +71,8 @@ gem 'vmstat', '~> 2.3.0'
 gem 'pghero', '~> 4.0.1'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 6.7.0'
-gem 'sentry-rails', '~> 6.7.0'
+gem 'sentry-ruby', '~> 7.0.0'
+gem 'sentry-rails', '~> 7.0.0'
 
 # Background job
 gem 'good_job', '~> 4.19.2'
