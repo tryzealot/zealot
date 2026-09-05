@@ -7,6 +7,7 @@ module UserRoles
     scope :admins, -> { where(role: :admin) }
     scope :developers, -> { where(role: :developer) }
     scope :members, -> { where(role: :member) }
+    scope :guests, -> { where(role: :guest) }
   end
 
   def manage?(app: nil)
@@ -29,6 +30,14 @@ module UserRoles
     update!(role: :member)
   end
 
+  def grant_guest!
+    update!(role: :guest)
+  end
+
+  def revoke_guest!
+    update!(role: :member)
+  end
+
   def roles?(value)
     roles.where(role: value.to_sym).exists?
   end
@@ -43,6 +52,8 @@ module UserRoles
             :admin
           elsif developer?
             :developer
+          elsif guest?
+            :guest
           else
             :member
           end

@@ -11,7 +11,7 @@ class User < ApplicationRecord
          :validatable, :recoverable, :lockable, :magic_link_authenticatable, 
          :omniauthable, omniauth_providers: %i[feishu gitlab google_oauth2 ldap openid_connect github gitea].freeze
 
-  enum :role, %i[member developer admin]
+  enum :role, %i[member developer admin guest]
   enum :locale, enum_roles
   enum :appearance, enum_appearances
   enum :timezone, enum_timezones

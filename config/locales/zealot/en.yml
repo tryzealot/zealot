@@ -489,6 +489,7 @@ en:
       installed: Re-Install
       cert_expired: Certificate expired
       missing_file: Missing file
+      no_permission_to_download: No permission to download
       more: More builds
       cannot_install_cause_of_certificate_expired: Why can not install app with expired certificate?
       cannot_install_or_untrusted_enterprise_developer: Occurred "Untrusted Enterprise Developer" or app failed to install?
@@ -530,6 +531,7 @@ en:
         deleted_programly: Maybe clean up by enabled auto clean job.
         not_found_really: Not found this build.
         invalid_password: Invalid password
+        no_permission_to_download: You do not have permission to download this release
         bundle_id_not_matched: "Bundle id or package name not matched between release %{got} and rule %{expect}"
   debug_files:
     title: Debug files
@@ -877,6 +879,7 @@ en:
       member: Member
       developer: Developer
       admin: Admin
+      guest: Guest
     site_locale:
       zh-CN: Simplified Chinese
       en: English
