@@ -14,20 +14,10 @@ default: &default
   <% end %>
 
 development:
-  primary: &primary_development
-    <<: *default
-  cache:
-    <<: *primary_development
-  cable:
-    <<: *primary_development
+  <<: *default
 
 test:
   <<: *default
 
 production:
-  primary: &primary_production
-    <<: *default
-  cache:
-    <<: *primary_production
-  cable:
-    <<: *primary_production
+  <<: *default
