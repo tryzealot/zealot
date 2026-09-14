@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.4.8-alpine AS builder
+FROM ruby:3.4.8-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm pnpm zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -43,7 +43,7 @@ RUN bundle config --global frozen 1 && \
     bundle config set path 'vendor/bundle' && \
     bundle lock --add-platform ruby && \
     bundle config set force_ruby_platform true && \
-    bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
+    bundle install --jobs $(nproc) --retry 3
 
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
@@ -58,7 +58,7 @@ RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
 
 ##################################################################################
 
-FROM --platform=$BUILDPLATFORM ruby:3.4.8-alpine
+FROM ruby:3.4.8-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
