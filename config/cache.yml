@@ -6,11 +6,9 @@ default: &default
 
 development:
   <<: *default
-  database: cache
 
 test:
   <<: *default
 
 production:
   <<: *default
-  database: cache

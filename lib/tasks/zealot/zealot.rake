@@ -37,8 +37,9 @@ namespace :zealot do
 
   namespace :db do
     task upgrade: :environment do
+      context = ActiveRecord::MigrationContext.new(Rails.application.config.paths['db/migrate'].to_a)
       db_version = begin
-                     ActiveRecord::Migrator.current_version
+                     context.current_version
                    rescue ActiveRecord::NoDatabaseError
                      nil
                    end
@@ -46,7 +47,7 @@ namespace :zealot do
       if db_version.blank? || db_version.zero?
         Rake::Task['zealot:db:setup'].invoke
       else
-        Rake::Task['zealot:db:migrate'].invoke(db_version)
+        Rake::Task['zealot:db:migrate'].invoke
       end
     end
 
@@ -64,24 +65,22 @@ namespace :zealot do
     end
 
     # 升级
-    task :migrate, %i[version] => :environment do |_, args|
-      file_version_str = Dir.children(Rails.root.join('db', 'migrate'))
-                           .map { |f| File.basename(f).split('_')[0] }
-                           .max
-      file_version = Time.parse(file_version_str)
-      db_version = Time.parse(args.version.to_s)
+    task migrate: :environment do
+      migration_paths = Rails.application.config.paths['db/migrate'].to_a
+      context = ActiveRecord::MigrationContext.new(migration_paths)
 
-      if file_version == db_version
-        puts "Zealot database is up to date: #{file_version_str}"
-        next
-      end
+      max_file_version = context.migrations.map(&:version).max || 0
+      current_version = context.current_version
 
-      if file_version < db_version
-        puts "[WARNNING] Found zealot ran the previous version, database must rollback !!!"
-        puts "File version (#{file_version_str}) < Database version (#{args.version})"
-      else
-        puts "Zealot upgrade database ..."
+      if current_version > max_file_version
+        puts "[WARNING] Found zealot ran the previous version, database must rollback !!!"
+        puts "File version (#{max_file_version}) < Database version (#{current_version})"
+      elsif context.needs_migration?
+        pending_count = context.pending_migration_versions.size
+        puts "Zealot upgrade database (#{pending_count} pending migrations) ..."
         Rake::Task['db:migrate'].invoke
+      else
+        puts "Zealot database is up to date: #{current_version}"
       end
     end
   end
