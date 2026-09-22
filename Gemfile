@@ -38,6 +38,7 @@ gem 'friendly_id', '~> 5.7.0'
 gem 'kaminari', '~> 1.2.2'
 gem 'carrierwave', '~> 3.1.4'
 gem 'webp-ffi', '~> 0.4.0'
+gem 'mini_magick'
 
 # Helper
 gem 'rake', '~> 13.0.4'

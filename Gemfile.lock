@@ -324,6 +324,8 @@ GEM
       net-smtp
     marcel (1.2.1)
     method_source (1.1.0)
+    mini_magick (5.4.0)
+      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.6)
@@ -751,6 +753,7 @@ DEPENDENCIES
   listen (>= 3.10.0, < 3.11)
   lograge (~> 0.15.0)
   meta_request!
+  mini_magick
   omniauth (~> 2.1.4)
   omniauth-feishu (~> 0.1.8)
   omniauth-github (~> 2.0.1)
