@@ -6,6 +6,10 @@ class ReleasePolicy < ApplicationPolicy
     true
   end
 
+  def download?
+    !guest?
+  end
+
   def new?
     any_manage?
   end
