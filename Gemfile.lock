@@ -99,12 +99,12 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     aes_key_wrap (1.1.0)
-    android_parser (2.7.0)
+    android_parser (2.7.1)
       rexml (> 3.0)
-      rubyzip (>= 1.0, < 3.0)
-    app-info (3.3.2)
+      rubyzip (>= 3.4.0)
+    app-info (3.4.0)
       CFPropertyList (>= 2.3.4, < 3.1.0)
-      android_parser (>= 2.7, < 3.0)
+      android_parser (>= 2.7.1, < 3.0)
       base64 (~> 0.2.0)
       google-protobuf (>= 4.27.5, < 5.0.0)
       icns (~> 0.2.0)
@@ -112,7 +112,7 @@ GEM
       nkf (~> 0.2.0)
       pedump (~> 0.6.2)
       ruby-macho (>= 1.4, < 5)
-      rubyzip (>= 1.2, < 3.0)
+      rubyzip (>= 3.4.0)
       uuidtools (>= 2.1.5, < 2.3.0)
     ast (2.4.3)
     attr_required (1.0.2)
@@ -607,7 +607,7 @@ GEM
     ruby-progressbar (1.13.0)
     rubyntlm (0.6.5)
       base64
-    rubyzip (2.4.1)
+    rubyzip (3.7.0)
     securerandom (0.4.1)
     sentry-rails (6.7.0)
       railties (>= 5.2.0)
@@ -725,7 +725,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.16)
   activejob-status (~> 1.0.2)
-  app-info (~> 3.3.2)
+  app-info (~> 3.4.0)
   awesome_print
   better_errors
   binding_of_caller
