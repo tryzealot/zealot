@@ -27,7 +27,7 @@ gem 'tiny_appstore_connect', '~> 0.1.13'
 # View
 gem 'view_component', '~> 4.15.0'
 gem 'jb', '~> 0.8.2'
-gem 'slim-rails', '~> 4.0.0'
+gem 'slim-rails', '~> 4.0.1'
 gem 'kramdown', '~> 2.5'
 gem 'simple_form', '~> 5.4.1'
 gem 'rswag-api', '~> 2.17.0'
