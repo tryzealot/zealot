@@ -36,8 +36,8 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       daisyui:
-        specifier: ^5.7.43
-        version: 5.7.43
+        specifier: ^5.7.46
+        version: 5.7.46
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -456,8 +456,8 @@ packages:
   compare-versions@6.1.1:
     resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
 
-  daisyui@5.7.43:
-    resolution: {integrity: sha512-o80D/SaF70gWppzpfk1X01ApWjVeqEEARbySaC0hWzIQymMqStcp28e+5lTWErHIfOk8RqGkD8ozA4v9tI4MZA==}
+  daisyui@5.7.46:
+    resolution: {integrity: sha512-z/tfVXLpLRe1ojGeokzxauHA9Ij5CGfk+83EdatQbFSVr02h5mUcp4nkgQJOw68wH1wAAPu/SY+MWbDdJG2R4w==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -1069,7 +1069,7 @@ snapshots:
 
   compare-versions@6.1.1: {}
 
-  daisyui@5.7.43: {}
+  daisyui@5.7.46: {}
 
   debug@4.4.3:
     dependencies:
