@@ -16,7 +16,7 @@ gem 'solid_cache', '~> 1.0.10'
 gem 'solid_cable', '~> 4.1.0'
 
 # Logger
-gem 'lograge', '~> 0.15.0'
+gem 'lograge', '~> 0.15.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.16'
