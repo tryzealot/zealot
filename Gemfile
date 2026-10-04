@@ -13,21 +13,21 @@ gem 'rack', '>= 3.1.18'
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'solid_cache', '~> 1.0.10'
-gem 'solid_cable', '~> 4.0.2'
+gem 'solid_cable', '~> 4.1.0'
 
 # Logger
-gem 'lograge', '~> 0.15.0'
+gem 'lograge', '~> 0.15.1'
 
 # API
 gem 'active_model_serializers', '~> 0.10.16'
-gem 'graphql', '~> 2.6.10'
+gem 'graphql', '~> 2.6.11'
 gem 'health_check', '~> 3.1.0'
 gem 'tiny_appstore_connect', '~> 0.1.13'
 
 # View
 gem 'view_component', '~> 4.15.0'
 gem 'jb', '~> 0.8.2'
-gem 'slim-rails', '~> 4.0.0'
+gem 'slim-rails', '~> 4.0.1'
 gem 'kramdown', '~> 2.5'
 gem 'simple_form', '~> 5.4.1'
 gem 'rswag-api', '~> 2.17.0'
@@ -37,14 +37,14 @@ gem 'rswag-ui', '~> 2.17.0'
 gem 'friendly_id', '~> 5.7.0'
 gem 'kaminari', '~> 1.2.2'
 gem 'carrierwave', '~> 3.1.4'
+gem 'mini_magick', '~> 5.3'
 gem 'webp-ffi', '~> 0.4.0'
-gem 'mini_magick'
 
 # Helper
 gem 'rake', '~> 13.0.4'
-gem 'rails-settings-cached', '~> 2.9.6'
-gem 'app-info', '~> 3.3.2'
-gem 'faraday', '~> 2.14.3'
+gem 'rails-settings-cached', '~> 2.10.0'
+gem 'app-info', '~> 3.4.0'
+gem 'faraday', '~> 2.14.4'
 gem 'rqrcode', '~> 3.2.0'
 
 ## Auth
@@ -55,7 +55,7 @@ gem 'devise-passwordless', '~> 1.1.0'
 
 gem 'omniauth', '~> 2.1.4'
 gem 'omniauth-rails_csrf_protection', '~> 2.0.1'
-gem 'omniauth-google-oauth2', '~> 1.2.2'
+gem 'omniauth-google-oauth2', '~> 1.2.3'
 gem 'omniauth-gitlab', '~> 4.1.0'
 gem 'omniauth-feishu', '~> 0.1.8'
 gem 'gitlab_omniauth-ldap', '~> 2.3.0', require: 'omniauth-ldap'
@@ -76,7 +76,7 @@ gem 'sentry-ruby', '~> 6.7.0'
 gem 'sentry-rails', '~> 6.7.0'
 
 # Background job
-gem 'good_job', '~> 4.19.2'
+gem 'good_job', '~> 4.19.3'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
