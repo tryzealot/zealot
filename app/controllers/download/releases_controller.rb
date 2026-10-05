@@ -17,6 +17,13 @@ class Download::ReleasesController < ApplicationController
   end
 
   def download
+    # password protected check — this is the URL #show redirects to once the
+    # channel password is verified, but it is also directly routable, so it
+    # has to repeat the check rather than rely on #show having done it.
+    unless helpers.logged_in_or_without_auth?(@release)
+      return redirect_to channel_release_path(@release.channel, @release, back_url: @release.download_url)
+    end
+
     # 触发 web_hook
     @release.channel.perform_web_hook('download_events', current_user&.id)
 
