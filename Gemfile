@@ -76,7 +76,7 @@ gem 'sentry-ruby', '~> 6.7.0'
 gem 'sentry-rails', '~> 6.7.0'
 
 # Background job
-gem 'good_job', '~> 4.20.0'
+gem 'good_job', '~> 4.22.1'
 gem 'activejob-status', '~> 1.0.2'
 
 # Assets
