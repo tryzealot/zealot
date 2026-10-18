@@ -42,8 +42,18 @@ RUN bundle config --global frozen 1 && \
     bundle config set without 'development test' && \
     bundle config set path 'vendor/bundle' && \
     bundle lock --add-platform ruby && \
-    bundle config set force_ruby_platform true && \
     bundle install --jobs $(nproc) --retry 3
+
+# Platform assertion: no non-musl gem artifact may ship, enforced by the
+# script docker/platform_assertion.rb. It replaces force_ruby_platform, added
+# 2022-12 (commit 5b495933) because nokogiri shipped no precompiled musl gem
+# then. That flag disabled platform resolution instead of verifying its
+# result, so glibc artifacts could be installed unnoticed. Removal is safe
+# now: ffi 1.17.4, google-protobuf 4.33.0, nokogiri 1.19.4 and pg 1.7.0
+# publish musl-native platforms, now locked in Gemfile.lock. If this check
+# fails, fix the offending gem's resolution instead of restoring the flag.
+COPY docker/platform_assertion.rb /tmp/platform_assertion.rb
+RUN bundle exec ruby /tmp/platform_assertion.rb
 
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
@@ -111,6 +121,13 @@ WORKDIR $APP_ROOT
 
 COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
+
+# Native-extension smoke: prove the delivered runtime stage's shared libraries
+# are complete. It must run here, not in the builder -- the two stages install
+# different system packages, and only this stage reflects the shipped image.
+# The requires and the pass line must stay in sync.
+COPY docker/native_extension_smoke.rb /tmp/native_extension_smoke.rb
+RUN bundle exec ruby /tmp/native_extension_smoke.rb && rm /tmp/native_extension_smoke.rb
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
