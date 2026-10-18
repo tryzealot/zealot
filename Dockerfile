@@ -1,4 +1,9 @@
-FROM ruby:3.4.8-alpine AS builder
+# Ruby version for both stages. Keep in sync with `.mise.toml` and the Gemfile's
+# `ruby '4.0.7'` directive. The image ships Bundler 4.0.20, which the lockfile's
+# BUNDLED WITH now pins, so no separate bundler install is needed.
+ARG RUBY_VERSION=4.0.7
+
+FROM ruby:${RUBY_VERSION}-alpine AS builder
 
 ARG BUILD_PACKAGES="build-base libxml2 libxslt git"
 ARG DEV_PACKAGES="ruby-dev libffi-dev libxml2-dev libxslt-dev yaml-dev postgresql-dev nodejs npm pnpm zlib-dev imagemagick-dev libwebp-dev libpng-dev tiff-dev gcompat"
@@ -9,7 +14,6 @@ ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com"
 ARG NPM_REGISTRY="https://registry.npmmirror.com"
-ARG RUBY_GEMS="bundler"
 ARG APP_ROOT="/app"
 
 ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
@@ -26,8 +30,7 @@ RUN set -ex && \
     apk --update --no-cache add $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES && \
     if [[ "$REPLACE_CHINA_MIRROR" == "true" ]]; then \
       pnpm config set registry $NPM_REGISTRY; \
-    fi && \
-    gem install $RUBY_GEMS
+    fi
 
 WORKDIR $APP_ROOT
 
@@ -58,17 +61,21 @@ RUN bundle exec ruby /tmp/platform_assertion.rb
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
 
-# Remove folders not needed in resulting image
+# Remove folders not needed in resulting image. The gem directory is resolved
+# from the interpreter instead of hard-coding the ABI path (ruby/3.4.0), so a
+# Ruby bump cannot silently skip this cleanup.
 RUN rm -rf docker node_modules tmp/cache spec .browserslistrc babel.config.js \
     package.json postcss.config.js pnpm-lock.yaml && \
-    cd /app/vendor/bundle/ruby/3.4.0 && \
+    cd "/app/vendor/bundle/ruby/$(ruby -e 'print RbConfig::CONFIG["ruby_version"]')" && \
       rm -rf cache/*.gem && \
       find gems/ -name "*.c" -delete && \
       find gems/ -name "*.o" -delete
 
 ##################################################################################
 
-FROM ruby:3.4.8-alpine
+ARG RUBY_VERSION
+
+FROM ruby:${RUBY_VERSION}-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -80,7 +87,6 @@ ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
 ARG PACKAGES="tzdata curl logrotate postgresql-client postgresql-dev imagemagick imagemagick-dev libwebp-dev libpng-dev tiff-dev openssl openssl-dev caddy gcompat"
-ARG RUBY_GEMS="bundler"
 ARG APP_ROOT=/app
 ARG S6_OVERLAY_VERSION="2.2.0.3"
 ARG TARGETARCH
@@ -101,7 +107,6 @@ RUN set -ex && \
       gem sources --add $RUBYGEMS_SOURCE --remove https://rubygems.org/; \
     fi && \
     apk --update --no-cache add $PACKAGES && \
-    gem install $RUBY_GEMS && \
     echo "Setting variables for ${TARGETARCH}" && \
     case "$TARGETARCH" in \
     "amd64") \
