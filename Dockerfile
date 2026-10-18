@@ -44,16 +44,21 @@ RUN bundle config --global frozen 1 && \
     bundle lock --add-platform ruby && \
     bundle install --jobs $(nproc) --retry 3
 
-# Platform assertion: no non-musl gem artifact may ship. This replaces
-# force_ruby_platform, which hid glibc artifacts by disabling platform
-# resolution instead of verifying its result; the script body documents the
-# invariant it now enforces (2022 nokogiri incident).
+# Platform assertion: no non-musl gem artifact may ship, enforced by the
+# script below. It replaces force_ruby_platform, added 2022-12 (commit
+# 5b495933) because nokogiri shipped no precompiled musl gem then. That flag
+# disabled platform resolution instead of verifying its result, so glibc
+# artifacts could be installed unnoticed. Removal is safe now: ffi 1.17.4,
+# google-protobuf 4.33.0, nokogiri 1.19.4 and pg 1.7.0 publish musl-native
+# platforms, now locked in Gemfile.lock. If this check fails, fix the
+# offending gem's resolution instead of restoring the flag.
 RUN <<'RUBY' bundle exec ruby
-# Every gem in the installed bundle must be either the ruby platform (it was
-# built/generated locally) or a musl-native variant (*-linux-musl). Anything
-# else is a foreign artifact that must not ship: glibc binaries (-gnu) can
-# never load on this image, and legacy bare-Linux binaries (e.g. x86_64-linux)
-# are glibc-linked yet still match the local platform.
+# frozen_string_literal: true
+# Invariant: every installed gem is the ruby platform (built/generated
+# locally) or a musl-native variant (*-linux-musl). Anything else is a
+# foreign artifact: -gnu binaries can never load on musl, and legacy
+# bare-Linux binaries (e.g. x86_64-linux) are glibc-linked yet still match
+# the local platform.
 def valid_platform?(platform)
   platform == "ruby" || platform.end_with?("-linux-musl")
 end
@@ -145,7 +150,13 @@ COPY --from=builder $APP_ROOT $APP_ROOT
 # Native-extension smoke: prove the delivered runtime stage's shared libraries
 # are complete. It must run here, not in the builder -- the two stages install
 # different system packages, and only this stage reflects the shipped image.
-RUN bundle exec ruby -e 'require "nokogiri"; require "pg"; require "google/protobuf"; require "ffi"; puts "Native extension smoke passed: nokogiri, pg, google-protobuf, ffi"'
+# The requires and the pass line are derived from the same list.
+RUN <<'RUBY' bundle exec ruby
+# frozen_string_literal: true
+native_extends = ["nokogiri", "pg", "google/protobuf", "ffi"]
+native_extends.each { |ext| require ext }
+puts "Native extension smoke passed: #{native_extends.join(', ').tr('/', '-')}"
+RUBY
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
