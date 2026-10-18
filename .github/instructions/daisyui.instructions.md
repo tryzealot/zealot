@@ -1,7 +1,7 @@
 ---
 description: daisyUI 5
-alwaysApply: true
-applyTo: "**"
+alwaysApply: false
+applyTo: "app/views/**,app/frontend/**"
 downloadedFrom: https://daisyui.com/llms.txt
 version: 5.5.x
 ---
