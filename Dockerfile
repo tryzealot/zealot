@@ -42,8 +42,38 @@ RUN bundle config --global frozen 1 && \
     bundle config set without 'development test' && \
     bundle config set path 'vendor/bundle' && \
     bundle lock --add-platform ruby && \
-    bundle config set force_ruby_platform true && \
     bundle install --jobs $(nproc) --retry 3
+
+# Platform assertion: no non-musl gem artifact may ship. This replaces
+# force_ruby_platform, which hid glibc artifacts by disabling platform
+# resolution instead of verifying its result; the script body documents the
+# invariant it now enforces (2022 nokogiri incident).
+RUN <<'RUBY' bundle exec ruby
+# Every gem in the installed bundle must be either the ruby platform (it was
+# built/generated locally) or a musl-native variant (*-linux-musl). Anything
+# else is a foreign artifact that must not ship: glibc binaries (-gnu) can
+# never load on this image, and legacy bare-Linux binaries (e.g. x86_64-linux)
+# are glibc-linked yet still match the local platform.
+def valid_platform?(platform)
+  platform == "ruby" || platform.end_with?("-linux-musl")
+end
+
+def platform_check_offenders(specs)
+  specs.reject { |spec| valid_platform?(spec.platform.to_s) }
+       .map { |spec| "#{spec.name} #{spec.version} #{spec.platform}" }
+end
+
+specs = Bundler.load.specs
+offenders = platform_check_offenders(specs)
+
+if offenders.empty?
+  puts "Platform assertion passed: #{specs.size} specs installed, all ruby or *-linux-musl"
+else
+  warn "Platform assertion FAILED: #{offenders.size} gem(s) are neither ruby nor musl platform:"
+  offenders.sort.each { |offender| warn "  #{offender}" }
+  exit 1
+end
+RUBY
 
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
@@ -111,6 +141,11 @@ WORKDIR $APP_ROOT
 
 COPY docker/rootfs /
 COPY --from=builder $APP_ROOT $APP_ROOT
+
+# Native-extension smoke: prove the delivered runtime stage's shared libraries
+# are complete. It must run here, not in the builder -- the two stages install
+# different system packages, and only this stage reflects the shipped image.
+RUN bundle exec ruby -e 'require "nokogiri"; require "pg"; require "google/protobuf"; require "ffi"; puts "Native extension smoke passed: nokogiri, pg, google-protobuf, ffi"'
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
