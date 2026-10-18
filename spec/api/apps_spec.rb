@@ -93,7 +93,7 @@ RSpec.describe 'Apps API' do
       description I18n.t('api.apps.upload.description')
       operationId 'uploadApp'
 
-      include_examples :request_form_body, '#/definitions/UploadAppOptions'
+      include_examples :request_form_body, '#/components/schemas/UploadAppOptions'
 
       produces 'application/json'
       response '201', I18n.t('api.apps.default.responses.upload') do
@@ -131,7 +131,7 @@ RSpec.describe 'Apps API' do
       description I18n.t('api.apps.create.description')
       operationId 'createApp'
 
-      include_examples :request_body, '#/definitions/AppOptions'
+      include_examples :request_body, '#/components/schemas/AppOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.apps.default.responses.show') do
@@ -150,7 +150,7 @@ RSpec.describe 'Apps API' do
       operationId 'updateApp'
 
       include_examples :primary_key_parameter
-      include_examples :request_body, '#/definitions/AppOptions'
+      include_examples :request_body, '#/components/schemas/AppOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.apps.default.responses.show') do

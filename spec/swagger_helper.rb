@@ -271,9 +271,9 @@ RSpec.configure do |config|
             description: I18n.t('api.schemas.version.description'),
             type: :object,
             properties: {
-              version: { type: :integer, format: :int32, example: '6.0.0' },
-              vcs_ref: { type: :string, example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
-              build_date: { type: :string, example: '2024-05-23T06:04:48.989Z' }
+              version: { type: :string, example: '6.0.0' },
+              vcs_ref: { type: %i[string null], example: 'effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d' },
+              build_date: { type: %i[string null], example: '2024-05-23T06:04:48.989Z' }
             }
           },
 
@@ -293,6 +293,108 @@ RSpec.configure do |config|
             properties: {
               healthy: { type: :boolean, example: false },
               message: { type: :string, example: 'unhealthy' }
+            }
+          },
+
+          ListAppOptions: {
+
+          },
+          UploadAppOptions: {
+            description: I18n.t('api.definitions.upload_options.description'),
+            type: :object,
+            required: %i[ channel_key file ],
+            properties: {
+              channel_key: { type: :string, description: I18n.t('api.definitions.upload_options.properties.channel_key') },
+              file: { type: :file, description: I18n.t('api.definitions.upload_options.properties.file') },
+              name: { type: :string, description: I18n.t('api.definitions.upload_options.properties.name') },
+              password: { type: :string, description: I18n.t('api.definitions.upload_options.properties.password') },
+              release_type: { type: :string, description: I18n.t('api.definitions.upload_options.properties.release_type') },
+              source: { type: :string, description: I18n.t('api.definitions.upload_options.properties.source') },
+              changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.upload_options.properties.changelog')},
+              branch: { type: :string, description: I18n.t('api.definitions.upload_options.properties.branch') },
+              git_commit: { type: :string, description: I18n.t('api.definitions.upload_options.properties.git_commit') },
+              ci_url: { type: :string, description: I18n.t('api.definitions.upload_options.properties.ci_url') },
+              custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.upload_options.properties.custom_fields')},
+            }
+          },
+          AppOptions: {
+            description: I18n.t('api.definitions.app_options.description'),
+            type: :object,
+            required: %i[ name ],
+            properties: {
+              name: { type: :string, description: I18n.t('api.definitions.app_options.properties.name') }
+            }
+          },
+          SchemeOptions: {
+            description: I18n.t('api.definitions.scheme_options.description'),
+            type: :object,
+            required: %i[ name ],
+            properties: {
+              name: { type: :string, description: I18n.t('api.definitions.scheme_options.properties.name') },
+              new_build_callout: { type: :boolean, default: true, description: I18n.t('api.definitions.scheme_options.properties.new_build_callout') },
+              retained_builds: { type: :integer, format: :int32, default: 0, description: I18n.t('api.definitions.scheme_options.properties.retained_builds') }
+            }
+          },
+          ChannelOptions: {
+            description: I18n.t('api.definitions.channel_options.description'),
+            type: :object,
+            required: %i[ name device_type ],
+            properties: {
+              name: { type: :string, description: I18n.t('api.definitions.channel_options.properties.name') },
+              device_type: { type: :string, enum: Channel.device_types.keys, description: I18n.t('api.definitions.channel_options.properties.device_type') },
+              slug: { type: :string, description: I18n.t('api.definitions.channel_options.properties.slug') },
+              bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
+              git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
+              password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') },
+              download_filename_type: { type: :string, enum: Channel.download_filename_types.keys, description: I18n.t('api.definitions.channel_options.properties.download_filename_type') }
+            }
+          },
+          ReleaseOptions: {
+            description: I18n.t('api.definitions.release_options.description'),
+            type: :object,
+            properties: {
+              build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
+              release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
+              release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
+              source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
+              changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
+              branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
+              git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
+              ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
+              custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
+            }
+          },
+          CollaboratorOptions: {
+            description: I18n.t('api.definitions.collaborator_options.description'),
+            type: :object,
+            required: %i[ role ],
+            properties: {
+              role: { type: :string, enum: Collaborator.roles.keys, description: I18n.t('api.definitions.collaborator_options.properties.role') }
+            }
+          },
+          UserOptions: {
+            description: I18n.t('api.definitions.user_options.description'),
+            type: :object,
+            required: %i[ username email password ],
+            properties: {
+              username: { type: :string, description: I18n.t('api.definitions.user_options.properties.username') },
+              email: { type: :string, description: I18n.t('api.definitions.user_options.properties.email') },
+              password: { type: :string, description: I18n.t('api.definitions.user_options.properties.password') },
+              locale: { type: :string, enum: User.locales.keys, description: I18n.t('api.definitions.user_options.properties.locale') },
+              appearance: { type: :string, enum: User.appearances.keys, description: I18n.t('api.definitions.user_options.properties.appearance') },
+              timezone: { type: :string, enum: User.timezones.keys, description: I18n.t('api.definitions.user_options.properties.timezone') },
+              role: { type: :string, default: :user, enum: User.roles.keys, description: I18n.t('api.definitions.user_options.properties.role') },
+            }
+          },
+          DebugFileOptions: {
+            description: I18n.t('api.definitions.debug_file_options.description'),
+            type: :object,
+            required: %i[ channel_key file ],
+            properties: {
+              channel_key: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.channel_key') },
+              file: { type: :file, description: I18n.t('api.definitions.debug_file_options.properties.file') },
+              release_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.release_version') },
+              build_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.build_version') },
             }
           }
         },
@@ -324,109 +426,6 @@ RSpec.configure do |config|
           },
         },
       },
-      definitions: {
-        ListAppOptions: {
-
-        },
-        UploadAppOptions: {
-          description: I18n.t('api.definitions.upload_options.description'),
-          type: :object,
-          required: %i[ channel_key file ],
-          properties: {
-            channel_key: { type: :string, description: I18n.t('api.definitions.upload_options.properties.channel_key') },
-            file: { type: :file, description: I18n.t('api.definitions.upload_options.properties.file') },
-            name: { type: :string, description: I18n.t('api.definitions.upload_options.properties.name') },
-            password: { type: :string, description: I18n.t('api.definitions.upload_options.properties.password') },
-            release_type: { type: :string, description: I18n.t('api.definitions.upload_options.properties.release_type') },
-            source: { type: :string, description: I18n.t('api.definitions.upload_options.properties.source') },
-            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.upload_options.properties.changelog')},
-            branch: { type: :string, description: I18n.t('api.definitions.upload_options.properties.branch') },
-            git_commit: { type: :string, description: I18n.t('api.definitions.upload_options.properties.git_commit') },
-            ci_url: { type: :string, description: I18n.t('api.definitions.upload_options.properties.ci_url') },
-            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.upload_options.properties.custom_fields')},
-          }
-        },
-        AppOptions: {
-          description: I18n.t('api.definitions.app_options.description'),
-          type: :object,
-          required: %i[ name ],
-          properties: {
-            name: { type: :string, description: I18n.t('api.definitions.app_options.properties.name') }
-          }
-        },
-        SchemeOptions: {
-          description: I18n.t('api.definitions.scheme_options.description'),
-          type: :object,
-          required: %i[ name ],
-          properties: {
-            name: { type: :string, description: I18n.t('api.definitions.scheme_options.properties.name') },
-            new_build_callout: { type: :boolean, default: true, description: I18n.t('api.definitions.scheme_options.properties.new_build_callout') },
-            retained_builds: { type: :integer, format: :int32, default: 0, description: I18n.t('api.definitions.scheme_options.properties.retained_builds') }
-          }
-        },
-        ChannelOptions: {
-          description: I18n.t('api.definitions.channel_options.description'),
-          type: :object,
-          required: %i[ name device_type ],
-          properties: {
-            name: { type: :string, description: I18n.t('api.definitions.channel_options.properties.name') },
-            device_type: { type: :string, enum: Channel.device_types.keys, description: I18n.t('api.definitions.channel_options.properties.device_type') },
-            slug: { type: :string, description: I18n.t('api.definitions.channel_options.properties.slug') },
-            bundle_id: { type: :string, description: I18n.t('api.definitions.channel_options.properties.bundle_id') },
-            git_url: { type: :string, description: I18n.t('api.definitions.channel_options.properties.git_url') },
-            password: { type: :string, description: I18n.t('api.definitions.channel_options.properties.password') },
-            download_filename_type: { type: :string, enum: Channel.download_filename_types.keys, description: I18n.t('api.definitions.channel_options.properties.download_filename_type') }
-          }
-        },
-        ReleaseOptions: {
-          description: I18n.t('api.definitions.release_options.description'),
-          type: :object,
-          properties: {
-            build_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.build_version') },
-            release_version: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_version') },
-            release_type: { type: :string, description: I18n.t('api.definitions.release_options.properties.release_type') },
-            source: { type: :string, description: I18n.t('api.definitions.release_options.properties.source') },
-            changelog: { type: :array, items: { '$ref': '#/components/schemas/ReleaseChangelog' }, description: I18n.t('api.definitions.release_options.properties.changelog')},
-            branch: { type: :string, description: I18n.t('api.definitions.release_options.properties.branch') },
-            git_commit: { type: :string, description: I18n.t('api.definitions.release_options.properties.git_commit') },
-            ci_url: { type: :string, description: I18n.t('api.definitions.release_options.properties.ci_url') },
-            custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
-          }
-        },
-        CollaboratorOptions: {
-          description: I18n.t('api.definitions.collaborator_options.description'),
-          type: :object,
-          required: %i[ role ],
-          properties: {
-            role: { type: :string, enum: Collaborator.roles.keys, description: I18n.t('api.definitions.collaborator_options.properties.role') }
-          }
-        },
-        UserOptions: {
-          description: I18n.t('api.definitions.user_options.description'),
-          type: :object,
-          required: %i[ username email password ],
-          properties: {
-            username: { type: :string, description: I18n.t('api.definitions.user_options.properties.username') },
-            email: { type: :string, description: I18n.t('api.definitions.user_options.properties.email') },
-            password: { type: :string, description: I18n.t('api.definitions.user_options.properties.password') },
-            locale: { type: :string, enum: User.locales.keys, description: I18n.t('api.definitions.user_options.properties.locale') },
-            appearance: { type: :string, enum: User.appearances.keys, description: I18n.t('api.definitions.user_options.properties.appearance') },
-            timezone: { type: :string, enum: User.timezones.keys, description: I18n.t('api.definitions.user_options.properties.timezone') },
-            role: { type: :string, default: :user, enum: User.roles.keys, description: I18n.t('api.definitions.user_options.properties.role') },
-          }
-        },
-        DebugFileOptions: {
-          description: I18n.t('api.definitions.debug_file_options.description'),
-          type: :object,
-          required: %i[ channel_key file ],
-          properties: {
-            channel_key: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.channel_key') },
-            file: { type: :file, description: I18n.t('api.definitions.debug_file_options.properties.file') },
-            release_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.release_version') },
-            build_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.build_version') },
-          }
-        }
-      }
     }
   }
 

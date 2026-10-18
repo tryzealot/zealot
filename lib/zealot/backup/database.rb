@@ -43,7 +43,8 @@ module Zealot::Backup
 
     def dump
       unless config['adapter'] == 'postgresql'
-        raise Zealot::Backup::DumpDatabaseError, "dump failed: unsupported database adapter #{config['adapter'].inspect}"
+        raise Zealot::Backup::DumpDatabaseError,
+              "dump failed: unsupported database adapter #{config['adapter'].inspect}"
       end
 
       FileUtils.rm_f(db_file_name)
@@ -83,7 +84,8 @@ module Zealot::Backup
 
     def restore
       unless config['adapter'] == 'postgresql'
-        raise Zealot::Backup::RestoreDatabaseError, "restore failed: unsupported database adapter #{config['adapter'].inspect}"
+        raise Zealot::Backup::RestoreDatabaseError,
+              "restore failed: unsupported database adapter #{config['adapter'].inspect}"
       end
 
       decompress_rd, decompress_wr = IO.pipe

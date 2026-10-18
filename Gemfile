@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '4.0.7'
+
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 8.0.2'
@@ -45,7 +47,9 @@ gem 'mini_magick', '~> 5.3'
 gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
-gem 'rake', '~> 13.0.4'
+# 13.2+ dropped the runtime `require "ostruct"` that makes fresh parallel
+# `bundle install` runs fail on Ruby 4.0 (ostruct is no longer a default gem).
+gem 'rake', '~> 13.2'
 gem 'rails-settings-cached', '~> 2.10.0'
 gem 'app-info', '~> 3.4.0'
 gem 'faraday', '~> 2.14.4'
@@ -127,8 +131,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
 
-  gem 'factory_bot_rails'
-  
   gem 'rspec-rails'
   gem 'rswag-specs'
 end

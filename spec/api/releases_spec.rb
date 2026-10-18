@@ -10,7 +10,7 @@ RSpec.describe 'Releases API' do
       operationId 'updateRelease'
 
       include_examples :primary_key_parameter
-      include_examples :request_body, '#/definitions/ReleaseOptions'
+      include_examples :request_body, '#/components/schemas/ReleaseOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.releases.default.responses.show') do

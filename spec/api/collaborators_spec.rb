@@ -31,7 +31,7 @@ RSpec.describe 'Collaborators API' do
 
       include_examples :primary_key_parameter, :app_id
       include_examples :lazy_parameter, :user_id
-      include_examples :request_body, '#/definitions/CollaboratorOptions'
+      include_examples :request_body, '#/components/schemas/CollaboratorOptions'
 
       produces 'application/json'
       response 201, I18n.t('api.collaborators.default.responses.create') do
@@ -52,7 +52,7 @@ RSpec.describe 'Collaborators API' do
 
       include_examples :primary_key_parameter, :app_id
       include_examples :primary_key_parameter, :user_id
-      include_examples :request_body, '#/definitions/CollaboratorOptions'
+      include_examples :request_body, '#/components/schemas/CollaboratorOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.collaborators.default.responses.update') do
