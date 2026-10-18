@@ -45,40 +45,15 @@ RUN bundle config --global frozen 1 && \
     bundle install --jobs $(nproc) --retry 3
 
 # Platform assertion: no non-musl gem artifact may ship, enforced by the
-# script below. It replaces force_ruby_platform, added 2022-12 (commit
-# 5b495933) because nokogiri shipped no precompiled musl gem then. That flag
-# disabled platform resolution instead of verifying its result, so glibc
-# artifacts could be installed unnoticed. Removal is safe now: ffi 1.17.4,
-# google-protobuf 4.33.0, nokogiri 1.19.4 and pg 1.7.0 publish musl-native
-# platforms, now locked in Gemfile.lock. If this check fails, fix the
-# offending gem's resolution instead of restoring the flag.
-RUN <<'RUBY' bundle exec ruby
-# frozen_string_literal: true
-# Invariant: every installed gem is the ruby platform (built/generated
-# locally) or a musl-native variant (*-linux-musl). Anything else is a
-# foreign artifact: -gnu binaries can never load on musl, and legacy
-# bare-Linux binaries (e.g. x86_64-linux) are glibc-linked yet still match
-# the local platform.
-def valid_platform?(platform)
-  platform == "ruby" || platform.end_with?("-linux-musl")
-end
-
-def platform_check_offenders(specs)
-  specs.reject { |spec| valid_platform?(spec.platform.to_s) }
-       .map { |spec| "#{spec.name} #{spec.version} #{spec.platform}" }
-end
-
-specs = Bundler.load.specs
-offenders = platform_check_offenders(specs)
-
-if offenders.empty?
-  puts "Platform assertion passed: #{specs.size} specs installed, all ruby or *-linux-musl"
-else
-  warn "Platform assertion FAILED: #{offenders.size} gem(s) are neither ruby nor musl platform:"
-  offenders.sort.each { |offender| warn "  #{offender}" }
-  exit 1
-end
-RUBY
+# script docker/platform_assertion.rb. It replaces force_ruby_platform, added
+# 2022-12 (commit 5b495933) because nokogiri shipped no precompiled musl gem
+# then. That flag disabled platform resolution instead of verifying its
+# result, so glibc artifacts could be installed unnoticed. Removal is safe
+# now: ffi 1.17.4, google-protobuf 4.33.0, nokogiri 1.19.4 and pg 1.7.0
+# publish musl-native platforms, now locked in Gemfile.lock. If this check
+# fails, fix the offending gem's resolution instead of restoring the flag.
+COPY docker/platform_assertion.rb /tmp/platform_assertion.rb
+RUN bundle exec ruby /tmp/platform_assertion.rb
 
 COPY . $APP_ROOT
 RUN SECRET_KEY_BASE=precompile_placeholder bin/rails vite:build
@@ -150,18 +125,9 @@ COPY --from=builder $APP_ROOT $APP_ROOT
 # Native-extension smoke: prove the delivered runtime stage's shared libraries
 # are complete. It must run here, not in the builder -- the two stages install
 # different system packages, and only this stage reflects the shipped image.
-# The requires and the pass line must stay in sync. Keep the body below free
-# of shell-significant syntax (pipes, braces, parens, interpolation) -- the
-# heredoc is parsed as shell by linters, not as Ruby.
-RUN <<'RUBY' bundle exec ruby
-# frozen_string_literal: true
-require "nokogiri"
-require "pg"
-require "google/protobuf"
-require "ffi"
-print "Native extension smoke passed: "
-puts ["nokogiri", "pg", "google-protobuf", "ffi"].join ", "
-RUBY
+# The requires and the pass line must stay in sync.
+COPY docker/native_extension_smoke.rb /tmp/native_extension_smoke.rb
+RUN bundle exec ruby /tmp/native_extension_smoke.rb && rm /tmp/native_extension_smoke.rb
 
 RUN ln -s /app/bin/rails /usr/local/bin/
 
