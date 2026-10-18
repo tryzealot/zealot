@@ -88,9 +88,19 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
   - Always use TailwindCSS or DaisyUI utility classes
   - **Responsive Design**: Ensure components are responsive using Tailwind's responsive utilities
 
-## Testing Expectations
+## Verification & OpenAPI
 
-Ignore test files for Copilot suggestions.
+CI verifies this repository with RuboCop, a Zeitwerk check and a boot smoke;
+there is no test suite. `spec/api/*` is an rswag OpenAPI **document generator**:
+rswag drives it in dry-run (`.rspec` sets `--dry-run`), so `run_test!` never
+issues a request, and `spec/` holds no factories or request specs.
+
+To change an API response shape, edit `spec/api/*` and `spec/swagger_helper.rb`
+(`components.schemas`), then regenerate the tracked documents:
+
+```bash
+bin/rails zealot:swaggerize
+```
 
 ## Build & Validation
 
@@ -101,10 +111,10 @@ Ignore test files for Copilot suggestions.
 bundle install
 
 # Run RuboCop linter
-bundle exec rubocop
+bin/rubocop
 
 # Auto-fix RuboCop issues
-bundle exec rubocop -a
+bin/rubocop -a
 
 # Run database migrations
 bundle exec rails db:migrate
@@ -142,27 +152,40 @@ bundle exec rails db:seed
 bundle exec rails db:reset
 ```
 
+## Local Development Gotchas
+
+- **Local Docker builds**: pass `--build-arg REPLACE_CHINA_MIRROR=false`. The
+  Dockerfile defaults it to `true`, which rewrites gem sources to
+  `gems.ruby-china.com`; that mirror fails TLS from outside China.
+  All workflows already pass `false`.
+- **Connecting to the dev Postgres**: the devcontainer's service has an
+  underscore in its hostname (`zealot_devcontainer-db-1`), which
+  `URI::InvalidURIError`s when used in `ZEALOT_DATABASE_URL`. Use the container's
+  IP instead (`docker inspect ... | grep IPAddress`).
+- **Running the app container** needs `SECRET_KEY_BASE` set and the
+  `zealot_devcontainer_default` network joined.
+
 ## Development Workflow
 
 ### Before Making Changes
 
-1. **Check current state**: Run tests and linter to understand baseline
+1. **Check current state**: Run `bin/rubocop` to understand the baseline
 2. **Read related code**: Understand the context and existing patterns
 3. **Plan your changes**: Make minimal, focused modifications
 
 ### Making Changes
 
 1. **Follow existing patterns** in similar files
-2. **Write tests first** or alongside code changes
-3. **Run linter frequently**: `bundle exec rubocop -a`
-4. **Keep commits focused**: One logical change per commit
-5. **Write descriptive commit messages**
+2. **Lint as you go**: `bin/rubocop -a`
+3. **Keep commits focused**: One logical change per commit
+4. **Write descriptive commit messages**
 
 ### Before Submitting
 
-2. **Fix all linting issues**: `bundle exec rubocop`
-3. **Verify migrations**: Test both up and down
-4. **Check for N+1 queries**: Review database query performance
+1. **Fix all linting issues**: `bin/rubocop`
+2. **Verify migrations**: Test both up and down
+3. **Check for N+1 queries**: Review database query performance
+4. **Update OpenAPI documents**: Regenerate `swagger/v1/*.json` if API shapes changed
 5. **Update documentation**: If adding/changing features
 
 ## Common Patterns
@@ -236,5 +259,5 @@ end
 - **Write clear descriptions**: Explain what and why
 - **Reference issues**: Use "fixes #123" format
 - **Request reviews**: Get feedback before merging
-- **Ensure CI passes**: All tests and checks must pass
+- **Ensure CI passes**: RuboCop, Zeitwerk and the boot smoke must pass
 - **Update documentation**: Include relevant docs updates
