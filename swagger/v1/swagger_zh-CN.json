@@ -76,12 +76,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             }
           }
@@ -344,7 +344,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UploadAppOptions"
+                "$ref": "#/components/schemas/UploadAppOptions"
               }
             }
           }
@@ -426,12 +426,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             }
           }
@@ -599,12 +599,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             }
           }
@@ -667,12 +667,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             }
           }
@@ -855,12 +855,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             }
           }
@@ -992,12 +992,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             }
           }
@@ -1292,7 +1292,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/DebugFileOptions"
+                "$ref": "#/components/schemas/DebugFileOptions"
               }
             }
           }
@@ -1391,12 +1391,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ReleaseOptions"
+                "$ref": "#/components/schemas/ReleaseOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ReleaseOptions"
+                "$ref": "#/components/schemas/ReleaseOptions"
               }
             }
           }
@@ -1564,12 +1564,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             }
           }
@@ -1632,12 +1632,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             }
           }
@@ -1794,12 +1794,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             }
           }
@@ -1913,12 +1913,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             }
           }
@@ -2748,13 +2748,15 @@
               "America/Puerto_Rico",
               "America/Santiago",
               "America/St_Johns",
+              "America/Asuncion",
               "America/Sao_Paulo",
               "America/Argentina/Buenos_Aires",
               "America/Montevideo",
-              "America/Godthab",
+              "America/Nuuk",
               "Atlantic/South_Georgia",
               "Atlantic/Azores",
               "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
               "Europe/London",
               "Europe/Lisbon",
               "Africa/Monrovia",
@@ -2766,7 +2768,6 @@
               "Europe/Bratislava",
               "Europe/Brussels",
               "Europe/Budapest",
-              "Africa/Casablanca",
               "Europe/Copenhagen",
               "Europe/Dublin",
               "Europe/Ljubljana",
@@ -2876,16 +2877,21 @@
         "type": "object",
         "properties": {
           "version": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "example": "6.0.0"
           },
           "vcs_ref": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "example": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d"
           },
           "build_date": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "example": "2024-05-23T06:04:48.989Z"
           }
         }
@@ -2915,6 +2921,439 @@
           "message": {
             "type": "string",
             "example": "unhealthy"
+          }
+        }
+      },
+      "ListAppOptions": {},
+      "UploadAppOptions": {
+        "description": "上传应用版本表单字段结构",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "应用具体渠道的 Key，没有传此参数会字段创建对于的应用、类型和渠道"
+          },
+          "file": {
+            "type": "file",
+            "description": "本地支持上传类型的应用文件"
+          },
+          "name": {
+            "type": "string",
+            "description": "应用名称，为空时取 App 的信息"
+          },
+          "password": {
+            "type": "string",
+            "description": "设置访问密码，为空时清除密码"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
+          },
+          "source": {
+            "type": "string",
+            "description": "上传渠道名称，默认是 `api`"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "变更日志，接受纯文本或 JSON 格式化的数据"
+          },
+          "branch": {
+            "type": "string",
+            "description": "代码控制软件的分支名"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "代码控制软件提交哈希值"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "持续构建系统构建 URL"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
+          }
+        }
+      },
+      "AppOptions": {
+        "description": "应用表单字段结构",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "应用名"
+          }
+        }
+      },
+      "SchemeOptions": {
+        "description": "应用类型表单字段结构",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "应用类型名"
+          },
+          "new_build_callout": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否开启新版本提示，默认开启"
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "最大保留版本数，设置 `0` 关闭版本保留功能"
+          }
+        }
+      },
+      "ChannelOptions": {
+        "description": "应用渠道表单字段结构",
+        "type": "object",
+        "required": [
+          "name",
+          "device_type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "应用渠道名"
+          },
+          "device_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "harmonyos",
+              "macos",
+              "windows",
+              "linux"
+            ],
+            "description": "设备类型"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL 唯一标示，没有填随机生成"
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "包名校验， 默认是 `*` 不做校验 (iOS 指的是 bundle_id，Android 指的是 package name)"
+          },
+          "git_url": {
+            "type": "string",
+            "description": "Git 仓库地址"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码访问"
+          },
+          "download_filename_type": {
+            "type": "string",
+            "enum": [
+              "version_datetime",
+              "original_filename"
+            ],
+            "description": "下载文件的文件名生成规则"
+          }
+        }
+      },
+      "ReleaseOptions": {
+        "description": "应用版本元信息表单字段结构",
+        "type": "object",
+        "properties": {
+          "build_version": {
+            "type": "string",
+            "description": "构建版本"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "发布版本"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
+          },
+          "source": {
+            "type": "string",
+            "description": "上传渠道名称，默认是 `api`"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "变更日志，接受纯文本或 JSON 格式化的数据"
+          },
+          "branch": {
+            "type": "string",
+            "description": "代码控制软件的分支名"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "代码控制软件提交哈希值"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "持续构建系统构建 URL"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
+          }
+        }
+      },
+      "CollaboratorOptions": {
+        "description": "应用成员表单字段结构",
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "应用内成员权限"
+          }
+        }
+      },
+      "UserOptions": {
+        "description": "用户表单字段结构",
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "email": {
+            "type": "string",
+            "description": "电子邮箱"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ],
+            "description": "语言设置"
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ],
+            "description": "外观设置"
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Asuncion",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Nuuk",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kiev",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Rangoon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ],
+            "description": "时区设置"
+          },
+          "role": {
+            "type": "string",
+            "default": "user",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "用户权限"
+          }
+        }
+      },
+      "DebugFileOptions": {
+        "description": "调试文件表单字段结构",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "调试文件归属的应用渠道，主要省去再传设备类型"
+          },
+          "file": {
+            "type": "file",
+            "description": "本地的调试文件"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "主版本号 （Android 类型需要填写）"
+          },
+          "build_version": {
+            "type": "string",
+            "description": "内部版本号 （Android 类型需要填写）"
           }
         }
       }
@@ -2957,440 +3396,6 @@
             "type": "string",
             "example": "OK"
           }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "ListAppOptions": {},
-    "UploadAppOptions": {
-      "description": "上传应用版本表单字段结构",
-      "type": "object",
-      "required": [
-        "channel_key",
-        "file"
-      ],
-      "properties": {
-        "channel_key": {
-          "type": "string",
-          "description": "应用具体渠道的 Key，没有传此参数会字段创建对于的应用、类型和渠道"
-        },
-        "file": {
-          "type": "file",
-          "description": "本地支持上传类型的应用文件"
-        },
-        "name": {
-          "type": "string",
-          "description": "应用名称，为空时取 App 的信息"
-        },
-        "password": {
-          "type": "string",
-          "description": "设置访问密码，为空时清除密码"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
-        },
-        "source": {
-          "type": "string",
-          "description": "上传渠道名称，默认是 `api`"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "变更日志，接受纯文本或 JSON 格式化的数据"
-        },
-        "branch": {
-          "type": "string",
-          "description": "代码控制软件的分支名"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "代码控制软件提交哈希值"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "持续构建系统构建 URL"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
-        }
-      }
-    },
-    "AppOptions": {
-      "description": "应用表单字段结构",
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "应用名"
-        }
-      }
-    },
-    "SchemeOptions": {
-      "description": "应用类型表单字段结构",
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "应用类型名"
-        },
-        "new_build_callout": {
-          "type": "boolean",
-          "default": true,
-          "description": "是否开启新版本提示，默认开启"
-        },
-        "retained_builds": {
-          "type": "integer",
-          "format": "int32",
-          "default": 0,
-          "description": "最大保留版本数，设置 `0` 关闭版本保留功能"
-        }
-      }
-    },
-    "ChannelOptions": {
-      "description": "应用渠道表单字段结构",
-      "type": "object",
-      "required": [
-        "name",
-        "device_type"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "应用渠道名"
-        },
-        "device_type": {
-          "type": "string",
-          "enum": [
-            "ios",
-            "android",
-            "harmonyos",
-            "macos",
-            "windows",
-            "linux"
-          ],
-          "description": "设备类型"
-        },
-        "slug": {
-          "type": "string",
-          "description": "URL 唯一标示，没有填随机生成"
-        },
-        "bundle_id": {
-          "type": "string",
-          "description": "包名校验， 默认是 `*` 不做校验 (iOS 指的是 bundle_id，Android 指的是 package name)"
-        },
-        "git_url": {
-          "type": "string",
-          "description": "Git 仓库地址"
-        },
-        "password": {
-          "type": "string",
-          "description": "密码访问"
-        },
-        "download_filename_type": {
-          "type": "string",
-          "enum": [
-            "version_datetime",
-            "original_filename"
-          ],
-          "description": "下载文件的文件名生成规则"
-        }
-      }
-    },
-    "ReleaseOptions": {
-      "description": "应用版本元信息表单字段结构",
-      "type": "object",
-      "properties": {
-        "build_version": {
-          "type": "string",
-          "description": "构建版本"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "发布版本"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "应用类型，比如 debug, beta, adhoc, release, enterprise 等"
-        },
-        "source": {
-          "type": "string",
-          "description": "上传渠道名称，默认是 `api`"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "变更日志，接受纯文本或 JSON 格式化的数据"
-        },
-        "branch": {
-          "type": "string",
-          "description": "代码控制软件的分支名"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "代码控制软件提交哈希值"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "持续构建系统构建 URL"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "这是一个用 JSON 字符串定义的自定义字段，图标可接受 fontawesome"
-        }
-      }
-    },
-    "CollaboratorOptions": {
-      "description": "应用成员表单字段结构",
-      "type": "object",
-      "required": [
-        "role"
-      ],
-      "properties": {
-        "role": {
-          "type": "string",
-          "enum": [
-            "member",
-            "developer",
-            "admin"
-          ],
-          "description": "应用内成员权限"
-        }
-      }
-    },
-    "UserOptions": {
-      "description": "用户表单字段结构",
-      "type": "object",
-      "required": [
-        "username",
-        "email",
-        "password"
-      ],
-      "properties": {
-        "username": {
-          "type": "string",
-          "description": "用户名"
-        },
-        "email": {
-          "type": "string",
-          "description": "电子邮箱"
-        },
-        "password": {
-          "type": "string",
-          "description": "密码"
-        },
-        "locale": {
-          "type": "string",
-          "enum": [
-            "zh-CN",
-            "en"
-          ],
-          "description": "语言设置"
-        },
-        "appearance": {
-          "type": "string",
-          "enum": [
-            "light",
-            "dark",
-            "auto"
-          ],
-          "description": "外观设置"
-        },
-        "timezone": {
-          "type": "string",
-          "enum": [
-            "Etc/GMT+12",
-            "Pacific/Pago_Pago",
-            "Pacific/Midway",
-            "Pacific/Honolulu",
-            "America/Juneau",
-            "America/Los_Angeles",
-            "America/Tijuana",
-            "America/Phoenix",
-            "America/Mazatlan",
-            "America/Denver",
-            "America/Guatemala",
-            "America/Chicago",
-            "America/Chihuahua",
-            "America/Mexico_City",
-            "America/Monterrey",
-            "America/Regina",
-            "America/Bogota",
-            "America/New_York",
-            "America/Indiana/Indianapolis",
-            "America/Lima",
-            "America/Halifax",
-            "America/Caracas",
-            "America/Guyana",
-            "America/La_Paz",
-            "America/Puerto_Rico",
-            "America/Santiago",
-            "America/St_Johns",
-            "America/Sao_Paulo",
-            "America/Argentina/Buenos_Aires",
-            "America/Montevideo",
-            "America/Godthab",
-            "Atlantic/South_Georgia",
-            "Atlantic/Azores",
-            "Atlantic/Cape_Verde",
-            "Europe/London",
-            "Europe/Lisbon",
-            "Africa/Monrovia",
-            "Etc/UTC",
-            "Europe/Amsterdam",
-            "Europe/Belgrade",
-            "Europe/Berlin",
-            "Europe/Zurich",
-            "Europe/Bratislava",
-            "Europe/Brussels",
-            "Europe/Budapest",
-            "Africa/Casablanca",
-            "Europe/Copenhagen",
-            "Europe/Dublin",
-            "Europe/Ljubljana",
-            "Europe/Madrid",
-            "Europe/Paris",
-            "Europe/Prague",
-            "Europe/Rome",
-            "Europe/Sarajevo",
-            "Europe/Skopje",
-            "Europe/Stockholm",
-            "Europe/Vienna",
-            "Europe/Warsaw",
-            "Africa/Algiers",
-            "Europe/Zagreb",
-            "Europe/Athens",
-            "Europe/Bucharest",
-            "Africa/Cairo",
-            "Africa/Harare",
-            "Europe/Helsinki",
-            "Asia/Jerusalem",
-            "Europe/Kaliningrad",
-            "Europe/Kiev",
-            "Africa/Johannesburg",
-            "Europe/Riga",
-            "Europe/Sofia",
-            "Europe/Tallinn",
-            "Europe/Vilnius",
-            "Asia/Baghdad",
-            "Europe/Istanbul",
-            "Asia/Kuwait",
-            "Europe/Minsk",
-            "Europe/Moscow",
-            "Africa/Nairobi",
-            "Asia/Riyadh",
-            "Europe/Volgograd",
-            "Asia/Tehran",
-            "Asia/Muscat",
-            "Asia/Baku",
-            "Europe/Samara",
-            "Asia/Tbilisi",
-            "Asia/Yerevan",
-            "Asia/Kabul",
-            "Asia/Almaty",
-            "Asia/Yekaterinburg",
-            "Asia/Karachi",
-            "Asia/Tashkent",
-            "Asia/Kolkata",
-            "Asia/Colombo",
-            "Asia/Kathmandu",
-            "Asia/Dhaka",
-            "Asia/Urumqi",
-            "Asia/Rangoon",
-            "Asia/Bangkok",
-            "Asia/Jakarta",
-            "Asia/Krasnoyarsk",
-            "Asia/Novosibirsk",
-            "Asia/Shanghai",
-            "Asia/Chongqing",
-            "Asia/Hong_Kong",
-            "Asia/Irkutsk",
-            "Asia/Kuala_Lumpur",
-            "Australia/Perth",
-            "Asia/Singapore",
-            "Asia/Taipei",
-            "Asia/Ulaanbaatar",
-            "Asia/Tokyo",
-            "Asia/Seoul",
-            "Asia/Yakutsk",
-            "Australia/Adelaide",
-            "Australia/Darwin",
-            "Australia/Brisbane",
-            "Australia/Canberra",
-            "Pacific/Guam",
-            "Australia/Hobart",
-            "Australia/Melbourne",
-            "Pacific/Port_Moresby",
-            "Australia/Sydney",
-            "Asia/Vladivostok",
-            "Asia/Magadan",
-            "Pacific/Noumea",
-            "Pacific/Guadalcanal",
-            "Asia/Srednekolymsk",
-            "Pacific/Auckland",
-            "Pacific/Fiji",
-            "Asia/Kamchatka",
-            "Pacific/Majuro",
-            "Pacific/Chatham",
-            "Pacific/Tongatapu",
-            "Pacific/Apia",
-            "Pacific/Fakaofo"
-          ],
-          "description": "时区设置"
-        },
-        "role": {
-          "type": "string",
-          "default": "user",
-          "enum": [
-            "member",
-            "developer",
-            "admin"
-          ],
-          "description": "用户权限"
-        }
-      }
-    },
-    "DebugFileOptions": {
-      "description": "调试文件表单字段结构",
-      "type": "object",
-      "required": [
-        "channel_key",
-        "file"
-      ],
-      "properties": {
-        "channel_key": {
-          "type": "string",
-          "description": "调试文件归属的应用渠道，主要省去再传设备类型"
-        },
-        "file": {
-          "type": "file",
-          "description": "本地的调试文件"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "主版本号 （Android 类型需要填写）"
-        },
-        "build_version": {
-          "type": "string",
-          "description": "内部版本号 （Android 类型需要填写）"
         }
       }
     }
