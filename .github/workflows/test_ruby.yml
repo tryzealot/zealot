@@ -1,0 +1,46 @@
+name: Test Ruby
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-ruby-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: RuboCop + boot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: jdx/mise-action@v5
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libwebp-dev libpng-dev libjpeg-dev libtiff-dev zlib1g-dev \
+            libxml2-dev libxslt1-dev libyaml-dev libffi-dev libpq-dev \
+            imagemagick
+
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
+
+      - name: RuboCop
+        run: bin/rubocop
+
+      - name: Zeitwerk check
+        env:
+          RAILS_ENV: test
+        run: bin/rails zeitwerk:check
+
+      - name: Boot smoke
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails runner 'puts %(Ruby #{RUBY_VERSION} / Rails #{Rails.version})'

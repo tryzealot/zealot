@@ -45,7 +45,8 @@ class ThemeSelectInput < SimpleForm::Inputs::Base
     onclick = %Q{
       (function(el){
         var list = document.querySelector("[data-theme-list='#{@id_base}']");
-        if (list) list.querySelectorAll("[data-theme-item]").forEach(function(e){ e.classList.remove("ring-2","ring-primary"); });
+        if (list) list.querySelectorAll("[data-theme-item]").forEach(function(e){
+          e.classList.remove("ring-2","ring-primary"); });
         el.classList.add("ring-2","ring-primary");
         document.getElementById("#{@id_base}_hidden").value = el.dataset.theme;
         document.getElementById("#{@id_base}_button_label").innerText = el.dataset.theme;
@@ -73,7 +74,8 @@ class ThemeSelectInput < SimpleForm::Inputs::Base
       ) do
         template.content_tag(
           :div,
-          class: 'flex items-center justify-between p-2 bg-base-100 hover:bg-base-200 transition-colors duration-150 flex-1',
+          class: 'flex items-center justify-between p-2 bg-base-100 hover:bg-base-200 ' \
+                 'transition-colors duration-150 flex-1',
           data: { 'd-theme' => theme_name }
         ) do
           text = template.content_tag(:span, theme_name.capitalize, class: 'text-sm flex-shrink-0')
