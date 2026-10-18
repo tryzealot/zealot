@@ -76,12 +76,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             }
           }
@@ -344,7 +344,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UploadAppOptions"
+                "$ref": "#/components/schemas/UploadAppOptions"
               }
             }
           }
@@ -426,12 +426,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/AppOptions"
+                "$ref": "#/components/schemas/AppOptions"
               }
             }
           }
@@ -599,12 +599,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             }
           }
@@ -667,12 +667,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ChannelOptions"
+                "$ref": "#/components/schemas/ChannelOptions"
               }
             }
           }
@@ -855,12 +855,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             }
           }
@@ -992,12 +992,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/CollaboratorOptions"
+                "$ref": "#/components/schemas/CollaboratorOptions"
               }
             }
           }
@@ -1292,7 +1292,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/DebugFileOptions"
+                "$ref": "#/components/schemas/DebugFileOptions"
               }
             }
           }
@@ -1391,12 +1391,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/ReleaseOptions"
+                "$ref": "#/components/schemas/ReleaseOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/ReleaseOptions"
+                "$ref": "#/components/schemas/ReleaseOptions"
               }
             }
           }
@@ -1564,12 +1564,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             }
           }
@@ -1632,12 +1632,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/SchemeOptions"
+                "$ref": "#/components/schemas/SchemeOptions"
               }
             }
           }
@@ -1794,12 +1794,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             }
           }
@@ -1913,12 +1913,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/definitions/UserOptions"
+                "$ref": "#/components/schemas/UserOptions"
               }
             }
           }
@@ -2748,13 +2748,15 @@
               "America/Puerto_Rico",
               "America/Santiago",
               "America/St_Johns",
+              "America/Asuncion",
               "America/Sao_Paulo",
               "America/Argentina/Buenos_Aires",
               "America/Montevideo",
-              "America/Godthab",
+              "America/Nuuk",
               "Atlantic/South_Georgia",
               "Atlantic/Azores",
               "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
               "Europe/London",
               "Europe/Lisbon",
               "Africa/Monrovia",
@@ -2766,7 +2768,6 @@
               "Europe/Bratislava",
               "Europe/Brussels",
               "Europe/Budapest",
-              "Africa/Casablanca",
               "Europe/Copenhagen",
               "Europe/Dublin",
               "Europe/Ljubljana",
@@ -2876,16 +2877,21 @@
         "type": "object",
         "properties": {
           "version": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "example": "6.0.0"
           },
           "vcs_ref": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "example": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d"
           },
           "build_date": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "example": "2024-05-23T06:04:48.989Z"
           }
         }
@@ -2915,6 +2921,439 @@
           "message": {
             "type": "string",
             "example": "unhealthy"
+          }
+        }
+      },
+      "ListAppOptions": {},
+      "UploadAppOptions": {
+        "description": "Upload app form data options",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "Channel key, keep it empty to create a new App"
+          },
+          "file": {
+            "type": "file",
+            "description": "The location of upload App binary file"
+          },
+          "name": {
+            "type": "string",
+            "description": "the name of App. Use app name from parsed metadata in given file if leave it empty"
+          },
+          "password": {
+            "type": "string",
+            "description": "visit password, clear it if leave it empty"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "Release type, for example, debug, beta, adhoc, release, enterprise etc"
+          },
+          "source": {
+            "type": "string",
+            "description": "the source of upload (default is `api`)"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "Change log, accept plain text or JSON formatted data"
+          },
+          "branch": {
+            "type": "string",
+            "description": "a branch name from source control tool"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "Git Commit SHA value"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "the build url of a CI service"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "JSON formatted custom fields, icon only accepts fontawesome."
+          }
+        }
+      },
+      "AppOptions": {
+        "description": "App form data",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "App name"
+          }
+        }
+      },
+      "SchemeOptions": {
+        "description": "App's scheme form data",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Scheme name"
+          },
+          "new_build_callout": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to send a notification when a new build is available"
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "The number of builds to retain for this scheme, set `0` to disable it"
+          }
+        }
+      },
+      "ChannelOptions": {
+        "description": "App's channel form data",
+        "type": "object",
+        "required": [
+          "name",
+          "device_type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Channel name"
+          },
+          "device_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "harmonyos",
+              "macos",
+              "windows",
+              "linux"
+            ],
+            "description": "Device type"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of Channel, random it if not given"
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)"
+          },
+          "git_url": {
+            "type": "string",
+            "description": "Git repository URL"
+          },
+          "password": {
+            "type": "string",
+            "description": "Enable password visit"
+          },
+          "download_filename_type": {
+            "type": "string",
+            "enum": [
+              "version_datetime",
+              "original_filename"
+            ],
+            "description": "Download file name type"
+          }
+        }
+      },
+      "ReleaseOptions": {
+        "description": "App's build metadata form data",
+        "type": "object",
+        "properties": {
+          "build_version": {
+            "type": "string",
+            "description": "Build version"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "Release version"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "Release type, Eg, debug, beta, adhoc, release, enterprise etc"
+          },
+          "source": {
+            "type": "string",
+            "description": "the source of upload (default is `api`)"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "Change log, accept plain text or JSON formatted data"
+          },
+          "branch": {
+            "type": "string",
+            "description": "a branch name from source control tool"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "Git Commit SHA value"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "the build url of a CI service"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "JSON formatted custom fields, icon only accepts fontawesome."
+          }
+        }
+      },
+      "CollaboratorOptions": {
+        "description": "App's collaborator form data",
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "Role name"
+          }
+        }
+      },
+      "UserOptions": {
+        "description": "User form data",
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en"
+            ],
+            "description": "Language"
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ],
+            "description": "Appearance"
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Asuncion",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Nuuk",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kiev",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Rangoon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ],
+            "description": "Time zone"
+          },
+          "role": {
+            "type": "string",
+            "default": "user",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "User role"
+          }
+        }
+      },
+      "DebugFileOptions": {
+        "description": "Debug file form data",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "Channel key"
+          },
+          "file": {
+            "type": "file",
+            "description": "Zip arichved file (dSYM or Proguard)"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "Release version (requires if Android's Proguard file)"
+          },
+          "build_version": {
+            "type": "string",
+            "description": "Build version (requires if Android's Proguard file)"
           }
         }
       }
@@ -2957,440 +3396,6 @@
             "type": "string",
             "example": "OK"
           }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "ListAppOptions": {},
-    "UploadAppOptions": {
-      "description": "Upload app form data options",
-      "type": "object",
-      "required": [
-        "channel_key",
-        "file"
-      ],
-      "properties": {
-        "channel_key": {
-          "type": "string",
-          "description": "Channel key, keep it empty to create a new App"
-        },
-        "file": {
-          "type": "file",
-          "description": "The location of upload App binary file"
-        },
-        "name": {
-          "type": "string",
-          "description": "the name of App. Use app name from parsed metadata in given file if leave it empty"
-        },
-        "password": {
-          "type": "string",
-          "description": "visit password, clear it if leave it empty"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "Release type, for example, debug, beta, adhoc, release, enterprise etc"
-        },
-        "source": {
-          "type": "string",
-          "description": "the source of upload (default is `api`)"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "Change log, accept plain text or JSON formatted data"
-        },
-        "branch": {
-          "type": "string",
-          "description": "a branch name from source control tool"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "Git Commit SHA value"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "the build url of a CI service"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "JSON formatted custom fields, icon only accepts fontawesome."
-        }
-      }
-    },
-    "AppOptions": {
-      "description": "App form data",
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "App name"
-        }
-      }
-    },
-    "SchemeOptions": {
-      "description": "App's scheme form data",
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Scheme name"
-        },
-        "new_build_callout": {
-          "type": "boolean",
-          "default": true,
-          "description": "Whether to send a notification when a new build is available"
-        },
-        "retained_builds": {
-          "type": "integer",
-          "format": "int32",
-          "default": 0,
-          "description": "The number of builds to retain for this scheme, set `0` to disable it"
-        }
-      }
-    },
-    "ChannelOptions": {
-      "description": "App's channel form data",
-      "type": "object",
-      "required": [
-        "name",
-        "device_type"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Channel name"
-        },
-        "device_type": {
-          "type": "string",
-          "enum": [
-            "ios",
-            "android",
-            "harmonyos",
-            "macos",
-            "windows",
-            "linux"
-          ],
-          "description": "Device type"
-        },
-        "slug": {
-          "type": "string",
-          "description": "The slug of Channel, random it if not given"
-        },
-        "bundle_id": {
-          "type": "string",
-          "description": "identifier valid check, set `*` skip (`bundle_id` for iOS, `package name` for Android)"
-        },
-        "git_url": {
-          "type": "string",
-          "description": "Git repository URL"
-        },
-        "password": {
-          "type": "string",
-          "description": "Enable password visit"
-        },
-        "download_filename_type": {
-          "type": "string",
-          "enum": [
-            "version_datetime",
-            "original_filename"
-          ],
-          "description": "Download file name type"
-        }
-      }
-    },
-    "ReleaseOptions": {
-      "description": "App's build metadata form data",
-      "type": "object",
-      "properties": {
-        "build_version": {
-          "type": "string",
-          "description": "Build version"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "Release version"
-        },
-        "release_type": {
-          "type": "string",
-          "description": "Release type, Eg, debug, beta, adhoc, release, enterprise etc"
-        },
-        "source": {
-          "type": "string",
-          "description": "the source of upload (default is `api`)"
-        },
-        "changelog": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseChangelog"
-          },
-          "description": "Change log, accept plain text or JSON formatted data"
-        },
-        "branch": {
-          "type": "string",
-          "description": "a branch name from source control tool"
-        },
-        "git_commit": {
-          "type": "string",
-          "description": "Git Commit SHA value"
-        },
-        "ci_url": {
-          "type": "string",
-          "description": "the build url of a CI service"
-        },
-        "custom_fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ReleaseCustomField"
-          },
-          "description": "JSON formatted custom fields, icon only accepts fontawesome."
-        }
-      }
-    },
-    "CollaboratorOptions": {
-      "description": "App's collaborator form data",
-      "type": "object",
-      "required": [
-        "role"
-      ],
-      "properties": {
-        "role": {
-          "type": "string",
-          "enum": [
-            "member",
-            "developer",
-            "admin"
-          ],
-          "description": "Role name"
-        }
-      }
-    },
-    "UserOptions": {
-      "description": "User form data",
-      "type": "object",
-      "required": [
-        "username",
-        "email",
-        "password"
-      ],
-      "properties": {
-        "username": {
-          "type": "string",
-          "description": "Username"
-        },
-        "email": {
-          "type": "string",
-          "description": "Email"
-        },
-        "password": {
-          "type": "string",
-          "description": "Password"
-        },
-        "locale": {
-          "type": "string",
-          "enum": [
-            "zh-CN",
-            "en"
-          ],
-          "description": "Language"
-        },
-        "appearance": {
-          "type": "string",
-          "enum": [
-            "light",
-            "dark",
-            "auto"
-          ],
-          "description": "Appearance"
-        },
-        "timezone": {
-          "type": "string",
-          "enum": [
-            "Etc/GMT+12",
-            "Pacific/Pago_Pago",
-            "Pacific/Midway",
-            "Pacific/Honolulu",
-            "America/Juneau",
-            "America/Los_Angeles",
-            "America/Tijuana",
-            "America/Phoenix",
-            "America/Mazatlan",
-            "America/Denver",
-            "America/Guatemala",
-            "America/Chicago",
-            "America/Chihuahua",
-            "America/Mexico_City",
-            "America/Monterrey",
-            "America/Regina",
-            "America/Bogota",
-            "America/New_York",
-            "America/Indiana/Indianapolis",
-            "America/Lima",
-            "America/Halifax",
-            "America/Caracas",
-            "America/Guyana",
-            "America/La_Paz",
-            "America/Puerto_Rico",
-            "America/Santiago",
-            "America/St_Johns",
-            "America/Sao_Paulo",
-            "America/Argentina/Buenos_Aires",
-            "America/Montevideo",
-            "America/Godthab",
-            "Atlantic/South_Georgia",
-            "Atlantic/Azores",
-            "Atlantic/Cape_Verde",
-            "Europe/London",
-            "Europe/Lisbon",
-            "Africa/Monrovia",
-            "Etc/UTC",
-            "Europe/Amsterdam",
-            "Europe/Belgrade",
-            "Europe/Berlin",
-            "Europe/Zurich",
-            "Europe/Bratislava",
-            "Europe/Brussels",
-            "Europe/Budapest",
-            "Africa/Casablanca",
-            "Europe/Copenhagen",
-            "Europe/Dublin",
-            "Europe/Ljubljana",
-            "Europe/Madrid",
-            "Europe/Paris",
-            "Europe/Prague",
-            "Europe/Rome",
-            "Europe/Sarajevo",
-            "Europe/Skopje",
-            "Europe/Stockholm",
-            "Europe/Vienna",
-            "Europe/Warsaw",
-            "Africa/Algiers",
-            "Europe/Zagreb",
-            "Europe/Athens",
-            "Europe/Bucharest",
-            "Africa/Cairo",
-            "Africa/Harare",
-            "Europe/Helsinki",
-            "Asia/Jerusalem",
-            "Europe/Kaliningrad",
-            "Europe/Kiev",
-            "Africa/Johannesburg",
-            "Europe/Riga",
-            "Europe/Sofia",
-            "Europe/Tallinn",
-            "Europe/Vilnius",
-            "Asia/Baghdad",
-            "Europe/Istanbul",
-            "Asia/Kuwait",
-            "Europe/Minsk",
-            "Europe/Moscow",
-            "Africa/Nairobi",
-            "Asia/Riyadh",
-            "Europe/Volgograd",
-            "Asia/Tehran",
-            "Asia/Muscat",
-            "Asia/Baku",
-            "Europe/Samara",
-            "Asia/Tbilisi",
-            "Asia/Yerevan",
-            "Asia/Kabul",
-            "Asia/Almaty",
-            "Asia/Yekaterinburg",
-            "Asia/Karachi",
-            "Asia/Tashkent",
-            "Asia/Kolkata",
-            "Asia/Colombo",
-            "Asia/Kathmandu",
-            "Asia/Dhaka",
-            "Asia/Urumqi",
-            "Asia/Rangoon",
-            "Asia/Bangkok",
-            "Asia/Jakarta",
-            "Asia/Krasnoyarsk",
-            "Asia/Novosibirsk",
-            "Asia/Shanghai",
-            "Asia/Chongqing",
-            "Asia/Hong_Kong",
-            "Asia/Irkutsk",
-            "Asia/Kuala_Lumpur",
-            "Australia/Perth",
-            "Asia/Singapore",
-            "Asia/Taipei",
-            "Asia/Ulaanbaatar",
-            "Asia/Tokyo",
-            "Asia/Seoul",
-            "Asia/Yakutsk",
-            "Australia/Adelaide",
-            "Australia/Darwin",
-            "Australia/Brisbane",
-            "Australia/Canberra",
-            "Pacific/Guam",
-            "Australia/Hobart",
-            "Australia/Melbourne",
-            "Pacific/Port_Moresby",
-            "Australia/Sydney",
-            "Asia/Vladivostok",
-            "Asia/Magadan",
-            "Pacific/Noumea",
-            "Pacific/Guadalcanal",
-            "Asia/Srednekolymsk",
-            "Pacific/Auckland",
-            "Pacific/Fiji",
-            "Asia/Kamchatka",
-            "Pacific/Majuro",
-            "Pacific/Chatham",
-            "Pacific/Tongatapu",
-            "Pacific/Apia",
-            "Pacific/Fakaofo"
-          ],
-          "description": "Time zone"
-        },
-        "role": {
-          "type": "string",
-          "default": "user",
-          "enum": [
-            "member",
-            "developer",
-            "admin"
-          ],
-          "description": "User role"
-        }
-      }
-    },
-    "DebugFileOptions": {
-      "description": "Debug file form data",
-      "type": "object",
-      "required": [
-        "channel_key",
-        "file"
-      ],
-      "properties": {
-        "channel_key": {
-          "type": "string",
-          "description": "Channel key"
-        },
-        "file": {
-          "type": "file",
-          "description": "Zip arichved file (dSYM or Proguard)"
-        },
-        "release_version": {
-          "type": "string",
-          "description": "Release version (requires if Android's Proguard file)"
-        },
-        "build_version": {
-          "type": "string",
-          "description": "Build version (requires if Android's Proguard file)"
         }
       }
     }

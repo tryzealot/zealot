@@ -69,7 +69,7 @@ RSpec.describe 'DebugFiles API' do
       description I18n.t('api.debug_files.upload.description')
       operationId 'uploadDebugFile'
 
-      include_examples :request_form_body, '#/definitions/DebugFileOptions'
+      include_examples :request_form_body, '#/components/schemas/DebugFileOptions'
 
       produces 'application/json'
       response 200, I18n.t('api.debug_files.default.responses.upload') do
