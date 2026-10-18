@@ -18,8 +18,8 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 
 ### Backend
 
-- **Primary Language**: Ruby 3.4+
-- **Framework**: Ruby on Rails 8.0+
+- **Primary Language**: Ruby 4.0+
+- **Framework**: Ruby on Rails 8.1+
 - **Database**: PostgreSQL
 - **Cache**: Solid Cache
 - **API**: GraphQL, Active Model Serializers
@@ -42,10 +42,9 @@ Zealot is an open-source self-hosted continuous integration platform for mobile 
 
 ### Ruby/Rails Standards
 
-- **Ruby Version**: Target Ruby 3.4+ features
-- **Rails Version**: Target Rails 8.0+ features
+- **Ruby Version**: Target Ruby 4.0+ features
+- **Rails Version**: Target Rails 8.1+ features
 - **Style Guide**: Follow RuboCop configuration in `.rubocop.yml`
-- **Frozen String Literals**: Always include `# frozen_string_literal: true` at the top of Ruby files (except config.ru, Gemfile, Rakefile, and config files)
 - **Indentation**: 2 spaces (configured in `.editorconfig`)
 - **Line Length**: Maximum 120 characters (with exceptions for config and spec files)
 - **Method Length**: Maximum 60 lines
