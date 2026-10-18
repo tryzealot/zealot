@@ -57,8 +57,18 @@ RUN mise trust && \
 ENV PATH="${HOME:-/home/vscode}/.local/share/mise/shims:$PATH"
 COPY --chown=vscode:vscode Gemfile Gemfile.lock package.json pnpm-lock.yaml ./
 
+# pnpm and mprocs come from mise, not `npm install --global`. A global npm
+# install lands in the *active* Node's bin directory, so the resulting shim only
+# resolves for that one Node version: any branch whose `.mise.toml` pins a
+# different Node fails with "No version is set for shim: pnpm" once the
+# workspace's `.mise.toml` is mounted over the image. mise-managed tools are
+# version-independent.
+ENV PNPM_VERSION="12.14.0"
+ENV MPROCS_VERSION="0.9.6"
 RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n1 | awk '{print $1}') && \
-    npm install --global pnpm mprocs
+    mise use -g "pnpm@${PNPM_VERSION}" && \
+    mise use -g "mprocs@${MPROCS_VERSION}" && \
+    mise reshim
 
 RUN mkdir -p node_modules
 RUN bundle install && pnpm install
