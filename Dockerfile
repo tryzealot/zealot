@@ -150,12 +150,17 @@ COPY --from=builder $APP_ROOT $APP_ROOT
 # Native-extension smoke: prove the delivered runtime stage's shared libraries
 # are complete. It must run here, not in the builder -- the two stages install
 # different system packages, and only this stage reflects the shipped image.
-# The requires and the pass line are derived from the same list.
+# The requires and the pass line must stay in sync. Keep the body below free
+# of shell-significant syntax (pipes, braces, parens, interpolation) -- the
+# heredoc is parsed as shell by linters, not as Ruby.
 RUN <<'RUBY' bundle exec ruby
 # frozen_string_literal: true
-native_extends = ["nokogiri", "pg", "google/protobuf", "ffi"]
-native_extends.each { |ext| require ext }
-puts "Native extension smoke passed: #{native_extends.join(', ').tr('/', '-')}"
+require "nokogiri"
+require "pg"
+require "google/protobuf"
+require "ffi"
+print "Native extension smoke passed: "
+puts ["nokogiri", "pg", "google-protobuf", "ffi"].join ", "
 RUBY
 
 RUN ln -s /app/bin/rails /usr/local/bin/
