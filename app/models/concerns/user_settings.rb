@@ -15,10 +15,12 @@ module UserSettings
     end
 
     def enum_appearances
-      Setting.builtin_appearances
+      Setting.builtin_appearances.keys.index_with(&:to_s)
     end
 
-    alias_method :options_appearances, :enum_appearances
+    def options_appearances
+      Setting.builtin_appearances
+    end
 
     def enum_timezones
       ActiveSupport::TimeZone.all.each_with_object({}) do |timezone, obj|
