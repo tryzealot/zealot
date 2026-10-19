@@ -82,7 +82,43 @@ export default class extends Controller {
   }
 
   setGoodJobThemeMode() {
-    localStorage.setItem("good_job-theme", this.appearanceValue)
+    // GoodJob only understands "light"/"dark". Resolve "auto" the same way
+    // Zealot does, otherwise GoodJob is left on "auto" while Zealot is already
+    // showing the resolved theme.
+    const appearance = this.appearanceValue
+    const theme = appearance === "auto"
+      ? (Zealot.isDarkMode ? "dark" : "light")
+      : appearance
+
+    Zealot.log(`Setting good_job theme to: ${theme}`)
+    localStorage.setItem("good_job-theme", theme)
+
+    this.syncGoodJobDashboard(theme)
+  }
+
+  // The dashboard is embedded in a same-origin <iframe> and bootstraps its
+  // theme from `good_job-theme` while this controller is still starting up, so
+  // it can load before the key above is written. Push the resolved theme into
+  // any dashboard that has already finished loading (identified by its theme
+  // buttons, so unrelated iframes are left alone).
+  syncGoodJobDashboard(theme) {
+    this.element.querySelectorAll("iframe").forEach((frame) => {
+      let doc
+      try {
+        doc = frame.contentDocument
+      } catch (_) {
+        return // cross-origin iframe
+      }
+
+      if (!doc || doc.readyState !== "complete") {
+        return // not loaded yet, it will read `good_job-theme` itself
+      }
+
+      const button = doc.querySelector(`[data-theme-value-param="${theme}"]`)
+      if (button) {
+        button.click()
+      }
+    })
   }
 
   handleDocumentReady() {
