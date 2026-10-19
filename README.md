@@ -70,7 +70,7 @@
   <tr>
     <td align="center">
       <a href="https://afdian.com/a/icyleaf">
-        <img src="https://static.afdiancdn.com/static/img/logo/logo.png" height="46" width="46" alt="爱发电" title="使用爱发电赞助" />
+        <img src="https://afdian.com/static/img/icons/android-chrome-192x192.png" height="46" width="46" alt="爱发电" title="使用爱发电赞助" />
       </a><br />
       <sub>爱发电捐赠</sub>
     </td>
