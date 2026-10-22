@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       resources :channels, except: %i[index show]
     end
 
-    resources :debug_files, only: [] do
+    resources :debug_files, only: :index do
       collection do
         get ':device', action: :device, as: :device
       end
@@ -80,7 +80,9 @@ Rails.application.routes.draw do
   #############################################
   # Debug File
   #############################################
-  resources :debug_files do
+  # Global debug files list is disabled in favor of /apps/:app_id/debug_files.
+  # resources :debug_files, only: :index
+  resources :debug_files, except: :index do
     member do
       post :reprocess
     end

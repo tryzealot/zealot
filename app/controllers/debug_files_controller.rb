@@ -6,7 +6,16 @@ class DebugFilesController < ApplicationController
 
   def index
     @title = t('debug_files.title')
-    @apps = manage_user_or_guest_mode? ? App.debug_files.all : current_user&.apps
+    base_scope = manage_user_or_guest_mode? ? App.all : current_user&.apps
+    @apps =
+      if params[:app_id].present?
+        base_scope.where(id: params[:app_id])
+      elsif manage_user_or_guest_mode?
+        App.debug_files.all
+      else
+        base_scope
+      end
+    @app = @apps.first if params[:app_id].present?
 
     authorize @apps.present? ? @apps.first : DebugFile.new
   end
@@ -42,7 +51,8 @@ class DebugFilesController < ApplicationController
   def destroy
     authorize @debug_file
     @debug_file.destroy
-    redirect_to debug_files_url, notice: t('activerecord.success.destroy', key: t('debug_files.title'))
+    redirect_to app_debug_files_url(@debug_file.app),
+                notice: t('activerecord.success.destroy', key: t('debug_files.title'))
   end
 
   def device
