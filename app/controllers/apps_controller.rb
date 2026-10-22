@@ -9,7 +9,6 @@ class AppsController < ApplicationController
   before_action :process_scheme_and_channel, only: %i[create]
   before_action :set_owner, only: %i[ new_owner update_owner ]
 
-  before_action -> { set_app_breadcrumbs(app: @app) }, only: %i[show edit update destroy new_owner update_owner]
 
   def index
     @title = t('.title')

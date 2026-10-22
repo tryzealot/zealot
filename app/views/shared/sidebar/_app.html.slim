@@ -1,16 +1,13 @@
 - presenter = sidebar_presenter(app)
-
-/ li class="d-is-drawer-close:hidden" 
-/   = link_to app_path(app) do
-/     = app_icon_tag app.recently_release, class: 'size-7'
-/     = tag.p app.name, class: 'font-bold text-base'
-
-li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden"
-  = t('apps.sidebar.schemes')
-  - if presenter.archived?
-    span class="d-badge d-badge-xs d-badge-warning ml-2" = t('apps.sidebar.archived')
-
 - schemes = presenter.schemes.to_a
+
+li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right" 
+  = link_to app_path(app) do
+    = app_icon_tag app.recently_release, class: 'size-6'
+    = tag.p app.name, class: 'font-bold text-base  d-is-drawer-close:hidden'
+
+.d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
+li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden" = t('apps.sidebar.schemes')
 - schemes.each do |scheme|
   li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right"
     = link_to app_scheme_path(app, scheme), class: 'text-center' do
