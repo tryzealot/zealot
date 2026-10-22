@@ -296,6 +296,11 @@ zh-CN:
       not_found: 没有任何上传，快快上传吧。
   apps:
     title: 应用
+    sidebar:
+      active: 活跃
+      archived: 已归档
+      empty_schemes: 暂无类型
+      view_scheme: 查看类型
     index:
       schemes: 类型
       channels: 渠道

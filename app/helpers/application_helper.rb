@@ -48,15 +48,34 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
       contoller_name == 'users/confirmations' || contoller_name == 'users/sessions'
   end
 
-  def sidebar_link_to(icon, path, text:, active_path:nil, **options)
-    active_path ||= path
-    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active_class(active_path)}"
-    tag.li do
-      link_to path, class: link_class, data: { tip: text } do
+  def sidebar_link_to(icon, path, text:, active_path: nil, active: nil, li_class: nil, link_class: nil, **options)
+    active = active_class(active_path || path) if active.nil?
+    active = 'd-menu-active' if active == true
+    active = '' if active == false
+
+    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active} #{link_class}"
+    tag.li(class: li_class) do
+      link_to path, class: link_class.squish, data: { tip: text }, **options do
         concat(tag.i(class: icon))
         concat(tag.span(text, class: 'd-is-drawer-close:hidden'))
       end
     end
+  end
+
+  # The app the current request belongs to, used to switch the sidebar to the app context.
+  def current_nav_app
+    return @current_nav_app if defined?(@current_nav_app)
+
+    @current_nav_app = @app || @scheme&.app || @channel&.scheme&.app ||
+      @debug_file&.app || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
+  end
+
+  def sidebar_apps_active?
+    current_nav_app.present? || current_page?(apps_path) || current_page?(archived_apps_path)
+  end
+
+  def sidebar_presenter(app)
+    @sidebar_presenter ||= SidebarPresenter.new(app: app, user: current_user)
   end
 
   def icon_link_to(icon, path, **options)

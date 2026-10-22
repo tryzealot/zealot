@@ -302,6 +302,11 @@ en:
       not_found: Not found any released.
   apps:
     title: Apps
+    sidebar:
+      active: Active
+      archived: Archived
+      empty_schemes: No schemes
+      view_scheme: View scheme
     index:
       schemes: schemes
       channels: channels

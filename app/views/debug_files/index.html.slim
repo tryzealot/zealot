@@ -6,7 +6,8 @@
 
 - content_for :section_rightpanel do
   - if current_user&.manage? || current_user&.manage?(app: @apps.map(&:id)) 
-    = button_link_to '', new_debug_file_path, 'plus-square', base_fa: 'fa-regular', \
+    - upload_path = params[:app_id].present? ? new_debug_file_path(app_id: params[:app_id]) : new_debug_file_path
+    = button_link_to '', upload_path, 'plus-square', base_fa: 'fa-regular', \
       class: 'd-btn-success d-tooltip d-tooltip-left', data: { tip: t('debug_files.index.upload') }
 
 - if @apps.present?

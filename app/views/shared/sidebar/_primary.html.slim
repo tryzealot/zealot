@@ -1,0 +1,11 @@
+= sidebar_link_to 'fa-solid fa-th', root_path, text: t('dashboard.title')
+
+li
+  = link_to apps_path, class: "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{'d-menu-active' if sidebar_apps_active?}", data: { tip: t('apps.title') } do
+    i class="fa-brands fa-adn"
+    span class="d-is-drawer-close:hidden" = t('apps.title')
+  ul class="d-is-drawer-close:hidden"
+    li
+      = link_to t('apps.sidebar.active'), apps_path, class: "py-1 pl-6 text-sm #{active_class(apps_path)}"
+    li
+      = link_to t('apps.sidebar.archived'), archived_apps_path, class: "py-1 pl-6 text-sm #{active_class(archived_apps_path)}"
