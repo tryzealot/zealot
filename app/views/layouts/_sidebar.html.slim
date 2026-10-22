@@ -7,7 +7,7 @@
       == render 'layouts/brand_logo', site_title: Setting.site_title
 
     ul class="d-menu d-menu-lg w-full grow"
-      == render 'shared/sidebar/primary'
+      / == render 'shared/sidebar/primary'
       - nav_app = current_nav_app
       - if nav_app
         == render 'shared/sidebar/app', app: nav_app

@@ -303,8 +303,9 @@ en:
   apps:
     title: Apps
     sidebar:
-      active: Active
       archived: Archived
+      schemes: Schemes
+      all_schemes: All schemes
       empty_schemes: No schemes
       view_scheme: View scheme
     index:
@@ -347,6 +348,13 @@ en:
 
       collaborators: Collaborators
       new_collaborator: New collaborator
+      filters:
+        title: Filter
+        scheme: Scheme
+        channel: Channel
+        all_schemes: All schemes
+        all_channels: All channels
+        reset: Reset
       username: User
       role: Role
       it_is_you: You

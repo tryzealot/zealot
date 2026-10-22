@@ -57,21 +57,20 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     tag.li(class: li_class) do
       link_to path, class: link_class.squish, data: { tip: text }, **options do
         concat(tag.i(class: icon))
-        concat(tag.span(text, class: 'd-is-drawer-close:hidden'))
+        concat(tag.span(text, class: 'text-base d-is-drawer-close:hidden'))
       end
     end
   end
 
   # The app the current request belongs to, used to switch the sidebar to the app context.
+  # Only persisted records qualify: `apps#new` and `#create` hold an unsaved @app,
+  # which must not switch the sidebar (or build any URLs) for an app without an id.
   def current_nav_app
     return @current_nav_app if defined?(@current_nav_app)
 
-    @current_nav_app = @app || @scheme&.app || @channel&.scheme&.app ||
-      @debug_file&.app || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
-  end
-
-  def sidebar_apps_active?
-    current_nav_app.present? || current_page?(apps_path) || current_page?(archived_apps_path)
+    @current_nav_app = [
+      @app, @scheme&.app, @channel&.scheme&.app, @debug_file&.app, @release&.channel&.scheme&.app
+    ].compact.find(&:persisted?) || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
   end
 
   def sidebar_presenter(app)

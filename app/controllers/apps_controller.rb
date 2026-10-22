@@ -21,6 +21,7 @@ class AppsController < ApplicationController
 
   def show
     @title = @app.name
+    set_show_activity
   end
 
   def new
@@ -104,6 +105,20 @@ class AppsController < ApplicationController
   end
 
   private
+
+  def set_show_activity
+    @schemes = @app.schemes.includes(:channels)
+    @channels = Channel.where(id: @app.channel_ids).includes(:scheme)
+
+    scope = Release.where(channel_id: @app.channel_ids)
+    if params[:scheme_id].present? && (scheme = @app.schemes.find_by(id: params[:scheme_id]))
+      scope = scope.where(channel_id: scheme.channels.select(:id))
+    elsif params[:channel_id].present? && (channel = @channels.find_by(id: params[:channel_id]))
+      scope = scope.where(channel_id: channel.id)
+    end
+
+    @releases = scope.page(params.fetch(:page, 1)).per(params.fetch(:per_page, Setting.per_page)).order(id: :desc)
+  end
 
   def destroy_app_data
     require 'fileutils'

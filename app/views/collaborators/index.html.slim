@@ -1,0 +1,21 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = "#{@app.name} · #{@title}"
+
+- content_for :section_rightpanel do
+  - if !@app.archived && (current_user&.admin? || current_user&.app_roles?(@app, :admin))
+    = button_link_to t('apps.show.new_collaborator'), new_app_collaborator_path(@app), 'user-plus', \
+      class: 'd-btn d-btn-success', \
+      data: { turbo_frame: 'modal' }
+
+.card
+  .card-body class="p-0"
+    div class="flex flex-row py-2 px-3 text-sm font-semibold opacity-65"
+      div class="basis-2/4" = t('apps.show.username')
+      div class="basis-1/4" = t('apps.show.role')
+      div class="basis-1/4"
+    #collaborators
+      - @collaborators.each do |collaborator|
+        == render 'apps/collaborator', collaborator: collaborator, app: @app

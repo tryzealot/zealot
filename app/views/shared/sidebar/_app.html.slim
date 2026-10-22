@@ -1,37 +1,28 @@
 - presenter = sidebar_presenter(app)
 
-.d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-close:hidden"
+/ li class="d-is-drawer-close:hidden" 
+/   = link_to app_path(app) do
+/     = app_icon_tag app.recently_release, class: 'size-7'
+/     = tag.p app.name, class: 'font-bold text-base'
 
-li
-  = link_to app_path(app), class: "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right flex items-center gap-2 py-2 #{active_class([app_path(app), edit_app_path(app)])}", data: { tip: app.name } do
-    i class="fa-solid fa-cube"
-    span class="truncate font-bold text-lg d-is-drawer-close:hidden" = app.name
-    - if presenter.archived?
-      span class="d-badge d-badge-sm d-badge-warning d-is-drawer-close:hidden" = t('apps.sidebar.archived')
+li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden"
+  = t('apps.sidebar.schemes')
+  - if presenter.archived?
+    span class="d-badge d-badge-xs d-badge-warning ml-2" = t('apps.sidebar.archived')
 
-li class="d-is-drawer-close:hidden"
-  - schemes = presenter.schemes.to_a
-  ul class="ml-3 border-l border-base-300 pl-2"
-    - if schemes.any?
-      - schemes.each do |scheme|
-        li
-          details open="open"
-            summary class="cursor-pointer py-1 text-sm" = scheme.name
-            ul class="ml-2"
-              - if scheme.channels.any?
-                - scheme.channels.each do |channel|
-                  li
-                    = link_to channel.name, friendly_channel_overview_path(channel), class: "block py-1 text-sm #{active_class(sidebar_channel_active_paths(channel))}"
-              - else
-                li
-                  = link_to t('apps.sidebar.view_scheme'), app_path(app, anchor: dom_id(scheme, :app)), class: "block py-1 text-sm text-base-content/60"
-    - else
-      li class="py-1 text-sm text-base-content/40" = t('apps.sidebar.empty_schemes')
+- schemes = presenter.schemes.to_a
+- schemes.each do |scheme|
+  li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right"
+    = link_to app_scheme_path(app, scheme), class: 'text-center' do
+      = tag.p scheme.name[0], class: 'font-bold text-justify text-base d-is-drawer-open:hidden'
+      = tag.p scheme.name, class: 'text-base d-is-drawer-close:hidden'
 
-    - if presenter.can_create_scheme?
-      li
-        = link_to new_app_scheme_path(app), class: "flex items-center gap-1 py-1 text-sm" do
-          i class="fa-regular fa-plus-square"
-          span = t('apps.show.new_scheme')
-
+.d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
+li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden" = t('toolbox_section')
 = sidebar_link_to 'fa-solid fa-bug', app_debug_files_path(app), text: t('debug_files.title')
+
+- if current_user&.admin?
+  .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
+  li class="mt-2 ml-4 font-bold text-md pb-2 d-is-drawer-close:hidden" = t('admin_section')
+  = sidebar_link_to 'fa-solid fa-cubes', app_schemes_path(app), text: t('apps.sidebar.all_schemes')
+  = sidebar_link_to 'fa-solid fa-users', app_collaborators_path(app), text: t('apps.show.collaborators')

@@ -6,6 +6,13 @@ class CollaboratorsController < ApplicationController
   before_action :set_app
   before_action :set_collaborator, only: %i[ edit update destroy ]
 
+  # GET /apps/:app_id/collaborators
+  def index
+    @title = t('apps.show.collaborators')
+    @collaborators = @app.collaborators.includes(:user)
+    authorize @app, :show?
+  end
+
   # GET /apps/:app_id/collaborators/new
   def new
     raise_if_app_archived!(@app)
