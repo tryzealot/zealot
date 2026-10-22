@@ -297,8 +297,9 @@ zh-CN:
   apps:
     title: 应用
     sidebar:
-      active: 活跃
       archived: 已归档
+      schemes: 类型
+      all_schemes: 全部类型
       empty_schemes: 暂无类型
       view_scheme: 查看类型
     index:
@@ -341,6 +342,13 @@ zh-CN:
 
       collaborators: 成员
       new_collaborator: 添加新成员
+      filters:
+        title: 筛选
+        scheme: 类型
+        channel: 渠道
+        all_schemes: 全部类型
+        all_channels: 全部渠道
+        reset: 重置
       username: 用户
       role: 权限
       it_is_you: 你的账户

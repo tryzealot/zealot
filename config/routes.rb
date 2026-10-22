@@ -26,9 +26,9 @@ Rails.application.routes.draw do
       resources :archives, only: %i[index update destroy], path: 'archived', module: :apps, as: 'archived_apps'
     end
 
-    resources :collaborators, except: %i[index show]
+    resources :collaborators, except: %i[show]
 
-    resources :schemes, except: %i[show] do
+    resources :schemes do
       resources :channels, except: %i[index show]
     end
 
