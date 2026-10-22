@@ -73,6 +73,23 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     ].compact.find(&:persisted?) || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
   end
 
+  # Breadcrumb trail for the current request. Controllers can pin it by setting
+  # @breadcrumbs (see Breadcrumbable#set_app_breadcrumbs); otherwise it is derived
+  # from the app/scheme/channel the current action loaded, so new pages get a trail
+  # for free.
+  def breadcrumbs
+    @breadcrumbs || auto_breadcrumbs
+  end
+
+  def auto_breadcrumbs
+    Breadcrumbable.build(
+      app: @app || @debug_file&.app,
+      scheme: @scheme,
+      channel: @channel || @release&.channel,
+      url: self
+    )
+  end
+
   def sidebar_presenter(app)
     @sidebar_presenter ||= SidebarPresenter.new(app: app, user: current_user)
   end
