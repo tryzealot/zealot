@@ -5,18 +5,16 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if current_user&.manage? && !archived_path?
+  - if current_user&.manage? && @scope != 'archived'
     = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
       class: 'd-btn d-btn-success', data: { turbo_frame: 'modal' }
 
-- if @apps.present?
-  == render 'apps/search'
+== render 'apps/toolbar'
 
 - if @apps.present?
   ul#apps class="d-list mt-3"
     - @apps.each do |app|
       == render 'apps/app', app: app
-- elsif archived_path?
-  == render 'apps/empty_archived_app'
 - else
-  == render 'apps/empty_active_app'
+  div class="mt-3"
+    == render 'apps/empty_apps'

@@ -23,7 +23,12 @@ Rails.application.routes.draw do
     end
 
     collection do
-      resources :archives, only: %i[index update destroy], path: 'archived', module: :apps, as: 'archived_apps'
+      get 'archived', to: redirect { |_params, request|
+        query = request.query_string.presence
+        "/apps?scope=archived#{query ? "&#{query}" : ''}"
+      }
+
+      resources :archives, only: %i[update destroy], path: 'archived', module: :apps, as: 'archived_apps'
     end
 
     resources :collaborators, except: %i[show]

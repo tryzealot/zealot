@@ -311,9 +311,21 @@ en:
       uploads: uploads
       created_at: Created at %{time}
       searching_app: Search apps
-      not_found:
-        title: Not found app.
-        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New app on the top-right.
+      scopes:
+        active: Active
+        archived: Archived
+        all: All
+      empty:
+        active:
+          title: No apps yet
+          body_html: Create your first app with the <i class="fa-regular fa-plus-square"></i> New app button.
+        archived:
+          title: No archived apps
+          body: Apps you archive show up here.
+      no_match:
+        title: No matching apps
+        body: No app matched "%{query}".
+        clear: Clear search
     show:
       new_scheme: New scheme
       edit_app: Edit app
@@ -366,11 +378,6 @@ en:
       user_hint: You will be remove from this app after select the other user!
     archives:
       title: Archived App
-      index:
-        title: :'apps.archived.title'
-        not_found:
-          title: Not found archived app
-          body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
         not_found_app_by_version: "Not found app version: %{version}"
