@@ -1,91 +1,82 @@
 # frozen_string_literal: true
 
 class DebugFilesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show device]
-  before_action :set_debug_file, only: %i[show reprocess destroy]
+  before_action :authenticate_user!, except: %i[index show legacy_show]
+  before_action :set_app, except: :legacy_show
+  before_action :set_debug_file, only: %i[show destroy reprocess]
 
   def index
-    @title = t('debug_files.title')
-    base_scope = manage_user_or_guest_mode? ? App.all : current_user&.apps
-    @apps =
-      if params[:app_id].present?
-        base_scope.where(id: params[:app_id])
-      elsif manage_user_or_guest_mode?
-        App.debug_files.all
-      else
-        base_scope
-      end
-    @app = @apps.first if params[:app_id].present?
+    authorize DebugFile.new(app: @app), :index?
 
-    authorize @apps.present? ? @apps.first : DebugFile.new
+    @title = t('debug_files.title')
+    @proguard_files = @app.android_debug_files.page(params[:proguard_page]).per(Setting.per_page)
+    @dsym_files = @app.ios_debug_files.page(params[:dsym_page]).per(Setting.per_page)
   end
 
   def show
-    @app = @debug_file.app
+    @title = t('debug_files.show.title',
+      device: helpers.platform_name(@debug_file.device_type),
+      version: helpers.debug_file_version(@debug_file))
   end
 
   def new
     @title = t('debug_files.index.upload')
-    @apps = manage_user_or_guest_mode? ? App.active : current_user.apps.active 
-    @debug_file = DebugFile.new
-    @debug_file.app_id = params[:app_id] if params[:app_id] && App.find(params[:app_id])
-    @debug_file.device_type = params[:device]
-
+    device_type = params[:device_type] if DebugFile.device_types.key?(params[:device_type])
+    @debug_file = @app.debug_files.new(device_type: device_type)
     authorize @debug_file
   end
 
   def create
     @title = t('debug_files.index.upload')
-    @debug_file = DebugFile.new(debug_file_params)
+    @debug_file = @app.debug_files.new(debug_file_params)
     authorize @debug_file
 
     return render :new, status: :unprocessable_entity unless @debug_file.save
 
-    device_type = DebugFile.device_types[@debug_file.device_type]
-
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
-    redirect_to device_app_debug_files_url(@debug_file.app, device_type),
+    redirect_to app_debug_files_url(@app, anchor: platform_anchor(@debug_file)),
                 notice: t('activerecord.success.create', key: t('debug_files.title'))
   end
 
   def destroy
-    authorize @debug_file
+    anchor = platform_anchor(@debug_file)
     @debug_file.destroy
-    redirect_to app_debug_files_url(@debug_file.app),
+    redirect_to app_debug_files_url(@app, anchor: anchor),
                 notice: t('activerecord.success.destroy', key: t('debug_files.title'))
-  end
-
-  def device
-    @app = App.find(params[:app_id])
-    @title = t('.title', app: @app.name, device: params[:device])
-
-    @debug_files = DebugFile
-      .where(
-        app_id: params[:app_id],
-        device_type: params[:device]
-      )
-      .page(params.fetch(:page, 1))
-      .per(params.fetch(:per_page, Setting.per_page))
-
-    authorize @debug_files.first if @debug_files.present?
   end
 
   def reprocess
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
-    redirect_to debug_file_url(@debug_file), notice: t('.success')
+    redirect_to app_debug_file_url(@app, @debug_file), notice: t('.success')
+  end
+
+  # Old /debug_files/:id URLs, kept as a permanent redirect to the app scope.
+  def legacy_show
+    debug_file = DebugFile.find(params[:id])
+    authorize debug_file, :show?
+    redirect_to app_debug_file_path(debug_file.app, debug_file), status: :moved_permanently
   end
 
   private
 
+  def set_app
+    @app = App.find(params[:app_id])
+  end
+
   def set_debug_file
-    @debug_file = DebugFile.find(params[:id])
+    @debug_file = @app.debug_files.find(params[:id])
     authorize @debug_file
   end
 
-  # Only allow a trusted parameter "white list" through.
+  def platform_anchor(debug_file)
+    helpers.ios_debug_file?(debug_file) ? 'dsym' : 'proguard'
+  end
+
+  # Only allow a trusted parameter "white list" through. The app always comes
+  # from the URL, so it is not accepted from the form.
   def debug_file_params
     params.require(:debug_file).permit(
-      :app_id, :device_type, :release_version, :build_version, :file
+      :device_type, :release_version, :build_version, :file
     )
   end
 end

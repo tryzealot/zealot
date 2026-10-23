@@ -551,17 +551,26 @@ en:
         bundle_id_not_matched: "Bundle id or package name not matched between release %{got} and rule %{expect}"
   debug_files:
     title: Debug files
+    form:
+      release_version_hint: Required when uploading Android
+      build_version_hint: Required when uploading Android
     index:
       upload: Upload a debug file
-      uploaded_at: Uploaded at %{time}
-      empty_content: Not found any debug file.
-      android_count: Proguard
-      ios_count: dSYM
-      not_found:
-        title: Not found any debug file!
-        body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
+      uploaded_at: Uploaded %{time} ago
+      proguard: Proguard
+      dsym: dSYM
+      processing: Processing
+      files_count:
+        one: "%{count} file"
+        other: "%{count} files"
+      libraries_count:
+        one: "%{count} library"
+        other: "%{count} libraries"
+      empty:
+        proguard: No Proguard mapping files uploaded yet.
+        dsym: No dSYM files uploaded yet.
     show:
-      title: "%{app} %{device} %{version} Debug file"
+      title: "%{device} %{version} Debug file"
       name: App name
       version: Build number
       device_type: Platform
@@ -583,8 +592,6 @@ en:
         one: File
         other: Files
     device:
-      title: "%{app} %{device} Debug file"
-      number: "#%{value}"
       processing: Processing in background, take a coffee break ...
       refresh_page:
         'If there is no change for a long time, please try to refresh this page.

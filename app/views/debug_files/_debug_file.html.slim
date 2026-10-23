@@ -1,0 +1,27 @@
+ruby:
+  version = debug_file_version(debug_file)
+
+li class="d-list-row items-center hover:bg-base-200"
+  div class="min-w-0"
+    div class="flex items-center gap-2"
+      = link_to version, app_debug_file_path(@app, debug_file), class: 'min-w-0 truncate text-base font-bold'
+      - if debug_file.processing?
+        small class="d-badge d-badge-sm d-badge-warning flex-shrink-0" = t('debug_files.index.processing')
+
+    div class="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-base-content/60 sm:text-sm"
+      span class="whitespace-nowrap"
+        = t('debug_files.index.uploaded_at', time: time_ago_in_words(debug_file.created_at))
+      - if debug_file.filesize.present?
+        span class="text-base-content/30" = '·'
+        span class="whitespace-nowrap" = number_to_human_size(debug_file.filesize)
+      - unless debug_file.processing?
+        - if ios_debug_file?(debug_file)
+          span class="text-base-content/30" = '·'
+          span class="whitespace-nowrap" = t('debug_files.index.libraries_count', count: debug_file.libraries.count)
+        - elsif debug_file.proguard_files.present?
+          span class="text-base-content/30" = '·'
+          span class="whitespace-nowrap" = t('debug_files.index.files_count', count: debug_file.proguard_files.count)
+
+  div class="flex-shrink-0"
+    = link_to app_debug_file_path(@app, debug_file), class: 'd-btn d-btn-square d-btn-ghost d-btn-sm' do
+      i.fa-solid.fa-chevron-right
