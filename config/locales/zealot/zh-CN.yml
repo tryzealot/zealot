@@ -298,10 +298,8 @@ zh-CN:
     title: 应用
     sidebar:
       archived: 已归档
+      dashboard: 控制台
       schemes: 类型
-      all_schemes: 全部类型
-      empty_schemes: 暂无类型
-      view_scheme: 查看类型
     index:
       schemes: 类型
       channels: 渠道

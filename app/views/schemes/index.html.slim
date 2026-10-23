@@ -2,12 +2,12 @@
   = @title
 
 - content_for :section_title do
-  = "#{@app.name} · #{@title}"
+  = "#{@app.name}"
 
 - content_for :section_rightpanel do
   - if @app.archived
     small class="d-badge d-badge-sm d-badge-warning py-1"
-      = t('apps.sidebar.archived')
+      = t('apps.show.archived')
   - elsif current_user&.manage?(app: @app)
     = button_link_to t('apps.show.new_scheme'), new_app_scheme_path(@app), 'plus-square', \
       base_fa: 'fa-regular', \

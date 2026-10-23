@@ -303,11 +303,8 @@ en:
   apps:
     title: Apps
     sidebar:
-      archived: Archived
+      dashboard: Dashboard
       schemes: Schemes
-      all_schemes: All schemes
-      empty_schemes: No schemes
-      view_scheme: View scheme
     index:
       schemes: schemes
       channels: channels
