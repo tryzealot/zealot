@@ -16,5 +16,5 @@
     - @apps.each do |app|
       == render 'apps/app', app: app
 - else
-  div class="mt-3"
+  div#apps class="mt-3"
     == render 'apps/empty_apps'

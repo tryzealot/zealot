@@ -1,32 +1,30 @@
 = turbo_frame_tag dom_id(app, :user) do
-  li class="d-list-row justify-center hover:bg-base-200"
+  li class="d-list-row items-center hover:bg-base-200"
     .flex-shrink-0
       = link_to app_path(app), data: { turbo_frame: '_top' } do
         = app_icon(app.recently_release)
-    div
-      div class="flex justify-between"
-        div
-          p class="flex items-center gap-2"
-            = link_to app.name, app_path(app), class: 'text-lg font-bold', data: { turbo_frame: '_top' }
-            - if @scope == 'all' && app.archived
-              small class="d-badge d-badge-sm d-badge-warning" = t('apps.show.archived')
-          p[
-            class="d-tooltip md:d-tooltip-right text-base-content/60", 
-            data-tip=l(app.created_at, format: :nice)
-          ] = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+    div class="min-w-0"
+      div class="flex items-center gap-2"
+        = link_to app.name, app_path(app), class: 'min-w-0 truncate text-lg font-bold', title: app.name, data: { turbo_frame: '_top' }
+        - if @scope == 'all' && app.archived
+          small class="d-badge d-badge-sm d-badge-warning flex-shrink-0" = t('apps.show.archived')
         - if current_user&.manage?(app: app)
-          div class="text-right"
-            - if app.archived 
+          div class="ml-auto flex-shrink-0"
+            - if app.archived
               = button_link_to '', archived_app_path(app, scope: @scope, search: params[:search], sort: @sort), 'history', \
-                class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
+                class: 'd-btn d-btn-square d-btn-ghost d-btn-sm d-tooltip d-tooltip-left', \
                 data: { tip: t('apps.show.unarchive_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.unarchive_app', name: app.name)}" }
             - else
               = button_link_to '', archived_app_path(app, scope: @scope, search: params[:search], sort: @sort), 'archive', \
-                class: 'd-btn d-btn-square d-btn-ghost d-tooltip d-tooltip-left', \
+                class: 'd-btn d-btn-square d-btn-ghost d-btn-sm d-tooltip d-tooltip-left', \
                 data: { tip: t('apps.show.archive_app'), turbo_method: :put, turbo_confirm: "#{t('apps.messages.confirm.archive_app', name: app.name)}" }
 
-      div class="d-breadcrumbs text-sm"
-        ul
-          li = "#{app.total_schemes} #{t('apps.index.schemes')}"
-          li = "#{app.total_channels} #{t('apps.index.channels')}"
-          li = "#{app.total_releases} #{t('apps.index.uploads')}"
+      div class="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-base-content/60 sm:text-sm"
+        span class="d-tooltip md:d-tooltip-right whitespace-nowrap" data-tip=l(app.created_at, format: :nice)
+          = t('apps.index.created_at', time: time_ago_in_words(app.created_at))
+        span class="text-base-content/30" = '·'
+        span class="whitespace-nowrap" = "#{app.total_schemes} #{t('apps.index.schemes')}"
+        span class="text-base-content/30" = '·'
+        span class="whitespace-nowrap" = "#{app.total_channels} #{t('apps.index.channels')}"
+        span class="text-base-content/30" = '·'
+        span class="whitespace-nowrap" = "#{app.total_releases} #{t('apps.index.uploads')}"
