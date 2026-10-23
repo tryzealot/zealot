@@ -5,6 +5,15 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     "#{title} - #{site_title}"
   end
 
+  # Titles for pages inside the app context read "{app} · {entry}", where the
+  # second half is the app sidebar entry that leads to the page. The document
+  # title, the section heading and the sidebar then all read the same. Returns
+  # the entry alone when there is no app context (e.g. the global debug files
+  # list) so a global page keeps a plain title.
+  def app_scoped_title(app, entry)
+    [app&.name, entry].compact_blank.join(' · ')
+  end
+
   def site_title
     Setting.site_title
   end
