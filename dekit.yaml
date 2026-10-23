@@ -1,0 +1,13 @@
+tasks:
+  server:
+    deps: [vite]
+    cmd: ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0"]
+    autorestart: on-failure
+    autostart: true
+    ready: { log: "listening on" }
+  worker:
+    cmd: ["bin/good_job", "start"]
+    autostart: true
+  vite:
+    cmd: ["bin/vite", "dev"]
+    autostart: true
