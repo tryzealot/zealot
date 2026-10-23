@@ -111,6 +111,12 @@ module AppsHelper
     channel.name == platform ? channel.name : "#{channel.name} (#{platform_name(channel.device_type)})"
   end
 
+  # Channel names repeat across schemes (e.g. an "Android" channel in every
+  # scheme), so the scheme has to lead the label to tell them apart.
+  def channel_filter_label(channel)
+    "#{channel.scheme.name} · #{channel_platform(channel)}"
+  end
+
   def changelog_render(changelog, **options)
     source = options.delete(:source) || :markdown
     case source

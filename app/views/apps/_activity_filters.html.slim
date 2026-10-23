@@ -17,7 +17,7 @@
       div
         label class="d-label" for="channel_id" = t('apps.show.filters.channel')
         = select_tag :channel_id,
-          options_for_select(@channels.map { |c| [channel_platform(c), c.id] }, params[:channel_id]),
+          options_for_select(@channels.map { |c| [channel_filter_label(c), c.id] }, params[:channel_id]),
           include_blank: t('apps.show.filters.all_channels'),
           class: 'd-select d-select-bordered w-full',
           onchange: 'this.form.requestSubmit()'
