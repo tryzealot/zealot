@@ -1,5 +1,5 @@
 .toolbar class="mt-2 flex flex-col gap-2 md:flex-row md:items-stretch"
-  .d-join.w-full
+  .d-join.w-full class="md:w-auto"
     - App::SCOPES.each do |scope|
       - scope_path = apps_path(scope: scope, search: params[:search], sort: @sort)
       = link_to scope_path, class: "d-join-item d-btn grow md:grow-0 #{@scope == scope ? 'd-btn-active' : ''}", data: { scope: scope } do
