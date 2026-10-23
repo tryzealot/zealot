@@ -1,0 +1,4 @@
+= turbo_stream.remove @web_hook
+- if @web_hooks.empty?
+  = turbo_stream.append :web_hooks, partial: 'apps/web_hooks/empty'
+= turbo_stream.append :notifications, partial: 'layouts/notifications'

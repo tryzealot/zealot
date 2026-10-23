@@ -1,0 +1,29 @@
+- content_for :title do
+  = @title
+
+- content_for :section_title do
+  = "#{@app.name} · #{@title}"
+
+- content_for :section_rightpanel do
+  - if @app.archived
+    small class="d-badge d-badge-sm d-badge-warning py-1"
+      = t('apps.show.archived')
+  - elsif current_user&.manage?(app: @app)
+    = button_link_to t('web_hooks.new.title'), new_app_web_hook_path(@app), 'plus-square', \
+      base_fa: 'fa-regular', \
+      class: 'd-btn d-btn-success', \
+      data: { turbo_frame: :modal }
+
+.card
+  .card-body class="p-0"
+    div class="grid grid-cols-12 gap-2 py-2 px-3 text-sm font-semibold opacity-65 border-b border-base-300"
+      div class="col-span-4" = t('web_hooks.table.url')
+      div class="col-span-3" = t('web_hooks.table.events')
+      div class="col-span-3" = t('web_hooks.table.channels')
+      div class="col-span-2"
+    #web_hooks
+      - if @web_hooks.any?
+        - @web_hooks.each do |web_hook|
+          == render 'web_hook', web_hook: web_hook, app: @app
+      - else
+        == render 'empty'

@@ -317,6 +317,7 @@ zh-CN:
       destroy_app: 删除应用
       archive_app: 归档应用
       unarchive_app: 取消归档应用
+      archived: 已归档
       new_channel: 新增渠道
       edit_scheme: 编辑类型
       destroy_scheme: 删除类型
@@ -854,6 +855,14 @@ zh-CN:
     test: 发送测试事件
     disable: 禁用
     destroy: 删除
+    new:
+      title: :'admin.web_hooks.new.title'
+    edit:
+      title: :'admin.web_hooks.edit.title'
+    table:
+      url: URL
+      events: 事件
+      channels: 渠道
     messages:
       parse_done_and_refreshing: "解析完成，页面正在刷新 ..."
   settings:
@@ -1074,6 +1083,8 @@ zh-CN:
       web_hook:
         url: 网络钩子 URL
         body: 自定义消息体
+        channel_ids: 启用的应用渠道
+        channel_id: 启用的应用渠道
       device:
         name: 设备名称
       collaborator:

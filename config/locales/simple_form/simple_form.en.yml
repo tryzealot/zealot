@@ -58,10 +58,12 @@ en:
       web_hook:
         url: URL
         body: Body
+        events: Events
         upload_events: Upload events
         download_events: Download events
         changelog_events: Changelog events
         channels: Enabled channels
+        channel_ids: Enabled channels
       debug_file:
         app_id: App
         device_type: Device type
