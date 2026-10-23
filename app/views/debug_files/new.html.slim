@@ -5,9 +5,8 @@
   = @title
 
 - content_for :section_rightpanel do
-  - back_path = @debug_file.app_id.present? ? app_debug_files_path(@debug_file.app_id) : root_path
-  = button_link_to '', back_path, 'list-alt', class: 'd-btn d-tooltip', \
-    base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
+  = button_link_to '', app_debug_files_path(@app), 'list-alt', class: 'd-btn d-tooltip', \
+    base_fa: 'fa-regular', data: { tip: t('links.back_to_list') }
 
 .space-y-4
   == render 'form'

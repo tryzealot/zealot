@@ -545,17 +545,22 @@ zh-CN:
         upload_to_archived_app: "应用 %{app} 已归档，无法上传新的版本。"
   debug_files:
     title: 调试文件
+    form:
+      release_version_hint: Android 上传时必填
+      build_version_hint: Android 上传时必填
     index:
       upload: 上传调试文件
-      uploaded_at: 上传于%{time}
-      empty_content: 还没有上传任何调试文件，点击右上角上传一个吧。
-      android_count: Proguard
-      ios_count: dSYM
-      not_found:
-        title: 没有发现任何调试文件！
-        body_html: 选择右上角的 <i class="fa-regular fa-plus-square"></i> 上传调试文件
+      uploaded_at: 上传于%{time}前
+      proguard: Proguard
+      dsym: dSYM
+      processing: 解析中
+      files_count: "%{count} 个文件"
+      libraries_count: "%{count} 个库"
+      empty:
+        proguard: 还没有上传 Proguard 映射文件。
+        dsym: 还没有上传 dSYM 文件。
     show:
-      title: "%{app} %{device} %{version} 调试文件"
+      title: "%{device} %{version} 调试文件"
       name: 应用名称
       version: 编号
       device_type: 平台
@@ -573,8 +578,6 @@ zh-CN:
       libraries: 库
       files: 文件
     device:
-      title: "%{app} %{device} 调试文件"
-      number: "#%{value}"
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
       refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
       reparse_required: 无法解析包名，缺失或需要重新解析

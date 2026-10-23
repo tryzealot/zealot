@@ -1,0 +1,33 @@
+ruby:
+  platform_label = platform_name(platform)
+  type_label = t("debug_files.index.#{type}")
+
+.card id=type
+  .card-header class="flex items-center justify-between gap-2"
+    h3.card-title class="flex items-center gap-2"
+      = device_icon(platform)
+      = platform_label
+      .d-badge.d-badge-ghost = files.total_count
+    div class="flex items-center gap-2"
+      span class="text-sm font-semibold text-base-content/60" = type_label
+      - if current_user&.manage?(app: @app)
+        = button_link_to '', new_app_debug_file_path(@app, device_type: platform), 'plus-square', \
+          base_fa: 'fa-regular', class: 'd-btn d-btn-square d-btn-ghost d-btn-sm d-tooltip d-tooltip-left', \
+          data: { tip: "#{t('debug_files.index.upload')} (#{type_label})" }
+
+  .card-body class="p-0"
+    - if files.present?
+      ul.d-list
+        - files.each do |debug_file|
+          == render 'debug_file', debug_file: debug_file
+
+      - if files.total_pages > 1
+        .flex.justify-end.p-3
+          = paginate files, param_name: page_param
+    - else
+      .p-6.text-center.space-y-3
+        p class="text-sm text-base-content/60"
+          = t("debug_files.index.empty.#{type}")
+        - if current_user&.manage?(app: @app)
+          = button_link_to t('debug_files.index.upload'), new_app_debug_file_path(@app, device_type: platform), \
+            'plus-square', base_fa: 'fa-regular', class: 'd-btn d-btn-sm d-btn-soft'
