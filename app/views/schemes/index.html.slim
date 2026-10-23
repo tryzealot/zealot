@@ -1,8 +1,8 @@
 - content_for :title do
-  = @title
+  = app_scoped_title(@app, t('apps.sidebar.schemes'))
 
 - content_for :section_title do
-  = "#{@app.name}"
+  = app_scoped_title(@app, t('apps.sidebar.schemes'))
 
 - content_for :section_rightpanel do
   - if @app.archived
