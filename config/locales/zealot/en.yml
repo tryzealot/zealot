@@ -323,6 +323,7 @@ en:
       destroy_app: Destroy app
       archive_app: Archive app
       unarchive_app: Unarchive app
+      archived: Archived
       new_channel: New Channel
       edit_scheme: Edit Scheme
       destroy_scheme: Destroy Scheme
@@ -877,6 +878,14 @@ en:
     test: Send test event
     disable: Disable
     destroy: Destroy
+    new:
+      title: :admin.web_hooks.new.title
+    edit:
+      title: :admin.web_hooks.edit.title
+    table:
+      url: URL
+      events: Events
+      channels: Channels
     messages:
       parse_done_and_refreshing: "Teardown done, refresh page ..."
   settings:
@@ -1064,6 +1073,9 @@ en:
         name: Channel name
       device:
         name: Device name
+      web_hook:
+        channel_ids: Enabled channels
+        channel_id: Enabled channels
       collaborator:
         owner: Owner
     success:

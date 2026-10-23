@@ -28,6 +28,12 @@ Rails.application.routes.draw do
 
     resources :collaborators, except: %i[show]
 
+    resources :web_hooks, only: %i[index new create edit update destroy], module: :apps do
+      member do
+        get 'test/:event', action: :test, as: :test
+      end
+    end
+
     resources :schemes do
       resources :channels, except: %i[index show]
     end
