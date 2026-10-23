@@ -1,0 +1,23 @@
+div#apps
+  - if params[:search].present?
+    .card.card-outline.card-warning
+      .card-header
+        h3.card-title = t('apps.index.no_match.title')
+      .card-body class="space-y-2"
+        p = t('apps.index.no_match.body', query: params[:search])
+        = link_to t('apps.index.no_match.clear'), apps_path(scope: @scope, sort: @sort), class: 'd-btn d-btn-ghost d-btn-sm'
+  - elsif @scope == 'archived'
+    .card.card-outline.card-warning
+      .card-header
+        h3.card-title = t('apps.index.empty.archived.title')
+      .card-body
+        p = t('apps.index.empty.archived.body')
+  - else
+    .card.card-outline.card-warning
+      .card-header
+        h3.card-title = t('apps.index.empty.active.title')
+      .card-body class="space-y-2"
+        p = t('apps.index.empty.active.body_html')
+        - if current_user&.manage?
+          = button_link_to t('apps.new.title'), new_app_path, 'plus-square', base_fa: 'fa-regular', \
+            class: 'd-btn d-btn-success d-btn-sm', data: { turbo_frame: 'modal' }

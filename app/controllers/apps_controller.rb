@@ -2,6 +2,7 @@
 
 class AppsController < ApplicationController
   include AppArchived
+  include AppListScope
 
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy new_owner update_owner]
@@ -12,9 +13,14 @@ class AppsController < ApplicationController
 
   def index
     @title = t('.title')
-    base_scope = manage_user_or_guest_mode? ? App.active : current_user.apps.active 
-    base_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
-    @apps = params[:sort].present? ? base_scope.sort_by_name(params[:sort]) : base_scope
+    @scope = resolved_scope
+    @sort = resolved_sort
+
+    base_scope = app_list_base_scope
+    searched_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
+    @apps = searched_scope.by_scope(@scope).sort_by_name(@sort)
+    @scope_counts = scope_counts_for(base_scope)
+
     authorize @apps if @apps.present?
   end
 
