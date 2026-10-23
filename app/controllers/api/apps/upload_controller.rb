@@ -148,7 +148,9 @@ class Api::Apps::UploadController < Api::BaseController
 
   def set_channel
     @channel = Channel.find_by(key: params[:channel_key])
-    raise_if_app_archived!(@channel.app)
+    # `channel_key` is optional: a missing key means a brand new app is being
+    # uploaded, so there is no channel (and no app) to check yet.
+    raise_if_app_archived!(@channel.app) if @channel
   end
 
   def append_present_value_from_params(data, key)
