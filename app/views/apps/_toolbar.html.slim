@@ -1,0 +1,24 @@
+.toolbar class="mt-2 flex flex-col gap-2 md:flex-row md:items-stretch"
+  .d-join.w-full class="md:w-auto"
+    - App::SCOPES.each do |scope|
+      - scope_path = apps_path(scope: scope, search: params[:search], sort: @sort)
+      = link_to scope_path, class: "d-join-item d-btn grow md:grow-0 #{@scope == scope ? 'd-btn-active' : ''}", data: { scope: scope } do
+        = t("apps.index.scopes.#{scope}")
+        span class="ms-1 text-base-content/60" = "(#{@scope_counts[scope]})"
+
+  form id="app-search-bar" action=apps_path method="get" class="flex-1"
+    .d-join.w-full
+      = hidden_field_tag :scope, @scope
+      = hidden_field_tag :sort, @sort
+      input[
+        class="d-join-item d-input w-full"
+        name="search" value=params[:search]
+        placeholder=t('apps.index.searching_app')
+        type="text"
+      ]
+      button class="d-join-item d-btn" type="submit"
+        i.fa-solid.fa-search
+      = button_link_to '', apps_path(scope: @scope, search: params[:search], sort: 'asc'), 'arrow-down-a-z', \
+        class: "d-join-item #{@sort == 'asc' ? 'd-btn-active' : ''}", data: { sort: 'asc' }
+      = button_link_to '', apps_path(scope: @scope, search: params[:search], sort: 'desc'), 'arrow-up-z-a', \
+        class: "d-join-item #{@sort == 'desc' ? 'd-btn-active' : ''}", data: { sort: 'desc' }

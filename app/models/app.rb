@@ -22,6 +22,22 @@ class App < ApplicationRecord
   scope :archived, -> { where(archived: true) }
   scope :active, -> { where(archived: false).or(where(archived: nil)) }
 
+  # Collections an app list can be browsed through. `all` is a view over the
+  # whole collection rather than a state an app can be in.
+  SCOPES = %w[active archived all].freeze
+
+  def self.normalize_scope(value)
+    value.to_s.presence_in(SCOPES) || SCOPES.first
+  end
+
+  scope :by_scope, ->(value) {
+    case value.to_s
+    when 'archived' then archived
+    when 'all' then all
+    else active
+    end
+  }
+
   validates :name, presence: true
 
   after_destroy :delete_app_recently_releases_cache

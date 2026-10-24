@@ -25,8 +25,14 @@ class DebugFile < ApplicationRecord
     App.where(id: select(:app_id).distinct)
   end
 
+  # An upload is only "processing" while it has neither metadata nor a stored
+  # parse failure, otherwise a broken upload looks like it is still parsing.
   def processing?
-    metadata.count.zero?
+    parse_error.blank? && metadata.count.zero?
+  end
+
+  def parse_failed?
+    parse_error.present?
   end
 
   def name

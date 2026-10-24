@@ -30,4 +30,9 @@ module ChannelsHelper
   def goback_main_path(fallback:)
     request.env['HTTP_REFERER'] || fallback
   end
+
+  # A channel can be reached through its friendly overview URL or the plain channel route.
+  def sidebar_channel_active_paths(channel)
+    [ friendly_channel_overview_path(channel), channel_path(channel) ]
+  end
 end

@@ -7,6 +7,18 @@
   @apply border border-gray-300 dark:border-0 dark:bg-white rounded-lg;
 }
 
+/* apps list */
+#apps {
+  .app-icon {
+    @apply size-14;
+  }
+
+  /* the default icon glyph fills the whole tile, inset it a bit */
+  .app-empty-icon {
+    @apply p-1.5;
+  }
+}
+
 /* channel/show recent activity */
 #app-channel-activity {
   .app-icon {

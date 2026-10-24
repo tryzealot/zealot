@@ -5,6 +5,15 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     "#{title} - #{site_title}"
   end
 
+  # Titles for pages inside the app context read "{app} · {entry}", where the
+  # second half is the app sidebar entry that leads to the page. The document
+  # title, the section heading and the sidebar then all read the same. Returns
+  # the entry alone when there is no app context (e.g. the global debug files
+  # list) so a global page keeps a plain title.
+  def app_scoped_title(app, entry)
+    [app&.name, entry].compact_blank.join(' · ')
+  end
+
   def site_title
     Setting.site_title
   end
@@ -48,15 +57,50 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
       contoller_name == 'users/confirmations' || contoller_name == 'users/sessions'
   end
 
-  def sidebar_link_to(icon, path, text:, active_path:nil, **options)
-    active_path ||= path
-    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active_class(active_path)}"
-    tag.li do
-      link_to path, class: link_class, data: { tip: text } do
+  def sidebar_link_to(icon, path, text:, active_path: nil, active: nil, li_class: nil, link_class: nil, **options)
+    active = active_class(active_path || path) if active.nil?
+    active = 'd-menu-active' if active == true
+    active = '' if active == false
+
+    link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active} #{link_class}"
+    tag.li(class: li_class) do
+      link_to path, class: link_class.squish, data: { tip: text }, **options do
         concat(tag.i(class: icon))
-        concat(tag.span(text, class: 'd-is-drawer-close:hidden'))
+        concat(tag.span(text, class: 'text-base d-is-drawer-close:hidden'))
       end
     end
+  end
+
+  # The app the current request belongs to, used to switch the sidebar to the app context.
+  # Only persisted records qualify: `apps#new` and `#create` hold an unsaved @app,
+  # which must not switch the sidebar (or build any URLs) for an app without an id.
+  def current_nav_app
+    return @current_nav_app if defined?(@current_nav_app)
+
+    @current_nav_app = [
+      @app, @scheme&.app, @channel&.scheme&.app, @debug_file&.app, @release&.channel&.scheme&.app
+    ].compact.find(&:persisted?) || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
+  end
+
+  # Breadcrumb trail for the current request. Controllers can pin it by setting
+  # @breadcrumbs (see Breadcrumbable#set_app_breadcrumbs); otherwise it is derived
+  # from the app/scheme/channel the current action loaded, so new pages get a trail
+  # for free.
+  def breadcrumbs
+    @breadcrumbs || auto_breadcrumbs
+  end
+
+  def auto_breadcrumbs
+    Breadcrumbable.build(
+      app: @app || @debug_file&.app,
+      scheme: @scheme,
+      channel: @channel || @release&.channel,
+      url: self
+    )
+  end
+
+  def sidebar_presenter(app)
+    @sidebar_presenter ||= SidebarPresenter.new(app: app, user: current_user)
   end
 
   def icon_link_to(icon, path, **options)

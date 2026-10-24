@@ -3,6 +3,9 @@
 class Metadatum < ApplicationRecord
   belongs_to :release
   belongs_to :user
+  # Teardowns uploaded inside an app keep that app, the rest only reach an app
+  # through their release.
+  belongs_to :app, optional: true
 
   enum :platform, {
     ios: 'ios',
@@ -20,8 +23,6 @@ class Metadatum < ApplicationRecord
   max_paginates_per 100
 
   def app
-    return unless release
-
-    release.app
+    super || release&.app
   end
 end

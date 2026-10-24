@@ -1,12 +1,12 @@
 - content_for :title do
-  = @title
+  = @app ? app_scoped_title(@app, @title) : @title
 
 - content_for :section_title do
   = @title
 
 - content_for :section_rightpanel do
   - if user_signed_in?
-    = button_link_to t('.create'), new_teardown_path, 'plus-square', base_fa: 'fa-regular', \
+    = button_link_to t('.create'), (@app ? new_app_teardown_path(@app) : new_teardown_path), 'plus-square', base_fa: 'fa-regular', \
       class: 'd-btn d-btn-success'
 
 ruby: 

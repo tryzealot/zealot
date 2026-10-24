@@ -1,0 +1,2 @@
+= turbo_stream.replace @web_hook, partial: 'apps/web_hooks/web_hook', locals: { web_hook: @web_hook, app: @app }
+= turbo_stream.append :notifications, partial: 'layouts/notifications'

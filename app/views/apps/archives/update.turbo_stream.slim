@@ -1,6 +1,8 @@
-= turbo_stream.remove dom_id(@app, :user)
+- if @scope == 'all'
+  = turbo_stream.replace dom_id(@app, :user), partial: 'apps/app', locals: { app: @app }
+- else
+  = turbo_stream.remove dom_id(@app, :user)
 = turbo_stream.append :notifications, partial: 'layouts/notifications'
 
 - if @apps.blank?
-  = turbo_stream.remove :'app-search-bar'
-  = turbo_stream.replace :apps, partial: 'apps/empty_active_app'
+  = turbo_stream.replace :apps, partial: 'apps/empty_apps'

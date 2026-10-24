@@ -1,0 +1,37 @@
+ruby:
+  events = [:upload_events, :download_events, :changelog_events]
+
+= turbo_frame_tag web_hook, class: 'grid grid-cols-12 items-center gap-2 border-t border-base-300 py-2 px-3 text-sm first:border-0' do
+  div class="col-span-4 font-bold break-all"
+    = web_hook.url
+
+  div class="col-span-3 space-x-1"
+    - events.each do |event|
+      - if web_hook.send(event) == 1
+        span class="d-badge d-badge-sm d-badge-soft d-badge-secondary"
+          = t("simple_form.labels.web_hook.#{event}")
+
+  div class="col-span-3 space-x-1"
+    - web_hook.channels.each do |channel|
+      = link_to channel.channel_name, friendly_channel_overview_path(channel), \
+        class: 'd-badge d-badge-sm d-badge-soft d-badge-info', \
+        data: { turbo_frame: '_top' }
+
+  div class="col-span-2 flex justify-end"
+    - unless app.archived
+      div.d-join
+        div class="d-dropdown d-dropdown-top d-dropdown-end"
+          button class="d-btn d-join-item d-btn-sm d-tooltip" data-tip="#{t('web_hooks.test')}"
+            i.fa-regular.fa-comment-dots
+          ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
+            li class="opacity-60 text-sm px-3 py-2" = t('web_hooks.test')
+            - events.each do |event|
+              li = link_to t("simple_form.labels.web_hook.#{event}"), \
+                test_app_web_hook_path(app, web_hook, event), \
+                data: { turbo: false }
+        = button_link_to '', edit_app_web_hook_path(app, web_hook), 'edit', \
+          class: 'd-join-item d-btn d-btn-sm d-tooltip', \
+          data: { tip: t('web_hooks.edit.title'), turbo_frame: :modal }
+        = button_link_to '', app_web_hook_path(app, web_hook), 'trash-alt', \
+          class: 'd-join-item d-btn d-btn-sm text-error d-tooltip', \
+          data: { tip: t('web_hooks.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

@@ -1,0 +1,3 @@
+= turbo_stream.remove :web_hooks_empty
+= turbo_stream.append :web_hooks, partial: 'apps/web_hooks/web_hook', locals: { web_hook: @web_hook, app: @app }
+= turbo_stream.append :notifications, partial: 'layouts/notifications'

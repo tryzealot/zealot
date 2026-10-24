@@ -12,7 +12,7 @@
     - if @app.archived
       / nothing to do
     - elsif collaborator.owner?
-      - if same_user?(collaborator) || current_user.admin?
+      - if same_user?(collaborator) || current_user&.admin?
         = button_link_to '', new_owner_app_path(@app), 'people-arrows', \
           class: 'd-btn-square d-btn-ghost', data: { turbo_frame: :modal }
     - elsif edit_role_user?(collaborator)

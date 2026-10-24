@@ -1,41 +1,17 @@
 - content_for :title do
-  = @title
+  = app_scoped_title(@app, @title)
 
 - content_for :section_title do
-  = @title
+  = app_scoped_title(@app, @title)
 
-- content_for :section_rightpanel do
-  - if current_user&.manage? || current_user&.manage?(app: @apps.map(&:id)) 
-    = button_link_to '', new_debug_file_path, 'plus-square', base_fa: 'fa-regular', \
-      class: 'd-btn-success d-tooltip d-tooltip-left', data: { tip: t('debug_files.index.upload') }
+/ - content_for :section_rightpanel do
+/   - if current_user&.manage?(app: @app)
+/     = button_link_to t('debug_files.index.upload'), new_app_debug_file_path(@app), 'plus-square', \
+/       base_fa: 'fa-regular', class: 'd-btn-success d-tooltip d-tooltip-left', \
+/       data: { tip: t('debug_files.index.upload') }
 
-- if @apps.present?
-  .card
-    .card-body.p-0
-      ul.d-list
-        - @apps.each_with_index do |app, i|
-          li.d-list-row.items-center
-            div = app_icon(app.recently_release)
-            div
-              h1.text-2xl.font-bold = app.name
-              div class="d-join block md:hidden"
-                = link_to device_app_debug_files_path(app, 'Android'), class: 'd-join-item d-btn d-btn-sm' do 
-                  = t('.android_count')
-                  .d-badge.d-badge-sm = app.android_debug_files.count
-                = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-join-item d-btn d-btn-sm' do
-                  = t('.ios_count')
-                  .d-badge.d-badge-sm = app.ios_debug_files.count
-            div class="d-join hidden md:block"
-              = link_to device_app_debug_files_path(app, 'Android'), class: 'd-join-item d-btn' do 
-                = t('.android_count')
-                .d-badge.d-badge-sm = app.android_debug_files.count
-              = link_to device_app_debug_files_path(app, 'iOS'), class: 'd-join-item d-btn' do
-                = t('.ios_count')
-                .d-badge.d-badge-sm = app.ios_debug_files.count
+= turbo_stream_from @app, :debug_files
 
-- else
-  .card.card-outline.card-warning
-    .card-header
-      h3.card-title = t('debug_files.index.not_found.title')
-    .card-body
-      p = t('debug_files.index.not_found.body_html')
+.grid class="gap-4 grid-cols-1 xl:grid-cols-2"
+  == render 'platform', platform: 'android', type: 'proguard', files: @proguard_files, page_param: :proguard_page
+  == render 'platform', platform: 'ios', type: 'dsym', files: @dsym_files, page_param: :dsym_page
