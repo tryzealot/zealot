@@ -30,6 +30,8 @@ class Apps::ArchivesController < ApplicationController
       return redirect_to apps_path(app_list_redirect_params), alert: alert
     end
 
+    @app.update(archived: false)
+
     notice = t('activerecord.success.unarchived', key: "#{@app.name} #{t('apps.title')}")
     prepare_list
 
