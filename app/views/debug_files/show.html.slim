@@ -21,6 +21,8 @@ ruby:
         div.text-break class="text-sm opacity-60"
           - if @debug_file.processing?
             = t('debug_files.device.processing')
+          - elsif @debug_file.parse_failed?
+            span class="text-error" = t('debug_files.show.parse_failed')
           - elsif @debug_file.bundle_id.present?
             = @debug_file.bundle_id
           - else
@@ -43,6 +45,13 @@ ruby:
         i.fa-solid.fa-calendar.mr-1
         = time_ago_in_words(@debug_file.created_at)
 
+    - if @debug_file.parse_failed?
+      .d-alert.d-alert-error.my-3
+        i.fa-solid.fa-circle-xmark.fs-3
+        div class="min-w-0"
+          div.font-bold = t('debug_files.show.parse_failed')
+          div class="text-xs break-words" = @debug_file.parse_error
+
     .flex.gap-2.my-3
       - if @debug_file.file?
         = button_link_to t('.download'), @debug_file.file_url, 'download', target: '_blank', \
@@ -63,7 +72,7 @@ ruby:
             turbo_confirm: t('modals.confirm.body'), \
           }
 
-- unless @debug_file.processing?
+- if @debug_file.metadata.exists?
   - if ios_debug_file?(@debug_file)
     == render 'ios_objects', debug_file: @debug_file
   - else

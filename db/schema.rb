@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_24_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -120,6 +120,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
     t.datetime "created_at", null: false
     t.string "device_type"
     t.string "file"
+    t.string "parse_error"
     t.string "release_version"
     t.datetime "updated_at", null: false
     t.index ["app_id", "device_type"], name: "index_debug_files_on_app_id_and_device_type"
