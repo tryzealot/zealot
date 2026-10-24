@@ -3,11 +3,21 @@
 class SchemesController < ApplicationController
   include AppArchived
   
-  before_action :authenticate_user!, except: :show
-  before_action :set_scheme, except: %i[create new]
-  before_action :process_scheme_params, only: %i[create]
-  before_action :set_channel, only: %i[show]
+  before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app
+  before_action :set_scheme, except: %i[index create new]
+  before_action :process_scheme_params, only: %i[create]
+
+  def index
+    @title = t('schemes.title')
+    @schemes = @app.schemes.includes(:channels)
+    authorize @app, :index?
+  end
+
+  def show
+    @title = t('schemes.title')
+    authorize @app, :show?
+  end
 
   def new
     @page_title =t('.title.with_name', app: @app.name)
@@ -72,11 +82,11 @@ class SchemesController < ApplicationController
 
   def set_app
     @app = App.find(params[:app_id])
-    raise_if_app_archived!(@app)
+    raise_if_app_archived!(@app) unless %w[index show].include?(action_name)
   end
 
   def set_scheme
-    @scheme = Scheme.find(params[:id])
+    @scheme = @app.schemes.find(params[:id])
   end
 
   def scheme_params

@@ -2,6 +2,7 @@
 
 class AppsController < ApplicationController
   include AppArchived
+  include AppListScope
 
   before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_app, only: %i[show edit update destroy new_owner update_owner]
@@ -9,18 +10,23 @@ class AppsController < ApplicationController
   before_action :process_scheme_and_channel, only: %i[create]
   before_action :set_owner, only: %i[ new_owner update_owner ]
 
-  before_action -> { set_app_breadcrumbs(app: @app) }, only: %i[show edit update destroy new_owner update_owner]
 
   def index
     @title = t('.title')
-    base_scope = manage_user_or_guest_mode? ? App.active : current_user.apps.active 
-    base_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
-    @apps = params[:sort].present? ? base_scope.sort_by_name(params[:sort]) : base_scope
+    @scope = resolved_scope
+    @sort = resolved_sort
+
+    base_scope = app_list_base_scope
+    searched_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
+    @apps = searched_scope.by_scope(@scope).sort_by_name(@sort)
+    @scope_counts = scope_counts_for(base_scope)
+
     authorize @apps if @apps.present?
   end
 
   def show
     @title = @app.name
+    set_show_activity
   end
 
   def new
@@ -104,6 +110,20 @@ class AppsController < ApplicationController
   end
 
   private
+
+  def set_show_activity
+    @schemes = @app.schemes.includes(:channels)
+    @channels = Channel.where(id: @app.channel_ids).includes(:scheme)
+
+    scope = Release.where(channel_id: @app.channel_ids)
+    if params[:scheme_id].present? && (scheme = @app.schemes.find_by(id: params[:scheme_id]))
+      scope = scope.where(channel_id: scheme.channels.select(:id))
+    elsif params[:channel_id].present? && (channel = @channels.find_by(id: params[:channel_id]))
+      scope = scope.where(channel_id: channel.id)
+    end
+
+    @releases = scope.page(params.fetch(:page, 1)).per(params.fetch(:per_page, Setting.per_page)).order(id: :desc)
+  end
 
   def destroy_app_data
     require 'fileutils'

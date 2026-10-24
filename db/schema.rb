@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_24_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -120,6 +120,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
     t.datetime "created_at", null: false
     t.string "device_type"
     t.string "file"
+    t.string "parse_error"
     t.string "release_version"
     t.datetime "updated_at", null: false
     t.index ["app_id", "device_type"], name: "index_debug_files_on_app_id_and_device_type"
@@ -236,6 +237,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
 
   create_table "metadata", force: :cascade do |t|
     t.jsonb "activities", default: [], null: false
+    t.bigint "app_id"
     t.string "build_version"
     t.string "bundle_id"
     t.jsonb "capabilities", default: [], null: false
@@ -262,6 +264,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
     t.datetime "updated_at", null: false
     t.jsonb "url_schemes", default: [], null: false
     t.bigint "user_id"
+    t.index ["app_id"], name: "index_metadata_on_app_id"
     t.index ["checksum"], name: "index_metadata_on_checksum"
     t.index ["release_id"], name: "index_metadata_on_release_id"
     t.index ["user_id"], name: "index_metadata_on_user_id"
@@ -394,6 +397,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_000000) do
   add_foreign_key "channels", "schemes", on_delete: :cascade
   add_foreign_key "debug_file_metadata", "debug_files"
   add_foreign_key "debug_files", "apps", on_delete: :cascade
+  add_foreign_key "metadata", "apps", on_delete: :nullify
   add_foreign_key "metadata", "releases", on_delete: :cascade
   add_foreign_key "metadata", "users", on_delete: :cascade
   add_foreign_key "releases", "channels", on_delete: :cascade

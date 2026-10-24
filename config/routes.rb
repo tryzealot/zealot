@@ -16,6 +16,15 @@ Rails.application.routes.draw do
   #############################################
   # App
   #############################################
+  # Legacy per-device debug file list (see the Debug File section below).
+  # Must be declared before `resources :apps` so it wins over the nested show.
+  get '/apps/:app_id/debug_files/:device',
+    constraints: { device: /Android|iOS/ },
+    to: redirect { |params, _request|
+      anchor = params[:device] == 'iOS' ? 'dsym' : 'proguard'
+      "/apps/#{params[:app_id]}/debug_files##{anchor}"
+    }
+
   resources :apps do
     member do
       get :new_owner
@@ -23,20 +32,34 @@ Rails.application.routes.draw do
     end
 
     collection do
-      resources :archives, only: %i[index update destroy], path: 'archived', module: :apps, as: 'archived_apps'
+      get 'archived', to: redirect { |_params, request|
+        query = request.query_string.presence
+        "/apps?scope=archived#{query ? "&#{query}" : ''}"
+      }
+
+      resources :archives, only: %i[update destroy], path: 'archived', module: :apps, as: 'archived_apps'
     end
 
-    resources :collaborators, except: %i[index show]
+    resources :collaborators, except: %i[show]
 
-    resources :schemes, except: %i[show] do
+    resources :web_hooks, only: %i[index new create edit update destroy], module: :apps do
+      member do
+        get 'test/:event', action: :test, as: :test
+      end
+    end
+
+    resources :schemes do
       resources :channels, except: %i[index show]
     end
 
-    resources :debug_files, only: [] do
-      collection do
-        get ':device', action: :device, as: :device
+    resources :debug_files, except: %i[edit update] do
+      member do
+        post :reprocess
       end
     end
+
+    # App scoped teardowns, the global /teardowns stays as the toolbox entry.
+    resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
   end
 
   resources :channels, only: %i[index show] do
@@ -78,13 +101,16 @@ Rails.application.routes.draw do
   end
 
   #############################################
-  # Debug File
+  # Debug File (legacy URLs)
   #############################################
-  resources :debug_files do
-    member do
-      post :reprocess
-    end
-  end
+  # Debug files live inside an app now (/apps/:app_id/debug_files), so the old
+  # global URLs only redirect to their app-scoped equivalents.
+  get '/debug_files/new', to: redirect { |_params, request|
+    app_id = request.query_parameters['app_id'].presence
+    app_id ? "/apps/#{app_id}/debug_files/new" : '/apps'
+  }
+
+  get '/debug_files/:id', to: 'debug_files#legacy_show', as: :legacy_debug_file
 
   #############################################
   # Teardown

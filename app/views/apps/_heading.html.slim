@@ -1,0 +1,4 @@
+= app_scoped_title(app, t('apps.sidebar.dashboard'))
+- if app.archived
+  small class="d-badge d-badge-sm d-badge-warning py-1 ms-2"
+    = t('apps.show.archived')

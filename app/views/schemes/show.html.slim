@@ -1,0 +1,30 @@
+- content_for :title do
+  = "#{@scheme.name} · #{@title}"
+
+- content_for :section_title do
+  = @scheme.name
+
+- content_for :section_rightpanel do
+  - if current_user&.manage?(app: @app)
+    / = button_link_to t('apps.show.new_channel'), new_app_scheme_channel_path(@app, @scheme), 'plus-square', \
+    /   base_fa: 'fa-regular', \
+    /   class: 'd-btn d-btn-success', \
+    /   data: { turbo_frame: :modal }
+    .d-join
+      - if !@app.archived
+        = button_link_to '', new_app_scheme_channel_path(@app, @scheme), 'plus-square', \
+          class: 'd-join-item d-btn d-tooltip', \
+          data: { tip: t('apps.show.new_channel'), turbo_frame: :modal }
+        = button_link_to '', edit_app_scheme_path(@app, @scheme), 'edit', \
+          class: 'd-join-item d-btn d-tooltip', \
+          data: { tip: t('apps.show.edit_scheme'), turbo_frame: :modal }
+      = button_link_to '', app_scheme_path(@app, @scheme), 'trash-alt', \
+        class: 'd-join-item d-btn d-tooltip text-error', \
+        data: { \
+          tip: t('apps.show.destroy_scheme'), \
+          turbo_method: :delete, \
+          turbo_confirm: "#{t('apps.messages.confirm.delete_app_scheme', name: @scheme.name)}" \
+        }
+
+#schemes class="grid grid-cols-1 gap-4 mb-4 items-start"
+  == render 'apps/scheme', scheme: @scheme, app: @app

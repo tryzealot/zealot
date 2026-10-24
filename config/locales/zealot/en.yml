@@ -302,21 +302,38 @@ en:
       not_found: Not found any released.
   apps:
     title: Apps
+    sidebar:
+      dashboard: Dashboard
+      schemes: Schemes
+      management: Management
     index:
       schemes: schemes
       channels: channels
       uploads: uploads
       created_at: Created at %{time}
       searching_app: Search apps
-      not_found:
-        title: Not found app.
-        body_html: Click the button <i class="fa-regular fa-plus-square"></i> New app on the top-right.
+      scopes:
+        active: Active
+        archived: Archived
+        all: All
+      empty:
+        active:
+          title: No apps yet
+          body_html: Create your first app with the <i class="fa-regular fa-plus-square"></i> New app button.
+        archived:
+          title: No archived apps
+          body: Apps you archive show up here.
+      no_match:
+        title: No matching apps
+        body: No app matched "%{query}".
+        clear: Clear search
     show:
       new_scheme: New scheme
       edit_app: Edit app
       destroy_app: Destroy app
       archive_app: Archive app
       unarchive_app: Unarchive app
+      archived: Archived
       new_channel: New Channel
       edit_scheme: Edit Scheme
       destroy_scheme: Destroy Scheme
@@ -342,6 +359,13 @@ en:
 
       collaborators: Collaborators
       new_collaborator: New collaborator
+      filters:
+        title: Filter
+        scheme: Scheme
+        channel: Channel
+        all_schemes: All schemes
+        all_channels: All channels
+        reset: Reset
       username: User
       role: Role
       it_is_you: You
@@ -355,11 +379,6 @@ en:
       user_hint: You will be remove from this app after select the other user!
     archives:
       title: Archived App
-      index:
-        title: :'apps.archived.title'
-        not_found:
-          title: Not found archived app
-          body_html: You can archive app if not in maintaintion or long time no response.
     messages:
       failture:
         not_found_app_by_version: "Not found app version: %{version}"
@@ -533,17 +552,28 @@ en:
         bundle_id_not_matched: "Bundle id or package name not matched between release %{got} and rule %{expect}"
   debug_files:
     title: Debug files
+    form:
+      release_version_hint: Required when uploading Android
+      build_version_hint: Required when uploading Android
     index:
       upload: Upload a debug file
-      uploaded_at: Uploaded at %{time}
-      empty_content: Not found any debug file.
-      android_count: Proguard
-      ios_count: dSYM
-      not_found:
-        title: Not found any debug file!
-        body_html: Click the button <i class="fa-regular fa-plus-square"></i> upload a debug file on the top-right.
+      upload_with_platform: Upload a %{platform} debug file
+      uploaded_at: Uploaded %{time} ago
+      proguard: Proguard
+      dsym: dSYM
+      processing: Processing
+      parse_failed: Parse failed
+      files_count:
+        one: "%{count} file"
+        other: "%{count} files"
+      libraries_count:
+        one: "%{count} library"
+        other: "%{count} libraries"
+      empty:
+        proguard: No Proguard mapping files uploaded yet.
+        dsym: No dSYM files uploaded yet.
     show:
-      title: "%{app} %{device} %{version} Debug file"
+      title: "%{device} %{version} Debug file"
       name: App name
       version: Build number
       device_type: Platform
@@ -554,6 +584,7 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
+      parse_failed: Parse failed
       main_target: Main target
       arch: Architecture
       target: Target
@@ -565,8 +596,6 @@ en:
         one: File
         other: Files
     device:
-      title: "%{app} %{device} Debug file"
-      number: "#%{value}"
       processing: Processing in background, take a coffee break ...
       refresh_page:
         'If there is no change for a long time, please try to refresh this page.
@@ -864,6 +893,14 @@ en:
     test: Send test event
     disable: Disable
     destroy: Destroy
+    new:
+      title: :admin.web_hooks.new.title
+    edit:
+      title: :admin.web_hooks.edit.title
+    table:
+      url: URL
+      events: Events
+      channels: Channels
     messages:
       parse_done_and_refreshing: "Teardown done, refresh page ..."
   settings:
@@ -1033,11 +1070,12 @@ en:
         empty_url: Webhook URL is empty.
         send_failed: "Failed to send webhook to %{url}: %{error}"
     debug_file:
-      success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
+      success: Debug file (%{id}) parsed.
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundle_id: "Not found bundle id with selected app: %{bundle_id}"
         unknown_format: Unknown debug file format.
+        unknown_parse: "Unexpected error while parsing the debug file: %{message}"
     backup:
       success: "%{key} backup created successfully."
       failures:
@@ -1051,6 +1089,9 @@ en:
         name: Channel name
       device:
         name: Device name
+      web_hook:
+        channel_ids: Enabled channels
+        channel_id: Enabled channels
       collaborator:
         owner: Owner
     success:

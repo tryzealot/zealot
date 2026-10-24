@@ -17,13 +17,23 @@ module AppsHelper
     "grid grid-cols-1 md:grid-cols-#{md_cols} lg:grid-cols-#{lg_cols} xl:grid-cols-#{xl_cols}"
   end
 
+
+  APP_DEFAULT_ICON = 'images/zealot-icon.png'
+  def app_icon_tag(release, **options)
+    if release&.icon && release.icon.file && release.icon.file.exists?
+      image_tag release.icon_url, **options
+    else
+      vite_image_tag APP_DEFAULT_ICON, **options
+    end
+  end
+
   APP_ICON_CLASS = ['app-icon']
   def app_icon(release, options = {})
     images_class = options.delete(:class).to_s.split(' ')
     images_class = (APP_ICON_CLASS + images_class).uniq
     unless release&.icon && release.icon.file && release.icon.file.exists?
       options[:class] = images_class.push('app-empty-icon').join(' ')
-      return vite_image_tag 'images/zealot-icon.png', **options
+      return vite_image_tag APP_DEFAULT_ICON, **options
     end
     
     options[:class] = images_class.join(' ')
@@ -101,6 +111,12 @@ module AppsHelper
     channel.name == platform ? channel.name : "#{channel.name} (#{platform_name(channel.device_type)})"
   end
 
+  # Channel names repeat across schemes (e.g. an "Android" channel in every
+  # scheme), so the scheme has to lead the label to tell them apart.
+  def channel_filter_label(channel)
+    "#{channel.scheme.name} · #{channel_platform(channel)}"
+  end
+
   def changelog_render(changelog, **options)
     source = options.delete(:source) || :markdown
     case source
@@ -127,9 +143,5 @@ module AppsHelper
         image_tag channel_release_qrcode_path(release.channel, release, size: :lg, format: :svg)
       end
     end
-  end
-
-  def archived_path?
-    current_page?(controller: 'apps/archives')
   end
 end

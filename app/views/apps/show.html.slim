@@ -1,20 +1,14 @@
 - content_for :title do
-  = @app.name
+  = app_scoped_title(@app, t('apps.sidebar.dashboard'))
 
 - content_for :section_title do
-  = turbo_frame_tag @app do
-    = @app.name
-    - if @app.archived
-      small class="d-badge d-badge-sm d-badge-warning py-1 ms-2"
-        = t('apps.show.archived')
+  = turbo_frame_tag dom_id(@app, :heading) do
+    = render 'heading', app: @app
 
 - content_for :section_rightpanel do
   - if current_user&.manage?(app: @app)
     .d-join
-      - if !@app.archived
-        = button_link_to '', new_app_scheme_path(@app), 'plus-square', \
-          class: 'd-join-item d-btn d-tooltip', \
-          data: { tip: t('apps.show.new_scheme'), turbo_frame: :modal }
+      - unless @app.archived
         = button_link_to '', edit_app_path(@app), 'edit', \
           class: 'd-join-item d-btn d-tooltip', \
           data: { tip: t('apps.show.edit_app'), turbo_frame: :modal }
@@ -23,7 +17,16 @@
         data: { tip: t('apps.show.destroy_app'), turbo_method: :delete, turbo_confirm: "#{t('apps.messages.confirm.delete_app', name: @app.name)}" }
 
 = turbo_frame_tag @app do
-  = render 'schemes', app: @app
+  .grid class="gap-4 grid-cols-1 md:grid-cols-12"
+    div class="md:col-span-8"
+      .block.md:hidden
+        == render 'activity_quick_filters'
 
-  - if current_user&.manage?(app: @app)
-    == render "collaborators", app: @app
+      == render AppReleaseActivityComponent.new( \
+        @releases, \
+        title: t('dashboard.timeline.title'), \
+        icon: 'fa-solid fa-history' \
+      )
+
+    div class="hidden md:block md:col-span-4"
+      == render 'activity_filters'
