@@ -20,16 +20,17 @@ class DebugFilesController < ApplicationController
   end
 
   def new
-    @title = t('debug_files.index.upload')
     device_type = params[:device_type] if DebugFile.device_types.key?(params[:device_type])
     @debug_file = @app.debug_files.new(device_type: device_type)
     authorize @debug_file
+
+    @title = upload_title(@debug_file.device_type)
   end
 
   def create
-    @title = t('debug_files.index.upload')
     @debug_file = @app.debug_files.new(debug_file_params)
     authorize @debug_file
+    @title = upload_title(@debug_file.device_type)
 
     return render :new, status: :unprocessable_entity unless @debug_file.save
 
@@ -46,6 +47,7 @@ class DebugFilesController < ApplicationController
   end
 
   def reprocess
+    @debug_file.update_column(:parse_error, nil)
     DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
     redirect_to app_debug_file_url(@app, @debug_file), notice: t('.success')
   end
@@ -70,6 +72,12 @@ class DebugFilesController < ApplicationController
 
   def platform_anchor(debug_file)
     helpers.ios_debug_file?(debug_file) ? 'dsym' : 'proguard'
+  end
+
+  def upload_title(device_type)
+    return t('debug_files.index.upload') if device_type.blank?
+
+    t('debug_files.index.upload_with_platform', platform: helpers.platform_name(device_type))
   end
 
   # Only allow a trusted parameter "white list" through. The app always comes
