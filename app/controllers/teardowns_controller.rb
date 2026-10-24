@@ -2,27 +2,14 @@
 
 class TeardownsController < ApplicationController
   before_action :authenticate_user!, except: %[show] unless Setting.guest_mode
+  before_action :set_app
   before_action :set_metadata, only: %i[show destroy]
 
   def index
     @title = t('.title')
     page = params.fetch(:page, 1)
     per_page = params.fetch(:per_page, Setting.per_page)
-    if manage_user_or_guest_mode?
-      @metadata = Metadatum.page(page)
-        .per(per_page)
-        .order(id: :desc)
-    else
-      release_ids = current_user.apps.map do |app|
-        channel_ids = app.channel_ids
-        Release.select(:id).where(channel: channel_ids).map(&:id)
-      end.flatten
-
-      @metadata = current_user.metadatum.or(Metadatum.where(release_id: release_ids))
-        .page(page)
-        .per(per_page)
-        .order(id: :desc)
-    end
+    @metadata = metadata_scope.page(page).per(per_page).order(id: :desc)
 
     authorize @metadata if @app.present?
   end
@@ -70,10 +57,36 @@ class TeardownsController < ApplicationController
     authorize @metadata
     @metadata.destroy
 
-    redirect_to teardowns_path, notice: t('activerecord.success.destroy', key: "#{t('teardowns.title')}")
+    redirect_to teardowns_index_path_for, notice: t('activerecord.success.destroy', key: "#{t('teardowns.title')}")
   end
 
   private
+
+  def set_app
+    return if params[:app_id].blank?
+
+    @app = App.find(params[:app_id])
+  end
+
+  # Everything the visitor may see: the whole list for managers and guests,
+  # their own uploads and the uploads of their apps otherwise.
+  def metadata_scope
+    scope = @app ? app_metadata : Metadatum.all
+    return scope if manage_user_or_guest_mode?
+
+    scope.where(user_id: current_user.id).or(scope.where(release_id: my_release_ids))
+  end
+
+  # What belongs to the app: uploaded inside the app or parsed from a release
+  # of one of its channels.
+  def app_metadata
+    Metadatum.where(app_id: @app.id)
+      .or(Metadatum.where(release_id: Release.where(channel_id: @app.channel_ids)))
+  end
+
+  def my_release_ids
+    Release.where(channel_id: current_user.apps.flat_map(&:channel_ids))
+  end
 
   def set_metadata
     @metadata = Metadatum.find(params[:id])
@@ -86,11 +99,20 @@ class TeardownsController < ApplicationController
 
     metadata = TeardownService.new(file).call
     metadata.update_attribute(:user_id, current_user&.id) if current_user.present?
+    metadata.update_attribute(:app_id, @app.id) if @app
 
-    redirect_to teardown_path(metadata)
+    redirect_to teardown_path_for(metadata)
   end
 
   def teardown_params
     params.require(:teardown).permit(:file)
+  end
+
+  def teardowns_index_path_for
+    @app ? app_teardowns_path(@app) : teardowns_path
+  end
+
+  def teardown_path_for(metadata)
+    @app ? app_teardown_path(@app, metadata) : teardown_path(metadata)
   end
 end

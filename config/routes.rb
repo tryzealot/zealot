@@ -57,6 +57,9 @@ Rails.application.routes.draw do
         post :reprocess
       end
     end
+
+    # App scoped teardowns, the global /teardowns stays as the toolbox entry.
+    resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
   end
 
   resources :channels, only: %i[index show] do
