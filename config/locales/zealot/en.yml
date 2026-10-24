@@ -303,6 +303,7 @@ en:
   apps:
     title: Apps
     sidebar:
+      dashboard: Dashboard
       schemes: Schemes
       management: Management
     index:
