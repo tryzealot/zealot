@@ -7,9 +7,9 @@
       div class="flex items-center gap-2"
         = link_to app.name, app_path(app), class: 'min-w-0 truncate text-lg font-bold', title: app.name, data: { turbo_frame: '_top' }
         - if @scope == 'all' && app.archived
-          small class="d-badge d-badge-sm d-badge-warning flex-shrink-0" = t('apps.show.archived')
+          small class="d-badge d-badge-sm d-badge-warning shrink-0" = t('apps.show.archived')
         - if current_user&.manage?(app: app)
-          div class="ml-auto flex-shrink-0"
+          div class="ml-auto shrink-0"
             - if app.archived
               = button_link_to '', archived_app_path(app, scope: @scope, search: params[:search], sort: @sort), 'history', \
                 class: 'd-btn d-btn-square d-btn-ghost d-btn-sm d-tooltip d-tooltip-left', \
