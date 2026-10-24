@@ -45,7 +45,8 @@ class Apps::ArchivesController < ApplicationController
 
   def prepare_list
     @scope = resolved_scope
-    @apps = app_list_base_scope.by_scope(@scope)
+    @sort = resolved_sort
+    @apps = app_list_base_scope.search_by_name(params[:search]).by_scope(@scope)
   end
 
   def set_app
