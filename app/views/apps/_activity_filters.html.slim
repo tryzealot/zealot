@@ -1,7 +1,7 @@
 .card
   .card-header
     h3.card-title
-      i class="fa-solid fa-filter"
+      i class="fa-solid fa-filter mr-1"
       = t('apps.show.filters.title')
 
   .card-body class="space-y-3"
@@ -12,7 +12,7 @@
           options_for_select(@schemes.map { |s| [s.name, s.id] }, params[:scheme_id]),
           include_blank: t('apps.show.filters.all_schemes'),
           class: 'd-select d-select-bordered w-full',
-          onchange: 'this.form.requestSubmit()'
+          onchange: "this.form.elements['channel_id'].value = ''; this.form.requestSubmit()"
 
       div
         label class="d-label" for="channel_id" = t('apps.show.filters.channel')
@@ -20,7 +20,7 @@
           options_for_select(@channels.map { |c| [channel_filter_label(c), c.id] }, params[:channel_id]),
           include_blank: t('apps.show.filters.all_channels'),
           class: 'd-select d-select-bordered w-full',
-          onchange: 'this.form.requestSubmit()'
+          onchange: "this.form.elements['scheme_id'].value = ''; this.form.requestSubmit()"
 
       .flex.justify-end
         = link_to t('apps.show.filters.reset'), app_path(@app), class: 'd-btn d-btn-ghost d-btn-sm'
