@@ -1,0 +1,22 @@
+- if @schemes.present? || @channels.present?
+  .toolbar.mb-3 class="flex items-center gap-2"
+    = form_with url: app_path(@app), method: :get, class: 'w-full flex items-center gap-2' do |f|
+      .flex-1.min-w-0
+        = select_tag :scheme_id,
+          options_for_select(@schemes.map { |s| [s.name, s.id] }, params[:scheme_id]),
+          id: 'quick_filter_scheme_id',
+          include_blank: t('apps.show.filters.all_schemes'),
+          class: 'd-select d-select-bordered text-sm w-full',
+          onchange: "this.form.elements['channel_id'].value = ''; this.form.requestSubmit()"
+
+      .flex-1.min-w-0
+        = select_tag :channel_id,
+          options_for_select(@channels.map { |c| [channel_filter_label(c), c.id] }, params[:channel_id]),
+          id: 'quick_filter_channel_id',
+          include_blank: t('apps.show.filters.all_channels'),
+          class: 'd-select d-select-bordered text-sm w-full',
+          onchange: "this.form.elements['scheme_id'].value = ''; this.form.requestSubmit()"
+
+      - if params[:scheme_id].present? || params[:channel_id].present?
+        = link_to app_path(@app), class: 'd-btn d-btn-ghost d-btn-square shrink-0', title: t('apps.show.filters.reset') do
+          i.fa-solid.fa-xmark
