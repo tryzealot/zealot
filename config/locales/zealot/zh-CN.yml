@@ -297,6 +297,7 @@ zh-CN:
   apps:
     title: 应用
     sidebar:
+      dashboard: 控制台
       schemes: 类型
       management: 管理
     index:
