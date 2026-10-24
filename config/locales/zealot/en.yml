@@ -303,8 +303,8 @@ en:
   apps:
     title: Apps
     sidebar:
-      dashboard: Dashboard
       schemes: Schemes
+      management: Management
     index:
       schemes: schemes
       channels: channels
@@ -556,10 +556,12 @@ en:
       build_version_hint: Required when uploading Android
     index:
       upload: Upload a debug file
+      upload_with_platform: Upload a %{platform} debug file
       uploaded_at: Uploaded %{time} ago
       proguard: Proguard
       dsym: dSYM
       processing: Processing
+      parse_failed: Parse failed
       files_count:
         one: "%{count} file"
         other: "%{count} files"
@@ -581,6 +583,7 @@ en:
       missing_file: Missing file
       download: Download
       reprocess: Reprocess
+      parse_failed: Parse failed
       main_target: Main target
       arch: Architecture
       target: Target
@@ -1066,11 +1069,12 @@ en:
         empty_url: Webhook URL is empty.
         send_failed: "Failed to send webhook to %{url}: %{error}"
     debug_file:
-      success: Debug file (%{id}) pare done, Refresh the web page after 3 seconds.
+      success: Debug file (%{id}) parsed.
       failures:
         not_found_file: Debug file is missing with unknown issue.
         not_matched_bundle_id: "Not found bundle id with selected app: %{bundle_id}"
         unknown_format: Unknown debug file format.
+        unknown_parse: "Unexpected error while parsing the debug file: %{message}"
     backup:
       success: "%{key} backup created successfully."
       failures:

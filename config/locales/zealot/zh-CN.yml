@@ -293,13 +293,12 @@ zh-CN:
       title: 上传时间线
       upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
       upload_auto_version_release: 上传了新版本 %{version}
-      not_found: 没有任何上传，快快上传吧。
+      not_found: 没有任何上传，快快上传吧
   apps:
     title: 应用
     sidebar:
-      archived: 已归档
-      dashboard: 控制台
       schemes: 类型
+      management: 管理
     index:
       schemes: 类型
       channels: 渠道
@@ -313,13 +312,13 @@ zh-CN:
       empty:
         active:
           title: 还没有应用
-          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建第一个应用。
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建第一个应用
         archived:
           title: 没有已归档的应用
-          body: 归档后的应用会出现在这里。
+          body: 归档后的应用会出现在这里
       no_match:
         title: 没有匹配的应用
-        body: 没有找到名称包含 "%{query}" 的应用。
+        body: 没有找到名称包含 "%{query}" 的应用
         clear: 清除搜索
     show:
       new_scheme: 新增类型
@@ -516,7 +515,7 @@ zh-CN:
       scan_qrcode_with_any_supported_app: 任何支持二维码识别的 App 均可
       major_versions: :'channels.show.major_versions'
       view_detail: 渠道详情
-      custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型。
+      custom_fields_invalid_json_format: 自定义字段值无法正确显示，请使用 JSON 数组，不是字符串类型
       app_was_archived: 应用已归档仅限只读操作
     new:
       title: 上传应用
@@ -550,15 +549,17 @@ zh-CN:
       build_version_hint: Android 上传时必填
     index:
       upload: 上传调试文件
+      upload_with_platform: 上传调试文件 · %{platform}
       uploaded_at: 上传于%{time}前
       proguard: Proguard
       dsym: dSYM
       processing: 解析中
+      parse_failed: 解析失败
       files_count: "%{count} 个文件"
       libraries_count: "%{count} 个库"
       empty:
-        proguard: 还没有上传 Proguard 映射文件。
-        dsym: 还没有上传 dSYM 文件。
+        proguard: 还没有上传 Proguard 映射文件
+        dsym: 还没有上传 dSYM 文件
     show:
       title: "%{device} %{version} 调试文件"
       name: 应用名称
@@ -571,6 +572,7 @@ zh-CN:
       missing_file: 调试文件遗失
       download: 下载
       reprocess: 重新解析
+      parse_failed: 解析失败
       main_target: 主项目
       arch: 架构
       target: 名称
@@ -579,7 +581,7 @@ zh-CN:
       files: 文件
     device:
       processing: 调试文件的解析工作正在后台运行中，请耐心等待 ...
-      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常。
+      refresh_page: 如果长时间没有发生变化，请尝试刷新本页面。多次刷新还是显示本信息请到管理员面板查看"后台任务"是否有异常
       reparse_required: 无法解析包名，缺失或需要重新解析
       main_target: 主项目
       arch: 架构
@@ -605,13 +607,13 @@ zh-CN:
           XCode Release 编译默认会生成 dSYM 文件，而 Debug 编译默认不会生成，需要在 "Build Settings" 中的 "Build Options" 设置:
           <code>Debug Information Format = "DWARF with dSYM File"</code>
         </p>
-        <p>如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载。</p>
+        <p>如果确认非 Debug 构建后在 XCode Organizer 的 Archives 里选择刚生成的版本后在右侧菜单找到 "Download Debug Symbols" 并点击下载</p>
 
         <h5>Android</h5>
         <p>
           通常指的是 Mapping Files，主要用于被
           <a href="https://developer.android.com/studio/build/shrink-code?hl=zh-cn">proguard 混淆</a>
-          后代码复原使用。如果使用了 tinker 还可以生成的 AndroidManifest.xml 和 R.txt 等文件也做一起压缩处理。
+          后代码复原使用。如果使用了 tinker 还可以生成的 AndroidManifest.xml 和 R.txt 等文件也做一起压缩处理
         </p>
   teardowns:
     title: 应用解包
@@ -796,7 +798,7 @@ zh-CN:
           <p>
             UDID 全称 Unique Device Identifier 是苹果设备唯一且独一无二的识别码，iOS 7 之前可以从应用获取，
             之后版本不再允许从应用内随意获取，iOS 的应用打包如使用 AdHoc 的方式签名必须设置设备白名单来保证设备测试的安全性
-            （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取。
+            （说人话就是不允许在非苹果应用市场分发），因此需要通过外部安装描述文件的方式单次授权获取
           </p>
           <strong>获取步骤</strong>
           <ol class="list-decimal px-5">
@@ -848,9 +850,9 @@ zh-CN:
       title: 获取设备 UDID 描述文件
       organization: 苹果 UDID 授权服务
       description: |
-        ↑↑↑↑ 显示"未签名"或"未验证"属于正常情况。
+        ↑↑↑↑ 显示"未签名"或"未验证"属于正常情况
 
-        描述文件安装后获取本机设备 UDID 后会自动删除掉，请放心安装。
+        描述文件安装后获取本机设备 UDID 后会自动删除掉，请放心安装
         本次授权由 %{name} 发起请求: %{url}
 
   web_hooks:
@@ -938,7 +940,7 @@ zh-CN:
         <ol class="list-decimal px-5">
           <li>
             在 iOS 9 以上版本，苹果对企业签名的应用做了运行限制。请安装后进 "设置" - "通用" - "描述文件"，
-            选择该应用对应的企业证书，点击文字 "信任企业开发者"。
+            选择该应用对应的企业证书，点击文字 "信任企业开发者"
           </li>
           <li>受苹果系统生态限制，安装 AdHoc 版本前请确认已经<strong>卸载</strong>应用商店安装的应用，否则无法进行安装！！</li>
         </ol>
@@ -948,7 +950,7 @@ zh-CN:
         <ol class="list-decimal px-5">
           <li>
             在 iOS 系统中苹果为了限制应用只在 AppStore 应用商店分发，对开发测试及上架的应用设计了签名校验机制。
-            签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装。
+            签名证书自签发之日起，有效期为一年。过期后需要重新生成后再重新签名应用后才能继续安装
           </li>
           <li>告知应用的开发人员，去苹果开发者网站重新生成签名证书并重新签名打包上传就能解决。</li>
           <li>重新生成签名证书不会对之前的应用有任何效果，也就是一旦过期永远都是过期，除非重新签名。</li>
@@ -1058,11 +1060,12 @@ zh-CN:
         empty_url: 网络钩子 URL 不能为空
         send_failed: "发送网络钩子失败 %{url}: %{error}"
     debug_file:
-      success: 调试文件 %{id} 解析完成，3 秒后自动刷新本页面
+      success: 调试文件 %{id} 解析完成
       failures:
         not_found_file: 遇到玄学问题造成无法找到调试文件，解析失败
         not_matched_bundle_id: "现有应用并不包含上传 bundle id: %{bundle_id}"
         unknown_format: 上传的调试文件类型识别错误
+        unknown_parse: "解析调试文件时出现未知错误: %{message}"
     backup:
       success: "%{key} 备份创建完成"
       failures:
@@ -1171,7 +1174,7 @@ zh-CN:
     registrations:
       new:
         error: 错误！
-        register_closed: 服务没有开放注册功能！请联系管理员开通账户。
+        register_closed: 服务没有开放注册功能！请联系管理员开通账户
         register: 注册
       edit:
         change_appearance: 修改外观
