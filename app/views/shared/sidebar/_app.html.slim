@@ -1,30 +1,18 @@
 - presenter = sidebar_presenter(app)
 - schemes = presenter.schemes.to_a
 
-/ li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right" 
-/   = link_to app_path(app) do
-/     = app_icon_tag app.recently_release, class: 'size-6'
-/     = tag.p app.name, class: 'font-bold text-base  d-is-drawer-close:hidden'
-
-= sidebar_link_to 'fa-solid fa-th', app_path(app), text: t('apps.sidebar.dashboard')
-
+li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right" 
+  = link_to app_path(app) do
+    = app_icon_tag app.recently_release, class: 'size-6'
+    = tag.p app.name, class: 'font-bold text-base  d-is-drawer-close:hidden'
+  
+.d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
 = sidebar_link_to 'fa-solid fa-cubes', app_schemes_path(app), text: t('apps.sidebar.schemes')
-
-/ .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
-/ li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden" = t('apps.sidebar.schemes')
-/ - schemes.each do |scheme|
-/   li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right"
-/     = link_to app_scheme_path(app, scheme), class: 'text-center' do
-/       = tag.p scheme.name[0], class: 'font-bold text-justify text-base d-is-drawer-open:hidden'
-/       = tag.p scheme.name, class: 'text-base d-is-drawer-close:hidden'
-
-/ .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
-/ li class="mt-2 ml-4 font-bold text-base pb-2 d-is-drawer-close:hidden" = t('toolbox_section')
 = sidebar_link_to 'fa-solid fa-bug', app_debug_files_path(app), text: t('debug_files.title')
 
 - if current_user&.manage?(app: app)
   .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
-  li class="mt-2 ml-4 font-bold text-md pb-2 d-is-drawer-close:hidden" = t('admin_section')
+  li class="mt-2 ml-4 font-bold text-md pb-2 d-is-drawer-close:hidden" = t('apps.sidebar.management')
   = sidebar_link_to 'fa-solid fa-anchor', app_web_hooks_path(app), text: t('web_hooks.title')
 
   - if current_user.admin?
