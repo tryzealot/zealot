@@ -9,6 +9,7 @@ li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right"
 .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
 = sidebar_link_to 'fa-solid fa-cubes', app_schemes_path(app), text: t('apps.sidebar.schemes')
 = sidebar_link_to 'fa-solid fa-bug', app_debug_files_path(app), text: t('debug_files.title')
+= sidebar_link_to 'fa-solid fa-layer-group', app_teardowns_path(app), text: t('teardowns.title')
 
 - if current_user&.manage?(app: app)
   .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"

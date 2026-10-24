@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 module TeardownHelper # rubocop:disable Metrics/ModuleLength
+  # The teardown list and its records are reachable both globally and inside an
+  # app, so the target depends on where the page was opened.
+  def teardowns_index_path(app: nil)
+    app ? app_teardowns_path(app) : teardowns_path
+  end
+
+  def teardown_path_for(metadata, app: nil)
+    app ? app_teardown_path(app, metadata) : teardown_path(metadata)
+  end
+
   def teardown_owner?(metadata)
     return false unless current_user
     return true if current_user.manage?
