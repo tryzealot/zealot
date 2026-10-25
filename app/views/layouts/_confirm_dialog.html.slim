@@ -1,0 +1,21 @@
+dialog#confirm-dialog.d-modal.d-modal-bottom.md:d-modal-middle[
+  data-controller="confirm"
+  data-confirm-cancel-text-value=t('modals.buttons.cancel')
+  data-confirm-confirm-text-value=t('modals.buttons.confirm')
+  data-action="close->confirm#closed click->confirm#backdropClick"
+]
+  .d-modal-box
+    h3.text-lg.font-bold.hidden data-confirm-target="title"
+    .py-4
+      p data-confirm-target="message"
+    .d-modal-action
+      button.d-btn[
+        type="button"
+        data-confirm-target="cancel"
+        data-action="click->confirm#no"
+      ] = t('modals.buttons.cancel')
+      button.d-btn.d-btn-error[
+        type="button"
+        data-confirm-target="confirm"
+        data-action="click->confirm#yes"
+      ] = t('modals.buttons.confirm')
