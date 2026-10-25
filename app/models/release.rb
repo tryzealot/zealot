@@ -103,9 +103,17 @@ class Release < ApplicationRecord
 
   def array_changelog(default_template: true)
     return empty_changelog(default_template) if changelog.blank?
-    return [{'message' => changelog.to_s}] unless changelog.is_a?(Array) || changelog.is_a?(Hash)
 
-    changelog
+    case changelog
+    when Array
+      changelog.map do |commit|
+        commit.is_a?(Hash) ? commit : { 'message' => commit.to_s }
+      end
+    when Hash
+      [changelog]
+    else
+      [{ 'message' => changelog.to_s }]
+    end
   end
 
   def text_changelog(default_template: true, head_line: false, field: 'message')
@@ -251,7 +259,8 @@ class Release < ApplicationRecord
 
   def convert_changelog
     if json_string?(changelog)
-      self.changelog = JSON.parse(changelog)
+      parsed = JSON.parse(changelog)
+      self.changelog = parsed.is_a?(Hash) ? [parsed] : parsed
     elsif changelog.blank?
       self.changelog = []
     elsif changelog.is_a?(String)
@@ -260,21 +269,30 @@ class Release < ApplicationRecord
         next if message.blank?
 
         message = message[1..-1].strip if message.start_with?('-')
-        hash << { message: message }
+        hash << { 'message' => message }
       end
       self.changelog = hash
+    elsif changelog.is_a?(Array)
+      self.changelog = changelog
+    elsif changelog.is_a?(Hash)
+      self.changelog = [changelog]
     else
-      self.changelog ||= []
+      self.changelog = [{ 'message' => changelog.to_s }]
     end
   end
 
   def convert_custom_fields
     if json_string?(custom_fields)
-      self.custom_fields = JSON.parse(custom_fields)
+      parsed = JSON.parse(custom_fields)
+      self.custom_fields = parsed.is_a?(Hash) ? [parsed] : parsed
     elsif custom_fields.blank?
       self.custom_fields = []
+    elsif custom_fields.is_a?(Array)
+      self.custom_fields = custom_fields
+    elsif custom_fields.is_a?(Hash)
+      self.custom_fields = [custom_fields]
     else
-      self.custom_fields ||= []
+      self.custom_fields = []
     end
   end
 
@@ -315,9 +333,11 @@ class Release < ApplicationRecord
   end
 
   def json_string?(value)
-    JSON.parse(value)
-    true
-  rescue
+    return false unless value.is_a?(String)
+
+    parsed = JSON.parse(value)
+    parsed.is_a?(Array) || parsed.is_a?(Hash)
+  rescue JSON::ParserError, TypeError
     false
   end
 

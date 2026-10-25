@@ -49,10 +49,11 @@
                 p class="text-sm mb-2 text-base-content/80"
                   = t('dashboard.timeline.upload_auto_version_release', version: release.version)
 
-              - if release.changelog.present? && release.changelog.any?
+              - changelog = release.array_changelog(default_template: false)
+              - if changelog.present?
                 div class="text-base-content/90 my-2"
                   ul class="list-inline items-center"
-                    - release.changelog.each do |commit|
+                    - changelog.each do |commit|
                       li class="flex flex-wrap justify-items-end items-center gap-x-2 gap-y-1"
                         span class="font-medium" = commit['message'] || commit[:message]
                         - if commit['author'] || commit[:author]
