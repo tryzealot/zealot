@@ -7,14 +7,11 @@ ruby '4.0.7'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'puma', '~> 8.0.2'
-gem 'rails', '~> 8.1.3'
+gem 'rails', '~> 8.1.4'
 gem 'rails-i18n', '~> 8.1.0'
 gem 'rack-cors', '~> 3.0.0'
 gem 'rack', '>= 3.1.18'
-# Pin json < 3: json 3.x made JSON.parse options keyword-only, which breaks
-# ActiveSupport::JSON.decode on Rails 8.1.3.1 (rails/rails#58685). Remove once
-# a Rails release ships the backport (rails/rails#58601).
-gem 'json', '< 3'
+gem 'json', '< 4'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
