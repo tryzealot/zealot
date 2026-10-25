@@ -1,7 +1,10 @@
 import { application } from "./application"
 
-import GlobalController from "./global_controller"
-application.register("global", GlobalController)
+import DrawerController from "./drawer_controller"
+application.register("drawer", DrawerController)
+
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)
 
 import ClipboardCenterController from "./clipboard_center_controller"
 application.register("clipboard-center", ClipboardCenterController)

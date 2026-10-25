@@ -18,24 +18,31 @@ html lang="#{I18n.locale}" data-theme=active_theme
     == csrf_meta_tags
 
   body[
-    data-controller="global"
-    data-global-drawer-status-key-value=drawer_status_key
-    data-global-appearance-value=active_appearance
-    data-global-themes-value=site_themes
+    data-controller="theme"
+    data-theme-appearance-value=active_appearance
+    data-theme-themes-value=site_themes
   ]
     == render 'layouts/announcement_bar'
-    .d-drawer.bg-base-100 class="md:d-drawer-open"
+    .d-drawer.bg-base-100[
+      class="md:d-drawer-open"
+      data-controller="drawer"
+      data-drawer-open-value=drawer_status.to_s
+      data-drawer-status-key-value=drawer_status_key
+    ]
       input#zealot-drawer.d-drawer-toggle[
         type="checkbox" 
         checked=drawer_status
-        data-global-target="drawer" 
-        data-action="change->global#storeDrawerStatus"
+        data-drawer-target="toggle" 
+        data-action="change->drawer#toggle"
       ]
       div class="d-drawer-content flex flex-col min-h-screen"
         == render 'layouts/navigation'
         == render 'layouts/content'
         == render 'layouts/footer'
-      div class="d-drawer-side d-is-drawer-close:overflow-visible"
+      div[
+        class="d-drawer-side d-is-drawer-close:overflow-visible"
+        data-action="click->drawer#closeOnMobileLinkClick"
+      ]
         == render 'layouts/sidebar'
 
     == render 'layouts/notifications'

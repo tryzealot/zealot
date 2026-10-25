@@ -14,16 +14,16 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   div class="d-navbar-end flex-1 md:flex-3 gap-1.5"
     - unless devise_page?
       - if user_signed_in?
-        button.d-btn.d-btn-soft.d-btn-circle.s-9 aria-label=t('donate') data-action='global#showSponsorModal'
+        = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('donate') }, data: { turbo_stream: true } do
           i.fa-regular.fa-heart.text-red-500
       - else
         / Mobile: circle button
         .md:hidden
-          button.d-btn.d-btn-soft.d-btn-circle.s-9 data-action='global#showSponsorModal'
+          = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('donate') }, data: { turbo_stream: true } do
             i.fa-regular.fa-heart.text-red-500
         / Desktop: default button with text
         .hidden.md:block
-          button.d-btn.d-btn-soft data-action='global#showSponsorModal'
+          = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft', data: { turbo_stream: true } do
             i.fa-regular.fa-heart.text-red-500
             = t('donate')
     - if user_signed_in?

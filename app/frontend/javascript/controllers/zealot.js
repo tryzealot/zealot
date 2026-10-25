@@ -11,7 +11,7 @@ const Zealot = {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
   },
   get isDevelopment() {
-    return import.meta.env.RAILS_ENV === DEVELOPMENT_ENV
+    return import.meta.env?.RAILS_ENV === DEVELOPMENT_ENV
   }
 }
 
