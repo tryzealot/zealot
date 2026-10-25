@@ -269,10 +269,6 @@ en:
       title: Jobs
       index:
         title: :admin.background_jobs.title
-    database_analytics:
-      title: Database analytics
-      index:
-        title: :admin.database_analytics.title
     logs:
       title: Service logs
       index:

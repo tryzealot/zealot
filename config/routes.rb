@@ -173,7 +173,6 @@ Rails.application.routes.draw do
       resources :apple_teams, only: %i[ edit update ]
       resources :background_jobs, only: :index
       resources :system_info, only: :index
-      resources :database_analytics, only: :index
       resources :apple_keys, except: %i[ edit update ] do
         member do
           put :sync_devices
@@ -214,7 +213,6 @@ Rails.application.routes.draw do
       end
 
       mount GoodJob::Engine, at: 'jobs', as: :jobs
-      mount PgHero::Engine, at: 'pghero', as: :pghero
     end
   end
 

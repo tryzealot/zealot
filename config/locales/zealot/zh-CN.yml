@@ -263,10 +263,6 @@ zh-CN:
       title: 后台任务
       index:
         title: :'admin.background_jobs.title'
-    database_analytics:
-      title: 数据库分析
-      index:
-        title: :'admin.database_analytics.title'
     logs:
       title: 服务日志
       index:
