@@ -74,7 +74,6 @@ gem 'plist', '~> 3.7.2'
 ## OS
 gem 'sys-filesystem', '~> 1.6.0'
 gem 'vmstat', '~> 2.3.0'
-gem 'pghero', '~> 4.0.1'
 
 ## Exception handler
 gem 'sentry-ruby', '~> 7.1.0'
