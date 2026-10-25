@@ -24,6 +24,9 @@ application.register("bulk-operation", BulkOperationController)
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import ConfirmController from "./confirm_controller"
+application.register("confirm", ConfirmController)
+
 import SwapIconController from "./swap_icon_controller"
 application.register("swap-icon", SwapIconController)
 
