@@ -1,6 +1,6 @@
-import { defineConfig } from "vite"
-import ViteRails from "vite-plugin-rails"
-import tailwindcss from "@tailwindcss/vite"
+import { defineConfig } from "vite";
+import ViteRails from "vite-plugin-rails";
+import tailwindcss from "@tailwindcss/vite";
 import * as path from "path";
 
 export default defineConfig({
@@ -10,18 +10,18 @@ export default defineConfig({
       envVars: { RAILS_ENV: "development" },
       envOptions: { defineOn: "import.meta.env" },
       fullReload: {
-        additionalPaths: [
-          "app/components/**/*",
-          "app/helpers/**/*",
-        ],
+        additionalPaths: ["app/components/**/*", "app/helpers/**/*"],
         delay: 200,
       },
     }),
   ],
   resolve: {
     alias: {
-      '~fontawesome': path.resolve(__dirname, 'node_modules/@fortawesome/fontawesome-free'),
-    }
+      "~fontawesome": path.resolve(
+        import.meta.dirname,
+        "node_modules/@fortawesome/fontawesome-free",
+      ),
+    },
   },
   build: { sourcemap: false },
-})
+});
