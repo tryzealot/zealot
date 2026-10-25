@@ -14,7 +14,7 @@ gem 'rack', '>= 3.1.18'
 # Pin json < 3: json 3.x made JSON.parse options keyword-only, which breaks
 # ActiveSupport::JSON.decode on Rails 8.1.3.1 (rails/rails#58685). Remove once
 # a Rails release ships the backport (rails/rails#58601).
-gem 'json', '< 4'
+gem 'json', '< 3'
 
 # DB & Cache
 gem 'pg', '>= 0.18', '< 2.0'
