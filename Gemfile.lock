@@ -183,7 +183,7 @@ GEM
       tzinfo
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.15.0)
+    faraday (2.15.1)
       faraday-net_http (>= 2.0, < 3.6)
       json
       logger
@@ -351,7 +351,8 @@ GEM
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
     mutex_m (0.3.0)
-    net-http (0.9.1)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
       uri (>= 0.11.1)
     net-imap (0.6.8)
       date
@@ -760,7 +761,7 @@ DEPENDENCIES
   devise-passwordless (~> 1.1.0)
   dotenv-rails
   faker
-  faraday (~> 2.15.0)
+  faraday (~> 2.15.1)
   friendly_id (~> 5.7.0)
   gitlab_omniauth-ldap (~> 2.3.0)
   good_job (~> 4.23.0)
