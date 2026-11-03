@@ -48,7 +48,7 @@ gem 'webp-ffi', '~> 0.4.0'
 # `bundle install` runs fail on Ruby 4.0 (ostruct is no longer a default gem).
 gem 'rake', '~> 13.2'
 gem 'rails-settings-cached', '~> 2.10.0'
-gem 'app-info', '~> 3.4.0'
+gem 'app-info', '~> 3.4.1'
 gem 'faraday', '~> 2.15.1'
 gem 'rqrcode', '~> 3.2.0'
 
