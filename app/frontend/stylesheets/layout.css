@@ -67,7 +67,7 @@
 @layer components {
   /* Breadcrumbs */
   .breadcrumbs {
-    @apply d-menu d-menu-horizontal px-1 gap-1 flex-nowrap items-center overflow-x-auto;
+    @apply flex flex-row items-center px-1 gap-1 flex-nowrap;
 
     > li {
       @apply inline-flex flex-row items-center whitespace-nowrap;
