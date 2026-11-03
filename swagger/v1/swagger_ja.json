@@ -1,0 +1,3405 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Zealot API",
+    "version": "v1.4",
+    "description": "本ドキュメントには API をテストする機能は含まれていません。API の動作検証には以下のツールを推奨します:\n\n- [cURL](https://curl.se/) (推奨、コマンドライン)\n- [Bruno](https://www.usebruno.com/)\n- [Postman](https://www.postman.com/downloads/)\n- Web ブラウザ（ヘッダーやリクエスト本文の送信が不要な場合）\n\nクライアントの準備が整ったら、`GET {host}/api/version` へリクエストを送信して動作を確認できます:\n\n```json\n{\n  \"version\": \"6.2.1\",\n  \"vcs_ref\": \"effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d\",\n  \"build_date\": \"2024-05-23T06:04:48.989Z\"\n}\n```\n\n## 認証\n\n本 API では「パーソナルアクセストークン」による認証のみをサポートしています。\nすべてのトークンは Zealot ユーザーに紐付けられており、リクエストの `token` クエリパラメータとして渡します。\n\n例:\n\n```\nhttps://tryzealot.ews.im/api/users?token={token}\n```\n\n### パーソナルアクセストークン\n\nパーソナルアクセストークン（PAT）は[ユーザー設定](https://zealot.ews.im/docs/user-guide/user_settings)から取得できます。\n"
+  },
+  "servers": [
+    {
+      "url": "https://tryzealot.ews.im/api",
+      "description": "デモサーバー"
+    }
+  ],
+  "paths": {
+    "/apps": {
+      "get": {
+        "summary": "アプリ一覧",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "スコープ別にページネーションおよび作成日降順（新しい順）でアプリを一覧表示",
+        "operationId": "listApps",
+        "parameters": [
+          {
+            "default": "all",
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "スコープ / all, active, archived で指定可能な値",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "アクティブなアプリの一覧を返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppIndex"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "アプリ作成",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "アプリを作成",
+        "operationId": "createApp",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AppOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "アプリを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/version_exist": {
+      "get": {
+        "summary": "バージョンビルド存在確認",
+        "security": [],
+        "tags": [
+          "アプリ"
+        ],
+        "description": "指定されたクエリによりリリースが存在するか確認します。以下の 2 組の組み合わせに対応しています:\n\n- `bundle_id`、`release_version`、`build_verion`\n- `bundle_id`、`git_commit`\n",
+        "operationId": "versionExistApps",
+        "parameters": [
+          {
+            "required": true,
+            "name": "channel_key",
+            "in": "query",
+            "description": "チャンネルキー",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "name": "bundle_id",
+            "in": "query",
+            "description": "iOS の場合は `bundle_id`、Android の場合は `package_name`",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "git_commit",
+            "in": "query",
+            "required": false,
+            "description": "Git コミット SHA",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "release_version",
+            "in": "query",
+            "required": false,
+            "description": "リリースバージョン",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": false,
+            "description": "ビルドバージョン",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "アプリを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/versions": {
+      "get": {
+        "summary": "バージョンビルド一覧取得",
+        "security": [],
+        "tags": [
+          "アプリ"
+        ],
+        "description": "単一チャンネルのアップロード済みバージョンおよび下位バージョン一覧を照会",
+        "operationId": "listAppVersions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ビルドに基づくアプリの一覧を返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/latest": {
+      "get": {
+        "summary": "最新ビルド取得",
+        "security": [],
+        "tags": [
+          "アプリ"
+        ],
+        "description": "アプリの単一チャンネルにおける最新バージョン一覧をアップロード日時の降順で照会",
+        "operationId": "getLatestApp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "name": "bundle_id",
+            "in": "query",
+            "required": false,
+            "description": "iOS の場合は `bundle_id`、Android の場合は `package_name`",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "release_version",
+            "in": "query",
+            "required": false,
+            "description": "リリースバージョン",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": false,
+            "description": "ビルドバージョン",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "アプリ ID に基づく最新ビルドを返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionsIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/upload": {
+      "post": {
+        "summary": "アプリビルドのアップロード",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "iOS、Android、macOS、Windows、Linux アプリをアップロード",
+        "operationId": "uploadApp",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "アプリをアップロード",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadAppOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{id}": {
+      "get": {
+        "summary": "アプリ取得",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "アプリ詳細を取得",
+        "operationId": "getApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "アプリを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "アプリ更新",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "アプリ名を変更",
+        "operationId": "updateApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AppOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "アプリを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "アプリ削除",
+        "tags": [
+          "アプリ"
+        ],
+        "description": "指定した ID のアプリ全データ（スキーム、チャンネル、ビルド、デバッグファイル、その他関連リソースを含む）を削除",
+        "operationId": "destroyApp",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "アプリを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{scheme_id}/channels": {
+      "get": {
+        "summary": "チャンネル取得",
+        "tags": [
+          "チャンネル"
+        ],
+        "description": "チャンネルを取得",
+        "operationId": "getChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリスキーム ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "チャンネルを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Channel"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "チャンネル作成",
+        "tags": [
+          "チャンネル"
+        ],
+        "description": "スキームのチャンネルを作成",
+        "operationId": "createChannel",
+        "parameters": [
+          {
+            "name": "scheme_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリスキーム ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ChannelOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "チャンネルを作成",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channels/{id}": {
+      "put": {
+        "summary": "チャンネル更新",
+        "tags": [
+          "チャンネル"
+        ],
+        "description": "チャンネルを更新",
+        "operationId": "updateChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChannelOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ChannelOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "チャンネルを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "チャンネル削除",
+        "tags": [
+          "チャンネル"
+        ],
+        "description": "スキームのチャンネルを削除",
+        "operationId": "deleteChannel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "チャンネルを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators/{user_id}": {
+      "get": {
+        "summary": "コラボレーター取得",
+        "tags": [
+          "コラボレーター"
+        ],
+        "description": "コラボレーターのメタデータを取得",
+        "operationId": "getCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "ユーザー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "コラボレーターを返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "コラボレーターのロール更新",
+        "tags": [
+          "コラボレーター"
+        ],
+        "description": "コラボレーターのロールを更新",
+        "operationId": "updateCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "ユーザー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "コラボレーターを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "アプリからコラボレーターを削除",
+        "tags": [
+          "コラボレーター"
+        ],
+        "description": "アプリからコラボレーターを削除",
+        "operationId": "deleteCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "ユーザー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "コラボレーターを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/collaborators": {
+      "post": {
+        "summary": "アプリにコラボレーターを追加",
+        "tags": [
+          "コラボレーター"
+        ],
+        "description": "アプリにコラボレーターを追加",
+        "operationId": "createCollaborator",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "description": "ユーザー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CollaboratorOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "コラボレーターを作成",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collaborator"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files": {
+      "get": {
+        "summary": "デバッグファイル一覧",
+        "security": [],
+        "tags": [
+          "デバッグファイル"
+        ],
+        "description": "アプリのチャンネルキーでデバッグファイルを一覧表示",
+        "operationId": "listDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/pageParam"
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "デバッグファイルの一覧を返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DebugFile"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/download": {
+      "get": {
+        "summary": "デバッグファイルダウンロード",
+        "security": [],
+        "tags": [
+          "デバッグファイル"
+        ],
+        "description": "単一の iOS または Android デバッグファイルをダウンロードします。\n\n`channel_key` と `release_version` を必須条件とし、`build_version`\nパラメータを渡さない場合、`order` を使用してソート条件に一致する最初のデバッグファイルアドレスを取得できます。ソート方法:\n\n- `version`: 最新バージョン\n- `upload_date`: 最終アップロード日時\n",
+        "operationId": "downloadDebugFiles",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/channelKeyParam"
+          },
+          {
+            "required": true,
+            "name": "release_version",
+            "in": "query",
+            "description": "リリースバージョン",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "build_version",
+            "in": "query",
+            "required": false,
+            "description": "ビルドバージョン",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "default": "version",
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "並び順 / version, upload_date で指定可能な値",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "バイナリファイル URL へリダイレクト",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "バイナリファイル URL へリダイレクト"
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし"
+          }
+        }
+      }
+    },
+    "/debug_files/{id}": {
+      "get": {
+        "summary": "デバッグファイル取得",
+        "tags": [
+          "デバッグファイル"
+        ],
+        "description": "デバッグファイルを取得",
+        "operationId": "getDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "デバッグファイルを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "デバッグファイル削除",
+        "tags": [
+          "デバッグファイル"
+        ],
+        "description": "デバッグファイル ID および全データ（dSYM または ProGuard ファイルを含む）を削除",
+        "operationId": "destroyDebugFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "デバッグファイルを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug_files/upload": {
+      "post": {
+        "summary": "デバッグファイルアップロード",
+        "tags": [
+          "デバッグファイル"
+        ],
+        "description": "zip 形式でアーカイブされた dSYM または ProGuard ファイルをアップロードします:\n\n- `iOS`: zip 圧縮された dSYM ファイル\n- `Android`: mapping.txt、R.txt、または AndroidManifest.xml ファイルを含む zip 圧縮ファイル\n",
+        "operationId": "uploadDebugFile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "デバッグファイルをアップロード",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebugFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/DebugFileOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "ヘルスチェック結果を取得",
+        "security": [],
+        "tags": [
+          "ヘルスチェック"
+        ],
+        "description": "",
+        "operationId": "gethealthintext",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "healthy"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "unhealthy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health.json": {
+      "get": {
+        "summary": "JSON 形式でヘルスチェック結果を取得",
+        "security": [],
+        "tags": [
+          "ヘルスチェック"
+        ],
+        "description": "",
+        "operationId": "gethealthinjson",
+        "responses": {
+          "200": {
+            "description": "healthly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unhealth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/releases/{id}": {
+      "put": {
+        "summary": "ビルドメタデータ更新",
+        "tags": [
+          "リリース"
+        ],
+        "description": "アプリバージョンのビルド、カスタムフィールド、変更履歴などを更新",
+        "operationId": "updateRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "アプリビルド詳細",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Release"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "ビルド削除",
+        "tags": [
+          "リリース"
+        ],
+        "description": "アプリのビルドを削除",
+        "operationId": "destroyRelease",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ビルドを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_id}/schemes": {
+      "get": {
+        "summary": "スキーム取得",
+        "tags": [
+          "スキーム"
+        ],
+        "description": "アプリのスキームを取得",
+        "operationId": "getScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "スキームを取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Scheme"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "アプリスキーム作成",
+        "tags": [
+          "スキーム"
+        ],
+        "description": "アプリのスキームを作成",
+        "operationId": "createScheme",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "アプリ ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemeOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "スキームを作成",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemes/{id}": {
+      "put": {
+        "summary": "スキーム更新",
+        "tags": [
+          "スキーム"
+        ],
+        "description": "アプリのスキームを更新",
+        "operationId": "updateScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemeOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemeOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "スキームを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scheme"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "スキーム削除",
+        "tags": [
+          "スキーム"
+        ],
+        "description": "アプリからスキームを削除",
+        "operationId": "deleteScheme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "スキームを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "ユーザー一覧",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "機密情報（パスワード）を除いたユーザー一覧を表示",
+        "operationId": "listUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ユーザーの一覧を返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "ユーザー作成",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーを作成",
+        "operationId": "createUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UserOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "ユーザーを作成",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "ユーザー取得",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーメタデータ、個人データ、カスタマイズ設定を取得",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ユーザーを返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "ユーザー更新",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーの個別設定、パスワードなどを更新",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserOptions"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UserOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ユーザーを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "ユーザー削除",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーを削除",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ユーザーを削除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Destroyed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "summary": "ユーザー検索",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "指定したメールアドレスでユーザーを検索",
+        "operationId": "searchUser",
+        "parameters": [
+          {
+            "in": "query",
+            "required": true,
+            "name": "email",
+            "description": "メールアドレス",
+            "schema": {
+              "type": "path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ユーザーの一覧を返却",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/lock": {
+      "get": {
+        "summary": "ユーザーをロック",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーをロックしてログインを停止",
+        "operationId": "lockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "ユーザーを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/unlock": {
+      "delete": {
+        "summary": "ユーザーのロック解除",
+        "tags": [
+          "ユーザー"
+        ],
+        "description": "ユーザーのロックを解除してログインを有効化",
+        "operationId": "unlockUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "プライマリキー ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "ユーザーを更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証失敗レスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "リソースなし",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "バージョン情報を取得",
+        "security": [],
+        "tags": [
+          "バージョン"
+        ],
+        "description": "",
+        "operationId": "getVersion",
+        "responses": {
+          "200": {
+            "description": "バージョン情報を取得",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Version"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "token": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "query",
+        "description": "ユーザートークン"
+      }
+    },
+    "parameters": {
+      "channelKeyParam": {
+        "in": "query",
+        "name": "channel_key",
+        "required": true,
+        "description": "チャンネルキー",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "appScopeParam": {
+        "scope": {
+          "in": "query",
+          "name": "scope",
+          "required": false,
+          "description": "Translation missing: ja.api.parameters.app_scope",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "pageParam": {
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "description": "ページ番号",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "perPageParam": {
+        "in": "query",
+        "name": "per_page",
+        "required": false,
+        "description": "1 ページあたりの件数",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 25
+        }
+      }
+    },
+    "schemas": {
+      "AppIndex": {
+        "description": "一覧形式で返されるアプリ",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "archived": {
+            "type": "boolean",
+            "example": false
+          },
+          "schemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scheme"
+            }
+          }
+        }
+      },
+      "AppVersionsIndex": {
+        "description": "一覧形式で返されるアプリ",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "app_name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "app": {
+            "$ref": "#/components/schemas/App"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          },
+          "releases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Release"
+            }
+          }
+        }
+      },
+      "App": {
+        "description": "アプリオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "schemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Scheme"
+            }
+          },
+          "collaborators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collaborator"
+            }
+          }
+        }
+      },
+      "Collaborator": {
+        "description": "コラボレーターオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2
+          },
+          "username": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "role": {
+            "type": "string",
+            "example": "developer"
+          }
+        }
+      },
+      "Scheme": {
+        "description": "アプリスキームオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Production"
+          },
+          "new_build_callout": {
+            "type": "boolean",
+            "example": true
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0
+          },
+          "channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Channel"
+            }
+          }
+        }
+      },
+      "Channel": {
+        "description": "アプリチャンネルオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 4
+          },
+          "name": {
+            "type": "string",
+            "example": "App Store"
+          },
+          "slug": {
+            "type": "string",
+            "example": "Sk3y"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "Android"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "*"
+          },
+          "git_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot"
+          },
+          "has_password": {
+            "type": "boolean",
+            "example": false
+          },
+          "download_filename_type": {
+            "type": "string",
+            "example": "original"
+          }
+        }
+      },
+      "Release": {
+        "description": "アプリのリリースビルドオブジェクト",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100
+          },
+          "app_name": {
+            "type": "string",
+            "example": "Zealot"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "im.ews.zealot"
+          },
+          "source": {
+            "type": "string",
+            "example": "API"
+          },
+          "branch": {
+            "type": "string",
+            "example": "develop"
+          },
+          "git_commit": {
+            "type": "string",
+            "example": "bc58e308dd1caf2226a402291839afbbdabcabf0"
+          },
+          "ci_url": {
+            "type": "string",
+            "example": "https://github.com/tryzealot/zealot/actions/runs/9211335126"
+          },
+          "size": {
+            "type": "integer",
+            "example": 392173
+          },
+          "platform": {
+            "type": "string",
+            "example": "iOS"
+          },
+          "device_type": {
+            "type": "string",
+            "example": "iPhone"
+          },
+          "icon_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/assets/zealot-icon-123e8c86.png"
+          },
+          "install_url": {
+            "type": "string",
+            "example": "https://tryzealot.ews.im/M9DJa/681/download"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            }
+          },
+          "text_changelog": {
+            "type": "string",
+            "example": "- bump 1.1\\n-n fixes bugs"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            }
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:00 +0800"
+          }
+        }
+      },
+      "ReleaseChangelog": {
+        "description": "リリースビルドの変更履歴",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-03-01 12:00:00 +0800"
+          },
+          "author": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "message": {
+            "type": "string",
+            "example": "fixes bugs"
+          }
+        }
+      },
+      "ReleaseCustomField": {
+        "description": "リリースビルドのカスタムフィールド",
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "example": "fa-solid fa-flag"
+          },
+          "name": {
+            "type": "string",
+            "example": "Country"
+          },
+          "value": {
+            "type": "string",
+            "example": "China"
+          }
+        }
+      },
+      "DebugFile": {
+        "description": "デバッグファイルオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 31
+          },
+          "app_name": {
+            "type": "string",
+            "example": "First App"
+          },
+          "device_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android"
+            ],
+            "example": "iOS"
+          },
+          "release_version": {
+            "type": "string",
+            "example": "3.2.1"
+          },
+          "build_version": {
+            "type": "string",
+            "example": "8621"
+          },
+          "file_url": {
+            "type": "string",
+            "example": "http://tryzealt.ews.im/debug_files/31/download"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataDSYM"
+                },
+                {
+                  "$ref": "#/components/schemas/DebugFileMetadataProguard"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "DebugFileMetadataProguard": {
+        "description": "メタデータ ProGuard オブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 100
+          },
+          "category": {
+            "type": "string",
+            "example": "Proguard"
+          },
+          "uuid": {
+            "type": "string",
+            "example": "2364df02-a44e-4859-9ea1-de25c93d54d5"
+          },
+          "package_name": {
+            "type": "string",
+            "example": "im.ews.zealot.android.example"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataProguardFile"
+            }
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:21 +0800"
+          }
+        }
+      },
+      "MetadataProguardFile": {
+        "description": "ProGuard ファイルオブジェクト",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "AndroidManitest.xml"
+          },
+          "size": {
+            "type": "integer",
+            "example": 49241
+          }
+        }
+      },
+      "DebugFileMetadataDSYM": {
+        "description": "メタデータ dSYM オブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "category": {
+            "type": "string",
+            "example": "dSYM"
+          },
+          "uuid": {
+            "type": "string",
+            "example": "2364df02-a44e-4859-9ea1-de25c93d54d5"
+          },
+          "bundle_id": {
+            "type": "string",
+            "example": "im.ews.zealot.iphone.example"
+          },
+          "name": {
+            "type": "string",
+            "example": "ExampleApp"
+          },
+          "extension": {
+            "type": "boolean",
+            "example": false
+          },
+          "size": {
+            "type": "integer",
+            "example": 32048613
+          },
+          "created_at": {
+            "type": "date",
+            "example": "2024-03-01 12:00:21 +0800"
+          }
+        }
+      },
+      "User": {
+        "description": "ユーザーオブジェクト",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 101
+          },
+          "username": {
+            "type": "string",
+            "example": "foo"
+          },
+          "email": {
+            "type": "string",
+            "example": "foo@example.com"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en",
+              "ja"
+            ],
+            "example": "zh-CN"
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ],
+            "example": "light"
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Asuncion",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Nuuk",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kyiv",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Yangon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ],
+            "example": "Etc/GMT+12"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "example": "member"
+          }
+        }
+      },
+      "Version": {
+        "description": "バージョンオブジェクト",
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "6.0.0"
+          },
+          "vcs_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d"
+          },
+          "build_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "2024-05-23T06:04:48.989Z"
+          }
+        }
+      },
+      "Health": {
+        "description": "ヘルスチェックオブジェクト",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "healthy"
+          }
+        }
+      },
+      "Unhealth": {
+        "description": "ヘルスチェックオブジェクト",
+        "type": "object",
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "unhealthy"
+          }
+        }
+      },
+      "ListAppOptions": {},
+      "UploadAppOptions": {
+        "description": "アプリアップロード用フォームデータオプション",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "チャンネルキー（空欄の場合は新規アプリを作成）"
+          },
+          "file": {
+            "type": "file",
+            "description": "アップロードするアプリバイナリファイル"
+          },
+          "name": {
+            "type": "string",
+            "description": "アプリ名（空欄の場合は解析されたメタデータのアプリ名を使用）"
+          },
+          "password": {
+            "type": "string",
+            "description": "アクセスパスワード（空欄の場合はパスワードを解除）"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "リリースタイプ（例: debug、beta、adhoc、release、enterprise など）"
+          },
+          "source": {
+            "type": "string",
+            "description": "アップロード元（デフォルトは `api`）"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "変更履歴（プレーンテキストまたは JSON 形式データ）"
+          },
+          "branch": {
+            "type": "string",
+            "description": "バージョン管理システムのブランチ名"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "Git コミット SHA ハッシュ値"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "CI サービスのビルド URL"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "JSON 形式のカスタムフィールド（アイコンは FontAwesome のみ対応）"
+          }
+        }
+      },
+      "AppOptions": {
+        "description": "アプリフォームデータ",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "アプリ名"
+          }
+        }
+      },
+      "SchemeOptions": {
+        "description": "アプリスキームフォームデータ",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "スキーム名"
+          },
+          "new_build_callout": {
+            "type": "boolean",
+            "default": true,
+            "description": "新規ビルド利用可能時に通知バナーを表示するかどうか"
+          },
+          "retained_builds": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "保持するビルド数（`0` で制限無効）"
+          }
+        }
+      },
+      "ChannelOptions": {
+        "description": "アプリチャンネルフォームデータ",
+        "type": "object",
+        "required": [
+          "name",
+          "device_type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "チャンネル名"
+          },
+          "device_type": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "harmonyos",
+              "macos",
+              "windows",
+              "linux"
+            ],
+            "description": "デバイスタイプ"
+          },
+          "slug": {
+            "type": "string",
+            "description": "チャンネルのスラッグ（未指定時はランダム生成）"
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "識別子検証設定（`*` で検証スキップ。iOS は `bundle_id`、Android は `package_name`）"
+          },
+          "git_url": {
+            "type": "string",
+            "description": "Git リポジトリ URL"
+          },
+          "password": {
+            "type": "string",
+            "description": "パスワードアクセスの有効化"
+          },
+          "download_filename_type": {
+            "type": "string",
+            "enum": [
+              "version_datetime",
+              "original_filename"
+            ],
+            "description": "ダウンロードファイル名形式"
+          }
+        }
+      },
+      "ReleaseOptions": {
+        "description": "アプリビルドメタデータフォームデータ",
+        "type": "object",
+        "properties": {
+          "build_version": {
+            "type": "string",
+            "description": "ビルドバージョン"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "リリースバージョン"
+          },
+          "release_type": {
+            "type": "string",
+            "description": "リリースタイプ（例: debug、beta、adhoc、release、enterprise など）"
+          },
+          "source": {
+            "type": "string",
+            "description": "アップロード元（デフォルトは `api`）"
+          },
+          "changelog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseChangelog"
+            },
+            "description": "変更履歴（プレーンテキストまたは JSON 形式データ）"
+          },
+          "branch": {
+            "type": "string",
+            "description": "バージョン管理システムのブランチ名"
+          },
+          "git_commit": {
+            "type": "string",
+            "description": "Git コミット SHA ハッシュ値"
+          },
+          "ci_url": {
+            "type": "string",
+            "description": "CI サービスのビルド URL"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReleaseCustomField"
+            },
+            "description": "JSON 形式のカスタムフィールド（アイコンは FontAwesome のみ対応）"
+          }
+        }
+      },
+      "CollaboratorOptions": {
+        "description": "アプリコラボレーターフォームデータ",
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "ロール名"
+          }
+        }
+      },
+      "UserOptions": {
+        "description": "ユーザーフォームデータ",
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "ユーザー名"
+          },
+          "email": {
+            "type": "string",
+            "description": "メールアドレス"
+          },
+          "password": {
+            "type": "string",
+            "description": "パスワード"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN",
+              "en",
+              "ja"
+            ],
+            "description": "言語"
+          },
+          "appearance": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark",
+              "auto"
+            ],
+            "description": "外観"
+          },
+          "timezone": {
+            "type": "string",
+            "enum": [
+              "Etc/GMT+12",
+              "Pacific/Pago_Pago",
+              "Pacific/Midway",
+              "Pacific/Honolulu",
+              "America/Juneau",
+              "America/Los_Angeles",
+              "America/Tijuana",
+              "America/Phoenix",
+              "America/Mazatlan",
+              "America/Denver",
+              "America/Guatemala",
+              "America/Chicago",
+              "America/Chihuahua",
+              "America/Mexico_City",
+              "America/Monterrey",
+              "America/Regina",
+              "America/Bogota",
+              "America/New_York",
+              "America/Indiana/Indianapolis",
+              "America/Lima",
+              "America/Halifax",
+              "America/Caracas",
+              "America/Guyana",
+              "America/La_Paz",
+              "America/Puerto_Rico",
+              "America/Santiago",
+              "America/St_Johns",
+              "America/Asuncion",
+              "America/Sao_Paulo",
+              "America/Argentina/Buenos_Aires",
+              "America/Montevideo",
+              "America/Nuuk",
+              "Atlantic/South_Georgia",
+              "Atlantic/Azores",
+              "Atlantic/Cape_Verde",
+              "Africa/Casablanca",
+              "Europe/London",
+              "Europe/Lisbon",
+              "Africa/Monrovia",
+              "Etc/UTC",
+              "Europe/Amsterdam",
+              "Europe/Belgrade",
+              "Europe/Berlin",
+              "Europe/Zurich",
+              "Europe/Bratislava",
+              "Europe/Brussels",
+              "Europe/Budapest",
+              "Europe/Copenhagen",
+              "Europe/Dublin",
+              "Europe/Ljubljana",
+              "Europe/Madrid",
+              "Europe/Paris",
+              "Europe/Prague",
+              "Europe/Rome",
+              "Europe/Sarajevo",
+              "Europe/Skopje",
+              "Europe/Stockholm",
+              "Europe/Vienna",
+              "Europe/Warsaw",
+              "Africa/Algiers",
+              "Europe/Zagreb",
+              "Europe/Athens",
+              "Europe/Bucharest",
+              "Africa/Cairo",
+              "Africa/Harare",
+              "Europe/Helsinki",
+              "Asia/Jerusalem",
+              "Europe/Kaliningrad",
+              "Europe/Kyiv",
+              "Africa/Johannesburg",
+              "Europe/Riga",
+              "Europe/Sofia",
+              "Europe/Tallinn",
+              "Europe/Vilnius",
+              "Asia/Baghdad",
+              "Europe/Istanbul",
+              "Asia/Kuwait",
+              "Europe/Minsk",
+              "Europe/Moscow",
+              "Africa/Nairobi",
+              "Asia/Riyadh",
+              "Europe/Volgograd",
+              "Asia/Tehran",
+              "Asia/Muscat",
+              "Asia/Baku",
+              "Europe/Samara",
+              "Asia/Tbilisi",
+              "Asia/Yerevan",
+              "Asia/Kabul",
+              "Asia/Almaty",
+              "Asia/Yekaterinburg",
+              "Asia/Karachi",
+              "Asia/Tashkent",
+              "Asia/Kolkata",
+              "Asia/Colombo",
+              "Asia/Kathmandu",
+              "Asia/Dhaka",
+              "Asia/Urumqi",
+              "Asia/Yangon",
+              "Asia/Bangkok",
+              "Asia/Jakarta",
+              "Asia/Krasnoyarsk",
+              "Asia/Novosibirsk",
+              "Asia/Shanghai",
+              "Asia/Chongqing",
+              "Asia/Hong_Kong",
+              "Asia/Irkutsk",
+              "Asia/Kuala_Lumpur",
+              "Australia/Perth",
+              "Asia/Singapore",
+              "Asia/Taipei",
+              "Asia/Ulaanbaatar",
+              "Asia/Tokyo",
+              "Asia/Seoul",
+              "Asia/Yakutsk",
+              "Australia/Adelaide",
+              "Australia/Darwin",
+              "Australia/Brisbane",
+              "Australia/Canberra",
+              "Pacific/Guam",
+              "Australia/Hobart",
+              "Australia/Melbourne",
+              "Pacific/Port_Moresby",
+              "Australia/Sydney",
+              "Asia/Vladivostok",
+              "Asia/Magadan",
+              "Pacific/Noumea",
+              "Pacific/Guadalcanal",
+              "Asia/Srednekolymsk",
+              "Pacific/Auckland",
+              "Pacific/Fiji",
+              "Asia/Kamchatka",
+              "Pacific/Majuro",
+              "Pacific/Chatham",
+              "Pacific/Tongatapu",
+              "Pacific/Apia",
+              "Pacific/Fakaofo"
+            ],
+            "description": "タイムゾーン"
+          },
+          "role": {
+            "type": "string",
+            "default": "user",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "ユーザーロール"
+          }
+        }
+      },
+      "DebugFileOptions": {
+        "description": "デバッグファイルフォームデータ",
+        "type": "object",
+        "required": [
+          "channel_key",
+          "file"
+        ],
+        "properties": {
+          "channel_key": {
+            "type": "string",
+            "description": "チャンネルキー"
+          },
+          "file": {
+            "type": "file",
+            "description": "zip 形式の圧縮ファイル（dSYM または ProGuard）"
+          },
+          "release_version": {
+            "type": "string",
+            "description": "リリースバージョン（Android の ProGuard ファイルでは必須）"
+          },
+          "build_version": {
+            "type": "string",
+            "description": "ビルドバージョン（Android の ProGuard ファイルでは必須）"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "認証失敗レスポンス",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Unauthorized user token"
+          }
+        }
+      },
+      "NotFound": {
+        "description": "リソースなし",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Record not found"
+          }
+        }
+      },
+      "Destroyed": {
+        "description": "リソースは削除されました",
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "OK"
+          }
+        }
+      }
+    }
+  }
+}

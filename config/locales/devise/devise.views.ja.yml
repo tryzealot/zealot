@@ -1,0 +1,7 @@
+ja:
+  devise:
+    registrations:
+      edit:
+        danger_zone: 危険ゾーン
+        cancel_my_account: アカウントを削除
+        cancel_my_account_warning: 本当にアカウントを削除してもよろしいですか？
