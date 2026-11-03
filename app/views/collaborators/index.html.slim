@@ -2,7 +2,7 @@
   = app_scoped_title(@app, @title)
 
 - content_for :section_title do
-  = app_scoped_title(@app, @title)
+  = @title
 
 - content_for :section_rightpanel do
   - if !@app.archived && (current_user&.admin? || current_user&.app_roles?(@app, :admin))

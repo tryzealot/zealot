@@ -1,2 +1,6 @@
-div id="web_hooks_empty" class="px-5 py-4"
-  == render 'web_hooks/not_found'
+.card.card-outline.card-warning
+  .card-header.card-border
+    h3.card-title = t('apps.web_hooks.index.not_found.title')
+  - if !app.archived
+    .card-body 
+      p = t('apps.web_hooks.index.not_found.body_html')
