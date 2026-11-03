@@ -29,7 +29,7 @@ gem 'tiny_appstore_connect', '~> 0.1.13'
 
 # View
 gem 'view_component', '~> 4.20.0'
-gem 'jb', '~> 0.8.2'
+gem 'jb', '~> 0.9.1'
 gem 'slim-rails', '~> 4.0.1'
 gem 'kramdown', '~> 2.5'
 gem 'simple_form', '~> 5.4.1'
