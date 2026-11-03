@@ -8,7 +8,7 @@
 }
 
 /* Load used tailwind + daisyui styles */
-@source "../../views/**/*.html.*";
+@source "../../views/**/*";
 @source "../../helpers/**/*.rb";
 @source "../../components/**/*";
 @source "../../javascript/**/*.js";

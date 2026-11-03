@@ -9,7 +9,7 @@
     ul.d-list
       - @release.array_changelog.each do |changelog|
         li.d-list-row.flex.justify-between
-          = changelog_render changelog['message'], class: 'product-description'
+          = changelog_render changelog['message'], class: 'truncate'
           .space-x-2
             - if date = changelog['date']
               span.d-badge.d-tooltip data-tip="#{l(Time.parse(date), format: :nice)}"
