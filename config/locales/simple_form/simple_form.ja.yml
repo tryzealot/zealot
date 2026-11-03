@@ -1,0 +1,180 @@
+ja:
+  simple_form:
+    "yes": "はい"
+    "no": "いいえ"
+    required:
+      text: "必須"
+      mark: "*"
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      html: "*"
+    error_notification:
+      default_message: "入力内容をご確認ください"
+    labels:
+      defaults:
+        name: 名前
+        password: パスワード
+        channel: チャンネル名
+      user:
+        username: ユーザー名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        locale: 言語
+        appearance: 外観テーマ
+        light_theme: ライトテーマ
+        dark_theme: ダークテーマ
+        timezone: タイムゾーン
+        role: ロール
+        remember_me: ログイン状態を保持する
+      app:
+        name: アプリ名
+      teardown:
+        file: アプリファイル
+      collaborator:
+        user: ユーザー
+        role: 権限
+      scheme:
+        name: スキーム名
+        new_build_callout: 新規ビルド通知バナー
+        retained_builds: 保持ビルド数
+      channel:
+        name: チャンネル名
+        device_type: デバイスタイプ
+        bundle_id: バンドル ID
+        git_url: Git URL
+        slug: スラッグ
+        password: パスワード
+        download_filename_type: ダウンロードファイル名形式
+      release:
+        file: アプリファイル
+        release_version: リリースバージョン
+        build_version: ビルドバージョン
+        changelog: 変更履歴
+        release_type: リリースタイプ
+        branch: Git ブランチ
+        git_commit: Git コミット SHA
+        ci_url: CI URL
+      web_hook:
+        url: URL
+        body: カスタム本文
+        events: トリガーイベント
+        upload_events: アップロードイベント
+        download_events: ダウンロードイベント
+        changelog_events: 変更履歴更新イベント
+        channels: 有効なチャンネル
+        channel_ids: 有効なチャンネル
+      debug_file:
+        app_id: アプリ
+        device_type: デバイスタイプ
+        release_version: リリースバージョン
+        build_version: ビルドバージョン
+        file: デバッグファイル
+        checksum: ファイルハッシュ検証
+      setting:
+        value: 設定値
+      apple_key:
+        issuer_id: Issuer ID
+        key_id: Key ID
+        private_key: 秘密鍵
+        devices: デバイス
+        checksum: 秘密鍵ハッシュ検証
+      apple_team:
+        display_name: 表示名
+        name: チーム名
+        team_id: チーム ID
+      backup:
+        general: 一般設定
+        key: バックアップ名
+        schedule: スケジュール
+        next_schedule_at: 次回実行予定日時
+        enabled_database: データベースをバックアップ
+        database_switch: 有効
+        enabled_apps: アプリをバックアップ
+        max_keeps: 最大保持数
+        enabled: 有効
+        schedule_settings: スケジュール設定
+        parsing: 解析中
+      device:
+        name: デバイス名
+        apple_keys: Apple Keys
+        sync_to_apple_key: Apple Developer に同期
+
+    hints:
+      defaults:
+        channel: アプリのプラットフォームなど
+      app:
+        schemes:
+          name: :'simple_form.hints.scheme.name'
+      teardown:
+        file: iOS、Android、HarmonyOS、macOS、Windows、Linux のバイナリファイルに対応しています
+      scheme:
+        name: 対象ユーザーや機能に応じた分類を設定します
+        new_build_callout: 過去のビルド閲覧時に、ページ上部へ最新ビルドの案内通知を表示します
+        retained_builds: 保持する最大バージョン数を設定します。超過した古いバージョンは自動削除されます（0 は全件保持）
+      channel:
+        name: アプリプラットフォームごとにチャンネルを分けることを推奨します。単一プラットフォームの場合は配信マーケット名でも構いません
+        device_type: "アプリのデバイスタイプ（例: iOS、Android、macOS など）"
+        bundle_id: アプリのバンドル ID（パッケージ名）を検証します。空欄または * で検証をスキップします
+        git_url: Git リポジトリ URL（GitHub、GitLab、セルフホストなど）
+        slug: URL 内でページを識別しやすい一意の文字列
+        password: 未ログインユーザーにパスワード入力を要求します
+        download_filename_type: ダウンロードファイル名の生成ルール
+      release:
+        file: iOS、Android、HarmonyOS、macOS、Windows、Linux のバイナリファイルに対応しています
+        release_version: メインバージョン名には <a href="https://semver.org/lang/ja/">X.Y.Z セマンティック バージョニング</a> を推奨します
+        build_version: 内部ビルド番号
+        changelog: このバージョンに含まれる新機能や修正内容など
+        release_type: "iOS: debug、adhoc、release; Android: debug、release"
+        branch: Git ブランチ（通常は main または develop）
+        git_commit: Git コミットの 40 桁 SHA ハッシュ値
+        ci_url: Jenkins、GitLab CI、GitHub Actions などのビルド URL
+      web_hook:
+        body: サードパーティ通知サービスに合わせたカスタム JSON 構造。空欄の場合は<a href="https://zealot.ews.im/docs/user-guide/webhooks">デフォルト構造</a>を使用します
+      debug_file:
+        device_type: "アプリのデバイスタイプ（例: iOS、Android、macOS など）"
+        file: zip 形式の圧縮ファイルが必要です
+        checksum: デバッグファイルの一意性検証のみに使用されます
+      backup:
+        key: 一意のバックアップ名
+        schedule: |
+          式は <a href="https://github.com/floraison/fugit/blob/master/spec/nat_spec.rb">自然言語（英語）</a> または
+          <a href="https://crontab.guru/">Cron</a> に対応しています
+        max_keeps: 上限に達した際に古いバックアップを削除します（-1 は無制限、0 はバックアップ無効）
+      apple_key:
+        issuer_id: "UUID 形式（例: 12345678-1234-1234-1234-123456789012）"
+        key_id: "ダウンロードした秘密鍵ファイルと一致することを確認してください（例: ABCDEFGH12）"
+        private_key: 任意の拡張子の秘密鍵ファイルを受け付けます。Apple Developer アカウントからダウンロードできます
+        checksum: 秘密鍵ファイルの一意性検証のみに使用されます
+
+    placeholders:
+      release:
+        changelog: 変更履歴は登録されていません
+      web_hook:
+        url: "http://example.com/web-hooks"
+        body: |
+          {
+            event: @event,
+            username: @username,
+            email: @email,
+            title: @title,
+            name: @app_name,
+            app_name: @app_name,
+            device_type: @device_type,
+            release_version: @release_version,
+            build_version: @build_version,
+            size: @file_size,
+            changelog: @changelog,
+            release_url: @release_url,
+            install_url: @install_url,
+            icon_url: @icon_url,
+            qrcode_url: @qrcode_url,
+            uploaded_at: @uploaded_at
+          }
+      debug_file:
+        release_version: "1.0.0"
+        build_version: "1.0"
+      backup:
+        schedule: every day at noon / 12 0 * * *
+      device:
+        name: 空欄の場合は自動生成されます
