@@ -717,7 +717,12 @@ en:
       cert_fignger: "Fingerprint %{digest}"
       signature_not_found: Not found
       signature_verified: "Verified"
-      signature_unverified: "Unverified (WIP)"
+      signature_invalid: "Verification failed"
+      signature_unsupported: "Verification unsupported"
+      certificate_lineage: Certificate lineage
+      certificate_lineage_node: "Level %{index}: %{name}"
+      certificate_lineage_flags: "Flags %{flags}"
+      certificate_lineage_algorithm: "Parent signature algorithm ID %{id}"
       mobileprovision: Mobileprovision
       uuid: UUID
       mobileprovision_name: Name (Type)

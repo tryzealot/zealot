@@ -84,40 +84,71 @@ class TeardownService
   end
 
   def process_signature_certs(parser, metadata)
-    metadata.developer_certs = parser.signatures.each_with_object([]) do |sign, certs|
-      signature = { scheme: sign[:version] }
-      signature[:verified] = sign[:verified]
-      signature[:certificates] = sign[:certificates]&.each_with_object([]) do |cert, obj|
-        data = {
-          version: cert.version,
-          serial: {
-            number: cert.serial,
-            hex: cert.serial(16, prefix: '0x'),
-          },
-          format: cert.format,
-          digest: cert.digest,
-          algorithem: cert.algorithm,
-          subject: cert.subject(format: :to_a),
-          issuer: cert.issuer(format: :to_a),
-          created_at: cert.created_at,
-          expired_at: cert.expired_at,
-          fingerprint: {
-            md5: cert.fingerprint(:md5, delimiter: ':'),
-            sha1: cert.fingerprint(:sha1, delimiter: ':'),
-            sha256: cert.fingerprint(:sha256, delimiter: ':'),
-          }
-        }
-        data[:length] = begin
-                          cert.size
-                        rescue NotImplementedError
-                          nil
-                        end
+    metadata.developer_certs = parser.signatures.map do |sign|
+      verifier = sign[:verifier]
+      scheme = sign[:version]
 
-        obj << data
+      signature = {
+        scheme: scheme,
+        available: verifier.present?,
+        description: verifier&.description,
+        verified: signature_verified(scheme, sign[:verified]),
+        verification_errors: Array(sign[:verification_errors]).map { |error| error.transform_keys(&:to_s) },
+        digests: verifier.respond_to?(:digests) ? Array(verifier.digests&.keys).map(&:to_s) : [],
+        certificates: Array(sign[:certificates]).map { |cert| certificate_metadata(cert) }
+      }
+
+      if verifier.respond_to?(:certificate_lineage) && verifier.certificate_lineage.present?
+        signature[:certificate_lineage] = verifier.certificate_lineage.map do |node|
+          {
+            certificate: certificate_metadata(node[:certificate]),
+            flags: node[:flags],
+            signature_algorithm_id: node[:signature_algorithm_id],
+            parent_signature_algorithm_id: node[:parent_signature_algorithm_id]
+          }
+        end
       end
 
-      certs << signature
+      signature
     end
+  end
+
+  # v1 (JAR signing) has no verification implementation in app-info, so its
+  # certificates can be read but never verified.
+  def signature_verified(scheme, verified)
+    return if scheme == AppInfo::Android::Signature::Version::V1
+
+    verified
+  end
+
+  def certificate_metadata(cert)
+    data = {
+      version: cert.version,
+      serial: {
+        number: cert.serial,
+        hex: cert.serial(16, prefix: '0x'),
+      },
+      format: cert.format,
+      digest: cert.digest,
+      algorithem: cert.algorithm,
+      subject: cert.subject(format: :to_a),
+      issuer: cert.issuer(format: :to_a),
+      created_at: cert.created_at,
+      expired_at: cert.expired_at,
+      fingerprint: {
+        md5: cert.fingerprint(:md5, delimiter: ':'),
+        sha1: cert.fingerprint(:sha1, delimiter: ':'),
+        sha256: cert.fingerprint(:sha256, delimiter: ':'),
+      }
+    }
+
+    data[:length] = begin
+                      cert.size
+                    rescue NotImplementedError
+                      nil
+                    end
+
+    data
   end
 
   ###############
