@@ -97,7 +97,7 @@
         - else
           = t('.fail_detect_disk')
 
-  .card.collapsed-card
+  .card
     .card-header
       h3.card-title = t('.system_environment')
     .card-body
@@ -106,7 +106,7 @@
           .property-key = key
           .property-value = secure_value(key, value)
 
-  .card.collapsed-card
+  .card
     .card-header
       h3.card-title = t('.ruby_gems')
     .card-body.p-0

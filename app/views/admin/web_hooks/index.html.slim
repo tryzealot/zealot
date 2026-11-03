@@ -15,14 +15,14 @@
         thead
           tr
             th = t('.url')
-            th.w-25 = t('.channels')
+            th.w-1/4 = t('.channels')
             th.hidden.sm:table-cell
         tbody
           - @web_hooks.each_with_index do |web_hook, i|
             tr
               td
                 = link_to web_hook.url, edit_admin_web_hook_path(web_hook)
-              td.w-25
+              td.w-1/4
                 .d-badge.d-badge-info = web_hook.channels.size
               td.hidden.sm:table-cell
                 = button_link_to '', admin_web_hook_path(web_hook), 'trash-alt', \
