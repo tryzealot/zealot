@@ -45,7 +45,7 @@ ruby:
         = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
 
         - if demo_mode
-          = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'btn btn-lg btn-primary', disabled: true
+          = f.button :button, t('errors.messages.invaild_in_demo_mode'), class: 'd-btn d-btn-lg d-btn-primary', disabled: true
         - else
           = f.button :submit, t('.update_password')
 

@@ -10,12 +10,11 @@ ruby:
 - content_for :section_rightpanel do
   .d-join
     = button_link_to '', private_key_admin_apple_key_path(@apple_key), 'download', \
-      class: 'd-join-item d-btn text-info', \
-      title: "#{t('.download_private_key')}", \
-      data: { bs_toggle: 'tooltip', bs_custom_class: 'default-tooltip' }
+      class: 'd-join-item d-btn text-info d-tooltip', \
+      data: { tip: t('.download_private_key') }
     = button_link_to '', admin_apple_key_path(@apple_key), 'trash-alt', \
-      class: 'd-join-item d-btn text-error', title: t('modals.buttons.destroy'), \
-      data: { turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{@apple_key.team&.display_name} (#{@apple_key.team&.team_id})"), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
+      class: 'd-join-item d-btn text-error d-tooltip', \
+      data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.destroy_apple_key.body', name: "#{@apple_key.team&.display_name} (#{@apple_key.team&.team_id})") }
 
 = turbo_frame_tag @apple_key do
   .grid.grid-cols-1.md:grid-cols-2.gap-4.mb-4
@@ -63,7 +62,7 @@ ruby:
                 td = device.model
                 td = device.channels.count
                 td
-                  span title="#{l(device.created_at, format: :nice)}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="right"
+                  span.d-tooltip.d-tooltip-right data-tip=l(device.created_at, format: :nice)
                     = time_ago_in_words(device.created_at)
     .card-footer
       .flex.justify-between.items-center

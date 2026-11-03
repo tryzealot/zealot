@@ -19,7 +19,7 @@
               - if result == 'new_register_device'
                 ruby:
                   register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
-                td = button_to t('udid.show.register_device'), register_link, class: 'btn btn-sm btn-success'
+                td = button_to t('udid.show.register_device'), register_link, class: 'd-btn d-btn-sm d-btn-success'
   - else
     .card.card-outline.card-warning
       .card-header

@@ -31,7 +31,7 @@ class ModalComponent < ViewComponent::Base
       tip: tooltip_value,
       action: 'click->destroy#click',
     } do
-      tag.i class: 'fa-solid fa-trash-alt text-danger'
+      tag.i class: 'fa-solid fa-trash-can text-error'
     end
   end
 

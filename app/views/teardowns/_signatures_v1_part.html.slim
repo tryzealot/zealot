@@ -1,22 +1,21 @@
 label.card-header.card-collapse-toggle for="signatures-collapse"
   h3.card-title
     = t('teardowns.show.developer_certs')
-    .d-badge.d-badge-ghost =@metadata.developer_certs.size
+    .d-badge.d-badge-ghost = @metadata.developer_certs.size
   .card-tools
-.card-body
+.card-body.space-y-4
   - signatures.each_with_index do |cert, i|
-    .card class="bg-base-200/40.shadow-sm.break-inside-avoid"
-    
-    .certificate
-      .certificate-title
-        .fs-6.fw-bolder.flex-fill
-          = t('teardowns.show.cert', index: "#{i + 1} (#{cert['public_key_type']})")
-        small.text-body-secondary.float-end
-          = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(cert['expired_at']), format: :nice))
-      ul
-        li
-          span.key = t('teardowns.show.cert_issuer')
-          span.value = cert['issuer'].map { |k, v| "#{k}=#{v}" }.join(', ')
-        li
-          span.key = t('teardowns.show.cert_algorithem')
-          span.value = cert['algorithem']
+    .card class="bg-base-200/40 shadow-sm break-inside-avoid"
+      .card-body.gap-3
+        .flex.flex-wrap.justify-between.items-baseline.gap-2
+          .text-base.font-bold
+            = t('teardowns.show.cert', index: "#{i + 1} (#{cert['public_key_type']})")
+          small.text-xs.text-base-content/70
+            = t('teardowns.show.cert_expired_at', date: l(Time.zone.parse(cert['expired_at']), format: :nice))
+        ul.space-y-2.text-sm
+          li class="flex flex-col gap-1"
+            span.text-base-content/70 = t('teardowns.show.cert_issuer')
+            span.font-medium = cert['issuer'].map { |k, v| "#{k}=#{v}" }.join(', ')
+          li class="flex flex-col gap-1"
+            span.text-base-content/70 = t('teardowns.show.cert_algorithem')
+            span.font-medium = cert['algorithem']

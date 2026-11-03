@@ -60,12 +60,12 @@
 .card.card-primary {
   @layer components {
     .card-header {
-      @apply bg-primary rounded-t-md;
+      @apply bg-primary text-primary-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-primary;
+        @apply bg-base-100 text-base-content border-t-4 border-t-primary;
       }
     }
   }
@@ -74,12 +74,12 @@
 .card.card-secondary {
   @layer components {
     .card-header {
-      @apply bg-secondary rounded-t-md;
+      @apply bg-secondary text-secondary-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-secondary;
+        @apply bg-base-100 text-base-content border-t-4 border-t-secondary;
       }
     }
   }
@@ -88,12 +88,12 @@
 .card.card-neutral {
   @layer components {
     .card-header {
-      @apply bg-neutral rounded-t-md;
+      @apply bg-neutral text-neutral-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-neutral;
+        @apply bg-base-100 text-base-content border-t-4 border-t-neutral;
       }
     }
   }
@@ -102,12 +102,12 @@
 .card.card-info {
   @layer components {
     .card-header {
-      @apply bg-info rounded-t-md;
+      @apply bg-info text-info-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-info;
+        @apply bg-base-100 text-base-content border-t-4 border-t-info;
       }
     }
   }
@@ -116,12 +116,12 @@
 .card.card-success {
   @layer components {
     .card-header {
-      @apply bg-success rounded-t-md;
+      @apply bg-success text-success-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-success;
+        @apply bg-base-100 text-base-content border-t-4 border-t-success;
       }
     }
   }
@@ -130,12 +130,12 @@
 .card.card-warning {
   @layer components {
     .card-header {
-      @apply bg-warning rounded-t-md;
+      @apply bg-warning text-warning-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-warning;
+        @apply bg-base-100 text-base-content border-t-4 border-t-warning;
       }
     }
   }
@@ -144,12 +144,12 @@
 .card.card-error {
   @layer components {
     .card-header {
-      @apply bg-error rounded-t-md;
+      @apply bg-error text-error-content rounded-t-md;
     }
 
     &.card-outline {
       .card-header {
-        @apply bg-base-100 border-t-4 border-t-error;
+        @apply bg-base-100 text-base-content border-t-4 border-t-error;
       }
     }
   }
@@ -213,6 +213,10 @@
       align-items: center;
       justify-content: center;
       transform: translateY(-50%);
+
+      > :is(button, a, .d-btn) {
+        pointer-events: auto;
+      }
 
       @media (prefers-reduced-motion: no-preference) {
         transition-property: all;
