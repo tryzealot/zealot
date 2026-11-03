@@ -1,5 +1,5 @@
 ruby:
-  card_header_color = @code >= 500 ? 'card-danger' : 'card-warning'
+  card_header_color = @code >= 500 ? 'card-error' : 'card-warning'
   content = t("errors.code.#{@code}.content", default: nil)
   goback_href = session[:return_to] || request.referer
   goback_link_html = link_to(t('errors.messages.goback_title'), goback_href)

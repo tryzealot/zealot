@@ -31,9 +31,8 @@ ruby:
           == render 'metadata', metadata: md, manage_role: manage_role
 
       - if @metadata.total_pages > 1
-        .card-footer
-          .float-end
-            = paginate @metadata
+        .card-footer.flex.justify-end
+          = paginate @metadata
   - else 
     .card.card-outline.card-warning
       .card-header.card-border

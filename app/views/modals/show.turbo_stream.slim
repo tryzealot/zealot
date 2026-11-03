@@ -3,7 +3,7 @@
     = link_to @confirm_value, @confirm_link, method: :delete, class: "d-btn d-btn-error"
   - elsif @options[:hide_ok].blank?
     form method="dialog"
-      button.d-btn.d-btn-soft.d-btn-secondary data-bs-dismiss="modal" = t('modals.buttons.okay')
+      button.d-btn.d-btn-soft.d-btn-secondary data-action="modal#close" = t('modals.buttons.okay')
 
 = turbo_stream.replace :modal do
   = render_modal(**@options) do 

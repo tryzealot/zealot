@@ -47,7 +47,7 @@ ruby:
 
     - if @debug_file.parse_failed?
       .d-alert.d-alert-error.my-3
-        i.fa-solid.fa-circle-xmark.fs-3
+        i.fa-solid.fa-circle-xmark.text-2xl
         div class="min-w-0"
           div.font-bold = t('debug_files.show.parse_failed')
           div class="text-xs break-words" = @debug_file.parse_error

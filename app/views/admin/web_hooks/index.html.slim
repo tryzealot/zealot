@@ -23,11 +23,11 @@
               td
                 = link_to web_hook.url, edit_admin_web_hook_path(web_hook)
               td.w-25
-                .d-badge.text-bg-info = web_hook.channels.size
+                .d-badge.d-badge-info = web_hook.channels.size
               td.hidden.sm:table-cell
                 = button_link_to '', admin_web_hook_path(web_hook), 'trash-alt', \
-                  class: 'd-btn d-btn-sm text-error', title: t('modals.buttons.destroy'), \
-                  data: { turbo_method: :delete, turbo_confirm: t('modals.confirm.body'), bs_toggle: :tooltip, bs_custom_class: 'default-tooltip' }
+                  class: 'd-btn d-btn-sm text-error d-tooltip', \
+                  data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
 - else
   .card.card-outline.card-warning
     .card-header.card-border

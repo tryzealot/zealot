@@ -3,10 +3,6 @@
     .card-header
       h3.card-title
         = t('teardowns.show.devise_list', count: devices.size)
-      / .card-tools
-      /   button.btn.btn-tool data-lte-toggle="card-collapse"
-      /     i.fa-solid.fa-plus data-lte-icon="expand"
-      /     i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.p-0
       table.d-table
         - devices.sort.each do |udid|
@@ -14,6 +10,6 @@
             td
               span = udid
               - if (device = Device.find_by(udid: udid)) && device.name.present?
-                .float-end
-                  small.d-badge.text-bg-light
+                .float-right
+                  small.d-badge.d-badge-ghost
                     = device.name

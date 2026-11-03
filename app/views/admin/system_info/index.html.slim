@@ -66,7 +66,7 @@
         .property-value = "#{distance_of_time_in_words_to_now(@server[:booted_at])} (#{l(@server[:booted_at], format: :nice)})"
 
   div
-    .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-danger'}"
+    .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-warning'}"
       .card-header
         h3.card-title = t('.file_permissions')
       .card-body.p-0
@@ -78,8 +78,8 @@
                 - if permission[:health]
                   i.fa-solid.fa-check.text-success
                 - else
-                  span title="#{permission[:reason]}" data-bs-toggle="tooltip" data-bs-custom-class="default-tooltip" data-bs-placement="left"
-                    i.fa-solid.fa-exclamation-triangle.text-danger
+                  span.d-tooltip.d-tooltip-left data-tip=permission[:reason]
+                    i.fa-solid.fa-triangle-exclamation.text-warning
       .card-footer
         .opacity-65 = t('.messages.file_permissions_tip')
 
@@ -100,10 +100,6 @@
   .card.collapsed-card
     .card-header
       h3.card-title = t('.system_environment')
-      / .card-tools
-      /   button.btn.btn-tool data-lte-toggle="card-collapse"
-      /     i.fa-solid.fa-plus data-lte-icon="expand"
-      /     i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body
       - @env.each do |key, value|
         .property
@@ -113,10 +109,6 @@
   .card.collapsed-card
     .card-header
       h3.card-title = t('.ruby_gems')
-      / .card-tools
-      /   button.btn.btn-tool data-lte-toggle="card-collapse"
-      /     i.fa-solid.fa-plus data-lte-icon="expand"
-      /     i.fa-solid.fa-minus data-lte-icon="collapse"
     .card-body.p-0
       table.d-table
         - @gems.each do |name, version|
