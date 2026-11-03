@@ -1,7 +1,7 @@
 - if releases.present?
   = form_with model: channel, url: destroy_releases_channel_path(channel), method: :delete, \
     data: { controller: 'bulk-operation' } do |f|
-    .card-body class="p-0"
+    .card-body class="p-0 overflow-x-auto"
       table class="d-table"
         thead
           tr
@@ -10,11 +10,11 @@
                 input type="checkbox" data-bulk-operation-target="checkboxAll"
             th = t('channels.show.version')
             th = t('channels.show.release_version')
-            th = t('channels.show.build_version')
+            th class="hidden sm:table-cell" = t('channels.show.build_version')
             - if channel.device_type.downcase == 'ios'
-              th = t('channels.show.release_type')
+              th class="hidden sm:table-cell" = t('channels.show.release_type')
             th = t('channels.show.git_branch')
-            th class="hidden sm:block" = t('channels.show.git_commit')
+            th class="hidden sm:table-cell" = t('channels.show.git_commit')
             th = t('channels.show.uploaded_at')
         tbody
           - releases.each_with_index do |release, index|
@@ -30,16 +30,16 @@
                   span class="opacity-70" = release.release_version || '-'
                 - else
                   = link_to (release.release_version || '-'), friendly_channel_version_path(release.channel, release.release_version), data: { turbo_frame: '_top' }
-              td
+              td class="hidden sm:table-cell"
                 span class="opacity-70" = release.build_version || '-'
               - if channel.device_type.downcase == 'ios'
-                td
+                td class="hidden sm:table-cell"
                   span class="opacity-70" = release_type_url_builder(release)
-              td
+              td class="break-all"
                 = git_branch_url(release) || '-'
-              td class="hidden sm:block"
+              td class="hidden sm:table-cell"
                 span class="opacity-70" = git_commit_url(release.channel.git_url, release.git_commit) || '-'
-              td
+              td class="whitespace-nowrap"
                 div class="d-tooltip d-tooltip-left" data-tip=l(release.created_at, format: :nice)
                   span class="opacity-80" = time_ago_in_words(release.created_at)
 

@@ -1,0 +1,6 @@
+- if user_signed_in? && manage_role
+  = button_link_to '', teardown_path_for(metadata, app: @app), 'trash-alt', \
+    class: 'd-btn d-btn-sm text-error', data: { \
+      turbo_method: :delete, \
+      turbo_confirm: t('modals.confirm.body'), \
+    }

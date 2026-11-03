@@ -5,8 +5,8 @@
         i.fa-solid.fa-bug
         = "#{@exception.class}: #{@exception.message}"
         small.d-badge.d-badge-secondary.ml-2 = t('errors.messages.development_only')
-    .card-body.p-0
+    .card-body.p-0.overflow-x-auto
       table.d-table
         - @exception.backtrace.each do |link|
           tr
-            td = link
+            td.break-all.font-mono.text-xs = link

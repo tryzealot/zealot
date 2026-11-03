@@ -69,11 +69,11 @@
     .card.card-outline.mb-3 class="#{@file_permissions[:health] ? 'card-success' : 'card-warning'}"
       .card-header
         h3.card-title = t('.file_permissions')
-      .card-body.p-0
+      .card-body.p-0.overflow-x-auto
         table.d-table
           - @file_permissions[:permissions].each do |permission|
             tr
-              td = permission[:path]
+              td.break-all = permission[:path]
               td style="width: 20px"
                 - if permission[:health]
                   i.fa-solid.fa-check.text-success
@@ -109,9 +109,9 @@
   .card
     .card-header
       h3.card-title = t('.ruby_gems')
-    .card-body.p-0
+    .card-body.p-0.overflow-x-auto
       table.d-table
         - @gems.each do |name, version|
           tr
             td = name
-            td = version
+            td.break-all = version

@@ -14,12 +14,12 @@
       i.fa-solid.fa-box-open.mr-1
       = t('.schedules')
   .card-body.p-0.gap-0
-    div class="grid grid-cols-6 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid-cols-12 sm:items-center sm:text-sm"
-      div class="col-span-6 sm:col-span-4 md:col-span-3" = t('.key')
-      div class="hidden sm:block sm:col-span-4 md:col-span-3" = t('.scopes')
-      div class="hidden sm:block sm:col-span-2 md:col-span-1" = t('.schedule')
-      div class="hidden sm:block sm:col-span-2 md:col-span-3" = t('.next_schedule_at')
-      div class="hidden md:flex md:col-span-2 justify-end ps-0 sm:ps-3"
+    div class="hidden sm:grid sm:grid-cols-12 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:items-center sm:text-sm"
+      div class="col-span-12 sm:col-span-4 md:col-span-3" = t('.key')
+      div class="hidden sm:block sm:col-span-3 md:col-span-3" = t('.scopes')
+      div class="hidden sm:block sm:col-span-2 md:col-span-2" = t('.schedule')
+      div class="hidden sm:block sm:col-span-2 md:col-span-2" = t('.next_schedule_at')
+      div class="hidden sm:flex sm:col-span-1 md:col-span-2 justify-end ps-0 sm:ps-3"
     #backups
       - unless @backups.empty?
         == render @backups

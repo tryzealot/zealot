@@ -20,13 +20,13 @@ ruby:
           i.fa-solid.fa-history
           = t('.upload_history')
       .card-body.p-0.gap-0
-        div class="flex flex-row gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:grid sm:grid-cols-12 sm:items-center sm:text-sm"
-          div class="col-span-5 md:col-span-4" = t('.app_name')
-          div class="hidden sm:block sm:col-span-4 md:col-span-2" = t('.platform')
-          div class="hidden sm:block col-span-3 md:col-span-2" = t('.uploader')
-          div class="hidden md:block col-span-3" = t('.uploaded_at')
+        div class="hidden sm:grid sm:grid-cols-12 gap-2 py-2 px-3 text-xs font-semibold opacity-65 border-b border-base-300 sm:items-center sm:text-sm"
+          div class="col-span-12 sm:col-span-4" = t('.app_name')
+          div class="hidden sm:block sm:col-span-2" = t('.platform')
+          div class="hidden sm:block sm:col-span-2" = t('.uploader')
+          div class="hidden sm:block sm:col-span-3" = t('.uploaded_at')
           - if user_signed_in? && manage_role
-            div class="hidden md:block col-span-1 text-right"
+            div class="hidden sm:flex sm:col-span-1 justify-end"
         - @metadata.each do |md|
           == render 'metadata', metadata: md, manage_role: manage_role
 

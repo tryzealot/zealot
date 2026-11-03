@@ -40,11 +40,11 @@
           .card
             .card-header
               h3.card-title = t('admin.users.edit.collaborators')
-            .card-body.p-0
+            .card-body.p-0.overflow-x-auto
               table.d-table
                 - @user.collaborators.each do |collaborator|
                   tr
-                    td = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
+                    td.break-words = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
                     td
                       - if collaborator.owner
                         = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app),\

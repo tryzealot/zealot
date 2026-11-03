@@ -6,7 +6,7 @@ ruby:
     h3.card-title 
       = t('debug_files.show.main_target')
       .d-badge.d-badge-ghost = debug_file.main_object.object
-  .card-body.p-0
+  .card-body.p-0.overflow-x-auto
     table.d-table
       thead
         tr
@@ -17,7 +17,7 @@ ruby:
           tr
             td
               .d-badge.d-badge-sm.d-badge-primary = metadata.type
-            td = metadata.uuid
+            td.break-all = metadata.uuid
 
 - if debug_file.libraries.present?
   .card.mb-3
@@ -25,7 +25,7 @@ ruby:
       h3.card-title 
         = t('debug_files.show.libraries', count: debug_file.libraries.count)
         .d-badge.d-badge-ghost = debug_file.libraries.count
-    .card-body.p-0
+    .card-body.p-0.overflow-x-auto
       table.d-table
         thead
           tr
@@ -34,7 +34,7 @@ ruby:
         tbody
           - debug_file.libraries.each do |metadata|
             tr
-              td
+              td.break-all
                 = metadata.data['identifier']
                 .d-badge.d-badge-sm.d-badge-primary.ml-1 = metadata.type
-              td = metadata.uuid
+              td.break-all = metadata.uuid

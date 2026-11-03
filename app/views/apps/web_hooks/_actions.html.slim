@@ -1,0 +1,16 @@
+div.d-join
+  div class="d-dropdown d-dropdown-top d-dropdown-end"
+    button class="d-btn d-join-item d-btn-sm d-tooltip" data-tip="#{t('web_hooks.test')}"
+      i.fa-regular.fa-comment-dots
+    ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-60 p-2 shadow-sm"
+      li class="opacity-60 text-sm px-3 py-2" = t('web_hooks.test')
+      - events.each do |event|
+        li = link_to t("simple_form.labels.web_hook.#{event}"), \
+          test_app_web_hook_path(app, web_hook, event), \
+          data: { turbo: false }
+  = button_link_to '', edit_app_web_hook_path(app, web_hook), 'edit', \
+    class: 'd-join-item d-btn d-btn-sm d-tooltip', \
+    data: { tip: t('web_hooks.edit.title'), turbo_frame: :modal }
+  = button_link_to '', app_web_hook_path(app, web_hook), 'trash-alt', \
+    class: 'd-join-item d-btn d-btn-sm text-error d-tooltip', \
+    data: { tip: t('web_hooks.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

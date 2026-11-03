@@ -9,12 +9,12 @@
         = button_link_to '', t('releases.show.apple_team_link'), 'info-circle', target: '_blank', \
           class: 'd-btn d-btn-sm d-btn-ghost d-tooltip d-tooltip-left', \
           data: { tip: t('releases.show.sync_devices_feature') }
-    .card-body.p-0
+    .card-body.p-0.overflow-x-auto
       table.d-table
         - devices.each do |device|
           tr
-            td.flex.justify-between
-              = device.udid
+            td.flex.justify-between.items-center.gap-2
+              span.break-all = device.udid
               - if device.name.present?
-                .text-sm.opacity-65
+                span.text-sm.opacity-65.shrink-0
                   = device.name

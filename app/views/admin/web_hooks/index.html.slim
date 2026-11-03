@@ -10,21 +10,21 @@
       h3.card-title
         i.fa-solid.fa-bell
         = t('.links', count: @web_hooks.size)
-    .card-body.p-0
+    .card-body.p-0.overflow-x-auto
       table.d-table
         thead
           tr
             th = t('.url')
             th.w-1/4 = t('.channels')
-            th.hidden.sm:table-cell
+            th.w-12.text-right
         tbody
           - @web_hooks.each_with_index do |web_hook, i|
             tr
-              td
+              td.break-all
                 = link_to web_hook.url, edit_admin_web_hook_path(web_hook)
               td.w-1/4
                 .d-badge.d-badge-info = web_hook.channels.size
-              td.hidden.sm:table-cell
+              td.text-right
                 = button_link_to '', admin_web_hook_path(web_hook), 'trash-alt', \
                   class: 'd-btn d-btn-sm text-error d-tooltip', \
                   data: { tip: t('modals.buttons.destroy'), turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }
