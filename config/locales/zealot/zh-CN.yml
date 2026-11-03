@@ -693,7 +693,12 @@ zh-CN:
       cert_fignger: 签名指纹 %{digest}
       signature_not_found: 签名不存在
       signature_verified: 签名校验通过
-      signature_unverified: 签名校验待开发
+      signature_invalid: 签名校验失败
+      signature_unsupported: 不支持校验
+      certificate_lineage: 证书轮换链
+      certificate_lineage_node: "第 %{index} 级：%{name}"
+      certificate_lineage_flags: 标记 %{flags}
+      certificate_lineage_algorithm: 上级签名算法 ID %{id}
       mobileprovision: 描述文件
       uuid: UUID
       mobileprovision_name: 名称 (类型)

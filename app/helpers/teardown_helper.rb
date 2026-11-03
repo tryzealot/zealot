@@ -22,6 +22,30 @@ module TeardownHelper # rubocop:disable Metrics/ModuleLength
     !certificates.any? { |cert| cert.key?('scheme') }
   end
 
+  # Signatures stored before app-info 3.4.0 only carry scheme, verified and
+  # certificates, so the availability falls back to the certificates presence.
+  def signature_available?(signature)
+    return signature['available'] unless signature['available'].nil?
+
+    signature['certificates'].present?
+  end
+
+  def signature_state(signature)
+    return :not_found unless signature_available?(signature)
+    return :unsupported if signature['scheme'].to_i == 1
+    return :verified if signature['verified'] == true
+
+    :invalid
+  end
+
+  def signature_state_class(state)
+    case state
+    when :verified then 'text-success'
+    when :invalid then 'text-error'
+    else 'text-warning'
+    end
+  end
+
   def certificate_name(dn)
     dn.map { |k, v| "#{k}=#{v}" }.join(', ')
   end
