@@ -369,6 +369,11 @@ ja:
       user_hint: 別のメンバーに移譲すると、このアプリのすべての権限を失います。
     archives:
       title: アーカイブ済みアプリ
+    web_hooks:
+      index:
+        not_found:
+          title: Webhook なし
+          body_html: <i class="fa-regular fa-plus-square"></i> ボタンをクリックして新規 Webhook を作成してください
     messages:
       failture:
         not_found_app_by_version: "該当アプリバージョンなし: %{version}"

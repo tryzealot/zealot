@@ -369,6 +369,11 @@ zh-CN:
       user_hint: 转移至其他成员，你会失去该应用的所有权限！
     archives:
       title: 已归档应用
+    web_hooks:
+      index:
+        not_found:
+          title: 没有发现任何网络钩子！
+          body_html: 点击右上角的 <i class="fa-regular fa-plus-square"></i> 新建网络钩子
     messages:
       failture:
         not_found_app_by_version: "没有找到应用版本: %{version}"

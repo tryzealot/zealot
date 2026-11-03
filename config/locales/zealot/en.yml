@@ -375,6 +375,11 @@ en:
       user_hint: You will be remove from this app after select the other user!
     archives:
       title: Archived App
+    web_hooks:
+      index:
+        not_found:
+          title: Not found any Webhook!
+          body_html: Click the button <i class="fa-regular fa-plus-square"></i> New Webhook
     messages:
       failture:
         not_found_app_by_version: "Not found app version: %{version}"
