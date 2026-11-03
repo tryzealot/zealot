@@ -444,6 +444,7 @@ en:
       total_version: Versions
       empty_version: Not found any release with this version!
       view_more: View More
+      view_app: View App
       app_detail: View App
     new:
       title:
@@ -534,6 +535,7 @@ en:
         - The developer is lazy without leaving anything 😂
         - Error occurred 👽
       errors:
+        upload_to_archived_app: App %{app} has been archived and new versions cannot be uploaded.
         not_found_release_and_redirect_to_channel: Not found release or had been destroyed, redirect to channel page
         not_found_release_and_redirect_to_latest_release: Not found release or had been destroyed, redirect to the latest release page
         not_found: Not found
@@ -698,7 +700,7 @@ en:
         one: Capability
         other: Capabilities
 
-      devise_list: UDID
+      devise_list: "Device list (%{count})"
       cert: "Cert %{index}"
       cert_expired_at: "Expired at %{date}"
       cert_created: Created date
@@ -913,6 +915,7 @@ en:
     site_locale:
       zh-CN: Simplified Chinese
       en: English
+      ja: Japanese
     site_appearance:
       light: Light
       dark: Dark
@@ -948,6 +951,9 @@ en:
           not_found: Not found debug file
 
   modals:
+    reset:
+      title: Reset confirmation
+      body: Current settings will be restored to default values, please confirm!
     confirm:
       title: Destroy confirm?
       body: Once the data is deleted it will be permanently unrecoverable or unrecoverable, please operate with caution!
@@ -1108,6 +1114,8 @@ en:
         empty_json_value: JSON value is empty
         unknown: "%{key} fail to operated"
       models:
+        setting:
+          default_message: "Please check the following problems for '%{key}':"
         collaborator:
           attributes:
             owner:
@@ -1204,6 +1212,7 @@ en:
           google: Google
           gitlab: Gitlab
           github: Github
+          gitea: Gitea
           openidconnect: OpenID
   helpers:
     submit:
@@ -1229,11 +1238,19 @@ en:
       #   update: Update
       teardown:
         submit: Teardown
+        create: Start Teardown
+        update: Update Teardown
       debug_file:
         create: Upload Debug file
       setting:
         create: Save
         update: Update
+      apple_team:
+        update: Update
+      backup:
+        create: Create Backup
+      device:
+        update: Update Name
       # apple_key:
       #   create: Create
       # apple_team:
