@@ -1,0 +1,382 @@
+ja:
+  api:
+    info:
+      description: |
+        本ドキュメントには API をテストする機能は含まれていません。API の動作検証には以下のツールを推奨します:
+
+        - [cURL](https://curl.se/) (推奨、コマンドライン)
+        - [Bruno](https://www.usebruno.com/)
+        - [Postman](https://www.postman.com/downloads/)
+        - Web ブラウザ（ヘッダーやリクエスト本文の送信が不要な場合）
+
+        クライアントの準備が整ったら、`GET {host}/api/version` へリクエストを送信して動作を確認できます:
+
+        ```json
+        {
+          "version": "6.2.1",
+          "vcs_ref": "effe99c25b79fd55d3e1959ea3af0bcb6b75ba1d",
+          "build_date": "2024-05-23T06:04:48.989Z"
+        }
+        ```
+
+        ## 認証
+
+        本 API では「パーソナルアクセストークン」による認証のみをサポートしています。
+        すべてのトークンは Zealot ユーザーに紐付けられており、リクエストの `token` クエリパラメータとして渡します。
+
+        例:
+
+        ```
+        https://tryzealot.ews.im/api/users?token={token}
+        ```
+
+        ### パーソナルアクセストークン
+
+        パーソナルアクセストークン（PAT）は[ユーザー設定](https://zealot.ews.im/docs/user-guide/user_settings)から取得できます。
+    servers:
+      description: デモサーバー
+    security:
+      token:
+        description: ユーザートークン
+    parameters:
+      id: プライマリキー ID
+      scheme_id: アプリスキーム ID
+      app_id: アプリ ID
+      user_id: ユーザー ID
+      page: ページ番号
+      per_page: 1 ページあたりの件数
+      scope: スコープ
+      channel_key: チャンネルキー
+      bundle_id: iOS の場合は `bundle_id`、Android の場合は `package_name`
+      git_commit: Git コミット SHA
+      order: 並び順
+      release_version: リリースバージョン
+      build_version: ビルドバージョン
+      supported_values: "%{values} で指定可能な値"
+      email: メールアドレス
+    schemas:
+      app_index:
+        description: 一覧形式で返されるアプリ
+      app_versions:
+        description: 一覧形式で返されるアプリ
+      app:
+        description: アプリオブジェクト
+      scheme:
+        description: アプリスキームオブジェクト
+      channel:
+        description: アプリチャンネルオブジェクト
+      release:
+        description: アプリのリリースビルドオブジェクト
+      release_changelog:
+        description: リリースビルドの変更履歴
+      release_custom_field:
+        description: リリースビルドのカスタムフィールド
+      collaborator:
+        description: コラボレーターオブジェクト
+      debug_file:
+        description: デバッグファイルオブジェクト
+      debug_file_metadata:
+        description: デバッグファイルのメタデータオブジェクト
+      metadata_dsym:
+        description: メタデータ dSYM オブジェクト
+      metadata_proguard:
+        description: メタデータ ProGuard オブジェクト
+      metadata_proguard_file:
+        description: ProGuard ファイルオブジェクト
+      user:
+        description: ユーザーオブジェクト
+      version:
+        description: バージョンオブジェクト
+      health:
+        description: ヘルスチェックオブジェクト
+    responses:
+      unauthorized:
+        description: 認証失敗レスポンス
+      not_found:
+        default: リソースなし
+        description: "%{model} なし"
+      destroyed:
+        default: リソースは削除されました
+    definitions:
+      upload_options:
+        description: アプリアップロード用フォームデータオプション
+        properties:
+          channel_key: チャンネルキー（空欄の場合は新規アプリを作成）
+          file: アップロードするアプリバイナリファイル
+          name: アプリ名（空欄の場合は解析されたメタデータのアプリ名を使用）
+          password: アクセスパスワード（空欄の場合はパスワードを解除）
+          release_type: "リリースタイプ（例: debug、beta、adhoc、release、enterprise など）"
+          source: アップロード元（デフォルトは `api`）
+          changelog: 変更履歴（プレーンテキストまたは JSON 形式データ）
+          branch: バージョン管理システムのブランチ名
+          git_commit: Git コミット SHA ハッシュ値
+          ci_url: CI サービスのビルド URL
+          custom_fields: JSON 形式のカスタムフィールド（アイコンは FontAwesome のみ対応）
+      app_options:
+        description: アプリフォームデータ
+        properties:
+          name: アプリ名
+      scheme_options:
+        description: アプリスキームフォームデータ
+        properties:
+          name: スキーム名
+          new_build_callout: 新規ビルド利用可能時に通知バナーを表示するかどうか
+          retained_builds: 保持するビルド数（`0` で制限無効）
+      channel_options:
+        description: アプリチャンネルフォームデータ
+        properties:
+          name: チャンネル名
+          device_type: デバイスタイプ
+          slug: チャンネルのスラッグ（未指定時はランダム生成）
+          bundle_id: 識別子検証設定（`*` で検証スキップ。iOS は `bundle_id`、Android は `package_name`）
+          git_url: Git リポジトリ URL
+          password: パスワードアクセスの有効化
+          download_filename_type: ダウンロードファイル名形式
+      release_options:
+        description: アプリビルドメタデータフォームデータ
+        properties:
+          build_version: ビルドバージョン
+          release_version: リリースバージョン
+          release_type: "リリースタイプ（例: debug、beta、adhoc、release、enterprise など）"
+          source: アップロード元（デフォルトは `api`）
+          changelog: 変更履歴（プレーンテキストまたは JSON 形式データ）
+          branch: バージョン管理システムのブランチ名
+          git_commit: Git コミット SHA ハッシュ値
+          ci_url: CI サービスのビルド URL
+          custom_fields: JSON 形式のカスタムフィールド（アイコンは FontAwesome のみ対応）
+      collaborator_options:
+        description: アプリコラボレーターフォームデータ
+        properties:
+          role: ロール名
+      user_options:
+        description: ユーザーフォームデータ
+        properties:
+          username: ユーザー名
+          email: メールアドレス
+          password: パスワード
+          locale: 言語
+          appearance: 外観
+          timezone: タイムゾーン
+          role: ユーザーロール
+      debug_file_options:
+        description: デバッグファイルフォームデータ
+        properties:
+          channel_key: チャンネルキー
+          file: zip 形式の圧縮ファイル（dSYM または ProGuard）
+          release_version: リリースバージョン（Android の ProGuard ファイルでは必須）
+          build_version: ビルドバージョン（Android の ProGuard ファイルでは必須）
+
+    apps:
+      default:
+        tags: アプリ
+        responses:
+          index: アクティブなアプリの一覧を返却
+          show: アプリを取得
+          versions: ビルドに基づくアプリの一覧を返却
+          latest: アプリ ID に基づく最新ビルドを返却
+          upload: アプリをアップロード
+          destroy: アプリを削除
+          archived: アーカイブされたアプリの一覧を返却
+      index:
+        title: アプリ一覧
+        description: スコープ別にページネーションおよび作成日降順（新しい順）でアプリを一覧表示
+      show:
+        title: アプリ取得
+        description: アプリ詳細を取得
+      upload:
+        title: アプリビルドのアップロード
+        description: iOS、Android、macOS、Windows、Linux アプリをアップロード
+      versions:
+        title: バージョンビルド一覧取得
+        description: 単一チャンネルのアップロード済みバージョンおよび下位バージョン一覧を照会
+      version_exist:
+        title: バージョンビルド存在確認
+        description: |
+          指定されたクエリによりリリースが存在するか確認します。以下の 2 組の組み合わせに対応しています:
+
+          - `bundle_id`、`release_version`、`build_verion`
+          - `bundle_id`、`git_commit`
+      latest:
+        title: 最新ビルド取得
+        description: アプリの単一チャンネルにおける最新バージョン一覧をアップロード日時の降順で照会
+      create:
+        title: アプリ作成
+        description: アプリを作成
+      update:
+        title: アプリ更新
+        description: アプリ名を変更
+      destroy:
+        title: アプリ削除
+        description: 指定した ID のアプリ全データ（スキーム、チャンネル、ビルド、デバッグファイル、その他関連リソースを含む）を削除
+
+    schemes:
+      default:
+        tags: スキーム
+        responses:
+          index: スキームの一覧を返却
+          show: スキームを取得
+          create: スキームを作成
+          update: スキームを更新
+          destroy: スキームを削除
+      create:
+        title: アプリスキーム作成
+        description: アプリのスキームを作成
+      show:
+        title: スキーム取得
+        description: アプリのスキームを取得
+      update:
+        title: スキーム更新
+        description: アプリのスキームを更新
+      destroy:
+        title: スキーム削除
+        description: アプリからスキームを削除
+
+    channels:
+      default:
+        tags: チャンネル
+        responses:
+          index: チャンネルの一覧を返却
+          show: チャンネルを取得
+          create: チャンネルを作成
+          update: チャンネルを更新
+          destroy: チャンネルを削除
+      create:
+        title: チャンネル作成
+        description: スキームのチャンネルを作成
+      show:
+        title: チャンネル取得
+        description: チャンネルを取得
+      update:
+        title: チャンネル更新
+        description: チャンネルを更新
+      destroy:
+        title: チャンネル削除
+        description: スキームのチャンネルを削除
+
+    releases:
+      default:
+        tags: リリース
+        responses:
+          show: アプリビルド詳細
+          update: ビルドを更新
+          destroy: ビルドを削除
+      update:
+        title: ビルドメタデータ更新
+        description: アプリバージョンのビルド、カスタムフィールド、変更履歴などを更新
+      destroy:
+        title: ビルド削除
+        description: アプリのビルドを削除
+
+    collaborators:
+      default:
+        tags: コラボレーター
+        responses:
+          index: コラボレーターの一覧を返却
+          show: コラボレーターを返却
+          create: コラボレーターを作成
+          update: コラボレーターを更新
+          destroy: コラボレーターを削除
+      create:
+        title: アプリにコラボレーターを追加
+        description: アプリにコラボレーターを追加
+      show:
+        title: コラボレーター取得
+        description: コラボレーターのメタデータを取得
+      update:
+        title: コラボレーターのロール更新
+        description: コラボレーターのロールを更新
+      destroy:
+        title: アプリからコラボレーターを削除
+        description: アプリからコラボレーターを削除
+
+    debug_files:
+      default:
+        tags: デバッグファイル
+        responses:
+          index: デバッグファイルの一覧を返却
+          download: バイナリファイル URL へリダイレクト
+          show: デバッグファイルを取得
+          upload: デバッグファイルをアップロード
+          update: デバッグファイルを更新
+          destroy: デバッグファイルを削除
+      index:
+        title: デバッグファイル一覧
+        description: アプリのチャンネルキーでデバッグファイルを一覧表示
+      show:
+        title: デバッグファイル取得
+        description: デバッグファイルを取得
+      download:
+        title: デバッグファイルダウンロード
+        description: |
+          単一の iOS または Android デバッグファイルをダウンロードします。
+
+          `channel_key` と `release_version` を必須条件とし、`build_version`
+          パラメータを渡さない場合、`order` を使用してソート条件に一致する最初のデバッグファイルアドレスを取得できます。ソート方法:
+
+          - `version`: 最新バージョン
+          - `upload_date`: 最終アップロード日時
+      upload:
+        title: デバッグファイルアップロード
+        description: |
+          zip 形式でアーカイブされた dSYM または ProGuard ファイルをアップロードします:
+
+          - `iOS`: zip 圧縮された dSYM ファイル
+          - `Android`: mapping.txt、R.txt、または AndroidManifest.xml ファイルを含む zip 圧縮ファイル
+      destroy:
+        title: デバッグファイル削除
+        description: デバッグファイル ID および全データ（dSYM または ProGuard ファイルを含む）を削除
+
+    users:
+      default:
+        tags: ユーザー
+        responses:
+          index: ユーザーの一覧を返却
+          search: ユーザーの一覧を返却
+          show: ユーザーを返却
+          create: ユーザーを作成
+          update: ユーザーを更新
+          destroy: ユーザーを削除
+          lock: 処理結果を返却
+          unlock: 処理結果を返却
+      index:
+        title: ユーザー一覧
+        description: 機密情報（パスワード）を除いたユーザー一覧を表示
+      search:
+        title: ユーザー検索
+        description: 指定したメールアドレスでユーザーを検索
+      create:
+        title: ユーザー作成
+        description: ユーザーを作成
+      show:
+        title: ユーザー取得
+        description: ユーザーメタデータ、個人データ、カスタマイズ設定を取得
+      update:
+        title: ユーザー更新
+        description: ユーザーの個別設定、パスワードなどを更新
+      destroy:
+        title: ユーザー削除
+        description: ユーザーを削除
+      lock:
+        title: ユーザーをロック
+        description: ユーザーをロックしてログインを停止
+      unlock:
+        title: ユーザーのロック解除
+        description: ユーザーのロックを解除してログインを有効化
+
+    version:
+      default:
+        tags: バージョン
+        responses:
+          show: バージョン情報を取得
+      show:
+        title: バージョン情報を取得
+        description: ""
+    health:
+      default:
+        tags: ヘルスチェック
+        responses:
+          show: ヘルスチェック結果を取得
+      show:
+        title: ヘルスチェック結果を取得
+        titleJson: JSON 形式でヘルスチェック結果を取得
+        description: ""

@@ -1,0 +1,5 @@
+ja:
+  pundit:
+    default: 現在のユーザーにはこの操作を実行する権限がありません。
+    debug_file_policy:
+      create?: デバッグファイルをアップロードする権限がありません。

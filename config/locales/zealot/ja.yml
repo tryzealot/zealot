@@ -1,0 +1,1216 @@
+---
+ja:
+  announcement: バージョン 7.0 ではまったく新しいテーマを導入しました。さらに多くの新機能も開発中です！
+  toolbox_section: ツールボックス
+  admin_section: 管理エリア
+  monitors_section: モニタリング
+  user_profile: ユーザー情報
+  log_out: ログアウト
+  log_in: ログイン
+  donate: 寄付
+  intro:
+    title: Android、iOS、macOS、Windows、Linux アプリのセルフホスト型ベータ配信プラットフォーム
+    description: すべてを継続的に。アプリのライフサイクルを自動化します。CI と連携してクラウドでビルドし、実機テストを行い、テスターやアプリストアへ配信。すべてを 1 か所で。
+  links:
+    back_to_list: 一覧に戻る
+  admin:
+    users:
+      title: ユーザー
+      new:
+        title: 新規ユーザー作成
+      index:
+        title: :'admin.users.title'
+        new_user: :'admin.users.new.title'
+        number: "#"
+        nickname: ニックネーム
+        email: メールアドレス
+        role: ロール
+        status: ステータス
+        last_login_time: 最終ログイン日時
+        activated: 有効
+        locked: アカウントロック
+        inactive: 未アクティベート
+        never_logged_in: ログイン履歴なし
+        destroy_user: 削除
+        destroy_user_confirm: ユーザー「%{user}」を削除してもよろしいですか？
+      edit:
+        title: ユーザー編集
+        active_link: 有効化リンク
+        active_link_tip: 招待メールが届かない場合は、こちらのリンクをお使いください。
+        resend: 有効化メールを再送信
+        profile: プロフィール
+        collaborators: コラボレーター
+        api_token: API トークン
+        lock_user: ロック
+        unlock_user: ロック解除
+        destroy_user: 削除
+      lock:
+        message: ユーザー「%{user}」をロックしました。
+      unlock:
+        message: ユーザー「%{user}」のロックを解除しました。
+      resend_confirmation:
+        message: ユーザー「%{user}」へ確認メールを再送信しました。
+    web_hooks:
+      title: Webhook
+      index:
+        title: :'admin.web_hooks.title'
+        links: 通知リンク
+        number: "#"
+        url: URL
+        channels: チャンネル
+        not_found: Webhook なし
+        create_web_hook_from_channel_inside: アプリのチャンネル詳細から Webhook を作成してください。作成後はここで編集や削除が可能です。
+      show:
+        title: Webhook 詳細
+      new:
+        title: 新規 Webhook
+      edit:
+        title: Webhook 編集
+      messages:
+        success:
+          enable: Webhook を有効にしました
+          disable: Webhook を無効にしました
+          test: テストリクエストを送信しました
+    apple_keys:
+      title: Apple Developer
+      new:
+        title: Apple Developer 追加
+      index:
+        title: :'admin.apple_keys.title'
+        teams: チーム
+        number: "#"
+        team_name: チーム名
+        team_id: チーム ID
+        created_at: 作成日時
+        new_apple_key: :'admin.apple_keys.new.title'
+        not_found:
+          title: Apple Developer が登録されていません。
+          body_html: 右上の <i class="fa-regular fa-plus-square"></i> ボタンから Apple Developer を追加してください。
+      show:
+        title: :'admin.apple_keys.title'
+        team_metadata: チーム情報
+        key_metadata: Key 情報
+        devices: デバイス
+        sync_now: 今すぐ同期
+        last_synced_at: "最終同期: %{time}前"
+        never_sync: 未同期
+        download_private_key: 秘密鍵をダウンロード
+        udid: :'udid.show.udid'
+        udid_name: :'udid.show.name'
+        udid_platform: :'udid.show.platform'
+        udid_model: :'udid.show.model'
+        udid_related_apps: 関連アプリ
+        udid_created_at: 登録日時
+      create:
+        successful: Apple Developer を正常に登録し同期しました
+    apple_teams:
+      edit:
+        title: チーム情報の編集
+    settings:
+      title: システム設定
+      index:
+        title: :'admin.settings.title'
+        smtp_verify: 接続テスト
+        smtp_verify_inprocess: 検証中...
+        restart_to_apply: 再起動後に反映
+        service_restarting: 再起動中
+        service_restarted: 反映中
+        restart_required: 再起動が必要です
+      update:
+        title: 設定の更新
+      edit:
+        title: 設定の編集
+      enable: 有効
+      disable: 無効
+      validates: "条件: %{value}"
+      general: 一般設定
+      site_https: HTTPS を有効化
+      site_title: サイト名
+      site_locale: サイト言語
+      site_domain: サイトドメイン
+      site_appearance: 外観テーマ
+      site_light_theme: ライトテーマ
+      site_dark_theme: ダークテーマ
+      presets: プリセット
+      preset_schemes: デフォルトスキーム
+      preset_role: 新規ユーザーのデフォルトロール
+      preset_install_limited: アプリ内ブラウザのインストール制限
+      preset_install_limited_hint: 特定のアプリ内ブラウザ（WeChat、DingTalk など）でインストールできない場合、User-Agent キーワードにより外部ブラウザでの起動を案内します。
+      per_page: 1 ページあたりの表示件数
+      max_per_page: 最大表示件数
+      switch_mode: 動作モード
+      registrations_enabled: ユーザー登録の許可
+      registrations_enabled_hint: 内蔵認証による新規ユーザー登録の可否を設定します。無効の場合、管理者のみがユーザーを作成できます。
+      login_enabled: ユーザーログインの許可
+      login_enabled_hint: 内蔵認証によるログインの可否を設定します。無効の場合、サードパーティ認証のみ利用可能です。
+      passwordless_login_enabled: パスワードレスログイン
+      passwordless_login_enabled_hint: メールリンクによるパスワードレスログインを許可します。
+      guest_mode: ゲストモード
+      demo_mode: デモモード
+      demo_mode_hint: デモモードを有効にすると、データが毎日自動リセットされ、初期管理者の編集/削除が禁止され、機密データが保護されます。
+      third_party_auth: サードパーティ認証
+      ldap: LDAP
+      oidc: OpenID Connect
+      feishu: Feishu
+      github: GitHub
+      gitlab: GitLab
+      google_oauth: Google OAuth
+      smtp: SMTP メール設定
+      mailer_default_from: 送信元アドレス
+      mailer_default_reply_to: 返信先アドレス
+      mailer_options: SMTP 接続オプション
+      analytics: アクセス解析
+      google_analytics_id: Google Analytics ID
+      umami_script_url: Umami スクリプト URL
+      umami_website_id: Umami Website ID
+      archives: アップロードバイナリの保存
+      keep_uploads: すべてのビルドを永続保持
+      misc: その他
+      show_footer_version: フッターにバージョン情報を表示
+      show_footer_openapi_endpoints: フッターに OpenAPI ドキュメントへのリンクを表示
+      empty_value: 未設定
+      no_editable_key: 読み取り専用
+      reset: デフォルト値に戻す
+    system_info:
+      title: システム情報
+      index:
+        title: :'admin.system_info.title'
+        zealot_version: バージョン
+        vcs_ref: Git コミット
+        build_date: ビルド日時
+        server_info: サーバー情報
+        found_new_version: "新バージョン利用可能: %{version}"
+        os_info: OS 情報
+        postgres_version: PostgreSQL バージョン
+        ruby_version: Ruby バージョン
+        cpu_info: CPU
+        cpu_core: "%{count} コア"
+        fail_detect_cpu: CPU 情報の取得に失敗しました
+        memory_info: メモリ
+        fail_detect_memory: メモリ情報の取得に失敗しました
+        disk_info: ディスク
+        lauched_time: 起動日時
+        volume_mounted: マウント情報
+        fail_detect_disk: ディスク情報の取得に失敗しました
+        system_environment: 環境変数
+        file_permissions: ファイル権限
+        ruby_gems: Ruby Gems
+        logs: ログ
+        new_version: "新しいアップデートがあります "
+        dev_new_version: 新バージョン利用可能（開発モード）
+        messages:
+          file_permissions_tip: 警告アイコンが表示されているパスは書き込み権限がありません。Zealot の動作に支障が出る可能性があります。
+          path_not_exist: パスが存在しません
+          path_not_writable: 書き込み権限がありません
+          path_not_readable: 読み取り権限がありません
+    backups:
+      title: バックアップ
+      index:
+        title: :'admin.backups.title'
+        new_schedule: 新規スケジュール
+        schedules: スケジュール一覧
+        key: バックアップ名
+        scopes: バックアップ対象
+        schedule: 実行間隔
+        next_schedule_at: 次回実行予定
+        enabled: 有効
+        run_backup: 今すぐバックアップ実行
+        edit: 編集
+        database: データベース
+        app: "%{count} 個のアプリ"
+        not_found:
+          title: バックアップなし
+          body_html: <i class="fa-regular fa-plus-square"></i> ボタンをクリックしてバックアップを作成してください。
+      show:
+        title: "%{key} バックアップ"
+        run_backup: バックアップを実行
+        backup_files: バックアップファイル
+        filename: ファイル名
+        sha256: SHA256
+        created_at: 作成日時
+        size: サイズ
+        download: ダウンロード
+        performing_jobs: 実行中ジョブ
+        backup_id: バックアップ ID
+        backup_status: ステータス
+        steps:
+          start: ジョブ受付
+          prepare: データ準備中
+          dump_database: データベース出力中
+          dump_apps: アプリ出力中
+          pack: 圧縮中
+          remove_old: 古いバックアップの削除中
+          cleanup: 後処理中
+        unknown_job_status: 不明なエラーが発生しました。再試行するか管理者にお問い合わせください。
+        not_found:
+          title: バックアップファイルなし
+          body_html: <i class="fa-regular fa-play-circle"></i> ボタンをクリックしてバックアップを実行してください。
+      new:
+        title: 新規バックアップ
+        schedule: スケジュール
+        disable: 無効化
+        enable: 有効化
+      edit:
+        title: "%{key} バックアップの編集"
+      perform:
+        success: バックアップジョブ「%{key}」を正常に実行しました。
+      destroy_archive:
+        success: バックアップ「%{key}」を正常に削除しました。
+      cancel_job:
+        success: バックアップジョブ「%{key}」をキャンセルしました。
+      parse_schedule:
+        invalid_expression: 無効なスケジュール式です
+    background_jobs:
+      title: ジョブ
+      index:
+        title: :'admin.background_jobs.title'
+    logs:
+      title: サービスログ
+      index:
+        title: :'admin.logs.title'
+        loading: 読み込み中...
+        error_message: "ログの取得に失敗しました。ステータスコード: "
+    services:
+      smtp_verify:
+        success: SMTP メールサービスの設定を正常に検証しました
+        smtp_method_only: SMTP 送信方式のみサポートしています
+        no_mailer_configuration: メーラー設定なし
+  dashboard:
+    title: ダッシュボード
+    analytics:
+      apps: :'apps.title'
+      debug_files: :'debug_files.title'
+      teardowns: :'teardowns.title'
+      uploads: アップロード
+      web_hooks: :'admin.web_hooks.title'
+      users: :'admin.users.title'
+      background_jobs: :'admin.background_jobs.title'
+      disk_usage: ストレージ
+    timeline:
+      title: タイムライン
+      upload_full_version_release: ビルド %{release_version} (%{build_version}) をリリースしました
+      upload_auto_version_release: ビルド %{version} をリリースしました
+      not_found: リリース履歴なし
+  apps:
+    title: アプリ
+    sidebar:
+      dashboard: ダッシュボード
+      schemes: スキーム
+      management: 管理
+    index:
+      schemes: スキーム
+      channels: チャンネル
+      uploads: アップロード
+      created_at: "作成日時: %{time}"
+      searching_app: アプリを検索
+      scopes:
+        active: アクティブ
+        archived: アーカイブ済み
+        all: すべて
+      empty:
+        active:
+          title: アプリなし
+          body_html: 右上の <i class="fa-regular fa-plus-square"></i> 新規アプリ ボタンから最初のアプリを作成してください。
+        archived:
+          title: アーカイブアプリなし
+          body: アーカイブしたアプリがここに表示されます。
+      no_match:
+        title: 一致するアプリなし
+        body: "「%{query}」に一致するアプリはありません。"
+        clear: 検索をクリア
+    show:
+      new_scheme: 新規スキーム
+      edit_app: アプリ編集
+      destroy_app: アプリ削除
+      archive_app: アプリをアーカイブ
+      unarchive_app: アーカイブ解除
+      archived: アーカイブ済み
+      new_channel: 新規チャンネル
+      edit_scheme: スキーム編集
+      destroy_scheme: スキーム削除
+      edit_channel: チャンネル編集
+      destroy_channel: チャンネル削除
+      retained_build: 保持ビルド数
+      disabled_new_build_callout: 新着通知バナー無効
+      enabled_new_build_callout: 新着通知バナー有効
+      total_builds: 総ビルド数
+      not_found_channel: チャンネルなし
+      not_found_scheme:
+        title: スキームなし
+        body_html: |
+          <p><i class="fa-regular fa-plus-square"></i> ボタンをクリックしてスキームを作成してください。</p>
+          <p>スキームは開発段階や配信先に応じたアプリの分類に使用します:</p>
+          <ul>
+            <li>Debug、AdHoc、Beta テスト、Production など</li>
+          </ul>
+          <p>Android のマーケット別分類例:</p>
+          <ul>
+            <li>Google Play、Samsung Galaxy Store、TapTap、F-Droid など</li>
+          </ul>
+      collaborators: コラボレーター
+      new_collaborator: 新規コラボレーター
+      filters:
+        title: フィルター
+        scheme: スキーム
+        channel: チャンネル
+        all_schemes: すべてのスキーム
+        all_channels: すべてのチャンネル
+        reset: リセット
+      username: ユーザー
+      role: 権限
+      it_is_you: "（あなた）"
+      collaborator_owner: オーナー
+    new:
+      title: 新規アプリ
+    edit:
+      title: アプリ編集
+    new_owner:
+      title: オーナー権限の譲渡
+      user_hint: 別のメンバーに移譲すると、このアプリのすべての権限を失います。
+    archives:
+      title: アーカイブ済みアプリ
+    messages:
+      failture:
+        not_found_app_by_version: "該当アプリバージョンなし: %{version}"
+        not_found_app: ID %{id} のアプリが存在しません。一覧にリダイレクトします
+        missing_schemes_and_channels: スキームとチャンネルが設定されていません。
+      confirm:
+        delete_app: アプリ「%{name}」と関連するすべてのスキーム、チャンネル、リリースを削除してもよろしいですか？
+        delete_app_scheme: スキーム「%{name}」と関連するすべてのチャンネル、リリースを削除してもよろしいですか？
+        delete_app_channel: チャンネル「%{name}」と関連するすべてのリリースを削除してもよろしいですか？
+        delete_collaborator: コラボレーター「%{name}」を削除してもよろしいですか？
+        archive_app: アプリ「%{name}」をアーカイブし、新規リリースのアップロードを停止してもよろしいですか？
+        unarchive_app: アプリ「%{name}」のアーカイブを解除し、新規リリースのアップロードを再開してもよろしいですか？
+  collaborators:
+    default:
+      title: コラボレーター
+    new:
+      title: 新規コラボレーター追加
+      errors:
+        all_users_were_added: すべてのユーザーが既に追加されています。
+    edit:
+      title: コラボレーター編集
+  schemes:
+    title: スキーム
+    show:
+      empty_channel: チャンネルなし
+    new:
+      title:
+        with_name: "%{app} の新規スキーム"
+        without_name: 新規スキーム
+    edit:
+      title:
+        with_name: "%{app} のスキーム編集"
+        without_name: スキーム編集
+  channels:
+    title: チャンネル
+    subtitle: スキーム %{total_scheme} / チャンネル %{total_channel}
+    show:
+      scheme: :'schemes.title'
+      channel: :'channels.title'
+      activity: アクティビティ
+      metadata: チャンネル情報
+      device_type: デバイスタイプ
+      slug: スラッグ
+      password: アクセスパスワード
+      git_url: Git URL
+      download_filename_type: ダウンロードファイル名規則
+      download_filename_type_item:
+        version_datetime: "{channel_slug}_{release_version}_{build_version}_{datetime}.{ext}"
+        original_filename: アップロード時の元ファイル名を使用
+      match_rule: マッチングルール %{value}
+      wildmatch: "（パッケージ名の制限なし）"
+      total_releases: 総アップロード数
+      channel_key: チャンネル KEY
+      edit_channel: チャンネル編集
+      none: なし
+      not_found: リリースなし。<i class="fa-regular fa-plus-square"></i> ボタンからリリースをアップロードしてください。
+      id: ID
+      build_version: ビルド番号
+      git_branch: ブランチ
+      git_commit: コミット SHA
+      version: バージョン
+      release_type: リリースタイプ
+      uploaded_at: アップロード日時
+      actions: 操作
+      major_versions: メジャーバージョン
+      release_version: リリースバージョン
+      total_version: バージョン数
+      empty_version: このバージョンのリリースなし
+      view_more: さらに表示
+      view_app: アプリ詳細へ
+      app_detail: アプリ詳細へ
+    new:
+      title:
+        with_name: "%{app} の新規チャンネル"
+        without_name: 新規チャンネル
+    edit:
+      title:
+        with_name: "%{app} のチャンネル編集"
+        without_name: チャンネル編集
+    branches:
+      index:
+        subtitle: ブランチ %{branch} のリリース一覧
+    release_types:
+      index:
+        subtitle: "%{type} のリリース一覧"
+    versions:
+      index:
+        subtitle: リリース一覧
+      show:
+        subtitle: バージョン %{version} のリリース一覧
+    filters:
+      list:
+        delete: 削除
+        delete_all: すべて削除
+    messages:
+      errors:
+        not_found_channel: ID %{id} のチャンネルが存在しません。アプリ一覧へリダイレクトします
+  releases:
+    title: ビルド
+    sources:
+      web: Web
+      api: API
+    show:
+      enter_password: パスワードを入力してください
+      app_touch_menu: 右上のメニューをタップしてください
+      app_open_in_safari: "「Safari で開く」を選択してインストール"
+      app_open_in_webbrower: ブラウザで開いてインストール
+      new_build_released: 新しいビルドが利用可能です！
+      released_new_version: "%{version_link} が %{time}前にリリースされました！"
+      name: アプリ名
+      version: バージョン
+      device_type: デバイス
+      release_version: リリースバージョン
+      release_type: リリースタイプ
+      native_codes: ネイティブコード
+      multi_native_codes: ユニバーサル
+      filesize: ファイルサイズ
+      uploaded_at: アップロード日時 %{date}
+      git_branch: Git ブランチ
+      git_commit: Git コミット SHA
+      source: アップロード元
+      metadata: 詳細情報
+      certificate_expired_date: "証明書有効期限: %{date}"
+      teardown_metadata: パッケージ解析
+      install: インストール
+      download: ダウンロード
+      installing: インストール中...
+      installed: 再インストール
+      cert_expired: 証明書期限切れのためインストール不可
+      missing_file: ファイルなし
+      more: その他のビルド
+      cannot_install_cause_of_certificate_expired: 証明書の有効期限が切れたアプリをインストールできない理由
+      cannot_install_or_untrusted_enterprise_developer: "「信頼されていないエンタープライズ開発元」と表示される、またはインストールに失敗する場合"
+      last_ten_uploads: アクティビティ
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      changelog: 変更履歴
+      devices: テスト端末
+      sync_devices_feature: 端末同期を有効にする
+      apple_team_link: https://zealot.ews.im/docs/user-guide/administrator/apple-team
+      qrcode: QR コード
+      scan_qrcode_with_any_supported_app: QR コードをスキャンしてアプリをインストール
+      major_versions: :'channels.show.major_versions'
+      view_detail: チャンネルページへ
+      custom_fields_invalid_json_format: カスタムフィールドを描画できません。JSON 文字列ではなく配列形式を使用してください。
+      app_was_archived: アーカイブされたアプリは読み取り専用です。
+    new:
+      title: 新規ビルドのアップロード
+    install:
+      show:
+        not_found: バイナリファイルが存在しないため、ダウンロードできません。
+    messages:
+      default_changelog: "変更履歴なし。理由:\n\n- 開発者が記録を残していません \U0001F602\n- エラーが発生しました \U0001F47D\n"
+      errors:
+        upload_to_archived_app: アプリ「%{app}」はアーカイブされているため、新規バージョンをアップロードできません。
+        not_found_release_and_redirect_to_channel: リリースが存在しないか削除されました。チャンネルページへリダイレクトします
+        not_found_release_and_redirect_to_latest_release: リリースが存在しないか削除されました。最新リリースへリダイレクトします
+        not_found: 該当なし
+        not_found_app: アプリが存在しないか削除されました
+        not_found_release: チャンネルにビルドが存在しません
+        redirect_to_app_list: アプリ一覧へリダイレクト
+        reidrect_channel_detal: チャンネルページへリダイレクト
+        deleted_manually: 開発者によって削除された可能性があります。
+        deleted_programly: 自動クリーンアップ設定によって削除された可能性があります。
+        not_found_really: 該当ビルドなし
+        invalid_password: パスワードが無効です
+        bundle_id_not_matched: リリース %{got} の bundle id / パッケージ名がルール %{expect} と一致しません
+  debug_files:
+    title: デバッグファイル
+    form:
+      release_version_hint: Android の場合は必須です
+      build_version_hint: Android の場合は必須です
+    index:
+      upload: デバッグファイルのアップロード
+      upload_with_platform: "%{platform} デバッグファイルのアップロード"
+      uploaded_at: "%{time}前にアップロード"
+      proguard: ProGuard
+      dsym: dSYM
+      processing: 処理中
+      parse_failed: 解析失敗
+      files_count: "%{count} 個のファイル"
+      libraries_count: "%{count} 個のライブラリ"
+      empty:
+        proguard: ProGuard マッピングファイルなし
+        dsym: dSYM ファイルなし
+    show:
+      title: "%{device} %{version} デバッグファイル"
+      name: アプリ名
+      version: ビルド番号
+      device_type: プラットフォーム
+      release_version: バージョン
+      filename: ファイル名
+      file_size: ファイルサイズ
+      uploaded_at: アップロード日時
+      missing_file: ファイルなし
+      download: ダウンロード
+      reprocess: 再処理
+      parse_failed: 解析失敗
+      main_target: メインターゲット
+      arch: アーキテクチャ
+      target: ターゲット
+      uuid: UUID
+      libraries: ライブラリ
+      files: ファイル
+    device:
+      processing: バックグラウンドで解析処理中です。少々お待ちください...
+      refresh_page: |-
+        長時間変化がない場合はページを再読み込みしてください。
+
+        再読み込み後もこのメッセージが表示され続ける場合は、管理画面の「ジョブ」でエラーがないかご確認ください。
+      reparse_required: 識別子またはパッケージ名が不足しています。再処理が必要な可能性があります。
+      main_target: メインターゲット
+      arch: アーキテクチャ
+      libraries: ライブラリ
+      file_nums: ファイル数
+      file_size: ファイルサイズ
+    reprocess:
+      success: 再処理リクエストを正常に受け付けました
+    help:
+      title: ヘルプセンター
+      body_html: |
+        <h4>デバッグファイルとは、および取得方法</h4>
+        <h5>iOS</h5>
+        <p>Xcode での取得:</p>
+        <ul>
+          <li>Xcode を開き、「Window」->「Organizer」を選択します</li>
+          <li>プロジェクトを選択し、「Archives」内のアーカイブを確認します</li>
+          <li>ビルドを選択 ->「Show in Finder」で .xcarchive フォルダを開きます</li>
+          <li>右クリック ->「パッケージの内容を表示」->「dSYMs」</li>
+          <li>dSYM ファイルを zip 圧縮します</li>
+        </ul>
+        <p>
+          Xcode の「Build Settings」->「Build Options」で dSYM 生成を有効化:
+          <code>Debug Information Format = "DWARF with dSYM File"</code>
+        </p>
+        <p>または Xcode Organizer の「Download Debug Symbols」をお試しください</p>
+
+        <h5>Android</h5>
+        <p>
+          Mapping ファイルを指します。
+          <a href="https://developer.android.com/studio/build/shrink-code?hl=ja">ProGuard</a>
+          で難読化されたスタックトレースを復元するために使用します。
+        </p>
+  teardowns:
+    title: パッケージ解析
+    new:
+      title: 新規パッケージ解析
+    create:
+      create: :'teardowns.new.title'
+    index:
+      create: :'teardowns.new.title'
+      upload_history: アップロード履歴
+      uploaded_at: アップロード日時
+      app_name: アプリ名
+      version: バージョン
+      platform: プラットフォーム
+      uploader: アップロード者
+      actions: 操作
+      anonymous: 匿名
+      not_found:
+        title: 解析履歴なし
+        body_html: <i class="fa-regular fa-plus-square"></i> ボタンをクリックして新規パッケージを解析してください
+    show:
+      title: "%{name} の解析結果"
+      expired_in: "残り有効期限: %{time}"
+      already_expired: "%{time}前に期限切れ"
+      expired: 期限切れです！
+      related_app: 関連リリース
+      related_body: この解析結果は %{link} に関連付けられています
+      unkonwn: 不明
+      metadata: メタデータ
+      app_name: アプリ名
+      version: バージョン
+      package_name: Bundle ID / パッケージ名
+      native_codes: ネイティブコード
+      supported_device: 対応デバイス
+      android_min_sdk: 最小 SDK
+      android_target_sdk: ターゲット SDK
+      file_size: ファイルサイズ
+      release_type: リリースタイプ
+      min_ios_version: 最小 iOS バージョン
+      min_tvos_version: 最小 tvOS バージョン
+      min_macos_version: 最小 macOS バージョン
+      activities: アクティビティ
+      deep_links: ディープリンク
+      features: 機能
+      url_schemes: URL スキーム
+      permissions: パーミッション
+      services: サービス
+      entitlements: Entitlement
+      developer_certs: 開発者証明書
+      capabilities: 機能ケイパビリティ
+      devise_list: デバイス一覧 (%{count})
+      cert: 証明書 %{index}
+      cert_expired_at: "%{date} に期限切れ"
+      cert_created: 作成日
+      cert_expired: 有効期限
+      cert_version: バージョン
+      cert_serial: シリアル番号
+      cert_issuer: 発行者
+      cert_algorithem: アルゴリズム
+      cert_subject: サブジェクト
+      cert_digest: ダイジェスト
+      cert_length: 鍵長
+      signature_title: 署名
+      signature: スキーム %{scheme}
+      cert_fignger: "フィンガープリント: %{digest}"
+      signature_not_found: なし
+      signature_verified: 検証済み
+      signature_invalid: 検証失敗
+      signature_unsupported: 検証非対応
+      certificate_lineage: 証明書リネージ
+      certificate_lineage_node: "階層 %{index}: %{name}"
+      certificate_lineage_flags: "フラグ: %{flags}"
+      certificate_lineage_algorithm: 親署名アルゴリズム ID %{id}
+      mobileprovision: Mobileprovision
+      uuid: UUID
+      mobileprovision_name: 名前（種別）
+      team_id: チーム ID
+      created_at: 作成日時
+      expired_at: 有効期限
+      archs: アーキテクチャ
+      product_name: 製品名
+      product_version: 製品バージョン
+      assembly_version: アセンブリバージョン
+      file_version: ファイルバージョン
+      file_description: ファイルの説明
+      copyright: 著作権
+      original_filename: 元のファイル名
+      company_name: 会社名
+      binary_size: バイナリサイズ
+      imports: インポート
+      uploaded_date: アップロード日
+      uploader: アップロード者
+    help:
+      title: ヘルプセンター
+      body_html: |
+        <p>
+          <i class="fa-regular fa-plus-square"></i> ボタンをクリックしてアプリをアップロードし、内部情報を確認できます:
+        </p>
+        <table class="d-table">
+          <tr>
+            <th>iOS</th>
+            <th>Android</th>
+          </tr>
+          <tr>
+            <td>アプリ名</td>
+            <td>アプリ名</td>
+          </tr>
+          <tr>
+            <td>対応デバイス</td>
+            <td>対応デバイス</td>
+          </tr>
+          <tr>
+            <td>bundle identifier</td>
+            <td>package name</td>
+          </tr>
+          <tr>
+            <td>リリースタイプ</td>
+            <td>リリースタイプ</td>
+          </tr>
+          <tr>
+            <td>最小 iOS バージョン</td>
+            <td>Android 最小 SDK / ターゲット SDK</td>
+          </tr>
+          <tr>
+            <td>Entitlements</td>
+            <td>Activities</td>
+          </tr>
+          <tr>
+            <td>Capabilities</td>
+            <td>Services</td>
+          </tr>
+          <tr>
+            <td>URL Schemes</td>
+            <td>Features</td>
+          </tr>
+          <tr>
+            <td>UDID 端末リスト</td>
+            <td>Permissions</td>
+          </tr>
+          <tr>
+            <td>開発者証明書</td>
+            <td>署名（Signatures）</td>
+          </tr>
+          <tr>
+            <td>Mobileprovision</td>
+            <td>ネイティブコード</td>
+          </tr>
+        </table>
+    messages:
+      upload_events: "%{name} がリリース %{version} をアップロードしました"
+      download_events: "%{name} %{version} がダウンロードされました"
+      changelog_events: "%{name} %{version} の変更履歴が更新されました"
+      unknown_events: "%{name} で未知のイベントが発生しました: %{event}"
+      errors:
+        not_found_file: "デバッグファイルなし: %{message}"
+        not_support_file_type: サポートされていないファイル形式です
+        failed_get_metadata: 解析に失敗しました。サポート対象の形式であり、難読化/暗号化されていないことを確認してください
+        unknown_parse: "不明な解析エラー: %{message} (%{class})"
+        choose_supported_file_type: 対応するファイル形式（.apk / .aab / .ipa / .mobileprovision または macOS.app.zip）を選択してください
+  udid:
+    title: UDID 取得
+    index:
+      apple_tip: iPhone または iPad で QR コードをスキャンしてインストールしてください
+      macos_tip: macOS のチップ識別制限のため、iPhone/iPad でスキャンするかボタンを押して UDID を取得してください。
+      nonapple_tip: :'udid.index.apple_tip'
+      fetch_udid: 今すぐ UDID を取得
+      app_open_in_safari: "「Safari で開く」を選択して取得"
+      app_open_in_webbrower: 任意のブラウザで開いて取得
+      help:
+        title: UDID 取得に構成プロファイルのインストールが必要な理由
+        body_html: |
+          <p class="list-decimal px-5">
+            UDID は Unique Device Identifier（一意のデバイス識別子）の略称です。Apple が iOS デバイスを識別するために提供する機能であり、Apple サーバーとデバイス間の通信、Apple ID や iCloud ID との紐付けに使用されます。すべての iOS デバイスが固有の ID を持ちます。
+          </p>
+          <p>
+            App Store での公式公開前にアルファ版やベータ版の iOS アプリを実機にインストールする場合、お使いの端末の UDID の登録が必須となります。
+          </p>
+          <strong>取得手順:</strong>
+          <ol>
+            <li>「許可」をタップして構成プロファイルをダウンロードします。</li>
+            <li>ダウンロードしたプロファイルを開きます。
+              <ol>
+                <li>iOS: 「設定」->「ダウンロード済みのプロファイル」->「デバイス UDID の取得」->「インストール」。</li>
+                <li>macOS: <code>install.mobileconfig</code> を開き、「システム設定」-> サイドバーの「プロファイル」をクリックします。</li>
+              </ol>
+            </li>
+            <li>インストール後、自動的に Safari が開き結果ページへ遷移し、プロファイルは即座に自動削除されます。</li>
+          </ol>
+    show:
+      title: デバイス
+      metadata: メタデータ
+      registered_but_no_related_app: デバイスは Apple Developer に登録されていますが、関連アプリなし。
+      registered_with_related_apps: デバイスは Apple Developer に登録されています。以下のアプリをインストールできます。
+      register: このデバイスは未登録です。登録先の Apple Developer アカウントを選択してください。
+      unregistered: 新規デバイスが検出されました。UDID を Apple Developer にコピーしてください！
+      registered_apps: 登録済みアプリ
+      udid: UDID
+      serial: シリアル番号
+      product: 製品名
+      version: バージョン
+      name: デバイス名
+      platform: プラットフォーム
+      model: モデル
+      status: ステータス
+      enabled: 有効
+      disabled: 無効
+      created_at: 登録日時
+      upload_full_version_release: :'dashboard.timeline.upload_full_version_release'
+      upload_auto_version_release: :'dashboard.timeline.upload_auto_version_release'
+      registered_device: 関連 Apple Developer
+      new_register_device: Apple Developer に登録
+      channels: チャンネル
+      releases: アップロード数
+      apple_keys: Apple Developer
+      team_name: チーム名
+      team_id: チーム ID
+      register_device: 登録
+      related_apple_keys_not_found: Apple チームなし
+      related_apps_not_found_with_registered_device: |-
+        このデバイスは同期サービスにより登録済みですが、
+
+        関連付けられたアプリがまだアップロードされていません。
+      related_apps_not_found: このデバイスは未登録であるか、関連アプリがまだアップロードされていません。
+    edit:
+      information: デバイス統計
+    install:
+      title: デバイス UDID 取得プロファイル
+      organization: Apple UDID 認証サービス
+      description: |
+        ↑↑↑↑ 「署名されていません」または「未検証」と表示されるのは正常です。
+
+        お使いの端末の UDID を取得・表示するためにこの一時プロファイルをインストールします。UDID 取得後、プロファイルはデバイスから直ちに自動削除されます。
+        %{name} による認証リクエスト: %{url}
+  web_hooks:
+    title: :'admin.web_hooks.title'
+    create: :'admin.web_hooks.new.title'
+    enable: 有効
+    shared: 共通
+    not_found: Webhook なし
+    current_channel: 現在のチャンネル
+    test: テストイベントを送信
+    disable: 無効化
+    destroy: 削除
+    new:
+      title: :'admin.web_hooks.new.title'
+    edit:
+      title: :'admin.web_hooks.edit.title'
+    table:
+      url: URL
+      events: イベント
+      channels: チャンネル
+    messages:
+      parse_done_and_refreshing: パッケージ解析が完了しました。ページを再読み込みしています...
+  settings:
+    title: :'admin.settings.title'
+    preset_schemes:
+      beta: Beta
+      adhoc: AdHoc
+      enterprise: Enterprise
+      production: Production
+    preset_role:
+      member: メンバー
+      developer: 開発者
+      admin: 管理者
+    site_locale:
+      zh-CN: 中国語簡体字
+      en: 英語
+      ja: 日本語
+    site_appearance:
+      light: ライト
+      dark: ダーク
+      auto: 自動
+  download:
+    releases:
+      show:
+        not_found: リリースなし
+    debug_files:
+      show:
+        not_found: デバッグファイルなし
+  api:
+    unauthorized_channel_key: 認証されていないチャンネルキーです
+    unauthorized_token: 認証されていないユーザートークンです
+    unprocessable_entity: 処理できないエンティティです
+    apps:
+      upload:
+        create:
+          debug: Debug
+          adhoc: AdHoc
+          enterpse: Enterprise
+          release: Release
+      version_exist:
+        show:
+          not_found: 該当リリースなし
+          missing_params: bundle_id, release_version, build_version または bundle_id, git_commit の組み合わせが必要です
+    schemes:
+      index:
+        not_found: アプリ ID=%{id} のスキームなし
+    debug_files:
+      download:
+        default:
+          not_found: デバッグファイルなし
+  modals:
+    reset:
+      title: リセット確認
+      body: 現在の設定はデフォルト値に戻ります。操作を続けてよろしいですか？
+    confirm:
+      title: 本当に削除しますか？
+      body: 一度削除されたデータは元に戻すことができません。十分注意して操作してください！
+    destroy_apple_key:
+      title: Apple Developer の削除
+      body: |
+        「%{name}」を削除すると復元できません。
+        慎重に操作してください！
+    install_issue:
+      title: インストールの問題と解決策
+      body_html: |
+        <ol class="list-decimal px-5">
+          <li>
+            iOS 9 以降で手動インストールした場合、開発元を手動で信頼する必要があります。
+            手順: 「設定」->「一般」->「VPNとデバイス管理」-> 該当のプロファイルを選択 ->「信頼」。
+          </li>
+          <li>AdHoc アプリを手動インストールする場合は、App Store 版の同一アプリを事前にアンインストールしてください！</li>
+        </ol>
+    cert_expired_issues:
+      title: iOS 署名証明書の問題
+      body_html: |
+        <ol class="list-decimal px-5">
+          <li>
+            iOS では、開発中やテスト中のアプリに対して Apple の署名検証メカニズムが機能します。
+            署名証明書の有効期限は発行日から 1 年間です。期限切れ後は再署名を行わないとインストールできません。
+          </li>
+          <li>開発者に連絡し、Apple Developer サイトで証明書を再発行してアプリをリビルド・アップロードしてもらってください。</li>
+          <li>証明書を再発行しても以前のビルドには反映されません（期限切れビルドは再署名するまで期限切れのままです）。</li>
+        </ol>
+    sponsor:
+      title: Zealot プロジェクトの開発を支援する
+      more_channels: その他の支援方法
+      intro: Zealot は、モバイルアプリ開発者にシンプルで使いやすい社内配信プラットフォームを提供することを目指したオープンソースプロジェクトです。業務に役立っていると感じていただけましたら、以下の方法で開発へのご支援をお願いいたします。
+      outro: 皆様のご支援が開発の原動力です！アプリ配信ソリューションとして Zealot をお選びいただきありがとうございます。
+    tooltip:
+      delete: 削除
+    buttons:
+      close: 閉じる
+      cancel: キャンセル
+      confirm: 確認
+      destroy: 削除
+      okay: OK
+  demo:
+    app_name1: 最初のアプリ
+    app_name2: Android 専用アプリ
+    android_channels:
+      channel1: Google Play
+      channel2: Samsung Galaxy Store
+      channel3: F-Droid
+      channel4: TapTap
+      channel5: Amazon
+  date:
+    formats:
+      nice: "%Y年%m月%d日"
+  time:
+    formats:
+      nice: "%Y年%m月%d日 %H:%M %z"
+  errors:
+    code:
+      "400":
+        title: 送信されたリクエストが無効または不正です
+        content: パラメータの誤りまたは必須パラメータの不足が原因の可能性があります
+      "403":
+        title: このページを表示する権限がありません
+        content: このページへのアクセスまたはこの操作を実行する権限がありません
+      "404":
+        title: ページが見つかりません
+        content: お探しのページは存在しないか、移動した可能性があります。
+      "406":
+        title: リクエストされた形式でページを表示できません
+        content: このページでは要求されたフォーマットをサポートしていません。
+      "410":
+        title: お探しのページは既に削除されました。
+      "422":
+        content: セキュリティ検証に失敗しました。Cookie をブロックしていませんか？
+        title: セキュリティ検証失敗
+      "429":
+        title: リクエストが多すぎます
+      "500":
+        content: 申し訳ありません。サーバー側で問題が発生しました。
+        title: エラーが発生しました
+      "503":
+        title: サーバーの一時的な障害によりページを表示できません。
+    messages:
+      homepage_title: ホームページ
+      goback_title: 前のページへ戻る
+      blank: を入力してください
+      inclusion: は一覧に含まれていません
+      only_integer: は数値で入力してください
+      json_format: は標準的な JSON 形式である必要があります
+      not_authorized_policy: "%{model} に対する %{query} 操作を実行する権限がありません"
+      not_match_url: "一致するページがありません: %{url}"
+      unexpected_parameter: "予期しないパラメータです: %{value}"
+      length_range: "文字数範囲: %{minimum} 〜 %{maximum}"
+      optional_value: "選択可能な値: %{value}"
+      invaild_in_demo_mode: デモモードでは禁止されています
+      record_existed: "%{model} のレコードは既に存在します。"
+      development_only: 開発環境専用
+      database_connection_error: データベースサーバーへの接続に失敗しました
+      goback_or_redirect_to_homepage: "%{goback_link} するか、%{homepage_link} へ戻ることができます"
+      record_not_found: 該当レコードなし
+      user_not_found: ユーザーが見つかりません
+      api_not_found: 該当 API なし
+      app_archived: アプリ「%{name}」はアーカイブされているため、現在の操作を実行できません。
+      cannot_lock_default_admin: デフォルトの管理者アカウントはロックできません。
+  active_job:
+    webhook:
+      failures:
+        empty_release: テスト Webhook 送信用のリリースなし
+        empty_url: Webhook URL が空です。
+        send_failed: "%{url} への Webhook 送信に失敗しました: %{error}"
+    debug_file:
+      success: デバッグファイル (%{id}) を解析しました。
+      failures:
+        not_found_file: デバッグファイルが存在しません。
+        not_matched_bundle_id: "選択したアプリに対応する bundle id なし: %{bundle_id}"
+        unknown_format: 不明なデバッグファイル形式です。
+        unknown_parse: "デバッグファイルの解析中に予期しないエラーが発生しました: %{message}"
+    backup:
+      success: "「%{key}」バックアップを正常に作成しました。"
+      failures:
+        max_keeps_limited: "「%{key}」バックアップの最大保持数が 0 です"
+        dump_command: "バックアップ出力コマンドの実行に失敗しました: %{message}"
+        restore_command: "バックアップ復元コマンドの実行に失敗しました: %{message}"
+        storage_full: "ディスク容量が不足しています。バックアップ先を確認してください: %{key}"
+  activerecord:
+    models:
+      app: アプリ
+      scheme: スキーム
+      channel: チャンネル
+      release: リリース
+      collaborator: コラボレーター
+      apple_key: Apple Developer アカウント
+      udid: デバイス UDID
+      debug_file: デバッグファイル
+      teardown: パッケージ解析
+      setting: システム設定
+      web_hook: Webhook
+      device: テスト端末
+      backup: データバックアップ
+    attributes:
+      channel:
+        name: チャンネル名
+      device:
+        name: デバイス名
+      web_hook:
+        url: Webhook URL
+        body: カスタムメッセージ本文
+        channel_ids: 有効なチャンネル
+        channel_id: 有効なチャンネル
+      collaborator:
+        owner: オーナー
+      release:
+        file: アプリファイル
+    success:
+      create: "%{key} を正常に作成しました"
+      update: "%{key} を正常に更新しました"
+      archived: "%{key} を正常にアーカイブしました"
+      unarchived: "%{key} のアーカイブを解除しました"
+      destroy: "%{key} を正常に削除しました"
+      reset: "%{key} をデフォルト値にリセットしました"
+      update_and_restart: "%{key} を正常に更新しました。反映には再起動が必要です"
+      reset_and_restart: "%{key} をデフォルト値にリセットしました。反映には再起動が必要です"
+    errors:
+      messages:
+        same_value: "%{key} は変更されていないため、更新をスキップしました"
+        invaild_json: 無効な JSON 形式です
+        invaild_jb: 無効な形式です
+        incorrect_json_format: 不明な JSON 形式です
+        empty_json_value: JSON の値が空です
+        unknown: "%{key} の操作に失敗しました"
+      models:
+        setting:
+          default_message: "'%{key}' の以下の問題を確認してください:"
+        collaborator:
+          attributes:
+            owner:
+              unique: オーナーは 1 ユーザーのみ設定可能です
+        apple_key:
+          attributes:
+            issuer_id:
+              missing_distribution_certificate: 配信証明書を作成してから再試行してください
+            key_id:
+              unauthorized: 権限がありません。issuer id と秘密鍵を確認してください
+              forbidden: 権限が不足しています。Apple key には開発者以上の権限が必要です
+              required_agreement_missing_or_expired: Apple key の規約同意が必要です。Apple Developer にログインして規約に同意してください
+              unknown: "不明なエラー: %{message}"
+            devices:
+              invalid_value: 登録デバイス %{value} は無効です
+              api: "Apple からのエラーレスポンス: %{message}"
+              unknown: "不明なエラー: %{message}"
+            checksum:
+              taken: 一致しました。秘密鍵は既に存在します
+        udid:
+          attributes:
+            name:
+              invalid_value: 登録デバイス %{value} は無効です
+              api: "Apple からのエラーレスポンス: %{message}"
+              unknown: "不明なエラー: %{message}"
+        debug_file:
+          attributes:
+            app_id:
+              blank: 関連付けるアプリを選択してください
+            file:
+              blank: 対応形式の zip ファイルを選択してください
+            checksum:
+              taken: 一致しました。デバッグファイルは既に存在します
+        backup:
+          attributes:
+            schedule:
+              invalid: 無効なスケジュール式です
+        release:
+          attributes:
+            file:
+              not_enough_space: のサイズは %{file_size} です。空き容量（残り %{disk_free}）が不足しているためアップロードできません
+  user_mailer:
+    omniauth_welcome_email:
+      subject: "%{title} へようこそ"
+      default_password: "サードパーティサービス連携により Zealot に登録されました。パスワードはこちらです:"
+  devise:
+    confirmations:
+      new:
+        title: 確認メール
+    registrations:
+      new:
+        error: エラー！
+        register_closed: 現在新規登録を受け付けていません。管理者にお問い合わせください。
+        register: 登録
+      edit:
+        change_appearance: 外観の変更
+        update_appearance: 外観の更新
+        change_password: パスワードの変更
+        update_password: パスワードの更新
+        api_token: API トークン
+    normal:
+      title: 通常認証
+      user_login_disabled: ユーザー認証が無効化されています。管理者にお問い合わせください。
+    ldap:
+      title: LDAP
+      username: LDAP ユーザー名
+      password: LDAP パスワード
+    passwordless:
+      title: パスワードレス
+      send_magic_link: マジックリンクを送信
+      not_found_in_database: 該当メールアドレスのユーザーなし
+      magic_link_sent: ログインリンクをメールで送信しました。リンク先からアカウントにログインしてください
+      magic_link_sent_paranoid: アカウントが存在する場合、ログインリンクを記載したメールが送信されます。リンク先からログインしてください
+      signed_in: :'devise.sessions.signed_in'
+    failure:
+      magic_link_invalid: ログインリンクが無効か期限切れです
+    mailer:
+      magic_link:
+        subject: マジックログインリンクのご案内 ✨
+        body: |
+          <p>%{email} 様</p>
+          <p>以下のリンクからログインできます:</p>
+          <p>%{link}</p>
+          <p>このリンクは %{expiration_time} で失効します。</p>
+        login_link_text: アカウントにログイン
+    github:
+      org_check_fail: "GitHub Organization チェック失敗: %{code}"
+      org_required_fail: ログインするには %{required_org} GitHub Organization のメンバーである必要があります。
+    shared:
+      hint: "- または -"
+      links:
+        provider:
+          feishu: Feishu
+          google: Google
+          gitlab: GitLab
+          github: GitHub
+          gitea: Gitea
+          openidconnect: OpenID
+  helpers:
+    submit:
+      release:
+        create: アプリをアップロード
+      teardown:
+        submit: パッケージ解析を実行
+        create: パッケージ解析を実行
+        update: パッケージ解析を更新
+      debug_file:
+        create: デバッグファイルをアップロード
+      setting:
+        create: 保存
+        update: 更新
+      apple_team:
+        update: 更新
+      backup:
+        create: バックアップ作成
+      device:
+        update: 名前を更新
+  views:
+    pagination:
+      truncate: "..."
+      first: 最初
+      previous: 前へ
+      next: 次へ
+      last: 最後
