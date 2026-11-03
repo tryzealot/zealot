@@ -6,16 +6,26 @@ label.card-header.card-collapse-toggle for="signatures-collapse"
 .card-body.space-y-4.p-0
   .p-3.space-y-4
     - signatures.each_with_index do |signature, i|
+      - state = signature_state(signature)
+      - errors = Array(signature['verification_errors'])
+      - lineage = Array(signature['certificate_lineage'])
       .card class="bg-base-200/40.shadow-sm.break-inside-avoid"
         .card-body.gap-4
           .flex.justify-between
             .font-semibold
               = t('teardowns.show.signature', scheme: "v#{signature['scheme']}")
-            .d-badge.d-badge-ghost.d-badge-sm
-              - if signature['certificates'].present?
-                = t('teardowns.show.signature_unverified')
-              - else
-                = t('teardowns.show.signature_not_found')
+            .d-badge.d-badge-ghost.d-badge-sm class=signature_state_class(state)
+              = t("teardowns.show.signature_#{state}")
+
+          - if signature['description'].present?
+            .text-sm.opacity-65 = signature['description']
+
+          - if errors.present?
+            ul.space-y-2.text-sm
+              - errors.each do |error|
+                li.space-y-1
+                  .d-badge.d-badge-ghost.d-badge-sm = error['code']
+                  .break-all.opacity-75 = error['message']
 
           - if signature['certificates'].present?
             - signature['certificates'].each_with_index do |certificate, i|
@@ -55,3 +65,14 @@ label.card-header.card-collapse-toggle for="signatures-collapse"
                 li.flex.flex-col.gap-1.break-all
                   span.opacity-65 = t('teardowns.show.cert_fignger', digest: 'MD5')
                   span.font-medium = certificate['fingerprint']['md5']
+
+          - if lineage.size > 1
+            .border-t.pt-3.space-y-2
+              .font-bold = t('teardowns.show.certificate_lineage')
+              ol.list-decimal.pl-5.space-y-2.text-sm
+                - lineage.each_with_index do |node, index|
+                  li.space-y-1
+                    .font-medium = t('teardowns.show.certificate_lineage_node', index: index + 1, name: certificate_name(node.dig('certificate', 'subject') || []))
+                    .opacity-65 = t('teardowns.show.certificate_lineage_flags', flags: node['flags'])
+                    - if node['parent_signature_algorithm_id'].to_i.positive?
+                      .opacity-65 = t('teardowns.show.certificate_lineage_algorithm', id: node['parent_signature_algorithm_id'])
