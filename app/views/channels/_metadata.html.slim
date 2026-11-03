@@ -3,24 +3,24 @@
     h3.card-title
       i.fa-solid.fa-gear
       = t('channels.show.metadata')
-  .card-body class="p-0"
+  .card-body class="p-0 overflow-x-auto"
     table class="d-table"
       tr
         td class="font-bold opacity-60" = t('channels.show.device_type')
         td = platform_name(channel.device_type)
       tr
         td class="font-bold opacity-60" = t('channels.show.slug')
-        td = channel.slug
+        td class="break-all" = channel.slug
       - if current_user&.manage?(app: app)
         tr
           td class="font-bold opacity-60" = t('channels.show.password')
           td = channel.password.blank? ? t('channels.show.none') : channel.password
       tr
         td class="font-bold opacity-60" = t('channels.show.match_rule', value: channel.bundle_id == '*' ? t('channels.show.wildmatch') : '')
-        td = channel.bundle_id
+        td class="break-all" = channel.bundle_id
       tr
         td class="font-bold opacity-60" = t('channels.show.git_url')
-        td = channel.git_url.blank? ? t('channels.show.none') : channel.git_url
+        td class="break-all" = channel.git_url.blank? ? t('channels.show.none') : channel.git_url
       tr
         td class="font-bold opacity-60" = t('channels.show.total_releases')
         td = channel.releases.count
@@ -31,7 +31,7 @@
             = channel.download_filename_type
       tr
         td class="font-bold opacity-60" = t('channels.show.channel_key')
-        td = channel.key
+        td class="break-all" = channel.key
 
   - if current_user&.manage?(app: app) && !app.archived
     .card-footer class="p-0"

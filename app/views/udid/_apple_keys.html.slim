@@ -5,7 +5,7 @@
         h3.card-title
           i.fa-solid.fa-info-circle
           = t("udid.show.#{result}")
-      .card-body.p-0
+      .card-body.p-0.overflow-x-auto
         table.d-table
           tr
             th = t('udid.show.team_name')
@@ -14,12 +14,12 @@
               th = t('udid.show.action')
           - apple_keys.each do |apple_key|
             tr
-              td = apple_key.team.full_name
-              td = apple_key.team.team_id
+              td.break-words = apple_key.team.full_name
+              td.break-all = apple_key.team.team_id
               - if result == 'new_register_device'
                 ruby:
                   register_link = register_udid_path(udid: params[:udid], apple_key_id: apple_key.id, product: params[:product])
-                td = button_to t('udid.show.register_device'), register_link, class: 'd-btn d-btn-sm d-btn-success'
+                td.whitespace-nowrap = button_to t('udid.show.register_device'), register_link, class: 'd-btn d-btn-sm d-btn-success'
   - else
     .card.card-outline.card-warning
       .card-header

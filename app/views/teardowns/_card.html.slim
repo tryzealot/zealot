@@ -8,7 +8,7 @@
         = title
         span.d-badge.d-badge-sm.d-badge-ghost = raw.size
       .card-tools
-    .card-body.p-0 
+    .card-body.p-0.overflow-x-auto
       table.d-table.w-full
         - if raw.respond_to?(:keys)
           - raw.each do |key, value|

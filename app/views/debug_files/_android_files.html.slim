@@ -3,7 +3,7 @@
     h3.card-title 
       = t('debug_files.show.files', count: @debug_file.proguard_files.count)
       .d-badge.d-badge-ghost = @debug_file.proguard_files.count
-  .card-body.p-0
+  .card-body.p-0.overflow-x-auto
     table.d-table
       thead
         tr
@@ -12,5 +12,5 @@
       tbody
         - @debug_file.proguard_files.each do |file|
           tr
-            td = file['name']
-            td = number_to_human_size(file['size'])
+            td.break-all = file['name']
+            td.whitespace-nowrap = number_to_human_size(file['size'])
