@@ -24,7 +24,9 @@ module Zealot
     VERSION = '7.0.0'
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.1
+
+    config.secret_key_base = ENV['SECRET_KEY_BASE'] || ENV['SECRET_TOKEN']
 
     # Set default timezone
     config.time_zone = ENV['TIME_ZONE'] || 'Asia/Shanghai'
@@ -63,8 +65,7 @@ module Zealot
     # end
 
     # Auto load path
-    config.autoload_paths += Dir["#{config.root}/lib"]
-    config.eager_load_paths += Dir["#{config.root}/lib"]
+    config.autoload_lib(ignore: %w[assets tasks templates])
 
     ################################################################
     # Don't generate those files.
