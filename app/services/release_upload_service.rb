@@ -73,7 +73,7 @@ class ReleaseUploadService
   end
 
   def build_release(parser)
-    release = @channel.releases.build(@params.except(:file))
+    release = @channel.releases.build(@params.except(:file, :devices))
     release.file = @file
     release.source = @source if release.source.blank?
 

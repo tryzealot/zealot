@@ -24,86 +24,83 @@ class Api::Apps::UploadController < Api::BaseController
   # @param ci_url        [String]   optional  ci url
   # @return              [String]   json formatted app info
   def create
-    create_or_update_release
-    perform_teardown_job
-    perform_app_web_hook_job
+    result = create_or_update_release
 
-    render json: @release,
-           serializer: Api::UploadAppSerializer,
-           status: :created
+    if result&.success?
+      render json: result.release,
+             serializer: Api::UploadAppSerializer,
+             status: :created
+    else
+      render json: { error: result&.message }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def create_or_update_release
+    result = nil
     ActiveRecord::Base.transaction do
-      new_record? ? create_new_app_build : create_build_from_exist_app
+      result = new_record? ? create_new_app_build : create_build_from_exist_app
+      raise ActiveRecord::Rollback unless result&.success?
     end
+    result
   end
 
-  # 创建 App 并创建新版本
   def create_new_app_build
-    create_release with_channel and_scheme and_app
+    return ReleaseUploadService::Result.failure(:unsupported_file_type, 'Unable to parse file') unless @app_parser
+
+    channel = with_channel and_scheme and_app
+    authorize channel.releases.build
+
+    ReleaseUploadService.call(
+      channel: channel,
+      file: params[:file],
+      user: current_user,
+      params: release_params.except(:file),
+      parser: @app_parser,
+      source: params[:source].presence || 'api'
+    )
   end
 
-  # 使用现有 App 创建新版本
   def create_build_from_exist_app
-    # Authorize early for efficiency
-    release = @channel.releases.build
-    authorize release
+    authorize @channel.releases.build
 
-    if @channel.bundle_id != '*' && @app_parser &&
-       (@channel.device_type == 'ios' || @channel.device_type == 'android')
-      message = t('releases.messages.errors.bundle_id_not_matched', got: @app_parser.bundle_id,
-        expect: @channel.bundle_id)
-      raise TypeError, message unless @channel.bundle_id_matched? @app_parser.bundle_id
-    end
+    update_channel_if_needed
 
-    create_release with_updated_channel
+    ReleaseUploadService.call(
+      channel: @channel,
+      file: params[:file],
+      user: current_user,
+      params: release_params.except(:file),
+      parser: @app_parser,
+      source: params[:source].presence || 'api'
+    )
   end
 
   def new_record?
     @channel.blank?
   end
 
-  def perform_app_web_hook_job
-    @channel.perform_web_hook('upload_events', current_user.id)
-  end
+  def update_channel_if_needed
+    return if channel_params.blank?
 
-  def perform_teardown_job
-    @release.perform_teardown_job(current_user.id)
-  end
-
-  ###########################
-  # new build methods
-  ###########################
-  def with_updated_channel
-    @channel unless channel_params.present?
-
-    channel = Channel.find_by(key: params[:channel_key])
-    channel.update!(channel_params)
-    @channel = channel
-  end
-
-  def create_release(channel)
-    @release = channel.releases.upload_file(release_params, parser: @app_parser, source: 'api')
-    authorize @release
-
-    @release.save!
+    @channel.update!(channel_params)
   end
 
   def with_channel(scheme)
-    @channel = scheme.channels.find_or_create_by(channel_params) do |channel|
-      channel.name = @app_parser.platform
-      channel.device_type = @app_parser.platform
+    channel = scheme.channels.find_or_create_by(channel_params) do |c|
+      c.name = @app_parser.platform
+      c.device_type = @app_parser.platform
     end
-    authorize @channel
+    authorize channel
+    channel
   end
 
   def and_scheme(app)
     name = parse_scheme_name
     scheme = app.schemes.find_or_create_by(name: name)
     authorize scheme
+    scheme
   end
 
   def and_app
@@ -113,6 +110,7 @@ class Api::Apps::UploadController < Api::BaseController
     app = App.find_or_create_by permitted
     app.create_owner(current_user)
     authorize app
+    app
   end
 
   def parse_scheme_name
@@ -141,20 +139,25 @@ class Api::Apps::UploadController < Api::BaseController
   end
 
   def set_parser
+    return if params[:channel_key].present?
+    return unless params[:file].respond_to?(:path) && File.exist?(params[:file].path)
+
     @app_parser = AppInfo.parse(params[:file].path)
   rescue AppInfo::UnknownFormatError
     @app_parser = nil
   end
 
   def set_channel
+    return if params[:channel_key].blank?
+
     @channel = Channel.find_by(key: params[:channel_key])
-    # `channel_key` is optional: a missing key means a brand new app is being
-    # uploaded, so there is no channel (and no app) to check yet.
-    raise_if_app_archived!(@channel.app) if @channel
+    raise ActiveRecord::RecordNotFound, t('releases.messages.errors.not_found_app') unless @channel
+
+    raise_if_app_archived!(@channel.app)
   end
 
   def append_present_value_from_params(data, key)
-    return unless value = params[key]
+    return unless (value = params[key])
 
     if key == :password && value.blank?
       data[key] = nil
