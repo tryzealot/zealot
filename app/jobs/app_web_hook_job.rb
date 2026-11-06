@@ -8,47 +8,65 @@ class AppWebHookJob < ApplicationJob
 
   queue_as :webhook
 
-  # Automatically retry on network errors with exponential backoff
   retry_on Faraday::Error, wait: :exponentially_longer, attempts: 3 do |job, error|
     job.send(:handle_webhook_failure, error)
   end
 
-  def perform(event, web_hook, channel, user_id)
+  def perform(event, web_hook, release_or_channel, user_id = nil)
     @event = event
     @web_hook = web_hook
-    @channel = channel
-    @release = @channel.releases.last
-    @user = User.find(user_id)
+    bind_release_and_channel(release_or_channel)
+    @user = User.find_by(id: user_id)
 
     if @release.blank?
       logger.error(log_message(t('active_job.webhook.failures.empty_release')))
-      return notificate_failure(
-        user_id: @user.id,
-        type: 'webhook',
-        message: t('active_job.webhook.failures.empty_release')
-      )
+      if @user
+        notificate_failure(
+          user_id: @user.id,
+          type: 'webhook',
+          message: t('active_job.webhook.failures.empty_release')
+        )
+      end
+      return
     end
 
     if @web_hook.url.blank?
       logger.error(log_message(t('active_job.webhook.failures.empty_url')))
-      return notificate_failure(
-        user_id: @user.id,
-        type: 'webhook',
-        message: t('active_job.webhook.failures.empty_url')
-      )
+      if @user
+        notificate_failure(
+          user_id: @user.id,
+          type: 'webhook',
+          message: t('active_job.webhook.failures.empty_url')
+        )
+      end
+      return
     end
+
+    body = WebHookService::PayloadBuilder.build(@web_hook.body, build_context)
 
     logger.info(log_message("trigger event: #{@event}"))
     logger.info(log_message("trigger url: #{@web_hook.url}"))
-    logger.info(log_message("trigger json body: #{message_body}"))
+    logger.info(log_message("trigger json body: #{body}"))
 
-    send_request
+    send_request(body)
   end
 
   private
 
-  def send_request
-    response = Faraday.post(@web_hook.url, message_body,
+  def bind_release_and_channel(release_or_channel)
+    if release_or_channel.is_a?(Release)
+      @release = release_or_channel
+      @channel = @release.channel
+    elsif release_or_channel.is_a?(Channel)
+      @channel = release_or_channel
+      @release = @channel.releases.last || build_example_release(@channel)
+    end
+  end
+
+  def send_request(body)
+    response = Faraday.post(
+      @web_hook.url,
+      body,
       { 'Content-Type' => 'application/json' }
     )
     logger.debug(log_message("trigger response body: #{response.body}"))
@@ -60,61 +78,30 @@ class AppWebHookJob < ApplicationJob
     end
   end
 
-  def message_body
-    build(@web_hook.body.presence || default_body)
-  end
-
-  def build(body)
-    ApplicationController.render inline: body,
-                                 type: :jb,
-                                 assigns: {
-                                   event: @event,
-                                   username: @user.username,
-                                   email: @user.email,
-                                   title: title,
-                                   name: @release.name,
-                                   app_name: @release.app_name,
-                                   device_type: @channel.device_type,
-                                   release_version: @release.release_version,
-                                   build_version: @release.build_version,
-                                   bundle_id: @release.bundle_id,
-                                   changelog: @release.text_changelog,
-                                   file_size: @release.file_size,
-                                   release_url: @release.release_url,
-                                   install_url: @release.install_url,
-                                   icon_url: @release.icon_url,
-                                   qrcode_url: @release.qrcode_url,
-                                   uploaded_at: @release.created_at,
-                                   ci_url: @release.ci_url,
-                                   branch: @release.branch,
-                                   source: @release.source,
-                                   release_type: @release.release_type
-                                 }
-  end
-
-  def default_body
-    '{
+  def build_context
+    {
       event: @event,
-      username: @username,
-      email: @email,
-      title: @title,
-      name: @app_name,
-      app_name: @app_name,
-      device_type: @device_type,
-      release_version: @release_version,
-      build_version: @build_version,
-      size: @file_size,
-      changelog: @changelog,
-      release_url: @release_url,
-      install_url: @install_url,
-      icon_url: @icon_url,
-      qrcode_url: @qrcode_url,
-      uploaded_at: @uploaded_at,
+      username: @user&.username || 'guest',
+      email: @user&.email,
+      title: title,
+      name: @release.name,
+      app_name: @release.app_name,
+      device_type: @channel&.device_type,
+      release_version: @release.release_version,
+      build_version: @release.build_version,
+      bundle_id: @release.bundle_id,
+      file_size: @release.file_size,
+      changelog: @release.text_changelog,
+      release_url: @release.release_url,
+      install_url: @release.install_url,
+      icon_url: @release.icon_url,
+      qrcode_url: @release.qrcode_url,
+      uploaded_at: @release.created_at,
       ci_url: @release.ci_url,
       branch: @release.branch,
       source: @release.source,
       release_type: @release.release_type
-    }'
+    }
   end
 
   def title
@@ -131,11 +118,11 @@ class AppWebHookJob < ApplicationJob
   end
 
   def log_message(message)
-    "[Channel] #{@channel.id} #{message}"
+    "[Channel] #{@channel&.id} #{message}"
   end
 
   def handle_webhook_failure(error)
-    _event, web_hook, _channel, user_id = arguments
+    _event, web_hook, _release, user_id = arguments
     return if user_id.blank?
 
     notificate_failure(
@@ -145,8 +132,8 @@ class AppWebHookJob < ApplicationJob
     )
   end
 
-  def build_example_release
-    @channel.releases.build(
+  def build_example_release(channel)
+    channel.releases.build(
       name: 'Example App',
       bundle_id: 'im.ews.zealot.example.app',
       release_version: '1.0.0',
