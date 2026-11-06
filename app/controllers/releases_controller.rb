@@ -40,24 +40,26 @@ class ReleasesController < ApplicationController
   def create
     raise_if_app_archived!(@channel.app)
 
-    if @channel.app.archived
-      message = t('releases.messages.errors.upload_to_archived_app', app: @channel.app.name)
-      redirect_to channel_path(@channel), alert: message
-      return
-    end
-
     @title = t('releases.new.title')
-    @release = @channel.releases.upload_file(release_params)
+    @release = @channel.releases.new
     authorize @release
 
-    return render :new, status: :unprocessable_entity unless @release.save
+    result = ReleaseUploadService.call(
+      channel: @channel,
+      file: release_params[:file],
+      user: current_user,
+      params: release_params.except(:file),
+      source: 'web'
+    )
 
-    # Trigger webhooks and teardown jobs
-    @release.channel.perform_web_hook('upload_events', current_user.id)
-    @release.perform_teardown_job(current_user.id)
-
-    message = t('activerecord.success.create', key: "#{t('releases.title')}")
-    redirect_to channel_release_path(@channel, @release), notice: message
+    if result.success?
+      message = t('activerecord.success.create', key: t('releases.title').to_s)
+      redirect_to channel_release_path(@channel, result.release), notice: message
+    else
+      @release = result.release || @channel.releases.new(release_params.except(:file))
+      flash.now[:alert] = result.message if result.message.present?
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
