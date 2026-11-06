@@ -76,8 +76,8 @@ gem 'sys-filesystem', '~> 1.6.0'
 gem 'vmstat', '~> 2.3.0'
 
 ## Exception handler
-gem 'sentry-ruby', '~> 7.1.0'
-gem 'sentry-rails', '~> 7.1.0'
+gem 'sentry-ruby', '~> 7.2.0'
+gem 'sentry-rails', '~> 7.2.0'
 
 # Background job
 gem 'good_job', '~> 4.24.0'

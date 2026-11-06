@@ -29,15 +29,13 @@ class ApplicationController < ActionController::Base
   private
 
   def set_sentry_context
-    Sentry.configure_scope do |scope|
-      context = params.to_unsafe_h || {}
-      context[:url] = request.url
-      scope.set_context('params', context)
-    end
+    return unless user_signed_in?
 
-    if current_user = session[:current_user_id]
-      Sentry.set_user(id: current_user)
-    end
+    Sentry.set_user(
+      id: current_user.id,
+      username: current_user.username,
+      email: current_user.email
+    )
   end
 
   DEVISE_PERMITTED_PARAMTERS = %i[
