@@ -5,7 +5,6 @@ class Release < ApplicationRecord
 
   include ReleaseUrl
   include ReleaseAuth
-  include ReleaseParser
   include RecentlyReleasesCacheable
 
   mount_uploader :file, AppFileUploader
@@ -41,13 +40,6 @@ class Release < ApplicationRecord
   def self.version_by_channel(channel_slug, release_id)
     channel = Channel.friendly.find(channel_slug)
     channel.releases.find(release_id)
-  end
-
-  # 上传 app
-  def self.upload_file(params, parser: nil, source: 'web')
-    Release.new(params) do |release|
-      release.parse!(parser, source)
-    end
   end
 
   def self.find_since_version(release_version, build_version)
