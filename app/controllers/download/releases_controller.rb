@@ -25,7 +25,7 @@ class Download::ReleasesController < ApplicationController
     end
 
     # 触发 web_hook
-    @release.channel.perform_web_hook('download_events', current_user&.id)
+    WebHookService.call(:download, channel: @release.channel, release: @release, user: current_user)
 
     headers['Content-Length'] = @release.file.size
     send_file @release.file.path,

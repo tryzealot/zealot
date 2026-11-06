@@ -120,9 +120,7 @@ class Channel < ApplicationRecord
   end
 
   def perform_web_hook(event_name, user_id)
-    web_hooks.where(event_name => 1).find_each do |web_hook|
-      AppWebHookJob.perform_later event_name, web_hook, self, user_id
-    end
+    WebHookService.call(event_name, channel: self, user: User.find_by(id: user_id))
   end
 
   def enabled_web_hooks

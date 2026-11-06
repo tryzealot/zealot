@@ -138,7 +138,7 @@ class ReleaseUploadService
   end
 
   def trigger_post_upload_actions(release, parser)
-    @channel.perform_web_hook('upload_events', @user&.id)
+    WebHookService.call(:upload, channel: @channel, release: release, user: @user)
     release.perform_teardown_job(@user&.id) if parser
   end
 end
