@@ -31,7 +31,8 @@
           i.fa-solid.fa-ghost
           = t('releases.show.missing_file')
 
-      - if current_user&.manage?(app: app)
+      - active_user = local_assigns.key?(:current_user) ? local_assigns[:current_user] : safe_current_user
+      - if active_user&.manage?(app: app)
         = button_link_to t('modals.buttons.destroy'), channel_release_path(release.channel, release), 'trash-alt', \
           class: 'd-btn d-btn-lg d-btn-error', \
           data: { turbo_frame: '_top', turbo_method: :delete, turbo_confirm: t('modals.confirm.body') }

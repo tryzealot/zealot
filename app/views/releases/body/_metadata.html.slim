@@ -55,20 +55,21 @@
           div class="d-tooltip" data-tip=field['name']
             i class="mr-1 #{field['icon'] || 'fa-solid fa-hashtag'}"
             = field['value']
+      - active_user = local_assigns.key?(:current_user) ? local_assigns[:current_user] : safe_current_user
       div class="d-tooltip" data-tip=t('releases.show.source')
         i.fa-solid.fa-compass class="mr-1"
         - if release.ci_url.blank?
           = t("releases.sources.#{release.source.downcase}", default: release.source)
         - else
-          = link_to_if user_signed_in_or_guest_mode?, release.source, release.ci_url, data: { turbo: false }
-      - if release.metadata.present? && user_signed_in_or_guest_mode?
+          = link_to_if user_signed_in_or_guest_mode?(active_user), release.source, release.ci_url, data: { turbo: false }
+      - if release.metadata.present? && user_signed_in_or_guest_mode?(active_user)
         - if expired_date = release.metadata.mobileprovision['expired_at']
           div
             i.fa-solid.fa-certificate class="mr-1"
             = expired_date_tips(expired_date, colorful: false)
         div class="d-tooltip" data-tip=t('releases.show.metadata')
           i.fa-solid.fa-layer-group class="mr-1"
-          = link_to_if user_signed_in_or_guest_mode?, t('releases.show.teardown_metadata'), \
+          = link_to_if user_signed_in_or_guest_mode?(active_user), t('releases.show.teardown_metadata'), \
             teardown_path(release.metadata), data: { turbo_frame: '_top' }
 
-    == render 'releases/body/install_app', release: release, app: release.app
+    == render 'releases/body/install_app', release: release, app: release.app, current_user: active_user

@@ -44,12 +44,27 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     params[:action] == 'new' || params[:action] == 'create'
   end
 
-  def user_signed_in_or_guest_mode?
-    user_signed_in? || (Setting.guest_mode && !devise_page?)
+  def user_signed_in_or_guest_mode?(user = nil)
+    user ||= safe_current_user
+    signed_in = user.present? || safe_user_signed_in?
+    signed_in || (Setting.guest_mode && !devise_page?)
+  end
+
+  def safe_current_user
+    current_user if respond_to?(:current_user)
+  rescue Devise::MissingWarden
+    nil
+  end
+
+  def safe_user_signed_in?
+    user_signed_in? if respond_to?(:user_signed_in?)
+  rescue Devise::MissingWarden
+    false
   end
 
   def devise_page?
-    # current_page? method CAN NOT fuzzy matching
+    return false unless respond_to?(:params) && params.present? && params[:controller].present?
+
     contoller_name = params[:controller]
     return false if contoller_name == 'users/registrations' && params[:action] == 'edit'
 

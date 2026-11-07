@@ -15,37 +15,37 @@ class TeardownJob < ApplicationJob
       return
     end
 
-    metadata.update_attribute(:user_id, @user_id) if @user_id.present?
-    update_release_resouces(metadata)
-    # broadcast_release_metadata
+    update_release_resources(metadata)
+    broadcast_release_metadata
   rescue AppInfo::UnknownFormatError
     # ignore
   end
 
   private
 
-  # # turbo_stream_from dom_id(release, :metadata) in view/releases/body/_metadata.html.slim
-  # # TODO: not working yet, view include many devise helper methods need current_user from env of request. 
-  # def broadcast_release_metadata
-  #   return if @user_id.blank? || @release.blank?
-
-  #   turbo_stream(
-  #     method: :broadcast_replace_to,
-  #     target: dom_id(release, :metadata), # "metadata_release_#{release_id}"
-  #     partial: 'releases/body/metadata',
-  #     locals: { release: release, signed_in?: true }
-  #   )
-  # end
-
-  def update_release_resouces(metadata)
+  def broadcast_release_metadata
     return if release.blank?
 
-    metadata.update_attribute(:release_id, release.id)
+    user = User.find_by(id: @user_id)
+    Turbo::StreamsChannel.broadcast_replace_to(
+      [release, :metadata],
+      target: dom_id(release, :metadata),
+      partial: 'releases/body/metadata',
+      locals: { release: release, current_user: user }
+    )
+  end
+
+  def update_release_resources(metadata)
+    return if release.blank?
+
+    attrs = { release: release }
+    attrs[:user_id] = @user_id if @user_id.present?
+    metadata.update(attrs)
     release.update(release_type: metadata.release_type) if release.release_type.blank?
   end
 
   def determine_file!
-    file = release&.file.file
+    file = release&.file&.file
     unless file && File.exist?(file.path)
       logger.error('File was not found, it had been clean or deleted')
       return
@@ -55,6 +55,6 @@ class TeardownJob < ApplicationJob
   end
 
   def release
-    @release ||= Release.find(@release_id)
+    @release ||= Release.find_by(id: @release_id)
   end
 end
