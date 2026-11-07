@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Metadatum < ApplicationRecord
-  belongs_to :release
-  belongs_to :user
+  belongs_to :release, optional: true
+  belongs_to :user, optional: true
   # Teardowns uploaded inside an app keep that app, the rest only reach an app
   # through their release.
   belongs_to :app, optional: true

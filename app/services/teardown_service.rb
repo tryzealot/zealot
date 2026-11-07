@@ -21,6 +21,7 @@ class TeardownService
   def process
     checksum = checksum(file)
     metadata = Metadatum.find_or_initialize_by(checksum: checksum)
+    return metadata if metadata.persisted?
 
     parser = AppInfo.parse(file)
     if parser.format == AppInfo::Format::MOBILEPROVISION
@@ -47,7 +48,7 @@ class TeardownService
       parser.clear!
     end
 
-    metadata.save!(validate: false)
+    metadata.save!
     metadata
   end
 
@@ -295,12 +296,6 @@ class TeardownService
   end
 
   def checksum(file)
-    @checksum ||= lambda {
-      require 'digest'
-
-      checksum = Digest::SHA1.hexdigest(File.read(file))
-      checksum = checksum.encode('UTF-8') if checksum.respond_to?(:encode)
-      checksum
-    }.call
+    @checksum ||= Digest::SHA1.file(file).hexdigest
   end
 end
