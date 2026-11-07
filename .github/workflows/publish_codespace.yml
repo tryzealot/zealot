@@ -63,3 +63,5 @@ jobs:
             tryzealot/codespace:latest
             ghcr.io/tryzealot/codespace:latest
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha,scope=codespace
+          cache-to: type=gha,mode=max,scope=codespace

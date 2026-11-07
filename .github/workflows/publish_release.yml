@@ -61,6 +61,8 @@ jobs:
             REPLACE_CHINA_MIRROR=false
             VCS_REF=${{ github.sha }}
             BUILD_DATE=${{ fromJSON(steps.metadata.outputs.json).labels['org.opencontainers.image.created'] }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Create Release
         uses: softprops/action-gh-release@v3

@@ -83,3 +83,5 @@ jobs:
             VCS_REF=${{ github.sha }}
             TAG=${{ env.DOCKER_TAG }}
             BUILD_DATE=${{ fromJSON(steps.metadata.outputs.json).labels['org.opencontainers.image.created'] }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

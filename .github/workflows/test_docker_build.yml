@@ -49,3 +49,5 @@ jobs:
             REPLACE_CHINA_MIRROR=false
             VCS_REF=${{ github.sha }}
             BUILD_DATE=${{ steps.build_date.outputs.BUILD_DATE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
