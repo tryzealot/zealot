@@ -226,16 +226,16 @@ class Release < ApplicationRecord
   end
 
   def debug_file
-    debug_files = DebugFile.where(app: app, release_version: release_version, build_version: build_version)
-    return if debug_files.blank?
+    return if bundle_id.blank?
 
-    debug_files.select do |debug_file|
-      if ios?
-        debug_file.metadata.where("data->>'identifier' = ?", bundle_id).count > 0
-      elsif android?
-        debug_file.metadata.where(object: bundle_id).count > 0
-      end
-    end.first
+    scope = DebugFile.where(app: app, release_version: release_version, build_version: build_version)
+                     .joins(:metadata)
+
+    if ios?
+      scope.where("debug_file_metadata.data->>'identifier' = ?", bundle_id).first
+    elsif android?
+      scope.where(debug_file_metadata: { object: bundle_id }).first
+    end
   end
 
   private

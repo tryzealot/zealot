@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::DebugFilesController < Api::BaseController
-  before_action :validate_user_token, only: %i[create show]
+  before_action :validate_user_token, only: %i[create show update destroy]
   before_action :validate_channel_key, only: %i[index create]
   before_action :set_debug_file, only: %i[show update destroy]
 
