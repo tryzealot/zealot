@@ -34,7 +34,7 @@ class DebugFilesController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @debug_file.save
 
-    DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
+    DebugFileTeardownJob.perform_later(@debug_file.id, current_user.id)
     redirect_to app_debug_files_url(@app, anchor: platform_anchor(@debug_file)),
                 notice: t('activerecord.success.create', key: t('debug_files.title'))
   end
@@ -48,7 +48,7 @@ class DebugFilesController < ApplicationController
 
   def reprocess
     @debug_file.update_column(:parse_error, nil)
-    DebugFileTeardownJob.perform_later(@debug_file, current_user.id)
+    DebugFileTeardownJob.perform_later(@debug_file.id, current_user.id)
     redirect_to app_debug_file_url(@app, @debug_file), notice: t('.success')
   end
 
