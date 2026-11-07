@@ -9,6 +9,7 @@ encode zstd gzip
 
 @protected {
 	path /uploads/* /backup/*
+	not path_regexp ^/uploads/apps/.+/icons/
 }
 respond @protected 404
 
