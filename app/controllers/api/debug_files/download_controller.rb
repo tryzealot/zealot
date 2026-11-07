@@ -13,7 +13,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
     if both_version?(release_version, build_version)
       search_by_both_version(release_version, build_version, order)
     elsif release_version?(release_version, build_version)
-      search_by_releaes_version(order)
+      search_by_release_version(release_version, order)
     else
       search_by_device_type(order)
     end
@@ -44,7 +44,7 @@ class Api::DebugFiles::DownloadController < Api::BaseController
                       .first
   end
 
-  def search_by_releaes_version(release_version, order)
+  def search_by_release_version(release_version, order)
     @debug_file = @app.debug_files
                       .where(release_version: release_version)
                       .order(order => :desc)

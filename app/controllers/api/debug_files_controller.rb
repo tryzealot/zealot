@@ -27,11 +27,11 @@ class Api::DebugFilesController < Api::BaseController
 
     @debug_file.app = @channel.app
     @debug_file.device_type = @channel.device_type
-    if @debug_file.save!
-      DebugFileTeardownJob.perform_now(@debug_file)
+    if @debug_file.save
+      DebugFileTeardownJob.perform_later(@debug_file.id, current_user&.id)
       render json: @debug_file, serializer: Api::DebugFileSerializer, status: :created
     else
-      render json: @debug_file.errors
+      render json: @debug_file.errors, status: :unprocessable_entity
     end
   end
 
@@ -40,13 +40,13 @@ class Api::DebugFilesController < Api::BaseController
     @debug_file.update!(debug_file_params)
     render json: @debug_file, serializer: Api::DebugFileSerializer, status: :ok
   rescue
-    render json: @debug_file.errors
+    render json: @debug_file.errors, status: :unprocessable_entity
   end
 
   # DELETE /api/debug_files/:id
   def destroy
     @debug_file.destroy
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected
