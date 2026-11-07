@@ -41,15 +41,11 @@ class Backup < ApplicationRecord
   end
 
   def performing_jobs
-    jobs = GoodJob::Job.where(job_class: 'BackupJob')
+    GoodJob::Job.unfinished
+      .where(job_class: 'BackupJob')
       .where("serialized_params#>>'{arguments,0}' = ?", id.to_s)
       .order(created_at: :desc)
-
-    jobs.each_with_object([]) do |good_job, obj|
-      next if good_job.succeeded?
-
-      obj << performing_job(good_job)
-    end
+      .map { |good_job| performing_job(good_job) }
   end
 
   # Returns PerformingJob instance
@@ -74,7 +70,18 @@ class Backup < ApplicationRecord
       status.delete
     end
 
-    GoodJob::Job.destroy(job_id)
+    job = GoodJob::Job.find_by(id: job_id)
+    return unless job
+
+    if job.finished_at.blank?
+      begin
+        job.discard_job('Cancelled by admin')
+      rescue StandardError
+        job.force_discard_job('Cancelled by admin') rescue nil
+      end
+    else
+      job.destroy
+    end
   end
 
   def backup_path

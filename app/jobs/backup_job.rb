@@ -4,7 +4,11 @@ require 'fileutils'
 require_relative '../../lib/zealot/backup/manager'
 
 class BackupJob < ApplicationJob
+  include GoodJob::ActiveJobExtensions::Concurrency
+
   queue_as :schedule
+
+  good_job_concurrency_rule(label: 'zealot_backup', apply_label: true, total_limit: 1)
 
   class Error < StandardError; end
   class MaxKeepsLimitedError < Error; end
@@ -62,6 +66,7 @@ class BackupJob < ApplicationJob
     checksum
     remove_old
     cleanup
+    notify_completed
     notification
   ensure
     @manager&.cleanup
@@ -113,12 +118,31 @@ class BackupJob < ApplicationJob
     update_status(__method__, progress: 99)
   end
 
+  def notify_completed
+    Turbo::StreamsChannel.broadcast_remove_to(
+      [@backup, :inprocessing_jobs],
+      target: @target
+    )
+
+    if @backup.performing_jobs.empty?
+      Turbo::StreamsChannel.broadcast_remove_to(
+        [@backup, :inprocessing_jobs],
+        target: 'inprogress_jobs'
+      )
+    end
+
+    Turbo::StreamsChannel.broadcast_replace_to(
+      [@backup, :completed_jobs],
+      target: 'completed_jobs',
+      partial: 'admin/backups/job_completed',
+      locals: { backup: @backup, backup_files: @backup.backup_files }
+    )
+  end
+
   def notification
     notificate_success(
       user_id: @user_id,
       type: 'backup',
-      redirect_page: url_for(controller: 'admin/backups', action: 'show', id: @backup.id),
-      delay: 10000,
       message: t('active_job.backup.success', key: @backup.key)
     )
   end
@@ -132,11 +156,18 @@ class BackupJob < ApplicationJob
     status[:stage] = value.to_s
     status.update(params) if params
 
-    if (@user_id && @job)
-      turbo_stream(
-        method: :broadcast_replace_to,
-        user_id: @user_id,
-        streamables: :inprocessing_jobs,
+    return unless @job
+
+    if value.to_s == 'start'
+      Turbo::StreamsChannel.broadcast_replace_to(
+        [@backup, :inprocessing_jobs],
+        target: 'inprocessing_jobs',
+        partial: 'admin/backups/job_inprocess',
+        locals: { backup: @backup, performing_jobs: @backup.performing_jobs }
+      )
+    else
+      Turbo::StreamsChannel.broadcast_replace_to(
+        [@backup, :inprocessing_jobs],
         target: @target,
         partial: 'admin/backups/job',
         locals: { job: @job, backup: @backup }
