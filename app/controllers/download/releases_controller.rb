@@ -28,6 +28,7 @@ class Download::ReleasesController < ApplicationController
     WebHookService.call(:download, channel: @release.channel, release: @release, user: current_user)
 
     headers['Content-Length'] = @release.file.size
+    response.headers['X-Accel-Buffering'] = 'no'
     send_file @release.file.path,
               filename: @release.download_filename,
               disposition: 'attachment'

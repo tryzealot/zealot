@@ -43,6 +43,7 @@ class Admin::BackupsController < ApplicationController
     raise ActiveRecord::RecordNotFound, 'Not found file' unless File.exist?(backup_file)
 
     headers['Content-Length'] = backup_file.size
+    response.headers['X-Accel-Buffering'] = 'no'
     send_file backup_file.to_path, type: 'application/x-tar', disposition: 'attachment'
   end
 

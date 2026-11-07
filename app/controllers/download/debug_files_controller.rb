@@ -13,6 +13,7 @@ class Download::DebugFilesController < ApplicationController
 
   def download
     headers['Content-Length'] = @debug_file.file.size
+    response.headers['X-Accel-Buffering'] = 'no'
     send_file @debug_file.file.path,
               filename: @debug_file.download_filename,
               disposition: 'attachment'
