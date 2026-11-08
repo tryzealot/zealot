@@ -7,7 +7,6 @@ require "ffi"
 require "json"
 require "msgpack"
 require "bcrypt"
-require "webp-ffi"
 require "cgi/escape"
 
 # Ruby 4.0 removed the cgi library from the stdlib; only cgi/escape remains and
@@ -16,4 +15,4 @@ require "cgi/escape"
 raise "CGI.escape is broken" unless CGI.escape("a b") == "a+b"
 
 print "Native extension smoke passed: "
-puts ["nokogiri", "pg", "google-protobuf", "ffi", "json", "msgpack", "bcrypt", "webp-ffi", "cgi/escape"].join ", "
+puts ["nokogiri", "pg", "google-protobuf", "ffi", "json", "msgpack", "bcrypt", "cgi/escape"].join ", "

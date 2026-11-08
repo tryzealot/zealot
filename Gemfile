@@ -41,7 +41,6 @@ gem 'friendly_id', '~> 5.7.0'
 gem 'kaminari', '~> 1.3.2'
 gem 'carrierwave', '~> 3.1.4'
 gem 'mini_magick', '~> 5.3'
-gem 'webp-ffi', '~> 0.4.0'
 
 # Helper
 # 13.2+ dropped the runtime `require "ostruct"` that makes fresh parallel
