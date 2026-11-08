@@ -40,11 +40,10 @@ RUN pnpm install --frozen-lockfile
 
 # Ruby dependencies
 COPY Gemfile Gemfile.lock ./
-RUN bundle config --global frozen 1 && \
+RUN bundle config set --global frozen 1 && \
     bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle config set path 'vendor/bundle' && \
-    bundle lock --add-platform ruby && \
     bundle install --jobs $(nproc) --retry 3
 
 # Platform assertion: no non-musl gem artifact may ship, enforced by the
