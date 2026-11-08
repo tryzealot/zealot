@@ -2,4 +2,4 @@
 
 echo "Starting Zealot Job worker"
 cd /app
-exec ./bin/good_job
+exec ./bin/good_job 2>&1

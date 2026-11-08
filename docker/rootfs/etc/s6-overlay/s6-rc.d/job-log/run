@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p /app/log
+exec tee -a /app/log/job.log
