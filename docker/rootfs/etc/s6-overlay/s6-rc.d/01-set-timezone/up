@@ -1,8 +1,1 @@
-#!/bin/sh
-
-TZ=${TZ:-"Asia/Shanghai"}
-
-if [ -f "/usr/share/zoneinfo/$TZ" ]; then
-  ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
-  echo "$TZ" > /etc/timezone
-fi
+/bin/sh /etc/s6-overlay/s6-rc.d/01-set-timezone/run

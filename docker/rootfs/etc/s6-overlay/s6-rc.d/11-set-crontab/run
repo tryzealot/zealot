@@ -1,0 +1,5 @@
+#!/bin/sh
+
+touch /var/log/clean_tmp_cron.log
+chmod 0644 /etc/crontabs/clean_tmp
+crontab /etc/crontabs/clean_tmp

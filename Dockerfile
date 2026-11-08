@@ -91,7 +91,8 @@ ENV TZ="Asia/Shanghai" \
     RAILS_ENV="production" \
     RUBY_YJIT_ENABLE="true" \
     S6_BEHAVIOUR_IF_STAGE2_FAILS="2" \
-    S6_SERVICES_GRACETIME="15000"
+    S6_SERVICES_GRACETIME="15000" \
+    S6_KEEP_ENV="1"
 
 # System dependencies
 RUN set -ex && \

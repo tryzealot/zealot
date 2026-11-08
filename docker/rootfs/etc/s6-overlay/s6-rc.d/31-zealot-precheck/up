@@ -1,4 +1,1 @@
-#!/bin/sh
-
-cd /app
-exec ./bin/rails zealot:precheck
+/bin/sh /etc/s6-overlay/s6-rc.d/31-zealot-precheck/run

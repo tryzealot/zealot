@@ -1,4 +1,1 @@
-#!/bin/sh
-
-cd /app
-exec ./bin/rails zealot:upgrade
+/bin/sh /etc/s6-overlay/s6-rc.d/30-zealot-upgrade/run

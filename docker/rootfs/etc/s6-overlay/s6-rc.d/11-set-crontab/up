@@ -1,5 +1,1 @@
-#!/bin/sh
-
-touch /var/log/clean_tmp_cron.log
-chmod 0644 /etc/crontabs/clean_tmp
-crontab /etc/crontabs/clean_tmp
+/bin/sh /etc/s6-overlay/s6-rc.d/11-set-crontab/run
