@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Starting Caddy"
+exec /usr/sbin/caddy run --config /etc/Caddyfile

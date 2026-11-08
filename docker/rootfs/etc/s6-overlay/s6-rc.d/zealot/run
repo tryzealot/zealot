@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Starting Zealot"
+cd /app
+exec ./bin/puma -C /app/config/puma.rb

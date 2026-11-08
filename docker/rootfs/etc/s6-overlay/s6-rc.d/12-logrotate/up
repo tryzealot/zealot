@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ ! -f /mnt/config/etc/logrotate.conf ]; then
+  mkdir -p /mnt/config/etc
+  cp /etc/logrotate.conf /mnt/config/etc/logrotate.conf
+fi
+
+if [ ! -d /mnt/config/etc/logrotate.d ]; then
+  mkdir -p /mnt/config/etc/logrotate.d
+  cp /etc/logrotate.d/* /mnt/config/etc/logrotate.d/
+fi

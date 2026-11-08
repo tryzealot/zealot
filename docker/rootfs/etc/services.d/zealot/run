@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-echo "Starting Zealot"
-cd /app
-./bin/puma -C /app/config/puma.rb 2>&1 | tee -a /app/log/zealot.log

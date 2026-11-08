@@ -80,16 +80,18 @@ ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
 ARG RUBYGEMS_SOURCE="https://gems.ruby-china.com/"
-ARG PACKAGES="tzdata curl logrotate postgresql-client postgresql-dev imagemagick imagemagick-dev libwebp-dev libpng-dev tiff-dev openssl openssl-dev caddy gcompat"
+ARG PACKAGES="tzdata curl logrotate postgresql-client postgresql-dev imagemagick imagemagick-dev libwebp-dev libpng-dev tiff-dev openssl openssl-dev caddy gcompat xz"
 ARG APP_ROOT=/app
-ARG S6_OVERLAY_VERSION="2.2.0.3"
+ARG S6_OVERLAY_VERSION="3.2.3.2"
 ARG TARGETARCH
 
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
     RAILS_ENV="production" \
-    RUBY_YJIT_ENABLE="true"
+    RUBY_YJIT_ENABLE="true" \
+    S6_BEHAVIOUR_IF_STAGE2_FAILS="2" \
+    S6_SERVICES_GRACETIME="15000"
 
 # System dependencies
 RUN set -ex && \
@@ -101,7 +103,7 @@ RUN set -ex && \
     echo "Setting variables for ${TARGETARCH}" && \
     case "$TARGETARCH" in \
     "amd64") \
-      S6_OVERLAY_ARCH="amd64" \
+      S6_OVERLAY_ARCH="x86_64" \
     ;; \
     "arm64") \
       S6_OVERLAY_ARCH="aarch64" \
@@ -111,7 +113,11 @@ RUN set -ex && \
         exit 1 \
     ;; \
     esac && \
-    curl -L -s https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.gz | tar xvzf - -C /
+    S6_BASE_URL="https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}" && \
+    curl -L -s "${S6_BASE_URL}/s6-overlay-noarch.tar.xz" | tar -Jxvf - -C / && \
+    curl -L -s "${S6_BASE_URL}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz" | tar -Jxvf - -C / && \
+    curl -L -s "${S6_BASE_URL}/s6-overlay-symlinks-noarch.tar.xz" | tar -Jxvf - -C / && \
+    curl -L -s "${S6_BASE_URL}/s6-overlay-symlinks-arch.tar.xz" | tar -Jxvf - -C /
 
 WORKDIR $APP_ROOT
 
