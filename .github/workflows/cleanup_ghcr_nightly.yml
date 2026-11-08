@@ -1,0 +1,125 @@
+name: Cleanup Old GHCR Nightly Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (simulate without deleting)"
+        type: boolean
+        required: true
+        default: true
+      days_to_keep:
+        description: "Keep nightly images newer than N days"
+        type: number
+        required: true
+        default: 180
+  schedule:
+    - cron: "0 3 * * 0"
+
+jobs:
+  cleanup:
+    name: Cleanup GHCR Nightly Images
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Cleanup old nightly versions
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG: tryzealot
+          PACKAGE: zealot
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+          DAYS_TO_KEEP: ${{ inputs.days_to_keep || 180 }}
+        run: |
+          ruby - << 'RUBY'
+          require 'json'
+          require 'time'
+          require 'set'
+
+          org = ENV.fetch('ORG')
+          package = ENV.fetch('PACKAGE')
+          dry_run = ENV.fetch('DRY_RUN', 'true').to_s.downcase != 'false'
+          days_to_keep = ENV.fetch('DAYS_TO_KEEP', '180').to_i
+          cutoff_time = Time.now.utc - (days_to_keep * 86400)
+
+          puts "=== GHCR Nightly Images Cleanup ==="
+          puts "Target: ghcr.io/#{org}/#{package}"
+          puts "Dry run: #{dry_run}"
+          puts "Retention: #{days_to_keep} days (cutoff: #{cutoff_time.strftime('%Y-%m-%d %H:%M:%S UTC')})"
+
+          raw_output = `gh api --paginate --jq '.[]' "/orgs/#{org}/packages/container/#{package}/versions?per_page=100"`
+          abort("Failed to fetch package versions from GitHub API") unless $?.success?
+
+          versions = []
+          raw_output.each_line do |line|
+            trimmed = line.strip
+            versions << JSON.parse(trimmed) unless trimmed.empty?
+          end
+
+          puts "Total package versions found: #{versions.size}"
+
+          protected_digests = Set.new
+          candidates = []
+
+          versions.each do |v|
+            tags = v.dig('metadata', 'container', 'tags') || []
+            digest = v['name']
+            created_at = Time.parse(v['created_at'])
+
+            has_protected_tag = tags.any? do |tag|
+              tag == 'nightly' ||
+                tag == 'latest' ||
+                tag.start_with?('v') ||
+                tag.start_with?('preview') ||
+                tag.start_with?('codespace') ||
+                tag.match?(/\A\d+\.\d+/)
+            end
+
+            has_recent_nightly = tags.any? do |tag|
+              tag.match?(/\Anightly-\d{4}-\d{2}-\d{2}\z/) && created_at >= cutoff_time
+            end
+
+            if has_protected_tag || has_recent_nightly
+              protected_digests.add(digest)
+            end
+          end
+
+          puts "Protected active digests count: #{protected_digests.size}"
+
+          versions.each do |v|
+            tags = v.dig('metadata', 'container', 'tags') || []
+            digest = v['name']
+            created_at = Time.parse(v['created_at'])
+
+            next if tags.empty?
+            next if protected_digests.include?(digest)
+            next unless tags.all? { |tag| tag.match?(/\Anightly-\d{4}-\d{2}-\d{2}\z/) }
+            next if created_at >= cutoff_time
+
+            candidates << v
+          end
+
+          puts "Versions eligible for deletion: #{candidates.size}"
+
+          candidates.each do |v|
+            id = v['id']
+            tags = v.dig('metadata', 'container', 'tags') || []
+            created_at = v['created_at']
+
+            if dry_run
+              puts "[DRY RUN] Would delete version ID #{id} (tags: #{tags.join(', ')}, created_at: #{created_at})"
+            else
+              print "Deleting version ID #{id} (tags: #{tags.join(', ')}) ... "
+              system("gh", "api", "-X", "DELETE", "/orgs/#{org}/packages/container/#{package}/versions/#{id}", out: File::NULL)
+              if $?.success?
+                puts "OK"
+              else
+                puts "FAILED (status #{$?.exitstatus})"
+              end
+            end
+          end
+
+          puts "=== Cleanup complete ==="
+          RUBY
