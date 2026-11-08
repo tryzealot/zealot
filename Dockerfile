@@ -76,11 +76,6 @@ ARG RUBY_VERSION
 
 FROM ruby:${RUBY_VERSION}-alpine
 
-ARG BUILD_DATE
-ARG VCS_REF
-ARG TAG
-ARG ZEALOT_VERSION
-
 ARG REPLACE_CHINA_MIRROR="true"
 ARG ORIGINAL_REPO_URL="dl-cdn.alpinelinux.org"
 ARG MIRROR_REPO_URL="mirrors.ustc.edu.cn"
@@ -92,10 +87,7 @@ ARG TARGETARCH
 
 ENV TZ="Asia/Shanghai" \
     PS1="$(whoami)@$(hostname):$(pwd)$ " \
-    DOCKER_TAG="$TAG" \
     BUNDLE_APP_CONFIG="$APP_ROOT/.bundle" \
-    ZEALOT_VCS_REF="$VCS_REF" \
-    ZEALOT_BUILD_DATE="$BUILD_DATE" \
     RAILS_ENV="production" \
     RUBY_YJIT_ENABLE="true"
 
@@ -134,6 +126,15 @@ COPY docker/native_extension_smoke.rb /tmp/native_extension_smoke.rb
 RUN bundle exec ruby /tmp/native_extension_smoke.rb && rm /tmp/native_extension_smoke.rb
 
 RUN ln -s /app/bin/rails /usr/local/bin/
+
+ARG BUILD_DATE
+ARG VCS_REF
+ARG TAG
+ARG ZEALOT_VERSION
+
+ENV DOCKER_TAG="$TAG" \
+    ZEALOT_VCS_REF="$VCS_REF" \
+    ZEALOT_BUILD_DATE="$BUILD_DATE"
 
 EXPOSE 80
 
