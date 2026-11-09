@@ -38,7 +38,7 @@ gem 'rswag-ui', '~> 2.17.0'
 
 # Model
 gem 'friendly_id', '~> 5.7.0'
-gem 'kaminari', '~> 1.3.2'
+gem 'kaminari', '~> 1.3.3'
 gem 'carrierwave', '~> 3.1.4'
 gem 'mini_magick', '~> 5.3'
 
