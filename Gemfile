@@ -6,7 +6,7 @@ ruby '4.0.10'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'puma', '~> 8.0.2'
+gem 'puma', '~> 8.1.2'
 gem 'rails', '~> 8.1.4'
 gem 'rails-i18n', '~> 8.1.0'
 gem 'rack-cors', '~> 3.0.0'
