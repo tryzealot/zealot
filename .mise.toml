@@ -1,5 +1,5 @@
 [tools]
-ruby="4.0.7"
+ruby="4.0.10"
 nodejs="24.12.0"
 
 [tasks.web]

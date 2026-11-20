@@ -1,7 +1,7 @@
 # Ruby version for both stages. Keep in sync with `.mise.toml` and the Gemfile's
-# `ruby '4.0.7'` directive. The image ships Bundler 4.0.20, which the lockfile's
+# `ruby '4.0.10'` directive. The image ships Bundler 4.0.20, which the lockfile's
 # BUNDLED WITH now pins, so no separate bundler install is needed.
-ARG RUBY_VERSION=4.0.7
+ARG RUBY_VERSION=4.0.10
 
 FROM ruby:${RUBY_VERSION}-alpine AS builder
 
