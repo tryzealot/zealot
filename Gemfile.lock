@@ -820,7 +820,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-  ruby 4.0.7
+  ruby 4.0.10
 
 BUNDLED WITH
   4.0.20
