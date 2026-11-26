@@ -41,7 +41,17 @@ class TeardownJob < ApplicationJob
     attrs = { release: release }
     attrs[:user_id] = @user_id if @user_id.present?
     metadata.update(attrs)
+    assign_organization(metadata)
     release.update(release_type: metadata.release_type) if release.release_type.blank?
+  end
+
+  def assign_organization(metadata)
+    return unless metadata.respond_to?(:organization_id=)
+
+    org = release.app.organization
+    return unless org.respond_to?(:persisted?) && org.persisted?
+
+    metadata.update_attribute(:organization_id, org.id)
   end
 
   def determine_file!

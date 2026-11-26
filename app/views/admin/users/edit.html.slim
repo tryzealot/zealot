@@ -9,7 +9,7 @@
     base_fa: 'fa-regular', data: { tip: t('links.back_to_list')}
 
 = turbo_frame_tag @user do
-  .grid.grid-cols-1.md:grid-cols-2.gap-4
+  .grid.grid-cols-1.md:grid-cols-2.gap-4 class="*:break-inside-avoid"
     .card
       .card-header
         h3.card-title = t('admin.users.edit.profile')
@@ -35,24 +35,6 @@
                 data-clipboard-text="#{confirmation_url}"
               ]
                 i.fa-regular.fa-clipboard
-
-        - if @user.collaborators.present?
-          .card
-            .card-header
-              h3.card-title = t('admin.users.edit.collaborators')
-            .card-body.p-0.overflow-x-auto
-              table.d-table
-                - @user.collaborators.each do |collaborator|
-                  tr
-                    td.break-words = link_to collaborator.app.name, app_path(collaborator.app), data: { turbo_frame: '_top' }
-                    td
-                      - if collaborator.owner
-                        = link_to t('activerecord.attributes.collaborator.owner'), new_owner_app_path(collaborator.app),\
-                          data: { turbo_frame: 'modal' }
-                      - else
-                        = link_to Setting.builtin_roles[collaborator.role.to_sym], \
-                          edit_app_collaborator_path(collaborator.app, collaborator.user_id), \
-                          data: { turbo_frame: 'modal' }
 
         .card
           .card-header

@@ -44,7 +44,7 @@ class Api::SchemesController < Api::BaseController
     raise_if_app_archived!(@scheme.app)
 
     @scheme.destroy!
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected

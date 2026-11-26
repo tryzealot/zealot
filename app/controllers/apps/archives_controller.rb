@@ -3,6 +3,8 @@
 class Apps::ArchivesController < ApplicationController
   include AppListScope
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
+
   before_action :set_app, only: %i[update destroy]
 
   def update
@@ -50,6 +52,12 @@ class Apps::ArchivesController < ApplicationController
   end
 
   def set_app
-    @app = App.find(params[:id])
+    @app = org_scope(App).find(params[:id])
+  end
+
+  def render_not_found_entity_response(e)
+    return not_found(e) unless e.model == 'App'
+
+    redirect_to apps_path, alert: t('apps.messages.failture.not_found_app', id: e.id)
   end
 end

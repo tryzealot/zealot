@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ChannelPolicy < ApplicationPolicy
-
   def index?
     app_user?
   end
@@ -11,27 +10,27 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def new?
-    any_manage?
+    manage?
   end
 
   def create?
-    any_manage?
+    manage?
   end
 
   def edit?
-    any_manage?
+    manage?
   end
 
   def update?
-    any_manage?
+    manage?
   end
 
   def destroy?
-    any_manage?
+    manage?
   end
 
   def destroy_releases?
-    any_manage?
+    manage?
   end
 
   def versions?
@@ -65,14 +64,6 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def app_user?
-    guest_mode? || any_manage? || app_collaborator?(user, app)
-  end
-
-  def any_manage?
-    manage? || manage?(app: app)
-  end
-
-  def app
-    @app ||= record.app
+    user_signed_in_or_guest_mode?
   end
 end

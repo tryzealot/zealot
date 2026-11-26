@@ -6,6 +6,7 @@ class Api::BaseController < ActionController::API
   include ExceptionHandler
   include UserRole
   include Customize
+  include Organizable
 
   respond_to :json
 

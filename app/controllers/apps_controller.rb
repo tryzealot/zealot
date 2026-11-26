@@ -4,12 +4,12 @@ class AppsController < ApplicationController
   include AppArchived
   include AppListScope
 
-  before_action :authenticate_user! unless Setting.guest_mode
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_entity_response
+
   before_action :set_app, only: %i[show edit update destroy new_owner update_owner]
   before_action :set_selected_schemes_and_channels, only: %i[edit]
   before_action :process_scheme_and_channel, only: %i[create]
-  before_action :set_owner, only: %i[ new_owner update_owner ]
-
+  before_action :set_owner, only: %i[new_owner update_owner]
 
   def index
     @title = t('.title')
@@ -20,7 +20,6 @@ class AppsController < ApplicationController
     searched_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
     @apps = searched_scope.by_scope(@scope).sort_by_name(@sort)
     @scope_counts = scope_counts_for(base_scope)
-
     authorize @apps if @apps.present?
   end
 
@@ -32,6 +31,7 @@ class AppsController < ApplicationController
   def new
     @title = t('.title')
     @app = App.new
+    @app.organization_id = current_org.id if @app.respond_to?(:organization_id=) && current_org.respond_to?(:persisted?) && current_org.persisted?
     authorize @app
 
     @app.schemes.build
@@ -45,6 +45,7 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(app_params)
+    @app.organization_id = current_org.id if @app.respond_to?(:organization_id=) && current_org.respond_to?(:persisted?) && current_org.persisted?
     authorize @app
     return render :new, status: :unprocessable_entity unless @app.save
 
@@ -79,27 +80,31 @@ class AppsController < ApplicationController
 
   def new_owner
     raise_if_app_archived!(@app)
+    authorize @app, :new_owner?
 
     @title = t('.title')
   end
 
   def update_owner
     raise_if_app_archived!(@app)
+    authorize @app, :update_owner?
 
     @title = t('apps.new_owner.title')
-    @previous_user = @collaborator.user
+    @previous_user = @collaborator&.user
     user_id = owner_params[:user_id]
-    if @previous_user.id == user_id.to_i
+    if @previous_user&.id == user_id.to_i
       notice = t('activerecord.errors.messages.same_value', key: t('apps.new_owner.title'))
       return redirect_to @collaborator.app, notice: notice, status: :see_other
     end
 
     new_owner = User.find(user_id)
-    if existed_collaborator = @app.collaborators.find_by(user: new_owner)
-      existed_collaborator.destroy
+    Collaborator.transaction do
+      @collaborator&.update!(owner: false)
+      new_collab = @app.collaborators.find_or_initialize_by(user: new_owner)
+      new_collab.role = :admin
+      new_collab.owner = true
+      new_collab.save!
     end
-
-    return render :new_owner, status: :unprocessable_entity unless @collaborator.update(user: new_owner)
 
     notice = t('activerecord.success.update', key: t('apps.new_owner.title'))
     flash.now[:notice] = notice
@@ -107,6 +112,8 @@ class AppsController < ApplicationController
       format.html { redirect_to @app }
       format.turbo_stream
     end
+  rescue ActiveRecord::RecordInvalid
+    render :new_owner, status: :unprocessable_entity
   end
 
   private
@@ -132,11 +139,9 @@ class AppsController < ApplicationController
     FileUtils.rm_rf(app_binary_path) if Dir.exist?(app_binary_path)
   end
 
-  def set_owner
-    @collaborator = @app.collaborators.find_by(owner: true)
-  end
-
   def create_owner
+    return if current_user.blank? || current_user.guest?
+
     @app.create_owner(current_user)
   end
 
@@ -150,19 +155,6 @@ class AppsController < ApplicationController
       end
     end
   end
-
-  # def update_schemes_and_channels
-  #   existed_schemes = @app.schemes.all
-
-  #   @schemes.each do |scheme_name|
-  #     scheme = @app.schemes.find_by(name: scheme_name)
-
-
-  #     @channels.each do |channel_name|
-  #       scheme.channels.create name: channel_name, device_type: channel_name.downcase.to_sym
-  #     end
-  #   end
-  # end
 
   def set_selected_schemes_and_channels
     @schemes = []
@@ -183,7 +175,7 @@ class AppsController < ApplicationController
   end
 
   def set_app
-    @app = App.find(params[:id])
+    @app = org_scope(App).find(params[:id])
     authorize @app
   end
 
@@ -196,11 +188,17 @@ class AppsController < ApplicationController
                           )
   end
 
-  def render_not_found_entity_response(e)
-    redirect_to apps_path, notice: t('apps.messages.failture.not_found_app', id: e.id)
+  def set_owner
+    @collaborator = @app.collaborators.find_by(owner: true)
   end
 
   def owner_params
     params.require(:collaborator).permit(:user_id)
+  end
+
+  def render_not_found_entity_response(e)
+    return not_found(e) unless e.model == 'App'
+
+    redirect_to apps_path, alert: t('apps.messages.failture.not_found_app', id: e.id)
   end
 end

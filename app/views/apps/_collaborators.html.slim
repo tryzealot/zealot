@@ -2,7 +2,7 @@
   .card-header
     h3.card-title = t('apps.show.collaborators')
     .card-tools
-      - if (current_user.admin? || current_user.app_roles?(app, :admin)) && !@app.archived
+      - if policy(Collaborator.new(app: app)).new? && !@app.archived
         = button_link_to '', new_app_collaborator_path(app), 'user-plus', \
           class: 'd-btn-ghost d-tooltip d-tooltip-left', \
           data: { turbo_frame: 'modal', tip: t('apps.show.new_collaborator') }

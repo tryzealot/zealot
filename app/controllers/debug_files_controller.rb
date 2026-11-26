@@ -62,7 +62,7 @@ class DebugFilesController < ApplicationController
   private
 
   def set_app
-    @app = App.find(params[:app_id])
+    @app = org_scope(App).find(params[:app_id])
   end
 
   def set_debug_file

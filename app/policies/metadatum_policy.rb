@@ -3,7 +3,7 @@
 class MetadatumPolicy < ApplicationPolicy
 
   def show?
-    user_signed_in_or_guest_mode? || (user_signed_in? && (owner? || any_manage? || app_member?))
+    record_in_org? && user_signed_in_or_guest_mode?
   end
 
   def new?
@@ -11,28 +11,21 @@ class MetadatumPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user_signed_in? && (owner? || any_manage? || app_member?)
+    record_in_org? && user_signed_in? && (owner? || manage?)
   end
 
   class Scope < Scope
     def resolve
-      scope.all
+      org_scope
     end
   end
 
   private
 
-  def any_manage?
-    return true if manage?
-    return false unless app = record.app
+  def record_in_org?
+    return true unless org&.respond_to?(:persisted?) && org.persisted? && record.respond_to?(:organization_id)
 
-    manage?(app: app)
-  end
-
-  def app_member?
-    return false unless app = record.app
-
-    app_collaborator?(user, app)
+    record.organization_id.nil? || record.organization_id == org.id
   end
 
   def owner?

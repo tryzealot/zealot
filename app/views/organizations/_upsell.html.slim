@@ -1,0 +1,60 @@
+.flex.flex-col.gap-6
+  / Header / Hero
+  .flex.items-center.gap-4.p-4.rounded-box.bg-base-200/60.border.border-base-300
+    .size-12.rounded-xl.bg-warning/20.text-warning.flex.items-center.justify-center.text-2xl.shrink-0
+      i.fa-solid.fa-crown
+    .grow
+      .flex.items-center.gap-2
+        h4.font-bold.text-base.md:text-lg = t('organizations.upsell.title')
+        span.d-badge.d-badge-sm.d-badge-warning.font-semibold = t('organizations.upsell.badge')
+      p.text-sm.text-base-content/70.mt-0.5 = t('organizations.upsell.subtitle')
+
+  / Features Grid
+  .grid.grid-cols-1.md:grid-cols-2.gap-3
+    .p-3.rounded-lg.border.border-base-200.bg-base-100.hover:border-primary/40.transition-colors
+      .flex.items-center.gap-2.text-primary.font-semibold.text-sm
+        i.fa-solid.fa-building
+        = t('organizations.upsell.features.multi_tenant.title')
+      p.text-xs.text-base-content/70.mt-1.leading-relaxed
+        = t('organizations.upsell.features.multi_tenant.description')
+
+    .p-3.rounded-lg.border.border-base-200.bg-base-100.hover:border-primary/40.transition-colors
+      .flex.items-center.gap-2.text-primary.font-semibold.text-sm
+        i.fa-solid.fa-users-gear
+        = t('organizations.upsell.features.members.title')
+      p.text-xs.text-base-content/70.mt-1.leading-relaxed
+        = t('organizations.upsell.features.members.description')
+
+    .p-3.rounded-lg.border.border-base-200.bg-base-100.hover:border-primary/40.transition-colors
+      .flex.items-center.gap-2.text-primary.font-semibold.text-sm
+        i.fa-solid.fa-globe
+        = t('organizations.upsell.features.domains.title')
+      p.text-xs.text-base-content/70.mt-1.leading-relaxed
+        = t('organizations.upsell.features.domains.description')
+
+    .p-3.rounded-lg.border.border-base-200.bg-base-100.hover:border-primary/40.transition-colors
+      .flex.items-center.gap-2.text-primary.font-semibold.text-sm
+        i.fa-solid.fa-shield-halved
+        = t('organizations.upsell.features.support.title')
+      p.text-xs.text-base-content/70.mt-1.leading-relaxed
+        = t('organizations.upsell.features.support.description')
+
+  / Activation Instructions
+  .p-4.rounded-box.bg-neutral.text-neutral-content.text-xs.font-mono
+    .flex.items-center.justify-between.mb-2
+      span.text-neutral-content/80.font-sans.font-semibold
+        i.fa-solid.fa-key.me-1
+        = t('organizations.upsell.activation.title')
+      span.d-badge.d-badge-xs.d-badge-neutral ENV
+    p.text-neutral-content/70.font-sans.mb-2
+      = t('organizations.upsell.activation.step')
+    pre.bg-black/30.p-2.rounded.overflow-x-auto
+      code = "ZEALOT_PRO_LICENSE=your_license_key"
+
+  / Action Buttons
+  .flex.flex-col-reverse.sm:flex-row.items-center.justify-end.gap-3.pt-2
+    form method="dialog"
+      button.d-btn.d-btn-ghost = t('organizations.upsell.close')
+    = link_to 'https://zealot.ews.im/pricing', target: '_blank', rel: 'noopener noreferrer', class: 'd-btn d-btn-warning w-full sm:w-auto gap-2' do
+      i.fa-solid.fa-arrow-up-right-from-square
+      = t('organizations.upsell.purchase.button')

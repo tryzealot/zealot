@@ -1,2 +1,6 @@
+# NOTE: this repository has no executable test suite. rspec exists only to
+# emit OpenAPI documents from spec/api/*; regenerate them with:
+#   bin/rails zealot:swaggerize
+# `bundle exec rspec` therefore exits green without running anything.
 --require spec_helper
 --dry-run

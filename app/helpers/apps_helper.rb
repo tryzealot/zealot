@@ -133,7 +133,7 @@ module AppsHelper
     appearance = active_appearance
     if (appearance) != 'auto'
       return image_tag channel_release_qrcode_path(
-        @release.channel, @release,
+        release.channel, release,
         size: :lg, theme: appearance, format: :svg)
     end
 

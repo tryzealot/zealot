@@ -13,7 +13,7 @@ class Api::ReleasesController < Api::BaseController
   # DELETE /releases/:id
   def destroy
     @release.destroy
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected

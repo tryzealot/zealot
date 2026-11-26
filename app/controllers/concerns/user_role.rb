@@ -4,14 +4,14 @@ module UserRole
   extend ActiveSupport::Concern
 
   def user_signed_in_or_guest_mode?
-    Setting.guest_mode || user_signed_in?
+    current_user.present?
   end
 
-  def manage_user_or_guest_mode?(app: nil)
-    Setting.guest_mode || manage_user?(app: app)
+  def manage_user_or_guest_mode?(*)
+    current_user&.manage?
   end
 
-  def manage_user?(app: nil)
-    current_user&.manage? || (app && current_user&.manage?(app: app))
+  def manage_user?(*)
+    current_user&.manage?
   end
 end

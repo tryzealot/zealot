@@ -1,12 +1,17 @@
 zh-CN:
   announcement: "7.0 版本开启全新主题，还有更多新功能正在开发中！"
   toolbox_section: 工具箱
-  admin_section: 管理区域
-  monitors_section: 监控区域
-  user_profile: 用户详情
-  log_out: 用户登出
-  log_in: 登录
-  donate: 捐赠
+  admin_section: 系统管理
+  monitors_section: 系统监控
+  layouts:
+    select_organization: 选择组织
+    toolbox_section: 工具箱
+    admin_section: 系统管理
+    monitors_section: 系统监控
+    user_profile: 用户详情
+    log_out: 用户登出
+    log_in: 登录
+    donate: 捐赠
   intro:
     title: 应用托管竟然如此简单、全平台 App 应用分发系统
     description: 持续集成一切跟应用有关事情，接入 CI 系统一切自动化处理，企业多年实战经验，独立部署提供企业打包分发流程、上传应用全套流程方案
@@ -36,7 +41,7 @@ zh-CN:
         title: 修改用户
         active_link: 激活链接
         active_link_tip: 若发送邮件设置错误或邀请用户没有收到激活邮件
-        resend: 重发激活邮件
+        resend: 重发邮件
         profile: 个人信息
         collaborators: 应用成员
         api_token: API 密钥
@@ -196,7 +201,7 @@ zh-CN:
         ruby_gems: Ruby Gems
         logs: 日志
         new_version: "发现新版本 "
-        dev_new_version: 发现新版本 (开发环境始终显示)
+        dev_new_version: 发现新版本
         messages:
           file_permissions_tip: 如果你看到上面路径有显示红色异常图标那就是表面该路径无法写入可能会造成 Zealot 无法正常使用或发生异常情况
           path_not_exist: 路径不存在
@@ -233,7 +238,7 @@ zh-CN:
         backup_id: 备份 ID
         backup_status: 备份状态
         steps:
-          start: 任务认领
+          start: 开始备份
           prepare: 数据准备中
           dump_database: 备份数据库
           dump_apps: 备份应用
@@ -290,6 +295,40 @@ zh-CN:
       upload_full_version_release: 上传了新版本 %{release_version} (%{build_version})
       upload_auto_version_release: 上传了新版本 %{version}
       not_found: 没有任何上传，快快上传吧
+  organizations:
+    title: 组织
+    members:
+      title: 组织成员
+    switch: 切换组织
+    new:
+      title: 新建组织
+    upsell:
+      badge: PRO
+      title: 升级到 Zealot Pro
+      subtitle: 解锁多组织隔离与企业级高级特性
+      features:
+        multi_tenant:
+          title: 多组织隔离管理
+          description: 为团队、部门或不同客户创建完全独立的组织与应用空间
+        members:
+          title: 灵活的角色权限
+          description: 支持多组织成员归属、细粒度角色与访问权限控制
+        domains:
+          title: 专属域名与路径
+          description: 支持基于路径（/:org_slug）及独立二级域名的多租户访问
+        support:
+          title: 企业级支持与持续更新
+          description: 专享优先技术支持与持续功能升级
+      activation:
+        title: 许可证激活
+        step: 在环境变量（.env 或 docker-compose）中配置授权密钥并重启服务：
+      purchase:
+        button: 获取 Zealot Pro 授权
+        learn_more: 了解更多
+      close: 我知道了
+    form:
+      slug_hint: 用于 URL 路由的唯一标识符（如 acme-corp）
+      subdomain_hint: 可选的专属二级域名（如 acme）
   apps:
     title: 应用
     sidebar:
@@ -333,6 +372,7 @@ zh-CN:
       disabled_new_build_callout: 已关闭新版本提示窗
       enabled_new_build_callout: 已开启新版本提示窗
       total_builds: 上传版本数
+      archived: 已归档
       not_found_channel: 没有发现任何渠道
       not_found_scheme:
         title: 没有发现任何应用类型
@@ -1097,6 +1137,8 @@ zh-CN:
       web_hook: 网络钩子
       device: 测试设备
       backup: 数据备份
+      organization: 组织
+      zealot/pro/organization: 组织
     attributes:
       channel:
         name: 渠道名称

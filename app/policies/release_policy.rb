@@ -7,23 +7,23 @@ class ReleasePolicy < ApplicationPolicy
   end
 
   def new?
-    any_manage?
+    manage?
   end
 
   def create?
-    any_manage?
+    manage?
   end
 
   def edit?
-    any_manage?
+    manage?
   end
 
   def update?
-    any_manage?
+    manage?
   end
 
   def destroy?
-    any_manage?
+    manage?
   end
 
   def auth?
@@ -40,13 +40,5 @@ class ReleasePolicy < ApplicationPolicy
 
   def enabled_auth?
     record.channel.password.present?
-  end
-
-  def any_manage?
-    manage? || manage?(app: app)
-  end
-
-  def app
-    @app ||= record.app
   end
 end

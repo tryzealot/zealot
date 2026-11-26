@@ -1,2 +1,7 @@
 = sidebar_link_to 'fa-solid fa-th', root_path, text: t('dashboard.title')
 = sidebar_link_to 'fa-brands fa-adn', apps_path, text: t('apps.title')
+- if can_manage_org_members?
+  - if defined?(Zealot::Pro) && Zealot::Pro.enabled?(:multi_org)
+    = sidebar_link_to 'fa-solid fa-users', members_path, text: t('organizations.members.title'), active: (controller_name == 'members')
+  - else
+    = sidebar_link_to 'fa-solid fa-users', organization_members_path, text: t('organizations.members.title'), data: { turbo_frame: :modal }

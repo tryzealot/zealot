@@ -40,6 +40,24 @@ Rails.application.configure do
     }
   }
 
+  # Zealot Pro keeps the license lease fresh. Without this the client would
+  # downgrade to the community edition when the short lease expires, even if
+  # the subscription is still active.
+  #
+  # Local development tokens are often signed for a different environment and
+  # the default gateway is production; syncing there would mark the license
+  # revoked. Disable the cron in development/test unless explicitly enabled.
+  pro_refresh_default = Rails.env.development? || Rails.env.test? ? '0' : '1'
+  pro_refresh_enabled = ENV.fetch('ZEALOT_PRO_REFRESH_ENABLED', pro_refresh_default) == '1'
+
+  if defined?(Zealot::Pro) && pro_refresh_enabled
+    config.good_job.cron[:zealot_pro_refresh] = {
+      cron: ENV.fetch('ZEALOT_PRO_REFRESH_CRON', '0 3 * * *'),
+      class: 'Zealot::Pro::RefreshJob',
+      description: 'Refresh Zealot Pro license lease daily'
+    }
+  end
+
   config.after_initialize do
     cron_jobs = config.good_job.cron
     begin

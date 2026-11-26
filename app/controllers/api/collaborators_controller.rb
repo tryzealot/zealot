@@ -14,10 +14,13 @@ class Api::CollaboratorsController < Api::BaseController
 
   # POST /api/apps/:app_id/collaborators
   def create
+    @collaborator = @app.collaborators.build(collaborator_params)
+    authorize @collaborator
+
     collaborator = @app.collaborators.find_by(user_id: params[:user_id])
     raise Zealot::Error::RecordExisted.new(model: collaborator) if collaborator
 
-    @collaborator = @app.collaborators.create!(collaborator_params)
+    @collaborator.save!
     render json: @collaborator, status: :created
   end
 
@@ -30,13 +33,13 @@ class Api::CollaboratorsController < Api::BaseController
   # DELETE /api/apps/:app_id/collaborators/:user_id
   def destroy
     @collaborator.destroy!
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected
 
   def set_app
-    @app = App.find(params[:app_id])
+    @app = org_scope(App).find(params[:app_id])
     raise_if_app_archived!(@app)
   end
 

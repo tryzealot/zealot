@@ -102,11 +102,30 @@ class DebugFile < ApplicationRecord
     File.exist?(file.path)
   end
 
+  def default_url_options
+    opts = super rescue {}
+    opts = opts.is_a?(Hash) ? opts : {}
+    opts.merge(org_slug: organization_slug_for_url)
+  end
+
   def file_url
-    download_debug_file_url(id)
+    download_debug_file_url(self, org_slug: organization_slug_for_url)
   end
 
   private
+
+  def organization_slug_for_url
+    return unless defined?(Zealot::Pro) && app.respond_to?(:organization)
+
+    org = app.organization
+    return if org.nil? || org.slug.blank?
+    return if org.respond_to?(:default?) && org.default?
+    return unless Zealot::Pro.enabled?(:multi_org)
+
+    org.slug
+  rescue StandardError
+    nil
+  end
 
   def generate_checksum
     self.checksum = file.checksum

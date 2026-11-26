@@ -13,10 +13,42 @@ concurrency:
 
 jobs:
   lint:
-    name: RuboCop + boot
+    name: RuboCop + boot + OpenAPI
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: zealot
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U zealot"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+      ZEALOT_POSTGRES_USERNAME: zealot
+      ZEALOT_POSTGRES_PASSWORD: postgres
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Migrations are append-only
+        if: github.event_name == 'pull_request'
+        run: |
+          deleted=$(git diff --name-only --diff-filter=DR "${{ github.event.pull_request.base.sha }}" HEAD -- db/migrate/)
+          if [ -n "$deleted" ]; then
+            echo "::error::Deleting or renaming a migration leaves already-migrated databases out of sync. Add a new migration that reverses it instead."
+            echo "$deleted"
+            exit 1
+          fi
+
+      - name: Root spec/ holds only OpenAPI generators
+        run: bin/check-spec-layout
 
       - uses: jdx/mise-action@v5
 
@@ -35,12 +67,28 @@ jobs:
         run: bin/rubocop
 
       - name: Zeitwerk check
-        env:
-          RAILS_ENV: test
         run: bin/rails zeitwerk:check
 
       - name: Boot smoke
-        env:
-          RAILS_ENV: test
         run: |
           bin/rails runner 'puts %(Ruby #{RUBY_VERSION} / Rails #{Rails.version})'
+
+      - name: Prepare test database
+        env:
+          # Rails 8.1 bootstraps an empty database from db/schema.rb; point the
+          # schema file at a path that does not exist so every migration
+          # replays instead of being silently skipped.
+          SCHEMA: /tmp/zealot-ci-schema.rb
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
+
+      - name: OpenAPI documents are up to date
+        run: |
+          bin/rails zealot:swaggerize
+          if ! git diff --quiet -- swagger/; then
+            echo "::error::swagger/v1/*.json is stale. Run 'bin/rails zealot:swaggerize' and commit the result."
+            git diff --stat -- swagger/
+            git diff -- swagger/ | head -200
+            exit 1
+          fi

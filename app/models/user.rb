@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   include UserSettings
   include UserRoles
+  include Zealot::UserOrganization
 
   extend UserOmniauth
   devise :database_authenticatable, :registerable, :confirmable, :rememberable, :trackable, 
@@ -16,8 +17,8 @@ class User < ApplicationRecord
   enum :appearance, enum_appearances
   enum :timezone, enum_timezones
 
-  has_and_belongs_to_many :apps
   has_many :collaborators, dependent: :destroy
+  has_many :apps, through: :collaborators
   has_many :metadatum, dependent: :destroy
   has_many :providers, class_name: 'UserProvider', dependent: :destroy
 

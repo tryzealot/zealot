@@ -9,6 +9,7 @@ module UsersHelper
     Collaborator.roles.to_a.collect { |c| [Setting.builtin_roles[c[0].to_sym], c[0]] }
   end
 
+
   def omniauth_display_name(provider)
     case provider
     when :ldap

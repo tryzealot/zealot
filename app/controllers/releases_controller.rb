@@ -3,6 +3,7 @@
 class ReleasesController < ApplicationController
   include AppArchived
 
+  skip_before_action :authenticate_tenant_user!, only: %i[index show auth]
   before_action :authenticate_login!, except: %i[index show auth]
   before_action :set_channel
   before_action :set_release, only: %i[show auth destroy]

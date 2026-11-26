@@ -111,13 +111,16 @@ namespace :zealot do
       "zh-CN" => "zh-Hans",
     }
 
-    system("mkdir -p tmp/docs")
+    system("mkdir -p tmp/docs") || abort("Failed to create tmp/docs")
     Rails.configuration.i18n.available_locales.sort.each do |locale|
       puts "Generating swagger file ... #{locale}"
-      system("DEFAULT_LOCALE=#{locale} rails rswag:specs:swaggerize 2>&1 > /dev/null")
+      unless system("DEFAULT_LOCALE=#{locale} rails rswag:specs:swaggerize > /dev/null")
+        abort "Failed to generate swagger for locale #{locale}"
+      end
       # generate files for docs use
       output_file = "openapi_v1_#{locale_remapping[locale.to_s] || locale}.json"
-      system("cp -f swagger/v1/swagger_#{locale}.json tmp/docs/#{output_file}")
+      system("cp -f swagger/v1/swagger_#{locale}.json tmp/docs/#{output_file}") ||
+        abort("Failed to copy swagger file for locale #{locale}")
     end
 
     # restore

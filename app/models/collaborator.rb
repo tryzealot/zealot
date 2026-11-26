@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Collaborator < ApplicationRecord
-  self.table_name = "apps_users"
+  self.table_name = 'apps_users'
   self.primary_key = %i[user_id app_id]
 
   belongs_to :user
@@ -11,8 +11,8 @@ class Collaborator < ApplicationRecord
 
   enum :role, %i[member developer admin]
 
-  validates :owner, inclusion: [ true, false ]
-  validates :role, presence: true, exclusion: { in: Collaborator.roles.values }
+  validates :owner, inclusion: [true, false]
+  validates :role, presence: true
 
   validate :one_owner_on_each_app, if: :owner_is_truth?
 
@@ -20,7 +20,8 @@ class Collaborator < ApplicationRecord
 
   def one_owner_on_each_app
     collaborator = Collaborator.find_by(app: app, owner: true)
-    return true if collaborator.blank? || collaborator.user != user
+    return true if collaborator.blank? || collaborator.user_id == user_id
+    return true if persisted? && collaborator.user_id == user_id_was
 
     errors.add(:owner, :unique)
   end

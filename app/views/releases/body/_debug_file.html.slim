@@ -20,4 +20,5 @@
               .d-badge.d-badge-sm.d-badge-ghost = metadata.type
             .text-sm.opacity-65 = metadata.uuid
     .card-footer.p-0
-      = button_link_to t('debug_files.show.download'), debug_file.file_url, 'download', class: 'd-btn w-full'
+      = button_link_to t('debug_files.show.download'), debug_file.file_url, 'download', class: 'd-btn w-full', \
+        data: { turbo_frame: '_top' }

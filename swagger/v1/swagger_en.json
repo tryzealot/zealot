@@ -3121,24 +3121,6 @@
           }
         }
       },
-      "CollaboratorOptions": {
-        "description": "App's collaborator form data",
-        "type": "object",
-        "required": [
-          "role"
-        ],
-        "properties": {
-          "role": {
-            "type": "string",
-            "enum": [
-              "member",
-              "developer",
-              "admin"
-            ],
-            "description": "Role name"
-          }
-        }
-      },
       "UserOptions": {
         "description": "User form data",
         "type": "object",
@@ -3164,8 +3146,7 @@
             "type": "string",
             "enum": [
               "zh-CN",
-              "en",
-              "ja"
+              "en"
             ],
             "description": "Language"
           },
@@ -3249,7 +3230,7 @@
               "Europe/Helsinki",
               "Asia/Jerusalem",
               "Europe/Kaliningrad",
-              "Europe/Kyiv",
+              "Europe/Kiev",
               "Africa/Johannesburg",
               "Europe/Riga",
               "Europe/Sofia",
@@ -3279,7 +3260,7 @@
               "Asia/Kathmandu",
               "Asia/Dhaka",
               "Asia/Urumqi",
-              "Asia/Yangon",
+              "Asia/Rangoon",
               "Asia/Bangkok",
               "Asia/Jakarta",
               "Asia/Krasnoyarsk",
@@ -3356,6 +3337,24 @@
           "build_version": {
             "type": "string",
             "description": "Build version (requires if Android's Proguard file)"
+          }
+        }
+      },
+      "CollaboratorOptions": {
+        "description": "App's collaborator form data",
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "member",
+              "developer",
+              "admin"
+            ],
+            "description": "Role name"
           }
         }
       }

@@ -1,0 +1,5 @@
+- content_for :title do
+  = @title
+
+= render_modal(title: @title, size: :lg) do
+  == render 'upsell'

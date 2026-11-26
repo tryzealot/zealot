@@ -8,7 +8,7 @@ run = "bin/rails server -p 3000 -b 0.0.0.0"
 
 [tasks.debug_web]
 description = "Running Rails server"
-run = "bundle exec rdbg -O -n -c -- bin/rails server -p 3000"
+run = "RUBY_DEBUG_OPEN=true bin/rails server -p 3000"
 
 [tasks.worker]
 description = "Running Background worker"

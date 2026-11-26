@@ -81,7 +81,7 @@ class SchemesController < ApplicationController
   end
 
   def set_app
-    @app = App.find(params[:app_id])
+    @app = org_scope(App).find(params[:app_id])
     raise_if_app_archived!(@app) unless %w[index show].include?(action_name)
   end
 

@@ -1,29 +1,28 @@
 # frozen_string_literal: true
 
 class SchemePolicy < ApplicationPolicy
-
   def index?
     app_user?
   end
 
   def new?
-    any_manage?
+    manage?
   end
 
   def create?
-    any_manage?
+    manage?
   end
 
   def edit?
-    any_manage?
+    manage?
   end
 
   def update?
-    any_manage?
+    manage?
   end
 
   def destroy?
-    any_manage?
+    manage?
   end
 
   class Scope < Scope
@@ -35,10 +34,6 @@ class SchemePolicy < ApplicationPolicy
   private
 
   def app_user?
-    any_manage? || app_collaborator?(user, record.app)
-  end
-
-  def any_manage?
-    manage? || manage?(app: record.app)
+    user_signed_in_or_guest_mode?
   end
 end

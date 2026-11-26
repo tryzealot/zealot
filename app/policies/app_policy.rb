@@ -2,66 +2,69 @@
 
 class AppPolicy < ApplicationPolicy
   def index?
-    app_user?
+    user_signed_in_or_guest_mode?
   end
 
   def show?
-    app_user?
+    record_in_org? && app_user?
   end
 
   def create?
-    any_manage?
+    manage?
   end
 
   def edit?
-    any_manage?
+    record_in_org? && manage?
   end
 
   def update?
-    any_manage?
+    record_in_org? && manage?
   end
 
   def destroy?
-    any_manage?
+    record_in_org? && admin?
   end
 
   def new_owner?
-    admin? || app_owner?
+    record_in_org? && admin?
   end
 
   def update_owner?
-    admin? || app_owner?
+    record_in_org? && admin?
   end
 
   def archive?
-    any_manage?
+    record_in_org? && admin?
   end
 
   def archived?
-    any_manage?
+    record_in_org? && admin?
   end
 
   def unarchive?
-    any_manage?
+    record_in_org? && admin?
   end
 
   class Scope < Scope
     def resolve
-      scope.all
+      org_scope
     end
   end
 
   private
 
+  def record_in_org?
+    return true unless org&.respond_to?(:persisted?) && org.persisted? && record.respond_to?(:organization_id)
+
+    record.organization_id == org.id
+  end
+
   def app_user?
-    guest_mode? || any_manage? || app_collaborator?(user, record)
-  end
+    return true if guest_mode?
+    return true if admin?
+    return true if manage?
+    return true if effective_role.present? && effective_role != 'guest'
 
-  def any_manage?
-    manage? || manage?(app: record)
-  end
-
-  def app_owner?
-    app_collaborator?(user, record, role: 'owner', exclude: true)
+    false
   end
 end

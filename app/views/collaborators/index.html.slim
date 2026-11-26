@@ -5,7 +5,7 @@
   = @title
 
 - content_for :section_rightpanel do
-  - if !@app.archived && (current_user&.admin? || current_user&.app_roles?(@app, :admin))
+  - if !@app.archived && policy(Collaborator.new(app: @app)).new?
     = button_link_to t('apps.show.new_collaborator'), new_app_collaborator_path(@app), 'user-plus', \
       class: 'd-btn d-btn-success', \
       data: { turbo_frame: 'modal' }

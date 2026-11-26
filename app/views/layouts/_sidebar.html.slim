@@ -1,13 +1,12 @@
 - if user_signed_in_or_guest_mode?
-  label class="d-drawer-overlay" for="zealot-drawer" aria-label="close sidebar"
-  aside[
-    class="flex min-h-full flex-col items-start bg-base-200 d-is-drawer-close:w-18 d-is-drawer-open:w-60"
-  ]
+  label.d-drawer-overlay for="zealot-drawer" aria-label="close sidebar"
+  aside class="flex min-h-full flex-col items-start bg-base-200 d-is-drawer-close:w-18 d-is-drawer-open:w-60"
     .m-3
       == render 'layouts/brand_logo', site_title: Setting.site_title
 
+    == render 'layouts/organizations'
+
     ul class="d-menu d-menu-lg w-full grow"
-      / == render 'shared/sidebar/primary'
       - nav_app = current_nav_app
       - if nav_app
         == render 'shared/sidebar/app', app: nav_app

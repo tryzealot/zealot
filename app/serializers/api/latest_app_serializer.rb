@@ -17,7 +17,13 @@ class Api::LatestAppSerializer < ApplicationSerializer
       if release_version.blank? && build_version.blank?
         return object.releases.order(version: :desc)
       else
-        return object.releases.find_since_version(release_version, build_version)
+        # `Channel#find_since_version` is the implementation that knows how to
+        # fall back to the channel's own version list when no exact release
+        # matches. `Release.find_since_version` used to shadow this call as a
+        # two-argument class method that referenced an undefined `channel` and
+        # queried a misspelled `elease_version` column, so every request with a
+        # `release_version` here raised 500.
+        return object.find_since_version(object.bundle_id, release_version, build_version)
       end
     end
 

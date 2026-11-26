@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Root spec/ holds only rswag OpenAPI generators. Executable specs live in the
+# separate repo vendor/lib/zealot-tests (see AGENTS.md).
+#
+# Usage: bin/check-spec-layout            # check every tracked file
+#        bin/check-spec-layout --staged   # check files staged for commit
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [[ "${1:-}" == "--staged" ]]; then
+  files=$(git diff --cached --name-only --diff-filter=ACR -- spec/)
+else
+  files=$(git ls-files -- spec/)
+fi
+
+allowed='^spec/(api/[^/]+_spec\.rb|support/swagger/.+|spec_helper\.rb|rails_helper\.rb|swagger_helper\.rb)$'
+offenders=$(printf '%s\n' "$files" | grep -Ev "$allowed" | grep -v '^$' || true)
+
+if [[ -n "$offenders" ]]; then
+  echo "error: root spec/ only allows rswag OpenAPI generators. Move these to vendor/lib/zealot-tests/spec:" >&2
+  printf '  %s\n' $offenders >&2
+  exit 1
+fi

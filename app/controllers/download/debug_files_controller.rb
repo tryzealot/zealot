@@ -8,7 +8,7 @@ class Download::DebugFilesController < ApplicationController
   def show
     return render_not_found_entity_response unless File.exist?(@debug_file.file.path.to_s)
 
-    redirect_to filename_download_debug_file_url(@debug_file, @debug_file.download_filename)
+    redirect_to filename_download_debug_file_url(@debug_file.app.organization.slug, @debug_file, @debug_file.download_filename)
   end
 
   def download

@@ -364,14 +364,6 @@ RSpec.configure do |config|
               custom_fields: { type: :array, items: { '$ref': '#/components/schemas/ReleaseCustomField' }, description: I18n.t('api.definitions.release_options.properties.custom_fields')},
             }
           },
-          CollaboratorOptions: {
-            description: I18n.t('api.definitions.collaborator_options.description'),
-            type: :object,
-            required: %i[ role ],
-            properties: {
-              role: { type: :string, enum: Collaborator.roles.keys, description: I18n.t('api.definitions.collaborator_options.properties.role') }
-            }
-          },
           UserOptions: {
             description: I18n.t('api.definitions.user_options.description'),
             type: :object,
@@ -395,6 +387,14 @@ RSpec.configure do |config|
               file: { type: :file, description: I18n.t('api.definitions.debug_file_options.properties.file') },
               release_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.release_version') },
               build_version: { type: :string, description: I18n.t('api.definitions.debug_file_options.properties.build_version') },
+            }
+          },
+          CollaboratorOptions: {
+            description: I18n.t('api.definitions.collaborator_options.description'),
+            type: :object,
+            required: %i[ role ],
+            properties: {
+              role: { type: :string, enum: Collaborator.roles.keys, description: I18n.t('api.definitions.collaborator_options.properties.role') }
             }
           }
         },

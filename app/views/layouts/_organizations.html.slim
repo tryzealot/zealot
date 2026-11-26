@@ -1,0 +1,35 @@
+#organization-selector.my-1.px-3.w-full
+  .d-is-drawer-close:hidden.d-dropdown.w-full
+    .d-btn.d-btn-soft.w-full.justify-between tabindex="0" role="button"
+      .flex.items-center.gap-2.min-w-0
+        .d-avatar.d-avatar-placeholder.shrink-0
+          .bg-neutral.text-neutral-content.size-7.rounded-full
+            span.text-md = current_org.name.first.upcase
+        .flex.flex-col.items-start.truncate
+          span.font-medium.truncate = current_org.name
+      i.fa.fa-chevron-down.shrink-0
+
+    ul.d-dropdown-content.d-menu.bg-base-100.rounded-box.z-1.p-2.shadow-sm.w-full.gap-1.mt-1
+      - if user_signed_in?
+        li.d-menu-title.text-xs.opacity-60.px-2.py-1 = t('organizations.switch')
+        li.flex.justify-between
+          a href=root_path class='active'
+            .d-avatar.d-avatar-placeholder
+              .bg-neutral.text-neutral-content.size-7.rounded-full
+                span.text-md = current_org.name.first.upcase
+            = current_org.name
+            i.fa.fa-check.text-primary
+
+        .d-divider.my-1
+          
+      li
+        = link_to new_organization_path(org_slug: nil), class: 'd-btn d-btn-ghost justify-between w-full gap-2', data: { turbo_frame: :modal } do
+          .flex.items-center.gap-2
+            i.fa-regular.fa-square-plus
+            span = t('organizations.new.title')
+          span.d-badge.d-badge-sm.d-badge-warning.font-semibold = t('organizations.upsell.badge')
+  
+  .flex.grow.items-center.justify-center.d-is-drawer-open:hidden
+    .d-avatar.d-avatar-placeholder.d-is-drawer-close:d-tooltip.d-is-drawer-close:d-tooltip-right data-tip=current_org.name
+      .bg-neutral.text-neutral-content.size-7.rounded-full
+        span.text-md = current_org.name.first.upcase

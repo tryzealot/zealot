@@ -1,34 +1,23 @@
 # frozen_string_literal: true
 
 class DashboardsController < ApplicationController
-  before_action :authenticate_user! unless Setting.guest_mode
+  include AppListScope
 
   def index
     @title = t('dashboard.title')
 
     system_analytics
     recently_upload
-
-    # flash.now[:warn] = {
-    #   title: 'warn title',
-    #   message: 'warn warn warn warn warn warn warn warn warn warn',
-    #     delay: 2000
-    # }
-    # flash.now[:notice] = 'Test successful notification message.'
-    # flash.now[:warn] = 'Test warning notification message.'
-    # flash.now[:alert] = 'Test failure notification message.'
   end
 
   private
 
   def recently_upload
-    @releases = Release.page(params.fetch(:page, 1))
-                       .per(params.fetch(:per_page, Setting.per_page))
-                       .order(id: :desc)
-    return if manage_user_or_guest_mode?
+    base = Release.joins(channel: :scheme).where(schemes: { app_id: app_list_base_scope.select(:id) })
 
-    channel_ids = current_user.apps.map { |app| app.channel_ids }
-    @releases = @releases.where(channel_id: channel_ids)
+    @releases = base.page(params.fetch(:page, 1))
+                    .per(params.fetch(:per_page, Setting.per_page))
+                    .order(id: :desc)
   end
 
   def system_analytics
@@ -48,8 +37,14 @@ class DashboardsController < ApplicationController
   def admin_panels
     return unless current_user&.admin?
 
+    user_count = if current_org.respond_to?(:users) && current_org.respond_to?(:persisted?) && current_org.persisted?
+      current_org.users.count
+    else
+      User.count
+    end
+
     @analytics.merge!({
-      users: User.count,
+      users: user_count,
       webhooks: WebHook.count,
       jobs: job_stats,
       disk: disk_usage,
@@ -69,30 +64,21 @@ class DashboardsController < ApplicationController
   end
 
   def user_apps
-    return App.count if Setting.guest_mode || !!current_user&.admin?
-    return 0 unless current_user&.apps
-
-    current_user.apps.count
+    app_list_base_scope.active.count
   end
 
   def user_teardowns
-    return Metadatum.count if Setting.guest_mode || !!current_user&.admin?
-    return 0 unless current_user&.metadatum
+    return org_scope(Metadatum).count if Setting.guest_mode || !!current_user&.admin?
+    return 0 unless current_user.respond_to?(:metadatum) && current_user&.metadatum
 
-    current_user.metadatum.count
+    org_scope(current_user.metadatum).count
   end
 
   def user_debug_files
-    return DebugFile.count if Setting.guest_mode || !!current_user&.admin?
-    return 0 unless current_user&.apps
-
-    current_user.apps.sum {|app| app.total_debug_files }
+    DebugFile.where(app_id: app_list_base_scope.select(:id)).count
   end
 
   def app_uploads
-    return Release.count if Setting.guest_mode || !!current_user&.admin?
-    return 0 unless current_user&.apps
-    
-    current_user.apps.sum {|app| app.total_releases }
+    Release.joins(channel: :scheme).where(schemes: { app_id: app_list_base_scope.select(:id) }).count
   end
 end

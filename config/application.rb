@@ -15,6 +15,10 @@ require 'action_mailer/railtie'
 require 'action_view/railtie'
 require 'action_cable/engine'
 
+# Load Zealot Pro Engine if present
+pro_entry = File.expand_path('../vendor/lib/zealot-pro/lib/zealot/pro.rb', __dir__)
+require pro_entry if File.exist?(pro_entry)
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

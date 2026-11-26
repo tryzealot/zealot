@@ -40,7 +40,7 @@ class Api::ChannelsController < Api::BaseController
     raise_if_app_archived!(@channel.app)
 
     @channel.destroy!
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected

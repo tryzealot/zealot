@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'dashboards#index'
 
   #############################################
   # User
@@ -11,204 +10,19 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
     omniauth_callbacks: 'users/omniauth_callbacks',
-  }, skip: :unlocks
+  }, skip: %i[unlocks]
 
   #############################################
-  # App
-  #############################################
-  # Legacy per-device debug file list (see the Debug File section below).
-  # Must be declared before `resources :apps` so it wins over the nested show.
-  get '/apps/:app_id/debug_files/:device',
-    constraints: { device: /Android|iOS/ },
-    to: redirect { |params, _request|
-      anchor = params[:device] == 'iOS' ? 'dsym' : 'proguard'
-      "/apps/#{params[:app_id]}/debug_files##{anchor}"
-    }
-
-  resources :apps do
-    member do
-      get :new_owner
-      put :update_owner
-    end
-
-    collection do
-      get 'archived', to: redirect { |_params, request|
-        query = request.query_string.presence
-        "/apps?scope=archived#{query ? "&#{query}" : ''}"
-      }
-
-      resources :archives, only: %i[update destroy], path: 'archived', module: :apps, as: 'archived_apps'
-    end
-
-    resources :collaborators, except: %i[show]
-
-    resources :web_hooks, only: %i[index new create edit update destroy], module: :apps do
-      member do
-        get 'test/:event', action: :test, as: :test
-      end
-    end
-
-    resources :schemes do
-      resources :channels, except: %i[index show]
-    end
-
-    resources :debug_files, except: %i[edit update] do
-      member do
-        post :reprocess
-      end
-    end
-
-    # App scoped teardowns, the global /teardowns stays as the toolbox entry.
-    resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
-  end
-
-  resources :channels, only: %i[index show] do
-    member do
-      delete :destroy_releases
-    end
-
-    resources :web_hooks, only: %i[new create destroy] do
-      member do
-        get :enable
-        get :disable
-        get 'test/:event', to: 'web_hooks#test', as: :test
-      end
-    end
-
-    resources :releases, path_names: { new: 'upload' } do
-      scope module: :releases do
-        get :install, to: 'install#show'
-      end
-
-      scope module: :releases do
-        get 'qrcode(/:size)(/:theme)', to: 'qrcode#show', as: :qrcode, defaults: {
-          size: 'md',
-          theme: 'light',
-          format: 'png'
-        }
-      end
-
-      member do
-        post :auth
-      end
-    end
-
-    scope module: :channels do
-      resources :versions, only: %i[index show destroy], constraints: { id: /(.+)+/ }
-      resources :branches, only: %i[index destroy], constraints: { id: /(.+)+/ }
-      resources :release_types, only: %i[index destroy], constraints: { id: /(.+)+/ }
-    end
-  end
-
-  #############################################
-  # Debug File (legacy URLs)
-  #############################################
-  # Debug files live inside an app now (/apps/:app_id/debug_files), so the old
-  # global URLs only redirect to their app-scoped equivalents.
-  get '/debug_files/new', to: redirect { |_params, request|
-    app_id = request.query_parameters['app_id'].presence
-    app_id ? "/apps/#{app_id}/debug_files/new" : '/apps'
-  }
-
-  get '/debug_files/:id', to: 'debug_files#legacy_show', as: :legacy_debug_file
-
-  #############################################
-  # Teardown
-  #############################################
-  resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
-
-  #############################################
-  # Download
-  #############################################
-  namespace :download do
-    resources :releases, only: :show do
-      member do
-        get ':filename', action: :download, filename: /.+/, as: 'filename'
-      end
-    end
-
-    resources :debug_files, only: :show do
-      member do
-        get ':filename', action: :download, filename: /.+/, as: 'filename'
-      end
-    end
-  end
-
-  #############################################
-  # UDID (iOS/iPadOS/arm chip macOS)
-  #############################################
-  resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
-    collection do
-      get 'qrcode(/:size)(/:theme)', action: :qrcode, as: :qrcode, defaults: {
-        size: 'xl',
-        theme: 'light',
-        format: 'png'
-      }
-      # get :qrcode
-      get :install
-      post :retrieve, action: :create
-    end
-
-    member do
-      post :register
-    end
-  end
-
-  #############################################
-  # Admin
+  # Admin 
   #############################################
   authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
-      root to: 'settings#index'
-
       resources :settings
-      resources :users, except: :show do
-        member do
-          put :lock
-          put :resend_confirmation
-          delete :unlock
-        end
-      end
-      resources :web_hooks, except: %i[ show new create ]
-      resources :apple_teams, only: %i[ edit update ]
       resources :background_jobs, only: :index
       resources :system_info, only: :index
-      resources :apple_keys, except: %i[ edit update ] do
-        member do
-          put :sync_devices
-          get :private_key
-        end
-      end
-
       resources :logs, only: %i[ index ] do
         collection do
           get :retrive
-        end
-      end
-
-      resources :backups do
-        collection do
-          get :parse_schedule
-        end
-
-        member do
-          post :enable
-          post :disable
-          post :perform
-          # get :job, action: :refresh_job
-          delete :job, action: :cancel_job
-          get :archive, action: :download_archive
-          delete :archive, action: :destroy_archive
-        end
-      end
-
-      resources :services, only: [] do
-        collection do
-          # zealot service
-          post :restart
-          get :status
-          # smtp
-          post :smtp_verify
         end
       end
 
@@ -292,22 +106,223 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/tools/graphiql", graphql_path: "/graphql"
   end
 
-  ############################################
-  # URL Friendly
-  ############################################
-  scope path: ':channel', format: false, as: :friendly_channel do
-    get '/overview', to: 'channels#show'
-    get '', to: 'releases#index', as: 'releases'
-    get 'versions', to: 'channels/versions#index', as: 'versions'
-    get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
-    delete 'versions/:name', to: 'channels/versions#destroy', name: /(.+)+/
-    get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
-    delete 'release_types/:name', to: 'channels/release_types#destroy', name: /(.+)+/
-    get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
-    delete 'branches/:name', to: 'channels/branches#destroy', name: /(.+)+/
-    get ':id', to: 'releases#show', as: 'release'
-    # get ':id/download', to: 'download/releases#show', as: 'channel_release_download'
-  end
+  #############################################
+  # Organization & Tenant Scope
+  #############################################
+  resources :organizations, only: [:new, :create]
+
+  RESERVED_ORG_SLUGS = %w[
+    admin api apps assets backups cable channels debug_files download
+    graphql health jobs modals organizations pghero rails schemes
+    services settings teardowns tools udid users versions vite-dev web_hooks
+  ].freeze
+
+  scope '(:org_slug)', constraints: { org_slug: /(?!(#{RESERVED_ORG_SLUGS.join('|')})$)[a-z0-9\-_]+/ } do
+    root to: 'dashboards#index'
+
+    #############################################
+    # App
+    #############################################
+    # Legacy per-device debug file list (see the Debug File section below).
+    # Must be declared before `resources :apps` so it wins over the nested show.
+    get '/apps/:app_id/debug_files/:device',
+      constraints: { device: /Android|iOS/ },
+      to: redirect { |params, _request|
+        anchor = params[:device] == 'iOS' ? 'dsym' : 'proguard'
+        "/apps/#{params[:app_id]}/debug_files##{anchor}"
+      }
+
+    resources :apps do
+      member do
+        get :new_owner
+        put :update_owner
+      end
+
+      collection do
+        get 'archived', to: redirect { |_params, request|
+          query = request.query_string.presence
+          "/apps?scope=archived#{query ? "&#{query}" : ''}"
+        }
+
+        resources :archives, only: %i[update destroy], path: 'archived', module: :apps, as: 'archived_apps'
+      end
+
+      resources :collaborators, except: %i[show]
+
+      resources :web_hooks, only: %i[index new create edit update destroy], module: :apps do
+        member do
+          get 'test/:event', action: :test, as: :test
+        end
+      end
+
+      resources :schemes do
+        resources :channels, except: %i[index show]
+      end
+
+      resources :debug_files, except: %i[edit update] do
+        member do
+          post :reprocess
+        end
+      end
+
+      # App scoped teardowns, the global /teardowns stays as the toolbox entry.
+      resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
+    end
+
+    resources :channels, only: %i[index show] do
+      member do
+        delete :destroy_releases
+      end
+
+      resources :web_hooks, only: %i[new create destroy] do
+        member do
+          get :enable
+          get :disable
+          get 'test/:event', to: 'web_hooks#test', as: :test
+        end
+      end
+
+      resources :releases, path_names: { new: 'upload' } do
+        scope module: :releases do
+          get :install, to: 'install#show'
+        end
+
+        scope module: :releases do
+          get 'qrcode(/:size)(/:theme)', to: 'qrcode#show', as: :qrcode, defaults: {
+            size: 'md',
+            theme: 'light',
+            format: 'png'
+          }
+        end
+
+        member do
+          post :auth
+        end
+      end
+
+      scope module: :channels do
+        resources :versions, only: %i[index show destroy], constraints: { id: /(.+)+/ }
+        resources :branches, only: %i[index destroy], constraints: { id: /(.+)+/ }
+        resources :release_types, only: %i[index destroy], constraints: { id: /(.+)+/ }
+      end
+    end
+
+    #############################################
+    # Debug File (legacy URLs)
+    #############################################
+    # Debug files live inside an app now (/apps/:app_id/debug_files), so the old
+    # global URLs only redirect to their app-scoped equivalents.
+    get '/debug_files/new', to: redirect { |_params, request|
+      app_id = request.query_parameters['app_id'].presence
+      app_id ? "/apps/#{app_id}/debug_files/new" : '/apps'
+    }
+
+    get '/debug_files/:id', to: 'debug_files#legacy_show', as: :legacy_debug_file
+
+    #############################################
+    # Teardown
+    #############################################
+    resources :teardowns, except: %i[edit update], path_names: { new: 'upload' }
+
+    #############################################
+    # Download
+    #############################################
+    namespace :download do
+      resources :releases, only: :show do
+        member do
+          get ':filename', action: :download, filename: /.+/, as: 'filename'
+        end
+      end
+
+      resources :debug_files, only: :show do
+        member do
+          get ':filename', action: :download, filename: /.+/, as: 'filename'
+        end
+      end
+    end
+
+    #############################################
+    # UDID (iOS/iPadOS/arm chip macOS)
+    #############################################
+    resources :udid, as: :udid, param: :udid, only: %i[ index show edit update ] do
+      collection do
+        get 'qrcode(/:size)(/:theme)', action: :qrcode, as: :qrcode, defaults: {
+          size: 'xl',
+          theme: 'light',
+          format: 'png'
+        }
+        get :install
+        post :retrieve, action: :create
+      end
+
+      member do
+        post :register
+      end
+    end
+
+    #############################################
+    # Admin
+    #############################################
+    authenticate :user, ->(user) { user.admin? } do
+      namespace :admin do
+        resources :users do
+          member do
+            post :lock
+            delete :unlock
+          end
+        end
+        resources :web_hooks, except: %i[ show new create ]
+        resources :apple_teams, only: %i[ edit update ]
+        resources :apple_keys, except: %i[ edit update ] do
+          member do
+            put :sync_devices
+            get :private_key
+          end
+        end
+        
+        resources :backups do
+          collection do
+            get :parse_schedule
+          end
+
+          member do
+            post :enable
+            post :disable
+            post :perform
+            delete :job, action: :cancel_job
+            get :archive, action: :download_archive
+            delete :archive, action: :destroy_archive
+          end
+        end
+
+        resources :services, only: [] do
+          collection do
+            # zealot service
+            post :restart
+            get :status
+            # smtp
+            post :smtp_verify
+          end
+        end
+      end
+    end
+
+    ############################################
+    # URL Friendly (no org_slug scope)
+    ############################################
+    scope path: ':channel', format: false, as: :friendly_channel do
+      get '/overview', to: 'channels#show'
+      get '', to: 'releases#index', as: 'releases'
+      get 'versions', to: 'channels/versions#index', as: 'versions'
+      get 'versions/:name', to: 'channels/versions#show', name: /(.+)+/, as: 'version'
+      delete 'versions/:name', to: 'channels/versions#destroy', name: /(.+)+/
+      get 'release_types/:name', to: 'channels/release_types#index', name: /(.+)+/, as: 'release_types'
+      delete 'release_types/:name', to: 'channels/release_types#destroy', name: /(.+)+/
+      get 'branches/:name', to: 'channels/branches#index', name: /(.+)+/, as: 'branches'
+      delete 'branches/:name', to: 'channels/branches#destroy', name: /(.+)+/
+      get ':id', to: 'releases#show', as: 'release'
+    end
+  end # scope (:org_slug)
 
   match '/', via: %i[post put patch delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

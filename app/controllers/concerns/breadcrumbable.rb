@@ -20,7 +20,9 @@ module Breadcrumbable
     scheme = nil unless scheme&.persisted?
     channel = nil unless channel&.persisted?
 
-    trail = [Breadcrumb.new(label: app.name, path: url.app_path(app))]
+    trail = []
+    trail << Breadcrumb.new(label: Current.organization.name, path: url.root_path) if defined?(Current) && Current.organization.present?
+    trail << Breadcrumb.new(label: app.name, path: url.app_path(app))
 
     if channel
       trail << Breadcrumb.new(label: channel.channel_name, path: url.channel_path(channel))

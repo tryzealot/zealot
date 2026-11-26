@@ -10,7 +10,11 @@ export default class extends Controller {
     this.clear()
   }
 
-  close() {
+  close(event) {
+    if (event?.detail && !event.detail.success) {
+      return
+    }
+
     this.clear()
   }
 

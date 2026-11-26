@@ -2,7 +2,8 @@
   = @title
 
 - content_for :section_title do
-  = @title
+  = turbo_frame_tag dom_id(@channel, :title) do
+    = @title
   small class="pl-2 text-sm"
     = @subtitle
 

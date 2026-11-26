@@ -7,27 +7,27 @@ class DebugFilePolicy < ApplicationPolicy
   end
 
   def new?
-    app_manage?
+    manage?
   end
 
   def create?
-    app_manage?
+    manage?
   end
 
   def edit?
-    any_manage?
+    manage?
   end
 
   def update?
-    any_manage?
+    manage?
   end
 
   def destroy?
-    any_manage?
+    manage?
   end
 
   def reprocess?
-    any_manage?
+    manage?
   end
 
   def device?
@@ -47,18 +47,6 @@ class DebugFilePolicy < ApplicationPolicy
   private
 
   def app_user?
-    guest_mode? || any_manage? || app_collaborator?(user, app)
-  end
-
-  def any_manage?
-    manage? || (app && manage?(app: app))
-  end
-
-  def app_manage?
-    any_manage? || app_collaborator?(user, user.apps.map(&:id))
-  end
-
-  def app
-    @app ||= record.app
+    user_signed_in_or_guest_mode?
   end
 end

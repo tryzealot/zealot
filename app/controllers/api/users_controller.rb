@@ -44,13 +44,13 @@ class Api::UsersController < Api::BaseController
   # POST /api/users/:id/lock
   def lock
     @user.lock_access!(send_instructions: false)
-    render json: { mesage: 'OK' }, status: :accepted
+    render json: { message: 'OK' }, status: :accepted
   end
 
   # DELETE /api/users/:id/unlock
   def unlock
     @user.unlock_access!
-    render json: { mesage: 'OK' }, status: :accepted
+    render json: { message: 'OK' }, status: :accepted
   end
 
   # PUT /api/users/:id
@@ -62,7 +62,7 @@ class Api::UsersController < Api::BaseController
   # DELETE /api/users/:id
   def destroy
     @user.destroy!
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected

@@ -44,6 +44,9 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     params[:action] == 'new' || params[:action] == 'create'
   end
 
+  # True when the visitor may browse the public UI. Falls back to the warden-free
+  # path because turbo stream broadcasts render this from a job, where
+  # current_user and params are unavailable.
   def user_signed_in_or_guest_mode?(user = nil)
     user ||= safe_current_user
     signed_in = user.present? || safe_user_signed_in?
@@ -78,11 +81,31 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     active = '' if active == false
 
     link_class = "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{active} #{link_class}"
+    data = { tip: text }.merge(options.delete(:data) || {})
     tag.li(class: li_class) do
-      link_to path, class: link_class.squish, data: { tip: text }, **options do
+      link_to path, class: link_class.squish, data: data, **options do
         concat(tag.i(class: icon))
         concat(tag.span(text, class: 'text-base d-is-drawer-close:hidden'))
       end
+    end
+  end
+
+  def can_manage_org_members?
+    return false unless user_signed_in?
+    return true if current_user.admin?
+
+    if current_org.respond_to?(:organization_memberships)
+      current_org.organization_memberships.where(user_id: current_user.id).exists?
+    else
+      true
+    end
+  end
+
+  def organization_members_path(**options)
+    if respond_to?(:members_path) && defined?(Zealot::Pro) && Zealot::Pro.enabled?(:multi_org)
+      members_path(**options)
+    else
+      new_organization_path(org_slug: nil, **options)
     end
   end
 
@@ -281,8 +304,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def drawer_status_key
     'zealot-drawer-status'
   end
-
   def mobile_device?
     request.user_agent&.match?(/Mobile|webOS|iPhone|iPad|iPod|Android|BlackBerry|IEMobile|Opera Mini/i)
+  end
+
+  def app_scope_page?
+    @breadcrumbs.present? #&& @breadcrumbs.first[:type] == :app
   end
 end

@@ -1,4 +1,67 @@
 #!/bin/sh
 
 cd /app
+
+# The cached lease is usually fresher than the env seed, but either can be the
+# valid one after an outage. For the same license, pick whichever expires later;
+# if the env seed points at another license, ignore the old lease. The gem proxy
+# rejects expired tokens, so choosing blindly can break a restart.
+#
+# The payload is decoded with String#unpack instead of the base64 gem: the image
+# installs gems into vendor/bundle, so a bare `ruby -rbase64` would not find it.
+token_field() {
+  ruby -rjson -e '
+    parts = ARGV[0].to_s.split(".")
+    exit 1 unless parts.length == 3
+    encoded = parts[1].tr("-_", "+/")
+    encoded += "=" * ((4 - encoded.length % 4) % 4)
+    payload = JSON.parse(encoded.unpack1("m0"))
+    puts payload[ARGV[1]].to_i
+  ' "$1" "$2" 2>/dev/null || echo 0
+}
+
+ZEALOT_PRO_STATE_DIR="${ZEALOT_PRO_STATE_DIR:-/app/storage/zealot_pro}"
+LICENSE_TOKEN="$ZEALOT_PRO_LICENSE"
+if [ -f "$ZEALOT_PRO_STATE_DIR/license_token" ]; then
+  CACHED_LICENSE_TOKEN=$(cat "$ZEALOT_PRO_STATE_DIR/license_token")
+  if [ -n "$CACHED_LICENSE_TOKEN" ]; then
+    CACHED_LICENSE_ID=$(token_field "$CACHED_LICENSE_TOKEN" license_id)
+    ENV_LICENSE_ID=$(token_field "$ZEALOT_PRO_LICENSE" license_id)
+    CACHED_EXP=$(token_field "$CACHED_LICENSE_TOKEN" exp)
+    ENV_EXP=$(token_field "$ZEALOT_PRO_LICENSE" exp)
+
+    # Same license: take the later expiry. Different licenses: never use the
+    # old lease, because the operator replaced the seed for a reason.
+    if [ "$CACHED_LICENSE_ID" -gt 0 ] && [ "$CACHED_LICENSE_ID" = "$ENV_LICENSE_ID" ] && [ "$CACHED_EXP" -ge "$ENV_EXP" ]; then
+      LICENSE_TOKEN="$CACHED_LICENSE_TOKEN"
+    elif [ "$CACHED_LICENSE_ID" -gt 0 ] && [ "$ENV_LICENSE_ID" -eq 0 ] && [ "$CACHED_EXP" -gt 0 ]; then
+      LICENSE_TOKEN="$CACHED_LICENSE_TOKEN"
+    fi
+  fi
+fi
+
+if [ -n "$LICENSE_TOKEN" ]; then
+  echo "[Zealot Pro] Detected a license token, installing zealot-pro gem via bundle..."
+
+  # 1. 动态将 zealot-pro 追加到 Gemfile（只发生在运行中的容器内，防重复追加）
+  if ! grep -q "gem 'zealot-pro'" /app/Gemfile; then
+    echo "gem 'zealot-pro', source: 'https://gateway.ews.im/gems'" >> /app/Gemfile
+  fi
+
+  # 2. 临时解除 Docker 镜像中的 deployment 和 frozen 锁定模式
+  bundle config unset --local deployment 2>/dev/null || true
+  bundle config unset --local frozen 2>/dev/null || true
+  bundle config unset --global frozen 2>/dev/null || true
+
+  # 3. 注入网关 Basic Auth 凭证
+  export BUNDLE_GATEWAY__EWS__IM__GEMS="license:$LICENSE_TOKEN"
+  bundle config set --global https://gateway.ews.im/gems "license:$LICENSE_TOKEN"
+
+  # 4. 执行标准 bundle install 安装 Pro gem
+  bundle config set without 'development test'
+  bundle install --retry 2
+
+  echo "[Zealot Pro] zealot-pro installed successfully via bundle."
+fi
+
 exec ./bin/rails zealot:upgrade

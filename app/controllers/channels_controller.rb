@@ -3,7 +3,6 @@
 class ChannelsController < ApplicationController
   include AppArchived
 
-  before_action :authenticate_user! unless Setting.guest_mode
   before_action :set_scheme, except: %i[show destroy_releases]
   before_action :set_channel, only: %i[show edit update destroy]
 
@@ -50,6 +49,9 @@ class ChannelsController < ApplicationController
     raise_if_app_archived!(@scheme.app)
 
     @channel.update(channel_params)
+
+    # Re-fetch to get any changes made by callbacks
+    @title = @channel.app_name
     notice = t('activerecord.success.update', key: "#{@channel.scheme.name} #{@channel.name} #{t('channels.title')}")
     flash.now[:notice] = notice
     respond_to do |format|
@@ -90,10 +92,16 @@ class ChannelsController < ApplicationController
 
   def set_scheme
     @scheme = Scheme.find(params[:scheme_id])
+    if current_org.respond_to?(:persisted?) && current_org.persisted? && App.column_names.include?('organization_id')
+      raise ActiveRecord::RecordNotFound unless @scheme.app.organization_id == current_org.id
+    end
   end
 
   def set_channel
     @channel = Channel.friendly.find(params[:id] || params[:channel])
+    if current_org.respond_to?(:persisted?) && current_org.persisted? && App.column_names.include?('organization_id')
+      raise ActiveRecord::RecordNotFound unless @channel.scheme.app.organization_id == current_org.id
+    end
     authorize @channel
 
     @app = @channel.scheme.app

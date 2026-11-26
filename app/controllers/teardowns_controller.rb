@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TeardownsController < ApplicationController
-  before_action :authenticate_user!, except: %[show] unless Setting.guest_mode
   before_action :set_app
   before_action :set_metadata, only: %i[show destroy]
 
@@ -11,7 +10,7 @@ class TeardownsController < ApplicationController
     per_page = params.fetch(:per_page, Setting.per_page)
     @metadata = metadata_scope.page(page).per(per_page).order(id: :desc)
 
-    authorize @metadata if @app.present?
+    authorize @metadata if @metadata.present?
   end
 
   def show
@@ -65,13 +64,13 @@ class TeardownsController < ApplicationController
   def set_app
     return if params[:app_id].blank?
 
-    @app = App.find(params[:app_id])
+    @app = org_scope(App).find(params[:app_id])
   end
 
   # Everything the visitor may see: the whole list for managers and guests,
   # their own uploads and the uploads of their apps otherwise.
   def metadata_scope
-    scope = @app ? app_metadata : Metadatum.all
+    scope = @app ? app_metadata : org_scope(Metadatum)
     return scope if manage_user_or_guest_mode?
 
     scope.where(user_id: current_user.id).or(scope.where(release_id: my_release_ids))
@@ -89,7 +88,7 @@ class TeardownsController < ApplicationController
   end
 
   def set_metadata
-    @metadata = Metadatum.find(params[:id])
+    @metadata = org_scope(Metadatum).find(params[:id])
   end
 
   def parse_app
@@ -100,8 +99,18 @@ class TeardownsController < ApplicationController
     metadata = TeardownService.new(file).call
     metadata.update_attribute(:user_id, current_user&.id) if current_user.present?
     metadata.update_attribute(:app_id, @app.id) if @app
+    assign_teardown_organization(metadata)
 
     redirect_to teardown_path_for(metadata)
+  end
+
+  def assign_teardown_organization(metadata)
+    return unless metadata.respond_to?(:organization_id=)
+    return unless current_org.respond_to?(:persisted?) && current_org.persisted?
+
+    app_org = metadata.release&.app&.organization
+    org_id = app_org.respond_to?(:persisted?) && app_org.persisted? ? app_org.id : current_org.id
+    metadata.update_attribute(:organization_id, org_id)
   end
 
   def teardown_params

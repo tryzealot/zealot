@@ -14,9 +14,9 @@ class Api::AppsController < Api::BaseController
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
   end
 
-  # GET /api/apps/arquived
+  # GET /api/apps/archived
   def archived
-    @apps = manage_user? ? App.archived : current_user.apps.archived
+    @apps = org_scope(App.archived)
     authorize @apps.first if @apps.present?
 
     render json: @apps, each_serializer: Api::AppSerializer, include: 'schemes.channels'
@@ -32,9 +32,13 @@ class Api::AppsController < Api::BaseController
 
   # POST /api/apps
   def create
-    @app = App.create!(app_params)
-    @app.create_owner(current_user)
+    @app = App.new(app_params)
+    if @app.respond_to?(:organization_id=) && current_org.respond_to?(:persisted?) && current_org.persisted?
+      @app.organization_id = current_org.id
+    end
     authorize @app
+    @app.save!
+    @app.create_owner(current_user)
 
     render json: @app, serializer: Api::AppSerializer, include: 'schemes.channels', status: :created
   end
@@ -50,24 +54,25 @@ class Api::AppsController < Api::BaseController
   # DELETE /api/apps/:id
   def destroy
     @app.destroy!
-    render json: { mesage: 'OK' }
+    render json: { message: 'OK' }
   end
 
   protected
 
   def app_scopes
-    case params[:scope]
+    base = case params[:scope]
     when 'archived'
-      manage_user? ? App.archived : current_user.apps.archived
+      App.archived
     when 'active'
-      manage_user? ? App.active : current_user.apps.active
+      App.active
     else
-      manage_user? ? App.all : current_user.apps.all
+      App.all
     end
+    org_scope(base)
   end
 
   def set_app
-    @app = App.find(params[:id])
+    @app = org_scope(App).find(params[:id])
     authorize @app
   end
 

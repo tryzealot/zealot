@@ -1,29 +1,32 @@
 # frozen_string_literal: true
 
 class CollaboratorPolicy < ApplicationPolicy
+  def index?
+    app_user?
+  end
 
   def show?
-    any_manage?
+    app_user?
   end
 
   def new?
-    any_manage?
+    admin?
   end
 
   def create?
-    any_manage?
+    admin?
   end
 
   def edit?
-    any_manage?
+    admin?
   end
 
   def update?
-    any_manage?
+    admin?
   end
 
   def destroy?
-    any_manage?
+    admin?
   end
 
   class Scope < Scope
@@ -34,11 +37,19 @@ class CollaboratorPolicy < ApplicationPolicy
 
   private
 
-  def any_manage?
-    manage? || manage?(app: app)
+  def app
+    @app ||= if record.is_a?(Collaborator)
+               record.app
+             elsif record.respond_to?(:app)
+               record.app
+             else
+               record
+             end
   end
 
-  def app
-    @app ||= record.app
+  def app_user?
+    return true if guest_mode?
+
+    Pundit.policy!(user, app).show?
   end
 end

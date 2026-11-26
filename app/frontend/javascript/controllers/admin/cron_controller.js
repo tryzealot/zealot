@@ -1,10 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
-const CRON_PARSER_URI = "/admin/backups/parse_schedule"
-
 export default class extends Controller {
   static targets = ["source"]
   static values = {
+    uri: String,
     parsing: String
   }
 
@@ -14,7 +13,7 @@ export default class extends Controller {
     let inputTarget = event.target
     this.resetInput(inputTarget)
 
-    let requestUrl = CRON_PARSER_URI + "?q=" + encodeURIComponent(inputTarget.value)
+    let requestUrl = this.uriValue + "?q=" + encodeURIComponent(inputTarget.value)
     let response = await fetch(requestUrl)
     let body = await response.json()
 

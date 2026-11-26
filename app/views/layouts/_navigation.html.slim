@@ -14,18 +14,18 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
   div class="d-navbar-end flex-1 md:flex-3 gap-1.5"
     - unless devise_page?
       - if user_signed_in?
-        = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('donate') }, data: { turbo_stream: true } do
+        = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('layouts.donate') }, data: { turbo_stream: true } do
           i.fa-regular.fa-heart.text-red-500
       - else
         / Mobile: circle button
         .md:hidden
-          = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('donate') }, data: { turbo_stream: true } do
+          = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft d-btn-circle s-9', aria: { label: t('layouts.donate') }, data: { turbo_stream: true } do
             i.fa-regular.fa-heart.text-red-500
         / Desktop: default button with text
         .hidden.md:block
           = link_to modal_path('sponsor'), class: 'd-btn d-btn-soft', data: { turbo_stream: true } do
             i.fa-regular.fa-heart.text-red-500
-            = t('donate')
+            = t('layouts.donate')
     - if user_signed_in?
       div class="d-dropdown d-dropdown-end"
         .d-avatar.d-avatar-placeholder.hover:cursor-pointer tabindex="0" role="button"
@@ -33,8 +33,8 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
             - initials = current_user.username.split.map { |name| name[0].upcase }.join[0,2]
             span = initials
         ul class="d-dropdown-content d-menu bg-base-200 rounded-box z-1 w-32 p-2 shadow-sm"
-          li = link_to t('user_profile'), edit_user_registration_path
-          li = button_to t('log_out'), destroy_user_session_path, method: :delete
+          li = link_to t('layouts.user_profile'), edit_user_registration_path
+          li = button_to t('layouts.log_out'), destroy_user_session_path, method: :delete
     - elsif !devise_page?
       .md:hidden
         = link_to new_user_session_path, class: 'd-btn d-btn-soft d-btn-circle' do
@@ -42,4 +42,4 @@ div class="d-navbar border-base-300 border-b shadow-none transition-colors"
       .hidden.md:block
         = link_to new_user_session_path, class: 'd-btn d-btn-soft' do
           i.fa-solid.fa-user
-          = t('log_in')
+          = t('layouts.log_in')
