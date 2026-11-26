@@ -17,6 +17,13 @@ module AppsHelper
     "grid grid-cols-1 md:grid-cols-#{md_cols} lg:grid-cols-#{lg_cols} xl:grid-cols-#{xl_cols}"
   end
 
+  # Archived apps have their own URL, so a link to that collection keeps the
+  # path a visitor and the sidebar can both recognise. Every other scope stays
+  # a query on the app list.
+  def app_list_path(scope: nil, **options)
+    scope.to_s == 'archived' ? archived_apps_path(**options) : apps_path(scope: scope, **options)
+  end
+
 
   APP_DEFAULT_ICON = 'images/zealot-icon.png'
   def app_icon_tag(release, **options)

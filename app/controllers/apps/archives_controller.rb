@@ -12,14 +12,14 @@ class Apps::ArchivesController < ApplicationController
 
     unless @app.archive
       alert = t('activerecord.errors.messages.unknown', key: t('apps.show.archive_app'))
-      return redirect_to apps_path(app_list_redirect_params), alert: alert
+      return redirect_to app_list_redirect_path, alert: alert
     end
 
     notice = t('activerecord.success.archived', key: "#{@app.name} #{t('apps.title')}")
     prepare_list
 
     respond_to do |format|
-      format.html { redirect_to apps_path(app_list_redirect_params), notice: notice }
+      format.html { redirect_to app_list_redirect_path, notice: notice }
       format.turbo_stream { flash.now[:notice] = notice }
     end
   end
@@ -29,7 +29,7 @@ class Apps::ArchivesController < ApplicationController
 
     unless @app.unarchive
       alert = t('activerecord.errors.messages.unknown', key: t('apps.show.unarchive_app'))
-      return redirect_to apps_path(app_list_redirect_params), alert: alert
+      return redirect_to app_list_redirect_path, alert: alert
     end
 
     @app.update(archived: false)
@@ -38,7 +38,7 @@ class Apps::ArchivesController < ApplicationController
     prepare_list
 
     respond_to do |format|
-      format.html { redirect_to apps_path(app_list_redirect_params), notice: notice }
+      format.html { redirect_to app_list_redirect_path, notice: notice }
       format.turbo_stream { flash.now[:notice] = notice }
     end
   end

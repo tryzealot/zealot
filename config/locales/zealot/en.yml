@@ -339,6 +339,10 @@ en:
       dashboard: Dashboard
       schemes: Schemes
       management: Management
+      active: Active
+      archived: Archived
+      view_scheme: View scheme
+      empty_schemes: No schemes yet
     index:
       schemes: schemes
       channels: channels

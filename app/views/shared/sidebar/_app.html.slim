@@ -1,13 +1,45 @@
 - presenter = sidebar_presenter(app)
 - schemes = presenter.schemes.to_a
 
-li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right" 
-  = link_to app_path(app) do
+li class="d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right"
+  = link_to app_path(app), class: "flex items-center gap-2 py-2 #{active_class([app_path(app), edit_app_path(app)])}", data: { tip: app.name } do
     = app_icon_tag app.recently_release, class: 'size-6'
-    = tag.p app.name, class: 'font-bold text-base  d-is-drawer-close:hidden'
-  
+    span class="truncate font-bold text-base d-is-drawer-close:hidden" = app.name
+    - if presenter.archived?
+      span class="d-badge d-badge-sm d-badge-warning shrink-0 d-is-drawer-close:hidden" = t('apps.sidebar.archived')
+
 .d-divider class="my-1 w-full self-center max-w-7 flex pb-2 d-is-drawer-open:hidden"
+
 = sidebar_link_to 'fa-solid fa-cubes', app_schemes_path(app), text: t('apps.sidebar.schemes')
+
+/ Schemes drill down into their channels, always expanded. The whole tree is
+/ hidden in the collapsed drawer so the app context stays icon-only.
+li class="d-is-drawer-close:hidden"
+  ul class="w-full"
+    - if schemes.any?
+      - schemes.each do |scheme|
+        li
+          details open="open"
+            summary class="cursor-pointer py-1 text-sm font-medium" = scheme.name
+            ul class="ml-2 border-l border-base-300 pl-2"
+              - if scheme.channels.any?
+                - scheme.channels.each do |channel|
+                  li
+                    = link_to channel.name, friendly_channel_overview_path(channel), \
+                      class: "block py-1 text-sm #{active_class(sidebar_channel_active_paths(channel))}"
+              - else
+                li
+                  = link_to t('apps.sidebar.view_scheme'), app_scheme_path(app, scheme), \
+                    class: "block py-1 text-sm text-base-content/60"
+    - else
+      li class="py-1 text-sm text-base-content/40" = t('apps.sidebar.empty_schemes')
+
+    - if presenter.can_create_scheme?
+      li
+        = link_to new_app_scheme_path(app), class: 'flex items-center gap-1 py-1 text-sm', data: { turbo_frame: :modal } do
+          i class="fa-regular fa-plus-square"
+          span = t('apps.show.new_scheme')
+
 = sidebar_link_to 'fa-solid fa-bug', app_debug_files_path(app), text: t('debug_files.title')
 = sidebar_link_to 'fa-solid fa-layer-group', app_teardowns_path(app), text: t('teardowns.title')
 

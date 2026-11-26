@@ -297,6 +297,10 @@ ja:
       dashboard: ダッシュボード
       schemes: スキーム
       management: 管理
+      active: アクティブ
+      archived: アーカイブ済み
+      view_scheme: スキームを見る
+      empty_schemes: スキームなし
     index:
       schemes: スキーム
       channels: チャンネル

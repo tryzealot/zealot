@@ -139,10 +139,8 @@ Rails.application.routes.draw do
       end
 
       collection do
-        get 'archived', to: redirect { |_params, request|
-          query = request.query_string.presence
-          "/apps?scope=archived#{query ? "&#{query}" : ''}"
-        }
+        # A real page, not a redirect: the sidebar highlights it as its own entry.
+        get 'archived', to: 'apps#archived'
 
         resources :archives, only: %i[update destroy], path: 'archived', module: :apps, as: 'archived_apps'
       end

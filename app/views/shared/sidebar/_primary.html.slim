@@ -1,5 +1,20 @@
 = sidebar_link_to 'fa-solid fa-th', root_path, text: t('dashboard.title')
-= sidebar_link_to 'fa-brands fa-adn', apps_path, text: t('apps.title')
+
+/ Apps is the second global anchor. Active and Archived are its children, and the
+/ parent stays highlighted for every page inside an app context.
+li
+  = link_to apps_path, class: "d-is-drawer-close:d-tooltip d-is-drawer-close:d-tooltip-right py-2 #{current_nav_app.present? ? 'd-menu-active' : ''}", data: { tip: t('apps.title') } do
+    i class="fa-brands fa-adn"
+    span class="d-is-drawer-close:hidden" = t('apps.title')
+
+  ul class="d-is-drawer-close:hidden"
+    li
+      = link_to t('apps.sidebar.active'), apps_path, \
+        class: "block py-1 pl-6 text-sm #{'d-menu-active' if sidebar_apps_scope_active?('active')}"
+    li
+      = link_to t('apps.sidebar.archived'), archived_apps_path, \
+        class: "block py-1 pl-6 text-sm #{'d-menu-active' if sidebar_apps_scope_active?('archived')}"
+
 - if can_manage_org_members?
   - if defined?(Zealot::Pro) && Zealot::Pro.enabled?(:multi_org)
     = sidebar_link_to 'fa-solid fa-users', members_path, text: t('organizations.members.title'), active: (controller_name == 'members')

@@ -18,7 +18,14 @@ class SidebarPresenter
     @schemes ||= app.schemes.includes(:channels)
   end
 
+  # Asks the same policy SchemesController#new authorizes against, so a
+  # collaborator promoted on the app sees the entry. Checking the global role
+  # instead would leave them with the Management section but no way to create.
+  # Archived apps are refused separately, because the policy does not know
+  # about archived state.
   def can_create_scheme?
-    !archived? && user&.manage?(app: app)
+    return false if archived?
+
+    SchemePolicy.new(user, app.schemes.build).new?
   end
 end

@@ -13,14 +13,16 @@ class AppsController < ApplicationController
 
   def index
     @title = t('.title')
-    @scope = resolved_scope
-    @sort = resolved_sort
+    load_app_list
+  end
 
-    base_scope = app_list_base_scope
-    searched_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
-    @apps = searched_scope.by_scope(@scope).sort_by_name(@sort)
-    @scope_counts = scope_counts_for(base_scope)
-    authorize @apps if @apps.present?
+  # The archived collection as its own page, so the sidebar can highlight
+  # Archived without depending on a query string.
+  def archived
+    @title = t('apps.archives.title')
+    load_app_list(scope: 'archived')
+
+    render :index
   end
 
   def show

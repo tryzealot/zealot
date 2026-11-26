@@ -59,8 +59,34 @@ module AppListScope
     params[:sort].presence_in(%w[asc desc]) || 'asc'
   end
 
+  # Populates everything the app list view reads: the scope being shown, the
+  # sort, the page of apps and the counts for the scope switcher.
+  #
+  # The policy query is named explicitly: Pundit would otherwise derive it from
+  # the action name, and `apps#archived` would check `AppPolicy#archived?`
+  # (admin-only) instead of the `index?` rule the app list actually enforces.
+  def load_app_list(scope: resolved_scope)
+    @scope = scope
+    @sort = resolved_sort
+
+    base_scope = app_list_base_scope
+    searched_scope = params[:search].present? ? base_scope.search_by_name(params[:search]) : base_scope
+    @apps = searched_scope.by_scope(@scope).sort_by_name(@sort)
+    @scope_counts = scope_counts_for(base_scope)
+    authorize @apps, :index? if @apps.present?
+  end
+
   def app_list_redirect_params(scope: resolved_scope)
     { scope: scope, search: params[:search].presence, sort: params[:sort].presence }.compact
+  end
+
+  # Where a list action returns to. Archived is its own page, so returning
+  # there keeps the sidebar entry and the URL in agreement. The URL is built by
+  # the same helper the views use, so both agree on when to leave the query
+  # string behind for a path.
+  def app_list_redirect_path(scope: resolved_scope)
+    options = app_list_redirect_params(scope: scope).except(:scope)
+    helpers.app_list_path(scope: scope, **options)
   end
 
   # One grouped query for the whole toolbar. Counts describe the collection, so

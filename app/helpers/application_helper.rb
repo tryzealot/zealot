@@ -120,6 +120,17 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     ].compact.find(&:persisted?) || (params[:app_id].present? ? App.find_by(id: params[:app_id]) : nil)
   end
 
+  # Which child of the global Apps anchor is the current page. The app list
+  # lives on `apps#index` and switches collection with `?scope=`, so the path
+  # alone cannot tell Active from Archived.
+  def sidebar_apps_scope_active?(scope)
+    return false unless controller_name == 'apps' && %w[index archived].include?(action_name)
+    return false if current_nav_app.present?
+
+    current_scope = action_name == 'archived' ? 'archived' : App.normalize_scope(params[:scope])
+    current_scope == scope
+  end
+
   # Breadcrumb trail for the current request. Controllers can pin it by setting
   # @breadcrumbs (see Breadcrumbable#set_app_breadcrumbs); otherwise it is derived
   # from the app/scheme/channel the current action loaded, so new pages get a trail

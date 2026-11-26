@@ -7,6 +7,9 @@
     == render 'layouts/organizations'
 
     ul class="d-menu d-menu-lg w-full grow"
+      / Dashboard and Apps stay pinned; everything below them switches to the app
+      / context once the request belongs to an app.
+      == render 'shared/sidebar/primary'
       - nav_app = current_nav_app
       - if nav_app
         == render 'shared/sidebar/app', app: nav_app
