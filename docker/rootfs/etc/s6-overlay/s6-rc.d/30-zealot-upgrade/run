@@ -20,6 +20,13 @@ token_field() {
   ' "$1" "$2" 2>/dev/null || echo 0
 }
 
+# The script is the only writer of the zealot-pro line in /app/Gemfile. Drop it
+# before every decision so a changed gateway cannot leave a stale source or a
+# duplicate entry behind.
+drop_pro_gem_line() {
+  sed -i "/^gem 'zealot-pro'/d" /app/Gemfile
+}
+
 ZEALOT_PRO_STATE_DIR="${ZEALOT_PRO_STATE_DIR:-/app/storage/zealot_pro}"
 LICENSE_TOKEN="$ZEALOT_PRO_LICENSE"
 if [ -f "$ZEALOT_PRO_STATE_DIR/license_token" ]; then
@@ -43,25 +50,54 @@ fi
 if [ -n "$LICENSE_TOKEN" ]; then
   echo "[Zealot Pro] Detected a license token, installing zealot-pro gem via bundle..."
 
-  # 1. 动态将 zealot-pro 追加到 Gemfile（只发生在运行中的容器内，防重复追加）
-  if ! grep -q "gem 'zealot-pro'" /app/Gemfile; then
-    echo "gem 'zealot-pro', source: 'https://gateway.ews.im/gems'" >> /app/Gemfile
+  # Resolve the gem source from the same override the license client uses.
+  # Production stays the default so existing deployments are unchanged.
+  GATEWAY_URL="${ZEALOT_PRO_GATEWAY_URL:-https://gateway.ews.im}"
+  GATEWAY_URL=$(printf '%s' "$GATEWAY_URL" | sed 's#/*$##')
+  GEM_SOURCE="$GATEWAY_URL/gems"
+  PRO_GEM_LINE="gem 'zealot-pro', '~> 0.2', source: '$GEM_SOURCE'"
+
+  echo "[Zealot Pro] Gem source: $GEM_SOURCE"
+
+  # 1. Only touch the Gemfile when the source answers. The proxy requires a
+  #    license, so a 401 still proves the host is reachable; a transport
+  #    failure reports 000.
+  http_code=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 10 "$GEM_SOURCE" 2>/dev/null || true)
+  if [ -z "$http_code" ] || [ "$http_code" = "000" ]; then
+    echo "[Zealot Pro] WARNING: $GEM_SOURCE is unreachable, skipping zealot-pro install."
+    # Never leave the Gemfile pointing at a dead source.
+    drop_pro_gem_line
+  else
+    # Replace any line left by an earlier boot: a changed gateway must not
+    # leave a stale source or a duplicate entry behind.
+    drop_pro_gem_line
+    echo "$PRO_GEM_LINE" >> /app/Gemfile
+
+    # 2. Temporarily lift the image's deployment/frozen locks.
+    bundle config unset --local deployment 2>/dev/null || true
+    bundle config unset --local frozen 2>/dev/null || true
+    bundle config unset --global frozen 2>/dev/null || true
+
+    # 3. Inject the gateway Basic Auth credentials for the resolved source.
+    #    Bundler looks up the source URL in the global config and falls back to
+    #    the host env key, so set both. The env key escapes dots and hyphens.
+    gateway_host="${GATEWAY_URL#*://}"
+    gateway_host="${gateway_host%%/*}"
+    gateway_host="${gateway_host%%:*}"
+    credential_env=$(printf '%s' "$gateway_host" | tr '[:lower:]' '[:upper:]' | sed 's/\./__/g; s/-/___/g')
+    export "BUNDLE_${credential_env}=license:${LICENSE_TOKEN}"
+    bundle config set --global "$GEM_SOURCE" "license:$LICENSE_TOKEN"
+
+    # 4. Install, and roll the Gemfile back if the source answered but the
+    #    install still failed, so the next boot starts from a clean file.
+    bundle config set without 'development test'
+    if bundle install --retry 2; then
+      echo "[Zealot Pro] zealot-pro installed successfully via bundle."
+    else
+      echo "[Zealot Pro] WARNING: bundle install failed, removing zealot-pro from Gemfile."
+      drop_pro_gem_line
+    fi
   fi
-
-  # 2. 临时解除 Docker 镜像中的 deployment 和 frozen 锁定模式
-  bundle config unset --local deployment 2>/dev/null || true
-  bundle config unset --local frozen 2>/dev/null || true
-  bundle config unset --global frozen 2>/dev/null || true
-
-  # 3. 注入网关 Basic Auth 凭证
-  export BUNDLE_GATEWAY__EWS__IM__GEMS="license:$LICENSE_TOKEN"
-  bundle config set --global https://gateway.ews.im/gems "license:$LICENSE_TOKEN"
-
-  # 4. 执行标准 bundle install 安装 Pro gem
-  bundle config set without 'development test'
-  bundle install --retry 2
-
-  echo "[Zealot Pro] zealot-pro installed successfully via bundle."
 fi
 
 exec ./bin/rails zealot:upgrade
