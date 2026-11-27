@@ -22,9 +22,11 @@ token_field() {
 
 # The script is the only writer of the zealot-pro line in /app/Gemfile. Drop it
 # before every decision so a changed gateway cannot leave a stale source or a
-# duplicate entry behind.
+# duplicate entry behind. The match is anchored to column 0 and to the exact
+# gem name followed by a comma, so an indented or commented-out line owned by
+# someone else is never touched.
 drop_pro_gem_line() {
-  sed -i "/^gem 'zealot-pro'/d" /app/Gemfile
+  sed -i "/^gem 'zealot-pro',/d" /app/Gemfile
 }
 
 ZEALOT_PRO_STATE_DIR="${ZEALOT_PRO_STATE_DIR:-/app/storage/zealot_pro}"
@@ -61,10 +63,23 @@ if [ -n "$LICENSE_TOKEN" ]; then
 
   # 1. Only touch the Gemfile when the source answers. The proxy requires a
   #    license, so a 401 still proves the host is reachable; a transport
-  #    failure reports 000.
-  http_code=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 10 "$GEM_SOURCE" 2>/dev/null || true)
-  if [ -z "$http_code" ] || [ "$http_code" = "000" ]; then
-    echo "[Zealot Pro] WARNING: $GEM_SOURCE is unreachable, skipping zealot-pro install."
+  #    failure reports 000. A missing curl is not a reachability verdict: log
+  #    it and let bundle install decide.
+  reachable=false
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "[Zealot Pro] WARNING: curl is not installed, skipping the reachability probe for $GEM_SOURCE."
+    reachable=true
+  else
+    http_code=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 10 "$GEM_SOURCE" 2>/dev/null)
+    curl_status=$?
+    if [ "$curl_status" -ne 0 ] || [ -z "$http_code" ] || [ "$http_code" = "000" ]; then
+      echo "[Zealot Pro] WARNING: $GEM_SOURCE is unreachable (curl exit $curl_status, HTTP code ${http_code:-none}), skipping zealot-pro install."
+    else
+      reachable=true
+    fi
+  fi
+
+  if [ "$reachable" != true ]; then
     # Never leave the Gemfile pointing at a dead source.
     drop_pro_gem_line
   else
@@ -79,8 +94,11 @@ if [ -n "$LICENSE_TOKEN" ]; then
     bundle config unset --global frozen 2>/dev/null || true
 
     # 3. Inject the gateway Basic Auth credentials for the resolved source.
-    #    Bundler looks up the source URL in the global config and falls back to
-    #    the host env key, so set both. The env key escapes dots and hyphens.
+    #    `bundle config set --global` is the authoritative lookup. The env key
+    #    is only a fallback for a read-only HOME: Bundler checks the full
+    #    source URL first, then the bare host, and only the host form is
+    #    stable here (the URL form needs a trailing slash). Dots become "__"
+    #    and hyphens "___" in env keys.
     gateway_host="${GATEWAY_URL#*://}"
     gateway_host="${gateway_host%%/*}"
     gateway_host="${gateway_host%%:*}"
